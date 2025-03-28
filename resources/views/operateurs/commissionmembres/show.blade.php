@@ -35,66 +35,68 @@
                                 role="alert"><strong>{{ $error }}</strong></div>
                         @endforeach
                     @endif
-                    <div class="card">
+                    <div class="card shadow-sm">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-12 pt-0">
-                                    <span class="d-flex mt-0 align-items-baseline"><a
-                                            href="{{ route('commissionmembres.index') }}"
-                                            class="btn btn-success btn-sm" title="retour"><i
-                                                class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                        <p> | retour</p>
-                                    </span>
-                                </div>
+                            <!-- Bouton retour -->
+                            <div class="d-flex align-items-center mb-3">
+                                <a href="{{ route('commissionmembres.index') }}" class="btn btn-success btn-sm" title="Retour">
+                                    <i class="bi bi-arrow-counterclockwise"></i>
+                                </a>
+                                <span class="ms-2">| Retour</span>
                             </div>
+
+                            <!-- Titre -->
                             <h5 class="card-title">{{ $membre?->civilite . ' ' . $membre?->prenom . ' ' . $membre?->nom }}</h5>
-                            <table class="table datatables align-middle justify-content-center" id="table-membre">
-                                <thead>
-                                    <tr>
-                                        <th>Commission agrément</th>
-                                        <th class="text-center">Session</th>
-                                        <th width="5%" class="text-center">Date</th>
-                                        <th>Lieu</th>
-                                        <th>Fin agrément</th>
-                                        <th width="5%" class="text-center">Operateurs</th>
-                                        <th width="5%" class="text-center">Statut</th>
-                                        <th width="5%" class="text-center" scope="col"><i class="bi bi-gear"></i></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($membre?->commissionagrements as $commission)
+
+                            <!-- Tableau -->
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped align-middle" id="table-membre">
+                                    <thead class="table-primary text-center">
                                         <tr>
-                                            <td>{{ $commission?->commission }}</td>
-                                            <td style="text-align: center;">{{ $commission?->session }}</td>
-                                            <td style="text-align: center;">{{ $commission?->date?->format('d/m/Y') }}</td>
-                                            <td>{{ $commission?->lieu }}</td>
-                                            <td>{{ $commission?->date?->translatedFormat('l d F Y') }}</td>
-                                            <td style="text-align: center;">
-                                                @foreach ($commission?->operateurs as $operateur)
-                                                    @if ($loop?->last)
-                                                        <span class="badge bg-info">{{ $loop?->count }}</span>
-                                                    @endif
-                                                @endforeach
-                                            </td>
-                                            <td></td>
-                                            <td style="text-align: center;">
-                                                @can('commission-show')
-                                                    <span class="d-flex mt-2 align-items-baseline"><a
-                                                            href="{{ route('commissionagrements.show', $commission?->id) }}"
-                                                            class="btn btn-warning btn-sm mx-1" title="Voir détails">
-                                                            <i class="bi bi-eye"></i></a>
-                                                        @if (auth()?->user()?->hasRole('super-admin|admin'))
-                                                            <div class="filter">
-                                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                        class="bi bi-three-dots"></i></a>
-                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <th>Commission agrément</th>
+                                            <th>Session</th>
+                                            <th>Date</th>
+                                            <th>Lieu</th>
+                                            <th>Fin agrément</th>
+                                            <th>Opérateurs</th>
+                                            <th>Statut</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($membre?->commissionagrements as $commission)
+                                            <tr>
+                                                <td>{{ $commission?->commission }}</td>
+                                                <td class="text-center">{{ $commission?->session }}</td>
+                                                <td class="text-center">{{ $commission?->date?->format('d/m/Y') }}</td>
+                                                <td>{{ $commission?->lieu }}</td>
+                                                <td>{{ $commission?->date?->translatedFormat('l d F Y') }}</td>
+                                                <td class="text-center">
+                                                    <span class="badge bg-info">{{ count($commission?->operateurs) }}</span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <!-- Ajoutez ici un badge ou une icône pour représenter le statut -->
+                                                    <span class="badge bg-secondary">À définir</span>
+                                                </td>
+                                                <td class="text-center">
+                                                    @can('commission-show')
+                                                        <div class="btn-group">
+                                                            <a href="{{ route('commissionagrements.show', $commission?->id) }}"
+                                                                class="btn btn-warning btn-sm" title="Voir détails">
+                                                                <i class="bi bi-eye"></i>
+                                                            </a>
+                                                            @if (auth()?->user()?->hasRole('super-admin|admin'))
+                                                                <button class="btn btn-secondary btn-sm dropdown-toggle"
+                                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <i class="bi bi-gear"></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu dropdown-menu-end">
                                                                     @can('commission-update')
                                                                         <li>
-                                                                            <button type="button" class="dropdown-item btn btn-sm mx-1"
+                                                                            <button type="button" class="dropdown-item"
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#EditagrementModal{{ $commission?->id }}">
-                                                                                <i class="bi bi-pencil" title="Modifier"></i> Modifier
+                                                                                <i class="bi bi-pencil"></i> Modifier
                                                                             </button>
                                                                         </li>
                                                                     @endcan
@@ -106,29 +108,31 @@
                                                                                 @csrf
                                                                                 @method('DELETE')
                                                                                 <button type="submit"
-                                                                                    class="dropdown-item show_confirm"><i
-                                                                                        class="bi bi-trash"></i>Supprimer</button>
+                                                                                    class="dropdown-item show_confirm">
+                                                                                    <i class="bi bi-trash"></i> Supprimer
+                                                                                </button>
                                                                             </form>
                                                                         </li>
-                                                                        <hr>
                                                                         <li>
-                                                                            <a class="dropdown-item btn btn-sm"
-                                                                                href="{{ route('jurycommissionagrements.jury', $commission?->id) }}"
-                                                                                class="mx-1" title="Modifier"><i
-                                                                                    class="bi bi-people"></i>Membres du jury</a>
+                                                                            <hr class="dropdown-divider">
+                                                                        </li>
+                                                                        <li>
+                                                                            <a class="dropdown-item"
+                                                                                href="{{ route('jurycommissionagrements.jury', $commission?->id) }}">
+                                                                                <i class="bi bi-people"></i> Membres du jury
+                                                                            </a>
                                                                         </li>
                                                                     @endcan
                                                                 </ul>
-                                                            </div>
-                                                        @endif
-                                                    </span>
-                                                @endcan
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <!-- End Table with stripped rows -->
+                                                            @endif
+                                                        </div>
+                                                    @endcan
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 

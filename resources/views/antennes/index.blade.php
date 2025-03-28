@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'Antennes')
+@section('title', 'ANTENNES')
 @section('space-work')
 
     <div class="pagetitle">

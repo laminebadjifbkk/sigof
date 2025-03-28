@@ -30,7 +30,7 @@
                                 class="row g-3">
                                 @csrf
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <label for="firstname" class="form-label">Civilité<span
+                                    <label for="civilite" class="form-label">Civilité<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="civilite"
                                         class="form-select form-select-sm @error('civilite') is-invalid @enderror"

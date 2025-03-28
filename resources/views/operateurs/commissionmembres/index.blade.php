@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | Liste des Membres du jury')
+@section('title', 'ONFP | MEMBRES DU JURY')
 @section('space-work')
     @can('ingenieur-view')
         <section class="section register">
@@ -35,81 +35,84 @@
                                 role="alert"><strong>{{ $error }}</strong></div>
                         @endforeach
                     @endif
-                    <div class="card">
+                    <div class="card shadow-sm">
                         <div class="card-body">
-                            <div class="pt-1">
-                                <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
-                                    data-bs-toggle="modal" data-bs-target="#AddmembresjuryModal">Ajouter
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="card-title mb-0">Membres du jury</h5>
+                                <button type="button" class="btn btn-primary btn-sm btn-rounded" data-bs-toggle="modal"
+                                    data-bs-target="#AddmembresjuryModal">
+                                    <i class="bi bi-person-plus"></i> Ajouter
                                 </button>
                             </div>
-                            <h5 class="card-title">Membres du jury</h5>
-                            <table class="table datatables align-middle justify-content-center" id="table-jury">
-                                <thead>
-                                    <tr>
-                                        <th width='8%'>Civilité</th>
-                                        <th>Prénom</th>
-                                        <th>Nom</th>
-                                        <th>Fonction</th>
-                                        <th>structure</th>
-                                        <th>Email</th>
-                                        <th class="text-center">Téléphone</th>
-                                        <th class="text-center">Jury</th>
-                                        <th class="text-center" width='8%'>#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($membres as $membre)
+
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped align-middle" id="table-jury">
+                                    <thead class="table-primary text-center">
                                         <tr>
-                                            <td>{{ $membre->civilite }}</td>
-                                            <td>{{ $membre->prenom }}</td>
-                                            <td>{{ $membre->nom }}</td>
-                                            <td>{{ $membre->fonction }}</td>
-                                            <td>{{ $membre->structure }}</td>
-                                            <td><a href="mailto:{{ $membre->email }}">{{ $membre->email }}</a></td>
-                                            <td class="text-center"><a
-                                                    href="tel:+221{{ $membre->telephone }}">{{ $membre->telephone }}</a></td>
-                                            <td class="text-center"><span
-                                                    class="text-primary fw-bold">{{ count($membre?->commissionagrements) }}</span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span class="d-flex mt-2 align-items-baseline"><a
-                                                        href="{{ route('commissionmembres.show', $membre->id) }}"
-                                                        class="btn btn-warning btn-sm mx-1" title="Voir détails">
-                                                        <i class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            <li>
-                                                                <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#EditmembreModal{{ $membre->id }}">
-                                                                    <i class="bi bi-pencil" title="Modifier"></i> Modifier
-                                                                </button>
-                                                            </li>
-                                                            <li>
-                                                                <form
-                                                                    action="{{ route('commissionmembres.destroy', $membre->id) }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item show_confirm"><i
-                                                                            class="bi bi-trash"></i>Supprimer</button>
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </span>
-                                            </td>
+                                            <th width="8%">Civilité</th>
+                                            <th>Prénom</th>
+                                            <th>Nom</th>
+                                            <th>Fonction</th>
+                                            <th>Structure</th>
+                                            <th>Email</th>
+                                            <th>Téléphone</th>
+                                            <th>Jury</th>
+                                            <th width="8%">Actions</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <!-- End Table with stripped rows -->
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($membres as $membre)
+                                            <tr>
+                                                <td class="text-center">{{ $membre->civilite }}</td>
+                                                <td>{{ $membre->prenom }}</td>
+                                                <td>{{ $membre->nom }}</td>
+                                                <td>{{ $membre->fonction }}</td>
+                                                <td>{{ $membre->structure }}</td>
+                                                <td>
+                                                    <a href="mailto:{{ $membre->email }}" class="text-decoration-none">
+                                                        <i class="bi bi-envelope-fill text-primary"></i> {{ $membre->email }}
+                                                    </a>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="tel:+221{{ $membre->telephone }}" class="text-decoration-none">
+                                                        <i class="bi bi-telephone-fill text-success"></i>
+                                                        {{ $membre->telephone }}
+                                                    </a>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span
+                                                        class="badge bg-primary">{{ count($membre->commissionagrements) }}</span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="btn-group">
+                                                        <a href="{{ route('commissionmembres.show', $membre->id) }}"
+                                                            class="btn btn-warning btn-sm" title="Voir détails">
+                                                            <i class="bi bi-eye"></i>
+                                                        </a>
+                                                        <button type="button" class="btn btn-secondary btn-sm"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#EditmembreModal{{ $membre->id }}"
+                                                            title="Modifier">
+                                                            <i class="bi bi-pencil"></i>
+                                                        </button>
+                                                        <form action="{{ route('commissionmembres.destroy', $membre->id) }}"
+                                                            method="post" class="d-inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                                                title="Supprimer">
+                                                                <i class="bi bi-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -120,93 +123,120 @@
                         <form method="post" action="{{ route('commissionmembres.store') }}" enctype="multipart/form-data"
                             class="row g-3">
                             @csrf
+
                             <div class="card-header text-center bg-gradient-default">
-                                <h1 class="h4 text-black mb-0">Ajouter membre</h1>
+                                <h1 class="h4 text-black mb-0">AJOUTER MEMBRE</h1>
                             </div>
                             <div class="modal-body">
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="civilite" value="{{ old('civilite') }}"
-                                        class="form-control form-control-sm @error('civilite') is-invalid @enderror"
-                                        id="civilite" placeholder="M. ou Mme" autofocus>
-                                    @error('civilite')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                    <label for="floatingInput">Civilité<span class="text-danger mx-1">*</span></label>
+                                <div class="row g-3">
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <label for="civilite" class="form-label">Civilité<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <select name="civilite"
+                                            class="form-select form-select-sm @error('civilite') is-invalid @enderror"
+                                            aria-label="Select" id="civilite" data-placeholder="Choisir civilité">
+                                            <option value="{{ old('civilite') }}">
+                                                {{ old('civilite') }}
+                                            </option>
+                                            <option value="M.">
+                                                M.
+                                            </option>
+                                            <option value="Mme">
+                                                Mme
+                                            </option>
+                                        </select>
+                                        @error('civilite')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <label for="prenom" class="form-label">Prénom<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <input type="text" name="prenom" value="{{ old('prenom') }}"
+                                            class="form-control form-control-sm @error('prenom') is-invalid @enderror"
+                                            id="prenom" placeholder="prenom">
+                                        @error('prenom')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <label for="nom" class="form-label">Nom<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <input type="text" name="nom" value="{{ old('nom') }}"
+                                            class="form-control form-control-sm @error('nom') is-invalid @enderror"
+                                            id="nom" placeholder="nom">
+                                        @error('nom')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <label for="fonction" class="form-label">Fonction<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <input type="text" name="fonction" value="{{ old('fonction') }}"
+                                            class="form-control form-control-sm @error('fonction') is-invalid @enderror"
+                                            id="fonction" placeholder="fonction">
+                                        @error('fonction')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <label for="structure" class="form-label">Structure<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <input type="text" name="structure" value="{{ old('structure') }}"
+                                            class="form-control form-control-sm @error('structure') is-invalid @enderror"
+                                            id="structure" placeholder="structure">
+                                        @error('structure')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <label for="Email" class="form-label">email<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <input type="email" name="email" value="{{ old('email') }}"
+                                            class="form-control form-control-sm @error('email') is-invalid @enderror"
+                                            id="email" placeholder="email">
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <label for="telephone" class="form-label">Téléphone<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <input name="telephone" type="text" maxlength="12"
+                                            class="form-control form-control-sm @error('telephone') is-invalid @enderror"
+                                            id="telephone" value="{{ old('telephone') }}" autocomplete="tel"
+                                            placeholder="XX:XXX:XX:XX">
+                                        @error('telephone')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
                                 </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="prenom" value="{{ old('prenom') }}"
-                                        class="form-control form-control-sm @error('prenom') is-invalid @enderror"
-                                        id="prenom" placeholder="prenom">
-                                    @error('prenom')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                    <label for="floatingInput">Prénom<span class="text-danger mx-1">*</span></label>
+                                <div class="modal-footer mt-5">
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        data-bs-dismiss="modal">Fermer</button>
+                                    <button type="submit" class="btn btn-primary btn-sm">Ajouter</button>
                                 </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="nom" value="{{ old('nom') }}"
-                                        class="form-control form-control-sm @error('nom') is-invalid @enderror" id="nom"
-                                        placeholder="nom">
-                                    @error('nom')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                    <label for="floatingInput">Nom<span class="text-danger mx-1">*</span></label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="fonction" value="{{ old('fonction') }}"
-                                        class="form-control form-control-sm @error('fonction') is-invalid @enderror"
-                                        id="fonction" placeholder="fonction">
-                                    @error('fonction')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                    <label for="floatingInput">Fonction<span class="text-danger mx-1">*</span></label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="structure" value="{{ old('structure') }}"
-                                        class="form-control form-control-sm @error('structure') is-invalid @enderror"
-                                        id="structure" placeholder="structure">
-                                    @error('structure')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                    <label for="floatingInput">Structure<span class="text-danger mx-1">*</span></label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="email" name="email" value="{{ old('email') }}"
-                                        class="form-control form-control-sm @error('email') is-invalid @enderror"
-                                        id="email" placeholder="email">
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                    <label for="floatingInput">Email<span class="text-danger mx-1">*</span></label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="number" name="telephone" min="0" value="{{ old('telephone') }}"
-                                        class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                        id="telephone" placeholder="7xxxxxxxx">
-                                    @error('telephone')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                    <label for="floatingInput">Téléphone<span class="text-danger mx-1">*</span></label>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm"
-                                    data-bs-dismiss="modal">Fermer</button>
-                                <button type="submit" class="btn btn-primary btn-sm">
-                                    Enregistrer</button>
                             </div>
                         </form>
                     </div>
@@ -229,92 +259,119 @@
                                 </div>
                                 <input type="hidden" name="id" value="{{ $membre->id }}">
                                 <div class="modal-body">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" name="civilite"
-                                            value="{{ $membre->civilite ?? old('civilite') }}"
-                                            class="form-control form-control-sm @error('civilite') is-invalid @enderror"
-                                            id="civilite" placeholder="M. ou Mme" autofocus>
-                                        @error('civilite')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                        <label for="floatingInput">Civilité<span class="text-danger mx-1">*</span></label>
+                                    <div class="row g-3">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <label for="civilite" class="form-label">Civilité<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <select name="civilite"
+                                                class="form-select form-select-sm @error('civilite') is-invalid @enderror"
+                                                aria-label="Select" id="civiliteMembre" data-placeholder="Choisir civilité">
+                                                <option value="{{ old('civilite', $membre->civilite ?? '') }}">
+                                                    {{ old('civilite', $membre->civilite ?? '') }}</option>
+                                                <option value="M.">
+                                                    M.
+                                                </option>
+                                                <option value="Mme">
+                                                    Mme
+                                                </option>
+                                            </select>
+                                            @error('civilite')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <label for="prenom" class="form-label">Prénom<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input type="text" name="prenom"
+                                                value="{{ old('prenom', $membre->prenom ?? '') }}"
+                                                class="form-control form-control-sm @error('prenom') is-invalid @enderror"
+                                                id="prenom" placeholder="prenom">
+                                            @error('prenom')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <label for="nom" class="form-label">Nom<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input type="text" name="nom"
+                                                value="{{ old('nom', $membre->nom ?? '') }}"
+                                                class="form-control form-control-sm @error('nom') is-invalid @enderror"
+                                                id="nom" placeholder="nom">
+                                            @error('nom')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <label for="fonction" class="form-label">Fonction<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input type="text" name="fonction"
+                                                value="{{ old('fonction', $membre->fonction ?? '') }}"
+                                                class="form-control form-control-sm @error('fonction') is-invalid @enderror"
+                                                id="fonction" placeholder="fonction">
+                                            @error('fonction')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <label for="structure" class="form-label">Structure<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input type="text" name="structure"
+                                                value="{{ old('structure', $membre->structure ?? '') }}"
+                                                class="form-control form-control-sm @error('structure') is-invalid @enderror"
+                                                id="structure" placeholder="structure">
+                                            @error('structure')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <label for="Email" class="form-label">email<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input type="email" name="email"
+                                                value="{{ old('email', $membre->email ?? '') }}"
+                                                class="form-control form-control-sm @error('email') is-invalid @enderror"
+                                                id="email" placeholder="email">
+                                            @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <label for="telephone" class="form-label">Téléphone<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input name="telephone" type="text" maxlength="12"
+                                                class="form-control form-control-sm @error('telephone') is-invalid @enderror"
+                                                id="telephone_secondaire" value="{{ old('telephone', $membre->telephone ?? '') }}"
+                                                autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                            @error('telephone')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
                                     </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" name="prenom" value="{{ $membre->prenom ?? old('prenom') }}"
-                                            class="form-control form-control-sm @error('prenom') is-invalid @enderror"
-                                            id="prenom" placeholder="prenom">
-                                        @error('prenom')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                        <label for="floatingInput">Prénom<span class="text-danger mx-1">*</span></label>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary btn-sm"
+                                            data-bs-dismiss="modal">Fermer</button>
+                                        <button type="submit" class="btn btn-primary btn-sm">Modifier</button>
                                     </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" name="nom" value="{{ $membre->nom ?? old('nom') }}"
-                                            class="form-control form-control-sm @error('nom') is-invalid @enderror"
-                                            id="nom" placeholder="nom">
-                                        @error('nom')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                        <label for="floatingInput">Nom<span class="text-danger mx-1">*</span></label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" name="fonction"
-                                            value="{{ $membre->fonction ?? old('fonction') }}"
-                                            class="form-control form-control-sm @error('fonction') is-invalid @enderror"
-                                            id="fonction" placeholder="fonction">
-                                        @error('fonction')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                        <label for="floatingInput">Fonction<span class="text-danger mx-1">*</span></label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" name="structure"
-                                            value="{{ $membre->structure ?? old('structure') }}"
-                                            class="form-control form-control-sm @error('structure') is-invalid @enderror"
-                                            id="structure" placeholder="structure">
-                                        @error('structure')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                        <label for="floatingInput">Structure<span class="text-danger mx-1">*</span></label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="email" name="email" value="{{ $membre->email ?? old('email') }}"
-                                            class="form-control form-control-sm @error('email') is-invalid @enderror"
-                                            id="email" placeholder="email">
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                        <label for="floatingInput">Email<span class="text-danger mx-1">*</span></label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="number" name="telephone" min="0"
-                                            value="{{ $membre->telephone ?? old('telephone') }}"
-                                            class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                            id="telephone" placeholder="7xxxxxxxx">
-                                        @error('telephone')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                        <label for="floatingInput">Téléphone<span class="text-danger mx-1">*</span></label>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm"
-                                        data-bs-dismiss="modal">Fermer</button>
-                                    <button type="submit" class="btn btn-primary btn-sm">Modifier</button>
                                 </div>
                             </form>
                         </div>
@@ -331,7 +388,7 @@
         new DataTable('#table-jury', {
             layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

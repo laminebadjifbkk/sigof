@@ -23,7 +23,7 @@ class CommissionmembreController extends Controller
             "fonction"  => "required|string",
             "structure" => "required|string",
             "email"     => "required|email",
-            "telephone" => "required|string|min:9|max:9",
+            "telephone" => "required|string|size:12",
         ]);
 
         $membre = Commissionmembre::create([
@@ -36,7 +36,7 @@ class CommissionmembreController extends Controller
             "telephone" => $request->input("telephone"),
         ]);
 
-        Alert::success('Bravo !', 'Enregistrement effectué avec succès');
+        Alert::success('Succès !', 'Enregistrement effectué avec succès');
 
         return redirect()->back();
     }
@@ -50,7 +50,7 @@ class CommissionmembreController extends Controller
             "fonction"  => "required|string",
             "structure" => "required|string",
             "email"     => "required|email",
-            "telephone" => "required|string|min:9|max:9",
+            "telephone" => "required|string|size:12",
         ]);
 
         $membre = Commissionmembre::findOrFail($id);
@@ -65,7 +65,7 @@ class CommissionmembreController extends Controller
             "telephone" => $request->input("telephone"),
         ]);
 
-        Alert::success('Bravo !', 'Modification effectuée avec succès');
+        Alert::success('Succès !', 'Modification effectuée avec succès');
 
         return redirect()->back();
     }
@@ -76,7 +76,6 @@ class CommissionmembreController extends Controller
 
         return view('operateurs.commissionmembres.show', compact('membre'));
     }
-
 
     public function destroy($id)
     {
