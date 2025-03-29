@@ -486,7 +486,7 @@
                                 </div>
                                 <a href="#">
                                     <div class="card-body">
-                                        <h5 class="card-title">Demandes <span>| toutes</span></h5>
+                                        <h5 class="card-title">Agréments <span>| opérateurs</span></h5>
                                         <div class="d-flex align-items-center">
                                             <div
                                                 class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -500,7 +500,7 @@
                                                 <h6>
                                                     <span class="text-primary">{{ number_format($total) }}</span>
                                                 </h6>
-                                                <span class="text-success small pt-1 fw-bold">Toutes</span>
+                                                <span class="text-success small pt-1 fw-bold">agréés</span>
                                             </div>
                                         </div>
                                     </div>
@@ -535,7 +535,7 @@
                                                     <h6>{{ number_format($total_user, 0, '', ' ') }}</h6>
                                                     <span
                                                         class="text-success small pt-1 fw-bold">{{ $email_verified_at . '%' }}</span>
-                                                    <span class="text-muted small pt-2 ps-1">v</span>
+                                                    <span class="text-muted small pt-2 ps-1">validés</span>
 
                                                 </div>
                                             </div>

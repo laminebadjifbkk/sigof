@@ -106,6 +106,8 @@ class UserController extends Controller
 
         $count_today_collective = Collective::where("created_at", "LIKE", "{$today}%")->count();
 
+        $count_operateurs = Operateur::where("statut_agrement", "agréer")->count();
+
         $count_today = $count_today_individuelle + $count_today_collective;
 
         $counts = DB::table('individuelles')
@@ -198,6 +200,7 @@ class UserController extends Controller
                 "modules",
                 "departements",
                 "count_today",
+                "count_operateurs",
                 'janvier',
                 'fevrier',
                 'mars',
