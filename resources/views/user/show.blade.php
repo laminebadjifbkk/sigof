@@ -339,7 +339,7 @@
                                                     </thead>
                                                     <tbody>
                                                         @php $i = 1; @endphp
-                                                        @foreach ($user->individuelles as $individuelle)
+                                                        @foreach ($user->individuelles->sortBy('created_at') as $individuelle)
                                                             <tr>
                                                                 <td class="text-center">{{ $i++ }}</td>
                                                                 <td class="text-center">
