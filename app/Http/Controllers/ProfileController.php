@@ -235,13 +235,13 @@ class ProfileController extends Controller
             'username'                  => substr(str_replace(' ', '', $request->username), 0, 10),
             'civilite'                  => $request->input('civilite'),
             'firstname'                 => format_proper_name($request->input('firstname')),
-            'name'                      => remove_accents_uppercase(strtoupper($request->input('name'))),
+            'name'                      => remove_accents_uppercase($request->input('name')),
             'date_naissance'            => $date,
-            'lieu_naissance'            => remove_accents_uppercase(strtoupper($request->input('lieu_naissance'))),
+            'lieu_naissance'            => remove_accents_uppercase($request->input('lieu_naissance')),
             /* 'image'                     => $request->input('image'), */
             'email'                     => $request->input('email'),
             'telephone'                 => $request->input('telephone'),
-            'adresse'                   => remove_accents_uppercase(strtoupper($request->input('adresse'))),
+            'adresse'                   => remove_accents_uppercase($request->input('adresse')),
             'situation_familiale'       => $request->input('situation_familiale'),
             'situation_professionnelle' => $request->input('situation_professionnelle'),
             'twitter'                   => $request->input('twitter'),
@@ -320,6 +320,7 @@ class ProfileController extends Controller
 
     public function destroyImage()
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         if ($user->image) {
