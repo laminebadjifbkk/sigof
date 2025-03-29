@@ -35,60 +35,6 @@ class OperateurController extends Controller
     }
     public function index()
     {
-        /* $operateurs        = Operateur::orderBy('created_at', 'desc')->get();
-        $departements      = Departement::orderBy("created_at", "desc")->get();
-        $operateur_agreer  = Operateur::where('statut_agrement', 'agréer')->count();
-        $operateur_rejeter = Operateur::where('statut_agrement', 'Rejetée')->count();
-        $operateur_nouveau = Operateur::where('statut_agrement', 'nouveau')->count();
-        $operateur_expirer = Operateur::where('statut_agrement', 'expirer')->count();
-        $operateur_total   = Operateur::where('statut_agrement', 'agréer')->orwhere('statut_agrement', 'Rejetée')->orwhere('statut_agrement', 'nouveau')->count();
-
-        if (isset($operateur_total) && $operateur_total > '0') {
-            $pourcentage_agreer  = ((($operateur_agreer) / ($operateur_total)) * 100);
-            $pourcentage_rejeter = ((($operateur_rejeter) / ($operateur_total)) * 100);
-            $pourcentage_nouveau = ((($operateur_nouveau) / ($operateur_total)) * 100);
-            $pourcentage_expirer = ((($operateur_expirer) / ($operateur_total)) * 100);
-        } else {
-            $pourcentage_agreer  = "0";
-            $pourcentage_rejeter = "0";
-            $pourcentage_nouveau = "0";
-            $pourcentage_expirer = "0";
-        }
-
-        $total_count = Operateur::get();
-        $total_count = number_format($total_count->count(), 0, ',', ' ');
-
-        $operateur_liste = Operateur::take(50)
-            ->latest()
-            ->get();
-
-        $count_operateur = number_format($operateur_liste?->count(), 0, ',', ' ');
-
-        if ($count_operateur < "1") {
-            $title = 'Aucun opérateur';
-        } elseif ($count_operateur == "1") {
-            $title = $count_operateur . ' opérateur sur un total de ' . $total_count;
-        } else {
-            $title = 'Liste des ' . $count_operateur . ' derniers opérateurs sur un total de ' . $total_count;
-        }
-
-        return view(
-            "operateurs.index",
-            compact(
-                "operateurs",
-                "departements",
-                "operateur_agreer",
-                "operateur_rejeter",
-                "pourcentage_agreer",
-                "pourcentage_rejeter",
-                "operateur_nouveau",
-                "operateur_expirer",
-                "title",
-                "pourcentage_nouveau",
-                "pourcentage_expirer"
-            )
-        ); */
-
         $operateurs   = Operateur::latest()->get();
         $departements = Departement::latest()->get();
 
@@ -136,7 +82,7 @@ class OperateurController extends Controller
             ));
 
     }
-    
+
     public function create()
     {
         $departements = Departement::get();
@@ -2069,7 +2015,7 @@ class OperateurController extends Controller
         $dompdf->stream($name, ['Attachment' => false]);
     }
 
-    public function generateReport(Request $request)
+    /*  public function generateReport(Request $request)
     {
         $this->validate($request, [
             'operateur_name'  => 'nullable|string',
@@ -2090,6 +2036,7 @@ class OperateurController extends Controller
         $operateur_nouveau = Operateur::where('statut_agrement', 'nouveau')->count();
         $operateur_expirer = Operateur::where('statut_agrement', 'expirer')->count();
         $operateur_total   = Operateur::where('statut_agrement', 'agréer')->orwhere('statut_agrement', 'Rejetée')->orwhere('statut_agrement', 'nouveau')->count();
+
         if (isset($operateur_total) && $operateur_total > '0') {
             $pourcentage_agreer  = ((($operateur_agreer) / ($operateur_total)) * 100);
             $pourcentage_rejeter = ((($operateur_rejeter) / ($operateur_total)) * 100);
@@ -2102,29 +2049,15 @@ class OperateurController extends Controller
             $pourcentage_expirer = "0";
         }
 
-        /* $total_count = Operateur::get();
-        $total_count = number_format($total_count->count(), 0, ',', ' '); */
-
-        /* $operateur_liste = Operateur::take(100)
-        ->latest()
-        ->get();
-
-        $count_operateur = number_format($operateur_liste?->count(), 0, ',', ' '); */
-
-        /*      if ($count_operateur < "1") {
-        $title = 'Aucun opérateur';
-        } elseif ($count_operateur == "1") {
-        $title = $count_operateur . ' opérateur sur un total de ' . $total_count;
-        } else {
-        $title = 'Liste des ' . $count_operateur . ' derniers opérateurs sur un total de ' . $total_count;
-        } */
-
         $operateurs = Operateur::join('users', 'users.id', 'operateurs.users_id')
             ->select('operateurs.*')
             ->where('operateur', 'LIKE', "%{$request?->operateur_name}%")
             ->where('username', 'LIKE', "%{$request?->operateur_sigle}%")
             ->where('numero_agrement', 'LIKE', "%{$request?->numero_agrement}%")
-            ->where('telephone', 'LIKE', "%{$request?->telephone}%")
+            ->where('users.fixe', 'LIKE', "%{$request?->telephone}%")
+            ->orwhere('users.telephone', 'LIKE', "%{$request?->telephone}%")
+            ->orwhere('users.telephone_secondaire', 'LIKE', "%{$request?->telephone}%")
+            ->orwhere('users.telephone_parent', 'LIKE', "%{$request?->telephone}%")
             ->where('email', 'LIKE', "%{$request?->email}%")
             ->distinct()
             ->get();
@@ -2145,10 +2078,10 @@ class OperateurController extends Controller
                 'operateurs',
                 "operateurs",
                 "departements",
-                "operateur_agreer",
-                "operateur_rejeter",
                 "pourcentage_agreer",
                 "pourcentage_rejeter",
+                "operateur_agreer",
+                "operateur_rejeter",
                 "operateur_nouveau",
                 "operateur_expirer",
                 "title",
@@ -2156,6 +2089,97 @@ class OperateurController extends Controller
                 "pourcentage_expirer"
             )
         );
+    } */
+
+    public function generateReport(Request $request)
+    {
+        $this->validate($request, [
+            'operateur_name'  => 'nullable|string',
+            'operateur_sigle' => 'nullable|string',
+            'numero_agrement' => 'nullable|string',
+            'telephone'       => 'nullable|string',
+            'email'           => 'nullable|email',
+        ]);
+
+        // Vérifier si au moins un champ est renseigné
+        $searchFields = [
+            $request?->operateur_name,
+            $request?->operateur_sigle,
+            $request?->telephone,
+            $request?->numero_agrement,
+            $request?->email,
+        ];
+
+        if (empty(array_filter($searchFields))) {
+            Alert::warning('Attention ', 'Renseigner au moins un champ pour rechercher');
+            return redirect()->back();
+        }
+
+        // Récupération des départements
+        $departements = Departement::latest()->get();
+
+        // Comptage des statuts avec une seule requête SQL
+        $statCounts = Operateur::whereIn('statut_agrement', ['agréer', 'Rejetée', 'nouveau', 'expirer'])
+            ->selectRaw("
+            SUM(statut_agrement = 'agréer') AS agreer,
+            SUM(statut_agrement = 'Rejetée') AS rejeter,
+            SUM(statut_agrement = 'nouveau') AS nouveau,
+            SUM(statut_agrement = 'expirer') AS expirer,
+            COUNT(*) AS total
+        ")->first();
+
+        $operateur_total     = $statCounts->total;
+        $pourcentage_agreer  = $operateur_total ? ($statCounts->agreer / $operateur_total) * 100 : 0;
+        $pourcentage_rejeter = $operateur_total ? ($statCounts->rejeter / $operateur_total) * 100 : 0;
+        $pourcentage_nouveau = $operateur_total ? ($statCounts->nouveau / $operateur_total) * 100 : 0;
+        $pourcentage_expirer = $operateur_total ? ($statCounts->expirer / $operateur_total) * 100 : 0;
+
+        $operateur_agreer  = $statCounts->agreer;
+        $operateur_rejeter = $statCounts->rejeter;
+        $operateur_nouveau = $statCounts->nouveau;
+        $operateur_expirer = $statCounts->expirer;
+
+        // Requête de recherche optimisée
+        $operateurs = Operateur::join('users', 'users.id', '=', 'operateurs.users_id')
+            ->select('operateurs.*')
+            ->when($request?->operateur_name, fn($query, $value) => $query->where('operateur', 'LIKE', "%$value%"))
+            ->when($request?->operateur_sigle, fn($query, $value) => $query->where('username', 'LIKE', "%$value%"))
+            ->when($request?->numero_agrement, fn($query, $value) => $query->where('numero_agrement', 'LIKE', "%$value%"))
+            ->when($request?->telephone, function ($query, $value) {
+                $query->where(function ($subQuery) use ($value) {
+                    $subQuery->where('users.fixe', 'LIKE', "%$value%")
+                        ->orWhere('telephone', 'LIKE', "%$value%")
+                        ->orWhere('telephone_secondaire', 'LIKE', "%$value%")
+                        ->orWhere('telephone_parent', 'LIKE', "%$value%");
+                });
+            })
+            ->when($request?->email, fn($query, $value) => $query->where('users.email', 'LIKE', "%$value%"))
+            ->distinct()
+            ->get();
+
+        $count = $operateurs->count();
+
+        // Gestion du titre des résultats
+        $title = match ($count) {
+            0 => 'Aucun opérateur trouvé',
+            1 => '1 opérateur trouvé',
+            default => "$count opérateurs trouvés"
+        };
+
+        return view('operateurs.index', compact(
+            'operateurs',
+            'departements',
+            'statCounts',
+            'pourcentage_agreer',
+            'pourcentage_rejeter',
+            'pourcentage_nouveau',
+            'pourcentage_expirer',
+            "operateur_agreer",
+            "operateur_rejeter",
+            "operateur_nouveau",
+            "operateur_expirer",
+            'title'
+        ));
     }
 
     public function agreer(Request $request)
