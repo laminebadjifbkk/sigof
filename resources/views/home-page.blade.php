@@ -493,12 +493,12 @@
                                                 <i class="bi bi-file-earmark-text"></i>
                                             </div>
                                             <div class="ps-3">
-                                                @php
+                                                {{-- @php
                                                     $total = count($individuelles) + count($collectives);
-                                                @endphp
+                                                @endphp --}}
 
                                                 <h6>
-                                                    <span class="text-primary">{{ number_format($total) }}</span>
+                                                    <span class="text-primary">{{ number_format($count_operateurs) }}</span>
                                                 </h6>
                                                 <span class="text-success small pt-1 fw-bold">agréés</span>
                                             </div>
