@@ -379,10 +379,10 @@
                                                     <span
                                                         class="text-primary">{{ number_format(count($individuelles), 0, '', ' ') }}</span>
                                                 </h6>
-                                                <span class="text-muted small pt-2 ps-1">dont</span>
+                                                {{-- <span class="text-muted small pt-2 ps-1">dont</span> --}}
                                                 <span
                                                     class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_femmes, 2, ',', ' ') . '%' }}</span>
-                                                <span class="text-muted small pt-2 ps-1">de femmes</span>
+                                                <span class="text-muted small pt-2 ps-1">f</span>
                                             </div>
                                         </div>
                                     </div>
@@ -410,10 +410,10 @@
                                                     <span
                                                         class="text-primary">{{ number_format(count($collectives), 0, '', ' ') }}</span>
                                                 </h6>
-                                                <span class="text-muted small pt-2 ps-1">dont</span>
+                                                {{-- <span class="text-muted small pt-2 ps-1">dont</span> --}}
                                                 <span
                                                     class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_femmes_collective, 2, ',', ' ') . '%' }}</span>
-                                                <span class="text-muted small pt-2 ps-1">de femmes</span>
+                                                <span class="text-muted small pt-2 ps-1">f</span>
                                             </div>
                                         </div>
                                     </div>
@@ -535,7 +535,7 @@
                                                     <h6>{{ number_format($total_user, 0, '', ' ') }}</h6>
                                                     <span
                                                         class="text-success small pt-1 fw-bold">{{ $email_verified_at . '%' }}</span>
-                                                    <span class="text-muted small pt-2 ps-1">comptes valides</span>
+                                                    <span class="text-muted small pt-2 ps-1">v</span>
 
                                                 </div>
                                             </div>
