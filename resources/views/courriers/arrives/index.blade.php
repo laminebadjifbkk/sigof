@@ -49,7 +49,7 @@
                             </div> --}}
                             <a href="#">
                                 <div class="card-body">
-                                    <h5 class="card-title">Courriers <span>| Arrivés</span></h5>
+                                    <h5 class="card-title">Arrivés <span>| {{ date('d/m/Y') }}</span></h5>
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -94,7 +94,7 @@
                             </a>
                         </div>
                     </div>
-                    @can('agrement-ouvert')
+                    {{-- @can('agrement-ouvert')
                         <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                             <div class="card info-card sales-card">
                                 <a href="{{ route('arrivesop') }}">
@@ -110,14 +110,13 @@
                                                     <span class="text-primary">{{ $count_arrives }}</span>
                                                 </h6>
                                                 <span class="text-success small pt-1 fw-bold">Tous</span>
-                                                {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
                                             </div>
                                         </div>
                                     </div>
                                 </a>
                             </div>
                         </div>
-                    @endcan
+                    @endcan --}}
                 </div>
             </div>
         </div>
@@ -131,7 +130,7 @@
                         <div class="d-flex justify-content-between align-items-center mt-0">
                             <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('courriers.index') }}"
                                     class="btn btn-success btn-sm" title="retour"><i
-                                        class="bi bi-arrow-counterclockwise"></i></a>&nbsp;Liste des courriers
+                                        class="bi bi-arrow-counterclockwise"></i></a>&nbsp;Liste des courriers arrivés
                             </span>
                             <span class="d-flex align-items-baseline">
                                 <a href="#" class="btn btn-success btn-sm float-end" data-bs-toggle="modal"
