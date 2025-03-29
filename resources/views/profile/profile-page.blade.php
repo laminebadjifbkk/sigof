@@ -143,7 +143,7 @@
                         </a>
                     </div>
                 @else
-                    <div class="alert alert-info">Aucune notification vous concernant pour l'instant !</div>
+                    <div class="alert alert-info">Aucune notification vous concernant pour l'instant</div>
                 @endif
             </div>
             {{-- Fin Photo de profil --}}
