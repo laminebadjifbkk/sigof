@@ -161,9 +161,9 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Graphique linéaire demandes individuelles</h5>
+                            <h5 class="card-title">Graphique demandes individuelles</h5>
 
-                            <canvas id="lineChart" style="max-height: 400px;"></canvas>
+                            <canvas id="lineChart" style="min-height: 200px;"></canvas>
                             <script>
                                 document.addEventListener("DOMContentLoaded", () => {
                                     new Chart(document.querySelector('#lineChart'), {
