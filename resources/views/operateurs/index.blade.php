@@ -379,19 +379,13 @@
 
             </div>
         </div>
-        <div
+        {{-- <div
             class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="AddOperateurModal" tabindex="-1">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <form method="post" action="{{ route('addOperateur') }}" enctype="multipart/form-data">
                             @csrf
-                            {{--    <div class="modal-header">
-                                <h5 class="modal-title">Ajouter un nouveau
-                                    opérateur</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div> --}}
                             <div class="card-header text-center bg-gradient-default">
                                 <h1 class="h4 text-black mb-0">AJOUTER OPÉRATEUR</h1>
                             </div>
@@ -418,10 +412,6 @@
                                         <label for="numero_arrive" class="form-label">Numéro courrier<span
                                                 class="text-danger mx-1">*</span></label>
                                         <div class="input-group has-validation">
-                                            {{-- <input type="number" min="0" name="numero_arrive"
-                                                value="{{ old('numero_arrive') }}"
-                                                class="form-control form-control-sm @error('numero_arrive') is-invalid @enderror"
-                                                id="numero_arrive" placeholder="Numéro de correspondance"> --}}
                                             <input type="text" placeholder="Rechercher numéro courrier..."
                                                 class="form-control form-control-sm @error('product') is-invalid @enderror"
                                                 name="numero_arrive" id="numero" required>
@@ -451,9 +441,6 @@
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                         <label for="operateur" class="form-label">Raison sociale opérateur<span
                                                 class="text-danger mx-1">*</span></label>
-                                        {{-- <textarea name="operateur" id="operateur" rows="1"
-                                            class="form-control form-control-sm @error('operateur') is-invalid @enderror"
-                                            placeholder="La raison sociale de l'opérateur">{{ old('operateur') }}</textarea> --}}
                                         <input type="text" placeholder="La raison sociale de l'opérateur"
                                             class="form-control form-control-sm @error('objet') is-invalid @enderror"
                                             name="operateur" id="objet" value="" required>
@@ -529,7 +516,6 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    {{-- Type de structure --}}
                                     <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="categorie" class="form-label">Catégorie<span
                                                 class="text-danger mx-1">*</span></label>
@@ -785,19 +771,6 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-
-                                    {{--  <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="quitus" class="form-label">N° quitus fiscal<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input type="text" name="quitus" value="{{ old('quitus') }}"
-                                            class="form-control form-control-sm @error('quitus') is-invalid @enderror"
-                                            id="quitus" placeholder="N° quitus fiscal">
-                                        @error('quitus')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div> --}}
                                     <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="date_quitus" class="form-label">Date délivrance</label>
                                         <input type="text" name="date_quitus" value="{{ old('date_quitus') }}"
@@ -1000,7 +973,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog"
             aria-labelledby="generate_rapportLabel" aria-hidden="true">
@@ -1072,10 +1045,10 @@
                                         <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                             <div class="form-group">
                                                 <label for="telephone" class="form-label">Téléphone</label>
-                                                <input minlength="5" maxlength="10" type="text" name="telephone"
-                                                    value="{{ old('telephone') }}"
+                                                <input name="telephone" type="text" maxlength="12"
                                                     class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                                    id="telephone" placeholder="7xxxxxxxx">
+                                                    id="telephone" value="{{ old('telephone') }}" autocomplete="tel"
+                                                    placeholder="XX:XXX:XX:XX">
                                                 @error('telephone')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>
