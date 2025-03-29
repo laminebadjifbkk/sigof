@@ -44,7 +44,6 @@
                                     <i class="bi bi-person-plus"></i> Ajouter
                                 </button>
                             </div>
-
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped align-middle" id="table-jury">
                                     <thead class="table-primary text-center">
