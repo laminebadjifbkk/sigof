@@ -292,11 +292,11 @@
                                             --}}
 
                                             data: [{
-                                                    value: {{ $feminin }},
+                                                    value: {{ $masculin }},
                                                     name: 'Hommes'
                                                 },
                                                 {
-                                                    value: {{ $masculin }},
+                                                    value: {{ $feminin }},
                                                     name: 'Femmes'
                                                 }
                                             ]
