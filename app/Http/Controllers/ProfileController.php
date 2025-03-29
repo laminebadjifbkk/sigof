@@ -238,7 +238,6 @@ class ProfileController extends Controller
             'name'                      => remove_accents_uppercase(strtoupper($request->input('name'))),
             'date_naissance'            => $date,
             'lieu_naissance'            => remove_accents_uppercase(strtoupper($request->input('lieu_naissance'))),
-            'image'                     => $request->input('image'),
             'email'                     => $request->input('email'),
             'telephone'                 => $request->input('telephone'),
             'adresse'                   => remove_accents_uppercase(strtoupper($request->input('adresse'))),
