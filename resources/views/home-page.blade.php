@@ -236,7 +236,7 @@
                             <h5 class="card-title">Diagramme demandes individulles</h5>
 
                             <!-- Donut Chart -->
-                            <div id="donutChart" style="min-height: 265px;" class="echart"></div>
+                            <div id="donutChart" style="min-height: 200px;" class="echart"></div>
 
                             <script>
                                 document.addEventListener("DOMContentLoaded", () => {
