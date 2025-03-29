@@ -68,7 +68,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">N°</th>
-                                            <th width="15%" class="text-center">N° CIN (NIN)</th>
+                                            <th width="20%" class="text-center">N° CIN (NIN)</th>
                                             {{-- <th>Prénom</th>
                                             <th>NOM</th> --}}
                                             <th width="20%">Prénom & NOM</th>
