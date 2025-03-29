@@ -328,7 +328,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th width="5%" class="text-center">N°</th>
-                                                            <th width="15%" class="text-center">Date dépôt</th>
+                                                            <th width="5%" class="text-center">Dépôt</th>
                                                             <th>Modules</th>
                                                             <th width="10%" class="text-center">Statut</th>
                                                             @can('user-show')
@@ -344,7 +344,7 @@
                                                                 <td class="text-center">{{ $i++ }}</td>
                                                                 <td class="text-center">
                                                                     @if ($individuelle?->date_depot)
-                                                                        {{ $individuelle?->date_depot?->diffForHumans(null, false) }}
+                                                                        {{ $individuelle?->date_depot?->format('d/m/Y') }}
                                                                     @else
                                                                         Aucun
                                                                     @endif
