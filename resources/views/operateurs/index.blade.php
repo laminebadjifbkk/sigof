@@ -977,7 +977,7 @@
 
         <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog"
             aria-labelledby="generate_rapportLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="card-header text-center bg-gradient-default">
                         <h1 class="h4 text-black mb-0">FAIRE UNE RECHERCHE</h1>
