@@ -233,7 +233,7 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Diagramme circulaire demandes individulles</h5>
+                            <h5 class="card-title">Diagramme demandes individulles</h5>
 
                             <!-- Donut Chart -->
                             <div id="donutChart" style="min-height: 365px;" class="echart"></div>
@@ -267,7 +267,8 @@
                                             labelLine: {
                                                 show: false
                                             },
-                                            data: [{
+                                            {{-- 
+                                                data: [{
                                                     value: {{ $nouvelle }},
                                                     name: 'Nouvelles'
                                                 },
@@ -286,6 +287,17 @@
                                                 {
                                                     value: {{ $rejeter }},
                                                     name: 'Rejetés'
+                                                }
+                                            ]
+                                            --}}
+
+                                            data: [{
+                                                    value: {{ $feminin }},
+                                                    name: 'Hommes'
+                                                },
+                                                {
+                                                    value: {{ $masculin }},
+                                                    name: 'Femmes'
                                                 }
                                             ]
                                         }]
