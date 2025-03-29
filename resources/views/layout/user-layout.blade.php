@@ -2802,6 +2802,31 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            var cinInput = document.getElementById("cin2");
+
+            cinInput.addEventListener("input", function(e) {
+                var value = e.target.value.replace(/[^A-Za-z0-9]/g,
+                    ""); // Supprimer tout sauf lettres et chiffres
+
+                // Convertir toutes les lettres en majuscule si elles existent
+                value = value.toUpperCase();
+
+                // Appliquer le format: 1 chiffre - espace - 3 chiffres - espace - 4 chiffres - espace - 5 ou 6 chiffres
+                if (value.length > 1) value = value.slice(0, 1) + " " + value.slice(
+                    1); // 1er chiffre + espace
+                if (value.length > 5) value = value.slice(0, 5) + " " + value.slice(
+                    5); // 3 chiffres + espace
+                if (value.length > 10) value = value.slice(0, 10) + " " + value.slice(
+                    10); // 4 chiffres + espace
+
+                // Limiter à 16 ou 17 caractères (espaces inclus)
+                e.target.value = value.slice(0, 17); // 16 ou 17 caractères au total
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
             var telephoneInput = document.getElementById("telephone_responsable");
 
             telephoneInput.addEventListener("input", function(e) {

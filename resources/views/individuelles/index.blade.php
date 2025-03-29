@@ -795,10 +795,11 @@
                                             <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                                 <div class="form-group">
                                                     <label for="cin" class="form-label">N° CIN</label>
-                                                    <input minlength="5" maxlength="15" type="text" name="cin"
-                                                        value="{{ old('cin') }}"
+                                                    <input name="cin" type="text"
                                                         class="form-control form-control-sm @error('cin') is-invalid @enderror"
-                                                        id="cin" placeholder="Numéro demande">
+                                                        id="cin2" value="{{ old('cin') }}"
+                                                        autocomplete="off" placeholder="Ex: 1 099 2005 00012"
+                                                        minlength="16" maxlength="17" required>
                                                     @error('cin')
                                                         <span class="invalid-feedback" role="alert">
                                                             <div>{{ $message }}</div>
@@ -813,10 +814,10 @@
                                             <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                                 <div class="form-group">
                                                     <label for="telephone" class="form-label">Téléphone</label>
-                                                    <input minlength="5" maxlength="10" type="text" name="telephone"
-                                                        value="{{ old('telephone') }}"
+                                                    <input name="telephone" type="text" maxlength="12"
                                                         class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                                        id="telephone" placeholder="7xxxxxxxx">
+                                                        id="telephone_responsable" value="{{ old('telephone') }}" autocomplete="tel"
+                                                        placeholder="XX:XXX:XX:XX">
                                                     @error('telephone')
                                                         <span class="invalid-feedback" role="alert">
                                                             <div>{{ $message }}</div>
