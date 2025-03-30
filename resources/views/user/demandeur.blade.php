@@ -10,6 +10,83 @@
             </ol>
         </nav>
     </div>
+    <section class="section dashboard">
+        <div class="row">
+            <!-- Left side columns -->
+            <div class="col-lg-12">
+                <div class="row">
+                    @php
+                        $totalIndividuel = 0;
+                        $totalCollectif = 0;
+                        foreach ($user_liste as $user) {
+                            if (!empty($user->individuelles) && $user->individuelles->isNotEmpty()) {
+                                $totalIndividuel += $user->individuelles->count();
+                            }
+
+                            if (!empty($user->collectives) && $user->collectives->isNotEmpty()) {
+                                $totalCollectif += $user->collectives->count();
+                            }
+                        }
+                    @endphp
+                    <!-- Sales Card -->
+                    <div class="col-12 col-md-6 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
+                        <div class="card info-card sales-card">
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                        class="bi bi-three-dots"></i></a>
+                            </div>
+                            <a href="#">
+                                <div class="card-body">
+                                    <h5 class="card-title">Demandeurs<span> | individuels</span></h5>
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-calendar-check-fill"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>
+                                                <span class="text-primary">{{ $totalIndividuel ?? '0' }}</span>
+                                            </h6>
+                                            {{-- <span class="text-success small pt-1 fw-bold">Aujourd'hui</span> --}}
+                                            {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
+                        <div class="card info-card sales-card">
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                        class="bi bi-three-dots"></i></a>
+                            </div>
+                            <a href="#">
+                                <div class="card-body">
+                                    <h5 class="card-title">Demandeurs <span>| collectives</span></h5>
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-file-earmark-text"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>
+                                                <span class="text-primary">{{ $totalCollectif ?? '0' }}</span>
+                                            </h6>
+                                            {{-- <span class="text-success small pt-1 fw-bold">Toutes</span> --}}
+                                            {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -35,13 +112,13 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Liste des demandeurs</h5>
+                        <h5 class="card-title">Demandeurs individuels</h5>
                         @if ($user_liste->isNotEmpty())
                             <table class="table datatables align-middle" id="table-users">
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Username</th>
+                                        <th>Prenom et NOM</th>
                                         <th>E-mail</th>
                                         <th>Téléphone</th>
                                         <th class="text-center">Demandes</th>
@@ -60,7 +137,7 @@
                                                             height="auto">
                                                     </a>
                                                 </th>
-                                                <td>{{ $user->username }}</td>
+                                                <td>{{ $user?->firstname . ' ' . $user?->name }}</td>
                                                 <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                                 <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a>
                                                 </td>
@@ -95,7 +172,7 @@
         new DataTable('#table-users', {
             layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [
