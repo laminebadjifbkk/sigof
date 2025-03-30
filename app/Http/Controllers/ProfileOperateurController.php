@@ -112,7 +112,6 @@ class ProfileOperateurController extends Controller
             'email'                => [
                 'nullable',
                 'string',
-                'lowercase',
                 'email',
                 'max:255',
                 Rule::unique(User::class)->ignore($id ?? null)->whereNull('deleted_at'),
@@ -120,7 +119,6 @@ class ProfileOperateurController extends Controller
             'email_responsable'    => [
                 'nullable',
                 'string',
-                'lowercase',
                 'email',
                 'max:255',
                 Rule::unique(User::class)->ignore($id ?? null)->whereNull('deleted_at'),
