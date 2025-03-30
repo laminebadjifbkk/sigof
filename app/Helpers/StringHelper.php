@@ -15,7 +15,7 @@ if (! function_exists('remove_accents_uppercase')) {
                         preg_replace(
                             '/[úùüû]/u', 'u',
                             preg_replace(
-                                '/[ç]/u', 'c',
+                                '/[c]/u', 'c',
                                 $string
                             )
                         )
@@ -34,11 +34,11 @@ if (! function_exists('format_proper_name')) {
     {
         // Remplacer uniquement les accents (en préservant les caractères spéciaux comme le "°")
         $unaccented_string = preg_replace(
-            '/[áàäâãå]/u', 'a',
+            '/[áäâãå]/u', 'a',
             preg_replace(
-                '/[éèëê]/u', 'e',
+                '/[ëê]/u', 'e',
                 preg_replace(
-                    '/[íìïî]/u', 'i',
+                    '/[íìî]/u', 'i',
                     preg_replace(
                         '/[óòöôõ]/u', 'o',
                         preg_replace(

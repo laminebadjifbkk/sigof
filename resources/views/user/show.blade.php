@@ -319,8 +319,9 @@
 
                             <div class="tab-content">
                                 <div class="tab-pane fade profile-edit" id="demandes">
-                                    <h5 class="card-title">DEMANDES FORMATION</h5>
+                                    <h5 class="card-title text-center">DEMANDES FORMATION</h5>
                                     <div class="row mb-3">
+                                        <h5 class="card-title">Formations individuelles</h5>
                                         @if ($user->individuelles->isNotEmpty())
                                             <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                                 <table class="table table-bordered table-hover datatables"
@@ -369,7 +370,62 @@
                                             </div>
                                         @else
                                             <div class="alert alert-info">
-                                                <p class="text-muted">Aucune formation pour l'instant !</p>
+                                                <p class="text-muted">Aucune formation individuelle pour l'instant !</p>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div class="row mb-3">
+                                        <h5 class="card-title">Formations collectives</h5>
+                                        @if ($user->collectives->isNotEmpty())
+                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <table class="table table-bordered table-hover datatables"
+                                                    id="table-iles">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="5%" class="text-center">N°</th>
+                                                            <th width="5%" class="text-center">Dépôt</th>
+                                                            <th>Modules</th>
+                                                            <th width="10%" class="text-center">Statut</th>
+                                                            @can('user-show')
+                                                                <th width="5%" class="text-center"><i
+                                                                        class="bi bi-gear"></i></th>
+                                                            @endcan
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @php $i = 1; @endphp
+                                                        @foreach ($user->collectives->sortBy('created_at') as $collective)
+                                                            @foreach ($collective?->collectivemodules as $collectivemodule)
+                                                                <tr>
+                                                                    <td class="text-center">{{ $i++ }}</td>
+                                                                    <td class="text-center">
+                                                                        {{ \Carbon\Carbon::parse($collectivemodule?->collective?->date_depot)?->format('d/m/Y') }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ $collectivemodule->module }}
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <span class="{{ $collectivemodule?->statut }}">
+                                                                            {{ $collectivemodule?->statut }}
+                                                                        </span>
+                                                                    </td>
+                                                                    @can('user-show')
+                                                                        <td class="text-center">
+                                                                            <a href="{{ route('collectivemodules.show', $collectivemodule?->id) }}"
+                                                                                class="btn btn-primary btn-sm" target="_blank"
+                                                                                title="voir détails"><i
+                                                                                    class="bi bi-eye"></i></a>
+                                                                        </td>
+                                                                    @endcan
+                                                                </tr>
+                                                            @endforeach
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        @else
+                                            <div class="alert alert-warning">
+                                                <p class="text-muted">Aucune formation collective pour l'instant !</p>
                                             </div>
                                         @endif
                                     </div>

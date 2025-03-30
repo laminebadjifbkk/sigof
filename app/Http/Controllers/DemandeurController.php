@@ -12,7 +12,7 @@ class DemandeurController extends Controller
 {
     public function index()
     {
-        $demandeurs = demandeur::where('type', 'individuelle')
+        $demandeurs = Demandeur::where('type', 'individuelle')
             ->get();
         return view("demandes.index", compact("demandeurs"));
     }
