@@ -48,7 +48,6 @@ class ProfileUpdateRequest extends FormRequest
             /* 'email'                     => [
                 'nullable',
                 'string',
-                'lowercase',
                 'email',
                 'max:255',
                 Rule::unique(User::class)->ignore($this->route('user')?->id ?? null)->whereNull('deleted_at'),

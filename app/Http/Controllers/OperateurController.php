@@ -1095,7 +1095,6 @@ class OperateurController extends Controller
             'email'        => [
                 'nullable',
                 'string',
-                'lowercase',
                 'email',
                 'max:255',
                 Rule::unique(User::class)->ignore($id ?? null)->whereNull('deleted_at'),

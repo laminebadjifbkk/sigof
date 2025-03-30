@@ -329,8 +329,8 @@
                                                     <thead>
                                                         <tr>
                                                             <th width="5%" class="text-center">N°</th>
-                                                            <th width="5%" class="text-center">Dépôt</th>
                                                             <th>Modules</th>
+                                                            <th width="5%" class="text-center">Dépôt</th>
                                                             <th width="10%" class="text-center">Statut</th>
                                                             @can('user-show')
                                                                 <th width="5%" class="text-center"><i
@@ -343,6 +343,7 @@
                                                         @foreach ($user->individuelles->sortBy('created_at') as $individuelle)
                                                             <tr>
                                                                 <td class="text-center">{{ $i++ }}</td>
+                                                                <td>{{ $individuelle?->module?->name }}</td>
                                                                 <td class="text-center">
                                                                     @if ($individuelle?->date_depot)
                                                                         {{ $individuelle?->date_depot?->format('d/m/Y') }}
@@ -350,7 +351,6 @@
                                                                         Aucun
                                                                     @endif
                                                                 </td>
-                                                                <td>{{ $individuelle?->module?->name }}</td>
                                                                 <td class="text-center">
                                                                     <span class="{{ $individuelle?->statut }}">
                                                                         {{ $individuelle?->statut }}
@@ -383,8 +383,8 @@
                                                     <thead>
                                                         <tr>
                                                             <th width="5%" class="text-center">N°</th>
-                                                            <th width="5%" class="text-center">Dépôt</th>
                                                             <th>Modules</th>
+                                                            <th width="5%" class="text-center">Dépôt</th>
                                                             <th width="10%" class="text-center">Statut</th>
                                                             @can('user-show')
                                                                 <th width="5%" class="text-center"><i
@@ -398,11 +398,11 @@
                                                             @foreach ($collective?->collectivemodules as $collectivemodule)
                                                                 <tr>
                                                                     <td class="text-center">{{ $i++ }}</td>
-                                                                    <td class="text-center">
-                                                                        {{ \Carbon\Carbon::parse($collectivemodule?->collective?->date_depot)?->format('d/m/Y') }}
-                                                                    </td>
                                                                     <td>
                                                                         {{ $collectivemodule->module }}
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        {{ \Carbon\Carbon::parse($collectivemodule?->collective?->date_depot)?->format('d/m/Y') }}
                                                                     </td>
                                                                     <td class="text-center">
                                                                         <span class="{{ $collectivemodule?->statut }}">

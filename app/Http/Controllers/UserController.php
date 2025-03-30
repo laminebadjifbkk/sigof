@@ -419,7 +419,7 @@ class UserController extends Controller
                 'telephone'      => ['required', 'string', 'max:12', 'min:9'],
                 'adresse'        => ['required', 'string', 'max:255'],
                 'roles.*'        => ['string', 'max:255', 'nullable', 'max:255'],
-                "email"          => ["lowercase", 'email', "max:255", Rule::unique(User::class)->ignore($id)],
+                "email"          => ['email', "max:255", Rule::unique(User::class)->ignore($id)],
             ]);
 
             if (! empty($request->date_naissance)) {
