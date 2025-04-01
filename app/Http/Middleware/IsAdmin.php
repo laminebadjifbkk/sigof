@@ -12,7 +12,7 @@ class IsAdmin
     public function handle(Request $request, Closure $next)
     {
         // Vérifier si l'utilisateur est authentifié et s'il a le rôle "admin"
-        if (auth()->check() && auth()->user()->hasRole('admin')) {
+        if (auth()->check() && auth()->user()->hasRole('super-admin')) {
             return $next($request); // L'utilisateur est un admin, il peut continuer
         }
 
