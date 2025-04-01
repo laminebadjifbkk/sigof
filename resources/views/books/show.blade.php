@@ -144,10 +144,10 @@
         <div class="container">
             <h1>{{ $book->title }}</h1>
             <div class="book-details">
-                <p><strong>Auteur :</strong> {{ $book->author }}</p>
+                <p><strong>Auteur : </strong> {{ $book->author }}</p>
                 <p><strong>Description :</strong>
 
-                    {!! '- ' . implode('- ', array_map(fn($line) => nl2br(e($line)), explode("\n", ucfirst($book->description)))) !!}
+                    {!! '- ' . implode('', array_map(fn($line) => nl2br(e($line)), explode("\n", ucfirst($book->description)))) !!}
 
                 </p>
             </div>
