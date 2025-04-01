@@ -36,7 +36,7 @@ class BookController extends Controller
 
         $file     = $request->file('file');
         $filename = time() . '_' . $file->getClientOriginalName();
-        $file->storeAs('books', $filename); // Stocke dans storage/app/books/
+        $file->storeAs('manuels', $filename); // Stocke dans storage/app/books/
 
         Book::create([
             'title'       => $request->title,
@@ -61,7 +61,7 @@ class BookController extends Controller
                                                                    // Récupérer les informations du livre à partir de la base de données
         $book = Book::where('filename', $filename)->firstOrFail(); // Recherche du livre par son nom de fichier
 
-        $path = storage_path("app/books/{$filename}");
+        $path = storage_path("app/manuels/{$filename}");
 
         $books = Book::all();
         // Passer les données au fichier Blade
@@ -70,7 +70,7 @@ class BookController extends Controller
 
     private function fileExists($filename)
     {
-        $path = storage_path("app/books/{$filename}");
+        $path = storage_path("app/manuels/{$filename}");
         return file_exists($path);
     }
 
