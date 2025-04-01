@@ -11,16 +11,60 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
             margin: 0;
             padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+        }
+
+        /* Style de la sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            color: #ecf0f1;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 15px 0;
+            font-size: 1.1em;
+        }
+
+        .sidebar ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            display: block;
+            padding: 5px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #34495e;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
         }
 
         .container {
             max-width: 1200px;
-            margin: 30px auto;
-            padding: 20px;
+            margin: 0 auto;
             background-color: white;
+            padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
@@ -32,7 +76,7 @@
         }
 
         .book-details {
-            text-align: center;
+            text-align: left;
             font-size: 1.2em;
             color: #555;
             margin-bottom: 30px;
@@ -49,9 +93,7 @@
             border: 1px solid #ddd;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             max-width: 100%;
-            /* Pour s'adapter à la largeur de l'écran */
             max-height: 100%;
-            /* Pour s'adapter à la hauteur de l'écran */
         }
 
         #controls {
@@ -64,12 +106,10 @@
             color: white;
             border: none;
             padding: 5px 15px;
-            /* Taille réduite des boutons */
             font-size: 1em;
             cursor: pointer;
             margin: 5px;
             border-radius: 5px;
-            /* Bords arrondis */
         }
 
         #controls button:hover {
@@ -79,28 +119,48 @@
         #pageNum {
             margin: 0 10px;
             font-size: 1.2em;
-            /* Augmenter la taille du texte de la page */
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
-        <h1>{{ $book->title }}</h1>
-        <div class="book-details">
-            <p><strong>Auteur :</strong> {{ $book->author }}</p>
-            <p><strong>Description :</strong> {{ $book->description }}</p>
-        </div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Liste des Manuels</h2>
+        <ul class="book-list">
+            @foreach ($books as $book)
+                <li class="book-item">
+                    <a href="{{ route('book.view', $book->filename) }}">
+                        <i class="fas fa-book"></i> {{ $book->title }}
+                    </a>
+                </li>
+            @endforeach
+        </ul>
+    </div>
 
-        <div class="reader-container">
-            <canvas id="pdf-render"></canvas>
-        </div>
+    <!-- Content Area -->
+    <div class="content">
+        <div class="container">
+            <h1>{{ $book->title }}</h1>
+            <div class="book-details">
+                <p><strong>Auteur :</strong> {{ $book->author }}</p>
+                <p><strong>Description :</strong>
 
-        <div id="controls">
-            <button id="prevPage">Page Précédente</button>
-            <span id="pageNum">Page 1 sur 1</span>
-            <button id="nextPage">Page Suivante</button>
+                    {!! '- ' . implode('- ', array_map(fn($line) => nl2br(e($line)), explode("\n", ucfirst($book->description)))) !!}
+
+                </p>
+            </div>
+
+            <div class="reader-container">
+                <canvas id="pdf-render"></canvas>
+            </div>
+
+            <div id="controls">
+                <button id="prevPage">Page Précédente</button>
+                <span id="pageNum">Page 1 sur 1</span>
+                <button id="nextPage">Page Suivante</button>
+            </div>
         </div>
     </div>
 
@@ -116,7 +176,6 @@
             pageNum = 1,
             pageCount = 0;
 
-        // Fonction pour dessiner le filigrane "ONFP-SENEGAL"
         function drawWatermark(ctx, canvas) {
             const watermarkText = "ONFP-SENEGAL";
             const fontSize = 50;
@@ -136,24 +195,21 @@
             ctx.restore();
         }
 
-        // Fonction pour charger et afficher une page PDF dans un format A4
         function renderPage(num) {
             pdfDoc.getPage(num).then(function(page) {
                 const canvas = document.getElementById('pdf-render');
                 const ctx = canvas.getContext('2d');
-                const A4_WIDTH = 595.28; // Largeur de la page A4 en pixels à 72 DPI
-                const A4_HEIGHT = 841.89; // Hauteur de la page A4 en pixels à 72 DPI
+                const A4_WIDTH = 595.28; // A4 width in pixels at 72 DPI
+                const A4_HEIGHT = 841.89; // A4 height in pixels at 72 DPI
 
                 const viewport = page.getViewport({
                     scale: 1
                 });
-                const scale = Math.min(A4_WIDTH / viewport.width, A4_HEIGHT / viewport
-                    .height); // Calculer le facteur de mise à l'échelle
+                const scale = Math.min(A4_WIDTH / viewport.width, A4_HEIGHT / viewport.height);
 
-                canvas.height = A4_HEIGHT; // Fixer la hauteur de la page à celle d'une A4
-                canvas.width = A4_WIDTH; // Fixer la largeur de la page à celle d'une A4
+                canvas.height = A4_HEIGHT;
+                canvas.width = A4_WIDTH;
 
-                // Afficher la page PDF avec le facteur de mise à l'échelle
                 const renderContext = {
                     canvasContext: ctx,
                     viewport: page.getViewport({
@@ -162,7 +218,6 @@
                 };
 
                 page.render(renderContext).promise.then(function() {
-                    // Ajouter le filigrane après le rendu de la page
                     drawWatermark(ctx, canvas);
                 });
             });

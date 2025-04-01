@@ -15,13 +15,13 @@
                 <li><a href="#apropos">À propos</a></li>
                 <li><a href="#partenaires">Partenaires</a></li>
                 <li><a href="#services">Services</a></li>
+                <li><a href="{{ route('books.showDefault') }}" target="_blank">Manuels</a></li>
                 <li><a href="#contact">Contact</a></li>
 
-                <li class="dropdown"><a><span>S'inscrire</span> <i
-                            class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <li class="dropdown"><a><span>S'inscrire</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>
-                        <li> <a href="#" data-bs-toggle="modal"
-                                data-bs-target="#registerDemandeurModal">Compte personnel</a>
+                        <li> <a href="#" data-bs-toggle="modal" data-bs-target="#registerDemandeurModal">Compte
+                                personnel</a>
                         </li>
                         {{-- <li><a href="#" data-bs-toggle="modal" data-bs-target="#registerOperateurModal">Compte
                                 opérateur</a>

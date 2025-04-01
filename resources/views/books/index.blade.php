@@ -53,13 +53,32 @@
                                             <tr>
                                                 <td>{{ $i++ }}</td>
                                                 <td>{{ $book->title }}</td>
-                                                <td>
+                                                {{-- <td>
                                                     <span class="d-flex mt-2 align-items-baseline">
                                                         <a class="btn btn-primary btn-sm" href="{{ route('book.view', ['filename' => $book->filename]) }}"
                                                             target="_blank"><i
                                                             class="bi bi-eye"></i>
                                                         </a>
                                                     </span>
+                                                </td> --}}
+
+                                                <td class="text-center">
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-primary btn-sm"
+                                                            href="{{ route('book.view', ['filename' => $book->filename]) }}"
+                                                            target="_blank"><i class="bi bi-eye"></i>
+                                                        </a>
+                                                        <form action="{{ route('books.destroy', $book->id) }}"
+                                                            method="post" class="d-inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="btn btn-danger btn-sm show_confirm"
+                                                                title="Supprimer">
+                                                                <i class="bi bi-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 </td>
 
                                             </tr>
