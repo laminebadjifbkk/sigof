@@ -44,6 +44,7 @@
                                         <tr>
                                             <th width='5%'>N°</th>
                                             <th>Titre</th>
+                                            <th>Auteur</th>
                                             <th width='5%'>#</th>
                                         </tr>
                                     </thead>
@@ -53,6 +54,7 @@
                                             <tr>
                                                 <td>{{ $i++ }}</td>
                                                 <td>{{ $manuel->title }}</td>
+                                                <td>{{ $manuel->author }}</td>
                                                 {{-- <td>
                                                     <span class="d-flex mt-2 align-items-baseline">
                                                         <a class="btn btn-primary btn-sm" href="{{ route('manuel.view', ['filename' => $manuel->filename]) }}"
