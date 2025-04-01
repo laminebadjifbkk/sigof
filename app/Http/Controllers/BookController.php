@@ -8,11 +8,11 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class BookController extends Controller
 {
-    public function __construct()
+    /* public function __construct()
     {
         $this->middleware('admin')->only(['index', 'create', 'destroy', 'store']);
     }
-
+ */
     public function index()
     {
         $books = Book::all();
