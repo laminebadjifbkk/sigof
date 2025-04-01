@@ -15,7 +15,7 @@
                 <li><a href="#apropos">À propos</a></li>
                 <li><a href="#partenaires">Partenaires</a></li>
                 <li><a href="#services">Services</a></li>
-                <li><a href="{{ route('books.showDefault') }}" target="_blank">Manuels</a></li>
+                <li><a href="{{ route('manuels.showDefault') }}" target="_blank">Manuels</a></li>
                 <li><a href="#contact">Contact</a></li>
 
                 <li class="dropdown"><a><span>S'inscrire</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
