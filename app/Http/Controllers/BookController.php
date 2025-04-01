@@ -36,7 +36,7 @@ class BookController extends Controller
 
         $file     = $request->file('file');
         $filename = time() . '_' . $file->getClientOriginalName();
-        $file->storeAs('public/books', $filename); // Stocke dans storage/app/books/
+        $file->storeAs('books', $filename); // Stocke dans storage/app/books/
 
         Book::create([
             'title'       => $request->title,
