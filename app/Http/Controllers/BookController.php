@@ -15,14 +15,14 @@ class BookController extends Controller
 
     public function index()
     {
-        $books = Book::all();
+        $manuels = Book::all();
 
-        return view('books.index', compact('books'));
+        return view('manuels.index', compact('manuels'));
     }
 
     public function create()
     {
-        return view('books.create');
+        return view('manuels.create');
     }
 
     public function store(Request $request)
@@ -36,7 +36,7 @@ class BookController extends Controller
 
         $file     = $request->file('file');
         $filename = time() . '_' . $file->getClientOriginalName();
-        $file->storeAs('manuels', $filename); // Stocke dans storage/app/books/
+        $file->storeAs('manuels', $filename); // Stocke dans storage/app/manuels/
 
         Book::create([
             'title'       => $request->title,
@@ -58,14 +58,14 @@ class BookController extends Controller
 
         Log::info("Lecture du livre: {$filename}");
 
-                                                                   // Récupérer les informations du livre à partir de la base de données
-        $book = Book::where('filename', $filename)->firstOrFail(); // Recherche du livre par son nom de fichier
+                                                                     // Récupérer les informations du livre à partir de la base de données
+        $manuel = Book::where('filename', $filename)->firstOrFail(); // Recherche du livre par son nom de fichier
 
         $path = storage_path("app/manuels/{$filename}");
 
-        $books = Book::all();
+        $manuels = Book::all();
         // Passer les données au fichier Blade
-        return view('books.show', compact('book', 'filename', 'path', 'books'));
+        return view('manuels.show', compact('manuel', 'filename', 'path', 'manuels'));
     }
 
     private function fileExists($filename)
@@ -77,30 +77,30 @@ class BookController extends Controller
     public function showDefault()
     {
         // Récupérer le premier livre
-        $book = Book::first();
+        $manuel = Book::first();
 
-        if (! $book) {
+        if (! $manuel) {
             Alert::error("Erreur", "Aucun livre disponible.");
             return redirect()->back();
         }
 
         // Rediriger vers la vue avec le premier livre
-        return redirect()->route('book.view', $book->filename);
+        return redirect()->route('manuel.view', $manuel->filename);
     }
 
     public function destroy($id)
     {
         // Trouver le livre par son ID ou échouer si non trouvé
-        $book = Book::findOrFail($id);
+        $manuel = Book::findOrFail($id);
 
         // Vérifier si un fichier est associé au livre et le supprimer
-        if (! empty($book->filename)) {
+        if (! empty($manuel->filename)) {
             // Vérifier si le fichier existe avant de le supprimer
-            $filePath = storage_path('app/public/' . $book->filename);
+            $filePath = storage_path('app/public/' . $manuel->filename);
 
             if (file_exists($filePath)) {
                 // Supprimer le fichier du stockage
-                /* $deleted = Storage::disk('public')->delete($book->filename); */
+                /* $deleted = Storage::disk('public')->delete($manuel->filename); */
                 unlink($filePath);
 
                 // Vérifier si la suppression du fichier a échoué
@@ -112,13 +112,13 @@ class BookController extends Controller
         }
 
         // Suppression du livre
-        $book->delete();
+        $manuel->delete();
 
         // Affichage de l'alerte de succès
         Alert::success("Succès !", "Manuel supprimé avec succès!");
 
         // Rediriger l'utilisateur vers la page précédente ou vers une autre page
-        return redirect()->route('books.index');
+        return redirect()->route('manuels.index');
     }
 
 }

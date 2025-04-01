@@ -568,10 +568,10 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('/commissionmembres', CommissionmembreController::class);
 
         Route::middleware('admin')->group(function () {
-            Route::get('/manuels', [BookController::class, 'index'])->name('books.index');
-            Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
-            Route::post('/books', [BookController::class, 'store'])->name('books.store');
-            Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
+            Route::get('/manuels', [BookController::class, 'index'])->name('manuels.index');
+            Route::get('/manuels/create', [BookController::class, 'create'])->name('manuels.create');
+            Route::post('/manuels', [BookController::class, 'store'])->name('manuels.store');
+            Route::delete('/manuels/{id}', [BookController::class, 'destroy'])->name('manuels.destroy');
         });
     });
     Route::resource('/contacts', ContactController::class);
@@ -593,7 +593,7 @@ Route::group(['middleware' => ['XSS']], function () {
 });
 
 /* Route::get('/book/view/{filename}', [BookController::class, 'show'])->name('book.view'); */
-Route::get('/book/view/{filename}', [BookController::class, 'show'])->name('book.view');
-Route::get('/books/default', [BookController::class, 'showDefault'])->name('books.showDefault');
+Route::get('/book/view/{filename}', [BookController::class, 'show'])->name('manuel.view');
+Route::get('/manuels/default', [BookController::class, 'showDefault'])->name('manuels.showDefault');
 
 require __DIR__ . '/auth.php';
