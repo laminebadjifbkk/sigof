@@ -4,6 +4,7 @@ use App\Http\Controllers\AntenneController;
 use App\Http\Controllers\ArriveController;
 use App\Http\Controllers\ArrondissementController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CollectiveController;
 use App\Http\Controllers\CollectivemoduleController;
@@ -565,6 +566,12 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('/feuillepresences', FeuillepresenceController::class);
         Route::resource('/feuillepresencecollectives', FeuillepresencecollectiveController::class);
         Route::resource('/commissionmembres', CommissionmembreController::class);
+
+        Route::middleware('admin')->group(function () {
+            Route::get('/books', [BookController::class, 'index'])->name('books.index');
+            Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
+            Route::post('/books', [BookController::class, 'store'])->name('books.store');
+        });
     });
     Route::resource('/contacts', ContactController::class);
     Route::get('/services-details', [ContactController::class, 'servicesDetails'])->name('services.details');
@@ -583,5 +590,8 @@ Route::group(['middleware' => ['XSS']], function () {
     });
 
 });
+
+/* Route::get('/book/view/{filename}', [BookController::class, 'show'])->name('book.view'); */
+Route::get('/book/view/{filename}', [BookController::class, 'show'])->name('book.view');
 
 require __DIR__ . '/auth.php';

@@ -566,6 +566,16 @@
             </li>
         @endcan
 
+
+        @can('employe-view')
+            <li class="nav-item">
+                <a class="nav-link " href="{{ route('books.index') }}">
+                    <i class="bi bi-book"></i>
+                    <span>Nos manuels</span>
+                </a>
+            </li>
+        @endcan
+
         @can('antenne-view')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ url('antennes') }}">
