@@ -129,10 +129,10 @@
     <div class="sidebar">
         <h2>Liste des Manuels</h2>
         <ul class="book-list">
-            @foreach ($manuels as $manuel)
+            @foreach ($manuels as $man)
                 <li class="book-item">
-                    <a href="{{ route('manuel.view', $manuel->filename) }}">
-                        <i class="fas fa-book"></i> {{ $manuel->title }}
+                    <a href="{{ route('manuel.view', $man->filename) }}">
+                        <i class="fas fa-book"></i> {{ $man->title }}
                     </a>
                 </li>
             @endforeach
