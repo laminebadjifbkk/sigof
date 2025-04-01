@@ -593,7 +593,7 @@ Route::group(['middleware' => ['XSS']], function () {
 });
 
 /* Route::get('/book/view/{filename}', [BookController::class, 'show'])->name('book.view'); */
-Route::get('/book/view/{filename}', [BookController::class, 'show'])->name('manuel.view');
+Route::get('/manuel/view/{filename}', [BookController::class, 'show'])->name('manuel.view');
 Route::get('/manuels/default', [BookController::class, 'showDefault'])->name('manuels.showDefault');
 
 require __DIR__ . '/auth.php';
