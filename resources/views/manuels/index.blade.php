@@ -61,12 +61,16 @@
                                                         </a>
                                                     </span>
                                                 </td> --}}
-
                                                 <td class="text-center">
                                                     <div class="btn-group">
+                                                        <a class="btn btn-warning btn-sm"
+                                                            href="{{ route('manuels.edit', $manuel->id) }}">
+                                                            <i class="bi bi-pencil"></i>
+                                                        </a>
                                                         <a class="btn btn-primary btn-sm"
                                                             href="{{ route('manuel.view', ['filename' => $manuel->filename]) }}"
-                                                            target="_blank"><i class="bi bi-eye"></i>
+                                                            target="_blank">
+                                                            <i class="bi bi-eye"></i>
                                                         </a>
                                                         <form action="{{ route('manuels.destroy', $manuel->id) }}"
                                                             method="post" class="d-inline">

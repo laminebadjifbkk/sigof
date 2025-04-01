@@ -572,6 +572,9 @@ Route::group(['middleware' => ['XSS']], function () {
             Route::get('/manuels/create', [BookController::class, 'create'])->name('manuels.create');
             Route::post('/manuels', [BookController::class, 'store'])->name('manuels.store');
             Route::delete('/manuels/{id}', [BookController::class, 'destroy'])->name('manuels.destroy');
+            Route::get('manuels/{id}/edit', [BookController::class, 'edit'])->name('manuels.edit');
+            Route::put('manuels/{id}', [BookController::class, 'update'])->name('manuels.update');
+
         });
     });
     Route::resource('/contacts', ContactController::class);

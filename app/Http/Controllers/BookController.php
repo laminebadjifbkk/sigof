@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BookController extends Controller
@@ -46,6 +47,54 @@ class BookController extends Controller
         ]);
 
         Alert::success("Succès !", "Manuel ajouté avec succès.");
+
+        return redirect()->back();
+    }
+
+    public function edit($id)
+    {
+        // Trouver le livre par son ID
+        $manuel = Book::findOrFail($id);
+
+        return view('manuels.update', compact('manuel'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validation des données
+        $request->validate([
+            'title'       => 'required',
+            'auteur'      => 'required',
+            'description' => 'required',
+            'file'        => 'nullable|mimes:pdf|max:20480', // Max 20MB
+        ]);
+
+        // Trouver le livre par son ID
+        $manuel = Book::findOrFail($id);
+
+        // Mettre à jour les informations textuelles
+        $manuel->title       = $request->title;
+        $manuel->author      = $request->auteur;
+        $manuel->description = $request->description;
+
+        // Si un nouveau fichier est téléchargé
+        if ($request->hasFile('file')) {
+            // Supprimer l'ancien fichier
+            Storage::disk('public')->delete('manuels/' . $manuel->filename);
+
+            // Enregistrer le nouveau fichier
+            $file     = $request->file('file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('manuels', $filename);
+
+            // Mettre à jour le nom du fichier dans la base de données
+            $manuel->filename = $filename;
+        }
+
+        // Sauvegarder les changements dans la base de données
+        $manuel->save();
+
+        Alert::success("Succès !", "Manuel mis à jour avec succès.");
 
         return redirect()->back();
     }
