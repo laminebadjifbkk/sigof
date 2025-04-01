@@ -76,7 +76,7 @@
         }
 
         .book-details {
-            text-align: left;
+            text-align: center;
             font-size: 1.2em;
             color: #555;
             margin-bottom: 30px;
