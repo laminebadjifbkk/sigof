@@ -68,7 +68,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        h1 {
+        h2 {
             color: #333;
             font-size: 2.5em;
             text-align: center;
@@ -142,7 +142,7 @@
     <!-- Content Area -->
     <div class="content">
         <div class="container">
-            <h1>{{ $manuel->title }}</h1>
+            <h2>{{ $manuel->title }}</h2>
             <div class="book-details">
                 <p><strong>Auteur : </strong> {{ $manuel->author }}</p>
                 <p><strong>Description :</strong>
