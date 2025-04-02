@@ -16,7 +16,7 @@ class BookController extends Controller
 
     public function index()
     {
-        $manuels = Book::all();
+        $manuels = Book::orderBy('created_at', 'desc')->get();
 
         return view('manuels.index', compact('manuels'));
     }
@@ -112,7 +112,7 @@ class BookController extends Controller
 
         $path = storage_path("app/manuels/{$filename}");
 
-        $manuels = Book::all();
+        $manuels = Book::orderBy('created_at', 'desc')->get();
         // Passer les données au fichier Blade
         return view('manuels.show', compact('manuel', 'filename', 'path', 'manuels'));
     }
