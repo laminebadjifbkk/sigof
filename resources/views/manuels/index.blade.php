@@ -33,11 +33,13 @@
                         @endif
                         <div class="card">
                             <div class="card-body">
-                                <div class="pt-0">
-                                    <a href="{{ route('manuels.create') }}"
-                                        class="btn btn-primary btn-sm float-end btn-rounded"><i
-                                            class="fas fa-plus"></i>Ajouter un manuel</a>
-                                </div>
+                                @can('manuel-create')
+                                    <div class="pt-0">
+                                        <a href="{{ route('manuels.create') }}"
+                                            class="btn btn-primary btn-sm float-end btn-rounded"><i
+                                                class="fas fa-plus"></i>Ajouter un manuel</a>
+                                    </div>
+                                @endcan
                                 <h5 class="card-title">Liste des manuels</h5>
                                 <table class="table datatables align-middle" id="table-manuels">
                                     <thead>
@@ -65,25 +67,31 @@
                                                 </td> --}}
                                                 <td class="text-center">
                                                     <div class="btn-group">
-                                                        <a class="btn btn-warning btn-sm"
-                                                            href="{{ route('manuels.edit', $manuel->id) }}">
-                                                            <i class="bi bi-pencil"></i>
-                                                        </a>
-                                                        <a class="btn btn-primary btn-sm"
-                                                            href="{{ route('manuel.view', ['filename' => $manuel->filename]) }}"
-                                                            target="_blank">
-                                                            <i class="bi bi-eye"></i>
-                                                        </a>
-                                                        <form action="{{ route('manuels.destroy', $manuel->id) }}"
-                                                            method="post" class="d-inline">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="btn btn-danger btn-sm show_confirm"
-                                                                title="Supprimer">
-                                                                <i class="bi bi-trash"></i>
-                                                            </button>
-                                                        </form>
+                                                        @can('manuel-update')
+                                                            <a class="btn btn-warning btn-sm"
+                                                                href="{{ route('manuels.edit', $manuel->id) }}">
+                                                                <i class="bi bi-pencil"></i>
+                                                            </a>
+                                                        @endcan
+                                                        @can('manuel-show')
+                                                            <a class="btn btn-primary btn-sm"
+                                                                href="{{ route('manuel.view', ['filename' => $manuel->filename]) }}"
+                                                                target="_blank">
+                                                                <i class="bi bi-eye"></i>
+                                                            </a>
+                                                        @endcan
+                                                        @can('manuel-delete')
+                                                            <form action="{{ route('manuels.destroy', $manuel->id) }}"
+                                                                method="post" class="d-inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="btn btn-danger btn-sm show_confirm"
+                                                                    title="Supprimer">
+                                                                    <i class="bi bi-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        @endcan
                                                     </div>
                                                 </td>
 

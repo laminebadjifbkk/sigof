@@ -567,7 +567,7 @@
         @endcan
 
 
-        @can('employe-view')
+        @can('manuel-view')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('manuels.index') }}">
                     <i class="bi bi-book"></i>

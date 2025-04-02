@@ -338,6 +338,11 @@ class DatabaseSeeder extends Seeder
         'user-show-file',
         'DG',
         'A-DG',
+        'manuel-view',
+        'manuel-show',
+        'manuel-update',
+        'manuel-delete',
+        'manuel-create',
     ];
 
     public function run(): void

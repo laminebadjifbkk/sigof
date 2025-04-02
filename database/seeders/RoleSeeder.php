@@ -281,6 +281,14 @@ class RoleSeeder extends Seeder
             'updated_at' => now(),
         ]);
         DB::table('roles')->insert([
+            'name' => "SERF",
+            'guard_name' => 'web',
+            'user_create_id' => '1',
+            'user_update_id' => '1',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('roles')->insert([
             'name' => "Nologin",
             'guard_name' => 'web',
             'user_create_id' => '1',

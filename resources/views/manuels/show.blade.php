@@ -127,7 +127,7 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <h2>Liste des Manuels</h2>
+        <h2>Nos manuels</h2>
         <ul class="book-list">
             @foreach ($manuels as $man)
                 <li class="book-item">
