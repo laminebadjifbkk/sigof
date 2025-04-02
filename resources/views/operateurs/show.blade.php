@@ -700,7 +700,9 @@
                                                             <th scope="col">NIVEAU QUALIFICATION</th>
                                                             <th scope="col">QUALIFICATION</th>
                                                             <th class="text-center">STATUT</th>
-                                                            <th class="text-center"><i class="bi bi-gear"></i></th>
+                                                            @can('devenir-operateur-agrement-show')
+                                                                <th class="text-center"><i class="bi bi-gear"></i></th>
+                                                            @endcan
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -716,8 +718,8 @@
                                                                     <span
                                                                         class="{{ $operateurmodule?->statut }}">{{ $operateurmodule?->statut }}</span>
                                                                 </td>
-                                                                <td style="text-align: center;">
-                                                                    @can('devenir-operateur-agrement-show')
+                                                                @can('devenir-operateur-agrement-show')
+                                                                    <td style="text-align: center;">
                                                                         <span
                                                                             class="d-flex align-items-baseline justify-content-center">
                                                                             <a href="{{ route('operateurmodules.show', $operateurmodule->id) }}"
@@ -729,18 +731,6 @@
                                                                                         class="bi bi-three-dots"></i></a>
                                                                                 <ul
                                                                                     class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                                    {{--  <form
-                                                                                action="{{ route('validation-operateur-modules.update', $operateurmodule->id) }}"
-                                                                                method="post">
-                                                                                @csrf
-                                                                                @method('PUT')
-                                                                                <button
-                                                                                    class="show_confirm_valider dropdown-item btn btn-sm mx-1">Agréer</button>
-                                                                            </form> --}}
-                                                                                    {{-- <button class="dropdown-item btn btn-sm mx-1"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#AddRegionModal{{ $operateurmodule->id }}">Rejeter
-                                                                            </button> --}}
                                                                                     @can('devenir-operateur-agrement-update')
                                                                                         <button class="dropdown-item btn btn-sm mx-1"
                                                                                             data-bs-toggle="modal"
@@ -761,8 +751,8 @@
                                                                                 </ul>
                                                                             </div>
                                                                         </span>
-                                                                    @endcan
-                                                                </td>
+                                                                    </td>
+                                                                @endcan
                                                             </tr>
                                                         @endforeach
                                                     </tbody>
