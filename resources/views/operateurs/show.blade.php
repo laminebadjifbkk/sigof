@@ -644,50 +644,9 @@
                                                             </ul>
                                                         </div>
                                                     @endcan
-                                                    {{-- <div class="filter">
-                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"> --}}
-
-                                                    {{-- Validation automatique --}}
-                                                    {{--  <form
-                                                            action="{{ route('validateOperateur', ['id' => $operateur?->id]) }}"
-                                                            method="post">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <button class="show_confirm_valider btn btn-sm mx-1"><i
-                                                                    class="bi bi-check2-circle"
-                                                                    title="Valider"></i>&nbsp;Valider</button>
-                                                        </form> --}}
-                                                    {{--   <form
-                                                            action="{{ route('agreerOperateur', ['id' => $operateur?->id]) }}"
-                                                            method="post">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <button class="show_confirm_valider btn btn-sm mx-1"><i
-                                                                    class="bi bi-check2-circle"
-                                                                    title="Valider"></i>&nbsp;Agréer</button>
-                                                        </form>
-                                                        <div>
-                                                            <button class="btn btn-sm mx-1" data-bs-toggle="modal"
-                                                                data-bs-target="#ReserveAgrementModal{{ $operateur?->id }}"><i
-                                                                    class="bi bi-chat-square-text"
-                                                                    title="Justification"></i>&nbsp;Sous réserve
-                                                            </button>
-                                                        </div> --}}
-                                                    {{-- @isset($operateur?->motif) --}}
-                                                    {{-- <button class="btn btn-sm mx-1" data-bs-toggle="modal"
-                                                            data-bs-target="#RejetAgrementModal{{ $operateur?->id }}"><i
-                                                                class="bi bi-trash"
-                                                                title="Justification"></i>&nbsp;Rejeter
-                                                        </button> --}}
-                                                    {{-- @endisset --}}
-                                                    {{--   </ul>
-                                                </div> --}}
+                                                   
                                                 </span>
                                             </div>
-                                            {{-- <form method="post" action="#" enctype="multipart/form-data"
-                                            class="row g-3"> --}}
                                             <div class="row g-3">
                                                 <table
                                                     class="table table-bordered table-hover datatables align-middle justify-content-center"
