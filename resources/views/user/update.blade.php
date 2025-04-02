@@ -56,9 +56,10 @@
 
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="cin" class="form-label">CIN</label>
-                                    <input type="text" name="cin" value="{{ $user->cin ?? old('cin') }}"
+                                    <input name="cin" type="text"
                                         class="form-control form-control-sm @error('cin') is-invalid @enderror"
-                                        id="cin" placeholder="cin">
+                                        id="cin" value="{{ $user?->cin ?? old('cin') }}" autocomplete="off"
+                                        placeholder="Ex: 1 099 2005 00012" minlength="16" maxlength="17" required>
                                     @error('cin')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>

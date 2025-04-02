@@ -106,8 +106,7 @@ class BookController extends Controller
         }
 
         Log::info("Lecture du livre: {$filename}");
-
-                                                                     // Récupérer les informations du livre à partir de la base de données
+                                                        // Récupérer les informations du livre à partir de la base de données
         $manuel = Book::where('filename', $filename)->firstOrFail(); // Recherche du livre par son nom de fichier
 
         $path = storage_path("app/manuels/{$filename}");
