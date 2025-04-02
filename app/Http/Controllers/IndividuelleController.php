@@ -224,113 +224,6 @@ class IndividuelleController extends Controller
 // Normalisation avec des zéros à gauche (6 chiffres minimum après le préfixe)
             $numero_individuelle = strtoupper($numero_individuelle);
 
-            /* if (! empty($request->input("departement")) && $projet?->type_localite == 'Commune') {
-                $commune          = Commune::where('nom', $request->input("departement"))->first();
-                $communeid        = $commune?->id;
-                $arrondissement   = $commune?->arrondissement;
-                $arrondissementid = $commune?->arrondissement?->id;
-                $departement      = $commune?->arrondissement?->departement;
-                $departementid    = $commune?->arrondissement?->departement?->id;
-                $regionid         = $commune?->arrondissement?->departement?->region?->id;
-            } elseif (! empty($request->input("departement")) && $projet?->type_localite == 'Arrondissement') {
-                $communeid        = null;
-                $arrondissement   = Arrondissement::where('nom', $request->input("departement"))->first();
-                $arrondissementid = $arrondissement?->id;
-                $departement      = $arrondissement?->departement;
-                $departementid    = $arrondissement?->departement?->id;
-                $regionid         = $arrondissement?->departement?->region?->id;
-            } elseif (! empty($request->input("departement")) && $projet?->type_localite == 'Departement') {
-                $communeid        = null;
-                $arrondissementid = null;
-                $departement      = Departement::where('nom', $request->input("departement"))->first();
-                $departementid    = $departement?->id;
-                $regionid         = $departement?->region?->id;
-            } elseif (! empty($request->input("departement")) && $projet?->type_localite == 'Region') {
-                $communeid        = null;
-                $arrondissementid = null;
-                $departement      = Departement::where('nom', $request->input("departement"))->first();
-                $departementid    = $departement?->id;
-                $regionid         = $departement?->region?->id;
-            } else {
-                $departement = Departement::where('nom', $request->input("departement"))->first();
-                $regionid    = $departement?->region?->id;
-            }
-
-            $module_find = DB::table('modules')->where('name', $request->input("module"))->first();
-
-            $demandeur_ind = Individuelle::where('users_id', $user->id)->get();
-
-            if (isset($module_find)) {
-                foreach ($demandeur_ind as $key => $value) {
-                    if ($value->module->name == $module_find->name) {
-                        Alert::warning('Attention !', 'Le module ' . $value->module->name . ' a déjà été sélectionné.');
-                        return redirect()->back();
-                    }
-                }
-                $individuelle = new Individuelle([
-                    'date_depot'                       => $date_depot,
-                    'numero'                           => $numero_individuelle,
-                    'adresse'                          => $request->input('adresse'),
-                    'telephone'                        => $request->input('telephone_secondaire'),
-                    'niveau_etude'                     => $request->input('niveau_etude'),
-                    'diplome_academique'               => $request->input('diplome_academique'),
-                    'autre_diplome_academique'         => $request->input('autre_diplome_academique'),
-                    'option_diplome_academique'        => $request->input('option_diplome_academique'),
-                    'etablissement_academique'         => $request->input('etablissement_academique'),
-                    'diplome_professionnel'            => $request->input('diplome_professionnel'),
-                    'autre_diplome_professionnel'      => $request->input('autre_diplome_professionnel'),
-                    'specialite_diplome_professionnel' => $request->input('specialite_diplome_professionnel'),
-                    'etablissement_professionnel'      => $request->input('etablissement_professionnel'),
-                    'projet_poste_formation'           => $request->input('projet_poste_formation'),
-                    'projetprofessionnel'              => $request->input('projetprofessionnel'),
-                    'qualification'                    => $request->input('qualification'),
-                    'experience'                       => $request->input('experience'),
-                    "departements_id"                  => $departementid,
-                    "regions_id"                       => $regionid,
-                    "communes_id"                      => $communeid,
-                    "arrondissements_id"               => $arrondissementid,
-                    "modules_id"                       => $module_find->id,
-                    "projets_id"                       => $request?->idprojet,
-                    'autre_module'                     => $request->input('module'),
-                    'statut'                           => 'Nouvelle',
-                    'users_id'                         => $user->id,
-                ]);
-            } else {
-                $module = new Module([
-                    'name' => $request->input('module'),
-                ]);
-
-                $module->save();
-
-                $individuelle = new Individuelle([
-                    'date_depot'                       => $date_depot,
-                    'numero'                           => $numero_individuelle,
-                    'adresse'                          => $request->input('adresse'),
-                    'telephone'                        => $request->input('telephone_secondaire'),
-                    'niveau_etude'                     => $request->input('niveau_etude'),
-                    'diplome_academique'               => $request->input('diplome_academique'),
-                    'autre_diplome_academique'         => $request->input('autre_diplome_academique'),
-                    'option_diplome_academique'        => $request->input('option_diplome_academique'),
-                    'etablissement_academique'         => $request->input('etablissement_academique'),
-                    'diplome_professionnel'            => $request->input('diplome_professionnel'),
-                    'autre_diplome_professionnel'      => $request->input('autre_diplome_professionnel'),
-                    'specialite_diplome_professionnel' => $request->input('specialite_diplome_professionnel'),
-                    'etablissement_professionnel'      => $request->input('etablissement_professionnel'),
-                    'projet_poste_formation'           => $request->input('projet_poste_formation'),
-                    'projetprofessionnel'              => $request->input('projetprofessionnel'),
-                    'qualification'                    => $request->input('qualification'),
-                    'experience'                       => $request->input('experience'),
-                    "departements_id"                  => $departementid,
-                    "regions_id"                       => $regionid,
-                    "communes_id"                      => $communeid,
-                    "arrondissements_id"               => $arrondissementid,
-                    "modules_id"                       => $module->id,
-                    "projets_id"                       => $request?->idprojet,
-                    'autre_module'                     => $request->input('module'),
-                    'statut'                           => 'Nouvelle',
-                    'users_id'                         => $user->id,
-                ]);
-            } */
             // Récupération des données de localisation en une seule condition
             $departement_input = $request->input("departement");
             $localite_type     = $projet?->type_localite;
@@ -462,85 +355,25 @@ class IndividuelleController extends Controller
         ]);
 
         $cin = $request->input('cin');
-        $cin = str_replace(' ', '', $cin);
 
-        /* $rand = rand(0, 999);
-        $letter1 = chr(rand(65, 90));
-        $letter2 = chr(rand(65, 90));
-        $random = $letter1.''.$rand . '' . $letter2;
-        $longueur = strlen($random);
+        $date_input = $request->input('date_depot');
 
-        if ($longueur == 1) {
-        $numero_individuelle   =   strtoupper("0000" . $random);
-        } elseif ($longueur >= 2 && $longueur < 3) {
-        $numero_individuelle   =   strtoupper("000" . $random);
-        } elseif ($longueur >= 3 && $longueur < 4) {
-        $numero_individuelle   =   strtoupper("00" . $random);
-        } elseif ($longueur >= 4 && $longueur < 5) {
-        $numero_individuelle   =   strtoupper("0" . $random);
+        if ($date_input) {
+            $date = Carbon::parse($date_input);
+
+            // Vérifier si l'heure est absente (si la date est envoyée seule)
+            if ($date->hour == 0 && $date->minute == 0 && $date->second == 0) {
+                $date->setTime(now()->hour, now()->minute, now()->second); // Prend l'heure actuelle
+            }
+
+            $date_depot = $date->format('Y-m-d H:i:s');
         } else {
-        $numero_individuelle   =   strtoupper($random);
-        } */
-
-        /* $annee = date('y');
-        $numero_individuelle = Individuelle::get()->last();
-        if (isset($numero_individuelle)) {
-        $numero_individuelle = Individuelle::get()->last()->numero;
-        $numero_individuelle = ++$numero_individuelle;
-        $longueur = strlen($numero_individuelle);
-        if ($longueur <= 1) {
-        $numero_individuelle   =   strtolower("0000" . $numero_individuelle);
-        } elseif ($longueur >= 2 && $longueur < 3) {
-        $numero_individuelle   =   strtolower("000" . $numero_individuelle);
-        } elseif ($longueur >= 3 && $longueur < 4) {
-        $numero_individuelle   =   strtolower("00" . $numero_individuelle);
-        } elseif ($longueur >= 4 && $longueur < 5) {
-        $numero_individuelle   =   strtolower("0" . $numero_individuelle);
-        } else {
-        $numero_individuelle   =   strtolower($numero_individuelle);
+            $date_depot = null;
         }
-        } else {
-        $numero_individuelle = "00001";
-        $numero_individuelle = 'I' . $annee . $numero_individuelle;
-        } */
-
-        $date_depot = date('Y-m-d H:i:s', strtotime($request->input('date_depot')));
 
         $anneeEnCours = date('Y');
         $an           = date('y');
 
-        /* $numero_individuelle = Individuelle::join('users', 'users.id', 'individuelles.users_id')
-            ->select('individuelles.*')
-            ->where('date_depot', "LIKE", "{$anneeEnCours}%")
-            ->get()->last();
-
-        if (isset($numero_individuelle)) {
-            $numero_individuelle = Individuelle::join('users', 'users.id', 'individuelles.users_id')
-                ->select('individuelles.*')
-                ->get()->last()->numero;
-            $numero_individuelle = ++$numero_individuelle;
-        } else {
-            $numero_individuelle = $an . "0001";
-            $numero_individuelle = 'I' . $numero_individuelle;
-        }
-
-        $longueur = strlen($numero_individuelle);
-
-        if ($longueur <= 1) {
-            $numero_individuelle = strtolower("00000" . $numero_individuelle);
-        } elseif ($longueur >= 2 && $longueur < 3) {
-            $numero_individuelle = strtolower("0000" . $numero_individuelle);
-        } elseif ($longueur >= 3 && $longueur < 4) {
-            $numero_individuelle = strtolower("000" . $numero_individuelle);
-        } elseif ($longueur >= 4 && $longueur < 5) {
-            $numero_individuelle = strtolower("00" . $numero_individuelle);
-        } elseif ($longueur >= 5 && $longueur < 6) {
-            $numero_individuelle = strtolower("0" . $numero_individuelle);
-        } else {
-            $numero_individuelle = strtolower($numero_individuelle);
-        }
-
-        $numero_individuelle = strtoupper($numero_individuelle); */
         // Récupérer le dernier numéro existant
         $numero_individuelle = Individuelle::join('users', 'users.id', 'individuelles.users_id')
             ->where('date_depot', 'LIKE', "{$anneeEnCours}%")
@@ -644,35 +477,6 @@ class IndividuelleController extends Controller
 
     public function edit($id)
     {
-        /* $individuelle = Individuelle::findOrFail($id);
-        $departements = Departement::orderBy("created_at", "desc")->get();
-        $modules      = Module::orderBy("created_at", "desc")->get();
-        $projets      = Projet::orderBy("created_at", "desc")->get();
-
-        foreach (Auth::user()->roles as $role) {
-            if (! empty($role?->name) && ($role?->name != 'super-admin')
-                && ($role?->name != 'Employe') && ($role?->name != 'admin')
-                && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
-                $this->authorize('update', $individuelle);
-            }
-        }
-
-        if ($individuelle->projet && $individuelle->projet->statut != 'ouvert') {
-            Alert::warning('Avertissement !', 'La modification a échoué.');
-            return redirect()->back();
-        } elseif ($individuelle->statut != 'Nouvelle'
-            && ! empty($role?->name)
-            && ($role?->name === 'Demandeur')) {
-            Alert::warning('Attention ! ', 'Action impossible demande déjà traitée.');
-            return redirect()->back();
-        } else {
-            return view("individuelles.update",
-                compact("individuelle",
-                    "departements",
-                    "modules",
-                    "projets")
-            );
-        } */
         // Récupérer l'individuelle et les données nécessaires
         $individuelle = Individuelle::findOrFail($id);
         $departements = Departement::latest()->get(); // Utilisation de `latest()` pour `orderBy("created_at", "desc")`
@@ -938,53 +742,6 @@ class IndividuelleController extends Controller
 
     public function demandesIndividuelle(Request $request)
     {
-        /* $departements  = Departement::orderBy("created_at", "desc")->get();
-        $modules       = Module::orderBy("created_at", "desc")->get();
-        $user          = Auth::user();
-        $individuelles = Individuelle::where('users_id', $user->id)
-            ->where('numero', '!=', null)
-            ->where('projets_id', null)
-            ->orderBy("created_at", "desc")
-            ->get();
-        $individuelle_total = $individuelles->count();
-
-        $files = File::where('users_id', $user->id)
-            ->whereNotNull('file') // Utilisation de whereNotNull pour plus de clarté
-            ->distinct()
-            ->get();
-
-        $user_files = File::where('users_id', $user->id)
-            ->where('file', null)
-            ->distinct()
-            ->get();
-
-        if ($individuelle_total == 0) {
-            return view(
-                "individuelles.show-individuelle-aucune",
-                compact(
-                    "individuelle_total",
-                    "departements",
-                    "individuelles",
-                    "files",
-                    "user_files",
-                    "user",
-                    "modules"
-                )
-            );
-        } else {
-            return view(
-                "individuelles.show-individuelle",
-                compact(
-                    "individuelle_total",
-                    "departements",
-                    "individuelles",
-                    "files",
-                    "user_files",
-                    "user",
-                    "modules"
-                )
-            );
-        } */
         // Récupérer les départements et modules une seule fois
         $departements = Departement::orderBy('created_at', 'desc')->get();
         $modules      = Module::orderBy('created_at', 'desc')->get();
@@ -1376,33 +1133,6 @@ class IndividuelleController extends Controller
 
     public function demandesdg(Request $request)
     {
-
-        /* $total_count = Individuelle::get();
-        $total_count = number_format($total_count->count(), 0, ',', ' ');
-
-        $dakar   = Region::where('nom', 'Dakar')->first();
-        $thies   = Region::orwhere('nom', 'THIES')->first();
-
-        $dakarid = $dakar->id;
-        $thiesid = $thies->id;
-
-        $individuelles = Individuelle::where('regions_id', $dakarid)->orwhere('regions_id', $thiesid)->limit(200)
-            ->latest()
-            ->get();
-
-        $count_demandeur = number_format($individuelles?->count(), 0, ',', ' ');
-
-        if ($count_demandeur < "1") {
-            $title = 'aucune demande individuelle';
-        } elseif ($count_demandeur == "1") {
-            $title = $count_demandeur . ' demande individuelle trouvée ';
-        } else {
-            $title = $count_demandeur . ' demandes trouvées';
-        }
-
-        $departements = Departement::orderBy("created_at", "DESC")->get();
-        $modules      = Module::orderBy("created_at", "desc")->get(); */
-
         $total_count = Individuelle::count();
         $total_count = number_format($total_count, 0, ',', ' ');
 
@@ -1488,35 +1218,6 @@ class IndividuelleController extends Controller
 
     public function demandeszig(Request $request)
     {
-
-        /* $total_count = Individuelle::get();
-        $total_count = number_format($total_count->count(), 0, ',', ' ');
-
-        $ziguinchor   = Region::where('nom', 'ZIGUINCHOR')->first();
-        $kolda        = Region::orwhere('nom', 'KOLDA')->first();
-        $sedhiou      = Region::orwhere('nom', 'SEDHIOU')->first();
-        $ziguinchorid = $ziguinchor->id;
-        $koldaid      = $kolda->id;
-        $sedhiouid    = $sedhiou->id;
-
-        $individuelles = Individuelle::where('regions_id', $ziguinchorid)
-            ->limit(200)
-            ->latest()
-            ->get();
-
-        $count_demandeur = number_format($individuelles?->count(), 0, ',', ' ');
-
-        if ($count_demandeur < "1") {
-            $title = 'aucune demande individuelle';
-        } elseif ($count_demandeur == "1") {
-            $title = $count_demandeur . ' demande individuelle trouvée ';
-        } else {
-            $title = $count_demandeur . ' demandes trouvées';
-        }
-
-        $departements = Departement::orderBy("created_at", "DESC")->get();
-        $modules      = Module::orderBy("created_at", "desc")->get(); */
-
         $total_count = Individuelle::count();
         $total_count = number_format($total_count, 0, ',', ' ');
 
@@ -1572,35 +1273,6 @@ class IndividuelleController extends Controller
 
     public function demandeskd(Request $request)
     {
-
-        /* $total_count = Individuelle::get();
-        $total_count = number_format($total_count->count(), 0, ',', ' ');
-
-        $ziguinchor   = Region::where('nom', 'ZIGUINCHOR')->first();
-        $kolda        = Region::orwhere('nom', 'KOLDA')->first();
-        $sedhiou      = Region::orwhere('nom', 'SEDHIOU')->first();
-        $ziguinchorid = $ziguinchor->id;
-        $koldaid      = $kolda->id;
-        $sedhiouid    = $sedhiou->id;
-
-        $individuelles = Individuelle::orwhere('regions_id', $koldaid)
-            ->orwhere('regions_id', $sedhiouid)
-            ->limit(200)
-            ->latest()
-            ->get();
-
-        $count_demandeur = number_format($individuelles?->count(), 0, ',', ' ');
-
-        if ($count_demandeur < "1") {
-            $title = 'aucune demande individuelle';
-        } elseif ($count_demandeur == "1") {
-            $title = $count_demandeur . ' demande individuelle trouvée ';
-        } else {
-            $title = $count_demandeur . ' demandes trouvées';
-        }
-
-        $departements = Departement::orderBy("created_at", "DESC")->get();
-        $modules      = Module::orderBy("created_at", "desc")->get(); */
         $total_count = Individuelle::count();
         $total_count = number_format($total_count, 0, ',', ' ');
 
@@ -1656,37 +1328,6 @@ class IndividuelleController extends Controller
 
     public function demandeskl(Request $request)
     {
-
-        /* $total_count = Individuelle::get();
-        $total_count = number_format($total_count->count(), 0, ',', ' ');
-
-        $kaolack  = Region::orwhere('nom', 'KAOLACK')->first();
-        $kaffrine = Region::orwhere('nom', 'KAFFRINE')->first();
-        $fatick   = Region::where('nom', 'FATICK')->first();
-
-        $kaolackid  = $kaolack->id;
-        $kaffrineid = $kaffrine->id;
-        $fatickid   = $fatick->id;
-
-        $individuelles = Individuelle::orwhere('regions_id', $kaolackid)
-            ->orwhere('regions_id', $kaffrineid)
-            ->orwhere('regions_id', $fatickid)
-            ->limit(200)
-            ->latest()
-            ->get();
-
-        $count_demandeur = number_format($individuelles?->count(), 0, ',', ' ');
-
-        if ($count_demandeur < "1") {
-            $title = 'aucune demande individuelle';
-        } elseif ($count_demandeur == "1") {
-            $title = $count_demandeur . ' demande individuelle trouvée ';
-        } else {
-            $title = $count_demandeur . ' demandes trouvées';
-        }
-
-        $departements = Departement::orderBy("created_at", "DESC")->get();
-        $modules      = Module::orderBy("created_at", "desc")->get(); */
         $total_count = Individuelle::count();
         $total_count = number_format($total_count, 0, ',', ' ');
 
@@ -1742,33 +1383,6 @@ class IndividuelleController extends Controller
 
     public function demandessl(Request $request)
     {
-        /* $total_count = Individuelle::get();
-        $total_count = number_format($total_count->count(), 0, ',', ' ');
-
-        $saintlouis = Region::orwhere('nom', 'SAINT LOUIS')->first();
-        $louga      = Region::orwhere('nom', 'LOUGA')->first();
-
-        $saintlouisid = $saintlouis->id;
-        $lougaid      = $louga->id;
-
-        $individuelles = Individuelle::orwhere('regions_id', $saintlouisid)
-            ->orwhere('regions_id', $lougaid)
-            ->limit(200)
-            ->latest()
-            ->get();
-
-        $count_demandeur = number_format($individuelles?->count(), 0, ',', ' ');
-
-        if ($count_demandeur < "1") {
-            $title = 'aucune demande individuelle';
-        } elseif ($count_demandeur == "1") {
-            $title = $count_demandeur . ' demande individuelle trouvée ';
-        } else {
-            $title = $count_demandeur . ' demandes trouvées';
-        }
-
-        $departements = Departement::orderBy("created_at", "DESC")->get();
-        $modules      = Module::orderBy("created_at", "desc")->get(); */
         $total_count = Individuelle::count();
         $total_count = number_format($total_count, 0, ',', ' ');
 
@@ -1818,33 +1432,6 @@ class IndividuelleController extends Controller
 
     public function demandeskg(Request $request)
     {
-        /* $total_count = Individuelle::get();
-        $total_count = number_format($total_count->count(), 0, ',', ' ');
-
-        $kedougou    = Region::orwhere('nom', 'KEDOUGOU')->first();
-        $tambacounda = Region::orwhere('nom', 'TAMBACOUNDA')->first();
-
-        $kedougouid    = $kedougou->id;
-        $tambacoundaid = $tambacounda->id;
-
-        $individuelles = Individuelle::orwhere('regions_id', $kedougouid)
-            ->orwhere('regions_id', $tambacoundaid)
-            ->limit(200)
-            ->latest()
-            ->get();
-
-        $count_demandeur = number_format($individuelles?->count(), 0, ',', ' ');
-
-        if ($count_demandeur < "1") {
-            $title = 'aucune demande individuelle';
-        } elseif ($count_demandeur == "1") {
-            $title = $count_demandeur . ' demande individuelle trouvée ';
-        } else {
-            $title = $count_demandeur . ' demandes trouvées';
-        }
-
-        $departements = Departement::orderBy("created_at", "DESC")->get();
-        $modules      = Module::orderBy("created_at", "desc")->get(); */
         $total_count = Individuelle::count();
         $total_count = number_format($total_count, 0, ',', ' ');
 
@@ -1894,30 +1481,6 @@ class IndividuelleController extends Controller
 
     public function demandesmt(Request $request)
     {
-        /* $total_count = Individuelle::get();
-        $total_count = number_format($total_count->count(), 0, ',', ' ');
-
-        $matam = Region::orwhere('nom', 'MATAM')->first();
-
-        $matamid = $matam->id;
-
-        $individuelles = Individuelle::orwhere('regions_id', $matamid)
-            ->limit(200)
-            ->latest()
-            ->get();
-
-        $count_demandeur = number_format($individuelles?->count(), 0, ',', ' ');
-
-        if ($count_demandeur < "1") {
-            $title = 'aucune demande individuelle';
-        } elseif ($count_demandeur == "1") {
-            $title = $count_demandeur . ' demande individuelle trouvée ';
-        } else {
-            $title = $count_demandeur . ' demandes trouvées';
-        }
-
-        $departements = Departement::orderBy("created_at", "DESC")->get();
-        $modules      = Module::orderBy("created_at", "desc")->get(); */
         $total_count = Individuelle::count();
         $total_count = number_format($total_count, 0, ',', ' ');
 
@@ -1956,30 +1519,6 @@ class IndividuelleController extends Controller
 
     public function demandesdl(Request $request)
     {
-        /* $total_count = Individuelle::get();
-        $total_count = number_format($total_count->count(), 0, ',', ' ');
-
-        $diourbel = Region::orwhere('nom', 'DIOURBEL')->first();
-
-        $diourbelid = $diourbel->id;
-
-        $individuelles = Individuelle::orwhere('regions_id', $diourbelid)
-            ->limit(200)
-            ->latest()
-            ->get();
-
-        $count_demandeur = number_format($individuelles?->count(), 0, ',', ' ');
-
-        if ($count_demandeur < "1") {
-            $title = 'aucune demande individuelle';
-        } elseif ($count_demandeur == "1") {
-            $title = $count_demandeur . ' demande individuelle trouvée ';
-        } else {
-            $title = $count_demandeur . ' demandes trouvées';
-        }
-
-        $departements = Departement::orderBy("created_at", "DESC")->get();
-        $modules      = Module::orderBy("created_at", "desc")->get(); */
         $total_count = Individuelle::count();
         $total_count = number_format($total_count, 0, ',', ' ');
 
