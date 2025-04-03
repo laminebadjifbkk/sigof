@@ -522,7 +522,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-5 col-sm-12 col-xs-12 col-xxl-5">
+                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="reference" class="form-label">Joindre courrier</label>
                                             <input type="file" name="file" id="file"
                                                 accept=".jpg, .jpeg, .png, .svg, .gif"
