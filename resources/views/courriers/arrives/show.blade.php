@@ -157,17 +157,31 @@
                                             @endif
                                         </div>
                                     </div>
-
-
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Scan courrier</div>
                                         <div class="col-lg-9 col-md-8">
                                             @if ($arrive?->employees && $arrive->employees->isNotEmpty())
                                                 <p>Fichier actuel : <a href="{{ asset($arrive?->courrier?->getFile()) }}"
-                                                        target="_blank">Voir le fichier</a></p>
+                                                        target="_blank"><i class="bi bi-download"></i></a></p>
                                             @endif
                                         </div>
                                     </div>
+
+                                    {{-- <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Scan courrier</div>
+                                        <div class="col-lg-9 col-md-8">
+                                            @if ($arrive?->employees && $arrive->employees->isNotEmpty())
+                                                <p>Fichier actuel : <a href="{{ asset($arrive?->courrier?->getFile()) }}"
+                                                        target="_blank">Voir le fichier</a></p>
+
+                                                <a title="télécharger le fichier joint" target="_blank"
+                                                    href="{{ asset($arrive?->courrier?->getFile()) }}">
+                                                    <i class="bi bi-download"></i>
+                                                @else
+                                                    <div class="alert alert-info">Aucun fichier joint</div>
+                                            @endif
+                                        </div>
+                                    </div> --}}
 
                                 </div>
 
