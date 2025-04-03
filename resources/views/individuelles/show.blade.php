@@ -247,19 +247,27 @@
                                 <div>
                                     <div class="col-md-4">
                                         <div class="label">FICHIERS JOINTS</div>
-                                        {{-- @foreach (Auth::user()->files->whereNotNull('file') as $file) --}}
-                                        @foreach ($files as $file)
-                                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                                <!-- Affichage de la légende -->
-                                                <p class="mb-0 me-3">{{ $file->legende }}</p>
 
-                                                <!-- Bouton de téléchargement -->
-                                                <a href="{{ asset($file->getFichier()) }}"
-                                                    class="btn btn-sm btn-secondary" target="_blank">
-                                                    Télécharger
-                                                </a>
-                                            </div>
-                                        @endforeach
+                                        @php
+                                            $fichiersDisponibles = $files->filter(fn($file) => !empty($file->file));
+                                        @endphp
+
+                                        @if ($fichiersDisponibles->isNotEmpty())
+                                            @foreach ($fichiersDisponibles as $file)
+                                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                                    <!-- Affichage de la légende -->
+                                                    <p class="mb-0 me-3">{{ $file->legende }}</p>
+
+                                                    <!-- Bouton de téléchargement -->
+                                                    <a href="{{ asset($file->getFichier()) }}"
+                                                        class="btn btn-sm btn-secondary" target="_blank">
+                                                        Télécharger
+                                                    </a>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <div class="alert alert-info">Aucun fichier</div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
