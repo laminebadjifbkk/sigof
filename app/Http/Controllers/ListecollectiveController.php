@@ -20,24 +20,22 @@ class ListecollectiveController extends Controller
 
     public function index()
     {
-        // Récupération des 200 dernières demandes
+        // Récupération des 250 dernières demandes
         $listecollectives = Listecollective::latest()->limit(250)->get();
+
         // Comptage total des individus (sans charger toutes les entrées en mémoire)
-        $count_raw   = Listecollective::count();
-        $total_count = number_format($count_raw, 0, ',', ' ');
+        $total_count = number_format(Listecollective::count(), 0, ',', ' ');
 
-        $count_demandeur_raw = $listecollectives->count();
-        $count_demandeur     = number_format($count_demandeur_raw, 0, ',', ' ');
+        // Comptage des demandes affichées
+        $count_demandeur = number_format($listecollectives->count(), 0, ',', ' ');
 
-        // Définition du titre avec des comparaisons correctes
-        if ($count_demandeur_raw < 1) {
-            $title = 'Aucune demande collective';
-        } elseif ($count_demandeur_raw == 1) {
-            $title = '1 demande collective sur un total de ' . $total_count;
-        } else {
-            $title = 'Liste des ' . $count_demandeur . ' dernières demandes collectives sur un total de ' . $total_count;
-        }
-        dd($total_count);
+        // Définition du titre
+        $title = match ($listecollectives->count()) {
+            0 => 'Aucune demande collective',
+            1 => "1 demande collective sur un total de $total_count",
+            default => "Liste des $count_demandeur dernières demandes collectives sur un total de $total_count",
+        };
+
         return view('listecollectives.index', compact('listecollectives', 'title'));
     }
 
