@@ -161,7 +161,7 @@
                                         <div class="col-lg-3 col-md-4 label">Scan courrier</div>
                                         <div class="col-lg-9 col-md-8">
                                             @if ($arrive?->employees && $arrive->employees->isNotEmpty())
-                                                <p>Fichier actuel : <a href="{{ asset($arrive?->courrier?->getFile()) }}"
+                                                <p class="btn btn-secondary btn-sm"><a href="{{ asset($arrive?->courrier?->getFile()) }}"
                                                         target="_blank"><i class="bi bi-download"></i></a></p>
                                             @endif
                                         </div>
