@@ -44,39 +44,10 @@
                                 <table class="table datatables align-middle" id="table-listecollectives">
                                     <thead>
                                         <tr>
-                                            @foreach (['N°', 'N° CIN (NIN)', 'Prénom & NOM', 'Date nais.', 'Lieu nais.', 'Module', '#'] as $th)
-                                                <th class="text-center">{{ $th }}</th>
-                                            @endforeach
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($listecollectives as $i => $listecollective)
-                                            <tr>
-                                                <td class="text-center">{{ $i + 1 }}</td>
-                                                <td class="text-center">{{ $listecollective->cin }}</td>
-                                                <td>{{ $listecollective->prenom }} {{ $listecollective->nom }}</td>
-                                                <td>{{ optional($listecollective->date_naissance)->format('d/m/Y') }}</td>
-                                                <td>{{ $listecollective->lieu_naissance }}</td>
-                                                <td>{{ optional($listecollective->collectivemodule)->module }}</td>
-                                                {{-- <td class="text-center">
-                                                    <a href="{{ route('collectives.show', optional($listecollective->collective)->id) }}"
-                                                        target="_blank">
-                                                        {{ optional($listecollective->collective)->sigle }}
-                                                    </a>
-                                                </td>
-                                                <td class="text-center">
-                                                    {{ optional($listecollective->collective)->date_depot ? \Carbon\Carbon::parse($listecollective->collective->date_depot)->format('d/m/Y') : 'Aucun' }}
-                                                </td>
-                                                <td class="text-center"><span
-                                                        class="{{ $listecollective->statut }}">{{ $listecollective->statut }}</span>
-                                                </td> --}}
-                                                <td class="text-center">
-                                                    <a href="{{ route('listecollectives.show', $listecollective->id) }}"
-                                                        class="btn btn-primary btn-sm" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                        
                                     </tbody>
                                 </table>
                             @else
