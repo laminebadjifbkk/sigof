@@ -150,7 +150,7 @@
                                                 <?php $i = 1; ?>
                                                 @foreach ($arrive->employees as $employee)
                                                     <br>{{ $i++ }}. {!! $employee->user->firstname . ' ' . $employee->user->name !!}
-                                                    <b>[{!! $employee->direction?->sigle ?? '' !!}]</b>
+                                                    <b>[{!! $employee?->fonction?->sigle ?? '' !!}]</b>
                                                 @endforeach
                                             @else
                                                 <div class="alert alert-info">Aucune imputation pour ce courrier</div>
