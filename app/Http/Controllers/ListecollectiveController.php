@@ -37,7 +37,7 @@ class ListecollectiveController extends Controller
         } else {
             $title = 'Liste des ' . $count_demandeur . ' dernières demandes collectives sur un total de ' . $total_count;
         }
-
+        dd($total_count);
         return view('listecollectives.index', compact('listecollectives', 'title'));
     }
 
