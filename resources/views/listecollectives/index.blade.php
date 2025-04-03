@@ -14,125 +14,66 @@
         </div><!-- End Page Title -->
         <section class="section">
             <div class="row">
-                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                    @if ($message = Session::get('status'))
-                        <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
-                            role="alert">
-                            <strong>{{ $message }}</strong>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-                    @if ($message = Session::get('danger'))
-                        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
-                            role="alert">
-                            <strong>{{ $message }}</strong>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
+                <div class="col-12">
+                    @foreach (['status' => 'success', 'danger' => 'danger'] as $key => $type)
+                        @if ($message = Session::get($key))
+                            <div class="alert alert-{{ $type }} bg-{{ $type }} text-light border-0 alert-dismissible fade show"
+                                role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+                    @endforeach
+
                     @if ($errors->any())
                         @foreach ($errors->all() as $error)
                             <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
-                                role="alert"><strong>{{ $error }}</strong></div>
+                                role="alert">{{ $error }}</div>
                         @endforeach
                     @endif
+
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">{{ $title }}</h5>
-                                <span class="d-flex align-items-baseline">
-                                    <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
-                                        data-bs-target="#searchCollective" title="Rechercher">Rechercher plus</a>
-                                    {{-- <div class="filter">
-                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                class="bi bi-three-dots"></i></a>
-                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                            <li>
-                                                <button type="button" class="dropdown-item btn btn-sm" data-bs-toggle="modal"
-                                                    data-bs-target="#generate_rapport">Rechercher
-                                                    plus</button>
-                                            </li>
-                                        </ul>
-                                    </div> --}}
-                                </span>
+                                <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#searchCollective">Rechercher plus</a>
                             </div>
+
                             @if ($listecollectives?->isNotEmpty())
                                 <table class="table datatables align-middle" id="table-listecollectives">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">N°</th>
-                                            <th class="text-center">N° CIN (NIN)</th>
-                                            <th>Prénom & NOM</th>
-                                            <th>Date nais.</th>
-                                            <th>Lieu nais.</th>
-                                            <th>Module</th>
-                                            <th>Structure</th>
-                                            <th class="text-center">Dépôt</th>
-                                            <th class="text-center">Statut</th>
-                                            <th width="5%" class="text-center">#</th>
+                                            @foreach (['N°', 'N° CIN (NIN)', 'Prénom & NOM', 'Date nais.', 'Lieu nais.', 'Module', 'Structure', 'Dépôt', 'Statut', '#'] as $th)
+                                                <th class="text-center">{{ $th }}</th>
+                                            @endforeach
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $i = 1; ?>
-                                        @foreach ($listecollectives as $listecollective)
+                                        @foreach ($listecollectives as $i => $listecollective)
                                             <tr>
-                                                <td style="text-align: center">{{ $i++ }}</td>
-                                                <td style="text-align: center">{{ $listecollective?->cin }}</td>
-                                                <td>{{ $listecollective?->prenom . ' ' . $listecollective?->nom }}
-                                                </td>
-                                                <td>{{ $listecollective?->date_naissance?->format('d/m/Y') }}</td>
-                                                <td>{{ $listecollective?->lieu_naissance }}</td>
-                                                <td>{{ $listecollective?->collectivemodule?->module }}</td>
-                                                <td>
-                                                    <a href="{{ route('collectives.show', $listecollective?->collective?->id) }}"
-                                                        title="voir" target="_blank">
-                                                        {{ $listecollective?->collective?->sigle }}
+                                                <td class="text-center">{{ $i + 1 }}</td>
+                                                <td class="text-center">{{ $listecollective->cin }}</td>
+                                                <td>{{ $listecollective->prenom }} {{ $listecollective->nom }}</td>
+                                                <td>{{ optional($listecollective->date_naissance)->format('d/m/Y') }}</td>
+                                                <td>{{ $listecollective->lieu_naissance }}</td>
+                                                <td>{{ optional($listecollective->collectivemodule)->module }}</td>
+                                                <td class="text-center">
+                                                    <a href="{{ route('collectives.show', optional($listecollective->collective)->id) }}"
+                                                        target="_blank">
+                                                        {{ optional($listecollective->collective)->sigle }}
                                                     </a>
                                                 </td>
                                                 <td class="text-center">
-                                                    @if ($listecollective?->collective?->date_depot)
-                                                        {{ $listecollective?->collective?->date_depot ? \Carbon\Carbon::parse($listecollective?->collective?->date_depot)->format('d/m/Y') : 'Aucun' }}
-                                                    @else
-                                                        Aucun
-                                                    @endif
+                                                    {{ optional($listecollective->collective)->date_depot ? \Carbon\Carbon::parse($listecollective->collective->date_depot)->format('d/m/Y') : 'Aucun' }}
                                                 </td>
-                                                <td>
-                                                    <span class="{{ $listecollective?->statut }}">
-                                                        {{ $listecollective?->statut }}
-                                                    </span>
+                                                <td class="text-center"><span
+                                                        class="{{ $listecollective->statut }}">{{ $listecollective->statut }}</span>
                                                 </td>
-                                                <td>
-                                                    <span class="d-flex align-items-baseline"><a
-                                                            href="{{ route('listecollectives.show', $listecollective?->id) }}"
-                                                            class="btn btn-primary btn-sm" title="voir détails"><i
-                                                                class="bi bi-eye"></i></a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                {{-- @can('listecollective-update') --}}
-                                                                <li><a class="dropdown-item btn btn-sm"
-                                                                        href="{{ route('listecollectives.edit', $listecollective?->id) }}"
-                                                                        class="mx-1" title="Modifier"><i
-                                                                            class="bi bi-pencil"></i>Modifier</a>
-                                                                </li>
-                                                                {{-- @endcan
-                                                                @can('listecollective-delete') --}}
-                                                                <li>
-                                                                    <form
-                                                                        action="{{ route('listecollectives.destroy', $listecollective?->id) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit"
-                                                                            class="dropdown-item show_confirm"
-                                                                            title="Supprimer"><i
-                                                                                class="bi bi-trash"></i>Supprimer</button>
-                                                                    </form>
-                                                                </li>
-                                                                {{-- @endcan --}}
-                                                            </ul>
-                                                        </div>
-                                                    </span>
+                                                <td class="text-center">
+                                                    <a href="{{ route('listecollectives.show', $listecollective->id) }}"
+                                                        class="btn btn-primary btn-sm" title="voir détails"><i
+                                                            class="bi bi-eye"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -141,10 +82,8 @@
                             @else
                                 <div class="alert alert-info">Aucune demande collective reçue pour l'instant !</div>
                             @endif
-
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="modal fade" id="searchCollective" tabindex="-1" role="dialog" aria-labelledby="searchCollectiveLabel"
