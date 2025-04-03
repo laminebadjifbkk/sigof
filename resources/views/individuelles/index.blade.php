@@ -429,7 +429,7 @@
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="datetime-local" name="date_depot" value="{{ old('date_depot') }}"
                                                 class="datepicker form-control form-control-sm @error('date_depot') is-invalid @enderror"
-                                                id="date_depot" placeholder="jj/mm/aaaa">
+                                                id="date_depot" placeholder="yyyy-mm-dd HH:MM">
                                             @error('date_depot')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
@@ -797,9 +797,9 @@
                                                     <label for="cin" class="form-label">N° CIN</label>
                                                     <input name="cin" type="text"
                                                         class="form-control form-control-sm @error('cin') is-invalid @enderror"
-                                                        id="cin2" value="{{ old('cin') }}"
-                                                        autocomplete="off" placeholder="Ex: 1 099 2005 00012"
-                                                        minlength="16" maxlength="17" required>
+                                                        id="cin2" value="{{ old('cin') }}" autocomplete="off"
+                                                        placeholder="Ex: 1 099 2005 00012" minlength="16" maxlength="17"
+                                                        required>
                                                     @error('cin')
                                                         <span class="invalid-feedback" role="alert">
                                                             <div>{{ $message }}</div>
@@ -816,8 +816,8 @@
                                                     <label for="telephone" class="form-label">Téléphone</label>
                                                     <input name="telephone" type="text" maxlength="12"
                                                         class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                                        id="telephone_responsable" value="{{ old('telephone') }}" autocomplete="tel"
-                                                        placeholder="XX:XXX:XX:XX">
+                                                        id="telephone_responsable" value="{{ old('telephone') }}"
+                                                        autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                                     @error('telephone')
                                                         <span class="invalid-feedback" role="alert">
                                                             <div>{{ $message }}</div>
