@@ -786,7 +786,7 @@
                                                     <label for="update_password_current_password"
                                                         class="col-md-4 col-lg-4 col-form-label label">Mot de
                                                         passe actuel<span class="text-danger mx-1">*</span></label>
-                                                    <div class="col-md-4 col-lg-8">
+                                                    <div class="col-md-8 col-lg-8">
                                                         <input name="current_password" type="password"
                                                             class="form-control form-control-sm @error('current_password') is-invalid @enderror"
                                                             id="update_password_current_password"

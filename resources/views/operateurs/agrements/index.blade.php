@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - traitement dossiers agrément operateurs')
+@section('title', 'ONFP | TRAITEMENT DOSSIERS AGREMENTS')
 @section('space-work')
 
     <div class="pagetitle">
