@@ -41,10 +41,14 @@
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Prenom et NOM</th>
+                                        <th>Prenom</th>
+                                        <th>NOM</th>
+                                        <th>Date naissance</th>
+                                        <th>Lieu naissance</th>
+                                        <th>Adresse</th>
                                         <th>E-mail</th>
                                         <th>Téléphone</th>
-                                        <th class="text-center">Demandes</th>
+                                        {{-- <th class="text-center">Demandes</th> --}}
                                         {{-- <th width="5%">#</th> --}}
                                     </tr>
                                 </thead>
@@ -60,13 +64,17 @@
                                                             height="auto">
                                                     </a>
                                                 </th>
-                                                <td>{{ $user->firstname . ' ' . $user->name }}</td>
+                                                <td>{{ $user->firstname }}</td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user?->date_naissance?->format('d/m/Y') }}</td>
+                                                <td>{{ $user?->lieu_naissance }}</td>
+                                                <td>{{ $user?->adresse }}</td>
                                                 <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                                 <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a>
                                                 </td>
-                                                <td style="text-align: center;">
+                                                {{-- <td style="text-align: center;">
                                                     {{ optional($user->individuelles)->count() ?? 0 }}
-                                                </td>
+                                                </td> --}}
                                                 {{-- <td>
                                                     <span class="d-flex mt-2 align-items-baseline">
                                                         <a href="{{ route('demandeurs.show', $user->id) }}"
