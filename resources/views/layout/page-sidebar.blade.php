@@ -566,16 +566,6 @@
             </li>
         @endcan
 
-
-        @can('manuel-view')
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('manuels.index') }}">
-                    <i class="bi bi-book"></i>
-                    <span>Nos manuels</span>
-                </a>
-            </li>
-        @endcan
-
         @can('antenne-view')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ url('antennes') }}">
@@ -718,6 +708,15 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('referentiels.index') }}">
                     <i class="bi bi-journals"></i> <span>Référentiels formations</span>
+                </a>
+            </li>
+        @endcan
+
+        @can('manuel-view')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('manuels.index') }}">
+                    <i class="bi bi-book"></i>
+                    <span>Nos manuels</span>
                 </a>
             </li>
         @endcan
