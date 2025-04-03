@@ -44,7 +44,7 @@
                                 <table class="table datatables align-middle" id="table-listecollectives">
                                     <thead>
                                         <tr>
-                                            @foreach (['N°', 'N° CIN (NIN)', 'Prénom & NOM', 'Date nais.', 'Lieu nais.', 'Module', 'Structure', 'Dépôt', 'Statut', '#'] as $th)
+                                            @foreach (['N°', 'N° CIN (NIN)', 'Prénom & NOM', 'Date nais.', 'Lieu nais.', 'Module', '#'] as $th)
                                                 <th class="text-center">{{ $th }}</th>
                                             @endforeach
                                         </tr>
@@ -58,7 +58,7 @@
                                                 <td>{{ optional($listecollective->date_naissance)->format('d/m/Y') }}</td>
                                                 <td>{{ $listecollective->lieu_naissance }}</td>
                                                 <td>{{ optional($listecollective->collectivemodule)->module }}</td>
-                                                <td class="text-center">
+                                                {{-- <td class="text-center">
                                                     <a href="{{ route('collectives.show', optional($listecollective->collective)->id) }}"
                                                         target="_blank">
                                                         {{ optional($listecollective->collective)->sigle }}
@@ -69,7 +69,7 @@
                                                 </td>
                                                 <td class="text-center"><span
                                                         class="{{ $listecollective->statut }}">{{ $listecollective->statut }}</span>
-                                                </td>
+                                                </td> --}}
                                                 <td class="text-center">
                                                     <a href="{{ route('listecollectives.show', $listecollective->id) }}"
                                                         class="btn btn-primary btn-sm" title="voir détails"><i
@@ -86,7 +86,7 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="modal fade" id="searchCollective" tabindex="-1" role="dialog" aria-labelledby="searchCollectiveLabel"
+            <div class="modal fade" id="searchCollective" tabindex="-1" role="dialog" aria-labelledby="searchCollectiveLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -181,7 +181,7 @@
                         </form>
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </section>
     @endcan
 @endsection
