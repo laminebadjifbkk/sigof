@@ -55,7 +55,7 @@
                                     </div> --}}
                                 </span>
                             </div>
-                            @if ($listecollectives->isNotEmpty())
+                            @if ($listecollectives?->isNotEmpty())
                                 <table class="table datatables align-middle" id="table-listecollectives">
                                     <thead>
                                         <tr>
