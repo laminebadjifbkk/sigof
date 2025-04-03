@@ -69,23 +69,36 @@
                                                                     href="{!! route('arrives.show', $arrive?->id) !!}">{!! $arrive?->courrier?->objet ?? '' !!}</a>
                                                             </p>
                                                             <p><b>Expéditeur</b> : {{ $arrive?->courrier?->expediteur }}</p>
-                                                            @if (isset($arrive->courrier->file))
-                                                                <label for="reference" class="form-label">Scan courrier :
-                                                                </label>
-                                                                <a class="btn btn-outline-secondary btn-sm"
+                                                            {{-- @if (isset($arrive->courrier->file)) --}}
+                                                            <label for="reference" class="form-label"><b>Scan courrier</b> :
+                                                            </label>
+                                                            {{-- <a class="btn btn-outline-secondary btn-sm"
                                                                     title="télécharger le fichier joint" target="_blank"
                                                                     href="{{ asset($arrive->courrier->getFile()) }}">
                                                                     <i class="bi bi-download"></i>
+                                                                </a> --}}
+                                                            @if (isset($arrive?->courrier?->file))
+                                                                <a href="{{ asset($arrive?->courrier?->getFile()) }}"
+                                                                    target="_blank" class="btn btn-info btn-sm">
+                                                                    <i class="bi bi-download"></i> Télécharger le scan
                                                                 </a>
+                                                            @else
+                                                                <div class="alert alert-info mt-2">Aucun fichier disponible
+                                                                    pour ce
+                                                                    courrier.</div>
                                                             @endif
+                                                            {{-- @endif --}}
                                                             {{-- @endif --}}
                                                             <p>{!! $arrive?->courrier?->message !!}</p>
                                                             {{-- <p><strong>Type de courrier : </strong> {!! $arrive?->courrier?->type ?? '' !!}</p> --}}
                                                             <div class="d-flex justify-content-between align-items-center">
-                                                                {{-- format('d/m/Y à H:i:s') --}}
-                                                                <small><b>Date imputation</b> :
-                                                                    {{-- {!! Carbon\Carbon::parse($arrive?->courrier?->date_imp)?->translatedFormat('l jS F Y') !!} --}}
-                                                                    {!! ($arrive?->courrier?->date_imp)?->diffForHumans(null, false) !!}
+                                                                {{-- format('d/m/Y à H:i:s') --}}<small><b>Date imputation</b> :
+                                                                    {!! optional($arrive?->courrier?->date_imp)->format('d/m/Y')
+                                                                        ? optional($arrive?->courrier?->date_imp)->format('d/m/Y') .
+                                                                            ' (' .
+                                                                            optional($arrive?->courrier?->date_imp)->diffForHumans(null, false) .
+                                                                            ')'
+                                                                        : 'Date inconnue' !!}
                                                                 </small>
                                                                 <span
                                                                     class="badge badge-info">{!! $arrive?->courrier?->user?->firstname !!}&nbsp;{!! $arrive?->courrier?->user?->name !!}</span>
