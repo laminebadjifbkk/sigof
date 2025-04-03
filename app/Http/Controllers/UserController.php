@@ -8,6 +8,7 @@ use App\Models\Depart;
 use App\Models\Departement;
 use App\Models\Direction;
 use App\Models\Employee;
+use App\Models\File;
 use App\Models\Fonction;
 use App\Models\Formation;
 use App\Models\Individuelle;
@@ -1069,13 +1070,25 @@ class UserController extends Controller
 
     public function showDemandeur($id)
     {
-        $user          = User::findOrFail($id);
-        $departements  = Departement::orderBy("created_at", "desc")->get();
+        $user         = User::findOrFail($id);
+        $departements = Departement::orderBy("created_at", "desc")->get();
+
+// Récupérer les fichiers associés à l'utilisateur
+        $files = File::where('users_id', $user->id)
+            ->whereNotNull('file')
+            ->distinct()
+            ->get();
+
+        $user_files = File::where('users_id', $user?->id)
+            ->whereNull('file')
+            ->whereNotIn('sigle', ['AC', 'Arrêté', 'Ninea/RC'])
+            ->distinct()
+            ->get();
 
         if (! $user) {
             return abort(404, 'Utilisateur non trouvé');
         }
 
-        return view('individuelles.demandeurs-show', compact('user', 'departements'));
+        return view('individuelles.demandeurs-show', compact('user', 'departements', 'files', 'user_files'));
     }
 }
