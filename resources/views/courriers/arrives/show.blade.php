@@ -163,12 +163,8 @@
                                         <div class="col-lg-3 col-md-4 label">Scan courrier</div>
                                         <div class="col-lg-9 col-md-8">
                                             @if ($arrive?->employees && $arrive->employees->isNotEmpty())
-                                                <a class="btn btn-outline-secondary btn-sm"
-                                                    title="télécharger le fichier joint" target="_blank"
-                                                    href="{{ asset($arrive?->courrier?->getFile()) }}">
-                                                    <i class="bi bi-download"></i>
-                                                @else
-                                                    <div class="alert alert-info">Aucun fichier joint</div>
+                                                <p>Fichier actuel : <a href="{{ asset($arrive?->courrier?->getFile()) }}"
+                                                        target="_blank">Voir le fichier</a></p>
                                             @endif
                                         </div>
                                     </div>
