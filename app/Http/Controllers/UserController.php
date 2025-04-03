@@ -1049,7 +1049,7 @@ class UserController extends Controller
         /* $roles = Role::pluck('name', 'name')->all(); */
 
 // Récupération des 100 derniers utilisateurs
-        $user_liste          = User::latest()->get();
+        $user_liste          = User::orderBy("created_at", "desc")->get();
         $count_demandeur_raw = $user_liste->count();
         $count_demandeur     = number_format($count_demandeur_raw, 0, ',', ' ');
 

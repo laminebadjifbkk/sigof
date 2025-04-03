@@ -144,9 +144,6 @@
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
-            "order": [
-                [4, 'desc']
-            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
