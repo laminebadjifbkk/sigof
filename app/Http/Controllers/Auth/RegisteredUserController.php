@@ -102,9 +102,17 @@ class RegisteredUserController extends Controller
             Si vous ne trouvez pas l'e-mail, pensez à vérifier votre dossier spam."
         ); */
 
-        alert()->html('<i>Bienvenue </i> <a href="#">' . $user->username . '</a> !', "Votre inscription a été effectuée avec <b>succès</b>, <br>
+        /* alert()->html('<i>Bienvenue </i> <a href="#">' . $user->username . '</a> !', "Votre inscription a été effectuée avec <b>succès</b>, <br>
         Pour activer votre compte, veuillez vérifier votre <a href='#'>boîte e-mail</a> et suivre les instructions. <br>
-        Si vous ne trouvez pas l'e-mail, pensez à vérifier votre dossier spam.", 'success');
+        Si vous ne trouvez pas l'e-mail, pensez à vérifier votre dossier spam.", 'success'); */
+
+        alert()->html(
+            '<i>Succès !</i>',
+            "Votre inscription a été réalisée avec.<br>
+            Pour activer votre compte, consultez votre <a href='#'>boîte e-mail</a> et suivez les instructions.<br>
+            Si vous ne trouvez pas l'e-mail, vérifiez votre dossier <a href='#'>spam ou courriers indésirables</a>.",
+            'success'
+        );
 
         return redirect(RouteServiceProvider::LOGIN);
     }
