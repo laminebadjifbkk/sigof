@@ -46,10 +46,10 @@
                                 </li>
 
                                 {{-- @can('update', $arrive) --}}
-                                    <li class="nav-item">
-                                        <button class="nav-link" data-bs-toggle="tab"
-                                            data-bs-target="#modifier_courrier">Modifier</button>
-                                    </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#modifier_courrier">Modifier</button>
+                                </li>
                                 {{-- @endcan --}}
 
                                 @hasrole('super-admin|courrier|a-courrier')
@@ -144,15 +144,13 @@
                                     @endif
 
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-4 label ">Imputation</div>
+                                        <div class="col-lg-3 col-md-4 label">Imputation</div>
                                         <div class="col-lg-9 col-md-8">
-                                            <?php $i = 1; ?>
-                                            @foreach ($arrive?->employees as $employee)
-                                            @endforeach
-                                            @if (!empty($employee))
-                                                @foreach ($arrive?->employees as $employee)
-                                                    <br>{{ $i++ }}. {!! $employee?->user?->firstname . ' ' . $employee?->user?->name !!}
-                                                    <b>[{!! $employee?->direction?->sigle ?? '' !!}]</b>
+                                            @if ($arrive?->employees && $arrive->employees->isNotEmpty())
+                                                <?php $i = 1; ?>
+                                                @foreach ($arrive->employees as $employee)
+                                                    <br>{{ $i++ }}. {!! $employee->user->firstname . ' ' . $employee->user->name !!}
+                                                    <b>[{!! $employee->direction?->sigle ?? '' !!}]</b>
                                                 @endforeach
                                             @else
                                                 <div class="alert alert-info">Aucune imputation pour ce courrier</div>
@@ -160,7 +158,24 @@
                                         </div>
                                     </div>
 
-
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Scan courrier</div>
+                                        <div class="col-lg-9 col-md-8">
+                                            @if ($arrive?->employees && $arrive->employees->isNotEmpty())
+                                                <?php $i = 1; ?>
+                                                {{-- @foreach ($arrive->employees as $employee)
+                                                    <br>{{ $i++ }}. {!! $employee->user->firstname . ' ' . $employee->user->name !!}
+                                                    <b>[{!! $employee->direction?->sigle ?? '' !!}]</b>
+                                                @endforeach --}}
+                                                <a class="btn btn-outline-secondary btn-sm"
+                                                    title="télécharger le fichier joint" target="_blank"
+                                                    href="{{ asset($arrive?->courrier?->getFile()) }}">
+                                                    <i class="bi bi-download"></i>
+                                                @else
+                                                    <div class="alert alert-info">Aucun fichier joint</div>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="tab-pane fade pt-3" id="profile-settings">
