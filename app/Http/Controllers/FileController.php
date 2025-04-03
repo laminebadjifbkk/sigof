@@ -33,7 +33,7 @@ class FileController extends Controller
             ->where('users_id', $id)
             ->firstOrFail();
 
-        // Check if the file is valid
+        /*    // Check if the file is valid
         if ($request->file('file')->isValid()) {
             // Store the file in the 'uploads' directory on the 'public' disk
             $filePath = $request->file('file')->store('uploads', 'public');
@@ -50,9 +50,38 @@ class FileController extends Controller
             Alert::success('réussi !', 'Fichier téléchargé avec succès');
 
             return redirect()->back();
+        } */
+
+        if ($request->hasFile('file')) {
+            // Supprimer l'ancien fichier s'il existe
+            if (! empty($file->file)) {
+                Storage::disk('public')->delete($file->file);
+            }
+
+            // Récupérer le fichier uploadé
+            $uploadedFile = $request->file('file');
+
+                                                                                        // Nettoyage et génération du nom de fichier
+            $legende  = preg_replace("/[^A-Za-z0-9]/", '', $request->input('legende')); // Nettoyage de la légende
+            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = trim($legende) . '-' . $filename; // Ajout de la légende
+            $filename = time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
+
+            // Stocker le fichier
+            $filePath = $uploadedFile->storeAs('uploads', $filename, 'public');
+
+            // Mettre à jour le modèle en base de données
+            $file->update(['file' => $filePath]);
+
+            // Message de succès
+            Alert::success('Succès !', 'Fichier téléchargé avec succès');
+
+            return redirect()->back();
         }
+
         // Return error response
         Alert::warning('erreur !', 'Échec du téléchargement du fichier');
+
         return redirect()->back();
     }
 
