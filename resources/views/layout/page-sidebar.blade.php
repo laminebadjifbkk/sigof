@@ -150,6 +150,14 @@
                 </a>
                 <ul id="demande--ind-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
+                    @can('user-view')
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('users.demandeurs') }}">
+                                <span>Demandeurs</span>
+                            </a>
+                        </li>
+                    @endcan
+
                     @can('individuelle-view')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ url('individuelles') }}">
@@ -162,14 +170,6 @@
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ url('collectives') }}">
                                 <span>Collectives</span>
-                            </a>
-                        </li>
-                    @endcan
-
-                    @can('user-view')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ route('users.demandeurs') }}">
-                                <span>Demandeurs</span>
                             </a>
                         </li>
                     @endcan
