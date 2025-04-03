@@ -200,11 +200,12 @@
                                 </div>
 
                                 <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                    <label for="legende" class="form-label">Légende</label>
+                                    <label for="legende" class="form-label">Légende<span
+                                            class="text-danger mx-1">*</span></label>
                                     <input type="text" name="legende"
                                         value="{{ $arrive?->courrier?->legende ?? old('legende') }}"
                                         class="form-control form-control-sm @error('legende') is-invalid @enderror"
-                                        id="legende" placeholder="Le nom du fichier scanné">
+                                        id="legende" placeholder="Donnez un nom au fichier">
                                     @error('legende')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>

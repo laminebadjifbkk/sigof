@@ -32,40 +32,6 @@ class ArriveController extends Controller
 
     public function index()
     {
-        /*  $anneeEnCours = date('Y');
-        $an           = date('y');
-
-        $numCourrier = Arrive::join('courriers', 'courriers.id', 'arrives.courriers_id')
-            ->select('arrives.*')
-            ->where('courriers.annee', $anneeEnCours)
-            ->get()->last();
-
-        if (isset($numCourrier)) {
-            $numCourrier = Arrive::join('courriers', 'courriers.id', 'arrives.courriers_id')
-                ->select('arrives.*')
-                ->get()->last()->numero_arrive;
-
-            $numCourrier = ++$numCourrier;
-        } else {
-            $numCourrier = $an . "0001";
-
-            $longueur = strlen($numCourrier);
-
-            if ($longueur <= 1) {
-                $numCourrier = strtolower("00000" . $numCourrier);
-            } elseif ($longueur >= 2 && $longueur < 3) {
-                $numCourrier = strtolower("0000" . $numCourrier);
-            } elseif ($longueur >= 3 && $longueur < 4) {
-                $numCourrier = strtolower("000" . $numCourrier);
-            } elseif ($longueur >= 4 && $longueur < 5) {
-                $numCourrier = strtolower("00" . $numCourrier);
-            } elseif ($longueur >= 5 && $longueur < 6) {
-                $numCourrier = strtolower("0" . $numCourrier);
-            } else {
-                $numCourrier = strtolower($numCourrier);
-            }
-        } */
-
         $anneeEnCours = date('Y');
         $an           = date('y');
 
@@ -86,41 +52,6 @@ class ArriveController extends Controller
 
 // Mise en forme du numéro de courrier en ajoutant des zéros au début
         $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT);
-
-        /* $total_count = Arrive::where('type', null)->get();
-        $total_count = number_format($total_count->count(), 0, ',', ' ');
-
-        $arrives = Arrive::where('type', null)->take(100)
-            ->latest()
-            ->get();
-
-        $count_courrier = number_format($arrives?->count(), 0, ',', ' ');
-
-        $count_arrives = Arrive::where('type', 'operateur')->count();
-
-        if ($count_courrier < "1") {
-            $title = 'Aucun courrier';
-        } elseif ($count_courrier == "1") {
-            $title = $count_courrier . ' courrier sur un total de ' . $total_count;
-        } else {
-            $title = $count_courrier . ' derniers courriers sur un total de ' . $total_count;
-        }
-
-        $today = date('Y-m-d');
-
-        $count_today = Arrive::where('type', null)->where("created_at", "LIKE", "{$today}%")->count();
-
-        return view(
-            "courriers.arrives.index",
-            compact(
-                "arrives",
-                "count_today",
-                "anneeEnCours",
-                "numCourrier",
-                "count_arrives",
-                "title"
-            )
-        ); */
 
         // Récupérer le total des arrivées sans type et les derniers 100 courriers en une seule requête
         $totalCount  = Arrive::where('type', null);
@@ -157,39 +88,6 @@ class ArriveController extends Controller
 
     public function create()
     {
-        /* $anneeEnCours = date('Y');
-        $an           = date('y');
-
-        $numCourrier = Arrive::join('courriers', 'courriers.id', 'arrives.courriers_id')
-            ->select('arrives.*')
-            ->where('courriers.annee', $anneeEnCours)
-            ->get()->last();
-
-        if (isset($numCourrier)) {
-            $numCourrier = Arrive::join('courriers', 'courriers.id', 'arrives.courriers_id')
-                ->select('arrives.*')
-                ->get()->last()->numero_arrive;
-
-            $numCourrier = ++$numCourrier;
-        } else {
-            $numCourrier = $an . "0001";
-            $longueur    = strlen($numCourrier);
-
-            if ($longueur <= 1) {
-                $numCourrier = strtolower("00000" . $numCourrier);
-            } elseif ($longueur >= 2 && $longueur < 3) {
-                $numCourrier = strtolower("0000" . $numCourrier);
-            } elseif ($longueur >= 3 && $longueur < 4) {
-                $numCourrier = strtolower("000" . $numCourrier);
-            } elseif ($longueur >= 4 && $longueur < 5) {
-                $numCourrier = strtolower("00" . $numCourrier);
-            } elseif ($longueur >= 5 && $longueur < 6) {
-                $numCourrier = strtolower("0" . $numCourrier);
-            } else {
-                $numCourrier = strtolower($numCourrier);
-            }
-        } */
-
         $anneeEnCours = date('Y');
         $an           = date('y');
 
@@ -557,7 +455,7 @@ class ArriveController extends Controller
             "numero_courrier"     => ["nullable", "string", "min:4", "max:25", "unique:courriers,numero_courrier,{$arrive->courrier->id}"],
             "numero_arrive"       => ["required", "string", "min:4", "max:25", "unique:arrives,numero_arrive,{$arrive->id}"],
             "numero_reponse"      => ["string", "min:6", "max:9", "nullable", "unique:courriers,numero_reponse,{$courrier->id}"],
-            "file"                => ['sometimes', 'file', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:2048'],
+            "file"                => ['sometimes', 'file', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:4096'],
             "annee"               => ["required", "string"],
             "expediteur"          => ["required", "string"],
             "objet"               => ["required", "string"],

@@ -486,7 +486,9 @@ class OperateurController extends Controller
 
         // Gestion des fichiers
         if ($request->hasFile('quitus')) {
-            Storage::disk('public')->delete($operateur->quitus);
+            if (! is_null($operateur->quitus)) {
+                Storage::disk('public')->delete($operateur->quitus);
+            }
             $quitusPath = $request->file('quitus')->store('quitus', 'public');
             $operateur->update(['quitus' => $quitusPath]);
         }
