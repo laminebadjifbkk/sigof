@@ -39,7 +39,7 @@
                             </span>
                             @if (!empty(Auth::user()->cin))
                                 <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
-                                    data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal">
+                                    data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal{{ Auth::user()?->id }}">
                                     {{-- <i class="bi bi-plus" title="Ajouter"></i> --}} Ajouter
                                 </button>
                             @endif
@@ -349,7 +349,7 @@
         </div>
         <div
             class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
-            <div class="modal fade" id="AddIndividuelleModal" tabindex="-1">
+            <div class="modal fade" id="AddIndividuelleModal{{ Auth::user()?->id }}" tabindex="-1">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <form method="post" action="{{ route('individuelles.store') }}" enctype="multipart/form-data">
