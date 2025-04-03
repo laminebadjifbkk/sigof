@@ -73,7 +73,7 @@ class IndividuelleController extends Controller
             'qualification'          => ['nullable', 'string', 'max:200'],
         ]);
 
-        $user = Auth::user();
+        $user = User::findOrFail($request->iduser);
 
         $individuelle_total = Individuelle::where('users_id', $user->id)
             ->where('projets_id', null)
@@ -168,6 +168,7 @@ class IndividuelleController extends Controller
         Alert::success("Succès !", "L'enregistrement a été effectué avec succès.");
 
         return Redirect::back();
+        
     }
     public function individuellesStore(Request $request)
     {

@@ -42,7 +42,7 @@
                             </button>
                             @if ($individuelle_total < 3 && !empty(Auth::user()?->cin))
                                 <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
-                                    data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal">
+                                    data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal{{ Auth::user()?->id }}">
                                     Ajouter
                                 </button>
                             @endif
@@ -240,7 +240,7 @@
         @foreach (Auth::user()?->individuelles as $individuelle)
             <div
                 class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
-                <div class="modal fade" id="AddIndividuelleModal" tabindex="-1">
+                <div class="modal fade" id="AddIndividuelleModal{{ Auth::user()?->id }}" tabindex="-1">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
                             <form method="post" action="{{ route('individuelles.store') }}"
@@ -258,6 +258,7 @@
                                 </div> --}}
                                 <div class="modal-body">
                                     <div class="row g-3">
+                                        <input type="hidden" name="iduser" value="{{ $individuelle->users_id }}">
                                         <div class="col-12 col-md-12 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
                                             <label for="module" class="form-label">Formation sollicitée (module)<span
                                                     class="text-danger mx-1">*</span></label>

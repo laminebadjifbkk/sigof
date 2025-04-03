@@ -1069,12 +1069,13 @@ class UserController extends Controller
 
     public function showDemandeur($id)
     {
-        $user = User::findOrFail($id);
+        $user          = User::findOrFail($id);
+        $departements  = Departement::orderBy("created_at", "desc")->get();
 
         if (! $user) {
             return abort(404, 'Utilisateur non trouvé');
         }
 
-        return view('individuelles.demandeurs-show', compact('user'));
+        return view('individuelles.demandeurs-show', compact('user', 'departements'));
     }
 }
