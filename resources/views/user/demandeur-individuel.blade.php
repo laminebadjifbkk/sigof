@@ -10,7 +10,7 @@
             </ol>
         </nav>
     </div>
-    <section class="section dashboard">
+    {{-- <section class="section dashboard">
         <div class="row">
             <!-- Left side columns -->
             <div class="col-lg-12">
@@ -42,8 +42,6 @@
                                             <h6>
                                                 <span class="text-primary">{{ $totalCollectif ?? '0' }}</span>
                                             </h6>
-                                            {{-- <span class="text-success small pt-1 fw-bold">Toutes</span> --}}
-                                            {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -54,7 +52,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <section class="section">
         <div class="row">
