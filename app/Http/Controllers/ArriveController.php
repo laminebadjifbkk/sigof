@@ -465,13 +465,13 @@ class ArriveController extends Controller
 
         $date_reponse = $request->input('date_reponse') ?: null;
 
-        if (request('file') || isset($courrier->file)) {
+        if ($request->hasFile('file')) {
             $this->validate($request, [
                 "legende" => ["required", "string"],
             ]);
 
             // Si un fichier existe déjà, le supprimer
-            if (! empty($courrier->file)) {
+            if (! is_null($courrier->file)) {
                 Storage::disk('public')->delete($courrier->file);
             }
 
@@ -480,8 +480,10 @@ class ArriveController extends Controller
             $filenameWithExt = $file->getClientOriginalName();
             $filename        = preg_replace("/[^A-Za-z0-9 ]/", '', pathinfo($filenameWithExt, PATHINFO_FILENAME));
             $filename        = preg_replace("/\s+/", '-', $filename);
-            $extension       = $file->getClientOriginalExtension();
-            $filePath        = $file->storeAs('courriers', $filename . time() . '.' . $extension, 'public');
+            /* $extension       = $file->getClientOriginalExtension();   */
+            $filename = time() . '_' . $file->getClientOriginalName();
+            /* $filePath        = $file->storeAs('courriers', $filename . time() . '.' . $extension, 'public'); */
+            $filePath = $file->storeAs('courriers', $filename, 'public');
         }
 
         $data = [
