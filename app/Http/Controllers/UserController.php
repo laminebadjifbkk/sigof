@@ -1068,6 +1068,34 @@ class UserController extends Controller
 
     }
 
+    public function individuelleCollective()
+    {
+        // Nombre total d'utilisateurs (sans charger toute la table)
+        $count_raw   = User::count();
+        $total_count = number_format($count_raw, 0, ',', ' ');
+
+// Récupération de la liste des rôles sous forme de tableau clé-valeur
+        /* $roles = Role::pluck('name', 'name')->all(); */
+
+// Récupération des 100 derniers utilisateurs
+        $user_liste          = User::orderBy("created_at", "desc")->get();
+        $count_demandeur_raw = $user_liste->count();
+        $count_demandeur     = number_format($count_demandeur_raw, 0, ',', ' ');
+
+// Définition du titre avec des comparaisons correctes
+        /* if ($count_demandeur_raw < 1) {
+            $title = 'Aucun demandeur';
+        } elseif ($count_demandeur_raw == 1) {
+            $title = '1 utilisateur sur un total de ' . $total_count;
+        } else {
+            $title = 'Liste des ' . $count_demandeur . ' derniers utilisateurs sur un total de ' . $total_count;
+        } */
+
+// Retour de la vue avec les données optimisées
+        return view("user.individuelle-collective", compact("user_liste"));
+
+    }
+
     public function showDemandeur($id)
     {
         $user         = User::findOrFail($id);
