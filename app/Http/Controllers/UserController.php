@@ -1081,7 +1081,7 @@ class UserController extends Controller
 
         $user_files = File::where('users_id', $user?->id)
             ->whereNull('file')
-            ->whereNotIn('sigle', ['AC', 'Arrêté', 'Ninea/RC'])
+            /* ->whereNotIn('sigle', ['AC', 'Arrêté', 'Ninea/RC']) */
             ->distinct()
             ->get();
 
