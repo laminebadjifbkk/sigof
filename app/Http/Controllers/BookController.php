@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -37,7 +36,8 @@ class BookController extends Controller
 
         $file     = $request->file('file');
         $filename = time() . '_' . $file->getClientOriginalName();
-        $file->storeAs('manuels', $filename); // Stocke dans storage/app/manuels/
+
+        $file->storeAs('manuels', $filename, 'public'); // Stocke dans storage/app/manuels/
 
         Book::create([
             'title'       => $request->title,
@@ -101,12 +101,15 @@ class BookController extends Controller
 
     public function show($filename)
     {
-        if (! $this->fileExists($filename)) {
+
+        /* dd($filename); */
+
+        /*  if (! $this->fileExists($filename)) {
             abort(404, "Fichier introuvable.");
         }
 
-        Log::info("Lecture du livre: {$filename}");
-                                                        // Récupérer les informations du livre à partir de la base de données
+        Log::info("Lecture du livre: {$filename}"); */
+                                                                     // Récupérer les informations du livre à partir de la base de données
         $manuel = Book::where('filename', $filename)->firstOrFail(); // Recherche du livre par son nom de fichier
 
         $path = storage_path("app/manuels/{$filename}");

@@ -45,12 +45,12 @@
                                         data-bs-target="#profile-overview">Courrier</button>
                                 </li>
 
-                                @can('update', $arrive)
+                                {{-- @can('update', $arrive) --}}
                                     <li class="nav-item">
                                         <button class="nav-link" data-bs-toggle="tab"
                                             data-bs-target="#modifier_courrier">Modifier</button>
                                     </li>
-                                @endcan
+                                {{-- @endcan --}}
 
                                 @hasrole('super-admin|courrier|a-courrier')
                                     <li class="nav-item">
