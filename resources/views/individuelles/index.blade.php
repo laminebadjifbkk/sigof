@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | DEMANDES INDIVIDUELLES')
+@section('title', 'ONFP | DEMANDEURS INDIVIDUELS')
 @section('space-work')
     @can('individuelle-view')
         <div class="pagetitle">
@@ -51,7 +51,7 @@
                                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                         <li>
                                                             <button type="button" class="dropdown-item btn btn-sm"
-                                                                data-bs-toggle="modal" data-bs-target="#generate_rapport"></i>Rechercher
+                                                                data-bs-toggle="modal" data-bs-target="#generate_rapport">Rechercher
                                                                 plus</button>
                                                         </li>
                                                     </ul>
@@ -798,8 +798,7 @@
                                                     <input name="cin" type="text"
                                                         class="form-control form-control-sm @error('cin') is-invalid @enderror"
                                                         id="cin2" value="{{ old('cin') }}" autocomplete="off"
-                                                        placeholder="Ex: 1 099 2005 00012" minlength="16" maxlength="17"
-                                                        required>
+                                                        placeholder="Ex: 1 099 2005 00012" minlength="16" maxlength="17">
                                                     @error('cin')
                                                         <span class="invalid-feedback" role="alert">
                                                             <div>{{ $message }}</div>

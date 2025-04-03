@@ -106,7 +106,7 @@
                                         data-bs-toggle="modal" data-bs-target="#AddCollectiveModal">Ajouter</button>
                                 </div>
                             @endcan
-                            <h5 class="card-title">Liste demandes collectives</h5>
+                            <h5 class="card-title">Liste des demandeurs collectifs</h5>
                             {{-- 
                             @foreach ($collectives as $collective)
                             @endforeach

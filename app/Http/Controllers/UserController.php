@@ -1040,7 +1040,7 @@ class UserController extends Controller
         return view('user.online', compact('users'));
     }
 
-    public function demandeurs()
+    public function demandeursIndividuel()
     {
         // Nombre total d'utilisateurs (sans charger toute la table)
         $count_raw   = User::count();
@@ -1064,7 +1064,7 @@ class UserController extends Controller
         } */
 
 // Retour de la vue avec les données optimisées
-        return view("user.demandeur", compact("user_liste"));
+        return view("user.demandeur-individuel", compact("user_liste"));
 
     }
 

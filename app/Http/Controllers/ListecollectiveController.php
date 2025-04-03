@@ -17,6 +17,30 @@ class ListecollectiveController extends Controller
         $this->middleware('auth');
         $this->middleware(['role:super-admin|admin|Demandeur|DIOF']);
     }
+
+    public function index()
+    {
+        // Récupération des 200 dernières demandes
+        $listecollectives = Listecollective::latest()->limit(250)->get();
+        // Comptage total des individus (sans charger toutes les entrées en mémoire)
+        $count_raw   = Listecollective::count();
+        $total_count = number_format($count_raw, 0, ',', ' ');
+
+        $count_demandeur_raw = $listecollectives->count();
+        $count_demandeur     = number_format($count_demandeur_raw, 0, ',', ' ');
+
+        // Définition du titre avec des comparaisons correctes
+        if ($count_demandeur_raw < 1) {
+            $title = 'Aucune demande collective';
+        } elseif ($count_demandeur_raw == 1) {
+            $title = '1 demande collective sur un total de ' . $total_count;
+        } else {
+            $title = 'Liste des ' . $count_demandeur . ' dernières demandes collectives sur un total de ' . $total_count;
+        }
+
+        return view('listecollectives.index', compact('listecollectives', 'title'));
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -156,4 +180,57 @@ class ListecollectiveController extends Controller
         Alert::success('Bravo !', 'La demande a été validée.');
         return redirect()->back();
     }
+
+    public function generateReport(Request $request)
+    {
+        // Validation des champs
+        $this->validate($request, [
+            'cin'       => 'nullable|string',
+            'name'      => 'nullable|string',
+            'firstname' => 'nullable|string',
+            'telephone' => 'nullable|string',
+        ]);
+
+        if (! collect($request->only(['cin', 'name', 'firstname', 'telephone']))->filter()->isNotEmpty()) {
+            Alert::warning('Attention', 'Veuillez renseigner au moins un champ pour effectuer une recherche.');
+            return redirect()->back();
+        }
+
+        // Construction de la requête
+        $query = Listecollective::join('collectives', 'collectives.id', '=', 'listecollectives.collectives_id')
+            ->select('listecollectives.*'); // Sélectionner les colonnes nécessaires
+
+        if ($request->filled('firstname')) {
+            $query->where('listecollectives.prenom', 'LIKE', "%{$request->firstname}%");
+        }
+
+        if ($request->filled('name')) {
+            $query->where('listecollectives.nom', 'LIKE', "%{$request->name}%");
+        }
+
+        if ($request->filled('cin')) {
+            $query->where('listecollectives.cin', 'LIKE', "%{$request->cin}%");
+        }
+
+        if ($request->filled('telephone')) {
+            $query->where('listecollectives.telephone', 'LIKE', "%{$request->telephone}%");
+        }
+
+        // Exécution de la requête
+        $listecollectives = $query->get();
+        $count            = $listecollectives->count();
+
+        // Génération du titre
+        if ($count === 0) {
+            $title = 'Aucune demande trouvée';
+        } elseif ($count === 1) {
+            $title = '1 demande trouvée';
+        } else {
+            $title = "{$count} demandes trouvées";
+        }
+
+        // Retourner la vue
+        return view('listecollectives.index', compact('listecollectives', 'title'));
+    }
+
 }

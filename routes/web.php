@@ -385,6 +385,8 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('individuelles/index', [IndividuelleController::class, 'index'])->name('individuelles.report');
         Route::post('individuelles/index', [IndividuelleController::class, 'generateReport']);
+        Route::get('listecollectives/index', [ListecollectiveController::class, 'index'])->name('listecollectives.report');
+        Route::post('listecollectives/index', [ListecollectiveController::class, 'generateReport']);
 
         Route::get('users/index', [UserController::class, 'index'])->name('users.report');
         Route::post('users/index', [UserController::class, 'generateReport']);
@@ -485,7 +487,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/users/corbeille', [UserController::class, 'corbeille'])->name('users.corbeille');
         Route::get('/users/restored', [UserController::class, 'restored'])->name('users.restored');
         Route::get('/users/online', [UserController::class, 'showOnlineUsers'])->name('users.online');
-        Route::get('/users/demandeurs', [UserController::class, 'demandeurs'])->name('users.demandeurs');
+        Route::get('/users/demandeurs', [UserController::class, 'demandeursIndividuel'])->name('demandeurs.individuel');
         Route::get('/users/individuelle_collective', [UserController::class, 'individuelleCollective'])->name('users.individuelle_collective');
         Route::get('/demandeurs/{id}', [UserController::class, 'showDemandeur'])->name('demandeurs.show');
 

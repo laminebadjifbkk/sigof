@@ -36,7 +36,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mt-0">
-                            <span class="d-flex align-items-baseline"><a href="{{ route('users.demandeurs') }}"
+                            <span class="d-flex align-items-baseline"><a href="{{ route('demandeurs.individuel') }}"
                                     class="btn btn-success btn-sm" title="retour"><i
                                         class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                 <p> | retour</p>
