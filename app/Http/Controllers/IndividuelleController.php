@@ -321,7 +321,7 @@ class IndividuelleController extends Controller
     {
         $this->validate($request, [
             'civilite'                  => ['required', 'string'],
-            'date_depot'                => ['required', 'date', 'size:16', 'date_format:Y-m-d'],
+            'date_depot'                => ['required', 'date', 'size:16', 'date_format:Y-m-d H:i:s'],
             'cin'                       => [
                 'required',
                 'string',
