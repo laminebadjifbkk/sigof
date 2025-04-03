@@ -48,7 +48,7 @@
                                 <span>{{ $role->name }} |</span>
                             @endforeach
                         </h3> --}}
-                            
+
                             <div class="social-links mt-2">
                                 @foreach (['twitter' => 'twitter', 'facebook' => 'facebook', 'instagram' => 'instagram', 'linkedin' => 'linkedin'] as $platform => $icon)
                                     @if (!empty(Auth::user()?->$platform))
@@ -183,10 +183,12 @@
                                         data-bs-target="#profile-change-password">Mot de passe</button>
                                 </li>
 
-                                <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
-                                        data-bs-target="#files">Fichiers</button>
-                                </li>
+                                @role('Demandeur')
+                                    <li class="nav-item">
+                                        <button class="nav-link" data-bs-toggle="tab"
+                                            data-bs-target="#files">Fichiers</button>
+                                    </li>
+                                @endrole
 
                                 {{-- <li class="nav-item">
                                     <button class="nav-link">
