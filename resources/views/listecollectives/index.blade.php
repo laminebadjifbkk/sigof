@@ -86,7 +86,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="searchCollective" tabindex="-1" role="dialog" aria-labelledby="searchCollectiveLabel"
+            {{-- <div class="modal fade" id="searchCollective" tabindex="-1" role="dialog" aria-labelledby="searchCollectiveLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -181,7 +181,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </section>
     @endcan
 @endsection
