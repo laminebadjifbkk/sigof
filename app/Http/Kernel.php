@@ -23,11 +23,18 @@ class Kernel extends HttpKernel
     ];
 
     protected $routeMiddleware = [
-        'auth'     => \App\Http\Middleware\Authenticate::class,
-        'signed'   => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'admin'    => \App\Http\Middleware\IsAdmin::class,
+        'auth'      => \App\Http\Middleware\Authenticate::class,
+        'signed'    => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'throttle'  => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'verified'  => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'admin'     => \App\Http\Middleware\IsAdmin::class,
+        'dec'       => \App\Http\Middleware\IsDEC::class,
+        'diof'      => \App\Http\Middleware\IsDIOF::class,
+        'demandeur' => \App\Http\Middleware\IsDemandeur::class,
+        'dg'        => \App\Http\Middleware\IsDG::class,
+        'sg'        => \App\Http\Middleware\IsSG::class,
+        'employe'   => \App\Http\Middleware\IsEmploye::class,
+        'operateur'   => \App\Http\Middleware\IsOperateur::class,
     ];
 
     /**
