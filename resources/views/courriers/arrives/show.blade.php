@@ -160,7 +160,7 @@
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Scan courrier</div>
                                         <div class="col-lg-9 col-md-8">
-                                            @if ($arrive?->employees && $arrive->employees->isNotEmpty() && $arrive?->courrier?->getFile())
+                                            @if (isset($arrive?->courrier?->file))
                                                 <a href="{{ asset($arrive?->courrier?->getFile()) }}" target="_blank"
                                                     class="btn btn-primary btn-sm">
                                                     <i class="bi bi-download"></i> Télécharger le scan

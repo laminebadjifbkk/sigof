@@ -524,6 +524,7 @@
                     </table>
                 </div>
             </div>
+            
             <form method="post" action="{{ route('files.update', $user?->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
