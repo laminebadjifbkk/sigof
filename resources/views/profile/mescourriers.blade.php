@@ -79,7 +79,7 @@
                                                                 </a> --}}
                                                             @if (isset($arrive?->courrier?->file))
                                                                 <a href="{{ asset($arrive?->courrier?->getFile()) }}"
-                                                                    target="_blank" class="btn btn-info btn-sm">
+                                                                    target="_blank" class="btn btn-info text-white btn-sm">
                                                                     <i class="bi bi-download"></i> Télécharger le scan
                                                                 </a>
                                                             @else
