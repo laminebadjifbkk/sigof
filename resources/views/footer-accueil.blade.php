@@ -93,11 +93,15 @@
                                         {{-- <label for="password" class="form-label">Mot de passe<span
                                                 class="text-danger mx-1">*</span></label> --}}
                                         <div class="input-group has-validation">
-                                            <span class="input-group-text" id="inputGroupPrepend"><i
-                                                    class="bi bi-key"></i></span>
+                                            <span class="input-group-text"><i class="bi bi-key"></i></span>
                                             <input type="password" name="password"
-                                                class="form-control @error('password') is-invalid @enderror"
-                                                id="password" required placeholder="Votre mot de passe">
+                                                class="form-control form-control-sm @error('password') is-invalid @enderror"
+                                                id="passwordF" required placeholder="Votre mot de passe"
+                                                autocomplete="new-password">
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                id="togglePasswordF">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
                                             <div class="invalid-feedback">
                                                 @error('password')
                                                     {{ $message }}
@@ -265,6 +269,23 @@
 <script>
     document.getElementById("togglePassword").addEventListener("click", function() {
         let passwordField = document.getElementById("password");
+        let icon = this.querySelector("i");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            icon.classList.remove("bi-eye");
+            icon.classList.add("bi-eye-slash");
+        } else {
+            passwordField.type = "password";
+            icon.classList.remove("bi-eye-slash");
+            icon.classList.add("bi-eye");
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("togglePasswordF").addEventListener("click", function() {
+        let passwordField = document.getElementById("passwordF");
         let icon = this.querySelector("i");
 
         if (passwordField.type === "password") {

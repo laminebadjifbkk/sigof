@@ -25,7 +25,7 @@ class AntenneController extends Controller
             "code" => "required|string|unique:antennes,code,except,id",
             'date_ouverture' => "nullable|date|min:10|max:10|date_format:Y-m-d",
             "informations" => "nullable|string",
-            "contact" => "required|string|min:9|max:9",
+            "contact" => "required|string|size:12",
             "adresse" => "required|string",
         ]);
 
@@ -83,7 +83,7 @@ class AntenneController extends Controller
             "code" => ['required', 'string', Rule::unique(Antenne::class)->ignore($id)],
             'date_ouverture' => ["nullable", "date", "min:10", "max:10", "date_format:Y-m-d"],
             "informations" => ["nullable", "string"],
-            "contact" => "required|string|min:9|max:9",
+            "contact" => "required|string|size:12",
             "adresse" => ["required", "string"],
         ]);
 

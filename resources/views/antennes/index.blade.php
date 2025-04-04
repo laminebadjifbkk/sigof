@@ -139,9 +139,10 @@
                                 <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <label for="contact" class="form-label">contact<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input type="number" min="0" name="contact" value="{{ old('contact') }}"
+                                    <input name="contact" type="text" maxlength="12"
                                         class="form-control form-control-sm @error('contact') is-invalid @enderror"
-                                        id="contact" placeholder="numéro de téléphone">
+                                        id="contact" value="{{ old('contact') }}" autocomplete="tel"
+                                        placeholder="XX:XXX:XX:XX">
                                     @error('contact')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
