@@ -83,10 +83,14 @@
                                                 <td>{{ $listecollective?->lieu_naissance }}</td>
                                                 <td>{{ $listecollective?->collectivemodule?->module }}</td>
                                                 <td>
-                                                    <a href="{{ route('collectives.show', $listecollective?->collective?->id) }}"
-                                                        title="voir" target="_blank">
-                                                        {{ $listecollective?->collective?->sigle }}
-                                                    </a>
+                                                    @if ($listecollective->collective)
+                                                        <a href="{{ route('collectives.show', $listecollective->collective->id) }}"
+                                                            title="voir" target="_blank">
+                                                            {{ $listecollective->collective->sigle }}
+                                                        </a>
+                                                    @else
+                                                        <span>Aucun</span>
+                                                    @endif
                                                 </td>
                                                 <td class="text-center">
                                                     @if ($listecollective?->collective?->date_depot)
