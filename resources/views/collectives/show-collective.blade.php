@@ -78,33 +78,39 @@
                                                     class="{{ $collective?->statut_demande }}">{{ $collective?->statut_demande }}</span>
                                             </td>
                                             <td>
-                                                <span class="d-flex align-items-baseline"><a
-                                                        href="{{ route('collectives.show', $collective->id) }}"
-                                                        class="btn btn-primary btn-sm" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            <li><a class="dropdown-item btn btn-sm"
-                                                                    href="{{ route('collectives.edit', $collective->id) }}"
-                                                                    class="mx-1" title="Modifier"><i
-                                                                        class="bi bi-pencil"></i>Modifier</a>
-                                                            </li>
-                                                            <li>
-                                                                <form
-                                                                    action="{{ route('collectives.destroy', $collective->id) }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item show_confirm"
-                                                                        title="Supprimer"><i
-                                                                            class="bi bi-trash"></i>Supprimer</button>
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </span>
+                                                @can('view', $collective)
+                                                    <span class="d-flex align-items-baseline"><a
+                                                            href="{{ route('collectives.show', $collective->id) }}"
+                                                            class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                        <div class="filter">
+                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                    class="bi bi-three-dots"></i></a>
+                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                @can('update', $collective)
+                                                                    <li><a class="dropdown-item btn btn-sm"
+                                                                            href="{{ route('collectives.edit', $collective->id) }}"
+                                                                            class="mx-1" title="Modifier"><i
+                                                                                class="bi bi-pencil"></i>Modifier</a>
+                                                                    </li>
+                                                                @endcan
+                                                                @can('delete', $collective)
+                                                                    <li>
+                                                                        <form
+                                                                            action="{{ route('collectives.destroy', $collective->id) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit" class="dropdown-item show_confirm"
+                                                                                title="Supprimer"><i
+                                                                                    class="bi bi-trash"></i>Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                @endcan
+                                                            </ul>
+                                                        </div>
+                                                    </span>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endisset

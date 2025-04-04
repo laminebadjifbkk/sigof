@@ -28,6 +28,12 @@
                             </span>
                         @endcan
                         <div class="card-body">
+                            <span class="d-flex align-items-baseline"><a
+                                    href="{{ route('collectivemodules.show', $listecollective?->collectivemodule?->id) }}"
+                                    class="btn btn-success btn-sm" title="retour"><i
+                                        class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                                <p> | retour</p>
+                            </span>
                             <form method="post" action="{{ url('listecollectives/' . $listecollective->id) }}"
                                 enctype="multipart/form-data" class="row g-3">
                                 @csrf

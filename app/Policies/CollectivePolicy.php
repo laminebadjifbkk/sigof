@@ -1,17 +1,15 @@
 <?php
-
 namespace App\Policies;
 
 use App\Models\Collective;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class CollectivePolicy
 {
     /**
      * Determine whether the user can view any models.
      */
- /*    public function viewAny(User $user): bool
+    /*    public function viewAny(User $user): bool
     {
         //
     } */
@@ -21,7 +19,7 @@ class CollectivePolicy
      */
     public function view(User $user, Collective $collective): bool
     {
-        return $user->id === $collective->users_id;
+        return $user->id === $collective->users_id || $user->hasRole('super-admin');
     }
 
     /**
@@ -37,7 +35,7 @@ class CollectivePolicy
      */
     public function update(User $user, Collective $collective): bool
     {
-        return $user->id === $collective->users_id;
+        return $user->id === $collective->users_id || $user->hasRole('super-admin');
     }
 
     /**
@@ -45,13 +43,13 @@ class CollectivePolicy
      */
     public function delete(User $user, Collective $collective): bool
     {
-        return $user->id === $collective->users_id;
+        return $user->id === $collective->users_id || $user->hasRole('super-admin');
     }
 
     /**
      * Determine whether the user can restore the model.
      */
- /*    public function restore(User $user, Collective $collective): bool
+    /*    public function restore(User $user, Collective $collective): bool
     {
         //
     } */
@@ -59,7 +57,7 @@ class CollectivePolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-  /*   public function forceDelete(User $user, Collective $collective): bool
+    /*   public function forceDelete(User $user, Collective $collective): bool
     {
         //
     } */
