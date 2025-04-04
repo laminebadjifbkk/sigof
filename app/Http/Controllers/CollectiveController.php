@@ -391,6 +391,7 @@ class CollectiveController extends Controller
         $collective = Collective::findOrFail($id);
         $user_id    = $collective?->users_id;
 
+        $this->authorize('update', $collective);
         /* $this->authorize('update', $collective); */
 
         $this->validate($request, [
@@ -568,7 +569,7 @@ class CollectiveController extends Controller
     {
         $collective = Collective::find($id);
 
-        /* $this->authorize('delete', $collective); */
+        $this->authorize('delete', $collective);
 
         if ($collective->statut_demande != 'Nouvelle') {
             Alert::warning('Attention !', 'Cette action est impossible, la demande a déjà été traitée.');

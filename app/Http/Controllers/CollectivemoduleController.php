@@ -97,6 +97,7 @@ class CollectivemoduleController extends Controller
         ]);
 
         $collectivemodule = Collectivemodule::find($id);
+        $this->authorize('update', $collectivemodule);
 
         if (! empty($collectivemodule->formations_id)) {
             Alert::warning('Désolez ! ', 'action impossible');
@@ -124,6 +125,7 @@ class CollectivemoduleController extends Controller
     public function destroy($id)
     {
         $collectivemodule = Collectivemodule::find($id);
+        $this->authorize('delete', $collectivemodule);
 
         if ($collectivemodule && $collectivemodule->listecollectives()->count() > 0) {
             Alert::warning('Attention', 'Ce module contient des membres et ne peut pas être supprimé.');
