@@ -1,5 +1,5 @@
-@extends('errors.layout', [
-    'code' => 404,
-    'title' => 'Page introuvable',
-    'message' => "La page que vous cherchez n'existe pas ou a été déplacée.",
-])
+@extends('errors.layout')
+
+@section('code', '404')
+@section('title', 'Page introuvable')
+@section('message', "La page que vous cherchez n'existe pas ou a été déplacée.")
