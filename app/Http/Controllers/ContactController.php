@@ -32,7 +32,7 @@ class ContactController extends Controller
     {
         $data = request()->validate([
             'emailadresse' => ['required', 'email'],
-            'telephone'    => ['required', 'string', 'max:9', 'min:9'],
+            'telephone'    => ['required', 'string', 'size:12'],
             'objet'        => ['required', 'string'],
             'message'      => ['required', 'string'],
 
@@ -47,7 +47,7 @@ class ContactController extends Controller
 
         $contact->save();
 
-        Alert::success("Félicitations !!!", "Votre message a été envoyé. Merci! !");
+        Alert::success("Succès !!!", "Votre message a été envoyé. Merci! !");
 
         /* $status = "Félicitation, Votre message a été envoyé. Merci !"; */
 
@@ -58,7 +58,7 @@ class ContactController extends Controller
     public function update(Request $request, $id)
     {
         $data = request()->validate([
-            'telephone' => ['required', 'string', 'max:9', 'min:9'],
+            'telephone' => ['required', 'string', 'size:12'],
             'objet'     => ['required', 'string'],
             'message'   => ['required', 'string'],
             'reponse'   => ['nullable', 'string'],

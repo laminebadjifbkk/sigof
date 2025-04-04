@@ -114,8 +114,6 @@
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">
-
-
                                 <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <label for="emailadresse" class="form-label">Email<span
                                             class="text-danger mx-1">*</span></label>
@@ -136,10 +134,10 @@
                                     <label for="telephone" class="form-label">Téléphone<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
-                                        <input type="telephone" name="telephone"
+                                        <input name="telephone" type="text" maxlength="12"
                                             class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                            id="telephone" required placeholder="Votre téléphone"
-                                            value="{{ old('telephone') }}">
+                                            id="telephone" value="{{ old('telephone') }}" autocomplete="tel"
+                                            placeholder="XX:XXX:XX:XX">
                                         <div class="invalid-feedback">
                                             @error('telephone')
                                                 {{ $message }}
@@ -198,85 +196,86 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row g-3">
-
-                                    
-                                <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
-                                    <label for="emailadresse" class="form-label">Email<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <div class="input-group has-validation">
-                                        <input type="emailadresse" name="emailadresse"
-                                            class="form-control form-control-sm @error('emailadresse') is-invalid @enderror"
-                                            id="emailadresse" required placeholder="Votre adresse e-mail"
-                                            value="{{ $contact->email ?? old('emailadresse') }}">
-                                        <div class="invalid-feedback">
-                                            @error('emailadresse')
-                                                {{ $message }}
-                                            @enderror
+                                    <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                        <label for="emailadresse" class="form-label">Email<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <div class="input-group has-validation">
+                                            <input type="emailadresse" name="emailadresse"
+                                                class="form-control form-control-sm @error('emailadresse') is-invalid @enderror"
+                                                id="emailadresse" required placeholder="Votre adresse e-mail"
+                                                value="{{ $contact->email ?? old('emailadresse') }}">
+                                            <div class="invalid-feedback">
+                                                @error('emailadresse')
+                                                    {{ $message }}
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
-                                    <label for="telephone" class="form-label">Téléphone<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <div class="input-group has-validation">
-                                        <input type="telephone" name="telephone"
-                                            class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                            id="telephone" required placeholder="Votre téléphone"
-                                            value="{{ $contact->telephone ?? old('telephone') }}">
-                                        <div class="invalid-feedback">
-                                            @error('telephone')
-                                                {{ $message }}
-                                            @enderror
+                                    <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                        <label for="telephone" class="form-label">Téléphone<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <div class="input-group has-validation">
+                                            <input name="telephone" type="text" maxlength="12"
+                                                class="form-control form-control-sm @error('telephone') is-invalid @enderror"
+                                                id="telephone_responsable"
+                                                value="{{ old('telephone', $contact->telephone ?? '') }}"
+                                                autocomplete="telephone" placeholder="XX:XXX:XX:XX">
+                                            <div class="invalid-feedback">
+                                                @error('telephone')
+                                                    {{ $message }}
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
-                                    <label for="objet" class="form-label">Objet<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <div class="input-group has-validation">
-                                        <input type="name" name="objet"
-                                            class="form-control form-control-sm @error('objet') is-invalid @enderror"
-                                            id="objet" required placeholder="Objet" value="{{ $contact->objet ?? old('objet') }}">
-                                        <div class="invalid-feedback">
-                                            @error('objet')
-                                                {{ $message }}
-                                            @enderror
+                                    <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                        <label for="objet" class="form-label">Objet<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <div class="input-group has-validation">
+                                            <input type="name" name="objet"
+                                                class="form-control form-control-sm @error('objet') is-invalid @enderror"
+                                                id="objet" required placeholder="Objet"
+                                                value="{{ $contact->objet ?? old('objet') }}">
+                                            <div class="invalid-feedback">
+                                                @error('objet')
+                                                    {{ $message }}
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
-                                    <label for="statut" class="form-label">Statut<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <div class="input-group has-validation">
-                                        <input type="name" name="statut"
-                                            class="form-control form-control-sm @error('statut') is-invalid @enderror"
-                                            id="statut" placeholder="statut" value="{{ $contact->statut ?? old('statut') }}">
-                                        <div class="invalid-feedback">
-                                            @error('statut')
-                                                {{ $message }}
-                                            @enderror
+                                    <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                        <label for="statut" class="form-label">Statut<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <div class="input-group has-validation">
+                                            <input type="name" name="statut"
+                                                class="form-control form-control-sm @error('statut') is-invalid @enderror"
+                                                id="statut" placeholder="statut"
+                                                value="{{ $contact->statut ?? old('statut') }}">
+                                            <div class="invalid-feedback">
+                                                @error('statut')
+                                                    {{ $message }}
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
-                                    <label for="message" class="form-label">Message<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <div class="input-group has-validation">
-                                        <textarea class="form-control" name="message" rows="2" placeholder="Ecrire votre message ici" required>{{ $contact->message ?? old('message') }}</textarea>
+                                    <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                        <label for="message" class="form-label">Message<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <div class="input-group has-validation">
+                                            <textarea class="form-control" name="message" rows="2" placeholder="Ecrire votre message ici" required>{{ $contact->message ?? old('message') }}</textarea>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
-                                    <label for="reponse" class="form-label">Réponse<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <div class="input-group has-validation">
-                                        <textarea class="form-control" name="reponse" rows="2" placeholder="Ecrire votre réponse ici">{{ $contact->reponse ?? old('reponse') }}</textarea>
+                                    <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                        <label for="reponse" class="form-label">Réponse<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <div class="input-group has-validation">
+                                            <textarea class="form-control" name="reponse" rows="2" placeholder="Ecrire votre réponse ici">{{ $contact->reponse ?? old('reponse') }}</textarea>
+                                        </div>
                                     </div>
-                                </div>
 
                                 </div>
                                 <div class="modal-footer mt-5">

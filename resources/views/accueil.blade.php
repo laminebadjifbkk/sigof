@@ -532,10 +532,10 @@
                                     <label for="telephone" class="form-label">Téléphone<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
-                                        <input type="telephone" name="telephone"
+                                        <input name="telephone" type="text" maxlength="12"
                                             class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                            id="telephone" required placeholder="Votre téléphone"
-                                            value="{{ old('telephone') }}">
+                                            id="phone" value="{{ old('telephone') }}" autocomplete="tel"
+                                            placeholder="XX:XXX:XX:XX">
                                         <div class="invalid-feedback">
                                             @error('telephone')
                                                 {{ $message }}

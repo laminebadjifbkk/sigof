@@ -62,7 +62,7 @@
                                             class="text-danger mx-1">*</span></label>
                                     <input name="contact" type="text" maxlength="12"
                                         class="form-control form-control-sm @error('contact') is-invalid @enderror"
-                                        id="contact" value="{{ old('contact', $antenne?->contact ?? '') }}"
+                                        id="phone" value="{{ old('contact', $antenne?->contact ?? '') }}"
                                         autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                     @error('contact')
                                         <span class="invalid-feedback" role="alert">

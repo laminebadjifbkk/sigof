@@ -2875,7 +2875,22 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var telephoneInput = document.getElementById("phone");
 
+            telephoneInput.addEventListener("input", function(e) {
+                var value = e.target.value.replace(/\D/g, ""); // Supprime tout sauf les chiffres
+
+                // Appliquer le format XX:XXX:XX:XX
+                if (value.length > 2) value = value.slice(0, 2) + " " + value.slice(2);
+                if (value.length > 6) value = value.slice(0, 6) + " " + value.slice(6);
+                if (value.length > 9) value = value.slice(0, 9) + " " + value.slice(9, 11);
+
+                e.target.value = value.slice(0, 12); // Limite à 12 caractères (avec les ":")
+            });
+        });
+    </script>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NGJKZ3DD" height="0" width="0"
             style="display:none;visibility:hidden"></iframe>
