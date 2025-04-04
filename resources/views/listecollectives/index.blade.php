@@ -93,8 +93,8 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-center">
-                                                    @if ($listecollective?->collective?->date_depot)
-                                                        {{ $listecollective?->collective?->date_depot ? \Carbon\Carbon::parse($listecollective?->collective?->date_depot)->format('d/m/Y') : 'Aucun' }}
+                                                    @if ($listecollective?->created_at)
+                                                        {{ $listecollective?->created_at ? \Carbon\Carbon::parse($listecollective?->created_at)->format('d/m/Y') : 'Aucun' }}
                                                     @else
                                                         Aucun
                                                     @endif
