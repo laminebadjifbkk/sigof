@@ -45,18 +45,20 @@
                                         data-bs-target="#profile-overview">Courrier</button>
                                 </li>
 
-                                {{-- @can('update', $arrive) --}}
-                                <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
-                                        data-bs-target="#modifier_courrier">Modifier</button>
-                                </li>
-                                {{-- @endcan --}}
-
-                                @hasrole('super-admin|courrier|a-courrier')
+                                @can('update', $arrive)
                                     <li class="nav-item">
                                         <button class="nav-link" data-bs-toggle="tab"
-                                            data-bs-target="#imputer_courrier">Imputer</button>
+                                            data-bs-target="#modifier_courrier">Modifier</button>
                                     </li>
+                                @endcan
+
+                                @hasrole('super-admin|courrier|a-courrier')
+                                    @can('imputer', $arrive)
+                                        <li class="nav-item">
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#imputer_courrier">Imputer</button>
+                                        </li>
+                                    @endcan
                                 @endhasrole
                                 <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab"
