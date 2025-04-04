@@ -119,6 +119,7 @@ class CollectivemoduleController extends Controller
     public function show($id)
     {
         $collectivemodule = Collectivemodule::find($id);
+        $this->authorize('view', $collectivemodule);
         return view("collectives.showliste", compact('collectivemodule'));
     }
 
