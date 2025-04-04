@@ -57,7 +57,8 @@
         <h1>@yield('code')</h1>
         <h2>@yield('title')</h2>
         <p>@yield('message')</p>
-        <p>Besoin d’aide ? Appelez-nous au <em><strong>+221 77 291 33 97</strong></em></p>
+        <p>Besoin d’aide ? Appelez-nous au <em><strong> <a href="tel:++221772913397">+221 77 291 33
+                        97</a></strong></em></p>
         <a href="{{ url('/') }}">Retour à l'accueil</a>
     </div>
 
