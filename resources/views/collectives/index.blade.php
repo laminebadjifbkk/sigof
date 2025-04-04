@@ -224,30 +224,30 @@
                                             <tr>
                                                 <td>{{ $collective?->numero_courrier }}</td>
                                                 <td>
-                                                    {{ $collective->name }}
-                                                    @isset($collective->sigle)
-                                                        ({{ $collective->sigle }})
+                                                    {{ $collective?->name }}
+                                                    @isset($collective?->sigle)
+                                                        ({{ $collective?->sigle }})
                                                     @endisset
                                                 </td>
                                                 <td><a
-                                                        href="mailto:{{ optional($collective->user)->email }}">{{ optional($collective->user)->email }}</a>
+                                                        href="mailto:{{ optional($collective?->user)?->email }}">{{ optional($collective?->user)?->email }}</a>
                                                 </td>
                                                 <td><a
-                                                        href="tel:+221{{ $collective->telephone }}">{{ $collective->telephone }}</a>
+                                                        href="tel:+221{{ $collective?->telephone }}">{{ $collective?->telephone }}</a>
                                                 </td>
-                                                <td>{{ optional(optional($collective->departement)->region)->nom }}</td>
+                                                <td>{{ optional(optional($collective?->departement)?->region)?->nom }}</td>
                                                 <td class="text-center">
-                                                    {{ $collective->date_depot ? \Carbon\Carbon::parse($collective->date_depot)->diffForHumans() : 'Aucun' }}
+                                                    {{ $collective?->date_depot ? \Carbon\Carbon::parse($collective?->date_depot)?->diffForHumans() : 'Aucun' }}
                                                 </td>
-                                                <td class="text-center">{{ $collective->collectivemodules->count() }}</td>
-                                                <td class="text-center">{{ $collective->listecollectives->count() }}</td>
+                                                <td class="text-center">{{ $collective?->collectivemodules?->count() }}</td>
+                                                <td class="text-center">{{ $collective?->listecollectives?->count() }}</td>
                                                 <td><span
-                                                        class="{{ $collective->statut_demande }}">{{ $collective->statut_demande }}</span>
+                                                        class="{{ $collective?->statut_demande }}">{{ $collective?->statut_demande }}</span>
                                                 </td>
                                                 <td>
                                                     @can('collective-show')
                                                         <span class="d-flex align-items-baseline">
-                                                            <a href="{{ route('collectives.show', $collective->id) }}"
+                                                            <a href="{{ route('collectives.show', $collective?->id) }}"
                                                                 class="btn btn-primary btn-sm" title="Voir détails">
                                                                 <i class="bi bi-eye"></i>
                                                             </a>
@@ -259,7 +259,7 @@
                                                                     @can('collective-update')
                                                                         <li>
                                                                             <a class="dropdown-item btn btn-sm"
-                                                                                href="{{ route('collectives.edit', $collective->id) }}"
+                                                                                href="{{ route('collectives.edit', $collective?->id) }}"
                                                                                 title="Modifier">
                                                                                 <i class="bi bi-pencil"></i> Modifier
                                                                             </a>
@@ -268,7 +268,7 @@
                                                                     @can('collective-delete')
                                                                         <li>
                                                                             <form
-                                                                                action="{{ route('collectives.destroy', $collective->id) }}"
+                                                                                action="{{ route('collectives.destroy', $collective?->id) }}"
                                                                                 method="post">
                                                                                 @csrf
                                                                                 @method('DELETE')
