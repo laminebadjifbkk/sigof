@@ -55,7 +55,7 @@
                                         <td>{{ $contact?->objet }}</td>
                                         <td>{{ $contact?->message }}</td>
                                         <td>{{ $contact?->email }}</td>
-                                        <td>{{ $contact?->telephone }}</td>
+                                        <td><a href="tel:+221{{ $contact?->telephone }}">{{ $contact?->telephone }}</a></td>
                                         <td>{{ $contact?->reponse }}</td>
                                         <td>{{ $contact?->statut }}</td>
                                         <td>
