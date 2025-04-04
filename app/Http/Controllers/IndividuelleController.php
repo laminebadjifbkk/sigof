@@ -48,8 +48,8 @@ class IndividuelleController extends Controller
         }
 
 // Optimisation des requêtes pour les départements et modules
-        $departements = Departement::select('id', 'nom')->orderBy('created_at', 'DESC')->limit(50)->get();
-        $modules      = Module::select('id', 'name')->orderBy('created_at', 'DESC')->limit(50)->get();
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
+        $modules      = Module::select('id', 'name')->orderBy('created_at', 'DESC')->get();
 
         return view(
             "individuelles.index",
@@ -168,7 +168,7 @@ class IndividuelleController extends Controller
         Alert::success("Succès !", "L'enregistrement a été effectué avec succès.");
 
         return Redirect::back();
-        
+
     }
     public function individuellesStore(Request $request)
     {
@@ -480,7 +480,7 @@ class IndividuelleController extends Controller
     {
         // Récupérer l'individuelle et les données nécessaires
         $individuelle = Individuelle::findOrFail($id);
-        $departements = Departement::latest()->get(); // Utilisation de `latest()` pour `orderBy("created_at", "desc")`
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::latest()->get();      // Même pour les modules
         $projets      = Projet::latest()->get();      // Même pour les projets
 
@@ -743,8 +743,8 @@ class IndividuelleController extends Controller
 
     public function demandesIndividuelle(Request $request)
     {
-        // Récupérer les départements et modules une seule fois
-        $departements = Departement::orderBy('created_at', 'desc')->get();
+        // Récupérer les départements et modules une seule fois        
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::orderBy('created_at', 'desc')->get();
 
 // Récupérer l'utilisateur actuel
@@ -882,7 +882,7 @@ class IndividuelleController extends Controller
             $title = $count . ' demandes trouvées';
         }
 
-        $departements = Departement::orderBy("created_at", "DESC")->get();
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         /* $modules = Module::orderBy("created_at", "desc")->get(); */
         return view('individuelles.index', compact(
             'individuelles',
@@ -1063,7 +1063,7 @@ class IndividuelleController extends Controller
             $title = 'Liste des ' . $count_demandeur . ' dernières demandes individuelles masculines sur un total de ' . $total_count;
         }
 
-        $departements = Departement::orderBy("created_at", "DESC")->get();
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::orderBy("created_at", "desc")->get();
 
         return view(
@@ -1094,7 +1094,7 @@ class IndividuelleController extends Controller
             $title = 'Liste des ' . $count_demandeur . ' dernières demandes individuelles féminines sur un total de ' . $total_count;
         }
 
-        $departements = Departement::orderBy("created_at", "DESC")->get();
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::orderBy("created_at", "desc")->get();
 
         return view(
@@ -1165,7 +1165,7 @@ class IndividuelleController extends Controller
             $title = "$count_demandeur_format demandes trouvées";
         }
 
-        $departements = Departement::orderBy("created_at", "DESC")->get();
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::orderBy("created_at", "DESC")->get();
 
         return view(
@@ -1208,7 +1208,7 @@ class IndividuelleController extends Controller
             $title = "$count_demandeur_format demandes trouvées";
         }
 
-        $departements = Departement::orderBy("created_at", "DESC")->get();
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::orderBy("created_at", "DESC")->get();
 
         return view(
@@ -1263,7 +1263,7 @@ class IndividuelleController extends Controller
             $title = "$count_demandeur_format demandes trouvées";
         }
 
-        $departements = Departement::orderBy("created_at", "DESC")->get();
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::orderBy("created_at", "DESC")->get();
 
         return view(
@@ -1318,7 +1318,7 @@ class IndividuelleController extends Controller
             $title = "$count_demandeur_format demandes trouvées";
         }
 
-        $departements = Departement::orderBy("created_at", "DESC")->get();
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::orderBy("created_at", "DESC")->get();
 
         return view(
@@ -1373,7 +1373,7 @@ class IndividuelleController extends Controller
             $title = "$count_demandeur_format demandes trouvées";
         }
 
-        $departements = Departement::orderBy("created_at", "DESC")->get();
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::orderBy("created_at", "DESC")->get();
 
         return view(
@@ -1422,7 +1422,7 @@ class IndividuelleController extends Controller
             $title = "$count_demandeur_format demandes trouvées";
         }
 
-        $departements = Departement::orderBy("created_at", "DESC")->get();
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::orderBy("created_at", "DESC")->get();
 
         return view(
@@ -1471,7 +1471,7 @@ class IndividuelleController extends Controller
             $title = "$count_demandeur_format demandes trouvées";
         }
 
-        $departements = Departement::orderBy("created_at", "DESC")->get();
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::orderBy("created_at", "DESC")->get();
 
         return view(
@@ -1509,7 +1509,7 @@ class IndividuelleController extends Controller
             $title = "$count_demandeur_format demandes trouvées";
         }
 
-        $departements = Departement::orderBy("created_at", "DESC")->get();
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::orderBy("created_at", "DESC")->get();
 
         return view(
@@ -1546,7 +1546,7 @@ class IndividuelleController extends Controller
             $title = "$count_demandeur_format demandes trouvées";
         }
 
-        $departements = Departement::orderBy("created_at", "DESC")->get();
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::orderBy("created_at", "DESC")->get();
 
         return view(
