@@ -36,19 +36,13 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            /* 'permissions.*.name' => 'required|unique:permissions,name', */
             'permissions.0.name' => 'required|unique:permissions,name',
         ]);
-
-        /* dd($request->permissions); */
 
         foreach ($request->permissions as $key => $value) {
             Permission::create($value);
         }
 
-        /* Permission::create([
-            "name" => $request->name
-        ]); */
         Alert::success('Succès ', 'Permission créée avec succès');
 
         return redirect()->back();
@@ -57,32 +51,39 @@ class PermissionController extends Controller
     public function edit($id)
     {
         $permission = Permission::findOrFail($id);
+
         return view("role-permission.permission.update", compact('permission'));
     }
 
     public function update(Request $request, $id)
     {
         $permission = Permission::findOrFail($id);
+
         $this->authorize('update', $permission);
+
         $this->validate($request, [
             'name' => ['required', 'string', Rule::unique(Permission::class)->ignore($id)],
         ]);
 
-        Permission::findOrFail($id)->update([
+        $permission->update([
             'name' => $request->name,
         ]);
 
-        $permissions = Permission::get();
         Alert::success('Succès ', 'Permission modifiée avec succès');
+
         return redirect()->back();
     }
 
     public function destroy($id)
     {
         $permission = Permission::findOrFail($id);
+
         $this->authorize('delete', $permission);
+
         $permission->delete();
+
         Alert::success('Succès ', 'Permission ' . $permission->name . ' supprimée avec succès');
+
         return redirect()->back();
     }
 }

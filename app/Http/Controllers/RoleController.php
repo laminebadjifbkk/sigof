@@ -66,34 +66,43 @@ class RoleController extends Controller
 
     public function update(Request $request, $id)
     {
+        $role = findOrFail($id);
+
         $this->authorize('update', $role);
+
         $this->validate($request, [
             'name' => ['required', 'string', Rule::unique(Role::class)->ignore($id)],
         ]);
 
-        $role = Role::find($id)->update([
+        $role->update([
             'name'           => $request->name,
             'user_update_id' => Auth::user()->id,
         ]);
 
         $roles = Role::get();
+
         Alert::success('Succès ', 'Le rôle ' . $role->name . ' a été modifié avec succès');
+
         return redirect()->route("roles.index", compact('roles'));
     }
 
     public function destroy($id)
     {
-        $this->authorize('delete', $role);
         $role = Role::findOrFail($id);
+
+        $this->authorize('delete', $role);
+
         $role->delete();
-        $mesage = 'Le role ' . $role->name . ' a été supprimé';
-        return redirect()->back()->with("danger", $mesage);
+
+        Alert::success('Succès ', 'Le rôle ' . $role->name . ' a été supprimé avec succès');
+
+        return redirect()->back();
     }
 
     public function addPermissionsToRole($roleId)
     {
-        $permissions     = Permission::orderBy('created_at', 'desc')->get();
-        $role            = Role::findOrFail($roleId);
+        $permissions = Permission::orderBy('created_at', 'desc')->get();
+        $role        = Role::findOrFail($roleId);
         /* $this->authorize('update', $role); */
         $rolePermissions = DB::table('role_has_permissions')
             ->where('role_has_permissions.role_id', $roleId)
@@ -114,7 +123,8 @@ class RoleController extends Controller
 
         $messages = "Permissions accordée(s)";
 
-        Alert::success('Permissions accordée(s)');
+        Alert::success('Succès !', 'Permissions accordées');
+
         return redirect()->back();
 
         /* return redirect()->route('roles.index', compact('role'))->with('status', $messages); */
