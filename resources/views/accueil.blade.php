@@ -1143,7 +1143,6 @@
                                                 <p><i class="bi bi-envelope"></i>
                                                     {{ $antenne?->chef?->user?->email }}
                                                 </p>
-                                                <h4>ADRESSE</h4>
                                                 <div class="icon-box">
                                                     <p><i class="bi bi-geo-alt"></i> {{ $antenne?->adresse }}</p>
                                                 </div>
