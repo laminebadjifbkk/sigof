@@ -36,7 +36,7 @@ class ListecollectiveController extends Controller
             default => "Liste des $count_demandeur dernières demandes collectives sur un total de $total_count",
         };
 
-        return view('user.index', compact('listecollectives', 'title'));
+        return view('listecollectives.index', compact('listecollectives', 'title'));
     }
 
     public function store(Request $request)
