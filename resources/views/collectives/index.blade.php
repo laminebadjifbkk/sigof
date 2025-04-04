@@ -221,80 +221,77 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($collectives as $collective)
-                                            @if (!empty($collective->numero))
-                                                <tr>
-                                                    <td>{{ $collective->numero }}</td>
-                                                    <td>
-                                                        {{ $collective->name }}
-                                                        @isset($collective->sigle)
-                                                            ({{ $collective->sigle }})
-                                                        @endisset
-                                                    </td>
-                                                    <td><a
-                                                            href="mailto:{{ optional($collective->user)->email }}">{{ optional($collective->user)->email }}</a>
-                                                    </td>
-                                                    <td><a
-                                                            href="tel:+221{{ $collective->telephone }}">{{ $collective->telephone }}</a>
-                                                    </td>
-                                                    <td>{{ optional(optional($collective->departement)->region)->nom }}</td>
-                                                    <td class="text-center">
-                                                        {{ $collective->date_depot ? \Carbon\Carbon::parse($collective->date_depot)->diffForHumans() : 'Aucun' }}
-                                                    </td>
-                                                    <td class="text-center">{{ $collective->collectivemodules->count() }}</td>
-                                                    <td class="text-center">{{ $collective->listecollectives->count() }}</td>
-                                                    <td><span
-                                                            class="{{ $collective->statut_demande }}">{{ $collective->statut_demande }}</span>
-                                                    </td>
-                                                    <td>
-                                                        @can('collective-show')
-                                                            <span class="d-flex align-items-baseline">
-                                                                <a href="{{ route('collectives.show', $collective->id) }}"
-                                                                    class="btn btn-primary btn-sm" title="Voir détails">
-                                                                    <i class="bi bi-eye"></i>
+                                            <tr>
+                                                <td>{{ $collective?->numero_courrier }}</td>
+                                                <td>
+                                                    {{ $collective->name }}
+                                                    @isset($collective->sigle)
+                                                        ({{ $collective->sigle }})
+                                                    @endisset
+                                                </td>
+                                                <td><a
+                                                        href="mailto:{{ optional($collective->user)->email }}">{{ optional($collective->user)->email }}</a>
+                                                </td>
+                                                <td><a
+                                                        href="tel:+221{{ $collective->telephone }}">{{ $collective->telephone }}</a>
+                                                </td>
+                                                <td>{{ optional(optional($collective->departement)->region)->nom }}</td>
+                                                <td class="text-center">
+                                                    {{ $collective->date_depot ? \Carbon\Carbon::parse($collective->date_depot)->diffForHumans() : 'Aucun' }}
+                                                </td>
+                                                <td class="text-center">{{ $collective->collectivemodules->count() }}</td>
+                                                <td class="text-center">{{ $collective->listecollectives->count() }}</td>
+                                                <td><span
+                                                        class="{{ $collective->statut_demande }}">{{ $collective->statut_demande }}</span>
+                                                </td>
+                                                <td>
+                                                    @can('collective-show')
+                                                        <span class="d-flex align-items-baseline">
+                                                            <a href="{{ route('collectives.show', $collective->id) }}"
+                                                                class="btn btn-primary btn-sm" title="Voir détails">
+                                                                <i class="bi bi-eye"></i>
+                                                            </a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#" data-bs-toggle="dropdown">
+                                                                    <i class="bi bi-three-dots"></i>
                                                                 </a>
-                                                                <div class="filter">
-                                                                    <a class="icon" href="#" data-bs-toggle="dropdown">
-                                                                        <i class="bi bi-three-dots"></i>
-                                                                    </a>
-                                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                        @can('collective-update')
-                                                                            <li>
-                                                                                <a class="dropdown-item btn btn-sm"
-                                                                                    href="{{ route('collectives.edit', $collective->id) }}"
-                                                                                    title="Modifier">
-                                                                                    <i class="bi bi-pencil"></i> Modifier
-                                                                                </a>
-                                                                            </li>
-                                                                        @endcan
-                                                                        @can('collective-delete')
-                                                                            <li>
-                                                                                <form
-                                                                                    action="{{ route('collectives.destroy', $collective->id) }}"
-                                                                                    method="post">
-                                                                                    @csrf
-                                                                                    @method('DELETE')
-                                                                                    <button type="submit"
-                                                                                        class="dropdown-item show_confirm"
-                                                                                        title="Supprimer">
-                                                                                        <i class="bi bi-trash"></i> Supprimer
-                                                                                    </button>
-                                                                                </form>
-                                                                            </li>
-                                                                        @endcan
-                                                                    </ul>
-                                                                </div>
-                                                            </span>
-                                                        @endcan
-                                                    </td>
-                                                </tr>
-                                            @endif
+                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    @can('collective-update')
+                                                                        <li>
+                                                                            <a class="dropdown-item btn btn-sm"
+                                                                                href="{{ route('collectives.edit', $collective->id) }}"
+                                                                                title="Modifier">
+                                                                                <i class="bi bi-pencil"></i> Modifier
+                                                                            </a>
+                                                                        </li>
+                                                                    @endcan
+                                                                    @can('collective-delete')
+                                                                        <li>
+                                                                            <form
+                                                                                action="{{ route('collectives.destroy', $collective->id) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"
+                                                                                    title="Supprimer">
+                                                                                    <i class="bi bi-trash"></i> Supprimer
+                                                                                </button>
+                                                                            </form>
+                                                                        </li>
+                                                                    @endcan
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    @endcan
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                             @else
                                 <div class="alert alert-info">Aucune demande collective reçue pour l'instant !</div>
                             @endif
-
                         </div>
                     </div>
                 </div>
