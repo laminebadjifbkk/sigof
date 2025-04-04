@@ -208,7 +208,7 @@
                                     <thead>
                                         <tr>
                                             <th>N°</th>
-                                            <th width="20%">Nom structure</th>
+                                            <th width="35%">Nom structure</th>
                                             <th>E-mail</th>
                                             <th>Téléphone</th>
                                             <th>Région</th>
@@ -225,9 +225,9 @@
                                                 <td>{{ $collective?->numero_courrier }}</td>
                                                 <td>
                                                     {{ $collective?->name }}
-                                                    @isset($collective?->sigle)
+                                                    {{-- @if($collective?->sigle)
                                                         ({{ $collective?->sigle }})
-                                                    @endisset
+                                                    @endif --}}
                                                 </td>
                                                 <td><a
                                                         href="mailto:{{ optional($collective?->user)?->email }}">{{ optional($collective?->user)?->email }}</a>
