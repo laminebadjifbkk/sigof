@@ -11,7 +11,6 @@
 
     <!-- Favicons -->
     <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="icon">
-    <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="icon">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
