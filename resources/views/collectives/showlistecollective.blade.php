@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'Détails demandeur collective')
+@section('title', 'Détails ' . $listecollective?->prenom . ' ' . $listecollective?->nom)
 @section('space-work')
     <section class="section min-vh-0 d-flex flex-column align-items-center justify-content-center py-0 section profile">
         <div class="container">
@@ -21,10 +21,11 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('demandesCollective') }}"
+                                <span class="d-flex mt-2 align-items-baseline"><a
+                                        href="{{ route('collectives.show', $listecollective?->collective?->id) }}"
                                         class="btn btn-secondary btn-sm" title="retour"><i
                                             class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                    <p> | Détails</p>
+                                    <p> | retour</p>
                                 </span>
                             </div>
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
@@ -33,71 +34,151 @@
                                     @csrf
                                     @method('PUT')
 
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
-                                        <div class="label">N° CIN</div>
-                                        <div>{{ $listecollective?->cin }}</div>
+                                    <h5 class="card-title">Détails structure</h5>
+                                    <div class="col-12 col-md-9 col-lg-9 mb-2">
+                                        <div class="label mb-2">Nom structure</div>
+                                        <div>{{ $listecollective?->collective?->name }}</div>
                                     </div>
-
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
-                                        <div class="label">Civilité</div>
-                                        <div>{{ $listecollective?->civilite }}</div>
+                                    <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                        <div class="label mb-2">Sigle</div>
+                                        <div>{{ $listecollective?->collective?->sigle }}</div>
                                     </div>
-
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
-                                        <div class="label">Prénom</div>
-                                        <div>{{ $listecollective?->prenom }}</div>
+                                    <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                        <div class="label mb-2">Numéro dossier</div>
+                                        <div>{{ $listecollective?->collective?->numero }}</div>
                                     </div>
-
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
-                                        <div class="label">Nom</div>
-                                        <div>{{ $listecollective?->nom }}</div>
+                                    <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                        <div class="label mb-2">Statut juridique</div>
+                                        <div>{{ $listecollective?->collective?->statut_juridique }}</div>
                                     </div>
-
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
-                                        <div for="date_naissance" class="label">Date naissance</div>
-                                        <div>{{ $listecollective?->date_naissance?->format('d/m/Y') }}</div>
+                                    <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                        <div class="label mb-2">Région</div>
+                                        <div>{{ $listecollective?->collective?->departement->region->nom }}</div>
                                     </div>
-
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
-                                        <div class="label">Lieu naissance</div>
-                                        <div>{{ $listecollective?->lieu_naissance }}</div>
+                                    <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                        <div class="label mb-2">Département</div>
+                                        <div>{{ $listecollective?->collective->departement->nom }}
+                                        </div>
                                     </div>
-
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
-                                        <div class="label">Telephone</div>
-                                        <div>{{ $listecollective?->telephone }}</div>
+                                    <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                        <div class="label mb-2">Adresse exacte</div>
+                                        <div>{{ $listecollective?->collective?->adresse }}
+                                        </div>
                                     </div>
-
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
-                                        <div class="label">Niveau étude</div>
-                                        <div>{{ $listecollective?->niveau_etude }}</div>
+                                    <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                        <div class="label mb-2">Téléphone</div>
+                                        <div><a
+                                                href="tel:+221{{ $listecollective?->collective?->telephone }}">{{ $listecollective?->collective?->telephone }}</a>
+                                        </div>
                                     </div>
-
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
-                                        <div class="label">Expérience</div>
-                                        <div>{{ $listecollective?->experience }}</div>
+                                    <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                        <div class="label mb-2">Fixe</div>
+                                        <div><a
+                                                href="tel:+221{{ $listecollective?->collective?->fixe }}">{{ $listecollective?->collective?->fixe }}</a>
+                                        </div>
                                     </div>
-
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
-                                        <div class="label">Autres experience</div>
-                                        <div>{{ $listecollective?->autre_experience }}</div>
+                                    <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                        <div class="label mb-2">Email</div>
+                                        <div><a
+                                                href="mailto:{{ $listecollective?->collective?->email }}">{{ $listecollective?->collective?->email }}</a>
+                                        </div>
                                     </div>
-
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
-                                        <div class="label">Statut</div>
-                                        <div>{{ $listecollective?->statut }}</div>
+                                    <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                        <div class="label"> mb-2Projet professionnel</div>
+                                        <div>
+                                            {!! '- ' .
+                                                implode(
+                                                    '- ',
+                                                    array_map(
+                                                        fn($line) => nl2br(e($line)),
+                                                        explode("\n", ucfirst($listecollective?->collective?->projetprofessionnel)),
+                                                    ),
+                                                ) !!}
+                                        </div>
                                     </div>
+                                    <hr>
 
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
-                                        <div class="label">Détails</div>
-                                        <div>{{ $listecollective?->details }}</div>
-                                    </div>
+                                    <h5 class="card-title">Détails demandeur</h5>
 
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
-                                        <div class="label">Formation demandée</div>
+                                    <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                        <div class="label mb-2">Formation sollicitée (module)</div>
                                         <div>{{ $listecollective?->collectivemodule?->module }}</div>
                                     </div>
 
+                                    <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                        <div class="label mb-2">N° CIN</div>
+                                        <div>{{ $listecollective?->cin }}</div>
+                                    </div>
+
+                                    <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                        <div class="label mb-2">Civilité</div>
+                                        <div>{{ $listecollective?->civilite }}</div>
+                                    </div>
+
+                                    <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                        <div class="label mb-2">Prénom</div>
+                                        <div>{{ $listecollective?->prenom }}</div>
+                                    </div>
+
+                                    <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                        <div class="label mb-2">Nom</div>
+                                        <div>{{ $listecollective?->nom }}</div>
+                                    </div>
+
+                                    <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                        <div for="date_naissance" class="label mb-2">Date naissance</div>
+                                        <div>{{ $listecollective?->date_naissance?->format('d/m/Y') }}</div>
+                                    </div>
+
+                                    <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                        <div class="label mb-2">Lieu naissance</div>
+                                        <div>{{ $listecollective?->lieu_naissance }}</div>
+                                    </div>
+                                    @if ($listecollective?->telephone)
+                                        <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                            <div class="label mb-2">Telephone</div>
+                                            <div><a
+                                                    href="tel:+221{{ $listecollective?->telephone }}">{{ $listecollective?->telephone }}</a>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    @if ($listecollective?->niveau_etude)
+                                        <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                            <div class="label mb-2">Niveau étude</div>
+                                            <div>{{ $listecollective?->niveau_etude }}</div>
+                                        </div>
+                                    @endif
+
+                                    @if ($listecollective?->experienc)
+                                        <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                            <div class="label mb-2">Expérience</div>
+                                            <div>{{ $listecollective?->experience }}</div>
+                                        </div>
+                                    @endif
+
+                                    @if ($listecollective?->autre_experience)
+                                        <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                            <div class="label mb-2">Autres experience</div>
+                                            <div>{{ $listecollective?->autre_experience }}</div>
+                                        </div>
+                                    @endif
+
+                                    <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                        <div class="label mb-2">Statut</div>
+                                        <div>
+                                            <span class="{{ $listecollective?->statut }} text-white">
+                                                {{ $listecollective?->statut }}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    @if ($listecollective?->details)
+                                        <div class="col-12 col-md-3 col-lg-3 mb-2">
+                                            <div class="label mb-2">Détails</div>
+                                            <div>{{ $listecollective?->details }}</div>
+                                        </div>
+                                    @endif
 
                                     <div class="text-center">
                                         <a href="{{ route('listecollectives.edit', $listecollective?->id) }}"
@@ -111,6 +192,6 @@
                 </div>
             </div>
         </div>
- 
+
     </section>
 @endsection
