@@ -238,7 +238,7 @@
                                                 <td>{{ optional(optional($collective?->departement)?->region)?->nom }}</td>
                                                 <td class="text-center">
                                                     {{-- {{ $collective?->date_depot ? \Carbon\Carbon::parse($collective?->date_depot)?->diffForHumans() : 'Aucun' }} --}}
-                                                    {{ $collective?->date_depot ? $collective->date_depot->format('d/m/Y') : 'Aucun' }}
+                                                    {{ $collective?->date_depot ? \Carbon\Carbon::parse($collective->date_depot)->format('d/m/Y') : 'Aucun' }}
                                                 </td>
                                                 <td class="text-center">{{ $collective?->collectivemodules?->count() }}</td>
                                                 <td class="text-center">{{ $collective?->listecollectives?->count() }}</td>
