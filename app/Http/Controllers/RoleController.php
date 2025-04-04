@@ -90,6 +90,8 @@ class RoleController extends Controller
     {
         $role = Role::findOrFail($id);
 
+        dd($role->name);
+
         $this->authorize('delete', $role);
 
         $role->delete();
