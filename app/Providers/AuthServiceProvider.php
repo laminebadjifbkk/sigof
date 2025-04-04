@@ -8,9 +8,7 @@ use App\Models\Departement;
 use App\Models\Individuelle;
 use App\Models\Interne;
 use App\Models\Operateur;
-use App\Models\Permission;
 use App\Models\Region;
-use App\Models\Role;
 use App\Models\User;
 use App\Policies\CollectivePolicy;
 use App\Policies\DepartementPolicy;
@@ -25,6 +23,8 @@ use App\Policies\UserPolicy;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Notifications\Messages\MailMessage;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AuthServiceProvider extends ServiceProvider
 {

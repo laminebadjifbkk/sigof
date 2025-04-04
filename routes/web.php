@@ -85,32 +85,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/* Route::get('/', function () {
-    return view('welcome');
-}); */
-
-/* Route::get('/', function () {
-    return view('user.login');
+Route::middleware(['can:update,role'])->group(function () {
+    Route::get('/roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::put('/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
 });
-Route::get('/', [UserController::class, 'homePage'])->name('home'); */
+
+Route::delete('/roles/{role}', [RoleController::class, 'destroy'])
+    ->middleware('can:delete,role')
+    ->name('roles.destroy');
+
+Route::middleware(['can:update,permission'])->group(function () {
+    Route::get('/permissions/{permission}/edit', [PermissionController::class, 'edit'])->name('permissions.edit');
+    Route::put('/permissions/{permission}', [PermissionController::class, 'update'])->name('permissions.update');
+});
+
+Route::delete('/permissions/{permission}', [PermissionController::class, 'destroy'])
+    ->middleware('can:delete,permission')
+    ->name('permissions.destroy');
 
 Route::group(['middleware' => ['XSS']], function () {
     Route::get('/', [UneController::class, 'unePage'])->name('accueil');
-
-/*     Route::get('/email/verify', function () {
-        return view('auth.verify');
-    })->middleware('auth')->name('verification.notice');
-
-    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-        $request->fulfill();
-        return redirect('/');
-    })->middleware(['auth', 'signed'])->name('verification.verify');
-
-    Route::post('/email/verification-notification', function (Request $request) {
-        $request->user()->sendEmailVerificationNotification();
-
-        return back()->with('message', 'Lien de vérification envoyé !');
-    })->middleware(['auth', 'throttle:6,1'])->name('verification.send'); */
 
     Route::get('/login', [ProfileController::class, 'loginPage'])->name('login');
     Route::get('/register-page', [ProfileController::class, 'registerPage'])->name('register-page');

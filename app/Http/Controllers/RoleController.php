@@ -66,7 +66,7 @@ class RoleController extends Controller
 
     public function update(Request $request, $id)
     {
-        $role = findOrFail($id);
+        $role = Role::findOrFail($id);
 
         $this->authorize('update', $role);
 
@@ -79,18 +79,14 @@ class RoleController extends Controller
             'user_update_id' => Auth::user()->id,
         ]);
 
-        $roles = Role::get();
+        Alert::success('Succès !', 'Le rôle ' . $role->name . ' a été modifié avec succès');
 
-        Alert::success('Succès ', 'Le rôle ' . $role->name . ' a été modifié avec succès');
-
-        return redirect()->route("roles.index", compact('roles'));
+        return redirect()->back();
     }
 
     public function destroy($id)
     {
         $role = Role::findOrFail($id);
-
-        dd($role->name);
 
         $this->authorize('delete', $role);
 
@@ -104,8 +100,11 @@ class RoleController extends Controller
     public function addPermissionsToRole($roleId)
     {
         $permissions = Permission::orderBy('created_at', 'desc')->get();
-        $role        = Role::findOrFail($roleId);
-        /* $this->authorize('update', $role); */
+
+        $role = Role::findOrFail($roleId);
+
+        $this->authorize('update', $role);
+
         $rolePermissions = DB::table('role_has_permissions')
             ->where('role_has_permissions.role_id', $roleId)
             ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
@@ -120,7 +119,7 @@ class RoleController extends Controller
         ]);
 
         $role = Role::findOrFail($roleId);
-        /* $this->authorize('update', $role); */
+        $this->authorize('update', $role);
         $role->syncPermissions($request->permissions);
 
         $messages = "Permissions accordée(s)";
@@ -129,7 +128,6 @@ class RoleController extends Controller
 
         return redirect()->back();
 
-        /* return redirect()->route('roles.index', compact('role'))->with('status', $messages); */
     }
 
     public function getUsersToRole($roleName, Request $request)
