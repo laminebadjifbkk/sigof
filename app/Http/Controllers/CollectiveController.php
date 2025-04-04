@@ -539,6 +539,7 @@ class CollectiveController extends Controller
     public function show($id)
     {
         $collective = Collective::findOrFail($id);
+        $this->authorize('view', $collective);
 
         /*  $this->authorize('view', $collective); */
 
