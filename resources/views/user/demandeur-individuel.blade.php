@@ -10,50 +10,6 @@
             </ol>
         </nav>
     </div>
-    {{-- <section class="section dashboard">
-        <div class="row">
-            <!-- Left side columns -->
-            <div class="col-lg-12">
-                <div class="row">
-                    @php
-                        $totalCollectif = 0;
-                        foreach ($user_liste as $user) {
-                            if (!empty($user->collectives) && $user->collectives->isNotEmpty()) {
-                                $totalCollectif += $user->collectives->count();
-                            }
-                        }
-                    @endphp
-                    <!-- Sales Card -->
-                    <div class="col-12 col-md-6 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                        <div class="card info-card sales-card">
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                        class="bi bi-three-dots"></i></a>
-                            </div>
-                            <a href="#">
-                                <div class="card-body">
-                                    <h5 class="card-title">Demandeurs <span>| collectifs</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-file-earmark-text"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                <span class="text-primary">{{ $totalCollectif ?? '0' }}</span>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section> --}}
-
     <section class="section">
         <div class="row">
             <div class="col-lg-12">

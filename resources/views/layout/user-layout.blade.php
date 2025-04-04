@@ -1939,7 +1939,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelleModal'),
+            /*dropdownParent: $('#AddIndividuelleModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -1951,7 +1951,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelleModal'),
+            /*dropdownParent: $('#AddIndividuelleModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -1975,7 +1975,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelleModal'),
+            /*dropdownParent: $('#AddIndividuelleModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2011,7 +2011,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelleModal'),
+            /*dropdownParent: $('#AddIndividuelleModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2035,7 +2035,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelleModal'),
+            /*dropdownParent: $('#AddIndividuelleModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2059,7 +2059,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelleModal'),
+            /*dropdownParent: $('#AddIndividuelleModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2083,7 +2083,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelleModal'),
+            /*dropdownParent: $('#AddIndividuelleModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2131,7 +2131,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2143,7 +2143,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2166,7 +2166,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2178,7 +2178,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2190,7 +2190,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2202,7 +2202,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2214,7 +2214,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2226,7 +2226,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2238,7 +2238,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2250,7 +2250,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2262,7 +2262,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2274,7 +2274,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2297,7 +2297,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2309,7 +2309,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2321,7 +2321,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2333,7 +2333,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2345,7 +2345,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });
@@ -2357,7 +2357,7 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: true,
-            dropdownParent: $('#AddIndividuelModal'),
+            /*dropdownParent: $('#AddIndividuelModal'),*/
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
         });

@@ -193,7 +193,7 @@
                                             <label for="departement" class="form-label">Lieu de formation<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="departement"
-                                                class="form-select  @error('departement') is-invalid @enderror"
+                                                class="form-select form-select-sm @error('departement') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-departement-indiv"
                                                 data-placeholder="Choisir la localité">
                                                 <option value="{{ old('departement') }}">{{ old('departement') }}</option>
@@ -214,7 +214,7 @@
                                             <label for="civilite" class="form-label">Civilité<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="civilite"
-                                                class="form-select form-select-sm @error('civilite') is-invalid @enderror"
+                                                class="form-select form-select-smform-select-form-select-smsm @error('civilite') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-civilite-indiv"
                                                 data-placeholder="Choisir civilité">
                                                 <option value="{{ old('civilite') }}">
@@ -362,7 +362,7 @@
                                             <label for="situation_familiale" class="form-label">Situation familiale<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="situation_familiale"
-                                                class="form-select  @error('situation_familiale') is-invalid @enderror"
+                                                class="form-select form-select-sm @error('situation_familiale') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-familiale-indiv"
                                                 data-placeholder="Choisir situation familiale">
                                                 <option value="{{ old('situation_familiale') }}">
@@ -392,7 +392,7 @@
                                             <label for="situation_profesionnelle" class="form-label">Situation
                                                 profesionnelle<span class="text-danger mx-1">*</span></label>
                                             <select name="situation_professionnelle"
-                                                class="form-select  @error('situation_professionnelle') is-invalid @enderror"
+                                                class="form-select form-select-sm @error('situation_professionnelle') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-professionnelle-indiv"
                                                 data-placeholder="Choisir situation professionnelle">
                                                 <option value="{{ old('situation_professionnelle') }}">
@@ -453,7 +453,7 @@
                                             <label for="Niveau étude" class="form-label">Niveau étude<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="niveau_etude"
-                                                class="form-select  @error('niveau_etude') is-invalid @enderror"
+                                                class="form-select form-select-sm @error('niveau_etude') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-niveau_etude-indiv"
                                                 data-placeholder="Choisir niveau étude">
                                                 <option value="{{ old('niveau_etude') }}">
@@ -489,7 +489,7 @@
                                             <label for="diplome_academique" class="form-label">Diplôme académique<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="diplome_academique"
-                                                class="form-select  @error('diplome_academique') is-invalid @enderror"
+                                                class="form-select form-select-sm @error('diplome_academique') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-diplome_academique-indiv"
                                                 data-placeholder="Choisir diplôme académique">
                                                 <option value="{{ old('diplome_academique') }}">
@@ -576,7 +576,7 @@
                                             <label for="diplome_pro" class="form-label">Diplôme professionnel<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="diplome_professionnel"
-                                                class="form-select  @error('diplome_professionnel') is-invalid @enderror"
+                                                class="form-select form-select-sm @error('diplome_professionnel') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-diplome_professionnel-indiv"
                                                 data-placeholder="Choisir diplôme professionnel">
                                                 <option value="{{ old('diplome_professionnel') }}">
@@ -664,7 +664,7 @@
                                             <label for="projet_poste_formation" class="form-label">Votre projet après la
                                                 formation<span class="text-danger mx-1">*</span></label>
                                             <select name="projet_poste_formation"
-                                                class="form-select  @error('projet_poste_formation') is-invalid @enderror"
+                                                class="form-select form-select-sm @error('projet_poste_formation') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-projet_poste_formation-indiv"
                                                 data-placeholder="Choisir projet">
                                                 <option value="{{ old('projet_poste_formation') }}">
@@ -860,10 +860,6 @@
         </section>
     @endcan
 @endsection
-{{-- @section('javascript')
-{!! $chart1->renderChartJsLibrary() !!}
-{!! $chart1->renderJs() !!}
-@endsection --}}
 @push('scripts')
     <script>
         new DataTable('#table-individuelles', {
