@@ -755,6 +755,10 @@ class ArriveController extends Controller
 
         $count = $arrives?->count();
 
+        // Récupérer le total des arrivées sans type et les derniers 100 courriers en une seule requête
+        $totalCount  = Arrive::where('type', null);
+        $total_count = number_format($totalCount->count(), 0, ',', ' ');
+
         if (isset($count) && $count < "1") {
             $title = 'aucun courrier trouvé';
         } elseif (isset($count) && $count == "1") {
@@ -768,6 +772,7 @@ class ArriveController extends Controller
         return view('courriers.arrives.index', compact(
             'arrives',
             'count_arrives',
+            'total_count',
             'title'
         ));
     }

@@ -17,20 +17,6 @@
         <div class="row">
             <!-- Left side columns -->
             <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                {{-- @if ($message = Session::get('status'))
-                    <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
-                        role="alert">
-                        <strong>{{ $message }}</strong>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
-                @if ($message = Session::get('danger'))
-                    <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
-                        role="alert">
-                        <strong>{{ $message }}</strong>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif --}}
                 @if ($errors->any())
                     @foreach ($errors->all() as $error)
                         <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
@@ -43,10 +29,6 @@
                     <!-- Sales Card -->
                     <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                         <div class="card info-card sales-card">
-                            {{--  <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                        class="bi bi-three-dots"></i></a>
-                            </div> --}}
                             <a href="#">
                                 <div class="card-body">
                                     <h5 class="card-title">Arrivés <span>| {{ date('d/m/Y') }}</span></h5>
@@ -70,10 +52,6 @@
 
                     <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                         <div class="card info-card sales-card">
-                            {{-- <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                        class="bi bi-three-dots"></i></a>
-                            </div> --}}
                             <a href="#">
                                 <div class="card-body">
                                     <h5 class="card-title">Courriers <span>| Arrivés</span></h5>
@@ -165,7 +143,8 @@
                                         {{-- <th class="text-center">N° corres.</th> --}}
                                         <th class="text-center">Date corres.</th>
                                         <th>Expéditeur</th>
-                                        <th>Objet</th>
+                                        <th>Imputation</th>
+                                        {{-- <th>Objet</th> --}}
                                         <th>#</th>
                                     </tr>
                                 </thead>
@@ -179,7 +158,23 @@
                                             <td class="text-center">{{ $arrive?->courrier?->date_cores?->format('d/m/Y') }}
                                             </td>
                                             <td>{{ $arrive?->courrier?->expediteur }}</td>
-                                            <td>{{ $arrive?->courrier?->objet }}</td>
+                                            <td>
+                                                @if ($arrive?->employees && $arrive->employees->isNotEmpty())
+                                                    <ul class="mb-0 ps-3">
+                                                        @foreach ($arrive->employees as $index => $employee)
+                                                            <li>
+                                                                {!! $employee->user->firstname . ' ' . $employee->user->name !!}
+                                                                @if (!empty($employee->fonction?->sigle))
+                                                                    <strong>[{!! $employee->fonction?->sigle ?? '' !!}]</strong>
+                                                                @endif
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @else
+                                                    <span class="badge bg-info text-dark">Aucune</span>
+                                                @endif
+                                            </td>
+                                            {{-- <td>{{ $arrive?->courrier?->objet }}</td> --}}
                                             <td>
                                                 <div class="d-flex align-items-baseline">
                                                     <a href="{{ route('arrives.show', $arrive?->id) }}"
@@ -198,8 +193,7 @@
                                                                 @can('delete', $arrive)
                                                                     @can('arrive-delete')
                                                                         <li>
-                                                                            <form
-                                                                                action="{{ route('arrives.destroy', $arrive?->id) }}"
+                                                                            <form action="{{ route('arrives.destroy', $arrive?->id) }}"
                                                                                 method="post">
                                                                                 @csrf
                                                                                 @method('DELETE')
