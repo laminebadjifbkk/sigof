@@ -312,7 +312,7 @@
                             </div>
                         </div>
                     </div><!-- End tab content item -->
-                    
+
                 </div>
 
             </div>
@@ -1132,6 +1132,11 @@
                                                     @endforeach
                                                 </ul>
                                                 <h4>CONTACT</h4>
+                                                @if ($antenne?->chef?->user?->name)
+                                                    <p><i class="bi bi-person"></i>
+                                                        {{ $antenne?->chef?->user?->civilite . ' ' . $antenne?->chef?->user?->name }}
+                                                    </p>
+                                                @endif
                                                 <p><i class="bi bi-telephone"></i>
                                                     {{ $antenne?->contact . ' / ' . $antenne?->chef?->user?->telephone }}
                                                 </p>
