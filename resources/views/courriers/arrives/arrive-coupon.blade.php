@@ -160,7 +160,7 @@
                                 {{-- {!! wordwrap(ucfirst($courrier?->objet), 40, '<br>', true) !!}   --}}
                                 {{-- {!! nl2br(e(old('objet', $courrier?->objet))) !!} --}}
                                 {{-- {!! '- ' . implode('<br>- ', array_map('e', explode("\n", old('objet', $courrier?->objet )))) !!} --}}
-                                {!! '- ' .
+                                {!! '' .
                                     implode(
                                         '',
                                         array_map(
