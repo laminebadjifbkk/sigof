@@ -117,6 +117,14 @@
             background-color: #0056b3;
         }
 
+        #controls input[type="number"] {
+            padding: 5px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+
         #pageNum {
             margin: 0 10px;
             font-size: 1.2em;
@@ -161,6 +169,9 @@
                 <button id="prevPage">Page Précédente</button>
                 <span id="pageNum">Page 1 sur 1</span>
                 <button id="nextPage">Page Suivante</button>
+                <br><br>
+                <input type="number" id="pageInput" min="1" style="width: 60px;" />
+                <button id="goToPage">Aller à la page</button>
             </div>
         </div>
     </div>
@@ -246,6 +257,19 @@
                 pageNum++;
                 document.getElementById('pageNum').textContent = `Page ${pageNum} sur ${pageCount}`;
                 renderPage(pageNum);
+            }
+        });
+
+        document.getElementById('goToPage').addEventListener('click', function() {
+            const input = document.getElementById('pageInput');
+            const targetPage = parseInt(input.value, 10);
+
+            if (!isNaN(targetPage) && targetPage >= 1 && targetPage <= pageCount) {
+                pageNum = targetPage;
+                document.getElementById('pageNum').textContent = `Page ${pageNum} sur ${pageCount}`;
+                renderPage(pageNum);
+            } else {
+                alert(`Veuillez entrer un numéro de page valide entre 1 et ${pageCount}`);
             }
         });
     </script>
