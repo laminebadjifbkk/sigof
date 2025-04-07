@@ -728,6 +728,9 @@
                                                                         <option value="Classement">
                                                                             Classement
                                                                         </option>
+                                                                        <option value="Pour rappel">
+                                                                            Pour rappel
+                                                                        </option>
                                                                     </select>
                                                                     @error('description')
                                                                         <span class="invalid-feedback" role="alert">

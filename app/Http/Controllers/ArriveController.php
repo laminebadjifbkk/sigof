@@ -628,7 +628,15 @@ class ArriveController extends Controller
 
         /*  $directions     = Direction::pluck('sigle', 'id'); */
 
-        $directions = Direction::pluck('sigle', 'sigle')->all();
+        /* $directions = Direction::pluck('sigle', 'sigle')->all(); */
+        /*
+        $directions = Direction::whereNotIn('sigle', ['AntZIG', 'AntTH'])
+            ->pluck('sigle', 'sigle')
+            ->all(); */
+
+        $directions = Direction::where('sigle', 'not like', 'Ant%')
+            ->pluck('sigle', 'sigle')
+            ->all();
 
         $arriveDirections  = $courrier->directions->pluck('sigle', 'sigle')->all();
         $arriveDescription = $courrier->description;
@@ -652,6 +660,7 @@ class ArriveController extends Controller
             'Diffusion',
             'Attribution',
             'Classement',
+            'Pour rappel',
         ];
 
         $dompdf->loadHtml(view('courriers.arrives.arrive-coupon', compact(

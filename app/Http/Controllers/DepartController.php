@@ -379,6 +379,7 @@ class DepartController extends Controller
             'Diffusion',
             'Attribution',
             'Classement',
+            'Pour rappel',
         ];
 
         $dompdf->loadHtml(view('courriers.departs.depart-coupon', compact(
