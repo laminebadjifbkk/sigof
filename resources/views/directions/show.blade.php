@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', $direction?->sigle)
+@section('title', 'ONFP | ' . $direction?->sigle)
 @section('space-work')
 
     <section
@@ -145,45 +145,51 @@
                                                                 </td>
                                                                 <td>{{ $employe?->fonction?->name }}</td>
                                                                 <td class="text-center">
-                                                                    <span class="d-flex mt-2 align-items-baseline"><a
-                                                                            href="{{ url('employes/' . $employe?->id) }}"
-                                                                            class="btn btn-warning btn-sm mx-1"
-                                                                            title="Donner permission"><i
-                                                                                class="bi bi-eye"></i></a>
-                                                                        <div class="filter">
-                                                                            <a class="icon" href=""
-                                                                                data-bs-toggle="dropdown"><i
-                                                                                    class="bi bi-three-dots"></i></a>
-                                                                            <ul
-                                                                                class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                                <form
-                                                                                    action="{{ route('retirerEmploye') }}"
-                                                                                    method="post">
-                                                                                    @csrf
-                                                                                    {{-- @method('PUT') --}}
-                                                                                    <input type="hidden" name="id"
-                                                                                        value="{{ $employe?->id }}">
-                                                                                    <button
-                                                                                        class="show_confirm_valider btn btn-sm mx-1">&nbsp;&nbsp;Retirer</button>
-                                                                                </form>
-                                                                                <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                                        href="{{ url('employes/' . $employe?->id . '/edit') }}"
-                                                                                        class="mx-1">
-                                                                                        Modifier</a>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <form
-                                                                                        action="{{ url('employes', $employe?->id) }}"
-                                                                                        method="post">
-                                                                                        @csrf
-                                                                                        @method('DELETE')
-                                                                                        <button type="submit"
-                                                                                            class="dropdown-item show_confirm">Supprimer</button>
-                                                                                    </form>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </span>
+                                                                    @can('show', $employe)
+                                                                        <span class="d-flex mt-2 align-items-baseline"><a
+                                                                                href="{{ url('employes/' . $employe?->id) }}"
+                                                                                class="btn btn-warning btn-sm mx-1"
+                                                                                title="Donner permission"><i
+                                                                                    class="bi bi-eye"></i></a>
+                                                                            <div class="filter">
+                                                                                <a class="icon" href=""
+                                                                                    data-bs-toggle="dropdown"><i
+                                                                                        class="bi bi-three-dots"></i></a>
+                                                                                <ul
+                                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                                    @can('show', $employe)
+                                                                                        <form
+                                                                                            action="{{ route('retirerEmploye') }}"
+                                                                                            method="post">
+                                                                                            @csrf
+                                                                                            {{-- @method('PUT') --}}
+                                                                                            <input type="hidden" name="id"
+                                                                                                value="{{ $employe?->id }}">
+                                                                                            <button
+                                                                                                class="show_confirm_valider btn btn-sm mx-1">&nbsp;&nbsp;Retirer</button>
+                                                                                        </form>
+                                                                                        <li><a class="dropdown-item btn btn-sm mx-1"
+                                                                                                href="{{ url('employes/' . $employe?->id . '/edit') }}"
+                                                                                                class="mx-1">
+                                                                                                Modifier</a>
+                                                                                        </li>
+                                                                                    @endcan
+                                                                                    @can('delete', $employe)
+                                                                                        <li>
+                                                                                            <form
+                                                                                                action="{{ url('employes', $employe?->id) }}"
+                                                                                                method="post">
+                                                                                                @csrf
+                                                                                                @method('DELETE')
+                                                                                                <button type="submit"
+                                                                                                    class="dropdown-item show_confirm">Supprimer</button>
+                                                                                            </form>
+                                                                                        </li>
+                                                                                    @endcan
+                                                                                </ul>
+                                                                            </div>
+                                                                        </span>
+                                                                    @endcan
                                                                 </td>
                                                             </tr>
                                                         @endif
@@ -240,37 +246,43 @@
                                                         </td>
                                                         <td>{{ $direction?->chef?->fonction?->name }}</td>
                                                         <td>
-                                                            <span class="d-flex mt-2 align-items-baseline"><a
-                                                                    href="{{ url('employes/' . $direction?->chef?->id) }}"
-                                                                    class="btn btn-warning btn-sm mx-1"
-                                                                    title="Donner permission"><i
-                                                                        class="bi bi-eye"></i></a>
-                                                                <div class="filter">
-                                                                    <a class="icon" href=""
-                                                                        data-bs-toggle="dropdown"><i
-                                                                            class="bi bi-three-dots"></i></a>
-                                                                    <ul
-                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                        <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                                href="{{ url('employes/' . $direction?->chef?->id . '/edit') }}"
-                                                                                class="mx-1"><i
-                                                                                    class="bi bi-pencil"></i>
-                                                                                Modifier</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <form
-                                                                                action="{{ url('employes', $direction?->chef?->id) }}"
-                                                                                method="post">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit"
-                                                                                    class="dropdown-item show_confirm"><i
-                                                                                        class="bi bi-trash"></i>Supprimer</button>
-                                                                            </form>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </span>
+                                                            @can('show', $direction?->chef)
+                                                                <span class="d-flex mt-2 align-items-baseline"><a
+                                                                        href="{{ url('employes/' . $direction?->chef?->id) }}"
+                                                                        class="btn btn-warning btn-sm mx-1"
+                                                                        title="Donner permission"><i
+                                                                            class="bi bi-eye"></i></a>
+                                                                    <div class="filter">
+                                                                        <a class="icon" href=""
+                                                                            data-bs-toggle="dropdown"><i
+                                                                                class="bi bi-three-dots"></i></a>
+                                                                        <ul
+                                                                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                            @can('show', $direction?->chef)
+                                                                                <li><a class="dropdown-item btn btn-sm mx-1"
+                                                                                        href="{{ url('employes/' . $direction?->chef?->id . '/edit') }}"
+                                                                                        class="mx-1"><i
+                                                                                            class="bi bi-pencil"></i>
+                                                                                        Modifier</a>
+                                                                                </li>
+                                                                            @endcan
+                                                                            @can('show', $direction?->chef)
+                                                                                <li>
+                                                                                    <form
+                                                                                        action="{{ url('employes', $direction?->chef?->id) }}"
+                                                                                        method="post">
+                                                                                        @csrf
+                                                                                        @method('DELETE')
+                                                                                        <button type="submit"
+                                                                                            class="dropdown-item show_confirm"><i
+                                                                                                class="bi bi-trash"></i>Supprimer</button>
+                                                                                    </form>
+                                                                                </li>
+                                                                            @endcan
+                                                                        </ul>
+                                                                    </div>
+                                                                </span>
+                                                            @endcan
                                                         </td>
                                                     </tr>
                                                 @endif
