@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', $direction->sigle)
+@section('title', $direction?->sigle)
 @section('space-work')
 
     <section
