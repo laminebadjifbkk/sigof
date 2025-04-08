@@ -1,6 +1,6 @@
 @extends('layout.user-layout')
 @section('space-work')
-    @hasrole('Employe|super-admin|admin|DG')
+    @hasanyrole('Employe|super-admin|admin|DG')
         <section class="section dashboard">
             <div class="row">
                 <!-- Left side columns -->
@@ -639,6 +639,6 @@
                     </div>
                 </div>
             </section>
-        @endhasrole
+        @endhasanyrole
     @endcan
 @endsection
