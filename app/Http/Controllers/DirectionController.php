@@ -22,7 +22,7 @@ class DirectionController extends Controller
     }
     public function index()
     {
-        $directions = Direction::orderBy("created_at", "desc")->get();
+        $directions = Direction::orderBy('name', 'asc')->get();
         return view("directions.index", compact("directions"));
     }
 
