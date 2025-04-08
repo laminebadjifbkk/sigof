@@ -39,7 +39,7 @@
                             <a href="{{ route('employes.create') }}" class="btn btn-primary float-end btn-rounded btn-sm"><i
                                     class="fas fa-plus"></i>Ajouter</a>
                         </div>
-                        <h5 class="card-title">Employés</h5>
+                        <h5 class="card-title">Liste des employés</h5>
                         {{-- <p>Le tableau de tous les employés.</p> --}}
                         <!-- Table with stripped rows -->
                         @foreach ($employes as $employe)
@@ -126,7 +126,7 @@
         new DataTable('#table-employes', {
             layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [
