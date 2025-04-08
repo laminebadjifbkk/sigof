@@ -137,7 +137,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h2 class="modal-title mx-auto">
-                                {{ $employe?->user?->civilite . ' ' . $employe?->user?->firstname . ' ' . $employe?->user?->name }}
+                                {{ $employe?->user?->firstname . ' ' . $employe?->user?->name }}
                             </h2>
                         </div>
                         <div class="modal-body">
