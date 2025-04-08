@@ -1162,7 +1162,7 @@
 
         {{-- Courriers --}}
         @hasrole('Employe|super-admin')
-            @if (!empty($courriers_auj))
+            @if ($courriers_auj)
                 <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                     <a href="{{ route('mescourriers') }}">
                         <div class="card shadow-lg border-0 rounded-lg">
