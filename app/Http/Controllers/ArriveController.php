@@ -240,6 +240,11 @@ class ArriveController extends Controller
         $imp = $request->input('imp'); */
 
         $arrive = Arrive::findOrFail($id);
+        $arrive->update([
+            'jour_imputation' => Carbon::now(),
+        ]);
+
+        $arrive->save();
 
 // Vérification des rôles autorisés
         $unauthorizedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
@@ -255,7 +260,7 @@ class ArriveController extends Controller
         if (isset($imp) && $imp == "1") {
 
             $this->validate($request, [
-                "date_imp"    => ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],
+                "date_imp"    => ["required", "date", "size:10", "date_format:Y-m-d"],
                 "description" => ["required", "string"],
                 "id_emp"      => ["required"],
                 "observation" => ["nullable", "string"],
@@ -311,8 +316,8 @@ class ArriveController extends Controller
         }
 
         /*  $this->validate($request, [
-            "date_arrivee"        => ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],
-            "date_correspondance" => ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],
+            "date_arrivee"        => ["required", "date", "size:10", "date_format:Y-m-d"],
+            "date_correspondance" => ["required", "date", "size:10", "date_format:Y-m-d"],
             "numero_courrier"     => ["nullable", "string", "min:4", "max:25", "unique:courriers,numero_courrier,{$arrive->courrier->id}"],
             "numero_arrive"       => ["required", "string", "min:4", "max:25", "unique:arrives,numero_arrive,{$arrive->id}"],
             "numero_reponse"      => ["string", "min:6", "max:9", "nullable", "unique:courriers,numero_reponse,{$courrier->id}"],
@@ -450,8 +455,8 @@ class ArriveController extends Controller
             return Redirect::back();
         } */
         $this->validate($request, [
-            "date_arrivee"        => ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],
-            "date_correspondance" => ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],
+            "date_arrivee"        => ["required", "date", "size:10", "date_format:Y-m-d"],
+            "date_correspondance" => ["required", "date", "size:10", "date_format:Y-m-d"],
             "numero_courrier"     => ["nullable", "string", "min:4", "max:25", "unique:courriers,numero_courrier,{$arrive->courrier->id}"],
             "numero_arrive"       => ["required", "string", "min:4", "max:25", "unique:arrives,numero_arrive,{$arrive->id}"],
             "numero_reponse"      => ["string", "min:6", "max:9", "nullable", "unique:courriers,numero_reponse,{$courrier->id}"],

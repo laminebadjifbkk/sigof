@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $uuid
  * @property int $courriers_id
  * @property string|null $deleted_at
+ * @property Carbon|null $jour_imputation
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
@@ -37,10 +38,16 @@ class Arrive extends Model
 
 	protected $casts = [
 		'courriers_id' => 'int',
+		'jour_imputation' => 'datetime',
+	];
+
+	protected $dates = [
+		'jour_imputation',
 	];
 
 	protected $fillable = [
 		'numero_arrive',
+		'jour_imputation',
 		'uuid',
 		'courriers_id',
 		'type',

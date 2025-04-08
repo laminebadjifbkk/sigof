@@ -6,9 +6,9 @@ use App\Models\File;
 use App\Models\Individuelle;
 use App\Models\Projet;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -80,7 +80,11 @@ class ProfileController extends Controller
         $collectives = Collective::where('users_id', $user->id)
             ->get();
 
-        $count_courriers            = Auth::user()?->employee?->arrives?->count();
+        /* $count_courriers            = Auth::user()?->employee?->arrives?->count(); */
+        $courriers_auj = Auth::user()?->employee
+            ->arrives()
+            ->whereDate('arrives.jour_imputation', Carbon::today()) // Filtre sur 'jour_imputation' dans la table 'arrives'
+            ->count();
         $count_ingenieur_formations = Auth::user()?->employee?->arrives?->count();
 
         foreach (Auth::user()->roles as $role) {
@@ -130,7 +134,7 @@ class ProfileController extends Controller
                     'files'                      => $files,
                     'user_files'                 => $user_files,
                     'user_cin'                   => $user_cin,
-                    'count_courriers'            => $count_courriers,
+                    'courriers_auj'              => $courriers_auj,
                     'count_ingenieur_formations' => $count_ingenieur_formations,
                 ]);
             }

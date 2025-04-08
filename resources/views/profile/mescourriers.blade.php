@@ -64,7 +64,34 @@
                                                     <tr>
                                                         <td>
                                                             {{-- @if (isset($arrive?->courrier) && $arrive?->courrier?->type == 'arrive') --}}
-                                                            <p><b>N° courrier</b> : {{ $arrive?->numero_arrive }}</p>
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <p><b>N° courrier</b> : {{ $arrive?->numero_arrive }}</p>
+                                                                <span>
+                                                                    @if ($arrive?->jour_imputation)
+                                                                        @php
+                                                                            $date = \Carbon\Carbon::parse(
+                                                                                $arrive->jour_imputation,
+                                                                            );
+                                                                        @endphp
+
+                                                                        @if ($date->isToday())
+                                                                            <span class="badge bg-success">Aujourd'hui</span>
+                                                                        @elseif ($date->isYesterday())
+                                                                            <span class="badge bg-warning">Hier</span>
+                                                                        @elseif ($date->diffInDays(Carbon::today()) < 7)
+                                                                            <span class="badge bg-primary">Il y a
+                                                                                {{ $date->diffInDays(Carbon::today()) }}
+                                                                                jours</span>
+                                                                        @else
+                                                                            <span class="badge bg-secondary">Il y a
+                                                                                {{ $date->diffInDays(Carbon::today()) }}
+                                                                                jours</span>
+                                                                        @endif
+                                                                    @else
+                                                                        <span class="badge bg-danger">Date non disponible</span>
+                                                                    @endif
+                                                                </span>
+                                                            </div>
                                                             <p><b>Objet</b> : <a
                                                                     href="{!! route('arrives.show', $arrive?->id) !!}">{!! $arrive?->courrier?->objet ?? '' !!}</a>
                                                             </p>

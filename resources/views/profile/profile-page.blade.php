@@ -1162,20 +1162,20 @@
 
         {{-- Courriers --}}
         @hasrole('Employe|super-admin')
-            @if (!empty($count_courriers))
+            @if (!empty($courriers_auj))
                 <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                     <a href="{{ route('mescourriers') }}">
                         <div class="card shadow-lg border-0 rounded-lg">
                             <div class="card-body d-flex align-items-center justify-content-between">
                                 <div>
                                     <h5 class="card-title text-success d-flex align-items-center">
-                                        <i class="bi bi-graduation-cap me-0"></i> Courriers
+                                        <i class="bi bi-graduation-cap me-0"></i> Courriers <span class="fw-bold"></span>
                                     </h5>
-                                    <p class="text-muted">Mes courriers</p>
+                                    <p class="text-muted">Aujourd'hui</p>
                                 </div>
                                 <div class="card-icon bg-success text-white rounded-circle d-flex align-items-center justify-content-center"
                                     style="width: 30px; height: 30px; font-size: 1.2rem;">
-                                    {{ $count_courriers }}
+                                    {{ $courriers_auj }}
                                 </div>
                             </div>
                         </div>
