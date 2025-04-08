@@ -39,8 +39,8 @@
                         <table class="table datatables align-middle" id="table-antennes">
                             <thead>
                                 <tr>
-                                    <th width="5%" class="text-center">N°</th>
-                                    <th>Code</th>
+                                    {{-- <th width="5%" class="text-center">N°</th> --}}
+                                    <th width="8%">Code</th>
                                     <th>Antenne</th>
                                     <th class="text-center">Date ouverture</th>
                                     <th>Contact</th>
@@ -55,8 +55,8 @@
                                 <?php $i = 1; ?>
                                 @foreach ($antennes as $antenne)
                                     <tr>
-                                        <td class="text-center">{{ $i++ }}</td>
-                                        <td>{{ $antenne?->code }}</td>
+                                        {{-- <td class="text-center">{{ $i++ }}</td> --}}
+                                        <td class="text-center">{{ $antenne?->code }}</td>
                                         <td>{{ $antenne?->name }}</td>
                                         <td class="text-center">{{ $antenne?->date_ouverture?->format('d/m/Y') }}</td>
                                         <td><a href="tel:+221{{ $antenne?->contact }}">{{ $antenne?->contact }}</a></td>
@@ -250,7 +250,7 @@
                 }
             },
             "order": [
-                [2, 'desc']
+                [1, 'asc']
             ],
             language: {
                 "sProcessing": "Traitement en cours...",
