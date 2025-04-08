@@ -142,9 +142,30 @@
             </li>
         @endcan
 
+
+
+        @hasrole('Employe')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('mescourriers') }}">
+                    <i class="bi bi-envelope"></i>
+                    <span>Mes courriers</span>
+                </a>
+            </li>
+        @endhasrole
+
+        @hasrole('DIOF|ADIOF')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('nouvellesformations') }}">
+                    <i class="bi bi-grid"></i>
+                    <span>Mes formations</span>
+                </a>
+            </li>
+        @endhasrole
+
         @can('demande-view')
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#demande--ind-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link collapsed" data-bs-target="#demande--ind-nav" data-bs-toggle="collapse"
+                    href="#">
                     <i class="bi bi-folder-plus"></i><span>Gestion des demandes</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
@@ -783,23 +804,5 @@
                 </a>
             </li>
         @endcan
-
-        @hasrole('Employe')
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('mescourriers') }}">
-                    <i class="bi bi-envelope"></i>
-                    <span>Mes courriers</span>
-                </a>
-            </li>
-        @endhasrole
-
-        @hasrole('DIOF|ADIOF')
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('nouvellesformations') }}">
-                    <i class="bi bi-grid"></i>
-                    <span>Mes formations</span>
-                </a>
-            </li>
-        @endhasrole
     </ul>
 </aside>
