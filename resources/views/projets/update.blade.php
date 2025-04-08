@@ -109,8 +109,7 @@
                                         </div>
 
                                         <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                            <label for="debut" class="form-label">Date début<span
-                                                class="text-danger mx-1">*</span></label>
+                                            <label for="debut" class="form-label">Date début</label>
                                             <input type="date" name="debut"
                                                 value="{{ $projet->debut?->format('Y-m-d') ?? old('debut') }}"
                                                 class="datepicker form-control form-control-sm @error('debut') is-invalid @enderror"
@@ -123,8 +122,7 @@
                                         </div>
 
                                         <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                            <label for="fin" class="form-label">Date fin<span
-                                                class="text-danger mx-1">*</span></label>
+                                            <label for="fin" class="form-label">Date fin</label>
                                             <input type="date" name="fin"
                                                 value="{{ $projet?->fin?->format('Y-m-d') ?? old('fin') }}"
                                                 class="datepicker form-control form-control-sm @error('fin') is-invalid @enderror"
@@ -244,8 +242,7 @@
                                         </div>
 
                                         <div class="col-12 col-md-12 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                                            <label for="convention_file" class="form-label">Convention signée<span
-                                                    class="text-danger mx-1">*</span></label>
+                                            <label for="convention_file" class="form-label">Convention signée</label>
                                             <input type="file" name="convention_file"
                                                 value="{{ old('convention_file') }}"
                                                 class="form-control form-control-sm @error('convention_file') is-invalid @enderror"
