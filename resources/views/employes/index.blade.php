@@ -61,9 +61,13 @@
                                     <?php $i = 1; ?>
                                     @foreach ($employes as $employe)
                                         <tr>
-                                            <th scope="row"><img class="rounded-circle w-20" alt="Profil"
-                                                    src="{{ asset($employe?->user?->getImage()) }}" width="40"
-                                                    height="auto">
+                                            <th scope="row">
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#ShowIMG{{ $employe?->user?->id }}">
+                                                    <img class="rounded-circle w-40" alt="Profil"
+                                                        src="{{ asset($employe?->user?->getImage()) }}" width="40"
+                                                        height="auto">
+                                                </a>
                                             </th>
                                             {{-- <td>{{ $i++ }}</td> --}}
                                             <td>{{ $employe?->matricule }}</td>
@@ -127,6 +131,29 @@
 
             </div>
         </div>
+        @foreach ($employes as $employe)
+            <div class="modal fade" id="ShowIMG{{ $employe?->user?->id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title mx-auto">
+                                {{ $employe?->user?->civilite . ' ' . $employe?->user?->firstname . ' ' . $employe?->user?->name }}
+                            </h2>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-12">
+                                <img src="{{ asset($employe?->user?->getImage() ?? 'images/default.png') }}"
+                                    class="d-block w-100 main-image rounded-4"
+                                    alt="{{ $employe?->user?->civilite, $employe?->user?->firstname, $employe?->user?->name ?? 'Photo de profil' }}">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </section>
 
 @endsection
