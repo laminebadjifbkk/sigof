@@ -18,7 +18,7 @@ class ProjetController extends Controller
     {
         // examples:
         $this->middleware('auth');
-        $this->middleware(['role:super-admin|admin|Demandeur|DIOF|ADIOF|SAOS|DPP|DG|Employe']);
+        $this->middleware(['role:super-admin|admin|Demandeur|DIOF|ADIOF|DPP|DG|Employe|CCP']);
         $this->middleware("permission:projet-view", ["only" => ["index"]]);
         $this->middleware("permission:projet-create", ["only" => ["create", "store"]]);
         $this->middleware("permission:projet-update", ["only" => ["update", "edit"]]);
