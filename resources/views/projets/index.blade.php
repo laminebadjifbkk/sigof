@@ -83,7 +83,7 @@
                                         </td>
                                         <td class="text-center">{{ $projet?->effectif }}</td>
                                         <td>
-                                            @can('show', $projet)
+                                            @can('projet-show')
                                                 <span class="d-flex align-items-baseline"><a
                                                         href="{{ route('projets.show', $projet->id) }}"
                                                         class="btn btn-primary btn-sm" title="voir détails"><i
@@ -92,14 +92,14 @@
                                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                 class="bi bi-three-dots"></i></a>
                                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            @can('update', $projet)
+                                                            @can('projet-update')
                                                                 <li>
                                                                     <a class="dropdown-item btn btn-sm"
                                                                         href="{{ route('projets.edit', $projet->id) }}"
                                                                         class="mx-1" title="Modifier">Modifier</a>
                                                                 </li>
                                                             @endcan
-                                                            @can('delete', $projet)
+                                                            @can('projet-delete')
                                                                 <li>
                                                                     <form action="{{ route('projets.destroy', $projet->id) }}"
                                                                         method="post">
@@ -110,7 +110,7 @@
                                                                     </form>
                                                                 </li>
                                                             @endcan
-                                                            {{-- @hasRole('super-admin|admin') --}}
+                                                            @hasrole(['super-admin', 'admin'])
                                                                 <li>
                                                                     <form
                                                                         action="{{ route('ouvrirProjet', ['id' => $projet?->id]) }}"
@@ -131,7 +131,7 @@
                                                                             class="show_confirm_valider btn btn-sm mx-1">Fermer</button>
                                                                     </form>
                                                                 </li>
-                                                            {{-- @endhasrole --}}
+                                                            @endhasrole
                                                         </ul>
                                                     </div>
                                                 </span>
