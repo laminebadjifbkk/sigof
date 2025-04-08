@@ -81,10 +81,16 @@ class ProfileController extends Controller
             ->get();
 
         /* $count_courriers            = Auth::user()?->employee?->arrives?->count(); */
-        $courriers_auj = Auth::user()?->employee
-            ->arrives()
-            ->whereDate('arrives.jour_imputation', Carbon::today()) // Filtre sur 'jour_imputation' dans la table 'arrives'
-            ->count();
+        $employee = Auth::user()?->employee;
+
+        $courriers_auj = 0;
+
+        if ($employee) {
+            $courriers_auj = $employee->arrives()
+                ->whereDate('arrives.jour_imputation', Carbon::today())
+                ->count();
+        }
+
         $count_ingenieur_formations = Auth::user()?->employee?->arrives?->count();
 
         foreach (Auth::user()->roles as $role) {
