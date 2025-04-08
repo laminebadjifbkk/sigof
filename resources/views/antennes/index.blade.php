@@ -42,10 +42,11 @@
                                     <th width="5%" class="text-center">N°</th>
                                     <th>Code</th>
                                     <th>Antenne</th>
+                                    <th>Date ouverture</th>
                                     <th>Contact</th>
                                     <th>Adresse</th>
-                                    <th class="text-center">Responsable</th>
-                                    <th class="text-center">Téléphone</th>
+                                    <th>Chef d'antenne</th>
+                                    <th>Téléphone chef</th>
                                     <th>Régions</th>
                                     <th width="5%" class="text-center">#</th>
                                 </tr>
@@ -57,11 +58,14 @@
                                         <td class="text-center">{{ $i++ }}</td>
                                         <td>{{ $antenne?->code }}</td>
                                         <td>{{ $antenne?->name }}</td>
-                                        <td>{{ $antenne?->contact }}</td>
+                                        <td>{{ $antenne?->date_ouverture?->format('d/m/Y') }}</td>
+                                        <td><a href="tel:+221{{ $antenne?->contact }}">{{ $antenne?->contact }}</a></td>
                                         <td>{{ $antenne?->adresse }}</td>
                                         <td>{{ $antenne?->chef?->user?->civilite . ' ' . $antenne->chef?->user?->firstname . ' ' . $antenne->chef?->user?->name }}
                                         </td>
-                                        <td>{{ $antenne?->chef?->user?->telephone }}</td>
+                                        <td><a
+                                                href="tel:+221{{ $antenne?->chef?->user?->telephone }}">{{ $antenne?->chef?->user?->telephone }}</a>
+                                        </td>
                                         <td>
                                             @foreach ($antenne?->regions as $region)
                                                 <div>{{ $region?->nom }}</div>
@@ -242,7 +246,7 @@
         new DataTable('#table-antennes', {
             layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [
