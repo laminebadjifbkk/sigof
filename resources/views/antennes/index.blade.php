@@ -40,7 +40,7 @@
                             <thead>
                                 <tr>
                                     {{-- <th width="5%" class="text-center">N°</th> --}}
-                                    <th width="8%">Code</th>
+                                    <th class="text-center" width="5%">Code</th>
                                     <th>Antenne</th>
                                     <th class="text-center">Date ouverture</th>
                                     <th>Contact</th>
