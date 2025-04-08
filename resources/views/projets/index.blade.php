@@ -83,58 +83,59 @@
                                         </td>
                                         <td class="text-center">{{ $projet?->effectif }}</td>
                                         <td>
-                                            <span class="d-flex align-items-baseline"><a
-                                                    href="{{ route('projets.show', $projet->id) }}"
-                                                    class="btn btn-primary btn-sm" title="voir détails"><i
-                                                        class="bi bi-eye"></i></a>
-                                                @if (auth()->user()->hasRole('super-admin|admin'))
+                                            @can('show', $projet)
+                                                <span class="d-flex align-items-baseline"><a
+                                                        href="{{ route('projets.show', $projet->id) }}"
+                                                        class="btn btn-primary btn-sm" title="voir détails"><i
+                                                            class="bi bi-eye"></i></a>
                                                     <div class="filter">
                                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                 class="bi bi-three-dots"></i></a>
                                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            <li>
-                                                                <a class="dropdown-item btn btn-sm"
-                                                                    href="{{ route('projets.edit', $projet->id) }}"
-                                                                    class="mx-1" title="Modifier">Modifier</a>
-                                                                {{-- <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#EditProjetModal{{ $projet->id }}">Modifier
-                                                                </button> --}}
-                                                            </li>
-                                                            <li>
-                                                                <form action="{{ route('projets.destroy', $projet->id) }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="dropdown-item show_confirm"
-                                                                        title="Supprimer">Supprimer</button>
-                                                                </form>
-                                                            </li>
-                                                            <li>
-                                                                <form
-                                                                    action="{{ route('ouvrirProjet', ['id' => $projet?->id]) }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    @method('PUT')
-                                                                    <button
-                                                                        class="show_confirm_valider btn btn-sm mx-1">Ouvrir</button>
-                                                                </form>
-                                                            </li>
-                                                            <li>
-                                                                <form
-                                                                    action="{{ route('fermerProjet', ['id' => $projet?->id]) }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    @method('PUT')
-                                                                    <button
-                                                                        class="show_confirm_valider btn btn-sm mx-1">Fermer</button>
-                                                                </form>
-                                                            </li>
+                                                            @can('update', $projet)
+                                                                <li>
+                                                                    <a class="dropdown-item btn btn-sm"
+                                                                        href="{{ route('projets.edit', $projet->id) }}"
+                                                                        class="mx-1" title="Modifier">Modifier</a>
+                                                                </li>
+                                                            @endcan
+                                                            @can('delete', $projet)
+                                                                <li>
+                                                                    <form action="{{ route('projets.destroy', $projet->id) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="dropdown-item show_confirm"
+                                                                            title="Supprimer">Supprimer</button>
+                                                                    </form>
+                                                                </li>
+                                                            @endcan
+                                                            @hasRole('super-admin|admin')
+                                                                <li>
+                                                                    <form
+                                                                        action="{{ route('ouvrirProjet', ['id' => $projet?->id]) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        @method('PUT')
+                                                                        <button
+                                                                            class="show_confirm_valider btn btn-sm mx-1">Ouvrir</button>
+                                                                    </form>
+                                                                </li>
+                                                                <li>
+                                                                    <form
+                                                                        action="{{ route('fermerProjet', ['id' => $projet?->id]) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        @method('PUT')
+                                                                        <button
+                                                                            class="show_confirm_valider btn btn-sm mx-1">Fermer</button>
+                                                                    </form>
+                                                                </li>
+                                                            @endhasrole
                                                         </ul>
                                                     </div>
-                                                @endif
-                                            </span>
+                                                </span>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach
