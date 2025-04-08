@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ANTENNES')
+@section('title', 'ONFP | ANTENNES')
 @section('space-work')
 
     <div class="pagetitle">
@@ -42,7 +42,7 @@
                                     <th width="5%" class="text-center">N°</th>
                                     <th>Code</th>
                                     <th>Antenne</th>
-                                    <th>Date ouverture</th>
+                                    <th class="text-center">Date ouverture</th>
                                     <th>Contact</th>
                                     <th width="20%">Adresse</th>
                                     <th width="15%">Chef d'antenne</th>
@@ -58,7 +58,7 @@
                                         <td class="text-center">{{ $i++ }}</td>
                                         <td>{{ $antenne?->code }}</td>
                                         <td>{{ $antenne?->name }}</td>
-                                        <td>{{ $antenne?->date_ouverture?->format('d/m/Y') }}</td>
+                                        <td class="text-center">{{ $antenne?->date_ouverture?->format('d/m/Y') }}</td>
                                         <td><a href="tel:+221{{ $antenne?->contact }}">{{ $antenne?->contact }}</a></td>
                                         <td>{{ $antenne?->adresse }}</td>
                                         <td>{{ $antenne?->chef?->user?->civilite . ' ' . $antenne->chef?->user?->firstname . ' ' . $antenne->chef?->user?->name }}
