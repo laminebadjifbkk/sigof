@@ -1,6 +1,7 @@
 @extends('layout.user-layout')
-@section('title', 'Modification ' . $direction->name)
+@section('title', 'MODIFICATION ' . $direction->sigle)
 @section('space-work')
+@can('direction-update')
     <section class="section">
         <div class="row justify-content-center">
             <div class="col-lg-10">
@@ -107,4 +108,5 @@
             </div>
         </div>
     </section>
+    @endcan
 @endsection

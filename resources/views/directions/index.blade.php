@@ -1,7 +1,6 @@
 @extends('layout.user-layout')
 @section('title', 'ONFP | Liste des directions')
 @section('space-work')
-
     <div class="pagetitle">
         <nav>
             <ol class="breadcrumb">
@@ -30,13 +29,13 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        {{-- @can('direction-create') --}}
-                        <div class="pt-0">
-                            <a href="{{ route('directions.create') }}"
-                                class="btn btn-primary btn-sm float-end btn-rounded"><i class="fas fa-plus">Ajouter</a>
-                        </div>
-                        {{-- @endcan --}}
-                        <h5 class="card-title">Directions</h5>
+                        @can('direction-create')
+                            <div class="pt-0">
+                                <a href="{{ route('directions.create') }}"
+                                    class="btn btn-primary btn-sm float-end btn-rounded"><i class="fas fa-plus">Ajouter</a>
+                            </div>
+                        @endcan
+                        <h5 class="card-title">Liste des directions</h5>
                         {{-- <p>Le tableau de toutes les directions.</p> --}}
                         <!-- Table with stripped rows -->
                         <table class="table datatables align-middle" id="table-directions">
@@ -69,32 +68,38 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            <span class="d-flex mt-2 align-items-baseline"><a
-                                                    href="{{ url('directions/' . $direction->id) }}"
-                                                    class="btn btn-warning btn-sm mx-1" title="Donner permission"><i
-                                                        class="bi bi-eye"></i></a>
-                                                <div class="filter">
-                                                    <a class="icon" href="" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                        <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                href="{{ route('directions.edit', $direction->id) }}"
-                                                                class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
-                                                        </li>
-                                                        <li>
-                                                            <form action="{{ url('directions', $direction->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="dropdown-item show_confirm"><i
-                                                                        class="bi bi-trash"></i>Supprimer</button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </span>
+                                            @can('direction-show')
+                                                <span class="d-flex mt-2 align-items-baseline">
+                                                    <a href="{{ url('directions/' . $direction->id) }}"
+                                                        class="btn btn-warning btn-sm mx-1" title="Donner permission"><i
+                                                            class="bi bi-eye"></i>
+                                                    </a>
+                                                    <div class="filter">
+                                                        <a class="icon" href="" data-bs-toggle="dropdown"><i
+                                                                class="bi bi-three-dots"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            @can('direction-update')
+                                                                <li><a class="dropdown-item btn btn-sm mx-1"
+                                                                        href="{{ route('directions.edit', $direction->id) }}"
+                                                                        class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
+                                                                </li>
+                                                            @endcan
+                                                            @can('direction-delete')
+                                                                <li>
+                                                                    <form action="{{ url('directions', $direction->id) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="dropdown-item show_confirm"><i
+                                                                                class="bi bi-trash"></i>Supprimer</button>
+                                                                    </form>
+                                                                </li>
+                                                            @endcan
+                                                        </ul>
+                                                    </div>
+                                                </span>
+                                            @endcan
                                         </td>
-
                                     </tr>
                                 @endforeach
                             </tbody>
