@@ -39,7 +39,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(['role:super-admin|admin|DIOF|DEC|DPP']);
+        $this->middleware(['role:super-admin|admin|Employe']);
         $this->middleware("permission:user-view", ["only" => ["index"]]);
         $this->middleware("permission:user-create", ["only" => ["create", "store"]]);
         $this->middleware("permission:user-update", ["only" => ["update", "edit"]]);
@@ -1109,7 +1109,7 @@ class UserController extends Controller
 
         $user_files = File::where('users_id', $user?->id)
             ->whereNull('file')
-            /* ->whereNotIn('sigle', ['AC', 'Arrêté', 'Ninea/RC']) */
+        /* ->whereNotIn('sigle', ['AC', 'Arrêté', 'Ninea/RC']) */
             ->distinct()
             ->get();
 
