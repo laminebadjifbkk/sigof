@@ -188,7 +188,7 @@
                     @can('individuelle-view')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ url('individuelles') }}">
-                                <span>Demandes individuels</span>
+                                <span>Demandes individuelles</span>
                             </a>
                         </li>
                     @endcan
@@ -196,7 +196,7 @@
                     @can('collective-view')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ url('listecollectives') }}">
-                                <span>Demandes collectifs</span>
+                                <span>Demandes collectives</span>
                             </a>
                         </li>
                     @endcan
@@ -204,7 +204,7 @@
                     @can('user-view')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('users.individuelle_collective') }}">
-                                <span>Indivividuelle/Collective</span>
+                                <span>Indivividuelles/Collectives</span>
                             </a>
                         </li>
                     @endcan
