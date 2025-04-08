@@ -110,7 +110,7 @@
                                                                     </form>
                                                                 </li>
                                                             @endcan
-                                                            @hasRole('super-admin|admin')
+                                                            {{-- @hasRole('super-admin|admin') --}}
                                                                 <li>
                                                                     <form
                                                                         action="{{ route('ouvrirProjet', ['id' => $projet?->id]) }}"
@@ -131,7 +131,7 @@
                                                                             class="show_confirm_valider btn btn-sm mx-1">Fermer</button>
                                                                     </form>
                                                                 </li>
-                                                            @endhasrole
+                                                            {{-- @endhasrole --}}
                                                         </ul>
                                                     </div>
                                                 </span>
