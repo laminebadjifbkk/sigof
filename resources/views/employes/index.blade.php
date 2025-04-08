@@ -137,8 +137,8 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h2 class="modal-title mx-auto">
-                                {{ $employe?->user?->firstname . ' ' . $employe?->user?->name }}
-                            </h2>
+                                {{ $employe?->user?->firstname . ' ' . $employe?->user?->name }}</h2>
+                            <p class="text-center small">{{ $employe?->fonction?->name }}</p>
                         </div>
                         <div class="modal-body">
                             <div class="col-12">
