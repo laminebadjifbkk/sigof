@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - ' . $projet?->name)
+@section('title', 'ONFP | ' . $projet?->sigle)
 @section('space-work')
 
     <section
@@ -65,11 +65,12 @@
                                             data-bs-target="#localites-overview">Localités</button>
                                     </li>
                                 @endif
-                                
+
                                 <li class="nav-item">
                                     <button class="nav-link">
                                         <a style="text-decoration: none; color: black"
-                                            href="{{ route('projetsBeneficiaire', $projet?->id) }}" title="voir" target="_blank">Liste</a>
+                                            href="{{ route('projetsBeneficiaire', $projet?->id) }}" title="voir"
+                                            target="_blank">Liste</a>
                                     </button>
                                 </li>
 
@@ -88,43 +89,45 @@
                                         @endif
 
                                         <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                            <div class="label">Intitulé projet / programme</div>
-                                            <div>{{ $projet?->name }}</div>
+                                            <div class="label">Partenaire</div>
+                                            <div class="pt-2">{{ $projet?->name }}</div>
                                         </div>
 
                                         <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                                            <div class="label">Sigle projet / programme</div>
-                                            <div>{{ $projet?->sigle }}</div>
+                                            <div class="label">Sigle</div>
+                                            <div class="pt-2">{{ $projet?->sigle }}</div>
                                         </div>
 
-                                        <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                                            <div class="label">Date signature</div>
-                                            <div>{{ $projet?->date_signature->format('d-m-Y') }}</div>
-                                        </div>
-                                        @isset($projet?->budjet)
+                                        @if ($projet?->date_signature)
+                                            <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
+                                                <div class="label">Date signature</div>
+                                                <div class="pt-2">{{ $projet?->date_signature->format('d/m/Y') }}</div>
+                                            </div>
+                                        @endif
+                                        @if($projet?->budjet)
                                             <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Budjet</div>
-                                                <div>{{ number_format($projet?->budjet, 2, ',', ' ') }}</div>
+                                                <div class="pt-2">{{ number_format($projet?->budjet, 2, ',', ' ') }}</div>
                                             </div>
-                                        @endisset
-                                        @isset($projet?->duree)
+                                        @endif
+                                        @if($projet?->duree)
                                             <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Durée</div>
-                                                <div>{{ $projet?->duree . ' mois' }}</div>
+                                                <div class="pt-2">{{ $projet?->duree . ' mois' }}</div>
                                             </div>
-                                        @endisset
-                                        @isset($projet?->debut)
+                                        @endif
+                                        @if($projet?->debut)
                                             <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Date début</div>
-                                                <div>{{ $projet?->debut->format('d-m-Y') }}</div>
+                                                <div class="pt-2">{{ $projet?->debut->format('d-m-Y') }}</div>
                                             </div>
-                                        @endisset
-                                        @isset($projet?->fin)
+                                        @endif
+                                        @if($projet?->fin)
                                             <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Date fin</div>
-                                                <div>{{ $projet?->fin->format('d-m-Y') }}</div>
+                                                <div class="pt-2">{{ $projet?->fin->format('d-m-Y') }}</div>
                                             </div>
-                                        @endisset
+                                        @endif
                                     </form>
                                 </div>
                                 <div class="tab-pane fade show active profile-overview" id="modules-overview">
@@ -168,7 +171,8 @@
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                         <div class="d-flex justify-content-between align-items-center mt-3">
                                             <h5 class="card-title">Modules</h5>
-                                            <h5 class="card-title">Demandes reçues: {{ count($projet?->individuelles) }}</h5>
+                                            <h5 class="card-title">Demandes reçues: {{ count($projet?->individuelles) }}
+                                            </h5>
                                             <h5 class="card-title">Effectif total: {{ $projet?->effectif }}</h5>
                                         </div>
                                         {{-- <form method="post" action="#" enctype="multipart/form-data"
@@ -517,7 +521,7 @@
     new DataTable('#table-operateurModules', {
         layout: {
             topStart: {
-                buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                buttons: ['csv', 'excel', 'print'],
             }
         },
         "order": [

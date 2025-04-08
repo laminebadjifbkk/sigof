@@ -1169,8 +1169,7 @@
                             <div class="card-body d-flex align-items-center justify-content-between">
                                 <div>
                                     <h5 class="card-title text-success d-flex align-items-center">
-                                        <i class="bi bi-graduation-cap me-0"></i> Courriers <span class="fw-bold">&nbsp;|
-                                            Personnels</span>
+                                        <i class="bi bi-graduation-cap me-0"></i> Courriers
                                     </h5>
                                     <p class="text-muted">Mes courriers</p>
                                 </div>

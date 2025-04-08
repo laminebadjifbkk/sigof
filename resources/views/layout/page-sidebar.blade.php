@@ -564,14 +564,14 @@
             </li>
         @endcan
 
-        @can('projet-view')
+        @hasrole(['SAOS', 'super-admin', 'DG', 'admin', 'SG', 'DPP'])
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ url('projets') }}">
                     <i class="bi bi-layers-half"></i>
                     <span>Nos partenaires</span>
                 </a>
             </li>
-        @endcan
+        @endhasrole
 
         @can('contact-view')
             <li class="nav-item">

@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Partenaires')
+@section('title', 'ONFP | PARTENAIRES')
 @section('space-work')
     <div class="pagetitle">
         <nav>
@@ -63,8 +63,12 @@
                                 @foreach ($projets as $projet)
                                     <tr>
                                         <th scope="row" style="text-align: center">
-                                            <img class="rounded-circle" alt="LOGO"
-                                                src="{{ asset($projet->getProjetImage()) }}" width="40" height="auto">
+                                            <a href="#" data-bs-toggle="modal"
+                                                data-bs-target="#ShowLOGO{{ $projet?->id }}">
+                                                <img class="rounded-circle w-100" alt="Profil"
+                                                    src="{{ asset($projet->getProjetImage()) }}" width="40"
+                                                    height="auto">
+                                            </a>
                                         </th>
                                         <td>{{ $projet?->name }}</td>
                                         <td class="text-center">{{ $projet?->sigle }}</td>
@@ -304,8 +308,7 @@
                                         <label for="description" class="form-label">Description<span
                                                 class="text-danger mx-1">*</span></label>
                                         <textarea name="description" id="description" rows="3"
-                                            class="form-control form-control-sm @error('description') is-invalid @enderror"
-                                            placeholder="Description">{{ old('description') }}</textarea>
+                                            class="form-control form-control-sm @error('description') is-invalid @enderror" placeholder="Description">{{ old('description') }}</textarea>
                                         @error('description')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -325,7 +328,30 @@
                 </div>
             </div>
         </div>
-
+        @foreach ($projets as $projet)
+            <div class="modal fade" id="ShowLOGO{{ $projet->id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title mx-auto">
+                                {{ $projet?->sigle }}
+                            </h2>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-12">
+                                <img src="{{ asset($projet->getProjetImage() ?? 'images/default.png') }}"
+                                    class="d-block w-100 main-image rounded-4"
+                                    alt="{{ $projet?->sigle ?? 'Photo de profil' }}">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-sm"
+                                data-bs-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
         <!-- Edit Projet -->
         {{-- @foreach ($projets as $projet)
             <div class="col-lg-12 col-md-12 d-flex flex-column align-items-center justify-content-center">
@@ -538,7 +564,7 @@
         new DataTable('#table-individuelles', {
             layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             /*  "order": [
