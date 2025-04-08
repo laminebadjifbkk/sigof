@@ -35,13 +35,13 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        @if (auth()->user()->hasRole('super-admin|admin'))
+                        @can('projet-create')
                             <div class="pt-0">
                                 <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
                                     data-bs-toggle="modal" data-bs-target="#AddProjetModal">Ajouter
                                 </button>
                             </div>
-                        @endif
+                        @endcan
                         <div class="pt-0">
                             <h5 class="card-title">Liste des partenaires</h5>
                         </div>
