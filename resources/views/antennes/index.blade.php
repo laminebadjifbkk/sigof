@@ -44,7 +44,7 @@
                                     <th>Antenne</th>
                                     <th>Date ouverture</th>
                                     <th>Contact</th>
-                                    <th>Adresse</th>
+                                    <th width="15%">Adresse</th>
                                     <th>Chef d'antenne</th>
                                     <th>Téléphone chef</th>
                                     <th>Régions</th>
