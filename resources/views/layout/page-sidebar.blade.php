@@ -142,8 +142,6 @@
             </li>
         @endcan
 
-
-
         @hasrole('Employe')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('mescourriers') }}">
@@ -637,7 +635,7 @@
                     <i class="bi bi-people"></i><span>Nos directions</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="directions-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    @hasrole('super-admin|dg')
+                    @hasrole('super-admin|DG|DRH|ADRH')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('directions.index') }}">
                                 <span>Directions</span>
