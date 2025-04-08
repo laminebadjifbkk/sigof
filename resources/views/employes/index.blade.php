@@ -135,16 +135,19 @@
             <div class="modal fade" id="ShowIMG{{ $employe?->user?->id }}" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title mx-auto">
-                                {{ $employe?->user?->firstname . ' ' . $employe?->user?->name }}</h2>
-                            <p class="text-center small">{{ $employe?->fonction?->name }}</p>
+                        <div class="modal-header flex-column align-items-center text-center border-bottom-0">
+                            <h2 class="h5 fw-bold mb-1">
+                                {{ $employe?->user?->firstname . ' ' . $employe?->user?->name }}
+                            </h2>
+                            <p class="text-muted small mb-0">
+                                {{ $employe?->fonction?->name }}
+                            </p>
                         </div>
                         <div class="modal-body">
                             <div class="col-12">
                                 <img src="{{ asset($employe?->user?->getImage() ?? 'images/default.png') }}"
-                                    class="d-block w-100 main-image rounded-4"
-                                    alt="{{ $employe?->user?->civilite, $employe?->user?->firstname, $employe?->user?->name ?? 'Photo de profil' }}">
+                                    class="d-block w-100 rounded-4"
+                                    alt="{{ $employe?->user?->civilite }} {{ $employe?->user?->firstname }} {{ $employe?->user?->name ?? 'Photo de profil' }}">
                             </div>
                         </div>
                         <div class="modal-footer">
