@@ -531,6 +531,20 @@
                                         </div>
 
                                         <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <label for="etablissement_academique" class="form-label">Etablissement
+                                                académique</label>
+                                            <input type="text" name="etablissement_academique"
+                                                value="{{ old('etablissement_academique') }}"
+                                                class="form-control form-control-sm @error('etablissement_academique') is-invalid @enderror"
+                                                id="etablissement_academique" placeholder="Etablissement obtention">
+                                            @error('etablissement_academique')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="autre_diplome_academique" class="form-label">Si autre ?
                                                 précisez</label>
                                             <input type="text" name="autre_diplome_academique"
@@ -552,20 +566,6 @@
                                                 class="form-control form-control-sm @error('option_diplome_academique') is-invalid @enderror"
                                                 id="option_diplome_academique" placeholder="Ex: Mathématiques">
                                             @error('option_diplome_academique')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <div>{{ $message }}</div>
-                                                </span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                            <label for="etablissement_academique" class="form-label">Etablissement
-                                                académique</label>
-                                            <input type="text" name="etablissement_academique"
-                                                value="{{ old('etablissement_academique') }}"
-                                                class="form-control form-control-sm @error('etablissement_academique') is-invalid @enderror"
-                                                id="etablissement_academique" placeholder="Etablissement obtention">
-                                            @error('etablissement_academique')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
                                                 </span>
