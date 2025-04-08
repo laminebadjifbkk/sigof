@@ -77,32 +77,41 @@
                                             </td>
                                             <td>{{ $employe?->direction?->name }}</td>
                                             <td>
-                                                <span class="d-flex mt-2 align-items-baseline"><a
-                                                        href="{{ route('employes.show', $employe->id) }}"
-                                                        class="btn btn-success btn-sm mx-1" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                    href="{{ route('employes.edit', $employe->id) }}"
-                                                                    class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
-                                                            </li>
-                                                            <li>
-                                                                <form
-                                                                    action="{{ route('employes.destroy', $employe->id) }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="dropdown-item show_confirm"><i
-                                                                            class="bi bi-trash"></i>Supprimer</button>
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </span>
+
+                                                @can('employe-show')
+                                                    <span class="d-flex mt-2 align-items-baseline"><a
+                                                            href="{{ route('employes.show', $employe->id) }}"
+                                                            class="btn btn-success btn-sm mx-1" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                        <div class="filter">
+                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                    class="bi bi-three-dots"></i></a>
+                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+
+                                                                @can('employe-update')
+                                                                    <li><a class="dropdown-item btn btn-sm mx-1"
+                                                                            href="{{ route('employes.edit', $employe->id) }}"
+                                                                            class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
+                                                                    </li>
+                                                                @endcan
+
+                                                                @can('employe-delete')
+                                                                    <li>
+                                                                        <form
+                                                                            action="{{ route('employes.destroy', $employe->id) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"><i
+                                                                                    class="bi bi-trash"></i>Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                @endcan
+                                                            </ul>
+                                                        </div>
+                                                    </span>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach

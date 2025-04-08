@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Liste des fonctions')
+@section('title', 'ONFP | FONCTIONS')
 @section('space-work')
 
     <div class="pagetitle">
@@ -40,11 +40,13 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <div class="pt-0">
-                            <a href="{{ route('fonctions.create') }}"
-                                class="btn btn-primary btn-sm float-end btn-rounded">Ajouter</a>
-                        </div>
-                        <h5 class="card-title">Fonctions</h5>
+                        @can('fonction-create')
+                            <div class="pt-0">
+                                <a href="{{ route('fonctions.create') }}"
+                                    class="btn btn-primary btn-sm float-end btn-rounded">Ajouter</a>
+                            </div>
+                        @endcan
+                        <h5 class="card-title">Liste des fonctions</h5>
                         {{-- <p>Le tableau de toutes les fonctions du système.</p> --}}
                         <!-- Table with stripped rows -->
                         <table class="table datatables align-middle" id="table-fonctions">
@@ -64,17 +66,24 @@
                                         <td>{{ $fonction->name }}</td>
                                         <td>{{ $fonction->sigle }}</td>
                                         <td>
-                                            <span class="d-flex mt-2 align-items-baseline"><a
-                                                    href="{{ url('fonctions/' . $fonction->id . '/edit') }}"
-                                                    class="btn btn-success btn-sm" title="Modifier"><i
-                                                        class="bi bi-pencil-square"></i></a>&nbsp;
-                                                <form action="{{ url('fonctions', $fonction->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                        title="Supprimer"><i class="bi bi-trash"></i></button>
-                                                </form>
-                                            </span>
+                                            @can('fonction-show')
+                                                <span class="d-flex mt-2 align-items-baseline">
+                                                    @can('fonction-update')
+                                                        <a href="{{ url('fonctions/' . $fonction->id . '/edit') }}"
+                                                            class="btn btn-success btn-sm" title="Modifier"><i
+                                                                class="bi bi-pencil-square"></i>
+                                                        </a>&nbsp;
+                                                    @endcan
+                                                    @can('fonction-delete')
+                                                        <form action="{{ url('fonctions', $fonction->id) }}" method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                                                title="Supprimer"><i class="bi bi-trash"></i></button>
+                                                        </form>
+                                                    @endcan
+                                                </span>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach
