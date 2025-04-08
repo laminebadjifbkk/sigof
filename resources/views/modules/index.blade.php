@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Liste des modules')
+@section('title', 'ONFP | MODULES')
 @section('space-work')
     @can('module-view')
         <section class="section">
@@ -128,11 +128,11 @@
                                                                             <i class="bi bi-pencil" title="Modifier"></i> Modifier
                                                                         </button>
                                                                     </li> --}}
-                                                                <li><a class="dropdown-item btn btn-sm"
-                                                                    href="{{ route('modules.edit', $module?->id) }}"
-                                                                    class="mx-1"><i class="bi bi-pencil"></i>
-                                                                    Modifier</a>
-                                                            </li>
+                                                                    <li><a class="dropdown-item btn btn-sm"
+                                                                            href="{{ route('modules.edit', $module?->id) }}"
+                                                                            class="mx-1"><i class="bi bi-pencil"></i>
+                                                                            Modifier</a>
+                                                                    </li>
                                                                 @endcan
                                                                 @can('module-delete')
                                                                     <li>
@@ -163,7 +163,7 @@
             <div class="modal fade" id="AddIndividuelModal" tabindex="-1" role="dialog"
                 aria-labelledby="AddIndividuelModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <div class="modal-content">                       
+                    <div class="modal-content">
                         <div class="card-header text-center bg-gradient-default">
                             <h1 class="h4 text-black mb-0">AJOUTER UN NOUVEAU MODULE</h1>
                         </div>
