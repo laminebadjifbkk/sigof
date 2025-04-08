@@ -98,29 +98,31 @@
                     </div>
                 @endrole
 
-                @if (!empty($nouvelle_formation_count))
-                    <div class="col-12">
-                        <a href="{{ route('nouvellesformations') }}">
-                            <div class="card shadow-lg border-0 rounded-lg">
-                                <div class="card-body d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <h5 class="card-title text-info d-flex align-items-center">
-                                            <i class="bi bi-graduation-cap me-0"></i> Nouvelle <span class="fw-bold">&nbsp;|
-                                                Formation</span>
-                                        </h5>
-                                        <p class="text-muted">Nouvelles formations disponibles.</p>
-                                    </div>
-                                    <div class="card-icon bg-info text-white rounded-circle d-flex align-items-center justify-content-center"
-                                        style="width: 30px; height: 30px; font-size: 1.2rem;">
-                                        {{ $nouvelle_formation_count }}
+                @role('Demandeur')
+                    @if ($nouvelle_formation_count)
+                        <div class="col-12">
+                            <a href="{{ route('nouvellesformations') }}">
+                                <div class="card shadow-lg border-0 rounded-lg">
+                                    <div class="card-body d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <h5 class="card-title text-info d-flex align-items-center">
+                                                <i class="bi bi-graduation-cap me-0"></i> Nouvelle <span class="fw-bold">&nbsp;|
+                                                    Formation</span>
+                                            </h5>
+                                            {{-- <p class="text-muted">Formations disponibles.</p> --}}
+                                        </div>
+                                        <div class="card-icon bg-info text-white rounded-circle d-flex align-items-center justify-content-center"
+                                            style="width: 30px; height: 30px; font-size: 1.2rem;">
+                                            {{ $nouvelle_formation_count }}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                @else
-                    <div class="alert alert-info">Aucune notification de formation vous concernant pour l'instant !</div>
-                @endif
+                            </a>
+                        </div>
+                        {{-- @else
+                    <div class="alert alert-info">Aucune notification de formation vous concernant pour l'instant !</div> --}}
+                    @endif
+                @endrole
             </div>
             {{-- Fin Photo de profil --}}
 
@@ -178,8 +180,7 @@
 
                                 @role('Demandeur')
                                     <li class="nav-item">
-                                        <button class="nav-link" data-bs-toggle="tab"
-                                            data-bs-target="#files">Fichiers</button>
+                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#files">Fichiers</button>
                                     </li>
                                 @endrole
 
