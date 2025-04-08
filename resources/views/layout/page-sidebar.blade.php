@@ -1,14 +1,17 @@
 <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
-        @can('user-view')
+        {{-- @can('user-view') --}}
+
+        @hasanyrole('Employe|super-admin|')
             <li class="nav-item">
                 <a class="nav-link " href="{{ url('/home') }}">
                     <i class="bi bi-grid"></i>
                     <span>Tableau de bord</span>
                 </a>
             </li>
-        @endcan
+            {{-- @endcan --}}
+        @endhasanyrole
 
         @can('user-view')
             <li class="nav-item">
