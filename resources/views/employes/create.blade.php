@@ -200,8 +200,7 @@
                                 </div>
 
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <label for="direction" class="form-label">Direction<span
-                                            class="text-danger mx-1">*</span></label>
+                                    <label for="direction" class="form-label">Direction</label>
                                     <select name="direction" class="form-select @error('direction') is-invalid @enderror"
                                         aria-label="Select" id="select-field" data-placeholder="Choisir direction">
                                         <option value="{{ old('direction') }}">{{ old('direction') }}</option>
@@ -218,8 +217,7 @@
                                 </div>
 
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <label for="fonction" class="form-label">Fonction<span
-                                            class="text-danger mx-1">*</span></label>
+                                    <label for="fonction" class="form-label">Fonction</label>
                                     <select name="fonction" class="form-select @error('fonction') is-invalid @enderror"
                                         aria-label="Select" id="select-field-fonction"
                                         data-placeholder="Choisir fonction">
