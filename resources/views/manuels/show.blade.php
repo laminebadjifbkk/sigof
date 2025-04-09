@@ -24,6 +24,7 @@
             background-color: #2c3e50;
             color: white;
             padding: 20px;
+            height: 100vh;
             overflow-y: auto;
         }
 
@@ -66,8 +67,6 @@
             background-color: white;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            height: 100vh;
         }
 
         h2 {
