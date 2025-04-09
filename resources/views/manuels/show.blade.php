@@ -24,7 +24,7 @@
             background-color: #2c3e50;
             color: white;
             padding: 20px;
-            height: 100vh;
+            height: 150vh;
             overflow-y: auto;
         }
 
