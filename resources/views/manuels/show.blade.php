@@ -137,6 +137,8 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <h2>Nos publications</h2>
+        <input type="text" id="searchInput" placeholder="Rechercher un manuel..."
+            style="width: 100%; padding: 10px; border-radius: 5px; border: none; margin-bottom: 15px; font-size: 1em;">
         <ul class="book-list">
             @foreach ($manuels as $man)
                 <li class="book-item">
@@ -271,6 +273,21 @@
             } else {
                 alert(`Veuillez entrer un numéro de page valide entre 1 et ${pageCount}`);
             }
+        });
+    </script>
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const items = document.querySelectorAll('.book-list .book-item');
+
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         });
     </script>
 
