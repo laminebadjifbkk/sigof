@@ -42,7 +42,7 @@
                         <table class="table datatables align-middle" id="table-categories">
                             <thead>
                                 <tr>
-                                    <th width="3%">N°</th>
+                                    {{-- <th width="3%">N°</th> --}}
                                     <th>catégories</th>
                                     <th width="5%">#</th>
                                 </tr>
@@ -51,7 +51,7 @@
                                 <?php $i = 1; ?>
                                 @foreach ($categories as $categorie)
                                     <tr>
-                                        <td>{{ $i++ }}</td>
+                                        {{-- <td>{{ $i++ }}</td> --}}
                                         <td>{{ $categorie->name }}</td>
                                         <td>
                                             <span class="d-flex mt-2 align-items-baseline"><a
