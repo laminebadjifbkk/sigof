@@ -166,9 +166,9 @@
             </div>
 
             <div id="controls">
-                <button id="prevPage">Page Précédente</button>
+                <button id="prevPage">Précédente</button>
                 <span id="pageNum">Page 1 sur 1</span>
-                <button id="nextPage">Page Suivante</button>
+                <button id="nextPage">Suivante</button>
                 <br><br>
                 <input type="number" id="pageInput" min="1" style="width: 60px;" />
                 <button id="goToPage">Aller à la page</button>
