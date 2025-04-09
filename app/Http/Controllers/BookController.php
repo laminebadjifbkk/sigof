@@ -31,7 +31,7 @@ class BookController extends Controller
             'title'       => 'required',
             'auteur'      => 'required',
             'description' => 'required',
-            'file'        => 'required|mimes:pdf|max:20480', // Max 20MB
+            'file'        => 'required|mimes:pdf|max:81920', // Max 80MB
         ]);
 
         $file     = $request->file('file');
@@ -66,7 +66,7 @@ class BookController extends Controller
             'title'       => 'required',
             'auteur'      => 'required',
             'description' => 'required',
-            'file'        => 'nullable|mimes:pdf|max:20480', // Max 20MB
+            'file'        => 'nullable|mimes:pdf|max:81920', // Max 80MB
         ]);
 
         // Trouver le livre par son ID
