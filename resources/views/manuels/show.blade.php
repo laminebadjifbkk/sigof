@@ -136,7 +136,7 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <h2>Nos manuels</h2>
+        <h2>Nos publications</h2>
         <ul class="book-list">
             @foreach ($manuels as $man)
                 <li class="book-item">
@@ -156,7 +156,7 @@
                 <p><strong>Auteur : </strong> {{ $manuel->author }}</p>
                 <p><strong>Description :</strong>
 
-                    {!! '- ' . implode('', array_map(fn($line) => nl2br(e($line)), explode("\n", ucfirst($manuel->description)))) !!}
+                    {!! '' . implode('', array_map(fn($line) => nl2br(e($line)), explode("\n", ucfirst($manuel->description)))) !!}
 
                 </p>
             </div>
