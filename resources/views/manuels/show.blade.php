@@ -20,7 +20,7 @@
 
         /* Style de la sidebar */
         .sidebar {
-            width: 250px;
+            width: 350px;
             background-color: #2c3e50;
             color: white;
             padding: 20px;
