@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Liste des categories')
+@section('title', 'ONFP | CATÉGORIES')
 @section('space-work')
 
     <div class="pagetitle">
@@ -42,9 +42,9 @@
                         <table class="table datatables align-middle" id="table-categories">
                             <thead>
                                 <tr>
-                                    <th>N°</th>
+                                    <th width="3%">N°</th>
                                     <th>catégories</th>
-                                    <th>#</th>
+                                    <th width="5%">#</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,7 +54,8 @@
                                         <td>{{ $i++ }}</td>
                                         <td>{{ $categorie->name }}</td>
                                         <td>
-                                            <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('categories/'.$categorie->id.'/edit') }}"
+                                            <span class="d-flex mt-2 align-items-baseline"><a
+                                                    href="{{ url('categories/' . $categorie->id . '/edit') }}"
                                                     class="btn btn-success btn-sm" title="Modifier"><i
                                                         class="bi bi-pencil-square"></i></a>&nbsp;
                                                 <form action="{{ url('categories', $categorie->id) }}" method="post">
