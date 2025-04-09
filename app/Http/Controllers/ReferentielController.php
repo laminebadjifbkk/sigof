@@ -1,12 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Convention;
 use App\Models\Referentiel;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Validation\Rule;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ReferentielController extends Controller
 {
@@ -24,7 +23,7 @@ class ReferentielController extends Controller
     public function index()
     {
         $referentiels = Referentiel::get();
-        $conventions = Convention::get();
+        $conventions  = Convention::get();
 
         return view('referentiels.index', compact('referentiels', 'conventions'));
     }
@@ -33,10 +32,15 @@ class ReferentielController extends Controller
     {
 
         $this->validate($request, [
-            "intitule"      => "required|string|unique:referentiels,intitule,except,id",
-            "titre"         => "required|string|unique:referentiels,titre,except,id",
-            "categorie"     => "nullable|string",
-            "reference"     => "nullable|string",
+            "intitule"  => "required|string",
+            'titre'     => [
+                'required',
+                'string',
+                'max:250',
+                Rule::unique('referentiels', 'titre')->whereNull('deleted_at'),
+            ],
+            "categorie" => "nullable|string",
+            "reference" => "nullable|string",
         ]);
 
         $convention = Convention::where('name', $request?->convention)->first();
@@ -70,10 +74,17 @@ class ReferentielController extends Controller
         $referentiel = Referentiel::find($id);
 
         $this->validate($request, [
-            /* "intitule"      => ['required', 'string', 'max:250', Rule::unique(Referentiel::class)->ignore($id)],
-            "titre"         => ['required', 'string', 'max:250', Rule::unique(Referentiel::class)->ignore($id)], */
-            "categorie"     => ['nullable', 'string'],
-            "reference"     => ['nullable', 'string'],
+            "intitule"  => ['required', 'string'],
+            'titre'     => [
+                'required',
+                'string',
+                'max:250',
+                Rule::unique('referentiels', 'titre')
+                    ->ignore($id)
+                    ->whereNull('deleted_at'),
+            ],
+            "categorie" => ['nullable', 'string'],
+            "reference" => ['nullable', 'string'],
         ]);
 
         $convention = Convention::where('name', $request?->convention)->first();

@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Liste des referentiels')
+@section('title', 'ONFP | REFERENTIELS')
 @section('space-work')
     @can('referentiel-view')
         <section class="section register">
@@ -48,7 +48,7 @@
                                 <thead>
                                     <tr>
                                         {{-- <th width="5%" class="text-center">N°</th> --}}
-                                        <th width="18%">Niveau qualif.</th>
+                                        <th width="18%">Intitulé</th>
                                         <th>Titre</th>
                                         <th>Catégorie</th>
                                         <th>Convention</th>
