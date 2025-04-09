@@ -8,13 +8,14 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 /**
  * Class Collective
- * 
+ *
  * @property int $id
  * @property string $uuid
  * @property string|null $numero
@@ -64,7 +65,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Antenne|null $antenne
  * @property Commune|null $commune
  * @property Convention|null $convention
@@ -86,186 +87,202 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Collective extends Model
 {
-	
+
     use HasFactory;
-	use SoftDeletes;
-	use \App\Helpers\UuidForKey;
-	protected $table = 'collectives';
+    use SoftDeletes;
+    use \App\Helpers\UuidForKey;
+    protected $table = 'collectives';
 
-	protected $casts = [
-		'nbre_pieces' => 'int',
-		'demandeurs_id' => 'int',
-		'ingenieurs_id' => 'int',
-		'formations_id' => 'int',
-		'communes_id' => 'int',
-		'departements_id' => 'int',
-		'regions_id' => 'int',
-		'etudes_id' => 'int',
-		'antennes_id' => 'int',
-		'programmes_id' => 'int',
-		'projets_id' => 'int',
-		'conventions_id' => 'int',
-		'fcollectives_id' => 'int',
-		'users_id' => 'int',
-		'modules_id' => 'int',
-	];
+    protected $casts = [
+        'nbre_pieces'     => 'int',
+        'demandeurs_id'   => 'int',
+        'ingenieurs_id'   => 'int',
+        'formations_id'   => 'int',
+        'communes_id'     => 'int',
+        'departements_id' => 'int',
+        'regions_id'      => 'int',
+        'etudes_id'       => 'int',
+        'antennes_id'     => 'int',
+        'programmes_id'   => 'int',
+        'projets_id'      => 'int',
+        'conventions_id'  => 'int',
+        'fcollectives_id' => 'int',
+        'users_id'        => 'int',
+        'modules_id'      => 'int',
+    ];
 
-	protected $dates = [
-		'date_depot',
-		'date1'
-	];
+    protected $dates = [
+        'date_depot',
+        'date1',
+    ];
 
-	protected $fillable = [
-		'uuid',
-		'numero',
-		'name',
-		'sigle',
-		'date_depot',
-		'items1',
-		'date1',
-		'statut_demande',
-		'validated_by',
-		'statut_juridique',
-		'autre_statut_juridique',
-		'description',
-		'type',
-		'adresse',
-		'telephone',
-		'fixe',
-		'bp',
-		'fax',
-		'projetprofessionnel',
-		'civilite_responsable',
-		'nom_responsable',
-		'prenom_responsable',
-		'cin_responsable',
-		'telephone_responsable',
-		'email',
-		'email_responsable',
-		'fonction_responsable',
-		'experience',
-		'prerequis',
-		'motivation',
-		'nbre_pieces',
-		'file1',
-		'file2',
-		'file3',
-		'legende_recipice',
-		'file_recipice',
-		'demandeurs_id',
-		'ingenieurs_id',
-		'formations_id',
-		'communes_id',
-		'departements_id',
-		'regions_id',
-		'etudes_id',
-		'antennes_id',
-		'programmes_id',
-		'projets_id',
-		'conventions_id',
-		'fcollectives_id',
-		'users_id',
-		'numero_courrier',
-		'modules_id'
-	];
+    protected $fillable = [
+        'uuid',
+        'numero',
+        'name',
+        'sigle',
+        'date_depot',
+        'items1',
+        'date1',
+        'statut_demande',
+        'validated_by',
+        'statut_juridique',
+        'autre_statut_juridique',
+        'description',
+        'type',
+        'adresse',
+        'telephone',
+        'fixe',
+        'bp',
+        'fax',
+        'projetprofessionnel',
+        'civilite_responsable',
+        'nom_responsable',
+        'prenom_responsable',
+        'cin_responsable',
+        'telephone_responsable',
+        'email',
+        'email_responsable',
+        'fonction_responsable',
+        'experience',
+        'prerequis',
+        'motivation',
+        'nbre_pieces',
+        'file1',
+        'file2',
+        'file3',
+        'legende_recipice',
+        'file_recipice',
+        'demandeurs_id',
+        'ingenieurs_id',
+        'formations_id',
+        'communes_id',
+        'departements_id',
+        'regions_id',
+        'etudes_id',
+        'antennes_id',
+        'programmes_id',
+        'projets_id',
+        'conventions_id',
+        'fcollectives_id',
+        'users_id',
+        'numero_courrier',
+        'modules_id',
+    ];
 
 /* 	public function formations()
 	{
 		return $this->hasMany(Formation::class, 'modules_id');
 	} */
+    // Ajoute cette méthode pour forcer l'utilisation de l'uuid dans les routes
+    /* public function getRouteKeyName()
+    {
+        return 'uuid';
+    } */
 
-	public function collectivemodules()
-	{
-		return $this->hasMany(Collectivemodule::class, 'collectives_id');
-	}
-	
-	public function listecollectives()
-	{
-		return $this->hasMany(Listecollective::class, 'collectives_id');
-	}
-	public function antenne()
-	{
-		return $this->belongsTo(Antenne::class, 'antennes_id');
-	}
+    protected static function boot()
+    {
+        parent::boot();
 
-	public function user()
-	{
-		return $this->belongsTo(User::class, 'users_id');
-	}
-	public function commune()
-	{
-		return $this->belongsTo(Commune::class, 'communes_id');
-	}
+        static::creating(function ($model) {
+            if (empty($model->uuid)) {
+                $model->uuid = (string) Str::uuid();
+            }
+        });
+    }
 
-	public function departement()
-	{
-		return $this->belongsTo(Departement::class, 'departements_id');
-	}
-	public function region()
-	{
-		return $this->belongsTo(Region::class, 'regions_id');
-	}
-	public function convention()
-	{
-		return $this->belongsTo(Convention::class, 'conventions_id');
-	}
+    public function collectivemodules()
+    {
+        return $this->hasMany(Collectivemodule::class, 'collectives_id');
+    }
 
-	public function demandeur()
-	{
-		return $this->belongsTo(Demandeur::class, 'demandeurs_id');
-	}
+    public function listecollectives()
+    {
+        return $this->hasMany(Listecollective::class, 'collectives_id');
+    }
+    public function antenne()
+    {
+        return $this->belongsTo(Antenne::class, 'antennes_id');
+    }
 
-	public function etude()
-	{
-		return $this->belongsTo(Etude::class, 'etudes_id');
-	}
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id');
+    }
+    public function commune()
+    {
+        return $this->belongsTo(Commune::class, 'communes_id');
+    }
 
-	public function fcollective()
-	{
-		return $this->belongsTo(Fcollective::class, 'fcollectives_id');
-	}
+    public function departement()
+    {
+        return $this->belongsTo(Departement::class, 'departements_id');
+    }
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'regions_id');
+    }
+    public function convention()
+    {
+        return $this->belongsTo(Convention::class, 'conventions_id');
+    }
 
-	public function formation()
-	{
-		return $this->belongsTo(Formation::class, 'formations_id');
-	}
+    public function demandeur()
+    {
+        return $this->belongsTo(Demandeur::class, 'demandeurs_id');
+    }
 
-	public function ingenieur()
-	{
-		return $this->belongsTo(Ingenieur::class, 'ingenieurs_id');
-	}
+    public function etude()
+    {
+        return $this->belongsTo(Etude::class, 'etudes_id');
+    }
 
-	public function module()
-	{
-		return $this->belongsTo(Module::class, 'modules_id');
-	}
+    public function fcollective()
+    {
+        return $this->belongsTo(Fcollective::class, 'fcollectives_id');
+    }
 
-	public function programme()
-	{
-		return $this->belongsTo(Programme::class, 'programmes_id');
-	}
+    public function formation()
+    {
+        return $this->belongsTo(Formation::class, 'formations_id');
+    }
 
-	public function projet()
-	{
-		return $this->belongsTo(Projet::class, 'projets_id');
-	}
+    public function ingenieur()
+    {
+        return $this->belongsTo(Ingenieur::class, 'ingenieurs_id');
+    }
 
-	public function programmes()
-	{
-		return $this->belongsToMany(Programme::class, 'collectivesprogrammes', 'collectives_id', 'programmes_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
-	}
+    public function module()
+    {
+        return $this->belongsTo(Module::class, 'modules_id');
+    }
 
-	public function projets()
-	{
-		return $this->belongsToMany(Projet::class, 'collectivesprojets', 'collectives_id', 'projets_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
-	}
+    public function programme()
+    {
+        return $this->belongsTo(Programme::class, 'programmes_id');
+    }
 
-	public function membres()
-	{
-		return $this->hasMany(Membre::class, 'collectives_id');
-	}
+    public function projet()
+    {
+        return $this->belongsTo(Projet::class, 'projets_id');
+    }
+
+    public function programmes()
+    {
+        return $this->belongsToMany(Programme::class, 'collectivesprogrammes', 'collectives_id', 'programmes_id')
+            ->withPivot('id', 'deleted_at')
+            ->withTimestamps();
+    }
+
+    public function projets()
+    {
+        return $this->belongsToMany(Projet::class, 'collectivesprojets', 'collectives_id', 'projets_id')
+            ->withPivot('id', 'deleted_at')
+            ->withTimestamps();
+    }
+
+    public function membres()
+    {
+        return $this->hasMany(Membre::class, 'collectives_id');
+    }
 }

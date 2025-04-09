@@ -51,6 +51,12 @@ class CategorieController extends Controller
         return view("employes.categories.update", compact('categorie'));
     }
 
+    public function show($id)
+    {
+        $categorie = Category::find($id);
+        return view("employes.categories.show", compact('categorie'));
+    }
+
     public function update(Request $request, $id)
     {
         $this->validate($request, [

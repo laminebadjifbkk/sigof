@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Fonction;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class FonctionController extends Controller
 {
@@ -32,8 +31,8 @@ class FonctionController extends Controller
     {
         $this->validate($request, [
             /* 'fonctions.*.name' => 'required|unique:fonctions,name', */
-            'fonctions.*.name' => 'required|string',
-            'fonctions.*.sigle' => 'required|string'
+            'fonctions.*.name'  => 'required|string',
+            'fonctions.*.sigle' => 'required|string',
         ]);
 
         /* dd($request->fonctions); */
@@ -46,36 +45,46 @@ class FonctionController extends Controller
             "name" => $request->name
         ]); */
 
-        return redirect()->route("fonctions.create")->with("status", "Fonction créée avec succès");
+        Alert::success('Succès !', "La fonction a été ajoutée avec succès.");
+
+        return redirect()->back();
+
     }
 
     public function edit($id)
     {
-        $fonction = Fonction::find($id);
+        $fonction = Fonction::findOrFail($id);
         return view("employes.fonctions.update", compact('fonction'));
+    }
+
+    public function show($id)
+    {
+        $fonction = Fonction::findOrFail($id);
+        
+        return view("employes.fonctions.show", compact('fonction'));
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
             /* 'name' => ['required', 'string', Rule::unique(Fonction::class)->ignore($id)], */
-            'name' => ['required', 'string'],
-            'sigle' => ['required', 'string']
+            'name'  => ['required', 'string'],
+            'sigle' => ['required', 'string'],
         ]);
 
-        Fonction::find($id)->update([
-            'name' => $request->name,
-            'sigle' => $request->sigle
+        Fonction::findOrFail($id)->update([
+            'name'  => $request->name,
+            'sigle' => $request->sigle,
         ]);
 
-        $fonctions = Fonction::get();
-        $mesage = 'La fonction a été modifiée';
-        return redirect()->route("fonctions.index", compact('fonctions'))->with("status", $mesage);
+        Alert::success('Succès !', "La fonction a été modifiée avec succès.");
+
+        return redirect()->back();
     }
 
     public function destroy($id)
     {
-        $fonction = Fonction::find($id);
+        $fonction = Fonction::findOrFail($id);
         $fonction->delete();
         $mesage = 'La Fonction ' . $fonction->name . ' a été supprimée';
         return redirect()->back()->with("danger", $mesage);

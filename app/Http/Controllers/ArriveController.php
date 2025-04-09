@@ -530,7 +530,7 @@ class ArriveController extends Controller
     {
         $arrive = Arrive::findOrFail($id);
 
-        $courrier = Courrier::findOrFail($arrive->courriers_id);
+        $courrier = $arrive?->courrier;
 
         $user_create = User::find($courrier->user_create_id);
         $user_update = User::find($courrier->user_update_id);
@@ -538,7 +538,12 @@ class ArriveController extends Controller
         $user_create_name = $user_create->firstname . ' ' . $user_create->name;
         $user_update_name = $user_update->firstname . ' ' . $user_update->name;
 
-        return view("courriers.arrives.show", compact("arrive", "courrier", "user_create_name", "user_update_name"));
+        return view("courriers.arrives.show",
+            compact("arrive",
+                "courrier",
+                "user_create_name",
+                "user_update_name")
+        );
     }
 
     public function destroy($arriveId)

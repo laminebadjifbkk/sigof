@@ -14,7 +14,7 @@
     </div><!-- End Page Title -->
     <section class="section">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 @if ($message = Session::get('status'))
                     <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                         role="alert">
@@ -32,9 +32,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="pt-0">
-                            <a href="{{ route('categories.create') }}" class="btn btn-primary float-end btn-rounded"><i
-                                    class="fas fa-plus"></i>
-                                <i class="bi bi-person-plus" title="Ajouter"></i> </a>
+                            <a href="{{ route('categories.create') }}"
+                                class="btn btn-primary btn-sm float-end btn-rounded">Ajouter</a>
                         </div>
                         <h5 class="card-title">Catégories</h5>
                         {{-- <p>Le tableau de toutes les catégories du système.</p> --}}
@@ -44,6 +43,7 @@
                                 <tr>
                                     {{-- <th width="3%">N°</th> --}}
                                     <th>catégories</th>
+                                    <th class="text-center" width="5%">Employés</th>
                                     <th width="5%">#</th>
                                 </tr>
                             </thead>
@@ -53,11 +53,15 @@
                                     <tr>
                                         {{-- <td>{{ $i++ }}</td> --}}
                                         <td>{{ $categorie->name }}</td>
+                                        <td class="text-center">{{ count($categorie->employees) }}</td>
                                         <td>
-                                            <span class="d-flex mt-2 align-items-baseline"><a
-                                                    href="{{ url('categories/' . $categorie->id . '/edit') }}"
+                                            <span class="d-flex mt-2 align-items-baseline">
+                                                <a href="{{ url('categories/' . $categorie->id . '/edit') }}"
                                                     class="btn btn-success btn-sm" title="Modifier"><i
-                                                        class="bi bi-pencil-square"></i></a>&nbsp;
+                                                        class="bi bi-pencil-square"></i></a>
+                                                <a href="{{ route('categories.show', $categorie->id) }}"
+                                                    class="btn btn-warning btn-sm" title="Voir"><i class="bi bi-eye"></i>
+                                                </a>
                                                 <form action="{{ url('categories', $categorie->id) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 /**
  * Class Individuelle
@@ -254,6 +255,22 @@ class Individuelle extends Model
         'frais',
         'regions_id',
     ];
+
+    /* public function getRouteKeyName()
+    {
+        return 'uuid';
+    } */
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->uuid)) {
+                $model->uuid = (string) Str::uuid();
+            }
+        });
+    }
 
     public function validationindividuelles()
     {

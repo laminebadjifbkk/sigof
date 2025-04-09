@@ -8,13 +8,14 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 /**
  * Class Direction
- * 
+ *
  * @property int $id
  * @property string $uuid
  * @property string|null $name
@@ -24,7 +25,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property TypesDirection $types_direction
  * @property Collection|Courrier[] $courriers
  * @property Collection|Imputation[] $imputations
@@ -35,57 +36,72 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Direction extends Model
 {
-	
+
     use HasFactory;
-	use SoftDeletes;
-	use \App\Helpers\UuidForKey;
-	protected $table = 'directions';
+    use SoftDeletes;
+    use \App\Helpers\UuidForKey;
+    protected $table = 'directions';
 
-	protected $casts = [
-		'chef_id' => 'int',
-		'types_directions_id' => 'int'
-	];
+    protected $casts = [
+        'chef_id'             => 'int',
+        'types_directions_id' => 'int',
+    ];
 
-	protected $fillable = [
-		'uuid',
-		'name',
-		'sigle',
-		'type',
-		'chef_id',
-		'types_directions_id'
-	];
+    protected $fillable = [
+        'uuid',
+        'name',
+        'sigle',
+        'type',
+        'chef_id',
+        'types_directions_id',
+    ];
 
-	public function types_direction()
-	{
-		return $this->belongsTo(TypesDirection::class, 'types_directions_id');
-	}
+    // Ajoute cette méthode pour forcer l'utilisation de l'uuid dans les routes
+    /* public function getRouteKeyName()
+    {
+        return 'uuid';
+    } */
+    protected static function boot()
+    {
+        parent::boot();
 
-	public function courriers()
-	{
-		return $this->belongsToMany(Courrier::class, 'directionscourriers', 'directions_id', 'courriers_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
-	}
+        static::creating(function ($model) {
+            if (empty($model->uuid)) {
+                $model->uuid = (string) Str::uuid();
+            }
+        });
+    }
+    public function types_direction()
+    {
+        return $this->belongsTo(TypesDirection::class, 'types_directions_id');
+    }
 
-	public function imputations()
-	{
-		return $this->belongsToMany(Imputation::class, 'directionsimputations', 'directions_id', 'imputations_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
-	}
+    public function courriers()
+    {
+        return $this->belongsToMany(Courrier::class, 'directionscourriers', 'directions_id', 'courriers_id')
+            ->withPivot('id', 'deleted_at')
+            ->withTimestamps();
+    }
 
-	public function divisions()
-	{
-		return $this->hasMany(Division::class, 'directions_id');
-	}
+    public function imputations()
+    {
+        return $this->belongsToMany(Imputation::class, 'directionsimputations', 'directions_id', 'imputations_id')
+            ->withPivot('id', 'deleted_at')
+            ->withTimestamps();
+    }
 
-	public function employees()
-	{
-		return $this->hasMany(Employee::class, 'directions_id');
-	}	
+    public function divisions()
+    {
+        return $this->hasMany(Division::class, 'directions_id');
+    }
 
-	public function chef()
-	{
-		return $this->belongsTo(Employee::class, 'chef_id');
-	}
+    public function employees()
+    {
+        return $this->hasMany(Employee::class, 'directions_id');
+    }
+
+    public function chef()
+    {
+        return $this->belongsTo(Employee::class, 'chef_id');
+    }
 }

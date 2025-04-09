@@ -340,8 +340,8 @@
                                         <div class="card-body profile-card pt-1 d-flex flex-column">
                                             <h5 class="card-title">Informations complémentaires</h5>
                                             <p>créé par <b>{{ $user_create_name }}</b>,
-                                                {{ $courrier?->created_at?->diffForHumans() }}</p>
-                                            @if ($courrier?->created_at != $courrier?->updated_at)
+                                                {{ $arrive?->courrier?->created_at?->diffForHumans() }}</p>
+                                            @if ($arrive?->courrier?->created_at != $courrier?->updated_at)
                                                 <p>{{ 'modifié par ' }} <b> {{ $user_update_name }} </b>
                                                     {{ $courrier?->updated_at?->diffForHumans() }}</p>
                                             @else

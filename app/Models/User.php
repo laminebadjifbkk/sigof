@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -124,13 +125,23 @@ class User extends Authenticatable implements MustVerifyEmail
         static::restored(function ($user) {
             $user->update(['restored_at' => now()]);
         });
+
+        static::creating(function ($model) {
+            if (empty($model->uuid)) {
+                $model->uuid = (string) Str::uuid();
+            }
+        });
     }
 
     public function getRouteKeyName()
     {
         return 'username';
     }
-
+    // Ajoute cette méthode pour forcer l'utilisation de l'uuid dans les routes
+    /* public function getRouteKeyName()
+    {
+        return 'uuid';
+    } */
     public function scopeOnline($query)
     {
         return $query->where('last_activity', '>=', now()->subMinutes(30));

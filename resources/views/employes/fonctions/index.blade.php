@@ -54,7 +54,8 @@
                                 <tr>
                                     <th width="5%" class="text-center">N°</th>
                                     <th>Fonctions</th>
-                                    <th>Sigle</th>
+                                    <th class="text-center">Sigle</th>
+                                    <th class="text-center" width="5%">Employés</th>
                                     <th width="5%">#</th>
                                 </tr>
                             </thead>
@@ -64,7 +65,8 @@
                                     <tr>
                                         <td class="text-center">{{ $i++ }}</td>
                                         <td>{{ $fonction->name }}</td>
-                                        <td>{{ $fonction->sigle }}</td>
+                                        <td class="text-center">{{ $fonction->sigle }}</td>
+                                        <td class="text-center">{{ count($fonction->employees) }}</td>
                                         <td>
                                             @can('fonction-show')
                                                 <span class="d-flex mt-2 align-items-baseline">
@@ -72,7 +74,12 @@
                                                         <a href="{{ url('fonctions/' . $fonction->id . '/edit') }}"
                                                             class="btn btn-success btn-sm" title="Modifier"><i
                                                                 class="bi bi-pencil-square"></i>
-                                                        </a>&nbsp;
+                                                        </a>
+                                                    @endcan
+                                                    @can('fonction-show')
+                                                        <a href="{{ route('fonctions.show', $fonction->id) }}"
+                                                            class="btn btn-warning btn-sm" title="Voir"><i class="bi bi-eye"></i>
+                                                        </a>
                                                     @endcan
                                                     @can('fonction-delete')
                                                         <form action="{{ url('fonctions', $fonction->id) }}" method="post">
@@ -105,7 +112,7 @@
         new DataTable('#table-fonctions', {
             layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

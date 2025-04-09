@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | EMPLOYES')
+@section('title', 'ONFP', ' | Liste des employés ayant la fonction ' . $fonction->name)
 @section('space-work')
     <div class="pagetitle">
         <nav>
@@ -35,12 +35,17 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <div class="pt-2">
-                            <a href="{{ route('employes.create') }}" class="btn btn-primary float-end btn-rounded btn-sm"><i
-                                    class="fas fa-plus"></i>Ajouter</a>
+                        <div class="row">
+                            <div class="col-sm-12 pt-0">
+                                <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('fonctions.index') }}"
+                                        class="btn btn-success btn-sm" title="retour"><i
+                                            class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                                    <p> | retour</p>
+                                </span>
+                            </div>
                         </div>
-                        <h5 class="card-title">Liste des employés</h5>
-                        @if ($employes->isNotEmpty())
+                        <h5 class="card-title">Liste des employés ayant la fonction de : {{ $fonction?->name }}</h5>
+                        @if ($fonction->employees->isNotEmpty())
                             <table class="table datatables align-middle" id="table-employes">
                                 <thead>
                                     <tr>
@@ -55,7 +60,7 @@
                                 </thead>
                                 <tbody>
                                     <?php $i = 1; ?>
-                                    @foreach ($employes as $employe)
+                                    @foreach ($fonction->employees as $employe)
                                         <tr>
                                             <th scope="row">
                                                 <a href="#" data-bs-toggle="modal"
@@ -90,7 +95,7 @@
 
                                                                 @can('employe-update')
                                                                     <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                            href="{{ route('employes.edit', $employe->id) }}"
+                                                                            href="{{ route('employes.edit', $employe?->id) }}"
                                                                             class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
                                                                     </li>
                                                                 @endcan
@@ -98,7 +103,7 @@
                                                                 @can('employe-delete')
                                                                     <li>
                                                                         <form
-                                                                            action="{{ route('employes.destroy', $employe->id) }}"
+                                                                            action="{{ route('employes.destroy', $employe?->id) }}"
                                                                             method="post">
                                                                             @csrf
                                                                             @method('DELETE')
@@ -120,14 +125,14 @@
                             </table>
                             <!-- End Table with stripped rows -->
                         @else
-                            <div class="alert alert-info">Aucun employé pour l'instant !</div>
+                            <div class="alert alert-info">Aucun employé dans cette direction pour l'instant !</div>
                         @endif
                     </div>
                 </div>
 
             </div>
         </div>
-        @foreach ($employes as $employe)
+        @foreach ($fonction->employees as $employe)
             <div class="modal fade" id="ShowIMG{{ $employe?->user?->id }}" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">

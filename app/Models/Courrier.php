@@ -8,13 +8,14 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 /**
  * Class Courrier
- * 
+ *
  * @property int $id
  * @property string $uuid
  * @property string $numero_courrier
@@ -58,7 +59,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Projet|null $projet
  * @property Traitementcourrier|null $traitementcourrier
  * @property TypesCourrier|null $types_courrier
@@ -89,218 +90,235 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Courrier extends Model
 {
     use HasFactory;
-	use SoftDeletes;
-	use \App\Helpers\UuidForKey;
-	protected $table = 'courriers';
+    use SoftDeletes;
+    use \App\Helpers\UuidForKey;
+    protected $table = 'courriers';
 
-	protected $casts = [
-		'tva' => 'float',
-		'ir' => 'float',
-		'montant' => 'float',
-		'autres_montant' => 'float',
-		'total' => 'float',
-		'users_id' => 'int',
-		'types_courriers_id' => 'int',
-		'projets_id' => 'int',
-		'traitementcourriers_id' => 'int',
-		'date_recep' => 'datetime',
-		'date_cores' => 'datetime',
-		'date_reponse' => 'datetime',
-		'date_imp' => 'datetime',
-		'date_depart' => 'datetime',
-	];
+    protected $casts = [
+        'tva'                    => 'float',
+        'ir'                     => 'float',
+        'montant'                => 'float',
+        'autres_montant'         => 'float',
+        'total'                  => 'float',
+        'users_id'               => 'int',
+        'types_courriers_id'     => 'int',
+        'projets_id'             => 'int',
+        'traitementcourriers_id' => 'int',
+        'date_recep'             => 'datetime',
+        'date_cores'             => 'datetime',
+        'date_reponse'           => 'datetime',
+        'date_imp'               => 'datetime',
+        'date_depart'            => 'datetime',
+    ];
 
-	protected $dates = [
-		'date',
-		'date_imp',
-		'date_recep',
-		'date_cores',
-		'date_reponse',
-		'date_rejet',
-		'date_liq',
-		'date_visa',
-		'date_mandat',
-		'date_paye',
-		'date_depart'
-	];
+    protected $dates = [
+        'date',
+        'date_imp',
+        'date_recep',
+        'date_cores',
+        'date_reponse',
+        'date_rejet',
+        'date_liq',
+        'date_visa',
+        'date_mandat',
+        'date_paye',
+        'date_depart',
+    ];
 
-	protected $fillable = [
-		'uuid',
-		'numero_courrier',
-		'num_bord',
-		'objet',
-		'expediteur',
-		'numero_reponse',
-		'annee',
-		'description',
-		'reference',
-		'message',
-		'email',
-		'fax',
-		'bp',
-		'telephone',
-		'file',
-		'legende',
-		'statut',
-		'date',
-		'adresse',
-		'date_imp',
-		'date_depart',
-		'date_recep',
-		'date_cores',
-		'date_reponse',
-		'date_rejet',
-		'date_liq',
-		'designation',
-		'observation',
-		'type',
-		'date_visa',
-		'date_mandat',
-		'tva',
-		'ir',
-		'nb_pc',
-		'destinataire',
-		'date_paye',
-		'num_bord',
-		'montant',
-		'autres_montant',
-		'total',
-		'users_id',
-		'user_create_id',
-		'user_update_id',
-		'types_courriers_id',
-		'projets_id',
-		'traitementcourriers_id'
-	];
+    protected $fillable = [
+        'uuid',
+        'numero_courrier',
+        'num_bord',
+        'objet',
+        'expediteur',
+        'numero_reponse',
+        'annee',
+        'description',
+        'reference',
+        'message',
+        'email',
+        'fax',
+        'bp',
+        'telephone',
+        'file',
+        'legende',
+        'statut',
+        'date',
+        'adresse',
+        'date_imp',
+        'date_depart',
+        'date_recep',
+        'date_cores',
+        'date_reponse',
+        'date_rejet',
+        'date_liq',
+        'designation',
+        'observation',
+        'type',
+        'date_visa',
+        'date_mandat',
+        'tva',
+        'ir',
+        'nb_pc',
+        'destinataire',
+        'date_paye',
+        'num_bord',
+        'montant',
+        'autres_montant',
+        'total',
+        'users_id',
+        'user_create_id',
+        'user_update_id',
+        'types_courriers_id',
+        'projets_id',
+        'traitementcourriers_id',
+    ];
 
-	public function getFile(){
-		$filePath = $this->file ?? 'courriers/default.jpg';
-		return "/storage/" . $filePath;
-	}
+    public function getFile()
+    {
+        $filePath = $this->file ?? 'courriers/default.jpg';
+        return "/storage/" . $filePath;
+    }
+    // Ajoute cette méthode pour forcer l'utilisation de l'uuid dans les routes
+    /* public function getRouteKeyName()
+    {
+        return 'uuid';
+    } */
 
-	public function projet()
-	{
-		return $this->belongsTo(Projet::class, 'projets_id');
-	}
+    protected static function boot()
+    {
+        parent::boot();
 
-	public function traitementcourrier()
-	{
-		return $this->belongsTo(Traitementcourrier::class, 'traitementcourriers_id');
-	}
+        static::creating(function ($model) {
+            if (empty($model->uuid)) {
+                $model->uuid = (string) Str::uuid();
+            }
+        });
+    }
 
-	public function types_courrier()
-	{
-		return $this->belongsTo(TypesCourrier::class, 'types_courriers_id');
-	}
+    public function projet()
+    {
+        return $this->belongsTo(Projet::class, 'projets_id');
+    }
 
-	public function user()
-	{
-		return $this->belongsTo(User::class, 'users_id');
-	}
+    public function traitementcourrier()
+    {
+        return $this->belongsTo(Traitementcourrier::class, 'traitementcourriers_id');
+    }
 
-	public function agrements()
-	{
-		return $this->hasMany(Agrement::class, 'courriers_id');
-	}
+    public function types_courrier()
+    {
+        return $this->belongsTo(TypesCourrier::class, 'types_courriers_id');
+    }
 
-	public function banques()
-	{
-		return $this->hasMany(Banque::class, 'courriers_id');
-	}
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id');
+    }
 
-	public function bordereaus()
-	{
-		return $this->hasMany(Bordereau::class, 'courriers_id');
-	}
+    public function agrements()
+    {
+        return $this->hasMany(Agrement::class, 'courriers_id');
+    }
 
-	public function comments()
-	{
-		return $this->morphMany(Comment::class, 'commentable')->latest();
-	}
+    public function banques()
+    {
+        return $this->hasMany(Banque::class, 'courriers_id');
+    }
 
-	public function imputations()
-	{
-		return $this->belongsToMany(Imputation::class, 'courriersimputations', 'courriers_id', 'imputations_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
-	}
+    public function bordereaus()
+    {
+        return $this->hasMany(Bordereau::class, 'courriers_id');
+    }
 
-	public function demandeurs()
-	{
-		return $this->hasMany(Demandeur::class, 'courriers_id');
-	}
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable')->latest();
+    }
 
-	public function departs()
-	{
-		return $this->hasMany(Depart::class, 'courriers_id');
-	}
+    public function imputations()
+    {
+        return $this->belongsToMany(Imputation::class, 'courriersimputations', 'courriers_id', 'imputations_id')
+            ->withPivot('id', 'deleted_at')
+            ->withTimestamps();
+    }
 
-	public function directions()
-	{
-		return $this->belongsToMany(Direction::class, 'directionscourriers', 'courriers_id', 'directions_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
-	}
+    public function demandeurs()
+    {
+        return $this->hasMany(Demandeur::class, 'courriers_id');
+    }
 
-	public function employees()
-	{
-		return $this->belongsToMany(Employee::class, 'employeescourriers', 'courriers_id', 'employees_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
-	}
+    public function departs()
+    {
+        return $this->hasMany(Depart::class, 'courriers_id');
+    }
 
-	public function etats()
-	{
-		return $this->hasMany(Etat::class, 'courriers_id');
-	}
+    public function directions()
+    {
+        return $this->belongsToMany(Direction::class, 'directionscourriers', 'courriers_id', 'directions_id')
+            ->withPivot('id', 'deleted_at')
+            ->withTimestamps();
+    }
 
-	public function etats_previs()
-	{
-		return $this->hasMany(EtatsPrevi::class, 'courriers_id');
-	}
+    public function employees()
+    {
+        return $this->belongsToMany(Employee::class, 'employeescourriers', 'courriers_id', 'employees_id')
+            ->withPivot('id', 'deleted_at')
+            ->withTimestamps();
+    }
 
-	public function facturesdafs()
-	{
-		return $this->hasMany(Facturesdaf::class, 'courriers_id');
-	}
+    public function etats()
+    {
+        return $this->hasMany(Etat::class, 'courriers_id');
+    }
 
-	public function fads()
-	{
-		return $this->hasMany(Fad::class, 'courriers_id');
-	}
+    public function etats_previs()
+    {
+        return $this->hasMany(EtatsPrevi::class, 'courriers_id');
+    }
 
-	public function formations()
-	{
-		return $this->hasMany(Formation::class, 'courriers_id');
-	}
+    public function facturesdafs()
+    {
+        return $this->hasMany(Facturesdaf::class, 'courriers_id');
+    }
 
-	public function internes()
-	{
-		return $this->hasMany(Interne::class, 'courriers_id');
-	}
+    public function fads()
+    {
+        return $this->hasMany(Fad::class, 'courriers_id');
+    }
 
-	public function missions()
-	{
-		return $this->hasMany(Mission::class, 'courriers_id');
-	}
+    public function formations()
+    {
+        return $this->hasMany(Formation::class, 'courriers_id');
+    }
 
-	public function operateurs()
-	{
-		return $this->hasMany(Operateur::class, 'courriers_id');
-	}
+    public function internes()
+    {
+        return $this->hasMany(Interne::class, 'courriers_id');
+    }
 
-	public function ordres_missions()
-	{
-		return $this->hasMany(OrdresMission::class, 'courriers_id');
-	}
+    public function missions()
+    {
+        return $this->hasMany(Mission::class, 'courriers_id');
+    }
 
-	public function arrives()
-	{
-		return $this->hasMany(Arrive::class, 'courriers_id');
-	}
+    public function operateurs()
+    {
+        return $this->hasMany(Operateur::class, 'courriers_id');
+    }
 
-	public function tresors()
-	{
-		return $this->hasMany(Tresor::class, 'courriers_id');
-	}
+    public function ordres_missions()
+    {
+        return $this->hasMany(OrdresMission::class, 'courriers_id');
+    }
+
+    public function arrives()
+    {
+        return $this->hasMany(Arrive::class, 'courriers_id');
+    }
+
+    public function tresors()
+    {
+        return $this->hasMany(Tresor::class, 'courriers_id');
+    }
 }
