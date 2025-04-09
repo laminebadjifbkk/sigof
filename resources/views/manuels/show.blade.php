@@ -138,7 +138,7 @@
     <div class="sidebar">
         <h2>Nos publications</h2>
         <input type="text" id="searchInput" placeholder="Rechercher un manuel..."
-            style="width: 100%; padding: 10px; border-radius: 5px; border: none; margin-bottom: 15px; font-size: 1em;">
+        style="width: calc(100% - 10px); padding: 10px; border-radius: 5px; border: none; margin-bottom: 15px; font-size: 1em;">
         <ul class="book-list">
             @foreach ($manuels as $man)
                 <li class="book-item">
