@@ -42,7 +42,7 @@ class OperateurController extends Controller
     public function index()
     {
         $operateurs   = Operateur::latest()->get();
-        $departements = Departement::latest()->get();
+        $departements = Departement::orderBy("nom", "asc")->get();
 
         $statuts = ['agréer', 'Rejetée', 'nouveau', 'expirer'];
 
@@ -91,14 +91,14 @@ class OperateurController extends Controller
 
     public function create()
     {
-        $departements = Departement::get();
+        $departements = Departement::orderBy("nom", "asc")->get();
         return view('operateurs.create', compact('departements'));
     }
 
     public function agrement()
     {
         $operateurs   = Operateur::latest()->get();
-        $departements = Departement::latest()->get();
+        $departements = Departement::orderBy("nom", "asc")->get();
 
         $type_demandes = ['Nouvelle', 'Renouvellement'];
         $counts        = Operateur::whereIn('type_demande', $type_demandes)
@@ -307,10 +307,18 @@ class OperateurController extends Controller
             "date_quitus" => ['required', 'date_format:d/m/Y'],
         ]);
 
-        foreach (Auth::user()->roles as $key => $role) {
+        /* foreach (Auth::user()->roles as $key => $role) {
             if (! empty($role?->name) && ($role?->name != 'super-admin') && ($role?->name != 'Employe') && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
                 $this->authorize('view', $operateur);
             }
+        } */
+
+        $rolesAutorises = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
+
+        $userRoles = Auth::user()->roles->pluck('name')->toArray();
+
+        if (! array_intersect($rolesAutorises, $userRoles)) {
+            $this->authorize('view', $operateur);
         }
 
         $dateString  = $request->input('date_quitus');
@@ -435,12 +443,27 @@ class OperateurController extends Controller
 
         $departement = Departement::where('nom', $request->input("departement"))->firstOrFail();
 
-        foreach (Auth::user()->roles as $key => $role) {
+        /*      foreach (Auth::user()->roles as $key => $role) {
             if (! empty($role?->name) && ($role?->name != 'super-admin') && ($role?->name != 'Employe') && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
                 $this->authorize('update', $operateur);
             }
             if (! empty($role?->name) && ($operateur->statut_agrement != 'nouveau') && ($role?->name != 'super-admin') && ($role?->name != 'Employe') && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
                 Alert::warning('Attention ! ', 'action impossible');
+                return redirect()->back();
+            }
+        } */
+
+        $rolesAutorises = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
+        $userRoles      = Auth::user()->roles->pluck('name')->toArray();
+
+// Si aucun rôle autorisé n'est trouvé chez l'utilisateur
+        if (! array_intersect($rolesAutorises, $userRoles)) {
+            // Vérifie la permission "update"
+            $this->authorize('update', $operateur);
+
+            // Si le statut n'est pas "nouveau", bloquer l'action
+            if ($operateur->statut_agrement != 'nouveau') {
+                Alert::warning('Attention !', 'action impossible');
                 return redirect()->back();
             }
         }
@@ -578,7 +601,7 @@ class OperateurController extends Controller
     public function edit($id)
     {
         $operateur    = Operateur::findOrFail($id);
-        $departements = Departement::orderBy("created_at", "desc")->get();
+        $departements = Departement::orderBy("nom", "asc")->get();
         foreach (Auth::user()->roles as $key => $role) {
             if (! empty($role?->name) && ($role?->name != 'super-admin') && ($role?->name != 'Employe') && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
                 $this->authorize('view', $operateur);
@@ -904,7 +927,7 @@ class OperateurController extends Controller
         $operateur    = Operateur::where('users_id', $user->id)->orderBy("created_at", "desc")->first();
         $operateurA   = Operateur::where('users_id', $user->id)->orderBy("created_at", "desc")->get();
         $operateurs   = Operateur::all();
-        $departements = Departement::orderBy("created_at", "desc")->get();
+        $departements = Departement::orderBy("nom", "asc")->get();
 
         $operateur_total = $operateurs->count();
 

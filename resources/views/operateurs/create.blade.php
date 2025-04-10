@@ -293,15 +293,13 @@
                                                 class="form-select form-select-sm @error('type_demande') is-invalid @enderror"
                                                 aria-label="Select" id="type_demande"
                                                 data-placeholder="Choisir type de demande">
-                                                <option value="{{ old('type_demande') }}">
-                                                    {{ old('type_demande') }}
-                                                </option>
-                                                <option value="Nouvelle">
-                                                    Nouvelle
-                                                </option>
-                                                <option value="Renouvellement">
-                                                    Renouvellement
-                                                </option>
+                                                <option value="" disabled {{ old('type_demande') ? '' : 'selected' }}>
+                                                    --Choisir type de demande--</option>
+                                                <option value="Nouvelle"
+                                                    {{ old('type_demande') == 'Nouvelle' ? 'selected' : '' }}>Nouvelle</option>
+                                                <option value="Renouvellement"
+                                                    {{ old('type_demande') == 'Renouvellement' ? 'selected' : '' }}>
+                                                    Renouvellement</option>
                                             </select>
                                             @error('type_demande')
                                                 <span class="invalid-feedback" role="alert">
@@ -340,19 +338,19 @@
                                             <select name="rccm"
                                                 class="form-select form-select-sm @error('rccm') is-invalid @enderror"
                                                 aria-label="Select" id="rccm" data-placeholder="Choisir">
-                                                <option value="{{ old('rccm') }}">
-                                                    {{ old('rccm') }}
+                                                <option value="" disabled {{ old('rccm') ? '' : 'selected' }}>Choisir
                                                 </option>
-                                                <option value="Registre de commerce">
+                                                <option value="Registre de commerce"
+                                                    {{ old('rccm') == 'Registre de commerce' ? 'selected' : '' }}>
                                                     Registre de commerce
                                                 </option>
-                                                <option value="Ninea">
+                                                <option value="Ninea" {{ old('rccm') == 'Ninea' ? 'selected' : '' }}>
                                                     Ninea
                                                 </option>
-                                                <option value="Aucun">
+                                                <option value="Aucun" {{ old('rccm') == 'Aucun' ? 'selected' : '' }}>
                                                     Aucun
                                                 </option>
-                                                <option value="Autre">
+                                                <option value="Autre" {{ old('rccm') == 'Autre' ? 'selected' : '' }}>
                                                     Autre
                                                 </option>
                                             </select>
@@ -381,13 +379,12 @@
                                             <select name="quitusfiscal"
                                                 class="form-select form-select-sm @error('quitusfiscal') is-invalid @enderror"
                                                 aria-label="Select" id="quitus" data-placeholder="Choisir">
-                                                <option value="{{ old('quitusfiscal') }}">
-                                                    {{ old('quitusfiscal') }}
-                                                </option>
-                                                <option value="Oui">
+                                                <option value="" disabled {{ old('quitusfiscal') ? '' : 'selected' }}>
+                                                    Choisir</option>
+                                                <option value="Oui" {{ old('quitusfiscal') == 'Oui' ? 'selected' : '' }}>
                                                     Oui
                                                 </option>
-                                                <option value="Non">
+                                                <option value="Non" {{ old('quitusfiscal') == 'Non' ? 'selected' : '' }}>
                                                     Non
                                                 </option>
                                             </select>
@@ -424,22 +421,26 @@
                                             <select name="arrete_creation"
                                                 class="form-select form-select-sm @error('arrete_creation') is-invalid @enderror"
                                                 aria-label="Select" id="arrete_creation" data-placeholder="Choisir">
-                                                <option value="{{ old('arrete_creation') }}">
-                                                    {{ old('arrete_creation') }}
-                                                </option>
-                                                <option value="MFP">
+                                                <option value="" disabled
+                                                    {{ old('arrete_creation') ? '' : 'selected' }}>Choisir</option>
+                                                <option value="MFP"
+                                                    {{ old('arrete_creation') == 'MFP' ? 'selected' : '' }}>
                                                     MFP
                                                 </option>
-                                                <option value="MESRI">
+                                                <option value="MESRI"
+                                                    {{ old('arrete_creation') == 'MESRI' ? 'selected' : '' }}>
                                                     MESRI
                                                 </option>
-                                                <option value="MEN">
+                                                <option value="MEN"
+                                                    {{ old('arrete_creation') == 'MEN' ? 'selected' : '' }}>
                                                     MEN
                                                 </option>
-                                                <option value="Aucun">
+                                                <option value="Aucun"
+                                                    {{ old('arrete_creation') == 'Aucun' ? 'selected' : '' }}>
                                                     Aucun
                                                 </option>
-                                                <option value="Autre">
+                                                <option value="Autre"
+                                                    {{ old('arrete_creation') == 'Autre' ? 'selected' : '' }}>
                                                     Autre
                                                 </option>
                                             </select>
@@ -467,13 +468,14 @@
                                             <select name="formulaire_signe"
                                                 class="form-select form-select-sm @error('formulaire_signe') is-invalid @enderror"
                                                 aria-label="Select" id="formulaire_signe" data-placeholder="Choisir">
-                                                <option value="{{ old('formulaire_signe') }}">
-                                                    {{ old('formulaire_signe') }}
-                                                </option>
-                                                <option value="Oui">
+                                                <option value="" disabled
+                                                    {{ old('formulaire_signe') ? '' : 'selected' }}>Choisir</option>
+                                                <option value="Oui"
+                                                    {{ old('formulaire_signe') == 'Oui' ? 'selected' : '' }}>
                                                     Oui
                                                 </option>
-                                                <option value="Non">
+                                                <option value="Non"
+                                                    {{ old('formulaire_signe') == 'Non' ? 'selected' : '' }}>
                                                     Non
                                                 </option>
                                             </select>
@@ -489,13 +491,12 @@
                                             <select name="cvsigne"
                                                 class="form-select form-select-sm @error('cvsigne') is-invalid @enderror"
                                                 aria-label="Select" id="cv_signe" data-placeholder="Choisir">
-                                                <option value="{{ old('cvsigne') }}">
-                                                    {{ old('cvsigne') }}
+                                                <option value="" disabled {{ old('cvsigne') ? '' : 'selected' }}>Choisir
                                                 </option>
-                                                <option value="Oui">
+                                                <option value="Oui" {{ old('cvsigne') == 'Oui' ? 'selected' : '' }}>
                                                     Oui
                                                 </option>
-                                                <option value="Non">
+                                                <option value="Non" {{ old('cvsigne') == 'Non' ? 'selected' : '' }}>
                                                     Non
                                                 </option>
                                             </select>
@@ -511,19 +512,13 @@
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="civilite" class="form-label">Civilité<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <select name="civilite"
-                                                class="form-select form-select-sm @error('civilite') is-invalid @enderror"
-                                                aria-label="Select" id="civilite" data-placeholder="Choisir civilité">
-                                                <option value="{{ old('civilite') }}">
-                                                    {{ old('civilite') }}
-                                                </option>
-                                                <option value="M.">
-                                                    M.
-                                                </option>
-                                                <option value="Mme">
-                                                    Mme
-                                                </option>
-                                            </select>
+                                                    <select name="civilite"
+                                                    class="form-select form-select-sm @error('civilite') is-invalid @enderror"
+                                                    aria-label="Select" id="civilite" data-placeholder="Choisir civilité">
+                                                <option value="" disabled {{ old('civilite') ? '' : 'selected' }}>Choisir civilité</option>
+                                                <option value="M." {{ old('civilite') == 'M.' ? 'selected' : '' }}>M.</option>
+                                                <option value="Mme" {{ old('civilite') == 'Mme' ? 'selected' : '' }}>Mme</option>
+                                            </select>                                            
                                             @error('civilite')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
