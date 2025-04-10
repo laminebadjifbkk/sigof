@@ -36,7 +36,8 @@
                     @endif
                     <div class="card">
                         <div class="card-body">
-                            <p class="#">{{ $convention->name }}</p>
+                            <div class="card-title">Liste des référentiels</div>
+                            <p>{{ $convention->name }}</p>
                             <table class="table datatables align-middle justify-content-center" id="table-files">
                                 <thead>
                                     <tr>
