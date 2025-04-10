@@ -34,7 +34,7 @@ class PosteController extends Controller
 
         $image = $request->validated('image');
 
-        if (request('image')) {
+        /*  if (request('image')) {
             $imagePath = request('image')->store('posts', 'public');
 
             $image = Image::make(public_path("/storage/{$imagePath}"))->fit(1200, 1200);
@@ -43,6 +43,27 @@ class PosteController extends Controller
         } else {
             $imagePath = null;
         }
+
+        $poste = Poste::create([
+            'titre'    => $data['titre'],
+            'name'     => $data['name'],
+            'legende'  => $data['legende'],
+            'users_id' => auth()->user()->id,
+            'image'    => $imagePath,
+        ]); */
+
+        if (request()->hasFile('image')) {
+            $imageFile = request()->file('image');
+            $filename  = time() . '.' . $imageFile->getClientOriginalExtension();
+            $imagePath = $imageFile->storeAs('posts', $filename, 'public');
+
+            // On enregistre l'image sans la redimensionner
+            $image = Image::make(public_path("/storage/{$imagePath}"));
+            $image->save();
+        } else {
+            $imagePath = null;
+        }
+
         $poste = Poste::create([
             'titre'    => $data['titre'],
             'name'     => $data['name'],
@@ -51,7 +72,7 @@ class PosteController extends Controller
             'image'    => $imagePath,
         ]);
 
-        Alert::success("Poster !!!", "Félicitations");
+        Alert::success("Succès !", "Le poste a été créé avec succès");
 
         return redirect()->back();
     }
@@ -62,7 +83,7 @@ class PosteController extends Controller
 
         $poste = Poste::findOrFail($id);
 
-        $image = $request->validated('image');
+        /* $image = $request->validated('image');
 
         if (request('image') && $image->getError()) {
             Storage::disk('public')->delete($poste->image);
@@ -79,7 +100,7 @@ class PosteController extends Controller
 
             $image->save();
 
-        } elseif (request('image') && !empty($poste->image)) {
+        } elseif (request('image') && ! empty($poste->image)) {
             $imagePath = request('image')->store('posts', 'public');
 
             $image = Image::make(public_path("/storage/{$imagePath}"))->fit(1200, 1200);
@@ -100,9 +121,38 @@ class PosteController extends Controller
 
         $poste->save();
 
-        Alert::success("Modifier !!!", "Félicitations");
+        Alert::success("Succès !!!", "La modification a été effectuée avec succès !");
 
+        return redirect()->back(); */
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            // Supprimer l'ancienne image s'il y en a une
+            if (! empty($poste->image) && Storage::disk('public')->exists($poste->image)) {
+                Storage::disk('public')->delete($poste->image);
+            }
+
+            $imageFile = $request->file('image');
+            $filename  = time() . '.' . $imageFile->getClientOriginalExtension();
+            $imagePath = $imageFile->storeAs('posts', $filename, 'public');
+
+            // Sauvegarde sans redimensionnement
+            $image = Image::make(public_path("/storage/{$imagePath}"));
+            $image->save();
+        } else {
+            $imagePath = $poste->image;
+        }
+
+        $poste->update([
+            'titre'    => $data['titre'],
+            'name'     => $data['name'],
+            'legende'  => $data['legende'],
+            'users_id' => auth()->user()->id,
+            'image'    => $imagePath,
+        ]);
+
+        Alert::success("Succès !!!", "La modification a été effectuée avec succès !");
         return redirect()->back();
+
     }
 
     public function destroy($id)
@@ -114,7 +164,7 @@ class PosteController extends Controller
 
         $poste->delete();
 
-        Alert::success('Effectué !', 'post supprimé');
+        Alert::success('Succès !', 'Le poste a été supprimé avec succès !');
 
         return redirect()->back();
     }

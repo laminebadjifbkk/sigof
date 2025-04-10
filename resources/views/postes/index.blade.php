@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-
+@section('title', 'ONFP | POSTS')
 @section('space-work')
     <div class="container">
         <div class="justify-content-center">
@@ -27,9 +27,10 @@
                                         <div class="post-item clearfix">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div>
-                                                    <img src="{{ asset($poste->getPoste()) }}" class="w-20"
-                                                        alt="{{ $poste->legende }}" data-bs-toggle="modal"
-                                                        data-bs-target="#ShowPostModal{{ $poste->id }}">
+                                                    <a href="#">
+                                                        <img src="{{ asset($poste->getPoste()) }}" class="w-20"
+                                                            alt="{{ $poste->legende }}" data-bs-toggle="modal"
+                                                            data-bs-target="#ShowPostModal{{ $poste->id }}"></a>
                                                     <h4><a href="#">{{ $poste->titre }}</a></h4>
                                                     <p>{{ substr($poste->name, 0, 250) }}
                                                     </p>
@@ -76,10 +77,10 @@
                                 <div class="modal-body">
                                     <div class="row g-3">
                                         <input type="hidden" name="users_id" value="{{ Auth::user()->id }}">
-                                        
+
                                         <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                             <label for="titre" class="form-label">Titre<span
-                                                class="text-danger mx-1">*</span></label>
+                                                    class="text-danger mx-1">*</span></label>
                                             <textarea name="titre" id="titre" rows="1"
                                                 class="form-control form-control-sm @error('titre') is-invalid @enderror" placeholder="Titre">{{ old('titre') }}</textarea>
                                             @error('titre')
@@ -115,7 +116,8 @@
                                         <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="image" class="form-label">Image<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <input type="file" name="image" value="{{ old('image') }}" accept=".jpg, .jpeg, .png, .svg, .gif"
+                                            <input type="file" name="image" value="{{ old('image') }}"
+                                                accept=".jpg, .jpeg, .png, .svg, .gif"
                                                 class="form-control form-control-sm @error('image') is-invalid @enderror"
                                                 id="image" placeholder="Image">
                                             @error('image')
@@ -141,7 +143,7 @@
                 <div
                     class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
                     <div class="modal fade" id="ShowPostModal{{ $poste->id }}" tabindex="-1">
-                        <div class="modal-dialog modal-xl">
+                        <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <form method="post" action="#" enctype="multipart/form-data">
                                     @csrf
@@ -189,7 +191,7 @@
 
                                             <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                                 <label for="titre" class="form-label">Titre<span
-                                                    class="text-danger mx-1">*</span><span
+                                                        class="text-danger mx-1">*</span><span
                                                         class="text-danger mx-1">*</span></label>
                                                 <textarea name="titre" id="titre" rows="1"
                                                     class="form-control form-control-sm @error('titre') is-invalid @enderror" placeholder="Titre">{{ $poste?->titre ?? old('titre') }}</textarea>
@@ -226,7 +228,8 @@
                                             <div class="col-12 col-md-12 col-lg-5 col-sm-12 col-xs-12 col-xxl-5">
                                                 <label for="image" class="form-label">Image<span
                                                         class="text-danger mx-1">*</span></label>
-                                                <input type="file" name="image" value="{{ old('image') }}" accept=".jpg, .jpeg, .png, .svg, .gif"
+                                                <input type="file" name="image" value="{{ old('image') }}"
+                                                    accept=".jpg, .jpeg, .png, .svg, .gif"
                                                     class="form-control form-control-sm @error('image') is-invalid @enderror"
                                                     id="image" placeholder="Image">
                                                 @error('image')

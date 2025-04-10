@@ -3,9 +3,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Une;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
-use Illuminate\Support\Facades\Storage;
 
 class UneController extends Controller
 {
@@ -55,7 +55,7 @@ class UneController extends Controller
 
         $une->save();
 
-        Alert::success("Publié !!!", "Félicitations");
+        Alert::success("Succès !", "Le message a été enregistré avec succès !");
 
         return redirect()->back();
     }
@@ -73,7 +73,7 @@ class UneController extends Controller
 
         $une = Une::findOrFail($id);
 
-        if (request('image')) {
+        /*     if (request('image')) {
             Storage::disk('public')->delete($une->image);
             $imagePath = request('image')->store('unes', 'public');
 
@@ -93,9 +93,36 @@ class UneController extends Controller
             'image'    => $imagePath,
         ]);
 
+        $une->save(); */
+        if (request()->hasFile('image')) {
+            // Supprimer l'ancienne image si elle existe
+            if ($une->image && Storage::disk('public')->exists($une->image)) {
+                Storage::disk('public')->delete($une->image);
+            }
+
+            $imageFile = request()->file('image');
+            $filename  = time() . '.' . $imageFile->getClientOriginalExtension();
+            $imagePath = $imageFile->storeAs('unes', $filename, 'public');
+
+            // Enregistrer l'image sans la redimensionner
+            $image = Image::make(public_path("/storage/{$imagePath}"));
+            $image->save();
+        } else {
+            $imagePath = $une->image;
+        }
+
+        $une->update([
+            'titre1'   => $data['titre1'],
+            'titre2'   => $data['titre2'],
+            'message'  => $data['message'],
+            'video'    => $data['video'],
+            'users_id' => auth()->user()->id,
+            'image'    => $imagePath,
+        ]);
+
         $une->save();
 
-        Alert::success("Modification effectuée !!!");
+        Alert::success("Succès !", "Le message a été mis à jour avec succès !");
 
         return redirect()->back();
     }
@@ -109,7 +136,7 @@ class UneController extends Controller
 
         $une->delete();
 
-        Alert::success('Succès !', 'Information supprimée avec succès.');
+        Alert::success('Succès !', 'Le message a été supprimé avec succès !');
 
         return redirect()->back();
     }
@@ -122,7 +149,7 @@ class UneController extends Controller
         $alunes = Une::all();
 
         if (! empty($une->status)) {
-            Alert::warning('Enregistrement déjà à la une !');
+            Alert::warning('Attention !', 'Enregistrement déjà à la une !');
 
             return redirect()->back();
         } else {
@@ -156,7 +183,7 @@ class UneController extends Controller
 
         $une->save();
 
-        Alert::success('Publication enlevée !');
+        Alert::success('Succès !', 'La publication a été retirée de la une !');
 
         return redirect()->back();
     }

@@ -54,8 +54,11 @@
                                     <tr>
                                         <th scope="row" style="text-align: center">
                                             @if (!empty($une?->image))
-                                                <img class="rounded-circle" alt="Profil"
-                                                    src="{{ asset($une?->getUne()) }}" width="40" height="auto">
+                                                <a href="#">
+                                                    <img class="rounded-circle" alt="Profil"
+                                                        src="{{ asset($une?->getUne()) }}" width="40" height="auto"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#ShowUneModal{{ $une->id }}"></a>
                                             @else
                                                 <div class="badge bg-warning">Aucun</div>
                                             @endif
@@ -73,25 +76,20 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <span class="d-flex mt-2 align-items-baseline"><a href="#"
-                                                    class="btn btn-warning btn-sm mx-1" title="Voir"><i
-                                                        class="bi bi-file-lock"></i></a>
+                                            <span class="d-flex mt-2 align-items-baseline">
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#EditUneModal{{ $une->id }}"
+                                                    class="btn btn-warning btn-sm mx-1" title="Modifier"><i
+                                                        class="bi bi-pencil"></i></a>
                                                 <div class="filter">
                                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                             class="bi bi-three-dots"></i></a>
                                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-
-                                                        <button type="button" class="dropdown-item btn btn-sm"
+                                                        {{-- <button type="button" class="dropdown-item btn btn-sm"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#EditUneModal{{ $une->id }}">
                                                             Modifier
-                                                        </button>
-                                                        <form action="{{ url('unes', $une->id) }}" method="post">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="dropdown-item show_confirm">Supprimer</button>
-                                                        </form>
+                                                        </button> --}}
                                                         <form action="{{ route('alaunes') }}" method="post">
                                                             @csrf
                                                             @method('PUT')
@@ -109,6 +107,12 @@
                                                                 class="dropdown-item une_confirmer">Enlever
                                                                 de la une</button>
                                                         </form>
+                                                        <form action="{{ url('unes', $une->id) }}" method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="dropdown-item show_confirm">Supprimer</button>
+                                                        </form>
                                                     </ul>
                                                 </div>
                                             </span>
@@ -124,6 +128,39 @@
 
             </div>
         </div>
+        @foreach ($unes as $une)
+            <div
+                class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+                <div class="modal fade" id="ShowUneModal{{ $une->id }}" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <form method="post" action="#" enctype="multipart/form-data">
+                                @csrf
+                                <div class="card-header text-center bg-gradient-default">
+                                    <h1 class="h4 text-black mb-0">{{ $une->titre1 }}</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row g-3">
+
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <img src="{{ asset($une?->getUne()) }}" class="d-block w-100"
+                                                alt="{{ $une->titre1 }}">
+                                        </div>
+                                        <p>{{ $une->titre1 }}
+                                        </p>
+
+                                    </div>
+                                    <div class="modal-footer mt-5">
+                                        <button type="button" class="btn btn-secondary btn-sm"
+                                            data-bs-dismiss="modal">Fermer</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </section>
     <div
         class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
