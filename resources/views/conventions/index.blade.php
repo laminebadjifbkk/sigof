@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Liste des conventions')
+@section('title', 'ONFP | CONVENTIONS')
 @section('space-work')
     @can('convention-view')
         <section class="section register">
@@ -43,12 +43,13 @@
                                     </button>
                                 </div>
                             @endcan
-                            <h5 class="card-title">Conventions collectives des branches professionnelles</h5>
+                            <h5 class="card-title">Liste des conventions collectives des branches professionnelles</h5>
                             <table class="table datatables align-middle justify-content-center" id="table-files">
                                 <thead>
                                     <tr>
                                         <th width="5%" class="text-center">N°</th>
                                         <th>Convention</th>
+                                        <th width="5%" class="text-center">Référentiels</th>
                                         <th width="2%" class="text-center">#</th>
                                     </tr>
                                 </thead>
@@ -56,11 +57,13 @@
                                     <?php $i = 1; ?>
                                     @foreach ($conventions as $convention)
                                         <tr>
-                                            <td style="text-align: center;">{{ $i++ }}</td>
+                                            <td class="text-center">{{ $i++ }}</td>
                                             <td>{{ $convention?->name }}</td>
+                                            <td class="text-center">{{ count($convention?->referentiels) }}</td>
                                             <td style="text-align: center;">
                                                 @can('convention-show')
-                                                    <span class="d-flex align-items-baseline"><a href="#"
+                                                    <span class="d-flex align-items-baseline"><a
+                                                            href="{{ url('conventions', $convention->id) }}"
                                                             class="btn btn-warning btn-sm mx-1" title="Voir détails">
                                                             <i class="bi bi-eye"></i></a>
                                                         <div class="filter">

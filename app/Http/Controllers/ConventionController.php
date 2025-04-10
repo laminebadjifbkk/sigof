@@ -1,11 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Convention;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Validation\Rule;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ConventionController extends Controller
 {
@@ -28,11 +27,11 @@ class ConventionController extends Controller
     {
 
         $this->validate($request, [
-            "name"      => "required|string|unique:conventions,name,except,id",
+            "name" => "required|string|unique:conventions,name,except,id",
         ]);
 
         $convention = Convention::create([
-            'name'      => $request?->name,
+            'name' => $request?->name,
         ]);
 
         $convention?->save();
@@ -42,17 +41,16 @@ class ConventionController extends Controller
         return redirect()->back();
     }
 
-
     public function update(Request $request, $id)
     {
         $convention = Convention::find($id);
 
         $this->validate($request, [
-            "name"      => ['required', 'string', 'max:250', Rule::unique(Convention::class)->ignore($id)],
+            "name" => ['required', 'string', 'max:250', Rule::unique(Convention::class)->ignore($id)],
         ]);
 
         $convention->update([
-            'name'      => $request?->name,
+            'name' => $request?->name,
         ]);
 
         $convention->save();
@@ -60,6 +58,13 @@ class ConventionController extends Controller
         Alert::success('La convention ', ' a été modifié avec succès');
 
         return redirect()->back();
+    }
+
+    public function show($id)
+    {
+        $convention = Convention::find($id);
+
+        return view('conventions.show', compact('convention'));
     }
 
     public function destroy($id)

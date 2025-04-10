@@ -43,7 +43,7 @@
                                     </button>
                                 </div>
                             @endcan
-                            <h5 class="card-title">Référentiels</h5>
+                            <h5 class="card-title">Liste des référentiels</h5>
                             <table class="table datatables align-middle justify-content-center" id="table-files">
                                 <thead>
                                     <tr>
@@ -68,25 +68,16 @@
                                             <td>{{ $referentiel?->reference }}</td>
                                             <td style="text-align: center;">
                                                 @can('referentiel-show')
-                                                    <span class="d-flex align-items-baseline"><a href="#"
-                                                            class="btn btn-warning btn-sm mx-1" title="Voir détails">
-                                                            <i class="bi bi-eye"></i></a>
+                                                    <span class="d-flex align-items-baseline">
+                                                        @can('referentiel-update')
+                                                            <a href="{{ route('referentiels.edit', $referentiel->id) }}"
+                                                                class="btn btn-warning btn-sm mx-1 text-white" title="Modifier">
+                                                                <i class="bi bi-pencil"></i></a>
+                                                        @endcan
                                                         <div class="filter">
                                                             <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                     class="bi bi-three-dots"></i></a>
                                                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                @can('referentiel-update')
-                                                                    <li>
-                                                                        <a class="dropdown-item btn btn-sm mx-1"
-                                                                            href="{{ route('referentiels.edit', $referentiel->id) }}"
-                                                                            class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
-                                                                        {{-- <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#EditFileModal{{ $referentiel->id }}">
-                                                                <i class="bi bi-pencil" title="Modifier"></i> Modifier
-                                                            </button> --}}
-                                                                    </li>
-                                                                @endcan
                                                                 @can('referentiel-delete')
                                                                     <li>
                                                                         <form action="{{ url('referentiels', $referentiel->id) }}"
@@ -103,7 +94,6 @@
                                                     </span>
                                                 @endcan
                                             </td>
-
                                         </tr>
                                     @endforeach
                                 </tbody>

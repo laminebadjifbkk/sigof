@@ -207,7 +207,7 @@
                     @can('user-view')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('users.individuelle_collective') }}">
-                                <span>Indivividuelles/Collectives</span>
+                                <span>Demandeurs</span>
                             </a>
                         </li>
                     @endcan
