@@ -594,10 +594,18 @@ class OperateurController extends Controller
         $operateureferences = Operateureference::get();
         $user               = $operateur->user;
 
-        foreach (Auth::user()->roles as $key => $role) {
+        /* foreach (Auth::user()->roles as $key => $role) {
             if (! empty($role?->name) && ($role?->name != 'super-admin') && ($role?->name != 'Employe') && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
                 $this->authorize('view', $operateur);
             }
+        } */
+
+        $rolesAutorises = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
+
+        $userRoles = Auth::user()->roles->pluck('name')->toArray();
+
+        if (! array_intersect($rolesAutorises, $userRoles)) {
+            $this->authorize('view', $operateur);
         }
 
         return view("operateurs.show", compact("operateur", "operateureferences", "operateurs"));

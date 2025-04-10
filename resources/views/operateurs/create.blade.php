@@ -171,9 +171,8 @@
                                             <label for="categorie" class="form-label">Catégorie<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="categorie"
-                                                class="form-select  @error('categorie') is-invalid @enderror"
-                                                aria-label="Select" id="categorie"
-                                                data-placeholder="Choisir">
+                                                class="form-select form-select-sm @error('categorie') is-invalid @enderror"
+                                                aria-label="Select" id="categorie" data-placeholder="Choisir">
                                                 <option value="{{ old('categorie') }}">
                                                     {{ old('categorie') }}
                                                 </option>
@@ -194,48 +193,37 @@
                                             @enderror
                                         </div>
 
+                                        {{-- Statut juridique --}}
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                            <label for="statut" class="form-label">Statut juridique<span
-                                                    class="text-danger mx-1">*</span></label>
-                                            <select name="statut" class="form-select  @error('statut') is-invalid @enderror"
-                                                aria-label="Select" id="statut_juridique"
-                                                data-placeholder="Choisir statut">
-                                                <option value="{{ old('statut') }}">
-                                                    {{ old('statut') }}
-                                                </option>
-                                                <option value="GIE">
-                                                    GIE
-                                                </option>
-                                                <option value="Association">
-                                                    Association
-                                                </option>
-                                                <option value="Entreprise individuelle">
-                                                    Entreprise individuelle
-                                                </option>
-                                                <option value="SA">
-                                                    SA
-                                                </option>
-                                                <option value="SAS">
-                                                    SAS
-                                                </option>
-                                                <option value="SUARL">
-                                                    SUARL
-                                                </option>
-                                                <option value="SARL">
-                                                    SARL
-                                                </option>
-                                                <option value="SNC">
-                                                    SNC
-                                                </option>
-                                                <option value="SCS">
-                                                    SCS
-                                                </option>
-                                                <option value="Etablissement public">
-                                                    Etablissement public
-                                                </option>
-                                                <option value="Autre">
-                                                    Autre
-                                                </option>
+                                            <label for="statut" class="form-label">
+                                                Statut juridique<span class="text-danger mx-1">*</span>
+                                            </label>
+                                            <select name="statut" id="statut_juridique"
+                                                class="form-select form-select-sm @error('statut') is-invalid @enderror"
+                                                aria-label="Sélectionner le statut">
+                                                <option value="" disabled {{ old('statut') ? '' : 'selected' }}>--
+                                                    Choisir un statut --</option>
+                                                @php
+                                                    $statuts = [
+                                                        'Association',
+                                                        'Autre',
+                                                        'Entreprise individuelle',
+                                                        'Etablissement public',
+                                                        'GIE',
+                                                        'SA',
+                                                        'SARL',
+                                                        'SAS',
+                                                        'SCS',
+                                                        'SNC',
+                                                        'SUARL',
+                                                    ];
+                                                @endphp
+                                                @foreach ($statuts as $statut)
+                                                    <option value="{{ $statut }}"
+                                                        {{ old('statut') == $statut ? 'selected' : '' }}>
+                                                        {{ $statut }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                             @error('statut')
                                                 <span class="invalid-feedback" role="alert">
@@ -259,19 +247,15 @@
 
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="demande_signe" class="form-label">Demande signée</label>
-                                            <select name="demande_signe"
-                                                class="form-select  @error('demande_signe') is-invalid @enderror"
-                                                aria-label="Select" id="demande_signe"
-                                                data-placeholder="Choisir">
-                                                <option value="{{ old('demande_signe') }}">
-                                                    {{ old('demande_signe') }}
-                                                </option>
-                                                <option value="Oui">
-                                                    Oui
-                                                </option>
-                                                <option value="Non">
-                                                    Non
-                                                </option>
+                                            <select name="demande_signe" id="demande_signe"
+                                                class="form-select form-select-sm @error('demande_signe') is-invalid @enderror"
+                                                aria-label="Sélectionner si signé" data-placeholder="Choisir">
+                                                <option value="" disabled {{ old('demande_signe') ? '' : 'selected' }}>
+                                                    -- Choisir --</option>
+                                                <option value="Oui" {{ old('demande_signe') == 'Oui' ? 'selected' : '' }}>
+                                                    Oui</option>
+                                                <option value="Non" {{ old('demande_signe') == 'Non' ? 'selected' : '' }}>
+                                                    Non</option>
                                             </select>
                                             @error('demande_signe')
                                                 <span class="invalid-feedback" role="alert">
@@ -283,14 +267,14 @@
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="departement" class="form-label">Siège social<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <select name="departement"
+                                            <select name="departement" id="departement"
                                                 class="form-select form-select-sm @error('departement') is-invalid @enderror"
-                                                aria-label="Select" id="departement"
-                                                data-placeholder="Choisir">
-                                                <option value="{{ old('departement') }}">{{ old('departement') }}
-                                                </option>
+                                                aria-label="Sélectionner un département" data-placeholder="Choisir">
+                                                <option value="" disabled {{ old('departement') ? '' : 'selected' }}>--
+                                                    Choisir un département --</option>
                                                 @foreach ($departements as $departement)
-                                                    <option value="{{ $departement->nom }}">
+                                                    <option value="{{ $departement->nom }}"
+                                                        {{ old('departement') == $departement->nom ? 'selected' : '' }}>
                                                         {{ $departement->nom }}
                                                     </option>
                                                 @endforeach
@@ -395,9 +379,8 @@
                                             <label for="quitusfiscal" class="form-label">Quitus fiscal<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="quitusfiscal"
-                                                class="form-select  @error('quitusfiscal') is-invalid @enderror"
-                                                aria-label="Select" id="quitus"
-                                                data-placeholder="Choisir">
+                                                class="form-select form-select-sm @error('quitusfiscal') is-invalid @enderror"
+                                                aria-label="Select" id="quitus" data-placeholder="Choisir">
                                                 <option value="{{ old('quitusfiscal') }}">
                                                     {{ old('quitusfiscal') }}
                                                 </option>
@@ -439,9 +422,8 @@
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="arrete_creation" class="form-label">Arrêté création</label>
                                             <select name="arrete_creation"
-                                                class="form-select  @error('arrete_creation') is-invalid @enderror"
-                                                aria-label="Select" id="arrete_creation"
-                                                data-placeholder="Choisir">
+                                                class="form-select form-select-sm @error('arrete_creation') is-invalid @enderror"
+                                                aria-label="Select" id="arrete_creation" data-placeholder="Choisir">
                                                 <option value="{{ old('arrete_creation') }}">
                                                     {{ old('arrete_creation') }}
                                                 </option>
@@ -483,9 +465,8 @@
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="formulaire_signe" class="form-label">Formulaire signée</label>
                                             <select name="formulaire_signe"
-                                                class="form-select  @error('formulaire_signe') is-invalid @enderror"
-                                                aria-label="Select" id="formulaire_signe"
-                                                data-placeholder="Choisir">
+                                                class="form-select form-select-sm @error('formulaire_signe') is-invalid @enderror"
+                                                aria-label="Select" id="formulaire_signe" data-placeholder="Choisir">
                                                 <option value="{{ old('formulaire_signe') }}">
                                                     {{ old('formulaire_signe') }}
                                                 </option>
@@ -506,7 +487,7 @@
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="cvsigne" class="form-label">CV signés</label>
                                             <select name="cvsigne"
-                                                class="form-select  @error('cvsigne') is-invalid @enderror"
+                                                class="form-select form-select-sm @error('cvsigne') is-invalid @enderror"
                                                 aria-label="Select" id="cv_signe" data-placeholder="Choisir">
                                                 <option value="{{ old('cvsigne') }}">
                                                     {{ old('cvsigne') }}
@@ -532,8 +513,7 @@
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="civilite"
                                                 class="form-select form-select-sm @error('civilite') is-invalid @enderror"
-                                                aria-label="Select" id="civilite"
-                                                data-placeholder="Choisir civilité">
+                                                aria-label="Select" id="civilite" data-placeholder="Choisir civilité">
                                                 <option value="{{ old('civilite') }}">
                                                     {{ old('civilite') }}
                                                 </option>
