@@ -21,11 +21,12 @@ class OperateursImport implements ToModel, WithHeadingRow
                     'operateur'         => $row['operateur'],
                     'username'          => $row['username'],
                     'firstname'         => $row['firstname'],
+                    'name'              => $row['name'],
                     "fixe"              => $row['fixe'],
                     "telephone"         => $row['telephone'],
                     'adresse'           => $row['adresse'],
                     'email_responsable' => $row['email_responsable'],
-                    'password'          => Hash::make('password123'), // Mot de passe par défaut sécurisé
+                    'password'          => Hash::make('p@ssw0rd123'), // Mot de passe par défaut sécurisé
                 ]
             );
 
@@ -41,6 +42,7 @@ class OperateursImport implements ToModel, WithHeadingRow
                     "type_demande"    => $row['type_demande'],
                     "annee_agrement"  => $row['annee_agrement'],
                     "statut_agrement" => $row['statut_agrement'],
+                    "regions_id"      => $row['regions_id'],
                     'users_id'        => $user->id,
                 ]
             );

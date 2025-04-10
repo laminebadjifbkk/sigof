@@ -42,7 +42,7 @@
                                             <label for="numero_dossier" class="form-label">Numéro dossier</label>
                                             <div class="input-group has-validation">
                                                 <input type="number" min="0" name="numero_dossier"
-                                                    value="{{ $operateur?->numero_dossier ?? old('numero_dossier') }}"
+                                                    value="{{ old('numero_dossier', $operateur?->numero_dossier) }}"
                                                     class="form-control form-control-sm @error('numero_dossier') is-invalid @enderror"
                                                     id="numero_dossier" placeholder="Numéro dossier">
                                                 @error('numero_dossier')
@@ -57,7 +57,7 @@
                                             <label for="numero_arrive" class="form-label">Numéro courrier</label>
                                             <div class="input-group has-validation">
                                                 <input type="number" min="0" name="numero_arrive"
-                                                    value="{{ $operateur?->numero_arrive ?? old('numero_arrive') }}"
+                                                    value="{{ old('numero_arrive', $operateur?->numero_arrive) }}"
                                                     class="form-control form-control-sm @error('numero_arrive') is-invalid @enderror"
                                                     id="numero_arrive" placeholder="Numéro de correspondance">
                                                 @error('numero_arrive')
@@ -71,7 +71,7 @@
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="numero_agrement" class="form-label">Numéro agrément</label>
                                             <input type="text" name="numero_agrement"
-                                                value="{{ $operateur->numero_agrement ?? old('numero_agrement') }}"
+                                                value="{{ old('numero_agrement', $operateur->numero_agrement) }}"
                                                 class="form-control form-control-sm @error('numero_agrement') is-invalid @enderror"
                                                 id="numero_agrement" placeholder="Numéro agrément">
                                             @error('numero_agrement')
@@ -86,7 +86,7 @@
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="operateur" id="operateur" rows="1"
                                                 class="form-control form-control-sm @error('operateur') is-invalid @enderror"
-                                                placeholder="La raison sociale de l'opérateur">{{ $operateur?->user?->operateur ?? old('operateur') }}</textarea>
+                                                placeholder="La raison sociale de l'opérateur">{{ old('operateur', $operateur?->user?->operateur) }}</textarea>
                                             @error('operateur')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
@@ -98,7 +98,7 @@
                                             <label for="username" class="form-label">Sigle<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="username"
-                                                value="{{ $operateur?->user?->username ?? old('username') }}"
+                                                value="{{ old('username', $operateur?->user?->username) }}"
                                                 class="form-control form-control-sm @error('username') is-invalid @enderror"
                                                 id="username" placeholder="Sigle">
                                             @error('username')
@@ -112,7 +112,7 @@
                                             <label for="email" class="form-label">Email<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="email"
-                                                value="{{ $operateur?->user?->email ?? old('email') }}"
+                                                value="{{ old('email', $operateur?->user?->email) }}"
                                                 class="form-control form-control-sm @error('email') is-invalid @enderror"
                                                 id="email" placeholder="Adresse email">
                                             @error('email')
@@ -154,7 +154,7 @@
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="bp" class="form-label">Boite postal</label>
                                             <input type="text" name="bp"
-                                                value="{{ $operateur->user?->bp ?? old('bp') }}"
+                                                value="{{ old('bp', $operateur->user?->bp) }}"
                                                 class="form-control form-control-sm @error('bp') is-invalid @enderror"
                                                 id="bp" placeholder="Boite postal">
                                             @error('bp')
@@ -171,8 +171,8 @@
                                                 class="form-select  @error('categorie') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-categorie-update"
                                                 data-placeholder="Choisir">
-                                                <option value="{{ $operateur?->user?->categorie ?? old('categorie') }}">
-                                                    {{ $operateur?->user?->categorie ?? old('categorie') }}
+                                                <option value="{{ old('categorie', $operateur?->user?->categorie) }}">
+                                                    {{ old('categorie', $operateur?->user?->categorie) }}
                                                 </option>
                                                 <option value="Publique">
                                                     Publique
@@ -197,8 +197,8 @@
                                             <select name="statut" class="form-select  @error('statut') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-statut-update"
                                                 data-placeholder="Choisir statut">
-                                                <option value="{{ $operateur?->user?->statut ?? old('statut') }}">
-                                                    {{ $operateur?->user?->statut ?? old('statut') }}
+                                                <option value="{{ old('statut', $operateur?->user?->statut) }}">
+                                                    {{ old('statut', $operateur?->user?->statut) }}
                                                 </option>
                                                 <option value="GIE">
                                                     GIE
@@ -245,7 +245,7 @@
                                             <label for="autre_statut" class="form-label">Si autre ?
                                                 précisez</label>
                                             <input type="text" name="autre_statut"
-                                                value="{{ $operateur?->user?->autre_statut ?? old('autre_statut') }}"
+                                                value="{{ old('autre_statut', $operateur?->user?->autre_statut) }}"
                                                 class="form-control form-control-sm @error('autre_statut') is-invalid @enderror"
                                                 id="autre_statut" placeholder="autre statut juridique">
                                             @error('autre_statut')
@@ -261,8 +261,8 @@
                                                 class="form-select  @error('demande_signe') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-demande_signe_update"
                                                 data-placeholder="Choisir">
-                                                <option value="{{ $operateur?->demande_signe ?? old('demande_signe') }}">
-                                                    {{ $operateur?->demande_signe ?? old('demande_signe') }}
+                                                <option value="{{ old('demande_signe', $operateur?->demande_signe) }}">
+                                                    {{ old('demande_signe', $operateur?->demande_signe) }}
                                                 </option>
                                                 <option value="Oui">
                                                     Oui
@@ -285,8 +285,8 @@
                                                 class="form-select form-select-sm @error('departement') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-departement-update"
                                                 data-placeholder="Choisir">
-                                                <option value="{{ $operateur->departement?->nom ?? old('departement') }}">
-                                                    {{ $operateur->departement?->nom ?? old('departement') }}
+                                                <option value="{{ old('departement', $operateur->departement?->nom) }}">
+                                                    {{ old('departement', $operateur->departement?->nom) }}
                                                 </option>
                                                 @foreach ($departements as $departement)
                                                     <option value="{{ $departement->nom }}">
@@ -308,8 +308,8 @@
                                             <select name="type_demande"
                                                 class="form-select form-select-sm @error('type_demande') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-registre" data-placeholder="Choisir">
-                                                <option value="{{ $operateur?->type_demande }}">
-                                                    {{ $operateur?->type_demande ?? old('type_demande') }}
+                                                <option value="{{ old('type_demande', $operateur?->type_demande) }}">
+                                                    {{ old('type_demande', $operateur?->type_demande) }}
                                                 </option>
                                                 <option value="Nouvelle">
                                                     Nouvelle
@@ -328,7 +328,7 @@
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="web" class="form-label">Site web</label>
                                             <input type="text" name="web"
-                                                value="{{ $operateur?->user?->web ?? old('web') }}"
+                                                value="{{ old('web', $operateur?->user?->web) }}"
                                                 class="form-control form-control-sm @error('web') is-invalid @enderror"
                                                 id="web" placeholder="www.">
                                             @error('web')
@@ -343,7 +343,7 @@
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="adresse" id="adresse" rows="1"
                                                 class="form-control form-control-sm @error('adresse') is-invalid @enderror"
-                                                placeholder="Adresse exacte opérateur">{{ $operateur?->user?->adresse ?? old('adresse') }}</textarea>
+                                                placeholder="Adresse exacte opérateur">{{ old('adresse', $operateur?->user?->adresse) }}</textarea>
                                             @error('adresse')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
@@ -357,8 +357,8 @@
                                                 class="form-select form-select-sm @error('registre_commerce') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-registre-update"
                                                 data-placeholder="Choisir">
-                                                <option value="{{ $operateur?->user?->rccm ?? old('registre_commerce') }}">
-                                                    {{ $operateur?->user?->rccm ?? old('registre_commerce') }}
+                                                <option value="{{ old('registre_commerce', $operateur?->user?->rccm) }}">
+                                                    {{ old('registre_commerce', $operateur?->user?->rccm) }}
                                                 </option>
                                                 <option value="Registre de commerce">
                                                     Registre de commerce
@@ -383,7 +383,7 @@
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="ninea" class="form-label">Numéro RCCM / Ninéa</label>
                                             <input type="text" name="ninea"
-                                                value="{{ $operateur?->user?->ninea ?? old('ninea') }}"
+                                                value="{{ old('ninea', $operateur?->user?->ninea) }}"
                                                 class="form-control form-control-sm @error('ninea') is-invalid @enderror"
                                                 id="ninea" placeholder="Votre ninéa / Numéro RCCM">
                                             @error('ninea')
@@ -394,14 +394,13 @@
                                         </div>
 
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                            <label for="quitusfiscal" class="form-label">Quitus fiscal<span
-                                                    class="text-danger mx-1">*</span></label>
+                                            <label for="quitusfiscal" class="form-label">Quitus fiscal</label>
                                             <select name="quitusfiscal"
                                                 class="form-select  @error('quitusfiscal') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-quitusfiscalup"
                                                 data-placeholder="Choisir">
-                                                <option value="{{ $operateur?->quitusfiscal ?? old('quitusfiscal') }}">
-                                                    {{ $operateur?->quitusfiscal ?? old('quitusfiscal') }}
+                                                <option value="{{ old('quitusfiscal', $operateur?->quitusfiscal) }}">
+                                                    {{ old('quitusfiscal', $operateur?->quitusfiscal) }}
                                                 </option>
                                                 <option value="Oui">
                                                     Oui
@@ -460,8 +459,8 @@
                                                 class="form-select  @error('arrete_creation') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-arrete_creation-update"
                                                 data-placeholder="Choisir">
-                                                <option value="{{ $operateur?->arrete_creation ?? old('arrete_creation') }}">
-                                                    {{ $operateur?->arrete_creation ?? old('arrete_creation') }}
+                                                <option value="{{ old('arrete_creation', $operateur?->arrete_creation) }}">
+                                                    {{ old('arrete_creation', $operateur?->arrete_creation) }}
                                                 </option>
                                                 <option value="MFP">
                                                     MFP
@@ -518,9 +517,8 @@
                                                 class="form-select  @error('formulaire_signe') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-formulaire_signe_update"
                                                 data-placeholder="Choisir">
-                                                <option
-                                                    value="{{ $operateur?->formulaire_signe ?? old('formulaire_signe') }}">
-                                                    {{ $operateur?->formulaire_signe ?? old('formulaire_signe') }}
+                                                <option value="{{ old('formulaire_signe', $operateur?->formulaire_signe) }}">
+                                                    {{ old('formulaire_signe', $operateur?->formulaire_signe) }}
                                                 </option>
                                                 <option value="Oui">
                                                     Oui
@@ -541,8 +539,8 @@
                                             <select name="cvsigne"
                                                 class="form-select  @error('cvsigne') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-cvsigneup" data-placeholder="Choisir">
-                                                <option value="{{ $operateur?->cvsigne ?? old('cvsigne') }}">
-                                                    {{ $operateur?->cvsigne ?? old('cvsigne') }}
+                                                <option value="{{ old('cvsigne', $operateur?->cvsigne) }}">
+                                                    {{ old('cvsigne', $operateur?->cvsigne) }}
                                                 </option>
                                                 <option value="Oui">
                                                     Oui
@@ -567,8 +565,8 @@
                                                 class="form-select form-select-sm @error('civilite') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-civilite"
                                                 data-placeholder="Choisir civilité">
-                                                <option value="{{ $operateur?->user?->civilite ?? old('civilite') }}">
-                                                    {{ $operateur?->user?->civilite ?? old('civilite') }}
+                                                <option value="{{ old('civilite', $operateur?->user?->civilite) }}">
+                                                    {{ old('civilite', $operateur?->user?->civilite) }}
                                                 </option>
                                                 <option value="M.">
                                                     M.
@@ -588,7 +586,7 @@
                                             <label for="prenom" class="form-label">Prénom responsable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="prenom"
-                                                value="{{ $operateur?->user?->firstname ?? old('prenom') }}"
+                                                value="{{ old('prenom', $operateur?->user?->firstname) }}"
                                                 class="form-control form-control-sm @error('prenom') is-invalid @enderror"
                                                 id="prenom" placeholder="Prénom responsable">
                                             @error('prenom')
@@ -602,7 +600,7 @@
                                             <label for="nom" class="form-label">Nom responsable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="nom"
-                                                value="{{ $operateur?->user?->name ?? old('nom') }}"
+                                                value="{{ old('nom', $operateur?->user?->name) }}"
                                                 class="form-control form-control-sm @error('nom') is-invalid @enderror"
                                                 id="nom" placeholder="Nom responsable">
                                             @error('nom')
@@ -616,7 +614,7 @@
                                             <label for="fonction_responsable" class="form-label">Fonction responsable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="fonction_responsable"
-                                                value="{{ $operateur?->user?->fonction_responsable ?? old('fonction_responsable') }}"
+                                                value="{{ old('fonction_responsable', $operateur?->user?->fonction_responsable) }}"
                                                 class="form-control form-control-sm @error('fonction_responsable') is-invalid @enderror"
                                                 id="fonction_responsable" placeholder="Fonction responsable">
                                             @error('fonction_responsable')
@@ -629,7 +627,7 @@
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="email_responsable" class="form-label">Adresse e-mail</label>
                                             <input type="email" name="email_responsable"
-                                                value="{{ $operateur?->user?->email_responsable ?? old('email_responsable') }}"
+                                                value="{{ old('email_responsable', $operateur?->user?->email_responsable) }}"
                                                 class="form-control form-control-sm @error('email_responsable') is-invalid @enderror"
                                                 id="email_responsable" placeholder="Adresse email responsable">
                                             @error('email_responsable')
