@@ -99,6 +99,8 @@ class EmployeController extends Controller
             'email'               => $request->email,
             'telephone'           => $request->telephone,
             'adresse'             => $request->adresse,
+            'created_by'          => Auth::user()->id,
+            'updated_by'          => Auth::user()->id,
             'password'            => Hash::make($request->email),
         ]);
 
@@ -291,10 +293,29 @@ class EmployeController extends Controller
             $user_update_name = $user_update->firstname . " " . $user_update->firstname;
         } */
 
-        $user = Auth::user();
+        $user = $employe->user;
 
-        $user_create_name = $user->firstname . " " . $user->name;
-        $user_update_name = $user->firstname . " " . $user->name;
+        if ($user->updated_by == null) {
+            $user_create_name = Auth::user()->firstname . " " . Auth::user()->name;
+            $user_update_name = Auth::user()->firstname . " " . Auth::user()->name;
+        } else {
+            $user_updated_id = $user->updated_by;
+
+            $user_update = User::findOrFail($user_updated_id);
+
+            $user_update_name = $user_update->firstname . " " . $user_update->firstname;
+        }
+        if ($user->created_by == null) {
+            $user_created_id  = Auth::user()->id;
+            $user_create      = User::findOrFail($user_created_id);
+            $user_create_name = $user_create->firstname . " " . $user_create->firstname;
+        } else {
+            $user_created_id = $user->created_by;
+
+            $user_create = User::findOrFail($user_created_id);
+
+            $user_create_name = $user_create->firstname . " " . $user_create->firstname;
+        }
 
         return view("employes.show", compact("user", "user_create_name", "user_update_name", "employe", "directions", "categories", "fonctions"));
     }

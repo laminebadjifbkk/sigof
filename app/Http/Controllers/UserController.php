@@ -333,7 +333,7 @@ class UserController extends Controller
         /*  $status = "Enregistrement effectué avec succès";
         return redirect()->back()->with("status", $status); */
 
-        Alert::success('Effectué !', 'Utilisateur enregistré');
+        Alert::success('Succès !', 'Utilisateur ajouté avec succès');
         return redirect()->back();
     }
 
