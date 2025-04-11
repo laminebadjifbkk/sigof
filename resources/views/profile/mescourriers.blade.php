@@ -67,13 +67,15 @@
                                                             <div class="d-flex justify-content-between align-items-center">
                                                                 <p><b>N° courrier</b> : {{ $arrive?->numero_arrive }}</p>
                                                                 <span>
-                                                                    @if ($arrive?->jour_imputation)
-                                                                        @php
-                                                                            $date = \Carbon\Carbon::parse(
-                                                                                $arrive->jour_imputation,
-                                                                            );
-                                                                        @endphp
+                                                                    @php
+                                                                        use Carbon\Carbon;
 
+                                                                        $date = $arrive?->jour_imputation
+                                                                            ? Carbon::parse($arrive->jour_imputation)
+                                                                            : null;
+                                                                    @endphp
+
+                                                                    @if ($date)
                                                                         @if ($date->isToday())
                                                                             <span class="badge bg-success">Aujourd'hui</span>
                                                                         @elseif ($date->isYesterday())
