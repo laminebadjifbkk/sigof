@@ -68,10 +68,10 @@
                                                                 <p><b>N° courrier</b> : {{ $arrive?->numero_arrive }}</p>
                                                                 <span>
                                                                     @php
-                                                                        use Carbon\Carbon;
-
                                                                         $date = $arrive?->jour_imputation
-                                                                            ? Carbon::parse($arrive->jour_imputation)
+                                                                            ? \Carbon\Carbon::parse(
+                                                                                $arrive->jour_imputation,
+                                                                            )
                                                                             : null;
                                                                     @endphp
 
@@ -80,13 +80,13 @@
                                                                             <span class="badge bg-success">Aujourd'hui</span>
                                                                         @elseif ($date->isYesterday())
                                                                             <span class="badge bg-warning">Hier</span>
-                                                                        @elseif ($date->diffInDays(Carbon::today()) < 7)
+                                                                        @elseif ($date->diffInDays(\Carbon\Carbon::today()) < 7)
                                                                             <span class="badge bg-primary">Il y a
-                                                                                {{ $date->diffInDays(Carbon::today()) }}
+                                                                                {{ $date->diffInDays(\Carbon\Carbon::today()) }}
                                                                                 jours</span>
                                                                         @else
                                                                             <span class="badge bg-secondary">Il y a
-                                                                                {{ $date->diffInDays(Carbon::today()) }}
+                                                                                {{ $date->diffInDays(\Carbon\Carbon::today()) }}
                                                                                 jours</span>
                                                                         @endif
                                                                     @else
