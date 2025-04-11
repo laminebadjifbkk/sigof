@@ -277,7 +277,9 @@ class EmployeController extends Controller
         $directions = Direction::orderBy('created_at', 'desc')->get();
         $categories = Category::orderBy('created_at', 'desc')->get();
         $fonctions  = Fonction::orderBy('created_at', 'desc')->get();
-        /* $user       = $employe->user;
+        $user       = $employe->user;
+
+        /*
 
         if (Auth::user()->id; == null || $user->updated_by == null) {
             $user_create_name = Auth::user()->firstname . " " . Auth::user()->name;
@@ -293,8 +295,7 @@ class EmployeController extends Controller
             $user_update_name = $user_update->firstname . " " . $user_update->firstname;
         } */
 
-        $user = $employe->user;
-
+        /*
         if ($user->updated_by == null) {
             $user_create_name = Auth::user()->firstname . " " . Auth::user()->name;
             $user_update_name = Auth::user()->firstname . " " . Auth::user()->name;
@@ -315,9 +316,9 @@ class EmployeController extends Controller
             $user_create = User::findOrFail($user_created_id);
 
             $user_create_name = $user_create->firstname . " " . $user_create->firstname;
-        }
+        } */
 
-        return view("employes.show", compact("user", "user_create_name", "user_update_name", "employe", "directions", "categories", "fonctions"));
+        return view("employes.show", compact("user", "employe", "directions", "categories", "fonctions"));
     }
 
     public function destroy($id)

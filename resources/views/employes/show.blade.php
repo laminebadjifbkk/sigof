@@ -776,12 +776,13 @@
                                         <h5 class="card-title">Informations complémentaires</h5>
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label pb-2">Création</div>
-                                            <div class="col-lg-9 col-md-8 pb-2">{{ $user_create_name }}
+                                            <div class="col-lg-9 col-md-8 pb-2">
+                                                {{-- {{ $user_create_name }} --}}
                                                 {{ $employe->created_at->diffForHumans() }}</div>
 
                                             <div class="col-lg-3 col-md-4 label pt-2">Modification</div>
                                             <div class="col-lg-9 col-md-8 pt-2">
-                                                {{ $user_update_name }}
+                                                {{-- {{ $user_update_name }} --}}
                                                 {{ $employe->updated_at->diffForHumans() }}</div>
                                             <div class="col-lg-3 col-md-4 label pt-3">Roles</div>
                                             <div class="col-lg-9 col-md-8 pt-3">
