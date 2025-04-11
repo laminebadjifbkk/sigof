@@ -775,20 +775,14 @@
                                     <div class="card-body profile-card pt-1 d-flex flex-column">
                                         <h5 class="card-title">Informations complémentaires</h5>
                                         <div class="row">
-                                            <div class="col-lg-3 col-md-4 label pb-2">Créé par </div>
+                                            <div class="col-lg-3 col-md-4 label pb-2">Création</div>
                                             <div class="col-lg-9 col-md-8 pb-2">{{ $user_create_name }}
-                                                {{ $user->created_at->diffForHumans() }}</div>
+                                                {{ $employe->created_at->diffForHumans() }}</div>
 
                                             <div class="col-lg-3 col-md-4 label pt-2">Modification</div>
-                                            @if ($user->created_at != $user->updated_at)
-                                                <div class="col-lg-9 col-md-8 pt-2">
-                                                    {{ 'modifié par : ' . $user_update_name }}
-                                                    {{ $user->updated_at->diffForHumans() }}</div>
-                                            @else
-                                                <div class="col-lg-9 col-md-8 pt-2">
-                                                    jamais modifié</div>
-                                            @endif
-
+                                            <div class="col-lg-9 col-md-8 pt-2">
+                                                {{ $user_update_name }}
+                                                {{ $user->updated_at->diffForHumans() }}</div>
                                             <div class="col-lg-3 col-md-4 label pt-3">Roles</div>
                                             <div class="col-lg-9 col-md-8 pt-3">
                                                 @if (isset($user->roles) && $user->roles != '[]')
