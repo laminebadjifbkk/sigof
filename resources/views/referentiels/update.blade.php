@@ -70,7 +70,7 @@
 
                                 <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                     <label for="convention" class="form-label">Convention</label>
-                                    <select name="convention" class="form-select  @error('convention') is-invalid @enderror"
+                                    {{-- <select name="convention" class="form-select  @error('convention') is-invalid @enderror"
                                         aria-label="Select" id="select-field-convention-update"
                                         data-placeholder="Choisir la localité">
                                         <option value="{{ $referentiel?->convention?->name ?? old('convention') }}">
@@ -83,7 +83,14 @@
                                                 {{ $convention->name }}
                                             </option>
                                         @endforeach
-                                    </select>
+                                    </select> --}}
+                                    {{-- <textarea name="convention" id="category" rows="1"
+                                        class="form-control form-control-sm @error('convention') is-invalid @enderror" placeholder="Convention">{{ old('convention', $referentiel?->convention?->name) }}</textarea> --}}
+                                    <input type="text" placeholder="convention"
+                                        class="form-control form-control-sm @error('convention') is-invalid @enderror"
+                                        name="convention" id="conventionid"
+                                        value="{{ old('convention', $referentiel?->convention?->name) }}">
+                                    <div id="conventionList"></div>
                                     @error('convention')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>

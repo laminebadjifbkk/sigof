@@ -45,12 +45,25 @@ class ReferentielController extends Controller
 
         $convention = Convention::where('name', $request?->convention)->first();
 
+        if (! empty($convention)) {
+            $convention_id = $convention?->id;
+        } else {
+
+            $convention = Convention::create([
+                'name' => $request?->convention,
+            ]);
+
+            $convention?->save();
+
+            $convention_id = $convention?->id;
+        }
+
         $referentiel = Referentiel::create([
             'intitule'       => $request?->intitule,
             'titre'          => $request?->titre,
             'categorie'      => $request?->categorie,
             'reference'      => $request?->reference,
-            'conventions_id' => $convention?->id,
+            'conventions_id' => $convention_id,
         ]);
 
         $referentiel?->save();
@@ -89,12 +102,25 @@ class ReferentielController extends Controller
 
         $convention = Convention::where('name', $request?->convention)->first();
 
+        if (! empty($convention)) {
+            $convention_id = $convention?->id;
+        } else {
+
+            $convention = Convention::create([
+                'name' => $request?->convention,
+            ]);
+
+            $convention?->save();
+
+            $convention_id = $convention?->id;
+        }
+
         $referentiel->update([
             'intitule'       => $request?->intitule,
             'titre'          => $request?->titre,
             'categorie'      => $request?->categorie,
             'reference'      => $request?->reference,
-            'conventions_id' => $convention?->id,
+            'conventions_id' => $convention_id,
         ]);
 
         $referentiel->save();

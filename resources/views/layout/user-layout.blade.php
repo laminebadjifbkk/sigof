@@ -746,6 +746,36 @@
 
         });
     </script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('#conventionid').keyup(function() {
+                var query = $(this).val();
+                if (query != '') {
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                        url: "{{ route('conventions.fetch') }}",
+                        method: "POST",
+                        data: {
+                            query: query,
+                            _token: _token
+                        },
+                        success: function(data) {
+                            $('#conventionList').fadeIn();
+                            $('#conventionList').html(data);
+                        }
+                    });
+                }
+            });
+
+            $(document).on('click', 'li', function() {
+                $('#conventionid').val($(this).text());
+                $('#conventionList').fadeOut();
+            });
+
+        });
+    </script>
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js"></script>

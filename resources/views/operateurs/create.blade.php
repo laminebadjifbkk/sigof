@@ -61,7 +61,7 @@
                                                 class="form-control form-control-sm @error('numero_arrive') is-invalid @enderror"
                                                 id="numero_arrive" placeholder="Numéro de correspondance"> --}}
                                                 <input type="text" placeholder="Rechercher numéro courrier..."
-                                                    class="form-control form-control-sm @error('product') is-invalid @enderror"
+                                                    class="form-control form-control-sm @error('numero_arrive') is-invalid @enderror"
                                                     name="numero_arrive" id="numero" required>
                                                 <div id="productList"></div>
                                                 @error('numero_arrive')

@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Convention;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -65,6 +66,27 @@ class ConventionController extends Controller
         $convention = Convention::find($id);
 
         return view('conventions.show', compact('convention'));
+    }
+
+    public function fetch(Request $request)
+    {
+        if ($request->get('query')) {
+            $query = $request->get('query');
+            $data  = DB::table('conventions')
+                ->whereNull('deleted_at') // Exclure les enregistrements supprimés
+                ->where('name', 'LIKE', "%{$query}%")
+                ->distinct()
+                ->get();
+
+            $output = '<ul class="dropdown-menu" style="display:block; position:relative;width:100%;">';
+            foreach ($data as $row) {
+                $output .= '
+            <li><a class="dropdown-item" href="#">' . $row->name . '</a></li>
+            ';
+            }
+            $output .= '</ul>';
+            echo $output;
+        }
     }
 
     public function destroy($id)

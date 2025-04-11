@@ -151,7 +151,13 @@
 
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                         <label for="convention" class="form-label">Convention</label>
-                                        <select name="convention"
+                                        <input type="text" placeholder="Convention"
+                                            class="form-control form-control-sm @error('convention') is-invalid @enderror"
+                                            name="convention" id="conventionid" required>
+                                        <div id="conventionList"></div>
+                                        {{-- <textarea name="convention" id="category" rows="1"
+                                            class="form-control form-control-sm @error('convention') is-invalid @enderror" placeholder="Convention">{{ old('convention') }}</textarea> --}}
+                                        {{-- <select name="convention"
                                             class="form-select  @error('convention') is-invalid @enderror" aria-label="Select"
                                             id="select-field-convention" data-placeholder="Choisir convention">
                                             <option value="{{ old('convention') }}">{{ old('convention') }}</option>
@@ -160,7 +166,7 @@
                                                     {{ $convention->name }}
                                                 </option>
                                             @endforeach
-                                        </select>
+                                        </select> --}}
                                         @error('convention')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
