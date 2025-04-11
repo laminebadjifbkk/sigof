@@ -782,7 +782,7 @@
                                             <div class="col-lg-3 col-md-4 label pt-2">Modification</div>
                                             <div class="col-lg-9 col-md-8 pt-2">
                                                 {{ $user_update_name }}
-                                                {{ $user->updated_at->diffForHumans() }}</div>
+                                                {{ $employe->updated_at->diffForHumans() }}</div>
                                             <div class="col-lg-3 col-md-4 label pt-3">Roles</div>
                                             <div class="col-lg-9 col-md-8 pt-3">
                                                 @if (isset($user->roles) && $user->roles != '[]')
