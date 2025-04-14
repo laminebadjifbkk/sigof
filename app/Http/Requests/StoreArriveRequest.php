@@ -36,7 +36,7 @@ class StoreArriveRequest extends FormRequest
                 "nullable",
                 "string",
                 "min:4",
-                "max:25",
+                "max:50",
                 Rule::unique('courriers', 'numero_courrier')->whereNull('deleted_at'),
             ],
             "numero_reponse"      => ["string", "min:6", "max:15", "nullable"],

@@ -271,12 +271,7 @@ class Individuelle extends Model
             }
         });
     }
-
-    public function validationindividuelles()
-    {
-        return $this->hasMany(Validationindividuelle::class, 'individuelles_id')->latest();
-    }
-
+    
     public function indisponibles()
     {
         return $this->hasMany(Indisponible::class, 'individuelles_id')->latest();

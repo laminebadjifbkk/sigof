@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -9,7 +10,7 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class ValidationDemandeIndividuelleNotification extends Mailable
+class NotificationRejetIndividuelle extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -32,17 +33,10 @@ class ValidationDemandeIndividuelleNotification extends Mailable
     /**
      * Get the message envelope.
      */
-/*     public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'Validation Demande Individuelle Notification',
-        );
-    } */
-
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('lamine.badji@onfp.sn', 'ONFP | Confirmation de validation de votre demande de formation'),
+            from: new Address('lamine.badji@onfp.sn', 'ONFP | Notification de rejet de la demande de formation'),
             replyTo: [
                 new Address('lamine.badji@onfp.sn', 'ONFP | Réponse concernant votre nouvelle demande de formation'),
             ],
@@ -53,17 +47,11 @@ class ValidationDemandeIndividuelleNotification extends Mailable
     /**
      * Get the message content definition.
      */
-/*     public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    } */
-
     public function content(): Content
     {
         /* Alert::success("E-mail envoyés !", "La notification de validation été envoyée avec succès."); */
-        Alert::success('Succès !', 'La demande a été validée avec succès !, un mail a été envoyé au demandeur.');
+        Alert::success('Succès !', 'La demande a été rejetée avec succès !, un mail a été envoyé au demandeur.');
+        /* Alert::success('E-mail envoyés !', 'La notification de rejet a été envoyée avec succès.'); */
         return new Content(
             view: 'individuelles.mailinfo',
         );

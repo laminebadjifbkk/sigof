@@ -85,7 +85,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                {{-- <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="numero_courrier" class="form-label">Numéro correspondance</label>
                                     <div class="input-group has-validation">
                                         <input type="text" min="0" name="numero_courrier"
@@ -96,6 +96,21 @@
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
                                             </span>
+                                        @enderror
+                                    </div>
+                                </div> --}}
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xxl-4">
+                                    <label for="numero_courrier" class="form-label">Numéro de correspondance</label>
+                                    <div class="input-group has-validation">
+                                        <textarea name="numero_courrier" id="numero_courrier" rows="1"
+                                            class="form-control form-control-sm @error('numero_courrier') is-invalid @enderror"
+                                            placeholder="Numéro de correspondance">{{ old('numero_courrier', $arrive?->courrier?->numero_courrier) }}</textarea>
+
+                                        @error('numero_courrier')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
                                         @enderror
                                     </div>
                                 </div>
@@ -114,7 +129,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                {{-- <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="expediteur" class="form-label">Expéditeur<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="expediteur"
@@ -126,26 +141,47 @@
                                             <div>{{ $message }}</div>
                                         </span>
                                     @enderror
+                                </div> --}}
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xxl-4">
+                                    <label for="expediteur" class="form-label">
+                                        Expéditeur <span class="text-danger">*</span>
+                                    </label>
+                                    <textarea name="expediteur" id="expediteur" rows="1"
+                                        class="form-control form-control-sm @error('expediteur') is-invalid @enderror" placeholder="Expéditeur">{{ old('expediteur', $arrive?->courrier?->expediteur) }}</textarea>
+
+                                    @error('expediteur')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                {{-- <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                     <label for="objet" class="form-label">Objet<span
                                             class="text-danger mx-1">*</span></label>
-                                    {{-- <input type="text" name="objet"
+                                    <input type="text" name="objet"
                                         value="{{ $arrive?->courrier?->objet ?? old('objet') }}"
                                         class="form-control form-control-sm @error('objet') is-invalid @enderror"
-                                        id="objet" placeholder="Objet"> --}}
-                                    <textarea name="objet" id="objet" rows="4"
-                                        class="form-control form-control-sm @error('objet') is-invalid @enderror" placeholder="Objet">{{ old('objet', $arrive?->courrier?->objet) }}</textarea>
+                                        id="objet" placeholder="Objet">
                                     @error('objet')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
                                         </span>
                                     @enderror
+                                </div> --}}
+
+                                <div class="col-12 col-lg-12 col-xxl-12">
+                                    <label for="objet" class="form-label">
+                                        Objet <span class="text-danger">*</span>
+                                    </label>
+                                    <textarea name="objet" id="objet" rows="2"
+                                        class="form-control form-control-sm @error('objet') is-invalid @enderror" placeholder="Objet">{{ old('objet', $arrive?->courrier?->objet) }}</textarea>
+
                                     @error('objet')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                                 </div>
 

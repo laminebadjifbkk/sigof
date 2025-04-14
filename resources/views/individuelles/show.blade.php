@@ -291,10 +291,11 @@
 
                             <div class="modal-body">
                                 <label for="motif" class="form-label">Motifs du rejet</label>
-                                <textarea name="motif" id="motif" rows="5"
-                                    class="form-control form-control-sm @error('motif') is-invalid @enderror"
-                                    placeholder="Enumérez les motifs du rejet" aria-describedby="motifHelp">{{ old('motif', $individuelle?->motif_retrait) }}</textarea>
-
+                                @foreach ($individuelle?->validationindividuelles->sortByDesc('created_at')->take(1) as $validation)
+                                    <textarea name="motif" id="motif" rows="5"
+                                        class="form-control form-control-sm @error('motif') is-invalid @enderror"
+                                        placeholder="Enumérez les motifs du rejet" aria-describedby="motifHelp">{{ old('motif', $validation->motif) }}</textarea>
+                                @endforeach
                                 @error('motif')
                                     <span class="invalid-feedback" role="alert">
                                         <div>{{ $message }}</div>

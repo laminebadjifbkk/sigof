@@ -294,19 +294,30 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                {{-- <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="numero_courrier" class="form-label">Numéro correspondance</label>
-                                    <div class="input-group has-validation">
-                                        <input type="text" min="0" name="numero_courrier"
+                                    <input type="text" min="0" name="numero_courrier"
                                             value="{{ old('numero_courrier') }}"
                                             class="form-control form-control-sm @error('numero_courrier') is-invalid @enderror"
                                             id="numero_courrier" placeholder="Numéro de correspondance">
-                                        @error('numero_courrier')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                    @error('numero_courrier')
+                                        <span class="invalid-feedback" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
+                                </div> --}}
+
+                                <div class="col-12 col-lg-4 col-md-12 col-sm-12 col-xs-12 col-xxl-4">
+                                    <label for="numero_courrier" class="form-label">Numéro de correspondance</label>
+                                    <textarea name="numero_courrier" id="numero_courrier" rows="1"
+                                        class="form-control form-control-sm @error('numero_courrier') is-invalid @enderror"
+                                        placeholder="Numéro de correspondance">{{ old('numero_courrier') }}</textarea>
+
+                                    @error('numero_courrier')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
 
                                 <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
@@ -323,22 +334,37 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                {{-- <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="expediteur" class="form-label">Expéditeur<span
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="expediteur" id="expediteur" rows="1"
-                                        class="form-control form-control-sm @error('expediteur') is-invalid @enderror" placeholder="Expéditeur">{{ old('expediteur') }}</textarea>
+                                        class="form-control form-control-sm @error('expediteur') is-invalid @enderror" placeholder="Expéditeur">{{ old('expediteur') }}
+                                    </textarea>
                                     @error('expediteur')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
                                         </span>
+                                    @enderror
+                                </div> --}}
+
+                                <div class="col-12 col-lg-4 col-xxl-4">
+                                    <label for="expediteur" class="form-label">
+                                        Expéditeur <span class="text-danger">*</span>
+                                    </label>
+                                    <textarea name="expediteur" id="expediteur" rows="1"
+                                        class="form-control form-control-sm @error('expediteur') is-invalid @enderror" placeholder="Expéditeur">{{ old('expediteur') }}</textarea>
+
+                                    @error('expediteur')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                                 </div>
 
                                 <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                     <label for="objet" class="form-label">Objet<span
                                             class="text-danger mx-1">*</span></label>
-                                    <textarea name="objet" id="objet" rows="3"
+                                    <textarea name="objet" id="objet" rows="2"
                                         class="form-control form-control-sm @error('objet') is-invalid @enderror" placeholder="Objet">{{ old('objet') }}</textarea>
                                     @error('objet')
                                         <span class="invalid-feedback" role="alert">

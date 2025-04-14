@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Mail\NotificationRejetIndividuelle;
 use App\Mail\ValidationDemandeIndividuelleNotification;
 use App\Models\Individuelle;
 use App\Models\Validationindividuelle;
@@ -102,16 +103,23 @@ class ValidationIndividuelleController extends Controller
 
         // Envoi de mail
         $toEmail     = $individuelle?->user?->email;
-        $toUserName  = 'Félicitations ! ' . $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name;
+        $toUserName  = 'Bonjour ! ' . $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name;
         $safeMessage = "Votre demande de formation en <b><i>" . ($individuelle->module->name ?? 'cette formation') .
             "</i></b> a été retenue. Vous pourrez être contacté à tout moment pour le démarrage de la formation.
-            Merci pour votre patience ; nous mettons tout en œuvre afin qu’elle puisse débuter dans les plus brefs délais.";
+        Merci pour votre patience ; nous mettons tout en œuvre afin qu’elle puisse débuter dans les plus brefs délais.";
+
+        // Ajouter le lien vers le site
+        /* $siteUrl = config('app.url'); // ou une URL en dur comme 'https://sigof.onfp.sn' */
+        $siteUrl = 'https://sigof.onfp.sn'; // ou une URL en dur comme 'https://sigof.onfp.sn'
+        $safeMessage .= "<p>Consultez notre plateforme : <a href=\"$siteUrl\">$siteUrl</a></p>";
+
         $subject = 'Notification de validation !';
-        $message = strip_tags($safeMessage, '<b><i><p>');
+        $message = strip_tags($safeMessage, '<b><i><p><a>');
 
         Mail::to($toEmail)->send(new ValidationDemandeIndividuelleNotification($message, $subject, $toEmail, $toUserName));
 
         return redirect()->back();
+
     }
 
     public function destroy(Request $request, $id)
@@ -177,14 +185,36 @@ class ValidationIndividuelleController extends Controller
             'canceled_by' => Auth::user()->firstname . ' ' . Auth::user()->name,
         ]);
 
-        Validationindividuelle::create([
+        $validation = Validationindividuelle::create([
             'validated_id'     => Auth::user()->id,
             'action'           => 'Rejetée',
             'motif'            => $request->input('motif'),
             'individuelles_id' => $individuelle->id,
         ]);
 
-        Alert::success('Succes !', 'demande rejetée avec succès');
+        // Envoi de mail
+        $toEmail    = $individuelle?->user?->email;
+        $toUserName = 'Bonjour ' . $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name . ',';
+
+        $safeMessage = "Nous vous informons, avec regret, que votre demande de formation en <b><i>" .
+            ($individuelle->module->name ?? 'cette formation') .
+            "</i></b> n’a pas été retenue pour le motif suivant : <b><i>" .
+            ($request->input('motif') ?? 'non précisé') .
+            "</i></b>.<br><br>Nous vous invitons à vous connecter à votre compte afin d’apporter les ajustements nécessaires.
+    Merci pour votre compréhension. Nous restons disponibles et espérons recevoir les modifications dans les plus brefs délais.";
+
+// Ajouter le lien vers le site
+        $siteUrl = 'https://sigof.onfp.sn'; // ou mettre en dur : 'https://sigof.onfp.sn'
+        $safeMessage .= "<p>Consultez notre plateforme : <a href=\"$siteUrl\">$siteUrl</a></p>";
+
+        $subject = 'Notification de rejet de votre demande de formation';
+        $message = strip_tags($safeMessage, '<b><i><p><a><br>');
+
+        Mail::to($toEmail)->send(new NotificationRejetIndividuelle($message, $subject, $toEmail, $toUserName));
+
         return redirect()->back();
+
+        /* Alert::success('Succes !', 'demande rejetée avec succès');
+        return redirect()->back(); */
     }
 }
