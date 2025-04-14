@@ -147,7 +147,7 @@
                                     <label for="expediteur" class="form-label">
                                         Expéditeur <span class="text-danger">*</span>
                                     </label>
-                                    <textarea name="expediteur" id="expediteur" rows="1"
+                                    <textarea name="expediteur" id="expediteur" rows="2"
                                         class="form-control form-control-sm @error('expediteur') is-invalid @enderror" placeholder="Expéditeur">{{ old('expediteur', $arrive?->courrier?->expediteur) }}</textarea>
 
                                     @error('expediteur')
