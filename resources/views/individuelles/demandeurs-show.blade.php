@@ -54,36 +54,43 @@
                         <h5 class="card-title">{{ $user?->civilite . ' ' . $user?->firstname . ' ' . $user?->name }}</h5>
                         <table class="table datatables align-middle" id="table-users">
                             <thead>
-                                <tr>
-                                    <th width="5%" class="text-center">N°</th>
-                                    <th width="15%" class="text-center">Date dépôt</th>
+                                <tr class="text-center">
+                                    <th width="8%">Choix n°</th>
+                                    <th width="15%">N° demande</th>
+                                    <th width="8%">Date dépôt</th>
+                                    <th width="12%">Département</th>
+                                    <th width="12%">Région</th>
                                     <th>Modules</th>
-                                    <th width="10%" class="text-center">Statut</th>
+                                    <th width="10%">Statut</th>
                                     @can('user-show')
-                                        <th width="5%" class="text-center"><i class="bi bi-gear"></i></th>
+                                        <th width="5%"><i class="bi bi-gear"></i></th>
                                     @endcan
                                 </tr>
                             </thead>
                             <tbody>
                                 @php $i = 1; @endphp
-                                @foreach ($user->individuelles as $individuelle)
-                                    <tr>
-                                        <td class="text-center">{{ $i++ }}</td>
-                                        <td class="text-center">
+                                @foreach ($user->individuelles->sortBy('created_at') as $individuelle)
+                                    <tr class="text-center">
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $individuelle?->numero }}</td>
+                                        <td>
                                             @if ($individuelle?->date_depot)
-                                                {{ $individuelle?->date_depot?->diffForHumans(null, false) }}
+                                                {{-- {{ $individuelle?->date_depot?->diffForHumans(null, false) }} --}}
+                                                {{ $individuelle?->date_depot?->format('d/m/Y') }}
                                             @else
                                                 Aucun
                                             @endif
                                         </td>
+                                        <td>{{ $individuelle?->departement?->nom }}</td>
+                                        <td>{{ $individuelle?->departement?->region?->nom }}</td>
                                         <td>{{ $individuelle?->module?->name }}</td>
-                                        <td class="text-center">
+                                        <td>
                                             <span class="{{ $individuelle?->statut }}">
                                                 {{ $individuelle?->statut }}
                                             </span>
                                         </td>
                                         @can('user-show')
-                                            <td class="text-center">
+                                            <td>
                                                 <a href="{{ route('individuelles.show', $individuelle?->id) }}"
                                                     class="btn btn-primary btn-sm" target="_blank" title="voir détails"><i
                                                         class="bi bi-eye"></i></a>
@@ -524,7 +531,7 @@
                     </table>
                 </div>
             </div>
-            
+
             <form method="post" action="{{ route('files.update', $user?->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('patch')

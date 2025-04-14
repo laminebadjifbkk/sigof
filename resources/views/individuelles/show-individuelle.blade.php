@@ -53,33 +53,35 @@
                         </h5>
                         <table class="table table-bordered table-hover table-borderless">
                             <thead>
-                                <tr>
-                                    <th width="2%" class="text-center">N°</th>
-                                    <th width="10%" class="text-center">Numéro</th>
+                                <tr class="text-center">
+                                    <th width="8%">Choix n°</th>
+                                    <th width="8%">N° demande</th>
+                                    <th width="8%">Date dépôt</th>
+                                    <th width="12%">Département</th>
+                                    <th width="12%">Région</th>
+                                    {{-- <th width="15%">Niveau étude</th>
+                                    <th width="15%">Diplome académique</th> --}}
+                                    {{-- <th width="15%">Diplome professionnel</th> --}}
                                     <th>Module</th>
-                                    <th width="12%" class="text-center">Département</th>
-                                    {{-- <th width="15%" class="text-center">Niveau étude</th>
-                                    <th width="15%" class="text-center">Diplome académique</th> --}}
-                                    {{-- <th width="15%" class="text-center">Diplome professionnel</th> --}}
-                                    <th width="15%" class="text-center">Date dépôt</th>
-                                    <th width="5%" class="text-center">Statut</th>
+                                    <th width="5%">Statut</th>
                                     <th style="width:5%;"><i class="bi bi-gear"></i></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i = 1; ?>
+                                @php $i = 1; @endphp
                                 @foreach ($individuelles as $individuelle)
                                     @if (!empty($individuelle->numero))
-                                        <tr>
-                                            <td class="text-center">{{ $i++ }}</td>
-                                            <td class="text-center">{{ $individuelle?->numero }}</td>
+                                        <tr class="text-center">
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $individuelle?->numero }}</td>
+                                            <td>{{ $individuelle?->date_depot?->format('d/m/Y') }}</td>
+                                            <td>{{ $individuelle?->departement?->nom }}</td>
+                                            <td>{{ $individuelle?->departement?->region?->nom }}</td>
                                             <td>{{ $individuelle?->module?->name }}</td>
-                                            <td class="text-center">{{ $individuelle?->departement?->nom }}</td>
-                                            {{-- <td class="text-center">{{ $individuelle?->niveau_etude }}</td>
-                                            <td class="text-center">{{ $individuelle?->diplome_academique }}</td> --}}
-                                            {{-- <td class="text-center">{{ $individuelle?->diplome_professionnel }}</td> --}}
-                                            <td class="text-center">{{ $individuelle?->date_depot?->format('d/m/Y') }}</td>
-                                            <td class="text-center">
+                                            {{-- <td>{{ $individuelle?->niveau_etude }}</td>
+                                            <td>{{ $individuelle?->diplome_academique }}</td> --}}
+                                            {{-- <td>{{ $individuelle?->diplome_professionnel }}</td> --}}
+                                            <td>
                                                 <span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}
                                                 </span>
                                             </td>
