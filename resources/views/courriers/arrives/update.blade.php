@@ -143,7 +143,7 @@
                                     @enderror
                                 </div> --}}
 
-                                <div class="col-12 col-md-6 col-lg-4 col-xxl-4">
+                                <div class="col-12 col-lg-12 col-xxl-12">
                                     <label for="expediteur" class="form-label">
                                         Expéditeur <span class="text-danger">*</span>
                                     </label>
