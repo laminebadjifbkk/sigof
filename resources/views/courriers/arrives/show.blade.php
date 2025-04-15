@@ -158,7 +158,7 @@
                                                     <br>
                                                 @endforeach
                                             @else
-                                                <div class="alert alert-info">Aucune imputation pour ce courrier</div>
+                                                <div class="alert alert-warning">Aucune imputation pour ce courrier</div>
                                             @endif
                                         </div>
                                     </div>
