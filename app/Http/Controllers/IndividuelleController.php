@@ -410,8 +410,8 @@ class IndividuelleController extends Controller
             ]);
 
             $module = new Module(['name' => $request->input('module')]);
+
             $module->save();
-            $module_find = $module;
         }
 
 // Formatage de la date de naissance
@@ -459,7 +459,7 @@ class IndividuelleController extends Controller
             'adresse'                          => $request->input('adresse'),
             'departements_id'                  => $departement->id,
             'regions_id'                       => $regionid,
-            'modules_id'                       => $module_find->id,
+            'modules_id'                       => $module->id,
             'statut'                           => 'Nouvelle',
             'users_id'                         => $user->id,
         ];
