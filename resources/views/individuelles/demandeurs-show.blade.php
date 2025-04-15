@@ -91,9 +91,37 @@
                                         </td>
                                         @can('user-show')
                                             <td>
-                                                <a href="{{ route('individuelles.show', $individuelle?->id) }}"
-                                                    class="btn btn-primary btn-sm" target="_blank" title="voir détails"><i
-                                                        class="bi bi-eye"></i></a>
+                                                <span class="d-flex align-items-baseline"><a
+                                                        href="{{ route('individuelles.show', $individuelle?->id) }}"
+                                                        class="btn btn-primary btn-sm" title="voir détails"><i
+                                                            class="bi bi-eye"></i></a>
+                                                    <div class="filter">
+                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                class="bi bi-three-dots"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            @can('individuelle-update')
+                                                                <li><a class="dropdown-item btn btn-sm"
+                                                                        href="{{ route('individuelles.edit', $individuelle?->id) }}"
+                                                                        class="mx-1" title="Modifier"><i
+                                                                            class="bi bi-pencil"></i>Modifier</a>
+                                                                </li>
+                                                            @endcan
+                                                            @can('individuelle-delete')
+                                                                <li>
+                                                                    <form
+                                                                        action="{{ route('individuelles.destroy', $individuelle?->id) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="dropdown-item show_confirm"
+                                                                            title="Supprimer"><i
+                                                                                class="bi bi-trash"></i>Supprimer</button>
+                                                                    </form>
+                                                                </li>
+                                                            @endcan
+                                                        </ul>
+                                                    </div>
+                                                </span>
                                             </td>
                                         @endcan
                                     </tr>

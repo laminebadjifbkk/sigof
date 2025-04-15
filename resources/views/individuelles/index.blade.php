@@ -345,8 +345,7 @@
                                         </div>
 
                                         <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                            <label for="telephone_secondaire" class="form-label">Téléphone secondaire<span
-                                                    class="text-danger mx-1">*</span></label>
+                                            <label for="telephone_secondaire" class="form-label">Téléphone secondaire</label>
                                             <input name="telephone_secondaire" type="text" maxlength="12"
                                                 class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror"
                                                 id="telephone_secondaire" value="{{ old('telephone_secondaire') }}"
@@ -359,8 +358,7 @@
                                         </div>
 
                                         <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                            <label for="situation_familiale" class="form-label">Situation familiale<span
-                                                    class="text-danger mx-1">*</span></label>
+                                            <label for="situation_familiale" class="form-label">Situation familiale</label>
                                             <select name="situation_familiale"
                                                 class="form-select form-select-sm @error('situation_familiale') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-familiale-indiv"
@@ -390,7 +388,7 @@
 
                                         <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="situation_profesionnelle" class="form-label">Situation
-                                                profesionnelle<span class="text-danger mx-1">*</span></label>
+                                                profesionnelle</label>
                                             <select name="situation_professionnelle"
                                                 class="form-select form-select-sm @error('situation_professionnelle') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-professionnelle-indiv"

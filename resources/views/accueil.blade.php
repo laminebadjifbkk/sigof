@@ -1174,7 +1174,16 @@
                                 <img src="{{ asset($post->getPoste()) }}" class="d-block w-100 main-image rounded-4"
                                     alt="{{ $post->legende }}">
                             </div>
-                            <p class="small fst-italic pt-1">{{ $post->name }}</p>
+                            <p class="small fst-italic pt-1">
+                                {!! '' .
+                                    implode(
+                                        '',
+                                        array_map(
+                                            fn($line) => nl2br(e(wordwrap($line, 40, "\n", true))),
+                                            explode("\n", old('objet', ucfirst($post?->name))),
+                                        ),
+                                    ) !!}
+                            </p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary btn-sm"

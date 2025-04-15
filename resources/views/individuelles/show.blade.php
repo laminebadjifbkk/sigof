@@ -37,7 +37,11 @@
                                     <p> | Retour</p>
                                 </span>
 
-                                @if ($individuelle?->validationindividuelles->isNotEmpty())
+                                @php
+                                    $validations = $individuelle?->validationindividuelles;
+                                @endphp
+
+                                @if ($validations && $validations->isNotEmpty())
                                     <span class="d-flex mt-2 align-items-baseline">
                                         <nav class="header-nav ms-auto">
                                             <ul class="d-flex align-items-center">
@@ -288,7 +292,7 @@
                             <div class="card-header text-center bg-gradient-default">
                                 <h1 class="h4 text-black mb-0">REJET</h1>
                             </div>
-
+                            {{-- 
                             <div class="modal-body">
                                 <label for="motif" class="form-label">Motifs du rejet</label>
                                 @foreach ($individuelle?->validationindividuelles->sortByDesc('created_at')->take(1) as $validation)
@@ -296,6 +300,26 @@
                                         class="form-control form-control-sm @error('motif') is-invalid @enderror"
                                         placeholder="Enumérez les motifs du rejet" aria-describedby="motifHelp">{{ old('motif', $validation->motif) }}</textarea>
                                 @endforeach
+                                @error('motif')
+                                    <span class="invalid-feedback" role="alert">
+                                        <div>{{ $message }}</div>
+                                    </span>
+                                @enderror
+                            </div> --}}
+
+                            <div class="modal-body">
+                                <label for="motif" class="form-label">Motifs du rejet</label>
+
+                                @php
+                                    $lastValidation = collect($individuelle?->validationindividuelles)
+                                        ->sortByDesc('created_at')
+                                        ->first();
+                                @endphp
+
+                                <textarea name="motif" id="motif" rows="5"
+                                    class="form-control form-control-sm @error('motif') is-invalid @enderror"
+                                    placeholder="Enumérez les motifs du rejet" aria-describedby="motifHelp">{{ old('motif', $lastValidation?->motif) }}</textarea>
+
                                 @error('motif')
                                     <span class="invalid-feedback" role="alert">
                                         <div>{{ $message }}</div>
