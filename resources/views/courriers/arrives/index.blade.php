@@ -139,7 +139,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center" width='8%'>N° arrivé</th>
-                                        <th class="text-center">Date arrivé</th>
+                                        <th class="text-center"width='8%'>Date arrivé</th>
                                         {{-- <th class="text-center">N° corres.</th> --}}
                                         {{-- <th class="text-center">Date corres.</th> --}}
                                         <th>Expéditeur</th>
