@@ -36,8 +36,8 @@
                             <button class="btn btn-info btn-sm">
                                 <span class="badge bg-white text-info">{{ $operateurA->count() }}</span>
                             </button>
-                            @can('devenir-operateur-agrement-ouvert')
-                                @can('devenir-operateur-agrement-create')
+                            {{-- @can('devenir-operateur-agrement-ouvert')
+                                @can('devenir-operateur-agrement-create') --}}
                                     @can('agrement-ouvert')
                                         <button type="button" class="btn btn-warning btn-sm float-end btn-rounded"
                                             data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
@@ -47,8 +47,8 @@
                                         <span class="text-danger small fw-bold">Les agréments sont actuellement
                                             <span class="text-uppercase">fermés</span></span>
                                     @endcan
-                                @endcan
-                            @endcan
+                                {{-- @endcan
+                            @endcan --}}
                         </div>
                         <div class="table-responsive mt-3">
                             <table class="table table-bordered table-hover table-borderless">
@@ -59,11 +59,12 @@
                                         <th class="text-center">Référence</th>
                                         <th class="text-center">Equi. & Infras.</th>
                                         <th class="text-center">Formateurs</th>
+                                        <th class="text-center">Localités</th>
                                         <th class="text-center">Type demande</th>
-                                        <th class="text-center">Etat</th>
+                                        <th class="text-center" width="2%">Etat</th>
                                         <th class="text-center">Statut</th>
                                         <th class="text-center">Quitus</th>
-                                        <th class="text-center"><i class="bi bi-gear"></i></th>
+                                        <th class="text-center" width="2%"><i class="bi bi-gear"></i></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -120,6 +121,18 @@
                                                     @endcan
                                                 @endcan
                                             </td>
+                                            <td style="text-align: center;">
+                                                <span class="badge bg-info">
+                                                    {{ count($operateur->operateurlocalites) }}
+                                                </span>
+                                                @can('devenir-operateur-agrement-ouvert')
+                                                    @can('agrement-ouvert')
+                                                        <a href="{{ route('showLocalite', ['id' => $operateur->id]) }}"
+                                                            target="_blank">
+                                                            <i class="bi bi-plus" title="Ajouter, Modifier, Supprimer"></i> </a>
+                                                    @endcan
+                                                @endcan
+                                            </td>
                                             <td style="text-align: center;"><span
                                                     class="{{ $operateur?->type_demande }}">{{ $operateur?->type_demande }}</span>
                                             </td>
@@ -154,7 +167,8 @@
                                                                         @can('devenir-operateur-agrement-update')
                                                                             @can('update', $operateur)
                                                                                 <li>
-                                                                                    <button type="button" class="dropdown-item btn btn-sm mx-1"
+                                                                                    <button type="button"
+                                                                                        class="dropdown-item btn btn-sm mx-1"
                                                                                         data-bs-toggle="modal"
                                                                                         data-bs-target="#EditOperateurModal{{ $operateur->id }}">
                                                                                         <i class="bi bi-pencil" title="Modifier"></i>

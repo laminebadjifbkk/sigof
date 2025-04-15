@@ -44,8 +44,7 @@
                                 @can('agrement-visible-par-op')
                                     <h5 class="card-title">
                                         <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#AddlocaliteModal">
-                                            <i class="bi bi-plus" title="Ajouter une référence"></i>
+                                            data-bs-target="#AddlocaliteModal">Ajouter
                                         </button>
                                     </h5>
                                 @endcan
@@ -56,10 +55,10 @@
                             class="table table-bordered table-hover datatables align-middle justify-content-center table-borderless">
                             <thead>
                                 <tr>
-                                    <th class="text-center">N°</th>
+                                    <th class="text-center" width="2%">N°</th>
                                     <th>LOCALITE</th>
                                     <th>REGION</th>
-                                    <th class="text-center"><i class="bi bi-gear"></i></th>
+                                    <th class="text-center" width="2%"><i class="bi bi-gear"></i></th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -44,8 +44,7 @@
                                 @can('agrement-visible-par-op')
                                     <h5 class="card-title">
                                         <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#AddRefModal">
-                                            <i class="bi bi-plus" title="Ajouter une référence"></i>
+                                            data-bs-target="#AddRefModal">Ajouter
                                         </button>
                                     </h5>
                                 @endcan
@@ -61,7 +60,7 @@
                                     <th class="text-center">QUANTITE</th>
                                     <th class="text-center">ETAT</th>
                                     <th class="text-center">TYPE</th>
-                                    <th class="text-center"><i class="bi bi-gear"></i></th>
+                                    <th class="text-center" width="2%"><i class="bi bi-gear"></i></th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -165,6 +165,15 @@
             /* border-radius: 5px; */
         }
 
+        .Aucun {
+            background-color: white;
+            color: #DC3545;
+            padding: 4px 8px;
+            text-align: center;
+            border-radius: 25% 10%;
+            /* border-radius: 5px; */
+        }
+
         .Annulée {
             background-color: #DC3545;
             color: white;

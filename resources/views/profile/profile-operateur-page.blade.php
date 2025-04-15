@@ -144,6 +144,13 @@
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#files">Fichiers</button>
                                 </li>
 
+                                @if (Auth::user()?->operateurs())
+                                    <li class="nav-item">
+                                        <button class="nav-link" data-bs-toggle="tab"
+                                            data-bs-target="#formations">Formations</button>
+                                    </li>
+                                @endif
+
                             </ul>
                             <div class="tab-content pt-2">
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
@@ -1219,6 +1226,72 @@
                                         </div>
 
                                     </form>
+                                </div>
+                            </div>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade profile-edit" id="formations">
+                                    <h5 class="card-title text-center">AGREMENTS</h5>
+                                    <div class="row mb-3">
+                                        @if (Auth::user()?->operateurs?->isNotEmpty())
+                                            @foreach (Auth::user()?->operateurs->sortByDesc('created_at') as $operateur)
+                                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                    <h5 class="card-title">Agrément :
+                                                        {{ $operateur?->annee_agrement?->format('Y') }}
+                                                    </h5>
+                                                    <table class="table table-bordered table-hover datatables"
+                                                        id="table-iles">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width='15%' class="text-center">N° agrément</th>
+                                                                <th class="text-center">Modules</th>
+                                                                <th class="text-center">Formations</th>
+                                                                <th width="15%" class="text-center">Statut</th>
+                                                                <th width='5%'><i class="bi bi-gear"></i></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <td style="text-align: center">
+                                                                {{ $operateur?->numero_agrement }}
+                                                            </td>
+                                                            <td style="text-align: center;">
+                                                                @foreach ($operateur->operateurmodules as $operateurmodule)
+                                                                    @if ($loop->last)
+                                                                        <a href="#"><span
+                                                                                class="badge bg-info">{{ $loop->count }}</span></a>
+                                                                    @endif
+                                                                @endforeach
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @foreach ($operateur->formations as $formation)
+                                                                    @if ($loop->last)
+                                                                        <a href="#"><span
+                                                                                class="badge bg-info">{{ $loop->count }}</span></a>
+                                                                    @endif
+                                                                @endforeach
+                                                            </td>
+                                                            <td style="text-align: center;"><span
+                                                                    class="{{ $operateur?->statut_agrement }}">
+                                                                    {{ $operateur?->statut_agrement }}</span></td>
+                                                            <td>
+                                                                <span class="d-flex align-items-baseline"><a
+                                                                        href="{{ route('operateurs.show', $operateur->id) }}"
+                                                                        class="btn btn-primary btn-sm" target="_blank"
+                                                                        title="voir détails"><i class="bi bi-eye"></i></a>
+                                                                </span>
+                                                            </td>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <div class="alert alert-info">
+                                                <p class="text-muted">Vous n'avez aucune formation pour l'instant !
+                                                </p>
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>

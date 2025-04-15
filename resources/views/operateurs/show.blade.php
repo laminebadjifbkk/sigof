@@ -721,7 +721,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- Détail Formations --}}
                                 <div class="tab-content">
                                     <div class="tab-pane fade profile-overview pt-0" id="formation-overview">
                                         <h5 class="card-title">FORMATIONS</h5>
@@ -730,14 +729,13 @@
                                             id="table-formations">
                                             <thead>
                                                 <tr>
-                                                    <th>Code</th>
-                                                    <th>Type</th>
+                                                    <th width="5%">Code</th>
+                                                    <th width="8%">Type</th>
                                                     <th>Intitulé formation</th>
                                                     <th>Localité</th>
                                                     <th>Modules</th>
-                                                    {{-- <th>Niveau qualification</th> --}}
-                                                    <th>Effectif</th>
-                                                    <th>Statut</th>
+                                                    <th width="5%">Effectif</th>
+                                                    <th width="5%">Statut</th>
                                                     @can('formation-show')
                                                         <th class="text-center"><i class="bi bi-gear"></i></th>
                                                     @endcan
@@ -754,24 +752,12 @@
                                                         @if (!empty($formation?->collectivemodule?->module))
                                                             <td>{{ $formation->collectivemodule->module }}</td>
                                                             <td class="text-center">
-                                                                {{-- @foreach ($formation->listecollectives as $listecollective)
-                                                                    @if ($loop->last)
-                                                                        <a class="text-primary fw-bold"
-                                                                            href="{{ route('formations.show', $formation->id) }}">{!! $loop->count ?? '0' !!}</a>
-                                                                    @endif
-                                                                @endforeach --}}
                                                                 <span
                                                                     class="text-primary fw-bold">{{ $formation?->listecollectives?->count() ?? 0 }}</span>
                                                             </td>
                                                         @elseif(!empty($formation?->module?->name))
                                                             <td>{{ $formation->module->name }}</td>
                                                             <td class="text-center">
-                                                                {{-- @foreach ($formation->individuelles as $individuelle)
-                                                                    @if ($loop->last)
-                                                                        <a class="text-primary fw-bold"
-                                                                            href="{{ route('formations.show', $formation->id) }}">{!! $loop->count ?? '0' !!}</a>
-                                                                    @endif
-                                                                @endforeach --}}
                                                                 <span
                                                                     class="text-primary fw-bold">{{ $formation?->individuelles?->count() ?? 0 }}</span>
                                                             </td>

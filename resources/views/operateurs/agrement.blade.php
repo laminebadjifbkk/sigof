@@ -346,7 +346,7 @@
                                             class="table table-bordered table-hover datatables align-middle justify-content-center">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center">N°</th>
+                                                    <th class="text-center" width="2%">N°</th>
                                                     <th>LOCALITE</th>
                                                     <th>REGION</th>
                                                 </tr>

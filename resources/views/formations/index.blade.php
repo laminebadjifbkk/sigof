@@ -201,7 +201,10 @@
                                             <td>{{ $formation->types_formation->name ?? 'Non spécifié' }}</td>
                                             <td>{{ $formation->departement->region->nom ?? 'Non spécifié' }}</td>
                                             <td>
-                                                {{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Non spécifié') }}
+                                                <span
+                                                    class="{{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}">
+                                                    {{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}
+                                                </span>
                                             </td>
                                             <td>{{ $formation->type_certification }}</td>
                                             <td class="text-center">

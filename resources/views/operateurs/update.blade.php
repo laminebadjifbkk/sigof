@@ -3,7 +3,7 @@
 @section('space-work')
     @can('operateur-update')
         <section class="section min-vh-0 d-flex flex-column align-items-center justify-content-center py-0">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row justify-content-center">
                     @if ($message = Session::get('status'))
                         <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
@@ -21,7 +21,6 @@
                     <div
                         class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
                         <div class="card mb-3">
-
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-12 pt-2">
