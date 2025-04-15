@@ -147,7 +147,7 @@
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Imputation</div>
-                                        <div class="col-lg-3 col-md-4">
+                                        <div class="col-lg-9 col-md-8">
                                             @if ($arrive?->employees && $arrive->employees->isNotEmpty())
                                                 <?php $i = 1; ?>
                                                 @foreach ($arrive->employees as $employee)
