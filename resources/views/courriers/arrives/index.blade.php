@@ -138,14 +138,14 @@
                             <table class="table datatables align-middle" id="table-arrives">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">N° arrivé</th>
+                                        <th class="text-center" width='8%'>N° arrivé</th>
                                         <th class="text-center">Date arrivé</th>
                                         {{-- <th class="text-center">N° corres.</th> --}}
                                         {{-- <th class="text-center">Date corres.</th> --}}
                                         <th>Expéditeur</th>
                                         <th>Imputation</th>
                                         {{-- <th>Objet</th> --}}
-                                        <th>#</th>
+                                        <th width='2%'>#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
