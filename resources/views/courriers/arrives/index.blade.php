@@ -141,7 +141,7 @@
                                         <th class="text-center">N° arrivé</th>
                                         <th class="text-center">Date arrivé</th>
                                         {{-- <th class="text-center">N° corres.</th> --}}
-                                        <th class="text-center">Date corres.</th>
+                                        {{-- <th class="text-center">Date corres.</th> --}}
                                         <th>Expéditeur</th>
                                         <th>Imputation</th>
                                         {{-- <th>Objet</th> --}}
@@ -155,8 +155,8 @@
                                             <td class="text-center">{{ $arrive?->courrier?->date_recep?->format('d/m/Y') }}
                                             </td>
                                             {{-- <td class="text-center">{{ $arrive?->courrier?->numero_courrier }}</td> --}}
-                                            <td class="text-center">{{ $arrive?->courrier?->date_cores?->format('d/m/Y') }}
-                                            </td>
+                                            {{-- <td class="text-center">{{ $arrive?->courrier?->date_cores?->format('d/m/Y') }}
+                                            </td> --}}
                                             <td>{{ $arrive?->courrier?->expediteur }}</td>
                                             <td>
                                                 @if ($arrive?->employees && $arrive->employees->isNotEmpty())
