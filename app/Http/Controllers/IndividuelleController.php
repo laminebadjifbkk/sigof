@@ -115,8 +115,12 @@ class IndividuelleController extends Controller
 
             $regionid = $departement->region->id;
 
-            $module_name   = $request->input("module");
-            $module_find   = DB::table('modules')->where('name', $module_name)->first();
+            $module_name = $request->input("module");
+            /* $module_find = DB::table('modules')->where('name', $module_name)->first(); */
+            $module = DB::table('modules')
+                ->where('name', $request->input("module"))
+                ->whereNull('deleted_at') // ou ->where('is_deleted', false)
+                ->first();
             $demandeur_ind = Individuelle::where('users_id', $user->id)->whereHas('module', function ($query) use ($module_name) {
                 $query->where('name', $module_name);
             })->first();
@@ -126,12 +130,28 @@ class IndividuelleController extends Controller
                 return redirect()->back();
             }
 
-// Si le module n'existe pas, on le crée
-            if (! $module_find) {
+            /* // Si le module n'existe pas, on le crée
+            if (! $module) {
                 $module = new Module(['name' => $module_name]);
                 $module->save();
             } else {
-                $module = $module_find;
+                $module = $module;
+            } */
+
+            // If module doesn't exist, create it
+            if (! $module) {
+                // Vérifier si le module existe mais est supprimé
+                $module = Module::withTrashed()->where('name', $request->input("module"))->first();
+                // Si le module existe mais est supprimé
+                if ($module) {
+                    // Restaurer le module supprimé
+                    $module->restore();
+                } else {
+                    $module = new Module([
+                        'name' => $request->input("module"),
+                    ]);
+                    $module->save(); // Save the new module
+                }
             }
 
             $individuelle = new Individuelle([
@@ -400,18 +420,35 @@ class IndividuelleController extends Controller
         $departement = Departement::where('nom', $request->input("departement"))->first();
         $regionid    = $departement->region->id;
 
-// Récupérer le module ou en créer un nouveau
-        $module_find = DB::table('modules')->where('name', $request->input("module"))->first();
+/* // Récupérer le module ou en créer un nouveau
+        $module = DB::table('modules')->where('name', $request->input("module"))->first();
 
-        if (! $module_find) {
-
-            $this->validate($request, [
-                "module" => ["required", "string", Rule::unique('modules')->whereNull('deleted_at')],
-            ]);
+        if (! $module) {
 
             $module = new Module(['name' => $request->input('module')]);
 
             $module->save();
+        } */
+
+        $module = DB::table('modules')
+            ->where('name', $request->input("module"))
+            ->whereNull('deleted_at') // ou ->where('is_deleted', false)
+            ->first();
+
+        // If module doesn't exist, create it
+        if (! $module) {
+            // Vérifier si le module existe mais est supprimé
+            $module = Module::withTrashed()->where('name', $request->input("module"))->first();
+            // Si le module existe mais est supprimé
+            if ($module) {
+                // Restaurer le module supprimé
+                $module->restore();
+            } else {
+                $module = new Module([
+                    'name' => $request->input("module"),
+                ]);
+                $module->save(); // Save the new module
+            }
         }
 
 // Formatage de la date de naissance
@@ -548,15 +585,25 @@ class IndividuelleController extends Controller
         // Determine location details based on 'departement' and 'type_localite'
         list($communeid, $arrondissementid, $departementid, $regionid) = $this->getLocationIds($request, $projet);
 
-        // Check if module exists
-        $module_find = DB::table('modules')->where('name', $request->input("module"))->first();
+        $module_find = DB::table('modules')
+            ->where('name', $request->input("module"))
+            ->whereNull('deleted_at') // ou ->where('is_deleted', false)
+            ->first();
 
         // If module doesn't exist, create it
         if (! $module_find) {
-            $module = new Module([
-                'name' => $request->input("module"),
-            ]);
-            $module->save();        // Save the new module
+            // Vérifier si le module existe mais est supprimé
+            $module = Module::withTrashed()->where('name', $request->input("module"))->first();
+            // Si le module existe mais est supprimé
+            if ($module) {
+                // Restaurer le module supprimé
+                $module->restore();
+            } else {
+                $module = new Module([
+                    'name' => $request->input("module"),
+                ]);
+                $module->save(); // Save the new module
+            }
             $module_find = $module; // Now $module_find will contain the newly created module
         }
 
