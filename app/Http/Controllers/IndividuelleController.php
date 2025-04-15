@@ -404,6 +404,11 @@ class IndividuelleController extends Controller
         $module_find = DB::table('modules')->where('name', $request->input("module"))->first();
 
         if (! $module_find) {
+
+            $this->validate($request, [
+                "module" => ["required", "string", Rule::unique('modules')->whereNull('deleted_at')],
+            ]);
+
             $module = new Module(['name' => $request->input('module')]);
             $module->save();
             $module_find = $module;
