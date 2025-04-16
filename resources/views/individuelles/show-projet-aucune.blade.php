@@ -40,7 +40,7 @@
                             @if (!empty(Auth::user()->cin) && !empty($statut))
                                 <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
                                     data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal">
-                                    {{-- <i class="bi bi-plus" title="Ajouter"></i> --}} Ajouter
+                                    {{-- <i class="bi bi-plus" title="Ajouter"></i> --}} Ajouter formation
                                 </button>
                             @endif
                         </div>

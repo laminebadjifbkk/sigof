@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Liste des opérateurs')
+@section('title', 'ONFP | MODULES AGREMENTS')
 @section('space-work')
 
     <section class="section register">
@@ -42,8 +42,9 @@
                             @can('rapport-operateur-view')
                                 <span class="d-flex align-items-baseline">
                                     <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#generate_rapport_module_region" title="Générer rapports">Rechercher plus</a>
-                                  {{--   <div class="filter">
+                                        data-bs-target="#generate_rapport_module_region" title="Générer rapports">Rechercher
+                                        plus</a>
+                                    {{--   <div class="filter">
                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                 class="bi bi-three-dots"></i></a>
                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -83,7 +84,8 @@
                                         <td style="text-align: center;">{{ $operateurmodule?->module }}</td>
                                         <td style="text-align: center;">{{ $operateurmodule?->categorie }}</td>
                                         <td style="text-align: center;">{{ $operateurmodule?->niveau_qualification }}</td>
-                                        <td style="text-align: center;"><a href="{{ route('operateurs.show', $operateurmodule?->operateur?->id) }}">{{ $operateurmodule?->operateur?->user?->username }}</a>
+                                        <td style="text-align: center;"><a
+                                                href="{{ route('operateurs.show', $operateurmodule?->operateur?->id) }}">{{ $operateurmodule?->operateur?->user?->username }}</a>
                                         </td>
                                         <td style="text-align: center;">
                                             <span
@@ -91,17 +93,17 @@
                                         </td>
                                         <td>
                                             <span class="d-flex align-items-baseline justify-content-center"><a
-                                                    href="{{ route('operateurmodules.show', $operateurmodule->id) }}"
+                                                    href="{{ route('operateurmodules.show', $operateurmodule) }}"
                                                     class="btn btn-primary btn-sm" title="voir détails"><i
                                                         class="bi bi-eye"></i></a>
-                                                {{-- <div class="filter">
+                                                <div class="filter">
                                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                             class="bi bi-three-dots"></i></a>
                                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                         <li>
                                                             <button type="button" class="dropdown-item btn btn-sm mx-1"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#EditOperateurmoduleModal{{ $operateurmodule->id }}">
+                                                                data-bs-target="#EditOperateurmoduleModal{{ $operateurmodule->uuid }}">
                                                                 <i class="bi bi-pencil" title="Modifier"></i> Modifier
                                                             </button>
                                                         </li>
@@ -113,7 +115,7 @@
                                                             </button>
                                                         </li>
                                                     </ul>
-                                                </div> --}}
+                                                </div>
                                             </span>
                                         </td>
                                     </tr>
@@ -129,96 +131,93 @@
 
         <!-- Edit Operateur Module -->
         @foreach ($operateurmodules as $operateurmodule)
-            <div class="modal fade" id="EditOperateurmoduleModal{{ $operateurmodule->id }}" tabindex="-1" role="dialog"
-                aria-labelledby="EditOperateurmoduleModalLabel{{ $operateurmodule->id }}" aria-hidden="true">
+            <div class="modal fade" id="EditOperateurmoduleModal{{ $operateurmodule->uuid }}" tabindex="-1" role="dialog"
+                aria-labelledby="EditOperateurmoduleModalLabel{{ $operateurmodule->uuid }}" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        {{-- <form method="POST" action="#">
-                            @csrf --}}
-                        <form method="post" action="{{ route('operateurmodules.update', $operateurmodule->id) }}"
-                            enctype="multipart/form-data" class="row g-3">
+                        <form method="POST" action="{{ route('operateurmodules.update', $operateurmodule) }}"
+                            enctype="multipart/form-data" class="needs-validation" novalidate>
                             @csrf
-                            @method('patch')
-                            <div class="modal-header" id="EditOperateurmoduleModalLabel{{ $operateurmodule->id }}">
-                                <h5 class="modal-title">Modification module
-                                    opérateur</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <input type="hidden" name="id" value="{{ $operateurmodule->id }}">
-                                <input type="hidden" name="operateur" value="{{ $operateurmodule->operateur->id }}">
-                                <div class="col-12 col-md-12 col-lg-12 mb-0">
-                                    <label for="module" class="form-label">Module<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="module"
-                                        value="{{ $operateurmodule->module ?? old('module') }}"
-                                        class="form-control form-control-sm @error('module') is-invalid @enderror"
-                                        placeholder="module">
-                                    @error('module')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
+                            @method('PATCH')
+
+                            <div class="card shadow-lg border-0">
+                                <div class="card-header bg-default text-center py-2 rounded-top">
+                                    <h4 class="mb-0">✏️ Modification</h4>
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 mb-0">
-                                    <label for="domaine" class="form-label">Domaine<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="domaine"
-                                        value="{{ $operateurmodule->domaine ?? old('domaine') }}"
-                                        class="form-control form-control-sm @error('domaine') is-invalid @enderror"
-                                        placeholder="domaine">
-                                    @error('domaine')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
+                                <div class="card-body row g-4 px-4">
+                                    <input type="hidden" name="id" value="{{ $operateurmodule->id }}">
+                                    <input type="hidden" name="operateur" value="{{ $operateurmodule->operateur->id }}">
+
+                                    {{-- Module --}}
+                                    <div class="col-12">
+                                        <label for="module" class="form-label">Module <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="module" id="module_operateur_edit"
+                                            value="{{ old('module', $operateurmodule->module) }}"
+                                            class="form-control form-control-sm @error('module') is-invalid @enderror"
+                                            placeholder="Nom du module" required>
+                                        <div id="moduleListEdit"></div>
+                                        @error('module')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Domaine --}}
+                                    <div class="col-12">
+                                        <label for="domaine" class="form-label">Domaine <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="domaine"
+                                            value="{{ old('domaine', $operateurmodule->domaine) }}"
+                                            class="form-control form-control-sm @error('domaine') is-invalid @enderror"
+                                            placeholder="Domaine du module" required>
+                                        @error('domaine')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Catégorie --}}
+                                    <div class="col-12">
+                                        <label for="categorie" class="form-label">Catégorie <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="categorie"
+                                            value="{{ old('categorie', $operateurmodule->categorie) }}"
+                                            class="form-control form-control-sm @error('categorie') is-invalid @enderror"
+                                            placeholder="Catégorie" required>
+                                        @error('categorie')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Niveau de qualification --}}
+                                    <div class="col-12">
+                                        <label for="niveau_qualification" class="form-label">Niveau de qualification <span
+                                                class="text-danger">*</span></label>
+                                        <select name="niveau_qualification"
+                                            class="form-select form-select-sm @error('niveau_qualification') is-invalid @enderror"
+                                            id="select-field-niveau_qualification-update" required>
+                                            <option disabled selected>Choisir un niveau</option>
+                                            @foreach (['Initiation', 'Pré-qualification', 'Qualification'] as $niveau)
+                                                <option value="{{ $niveau }}"
+                                                    {{ old('niveau_qualification', $operateurmodule->niveau_qualification) == $niveau ? 'selected' : '' }}>
+                                                    {{ $niveau }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('niveau_qualification')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 mb-0">
-                                    <label for="categorie" class="form-label">Catégorie<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="categorie"
-                                        value="{{ $operateurmodule->categorie ?? old('categorie') }}"
-                                        class="form-control form-control-sm @error('categorie') is-invalid @enderror"
-                                        placeholder="categorie">
-                                    @error('categorie')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
+
+                                <div class="card-footer d-flex justify-content-end gap-2 p-3 bg-light border-top">
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                                        <i class="bi bi-x-circle"></i> Fermer
+                                    </button>
+                                    <button type="submit" class="btn btn-success btn-sm">
+                                        <i class="bi bi-check-circle"></i> Enregistrer les modifications
+                                    </button>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 mb-0">
-                                    <label for="niveau_qualification" class="form-label">Niveau de qualification<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <select name="niveau_qualification" class="form-select selectpicker"
-                                        data-live-search="true @error('niveau_qualification') is-invalid @enderror"
-                                        aria-label="Select" id="select-field-niveau_qualification-update"
-                                        data-placeholder="Choisir niveau qualification">
-                                        <option value="{{ $operateurmodule->niveau_qualification }}">
-                                            {{ $operateurmodule->niveau_qualification ?? old('niveau_qualification') }}
-                                        </option>
-                                        <option value="Initiation">
-                                            Initiation
-                                        </option>
-                                        <option value="Pré-qualification">
-                                            Pré-qualification
-                                        </option>
-                                        <option value="Qualification">
-                                            Qualification
-                                        </option>
-                                    </select>
-                                    @error('niveau_qualification')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm"
-                                    data-bs-dismiss="modal">Fermer</button>
-                                <button type="submit" class="btn btn-primary btn-sm">Modifier</button>
                             </div>
                         </form>
                     </div>
@@ -318,7 +317,7 @@
                                                     <option value="{{ old('statut') }}">
                                                         {{ old('statut') }}
                                                     </option>
-                                                    
+
                                                     @foreach ($module_statuts as $module)
                                                         <option value="{{ $module?->statut }}">
                                                             {{ $module?->statut }}

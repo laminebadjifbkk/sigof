@@ -38,16 +38,16 @@
                             </button>
                             {{-- @can('devenir-operateur-agrement-ouvert')
                                 @can('devenir-operateur-agrement-create') --}}
-                                    @can('agrement-ouvert')
-                                        <button type="button" class="btn btn-warning btn-sm float-end btn-rounded"
-                                            data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
-                                            renouveler agrément
-                                        </button>
-                                    @elsecan('agrement-fermer')
-                                        <span class="text-danger small fw-bold">Les agréments sont actuellement
-                                            <span class="text-uppercase">fermés</span></span>
-                                    @endcan
-                                {{-- @endcan
+                            @can('agrement-ouvert')
+                                <button type="button" class="btn btn-warning btn-sm float-end btn-rounded"
+                                    data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                    renouveler agrément
+                                </button>
+                            @elsecan('agrement-fermer')
+                                <span class="text-danger small fw-bold">Les agréments sont actuellement
+                                    <span class="text-uppercase">fermés</span></span>
+                            @endcan
+                            {{-- @endcan
                             @endcan --}}
                         </div>
                         <div class="table-responsive mt-3">
@@ -155,10 +155,11 @@
                                             <td style="text-align: center;">
                                                 @can('devenir-operateur-agrement-show')
                                                     @can('view', $operateur)
-                                                        <span class="d-flex align-items-baseline"><a
-                                                                href="{{ route('operateurs.show', $operateur->id) }}"
-                                                                class="btn btn-success btn-sm" target="_blank"
-                                                                title="voir détails"><i class="bi bi-eye"></i></a>
+                                                        <span class="d-flex align-items-baseline">
+                                                            <a href="{{ route('operateurs.show', $operateur) }}"
+                                                                class="btn btn-success btn-sm" target="_blank" title="voir détails">
+                                                                <i class="bi bi-eye"></i>
+                                                            </a>
                                                             @can('agrement-ouvert')
                                                                 <div class="filter">
                                                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i

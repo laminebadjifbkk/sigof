@@ -42,12 +42,12 @@
                         <table class="table datatables table-bordered table-hover align-middle" id="table-operateurs">
                             <thead>
                                 <tr>
-                                    <th class="text-center">N° agrément</th>
-                                    <th class="text-center">Opérateurs</th>
+                                    <th width='10'>N° agrément</th>
+                                    <th>Opérateurs</th>
                                     <th class="text-center">Sigle</th>
                                     <th class="text-center">Modules</th>
                                     <th class="text-center">Formations</th>
-                                    <th class="text-center"><i class="bi bi-gear"></i></th>
+                                    <th width='2'><i class="bi bi-gear"></i></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,13 +55,13 @@
                                 @foreach ($operateurmodules as $operateurmodule)
                                     @isset($operateurmodule?->operateur?->numero_agrement)
                                         <tr>
-                                            <td style="text-align: center;">{{ $operateurmodule?->operateur?->numero_agrement }}
+                                            <td>{{ $operateurmodule?->operateur?->numero_agrement }}
                                             </td>
-                                            <td style="text-align: center;">
+                                            <td>
                                                 {{ $operateurmodule?->operateur?->user?->operateur }}</td>
-                                            <td style="text-align: center;">{{ $operateurmodule?->operateur?->user?->username }}
+                                            <td class="text-center">{{ $operateurmodule?->operateur?->user?->username }}
                                             </td>
-                                            <td style="text-align: center;">
+                                            <td class="text-center">
                                                 @foreach ($operateurmodule?->operateur?->operateurmodules as $operateurmodule)
                                                     @if ($loop->last)
                                                         <a href="#"><span
@@ -77,37 +77,11 @@
                                                     @endif
                                                 @endforeach
                                             </td>
-                                            <td style="text-align: center;">
+                                            <td class="text-center">
                                                 <span class="d-flex align-items-baseline justify-content-center"><a
-                                                        href="{{ route('operateurs.show', $operateurmodule?->operateur?->id) }}"
+                                                        href="{{ route('operateurs.show', $operateurmodule?->operateur) }}"
                                                         class="btn btn-primary btn-sm" title="voir détails"><i
                                                             class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            <li>
-                                                                <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#EditOperateurModal{{ $operateurmodule?->operateur?->id }}">
-                                                                    <i class="bi bi-pencil" title="Modifier"></i>
-                                                                    Modifier
-                                                                </button>
-                                                            </li>
-                                                            {{-- <li>
-                                                                    <form
-                                                                        action="{{ route('operateurs.destroy', $operateur->id) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit"
-                                                                            class="dropdown-item show_confirm"
-                                                                            title="Supprimer"><i
-                                                                                class="bi bi-trash"></i>Supprimer</button>
-                                                                    </form>
-                                                                </li> --}}
-                                                        </ul>
-                                                    </div>
                                                 </span>
                                             </td>
                                         </tr>

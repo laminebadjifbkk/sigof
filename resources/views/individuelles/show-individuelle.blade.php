@@ -43,7 +43,7 @@
                             @if ($individuelle_total < 3 && !empty(Auth::user()?->cin))
                                 <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
                                     data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal{{ Auth::user()?->id }}">
-                                    Ajouter
+                                    Ajouter une autre formation
                                 </button>
                             @endif
                         </div>

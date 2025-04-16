@@ -406,15 +406,14 @@ class OperateurController extends Controller
 
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Operateur $operateur)
     {
-        $operateur = Operateur::findOrFail($id);
-        $user      = $operateur->user;
+        $user = $operateur->user;
 
         $this->validate($request, [
-            "numero_dossier"       => ['nullable', 'string', Rule::unique(Operateur::class)->ignore($id)->whereNull('deleted_at')],
-            "numero_arrive"        => ['nullable', 'string', Rule::unique(Operateur::class)->ignore($id)->whereNull('deleted_at')],
-            "numero_agrement"      => ['nullable', 'string', Rule::unique(Operateur::class)->ignore($id)->whereNull('deleted_at')],
+            "numero_dossier"       => ['nullable', 'string', Rule::unique(Operateur::class)->ignore($operateur?->id)->whereNull('deleted_at')],
+            "numero_arrive"        => ['nullable', 'string', Rule::unique(Operateur::class)->ignore($operateur?->id)->whereNull('deleted_at')],
+            "numero_agrement"      => ['nullable', 'string', Rule::unique(Operateur::class)->ignore($operateur?->id)->whereNull('deleted_at')],
             "operateur"            => ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
             "username"             => ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
             "email"                => ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
@@ -598,9 +597,8 @@ class OperateurController extends Controller
 
         return redirect()->back();
     }
-    public function edit($id)
+    public function edit(Operateur $operateur)
     {
-        $operateur    = Operateur::findOrFail($id);
         $departements = Departement::orderBy("nom", "asc")->get();
         foreach (Auth::user()->roles as $key => $role) {
             if (! empty($role?->name) && ($role?->name != 'super-admin') && ($role?->name != 'Employe') && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
@@ -610,18 +608,11 @@ class OperateurController extends Controller
         return view("operateurs.update", compact("operateur", "departements"));
     }
 
-    public function show($id)
+    public function show(Operateur $operateur)
     {
-        $operateur          = Operateur::findOrFail($id);
         $operateurs         = Operateur::get();
         $operateureferences = Operateureference::get();
         $user               = $operateur->user;
-
-        /* foreach (Auth::user()->roles as $key => $role) {
-            if (! empty($role?->name) && ($role?->name != 'super-admin') && ($role?->name != 'Employe') && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
-                $this->authorize('view', $operateur);
-            }
-        } */
 
         $rolesAutorises = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
 
@@ -642,9 +633,8 @@ class OperateurController extends Controller
         return view("operateurs.agrements.show", compact("operateur", "operateureferences", "operateurs"));
     }
 
-    public function destroy($id)
+    public function destroy(Operateur $operateur)
     {
-        $operateur = Operateur::findOrFail($id);
 
 // Delete quitus file if it exists
         if ($operateur->quitus) {

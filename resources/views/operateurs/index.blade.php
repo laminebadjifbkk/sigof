@@ -325,7 +325,7 @@
                                                 @can('operateur-show')
                                                     <td>
                                                         <span class="d-flex align-items-baseline"><a
-                                                                href="{{ route('operateurs.show', $operateur->id) }}"
+                                                                href="{{ route('operateurs.show', $operateur) }}"
                                                                 class="btn btn-primary btn-sm" title="voir détails"><i
                                                                     class="bi bi-eye"></i></a>
                                                             <div class="filter">
@@ -336,7 +336,7 @@
                                                                     @can('operateur-update')
                                                                         <li>
                                                                             <a class="dropdown-item btn btn-sm"
-                                                                                href="{{ route('operateurs.edit', $operateur->id) }}"
+                                                                                href="{{ route('operateurs.edit', $operateur) }}"
                                                                                 class="mx-1" title="Modifier"><i
                                                                                     class="bi bi-pencil"></i>Modifier</a>
                                                                         </li>
@@ -344,7 +344,7 @@
                                                                     @can('operateur-delete')
                                                                         <li>
                                                                             <form
-                                                                                action="{{ route('operateurs.destroy', $operateur->id) }}"
+                                                                                action="{{ route('operateurs.destroy', $operateur) }}"
                                                                                 method="post">
                                                                                 @csrf
                                                                                 @method('DELETE')

@@ -270,12 +270,7 @@
                                                         <h5 class="card-title">
                                                             <a href="{{ route('showReference', ['id' => $operateur?->id]) }}"
                                                                 class="btn btn-outline-primary float-end btn-rounded btn-sm"
-                                                                target="_blank">
-                                                                <i class="bi bi-plus" title="Ajouter, Modifier, Supprimer"></i> </a>
-                                                            {{-- <button type="button" class="btn btn-outline-primary btn-sm"
-                                                    data-bs-toggle="modal" data-bs-target="#AddRefModal">
-                                                    <i class="bi bi-plus" title="Ajouter une référence"></i>
-                                                </button> --}}
+                                                                target="_blank">Ajouter</a>
                                                         </h5>
                                                     @endcan
                                                 @endcan
@@ -644,7 +639,7 @@
                                                             </ul>
                                                         </div>
                                                     @endcan
-                                                   
+
                                                 </span>
                                             </div>
                                             <div class="row g-3">
@@ -653,14 +648,15 @@
                                                     id="table-operateurModules">
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col">N°</th>
+                                                            <th scope="col" width='2%'>N°</th>
                                                             <th scope="col">DOMAINE</th>
                                                             <th scope="col">MODULE</th>
                                                             <th scope="col">NIVEAU QUALIFICATION</th>
                                                             <th scope="col">QUALIFICATION</th>
                                                             <th class="text-center">STATUT</th>
                                                             @can('devenir-operateur-agrement-show')
-                                                                <th class="text-center"><i class="bi bi-gear"></i></th>
+                                                                <th class="text-center" width='2%'><i class="bi bi-gear"></i>
+                                                                </th>
                                                             @endcan
                                                         </tr>
                                                     </thead>
@@ -679,37 +675,30 @@
                                                                 </td>
                                                                 @can('devenir-operateur-agrement-show')
                                                                     <td style="text-align: center;">
-                                                                        <span
-                                                                            class="d-flex align-items-baseline justify-content-center">
-                                                                            <a href="{{ route('operateurmodules.show', $operateurmodule->id) }}"
-                                                                                class="btn btn-primary btn-sm"
-                                                                                title="voir détails"><i class="bi bi-eye"></i></a>
-                                                                            <div class="filter">
-                                                                                <a class="icon" href="#"
-                                                                                    data-bs-toggle="dropdown"><i
-                                                                                        class="bi bi-three-dots"></i></a>
-                                                                                <ul
-                                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                                    @can('devenir-operateur-agrement-update')
-                                                                                        <button class="dropdown-item btn btn-sm mx-1"
-                                                                                            data-bs-toggle="modal"
-                                                                                            data-bs-target="#EditOperateurmoduleModal{{ $operateurmodule->id }}">Modifier
-                                                                                        </button>
-                                                                                    @endcan
-                                                                                    @can('devenir-operateur-agrement-delete')
-                                                                                        <form
-                                                                                            action="{{ route('operateurmodules.destroy', $operateurmodule->id) }}"
-                                                                                            method="post">
-                                                                                            @csrf
-                                                                                            @method('DELETE')
-                                                                                            <button type="submit"
-                                                                                                class="dropdown-item show_confirm"
-                                                                                                title="Supprimer">Supprimer</button>
-                                                                                        </form>
-                                                                                    @endcan
-                                                                                </ul>
-                                                                            </div>
-                                                                        </span>
+                                                                        <div class="d-flex justify-content-center gap-2">
+                                                                            @can('devenir-operateur-agrement-update')
+                                                                                <button class="btn btn-warning btn-sm"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#EditOperateurmoduleModal{{ $operateurmodule->id }}"
+                                                                                    title="Modifier">
+                                                                                    <i class="bi bi-pencil-square"></i>
+                                                                                </button>
+                                                                            @endcan
+
+                                                                            @can('devenir-operateur-agrement-delete')
+                                                                                <form
+                                                                                    action="{{ route('operateurmodules.destroy', $operateurmodule->id) }}"
+                                                                                    method="POST">
+                                                                                    @csrf
+                                                                                    @method('DELETE')
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-danger btn-sm show_confirm"
+                                                                                        title="Supprimer">
+                                                                                        <i class="bi bi-trash"></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            @endcan
+                                                                        </div>
                                                                     </td>
                                                                 @endcan
                                                             </tr>
@@ -822,98 +811,90 @@
                     aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
-                            {{-- <form method="POST" action="#">
-                            @csrf --}}
-                            <form method="post" action="{{ route('operateurmodules.update', $operateurmodule->id) }}"
-                                enctype="multipart/form-data" class="row g-3">
+                            <form method="POST" action="{{ route('operateurmodules.update', $operateurmodule->id) }}"
+                                enctype="multipart/form-data" class="needs-validation" novalidate>
                                 @csrf
-                                @method('patch')
-                                {{-- <div class="modal-header" id="EditOperateurmoduleModalLabel{{ $operateurmodule->id }}">
-                                    <h5 class="modal-title">Modification module
-                                        opérateur</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div> --}}
-                                <div class="card-header text-center bg-gradient-default">
-                                    <h1 class="h4 text-black mb-0">Modification module opérateur</h1>
-                                </div>
-                                <div class="modal-body">
-                                    <input type="hidden" name="id" value="{{ $operateurmodule->id }}">
-                                    <input type="hidden" name="operateur" value="{{ $operateurmodule->operateur->id }}">
+                                @method('PATCH')
 
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
-                                        <label for="module" class="form-label">Module<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input type="text" name="module" id="module_operateur_edit"
-                                            value="{{ $operateurmodule->module ?? old('module') }}"
-                                            class="form-control form-control-sm @error('module') is-invalid @enderror"
-                                            placeholder="module">
-                                        <div id="moduleListEdit"></div>
-                                        {{ csrf_field() }}
-                                        @error('module')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
+                                <div class="card shadow-lg border-0">
+                                    <div class="card-header bg-default text-center py-2 rounded-top">
+                                        <h4 class="mb-0">✏️ Modification</h4>
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
-                                        <label for="domaine" class="form-label">Domaine<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input type="text" name="domaine"
-                                            value="{{ $operateurmodule->domaine ?? old('domaine') }}"
-                                            class="form-control form-control-sm @error('domaine') is-invalid @enderror"
-                                            placeholder="domaine">
-                                        @error('domaine')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
+                                    <div class="card-body row g-4 px-4">
+                                        <input type="hidden" name="id" value="{{ $operateurmodule->id }}">
+                                        <input type="hidden" name="operateur"
+                                            value="{{ $operateurmodule->operateur->id }}">
+
+                                        {{-- Module --}}
+                                        <div class="col-12">
+                                            <label for="module" class="form-label">Module <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" name="module" id="module_operateur_edit"
+                                                value="{{ old('module', $operateurmodule->module) }}"
+                                                class="form-control form-control-sm @error('module') is-invalid @enderror"
+                                                placeholder="Nom du module" required>
+                                            <div id="moduleListEdit"></div>
+                                            @error('module')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        {{-- Domaine --}}
+                                        <div class="col-12">
+                                            <label for="domaine" class="form-label">Domaine <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" name="domaine"
+                                                value="{{ old('domaine', $operateurmodule->domaine) }}"
+                                                class="form-control form-control-sm @error('domaine') is-invalid @enderror"
+                                                placeholder="Domaine du module" required>
+                                            @error('domaine')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        {{-- Catégorie --}}
+                                        <div class="col-12">
+                                            <label for="categorie" class="form-label">Catégorie <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" name="categorie"
+                                                value="{{ old('categorie', $operateurmodule->categorie) }}"
+                                                class="form-control form-control-sm @error('categorie') is-invalid @enderror"
+                                                placeholder="Catégorie" required>
+                                            @error('categorie')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        {{-- Niveau de qualification --}}
+                                        <div class="col-12">
+                                            <label for="niveau_qualification" class="form-label">Niveau de qualification <span
+                                                    class="text-danger">*</span></label>
+                                            <select name="niveau_qualification"
+                                                class="form-select form-select-sm @error('niveau_qualification') is-invalid @enderror"
+                                                id="select-field-niveau_qualification-update" required>
+                                                <option disabled selected>Choisir un niveau</option>
+                                                @foreach (['Initiation', 'Pré-qualification', 'Qualification'] as $niveau)
+                                                    <option value="{{ $niveau }}"
+                                                        {{ old('niveau_qualification', $operateurmodule->niveau_qualification) == $niveau ? 'selected' : '' }}>
+                                                        {{ $niveau }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('niveau_qualification')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
-                                        <label for="categorie" class="form-label">Catégorie<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input type="text" name="categorie"
-                                            value="{{ $operateurmodule->categorie ?? old('categorie') }}"
-                                            class="form-control form-control-sm @error('categorie') is-invalid @enderror"
-                                            placeholder="categorie">
-                                        @error('categorie')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
+
+                                    <div class="card-footer d-flex justify-content-end gap-2 p-3 bg-light border-top">
+                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                                            <i class="bi bi-x-circle"></i> Fermer
+                                        </button>
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="bi bi-check-circle"></i> Enregistrer les modifications
+                                        </button>
                                     </div>
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
-                                        <label for="niveau_qualification" class="form-label">Niveau de qualification<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <select name="niveau_qualification" class="form-select selectpicker"
-                                            data-live-search="true @error('niveau_qualification') is-invalid @enderror"
-                                            aria-label="Select" id="select-field-niveau_qualification-update"
-                                            data-placeholder="Choisir niveau qualification">
-                                            <option value="{{ $operateurmodule->niveau_qualification }}">
-                                                {{ $operateurmodule->niveau_qualification ?? old('niveau_qualification') }}
-                                            </option>
-                                            <option value="Initiation">
-                                                Initiation
-                                            </option>
-                                            <option value="Pré-qualification">
-                                                Pré-qualification
-                                            </option>
-                                            <option value="Qualification">
-                                                Qualification
-                                            </option>
-                                        </select>
-                                        @error('niveau_qualification')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm"
-                                        data-bs-dismiss="modal">Fermer</button>
-                                    <button type="submit" class="btn btn-primary btn-sm">Modifier</button>
                                 </div>
                             </form>
                         </div>

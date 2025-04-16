@@ -31,7 +31,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <form method="post" action="{{ route('operateurs.update', $operateur->id) }}"
+                                <form method="post" action="{{ route('operateurs.update', $operateur) }}"
                                     enctype="multipart/form-data" class="row g-3">
                                     @csrf
                                     @method('PUT')

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Moduleoperateurstatut;
@@ -23,7 +22,7 @@ class OperateurmoduleController extends Controller
             ->latest()
             ->get();
         $module_statuts = Operateurmodule::get()->unique('statut');
-        $operateurs = Operateur::orderBy('created_at', 'desc')->get();
+        $operateurs     = Operateur::orderBy('created_at', 'desc')->get();
         return view(
             "operateurmodules.index",
             compact(
@@ -43,15 +42,15 @@ class OperateurmoduleController extends Controller
         ]); */
 
         $this->validate($request, [
-            'module'                => 'required|string',
-            'domaine'               => 'required|string',
-            'categorie'             => 'required|string',
-            'niveau_qualification'  => 'required|string',
+            'module'               => 'required|string',
+            'domaine'              => 'required|string',
+            'categorie'            => 'required|string',
+            'niveau_qualification' => 'required|string',
         ]);
 
-        $total_module = Operateurmodule::where('operateurs_id', $request->input('operateur'))->count();
-        $operateurmodule_find    = DB::table('operateurmodules')->where('module', $request->input("module"))->first();
-        $operateur_find = Operateurmodule::where('operateurs_id', $request->input('operateur'))->get();
+        $total_module         = Operateurmodule::where('operateurs_id', $request->input('operateur'))->count();
+        $operateurmodule_find = DB::table('operateurmodules')->where('module', $request->input("module"))->first();
+        $operateur_find       = Operateurmodule::where('operateurs_id', $request->input('operateur'))->get();
 
         $operateur = Operateur::findOrFail($request->input('operateur'));
 
@@ -64,12 +63,12 @@ class OperateurmoduleController extends Controller
             }
 
             $operateurmodule = new Operateurmodule([
-                "module"                =>  $request->input("module"),
-                "domaine"               =>  $request->input("domaine"),
-                "categorie"             =>  $request->input("categorie"),
-                'niveau_qualification'  =>  $request->input('niveau_qualification'),
-                'statut'                =>  'nouveau',
-                'operateurs_id'         =>  $request->input('operateur'),
+                "module"               => $request->input("module"),
+                "domaine"              => $request->input("domaine"),
+                "categorie"            => $request->input("categorie"),
+                'niveau_qualification' => $request->input('niveau_qualification'),
+                'statut'               => 'nouveau',
+                'operateurs_id'        => $request->input('operateur'),
             ]);
 
             $operateurmodule->save();
@@ -81,19 +80,19 @@ class OperateurmoduleController extends Controller
             return redirect()->back();
         } else {
             $operateurmodule = new Operateurmodule([
-                "module"                =>  $request->input("module"),
-                "domaine"               =>  $request->input("domaine"),
-                "categorie"             =>  $request->input("categorie"),
-                'niveau_qualification'  =>  $request->input('niveau_qualification'),
-                'statut'                =>  'nouveau',
-                'operateurs_id'         =>  $request->input('operateur'),
+                "module"               => $request->input("module"),
+                "domaine"              => $request->input("domaine"),
+                "categorie"            => $request->input("categorie"),
+                'niveau_qualification' => $request->input('niveau_qualification'),
+                'statut'               => 'nouveau',
+                'operateurs_id'        => $request->input('operateur'),
             ]);
 
             $operateurmodule->save();
 
             $moduleoperateurstatut = new Moduleoperateurstatut([
-                'statut'                =>  "nouveau",
-                'operateurmodules_id'   =>  $operateurmodule->id,
+                'statut'              => "nouveau",
+                'operateurmodules_id' => $operateurmodule->id,
 
             ]);
 
@@ -105,19 +104,17 @@ class OperateurmoduleController extends Controller
         return redirect()->back();
     }
 
-
-    public function update(Request $request, $id)
+    public function update(Request $request, Operateurmodule $operateurmodule)
     {
         $this->validate($request, [
-            'module'                => 'required|string',
-            'domaine'               => 'required|string',
-            'categorie'             => 'required|string',
-            'niveau_qualification'  => 'required|string',
+            'module'               => 'required|string',
+            'domaine'              => 'required|string',
+            'categorie'            => 'required|string',
+            'niveau_qualification' => 'required|string',
         ]);
-        $operateurmodule = Operateurmodule::findOrFail($id);
 
         foreach (Auth::user()->roles as $key => $role) {
-            if (!empty($role?->name) && ($role?->name != 'super-admin') && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
+            if (! empty($role?->name) && ($role?->name != 'super-admin') && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
                 if ($operateurmodule->statut != 'nouveau') {
                     Alert::warning('Attention ! ', 'action impossible module déjà traité');
                     return redirect()->back();
@@ -125,37 +122,37 @@ class OperateurmoduleController extends Controller
             }
         }
 
-        $operateurmodule_find    = DB::table('operateurmodules')->where('module', $request->input("module"))->first();
+        $operateurmodule_find = DB::table('operateurmodules')->where('module', $request->input("module"))->first();
 
         /* $operateurmodule_count    = DB::table('operateurmodules')
             ->where('module', $request->input("module"))
             ->where('operateurs_id', $operateurmodule->operateurs_id)
             ->count(); */
 
-        $operateur_find  = Operateurmodule::where('operateurs_id', $operateurmodule->operateurs_id)->get();
+        $operateur_find = Operateurmodule::where('operateurs_id', $operateurmodule->operateurs_id)->get();
 
-        if (!empty($operateurmodule_find) && $operateurmodule_find->module == $operateurmodule->module) {
+        if (! empty($operateurmodule_find) && $operateurmodule_find->module == $operateurmodule->module) {
             $operateurmodule->update([
-                "module"                =>  $request->input("module"),
-                "domaine"               =>  $request->input("domaine"),
-                "categorie"             =>  $request->input("categorie"),
-                'niveau_qualification'  =>  $request->input('niveau_qualification'),
-                'operateurs_id'         =>  $operateurmodule->operateurs_id,
+                "module"               => $request->input("module"),
+                "domaine"              => $request->input("domaine"),
+                "categorie"            => $request->input("categorie"),
+                'niveau_qualification' => $request->input('niveau_qualification'),
+                'operateurs_id'        => $operateurmodule->operateurs_id,
             ]);
-            Alert::success($operateurmodule->module, 'mis à jour');
+            Alert::success('Succès !', 'Le module ' . $operateurmodule->module . ' a été mis à jour avec succès');
             $operateurmodule->save();
-        } elseif (!empty($operateurmodule_find)) {
+        } elseif (! empty($operateurmodule_find)) {
             foreach ($operateur_find as $value) {
                 if (($value->module == $operateurmodule_find->module)) {
                     Alert::warning('Attention ! ' . $value->module, 'a déjà été choisi');
                     return redirect()->back();
                 } else {
                     $operateurmodule->update([
-                        "module"                =>  $request->input("module"),
-                        "domaine"               =>  $request->input("domaine"),
-                        "categorie"             =>  $request->input("categorie"),
-                        'niveau_qualification'  =>  $request->input('niveau_qualification'),
-                        'operateurs_id'         =>  $operateurmodule->operateurs_id,
+                        "module"               => $request->input("module"),
+                        "domaine"              => $request->input("domaine"),
+                        "categorie"            => $request->input("categorie"),
+                        'niveau_qualification' => $request->input('niveau_qualification'),
+                        'operateurs_id'        => $operateurmodule->operateurs_id,
                     ]);
                     Alert::success($operateurmodule->module, 'mis à jour');
                     $operateurmodule->save();
@@ -164,11 +161,11 @@ class OperateurmoduleController extends Controller
             }
         } else {
             $operateurmodule->update([
-                "module"                =>  $request->input("module"),
-                "domaine"               =>  $request->input("domaine"),
-                "categorie"             =>  $request->input("categorie"),
-                'niveau_qualification'  =>  $request->input('niveau_qualification'),
-                'operateurs_id'         =>  $operateurmodule->operateurs_id,
+                "module"               => $request->input("module"),
+                "domaine"              => $request->input("domaine"),
+                "categorie"            => $request->input("categorie"),
+                'niveau_qualification' => $request->input('niveau_qualification'),
+                'operateurs_id'        => $operateurmodule->operateurs_id,
             ]);
 
             Alert::success($operateurmodule->module, 'mis à jour');
@@ -177,11 +174,10 @@ class OperateurmoduleController extends Controller
         return redirect()->back();
     }
 
-    public function show($id)
+    public function show(Operateurmodule $operateurmodule)
     {
-        $operateurmodule = Operateurmodule::findOrFail($id);
-        $modulename = $operateurmodule->module;
-        $operateurmodules   =   Operateurmodule::where('module', $modulename)->get();
+        $modulename       = $operateurmodule->module;
+        $operateurmodules = Operateurmodule::where('module', $modulename)->get();
 
         return view("operateurmodules.show", compact("operateurmodules", "modulename"));
     }
@@ -190,7 +186,7 @@ class OperateurmoduleController extends Controller
         $operateurmodule = Operateurmodule::find($id);
 
         foreach (Auth::user()->roles as $role) {
-            if (!empty($role?->name) && ($role?->name == 'super-admin')) {
+            if (! empty($role?->name) && ($role?->name == 'super-admin')) {
                 Alert::success('Effectuée !', 'module supprimée');
                 $operateurmodule->delete();
                 return redirect()->back();
@@ -210,7 +206,7 @@ class OperateurmoduleController extends Controller
             ->latest()
             ->get();
         $module_statuts = Operateurmodule::get()->unique('statut');
-        $operateurs = Operateur::orderBy('created_at', 'desc')->get();
+        $operateurs     = Operateur::orderBy('created_at', 'desc')->get();
         return view(
             "operateurmodules.index",
             compact(
@@ -235,11 +231,11 @@ class OperateurmoduleController extends Controller
         if ($request?->module == null && $request->statut == null && $request->operateur == null) {
             Alert::warning('Attention ', 'Renseigner au moins un champ pour rechercher');
             return redirect()->back();
-        } elseif (!empty($request?->module)) {
+        } elseif (! empty($request?->module)) {
             $operateurmodules = Operateurmodule::where('module', $request?->module)->get();
-        } elseif (!empty($request?->statut)) {
+        } elseif (! empty($request?->statut)) {
             $operateurmodules = Operateurmodule::where('statut', $request?->statut)->get();
-        } elseif (!empty($request?->operateur)) {
+        } elseif (! empty($request?->operateur)) {
             $operateurmodules = Operateurmodule::where('operateurs_id', $request?->operateur)->get();
         } else {
             Alert::warning('Attention ', 'Renseigner au moins un champ pour rechercher');

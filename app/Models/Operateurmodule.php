@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Operateurmodule extends Model
 {
@@ -29,7 +30,21 @@ class Operateurmodule extends Model
         'validated_id',
         'operateurs_id'
     ];
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->uuid)) {
+                $model->uuid = (string) Str::uuid();
+            }
+        });
+    }
     public function user()
     {
         return $this->belongsTo(User::class, 'users_id');
