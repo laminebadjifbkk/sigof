@@ -165,10 +165,10 @@ class Operateur extends Model
         'file10',
     ];
 
-   /*  public function getRouteKeyName()
+    public function getRouteKeyName()
     {
         return 'uuid';
-    } */
+    }
 
     protected static function boot()
     {
