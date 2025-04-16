@@ -70,7 +70,7 @@
                             <table class="table datatables align-middle" id="table-users">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">N°</th>
+                                        <th class="text-center">Date sup.</th>
                                         <th width="20%" class="text-center">N° CIN (NIN)</th>
                                         <th width="20%">Prénom & NOM</th>
                                         <th width="15%">Date nais.</th>
@@ -85,7 +85,7 @@
                                     @foreach ($individuelles as $individuelle)
                                         @if (!empty($individuelle?->numero))
                                             <tr>
-                                                <td style="text-align: center">{{ $individuelle?->numero }}</td>
+                                                <td style="text-align: center">{{ optional($individuelle?->deleted_at)->format('d/m/Y') }}</td>
                                                 <td style="text-align: center">{{ $individuelle?->user?->cin }}</td>
                                                 <td>{{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
                                                 </td>

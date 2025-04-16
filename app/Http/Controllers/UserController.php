@@ -1087,7 +1087,7 @@ class UserController extends Controller
         $count_demandeur_raw = $user_liste->count();
         $count_demandeur     = number_format($count_demandeur_raw, 0, ',', ' ');
 
-// Définition du titre avec des comparaisons correctes
+    // Définition du titre avec des comparaisons correctes
         /* if ($count_demandeur_raw < 1) {
             $title = 'Aucun demandeur';
         } elseif ($count_demandeur_raw == 1) {
@@ -1096,7 +1096,7 @@ class UserController extends Controller
             $title = 'Liste des ' . $count_demandeur . ' derniers utilisateurs sur un total de ' . $total_count;
         } */
 
-// Retour de la vue avec les données optimisées
+    // Retour de la vue avec les données optimisées
         return view("user.individuelle-collective", compact("user_liste"));
 
     }
