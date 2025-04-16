@@ -69,7 +69,7 @@
                                                 </td>
                                                 <td>
                                                     <span class="d-flex mt-2 align-items-baseline">
-                                                        <a href="{{ route('demandeurs.show', $user->uuid) }}"
+                                                        <a href="{{ route('demandeurs.show', $user->id) }}"
                                                             class="btn btn-info btn-sm mx-1 text-white"
                                                             title="Voir détails">
                                                             <i class="bi bi-eye"></i>

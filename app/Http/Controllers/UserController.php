@@ -1101,9 +1101,10 @@ class UserController extends Controller
 
     }
 
-    public function showDemandeur(User $user, $uuid)
+    public function showDemandeur(User $user, $id)
     {
-        $user = User::findOrFail($uuid);
+
+        $user = User::findOrFail($id);
 
         $departements = Departement::orderBy("created_at", "desc")->get();
 
