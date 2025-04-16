@@ -320,11 +320,12 @@
                             <div class="tab-content pt-2">
                                 {{-- Début Edition --}}
                                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-                                    <form method="post" action="{{ route('profile.update', Auth::user()->id) }}"
+                                    <form method="post" action="{{ route('profile.update', Auth::user()?->uuid) }}"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('patch')
                                         <h5 class="card-title">Modification du profil</h5>
+                                        <input type="hidden" name="idUser" value="{{ $user->id }}">
                                         <!-- Profile Edit Form -->
 
                                         <div class="row mb-3">

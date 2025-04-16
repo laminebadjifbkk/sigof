@@ -560,10 +560,11 @@
                 </div>
             </div>
 
-            <form method="post" action="{{ route('files.update', $user?->id) }}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('files.update', $user) }}" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
                 <h5 class="card-title">JOINDRE VOS SCANS DE DOSSIERS</h5>
+                <input type="hidden" name="idUser" value="{{ $user->id }}">
                 <span style="color:red;">NB:</span>
                 <span>Seule la Carte Nationale d'Identité (recto/verso) </span><span style="color:red;"> est
                     requise</span>.
@@ -612,7 +613,7 @@
                             class="text-danger mx-1"></span></label>
                     <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
                         <div class="pt-2">
-                            <button type="submit" class="btn btn-info btn-sm text-white">ENREGISTRER</button>
+                            <button type="submit" class="btn btn-primary btn-sm text-white">Enregistrer fichier</button>
                         </div>
                     </div>
                 </div>

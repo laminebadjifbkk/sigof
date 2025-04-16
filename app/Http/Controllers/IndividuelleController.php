@@ -518,10 +518,10 @@ class IndividuelleController extends Controller
         return redirect()->back();
     }
 
-    public function edit($id)
+    public function edit(Individuelle $individuelle)
     {
         // Récupérer l'individuelle et les données nécessaires
-        $individuelle = Individuelle::findOrFail($id);
+        /* $individuelle = Individuelle::findOrFail($id); */
         $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::latest()->get(); // Même pour les modules
         $projets      = Projet::latest()->get(); // Même pour les projets
@@ -549,10 +549,10 @@ class IndividuelleController extends Controller
 
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Individuelle $individuelle)
     {
-        $individuelle = Individuelle::findOrFail($id);
-        $user_id      = $individuelle?->users_id;
+        /* $individuelle = Individuelle::findOrFail($id); */
+        $user_id = $individuelle?->users_id;
 
         // Role authorization check
         $this->authorizeRoles(Auth::user()->roles, $individuelle);
@@ -724,9 +724,9 @@ class IndividuelleController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show(Individuelle $individuelle)
     {
-        $individuelle = Individuelle::findOrFail($id);
+        /* $individuelle = Individuelle::findOrFail($id); */
 
         $userRoles = Auth::user()->roles->pluck('name')->toArray();
 
@@ -764,9 +764,9 @@ class IndividuelleController extends Controller
         Alert::success('Opération réussie!', 'La région a été modifiée avec succès.');
         return redirect()->route('modal');
     }
-    public function destroy($id)
+    public function destroy(Individuelle $individuelle)
     {
-        $individuelle  = Individuelle::findOrFail($id);
+        /* $individuelle  = Individuelle::findOrFail($id); */
         $userRoles     = Auth::user()->roles->pluck('name')->toArray();
         $excludedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
 
@@ -782,7 +782,7 @@ class IndividuelleController extends Controller
         }
 
         // Mise à jour et suppression de la demande
-        $individuelle->update(['numero' => $individuelle->numero . '/' . $id]);
+        $individuelle->update(['numero' => $individuelle->numero . '/' . $individuelle->id]);
         $individuelle->delete();
 
         Alert::success('Succès !', 'La demande a été supprimée avec succès.');
@@ -1638,6 +1638,30 @@ class IndividuelleController extends Controller
         Alert::success('Dommage !', 'Nous espérons vous retrouver bientôt !');
 
         return redirect()->back();
+
+    }
+
+    public function corbeille()
+    {
+        $total_count = Individuelle::onlyTrashed()->count();
+        $total_count = number_format($total_count, 0, ',', ' ');
+
+        $individuelles = Individuelle::onlyTrashed()
+            ->latest()
+            ->take(100)
+            ->get();
+
+        $count_demandeur = number_format($individuelles->count(), 0, ',', ' ');
+
+        if ($count_demandeur < 1) {
+            $title = 'Aucun demandeur supprimé';
+        } elseif ($count_demandeur == 1) {
+            $title = "$count_demandeur demandeur supprimé sur un total de $total_count";
+        } else {
+            $title = "Liste des $count_demandeur derniers demandeurs supprimés sur un total de $total_count";
+        }
+
+        return view("individuelles.corbeille", compact("individuelles", "title"));
 
     }
 }

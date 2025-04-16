@@ -133,10 +133,16 @@ class User extends Authenticatable implements MustVerifyEmail
         });
     }
 
-    public function getRouteKeyName()
+/*     public function getRouteKeyName()
     {
         return 'username';
+    } */
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
     }
+
     // Ajoute cette méthode pour forcer l'utilisation de l'uuid dans les routes
     /* public function getRouteKeyName()
     {

@@ -113,7 +113,7 @@
                                                     class="bi bi-three-dots"></i></a>
                                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                 <form
-                                                    action="{{ route('validation-individuelles.update', $individuelle?->id) }}"
+                                                    action="{{ route('validation-individuelles.update', $individuelle) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('PUT')
@@ -128,7 +128,7 @@
                             </div>
 
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                                <form method="post" action="{{ url('individuelles/' . $individuelle?->id) }}"
+                                <form method="post" action="{{ route('individuelles.show', $individuelle) }}"
                                     enctype="multipart/form-data" class="row g-3">
                                     @csrf
                                     @method('PUT')
@@ -244,7 +244,7 @@
                                     @endif
 
                                     <div class="text-center">
-                                        <a href="{{ route('individuelles.edit', $individuelle?->id) }}"
+                                        <a href="{{ route('individuelles.edit', $individuelle) }}"
                                             class="btn btn-primary btn-sm text-white" title="Modifier">Modifier</a>
                                     </div>
                                 </form>

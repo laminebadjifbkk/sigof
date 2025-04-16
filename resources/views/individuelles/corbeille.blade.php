@@ -1,7 +1,9 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | DEMANDEURS')
+@section('title', 'ONFP - DEMANDEURS SUPPRIMES')
 @section('space-work')
+
     <div class="pagetitle">
+        {{-- <h1>Data Tables</h1> --}}
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/home') }}">Accueil</a></li>
@@ -9,7 +11,7 @@
                 <li class="breadcrumb-item active">Données</li>
             </ol>
         </nav>
-    </div>
+    </div><!-- End Page Title -->
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -35,45 +37,71 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Liste des demandeurs individuels</h5>
-                        @if ($user_liste->isNotEmpty())
+                        <div class="row">
+                            <div class="col-sm-12 pt-1">
+                                <span class="d-flex mt-2 align-items-baseline"><a
+                                        href="{{ route('individuelles.index') }}" class="btn btn-success btn-sm"
+                                        title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                                    <p> | Liste des demandeurs</p>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            @can('user-create')
+                                <h5 class="card-title">{{ $title }}</h5>
+                                {{-- <span class="d-flex align-items-baseline">
+                                    <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
+                                        data-bs-target="#AddUserModal" title="Ajouter">Ajouter</a>
+                                    <div class="filter">
+                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                class="bi bi-three-dots"></i></a>
+                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <li>
+                                                <button type="button" class="dropdown-item btn btn-sm" data-bs-toggle="modal"
+                                                    data-bs-target="#generate_rapport"></i>Rechercher
+                                                    plus</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </span> --}}
+                            @endcan
+                        </div>
+                        @if ($individuelles->isNotEmpty())
                             <table class="table datatables align-middle" id="table-users">
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                        <th>Prenom et NOM</th>
-                                        <th>E-mail</th>
-                                        <th>Téléphone</th>
-                                        <th class="text-center">Demandes</th>
-                                        <th width="5%">#</th>
+                                        <th class="text-center">N°</th>
+                                        <th width="20%" class="text-center">N° CIN (NIN)</th>
+                                        <th width="20%">Prénom & NOM</th>
+                                        <th width="15%">Date nais.</th>
+                                        <th width="15%">Lieu nais.</th>
+                                        <th width="20%">Module</th>
+                                        <th width="5%" class="text-center">Dépôt</th>
+                                        <th class="text-center">Statut</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $i = 1; ?>
-                                    @foreach ($user_liste as $user)
-                                        @if ($user->individuelles->isNotEmpty())
+                                    @foreach ($individuelles as $individuelle)
+                                        @if (!empty($individuelle?->numero))
                                             <tr>
-                                                <th scope="row">
-                                                    <a href="{{ route('users.show', $user) }}">
-                                                        <img class="rounded-circle w-20" alt="Profil"
-                                                            src="{{ asset($user->getImage()) }}" width="40"
-                                                            height="auto">
-                                                    </a>
-                                                </th>
-                                                <td>{{ $user?->firstname . ' ' . $user?->name }}</td>
-                                                <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                                                <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a>
+                                                <td style="text-align: center">{{ $individuelle?->numero }}</td>
+                                                <td style="text-align: center">{{ $individuelle?->user?->cin }}</td>
+                                                <td>{{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
                                                 </td>
-                                                <td style="text-align: center;">
-                                                    {{ $user?->individuelles?->count() ?? 0 }}
+                                                <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
+                                                <td>{{ $individuelle?->user?->lieu_naissance }}</td>
+                                                <td>{{ $individuelle?->module?->name }}</td>
+                                                <td class="text-center">
+                                                    @if ($individuelle?->date_depot)
+                                                        {{ $individuelle?->date_depot?->format('d/m/Y') }}
+                                                    @else
+                                                        Aucun
+                                                    @endif
                                                 </td>
                                                 <td>
-                                                    <span class="d-flex mt-2 align-items-baseline">
-                                                        <a href="{{ route('demandeurs.show', $user->uuid) }}"
-                                                            class="btn btn-info btn-sm mx-1 text-white"
-                                                            title="Voir détails">
-                                                            <i class="bi bi-eye"></i>
-                                                        </a>
+                                                    <span class="{{ $individuelle?->statut }}">
+                                                        {{ $individuelle?->statut }}
                                                     </span>
                                                 </td>
                                             </tr>
@@ -82,7 +110,9 @@
                                 </tbody>
                             </table>
                         @else
-                            <div class="alert alert-info mt-3">Aucun demandeur pour le moment !!!</div>
+                            <div class="alert alert-warning">
+                                Aucun utilisateur trouvé.
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -98,6 +128,9 @@
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
+            "order": [
+                [0, 'asc']
+            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",

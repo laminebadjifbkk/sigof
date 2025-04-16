@@ -256,10 +256,10 @@ class Individuelle extends Model
         'regions_id',
     ];
 
-    /* public function getRouteKeyName()
+    public function getRouteKeyName()
     {
         return 'uuid';
-    } */
+    }
 
     protected static function boot()
     {

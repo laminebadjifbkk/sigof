@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 /**
  * Class Filiere
@@ -79,6 +80,22 @@ class File extends Model
 		$filePath = $this->file ?? 'uploads';
 		return "/storage/" . $filePath;
 	}
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->uuid)) {
+                $model->uuid = (string) Str::uuid();
+            }
+        });
+    }
 
 	public function user()
 	{

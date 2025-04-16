@@ -343,5 +343,27 @@ class ModuleController extends Controller
             'regions',
         ));
     } */
+    public function corbeille()
+    {
+        $total_count = Module::onlyTrashed()->count();
+        $total_count = number_format($total_count, 0, ',', ' ');
 
+        $modules = Module::onlyTrashed()
+            ->latest()
+            ->take(100)
+            ->get();
+
+        $count_module = number_format($modules->count(), 0, ',', ' ');
+
+        if ($count_module < 1) {
+            $title = 'Aucun module supprimé';
+        } elseif ($count_module == 1) {
+            $title = "$count_module module supprimé sur un total de $total_count";
+        } else {
+            $title = "Liste des $count_module derniers modules supprimés sur un total de $total_count";
+        }
+
+        return view("modules.corbeille", compact("modules", "title"));
+
+    }
 }

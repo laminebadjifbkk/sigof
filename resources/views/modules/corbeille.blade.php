@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - UTILISATEURS SUPPRIMES')
+@section('title', 'ONFP | MODULES SUPPRIMES')
 @section('space-work')
 
     <div class="pagetitle">
@@ -39,10 +39,10 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12 pt-1">
-                                <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('users.index') }}"
+                                <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('modules.index') }}"
                                         class="btn btn-success btn-sm" title="retour"><i
                                             class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                    <p> | Liste des utilisateurs</p>
+                                    <p> | Liste des modules</p>
                                 </span>
                             </div>
                         </div>
@@ -66,71 +66,42 @@
                                 </span> --}}
                             @endcan
                         </div>
-                        @if ($user_liste->isNotEmpty())
+                        @if ($modules->isNotEmpty())
                             <table class="table datatables align-middle" id="table-users">
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                        <th>Username</th>
-                                        <th>E-mail</th>
-                                        <th>Téléphone</th>
-                                        <th class="text-center">Statut</th>
-                                        {{-- <th>#</th> --}}
+                                        <th>Modules</th>
+                                        <th>Domaines</th>
+                                        <th>Secteurs</th>
+                                        <th>Niveau qualification</th>
+                                        <th class="text-center" scope="col">Formations</th>
+                                        <th class="text-center" scope="col">Demandes</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $i = 1; ?>
-                                    @foreach ($user_liste as $user)
+                                    @foreach ($modules as $module)
                                         <tr>
-                                            <th scope="row">
-                                                <a href="#">
-                                                    <img class="rounded-circle w-20" alt="Profil"
-                                                        src="{{ asset($user->getImage()) }}" width="40" height="auto">
-                                                </a>
-                                            </th>
-                                            <td>{{ $user->username }}</td>
-                                            <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                                            <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a></td>
+                                            <td>{{ $module->name }}</td>
+                                            <td>{{ $module?->domaine?->name }}</td>
+                                            <td>{{ $module?->domaine?->secteur?->name }}</td>
+                                            <td>{{ $module?->niveau_qualification }}</td>
                                             <td style="text-align: center;">
-                                                @isset($user?->email_verified_at)
-                                                    <i class="bi bi-check-circle text-success" title="compte vérifié"></i>
-                                                @endisset
+                                                @foreach ($module->formations as $formation)
+                                                    @if ($loop->last)
+                                                        <a href="{{ url('formations/' . $formation->id) }}"><span
+                                                                class="badge bg-info">{{ $loop->count }}</span></a>
+                                                    @endif
+                                                @endforeach
                                             </td>
-                                            {{-- <td>
-                                                <span class="d-flex mt-2 align-items-baseline"><a
-                                                        href="{{ route('users.show', $user->id) }}"
-                                                        class="btn btn-info btn-sm mx-1" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                    href="{{ route('users.edit', $user->id) }}"><i
-                                                                        class="bi bi-pencil"></i> Modifier</a>
-                                                            </li>
-                                                            @can('user-delete')
-                                                                <li>
-                                                                    <form action="{{ route('users.destroy', $user->id) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit"
-                                                                            class="dropdown-item show_confirm"><i
-                                                                                class="bi bi-trash"></i>Supprimer</button>
-                                                                    </form>
-                                                                </li>
-                                                            @endcan
-                                                            <li>
-                                                                <a class="dropdown-item btn btn-sm mx-1" href="#"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#forgotModal{{ $user->uuid }}">
-                                                                    <i class="bi bi-key"></i>Réinitialiser MP</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </span>
-                                            </td> --}}
+                                            <td style="text-align: center;">
+                                                @foreach ($module->individuelles as $individuelle)
+                                                    @if ($loop->last)
+                                                        <a href="{{ url('modules/' . $module->id) }}"><span
+                                                                class="badge bg-info">{{ $loop->count }}</span></a>
+                                                    @endif
+                                                @endforeach
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -190,9 +190,11 @@ class ProfileController extends Controller
      * Update the user's profile information.
      */
     /* public function update(ProfileUpdateRequest $request, $id): RedirectResponse */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         /* $request->user()->fill($request->validated()); */
+
+        $user = User::findOrFail($request->idUser);
 
         $this->validate($request, [
             'cin'                       => [
@@ -200,7 +202,7 @@ class ProfileController extends Controller
                 'string',
                 'min:16',
                 'max:17',
-                Rule::unique(User::class)->ignore($id ?? null)->whereNull('deleted_at'),
+                Rule::unique(User::class)->ignore($user->id ?? null)->whereNull('deleted_at'),
             ],
             /* 'username'                  => ['required', 'string'], */
             'username'                  => [
@@ -208,7 +210,7 @@ class ProfileController extends Controller
                 'string',
                 'min:3',
                 'max:25',
-                Rule::unique('users')->ignore($id ?? null)->whereNull('deleted_at'),
+                Rule::unique('users')->ignore($user->id ?? null)->whereNull('deleted_at'),
             ],
             'civilite'                  => ['required', 'string', 'max:8'],
             'firstname'                 => ['required', 'string', 'max:150'],
@@ -221,7 +223,7 @@ class ProfileController extends Controller
                 'string',
                 'email',
                 'max:255',
-                Rule::unique(User::class)->ignore($id ?? null)->whereNull('deleted_at'),
+                Rule::unique(User::class)->ignore($user->id ?? null)->whereNull('deleted_at'),
             ],
             'telephone'                 => ['nullable', 'string', 'size:12'],
             'adresse'                   => ['required', 'string', 'max:255'],
@@ -235,7 +237,6 @@ class ProfileController extends Controller
             'fixe'                      => ['nullable', 'string', 'max:255'],
         ]);
 
-        $user       = User::findOrFail($id);
         $dateString = $request->input('date_naissance');
         $date       = Carbon::createFromFormat('d/m/Y', $dateString);
 
@@ -264,7 +265,7 @@ class ProfileController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
-
+/* 
         if (request('image')) {
             if (! empty($user->image)) {
                 Storage::disk('public')->delete($user->image);
@@ -282,8 +283,6 @@ class ProfileController extends Controller
             // Create unique file name
             $fileNameToStore = 'avatars/' . $filename . '' . time() . '.' . $extension;
 
-            /* dd($fileNameToStore); */
-
             $image = Image::make(public_path("/storage/{$imagePath}"))->fit(800, 800);
 
             $image->save();
@@ -291,7 +290,34 @@ class ProfileController extends Controller
             $request->user()->update([
                 'image' => $imagePath,
             ]);
+        } */
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            if (!empty($user->image)) {
+                Storage::disk('public')->delete($user->image);
+            }
+        
+            $file = $request->file('image');
+        
+            // Crée une version renommée et propre du nom
+            $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $filename = preg_replace("/[^A-Za-z0-9 ]/", '', $filename);
+            $filename = preg_replace("/\s+/", '-', $filename);
+            $extension = $file->getClientOriginalExtension();
+            $fileNameToStore = 'avatars/' . $filename . time() . '.' . $extension;
+        
+            // Utilise Intervention sur le fichier temporaire directement
+            $image = Image::make($file->getRealPath())->fit(800, 800);
+        
+            // Sauvegarde manuellement dans le disque 'public'
+            Storage::disk('public')->put($fileNameToStore, (string) $image->encode());
+        
+            // Met à jour l'utilisateur
+            $user->update([
+                'image' => $fileNameToStore,
+            ]);
         }
+        
 
         $request->user()->save();
 

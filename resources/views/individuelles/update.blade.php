@@ -41,7 +41,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <form method="post" action="{{ route('individuelles.update', $individuelle->id) }}"
+                            <form method="post" action="{{ route('individuelles.update', $individuelle) }}"
                                 enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 @method('PUT')

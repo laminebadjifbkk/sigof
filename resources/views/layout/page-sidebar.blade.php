@@ -3,7 +3,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
         {{-- @can('user-view') --}}
 
-        @hasanyrole('Employe|super-admin|')
+        @hasanyrole('Employe|super-admin|admin')
             <li class="nav-item">
                 <a class="nav-link " href="{{ url('/home') }}">
                     <i class="bi bi-grid"></i>
@@ -13,41 +13,43 @@
             {{-- @endcan --}}
         @endhasanyrole
 
-        @can('user-view')
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-person"></i><span>{{ __('Gestion utilisateurs') }}</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="users-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="{{ route('users.online') }}">
-                            <span>En ligne</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="{{ route('users.actifs') }}">
-                            <span>Actifs</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="{{ route('users.inactifs') }}">
-                            <span>Inactifs</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="{{ route('users.corbeille') }}">
-                            <span>Corbeille</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="{{ route('users.restored') }}">
-                            <span>Restaurés</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        @endcan
+        @hasanyrole('super-admin|admin')
+            @can('user-view')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-person"></i><span>{{ __('Gestion utilisateurs') }}</span><i
+                            class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="users-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('users.online') }}">
+                                <span>En ligne</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('users.actifs') }}">
+                                <span>Actifs</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('users.inactifs') }}">
+                                <span>Inactifs</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('users.corbeille') }}">
+                                <span>Corbeille</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('users.restored') }}">
+                                <span>Restaurés</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
+        @endhasanyrole
 
         @can('role-view')
             <li class="nav-item">
@@ -211,6 +213,15 @@
                             </a>
                         </li>
                     @endcan
+
+
+                    @hasrole('super-admin')
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('individuelles.corbeille') }}">
+                                <span>Corbeille</span>
+                            </a>
+                        </li>
+                    @endhasrole
 
                     {{--  @can('dg')
                         <li class="nav-item">
@@ -582,6 +593,13 @@
                             </a>
                         </li>
                     @endcan
+                    @hasrole('super-admin')
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ route('modules.corbeille') }}">
+                            <span>Corbeille</span>
+                        </a>
+                    </li>
+                @endhasrole
                 </ul>
             </li>
         @endcan

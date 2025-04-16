@@ -85,7 +85,7 @@
                                         <th>Téléphone</th>
                                         <th>Roles</th>
                                         <th class="text-center">Statut</th>
-                                        <th>#</th>
+                                        <th width="2%">#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -93,7 +93,7 @@
                                     @foreach ($user_liste as $user)
                                         <tr>
                                             <th scope="row">
-                                                <a href="{{ route('users.show', $user->id) }}">
+                                                <a href="{{ route('users.show', $user) }}">
                                                     <img class="rounded-circle w-20" alt="Profil"
                                                         src="{{ asset($user->getImage()) }}" width="40" height="auto">
                                                 </a>
@@ -119,10 +119,10 @@
                                             </td>
                                             {{-- <td>
                                             <span class="d-flex mt-2 align-items-baseline"><a
-                                                    href="{{ route('users.edit', $user->id) }}"
+                                                    href="{{ route('users.edit', $user) }}"
                                                     class="btn btn-success btn-sm mx-1" title="Modifier"><i
                                                         class="bi bi-pencil-square"></i></a>
-                                                <form action="{{ route('users.destroy', $user->id) }}" method="post">
+                                                <form action="{{ route('users.destroy', $user) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm show_confirm"
@@ -134,7 +134,7 @@
                                             <td>
                                                 {{-- @can('user-show') --}}
                                                 <span class="d-flex mt-2 align-items-baseline"><a
-                                                        href="{{ route('users.show', $user->id) }}"
+                                                        href="{{ route('users.show', $user) }}"
                                                         class="btn btn-info btn-sm mx-1" title="voir détails"><i
                                                             class="bi bi-eye"></i></a>
                                                     <div class="filter">
@@ -143,13 +143,13 @@
                                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                             {{-- @can('user-update') --}}
                                                             <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                    href="{{ route('users.edit', $user->id) }}"><i
+                                                                    href="{{ route('users.edit', $user) }}"><i
                                                                         class="bi bi-pencil"></i> Modifier</a>
                                                             </li>
                                                             {{-- @endcan --}}
                                                             @can('user-delete')
                                                                 <li>
-                                                                    <form action="{{ route('users.destroy', $user->id) }}"
+                                                                    <form action="{{ route('users.destroy', $user) }}"
                                                                         method="post">
                                                                         @csrf
                                                                         @method('DELETE')
@@ -162,7 +162,7 @@
                                                             <li>
                                                                 <a class="dropdown-item btn btn-sm mx-1" href="#"
                                                                     data-bs-toggle="modal"
-                                                                    data-bs-target="#forgotModal{{ $user->id }}">
+                                                                    data-bs-target="#forgotModal{{ $user->uuid }}">
                                                                     <i class="bi bi-key"></i>Réinitialiser MP</a>
                                                             </li>
                                                         </ul>
@@ -449,11 +449,11 @@
         @foreach ($user_liste as $user)
             <div
                 class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
-                <div class="modal fade" id="forgotModal{{ $user->id }}" tabindex="-1">
+                <div class="modal fade" id="forgotModal{{ $user->uuid }}" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <form class="row g-3 needs-validation" novalidate method="POST"
-                                action="{{ route('resetuserPassword', ['id' => $user->id]) }}">
+                                action="{{ route('resetuserPassword', ['uuid' => $user->uuid]) }}">
                                 @csrf
                                 @method('PUT')
                                 {{-- <div class="modal-header">

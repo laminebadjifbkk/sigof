@@ -76,7 +76,7 @@
                                         <th>Téléphone</th>
                                         <th>Roles</th>
                                         <th class="text-center">Statut</th>
-                                        <th>#</th>
+                                        <th width="2%">#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -136,7 +136,7 @@
                                                             <li>
                                                                 <a class="dropdown-item btn btn-sm mx-1" href="#"
                                                                     data-bs-toggle="modal"
-                                                                    data-bs-target="#forgotModal{{ $user->id }}">
+                                                                    data-bs-target="#forgotModal{{ $user->uuid }}">
                                                                     <i class="bi bi-key"></i>Réinitialiser MP</a>
                                                             </li>
                                                         </ul>
@@ -418,7 +418,7 @@
         @foreach ($user_liste as $user)
             <div
                 class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
-                <div class="modal fade" id="forgotModal{{ $user->id }}" tabindex="-1">
+                <div class="modal fade" id="forgotModal{{ $user->uuid }}" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <form class="row g-3 needs-validation" novalidate method="POST"

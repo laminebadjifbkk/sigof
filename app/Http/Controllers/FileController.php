@@ -22,15 +22,17 @@ class FileController extends Controller
 
         return view('files.index', compact('files', 'users'));
     }
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
+        $user = User::findOrFail($request->idUser);
+
         $this->validate($request, [
             'legende' => 'required |string',
             'file'    => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf|max:1024',
         ]);
 
         $file = File::where('id', $request->legende)
-            ->where('users_id', $id)
+            ->where('users_id', $user->id)
             ->firstOrFail();
 
         /*    // Check if the file is valid

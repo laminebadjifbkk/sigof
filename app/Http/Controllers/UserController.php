@@ -337,21 +337,17 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
         $roles = Role::pluck('name', 'name')->all();
-
-        $user = User::findOrFail($id);
 
         $userRoles = $user->roles->pluck('name', 'name')->all();
 
         return view("user.update", compact('user', 'roles', 'userRoles'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        $user = User::findOrFail($id);
-
         // Vérifie si l'utilisateur connecté a le rôle 'super-admin' ou 'admin'
         if (! Auth::user()->hasRole(['super-admin', 'admin'])) {
             $this->authorize('update', $user);
@@ -404,23 +400,35 @@ class UserController extends Controller
 
             $this->validate($request, [
                 'civilite'       => ['nullable', 'string', 'max:10'],
-                'username'       => ["required", "string", "max:25", Rule::unique(User::class)->ignore($id)],
+                'username'       => [
+                    'required',
+                    'string',
+                    'max:25',
+                    Rule::unique(User::class, 'username')->ignore($user->uuid, 'uuid'),
+                ],
                 'cin'            => [
                     'required',
                     'string',
                     'min:16',
                     'max:17',
-                    Rule::unique(User::class)->ignore($id ?? null)->whereNull('deleted_at'),
+                    Rule::unique(User::class, 'cin')
+                        ->ignore($user->uuid, 'uuid')
+                        ->whereNull('deleted_at'),
                 ],
                 'firstname'      => ['required', 'string', 'max:150'],
                 'name'           => ['required', 'string', 'max:50'],
                 'date_naissance' => ['nullable', 'date_format:d/m/Y'],
-                'lieu_naissance' => ['string', 'nullable'],
-                'image'          => ['image', 'nullable', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-                'telephone'      => ['required', 'string', 'max:12', 'min:9'],
+                'lieu_naissance' => ['nullable', 'string'],
+                'image'          => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+                'telephone'      => ['required', 'string', 'min:9', 'max:12'],
                 'adresse'        => ['required', 'string', 'max:255'],
-                'roles.*'        => ['string', 'max:255', 'nullable', 'max:255'],
-                "email"          => ['email', "max:255", Rule::unique(User::class)->ignore($id)],
+                'roles.*'        => ['nullable', 'string', 'max:255'],
+                'email'          => [
+                    'nullable',
+                    'email',
+                    'max:255',
+                    Rule::unique(User::class, 'email')->ignore($user->uuid, 'uuid'),
+                ],
             ]);
 
             if (! empty($request->date_naissance)) {
@@ -485,9 +493,8 @@ class UserController extends Controller
         }
     }
 
-    public function show($id)
+    public function show(User $user)
     {
-        $user  = User::findOrFail($id);
         $users = User::get();
 
         // Vérifie si l'utilisateur connecté a le rôle 'super-admin' ou 'admin'
@@ -568,10 +575,8 @@ class UserController extends Controller
         return redirect()->back();
     } */
 
-    public function destroy($userId)
+    public function destroy(User $user)
     {
-        $user = User::findOrFail($userId);
-
         // Vérifier si l'utilisateur connecté est un admin ou super-admin
         $userRoles = collect(Auth::user()->roles)->pluck('name');
         if (! $userRoles->contains(fn($role) => str_contains($role, 'super-admin') || str_contains($role, 'admin'))) {
@@ -887,14 +892,14 @@ class UserController extends Controller
         ));
     }
 
-    public function resetuserPassword(Request $request, $id)
+    public function resetuserPassword(Request $request, $uuid)
     {
 
         $request->validate([
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($uuid);
 
         $user->update([
             'password' => Hash::make($request->password),
@@ -1096,9 +1101,10 @@ class UserController extends Controller
 
     }
 
-    public function showDemandeur($id)
+    public function showDemandeur(User $user, $uuid)
     {
-        $user         = User::findOrFail($id);
+        $user = User::findOrFail($uuid);
+
         $departements = Departement::orderBy("created_at", "desc")->get();
 
 // Récupérer les fichiers associés à l'utilisateur

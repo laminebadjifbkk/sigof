@@ -456,7 +456,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::patch('/operateurs/{id}', [OperateurController::class, 'updated'])->name('operateurs.updated');
 
         Route::put('/agreerAllModuleOperateur/{id}', [OperateurController::class, 'agreerAllModuleOperateur'])->name('agreerAllModuleOperateur');
-        Route::put('/resetuserPassword/{id}', [UserController::class, 'resetuserPassword'])->name('resetuserPassword');
+        Route::put('/resetuserPassword/{uuid}', [UserController::class, 'resetuserPassword'])->name('resetuserPassword');
 
         Route::get('backup', [UserController::class, 'backup'])->name('backup');
 
@@ -480,11 +480,13 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/users/actifs', [UserController::class, 'actifs'])->name('users.actifs');
         Route::get('/users/inactifs', [UserController::class, 'inactifs'])->name('users.inactifs');
         Route::get('/users/corbeille', [UserController::class, 'corbeille'])->name('users.corbeille');
+        Route::get('/individuelles/corbeille', [IndividuelleController::class, 'corbeille'])->name('individuelles.corbeille');
+        Route::get('/modules/corbeille', [ModuleController::class, 'corbeille'])->name('modules.corbeille');
         Route::get('/users/restored', [UserController::class, 'restored'])->name('users.restored');
         Route::get('/users/online', [UserController::class, 'showOnlineUsers'])->name('users.online');
         Route::get('/users/demandeurs', [UserController::class, 'demandeursIndividuel'])->name('demandeurs.individuel');
         Route::get('/users/individuelle_collective', [UserController::class, 'individuelleCollective'])->name('users.individuelle_collective');
-        Route::get('/demandeurs/{id}', [UserController::class, 'showDemandeur'])->name('demandeurs.show');
+        Route::get('/demandeurs/{uuid}', [UserController::class, 'showDemandeur'])->name('demandeurs.show');
 
         Route::delete('/profile/image', [ProfileController::class, 'destroyImage'])->name('profile.image.destroy');
 

@@ -436,13 +436,13 @@
                             <div class="tab-content pt-0">
                                 {{-- Début Edition --}}
                                 <div class="tab-pane fade profile-edit pt-3" id="user-edit">
-                                    <form method="post" action="{{ route('users.update', $user->id) }}"
+                                    <form method="post" action="{{ route('users.update', $user) }}"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('patch')
 
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <h5 class="card-title">Modification user</h5>
+                                            <h5 class="card-title">Modification utilisateur</h5>
                                             {{--  <form action="{{ route('employes.update', $user?->id) }}"
                                                 method="post">
                                                 @csrf
