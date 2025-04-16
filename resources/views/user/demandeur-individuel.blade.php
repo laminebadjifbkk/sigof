@@ -68,13 +68,22 @@
                                                     {{ $user?->individuelles?->count() ?? 0 }}
                                                 </td>
                                                 <td>
-                                                    <span class="d-flex mt-2 align-items-baseline">
+                                                    {{-- <span class="d-flex mt-2 align-items-baseline">
                                                         <a href="{{ route('demandeurs.show', $user->id) }}"
                                                             class="btn btn-info btn-sm mx-1 text-white"
                                                             title="Voir détails">
                                                             <i class="bi bi-eye"></i>
                                                         </a>
-                                                    </span>
+                                                    </span> --}}
+                                                    <form action="{{ route('demandeurs.show', $user->uuid) }}"
+                                                        method="GET">
+                                                        @csrf
+                                                        <input type="hidden" name="idUser" value="{{ $user->id }}">
+                                                        <button type="submit" class="btn btn-info btn-sm mx-1 text-white"
+                                                            title="Voir détails">
+                                                            <i class="bi bi-eye"></i>
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endif
