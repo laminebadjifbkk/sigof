@@ -34,7 +34,7 @@
                                 </div>
                                 {{-- <h5 class="card-title text-center pb-0 fs-4">Modification</h5>
                             <p class="text-center small">Modification employé</p> --}}
-                                <form method="post" action="{{ route('employes.update', $employe->id) }}"
+                                <form method="post" action="{{ route('employes.update', $employe) }}"
                                     enctype="multipart/form-data" class="row g-3">
                                     @csrf
                                     @method('patch')
@@ -299,8 +299,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-primary btn-sm">Modifier</button>
+
+                                    <div class="text-center gap-2 p-3 bg-light border-top">
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="bi bi-check-circle"></i> Enregistrer les modifications
+                                        </button>
                                     </div>
                                 </form>
 

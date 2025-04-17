@@ -26,7 +26,7 @@
                             <h5 class="card-title text-center pb-0 fs-4">Modification
                                 {{ $projet?->type_projet . ' ' . $projet?->sigle }}</h5>
                             {{-- <p class="text-center small">Introduire les nouvelles données pour modifier</p> --}}
-                            <form method="post" action="{{ route('projets.update', $projet->id) }}"
+                            <form method="post" action="{{ route('projets.update', $projet) }}"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('patch')
@@ -152,8 +152,7 @@
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="type"
                                                 class="form-select  @error('type') is-invalid @enderror"
-                                                aria-label="Select" id="select-field-type"
-                                                data-placeholder="Choisir">
+                                                aria-label="Select" id="select-field-type" data-placeholder="Choisir">
                                                 <option value="{{ $projet?->type_localite ?? old('type') }}">
                                                     {{ $projet?->type_localite ?? old('type') }}</option>
                                                 <option value="Commune">Commune</option>
@@ -173,8 +172,7 @@
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="type_projet"
                                                 class="form-select  @error('type_projet') is-invalid @enderror"
-                                                aria-label="Select" id="select-field"
-                                                data-placeholder="Choisir">
+                                                aria-label="Select" id="select-field" data-placeholder="Choisir">
                                                 <option value="{{ $projet?->type_projet ?? old('type_projet') }}">
                                                     {{ $projet?->type_projet ?? old('type_projet') }}</option>
                                                 <option value="Projet">Projet</option>
@@ -283,9 +281,11 @@
                                         </div>
 
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary btn-sm">
-                                            Enregistrer les modifications</button>
+
+                                    <div class="text-center gap-2 p-3 bg-light border-top">
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="bi bi-check-circle"></i> Enregistrer les modifications
+                                        </button>
                                     </div>
                                 </div>
                             </form>

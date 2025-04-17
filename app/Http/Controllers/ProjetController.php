@@ -54,17 +54,6 @@ class ProjetController extends Controller
             "type_projet"    => ["required", "string"],
         ]);
 
-        /* if (! empty($request->input('debut'))) {
-            $debut = $request->input('debut');
-        } else {
-            $debut = null;
-        }
-        if (! empty($request->input('fin'))) {
-            $fin = $request->input('fin');
-        } else {
-            $fin = null;
-        } */
-
         $debut = $request->input('debut') ?: null;
         $fin   = $request->input('fin') ?: null;
 
@@ -91,10 +80,10 @@ class ProjetController extends Controller
         return redirect()->back();
     }
 
-    public function show($id)
+    public function show(Projet $projet)
     {
-        $projet          = Projet::findOrFail($id);
-        $projetlocalites = Projetlocalite::where('projets_id', $id)->get();
+        /* $projet          = Projet::findOrFail($id); */
+        $projetlocalites = Projetlocalite::where('projets_id', $projet->id)->get();
         return view(
             'projets.show',
             compact(
@@ -104,28 +93,28 @@ class ProjetController extends Controller
         );
     }
 
-    public function edit(Request $request, $id)
+    public function edit(Request $request, Projet $projet)
     {
-        $projet = Projet::findOrFail($id);
+        /* $projet = Projet::findOrFail($id); */
 
         return view('projets.update', compact('projet'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Projet $projet)
     {
-        $projet = Projet::find($id);
+        /* $projet = Projet::find($id); */
 
         $this->validate($request, [
             "name"            => ["required", "string", Rule::unique('projets')->where(function ($query) {
                 return $query->whereNull('deleted_at');
-            })->ignore($id)],
+            })->ignore($projet->id)],
             "sigle"           => ["required", "string", Rule::unique('projets')->where(function ($query) {
                 return $query->whereNull('deleted_at');
-            })->ignore($id)],
+            })->ignore($projet->id)],
             "date_signature"  => ["required", "date", "size:10", "date_format:Y-m-d"],
             "description"     => ["required", "string", Rule::unique('projets')->where(function ($query) {
                 return $query->whereNull('deleted_at');
-            })->ignore($id)],
+            })->ignore($projet->id)],
             "duree"           => ["nullable", "string"],
             "budjet"          => ["nullable", "string"],
             "effectif"        => ["nullable", "string"],
@@ -272,9 +261,9 @@ class ProjetController extends Controller
 
         return redirect()->back();
     }
-    public function destroy($id)
+    public function destroy(Projet $projet)
     {
-        $projet = Projet::findOrFail($id);
+        /* $projet = Projet::findOrFail($id); */
 
         // Supprimer l'ancien fichier s'il existe
         if ($projet->image && Storage::disk('public')->exists($projet->image)) {

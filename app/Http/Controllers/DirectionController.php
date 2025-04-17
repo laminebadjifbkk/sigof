@@ -55,52 +55,23 @@ class DirectionController extends Controller
         return redirect()->back();
     }
 
-    public function edit($id)
+    public function edit(Direction $direction)
     {
-        /*  $direction = Direction::find($id);
-        $employe = Employee::orderBy("created_at", "desc")->get();
-        if (isset($direction->chef_id)) {
-            $chef = Employee::findOrFail($direction->chef_id);
-            $chef_name = $chef->matricule . ' ' . $chef->user->firstname . ' ' . $chef->user->name;
-        } else {
-            $chef = null;
-            $chef_name = null;
-        } */
-
-/*         // Récupération de la Direction par son ID
-        $direction = Direction::findOrFail($id);
-
-// Récupérer tous les employés, triés par la date de création (descendant)
-        $employe = Employee::orderBy("created_at", "desc")->get();
-
-// Vérification si un chef est assigné à la direction
-        if (isset($direction->chef_id)) {
-            // Récupération des informations sur le chef
-            $chef = Employee::findOrFail($direction->chef_id);
-            // Construction du nom complet du chef en combinant matricule, prénom et nom
-            $chef_name = $chef->user->firstname . ' ' . $chef->user->name;
-        } else {
-            // Si aucun chef n'est assigné, initialiser ces variables à null
-            $chef      = null;
-            $chef_name = null;
-        } */
-
-        $direction = Direction::findOrFail($id);
+        /* $direction = Direction::findOrFail($id); */
         $employes  = Employee::orderBy("created_at", "desc")->get();
         $fonctions = Fonction::orderBy("created_at", "desc")->get();
 
         return view("directions.update", compact("direction", "employes", "fonctions"));
     }
-    public function update(Request $request, $id)
+    public function update(Request $request, Direction $direction)
     {
         $this->validate($request, [
-            'name'    => ['required', 'string', 'max:255', Rule::unique(Direction::class)->ignore($id)],
-            'sigle'   => ['required', 'string', 'max:10', Rule::unique(Direction::class)->ignore($id)],
+            'name'    => ['required', 'string', 'max:255', Rule::unique(Direction::class)->ignore($direction->id)],
+            'sigle'   => ['required', 'string', 'max:10', Rule::unique(Direction::class)->ignore($direction->id)],
             "type"    => ['required', 'string'],
             "employe" => ['required', 'string'],
         ]);
 
-        $direction = Direction::findOrFail($id);
         $employe   = Employee::findOrFail($request->input("employe"));
 
         $direction->update([
@@ -120,17 +91,17 @@ class DirectionController extends Controller
 
         return redirect()->back();
     }
-    public function show($id)
+    public function show(Direction $direction)
     {
-        $direction  = Direction::find($id);
+        /* $direction  = Direction::find($id); */
         $directions = Direction::orderBy("created_at", "desc")->get();
         $employes   = Employee::get();
 
         return view("directions.show", compact("direction", 'directions', 'employes'));
     }
-    public function destroy($id)
+    public function destroy(Direction $direction)
     {
-        $direction = Direction::find($id);
+        /* $direction = Direction::find($id); */
 
         $direction->delete();
 

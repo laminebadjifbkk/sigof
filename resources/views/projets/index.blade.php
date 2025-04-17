@@ -86,7 +86,7 @@
                                             @hasrole(['super-admin', 'admin'])
                                                 @can('projet-show')
                                                     <span class="d-flex align-items-baseline"><a
-                                                            href="{{ route('projets.show', $projet->id) }}"
+                                                            href="{{ route('projets.show', $projet) }}"
                                                             class="btn btn-primary btn-sm" title="voir détails"><i
                                                                 class="bi bi-eye"></i></a>
                                                         <div class="filter">
@@ -96,13 +96,13 @@
                                                                 @can('projet-update')
                                                                     <li>
                                                                         <a class="dropdown-item btn btn-sm"
-                                                                            href="{{ route('projets.edit', $projet->id) }}"
+                                                                            href="{{ route('projets.edit', $projet) }}"
                                                                             class="mx-1" title="Modifier">Modifier</a>
                                                                     </li>
                                                                 @endcan
                                                                 @can('projet-delete')
                                                                     <li>
-                                                                        <form action="{{ route('projets.destroy', $projet->id) }}"
+                                                                        <form action="{{ route('projets.destroy', $projet) }}"
                                                                             method="post">
                                                                             @csrf
                                                                             @method('DELETE')
@@ -144,7 +144,7 @@
                                                             class="bi bi-eye"></i></a> --}}
                                                     @can('projet-update')
                                                         <a class="btn btn-warning btn-sm"
-                                                            href="{{ route('projets.edit', $projet->id) }}" class="mx-1"
+                                                            href="{{ route('projets.edit', $projet) }}" class="mx-1"
                                                             title="Modifier"><i class="bi bi-pencil"></i></a>
                                                     @endcan
                                                     <div class="filter">
@@ -153,7 +153,7 @@
                                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                             @can('projet-delete')
                                                                 <li>
-                                                                    <form action="{{ route('projets.destroy', $projet->id) }}"
+                                                                    <form action="{{ route('projets.destroy', $projet) }}"
                                                                         method="post">
                                                                         @csrf
                                                                         @method('DELETE')
@@ -182,18 +182,12 @@
                     <div class="modal-content">
                         <form method="post" action="{{ route('addProjet') }}" enctype="multipart/form-data">
                             @csrf
-                            {{--  <div class="modal-header">
-                                <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i> Ajouter un nouveau
-                                    projet ou programme</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div> --}}
 
-                            <div class="card-header text-center bg-gradient-default">
-                                <h1 class="h4 text-black mb-0">AJOUTER PARTENAIRE</h1>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row g-3">
+                            <div class="card shadow-lg border-0">
+                                <div class="card-header bg-default text-center py-2 rounded-top">
+                                    <h4 class="mb-0">➕ Ajouter un nouveau partenaire</h4>
+                                </div>
+                                <div class="card-body row g-4 px-4">
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                         <label for="name" class="form-label">Partenaire<span
                                                 class="text-danger mx-1">*</span></label>
@@ -348,10 +342,13 @@
                                     </div>
 
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm"
-                                        data-bs-dismiss="modal">Fermer</button>
-                                    <button type="submit" class="btn btn-primary btn-sm">Enregistrer</button>
+                                <div class="card-footer d-flex justify-content-end gap-2 p-3 bg-light border-top">
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                                        <i class="bi bi-x-circle"></i> Fermer
+                                    </button>
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="bi bi-save"></i> Enregistrer
+                                    </button>
                                 </div>
                             </div>
                         </form>

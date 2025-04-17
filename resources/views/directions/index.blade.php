@@ -70,7 +70,7 @@
                                         <td>
                                             @can('direction-show')
                                                 <span class="d-flex mt-2 align-items-baseline">
-                                                    <a href="{{ url('directions/' . $direction->id) }}"
+                                                    <a href="{{ route('directions.show', $direction) }}"
                                                         class="btn btn-warning btn-sm mx-1" title="Donner permission"><i
                                                             class="bi bi-eye"></i>
                                                     </a>
@@ -80,13 +80,13 @@
                                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                             @can('direction-update')
                                                                 <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                        href="{{ route('directions.edit', $direction->id) }}"
+                                                                        href="{{ route('directions.edit', $direction) }}"
                                                                         class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
                                                                 </li>
                                                             @endcan
                                                             @can('direction-delete')
                                                                 <li>
-                                                                    <form action="{{ url('directions', $direction->id) }}"
+                                                                    <form action="{{ route('directions.destroy', $direction) }}"
                                                                         method="post">
                                                                         @csrf
                                                                         @method('DELETE')

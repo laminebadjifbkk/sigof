@@ -26,7 +26,7 @@
                         </div>
                         <h5 class="card-title">Modification direction</h5>
                         <!-- direction -->
-                        <form method="post" action="{{ route('directions.update', $direction->id) }}"
+                        <form method="post" action="{{ route('directions.update', $direction) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
                             @method('patch')

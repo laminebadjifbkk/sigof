@@ -43,7 +43,7 @@
                                     <ul class="nav nav-tabs nav-tabs-bordered">
 
                                         <li class="nav-item">
-                                            <span class="nav-link"><a href="{{ route('directions.index', $direction->id) }}"
+                                            <span class="nav-link"><a href="{{ route('directions.index') }}"
                                                     class="btn btn-secondary btn-sm" title="retour"><i
                                                         class="bi bi-arrow-counterclockwise"></i></a>
                                             </span>
@@ -148,7 +148,7 @@
                                                                         <td class="text-center">
                                                                             @can('show', $employe->user)
                                                                                 <span class="d-flex mt-2 align-items-baseline"><a
-                                                                                        href="{{ url('employes/' . $employe?->id) }}"
+                                                                                        href="{{ route('employes.show', $employe) }}"
                                                                                         class="btn btn-warning btn-sm mx-1"
                                                                                         title="Donner permission"><i
                                                                                             class="bi bi-eye"></i></a>
@@ -170,7 +170,7 @@
                                                                                                         class="show_confirm_valider btn btn-sm mx-1">&nbsp;&nbsp;Retirer</button>
                                                                                                 </form>
                                                                                                 <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                                                        href="{{ url('employes/' . $employe?->id . '/edit') }}"
+                                                                                                        href="{{ route('employes.edit', $employe) }}"
                                                                                                         class="mx-1">
                                                                                                         Modifier</a>
                                                                                                 </li>
@@ -178,7 +178,7 @@
                                                                                             @can('delete', $employe->user)
                                                                                                 <li>
                                                                                                     <form
-                                                                                                        action="{{ url('employes', $employe?->id) }}"
+                                                                                                        action="{{ route('employes.destroy', $employe) }}"
                                                                                                         method="post">
                                                                                                         @csrf
                                                                                                         @method('DELETE')

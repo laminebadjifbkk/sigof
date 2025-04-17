@@ -73,7 +73,7 @@ class AppServiceProvider extends ServiceProvider
         // Composer pour la sidebar
         View::composer('layout.page-sidebar', function ($view) {
             $antennes   = Antenne::select('id', 'code', 'name')->orderBy('name')->get();
-            $directions = Direction::select('id', 'name', 'sigle')->orderBy('sigle')->get();
+            $directions = Direction::select('*')->orderBy('sigle')->get();
 
             $view->with([
                 'antennes'   => $antennes,

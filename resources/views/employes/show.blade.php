@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'Détails employé')
+@section('title', 'Détails employé ' . $employe->user?->firstname . ' ' . $employe->user?->name)
 @section('space-work')
     @can('employe-show')
         <section class="section profile">
@@ -12,7 +12,7 @@
             @endif --}}
                 <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('employes.index') }}"
                         class="btn btn-success btn-sm" title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                    <p> | retour, liste des employés</p>
+                    <p> | Retour</p>
                 </span>
                 {{-- <div class="col-xl-4">
                 <div class="card border-info mb-3">
@@ -115,12 +115,18 @@
                                             @endif --}}
                                             </div>
                                         @endif
-                                        <small>
+                                        {{-- <small>
                                             <a href="{!! url('file-decision', ['$id' => $employe->id]) !!}" class='btn btn-primary btn-sm'
                                                 title="télécharger la décision" target="_blank">
                                                 <i class="fa fa-print" aria-hidden="true"></i>&nbsp;Télécharger décision
                                             </a>
-                                        </small>
+                                        </small> --}}
+                                        <a href="{!! url('file-decision', ['$id' => $employe->id]) !!}"
+                                            class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm d-inline-flex align-items-center gap-2"
+                                            title="Télécharger la décision" target="_blank">
+                                            <i class="fa fa-print" aria-hidden="true"></i>
+                                            Télécharger la décision
+                                        </a>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-2 col-md-4 label">Matricule</div>
@@ -271,7 +277,7 @@
                                     {{-- Fin aperçu --}}
                                     {{-- Début Edition --}}
                                     <div class="tab-pane fade profile-edit pt-3" id="employe-edit">
-                                        <form method="post" action="{{ route('employes.update', $employe->id) }}"
+                                        <form method="post" action="{{ route('employes.update', $employe) }}"
                                             enctype="multipart/form-data" class="row g-3">
                                             @csrf
                                             @method('patch')
@@ -373,10 +379,10 @@
                                                 <label for="date_naissance" class="col-md-4 col-lg-3 col-form-label">Date
                                                     naissance<span class="text-danger mx-1">*</span></label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <input type="date" name="date_naissance"
-                                                        value="{{ $employe->user?->date_naissance?->format('Y-m-d') ?? old('date_naissance') }}"
+                                                    <input type="text" name="date_naissance"
+                                                        value="{{ old('date_naissance', optional($employe->user->date_naissance)->format('d/m/Y')) }}"
                                                         class="form-control form-control-sm @error('date_naissance') is-invalid @enderror"
-                                                        id="date_naissance" placeholder="Date naissance">
+                                                        id="datepicker" placeholder="JJ/MM/AAAA" autocomplete="bday">
                                                     @error('date_naissance')
                                                         <span class="invalid-feedback" role="alert">
                                                             <div>{{ $message }}</div>
@@ -443,11 +449,11 @@
                                                 <label for="telephone" class="col-md-4 col-lg-3 col-form-label">Téléphone<span
                                                         class="text-danger mx-1">*</span></label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <input name="telephone" type="telephone"
+                                                    <input name="telephone" type="text" maxlength="12"
                                                         class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                                         id="telephone"
-                                                        value="{{ $employe->user?->telephone ?? old('telephone') }}"
-                                                        autocomplete="telephone" placeholder="Votre n° de téléphone">
+                                                        value="{{ old('telephone', $employe->user->telephone ?? '') }}"
+                                                        autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                                     @error('telephone')
                                                         <span class="invalid-feedback" role="alert">
                                                             <div>{{ $message }}</div>
@@ -529,10 +535,10 @@
                                                 <label for="date_embauche" class="col-md-4 col-lg-3 col-form-label">Date
                                                     embauche<span class="text-danger mx-1">*</span></label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <input type="date" name="date_embauche"
-                                                        value="{{ $employe->date_embauche?->format('Y-m-d') ?? old('date_embauche') }}"
+                                                    <input type="text" name="date_embauche"
+                                                        value="{{ old('date_embauche', optional($employe->date_embauche)->format('d/m/Y')) }}"
                                                         class="form-control form-control-sm @error('date_embauche') is-invalid @enderror"
-                                                        id="date_embauche" placeholder="Date naissance">
+                                                        id="datepicker1" placeholder="JJ/MM/AAAA" autocomplete="bday">
                                                     @error('date_embauche')
                                                         <span class="invalid-feedback" role="alert">
                                                             <div>{{ $message }}</div>
@@ -548,13 +554,13 @@
                                                 <div class="col-md-8 col-lg-9">
                                                     <select name="categorie"
                                                         class="form-select @error('categorie') is-invalid @enderror"
-                                                        aria-label="Select" id="select-field-categorie"
+                                                        aria-label="Select" id="select-field-category"
                                                         data-placeholder="Choisir categorie">
-                                                        <option value="{{ $employe->category?->id }}">
+                                                        <option value="{{ $employe->category?->name }}">
                                                             {{ $employe->category?->name }}
                                                         </option>
                                                         @foreach ($categories as $categorie)
-                                                            <option value="{{ $categorie->id }}">
+                                                            <option value="{{ $categorie->name }}">
                                                                 {{ $categorie->name ?? old('categorie') }}</option>
                                                         @endforeach
                                                     </select>
@@ -580,12 +586,12 @@
                                                         class="form-select @error('direction') is-invalid @enderror"
                                                         aria-label="Select" id="select-field"
                                                         data-placeholder="Choisir direction">
-                                                        <option value="{{ $employe->direction?->id }}">
+                                                        <option value="{{ $employe->direction?->name }}">
                                                             {{ $employe->direction?->name }}
                                                         </option>
                                                         @foreach ($directions as $direction)
-                                                            <option value="{{ $direction->id }}">
-                                                                {{ $direction->name ?? old('direction') }}</option>
+                                                            <option value="{{ $direction->name }}">
+                                                                {{ old('direction', $direction->name) }}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('direction')
@@ -605,12 +611,12 @@
                                                         class="form-select @error('fonction') is-invalid @enderror"
                                                         aria-label="Select" id="select-field-fonction"
                                                         data-placeholder="Choisir fonction">
-                                                        <option value="{{ $employe->fonction?->id }}">
+                                                        <option value="{{ $employe->fonction?->name }}">
                                                             {{ $employe->fonction?->name }}
                                                         </option>
                                                         @foreach ($fonctions as $fonction)
-                                                            <option value="{{ $fonction->id }}">
-                                                                {{ $fonction->name ?? old('fonction') }}</option>
+                                                            <option value="{{ $fonction->name }}">
+                                                                {{ old('fonction', $fonction->name) }}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('fonction')
@@ -731,9 +737,10 @@
                                                 </div>
                                             </div>
 
-                                            <div class="text-center">
-                                                <button type="submit" class="btn btn-primary">Sauvegarder les
-                                                    modifications</button>
+                                            <div class="text-center gap-2 p-3 bg-light border-top">
+                                                <button type="submit" class="btn btn-success btn-sm">
+                                                    <i class="bi bi-check-circle"></i> Enregistrer les modifications
+                                                </button>
                                             </div>
 
                                             <!-- End Profile Edit Form -->

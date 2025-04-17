@@ -57,10 +57,12 @@ class Direction extends Model
     ];
 
     // Ajoute cette méthode pour forcer l'utilisation de l'uuid dans les routes
-    /* public function getRouteKeyName()
+
+    public function getRouteKeyName()
     {
         return 'uuid';
-    } */
+    }
+
     protected static function boot()
     {
         parent::boot();
@@ -71,6 +73,7 @@ class Direction extends Model
             }
         });
     }
+
     public function types_direction()
     {
         return $this->belongsTo(TypesDirection::class, 'types_directions_id');

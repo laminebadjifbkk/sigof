@@ -669,7 +669,7 @@
                         @if (!empty($direction->sigle) && is_string($direction->sigle))
                             @hasrole([$direction->sigle, 'super-admin'])
                                 <li class="nav-item">
-                                    <a class="nav-link collapsed" href="{{ route('directions.show', $direction->id) }}">
+                                    <a class="nav-link collapsed" href="{{ route('directions.show', $direction) }}">
                                         <span>{{ $direction->sigle }}</span>
                                     </a>
                                 </li>

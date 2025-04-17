@@ -152,18 +152,18 @@ class EmployeController extends Controller
         return redirect()->back();
     }
 
-    public function edit($id)
+    public function edit(Employee $employe)
     {
-        $employe    = Employee::find($id);
+        /* $employe    = Employee::find($id); */
         $directions = Direction::orderBy('created_at', 'desc')->get();
         $categories = Category::orderBy('created_at', 'desc')->get();
         $fonctions  = Fonction::orderBy('created_at', 'desc')->get();
         return view("employes.update", compact('employe', 'directions', 'categories', 'fonctions'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Employee $employe)
     {
-        $employe = Employee::findOrFail($id);
+        /* $employe = Employee::findOrFail($id); */
         $user    = $employe->user;
         $this->validate($request, [
             'civilite'            => ['required', 'string', 'max:10'],
@@ -271,9 +271,9 @@ class EmployeController extends Controller
         return redirect()->back();
     }
 
-    public function show($id)
+    public function show(Employee $employe)
     {
-        $employe    = Employee::findOrFail($id);
+        /* $employe    = Employee::findOrFail($id); */
         $directions = Direction::orderBy('created_at', 'desc')->get();
         $categories = Category::orderBy('created_at', 'desc')->get();
         $fonctions  = Fonction::orderBy('created_at', 'desc')->get();
@@ -321,9 +321,9 @@ class EmployeController extends Controller
         return view("employes.show", compact("user", "employe", "directions", "categories", "fonctions"));
     }
 
-    public function destroy($id)
+    public function destroy(Employee $employe)
     {
-        $employe = Employee::findOrFail($id);
+        /* $employe = Employee::findOrFail($id); */
         $employe->delete();
         Alert::success('L\'employé ' . $employe->user->firstname . ' ' . $employe->user->name, 'supprimé avec succès');
         /* $mesage = $employe->user->firstname . ' ' . $employe->user->name . ' a été supprimé(e)';

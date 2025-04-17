@@ -286,8 +286,11 @@
                                         <div class="col-xl-4">
                                         </div>
                                     </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-primary btn-sm">Ajouter</button>
+                                    
+                                    <div class="text-center gap-2 p-3 bg-light border-top">
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="bi bi-save"></i> Enregistrer
+                                        </button>
                                     </div>
                                 </form>
 

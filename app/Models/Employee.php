@@ -99,11 +99,11 @@ class Employee extends Model
         'autres_diplomes',
     ];
 
-    /* public function getRouteKeyName()
+    public function getRouteKeyName()
     {
         return 'uuid';
-    } */
-   
+    }
+
     protected static function boot()
     {
         parent::boot();
