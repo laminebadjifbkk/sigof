@@ -48,7 +48,7 @@
                             {{-- @endcan --}}
                             <h5 class="card-title">Evaluateurs ONFP</h5>
                             <!-- Table with stripped rows -->
-                            @if ($onfpevaluateur->formations->isNotEmpty())
+                            @if ($onfpevaluateurs->isNotEmpty())
                                 <table class="table datatables align-middle justify-content-center" id="table-onfpevaluateurs">
                                     <thead>
                                         <tr>
@@ -126,6 +126,7 @@
                                     </tbody>
                                 </table>
                             @else
+                                <div class="alert alert-info">Aucun évaluateur enregistré pour le momement !</div>
                             @endif
                         </div>
                     </div>

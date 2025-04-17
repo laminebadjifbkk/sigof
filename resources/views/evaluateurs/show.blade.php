@@ -44,49 +44,53 @@
                             <p> | retour</p>
                         </span>
                         <h5 class="card-title">Liste des formations de {{ $evaluateur->name }}</h5>
-                        <table class="table datatables" id="table-formations">
-                            <thead>
-                                <tr>
-                                    <th width="5%" class="text-center">Code</th>
-                                    <th>Type</th>
-                                    <th>Intitulé formation</th>
-                                    <th>Localité</th>
-                                    <th>Modules</th>
-                                    <th class="text-center">Statut</th>
-                                    <th width="2%">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($evaluateur->formations as $formation)
+                        @if ($evaluateur->formations->isNotEmpty())
+                            <table class="table datatables" id="table-formations">
+                                <thead>
                                     <tr>
-                                        <td>{{ $formation?->code }}</td>
-                                        <td><a href="#">{{ $formation->types_formation?->name }}</a></td>
-                                        <td>{{ $formation?->name }}</td>
-                                        <td>{{ $formation->departement?->region?->nom }}</td>
-                                        <td>
-                                            @isset($formation?->module?->name)
-                                                {{ $formation?->module?->name }}
-                                            @endisset
-                                            @isset($formation?->collectivemodule?->module)
-                                                {{ $formation?->collectivemodule?->module }}
-                                            @endisset
-                                        </td>
-                                        <td class="text-center"><a href="#"><span
-                                                    class="{{ $formation?->statut }}">{{ $formation?->statut }}</span></a>
-                                        </td>
-                                        <td>
-                                            <span class="d-flex align-items-baseline"><a
-                                                    href="{{ route('evaluateurs.show', $evaluateur->id) }}"
-                                                    class="btn btn-primary btn-sm" title="voir détails"><i
-                                                        class="bi bi-eye"></i></a>
-                                            </span>
-                                        </td>
+                                        <th width="5%" class="text-center">Code</th>
+                                        <th>Type</th>
+                                        <th>Intitulé formation</th>
+                                        <th>Localité</th>
+                                        <th>Modules</th>
+                                        <th class="text-center">Statut</th>
+                                        <th width="2%">#</th>
                                     </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($evaluateur->formations as $formation)
+                                        <tr>
+                                            <td>{{ $formation?->code }}</td>
+                                            <td><a href="#">{{ $formation->types_formation?->name }}</a></td>
+                                            <td>{{ $formation?->name }}</td>
+                                            <td>{{ $formation->departement?->region?->nom }}</td>
+                                            <td>
+                                                @isset($formation?->module?->name)
+                                                    {{ $formation?->module?->name }}
+                                                @endisset
+                                                @isset($formation?->collectivemodule?->module)
+                                                    {{ $formation?->collectivemodule?->module }}
+                                                @endisset
+                                            </td>
+                                            <td class="text-center"><a href="#"><span
+                                                        class="{{ $formation?->statut }}">{{ $formation?->statut }}</span></a>
+                                            </td>
+                                            <td>
+                                                <span class="d-flex align-items-baseline"><a
+                                                        href="{{ route('evaluateurs.show', $evaluateur->id) }}"
+                                                        class="btn btn-primary btn-sm" title="voir détails"><i
+                                                            class="bi bi-eye"></i></a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        @else
+                            <div class="alert alert-info">Aucune information pour le momement !</div>
+                        @endif
                     </div>
                 </div>
 

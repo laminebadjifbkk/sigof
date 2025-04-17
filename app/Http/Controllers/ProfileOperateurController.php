@@ -70,10 +70,10 @@ class ProfileOperateurController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         } */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
 
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($request->idUser);
 
         $this->validate($request, [
             'cin'                  => [
@@ -81,21 +81,21 @@ class ProfileOperateurController extends Controller
                 'string',
                 'min:16',
                 'max:17',
-                Rule::unique(User::class)->ignore($id ?? null)->whereNull('deleted_at'),
+                Rule::unique(User::class)->ignore($request->idUser ?? null)->whereNull('deleted_at'),
             ],
             'username'             => [
                 'required',
                 'string',
                 'min:3',
                 'max:25',
-                Rule::unique('users')->ignore($id ?? null)->whereNull('deleted_at'),
+                Rule::unique('users')->ignore($request->idUser ?? null)->whereNull('deleted_at'),
             ],
             'operateur'            => [
                 'required',
                 'string',
                 'min:3',
                 'max:25',
-                Rule::unique('users')->ignore($id ?? null)->whereNull('deleted_at'),
+                Rule::unique('users')->ignore($request->idUser ?? null)->whereNull('deleted_at'),
             ],
             'image'                => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
             'civilite'             => ['required', 'string', 'max:8'],
@@ -107,21 +107,21 @@ class ProfileOperateurController extends Controller
                 'required',
                 'string',
                 'max:20',
-                Rule::unique(User::class)->ignore($id ?? null)->whereNull('deleted_at'),
+                Rule::unique(User::class)->ignore($request->idUser ?? null)->whereNull('deleted_at'),
             ],
             'email'                => [
                 'nullable',
                 'string',
                 'email',
                 'max:255',
-                Rule::unique(User::class)->ignore($id ?? null)->whereNull('deleted_at'),
+                Rule::unique(User::class)->ignore($request->idUser ?? null)->whereNull('deleted_at'),
             ],
             'email_responsable'    => [
                 'nullable',
                 'string',
                 'email',
                 'max:255',
-                Rule::unique(User::class)->ignore($id ?? null)->whereNull('deleted_at'),
+                Rule::unique(User::class)->ignore($request->idUser ?? null)->whereNull('deleted_at'),
             ],
             'telephone'            => ['required', 'string', 'size:12'],
             'telephone_parent'     => ['required', 'string', 'size:12'],

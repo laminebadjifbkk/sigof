@@ -445,7 +445,7 @@
                 aria-labelledby="EditOperateurModalLabel{{ $operateur->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
-                        <form method="post" action="{{ route('operateurs.updated', $operateur->id) }}"
+                        <form method="post" action="{{ route('operateurs.updated', $operateur->uuid) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
                             @method('patch')

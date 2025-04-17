@@ -3,7 +3,7 @@
 @section('space-work')
     @can('operateur-update')
         <section class="section min-vh-0 d-flex flex-column align-items-center justify-content-center py-0">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row justify-content-center">
                     @if ($message = Session::get('status'))
                         <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
@@ -28,7 +28,7 @@
                                         <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('operateurs.index') }}"
                                                 class="btn btn-success btn-sm" title="retour"><i
                                                     class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                            <p> | Dossier personnel</p>
+                                            <p> | Retour</p>
                                         </span>
                                     </div>
                                 </div>

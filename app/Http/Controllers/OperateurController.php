@@ -530,9 +530,9 @@ class OperateurController extends Controller
 
     }
 
-    public function updated(Request $request, $id)
+    public function updated(Request $request, $uuid)
     {
-        $operateur   = Operateur::findOrFail($id);
+        $operateur   = Operateur::findOrFail($request->id);
         $user        = $operateur->user;
         $departement = Departement::where('nom', $request->input("departement"))->firstOrFail();
         $this->validate($request, [
@@ -545,7 +545,7 @@ class OperateurController extends Controller
                 'string',
                 'email',
                 'max:255',
-                Rule::unique(User::class)->ignore($id ?? null)->whereNull('deleted_at'),
+                Rule::unique(User::class)->ignore($request->id ?? null)->whereNull('deleted_at'),
             ],
         ]);
 

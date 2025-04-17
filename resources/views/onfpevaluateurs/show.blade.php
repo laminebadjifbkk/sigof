@@ -88,7 +88,7 @@
                                 </tbody>
                             </table>
                         @else
-                        <div class="alert alert-info">Aucune information pour le momement !</div>
+                            <div class="alert alert-info">Aucune information pour le momement !</div>
                         @endif
                     </div>
                 </div>
