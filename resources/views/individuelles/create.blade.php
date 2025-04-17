@@ -13,8 +13,8 @@
                 @endif
                 @if ($errors->any())
                     @foreach ($errors->all() as $error)
-                    <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
-                    role="alert">{{ $error }}</div>
+                        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
+                            role="alert">{{ $error }}</div>
                     @endforeach
                 @endif
                 <div class="col-lg-12 col-md-12 d-flex flex-column align-items-center justify-content-center">
@@ -621,8 +621,10 @@
                                     @enderror
                                 </div>
 
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                <div class="text-center gap-2 p-3 bg-light border-top">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="bi bi-save"></i> Enregistrer
+                                    </button>
                                 </div>
                             </form>
 

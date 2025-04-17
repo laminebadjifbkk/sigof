@@ -38,9 +38,15 @@
                                 <p> | retour</p>
                             </span>
                             @if (!empty(Auth::user()->cin))
-                                <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
+                                {{-- <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#AddIndividuelleModal{{ Auth::user()?->id }}">Ajouter
+                                </button> --}}
+                                <button type="button"
+                                    class="btn btn-primary btn-sm float-end rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
                                     data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal{{ Auth::user()?->id }}">
-                                    {{-- <i class="bi bi-plus" title="Ajouter"></i> --}} Ajouter
+                                    <i class="bi bi-plus-circle-fill"></i>
+                                    Formuler une demande
                                 </button>
                             @endif
                         </div>
@@ -71,7 +77,8 @@
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="civilite" class="form-label">Civilité<span
                                             class="text-danger mx-1">*</span></label>
-                                    <select name="civilite" class="form-select form-select-sm @error('civilite') is-invalid @enderror"
+                                    <select name="civilite"
+                                        class="form-select form-select-sm @error('civilite') is-invalid @enderror"
                                         aria-label="Select" id="select-field-civilite" data-placeholder="Choisir civilité">
                                         <option value="{{ Auth::user()?->civilite ?? old('civilite') }}">
                                             {{ Auth::user()?->civilite ?? old('civilite') }}
@@ -134,7 +141,8 @@
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="name" class="form-label">Nom<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="name" value="{{ Auth::user()?->name ?? old('name') }}"
+                                    <input type="text" name="name"
+                                        value="{{ Auth::user()?->name ?? old('name') }}"
                                         class="form-control form-control-sm @error('name') is-invalid @enderror"
                                         id="name" placeholder="nom">
                                     @error('name')
@@ -355,11 +363,12 @@
                     <div class="modal-content">
                         <form method="post" action="{{ route('individuelles.store') }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="card-header text-center bg-gradient-default">
-                                <h1 class="h4 text-black mb-0">Ajouter une nouvelle demande individuelle</h1>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row g-3">
+                            <div class="card shadow-lg border-0">
+                                <div class="card-header bg-default text-center py-2 rounded-top">
+                                    <h4 class="mb-0">➕ Formuler une demande de formation individuelle</h4>
+                                </div>
+
+                                <div class="modal-body row g-4 px-4">
                                     <input type="hidden" name="iduser" value="{{ Auth::user()?->id }}">
                                     <div class="col-12 col-md-12 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
                                         <label for="module" class="form-label">Formation sollicitée (module)<span
@@ -708,16 +717,20 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm"
-                                        data-bs-dismiss="modal">Fermer</button>
-                                    <button type="submit" class="btn btn-primary btn-sm">Enregistrer</button>
+                                <div class="card-footer d-flex justify-content-end gap-2 p-3 bg-light border-top">
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                                        <i class="bi bi-x-circle"></i> Fermer
+                                    </button>
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="bi bi-save"></i> Enregistrer
+                                    </button>
                                 </div>
                             </div>
-                        </form>
                     </div>
+                    </form>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 @endsection

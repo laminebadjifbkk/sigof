@@ -512,13 +512,16 @@
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="civilite" class="form-label">Civilité<span
                                                     class="text-danger mx-1">*</span></label>
-                                                    <select name="civilite"
-                                                    class="form-select form-select-sm @error('civilite') is-invalid @enderror"
-                                                    aria-label="Select" id="civilite" data-placeholder="Choisir civilité">
-                                                <option value="" disabled {{ old('civilite') ? '' : 'selected' }}>Choisir civilité</option>
-                                                <option value="M." {{ old('civilite') == 'M.' ? 'selected' : '' }}>M.</option>
-                                                <option value="Mme" {{ old('civilite') == 'Mme' ? 'selected' : '' }}>Mme</option>
-                                            </select>                                            
+                                            <select name="civilite"
+                                                class="form-select form-select-sm @error('civilite') is-invalid @enderror"
+                                                aria-label="Select" id="civilite" data-placeholder="Choisir civilité">
+                                                <option value="" disabled {{ old('civilite') ? '' : 'selected' }}>
+                                                    Choisir civilité</option>
+                                                <option value="M." {{ old('civilite') == 'M.' ? 'selected' : '' }}>M.
+                                                </option>
+                                                <option value="Mme" {{ old('civilite') == 'Mme' ? 'selected' : '' }}>Mme
+                                                </option>
+                                            </select>
                                             @error('civilite')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
@@ -591,10 +594,10 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="modal-footer mt-5">
-                                        <button type="button" class="btn btn-secondary btn-sm"
-                                            data-bs-dismiss="modal">Fermer</button>
-                                        <button type="submit" class="btn btn-primary btn-sm">Ajouter</button>
+                                    <div class="text-center gap-2 p-3 bg-light border-top">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="bi bi-save"></i> Enregistrer
+                                        </button>
                                     </div>
                                 </form>
                             </div>

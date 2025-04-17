@@ -27,7 +27,7 @@
                                         <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('operateurs.index') }}"
                                                 class="btn btn-success btn-sm" title="retour"><i
                                                     class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                            <p> | Dossier personnel</p>
+                                            <p> | Retour</p>
                                         </span>
                                     </div>
                                 </div>
@@ -952,9 +952,11 @@
                                                 </span>
                                             @enderror --}}
                                     </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-primary btn-sm">Enregister
-                                            modifications</button>
+
+                                    <div class="text-center gap-2 p-3 bg-light border-top">
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="bi bi-check-circle"></i> Enregistrer les modifications
+                                        </button>
                                     </div>
                                 </form>
                             </div>
