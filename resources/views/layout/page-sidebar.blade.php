@@ -411,23 +411,6 @@
                             </a>
                         </li>
                     @endcan
-
-                    @can('evaluateur-view')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ url('evaluateurs') }}">
-                                <span>Evaluateurs</span>
-                            </a>
-                        </li>
-                    @endcan
-
-                    @can('evaluateur-view')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ url('onfpevaluateurs') }}">
-                                <span>Evaluateurs ONFP</span>
-                            </a>
-                        </li>
-                    @endcan
-
                     @can('formation-view')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('showConventions') }}">
@@ -436,6 +419,25 @@
                         </li>
                     @endcan
                 </ul>
+            </li>
+        @endcan
+
+
+        @can('evaluateur-view')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ url('evaluateurs') }}">
+                    <i class="bi bi-person"></i>
+                    <span>Evaluateurs externes</span>
+                </a>
+            </li>
+        @endcan
+
+        @can('onfpevaluateur-view')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ url('onfpevaluateurs') }}">
+                    <i class="bi bi-person"></i>
+                    <span>Evaluateurs ONFP</span>
+                </a>
             </li>
         @endcan
 
@@ -594,12 +596,12 @@
                         </li>
                     @endcan
                     @hasrole('super-admin')
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="{{ route('modules.corbeille') }}">
-                            <span>Corbeille</span>
-                        </a>
-                    </li>
-                @endhasrole
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('modules.corbeille') }}">
+                                <span>Corbeille</span>
+                            </a>
+                        </li>
+                    @endhasrole
                 </ul>
             </li>
         @endcan

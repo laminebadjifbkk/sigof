@@ -38,9 +38,6 @@
                     <div class="card-body">
                         {{-- @can('role-create') --}}
                         <div class="pt-0">
-                            {{-- <a href="{{ route('evaluateurs.create') }}" class="btn btn-primary float-end btn-rounded"><i
-                                    class="fas fa-plus"></i>
-                                <i class="bi bi-person-plus" title="Ajouter"></i> </a> --}}
                             @can('evaluateur-create')
                                 <button type="button" class="btn btn-sm btn-primary float-end btn-rounded"
                                     data-bs-toggle="modal" data-bs-target="#AddevaluateurModal">Ajouter
@@ -53,11 +50,8 @@
                         <table class="table datatables align-middle justify-content-center" id="table-evaluateurs">
                             <thead>
                                 <tr>
-                                    {{-- <th class="text-center" scope="col">N°</th>
-                                    <th>Matricule</th> --}}
                                     <th>Name</th>
-                                    <th>Fonction</th>
-                                    {{-- <th>Spécialité</th> --}}
+                                    <th>Fonction/Spécialité</th>
                                     <th>Email</th>
                                     <th>Téléphone</th>
                                     <th>Adresse</th>
@@ -69,11 +63,8 @@
                                 <?php $i = 1; ?>
                                 @foreach ($evaluateurs as $evaluateur)
                                     <tr>
-                                        {{-- <td style="text-align: center;">{{ $i++ }}</td>
-                                        <td>{{ $evaluateur->matricule }}</td> --}}
                                         <td>{{ $evaluateur->name }}</td>
-                                        <td>{{ $evaluateur->fonction }}</td>
-                                        {{-- <td>{{ $evaluateur->specialite }}</td> --}}
+                                        <td>{{ $evaluateur->fonction }}</td>                                        
                                         <td><a href="mailto:{{ $evaluateur->email }}">{{ $evaluateur->email }}</a></td>
                                         <td><a href="tel:+221{{ $evaluateur->telephone }}">{{ $evaluateur->telephone }}</a>
                                         </td>
@@ -224,9 +215,9 @@
                                             'placeholder' => 'Nom complet',
                                         ],
                                         'fonction' => [
-                                            'label' => 'Fonction',
+                                            'label' => 'Fonction/Spécialité',
                                             'type' => 'text',
-                                            'placeholder' => 'Fonction',
+                                            'placeholder' => 'Fonction/Spécialité',
                                         ],
                                         'email' => [
                                             'label' => 'Adresse email',
@@ -382,9 +373,9 @@
                                                 'placeholder' => 'Nom complet',
                                             ],
                                             'fonction' => [
-                                                'label' => 'Fonction',
+                                                'label' => 'Fonction/Spécialité',
                                                 'type' => 'text',
-                                                'placeholder' => 'Fonction',
+                                                'placeholder' => 'Fonction/Spécialité',
                                             ],
                                             'email' => [
                                                 'label' => 'Adresse email',

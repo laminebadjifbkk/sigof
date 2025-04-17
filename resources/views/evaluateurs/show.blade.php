@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Formations '.$evaluateur->name)
+@section('title', 'ONFP - Formations ' . $evaluateur->name)
 @section('space-work')
 
     <div class="pagetitle">
@@ -47,15 +47,13 @@
                         <table class="table datatables" id="table-formations">
                             <thead>
                                 <tr>
-                                    <th>Code</th>
+                                    <th width="5%" class="text-center">Code</th>
                                     <th>Type</th>
                                     <th>Intitulé formation</th>
                                     <th>Localité</th>
                                     <th>Modules</th>
-                                    {{-- <th>Niveau qualification</th> --}}
-                                    {{-- <th>Effectif</th> --}}
                                     <th class="text-center">Statut</th>
-                                    <th>#</th>
+                                    <th width="2%">#</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,30 +80,6 @@
                                                     href="{{ route('evaluateurs.show', $evaluateur->id) }}"
                                                     class="btn btn-primary btn-sm" title="voir détails"><i
                                                         class="bi bi-eye"></i></a>
-                                                <div class="filter">
-                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                        <li>
-                                                            <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#EditevaluateurModal{{ $evaluateur->id }}">
-                                                                <i class="bi bi-pencil" title="Modifier"></i> Modifier
-                                                            </button>
-                                                        </li>
-                                                        <li>
-                                                            <form
-                                                                action="{{ route('evaluateurs.destroy', $evaluateur->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="dropdown-item show_confirm"
-                                                                    title="Supprimer"><i
-                                                                        class="bi bi-trash"></i>Supprimer</button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
                                             </span>
                                         </td>
                                     </tr>
@@ -118,9 +92,9 @@
 
             </div>
         </div>
-        
 
-    
+
+
     </section>
 
 @endsection
@@ -129,7 +103,7 @@
         new DataTable('#table-formations', {
             layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

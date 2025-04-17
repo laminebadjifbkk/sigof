@@ -39,9 +39,6 @@
                         <div class="card-body">
                             {{-- @can('role-create') --}}
                             <div class="pt-1">
-                                {{-- <a href="{{ route('onfpevaluateurs.create') }}" class="btn btn-primary float-end btn-rounded"><i
-                                    class="fas fa-plus"></i>
-                                <i class="bi bi-person-plus" title="Ajouter"></i> </a> --}}
                                 @can('onfpevaluateur-create')
                                     <button type="button" class="btn btn-sm btn-primary float-end btn-rounded"
                                         data-bs-toggle="modal" data-bs-target="#AddonfpevaluateurModal">Ajouter
@@ -54,12 +51,9 @@
                             <table class="table datatables align-middle justify-content-center" id="table-onfpevaluateurs">
                                 <thead>
                                     <tr>
-                                        {{-- <th class="text-center" scope="col">N°</th>
-                                    <th>Matricule</th> --}}
                                         <th>Name</th>
                                         <th>Initiale</th>
                                         <th>Fonction</th>
-                                        {{-- <th>Spécialité</th> --}}
                                         <th>Email</th>
                                         <th>Téléphone</th>
                                         <th>Formations</th>
@@ -70,12 +64,9 @@
                                     <?php $i = 1; ?>
                                     @foreach ($onfpevaluateurs as $onfpevaluateur)
                                         <tr>
-                                            {{-- <td style="text-align: center;">{{ $i++ }}</td>
-                                        <td>{{ $onfpevaluateur->matricule }}</td> --}}
                                             <td>{{ $onfpevaluateur->name }}</td>
                                             <td>{{ $onfpevaluateur->initiale }}</td>
                                             <td>{{ $onfpevaluateur->fonction }}</td>
-                                            {{-- <td>{{ $onfpevaluateur->specialite }}</td> --}}
                                             <td><a href="mailto:{{ $onfpevaluateur->email }}">{{ $onfpevaluateur->email }}</a>
                                             </td>
                                             <td><a

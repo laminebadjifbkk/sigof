@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Formations '.$onfpevaluateur?->name)
+@section('title', 'ONFP | Formations '.$onfpevaluateur?->name)
 @section('space-work')
 
     <div class="pagetitle">
@@ -39,29 +39,22 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="pt-0">
-                            {{-- <a href="#" class="btn btn-primary float-end btn-rounded"><i
-                                    class="fas fa-plus"></i>
-                                <i class="bi bi-plus" title="Ajouter"></i> Ajouter</a> --}}
                             <button type="button" class="btn btn-primary float-end btn-rounded" data-bs-toggle="modal"
                                 data-bs-target="#AddFormationModal">
                                 <i class="bi bi-folder-plus" title="Ajouter"></i>
                             </button>
                         </div>
                         <h5 class="card-title">Liste des formations de {{ $onfpevaluateur->name }}</h5>
-                        {{-- <p>Le tableau des demandes formations</p> --}}
-                        <!-- Table with stripped rows -->
                         <table class="table datatables" id="table-formations">
                             <thead>
                                 <tr>
-                                    <th>Code</th>
+                                    <th width="5%" class="text-center">Code</th>
                                     <th>Type</th>
                                     <th>Intitulé formation</th>
                                     <th>Localité</th>
                                     <th>Modules</th>
-                                    {{-- <th>Niveau qualification</th> --}}
-                                    {{-- <th>Effectif</th> --}}
                                     <th class="text-center">Statut</th>
-                                    <th>#</th>
+                                    <th width="2%">#</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -99,17 +92,6 @@
                                                                 <i class="bi bi-pencil" title="Modifier"></i> Modifier
                                                             </button>
                                                         </li>
-                                                       {{--  <li>
-                                                            <form
-                                                                action="{{ route('onfpevaluateurs.destroy', $onfpevaluateur->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="dropdown-item show_confirm"
-                                                                    title="Supprimer"><i
-                                                                        class="bi bi-trash"></i>Supprimer</button>
-                                                            </form>
-                                                        </li> --}}
                                                     </ul>
                                                 </div>
                                             </span>
@@ -388,7 +370,7 @@
         new DataTable('#table-formations', {
             layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [
