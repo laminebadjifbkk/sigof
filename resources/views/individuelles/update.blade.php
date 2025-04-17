@@ -442,9 +442,10 @@
                                     @enderror
                                 </div>
 
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-primary btn-sm">Enregister
-                                        modifications</button>
+                                <div class="text-center gap-2 p-3 bg-light border-top">
+                                    <button type="submit" class="btn btn-success btn-sm">
+                                        <i class="bi bi-check-circle"></i> Enregistrer les modifications
+                                    </button>
                                 </div>
                             </form>
 
