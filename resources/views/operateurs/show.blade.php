@@ -687,7 +687,7 @@
 
                                                                             @can('devenir-operateur-agrement-delete')
                                                                                 <form
-                                                                                    action="{{ route('operateurmodules.destroy', $operateurmodule->id) }}"
+                                                                                    action="{{ route('operateurmodules.destroy', $operateurmodule) }}"
                                                                                     method="POST">
                                                                                     @csrf
                                                                                     @method('DELETE')
@@ -811,7 +811,7 @@
                     aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
-                            <form method="POST" action="{{ route('operateurmodules.update', $operateurmodule->id) }}"
+                            <form method="POST" action="{{ route('operateurmodules.update', $operateurmodule) }}"
                                 enctype="multipart/form-data" class="needs-validation" novalidate>
                                 @csrf
                                 @method('PATCH')

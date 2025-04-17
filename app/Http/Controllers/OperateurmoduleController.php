@@ -99,7 +99,7 @@ class OperateurmoduleController extends Controller
             $moduleoperateurstatut->save();
         }
 
-        Alert::success('Féliciations ! ', 'module ajouté avec succès');
+        Alert::success('Succès ! ', 'Le module a été ajouté avec succès');
 
         return redirect()->back();
     }
