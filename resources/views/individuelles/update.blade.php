@@ -33,7 +33,7 @@
                                     @endif
                                     @if (auth()->user()->hasRole('super-admin|admin'))
                                         <span class="d-flex mt-2 align-items-baseline"><a
-                                                href="{{ route('individuelles.show', $individuelle?->id) }}"
+                                                href="{{ route('individuelles.show', $individuelle) }}"
                                                 class="btn btn-success btn-sm" title="retour"><i
                                                     class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                             <p> | retour</p>
