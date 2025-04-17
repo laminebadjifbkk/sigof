@@ -48,7 +48,7 @@ class OnfpevaluateurController extends Controller
             "email"             => ["required", "string", Rule::unique('onfpevaluateurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "telephone"         => ["required", "string", Rule::unique('onfpevaluateurs')->where(function ($query) {
+            "telephone"         => ["required", "string", "size:12", Rule::unique('onfpevaluateurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
         ]);
@@ -80,7 +80,7 @@ class OnfpevaluateurController extends Controller
             "initiale"      => ['required', 'string', 'max:25', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
             "fonction"      => ['required', 'string', 'max:250', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
             "email"         => ['required', 'string', 'max:250', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
-            "telephone"     => ['required', 'string', 'max:250', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
+            "telephone"     => ['required', 'string', 'size:12', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
         ]);
 
         $onfpevaluateur->update([

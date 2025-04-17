@@ -1,9 +1,9 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Liste des evaluateurs')
+@section('title', 'ONFP | EVALUATEURS')
 @section('space-work')
     <section class="section register">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-12 col-lg-10">
+            <div class="col-12 col-md-12 col-lg-12">
                 <div class="pagetitle">
                     {{-- <h1>Data Tables</h1> --}}
                     <nav>
@@ -42,9 +42,8 @@
                                     class="fas fa-plus"></i>
                                 <i class="bi bi-person-plus" title="Ajouter"></i> </a> --}}
                             @can('evaluateur-create')
-                                <button type="button" class="btn btn-primary float-end btn-rounded" data-bs-toggle="modal"
-                                    data-bs-target="#AddevaluateurModal">
-                                    <i class="bi bi-person-plus" title="Ajouter"></i>
+                                <button type="button" class="btn btn-sm btn-primary float-end btn-rounded"
+                                    data-bs-toggle="modal" data-bs-target="#AddevaluateurModal">Ajouter
                                 </button>
                             @endcan
                         </div>
@@ -63,7 +62,7 @@
                                     <th>Téléphone</th>
                                     <th>Adresse</th>
                                     <th>Formations</th>
-                                    <th class="text-center" scope="col">#</th>
+                                    <th class="text-center" width="2%">#</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -137,9 +136,7 @@
         <div class="modal fade" id="AddevaluateurModal" tabindex="-1">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    {{-- <form method="POST" action="{{ route('addevaluateur') }}">
-                        @csrf --}}
-                    <form method="post" action="{{ url('evaluateurs') }}" enctype="multipart/form-data" class="row g-3">
+                    {{-- <form method="post" action="{{ url('evaluateurs') }}" enctype="multipart/form-data" class="row g-3">
                         @csrf
                         <div class="modal-header">
                             <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i>Ajouter un évaluateur</h5>
@@ -157,17 +154,6 @@
                                 @enderror
                                 <label for="floatingInput">Evaluateur<span class="text-danger mx-1">*</span></label>
                             </div>
-                            {{-- <div class="form-floating mb-3">
-                                <input type="text" name="specialite" value="{{ old('specialite') }}"
-                                    class="form-control form-control-sm @error('specialite') is-invalid @enderror"
-                                    id="specialite" placeholder="specialite">
-                                @error('specialite')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                                <label for="floatingInput">Spécialité</label>
-                            </div> --}}
                             <div class="form-floating mb-3">
                                 <input type="text" name="fonction" value="{{ old('fonction') }}"
                                     class="form-control form-control-sm @error('fonction') is-invalid @enderror"
@@ -219,6 +205,73 @@
                             <button type="submit" class="btn btn-primary"><i class="bi bi-printer"></i>
                                 Enregistrer</button>
                         </div>
+                    </form> --}}
+                    <form method="POST" action="{{ url('evaluateurs') }}" enctype="multipart/form-data"
+                        class="needs-validation" novalidate>
+                        @csrf
+
+                        <div class="card shadow-lg border-0">
+                            <div class="card-header bg-default text-center py-2 rounded-top">
+                                <h4 class="mb-0">➕ Ajouter un évaluateur</h4>
+                            </div>
+
+                            <div class="card-body row g-4 px-4">
+                                @php
+                                    $fields = [
+                                        'name' => [
+                                            'label' => 'Nom de l’évaluateur',
+                                            'type' => 'text',
+                                            'placeholder' => 'Nom complet',
+                                        ],
+                                        'fonction' => [
+                                            'label' => 'Fonction',
+                                            'type' => 'text',
+                                            'placeholder' => 'Fonction',
+                                        ],
+                                        'email' => [
+                                            'label' => 'Adresse email',
+                                            'type' => 'email',
+                                            'placeholder' => 'exemple@email.com',
+                                        ],
+                                        'telephone' => [
+                                            'label' => 'Téléphone',
+                                            'type' => 'text',
+                                            'id' => 'telephone',
+                                            'placeholder' => 'XX:XXX:XX:XX',
+                                        ],
+                                        'adresse' => [
+                                            'label' => 'Adresse',
+                                            'type' => 'text',
+                                            'placeholder' => 'Adresse',
+                                        ],
+                                    ];
+                                @endphp
+
+                                @foreach ($fields as $name => $data)
+                                    <div class="col-md-12">
+                                        <label for="{{ $name }}" class="form-label">{{ $data['label'] }} <span
+                                                class="text-danger">*</span></label>
+                                        <input type="{{ $data['type'] }}" name="{{ $name }}"
+                                            id="{{ $name }}" value="{{ old($name) }}"
+                                            class="form-control form-control-sm @error($name) is-invalid @enderror"
+                                            placeholder="{{ $data['placeholder'] }}"
+                                            {{ $data['type'] === 'number' ? 'min=0' : '' }} required>
+                                        @error($name)
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            <div class="card-footer d-flex justify-content-end gap-2 p-3 bg-light border-top">
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                                    <i class="bi bi-x-circle"></i> Fermer
+                                </button>
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-save"></i> Enregistrer
+                                </button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -231,7 +284,7 @@
                 aria-labelledby="EditevaluateurModalLabel{{ $evaluateur->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <form method="post" action="{{ route('evaluateurs.update', $evaluateur->id) }}"
+                        {{-- <form method="post" action="{{ route('evaluateurs.update', $evaluateur->id) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
                             @method('patch')
@@ -309,6 +362,74 @@
                                 <button type="submit" class="btn btn-primary"><i class="bi bi-printer"></i>
                                     Modifier</button>
                             </div>
+                        </form> --}}
+                        <form method="POST" action="{{ route('evaluateurs.update', $evaluateur->id) }}"
+                            enctype="multipart/form-data" class="needs-validation" novalidate>
+                            @csrf
+                            @method('PATCH')
+
+                            <div class="card shadow-lg border-0">
+                                <div class="card-header bg-default text-center py-2 rounded-top">
+                                    <h4 class="mb-0">✏️ Modifier un évaluateur</h4>
+                                </div>
+
+                                <div class="card-body row g-4 px-4">
+                                    @php
+                                        $fields = [
+                                            'name' => [
+                                                'label' => 'Nom de l’évaluateur',
+                                                'type' => 'text',
+                                                'placeholder' => 'Nom complet',
+                                            ],
+                                            'fonction' => [
+                                                'label' => 'Fonction',
+                                                'type' => 'text',
+                                                'placeholder' => 'Fonction',
+                                            ],
+                                            'email' => [
+                                                'label' => 'Adresse email',
+                                                'type' => 'email',
+                                                'placeholder' => 'exemple@email.com',
+                                            ],
+                                            'telephone' => [
+                                                'label' => 'Téléphone',
+                                                'type' => 'text',
+                                                'id' => 'telephone',
+                                                'placeholder' => 'XX:XXX:XX:XX',
+                                            ],
+                                            'adresse' => [
+                                                'label' => 'Adresse',
+                                                'type' => 'text',
+                                                'placeholder' => 'Adresse',
+                                            ],
+                                        ];
+                                    @endphp
+
+                                    @foreach ($fields as $name => $data)
+                                        <div class="col-md-12">
+                                            <label for="{{ $name }}" class="form-label">{{ $data['label'] }}
+                                                <span class="text-danger">*</span></label>
+                                            <input type="{{ $data['type'] }}" name="{{ $name }}"
+                                                id="{{ $name }}" value="{{ old($name, $evaluateur->$name) }}"
+                                                class="form-control form-control-sm @error($name) is-invalid @enderror"
+                                                placeholder="{{ $data['placeholder'] }}"
+                                                {{ $data['type'] === 'number' ? 'min=0' : '' }} required>
+                                            @error($name)
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <div class="card-footer d-flex justify-content-end gap-2 p-3 bg-light border-top">
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                                        <i class="bi bi-x-circle"></i> Fermer
+                                    </button>
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="bi bi-pencil-square"></i> Modifier
+                                    </button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -323,7 +444,7 @@
         new DataTable('#table-evaluateurs', {
             layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [
