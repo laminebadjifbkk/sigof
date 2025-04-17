@@ -48,81 +48,85 @@
                             {{-- @endcan --}}
                             <h5 class="card-title">Evaluateurs ONFP</h5>
                             <!-- Table with stripped rows -->
-                            <table class="table datatables align-middle justify-content-center" id="table-onfpevaluateurs">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Initiale</th>
-                                        <th>Fonction</th>
-                                        <th>Email</th>
-                                        <th>Téléphone</th>
-                                        <th>Formations</th>
-                                        <th class="text-center" width="2%">#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($onfpevaluateurs as $onfpevaluateur)
+                            @if ($onfpevaluateur->formations->isNotEmpty())
+                                <table class="table datatables align-middle justify-content-center" id="table-onfpevaluateurs">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $onfpevaluateur->name }}</td>
-                                            <td>{{ $onfpevaluateur->initiale }}</td>
-                                            <td>{{ $onfpevaluateur->fonction }}</td>
-                                            <td><a href="mailto:{{ $onfpevaluateur->email }}">{{ $onfpevaluateur->email }}</a>
-                                            </td>
-                                            <td><a
-                                                    href="tel:+221{{ $onfpevaluateur->telephone }}">{{ $onfpevaluateur->telephone }}</a>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                @foreach ($onfpevaluateur->formations as $formation)
-                                                    @if ($loop->last)
-                                                        <a class="text-primary fw-bold"
-                                                            href="#">{!! $loop->count ?? '0' !!}</a>
-                                                    @endif
-                                                @endforeach
-                                            </td>
-
-                                            <td style="text-align: center;">
-                                                @can('onfpevaluateur-show')
-                                                    <span class="d-flex mt-2 align-items-baseline"><a
-                                                            href="{{ route('onfpevaluateurs.show', $onfpevaluateur->id) }}"
-                                                            class="btn btn-warning btn-sm mx-1" title="Voir détails">
-                                                            <i class="bi bi-eye"></i></a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                @can('onfpevaluateur-update')
-                                                                    <li>
-                                                                        <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#EditonfpevaluateurModal{{ $onfpevaluateur->id }}">
-                                                                            <i class="bi bi-pencil" title="Modifier"></i> Modifier
-                                                                        </button>
-                                                                    </li>
-                                                                @endcan
-                                                                @can('onfpevaluateur-delete')
-                                                                    <li>
-                                                                        <form
-                                                                            action="{{ url('onfpevaluateurs', $onfpevaluateur->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit" class="dropdown-item show_confirm"><i
-                                                                                    class="bi bi-trash"></i>Supprimer</button>
-                                                                        </form>
-                                                                    </li>
-                                                                @endcan
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                                @endcan
-                                            </td>
-
+                                            <th>Name</th>
+                                            <th>Initiale</th>
+                                            <th>Fonction</th>
+                                            <th>Email</th>
+                                            <th>Téléphone</th>
+                                            <th>Formations</th>
+                                            <th class="text-center" width="2%">#</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <!-- End Table with stripped rows -->
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($onfpevaluateurs as $onfpevaluateur)
+                                            <tr>
+                                                <td>{{ $onfpevaluateur->name }}</td>
+                                                <td>{{ $onfpevaluateur->initiale }}</td>
+                                                <td>{{ $onfpevaluateur->fonction }}</td>
+                                                <td><a
+                                                        href="mailto:{{ $onfpevaluateur->email }}">{{ $onfpevaluateur->email }}</a>
+                                                </td>
+                                                <td><a
+                                                        href="tel:+221{{ $onfpevaluateur->telephone }}">{{ $onfpevaluateur->telephone }}</a>
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    @foreach ($onfpevaluateur->formations as $formation)
+                                                        @if ($loop->last)
+                                                            <a class="text-primary fw-bold"
+                                                                href="#">{!! $loop->count ?? '0' !!}</a>
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+
+                                                <td style="text-align: center;">
+                                                    @can('onfpevaluateur-show')
+                                                        <span class="d-flex mt-2 align-items-baseline"><a
+                                                                href="{{ route('onfpevaluateurs.show', $onfpevaluateur->id) }}"
+                                                                class="btn btn-warning btn-sm mx-1" title="Voir détails">
+                                                                <i class="bi bi-eye"></i></a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    @can('onfpevaluateur-update')
+                                                                        <li>
+                                                                            <button type="button" class="dropdown-item btn btn-sm mx-1"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#EditonfpevaluateurModal{{ $onfpevaluateur->id }}">
+                                                                                <i class="bi bi-pencil" title="Modifier"></i> Modifier
+                                                                            </button>
+                                                                        </li>
+                                                                    @endcan
+                                                                    @can('onfpevaluateur-delete')
+                                                                        <li>
+                                                                            <form
+                                                                                action="{{ url('onfpevaluateurs', $onfpevaluateur->id) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"><i
+                                                                                        class="bi bi-trash"></i>Supprimer</button>
+                                                                            </form>
+                                                                        </li>
+                                                                    @endcan
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    @endcan
+                                                </td>
+
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                            @endif
                         </div>
                     </div>
 

@@ -86,11 +86,11 @@
                                     de formation.</p>
                             </div>
 
-                            <form method="post" action="{{ route('profile.updated', Auth::user()->id) }}"
+                            <form method="post" action="{{ route('profile.updated', Auth::user()->uuid) }}"
                                 enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 @method('patch')
-
+                                <input type="hidden" name="idUser" value="{{ Auth::user()->id }}">
                                 <div class="col-12 col-md-9 col-lg-9 mb-0">
                                     <label for="operateur" class="form-label">Opérateur<span
                                             class="text-danger mx-1">*</span></label>

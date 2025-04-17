@@ -75,10 +75,11 @@
                                     de formation.</p>
                             </div>
 
-                            <form method="post" action="{{ route('profile.update', Auth::user()->id) }}"
+                            <form method="post" action="{{ route('profile.update', Auth::user()->uuid) }}"
                                 enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 @method('patch')
+                                <input type="hidden" name="idUser" value="{{ Auth::user()->id }}">
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="civilite" class="form-label">Civilité<span
                                             class="text-danger mx-1">*</span></label>
