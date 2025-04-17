@@ -213,7 +213,7 @@
             @foreach ($onfpevaluateurs as $onfpevaluateur)
                 <div class="modal fade" id="EditonfpevaluateurModal{{ $onfpevaluateur->id }}" tabindex="-1" role="dialog"
                     aria-labelledby="EditonfpevaluateurModalLabel{{ $onfpevaluateur->id }}" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             {{-- <form method="post" action="{{ route('onfpevaluateurs.update', $onfpevaluateur->id) }}"
                                 enctype="multipart/form-data" class="row g-3">
