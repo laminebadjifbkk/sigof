@@ -94,7 +94,7 @@
                                                         @endif
                                                         <td>
                                                             <span class="d-flex align-items-baseline">
-                                                                <a href="{{ route('individuelles.show', $individuelle->id) }}"
+                                                                <a href="{{ route('individuelles.show', $individuelle) }}"
                                                                     class="btn btn-primary btn-sm" title="Voir détails"
                                                                     target="_blank">
                                                                     <i class="bi bi-eye"></i>
@@ -107,14 +107,14 @@
                                                                         class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                         <li>
                                                                             <a class="dropdown-item btn btn-sm"
-                                                                                href="{{ route('individuelles.edit', $individuelle->id) }}"
+                                                                                href="{{ route('individuelles.edit', $individuelle) }}"
                                                                                 title="Modifier">
                                                                                 <i class="bi bi-pencil"></i> Modifier
                                                                             </a>
                                                                         </li>
                                                                         <li>
                                                                             <form
-                                                                                action="{{ route('individuelles.destroy', $individuelle->id) }}"
+                                                                                action="{{ route('individuelles.destroy', $individuelle) }}"
                                                                                 method="post">
                                                                                 @csrf
                                                                                 <button type="submit"

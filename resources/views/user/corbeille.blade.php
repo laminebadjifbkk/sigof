@@ -106,12 +106,12 @@
                                                                 class="bi bi-three-dots"></i></a>
                                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                             <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                    href="{{ route('users.edit', $user->id) }}"><i
+                                                                    href="{{ route('users.edit', $user) }}"><i
                                                                         class="bi bi-pencil"></i> Modifier</a>
                                                             </li>
                                                             @can('user-delete')
                                                                 <li>
-                                                                    <form action="{{ route('users.destroy', $user->id) }}"
+                                                                    <form action="{{ route('users.destroy', $user) }}"
                                                                         method="post">
                                                                         @csrf
                                                                         @method('DELETE')

@@ -51,16 +51,16 @@ class ModuleController extends Controller
         );
     }
 
-    public function edit($id)
+    public function edit(Module $module)
     {
-        $module   = Module::find($id);
+        /* $module   = Module::find($id); */
         $domaines = Domaine::orderBy("created_at", "desc")->get();
         return view("modules.update", compact("module", "domaines"));
     }
 
-    public function show($id)
+    public function show(Module $module)
     {
-        $module = Module::find($id);
+        /* $module = Module::find($id); */
         return view("modules.show", compact("module"));
     }
 
@@ -149,9 +149,9 @@ class ModuleController extends Controller
         return redirect()->back();
     }
 
-    public function destroy($id)
+    public function destroy(Module $module)
     {
-        $module = Module::find($id);
+        /* $module = Module::find($id); */
 // Vérifiez si le module est lié à des demandes individuelles
         if ($module->individuelles()->count() > 0) {
             // Si des demandes individuelles sont liées, empêchez la suppression

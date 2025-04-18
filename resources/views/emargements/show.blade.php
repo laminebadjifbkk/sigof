@@ -136,7 +136,7 @@
                                                         @endif
                                                         <td>
                                                             <span class="d-flex align-items-baseline"><a
-                                                                    href="{{ route('individuelles.show', $individuelle->id) }}"
+                                                                    href="{{ route('individuelles.show', $individuelle) }}"
                                                                     class="btn btn-primary btn-sm" title="voir détails"
                                                                     target="_blanck"><i class="bi bi-eye"></i></a>
                                                                 <div class="filter">

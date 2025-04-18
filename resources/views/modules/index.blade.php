@@ -113,7 +113,7 @@
                                             <td style="text-align: center;">
                                                 @can('module-show')
                                                     <span class="d-flex mt-2 align-items-baseline"><a
-                                                            href="{{ url('modules/' . $module->id) }}"
+                                                            href="{{ url('modules.show', $module) }}"
                                                             class="btn btn-success btn-sm mx-1" title="Voir détails">
                                                             <i class="bi bi-eye"></i></a>
                                                         <div class="filter">
@@ -129,14 +129,14 @@
                                                                         </button>
                                                                     </li> --}}
                                                                     <li><a class="dropdown-item btn btn-sm"
-                                                                            href="{{ route('modules.edit', $module?->id) }}"
+                                                                            href="{{ route('modules.edit', $module) }}"
                                                                             class="mx-1"><i class="bi bi-pencil"></i>
                                                                             Modifier</a>
                                                                     </li>
                                                                 @endcan
                                                                 @can('module-delete')
                                                                     <li>
-                                                                        <form action="{{ url('modules', $module->id) }}"
+                                                                        <form action="{{ route('modules.destroy', $module) }}"
                                                                             method="post">
                                                                             @csrf
                                                                             @method('DELETE')
@@ -162,7 +162,7 @@
 
             <div class="modal fade" id="AddIndividuelModal" tabindex="-1" role="dialog"
                 aria-labelledby="AddIndividuelModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="card-header text-center bg-gradient-default">
                             <h1 class="h4 text-black mb-0">AJOUTER UN NOUVEAU MODULE</h1>
@@ -186,7 +186,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                        <label for="name" class="form-label">Module<span
+                                        <label for="name" class="form-label">Domaine<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="domaine" class="form-select  @error('domaine') is-invalid @enderror"
                                             aria-label="Select" id="select-field-domaine-indiv"
@@ -224,7 +224,7 @@
                     aria-labelledby="EditRegionModalLabel{{ $module->id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form method="post" action="{{ route('modules.update', $module->id) }}"
+                            <form method="post" action="{{ route('modules.update', $module) }}"
                                 enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 @method('patch')
@@ -370,7 +370,7 @@
         new DataTable('#table-modules', {
             layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

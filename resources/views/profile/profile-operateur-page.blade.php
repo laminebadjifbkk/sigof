@@ -1166,7 +1166,7 @@
                                         </div>
                                     </div>
 
-                                    <form method="post" action="{{ route('files.update', $user?->id) }}"
+                                    <form method="post" action="{{ route('files.update', $user) }}"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('patch')

@@ -81,7 +81,7 @@
                                                     </td>
                                                     <td>
                                                         <span class="d-flex align-items-baseline"><a
-                                                                href="{{ route('individuelles.show', $individuelle->id) }}"
+                                                                href="{{ route('individuelles.show', $individuelle) }}"
                                                                 class="btn btn-primary btn-sm" title="voir détails"><i
                                                                     class="bi bi-eye"></i></a>
                                                         </span>

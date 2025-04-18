@@ -13,7 +13,7 @@
         </nav>
     </div><!-- End Page Title -->
 
-    <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('individuelles.show', $individuelle->id) }}"
+    <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('individuelles.show', $individuelle) }}"
             class="btn btn-success btn-sm" title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
         <p> | Retour</p>
     </span>

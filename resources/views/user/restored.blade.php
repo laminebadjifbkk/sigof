@@ -84,7 +84,7 @@
                                     @foreach ($user_liste as $user)
                                         <tr>
                                             <th scope="row">
-                                                <a href="{{ route('users.show', $user->id) }}">
+                                                <a href="{{ route('users.show', $user) }}">
                                                     <img class="rounded-circle w-20" alt="Profil"
                                                         src="{{ asset($user->getImage()) }}" width="40" height="auto">
                                                 </a>
@@ -108,7 +108,7 @@
                                             <td>
                                                 {{-- @can('user-show') --}}
                                                 <span class="d-flex mt-2 align-items-baseline"><a
-                                                        href="{{ route('users.show', $user->id) }}"
+                                                        href="{{ route('users.show', $user) }}"
                                                         class="btn btn-info btn-sm mx-1" title="voir détails"><i
                                                             class="bi bi-eye"></i></a>
                                                     <div class="filter">
@@ -117,13 +117,13 @@
                                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                             {{-- @can('user-update') --}}
                                                             <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                    href="{{ route('users.edit', $user->id) }}"><i
+                                                                    href="{{ route('users.edit', $user) }}"><i
                                                                         class="bi bi-pencil"></i> Modifier</a>
                                                             </li>
                                                             {{-- @endcan --}}
                                                             @can('user-delete')
                                                                 <li>
-                                                                    <form action="{{ route('users.destroy', $user->id) }}"
+                                                                    <form action="{{ route('users.destroy', $user) }}"
                                                                         method="post">
                                                                         @csrf
                                                                         @method('DELETE')

@@ -95,7 +95,7 @@
                                     </td>
                                     <td>
                                         <span class="d-flex align-items-baseline"><a
-                                                href="{{ route('individuelles.show', $individuelle?->id) }}"
+                                                href="{{ route('individuelles.show', $individuelle) }}"
                                                 class="btn btn-primary btn-sm" title="voir détails"><i
                                                     class="bi bi-eye"></i></a>
                                             <div class="filter">
@@ -103,13 +103,13 @@
                                                         class="bi bi-three-dots"></i></a>
                                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                     <li><a class="dropdown-item btn btn-sm"
-                                                            href="{{ route('individuelles.edit', $individuelle?->id) }}"
+                                                            href="{{ route('individuelles.edit', $individuelle) }}"
                                                             class="mx-1" title="Modifier"><i
                                                                 class="bi bi-pencil"></i>Modifier</a>
                                                     </li>
                                                     <li>
                                                         <form
-                                                            action="{{ route('individuelles.destroy', $individuelle?->id) }}"
+                                                            action="{{ route('individuelles.destroy', $individuelle) }}"
                                                             method="post">
                                                             @csrf
                                                             @method('DELETE')

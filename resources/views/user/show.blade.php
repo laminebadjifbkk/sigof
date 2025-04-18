@@ -94,7 +94,7 @@
                             </li>
                             <li class="nav-item">
                                 {{-- <button class="nav-link" data-bs-toggle="tab" data-bs-target="#"><a
-                                        class="dropdown-item btn btn-sm mx-1" href="{{ route('users.edit', $user->id) }}"
+                                        class="dropdown-item btn btn-sm mx-1" href="{{ route('users.edit', $user) }}"
                                         class="mx-1"><i class="bi bi-pencil mx-1"></i>Modifier</a></button> --}}
                                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#user-edit">Modifier
                                     profil
@@ -358,7 +358,7 @@
                                                                 </td>
                                                                 @can('user-show')
                                                                     <td class="text-center">
-                                                                        <a href="{{ route('individuelles.show', $individuelle?->id) }}"
+                                                                        <a href="{{ route('individuelles.show', $individuelle) }}"
                                                                             class="btn btn-primary btn-sm" target="_blank"
                                                                             title="voir détails"><i class="bi bi-eye"></i></a>
                                                                     </td>
@@ -443,7 +443,7 @@
 
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h5 class="card-title">Modification utilisateur</h5>
-                                            {{--  <form action="{{ route('employes.update', $user?->id) }}"
+                                            {{--  <form action="{{ route('employes.update', $user) }}"
                                                 method="post">
                                                 @csrf
                                                 @method('PUT')
@@ -878,7 +878,7 @@
                     <div class="card-header text-center bg-gradient-default">
                         <h1 class="h4 text-black mb-0">Devenir employé</h1>
                     </div>
-                    <form method="post" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data"
+                    <form method="post" action="{{ route('users.update', $user) }}" enctype="multipart/form-data"
                         class="row g-3">
                         @csrf
                         @method('patch')
@@ -954,7 +954,7 @@
                     <div class="card-header text-center bg-gradient-default">
                         <h1 class="h4 text-black mb-0">Devenir ingénieur</h1>
                     </div>
-                    <form method="post" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data"
+                    <form method="post" action="{{ route('users.update', $user) }}" enctype="multipart/form-data"
                         class="row g-3">
                         @csrf
                         @method('patch')

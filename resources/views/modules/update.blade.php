@@ -41,7 +41,7 @@
                             </span>
                         </div>
                     </div>
-                    <form method="post" action="{{ route('modules.update', $module?->id) }}" enctype="multipart/form-data"
+                    <form method="post" action="{{ route('modules.update', $module) }}" enctype="multipart/form-data"
                         class="row g-3">
                         @csrf
                         @method('PUT')

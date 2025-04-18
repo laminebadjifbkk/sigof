@@ -110,10 +110,10 @@
                                             </td>
                                             {{-- <td>
                                             <span class="d-flex mt-2 align-items-baseline"><a
-                                                    href="{{ route('users.edit', $user->id) }}"
+                                                    href="{{ route('users.edit', $user) }}"
                                                     class="btn btn-success btn-sm mx-1" title="Modifier"><i
                                                         class="bi bi-pencil-square"></i></a>
-                                                <form action="{{ route('users.destroy', $user->id) }}" method="post">
+                                                <form action="{{ route('users.destroy', $user) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm show_confirm"

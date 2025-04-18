@@ -58,7 +58,7 @@
                                         @if (optional($user->individuelles)->isNotEmpty() && optional($user->collectives)->isNotEmpty())
                                             <tr>
                                                 <th scope="row">
-                                                    <a href="{{ route('users.show', $user->id) }}">
+                                                    <a href="{{ route('users.show', $user) }}">
                                                         <img class="rounded-circle w-20" alt="Profil"
                                                             src="{{ asset($user->getImage()) }}" width="40"
                                                             height="auto">
@@ -77,7 +77,7 @@
                                                 </td> --}}
                                                 {{-- <td>
                                                     <span class="d-flex mt-2 align-items-baseline">
-                                                        <a href="{{ route('demandeurs.show', $user->id) }}"
+                                                        <a href="{{ route('demandeurs.show', $user) }}"
                                                             class="btn btn-info btn-sm mx-1 text-white"
                                                             title="Voir détails">
                                                             <i class="bi bi-eye"></i>
