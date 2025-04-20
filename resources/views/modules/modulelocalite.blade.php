@@ -30,6 +30,14 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
+                        <div class="pt-1">
+                            <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('modules.index') }}"
+                                    class="btn btn-success btn-sm" title="retour"><i
+                                        class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                                <p> | Liste des module</p>
+                            </span>
+                        </div>
+
                         {{-- <div class="pt-1">
                             @if (isset($demandeur->numero_dossier))
                                 <a href="{{ route('individuelles.create') }}"
