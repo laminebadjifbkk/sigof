@@ -113,7 +113,7 @@
                                             <td style="text-align: center;">
                                                 @can('module-show')
                                                     <span class="d-flex mt-2 align-items-baseline"><a
-                                                            href="{{ url('modules.show', $module) }}"
+                                                            href="{{ route('modules.show', $module) }}"
                                                             class="btn btn-success btn-sm mx-1" title="Voir détails">
                                                             <i class="bi bi-eye"></i></a>
                                                         <div class="filter">
