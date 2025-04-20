@@ -64,15 +64,16 @@ class ModuleController extends Controller
         return view("modules.show", compact("module"));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Module $module)
     {
         $this->validate($request, [
-            "name"                 => ["required", "string", Rule::unique(Module::class)->ignore($id)->whereNull('deleted_at')],
+            "name"                 => ["required", "string",
+                Rule::unique(Module::class)->ignore($module->id)->whereNull('deleted_at')],
             "domaine"              => ["required", "string"],
             "niveau_qualification" => ["required", "string"],
         ]);
 
-        $module = Module::findOrFail($id);
+        /* $module = Module::findOrFail($id); */
 
         $module->update([
             'name'                 => $request->input('name'),
