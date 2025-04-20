@@ -30,7 +30,7 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <div class="pt-1">
+                        {{-- <div class="pt-1">
                             @if (isset($demandeur->numero_dossier))
                                 <a href="{{ route('individuelles.create') }}"
                                     class="btn btn-primary float-end btn-rounded"><i class="fas fa-plus"></i>
@@ -40,7 +40,7 @@
                                     href="{{ route('demandeurs.show', Auth::user()?->id) }}"><i class="bi bi-person-plus"
                                         title="Ajouter"></i> </a></a>
                             @endif
-                        </div>
+                        </div> --}}
                         <h5 class="card-title">{{ $localite->nom . ': ' . $module->name }}</h5>
                         {{-- <p>Le tableau des demandes individuelles</p> --}}
                         <!-- Table with stripped rows -->
