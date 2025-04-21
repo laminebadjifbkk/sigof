@@ -128,9 +128,6 @@
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
-            "order": [
-                [0, 'asc']
-            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
