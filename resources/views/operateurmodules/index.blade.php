@@ -63,10 +63,8 @@
                             id="table-operateurModules">
                             <thead>
                                 <tr class="text-center">
-                                    <th>DOMAINE</th>
                                     <th>MODULE</th>
-                                    <th>CATEGORIE</th>
-                                    <th>QUALIFICATION</th>
+                                    <th>Niveau de qualification</th>
                                     <th>OPERATEUR</th>
                                     <th>STATUT</th>
                                     {{-- <th>Formations</th> --}}
@@ -77,10 +75,8 @@
                                 <?php $i = 1; ?>
                                 @foreach ($operateurmodules as $operateurmodule)
                                     <tr style="text-align: center;">
-                                        <td>{{ $operateurmodule?->domaine }}</td>
                                         <td>{{ $operateurmodule?->module }}</td>
                                         <td>{{ $operateurmodule?->categorie }}</td>
-                                        <td>{{ $operateurmodule?->niveau_qualification }}</td>
                                         <td><a
                                                 href="{{ route('operateurs.show', $operateurmodule?->operateur) }}">{{ $operateurmodule?->operateur?->user?->operateur . ' (' . $operateurmodule?->operateur?->user?->username . ')' }}</a>
                                         </td>
