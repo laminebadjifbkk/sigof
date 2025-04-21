@@ -1647,8 +1647,8 @@ class IndividuelleController extends Controller
         $total_count = number_format($total_count, 0, ',', ' ');
 
         $individuelles = Individuelle::onlyTrashed()
-            ->latest()
-            ->take(100)
+            ->orderByDesc('deleted_at') // Trie par la date de suppression la plus récente
+            ->take(200)
             ->get();
 
         $count_demandeur = number_format($individuelles->count(), 0, ',', ' ');
