@@ -63,6 +63,7 @@
                             id="table-operateurModules">
                             <thead>
                                 <tr class="text-center">
+                                    <th>Domaine</th>
                                     <th>Module</th>
                                     <th>Niveau de qualification</th>
                                     <th>Opérateur</th>
@@ -75,6 +76,7 @@
                                 <?php $i = 1; ?>
                                 @foreach ($operateurmodules as $operateurmodule)
                                     <tr style="text-align: center;">
+                                        <td>{{ $operateurmodule?->domaine }}</td>
                                         <td>{{ $operateurmodule?->module }}</td>
                                         <td>{{ $operateurmodule?->categorie }}</td>
                                         <td><a
