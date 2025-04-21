@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | MODULES AGREMENTS')
+@section('title', 'ONFP | MODULES OPERATEURS')
 @section('space-work')
 
     <section class="section register">
@@ -37,57 +37,54 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mt-3">
+                        {{-- <div class="d-flex justify-content-between align-items-center mt-3">
                             <h5 class="card-title">Liste des modules opérateurs</h5>
                             @can('rapport-operateur-view')
                                 <span class="d-flex align-items-baseline">
                                     <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#generate_rapport_module_region" title="Générer rapports">Rechercher
                                         plus</a>
-                                    {{--   <div class="filter">
-                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                class="bi bi-three-dots"></i></a>
-                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                            <li>
-                                                <button type="button" class="dropdown-item btn btn-sm" data-bs-toggle="modal"
-                                                    data-bs-target="#generate_rapport"></i>Par région</button>
-                                            </li>
-                                            <li>
-                                                <button type="button" class="dropdown-item btn btn-sm" data-bs-toggle="modal"
-                                                    data-bs-target="#generate_rapport_module"></i>Par module</button>
-                                            </li>
-                                        </ul>
-                                    </div> --}}
                                 </span>
+                            @endcan
+                        </div> --}}
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <h5 class="card-title mb-0">Liste des modules opérateurs</h5>
+                            @can('rapport-operateur-view')
+                                <a href="#"
+                                    class="btn btn-outline-primary btn-sm d-flex align-items-center gap-1 px-3 py-2 rounded-pill shadow-sm"
+                                    data-bs-toggle="modal" data-bs-target="#generate_rapport_module_region"
+                                    title="Générer rapports">
+                                    <i class="bi bi-search"></i> Rechercher plus
+                                </a>
                             @endcan
                         </div>
                         <!-- Table with stripped rows -->
                         <table class="table datatables table-bordered table-hover align-middle justify-content-center"
                             id="table-operateurModules">
                             <thead>
-                                <tr>
-                                    <th class="text-center">DOMAINE</th>
-                                    <th class="text-center">MODULE</th>
-                                    <th class="text-center">CATEGORIE</th>
-                                    <th class="text-center">QUALIFICATION</th>
-                                    <th class="text-center">OPERATEUR</th>
-                                    <th class="text-center">STATUT</th>
+                                <tr class="text-center">
+                                    <th>DOMAINE</th>
+                                    <th>MODULE</th>
+                                    <th>CATEGORIE</th>
+                                    <th>QUALIFICATION</th>
+                                    <th>OPERATEUR</th>
+                                    <th>STATUT</th>
                                     {{-- <th>Formations</th> --}}
-                                    <th class="text-center"><i class="bi bi-gear"></i></th>
+                                    <th><i class="bi bi-gear"></i></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 1; ?>
                                 @foreach ($operateurmodules as $operateurmodule)
-                                    <tr>
-                                        <td style="text-align: center;">{{ $operateurmodule?->domaine }}</td>
-                                        <td style="text-align: center;">{{ $operateurmodule?->module }}</td>
-                                        <td style="text-align: center;">{{ $operateurmodule?->categorie }}</td>
-                                        <td style="text-align: center;">{{ $operateurmodule?->niveau_qualification }}</td>
-                                        <td style="text-align: center;"><a
-                                                href="{{ route('operateurs.show', $operateurmodule?->operateur?->id) }}">{{ $operateurmodule?->operateur?->user?->username }}</a>
+                                    <tr style="text-align: center;">
+                                        <td>{{ $operateurmodule?->domaine }}</td>
+                                        <td>{{ $operateurmodule?->module }}</td>
+                                        <td>{{ $operateurmodule?->categorie }}</td>
+                                        <td>{{ $operateurmodule?->niveau_qualification }}</td>
+                                        <td><a
+                                                href="{{ route('operateurs.show', $operateurmodule?->operateur) }}">{{ $operateurmodule?->operateur?->user?->operateur . ' (' . $operateurmodule?->operateur?->user?->username . ')' }}</a>
                                         </td>
-                                        <td style="text-align: center;">
+                                        <td>
                                             <span
                                                 class="{{ $operateurmodule?->statut }}">{{ $operateurmodule?->statut }}</span>
                                         </td>
@@ -262,31 +259,30 @@
 
         <div class="modal fade" id="generate_rapport_module_region" tabindex="-1" role="dialog"
             aria-labelledby="generate_rappor_module_regionLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Générer rapport opérateurs par module et région</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
                     <form method="post" action="{{ route('operateurmodules.rapport') }}">
                         @csrf
-                        <div class="modal-body">
-                            <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                    <div class="row">
+                        <div class="card shadow-lg border-0">
+                            <div class="card-header bg-default text-center py-2 rounded-top">
+                                <h4 class="mb-0"><i class="bi bi-search"></i>Rechercher opérateur par module</h4>
+                            </div>
+                            <div class="card-body row g-4 px-4">
+                                <div class="modal-body">
+                                    <div class="row g-3">
                                         <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                            <div class="form-group">
-                                                <label for="module" class="form-label">Module</label>
-                                                <input type="text" name="module" id="module_operateur"
-                                                    class="form-control form-control-sm"
-                                                    placeholder="Module ou spécialité" />
-                                                <div id="moduleList"></div>
-                                                {{ csrf_field() }}
-                                                {{-- <input type="text" name="module" placeholder="module..."
-                                                    class="form-control form-control-sm module"> --}}
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="row">
+                                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                    <div class="form-group">
+                                                        <label for="module" class="form-label">Module</label>
+                                                        <input type="text" name="module" id="module_operateur"
+                                                            class="form-control form-control-sm"
+                                                            placeholder="Module ou spécialité" />
+                                                        <div id="moduleList"></div>
+                                                        {{ csrf_field() }}
+                                                    </div>
+                                                </div>
+                                                {{-- <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                             <div class="form-group">
                                                 <label for="operateur" class="form-label">Opérateur</label>
                                                 <select name="operateur"
@@ -306,8 +302,8 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                        </div>
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        </div> --}}
+                                                {{-- <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                             <div class="form-group">
                                                 <label for="statut" class="form-label">Statut</label>
                                                 <select name="statut"
@@ -323,25 +319,6 @@
                                                             {{ $module?->statut }}
                                                         </option>
                                                     @endforeach
-
-                                                    {{-- <option value="agréer">
-                                                        agréer
-                                                    </option>
-                                                    <option value="nouveau">
-                                                        nouveau
-                                                    </option>
-                                                    <option value='Rejetée'>
-                                                        rejeter
-                                                    </option>
-                                                    <option value="sous réserve">
-                                                        sous réserve
-                                                    </option>
-                                                    <option value="retenu">
-                                                        retenu
-                                                    </option>
-                                                    <option value='Attente'>
-                                                        attente
-                                                    </option> --}}
                                                 </select>
                                                 @error('statut')
                                                     <span class="invalid-feedback" role="alert">
@@ -349,17 +326,30 @@
                                                     </span>
                                                 @enderror
                                             </div>
+                                        </div> --}}
+                                            </div>
+
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
+                                        {{-- <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary btn-sm"
                                         data-bs-dismiss="modal">Fermer</button>
                                     <div class="text-center">
                                         <button type="submit"
                                             class="btn btn-primary btn-block submit_rapport btn-sm">Envoyer</button>
                                     </div>
+                                </div> --}}
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="modal-footer bg-light border-0 rounded-bottom-4 d-flex justify-content-between">
+                                <button type="button" class="btn btn-outline-secondary btn-sm px-4 py-2 rounded-pill"
+                                    data-bs-dismiss="modal">
+                                    <i class="bi bi-x-circle"></i> Fermer
+                                </button>
+                                <button type="submit"
+                                    class="btn btn-success btn-sm px-4 py-2 rounded-pill submit_rapport shadow-sm">
+                                    <i class="bi bi-search"></i> Rechercher
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -374,7 +364,7 @@
         new DataTable('#table-operateurModules', {
             layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

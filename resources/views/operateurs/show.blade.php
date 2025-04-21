@@ -675,9 +675,9 @@
                                                                 </td>
                                                                 @can('devenir-operateur-agrement-show')
                                                                     <td style="text-align: center;">
-                                                                        <div class="d-flex justify-content-center gap-2">
+                                                                        <div class="d-flex justify-content-center">
                                                                             @can('devenir-operateur-agrement-update')
-                                                                                <button class="btn btn-warning btn-sm"
+                                                                                <button class="btn btn-warning text-white btn-sm"
                                                                                     data-bs-toggle="modal"
                                                                                     data-bs-target="#EditOperateurmoduleModal{{ $operateurmodule->id }}"
                                                                                     title="Modifier">
@@ -944,7 +944,7 @@
         new DataTable('#table-operateurModules', {
             layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

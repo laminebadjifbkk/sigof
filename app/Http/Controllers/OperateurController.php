@@ -691,9 +691,10 @@ class OperateurController extends Controller
         if ($request->get('query')) {
             $query = $request->get('query');
             $data  = DB::table('operateurmodules')
-                ->whereNull('deleted_at') // Exclure les enregistrements supprimés
+                ->whereNull('deleted_at')
                 ->where('module', 'LIKE', "%{$query}%")
-                ->distinct() // Applique l'unicité au niveau SQL
+                ->select('module') // Ne sélectionner que la colonne module
+                ->distinct()
                 ->get();
 
             $output = '<ul class="dropdown-menu" style="display:block; position:relative;width:100%;">';

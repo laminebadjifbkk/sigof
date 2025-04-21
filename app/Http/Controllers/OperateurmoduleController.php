@@ -16,11 +16,13 @@ class OperateurmoduleController extends Controller
         $this->middleware('auth');
         $this->middleware(['role:super-admin|admin|DIOF|DEC|DPP|Operateur']);
     }
+
     public function index()
     {
         $operateurmodules = Operateurmodule::take(50)
             ->latest()
             ->get();
+
         $module_statuts = Operateurmodule::get()->unique('statut');
         $operateurs     = Operateur::orderBy('created_at', 'desc')->get();
         return view(
@@ -205,6 +207,7 @@ class OperateurmoduleController extends Controller
         $operateurmodules = Operateurmodule::take(50)
             ->latest()
             ->get();
+
         $module_statuts = Operateurmodule::get()->unique('statut');
         $operateurs     = Operateur::orderBy('created_at', 'desc')->get();
         return view(
@@ -219,14 +222,14 @@ class OperateurmoduleController extends Controller
     public function generateRapport(Request $request)
     {
         $this->validate($request, [
-            'module'    => 'nullable|string',
-            'statut'    => 'nullable|string',
-            'operateur' => 'nullable|string',
+            'module'    => 'required|string',
+            /* 'statut'    => 'nullable|string',
+            'operateur' => 'nullable|string', */
         ]);
 
         $operateurs = Operateur::orderBy('created_at', 'desc')->get();
 
-        $module_statuts = Operateurmodule::get()->unique('statut');
+      /*   $module_statuts = Operateurmodule::get()->unique('statut');
 
         if ($request?->module == null && $request->statut == null && $request->operateur == null) {
             Alert::warning('Attention ', 'Renseigner au moins un champ pour rechercher');
@@ -239,12 +242,14 @@ class OperateurmoduleController extends Controller
             $operateurmodules = Operateurmodule::where('operateurs_id', $request?->operateur)->get();
         } else {
             Alert::warning('Attention ', 'Renseigner au moins un champ pour rechercher');
-        }
+        } */
+
+        $operateurmodules = Operateurmodule::where('module', $request?->module)->get();
 
         return view('operateurmodules.index', compact(
             'operateurmodules',
             'operateurs',
-            'module_statuts',
+            /* 'module_statuts', */
         ));
     }
 }
