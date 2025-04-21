@@ -63,10 +63,10 @@
                             id="table-operateurModules">
                             <thead>
                                 <tr class="text-center">
-                                    <th>MODULE</th>
+                                    <th>Module</th>
                                     <th>Niveau de qualification</th>
-                                    <th>OPERATEUR</th>
-                                    <th>STATUT</th>
+                                    <th>Opérateur</th>
+                                    <th>Statut</th>
                                     {{-- <th>Formations</th> --}}
                                     <th><i class="bi bi-gear"></i></th>
                                 </tr>
