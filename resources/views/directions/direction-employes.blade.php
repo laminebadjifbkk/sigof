@@ -22,7 +22,7 @@
                         <div class="row">
                             <div class="col-sm-12 pt-0">
                                 <span class="d-flex mt-0 align-items-baseline"><a
-                                        href="{{ route('directions.show', $direction->id) }}" class="btn btn-success btn-sm"
+                                        href="{{ route('directions.show', $direction) }}" class="btn btn-success btn-sm"
                                         title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                     <p> | Liste des directions</p>
                                 </span>
