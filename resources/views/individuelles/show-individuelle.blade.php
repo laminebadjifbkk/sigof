@@ -198,19 +198,21 @@
                                                     </td>
                                                     {{-- Supprimer --}}
                                                     <td>
-                                                        <form action="{{ route('fileDestroy') }}" method="post"
-                                                            class="d-inline">
-                                                            @csrf
-                                                            @method('put')
-                                                            <input type="hidden" name="idFile" value="{{ $file->id }}">
-                                                            <button type="submit"
-                                                                class="btn btn-outline-danger btn-sm show_confirm"
-                                                                title="Supprimer">
-                                                                <i class="bi bi-trash"></i>
-                                                            </button>
-                                                        </form>
+                                                        @if ($file->statut !== 'Validé')
+                                                            <form action="{{ route('fileDestroy') }}" method="post"
+                                                                class="d-inline">
+                                                                @csrf
+                                                                @method('put')
+                                                                <input type="hidden" name="idFile"
+                                                                    value="{{ $file->id }}">
+                                                                <button type="submit"
+                                                                    class="btn btn-outline-danger btn-sm show_confirm"
+                                                                    title="Supprimer">
+                                                                    <i class="bi bi-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        @endif
                                                     </td>
-
                                                     @hasanyrole('super-admin|admin|DIOF')
                                                         {{-- Valider --}}
                                                         <td>
