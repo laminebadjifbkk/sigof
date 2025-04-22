@@ -183,13 +183,13 @@ class OperateurmoduleController extends Controller
 
         return view("operateurmodules.show", compact("operateurmodules", "modulename"));
     }
-    public function destroy($id)
+    public function destroy(Operateurmodule $operateurmodule)
     {
-        $operateurmodule = Operateurmodule::find($id);
+        /* $operateurmodule = Operateurmodule::find($id); */
 
         foreach (Auth::user()->roles as $role) {
             if (! empty($role?->name) && ($role?->name == 'super-admin')) {
-                Alert::success('Effectuée !', 'module supprimée');
+                Alert::success('Succès !', 'Le module a été supprimé avec succès');
                 $operateurmodule->delete();
                 return redirect()->back();
             } elseif ($operateurmodule->statut != 'nouveau') {
@@ -197,7 +197,7 @@ class OperateurmoduleController extends Controller
                 return redirect()->back();
             } else {
                 $operateurmodule->delete();
-                Alert::success('Effectuée !', 'module supprimée');
+                Alert::success('Succès !', 'Le module a été supprimé avec succès');
                 return redirect()->back();
             }
         }
@@ -222,14 +222,14 @@ class OperateurmoduleController extends Controller
     public function generateRapport(Request $request)
     {
         $this->validate($request, [
-            'module'    => 'required|string',
+            'module' => 'required|string',
             /* 'statut'    => 'nullable|string',
             'operateur' => 'nullable|string', */
         ]);
 
         $operateurs = Operateur::orderBy('created_at', 'desc')->get();
 
-      /*   $module_statuts = Operateurmodule::get()->unique('statut');
+        /*   $module_statuts = Operateurmodule::get()->unique('statut');
 
         if ($request?->module == null && $request->statut == null && $request->operateur == null) {
             Alert::warning('Attention ', 'Renseigner au moins un champ pour rechercher');
