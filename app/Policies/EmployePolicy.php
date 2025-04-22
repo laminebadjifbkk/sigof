@@ -19,7 +19,7 @@ class EmployePolicy
      */
     public function view(User $user, Employee $employee): bool
     {
-        return $user?->id === $employee->users_id || $user->hasAnyRole(['super-admin', 'Employe', 'DRH', 'ADRH']);
+        return $user?->id === $employee->users_id || $user->hasAnyRole(['super-admin', 'Employe', 'DRH']);
     }
     /**
      * Determine whether the user can view the model.
