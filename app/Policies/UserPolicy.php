@@ -18,12 +18,12 @@ class UserPolicy
      */
     public function view(User $user, User $model): bool
     {
-        return $user->id === $model->id || $user->hasRole('super-admin', 'DRH');
+        return $user->id === $model->id || $user->hasAnyRole(['super-admin', 'DRH']);
     }
 
     public function show(User $user, User $model): bool
     {
-        return $user->id === $model->id || $user->hasRole('super-admin', 'DRH');
+        return $user->id === $model->id || $user->hasAnyRole(['super-admin', 'DRH']);
     }
 
     /**
@@ -39,7 +39,7 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
-        return $user->id === $model->id || $user->hasRole('super-admin', 'DRH');
+        return $user->id === $model->id || $user->hasAnyRole(['super-admin', 'DRH']);
     }
 
     /**
@@ -47,7 +47,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        return $user->id === $model->id || $user->hasRole('super-admin', 'DRH');
+        return $user->id === $model->id || $user->hasAnyRole(['super-admin', 'DRH']);
     }
 
     /**

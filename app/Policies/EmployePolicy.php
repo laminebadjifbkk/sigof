@@ -19,14 +19,14 @@ class EmployePolicy
      */
     public function view(User $user, Employee $employee): bool
     {
-        return $user?->id === $employee->users_id || $user->hasRole(['super-admin', 'Employe', 'DRH', 'ADRH']);
+        return $user?->id === $employee->users_id || $user->hasAnyRole(['super-admin', 'Employe', 'DRH', 'ADRH']);
     }
     /**
      * Determine whether the user can view the model.
      */
     public function show(User $user, Employee $employee): bool
     {
-        return $user?->id === $employee->users_id || $user->hasRole(['super-admin', 'DRH']);
+        return $user?->id === $employee->users_id || $user->hasAnyRole(['super-admin', 'DRH']);
     }
 
     /**
@@ -42,7 +42,7 @@ class EmployePolicy
      */
     public function update(User $user, Employee $employee): bool
     {
-        return $user?->id === $employee->users_id || $user->hasRole('super-admin', 'DRH');
+        return $user?->id === $employee->users_id || $user->hasAnyRole(['super-admin', 'DRH']);
     }
 
     /**
@@ -50,7 +50,7 @@ class EmployePolicy
      */
     public function delete(User $user, Employee $employee): bool
     {
-        return $user?->id === $employee->users_id || $user->hasRole('super-admin', 'DRH');
+        return $user?->id === $employee->users_id || $user->hasAnyRole(['super-admin', 'DRH']);
     }
 
     /**
