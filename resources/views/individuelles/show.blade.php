@@ -244,8 +244,7 @@
 
                                     <div class="text-center">
                                         <a href="{{ route('individuelles.edit', $individuelle) }}"
-                                            class="btn btn-primary btn-sm text-white" title="Modifier">Enregistrer les
-                                            modifications</a>
+                                            class="btn btn-primary btn-sm text-white" title="Modifier">Modifier</a>
                                     </div>
                                 </form>
                                 <div>
