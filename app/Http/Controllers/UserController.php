@@ -407,7 +407,7 @@ class UserController extends Controller
                     Rule::unique(User::class, 'username')->ignore($user->uuid, 'uuid'),
                 ],
                 'cin'            => [
-                    'required',
+                    'nullable',
                     'string',
                     'min:16',
                     'max:17',
