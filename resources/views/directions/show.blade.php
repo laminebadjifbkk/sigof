@@ -106,11 +106,12 @@
                                         <div class="tab-pane fade show active profile-overview" id="module-overview">
                                             <div class="col-12 col-md-12 col-lg-12 mb-0">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <p><b class="card-title">{{ $direction?->sigle }} : </b>Liste des agents</p>
+                                                    <p><b class="card-title">{{ $direction?->sigle }} : </b>Liste des employés</p>
                                                     <h5 class="card-title">
                                                         <div class="pt-1">
                                                             <a href="{{ url('directionAgent', ['$iddirection' => $direction->id]) }}"
-                                                                class="btn btn-primary float-end btn-sm">Ajouter</a>
+                                                                class="btn btn-primary btn-sm float-end rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"><i
+                                                                    class="bi bi-plus-circle-fill"></i>Ajouter employés</a>
                                                         </div>
                                                     </h5>
                                                 </div>
