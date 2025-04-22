@@ -217,7 +217,8 @@
                                                     @hasrole(['super-admin', 'DRH'])
                                                         <div class="pt-1">
                                                             <a href="{{ url('directionChef', ['$iddirection' => $direction->id]) }}"
-                                                                class="btn btn-primary float-end btn-sm">Ajouter chef</a>
+                                                                class="btn btn-primary btn-sm float-end rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"><i
+                                                                class="bi bi-plus-circle-fill"></i>Ajouter chef</a>
                                                         </div>
                                                     @endhasrole
                                                 </div>
