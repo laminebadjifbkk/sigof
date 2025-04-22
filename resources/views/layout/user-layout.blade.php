@@ -896,6 +896,24 @@
         });
     </script>
     <script type="text/javascript">
+        $('.show_confirm_rejeter').on('click', function(event) {
+            event.preventDefault();
+            const form = $(this).closest("form");
+
+            swal({
+                title: "Êtes-vous sûr de vouloir rejeter ce fichier ?",
+                text: "Cliquez sur 'Oui, rejeter' pour confirmer.",
+                icon: "warning",
+                buttons: ["Annuler", "Oui, rejeter"],
+                dangerMode: true,
+            }).then((willReject) => {
+                if (willReject) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
         $('.show_confirm_suivi').click(function(event) {
             var form = $(this).closest("form");
             var name = $(this).data("name");

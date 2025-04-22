@@ -97,7 +97,31 @@ class FileController extends Controller
             'file' => null,
         ]);
 
-        Alert::success($file->legende, 'a été retiré');
+        Alert::success('Succès !', 'le fichier ' . $file->legende . ' a été retiré avec succès');
+        return redirect()->back();
+    }
+
+    public function fileValidate(Request $request)
+    {
+        $file = File::findOrFail($request->idFile);
+
+        $file->update([
+            'statut' => 'Validé',
+        ]);
+
+        Alert::success('Succès !', 'le fichier ' . $file->legende . ' a été validé avec succès');
+        return redirect()->back();
+    }
+
+    public function fileInvalide(Request $request)
+    {
+        $file = File::findOrFail($request->idFile);
+
+        $file->update([
+            'statut' => 'Rejeté',
+        ]);
+
+        Alert::success('Succès !', 'le fichier ' . $file->legende . ' a été réjeté avec succès');
         return redirect()->back();
     }
 

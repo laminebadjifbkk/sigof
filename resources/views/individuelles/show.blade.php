@@ -112,8 +112,7 @@
                                             <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                     class="bi bi-three-dots"></i></a>
                                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                <form
-                                                    action="{{ route('validation-individuelles.update', $individuelle) }}"
+                                                <form action="{{ route('validation-individuelles.update', $individuelle) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('PUT')
@@ -245,11 +244,12 @@
 
                                     <div class="text-center">
                                         <a href="{{ route('individuelles.edit', $individuelle) }}"
-                                            class="btn btn-primary btn-sm text-white" title="Modifier">Modifier</a>
+                                            class="btn btn-primary btn-sm text-white" title="Modifier">Enregistrer les
+                                            modifications</a>
                                     </div>
                                 </form>
                                 <div>
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <div class="label">FICHIERS JOINTS</div>
 
                                         @php
@@ -261,6 +261,18 @@
                                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                                     <!-- Affichage de la légende -->
                                                     <p class="mb-0 me-3">{{ $file->legende }}</p>
+                                                    <p>
+                                                        @php
+                                                            $statut = $file->statut ?? 'Attente';
+                                                            $badgeClass = match ($statut) {
+                                                                'Validé' => 'success',
+                                                                'Rejeté', 'Invalide' => 'danger',
+                                                                default => 'secondary',
+                                                            };
+                                                        @endphp
+                                                        <span
+                                                            class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
+                                                    </p>
 
                                                     <!-- Bouton de téléchargement -->
                                                     <a href="{{ asset($file->getFichier()) }}"
@@ -272,7 +284,51 @@
                                         @else
                                             <div class="alert alert-info">Aucun fichier</div>
                                         @endif
+                                    </div> --}}
+                                    <div class="col-md-6">
+                                        <h5 class="mb-3 text-uppercase fw-bold">📎 Fichiers joints</h5>
+
+                                        @php
+                                            $fichiersDisponibles = $files->filter(fn($file) => !empty($file->file));
+                                        @endphp
+
+                                        @if ($fichiersDisponibles->isNotEmpty())
+                                            <div class="d-grid gap-2">
+                                                @foreach ($fichiersDisponibles as $index => $file)
+                                                    @php
+                                                        $statut = $file->statut ?? 'Attente';
+                                                        $badgeClass = match ($statut) {
+                                                            'Validé' => 'success',
+                                                            'Rejeté', 'Invalide' => 'danger',
+                                                            default => 'secondary',
+                                                        };
+                                                        $numero = $index + 1;
+                                                    @endphp
+
+                                                    <div class="card shadow-sm border rounded-3">
+                                                        <div
+                                                            class="card-body py-2 px-3 d-flex justify-content-between align-items-center">
+                                                            <div class="me-3">
+                                                                <h6 class="mb-1 small fw-semibold">
+                                                                    {{ $numero }}. {{ $file->legende }}
+                                                                </h6>
+                                                                <span
+                                                                    class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
+                                                            </div>
+                                                            <a href="{{ asset($file->getFichier()) }}"
+                                                                class="btn btn-outline-primary btn-sm" target="_blank">
+                                                                Télécharger
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        @else
+                                            <div class="alert alert-info mt-2 mb-0 py-2 px-3 small">Aucun fichier
+                                                disponible pour le moment.</div>
+                                        @endif
                                     </div>
+
                                 </div>
                             </div>
                         </div>

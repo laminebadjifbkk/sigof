@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
  * @property string $legende
  * @property string $file
  * @property string $sigle
+ * @property string $statut
  * @property string|null $cin
  * @property string|null $cin_recto
  * @property string|null $cin_verso
@@ -74,6 +75,7 @@ class File extends Model
         'operateurs_id',
         'users_id',
         'pcharges_id',
+        'statut',
     ];
 
 	public function getFichier(){

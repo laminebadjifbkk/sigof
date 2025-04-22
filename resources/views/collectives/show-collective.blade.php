@@ -128,8 +128,9 @@
                             <thead>
                                 <tr>
                                     <th width="5%" class="text-center">N°</th>
-                                    <th>LENGENDE</th>
-                                    <th width="10%" class="text-center">FILE</th>
+                                    <th>Légende</th>
+                                    <th width="10%" class="text-center">File</th>
+                                    <th width="10%" class="text-center">Statut</th>
                                     <th width="5%" class="text-center"><i class="bi bi-gear"></i>
                                     </th>
                                 </tr>
