@@ -210,12 +210,15 @@
                                                 @csrf
                                                 @method('PUT')
 
+
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <h5 class="card-title">Responsable</h5>
-                                                    <div class="pt-1">
-                                                        <a href="{{ url('directionChef', ['$iddirection' => $direction->id]) }}"
-                                                            class="btn btn-primary float-end btn-sm">Ajouter chef</a>
-                                                    </div>
+                                                    @hasrole(['super-admin', 'DRH'])
+                                                        <div class="pt-1">
+                                                            <a href="{{ url('directionChef', ['$iddirection' => $direction->id]) }}"
+                                                                class="btn btn-primary float-end btn-sm">Ajouter chef</a>
+                                                        </div>
+                                                    @endhasrole
                                                 </div>
 
                                                 <table
