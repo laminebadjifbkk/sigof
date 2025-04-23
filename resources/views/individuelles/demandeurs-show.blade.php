@@ -62,7 +62,7 @@
                                     <th width="12%">Région</th>
                                     <th>Modules</th>
                                     <th width="10%">Statut</th>
-                                    @can('user-show')
+                                    @can('demande-show')
                                         <th width="5%"><i class="bi bi-gear"></i></th>
                                     @endcan
                                 </tr>
@@ -89,7 +89,7 @@
                                                 {{ $individuelle?->statut }}
                                             </span>
                                         </td>
-                                        @can('user-show')
+                                        @can('demande-show')
                                             <td>
                                                 <span class="d-flex align-items-baseline"><a
                                                         href="{{ route('individuelles.show', $individuelle) }}"
