@@ -673,9 +673,15 @@
                                     @else
                                         <div>
                                             @can('module-check')
-                                                <a href="{{ url('moduleformations', ['$idformation' => $formation->id, '$idlocalite' => $formation->departement->region->id]) }}"
+                                                {{-- <a href="{{ url('moduleformations', ['$idformation' => $formation->id, '$idlocalite' => $formation->departement->region->id]) }}"
                                                     class="btn btn-primary float-end btn-sm">
-                                                    <i class="bi bi-plus" title="Ajouter module"></i> </a>
+                                                    <i class="bi bi-plus" title="Ajouter module"></i> </a> --}}
+                                                <a href="{{ url('moduleformations', ['idformation' => $formation->id, 'idlocalite' => $formation->departement->region->id]) }}"
+                                                    class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-1 shadow-sm float-end"
+                                                    title="Ajouter un module">
+                                                    <i class="bi bi-plus-circle fs-6"></i>
+                                                    <span class="d-none d-sm-inline">Ajouter module</span>
+                                                </a>
                                             @endcan
                                         </div>
                                         <div class="alert alert-info mt-5">Aucun module pour le moment !!!</div>

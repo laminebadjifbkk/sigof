@@ -785,10 +785,16 @@
                                 @else
                                     <div>
                                         @can('module-check')
-                                            <a href="{{ url('collectivemoduleformations', ['$idformation' => $formation->id, '$idlocalite' => $formation->departement->region->id]) }}"
+                                            {{-- <a href="{{ url('collectivemoduleformations', ['$idformation' => $formation->id, '$idlocalite' => $formation->departement->region->id]) }}"
                                                 class="btn btn-outline-primary float-end btn-sm">
-                                                <i class="bi bi-plus" title="Ajouter module"></i> </a>
-                                        @endcan
+                                                <i class="bi bi-plus" title="Ajouter module"></i> </a> --}}
+                                            <a href="{{ url('collectivemoduleformations', ['idformation' => $formation->id, 'idlocalite' => $formation->departement->region->id]) }}"
+                                                class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-1 shadow-sm float-end"
+                                                title="Ajouter un module collectif">
+                                                <i class="bi bi-plus-circle fs-6"></i>
+                                                <span class="d-none d-sm-inline">Ajouter module</span>
+                                            </a>
+                                      @endcan
                                     </div>
                                     <div class="alert alert-info mt-5">Aucun module pour le moment !</div>
                                 @endif
@@ -859,10 +865,10 @@
                                             <span>Agent de suivi</span>&nbsp;
                                             @can('ingenieur-check')
                                                 <button type="button"
-                                                        class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-1 shadow-sm"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#EditAgentSuiviModal{{ $formation->id }}"
-                                                        title="Ajouter un agent de suivi">
+                                                    class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-1 shadow-sm"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#EditAgentSuiviModal{{ $formation->id }}"
+                                                    title="Ajouter un agent de suivi">
                                                     <i class="bi bi-plus-circle fs-6"></i>
                                                     <span class="d-none d-sm-inline">Ajouter</span>
                                                 </button>
