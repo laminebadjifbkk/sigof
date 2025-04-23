@@ -39,7 +39,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(['role:super-admin|admin|Employe']);
+        $this->middleware(['role:super-admin|admin|Employe|DIOF|ADIOF|Ingenieur']);
         $this->middleware("permission:user-view", ["only" => ["index"]]);
         $this->middleware("permission:user-create", ["only" => ["create", "store"]]);
         $this->middleware("permission:user-update", ["only" => ["update", "edit"]]);
