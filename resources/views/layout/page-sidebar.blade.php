@@ -174,7 +174,7 @@
                 </a>
                 <ul id="demande--ind-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-                    @can('user-view')
+                    @can('demande-show')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('demandeurs.individuel') }}">
                                 <span>Demandeurs individuels</span>
@@ -182,7 +182,7 @@
                         </li>
                     @endcan
 
-                    @can('user-view')
+                    @can('demande-show')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('collectives.index') }}">
                                 <span>Demandeurs collectifs</span>
