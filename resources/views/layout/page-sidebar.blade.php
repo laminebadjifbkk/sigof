@@ -156,7 +156,7 @@
             </li>
         @endhasrole
 
-        @hasrole('DIOF|ADIOF')
+        @hasrole('DIOF|ADIOF|Ingenieur|')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('nouvellesformations') }}">
                     <i class="bi bi-grid"></i>

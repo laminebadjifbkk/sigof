@@ -24,7 +24,7 @@ class IndividuelleController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(['role:super-admin|admin|Demandeur|Employe|DIOF|ADIOF|AntKD|AntKL|AntSL|AntKG|AntMT|AntDL|AntZG|AntTH|CAR']);
+        $this->middleware(['role:super-admin|admin|Demandeur|Employe|DIOF|ADIOF|Ingenieur|AntKD|AntKL|AntSL|AntKG|AntMT|AntDL|AntZG|AntTH|CAR']);
         $this->middleware("permission:individuelle-view", ["only" => ["index"]]);
     }
     public function index()

@@ -18,7 +18,7 @@ class IngenieurController extends Controller
     {
         // examples:
         $this->middleware('auth');
-        $this->middleware(['role:super-admin|admin|Ingenieur|DIOF|ADIOF']);
+        $this->middleware(['role:super-admin|admin|Ingenieur|DIOF|ADIOF|Ingenieur|']);
         $this->middleware("permission:ingenieur-view", ["only" => ["index"]]);
         /* $this->middleware(['permission:arrive-show']); */
         // or with specific guard

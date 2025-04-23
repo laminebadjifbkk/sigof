@@ -13,7 +13,7 @@ class ReferentielController extends Controller
     {
         // examples:
         $this->middleware('auth');
-        $this->middleware(['role:super-admin|admin|Demandeur|DIOF|ADIOF|DEC']);
+        $this->middleware(['role:super-admin|admin|Demandeur|DIOF|ADIOF|Ingenieur|DEC']);
         $this->middleware("permission:referentiel-view", ["only" => ["index"]]);
         $this->middleware("permission:referentiel-create", ["only" => ["create", "store"]]);
         $this->middleware("permission:referentiel-update", ["only" => ["update", "edit"]]);
