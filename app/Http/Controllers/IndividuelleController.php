@@ -528,7 +528,7 @@ class IndividuelleController extends Controller
 
 // Vérification des rôles de l'utilisateur de manière simplifiée
         $roleNames       = Auth::user()->roles->pluck('name')->toArray();
-        $restrictedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
+        $restrictedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC'];
 
 // Si l'utilisateur a un rôle restreint, on autorise l'action
         if (! empty(array_diff($roleNames, $restrictedRoles))) {
@@ -631,7 +631,7 @@ class IndividuelleController extends Controller
     private function authorizeRoles($roles, $individuelle)
     {
         foreach ($roles as $role) {
-            if (! empty($role->name) && ! in_array($role->name, ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'])) {
+            if (! empty($role->name) && ! in_array($role->name, ['super-admin', 'Employe', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC'])) {
                 $this->authorize('update', $individuelle);
             }
         }
@@ -730,7 +730,7 @@ class IndividuelleController extends Controller
 
         $userRoles = Auth::user()->roles->pluck('name')->toArray();
 
-        $excludedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'AntKD', 'AntKL', 'AntSL', 'AntKG', 'AntMT', 'AntDL', 'AntZG', 'AntTH', 'CAR'];
+        $excludedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC', 'AntKD', 'AntKL', 'AntSL', 'AntKG', 'AntMT', 'AntDL', 'AntZG', 'AntTH', 'CAR'];
 
         if (! empty(array_diff($userRoles, $excludedRoles))) {
             $this->authorize('show', $individuelle);
@@ -768,7 +768,7 @@ class IndividuelleController extends Controller
     {
         /* $individuelle  = Individuelle::findOrFail($id); */
         $userRoles     = Auth::user()->roles->pluck('name')->toArray();
-        $excludedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
+        $excludedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC'];
 
         // Vérifier si l'utilisateur n'a pas un rôle exclu avant d'autoriser la suppression
         if (! empty(array_diff($userRoles, $excludedRoles))) {
