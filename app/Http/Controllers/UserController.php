@@ -498,7 +498,7 @@ class UserController extends Controller
         $users = User::get();
 
         // Vérifie si l'utilisateur connecté a le rôle 'super-admin' ou 'admin'
-        if (! Auth::user()->hasRole(['super-admin', 'admin'])) {
+        if (! Auth::user()->hasRole(['super-admin', 'admin', 'DIOF', 'ADIOF', 'Ingenieur'])) {
             $this->authorize('update', $user);
         }
 
@@ -579,7 +579,7 @@ class UserController extends Controller
     {
         // Vérifier si l'utilisateur connecté est un admin ou super-admin
         $userRoles = collect(Auth::user()->roles)->pluck('name');
-        if (! $userRoles->contains(fn($role) => str_contains($role, 'super-admin') || str_contains($role, 'admin'))) {
+        if (! $userRoles->contains(fn($role) => str_contains($role, 'super-admin') || str_contains($role, 'admin')|| str_contains($role, 'DIOF')|| str_contains($role, 'ADIOF')|| str_contains($role, 'Ingenieur'))) {
             $this->authorize('delete', $user);
         }
 
