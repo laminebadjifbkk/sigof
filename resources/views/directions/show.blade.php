@@ -105,9 +105,9 @@
                                     <div class="tab-content">
                                         <div class="tab-pane fade show active profile-overview" id="module-overview">
                                             <div class="col-12 col-md-12 col-lg-12 mb-0">
-                                                @can('employe-delete')
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <p><b class="card-title">{{ $direction?->sigle }} : </b>Liste des employés</p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <p><b class="card-title">{{ $direction?->sigle }} : </b>Liste des employés</p>
+                                                    @can('employe-delete')
                                                         <h5 class="card-title">
                                                             <div class="pt-1">
                                                                 <a href="{{ url('directionAgent', ['$iddirection' => $direction->id]) }}"
@@ -115,8 +115,8 @@
                                                                         class="bi bi-plus-circle-fill"></i>Ajouter employés</a>
                                                             </div>
                                                         </h5>
-                                                    </div>
-                                                @endcan
+                                                    @endcan
+                                                </div>
                                                 <div class="row g-3">
                                                     <table
                                                         class="table table-bordered table-hover datatables align-middle justify-content-center"
