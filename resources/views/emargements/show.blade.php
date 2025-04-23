@@ -49,7 +49,8 @@
                                             <form action="{{ route('feuillePresenceTous') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="idformation" value="{{ $formation->id }}">
-                                                <input type="hidden" name="idmodule" value="{{ $formation?->module?->id }}">
+                                                <input type="hidden" name="idmodule"
+                                                    value="{{ $formation?->module?->id }}">
                                                 <input type="hidden" name="idlocalite"
                                                     value="{{ $formation?->departement?->region?->id }}">
                                                 <input type="hidden" name="idemargement" value="{{ $emargement?->id }}">
@@ -77,18 +78,11 @@
                                         <thead>
                                             <tr>
                                                 <th width="3%">N°</th>
-                                                {{-- <th>CIN</th> --}}
-                                                {{--  <th width="3%"> --}}
-                                                {{-- <input type="checkbox" class="form-check-input" id="checkAll"> --}}
-                                                {{--      Civilité
-                                                </th> --}}
                                                 <th>Prénom</th>
                                                 <th>NOM</th>
                                                 <th>Date naissance</th>
                                                 <th>Lieu naissance</th>
                                                 <th>Département</th>
-                                                {{-- <th>Adresse</th> --}}
-                                                {{-- <th>Module</th> --}}
                                                 <th style="text-align: center">Présence</th>
                                                 @if (!empty($formation->projets_id))
                                                     <th>Projet</th>
@@ -102,33 +96,32 @@
                                                 @if (!empty($individuelle?->numero))
                                                     <tr>
                                                         <td>{{ $i++ }}</td>
-                                                        {{-- <td>{{ $individuelle?->user?->cin }}</td> --}}
-                                                        {{--  <td> --}}
-                                                        {{-- <input type="checkbox" name="individuelles[]"
-                                                                value="{{ $individuelle->id }}"
-                                                                {{ in_array($individuelle->formations_id, $individuelleFormation) ? 'checked' : '' }}
-                                                                {{ in_array($individuelle->formations_id, $individuelleFormationCheck) ? 'disabled' : '' }}
-                                                                class="form-check-input @error('individuelles') is-invalid @enderror"> --}}
-                                                        {{-- {{ $individuelle?->user?->civilite }}
-                                                            @error('individuelles')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <div>{{ $message }}</div>
-                                                                </span>
-                                                            @enderror
-                                                        </td> --}}
                                                         <td>{{ $individuelle?->user?->firstname }}</td>
                                                         <td>{{ $individuelle?->user?->name }}</td>
                                                         <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}
                                                         </td>
                                                         <td>{{ $individuelle?->user?->lieu_naissance }}</td>
                                                         <td>{{ $individuelle?->departement?->nom }}</td>
-                                                        {{-- <td>{{ $individuelle?->user?->adresse }}</td> --}}
-                                                        {{-- <td>{{ $individuelle?->module?->name }}</td> --}}
-                                                        {{-- <td><span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
-                                                        </td> --}}
-                                                        <td style="text-align: center">
+                                                        {{--  <td style="text-align: center">
                                                             @foreach ($individuelle?->feuillepresences as $feuillepresence)
-                                                                {{ in_array($feuillepresence?->emargements_id, $feuillepresenceIndividuelle) ? $feuillepresence?->presence : '' }}
+                                                                <span class="{{ $feuillepresence?->presence }}">
+                                                                    {{ in_array($feuillepresence?->emargements_id, $feuillepresenceIndividuelle) ? $feuillepresence?->presence : '' }}
+                                                                </span>
+                                                            @endforeach
+                                                        </td> --}}
+                                                        <td class="text-center">
+                                                            @foreach ($individuelle?->feuillepresences as $feuillepresence)
+                                                                @if (in_array($feuillepresence?->emargements_id, $feuillepresenceIndividuelle))
+                                                                    <span
+                                                                        class="badge 
+                                                                        {{ $feuillepresence?->presence === 'Oui'
+                                                                            ? 'bg-success'
+                                                                            : ($feuillepresence?->presence === 'Non'
+                                                                                ? 'bg-danger'
+                                                                                : 'bg-default') }}">
+                                                                        {{ $feuillepresence?->presence }}
+                                                                    </span>
+                                                                @endif
                                                             @endforeach
                                                         </td>
                                                         @if (!empty($formation->projets_id))
@@ -146,17 +139,10 @@
                                                                     <ul
                                                                         class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                         <li>
-                                                                            {{-- <a class="dropdown-item btn btn-sm"
-                                                                                href="{{ route('individuelleEmargement', ['idindividuelle' => $individuelle?->id, 'idemargement' => $emargement?->id]) }}"
-                                                                                class="mx-1" title="Modifier"><i
-                                                                                    class="bi bi-pencil"></i>Modifier</a> --}}
                                                                             <button type="button" class="dropdown-item"
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#PresenceModal{{ $individuelle->id }}">Présence
                                                                             </button>
-                                                                            {{-- <button type="button" class="dropdown-item btn btn-sm"
-                                                                            data-bs-toggle="modal" data-bs-target="#generate_rapport"></i>Rechercher
-                                                                            plus</button> --}}
                                                                         </li>
                                                                         <li>
                                                                             <form
@@ -189,7 +175,7 @@
                 </div>
             </div>
         </div>
-        @foreach ($formation?->individuelles as $individuelle)
+        {{-- @foreach ($formation?->individuelles as $individuelle)
             <div class="modal fade" id="PresenceModal{{ $individuelle->id }}" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -232,6 +218,60 @@
                     </div>
                 </div>
             </div>
+        @endforeach --}}
+        @foreach ($formation?->individuelles as $individuelle)
+            <div class="modal fade" id="PresenceModal{{ $individuelle->id }}" tabindex="-1"
+                aria-labelledby="presenceModalLabel{{ $individuelle->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content shadow rounded-3">
+                        <form method="POST" action="{{ route('feuillepresences.update', $individuelle->id) }}"
+                            enctype="multipart/form-data" class="needs-validation" novalidate>
+                            @csrf
+                            @method('PATCH')
+                            <div class="modal-header bg-default rounded-top">
+                                <h5 class="modal-title text-center w-100" id="presenceModalLabel{{ $individuelle->id }}">
+                                    {{ $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
+                                </h5>
+                            </div>
+
+                            <div class="modal-body">
+                                <input type="hidden" name="idemargement" value="{{ $emargement->id }}">
+                                <input type="hidden" name="pointeur" value="0">
+
+                                <div class="mb-3">
+                                    <label for="selectPresence{{ $individuelle->id }}"
+                                        class="form-label fw-semibold">Présence <span class="text-danger">*</span></label>
+                                    <select id="selectPresence{{ $individuelle->id }}" name="presence"
+                                        class="form-select form-select-sm @error('presence') is-invalid @enderror"
+                                        required>
+                                        <option value="" disabled selected hidden>--Choisir--</option>
+                                        @foreach ($individuelle?->feuillepresences->unique('presence') as $feuillepresence)
+                                            <option value="{{ $feuillepresence?->presence }}">
+                                                {{ in_array($feuillepresence?->emargements_id, $feuillepresenceIndividuelle) ? $feuillepresence?->presence : '' }}
+                                            </option>
+                                        @endforeach
+                                        <option value="Oui">Oui</option>
+                                        <option value="Non">Non</option>
+                                    </select>
+                                    @error('presence')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="modal-footer d-flex justify-content-between">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
+                                    <i class="bi bi-x-circle"></i> Fermer
+                                </button>
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    <i class="bi bi-check-circle"></i> Valider
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         @endforeach
+
     </section>
 @endsection

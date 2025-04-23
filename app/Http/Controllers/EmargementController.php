@@ -30,7 +30,7 @@ class EmargementController extends Controller
 
         $emargement->save();
 
-        Alert::success("Modification réussie", "La modification a été effectuée avec succès.");
+        Alert::success("Succès !", "La modification a été effectuée avec succès.");
 
         return redirect()->back();
     }
@@ -41,8 +41,8 @@ class EmargementController extends Controller
 
         $this->validate($request, [
             'jour'    => "required|string",
-            'feuille' => "nullable|file|mimes:pdf|max:2048",
-            'date'    => 'nullable|date|min:10|max:10|date_format:Y-m-d',
+            'feuille' => "nullable|file|mimes:pdf,jpg,jpeg,png|max:1024",
+            'date'    => 'nullable|date|size:10|date_format:Y-m-d',
         ]);
 
         if (! empty($request->input('date'))) {
@@ -51,7 +51,7 @@ class EmargementController extends Controller
             $date = null;
         }
 
-        if (request('feuille') && ! empty($emargement->file)) {
+        /* if (request('feuille') && ! empty($emargement->file)) {
             Storage::disk('public')->delete($emargement->file);
             $filePath = request('feuille')->store('feuilles', 'public');
             $file     = $request->file('feuille');
@@ -69,6 +69,25 @@ class EmargementController extends Controller
             ]);
 
             $emargement->save();
+        } */
+
+        if (request()->hasFile('feuille')) {
+            // Si un fichier est envoyé, on supprime l'ancien fichier si nécessaire
+            if (! empty($emargement->file)) {
+                Storage::disk('public')->delete($emargement->file);
+            }
+
+            // Générer un nom unique pour le fichier en ajoutant l'horodatage
+            $file     = request()->file('feuille');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+
+            // Stocker le fichier avec le nouveau nom
+            $filePath = $file->storeAs('feuilles', $fileName, 'public');
+
+            // Mise à jour de l'emargement avec le nouveau chemin du fichier
+            $emargement->update([
+                'file' => $filePath,
+            ]);
         }
 
         $emargement->update([
@@ -80,7 +99,7 @@ class EmargementController extends Controller
 
         $emargement->save();
 
-        Alert::success("Modification réussie", "La modification a été effectuée avec succès.");
+        Alert::success("Succès !", "La modification a été effectuée avec succès.");
 
         return redirect()->back();
     }
@@ -197,7 +216,7 @@ class EmargementController extends Controller
 
         $emargement->delete();
 
-        Alert::success('Opération réussie !', 'La suppression a été effectuée avec succès.');
+        Alert::success('Succès !', 'La suppression a été effectuée avec succès.');
 
         return redirect()->back();
     }

@@ -499,10 +499,22 @@
                                                         </div>
                                                     </span>
                                                 @endcan
-                                                <div class="float-end">
+                                                {{-- <div class="float-end">
                                                     <a href="{{ url('formationdemandeurs', ['$idformation' => $formation->id, '$idmodule' => $formation?->module?->id, '$idlocalite' => $formation->departement->region->id]) }}"
                                                         class="btn btn-outline-primary btn-rounded btn-sm">
-                                                        <i class="bi bi-plus" title="Ajouter demandeur"></i> </a>
+                                                        <i class="bi bi-plus" title="Ajouter demandeur"></i>Ajouter </a>
+                                                </div> --}}
+                                                <div class="float-end">
+                                                    <a href="{{ url('formationdemandeurs', [
+                                                        'idformation' => $formation->id,
+                                                        'idmodule' => $formation?->module?->id,
+                                                        'idlocalite' => $formation->departement->region->id,
+                                                    ]) }}"
+                                                        class="btn btn-primary btn-sm rounded-pill shadow-sm d-inline-flex align-items-center gap-1 px-3 py-1"
+                                                        style="transition: all 0.3s ease;">
+                                                        <i class="bi bi-person-plus-fill"></i>
+                                                        <span>Ajouter</span>
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="row g-3 pt-3">
@@ -728,15 +740,30 @@
                                             <h5 class="card-title">
                                                 {{ $ingenieur?->name }}
                                                 @can('ingenieur-check')
-                                                    <a class="btn btn-info btn-sm" title=""
+                                                    {{-- <a class="btn btn-info btn-sm" title=""
                                                         href="{{ route('ingenieurs.show', $ingenieur?->id) }}"><i
                                                             class="bi bi-eye"></i></a>&nbsp;
                                                     <a href="{{ url('formationingenieurs', ['$idformation' => $formation->id]) }}"
                                                         class="btn btn-primary float-end btn-sm">
-                                                        <i class="bi bi-pencil" title="Changer ingenieur"></i> </a>
+                                                        <i class="bi bi-pencil" title="Changer ingenieur"></i> </a> --}}
+                                                    <div class="d-flex justify-content-between align-items-center gap-2 pb-2">
+                                                        <a href="{{ route('ingenieurs.show', $ingenieur?->id) }}"
+                                                            class="btn btn-outline-info btn-sm rounded-pill d-flex align-items-center gap-1 shadow-sm"
+                                                            title="Voir l'ingénieur">
+                                                            <i class="bi bi-eye-fill fs-6"></i>
+                                                            <span class="d-none d-sm-inline">Voir</span>
+                                                        </a>
+
+                                                        <a href="{{ url('formationingenieurs', ['$idformation' => $formation->id]) }}"
+                                                            class="btn btn-outline-primary btn-sm rounded-pill d-flex align-items-center gap-1 shadow-sm"
+                                                            title="Changer l'ingénieur">
+                                                            <i class="bi bi-pencil-fill fs-6"></i>
+                                                            <span class="d-none d-sm-inline">Changer</span>
+                                                        </a>
+                                                    </div>
                                                 @endcan
                                             </h5>
-                                            <h5 class="card-title">
+                                            {{-- <h5 class="card-title">
                                                 Agent de suivi
                                                 @can('ingenieur-check')
                                                     <button type="button" class="btn btn-outline-primary btn-sm"
@@ -745,13 +772,34 @@
                                                         <i class="bi bi-plus" title="Ajouter un agent de suivi"></i>
                                                     </button>
                                                 @endcan
+                                            </h5> --}}
+                                            <h5 class="card-title d-flex justify-content-between align-items-center">
+                                                <span>Agent de suivi</span>&nbsp;
+                                                @can('ingenieur-check')
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-1 shadow-sm"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#EditAgentSuiviModal{{ $formation->id }}"
+                                                        title="Ajouter un agent de suivi">
+                                                        <i class="bi bi-plus-circle fs-6"></i>
+                                                        <span class="d-none d-sm-inline">Ajouter</span>
+                                                    </button>
+                                                @endcan
                                             </h5>
                                         </div>
                                     @else
-                                        <div class="pb-2">
+                                        {{-- <div class="pb-2">
                                             <a href="{{ url('formationingenieurs', ['$idformation' => $formation->id]) }}"
                                                 class="btn btn-primary float-end btn-sm">
                                                 <i class="bi bi-plus" title="Ajouter ingenieur"></i> </a>
+                                        </div> --}}
+                                        <div class="pb-2">
+                                            <a href="{{ url('formationingenieurs', ['$idformation' => $formation->id]) }}"
+                                                class="btn btn-outline-success btn-sm rounded-pill d-flex align-items-center gap-1 float-end shadow-sm pt-1 px-3"
+                                                title="Ajouter un ingénieur">
+                                                <i class="bi bi-plus-circle-fill fs-6"></i>
+                                                <span class="d-none d-sm-inline">Ajouter ingénieur</span>
+                                            </a>
                                         </div>
                                         <div class="alert alert-info mt-5">Aucun ingénieur pour le moment !!!</div>
                                     @endif
@@ -1175,7 +1223,6 @@
                                                                 </td>
                                                                 <td style="text-align: center; vertical-align: middle;">
                                                                     @if (!empty($individuelle?->retrait_diplome))
-
                                                                         <a href="#" data-bs-toggle="modal"
                                                                             data-bs-target="#EditShowModal{{ $individuelle?->id }}"><i
                                                                                 class="bi bi-check-circle text-success"
@@ -2056,8 +2103,6 @@
                 aria-labelledby="EditEmargementModalLabel{{ $emargement->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        {{-- <form method="POST" action="{{ route('updateRegion') }}">
-                    @csrf --}}
                         <form method="post" action="{{ route('emargements.update', $emargement->id) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf

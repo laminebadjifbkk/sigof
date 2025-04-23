@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ajouter module à cette formation')
+@section('title', 'Ajouter module à cette formation')
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
@@ -67,12 +67,12 @@
                                                         {{ $collectivemodule?->collective?->name . ' (' . $collectivemodule?->collective?->sigle . ')' }}
                                                     </td>
                                                     <td><a
-                                                            href="mailto:{{ $collectivemodule->collective->user->email }}">{{ $collectivemodule->collective->user->email }}</a>
+                                                            href="mailto:{{ $collectivemodule?->collective?->user?->email }}">{{ $collectivemodule?->collective?->user?->email }}</a>
                                                     </td>
                                                     <td><a
-                                                            href="tel:+221{{ $collectivemodule->collective->telephone }}">{{ $collectivemodule->collective->telephone }}</a>
+                                                            href="tel:+221{{ $collectivemodule?->collective?->telephone }}">{{ $collectivemodule?->collective?->telephone }}</a>
                                                     </td>
-                                                    <td>{{ $collectivemodule->collective->departement?->region?->nom }}
+                                                    <td>{{ $collectivemodule?->collective?->departement?->region?->nom }}
                                                     </td>
                                                     <td>{{ $collectivemodule?->module }}</td>
                                                     <td style="text-align: center;">

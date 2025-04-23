@@ -103,37 +103,33 @@
                                                 @if (!empty($listecollective?->cin))
                                                     <tr>
                                                         <td>{{ $i++ }}</td>
-                                                        {{-- <td>{{ $individuelle?->user?->cin }}</td> --}}
-                                                        {{--  <td> --}}
-                                                        {{-- <input type="checkbox" name="individuelles[]"
-                                                                value="{{ $individuelle->id }}"
-                                                                {{ in_array($individuelle->formations_id, $individuelleFormation) ? 'checked' : '' }}
-                                                                {{ in_array($individuelle->formations_id, $individuelleFormationCheck) ? 'disabled' : '' }}
-                                                                class="form-check-input @error('individuelles') is-invalid @enderror"> --}}
-                                                        {{-- {{ $individuelle?->user?->civilite }}
-                                                            @error('individuelles')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <div>{{ $message }}</div>
-                                                                </span>
-                                                            @enderror
-                                                        </td> --}}
                                                         <td>{{ $listecollective?->prenom }}</td>
                                                         <td>{{ $listecollective?->nom }}</td>
                                                         <td>{{ $listecollective?->date_naissance->format('d/m/Y') }}
                                                         </td>
                                                         <td>{{ $listecollective?->lieu_naissance }}</td>
-                                                        {{-- <td>{{ $individuelle?->user?->adresse }}</td> --}}
-                                                        {{-- <td>{{ $individuelle?->module?->name }}</td> --}}
-                                                        {{-- <td><span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
-                                                        </td> --}}
-                                                        <td style="text-align: center">
+                                                        {{-- <td style="text-align: center">
                                                             @foreach ($listecollective?->feuillepresencecollectives as $feuillepresencecollective)
-                                                                {{ in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective) ? $feuillepresencecollective?->presence : '' }}
+                                                                <span class="{{ $feuillepresencecollective?->presence }}">
+                                                                    {{ in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective) ? $feuillepresencecollective?->presence : '' }}
+                                                                </span>
+                                                            @endforeach
+                                                        </td> --}}
+                                                        <td class="text-center">
+                                                            @foreach ($listecollective?->feuillepresencecollectives as $feuillepresencecollective)
+                                                                @if (in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective))
+                                                                    <span
+                                                                        class="badge 
+                                                                        {{ $feuillepresencecollective?->presence === 'Oui'
+                                                                            ? 'bg-success'
+                                                                            : ($feuillepresencecollective?->presence === 'Non'
+                                                                                ? 'bg-danger'
+                                                                                : 'bg-default') }}">
+                                                                        {{ $feuillepresencecollective?->presence }}
+                                                                    </span>
+                                                                @endif
                                                             @endforeach
                                                         </td>
-                                                        {{-- @if (!empty($formation->projets_id))
-                                                            <td>{{ $individuelle?->projet?->sigle }}</td>
-                                                        @endif --}}
                                                         <td>
                                                             <span class="d-flex align-items-baseline"><a
                                                                     href="{{ route('listecollectives.show', $listecollective->id) }}"
@@ -146,10 +142,6 @@
                                                                     <ul
                                                                         class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                         <li>
-                                                                            {{-- <a class="dropdown-item btn btn-sm"
-                                                                                href="{{ route('individuelleEmargement', ['idindividuelle' => $individuelle?->id, 'idemargement' => $emargementcollective?->id]) }}"
-                                                                                class="mx-1" title="Modifier"><i
-                                                                                    class="bi bi-pencil"></i>Modifier</a> --}}
                                                                             <button type="button" class="dropdown-item"
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#PresenceModal{{ $listecollective->id }}">Présence
@@ -189,11 +181,12 @@
                 </div>
             </div>
         </div>
-        @foreach ($formation?->listecollectives as $listecollective)
+        {{-- @foreach ($formation?->listecollectives as $listecollective)
             <div class="modal fade" id="PresenceModal{{ $listecollective->id }}" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form method="post" action="{{ route('feuillepresencecollectives.update', $listecollective->id) }}"
+                        <form method="post"
+                            action="{{ route('feuillepresencecollectives.update', $listecollective->id) }}"
                             enctype="multipart/form-data" class="row">
                             @csrf
                             @method('patch')
@@ -232,6 +225,65 @@
                     </div>
                 </div>
             </div>
+        @endforeach --}}
+
+        @foreach ($formation?->listecollectives as $listecollective)
+            <div class="modal fade" id="PresenceModal{{ $listecollective->id }}" tabindex="-1"
+                aria-labelledby="presenceModalLabel{{ $listecollective->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content shadow rounded-3">
+                        <form method="POST"
+                            action="{{ route('feuillepresencecollectives.update', $listecollective->id) }}"
+                            enctype="multipart/form-data" class="needs-validation" novalidate>
+                            @csrf
+                            @method('PATCH')
+
+                            <div class="modal-header bg-default rounded-top">
+                                <h5 class="modal-title text-center w-100"
+                                    id="presenceModalLabel{{ $listecollective->id }}">
+                                    {{ $listecollective?->prenom . ' ' . $listecollective?->nom }}
+                                </h5>
+                            </div>
+
+                            <div class="modal-body">
+                                <input type="hidden" name="idemargement" value="{{ $emargementcollective->id }}">
+                                <input type="hidden" name="pointeur" value="0">
+
+                                <div class="mb-3">
+                                    <label for="selectPresence{{ $listecollective->id }}"
+                                        class="form-label fw-semibold">Présence <span class="text-danger">*</span></label>
+                                    <select id="selectPresence{{ $listecollective->id }}" name="presence"
+                                        class="form-select form-select-sm @error('presence') is-invalid @enderror" required>
+                                        <option value="" disabled selected hidden>--Choisir--</option>
+                                        @foreach ($listecollective?->feuillepresencecollectives->unique('presence') as $feuillepresencecollective)
+                                            @if (in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective))
+                                                <option value="{{ $feuillepresencecollective?->presence }}">
+                                                    {{ $feuillepresencecollective?->presence }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                        <option value="Oui">Oui</option>
+                                        <option value="Non">Non</option>
+                                    </select>
+                                    @error('presence')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="modal-footer d-flex justify-content-between">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
+                                    <i class="bi bi-x-circle"></i> Fermer
+                                </button>
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    <i class="bi bi-check-circle"></i> Valider
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         @endforeach
+
     </section>
 @endsection

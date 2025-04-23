@@ -32,7 +32,7 @@ class FeuillepresenceController extends Controller
 
         $feuillepresence->save();
 
-        Alert::success("Modification réussie", "La modification a été effectuée avec succès.");
+        Alert::success("Succès !", "Le pointage a été effectué avec succès.");
 
         return redirect()->back();
     }
