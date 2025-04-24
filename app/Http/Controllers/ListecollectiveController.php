@@ -102,26 +102,21 @@ class ListecollectiveController extends Controller
 
     public function edit(Listecollective $listecollective)
     {
-        // Récupérer l'utilisateur connecté
-        $user = Auth::user();
-    
-        // Récupérer les rôles de l'utilisateur sous forme de tableau
+        $user             = Auth::user();
         $rolesUtilisateur = $user->roles->pluck('name')->toArray();
-    
-        // Vérification des rôles autorisés
-        $rolesAutorises = ['super-admin', 'admin']; // Rôles autorisés pour accéder à l'édition
-    
-        // Si l'utilisateur a un des rôles autorisés et que le statut de la listecollective est 'Nouvelle'
-        if (array_intersect($rolesUtilisateur, $rolesAutorises) && $listecollective->statut !== 'Nouvelle') {
-            // Si les conditions sont remplies, afficher la vue
+        $rolesAutorises   = ['super-admin', 'admin', 'DIOF', 'ADIOF', 'Ingenieur'];
+
+        // Si l'utilisateur a un rôle autorisé OU si le statut est "Nouvelle"
+        if (
+            array_intersect($rolesUtilisateur, $rolesAutorises) ||
+            $listecollective->statut === 'Nouvelle'
+        ) {
             return view("collectives.updateliste", compact("listecollective"));
         }
-    
-        // Si l'utilisateur n'a pas les bons rôles ou si le statut n'est pas 'Nouvelle'
+
         Alert::warning('Désolé !', 'Vous n\'avez pas l\'autorisation de modifier cette collective.');
         return redirect()->back();
     }
-    
 
     public function update(Request $request, Listecollective $listecollective)
     {
