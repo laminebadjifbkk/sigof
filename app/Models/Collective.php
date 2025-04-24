@@ -180,6 +180,11 @@ class Collective extends Model
         return 'uuid';
     } */
 
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
+
     protected static function boot()
     {
         parent::boot();

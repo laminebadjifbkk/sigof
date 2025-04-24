@@ -1,7 +1,8 @@
 @extends('layout.user-layout')
 @section('title', $antenne?->name)
 @section('space-work')
-    @hasrole([$antenne->code, 'CAR', 'super-admin'])
+    {{-- @hasrole([$antenne->code, 'CAR', 'super-admin']) --}}
+    @hasrole("{$antenne->code}|CAR|super-admin")
         <section class="section">
             <div class="row justify-content-center">
                 <div class="col-lg-10">

@@ -20,26 +20,49 @@
                 @endif
                 <div class="col-lg-12 col-md-12 d-flex flex-column align-items-center justify-content-center">
                     <div class="card mb-0">
-                        @can('collective-view')
-                            <span class="nav-link"><a
-                                    href="{{ route('collectivemodules.show', $listecollective?->collectivemodule?->id) }}"
+                        <div class="card-body">
+
+                            {{-- <span class="nav-link"><a
+                                    href="{{ route('collectivemodules.show', $listecollective?->collectivemodule) }}"
                                     class="btn btn-secondary btn-sm" title="retour"><i
                                         class="bi bi-arrow-counterclockwise"></i></a>
                             </span>
-                        @endcan
-                        <div class="card-body">
                             <span class="d-flex align-items-baseline"><a
-                                    href="{{ route('collectivemodules.show', $listecollective?->collectivemodule?->id) }}"
+                                    href="{{ route('collectivemodules.show', $listecollective?->collectivemodule) }}"
                                     class="btn btn-success btn-sm" title="retour"><i
                                         class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                 <p> | retour</p>
-                            </span>
-                            <form method="post" action="{{ url('listecollectives/' . $listecollective->id) }}"
+                            </span> --}}
+
+                            @php
+                                $userRoles = Auth::user()->roles->pluck('name')->toArray(); // Récupère les rôles de l'utilisateur
+                            @endphp
+
+                            @if (in_array('super-admin', $userRoles) || in_array('admin', $userRoles))
+                                <!-- Si l'utilisateur a le rôle 'super-admin' ou 'admin', afficher ce bouton -->
+                                <span class="nav-link">
+                                    <a href="{{ route('collectivemodules.show', $listecollective?->collectivemodule) }}"
+                                        class="btn btn-secondary btn-sm" title="retour">
+                                        <i class="bi bi-arrow-counterclockwise"></i>
+                                    </a>
+                                </span>
+                            @else
+                                <!-- Sinon, afficher l'autre bouton pour le rôle 'Demandeur' -->
+                                <span class="d-flex align-items-baseline">
+                                    <a href="{{ route('collectivemodules.show', $listecollective?->collectivemodule) }}"
+                                        class="btn btn-success btn-sm" title="retour">
+                                        <i class="bi bi-arrow-counterclockwise"></i>
+                                    </a>&nbsp;
+                                    <p> | retour</p>
+                                </span>
+                            @endif
+
+                            <form method="post" action="{{ route('listecollectives.update', $listecollective) }}"
                                 enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 @method('PUT')
                                 <div class="row g-3">
-                                    <input type="hidden" name="collective" value="{{ $listecollective->collective->id }}">
+                                    <input type="hidden" name="collective" value="{{ $listecollective->collective }}">
                                     <div class="col-12 col-md-4 col-lg-4 mb-0">
                                         <label for="cin" class="form-label">CIN<span
                                                 class="text-danger mx-1">*</span></label>

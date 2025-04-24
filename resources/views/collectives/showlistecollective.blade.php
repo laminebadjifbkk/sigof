@@ -22,14 +22,14 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <span class="d-flex mt-2 align-items-baseline"><a
-                                        href="{{ route('collectives.show', $listecollective?->collective?->id) }}"
+                                        href="{{ route('collectives.show', $listecollective?->collective) }}"
                                         class="btn btn-secondary btn-sm" title="retour"><i
                                             class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                     <p> | retour</p>
                                 </span>
                             </div>
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                                <form method="post" action="{{ url('listecollectives/' . $listecollective->id) }}"
+                                <form method="post" action="{{ route('listecollectives.update', $listecollective) }}"
                                     enctype="multipart/form-data" class="row g-3">
                                     @csrf
                                     @method('PUT')
@@ -57,7 +57,7 @@
                                     </div>
                                     <div class="col-12 col-md-3 col-lg-3 mb-2">
                                         <div class="label mb-2">Département</div>
-                                        <div>{{ $listecollective?->collective->departement->nom }}
+                                        <div>{{ $listecollective?->collective?->departement->nom }}
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-3 col-lg-3 mb-2">
@@ -179,11 +179,12 @@
                                             <div>{{ $listecollective?->details }}</div>
                                         </div>
                                     @endif
-
-                                    <div class="text-center">
-                                        <a href="{{ route('listecollectives.edit', $listecollective?->id) }}"
-                                            class="btn btn-primary btn-sm text-white" title="voir détails"><i
-                                                class="bi bi-pencil"></i>&nbsp;Modifier</a>
+                                    <div class="d-flex justify-content-center">
+                                        <a href="{{ route('listecollectives.edit', $listecollective) }}"
+                                            class="btn btn-outline-primary btn-sm text-primary d-flex align-items-center"
+                                            title="Voir détails">
+                                            <i class="bi bi-pencil me-2"></i>Modifier
+                                        </a>
                                     </div>
                                 </form>
                             </div>

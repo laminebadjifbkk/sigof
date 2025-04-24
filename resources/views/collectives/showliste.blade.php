@@ -40,8 +40,7 @@
                 <div class="card">
                     <ul class="nav nav-tabs nav-tabs-bordered">
                         <li class="nav-item">
-                            <span class="nav-link"><a
-                                    href="{{ route('collectives.show', $collectivemodule->collective->id) }}"
+                            <span class="nav-link"><a href="{{ route('collectives.show', $collectivemodule->collective) }}"
                                     class="btn btn-secondary btn-sm" title="retour"><i
                                         class="bi bi-arrow-counterclockwise"></i></a>
                             </span>
@@ -115,11 +114,11 @@
                                                             </form>
                                                         @endcan
                                                         <li><a class="dropdown-item btn btn-sm"
-                                                                href="{{ route('listecollectives.edit', $listecollective->id) }}"
+                                                                href="{{ route('listecollectives.edit', $listecollective) }}"
                                                                 class="mx-1" title="Modifier">Modifier</a>
                                                         </li>
                                                         <form
-                                                            action="{{ route('listecollectives.destroy', $listecollective->id) }}"
+                                                            action="{{ route('listecollectives.destroy', $listecollective) }}"
                                                             method="post">
                                                             @csrf
                                                             @method('DELETE')
@@ -338,23 +337,13 @@
                 </div>
             </div>
         </div>
-        @foreach ($collectivemodule->listecollectives as $listecollective)
+        {{--  @foreach ($collectivemodule->listecollectives as $listecollective)
             <div class="col-lg-12 col-md-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="EditlistecollectiveModal{{ $listecollective->id }}" tabindex="-1"
                     role="dialog" aria-labelledby="EditlistecollectiveModalLabel{{ $listecollective->id }}"
                     aria-hidden="true">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
-                            {{-- <form method="post" action="{{ route('formations.update', $listecollective->id) }}"
-                                enctype="multipart/form-data" class="row g-3">
-                                @csrf
-                                @method('patch') --}}
-                            {{-- <div class="modal-header" id="EditlistecollectiveModalLabel{{ $listecollective->id }}">
-                                <h5 class="modal-title text-center">Détails</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div> --}}
-
                             <div class="card-header text-center bg-gradient-default">
                                 <h1 class="h4 text-black mb-0">Détails</h1>
                             </div>
@@ -438,7 +427,76 @@
                         </div>
                     </div>
                 </div>
+        @endforeach --}}
+        @foreach ($collectivemodule->listecollectives as $listecollective)
+            <div class="col-lg-12 col-md-12 d-flex flex-column align-items-center justify-content-center">
+                <div class="modal fade" id="EditlistecollectiveModal{{ $listecollective->id }}" tabindex="-1"
+                    role="dialog" aria-labelledby="EditlistecollectiveModalLabel{{ $listecollective->id }}"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                        <div class="modal-content shadow-lg rounded-4">
+                            <div class="modal-header bg-default">
+                                <h5 class="modal-title" id="EditlistecollectiveModalLabel{{ $listecollective->id }}">
+                                    Détails du Demandeur
+                                </h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body p-4">
+                                <div class="row g-4">
+
+                                    @php
+                                        $infos = [
+                                            'N° CIN' => $listecollective->cin,
+                                            'Civilité' => $listecollective->civilite,
+                                            'Prénom' => $listecollective->prenom,
+                                            'Nom' => $listecollective->nom,
+                                            'Date naissance' => $listecollective->date_naissance?->format('d/m/Y'),
+                                            'Lieu naissance' => $listecollective->lieu_naissance,
+                                            'Téléphone' => $listecollective->telephone,
+                                            'Niveau étude' => $listecollective->niveau_etude,
+                                            'Expérience' => $listecollective->experience,
+                                            'Autres expérience' => $listecollective->autre_experience,
+                                            'Détails' => $listecollective->details,
+                                            'Formation demandée' => $listecollective->collectivemodule?->module,
+                                        ];
+                                    @endphp
+
+                                    @foreach ($infos as $label => $val)
+                                        <div class="col-12 col-md-4">
+                                            <div class="border rounded p-2 h-100 bg-light">
+                                                <small class="text-muted fw-bold">{{ $label }}</small>
+                                                <div class="fs-6">{{ $val ?? '-' }}</div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                                    <div class="col-12 col-md-4">
+                                        <div class="border rounded p-2 h-100 bg-light">
+                                            <small class="text-muted fw-bold">Statut</small>
+                                            <div>
+                                                <span
+                                                    class="badge bg-{{ $listecollective->statut == 'Nouvelle' ? 'warning' : 'success' }}">
+                                                    {{ $listecollective->statut }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary btn-sm"
+                                    data-bs-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         @endforeach
+
     </section>
 
 @endsection
@@ -447,7 +505,7 @@
         new DataTable('#table-modules', {
             layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             /*   "order": [

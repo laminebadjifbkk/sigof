@@ -348,7 +348,7 @@
                                                                                                         data-bs-target="#EditRegionModal{{ $module_collective->id }}">Modifier
                                                                                                     </button>
                                                                                                     <form
-                                                                                                        action="{{ route('collectivemodules.destroy', $module_collective->id) }}"
+                                                                                                        action="{{ route('collectivemodules.destroy', $module_collective) }}"
                                                                                                         method="post">
                                                                                                         @csrf
                                                                                                         @method('DELETE')
@@ -419,7 +419,7 @@
                                                                                 </td>
                                                                                 <td>
                                                                                     <span class="d-flex align-items-baseline">
-                                                                                        <a href="{{ route('listecollectives.show', $listecollective?->id) }}"
+                                                                                        <a href="{{ route('listecollectives.show', $listecollective) }}"
                                                                                             class="btn btn-primary btn-sm"
                                                                                             title="voir détails"
                                                                                             target="_blank"><i
@@ -431,13 +431,13 @@
                                                                                             <ul
                                                                                                 class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                                                 <li><a class="dropdown-item btn btn-sm"
-                                                                                                        href="{{ route('listecollectives.edit', $listecollective->id) }}"
+                                                                                                        href="{{ route('listecollectives.edit', $listecollective) }}"
                                                                                                         class="mx-1"
                                                                                                         title="Modifier"><i
                                                                                                             class="bi bi-pencil"></i>Modifier</a>
                                                                                                 </li>
                                                                                                 <form
-                                                                                                    action="{{ route('listecollectives.destroy', $listecollective->id) }}"
+                                                                                                    action="{{ route('listecollectives.destroy', $listecollective) }}"
                                                                                                     method="post">
                                                                                                     @csrf
                                                                                                     @method('DELETE')
@@ -504,7 +504,7 @@
                                                                 <td>
 
                                                                     <span class="d-flex align-items-baseline float-end"><a
-                                                                            href="{{ route('collectivemodules.show', $collectivemodule->id) }}"
+                                                                            href="{{ route('collectivemodules.show', $collectivemodule) }}"
                                                                             class="btn btn-primary btn-sm" title="voir détails"><i
                                                                                 class="bi bi-eye"></i></a>
                                                                         <div class="filter">
@@ -535,7 +535,7 @@
                                                                                     data-bs-target="#EditRegionModal{{ $collectivemodule->id }}">Modifier
                                                                                 </button>
                                                                                 <form
-                                                                                    action="{{ route('collectivemodules.destroy', $collectivemodule->id) }}"
+                                                                                    action="{{ route('collectivemodules.destroy', $collectivemodule) }}"
                                                                                     method="post">
                                                                                     @csrf
                                                                                     @method('DELETE')
@@ -693,7 +693,7 @@
                                                                     </td>
                                                                     @can('user-show')
                                                                         <td class="text-center">
-                                                                            <a href="{{ route('collectivemodules.show', $collectivemodule?->id) }}"
+                                                                            <a href="{{ route('collectivemodules.show', $collectivemodule) }}"
                                                                                 class="btn btn-primary btn-sm" target="_blank"
                                                                                 title="voir détails"><i class="bi bi-eye"></i></a>
                                                                         </td>
@@ -1068,7 +1068,7 @@
                             <div class="modal-content">
                                 {{-- <form method="POST" action="{{ route('updateRegion') }}">
                             @csrf --}}
-                                <form method="post" action="{{ route('collectivemodules.update', $collectivemodule->id) }}"
+                                <form method="post" action="{{ route('collectivemodules.update', $collectivemodule) }}"
                                     enctype="multipart/form-data" class="row g-3">
                                     @csrf
                                     @method('patch')
@@ -1188,7 +1188,7 @@
             new DataTable('#table-collectiveMembres', {
                 layout: {
                     topStart: {
-                        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                        buttons: ['csv', 'excel', 'print'],
                     }
                 },
                 "order": [

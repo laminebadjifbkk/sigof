@@ -84,7 +84,7 @@
                                                 <td>{{ $listecollective?->collectivemodule?->module }}</td>
                                                 <td>
                                                     @if ($listecollective->collective)
-                                                        <a href="{{ route('collectives.show', $listecollective->collective->id) }}"
+                                                        <a href="{{ route('collectives.show', $listecollective->collective) }}"
                                                             title="voir" target="_blank">
                                                             {{ $listecollective->collective->sigle }}
                                                         </a>
@@ -106,7 +106,7 @@
                                                 </td>
                                                 <td>
                                                     <span class="d-flex align-items-baseline"><a
-                                                            href="{{ route('listecollectives.show', $listecollective?->id) }}"
+                                                            href="{{ route('listecollectives.show', $listecollective) }}"
                                                             class="btn btn-primary btn-sm" title="voir détails"><i
                                                                 class="bi bi-eye"></i></a>
                                                         <div class="filter">
@@ -115,7 +115,7 @@
                                                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                 {{-- @can('listecollective-update') --}}
                                                                 <li><a class="dropdown-item btn btn-sm"
-                                                                        href="{{ route('listecollectives.edit', $listecollective?->id) }}"
+                                                                        href="{{ route('listecollectives.edit', $listecollective) }}"
                                                                         class="mx-1" title="Modifier"><i
                                                                             class="bi bi-pencil"></i>Modifier</a>
                                                                 </li>
@@ -123,7 +123,7 @@
                                                                 @can('listecollective-delete') --}}
                                                                 <li>
                                                                     <form
-                                                                        action="{{ route('listecollectives.destroy', $listecollective?->id) }}"
+                                                                        action="{{ route('listecollectives.destroy', $listecollective) }}"
                                                                         method="post">
                                                                         @csrf
                                                                         @method('DELETE')

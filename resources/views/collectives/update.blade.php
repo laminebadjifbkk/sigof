@@ -22,12 +22,14 @@
                     <div class="card mb-3">
 
                         <div class="card-body">
-                            @if (auth()->user()->hasRole('super-admin|admin'))
+                            @if (auth()->user()->hasAnyRole(['super-admin', 'admin']))
                                 <div class="row">
                                     <div class="col-sm-12 pt-2">
-                                        <span class="d-flex mt-2 align-items-baseline"><a
-                                                href="{{ route('collectives.index') }}" class="btn btn-success btn-sm"
-                                                title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                                        <span class="d-flex mt-2 align-items-baseline">
+                                            <a href="{{ route('collectives.index') }}" class="btn btn-success btn-sm"
+                                                title="retour">
+                                                <i class="bi bi-arrow-counterclockwise"></i>
+                                            </a>&nbsp;
                                             <p> | Dossier personnel</p>
                                         </span>
                                     </div>
@@ -35,15 +37,18 @@
                             @else
                                 <div class="row">
                                     <div class="col-sm-12 pt-2">
-                                        <span class="d-flex mt-2 align-items-baseline"><a
-                                                href="{{ route('demandesCollective') }}" class="btn btn-success btn-sm"
-                                                title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                                        <span class="d-flex mt-2 align-items-baseline">
+                                            <a href="{{ route('demandesCollective') }}" class="btn btn-success btn-sm"
+                                                title="retour">
+                                                <i class="bi bi-arrow-counterclockwise"></i>
+                                            </a>&nbsp;
                                             <p> | Dossier personnel</p>
                                         </span>
                                     </div>
                                 </div>
                             @endif
-                            <form method="post" action="{{ url('collectives/' . $collective->id) }}"
+
+                            <form method="post" action="{{ route('collectives.update', $collective) }}"
                                 enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 @method('PUT')
@@ -406,7 +411,7 @@
                         </div>
 
                         <div class="text-center p-3">
-                            <button type="submit" class="btn btn-primary btn-sm">Enregistrer</button>
+                            <button type="submit" class="btn btn-primary btn-sm">Enregistrer les modifications</button>
                         </div>
                         </form>
 

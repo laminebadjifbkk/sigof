@@ -248,7 +248,7 @@
                                                 <td>
                                                     @can('collective-show')
                                                         <span class="d-flex align-items-baseline">
-                                                            <a href="{{ route('collectives.show', $collective?->id) }}"
+                                                            <a href="{{ route('collectives.show', $collective) }}"
                                                                 class="btn btn-primary btn-sm" title="Voir détails">
                                                                 <i class="bi bi-eye"></i>
                                                             </a>
@@ -260,7 +260,7 @@
                                                                     @can('collective-update')
                                                                         <li>
                                                                             <a class="dropdown-item btn btn-sm"
-                                                                                href="{{ route('collectives.edit', $collective?->id) }}"
+                                                                                href="{{ route('collectives.edit', $collective) }}"
                                                                                 title="Modifier">
                                                                                 <i class="bi bi-pencil"></i> Modifier
                                                                             </a>
@@ -269,7 +269,7 @@
                                                                     @can('collective-delete')
                                                                         <li>
                                                                             <form
-                                                                                action="{{ route('collectives.destroy', $collective?->id) }}"
+                                                                                action="{{ route('collectives.destroy', $collective) }}"
                                                                                 method="post">
                                                                                 @csrf
                                                                                 @method('DELETE')
@@ -657,7 +657,7 @@
         new DataTable('#table-collectives', {
             layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

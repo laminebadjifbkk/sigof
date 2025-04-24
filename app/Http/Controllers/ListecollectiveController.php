@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Collective;
 use App\Models\Listecollective;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -86,20 +87,43 @@ class ListecollectiveController extends Controller
         return redirect()->back();
     }
 
-    public function edit($id)
+/*     public function edit(Listecollective $listecollective)
     {
         foreach (Auth::user()->roles as $key => $role) {
         }
-        $listecollective = Listecollective::find($id);
+
         if ($listecollective->statut != 'Nouvelle' && ! empty($role?->name) && ($role?->name != 'super-admin')) {
             Alert::warning('Désolé !', 'Impossible de modifier ce demandeur.');
             return redirect()->back();
         } else {
             return view("collectives.updateliste", compact("listecollective"));
         }
-    }
+    } */
 
-    public function update(Request $request, $id)
+    public function edit(Listecollective $listecollective)
+    {
+        // Récupérer l'utilisateur connecté
+        $user = Auth::user();
+    
+        // Récupérer les rôles de l'utilisateur sous forme de tableau
+        $rolesUtilisateur = $user->roles->pluck('name')->toArray();
+    
+        // Vérification des rôles autorisés
+        $rolesAutorises = ['super-admin', 'admin']; // Rôles autorisés pour accéder à l'édition
+    
+        // Si l'utilisateur a un des rôles autorisés et que le statut de la listecollective est 'Nouvelle'
+        if (array_intersect($rolesUtilisateur, $rolesAutorises) && $listecollective->statut !== 'Nouvelle') {
+            // Si les conditions sont remplies, afficher la vue
+            return view("collectives.updateliste", compact("listecollective"));
+        }
+    
+        // Si l'utilisateur n'a pas les bons rôles ou si le statut n'est pas 'Nouvelle'
+        Alert::warning('Désolé !', 'Vous n\'avez pas l\'autorisation de modifier cette collective.');
+        return redirect()->back();
+    }
+    
+
+    public function update(Request $request, Listecollective $listecollective)
     {
         $this->validate($request, [
             'cin'            => [
@@ -107,7 +131,7 @@ class ListecollectiveController extends Controller
                 'string',
                 'min:16',
                 'max:17',
-                Rule::unique(Listecollective::class)->ignore($id)->whereNull('deleted_at'),
+                Rule::unique(Listecollective::class)->ignore($listecollective->id)->whereNull('deleted_at'),
             ],
             "civilite"       => "required|string",
             "firstname"      => "required|string",
@@ -119,9 +143,9 @@ class ListecollectiveController extends Controller
             "telephone"      => "nullable|string|min:9|max:12",
         ]);
 
-        $listecollective = Listecollective::find($id);
-        $dateString      = $request->input('date_naissance');
-        $date_naissance  = Carbon::createFromFormat('d/m/Y', $dateString);
+        /* $listecollective = Listecollective::find($id); */
+        $dateString     = $request->input('date_naissance');
+        $date_naissance = Carbon::createFromFormat('d/m/Y', $dateString);
 
         $listecollective->update([
             'cin'                  => $request->input('cin'),
@@ -137,7 +161,7 @@ class ListecollectiveController extends Controller
             'details'              => $request->input('details'),
             /* 'statut'               => $request->input('statut'), */
             'collectivemodules_id' => $request->input('module'),
-            'collectives_id'       => $request->input('collective'),
+            'collectives_id'       => $listecollective->collective->id,
         ]);
 
         $listecollective->save();
@@ -147,22 +171,25 @@ class ListecollectiveController extends Controller
         return Redirect::back();
     }
 
-    public function show($id)
+    public function show(Listecollective $listecollective)
     {
-        $listecollective = Listecollective::find($id);
-        return view("collectives.showlistecollective", compact("listecollective"));
+        /* $listecollective = Listecollective::find($id); */
+
+        $collective = Collective::findOrFail($listecollective->collectives_id);
+
+        return view("collectives.showlistecollective", compact("listecollective", "collective"));
     }
 
-    public function destroy($id)
+    public function destroy(Listecollective $listecollective)
     {
-        $listecollective = Listecollective::find($id);
+        /* $listecollective = Listecollective::find($id); */
 
         if (! empty($listecollective->formations_id)) {
             Alert::warning('Désolé !', 'Action impossible.');
             return redirect()->back();
         } else {
             $listecollective->delete();
-            Alert::success('Supprimé !', 'Le demandeur a été supprimé avec succès.');
+            Alert::success('Succès !', 'Le demandeur a été supprimée avec succès.');
             return redirect()->back();
         }
     }

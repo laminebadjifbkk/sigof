@@ -386,10 +386,10 @@ class CollectiveController extends Controller
         return redirect()->back();
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Collective $collective)
     {
-        $collective = Collective::findOrFail($id);
-        $user_id    = $collective?->users_id;
+        /* $collective = Collective::findOrFail($id); */
+        $user_id = $collective?->users_id;
 
         $this->authorize('update', $collective);
         /* $this->authorize('update', $collective); */
@@ -397,19 +397,19 @@ class CollectiveController extends Controller
         $this->validate($request, [
             "name"                  => ["required", "string", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
-            })->ignore($id)],
+            })->ignore($collective->id)],
             "sigle"                 => ["nullable", "string", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
-            })->ignore($id)],
+            })->ignore($collective->id)],
             "email"                 => ["required", "string", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
-            })->ignore($id)],
+            })->ignore($collective->id)],
             "fixe"                  => ["nullable", "string", "size:12", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
-            })->ignore($id)],
+            })->ignore($collective->id)],
             "telephone"             => ["required", "string", "size:12", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
-            })->ignore($id)],
+            })->ignore($collective->id)],
             'date_depot'            => ['nullable', 'date', 'size:10', 'date_format:Y-m-d'],
             "adresse"               => ["required", "string"],
             "statut"                => ["required", "string"],
@@ -422,10 +422,10 @@ class CollectiveController extends Controller
             "fonction_responsable"  => ["required", "string"],
             "telephone_responsable" => ["required", "string", "size:12", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
-            })->ignore($id)],
+            })->ignore($collective->id)],
             "email_responsable"     => ["required", "string", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
-            })->ignore($id)],
+            })->ignore($collective->id)],
         ]);
 
         $departement = Departement::where('nom', $request->input("departement"))->first();
@@ -529,27 +529,27 @@ class CollectiveController extends Controller
         return Redirect::back();
     }
 
-    public function edit($id)
+    public function edit(Collective $collective)
     {
-        $collective   = Collective::findOrFail($id);
+        /* $collective   = Collective::findOrFail($id); */
         $departements = Departement::orderBy("created_at", "desc")->get();
         $modules      = Module::orderBy("created_at", "desc")->get();
         return view("collectives.update", compact("collective", "departements", "modules"));
     }
-    public function show($id)
+    public function show(Collective $collective)
     {
-        $collective = Collective::findOrFail($id);
+        /* $collective = Collective::findOrFail($id); */
         $this->authorize('view', $collective);
 
         /*  $this->authorize('view', $collective); */
 
         $ingenieur = $collective?->ingenieur;
 
-        $listecollective = Listecollective::where('collectives_id', $id)->first();
+        $listecollective = Listecollective::where('collectives_id', $collective->id)->first();
 
-        $listemodulescollective = Collectivemodule::where("collectives_id", $id)->first();
+        $listemodulescollective = Collectivemodule::where("collectives_id", $collective->id)->first();
 
-        $collectivemodules = Collectivemodule::where("collectives_id", $id)->get();
+        $collectivemodules = Collectivemodule::where("collectives_id", $collective->id)->get();
 
         $collectives = Collective::where('users_id', $collective?->users_id)->first();
 
@@ -566,9 +566,9 @@ class CollectiveController extends Controller
         );
     }
 
-    public function destroy($id)
+    public function destroy(Collective $collective)
     {
-        $collective = Collective::find($id);
+        /* $collective = Collective::find($id); */
 
         $this->authorize('delete', $collective);
 
@@ -577,7 +577,7 @@ class CollectiveController extends Controller
             return redirect()->back();
         } else {
             $collective->update([
-                'numero' => $collective->numero . '/' . $id,
+                'numero' => $collective->numero . '/' . $collective->id,
             ]);
 
             $collective->save();

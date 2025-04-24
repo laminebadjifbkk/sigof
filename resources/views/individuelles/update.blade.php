@@ -24,21 +24,27 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12 pt-2">
-                                    @if (auth()->user()->hasRole('Demandeur'))
-                                        <span class="d-flex mt-2 align-items-baseline"><a
-                                                href="{{ route('demandesIndividuelle') }}" class="btn btn-success btn-sm"
-                                                title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+
+                                    @hasrole('Demandeur')
+                                        <span class="d-flex mt-2 align-items-baseline">
+                                            <a href="{{ route('demandesIndividuelle') }}" class="btn btn-success btn-sm"
+                                                title="retour">
+                                                <i class="bi bi-arrow-counterclockwise"></i>
+                                            </a>&nbsp;
                                             <p> | Dossier personnel</p>
                                         </span>
-                                    @endif
-                                    @if (auth()->user()->hasRole('super-admin|admin'))
-                                        <span class="d-flex mt-2 align-items-baseline"><a
-                                                href="{{ route('individuelles.show', $individuelle) }}"
-                                                class="btn btn-success btn-sm" title="retour"><i
-                                                    class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                                    @endhasrole
+
+                                    @hasanyrole('super-admin|admin')
+                                        <span class="d-flex mt-2 align-items-baseline">
+                                            <a href="{{ route('individuelles.show', $individuelle) }}"
+                                                class="btn btn-success btn-sm" title="retour">
+                                                <i class="bi bi-arrow-counterclockwise"></i>
+                                            </a>&nbsp;
                                             <p> | retour</p>
                                         </span>
-                                    @endif
+                                    @endhasanyrole
+
                                 </div>
                             </div>
                             <form method="post" action="{{ route('individuelles.update', $individuelle) }}"
