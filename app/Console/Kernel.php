@@ -21,8 +21,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('email:send-finagrement')->dailyAt('08:00');
         $schedule->command('email:notify-end-agreements')->dailyAt('08:00');
         $schedule->command('email:send-training-reminders')->dailyAt('11:10');
-        $schedule->command('groupes:verifier-vingt')->dailyAt('15:25'); // ou daily()
-
+        foreach ([1, 2, 3, 4, 5] as $day) {
+            $schedule->command('groupes:verifier-vingt')->weeklyOn($day, '08:00'); // Lundi à Vendredi à 8h
+        }
     }
 
     /**
