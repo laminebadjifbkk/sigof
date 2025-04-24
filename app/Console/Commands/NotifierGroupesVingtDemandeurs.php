@@ -221,7 +221,15 @@ class NotifierGroupesVingtDemandeurs extends Command
                         ->subject("🔔 {$total} demandes 'Nouvelles' pour {$nomModule} dans la région : {$nomRegion}");
                 }); */
 
-                Mail::to(['lamine.badji@onfp.sn', 'badjilaminefbkk@gmail.com'])
+                Mail::to(
+                    ['lamine.badji@onfp.sn',
+                        'badjilaminefbkk@gmail.com',
+                        'dado.toure@onfp.sn', 
+                        'mohamadou.soumare@onfp.sn', 
+                        'gorgui.ndiaye@onfp.sn',
+                        'cissbigue6@gmail.com',
+                        'dado.toure@onfp.sn', 
+                        'mouhamadoulaminebara@onfp.sn'])
                     ->send(new NotificationDemandeursMail($nomRegion, $nomModule, $total));
 
                 $notification->dernier_palier_notifie = $total;
@@ -229,7 +237,7 @@ class NotifierGroupesVingtDemandeurs extends Command
 
                 $this->info("Notification envoyée pour {$nomRegion} / {$nomModule} : {$total} demandes.");
             } else {
-                $this->info("Pas de nouvelle augmentation pour région ID {$nomModule} / module ID {$nomRegion}.");
+                $this->info("Pas de nouvelle augmentation pour région {$nomModule} / module {$nomRegion}.");
             }
         }
 
