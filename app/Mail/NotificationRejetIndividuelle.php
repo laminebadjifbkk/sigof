@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -36,7 +35,7 @@ class NotificationRejetIndividuelle extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('lamine.badji@onfp.sn', 'ONFP | Notification de rejet de la demande de formation'),
+            from: new Address('lamine.badji@onfp.sn', 'ONFP | Notification concernant votre demande de formation'),
             replyTo: [
                 new Address('lamine.badji@onfp.sn', 'ONFP | Réponse concernant votre nouvelle demande de formation'),
             ],

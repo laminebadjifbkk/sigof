@@ -112,15 +112,15 @@
                                             <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                     class="bi bi-three-dots"></i></a>
                                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                <form action="{{ route('validationIndividuelles', $individuelle) }}"
+                                                {{-- <form action="{{ route('validationIndividuelles', $individuelle) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('PUT')
                                                     <input type="hidden" name="id" value="{{ $individuelle?->id }}">
                                                     <button class="show_confirm_valider btn btn-sm mx-1">Accepter</button>
-                                                </form>
+                                                </form> --}}
                                                 <button class="btn btn-sm mx-1" data-bs-toggle="modal"
-                                                    data-bs-target="#RejetDemandeModal">Rejeter</button>
+                                                    data-bs-target="#RejetDemandeModal">Validation</button>
                                             </ul>
                                         </div>
                                     </span>
@@ -336,7 +336,7 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="RejetDemandeModal" tabindex="-1" aria-labelledby="RejetDemandeLabel"
+            {{-- <div class="modal fade" id="RejetDemandeModal" tabindex="-1" aria-labelledby="RejetDemandeLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -348,21 +348,6 @@
                             <div class="card-header text-center bg-gradient-default">
                                 <h1 class="h4 text-black mb-0">REJET</h1>
                             </div>
-                            {{-- 
-                            <div class="modal-body">
-                                <label for="motif" class="form-label">Motifs du rejet</label>
-                                @foreach ($individuelle?->validationindividuelles->sortByDesc('created_at')->take(1) as $validation)
-                                    <textarea name="motif" id="motif" rows="5"
-                                        class="form-control form-control-sm @error('motif') is-invalid @enderror"
-                                        placeholder="Enumérez les motifs du rejet" aria-describedby="motifHelp">{{ old('motif', $validation->motif) }}</textarea>
-                                @endforeach
-                                @error('motif')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                            </div> --}}
-
                             <div class="modal-body">
                                 <label for="motif" class="form-label">Motifs du rejet</label>
 
@@ -391,6 +376,81 @@
                         </form>
                     </div>
                 </div>
+            </div> --}}
+
+            <div class="modal fade" id="RejetDemandeModal" tabindex="-1" aria-labelledby="RejetDemandeLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content shadow-lg rounded-3">
+                        <form method="POST" action="{{ route('validation-individuelles.destroy', $individuelle?->id) }}"
+                            enctype="multipart/form-data" class="row g-3 p-3">
+                            @csrf
+                            @method('DELETE')
+
+                            <div class="modal-header bg-light border-bottom-0">
+                                <h5 class="modal-title fw-bold text-danger" id="RejetDemandeLabel">Traitement de la
+                                    demande</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Fermer"></button>
+                            </div>
+
+                            <div class="modal-body">
+
+                                <div class="mb-3">
+                                    <label for="statut" class="form-label">Statut de la
+                                        demande<span class="text-danger mx-1">*</span></label>{{-- 
+                                    <select name="statut" id="statut" class="form-select form-select-sm" required>
+                                        <option value="" disabled selected>-- Sélectionner un statut --</option>
+                                        <option value="Attente">En attente</option>
+                                        <option value="À corriger">À corriger</option>
+                                        <option value="Non validé">Non validé</option>
+                                    </select> --}}
+                                    @php
+                                        $selectedStatut = old('statut', $individuelle->statut);
+                                    @endphp
+
+                                    <select name="statut" id="statut" class="form-select form-select-sm" required>
+                                        <option value="" disabled {{ !$selectedStatut ? 'selected' : '' }}>--
+                                            Sélectionner un statut --</option>
+                                        <option value="Attente" {{ $selectedStatut === 'Attente' ? 'selected' : '' }}>En
+                                            attente</option>
+                                        <option value="À corriger"
+                                            {{ $selectedStatut === 'À corriger' ? 'selected' : '' }}>À corriger</option>
+                                        <option value="Non validé"
+                                            {{ $selectedStatut === 'Non validé' ? 'selected' : '' }}>Non validé</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="motif" class="form-label">Commentaires ou remarques<span
+                                            class="text-danger mx-1">*</span></label>
+                                    @php
+                                        $lastValidation = collect($individuelle?->validationindividuelles)
+                                            ->sortByDesc('created_at')
+                                            ->first();
+                                    @endphp
+                                    <textarea name="motif" id="motif" rows="5"
+                                        class="form-control form-control-sm @error('motif') is-invalid @enderror"
+                                        placeholder="Indiquez les raisons ou recommandations">{{ old('motif', $lastValidation?->motif) }}</textarea>
+
+                                    @error('motif')
+                                        <span class="invalid-feedback d-block" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer border-top-0">
+                                <button type="button" class="btn btn-outline-secondary btn-sm"
+                                    data-bs-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-outline-danger btn-sm">Soumettre</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
+
     </section>
 @endsection
