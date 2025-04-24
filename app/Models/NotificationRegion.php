@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,14 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class NotificationRegion extends Model
 {
     use HasFactory;
-    
-	protected $fillable = [
-		'region',
-		'dernier_palier_notifie',
-	];
+
+    protected $fillable = ['region', 'modules_id', 'dernier_palier_notifie'];
 
     protected $casts = [
-        'region' => 'integer',
+        'region'                 => 'integer',
         'dernier_palier_notifie' => 'integer',
     ];
 

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <img src="cid:logo.png" alt="ONFP Logo" style="max-width: 20%;" class="w-25">
+    {{-- <img src="cid:logo.png" alt="ONFP Logo" style="max-width: 20%;" class="w-25"> --}}
     <title>Un groupe de 20 demandeurs trouvé pour la région de {{ $region }}</title>
 </head>
 

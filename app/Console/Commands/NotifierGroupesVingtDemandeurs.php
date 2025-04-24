@@ -1,8 +1,8 @@
 <?php
 namespace App\Console\Commands;
 
+use App\Mail\NotificationDemandeursMail;
 use App\Models\Individuelle;
-use App\Models\NotificationRegion;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
@@ -89,7 +89,7 @@ class NotifierGroupesVingtDemandeurs extends Command
         }
     } */
 
-    public function handle()
+    /* public function handle()
     {
         $this->info("Vérification des paliers de 20 demandeurs par région...");
 
@@ -110,13 +110,13 @@ class NotifierGroupesVingtDemandeurs extends Command
             $prochainPalier = floor($total / 20) * 20;
 
             if ($prochainPalier > $dernierPalier) {
-                $nomRegion = \App\Models\Region::find($regionId)?->name ?? "Région ID {$regionId}";
+                $nomRegion = \App\Models\Region::find($regionId)?->nom ?? "Région ID {$regionId}";
 
                 Mail::send('emails.notif-vingt-demandeurs', [
                     'region' => $nomRegion,
                     'total'  => $total,
                 ], function ($message) use ($nomRegion, $prochainPalier) {
-                    $message->to(['lamine.badji@onfp.sn', 'dado.toure@onfp.sn'])
+                    $message->to(['lamine.badji@onfp.sn', 'badjilaminefbkk@gmail.com'])
                         ->subject("⚠️ {$prochainPalier} demandes 'Nouvelles' dans la région : {$nomRegion}");
                 });
 
@@ -126,6 +126,110 @@ class NotifierGroupesVingtDemandeurs extends Command
                 $this->info("Notification envoyée pour {$nomRegion} à {$prochainPalier} demandes.");
             } else {
                 $this->info("Aucun nouveau palier atteint pour région ID {$regionId}.");
+            }
+        }
+
+        return 0;
+    } */
+
+    /* public function handle()
+    {
+        $this->info("Vérification des paliers de 20 demandeurs par région et par module...");
+
+        $groupes = Individuelle::where('statut', 'Nouvelle')
+            ->selectRaw('regions_id, modules_id, COUNT(*) as total')
+            ->groupBy('regions_id', 'modules_id')
+            ->get();
+
+        foreach ($groupes as $groupe) {
+            $regionId = $groupe->regions_id;
+            $moduleId = $groupe->modules_id;
+            $total    = $groupe->total;
+
+            // Récupère ou initialise la notification pour cette combinaison
+            $notification = \App\Models\NotificationRegion::firstOrNew([
+                'region'    => $regionId,
+                'modules_id' => $moduleId,
+            ]);
+
+            $dernierPalier  = $notification->dernier_palier_notifie ?? 0;
+            $prochainPalier = floor($total / 20) * 20;
+
+            if ($prochainPalier > $dernierPalier) {
+                $nomRegion = \App\Models\Region::find($regionId)?->nom ?? "Région ID {$regionId}";
+                $nomModule = \App\Models\Module::find($moduleId)?->name ?? "Module ID {$moduleId}";
+
+                Mail::send('emails.notif-vingt-demandeurs', [
+                    'region' => $nomRegion,
+                    'module' => $nomModule,
+                    'total'  => $total,
+                ], function ($message) use ($nomRegion, $nomModule, $prochainPalier) {
+                    $message->to(['lamine.badji@onfp.sn', 'badjilaminefbkk@gmail.com'])
+                        ->subject("⚠️ {$prochainPalier} demandes 'Nouvelles' pour {$nomModule} dans la région : {$nomRegion}");
+                });
+
+                $notification->dernier_palier_notifie = $prochainPalier;
+                $notification->save();
+
+                $this->info("Notification envoyée pour {$nomRegion} / {$nomModule} à {$prochainPalier} demandes.");
+            } else {
+                $this->info("Aucun nouveau palier atteint pour région ID {$regionId} / module ID {$moduleId}.");
+            }
+        }
+
+        return 0;
+    } */
+
+    public function handle()
+    {
+        $this->info("Vérification des augmentations de demandes par région et module au-delà de 20...");
+
+        $groupes = Individuelle::where('statut', 'Nouvelle')
+            ->selectRaw('regions_id, modules_id, COUNT(*) as total')
+            ->groupBy('regions_id', 'modules_id')
+            ->get();
+
+        foreach ($groupes as $groupe) {
+            $regionId = $groupe->regions_id;
+            $moduleId = $groupe->modules_id;
+            $total    = $groupe->total;
+
+            // Ne rien faire si on est en dessous ou égal à 20
+            if ($total <= 20) {
+                continue;
+            }
+
+            // Récupère ou initialise la notification pour cette combinaison
+            $notification = \App\Models\NotificationRegion::firstOrNew([
+                'region'     => $regionId,
+                'modules_id' => $moduleId,
+            ]);
+
+            $dernierTotal = $notification->dernier_palier_notifie ?? 0;
+
+            $nomRegion = \App\Models\Region::find($regionId)?->nom ?? "Région ID {$regionId}";
+            $nomModule = \App\Models\Module::find($moduleId)?->name ?? "Module ID {$moduleId}";
+            // Si le total actuel est supérieur au précédent enregistré, notifier
+            if ($total > $dernierTotal) {
+
+                /* Mail::send('emails.notif-vingt-demandeurs', [
+                    'region' => $nomRegion,
+                    'module' => $nomModule,
+                    'total'  => $total,
+                ], function ($message) use ($nomRegion, $nomModule, $total) {
+                    $message->to(['lamine.badji@onfp.sn', 'badjilaminefbkk@gmail.com'])
+                        ->subject("🔔 {$total} demandes 'Nouvelles' pour {$nomModule} dans la région : {$nomRegion}");
+                }); */
+
+                Mail::to(['lamine.badji@onfp.sn', 'badjilaminefbkk@gmail.com'])
+                    ->send(new NotificationDemandeursMail($nomRegion, $nomModule, $total));
+
+                $notification->dernier_palier_notifie = $total;
+                $notification->save();
+
+                $this->info("Notification envoyée pour {$nomRegion} / {$nomModule} : {$total} demandes.");
+            } else {
+                $this->info("Pas de nouvelle augmentation pour région ID {$nomModule} / module ID {$nomRegion}.");
             }
         }
 
