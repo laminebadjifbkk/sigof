@@ -62,6 +62,8 @@ class ValidationIndividuelleController extends Controller
 
     public function update($id)
     {
+        // cette méthode est utilisée pour valider une demande de formation individuelle
+        // est désormés transférer à la function validationIndividuelle dans le controller IndividuelleController
         $individuelle = Individuelle::findOrFail($id);
 
         // Si l'utilisateur n'est pas super-admin

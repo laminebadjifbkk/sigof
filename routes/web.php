@@ -503,6 +503,8 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('/regiondemandeurs/{id}', [RegionController::class, 'demandeur'])->name('regiondemandeurs.show');
 
+        Route::put('validationIndividuelles/{uuid}', [IndividuelleController::class, 'validationIndividuelle'])->name('validationIndividuelles');
+
         /* Pour visualiser la page d'erreur */
         /* Route::get('/errors/restored', [UserController::class, 'errors'])->name('users.errors'); */
 

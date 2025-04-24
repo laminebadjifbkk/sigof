@@ -112,10 +112,11 @@
                                             <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                     class="bi bi-three-dots"></i></a>
                                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                <form action="{{ route('validation-individuelles.update', $individuelle) }}"
+                                                <form action="{{ route('validationIndividuelles', $individuelle) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('PUT')
+                                                    <input type="hidden" name="id" value="{{ $individuelle?->id }}">
                                                     <button class="show_confirm_valider btn btn-sm mx-1">Accepter</button>
                                                 </form>
                                                 <button class="btn btn-sm mx-1" data-bs-toggle="modal"
