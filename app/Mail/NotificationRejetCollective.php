@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class NotificationRejetIndividuelle extends Mailable
+class NotificationRejetCollective extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -52,7 +52,7 @@ class NotificationRejetIndividuelle extends Mailable
         Alert::success('Succès !', 'Un mail a été envoyé au demandeur.');
         /* Alert::success('E-mail envoyés !', 'La notification de rejet a été envoyée avec succès.'); */
         return new Content(
-            view: 'individuelles.mailinfo',
+            view: 'collectives.mailinfo',
         );
     }
 

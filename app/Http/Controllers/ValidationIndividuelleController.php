@@ -141,7 +141,7 @@ class ValidationIndividuelleController extends Controller
                 'Attente'    => 'demande déjà traitée',
                 'Retenue'    => 'demande déjà traitée',
                 'Terminée'   => 'demandeur déjà formé',
-                'former'     => 'demandeur déjà formé',
+                'Former'     => 'demandeur déjà formé',
                 'À corriger' => 'demandeur déjà traitée',
                 'Non validé' => 'demandeur déjà traitée',
             ];
@@ -166,72 +166,17 @@ class ValidationIndividuelleController extends Controller
         ]);
 
         // Envoi de mail
-        $toEmail    = $individuelle?->user?->email;
+        $toEmail = $individuelle?->user?->email;
+
+        if (empty($toEmail)) {
+            Alert::warning('Désolé !', 'Aucun email trouvé pour l\'utilisateur.');
+            return redirect()->back();
+        }
+
         $toUserName = 'Bonjour ' . $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name . ',';
 
-        /* $safeMessage = "Nous vous informons, que votre demande de formation en <b><i>" .
-        ($individuelle->module->name ?? 'cette formation') .
-        "</i></b> est " . $request?->statut . " pour le motif suivant : <b><i>" .
-            ($request->input('motif') ?? 'non précisé') .
-            "</i></b>.<br><br>Nous vous invitons à vous connecter à votre compte afin d’apporter les ajustements nécessaires.
-    Merci pour votre compréhension. Nous restons disponibles et espérons recevoir les modifications dans les plus brefs délais."; */
-
-        /* $statutdemande = strtolower($request?->statut);
-
-        switch ($statutdemande) {
-            case 'Attente':
-                $messagestatutdemande = "";
-                break;
-            case 'À corriger':
-                $messagestatutdemande = "";
-                break;
-            case 'Non validé':
-                $messagestatutdemande = "";
-                break;
-            default:
-                $messagestatutdemande = "";
-                break;
-        }
-
-        $safeMessage = "Nous vous informons que votre demande de formation pour le module <b><i>" .
-        ($individuelle->module->name ?? 'cette formation') . "</i></b> est <b>" .
-        strtolower($messagestatutdemande) . "</b> pour le motif suivant : <b><br><i>" .
-            ($request->input('motif') ?? 'non précisé') . "</i></b>.<br><br>
-    Nous vous invitons à vous connecter à votre compte afin de consulter les détails et, le cas échéant, apporter les ajustements nécessaires.<br><br>
-    Merci pour votre compréhension. Nous restons à votre disposition pour toute information complémentaire."; */
-
-/*         $statutdemande = strtolower($request?->statut); // standardiser la casse
-
-        switch ($statutdemande) {
-            case 'attente':
-                $messagestatutdemande = 'validée et est en attente de formation';
-                $suiteMessage = null;
-                break;
-            case 'à corriger':
-                $messagestatutdemande = 'en attente de corrections pour le motif suivant';
-                $suiteMessage = 1;
-                break;
-            case 'Non validé':
-                $messagestatutdemande = 'Non validée pour le motif suivant';
-                $suiteMessage = 1;
-                break;
-            default:
-                $messagestatutdemande = 'en cours de traitement';
-                $suiteMessage = null;
-                break;
-        }
-
-        $moduleName = $individuelle->module->name ?? 'cette formation';
-        $motif      = $request->input('motif') ?? 'non précisé';
-
-        $safeMessage = "Nous vous informons que votre demande de formation pour le module <b><i>{$moduleName}</i></b> est <b>{$messagestatutdemande}</b>;
-        if ($suiteMessage) {
-            $suiteMessage = :<br><b><i>{$motif}</i></b>.<br><br>
-Nous vous invitons à vous connecter à votre compte afin de consulter les détails et, le cas échéant, apporter les ajustements nécessaires.<br><br>
-Merci pour votre compréhension. Nous restons à votre disposition pour toute information complémentaire.";
-        } */
-
-        $statutdemande = strtolower($request?->statut);
+        /* $statutdemande = strtolower($request?->statut); */
+        $statutdemande = $request?->statut;
 
         switch ($statutdemande) {
             case 'Attente':
@@ -274,7 +219,7 @@ Merci pour votre compréhension. Nous restons à votre disposition pour toute in
         /* $subject = 'Notification de rejet de votre demande de formation';
         $message = strip_tags($safeMessage, '<b><i><p><a><br>'); */
 
-        $moduleName = $individuelle->module->name ?? 'votre formation';
+        $moduleName = $individuelle->module->name ?? 'votre module de formation';
         $statut     = strtolower($request?->statut);
 
         switch ($statut) {
@@ -297,8 +242,5 @@ Merci pour votre compréhension. Nous restons à votre disposition pour toute in
         Mail::to($toEmail)->send(new NotificationRejetIndividuelle($message, $subject, $toEmail, $toUserName));
 
         return redirect()->back();
-
-        /* Alert::success('Succes !', 'demande rejetée avec succès');
-        return redirect()->back(); */
     }
 }

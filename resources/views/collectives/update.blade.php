@@ -2,7 +2,7 @@
 @section('title', 'modification demande collective')
 @section('space-work')
     <section class="section min-vh-0 d-flex flex-column align-items-center justify-content-center py-0">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row justify-content-center">
                 @if ($message = Session::get('status'))
                     <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
@@ -30,7 +30,7 @@
                                                 title="retour">
                                                 <i class="bi bi-arrow-counterclockwise"></i>
                                             </a>&nbsp;
-                                            <p> | Dossier personnel</p>
+                                            <p> | Retour</p>
                                         </span>
                                     </div>
                                 </div>
@@ -42,7 +42,7 @@
                                                 title="retour">
                                                 <i class="bi bi-arrow-counterclockwise"></i>
                                             </a>&nbsp;
-                                            <p> | Dossier personnel</p>
+                                            <p> | Retour</p>
                                         </span>
                                     </div>
                                 </div>

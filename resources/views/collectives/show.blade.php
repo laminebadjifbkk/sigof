@@ -63,14 +63,14 @@
                                         @endcan
                                         @endif
                                         <li class="nav-item">
-                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview">Info
-                                                demande</button>
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#profile-overview">{{ $collective?->sigle }}</button>
                                         </li>
 
-                                        <li class="nav-item">
+                                        {{-- <li class="nav-item">
                                             <button class="nav-link" data-bs-toggle="tab"
                                                 data-bs-target="#responsable-overview">Responsable</button>
-                                        </li>
+                                        </li> --}}
 
                                         <li class="nav-item">
                                             <button class="nav-link active" data-bs-toggle="tab"
@@ -93,7 +93,7 @@
 
                                         @can('user-delete')
                                             <li class="nav-item">
-                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#files">Fichiers</button>
+                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#files">Documents</button>
                                             </li>
                                         @endcan
 
@@ -120,7 +120,7 @@
                                             <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
                                                 @csrf
                                                 @method('PUT')
-                                                <h5 class="card-title">Détails: <span
+                                                <h5 class="card-title">Statut : <span
                                                         class="{{ $collective?->statut_demande }} text-white">
                                                         {{ $collective?->statut_demande }}</span></h5>
                                                 <div class="col-12 col-md-9 col-lg-9 mb-0">
@@ -178,10 +178,48 @@
                                                 </div>
                                             </form>
 
+                                            <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
+                                                @csrf
+                                                @method('PUT')
+                                                <h5 class="card-title">Responsable</h5>
+                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                    <div class="label">Civilité</div>
+                                                    <div>{{ $collective?->civilite_responsable }}</div>
+                                                </div>
+                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                    <div class="label">Prénom</div>
+                                                    <div>{{ $collective->prenom_responsable }}</div>
+                                                </div>
+                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                    <div class="label">Nom</div>
+                                                    <div>{{ $collective->nom_responsable }}</div>
+                                                </div>
+                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                    <div class="label">Email</div>
+                                                    <div><a
+                                                            href="mailto:{{ $collective->email_responsable }}">{{ $collective->email_responsable }}</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                    <div class="label">Téléphone</div>
+                                                    <div><a
+                                                            href="tel:+221{{ $collective->telephone_responsable }}">{{ $collective->telephone_responsable }}</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                    <div class="label">Fonction responsable</div>
+                                                    <div>{{ $collective->fonction_responsable }}</div>
+                                                </div>
+                                            </form>
+
+                                            <div class="text-center">
+                                                <a href="{{ route('collectives.edit', $collective) }}"
+                                                    class="btn btn-primary btn-sm text-white" title="Modifier">Modifier</a>
+                                            </div>
                                         </div>
                                     </div>
                                     {{-- Détail responsable --}}
-                                    <div class="tab-content pt-2">
+                                    {{-- <div class="tab-content pt-2">
                                         <div class="tab-pane fade profile-overview pt-3" id="responsable-overview">
                                             <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
                                                 @csrf
@@ -217,7 +255,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="tab-content pt-0">
                                         <div class="tab-pane fade show active profile-overview" id="membres-overview">
@@ -230,22 +268,25 @@
                                                     <span class="card-title d-flex align-items-baseline">Statut :&nbsp;
                                                         <span class="{{ $collective?->statut_demande }} text-white">
                                                             {{ $collective?->statut_demande }}</span>
-                                                        @can('user-view')
+                                                        @can('validate-module-collective')
                                                             <div class="filter">
                                                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                         class="bi bi-three-dots"></i></a>
                                                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                    <form
+                                                                    {{-- <form
                                                                         action="{{ route('validation-collectives.update', $collective?->id) }}"
                                                                         method="post">
                                                                         @csrf
                                                                         @method('PUT')
                                                                         <button
                                                                             class="show_confirm_valider btn btn-sm mx-1">Accepter</button>
-                                                                    </form>
-                                                                    <button class="btn btn-sm mx-1" data-bs-toggle="modal"
+                                                                    </form> --}}
+                                                                    {{-- <button class="btn btn-sm mx-1" data-bs-toggle="modal"
                                                                         data-bs-target="#RejetDemandeModal">Rejeter
-                                                                    </button>
+                                                                    </button> --}}
+
+                                                                    <button class="btn btn-sm mx-1" data-bs-toggle="modal"
+                                                                        data-bs-target="#RejetDemandeModal">Validation demande</button>
                                                                 </ul>
                                                             </div>
                                                         @endcan
@@ -326,7 +367,7 @@
                                                                                                 <ul
                                                                                                     class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                                                     @can('validate-module-collective')
-                                                                                                        <form
+                                                                                                        {{-- <form
                                                                                                             action="{{ route('validerModuleCollective') }}"
                                                                                                             method="post">
                                                                                                             @csrf
@@ -336,11 +377,13 @@
                                                                                                                 value="{{ $module_collective->id }}">
                                                                                                             <button
                                                                                                                 class="show_confirm_valider btn btn-sm mx-1">Accepter</button>
-                                                                                                        </form>
+                                                                                                        </form> --}}
                                                                                                         <button class="btn btn-sm mx-1"
                                                                                                             data-bs-toggle="modal"
-                                                                                                            data-bs-target="#RejetModuleDemandeModal{{ $module_collective->id }}">Rejeter
+                                                                                                            data-bs-target="#RejetModuleDemandeModal{{ $module_collective->id }}">Validation
+                                                                                                            module
                                                                                                         </button>
+                                                                                                        <br>
                                                                                                         <br>
                                                                                                     @endcan
                                                                                                     <button class="btn btn-sm mx-1"
@@ -513,7 +556,7 @@
                                                                                     class="bi bi-three-dots"></i></a>
                                                                             <ul
                                                                                 class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                                @can('validate-module-collective')
+                                                                                {{-- @can('validate-module-collective')
                                                                                     <form
                                                                                         action="{{ route('validerModuleCollective') }}"
                                                                                         method="post">
@@ -529,7 +572,7 @@
                                                                                         data-bs-target="#RejetModuleDemandeModal{{ $collectivemodule->id }}">Rejeter
                                                                                     </button>
                                                                                     <br>
-                                                                                @endcan
+                                                                                @endcan --}}
                                                                                 <button class="btn btn-sm mx-1"
                                                                                     data-bs-toggle="modal"
                                                                                     data-bs-target="#EditRegionModal{{ $collectivemodule->id }}">Modifier
@@ -597,7 +640,7 @@
                                         <div class="tab-pane fade files" id="files">
                                             <div class="row mb-3">
                                                 <h5 class="card-title col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                                    FICHIERS JOINTS</h5>
+                                                    Documents joints</h5>
                                                 @if ($validFiles->isNotEmpty())
                                                     <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
                                                         <table class="table table-bordered table-hover datatables"
@@ -1107,18 +1150,13 @@
                         </div>
                     </div>
                 @endforeach
-                <div class="modal fade" id="RejetDemandeModal" tabindex="-1">
+                {{-- <div class="modal fade" id="RejetDemandeModal" tabindex="-1">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <form method="post" action="{{ route('validation-collectives.destroy', $collective?->id) }}"
                                 enctype="multipart/form-data" class="row">
                                 @csrf
                                 @method('DELETE')
-                                {{-- <div class="modal-header">
-                            <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i> Rejet demande</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div> --}}
                                 <div class="card-header text-center bg-gradient-default">
                                     <h1 class="h4 text-black mb-0">Rejeter demande</h1>
                                 </div>
@@ -1141,20 +1179,85 @@
                             </form>
                         </div>
                     </div>
+                </div> --}}
+
+                <div class="modal fade" id="RejetDemandeModal" tabindex="-1" aria-labelledby="RejetDemandeLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content shadow-lg rounded-3">
+                            <form method="POST" action="{{ route('validation-collectives.destroy', $collective?->id) }}"
+                                enctype="multipart/form-data" class="row g-3 p-3">
+                                @csrf
+                                @method('DELETE')
+
+                                <div class="modal-header bg-light border-bottom-0">
+                                    <h5 class="modal-title fw-bold text-danger" id="RejetDemandeLabel">Traitement de la
+                                        demande</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Fermer"></button>
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <div class="mb-3">
+                                        <label for="statut" class="form-label">Statut de la
+                                            demande<span class="text-danger mx-1">*</span></label>
+                                        @php
+                                            $selectedStatut = old('statut', $collective->statut_demande);
+                                        @endphp
+
+                                        <select name="statut" id="statut" class="form-select form-select-sm" required>
+                                            <option value="" disabled {{ !$selectedStatut ? 'selected' : '' }}>--
+                                                Sélectionner un statut --</option>
+                                            <option value="Validée" {{ $selectedStatut === 'Validée' ? 'selected' : '' }}>Validée
+                                            </option>
+                                            <option value="À corriger" {{ $selectedStatut === 'À corriger' ? 'selected' : '' }}>À
+                                                corriger</option>
+                                            <option value="Non validée"
+                                                {{ $selectedStatut === 'Non validée' ? 'selected' : '' }}>
+                                                Non validée</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="motif" class="form-label">Commentaires ou remarques<span
+                                                class="text-danger mx-1">*</span></label>
+                                        @php
+                                            $lastValidation = collect($collective?->validationcollectives)
+                                                ->sortByDesc('created_at')
+                                                ->first();
+                                        @endphp
+                                        <textarea name="motif" id="motif" rows="5"
+                                            class="form-control form-control-sm @error('motif') is-invalid @enderror"
+                                            placeholder="Indiquez les raisons ou recommandations">{{ old('motif', $lastValidation?->motif) }}</textarea>
+
+                                        @error('motif')
+                                            <span class="invalid-feedback d-block" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer border-top-0">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm"
+                                        data-bs-dismiss="modal">Annuler</button>
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">Soumettre</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+
                 @foreach ($collectivemodules as $collectivemodule)
-                    <div class="modal fade" id="RejetModuleDemandeModal{{ $collectivemodule->id }}" tabindex="-1">
+                    {{-- <div class="modal fade" id="RejetModuleDemandeModal{{ $collectivemodule->id }}" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <form method="post" action="{{ route('rejeterModuleCollective') }}"
                                     enctype="multipart/form-data" class="row">
                                     @csrf
                                     @method('PUT')
-                                    {{-- <div class="modal-header">
-                                <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i> Rejet module</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div> --}}
                                     <div class="card-header text-center bg-gradient-default">
                                         <h1 class="h4 text-black mb-0">Rejeter module</h1>
                                     </div>
@@ -1174,6 +1277,72 @@
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                                         <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-printer"></i>
                                             Rejeter</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div> --}}
+
+                    <div class="modal fade" id="RejetModuleDemandeModal{{ $collectivemodule->id }}" tabindex="-1"
+                        aria-labelledby="RejetDemandeLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content shadow-lg rounded-3">
+                                <form method="POST" action="{{ route('rejeterModuleCollective') }}"
+                                    enctype="multipart/form-data" class="row g-3 p-3">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="modal-header bg-light border-bottom-0">
+                                        <h5 class="modal-title fw-bold" id="RejetDemandeLabel">Traitement module :
+                                            {{ $collectivemodule->module }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Fermer"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <input type="hidden" name="id" value="{{ $collectivemodule->id }}">
+
+                                        <div class="mb-3">
+                                            <label for="statut" class="form-label">Statut du module<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            @php
+                                                $selectedStatut = old('statut', $collectivemodule->statut);
+                                            @endphp
+
+                                            <select name="statut" id="statut" class="form-select form-select-sm" required>
+                                                <option value="" disabled {{ !$selectedStatut ? 'selected' : '' }}>--
+                                                    Sélectionner un statut --</option>
+                                                <option value="Validé" {{ $selectedStatut === 'Validé' ? 'selected' : '' }}>
+                                                    Validé
+                                                </option>
+                                                <option value="À corriger"
+                                                    {{ $selectedStatut === 'À corriger' ? 'selected' : '' }}>À
+                                                    corriger</option>
+                                                <option value="Non validé"
+                                                    {{ $selectedStatut === 'Non validé' ? 'selected' : '' }}>
+                                                    Non validé</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="motif" class="form-label">Commentaires ou remarques<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <textarea name="motif" id="motif" rows="5"
+                                                class="form-control form-control-sm @error('motif') is-invalid @enderror"
+                                                placeholder="Indiquez les raisons ou recommandations">{{ old('motif', $collectivemodule?->motif) }}</textarea>
+
+                                            @error('motif')
+                                                <span class="invalid-feedback d-block" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-footer border-top-0">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm"
+                                            data-bs-dismiss="modal">Annuler</button>
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">Soumettre</button>
                                     </div>
                                 </form>
                             </div>

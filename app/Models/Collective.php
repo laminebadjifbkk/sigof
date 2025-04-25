@@ -196,6 +196,11 @@ class Collective extends Model
         });
     }
 
+    public function validationcollectives()
+    {
+        return $this->hasMany(Validationcollective::class, 'collectives_id');
+    }
+
     public function collectivemodules()
     {
         return $this->hasMany(Collectivemodule::class, 'collectives_id');

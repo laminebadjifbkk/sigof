@@ -580,6 +580,24 @@
             /* border-radius: 5px; */
         }
 
+        .Validée {
+            background-color: #46a579;
+            color: white;
+            padding: 4px 8px;
+            text-align: center;
+            border-radius: 25% 10%;
+            /* border-radius: 5px; */
+        }
+
+        .Validé {
+            background-color: #46a579;
+            color: white;
+            padding: 4px 8px;
+            text-align: center;
+            border-radius: 25% 10%;
+            /* border-radius: 5px; */
+        }
+
         a {
             text-decoration: none;
         }

@@ -162,12 +162,12 @@ class CollectivemoduleController extends Controller
 
         $collectivemodule->update([
             'motif'  => $request->motif,
-            'statut' => 'Rejetée',
+            'statut' => $request->statut,
         ]);
 
         $collectivemodule->save();
 
-        Alert::success('Module rejeté !', 'Merci à bientôt');
+        Alert::success('Succès !', 'La module ' . $collectivemodule->module . ' a été traité avec succès');
 
         return redirect()->back();
     }
