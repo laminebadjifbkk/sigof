@@ -75,9 +75,13 @@ class ValidationcollectiveController extends Controller
 
         return redirect()->back(); */
 
-        $this->validate($request, [
-            "motif" => "required|string",
-        ]);
+        $statut = $request->statut;
+
+        if ($statut !== 'Validée') {
+            $request->validate([
+                "motif" => "required|string",
+            ]);
+        }
 
         $collective = Collective::findOrFail($id);
         $statut     = $collective->statut_demande;
@@ -109,7 +113,7 @@ class ValidationcollectiveController extends Controller
 
         $validation = Validationcollective::create([
             'validated_id'   => Auth::user()->id,
-            'action'         => $request?->statut,
+            'action'         => $request->statut,
             'motif'          => $request->input('motif'),
             'collectives_id' => $collective->id,
         ]);

@@ -1221,7 +1221,7 @@
 
                                     <div class="mb-3">
                                         <label for="motif" class="form-label">Commentaires ou remarques<span
-                                                class="text-danger mx-1">*</span></label>
+                                                class="text-danger mx-1">(*)</span></label>
                                         @php
                                             $lastValidation = collect($collective?->validationcollectives)
                                                 ->sortByDesc('created_at')
@@ -1303,7 +1303,7 @@
 
                                         <div class="mb-3">
                                             <label for="statut" class="form-label">Statut du module<span
-                                                    class="text-danger mx-1">*</span></label>
+                                                    class="text-danger mx-1">(*)</span></label>
                                             @php
                                                 $selectedStatut = old('statut', $collectivemodule->statut);
                                             @endphp

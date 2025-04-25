@@ -154,9 +154,13 @@ class CollectivemoduleController extends Controller
 
     public function rejeterModuleCollective(Request $request)
     {
-        $request->validate([
-            'motif' => 'required|string',
-        ]);
+        $statut = $request->statut;
+
+        if ($statut !== 'Validé') {
+            $request->validate([
+                'motif' => 'required|string',
+            ]);
+        }
 
         $collectivemodule = Collectivemodule::findOrFail($request->id);
 

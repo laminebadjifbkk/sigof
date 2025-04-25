@@ -423,7 +423,7 @@
 
                                 <div class="mb-3">
                                     <label for="motif" class="form-label">Commentaires ou remarques<span
-                                            class="text-danger mx-1">*</span></label>
+                                            class="text-danger mx-1">(*)</span></label>
                                     @php
                                         $lastValidation = collect($individuelle?->validationindividuelles)
                                             ->sortByDesc('created_at')
