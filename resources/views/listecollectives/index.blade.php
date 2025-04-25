@@ -64,7 +64,7 @@
                                             <th>Prénom & NOM</th>
                                             <th>Date nais.</th>
                                             <th>Lieu nais.</th>
-                                            <th>Module</th>
+                                            {{-- <th>Module</th> --}}
                                             <th>Structure</th>
                                             <th class="text-center">Dépôt</th>
                                             <th class="text-center">Statut</th>
@@ -81,7 +81,7 @@
                                                 </td>
                                                 <td>{{ $listecollective?->date_naissance?->format('d/m/Y') }}</td>
                                                 <td>{{ $listecollective?->lieu_naissance }}</td>
-                                                <td>{{ $listecollective?->collectivemodule?->module }}</td>
+                                                {{-- <td>{{ $listecollective?->collectivemodule?->module }}</td> --}}
                                                 <td>
                                                     @if ($listecollective->collective)
                                                         <a href="{{ route('collectives.show', $listecollective->collective) }}"
