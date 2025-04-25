@@ -36,20 +36,19 @@
                                         class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                 <p> | Profil</p>
                             </span>
-                            {{-- <button type="button" class="btn btn-info btn-sm"> --}}
-                            <p>Statut : <span class="{{ $projet?->statut }} btn-sm">{{ $projet?->statut }}</span></p>
-                            {{-- </button> --}}
+                            {{-- <p>Statut : <span class="{{ $projet?->statut }} btn-sm">{{ $projet?->statut }}</span></p> --}}
+                            <button type="button" class="btn btn-info btn-sm">
+                                <span class="badge bg-white text-info">{{ $individuelle_total }} sur 3</span>
+                            </button>
                             @if (!empty(Auth::user()->cin) && !empty($statut))
-                                {{-- <button type="button" class="btn btn-outline-primary btn-sm float-end btn-rounded"
-                                    data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal">
-                                    <i class="bi bi-plus" title="Ajouter"></i>
-                                </button> --}}                                
-                                <button type="button"
-                                    class="btn btn-success btn-sm float-end rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
-                                    data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal">
-                                    <i class="bi bi-plus-circle-fill"></i>
-                                    Formuler une autre demande
-                                </button>
+                                @if ($individuelle_total < 3 && !empty(Auth::user()?->cin))
+                                    <button type="button"
+                                        class="btn btn-success btn-sm float-end rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
+                                        data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal">
+                                        <i class="bi bi-plus-circle-fill"></i>
+                                        Formuler une autre demande
+                                    </button>
+                                @endif
                             @endif
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-0">
@@ -747,10 +746,10 @@
                                         individuelle</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
-                                </div> --}}                                
-                            <div class="card-header text-center bg-gradient-default">
-                                <h1 class="h4 text-black mb-0">➕ Formuler une autre demande</h1>
-                            </div>
+                                </div> --}}
+                                <div class="card-header text-center bg-gradient-default">
+                                    <h1 class="h4 text-black mb-0">➕ Formuler une autre demande</h1>
+                                </div>
                                 <div class="modal-body">
                                     <div class="row g-3">
                                         <div class="col-12 col-md-12 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
@@ -1158,10 +1157,9 @@
                                                 class="bi bi-printer"></i>
                                             Ajouter</button>
                                     </div> --}}
-                                    
+
                                     <div class="card-footer d-flex justify-content-end gap-2 p-3 bg-light border-top">
-                                        <button type="button" class="btn btn-secondary btn-sm"
-                                            data-bs-dismiss="modal">
+                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
                                             <i class="bi bi-x-circle"></i> Fermer
                                         </button>
                                         <button type="submit" class="btn btn-primary btn-sm">
