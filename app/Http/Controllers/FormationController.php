@@ -164,13 +164,13 @@ class FormationController extends Controller
     {
         $this->validate($request, [
             "code"               => "required|string|min:7|max:8|unique:formations,code",
-            "name"               => "required|string|unique:formations,name",
+            "name"               => "nullable|string|unique:formations,name",
             "departement"        => "required|string",
             "lieu"               => "required|string",
             "type_certification" => "required|string",
             "types_formation"    => "required|string",
-            "date_debut"         => "nullable|date|min:10|max:10|date_format:Y-m-d",
-            "date_fin"           => "nullable|date|min:10|max:10|date_format:Y-m-d",
+            "date_debut"         => "nullable|date|size:10|date_format:Y-m-d",
+            "date_fin"           => "nullable|date|size:10|date_format:Y-m-d",
         ]);
 
         /* $mois = date('m');
