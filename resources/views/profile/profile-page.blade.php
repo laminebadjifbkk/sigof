@@ -1060,6 +1060,122 @@
                 <!-- Left side columns -->
                 <div class="col-lg-12">
                     <div class="row">
+
+
+                        {{-- @foreach ($projets as $projet)
+                        <?php
+                        $projet_count = $projet?->individuelles?->where('projets_id', $projet?->id)?->where('users_id', $user?->id)?->count() ?? 0;
+                        ?>
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <div class="card info-card sales-card">
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                </div>
+                                <a href="{{ route('projetsIndividuelle', ['id' => $projet?->id]) }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $projet?->type_projet }} <span>|
+                                                {{ $projet?->sigle }}</span></h5>
+                                        <div class="d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-person-plus-fill"></i>
+                                                <span>{{ $projet_count }}</span>
+                                            </div>
+                                            <div class="ps-3">
+                                                <span>
+                                                    <span
+                                                        class="btn btn-sm {{ $projet?->statut }}">{{ $projet?->statut }}</span><br>
+                                                    <span
+                                                        class="text-muted small pt-2 ps-1">{{ 'Clôture, le ' . date_format(date_create($projet?->date_fermeture), 'd/m/Y') }}</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach --}}
+                        @foreach ($projets as $projet)
+                            @php
+
+                                $projet_count = $projet->individuelles
+                                    ->where('projets_id', $projet->id)
+                                    ->where('users_id', $user->id)
+                                    ->count();
+
+                                $statut_badge =
+                                    $projet->statut === 'ouvert' ? 'bg-success text-white' : 'bg-secondary text-white';
+
+                                $jours_restant = \Carbon\Carbon::now()->diffInDays(
+                                    \Carbon\Carbon::parse($projet->fin),
+                                    false,
+                                );
+
+                            @endphp
+
+                            <div class="col-12 mb-3">
+                                <div class="card bg-light shadow-sm rounded-4 hover-shadow"
+                                    style="transition: all 0.3s ease;">
+                                    <div
+                                        class="card-body p-3 px-md-4 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+
+                                        {{-- Informations principales --}}
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <h6 class="mb-0 fw-bold text-primary">{{ $projet->name }}</h6>
+                                                @if ($jours_restant >= 0)
+                                                    <span
+                                                        class="badge {{ $statut_badge }}">{{ ucfirst($projet->statut) }}</span>
+                                                @endif
+                                            </div>
+                                            <div class="small text-muted mb-1">
+                                                <i class="bi bi-calendar-event me-1"></i>
+                                                <strong>Ouverture :</strong>
+                                                {{ \Carbon\Carbon::parse($projet->debut)->format('d/m/Y') }}
+                                                &nbsp;|&nbsp;
+                                                <i class="bi bi-calendar-x me-1"></i>
+                                                <strong>Clôture :</strong>
+                                                {{ \Carbon\Carbon::parse($projet->fin)->format('d/m/Y') }}
+                                            </div>
+                                            @if ($jours_restant > 0)
+                                                <div class="text-danger small">
+                                                    <i class="bi bi-hourglass-split me-1"></i>
+                                                    {{ $jours_restant }} jour{{ $jours_restant > 1 ? 's' : '' }}
+                                                    restant{{ $jours_restant > 1 ? 's' : '' }}
+                                                </div>
+                                            @elseif ($jours_restant === 0)
+                                                <div class="text-warning small">
+                                                    <i class="bi bi-clock me-1"></i>
+                                                    Dernier jour : aujourd’hui
+                                                </div>
+                                            @else
+                                                <div class="text-danger small fw-bold">
+                                                    <i class="bi bi-x-circle me-1"></i>
+                                                    Clôturé
+                                                </div>
+                                            @endif
+
+                                            <div class="small text-muted">
+                                                <i class="bi bi-person-plus-fill me-1"></i>
+                                                {{ $projet_count }} demande{{ $projet_count > 1 ? 's' : '' }}
+                                                &nbsp;|&nbsp;
+                                                <span class="badge bg-white text-dark border">{{ $projet->sigle }}</span>
+                                            </div>
+                                        </div>
+
+                                        {{-- Bouton --}}
+                                        @if ($jours_restant >= 0)
+                                            <a href="{{ route('projetsIndividuelle', ['id' => $projet->id]) }}"
+                                                class="btn btn-outline-primary btn-sm">
+                                                Postuler
+                                            </a>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
                         <!-- Sales Card -->
                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                             <div class="card info-card sales-card">
@@ -1129,41 +1245,6 @@
                                 </a>
                             </div>
                         </div>
-
-                        @foreach ($projets as $projet)
-                            <?php
-                            $projet_count = $projet?->individuelles?->where('projets_id', $projet?->id)?->where('users_id', $user?->id)?->count() ?? 0;
-                            ?>
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                                <div class="card info-card sales-card">
-                                    <div class="filter">
-                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                class="bi bi-three-dots"></i></a>
-                                    </div>
-                                    <a href="{{ route('projetsIndividuelle', ['id' => $projet?->id]) }}">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ $projet?->type_projet }} <span>|
-                                                    {{ $projet?->sigle }}</span></h5>
-                                            <div class="d-flex align-items-center">
-                                                <div
-                                                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                    <i class="bi bi-person-plus-fill"></i>
-                                                    <span>{{ $projet_count }}</span>
-                                                </div>
-                                                <div class="ps-3">
-                                                    <span>
-                                                        <span
-                                                            class="btn btn-sm {{ $projet?->statut }}">{{ $projet?->statut }}</span><br>
-                                                        <span
-                                                            class="text-muted small pt-2 ps-1">{{ 'Clôture, le ' . date_format(date_create($projet?->date_fermeture), 'd/m/Y') }}</span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        @endforeach
                     </div>
                 </div>
             </div>
@@ -1295,3 +1376,12 @@
     </div>
 
 @endsection
+
+@push('scripts')
+    <style>
+        .hover-shadow:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08) !important;
+            transform: translateY(-2px);
+        }
+    </style>
+@endpush
