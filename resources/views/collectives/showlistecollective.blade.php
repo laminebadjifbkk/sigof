@@ -84,7 +84,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-12 col-lg-12 mb-2">
-                                        <div class="label"> mb-2Projet professionnel</div>
+                                        <div class="label"> Projet professionnel</div>
                                         <div>
                                             {!! '- ' .
                                                 implode(

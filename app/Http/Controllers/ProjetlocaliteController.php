@@ -1,14 +1,13 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\Commune;
 use App\Models\Arrondissement;
+use App\Models\Commune;
 use App\Models\Departement;
-use App\Models\Region;
+use App\Models\Individuelle;
 use App\Models\Projet;
 use App\Models\Projetlocalite;
-use App\Models\Individuelle;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -18,77 +17,92 @@ class ProjetlocaliteController extends Controller
     public function showLocalites($id)
     {
         $projetlocalites = Projetlocalite::where('projets_id', $id)->get();
-        $projet = Projet::findOrFail($id);
+        $projet          = Projet::findOrFail($id);
 
         return view('projetlocalites.index', compact('projetlocalites', 'projet'));
     }
 
     public function store(Request $request)
     {
+        /* $id = $request->input('projet');
         $this->validate($request, [
             'localite' => ["required", "string", Rule::unique('projetlocalites')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
             'effectif' => 'required|string',
+        ]); */
+
+        $id = $request->input('projet');
+
+        $this->validate($request, [
+            'localite' => [
+                'required',
+                'string',
+                Rule::unique('projetlocalites')->where(function ($query) use ($id) {
+                    return $query->whereNull('deleted_at')
+                        ->where('projets_id', $id);
+                }),
+            ],
+            'effectif' => 'required|string',
         ]);
 
         $localite = $request?->type_localite;
 
-        if (!empty($localite) && $localite == 'Commune') {
+        if (! empty($localite) && $localite == 'Commune') {
             $lieu = Commune::where('nom', $request->input("localite"))->first();
-            if (!empty($lieu)) {
+            if (! empty($lieu)) {
                 $projetlocalite = new Projetlocalite([
-                    "localite" => $request->input("localite"),
-                    "effectif" => $request->input("effectif"),
+                    "localite"   => $request->input("localite"),
+                    "effectif"   => $request->input("effectif"),
                     'projets_id' => $request->input('projet'),
                 ]);
                 $projetlocalite->save();
-                Alert::success('Féliciations ! ', 'localité ajoutée avec succès');
+                Alert::success('Suucès ! ', 'localité ajoutée avec succès');
             } else {
                 Alert::warning('Désolez ! ', $request->input("localite") . " n'est pas reconnu(e) comme " . $request?->type_localite);
             }
             return redirect()->back();
         }
-        if (!empty($localite) && $localite == 'Arrondissement') {
+        if (! empty($localite) && $localite == 'Arrondissement') {
             $lieu = Arrondissement::where('nom', $request->input("localite"))->first();
-            if (!empty($lieu)) {
+            if (! empty($lieu)) {
                 $projetlocalite = new Projetlocalite([
-                    "localite" => $request->input("localite"),
-                    "effectif" => $request->input("effectif"),
+                    "localite"   => $request->input("localite"),
+                    "effectif"   => $request->input("effectif"),
                     'projets_id' => $request->input('projet'),
                 ]);
                 $projetlocalite->save();
-                Alert::success('Féliciations ! ', 'localité ajoutée avec succès');
+                Alert::success('Suucès ! ', 'localité ajoutée avec succès');
             } else {
                 Alert::warning('Désolez ! ', $request->input("localite") . " n'est pas reconnu(e) comme " . $request?->type_localite);
             }
             return redirect()->back();
         }
-        if (!empty($localite) && $localite == 'Departement') {
+        if (! empty($localite) && $localite == 'Departement') {
             $lieu = Departement::where('nom', $request->input("localite"))->first();
-            if (!empty($lieu)) {
+            if (! empty($lieu)) {
                 $projetlocalite = new Projetlocalite([
-                    "localite" => $request->input("localite"),
-                    "effectif" => $request->input("effectif"),
+                    "localite"   => $request->input("localite"),
+                    "effectif"   => $request->input("effectif"),
                     'projets_id' => $request->input('projet'),
                 ]);
                 $projetlocalite->save();
-                Alert::success('Féliciations ! ', 'localité ajoutée avec succès');
+                Alert::success('Suucès ! ', 'localité ajoutée avec succès');
             } else {
                 Alert::warning('Désolez ! ', $request->input("localite") . " n'est pas reconnu(e) comme " . $request?->type_localite);
             }
             return redirect()->back();
         }
-        if (!empty($localite) && $localite == 'Region') {
+        if (! empty($localite) && $localite == 'Region') {
             $lieu = Region::where('nom', $request->input("localite"))->first();
-            if (!empty($lieu)) {
+            if (! empty($lieu)) {
                 $projetlocalite = new Projetlocalite([
-                    "localite" => $request->input("localite"),
-                    "effectif" => $request->input("effectif"),
+                    "localite"   => $request->input("localite"),
+                    "effectif"   => $request->input("effectif"),
                     'projets_id' => $request->input('projet'),
                 ]);
                 $projetlocalite->save();
-                Alert::success('Féliciations ! ', 'localité ajoutée avec succès');
+                Alert::success('Suucès ! ', 'localité ajoutée avec succès');
             } else {
                 Alert::warning('Désolez ! ', $request->input("localite") . " n'est pas reconnu(e) comme " . $request?->type_localite);
             }
@@ -108,22 +122,22 @@ class ProjetlocaliteController extends Controller
         $projetlocalite = Projetlocalite::findOrFail($id);
 
         $projetlocalite->update([
-            "localite" => $request->input("localite"),
-            "effectif" => $request->input("effectif"),
+            "localite"   => $request->input("localite"),
+            "effectif"   => $request->input("effectif"),
             'projets_id' => $request->input('id'),
         ]);
 
         $projetlocalite->save();
 
-        Alert::success('Féliciations ! ', 'localité modifiée avec succès');
+        Alert::success('Suucès ! ', 'localité modifiée avec succès');
 
         return redirect()->back();
     }
     public function show($id)
     {
         $projetlocalite = Projetlocalite::findOrFail($id);
-        $projet = $projetlocalite?->projet;
-        $type_localite = $projet->type_localite;
+        $projet         = $projetlocalite?->projet;
+        $type_localite  = $projet->type_localite;
 
         $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
             ->select('individuelles.*')
@@ -131,29 +145,29 @@ class ProjetlocaliteController extends Controller
             ->get();
 
         if ($type_localite == 'Region') {
-            $region = 'Région';
-            $departement = null;
+            $region         = 'Région';
+            $departement    = null;
             $arrondissement = null;
-            $commune = null;
+            $commune        = null;
         } elseif ($type_localite == 'Departement') {
-            $departement = 'Département';
+            $departement    = 'Département';
             $arrondissement = null;
-            $commune = null;
-            $region = null;
+            $commune        = null;
+            $region         = null;
         } elseif ($type_localite == 'Arrondissement') {
             $arrondissement = 'Arrondissement';
-            $commune = null;
-            $departement = null;
-            $region = null;
+            $commune        = null;
+            $departement    = null;
+            $region         = null;
         } elseif ($type_localite == 'Commune') {
-            $commune = 'Commune';
-            $departement = null;
-            $region = null;
+            $commune        = 'Commune';
+            $departement    = null;
+            $region         = null;
             $arrondissement = null;
         } else {
-            $commune = null;
-            $departement = null;
-            $region = null;
+            $commune        = null;
+            $departement    = null;
+            $region         = null;
             $arrondissement = null;
         }
 

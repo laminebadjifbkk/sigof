@@ -12,13 +12,28 @@ class ProjetmoduleController extends Controller
 {
     public function store(Request $request)
     {
+        $id = $request->input('projet');
+
         $this->validate($request, [
+            'module' => [
+                'required',
+                'string',
+                Rule::unique('projetmodules')->where(function ($query) use ($id) {
+                    return $query->whereNull('deleted_at')
+                        ->where('projets_id', $id);
+                }),
+            ],
+            'domaine' => 'required|string',
+            'effectif' => 'required|string',
+        ]);
+
+       /*  $this->validate($request, [
             'module' => ["required", "string", Rule::unique('projetmodules')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
             'domaine' => 'required|string',
             'effectif' => 'required|string',
-        ]);
+        ]); */
 
         $projetmodule = new Projetmodule([
             "module" => $request->input("module"),

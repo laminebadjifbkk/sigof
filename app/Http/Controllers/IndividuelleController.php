@@ -1067,14 +1067,6 @@ class IndividuelleController extends Controller
 
 // Vérifier si le module existe et l'utiliser
             if (isset($module_find)) {
-                // Vérifier si le module a déjà été sélectionné
-                $moduleSelected = $demandeur_ind->where('module.name', $module_find->name)->first();
-
-                if ($moduleSelected) {
-                    Alert::warning('Attention ! Le module ' . $moduleSelected->module->name, 'a déjà été sélectionné');
-                    return redirect()->back();
-                }
-
                 // Créer l'Individuelle avec le module trouvé
                 $individuelleData['modules_id'] = $module_find->id;
                 $individuelle                   = new Individuelle($individuelleData);

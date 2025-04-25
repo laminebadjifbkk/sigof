@@ -42,9 +42,7 @@ class ProjetController extends Controller
                 return $query->whereNull('deleted_at');
             })],
             "date_signature" => ["date", "size:10", "date_format:Y-m-d"],
-            "description"    => ["required", "string", Rule::unique('projets')->where(function ($query) {
-                return $query->whereNull('deleted_at');
-            })],
+            "description"    => ["required", "string"],
             "duree"          => ["nullable", "string"],
             "budjet"         => ["nullable", "string"],
             "effectif"       => ["nullable", "string"],
@@ -112,9 +110,7 @@ class ProjetController extends Controller
                 return $query->whereNull('deleted_at');
             })->ignore($projet->id)],
             "date_signature"  => ["required", "date", "size:10", "date_format:Y-m-d"],
-            "description"     => ["required", "string", Rule::unique('projets')->where(function ($query) {
-                return $query->whereNull('deleted_at');
-            })->ignore($projet->id)],
+            "description"     => ["required", "string"],
             "duree"           => ["nullable", "string"],
             "budjet"          => ["nullable", "string"],
             "effectif"        => ["nullable", "string"],

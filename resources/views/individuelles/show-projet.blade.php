@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - ' . $projet?->sigle)
+@section('title', 'ONFP | ' . $projet?->sigle)
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
@@ -40,9 +40,15 @@
                             <p>Statut : <span class="{{ $projet?->statut }} btn-sm">{{ $projet?->statut }}</span></p>
                             {{-- </button> --}}
                             @if (!empty(Auth::user()->cin) && !empty($statut))
-                                <button type="button" class="btn btn-outline-primary btn-sm float-end btn-rounded"
+                                {{-- <button type="button" class="btn btn-outline-primary btn-sm float-end btn-rounded"
                                     data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal">
                                     <i class="bi bi-plus" title="Ajouter"></i>
+                                </button> --}}                                
+                                <button type="button"
+                                    class="btn btn-success btn-sm float-end rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
+                                    data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal">
+                                    <i class="bi bi-plus-circle-fill"></i>
+                                    Formuler une autre demande
                                 </button>
                             @endif
                         </div>
@@ -743,7 +749,7 @@
                                         aria-label="Close"></button>
                                 </div> --}}                                
                             <div class="card-header text-center bg-gradient-default">
-                                <h1 class="h4 text-black mb-0">AJOUTER UNE NOUVELLE DEMANDE</h1>
+                                <h1 class="h4 text-black mb-0">➕ Formuler une autre demande</h1>
                             </div>
                                 <div class="modal-body">
                                     <div class="row g-3">
@@ -845,10 +851,14 @@
                                         <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="telephone_secondaire" class="form-label">Téléphone secondaire<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <input type="number" name="telephone_secondaire" min="0"
+                                            <input name="telephone_secondaire" type="text" maxlength="12"
+                                                class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror"
+                                                id="telephone_secondaire" value="{{ old('telephone_secondaire') }}"
+                                                autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                            {{-- <input type="number" name="telephone_secondaire" min="0"
                                                 value="{{ $individuelle?->telephone ?? old('telephone_secondaire') }}"
                                                 class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror"
-                                                id="telephone_secondaire" placeholder="7x xxx xx xx">
+                                                id="telephone_secondaire" placeholder="7x xxx xx xx"> --}}
                                             @error('telephone_secondaire')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
@@ -1130,7 +1140,7 @@
                                                 complémentaires
                                                 sur
                                                 le projet
-                                                professionnel</label>
+                                                professionnel<span class="text-danger mx-1">*</span></label>
                                             <textarea name="projetprofessionnel" id="projetprofessionnel" rows="2"
                                                 class="form-control form-control-sm @error('projetprofessionnel') is-invalid @enderror"
                                                 placeholder="Si vous disposez déjà d'un projet professionnel, merci d'écrire son résumé en quelques lignes">{{ $individuelle?->projetprofessionnel ?? old('projetprofessionnel') }}</textarea>
@@ -1141,12 +1151,22 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
+                                    {{-- <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary btn-sm"
                                             data-bs-dismiss="modal">Fermer</button>
                                         <button type="submit" class="btn btn-primary btn-sm"><i
                                                 class="bi bi-printer"></i>
                                             Ajouter</button>
+                                    </div> --}}
+                                    
+                                    <div class="card-footer d-flex justify-content-end gap-2 p-3 bg-light border-top">
+                                        <button type="button" class="btn btn-secondary btn-sm"
+                                            data-bs-dismiss="modal">
+                                            <i class="bi bi-x-circle"></i> Fermer
+                                        </button>
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="bi bi-save"></i> Enregistrer
+                                        </button>
                                     </div>
                                 </div>
                             </form>
