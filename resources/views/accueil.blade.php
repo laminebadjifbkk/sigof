@@ -627,10 +627,18 @@
                     </script>
                     <div class="swiper-wrapper align-items-center">
                         @foreach ($projets as $projet)
-                            <div class="swiper-slide"><img src="{{ asset($projet?->getProjetImage()) }}"
-                                    class="img-fluid" alt="">
-                            </div>
+                            @php
+                                $imagePath = $projet?->getProjetImage();
+                            @endphp
+
+                            @if ($imagePath && file_exists(public_path($imagePath)))
+                                <div class="swiper-slide">
+                                    <img src="{{ asset($imagePath) }}" class="img-fluid"
+                                        alt="{{ $projet->nom ?? 'Projet' }}">
+                                </div>
+                            @endif
                         @endforeach
+
                         <div class="swiper-slide"><img src="" class="img-fluid" alt=""></div>
                     </div>
                     <div class="swiper-pagination"></div>
