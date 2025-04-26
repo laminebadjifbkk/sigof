@@ -1135,7 +1135,7 @@
                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                             class="bi bi-three-dots"></i></a>
                                 </div>
-                                <a href="{{ route('projetsIndividuelle', ['id' => $projet?->id]) }}">
+                                <a href="{{ route('projetsIndividuelle', ['uuid' => $projet?->uuid]) }}">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $projet?->type_projet }} <span>|
                                                 {{ $projet?->sigle }}</span></h5>
@@ -1229,7 +1229,7 @@
 
                                         {{-- Bouton --}}
                                         @if ($jours_restant >= 0)
-                                            <a href="{{ route('projetsIndividuelle', ['id' => $projet->id]) }}"
+                                            <a href="{{ route('projetsIndividuelle', ['uuid' => $projet->uuid]) }}"
                                                 class="btn btn-outline-primary btn-sm">
                                                 Postuler
                                             </a>
@@ -1415,7 +1415,7 @@
         @endhasrole
     </div>
 
-    <div class="modal fade" id="ShowProfilImage{{ Auth::id() }}" tabindex="-1" aria-hidden="true">
+    {{-- <div class="modal fade" id="ShowProfilImage{{ Auth::id() }}" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1436,6 +1436,34 @@
                 </div>
             </div>
         </div>
+    </div> --}}
+
+    <div class="modal fade" id="ShowProfilImage{{ Auth::id() }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-5 shadow-md overflow-hidden"
+                 style="background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px);">
+                <div class="modal-body text-center p-4">
+                    <!-- Bouton close en haut à droite -->
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                    
+                    <!-- Titre -->
+                    <h2 class="fs-3 fw-bold text-dark mb-4 mt-2">
+                        {{ (Auth::user()?->civilite ?? '') . ' ' . (Auth::user()?->firstname ?? '') . ' ' . (Auth::user()?->name ?? (Auth::user()?->username ?? '')) }}
+                    </h2>
+    
+                    <!-- Image -->
+                    <img src="{{ asset($user->getImage() ?? 'images/default.png') }}"
+                         class="img-fluid rounded-4 shadow-sm animated-image mb-4"
+                         alt="{{ Auth::user()?->legende ?? 'Photo de profil' }}"
+                         style="max-height: 400px; object-fit: cover; border: 4px solid rgba(255,255,255,0.6);">
+    
+                    <!-- Bouton Fermer -->
+                    <button type="button" class="btn btn-dark rounded-pill px-5 py-2 mt-2" data-bs-dismiss="modal">
+                        Fermer
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
 @endsection
@@ -1445,6 +1473,25 @@
         .hover-shadow:hover {
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08) !important;
             transform: translateY(-2px);
+        }
+    </style>
+
+    <style>
+        /* Animation pour l'image */
+        @keyframes zoomFadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animated-image {
+            animation: zoomFadeIn 0.6s ease-out forwards;
         }
     </style>
 @endpush

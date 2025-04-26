@@ -260,7 +260,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/demandesIndividuelles', [IndividuelleController::class, 'demandesIndividuelle'])->name('demandesIndividuelle');
         Route::post('/showIndividuelleProjet', [IndividuelleController::class, 'showIndividuelleProjet'])->name('showIndividuelleProjet');
 
-        Route::get('/projetsIndividuelle/{id}', [ProjetController::class, 'projetsIndividuelle'])->name('projetsIndividuelle');
+        Route::get('/projetsIndividuelle/{uuid}', [ProjetController::class, 'projetsIndividuelle'])->name('projetsIndividuelle');
         Route::put('/ouvrirProjet/{id}', [ProjetController::class, 'ouvrirProjet'])->name('ouvrirProjet');
         Route::put('/fermerProjet/{id}', [ProjetController::class, 'fermerProjet'])->name('fermerProjet');
 
@@ -321,6 +321,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/showReserve/{id}', [CommissionagrementController::class, 'showReserve'])->name('showReserve');
         Route::get('/showRejeter/{id}', [CommissionagrementController::class, 'showRejeter'])->name('showRejeter');
         Route::put('/retirerOperateur/{id}', [OperateurController::class, 'retirerOperateur'])->name('retirerOperateur');
+        Route::put('/projets/{id}/terminer', [ProjetController::class, 'terminer'])->name('terminerProjet');
 
         Route::get('/devenirOperateurs', [OperateurController::class, 'devenirOperateur'])->name('devenirOperateur');
         Route::post('/addOperateur', [OperateurController::class, 'addOperateur'])->name('addOperateur');

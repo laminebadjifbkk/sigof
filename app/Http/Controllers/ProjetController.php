@@ -278,20 +278,20 @@ class ProjetController extends Controller
         return redirect()->back();
     }
 
-    public function projetsIndividuelle($id)
+    public function projetsIndividuelle($uuid)
     {
         $user            = Auth::user();
-        $projet          = Projet::findOrFail($id);
+        $projet          = Projet::where('uuid', $uuid)->firstOrFail();
         $type_localite   = $projet->type_localite;
-        $projetlocalites = Projetlocalite::where('projets_id', $id)
+        $projetlocalites = Projetlocalite::where('projets_id', $projet->id)
             ->orderBy("created_at", "desc")->get();
 
-        $projetmodules = Projetmodule::where('projets_id', $id)
+        $projetmodules = Projetmodule::where('projets_id', $projet->id)
             ->orderBy("created_at", "desc")
             ->get();
 
         $individuelle = Individuelle::where('users_id', $user->id)
-            ->where('projets_id', $id)
+            ->where('projets_id', $projet->id)
             ->where('numero', '!=', null)
             ->get();
 
@@ -306,7 +306,7 @@ class ProjetController extends Controller
         $individuelle_total = $individuelle->count();
 
         $individuelles = Individuelle::where('users_id', $user->id)
-            ->where('projets_id', $id)
+            ->where('projets_id', $projet->id)
             ->get();
 
         if ($individuelle_total == 0) {
@@ -449,5 +449,16 @@ class ProjetController extends Controller
         }
 
         return view('projets.individuelle', compact('projet', 'commune', 'arrondissement', 'departement', 'region'));
+    }
+
+    public function terminer($id)
+    {
+        $projet         = Projet::findOrFail($id);
+        $projet->statut = 'Terminé';
+        $projet->save();
+
+        Alert::success('Succès', 'Projet terminé avec succès');
+
+        return redirect()->back();
     }
 }
