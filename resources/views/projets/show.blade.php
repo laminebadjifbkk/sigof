@@ -121,13 +121,13 @@
                                         @if ($projet?->debut)
                                             <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Date début</div>
-                                                <div class="pt-2">{{ $projet?->debut->format('d-m-Y') }}</div>
+                                                <div class="pt-2">{{ $projet?->debut->format('d/m/Y') }}</div>
                                             </div>
                                         @endif
                                         @if ($projet?->fin)
                                             <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Date fin</div>
-                                                <div class="pt-2">{{ $projet?->fin->format('d-m-Y') }}</div>
+                                                <div class="pt-2">{{ $projet?->fin->format('d/m/Y') }}</div>
                                             </div>
                                         @endif
                                     </form>
