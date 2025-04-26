@@ -346,7 +346,7 @@ class ProjetController extends Controller
 
         $projet->save();
 
-        Alert::success('Féliciatations !', $projet->sigle . ' est ouvert');
+        Alert::success('Succès !', 'Les dépôts pour ' . $projet->sigle . ' sont est ouverts');
 
         return redirect()->back();
     }
@@ -362,7 +362,7 @@ class ProjetController extends Controller
 
         $projet->save();
 
-        Alert::success('Merci !', $projet->sigle . ' est fermé');
+        Alert::success('Succès', 'Les dépôts pour ' . $projet->sigle . ' sont fermés');
 
         return redirect()->back();
     }

@@ -936,6 +936,43 @@
         });
     </script>
     <script type="text/javascript">
+        $('.show_confirm_ouvrir').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                    title: `Êtes-vous sûr ?`,
+                    text: "Si oui, cliquer sur ok.",
+                    icon: "success",
+                    buttons: ["Annuler", "Oui, Ouvrir !"],
+                })
+                .then((willValide) => {
+                    if (willValide) {
+                        form.submit();
+                    }
+                });
+        });
+    </script>
+    <script type="text/javascript">
+        $('.show_confirm_fermer').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                    title: `Êtes-vous sûr ?`,
+                    text: "Si oui, cliquer sur ok.",
+                    icon: "success",
+                    buttons: ["Annuler", "Oui, Fermer !"],
+                    dangerMode: true,
+                })
+                .then((willValide) => {
+                    if (willValide) {
+                        form.submit();
+                    }
+                });
+        });
+    </script>
+    <script type="text/javascript">
         $('.show_confirm_rejeter').on('click', function(event) {
             event.preventDefault();
             const form = $(this).closest("form");

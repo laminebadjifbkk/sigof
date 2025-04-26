@@ -51,6 +51,7 @@
                                     <th class="text-center" width="3%">LOGO</th>
                                     <th>Partenaires / Programmes</th>
                                     <th class="text-center">Sigle</th>
+                                    <th class="text-center">Statut</th>
                                     {{-- <th class="text-center">Statut</th>
                                     <th>Modules</th>
                                     <th class="text-center">Reçues</th>
@@ -72,6 +73,23 @@
                                         </th>
                                         <td>{{ $projet?->name }}</td>
                                         <td class="text-center">{{ $projet?->sigle }}</td>
+                                        <td class="text-center">
+                                            @php
+                                                $statut = strtolower($projet?->statut);
+                                            @endphp
+                                        
+                                            @if ($statut === 'attente')
+                                                <span class="badge bg-warning text-dark">Attente</span>
+                                            @elseif ($statut === 'ouvert')
+                                                <span class="badge bg-success">Ouvert</span>
+                                            @elseif ($statut === 'fermer' || $statut === 'fermé')
+                                                <span class="badge bg-danger">Fermé</span>
+                                            @elseif ($statut === 'terminé' || $statut === 'termine')
+                                                <span class="badge bg-primary">Terminé</span>
+                                            @else
+                                                <span class="badge bg-secondary">Inconnu</span>
+                                            @endif
+                                        </td>                                        
                                         {{-- <td class="text-center">
                                             <span class="{{ $projet?->statut }}">{{ $projet?->statut }}</span>
                                         </td>
@@ -85,86 +103,110 @@
                                         <td class="text-center">
                                             @hasrole(['super-admin', 'admin'])
                                                 @can('projet-show')
-                                                    <span class="d-flex align-items-baseline"><a
-                                                            href="{{ route('projets.show', $projet) }}"
-                                                            class="btn btn-primary btn-sm" title="voir détails"><i
-                                                                class="bi bi-eye"></i></a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                    <div class="d-flex justify-content-center align-items-center gap-2">
+                                                        {{-- Voir Détails --}}
+                                                        <a href="{{ route('projets.show', $projet) }}"
+                                                            class="btn btn-outline-primary btn-sm" title="Voir détails">
+                                                            <i class="bi bi-eye"></i>
+                                                        </a>
+
+                                                        {{-- Dropdown Actions --}}
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="bi bi-three-dots-vertical"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                                                 @can('projet-update')
                                                                     <li>
-                                                                        <a class="dropdown-item btn btn-sm"
+                                                                        <a class="dropdown-item"
                                                                             href="{{ route('projets.edit', $projet) }}"
-                                                                            class="mx-1" title="Modifier">Modifier</a>
+                                                                            title="Modifier">
+                                                                            <i class="bi bi-pencil-square me-2"></i> Modifier
+                                                                        </a>
                                                                     </li>
                                                                 @endcan
                                                                 @can('projet-delete')
                                                                     <li>
                                                                         <form action="{{ route('projets.destroy', $projet) }}"
-                                                                            method="post">
+                                                                            method="POST"
+                                                                            onsubmit="return confirm('Confirmer la suppression ?')">
                                                                             @csrf
                                                                             @method('DELETE')
-                                                                            <button type="submit" class="dropdown-item show_confirm"
-                                                                                title="Supprimer">Supprimer</button>
+                                                                            <button type="submit" class="dropdown-item text-danger"
+                                                                                title="Supprimer">
+                                                                                <i class="bi bi-trash me-2"></i> Supprimer
+                                                                            </button>
                                                                         </form>
                                                                     </li>
                                                                 @endcan
                                                                 <li>
+                                                                    <hr class="dropdown-divider">
+                                                                </li>
+                                                                <li>
                                                                     <form
                                                                         action="{{ route('ouvrirProjet', ['id' => $projet?->id]) }}"
-                                                                        method="post">
+                                                                        method="POST">
                                                                         @csrf
                                                                         @method('PUT')
-                                                                        <button
-                                                                            class="show_confirm_valider btn btn-sm mx-1">Ouvrir</button>
+                                                                        <button type="submit" class="dropdown-item show_confirm_ouvrir"
+                                                                            title="Ouvrir le projet">
+                                                                            <i class="bi bi-folder2-open me-2"></i> Ouvrir
+                                                                        </button>
                                                                     </form>
                                                                 </li>
                                                                 <li>
                                                                     <form
                                                                         action="{{ route('fermerProjet', ['id' => $projet?->id]) }}"
-                                                                        method="post">
+                                                                        method="POST">
                                                                         @csrf
                                                                         @method('PUT')
-                                                                        <button
-                                                                            class="show_confirm_valider btn btn-sm mx-1">Fermer</button>
+                                                                        <button type="submit" class="dropdown-item show_confirm_fermer"
+                                                                            title="Fermer le projet">
+                                                                            <i class="bi bi-folder-x me-2"></i> Fermer
+                                                                        </button>
                                                                     </form>
                                                                 </li>
                                                             </ul>
                                                         </div>
-                                                    </span>
+                                                    </div>
                                                 @endcan
                                             @endhasrole
+
                                             @hasrole(['CCP', 'DPP', 'DG', 'SG'])
-                                                <span class="d-flex align-items-baseline">
-                                                    {{-- <a
-                                                        href="{{ route('projets.show', $projet->id) }}"
-                                                        class="btn btn-primary btn-sm" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a> --}}
+                                                <div class="d-flex justify-content-center align-items-center gap-2">
                                                     @can('projet-update')
-                                                        <a class="btn btn-warning btn-sm"
-                                                            href="{{ route('projets.edit', $projet) }}" class="mx-1"
-                                                            title="Modifier"><i class="bi bi-pencil"></i></a>
+                                                        {{-- Modifier --}}
+                                                        <a href="{{ route('projets.edit', $projet) }}"
+                                                            class="btn btn-outline-warning btn-sm" title="Modifier">
+                                                            <i class="bi bi-pencil"></i>
+                                                        </a>
                                                     @endcan
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+
+                                                    {{-- Dropdown Actions --}}
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                                                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="bi bi-three-dots-vertical"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                                             @can('projet-delete')
                                                                 <li>
                                                                     <form action="{{ route('projets.destroy', $projet) }}"
-                                                                        method="post">
+                                                                        method="POST"
+                                                                        onsubmit="return confirm('Confirmer la suppression ?')">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <button type="submit" class="dropdown-item show_confirm"
-                                                                            title="Supprimer">Supprimer</button>
+                                                                        <button type="submit" class="dropdown-item text-danger"
+                                                                            title="Supprimer">
+                                                                            <i class="bi bi-trash me-2"></i> Supprimer
+                                                                        </button>
                                                                     </form>
                                                                 </li>
                                                             @endcan
                                                         </ul>
                                                     </div>
-                                                </span>
+                                                </div>
                                             @endhasrole
                                         </td>
                                     </tr>
