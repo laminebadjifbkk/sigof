@@ -49,7 +49,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center" width="3%">LOGO</th>
-                                    <th>Partenaires</th>
+                                    <th>Partenaires / Programmes</th>
                                     <th class="text-center">Sigle</th>
                                     {{-- <th class="text-center">Statut</th>
                                     <th>Modules</th>
