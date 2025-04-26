@@ -77,7 +77,7 @@
                                             @php
                                                 $statut = strtolower($projet?->statut);
                                             @endphp
-                                        
+
                                             @if ($statut === 'attente')
                                                 <span class="badge bg-warning text-dark">Attente</span>
                                             @elseif ($statut === 'ouvert')
@@ -89,7 +89,7 @@
                                             @else
                                                 <span class="badge bg-secondary">Inconnu</span>
                                             @endif
-                                        </td>                                        
+                                        </td>
                                         {{-- <td class="text-center">
                                             <span class="{{ $projet?->statut }}">{{ $projet?->statut }}</span>
                                         </td>
@@ -149,7 +149,8 @@
                                                                         method="POST">
                                                                         @csrf
                                                                         @method('PUT')
-                                                                        <button type="submit" class="dropdown-item show_confirm_ouvrir"
+                                                                        <button type="submit"
+                                                                            class="dropdown-item show_confirm_ouvrir"
                                                                             title="Ouvrir le projet">
                                                                             <i class="bi bi-folder2-open me-2"></i> Ouvrir
                                                                         </button>
@@ -161,9 +162,23 @@
                                                                         method="POST">
                                                                         @csrf
                                                                         @method('PUT')
-                                                                        <button type="submit" class="dropdown-item show_confirm_fermer"
+                                                                        <button type="submit"
+                                                                            class="dropdown-item show_confirm_fermer"
                                                                             title="Fermer le projet">
                                                                             <i class="bi bi-folder-x me-2"></i> Fermer
+                                                                        </button>
+                                                                    </form>
+                                                                </li>
+                                                                {{-- Bouton Terminer --}}
+                                                                <li>
+                                                                    <form
+                                                                        action="{{ route('terminerProjet', ['id' => $projet?->id]) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('PUT')
+                                                                        <button type="submit" class="dropdown-item show_confirm_terminer"
+                                                                            title="Terminer le projet">
+                                                                            <i class="bi bi-flag-fill me-2"></i> Terminer
                                                                         </button>
                                                                     </form>
                                                                 </li>

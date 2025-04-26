@@ -37,9 +37,15 @@
                                 <p> | retour</p>
                             </span>
                             @if (!empty(Auth::user()->cin))
-                                <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
+                                {{-- <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
+                                    data-bs-toggle="modal" data-bs-target="#AddCollectiveModal"> Ajouter
+                                </button> --}}
+
+                                <button type="button"
+                                    class="btn btn-primary btn-sm float-end rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
                                     data-bs-toggle="modal" data-bs-target="#AddCollectiveModal">
-                                    {{-- <i class="bi bi-plus" title="Ajouter"></i> --}} Ajouter
+                                    <i class="bi bi-plus-circle-fill"></i>
+                                    Formuler une demande
                                 </button>
                             @endif
                         </div>
@@ -146,7 +152,8 @@
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="name" class="form-label">Nom<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="name" value="{{ Auth::user()?->name ?? old('name') }}"
+                                    <input type="text" name="name"
+                                        value="{{ Auth::user()?->name ?? old('name') }}"
                                         class="form-control form-control-sm @error('name') is-invalid @enderror"
                                         id="name" placeholder="nom">
                                     @error('name')
@@ -373,295 +380,302 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div> --}}
-                            <div class="card-header text-center bg-gradient-default">
-                                <h1 class="h4 text-black mb-0">Ajouter une demande collective</h1>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row g-3">
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 mb-0">
-                                        <label for="name" class="form-label">Nom de la structure<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <textarea name="name" id="name" rows="1"
-                                            class="form-control form-control-sm @error('name') is-invalid @enderror"
-                                            placeholder="La raison sociale de l'opérateur">{{ old('name') }}</textarea>
-                                        @error('name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="sigle" class="form-label">Sigle<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input type="text" name="sigle" value="{{ old('sigle') }}"
-                                            class="form-control form-control-sm @error('sigle') is-invalid @enderror"
-                                            id="sigle" placeholder="Sigle ou abréviation">
-                                        @error('sigle')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
+                            <div class="card shadow-lg border-0">
+                                <div class="card-header bg-default text-center py-2 rounded-top">
+                                    <h4 class="mb-0">➕ Formuler une demande de formation collective</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row g-3">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 mb-0">
+                                            <label for="name" class="form-label">Nom de la structure<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <textarea name="name" id="name" rows="1"
+                                                class="form-control form-control-sm @error('name') is-invalid @enderror"
+                                                placeholder="La raison sociale de l'opérateur">{{ old('name') }}</textarea>
+                                            @error('name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="email" class="form-label">Email<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input type="email" name="email" value="{{ old('email') }}"
-                                            class="form-control form-control-sm @error('email') is-invalid @enderror"
-                                            id="email" placeholder="Adresse email">
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <label for="sigle" class="form-label">Sigle<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input type="text" name="sigle" value="{{ old('sigle') }}"
+                                                class="form-control form-control-sm @error('sigle') is-invalid @enderror"
+                                                id="sigle" placeholder="Sigle ou abréviation">
+                                            @error('sigle')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="fixe" class="form-label">Téléphone fixe</label>
-                                        <input name="fixe" type="text" maxlength="12"
-                                            class="form-control form-control-sm @error('fixe') is-invalid @enderror"
-                                            id="fixe" value="{{ old('fixe') }}" autocomplete="tel"
-                                            placeholder="XX:XXX:XX:XX">
-                                        @error('fixe')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <label for="email" class="form-label">Email<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input type="email" name="email" value="{{ old('email') }}"
+                                                class="form-control form-control-sm @error('email') is-invalid @enderror"
+                                                id="email" placeholder="Adresse email">
+                                            @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="telephone" class="form-label">Téléphone portable<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input name="telephone" type="text" maxlength="12"
-                                            class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                            id="telephone" value="{{ old('telephone') }}" autocomplete="tel"
-                                            placeholder="XX:XXX:XX:XX">
-                                        @error('telephone')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <label for="fixe" class="form-label">Téléphone fixe</label>
+                                            <input name="fixe" type="text" maxlength="12"
+                                                class="form-control form-control-sm @error('fixe') is-invalid @enderror"
+                                                id="fixe" value="{{ old('fixe') }}" autocomplete="tel"
+                                                placeholder="XX:XXX:XX:XX">
+                                            @error('fixe')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="bp" class="form-label">Boite postal</label>
-                                        <input type="text" name="bp" value="{{ old('bp') }}"
-                                            class="form-control form-control-sm @error('bp') is-invalid @enderror"
-                                            id="bp" placeholder="Boite postal">
-                                        @error('bp')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <label for="telephone" class="form-label">Téléphone portable<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input name="telephone" type="text" maxlength="12"
+                                                class="form-control form-control-sm @error('telephone') is-invalid @enderror"
+                                                id="telephone" value="{{ old('telephone') }}" autocomplete="tel"
+                                                placeholder="XX:XXX:XX:XX">
+                                            @error('telephone')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="statut" class="form-label">Statut juridique<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <select name="statut" class="form-select  @error('statut') is-invalid @enderror"
-                                            aria-label="Select" id="select-field-statut-col"
-                                            data-placeholder="Choisir statut">
-                                            <option value="{{ old('statut') }}">
-                                                {{ old('statut') }}
-                                            </option>
-                                            <option value="GIE">
-                                                GIE
-                                            </option>
-                                            <option value="Association">
-                                                Association
-                                            </option>
-                                            <option value="Entreprise">
-                                                Entreprise
-                                            </option>
-                                            <option value="Institution publique">
-                                                Institution publique
-                                            </option>
-                                            <option value="Institution privée">
-                                                Institution privée
-                                            </option>
-                                            <option value="Autre">
-                                                Autre
-                                            </option>
-                                        </select>
-                                        @error('statut')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <label for="bp" class="form-label">Boite postal</label>
+                                            <input type="text" name="bp" value="{{ old('bp') }}"
+                                                class="form-control form-control-sm @error('bp') is-invalid @enderror"
+                                                id="bp" placeholder="Boite postal">
+                                            @error('bp')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="autre_statut" class="form-label">Si autre ?
-                                            précisez</label>
-                                        <input type="text" name="autre_statut" value="{{ old('autre_statut') }}"
-                                            class="form-control form-control-sm @error('autre_statut') is-invalid @enderror"
-                                            id="autre_statut" placeholder="autre statut juridique">
-                                        @error('autre_statut')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="departement" class="form-label">Département<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <select name="departement"
-                                            class="form-select form-select-sm @error('departement') is-invalid @enderror"
-                                            aria-label="Select" id="select-field-departement-col"
-                                            data-placeholder="Choisir">
-                                            <option>{{ old('departement') }}</option>
-                                            @foreach ($departements as $departement)
-                                                <option value="{{ $departement->nom }}">
-                                                    {{ $departement->nom }}
+                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <label for="statut" class="form-label">Statut juridique<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <select name="statut"
+                                                class="form-select  @error('statut') is-invalid @enderror"
+                                                aria-label="Select" id="select-field-statut-col"
+                                                data-placeholder="Choisir statut">
+                                                <option value="{{ old('statut') }}">
+                                                    {{ old('statut') }}
                                                 </option>
-                                            @endforeach
-                                        </select>
-                                        @error('departement')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                                <option value="GIE">
+                                                    GIE
+                                                </option>
+                                                <option value="Association">
+                                                    Association
+                                                </option>
+                                                <option value="Entreprise">
+                                                    Entreprise
+                                                </option>
+                                                <option value="Institution publique">
+                                                    Institution publique
+                                                </option>
+                                                <option value="Institution privée">
+                                                    Institution privée
+                                                </option>
+                                                <option value="Autre">
+                                                    Autre
+                                                </option>
+                                            </select>
+                                            @error('statut')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="adresse" class="form-label">Adresse<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input type="text" name="adresse" value="{{ old('adresse') }}"
-                                            class="form-control form-control-sm @error('adresse') is-invalid @enderror"
-                                            id="adresse" placeholder="Adresse exacte">
-                                        @error('adresse')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <label for="autre_statut" class="form-label">Si autre ?
+                                                précisez</label>
+                                            <input type="text" name="autre_statut" value="{{ old('autre_statut') }}"
+                                                class="form-control form-control-sm @error('autre_statut') is-invalid @enderror"
+                                                id="autre_statut" placeholder="autre statut juridique">
+                                            @error('autre_statut')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <label for="departement" class="form-label">Département<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <select name="departement"
+                                                class="form-select form-select-sm @error('departement') is-invalid @enderror"
+                                                aria-label="Select" id="select-field-departement-col"
+                                                data-placeholder="Choisir">
+                                                <option>{{ old('departement') }}</option>
+                                                @foreach ($departements as $departement)
+                                                    <option value="{{ $departement->nom }}">
+                                                        {{ $departement->nom }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('departement')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12  mb-0">
-                                        <label for="description" class="form-label">Description de l'organisation<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <textarea name="description" id="description" rows="2"
-                                            class="form-control form-control-sm @error('description') is-invalid @enderror"
-                                            placeholder="Description de l'organisation, de ses activités et de ses réalisations">{{ old('description') }}</textarea>
+                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <label for="adresse" class="form-label">Adresse<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input type="text" name="adresse" value="{{ old('adresse') }}"
+                                                class="form-control form-control-sm @error('adresse') is-invalid @enderror"
+                                                id="adresse" placeholder="Adresse exacte">
+                                            @error('adresse')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                                        @error('description')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12  mb-0">
+                                            <label for="description" class="form-label">Description de l'organisation<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <textarea name="description" id="description" rows="2"
+                                                class="form-control form-control-sm @error('description') is-invalid @enderror"
+                                                placeholder="Description de l'organisation, de ses activités et de ses réalisations">{{ old('description') }}</textarea>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12  mb-0">
-                                        <label for="projetprofessionnel" class="form-label">Projet professionnel<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <textarea name="projetprofessionnel" id="projetprofessionnel" rows="2"
-                                            class="form-control form-control-sm @error('projetprofessionnel') is-invalid @enderror"
-                                            placeholder="Description détaillée du projet professionnel et de l'effet attendu après la formation">{{ old('projetprofessionnel') }}</textarea>
+                                            @error('description')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                                        @error('projetprofessionnel')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12  mb-0">
+                                            <label for="projetprofessionnel" class="form-label">Projet professionnel<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <textarea name="projetprofessionnel" id="projetprofessionnel" rows="2"
+                                                class="form-control form-control-sm @error('projetprofessionnel') is-invalid @enderror"
+                                                placeholder="Description détaillée du projet professionnel et de l'effet attendu après la formation">{{ old('projetprofessionnel') }}</textarea>
 
-                                    <hr class="dropdown-divider mt-3">
+                                            @error('projetprofessionnel')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="civilite" class="form-label">Civilité responsable<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <select name="civilite"
-                                            class="form-select form-select-sm @error('civilite') is-invalid @enderror"
-                                            aria-label="Select" id="select-field-civilite"
-                                            data-placeholder="Choisir civilité">
-                                            <option value="{{ old('civilite') }}">
-                                                {{ old('civilite') }}
-                                            </option>
-                                            <option value="Monsieur">
-                                                Monsieur
-                                            </option>
-                                            <option value="Madame">
-                                                Madame
-                                            </option>
-                                        </select>
-                                        @error('civilite')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="prenom" class="form-label">Prénom responsable<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input type="text" name="prenom" value="{{ old('prenom') }}"
-                                            class="form-control form-control-sm @error('prenom') is-invalid @enderror"
-                                            id="prenom" placeholder="Prénom responsable">
-                                        @error('prenom')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                        <hr class="dropdown-divider mt-3">
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="nom" class="form-label">Nom responsable<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input type="text" name="nom" value="{{ old('nom') }}"
-                                            class="form-control form-control-sm @error('nom') is-invalid @enderror"
-                                            id="nom" placeholder="Nom responsable">
-                                        @error('nom')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <label for="civilite" class="form-label">Civilité responsable<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <select name="civilite"
+                                                class="form-select form-select-sm @error('civilite') is-invalid @enderror"
+                                                aria-label="Select" id="select-field-civilite"
+                                                data-placeholder="Choisir civilité">
+                                                <option value="{{ old('civilite') }}">
+                                                    {{ old('civilite') }}
+                                                </option>
+                                                <option value="Monsieur">
+                                                    Monsieur
+                                                </option>
+                                                <option value="Madame">
+                                                    Madame
+                                                </option>
+                                            </select>
+                                            @error('civilite')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <label for="prenom" class="form-label">Prénom responsable<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input type="text" name="prenom" value="{{ old('prenom') }}"
+                                                class="form-control form-control-sm @error('prenom') is-invalid @enderror"
+                                                id="prenom" placeholder="Prénom responsable">
+                                            @error('prenom')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="email_responsable" class="form-label">Adresse e-mail<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input type="email" name="email_responsable"
-                                            value="{{ old('email_responsable') }}"
-                                            class="form-control form-control-sm @error('email_responsable') is-invalid @enderror"
-                                            id="email_responsable" placeholder="Adresse email responsable">
-                                        @error('email_responsable')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <label for="nom" class="form-label">Nom responsable<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input type="text" name="nom" value="{{ old('nom') }}"
+                                                class="form-control form-control-sm @error('nom') is-invalid @enderror"
+                                                id="nom" placeholder="Nom responsable">
+                                            @error('nom')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="telephone_responsable" class="form-label">Téléphone responsable<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input name="telephone_responsable" type="text" maxlength="12"
-                                            class="form-control form-control-sm @error('telephone_responsable') is-invalid @enderror"
-                                            id="telephone_responsable" value="{{ old('telephone_responsable') }}"
-                                            autocomplete="tel" placeholder="XX:XXX:XX:XX">
-                                        @error('telephone_responsable')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <label for="email_responsable" class="form-label">Adresse e-mail<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input type="email" name="email_responsable"
+                                                value="{{ old('email_responsable') }}"
+                                                class="form-control form-control-sm @error('email_responsable') is-invalid @enderror"
+                                                id="email_responsable" placeholder="Adresse email responsable">
+                                            @error('email_responsable')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="fonction_responsable" class="form-label">Fonction responsable<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input type="text" name="fonction_responsable"
-                                            value="{{ old('fonction_responsable') }}"
-                                            class="form-control form-control-sm @error('fonction_responsable') is-invalid @enderror"
-                                            id="fonction_responsable" placeholder="Fonction responsable">
-                                        @error('fonction_responsable')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
+                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <label for="telephone_responsable" class="form-label">Téléphone
+                                                responsable<span class="text-danger mx-1">*</span></label>
+                                            <input name="telephone_responsable" type="text" maxlength="12"
+                                                class="form-control form-control-sm @error('telephone_responsable') is-invalid @enderror"
+                                                id="telephone_responsable" value="{{ old('telephone_responsable') }}"
+                                                autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                            @error('telephone_responsable')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <label for="fonction_responsable" class="form-label">Fonction responsable<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input type="text" name="fonction_responsable"
+                                                value="{{ old('fonction_responsable') }}"
+                                                class="form-control form-control-sm @error('fonction_responsable') is-invalid @enderror"
+                                                id="fonction_responsable" placeholder="Fonction responsable">
+                                            @error('fonction_responsable')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer mt-5">
-                                    <button type="button" class="btn btn-secondary btn-sm"
-                                        data-bs-dismiss="modal">Fermer</button>
-                                    <button type="submit" class="btn btn-primary btn-sm">Enregistrer</button>
+                                <div class="card-footer d-flex justify-content-end gap-2 p-3 bg-light border-top">
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                                        <i class="bi bi-x-circle"></i> Fermer
+                                    </button>
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="bi bi-save"></i> Enregistrer
+                                    </button>
                                 </div>
                             </div>
                         </form>

@@ -162,6 +162,7 @@
 
                 </div>
             </div>
+            
             <div
                 class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="AddIndividuelModal" tabindex="-1">

@@ -954,6 +954,24 @@
         });
     </script>
     <script type="text/javascript">
+        $('.show_confirm_terminer').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                    title: `Êtes-vous sûr ?`,
+                    text: "Si oui, cliquer sur ok.",
+                    icon: "success",
+                    buttons: ["Annuler", "Oui, Terminer !"],
+                })
+                .then((willValide) => {
+                    if (willValide) {
+                        form.submit();
+                    }
+                });
+        });
+    </script>
+    <script type="text/javascript">
         $('.show_confirm_fermer').click(function(event) {
             var form = $(this).closest("form");
             var name = $(this).data("name");
