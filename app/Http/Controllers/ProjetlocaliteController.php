@@ -57,7 +57,7 @@ class ProjetlocaliteController extends Controller
                     'projets_id' => $request->input('projet'),
                 ]);
                 $projetlocalite->save();
-                Alert::success('Suucès ! ', 'localité ajoutée avec succès');
+                Alert::success('Succès ! ', 'localité ajoutée avec succès');
             } else {
                 Alert::warning('Désolez ! ', $request->input("localite") . " n'est pas reconnu(e) comme " . $request?->type_localite);
             }
@@ -72,7 +72,7 @@ class ProjetlocaliteController extends Controller
                     'projets_id' => $request->input('projet'),
                 ]);
                 $projetlocalite->save();
-                Alert::success('Suucès ! ', 'localité ajoutée avec succès');
+                Alert::success('Succès ! ', 'localité ajoutée avec succès');
             } else {
                 Alert::warning('Désolez ! ', $request->input("localite") . " n'est pas reconnu(e) comme " . $request?->type_localite);
             }
@@ -87,7 +87,7 @@ class ProjetlocaliteController extends Controller
                     'projets_id' => $request->input('projet'),
                 ]);
                 $projetlocalite->save();
-                Alert::success('Suucès ! ', 'localité ajoutée avec succès');
+                Alert::success('Succès ! ', 'localité ajoutée avec succès');
             } else {
                 Alert::warning('Désolez ! ', $request->input("localite") . " n'est pas reconnu(e) comme " . $request?->type_localite);
             }
@@ -102,7 +102,7 @@ class ProjetlocaliteController extends Controller
                     'projets_id' => $request->input('projet'),
                 ]);
                 $projetlocalite->save();
-                Alert::success('Suucès ! ', 'localité ajoutée avec succès');
+                Alert::success('Succès ! ', 'localité ajoutée avec succès');
             } else {
                 Alert::warning('Désolez ! ', $request->input("localite") . " n'est pas reconnu(e) comme " . $request?->type_localite);
             }
@@ -129,7 +129,7 @@ class ProjetlocaliteController extends Controller
 
         $projetlocalite->save();
 
-        Alert::success('Suucès ! ', 'localité modifiée avec succès');
+        Alert::success('Succès ! ', 'localité modifiée avec succès');
 
         return redirect()->back();
     }

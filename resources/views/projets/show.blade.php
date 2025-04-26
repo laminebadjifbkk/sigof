@@ -50,7 +50,8 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview">{{ $projet->sigle }}
+                                    <button class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#profile-overview">{{ $projet->sigle }}
                                     </button>
                                 </li>
 
@@ -59,7 +60,7 @@
                                         data-bs-target="#modules-overview">Modules</button>
                                 </li>
 
-                                @if (auth()->user()->hasRole('super-admin|admin'))
+                                @if (auth()->user()->hasRole(['super-admin', 'admin']))
                                     <li class="nav-item">
                                         <button class="nav-link" data-bs-toggle="tab"
                                             data-bs-target="#localites-overview">Localités</button>
@@ -104,25 +105,26 @@
                                                 <div class="pt-2">{{ $projet?->date_signature->format('d/m/Y') }}</div>
                                             </div>
                                         @endif
-                                        @if($projet?->budjet)
+                                        @if ($projet?->budjet)
                                             <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Budjet</div>
-                                                <div class="pt-2">{{ number_format($projet?->budjet, 2, ',', ' ') }}</div>
+                                                <div class="pt-2">{{ number_format($projet?->budjet, 2, ',', ' ') }}
+                                                </div>
                                             </div>
                                         @endif
-                                        @if($projet?->duree)
+                                        @if ($projet?->duree)
                                             <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Durée</div>
                                                 <div class="pt-2">{{ $projet?->duree . ' mois' }}</div>
                                             </div>
                                         @endif
-                                        @if($projet?->debut)
+                                        @if ($projet?->debut)
                                             <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Date début</div>
                                                 <div class="pt-2">{{ $projet?->debut->format('d-m-Y') }}</div>
                                             </div>
                                         @endif
-                                        @if($projet?->fin)
+                                        @if ($projet?->fin)
                                             <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Date fin</div>
                                                 <div class="pt-2">{{ $projet?->fin->format('d-m-Y') }}</div>
@@ -147,19 +149,19 @@
                                                     <input type="hidden" name="projet" value="{{ $projet?->id }}">
                                                     <td>
                                                         <input type="text" name="module" id="module_name"
-                                                            class="form-control form-control-sm"
-                                                            placeholder="Enter module" />
+                                                            class="form-control form-control-sm" placeholder="Module" />
                                                         <div id="countryList"></div>
                                                         {{ csrf_field() }}
                                                     </td>
-                                                    <td><input type="text" name="domaine" placeholder="Entrer un domaine"
+                                                    <td><input type="text" name="domaine"
+                                                            placeholder="Entrer un domaine"
                                                             class="form-control form-control-sm" /></td>
                                                     <td><input type="number" min="0" name="effectif"
-                                                            placeholder="Entrer effectif"
+                                                            placeholder="Effectif prévu"
                                                             class="form-control form-control-sm" /></td>
                                                 </tr>
                                             </table>
-                                            @if (auth()->user()->hasRole('super-admin|admin'))
+                                            @if (auth()->user()->hasRole(['super-admin', 'admin']))
                                                 <div class="text-center">
                                                     <button type="submit" class="btn btn-outline-success btn-sm"><i
                                                             class="bi bi-printer"></i> Enregistrer</button>
@@ -184,12 +186,12 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="text-align: center;" width="5%">N°</th>
-                                                        <th style="text-align: center;">Module</th>
-                                                        <th style="text-align: center;">Domaines</th>
+                                                        <th>Module</th>
+                                                        <th>Domaines</th>
                                                         <th style="text-align: center;" width="10%">Besoin</th>
-                                                        @if (auth()->user()->hasRole('super-admin|admin'))
-                                                            <th width="5%" style="text-align: center;"><i
-                                                                    class="bi bi-gear"></i>
+                                                        @if (auth()->user()->hasRole(['super-admin', 'admin']))
+                                                            <th width="5%" style="text-align: center;">
+                                                                <i class="bi bi-gear"></i>
                                                             </th>
                                                         @endif
                                                     </tr>
@@ -199,9 +201,9 @@
                                                     @foreach ($projet?->projetmodules as $projetmodule)
                                                         <tr>
                                                             <td style="text-align: center;">{{ $i++ }}</td>
-                                                            <td style="text-align: center;">{{ $projetmodule?->module }}
+                                                            <td>{{ $projetmodule?->module }}
                                                             </td>
-                                                            <td style="text-align: center;">{{ $projetmodule?->domaine }}
+                                                            <td>{{ $projetmodule?->domaine }}
                                                             </td>
                                                             <td style="text-align: center;">{{ $projetmodule?->effectif }}
                                                             </td>
@@ -210,7 +212,7 @@
                                                                     <a href="{{ route('projetmodules.show', $projetmodule?->id) }}"
                                                                         class="btn btn-primary btn-sm"
                                                                         title="voir détails"><i class="bi bi-eye"></i></a>
-                                                                    @if (auth()->user()->hasRole('super-admin|admin'))
+                                                                    @if (auth()->user()->hasRole(['super-admin', 'admin']))
                                                                         <div class="filter">
                                                                             <a class="icon" href="#"
                                                                                 data-bs-toggle="dropdown"><i
@@ -250,7 +252,7 @@
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                         <div class="d-flex justify-content-between align-items-center mt-3">
                                             <h5 class="card-title">Localités</h5>
-                                            @if (auth()->user()->hasRole('super-admin|admin'))
+                                            @if (auth()->user()->hasRole(['super-admin', 'admin']))
                                                 <div class="pt-1">
                                                     <button type="button"
                                                         class="btn btn-primary btn-sm float-end btn-rounded"
@@ -292,7 +294,7 @@
                                                                     class="btn btn-warning btn-sm mx-1"
                                                                     title="Voir détails">
                                                                     <i class="bi bi-eye"></i></a>
-                                                                @if (auth()->user()->hasRole('super-admin|admin'))
+                                                                @if (auth()->user()->hasRole(['super-admin', 'admin']))
                                                                     <div class="filter">
                                                                         <a class="icon" href="#"
                                                                             data-bs-toggle="dropdown"><i
