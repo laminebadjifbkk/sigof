@@ -633,6 +633,34 @@
             vertical-align: middle;
             /* Aligne le contenu au milieu */
         }
+
+        .modal-header-sm {
+            padding: 10px 20px;
+            /* Réduit l'espace autour du contenu */
+            font-size: 1rem;
+            /* Ajuste la taille du texte */
+            line-height: 1.2;
+            /* Espace vertical réduit pour une taille plus petite */
+        }
+
+        /* Effet de survol sur le bouton */
+        .btn:hover {
+            transform: scale(1.05);
+            /* Agrandit légèrement le bouton */
+        }
+
+        /* Pour les dropdowns, on peut ajouter un fond pour les actions */
+        .dropdown-menu {
+            background-color: #f8f9fa;
+            /* Couleur de fond claire */
+            border-radius: 0.5rem;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Ajouter un effet de survol pour les éléments du menu */
+        .dropdown-item:hover {
+            background-color: #e9ecef;
+        }
     </style>
 
 </head>

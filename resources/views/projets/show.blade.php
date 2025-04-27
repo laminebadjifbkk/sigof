@@ -133,97 +133,97 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane fade show active profile-overview" id="modules-overview">
-                                    <form method="post" action="{{ url('projetmodules') }}" enctype="multipart/form-data"
-                                        class="row g-3">
+
+                                    <!-- Bouton Ajouter un module aligné en haut à droite -->
+                                    <div class="d-flex justify-content-end m-3">
+                                        <button type="button"
+                                            class="btn btn-primary btn-sm rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
+                                            data-bs-toggle="modal" data-bs-target="#AddModuleModal">
+                                            <i class="bi bi-plus-circle-fill"></i>
+                                            Ajouter un module
+                                        </button>
+                                    </div>
+
+                                    {{-- Ancien formulaire direct (désormais déplacé dans un modal) --}}
+                                    {{-- 
+                                    <form method="post" action="{{ url('projetmodules') }}" enctype="multipart/form-data" class="row g-3">
                                         @csrf
+                                        ...
+                                    </form> 
+                                    --}}
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                            <h5 class="card-title">Ajouter nouveau module</h5>
-                                            <table class="table table-bordered" id="dynamicAddRemove">
-                                                <tr>
-                                                    <th>Modules<span class="text-danger mx-1">*</span></th>
-                                                    <th>Domaines<span class="text-danger mx-1">*</span></th>
-                                                    <th>Effectif<span class="text-danger mx-1">*</span></th>
-                                                </tr>
-                                                <tr>
-                                                    <input type="hidden" name="projet" value="{{ $projet?->id }}">
-                                                    <td>
-                                                        <input type="text" name="module" id="module_name"
-                                                            class="form-control form-control-sm" placeholder="Module" />
-                                                        <div id="countryList"></div>
-                                                        {{ csrf_field() }}
-                                                    </td>
-                                                    <td><input type="text" name="domaine"
-                                                            placeholder="Entrer un domaine"
-                                                            class="form-control form-control-sm" /></td>
-                                                    <td><input type="number" min="0" name="effectif"
-                                                            placeholder="Effectif prévu"
-                                                            class="form-control form-control-sm" /></td>
-                                                </tr>
-                                            </table>
-                                            @if (auth()->user()->hasRole(['super-admin', 'admin']))
-                                                <div class="text-center">
-                                                    <button type="submit" class="btn btn-outline-success btn-sm"><i
-                                                            class="bi bi-printer"></i> Enregistrer</button>
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </form><!-- End module -->
+                                    <!-- Section Infos -->
+                                    <div
+                                        class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
+                                        <h5 class="mb-0 text-primary">
+                                            <i class="bi bi-list-task me-2"></i> Liste des modules
+                                        </h5>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <h5 class="card-title">Modules</h5>
-                                            <h5 class="card-title">Demandes reçues: {{ count($projet?->individuelles) }}
-                                            </h5>
-                                            <h5 class="card-title">Effectif total: {{ $projet?->effectif }}</h5>
-                                        </div>
-                                        {{-- <form method="post" action="#" enctype="multipart/form-data"
-                                                    class="row g-3"> --}}
-                                        <div class="row g-3">
-                                            <table
-                                                class="table datatables align-middle justify-content-center table-borderless"
-                                                id="table-operateurModules">
-                                                <thead>
+                                        <h6 class="mb-0">
+                                            <span class="badge bg-info text-dark fs-6">
+                                                <i class="bi bi-people-fill me-1"></i>
+                                                Demandes reçues : {{ count($projet?->individuelles) }}
+                                            </span>
+                                        </h6>
+
+                                        <h6 class="mb-0">
+                                            <span class="badge bg-success fs-6">
+                                                <i class="bi bi-bar-chart-line-fill me-1"></i>
+                                                Effectif total : {{ $projet?->effectif }}
+                                            </span>
+                                        </h6>
+                                    </div>
+
+                                    <!-- Tableau des modules -->
+                                    <div class="row g-3">
+                                        <table class="table datatables align-middle table-borderless"
+                                            id="table-operateurModules">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;" width="5%">N°</th>
+                                                    <th>Module</th>
+                                                    <th>Domaines</th>
+                                                    <th style="text-align: center;" width="10%">Besoin</th>
+                                                    @if (auth()->user()->hasRole(['super-admin', 'admin']))
+                                                        <th width="5%" style="text-align: center;">
+                                                            <i class="bi bi-gear"></i>
+                                                        </th>
+                                                    @endif
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php $i = 1; @endphp
+                                                @foreach ($projet?->projetmodules as $projetmodule)
                                                     <tr>
-                                                        <th style="text-align: center;" width="5%">N°</th>
-                                                        <th>Module</th>
-                                                        <th>Domaines</th>
-                                                        <th style="text-align: center;" width="10%">Besoin</th>
+                                                        <td style="text-align: center;">{{ $i++ }}</td>
+                                                        <td>{{ $projetmodule?->module }}</td>
+                                                        <td>{{ $projetmodule?->domaine }}</td>
+                                                        <td style="text-align: center;">{{ $projetmodule?->effectif }}
+                                                        </td>
                                                         @if (auth()->user()->hasRole(['super-admin', 'admin']))
-                                                            <th width="5%" style="text-align: center;">
-                                                                <i class="bi bi-gear"></i>
-                                                            </th>
-                                                        @endif
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php $i = 1; ?>
-                                                    @foreach ($projet?->projetmodules as $projetmodule)
-                                                        <tr>
-                                                            <td style="text-align: center;">{{ $i++ }}</td>
-                                                            <td>{{ $projetmodule?->module }}
-                                                            </td>
-                                                            <td>{{ $projetmodule?->domaine }}
-                                                            </td>
-                                                            <td style="text-align: center;">{{ $projetmodule?->effectif }}
-                                                            </td>
-                                                            <td style="text-align: center;">
-                                                                <span class="d-flex align-items-baseline">
+                                                            {{-- <td style="text-align: center;">
+                                                                <span
+                                                                    class="d-flex align-items-baseline justify-content-center gap-2">
                                                                     <a href="{{ route('projetmodules.show', $projetmodule?->id) }}"
                                                                         class="btn btn-primary btn-sm"
-                                                                        title="voir détails"><i class="bi bi-eye"></i></a>
-                                                                    @if (auth()->user()->hasRole(['super-admin', 'admin']))
-                                                                        <div class="filter">
-                                                                            <a class="icon" href="#"
-                                                                                data-bs-toggle="dropdown"><i
-                                                                                    class="bi bi-three-dots"></i></a>
-                                                                            <ul
-                                                                                class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                                <button
-                                                                                    class="dropdown-item btn btn-sm mx-1"
+                                                                        title="Voir détails">
+                                                                        <i class="bi bi-eye"></i>
+                                                                    </a>
+                                                                    <div class="dropdown">
+                                                                        <a class="btn btn-light btn-sm" href="#"
+                                                                            role="button" data-bs-toggle="dropdown"
+                                                                            aria-expanded="false">
+                                                                            <i class="bi bi-three-dots"></i>
+                                                                        </a>
+                                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                                            <li>
+                                                                                <button class="dropdown-item"
                                                                                     data-bs-toggle="modal"
-                                                                                    data-bs-target="#EditprojetmoduleModal{{ $projetmodule?->id }}">Modifier
+                                                                                    data-bs-target="#EditModuleModal{{ $projetmodule?->id }}">
+                                                                                    Modifier
                                                                                 </button>
+                                                                            </li>
+                                                                            <li>
                                                                                 <form
                                                                                     action="{{ route('projetmodules.destroy', $projetmodule?->id) }}"
                                                                                     method="post">
@@ -231,20 +231,70 @@
                                                                                     @method('DELETE')
                                                                                     <button type="submit"
                                                                                         class="dropdown-item show_confirm"
-                                                                                        title="Supprimer">Supprimer</button>
+                                                                                        title="Supprimer">
+                                                                                        Supprimer
+                                                                                    </button>
                                                                                 </form>
-                                                                            </ul>
-                                                                        </div>
-                                                                    @endif
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </span>
+                                                            </td> --}}
+                                                            <td style="text-align: center;">
+                                                                <span
+                                                                    class="d-flex align-items-baseline justify-content-center gap-2">
+                                                                    <!-- Bouton "Voir détails" -->
+                                                                    <a href="{{ route('projetmodules.show', $projetmodule?->id) }}"
+                                                                        class="btn btn-primary btn-sm shadow-sm rounded-pill transition-all hover:shadow-lg"
+                                                                        title="Voir détails">
+                                                                        <i class="bi bi-eye"></i>
+                                                                    </a>
+
+                                                                    <!-- Dropdown pour actions -->
+                                                                    <div class="dropdown">
+                                                                        <a class="btn btn-light btn-sm shadow-sm rounded-pill transition-all hover:shadow-lg"
+                                                                            href="#" role="button"
+                                                                            data-bs-toggle="dropdown"
+                                                                            aria-expanded="false">
+                                                                            <i class="bi bi-three-dots"></i>
+                                                                        </a>
+                                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                                            <!-- Modifier -->
+                                                                            <li>
+                                                                                <button class="dropdown-item"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#EditModuleModal{{ $projetmodule?->id }}">
+                                                                                    <i class="bi bi-pencil-fill me-2"></i>
+                                                                                    Modifier
+                                                                                </button>
+                                                                            </li>
+                                                                            <!-- Supprimer -->
+                                                                            <li>
+                                                                                <form
+                                                                                    action="{{ route('projetmodules.destroy', $projetmodule?->id) }}"
+                                                                                    method="post">
+                                                                                    @csrf
+                                                                                    @method('DELETE')
+                                                                                    <button type="submit"
+                                                                                        class="dropdown-item text-danger">
+                                                                                        <i
+                                                                                            class="bi bi-trash-fill me-2"></i>
+                                                                                        Supprimer
+                                                                                    </button>
+                                                                                </form>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
                                                                 </span>
                                                             </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        {{-- </form> --}}
+                                                        @endif
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
+                                    {{-- Ancienne section formulaire globale --}}
+                                    {{-- </form> --}}
                                 </div>
 
                                 <div class="tab-pane fade profile-overview" id="localites-overview">
@@ -341,14 +391,139 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    {{-- <div class="modal fade" id="AddModuleModal" tabindex="-1" aria-labelledby="AddModuleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddModuleModalLabel">Ajouter un nouveau module</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Fermer"></button>
+                </div>
+
+                <form method="post" action="{{ url('projetmodules') }}" enctype="multipart/form-data"
+                    class="row g-3">
+                    @csrf
+                    <div class="modal-body">
+
+                        <input type="hidden" name="projet" value="{{ $projet?->id }}">
+
+                        <table class="table table-bordered" id="dynamicAddRemove">
+                            <thead>
+                                <tr>
+                                    <th>Modules<span class="text-danger mx-1">*</span></th>
+                                    <th>Domaines<span class="text-danger mx-1">*</span></th>
+                                    <th>Effectif<span class="text-danger mx-1">*</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="text" name="module" id="module_name"
+                                            class="form-control form-control-sm" placeholder="Module" />
+                                        <div id="countryList"></div>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="domaine" placeholder="Entrer un domaine"
+                                            class="form-control form-control-sm" />
+                                    </td>
+                                    <td>
+                                        <input type="number" min="0" name="effectif"
+                                            placeholder="Effectif prévu" class="form-control form-control-sm" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        @if (auth()->user()->hasRole(['super-admin', 'admin']))
+                            <button type="submit" class="btn btn-outline-success btn-sm">
+                                <i class="bi bi-check2-circle"></i> Enregistrer
+                            </button>
+                        @endif
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                            Fermer
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div> --}}
+    <div class="modal fade" id="AddModuleModal" tabindex="-1" aria-labelledby="AddModuleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg"> <!-- modal-lg pour un format adapté -->
+            <div class="modal-content rounded-4 shadow-sm border-0">
+                <div class="modal-header bg-primary text-white rounded-top-4">
+                    <h5 class="modal-title" id="AddModuleModalLabel">
+                        <i class="bi bi-plus-circle me-2"></i> Ajouter un nouveau module
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Fermer"></button>
+                </div>
+
+                <form method="post" action="{{ url('projetmodules') }}" enctype="multipart/form-data"
+                    class="p-3">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" name="projet" value="{{ $projet?->id }}">
+
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <label for="module_name" class="form-label">Module<span
+                                        class="text-danger">*</span></label>
+                                <input type="text" name="module" id="module_name"
+                                    class="form-control form-control-sm" placeholder="Nom du module" required>
+                                <div id="countryList"></div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="domaine" class="form-label">Domaine<span
+                                        class="text-danger">*</span></label>
+                                <input type="text" name="domaine" id="domaine"
+                                    class="form-control form-control-sm" placeholder="Entrer un domaine" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="effectif" class="form-label">Effectif</label>
+                                <input type="number" min="0" name="effectif" id="effectif"
+                                    class="form-control form-control-sm" placeholder="Effectif prévu">
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="description" class="form-label">Description du module</label>
+                                <textarea name="description" id="description" rows="4" class="form-control form-control-sm"
+                                    placeholder="Décrire brièvement le module..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        @if (auth()->user()->hasRole(['super-admin', 'admin']))
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <i class="bi bi-check-circle me-1"></i> Enregistrer
+                            </button>
+                        @endif
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle me-1"></i> Fermer
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
+
     @foreach ($projet?->projetmodules as $projetmodule)
-        <div class="modal fade" id="EditprojetmoduleModal{{ $projetmodule?->id }}" tabindex="-1"
-            role="dialog" aria-labelledby="EditprojetmoduleModalLabel{{ $projetmodule?->id }}"
+        {{-- <div class="modal fade" id="EditModuleModal{{ $projetmodule?->id }}" tabindex="-1"
+            role="dialog" aria-labelledby="EditModuleModalLabel{{ $projetmodule?->id }}"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    {{-- <form method="POST" action="#">
-                            @csrf --}}
                     <form method="post" action="{{ route('projetmodules.update', $projetmodule?->id) }}"
                         enctype="multipart/form-data" class="row g-3">
                         @csrf
@@ -404,6 +579,73 @@
                     </form>
                 </div>
             </div>
+        </div> --}}
+        <div class="modal fade" id="EditModuleModal{{ $projetmodule?->id }}" tabindex="-1"
+            aria-labelledby="EditModuleModalLabel{{ $projetmodule?->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-lg"> <!-- modal-lg pour un format adapté -->
+                <div class="modal-content rounded-4 shadow-sm border-0">
+                    <div class="modal-header bg-warning text-white rounded-top-4">
+                        <h5 class="modal-title" id="EditModuleModalLabel{{ $projetmodule?->id }}">
+                            <i class="bi bi-pencil-fill me-2"></i> Modifier le module :
+                            {{ $projetmodule?->module }}
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Fermer"></button>
+                    </div>
+
+                    <form method="post" action="{{ route('projetmodules.update', $projetmodule?->id) }}"
+                        enctype="multipart/form-data" class="p-3">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <input type="hidden" name="projet" value="{{ $projet?->id }}">
+
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label for="module_name" class="form-label">Module<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="module" id="module_name"
+                                        class="form-control form-control-sm" value="{{ $projetmodule?->module }}"
+                                        required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="domaine" class="form-label">Domaine<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="domaine" id="domaine"
+                                        class="form-control form-control-sm"
+                                        value="{{ $projetmodule?->domaine }}" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="effectif" class="form-label">Effectif</label>
+                                    <input type="number" min="0" name="effectif" id="effectif"
+                                        class="form-control form-control-sm" value="{{ $projetmodule?->effectif }}">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label for="description" class="form-label">Description du module</label>
+                                    <textarea name="description" id="description" rows="4" class="form-control form-control-sm"
+                                        placeholder="Modifier la description du module...">{{ $projetmodule?->description }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            @if (auth()->user()->hasRole(['super-admin', 'admin']))
+                                <button type="submit" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square me-1"></i> Sauvegarder les modifications
+                                </button>
+                            @endif
+                            <button type="button" class="btn btn-outline-secondary btn-sm"
+                                data-bs-dismiss="modal">
+                                <i class="bi bi-x-circle me-1"></i> Fermer
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
         </div>
     @endforeach
 </div>
@@ -437,8 +679,7 @@
                         </div>
 
                         <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                            <label for="effectif" class="form-label">Effectif<span
-                                    class="text-danger mx-1">*</span></label>
+                            <label for="effectif" class="form-label">Effectif</label>
                             <input type="number" min="0" name="effectif" value="{{ old('effectif') }}"
                                 class="form-control form-control-sm @error('effectif') is-invalid @enderror"
                                 id="effectif" placeholder="Effectif">
@@ -491,8 +732,7 @@
                             </div>
 
                             <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                <label for="effectif" class="form-label">Effectif<span
-                                        class="text-danger mx-1">*</span></label>
+                                <label for="effectif" class="form-label">Effectif</label>
                                 <input type="number" min="0" name="effectif"
                                     value="{{ $projetlocalite?->effectif ?? old('effectif') }}"
                                     class="form-control form-control-sm @error('effectif') is-invalid @enderror"

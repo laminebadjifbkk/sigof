@@ -35,4 +35,9 @@ class Projetmodule extends Model
 	{
 		return $this->hasMany(Individuelle::class, 'modules_id');
 	}
+
+    public function projetlocalites()
+{
+    return $this->belongsToMany(Projetlocalite::class, 'projetmodulelocalites', 'projetmodules_id', 'projetlocalites_id');
+}
 }

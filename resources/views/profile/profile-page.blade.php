@@ -1347,11 +1347,13 @@
                                                         <strong>{{ $index + 1 }}. {{ $module->module }}</strong>
                                                     </div>
                                                     <div>
-                                                        <i class="bi bi-chevron-down"></i> {{-- Flèche Bootstrap --}}
+                                                        <i class="bi bi-chevron-down"></i> {{-- Icône flèche --}}
                                                     </div>
                                                 </div>
                                                 <div class="collapse mt-2" id="collapseModule-{{ $module->id }}">
-                                                    <small class="text-muted">{{ $module->description }}</small>
+                                                    <div class="text-muted">
+                                                        {!! '- ' . implode('- ', array_map(fn($line) => nl2br(e($line)), explode("\n", ucfirst($module->description)))) !!}
+                                                    </div>
                                                 </div>
                                             </li>
                                         @endforeach

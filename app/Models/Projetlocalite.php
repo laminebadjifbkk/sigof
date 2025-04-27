@@ -26,4 +26,10 @@ class Projetlocalite extends Model
     {
         return $this->belongsTo(Projet::class, 'projets_id')->latest();
     }
+
+    public function projetmodules()
+{
+    return $this->belongsToMany(Projetmodule::class, 'projetmodulelocalites', 'projetlocalites_id', 'projetmodules_id');
+}
+
 }
