@@ -1225,6 +1225,16 @@
                                                 &nbsp;|&nbsp;
                                                 <span class="badge bg-white text-dark border">{{ $projet->sigle }}</span>
                                             </div>
+                                            <div class="small text-muted mt-1">
+                                                <i class="bi bi-kanban-fill me-1"></i>
+                                                {{ $projet->projetmodules?->count() ?? 0 }}
+                                                module{{ $projet->projetmodules?->count() > 1 ? 's' : '' }}
+                                            </div>
+                                            <button type="button"
+                                                class="btn btn-warning btn-sm mt-2 d-flex align-items-center gap-1"
+                                                data-bs-toggle="modal" data-bs-target="#modalModules-{{ $projet->id }}">
+                                                <i class="bi bi-kanban-fill"></i> Voir les modules
+                                            </button>
                                         </div>
 
                                         {{-- Bouton --}}
@@ -1311,6 +1321,55 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal -->
+            @foreach ($projets as $projet)
+                <div class="modal fade" id="modalModules-{{ $projet->id }}" tabindex="-1"
+                    aria-labelledby="modalModulesLabel-{{ $projet->id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content rounded-4 shadow">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalModulesLabel-{{ $projet->id }}">
+                                    Modules du {{ $projet->type_projet }} : {{ $projet->name }}
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Fermer"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                @if ($projet->projetmodules && $projet->projetmodules->count())
+                                    <ul class="list-group list-group-flush">
+                                        @foreach ($projet->projetmodules as $index => $module)
+                                            <li class="list-group-item">
+                                                <div class="d-flex justify-content-between align-items-center"
+                                                    style="cursor: pointer;" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseModule-{{ $module->id }}">
+                                                    <div>
+                                                        <strong>{{ $index + 1 }}. {{ $module->module }}</strong>
+                                                    </div>
+                                                    <div>
+                                                        <i class="bi bi-chevron-down"></i> {{-- Flèche Bootstrap --}}
+                                                    </div>
+                                                </div>
+                                                <div class="collapse mt-2" id="collapseModule-{{ $module->id }}">
+                                                    <small class="text-muted">{{ $module->description }}</small>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <div class="alert alert-info text-center text-muted">
+                                        Aucun module disponible.
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </section>
     @endrole
 
@@ -1441,22 +1500,23 @@
     <div class="modal fade" id="ShowProfilImage{{ Auth::id() }}" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 rounded-5 shadow-md overflow-hidden"
-                 style="background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px);">
+                style="background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px);">
                 <div class="modal-body text-center p-4">
                     <!-- Bouton close en haut à droite -->
-                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
-                    
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+
                     <!-- Titre -->
                     <h2 class="fs-3 fw-bold text-dark mb-4 mt-2">
                         {{ (Auth::user()?->civilite ?? '') . ' ' . (Auth::user()?->firstname ?? '') . ' ' . (Auth::user()?->name ?? (Auth::user()?->username ?? '')) }}
                     </h2>
-    
+
                     <!-- Image -->
                     <img src="{{ asset($user->getImage() ?? 'images/default.png') }}"
-                         class="img-fluid rounded-4 shadow-sm animated-image mb-4"
-                         alt="{{ Auth::user()?->legende ?? 'Photo de profil' }}"
-                         style="max-height: 400px; object-fit: cover; border: 4px solid rgba(255,255,255,0.6);">
-    
+                        class="img-fluid rounded-4 shadow-sm animated-image mb-4"
+                        alt="{{ Auth::user()?->legende ?? 'Photo de profil' }}"
+                        style="max-height: 400px; object-fit: cover; border: 4px solid rgba(255,255,255,0.6);">
+
                     <!-- Bouton Fermer -->
                     <button type="button" class="btn btn-dark rounded-pill px-5 py-2 mt-2" data-bs-dismiss="modal">
                         Fermer
