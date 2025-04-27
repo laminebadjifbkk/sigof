@@ -261,12 +261,17 @@
                                                                         <ul class="dropdown-menu dropdown-menu-end">
                                                                             <!-- Modifier -->
                                                                             <li>
-                                                                                <button class="dropdown-item"
+                                                                                {{-- <button class="dropdown-item"
                                                                                     data-bs-toggle="modal"
                                                                                     data-bs-target="#EditModuleModal{{ $projetmodule?->id }}">
                                                                                     <i class="bi bi-pencil-fill me-2"></i>
                                                                                     Modifier
-                                                                                </button>
+                                                                                </button> --}}
+                                                                                <a href="{{ route('projetmodules.edit', $projetmodule->id) }}"
+                                                                                    class="dropdown-item">
+                                                                                    <i class="bi bi-pencil-fill me-2"></i>
+                                                                                    Modifier
+                                                                                </a>
                                                                             </li>
                                                                             <!-- Supprimer -->
                                                                             <li>
@@ -276,7 +281,7 @@
                                                                                     @csrf
                                                                                     @method('DELETE')
                                                                                     <button type="submit"
-                                                                                        class="dropdown-item text-danger">
+                                                                                        class="dropdown-item text-danger show_confirm">
                                                                                         <i
                                                                                             class="bi bi-trash-fill me-2"></i>
                                                                                         Supprimer
@@ -304,11 +309,20 @@
                                             <h5 class="card-title">Localités</h5>
                                             @if (auth()->user()->hasRole(['super-admin', 'admin']))
                                                 <div class="pt-1">
-                                                    <button type="button"
+                                                    {{-- <button type="button"
                                                         class="btn btn-primary btn-sm float-end btn-rounded"
                                                         data-bs-toggle="modal" data-bs-target="#AddprojetlocaliteModal">
                                                         Ajouter
-                                                    </button>
+                                                    </button> --}}
+                                                    <div class="d-flex justify-content-end m-3">
+                                                        <button type="button"
+                                                            class="btn btn-primary btn-sm rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#AddprojetlocaliteModal">
+                                                            <i class="bi bi-plus-circle-fill"></i>
+                                                            Ajouter localité
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             @endcan
                                     </div>
@@ -488,7 +502,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label for="effectif" class="form-label">Effectif</label>
+                                <label for="effectif" class="form-label">Effectif prévu</label>
                                 <input type="number" min="0" name="effectif" id="effectif"
                                     class="form-control form-control-sm" placeholder="Effectif prévu">
                             </div>
@@ -580,7 +594,7 @@
                 </div>
             </div>
         </div> --}}
-        <div class="modal fade" id="EditModuleModal{{ $projetmodule?->id }}" tabindex="-1"
+        {{-- <div class="modal fade" id="EditModuleModal{{ $projetmodule?->id }}" tabindex="-1"
             aria-labelledby="EditModuleModalLabel{{ $projetmodule?->id }}" aria-hidden="true">
             <div class="modal-dialog modal-lg"> <!-- modal-lg pour un format adapté -->
                 <div class="modal-content rounded-4 shadow-sm border-0">
@@ -605,8 +619,8 @@
                                     <label for="module_name" class="form-label">Module<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="module" id="module_name"
-                                        class="form-control form-control-sm" value="{{ $projetmodule?->module }}"
-                                        required>
+                                        class="form-control form-control-sm"
+                                        value="{{ old('module', $projetmodule?->module) }}" required>
                                 </div>
 
                                 <div class="col-md-6">
@@ -618,15 +632,30 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="effectif" class="form-label">Effectif</label>
+                                    <label for="effectif" class="form-label">Effectif prévu</label>
                                     <input type="number" min="0" name="effectif" id="effectif"
-                                        class="form-control form-control-sm" value="{{ $projetmodule?->effectif }}">
+                                        class="form-control form-control-sm"
+                                        value="{{ old('effectif', $projetmodule?->effectif) }}">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label for="localites" class="form-label">Sélectionner les localités</label>
+                                    <select name="projetlocalites[]" class="form-select" aria-label="Select"
+                                        id="multiple-select-field" multiple
+                                        data-placeholder="Choisir une ou plusieurs localités">
+                                        @foreach ($projetlocalites as $projetlocalite)
+                                            <option value="{{ $projetlocalite->id }}"
+                                                {{ in_array($projetlocalite->localite, $moduleLocalites) ? 'selected' : '' }}>
+                                                {{ $projetlocalite->localite ?? old('projetlocalite') }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="col-md-12">
                                     <label for="description" class="form-label">Description du module</label>
                                     <textarea name="description" id="description" rows="4" class="form-control form-control-sm"
-                                        placeholder="Modifier la description du module...">{{ $projetmodule?->description }}</textarea>
+                                        placeholder="Modifier la description du module...">{{ old('description', $projetmodule?->description) }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -646,7 +675,7 @@
 
                 </div>
             </div>
-        </div>
+        </div> --}}
     @endforeach
 </div>
 

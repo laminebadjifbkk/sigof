@@ -43,7 +43,7 @@ class ProjetlocaliteController extends Controller
                         ->where('projets_id', $id);
                 }),
             ],
-            'effectif' => 'required|string',
+            'effectif' => 'nullable|numeric',
         ]);
 
         $localite = $request?->type_localite;
@@ -116,7 +116,7 @@ class ProjetlocaliteController extends Controller
             'localite' => ["required", "string", Rule::unique('projetlocalites')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })->ignore($id)],
-            'effectif' => 'required|string',
+            'effectif' => 'nullable|numeric',
         ]);
 
         $projetlocalite = Projetlocalite::findOrFail($id);

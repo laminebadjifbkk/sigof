@@ -356,7 +356,7 @@ class UserController extends Controller
         if ($request->input('employe') == "1") {
             $this->validate($request, [
                 /* "matricule"           => ['nullable', 'string', 'min:8', 'max:8',Rule::unique(Employee::class)], */
-                "matricule" => ['nullable', 'string', 'min:8', 'max:8', "unique:employees,matricule,Null,{$user?->employee?->id},deleted_at,NULL"],
+                "matricule" => ['nullable', 'string', 'size:8', "unique:employees,matricule,Null,{$user?->employee?->id},deleted_at,NULL"],
                 /* 'cin'                 => ['required', 'string', 'min:13', 'max:15',Rule::unique(User::class)], */
                 'direction' => ['required', 'string'],
             ]);
@@ -390,7 +390,7 @@ class UserController extends Controller
 
             $ingenieur->save();
 
-            Alert::success('Effectuée ! ', 'ingénieur ajouté');
+            Alert::success('Succès ! ', 'ingénieur ajouté');
 
             /* $user->assignRole('Ingenieur'); */
 

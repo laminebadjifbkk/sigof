@@ -258,7 +258,7 @@
                                 <div class="col-12 col-md-12 col-lg-8 mb-0">
                                     <label for="roles" class="form-label">Roles</label>
                                     <select name="roles[]" class="form-select" aria-label="Select"
-                                        id="multiple-select-field" multiple data-placeholder="Choisir roles">
+                                        id="multiple-select-field" multiple data-placeholder="Choisir un ou plusieurs roles">
                                         @foreach ($roles as $role)
                                             <option value="{{ $role }}"
                                                 {{ in_array($role, $userRoles) ? 'selected' : '' }}>

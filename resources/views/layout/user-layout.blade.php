@@ -873,7 +873,7 @@
                     title: `Êtes-vous sûr de vouloir supprimer cet enregistrement ?`,
                     text: "Si vous supprimez ceci, il disparaîtra pour toujours.",
                     icon: "warning",
-                    buttons: true,
+                    buttons: ["Annuler", "Oui, Supprimer !"],
                     dangerMode: true,
                 })
                 .then((willDelete) => {
@@ -894,7 +894,7 @@
                     title: "Êtes-vous sûr de vouloir supprimer ?",
                     text: "Si vous supprimez, l'image disparaîtra pour toujours.",
                     icon: "warning",
-                    buttons: ["Annuler", "Oui, supprimer !"],
+                    buttons: ["Annuler", "Oui, Supprimer !"],
                     dangerMode: true,
                 }).then((willDelete) => {
                     if (willDelete) {

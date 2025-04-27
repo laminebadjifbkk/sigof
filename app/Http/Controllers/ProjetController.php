@@ -82,11 +82,15 @@ class ProjetController extends Controller
     {
         /* $projet          = Projet::findOrFail($id); */
         $projetlocalites = Projetlocalite::where('projets_id', $projet->id)->get();
+        
+        $moduleLocalites = $projet->projetlocalites->pluck('lacalite', 'lacalite')->all();
+
         return view(
             'projets.show',
             compact(
                 'projet',
-                'projetlocalites'
+                'projetlocalites',
+                'moduleLocalites'
             )
         );
     }
