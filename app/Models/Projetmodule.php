@@ -21,6 +21,8 @@ class Projetmodule extends Model
         'module',
         'domaine',
         'effectif',
+        'description',
+        'statut',
         'projets_id'
     ];
 
