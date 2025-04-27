@@ -166,13 +166,13 @@
                                         </td>
                                     </tr>
                                 @endforeach --}} @php $i = 1; @endphp
-                                    @foreach ($files as $file)
+                                @foreach ($files as $file)
                                     <tr class="text-center align-middle">
                                         <td>{{ $i++ }}</td>
                                         <td>{{ $file->legende }}</td>
                                         <td>
-                                            <a class="btn btn-outline-secondary btn-sm" title="Télécharger"
-                                                target="_blank" href="{{ asset($file->getFichier()) }}">
+                                            <a class="btn btn-outline-secondary btn-sm" title="Télécharger" target="_blank"
+                                                href="{{ asset($file->getFichier()) }}">
                                                 <i class="bi bi-download"></i>
                                             </a>
                                         </td>
@@ -190,12 +190,10 @@
                                         {{-- Supprimer --}}
                                         <td>
                                             @if ($file->statut !== 'Validé')
-                                                <form action="{{ route('fileDestroy') }}" method="post"
-                                                    class="d-inline">
+                                                <form action="{{ route('fileDestroy') }}" method="post" class="d-inline">
                                                     @csrf
                                                     @method('put')
-                                                    <input type="hidden" name="idFile"
-                                                        value="{{ $file->id }}">
+                                                    <input type="hidden" name="idFile" value="{{ $file->id }}">
                                                     <button type="submit"
                                                         class="btn btn-outline-danger btn-sm show_confirm"
                                                         title="Supprimer">
@@ -207,12 +205,10 @@
                                         @hasanyrole('super-admin|admin|DIOF')
                                             {{-- Valider --}}
                                             <td>
-                                                <form action="{{ route('fileValidate') }}" method="post"
-                                                    class="d-inline">
+                                                <form action="{{ route('fileValidate') }}" method="post" class="d-inline">
                                                     @csrf
                                                     @method('put')
-                                                    <input type="hidden" name="idFile"
-                                                        value="{{ $file->id }}">
+                                                    <input type="hidden" name="idFile" value="{{ $file->id }}">
                                                     <button type="submit"
                                                         class="btn btn-outline-success btn-sm show_confirm_valider"
                                                         title="Valider">
@@ -222,12 +218,10 @@
                                             </td>
                                             {{-- Invalider --}}
                                             <td>
-                                                <form action="{{ route('fileInvalide') }}" method="post"
-                                                    class="d-inline">
+                                                <form action="{{ route('fileInvalide') }}" method="post" class="d-inline">
                                                     @csrf
                                                     @method('put')
-                                                    <input type="hidden" name="idFile"
-                                                        value="{{ $file->id }}">
+                                                    <input type="hidden" name="idFile" value="{{ $file->id }}">
                                                     <button type="submit"
                                                         class="btn btn-outline-warning btn-sm show_confirm_rejeter"
                                                         title="Invalider">
@@ -236,8 +230,9 @@
                                                 </form>
                                             </td>
                                         @endhasanyrole
-                                    </tr> @endforeach
-                                    </tbody>
+                                    </tr>
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -289,13 +284,26 @@
                         </div>
                     </div>
 
-                    <div class="row mb-3">
+                    {{-- <div class="row mb-3">
                         <label for="file"
                             class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label"><span
                                 class="text-danger mx-1"></span></label>
                         <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
                             <div class="pt-2">
                                 <button type="submit" class="btn btn-info btn-sm text-white">ENREGISTRER</button>
+                            </div>
+                        </div>
+                    </div> --}}
+                    <div class="row mb-3">
+                        <label for="file"
+                            class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">
+                            Téléverser un fichier <span class="text-danger mx-1">*</span>
+                        </label>
+                        <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                            <div class="pt-2">
+                                <button type="submit" class="btn btn-primary btn-sm text-white">
+                                    <i class="bi bi-upload me-1"></i> Téléverser
+                                </button>
                             </div>
                         </div>
                     </div>

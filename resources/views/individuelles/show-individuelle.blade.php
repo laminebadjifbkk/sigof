@@ -304,13 +304,25 @@
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
+                                {{-- <div class="row mb-3">
                                     <label for="file"
                                         class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label"><span
                                             class="text-danger mx-1"></span></label>
                                     <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
                                         <div class="pt-2">
                                             <button type="submit" class="btn btn-info btn-sm text-white">ENREGISTRER</button>
+                                        </div>
+                                    </div>
+                                </div> --}}
+                                <div class="row mb-3">
+                                    <label for="file" class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">
+                                        Téléverser un fichier <span class="text-danger mx-1">*</span>
+                                    </label>
+                                    <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                        <div class="pt-2">
+                                            <button type="submit" class="btn btn-primary btn-sm text-white">
+                                                <i class="bi bi-upload me-1"></i> Téléverser
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
