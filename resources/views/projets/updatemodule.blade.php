@@ -47,6 +47,7 @@
                                             <input type="text" name="module" id="module_name"
                                                 class="form-control form-control-sm"
                                                 value="{{ old('module', $projetmodule?->module) }}" required>
+                                            <div id="countryList"></div>
                                         </div>
 
                                         <div class="col-md-6">
@@ -69,7 +70,6 @@
                                                 id="multiple-select-field" multiple
                                                 data-placeholder="Choisir une ou plusieurs localités">
                                                 @foreach ($projetlocalites as $projetlocalite)
-                                                <option value="{{ $projetlocalite->localite }}">{{ $projetlocalite->localite }}</option>
                                                     <option value="{{ $projetlocalite->localite }}"
                                                         {{ in_array($projetlocalite->localite, $moduleLocalites) ? 'selected' : '' }}>
                                                         {{ $projetlocalite->localite }}

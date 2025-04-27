@@ -106,11 +106,18 @@ class ProjetmoduleController extends Controller
     public function edit($id)
     {
         // Récupérer le projet module avec ses relations
-        $projetmodule    = Projetmodule::with('projet')->findOrFail($id);
-        $projet          = $projetmodule->projet;
-        $type_localite   = $projet->type_localite;
-        $projetlocalites = Projetlocalite::where('projets_id', $projet->id)->get();
-        $moduleLocalites = $projetlocalites->pluck('localite', 'localite')->all();
+        $projetmodule  = Projetmodule::with('projet', 'projetlocalites')->findOrFail($id);
+        $projet        = $projetmodule->projet;
+        $type_localite = $projet->type_localite;
+
+// Récupérer les localités du projet, sans doublons sur 'localite'
+        $projetlocalites = Projetlocalite::where('projets_id', $projet->id)
+            ->select('id', 'localite')
+            ->groupBy('localite', 'id') // groupBy sur 'localite' + 'id' car MySQL impose que tous les champs sélectionnés soient groupés
+            ->get();
+
+// Récupérer les localités déjà liées au module
+        $moduleLocalites = $projetmodule->projetlocalites->pluck('localite')->toArray();
 
         /* dd($moduleLocalites); */
 
