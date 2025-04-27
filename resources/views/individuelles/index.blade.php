@@ -873,6 +873,7 @@
         </section>
     @endcan
 @endsection
+
 @push('scripts')
     <script>
         new DataTable('#table-individuelles', {
