@@ -36,21 +36,34 @@
                                         class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                 <p> | Profil</p>
                             </span>
-                            {{-- <p>Statut : <span class="{{ $projet?->statut }} btn-sm">{{ $projet?->statut }}</span></p> --}}
                             <button type="button" class="btn btn-info btn-sm">
                                 <span class="badge bg-white text-info">{{ $individuelle_total }} sur 3</span>
                             </button>
+
                             @if (!empty(Auth::user()->cin) && !empty($statut))
                                 @if ($individuelle_total < 3 && !empty(Auth::user()?->cin))
-                                    <button type="button"
-                                        class="btn btn-success btn-sm float-end rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
-                                        data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal">
-                                        <i class="bi bi-plus-circle-fill"></i>
-                                        Formuler une autre demande
-                                    </button>
+                                    <!-- Conteneur Flex Vertical pour les boutons -->
+                                    <div class="d-flex flex-column align-items-start gap-2">
+                                        <!-- Bouton Choisir Localité -->
+                                        <button type="button"
+                                            class="btn btn-primary btn-sm rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
+                                            data-bs-toggle="modal" data-bs-target="#ChoisirLocaliteModal">
+                                            <i class="bi bi-map-fill"></i>
+                                            Choisir localité
+                                        </button>
+
+                                        <!-- Bouton Formuler une autre demande -->
+                                        <button type="button"
+                                            class="btn btn-success btn-sm rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
+                                            data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal">
+                                            <i class="bi bi-plus-circle-fill"></i>
+                                            Formuler une autre demande
+                                        </button>
+                                    </div>
                                 @endif
                             @endif
                         </div>
+
                         <div class="d-flex justify-content-between align-items-center mt-0">
                             <h5 class="card-title">
                                 Bonjour
@@ -1173,5 +1186,27 @@
                 </div>
             </div>
         @endforeach
+
+        <!-- Modal Choisir Localité -->
+        <div class="modal fade" id="ChoisirLocaliteModal" tabindex="-1" aria-labelledby="ChoisirLocaliteModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ChoisirLocaliteModalLabel">Choisir une localité</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Ajouter votre contenu ici pour choisir une localité -->
+                        <p>Contenu de la modal pour sélectionner la localité...</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-primary">Choisir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </section>
 @endsection

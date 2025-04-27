@@ -244,7 +244,7 @@ class ProjetmoduleController extends Controller
 
     public function destroy(Projetmodule $projetmodule)
     {
-       /*  $projetmodule = Projetmodule::findOrFail($id); */
+        /*  $projetmodule = Projetmodule::findOrFail($id); */
         $projetmodule->delete();
 
         Alert::success('Succès !', 'Le module a été supprimé avec succès');
