@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,7 +21,7 @@ class Projetlocalite extends Model
         'effectif',
         'projets_id',
     ];
-    
+
     public function getRouteKeyName()
     {
         return 'uuid';
@@ -45,8 +44,8 @@ class Projetlocalite extends Model
     }
 
     public function projetmodules()
-{
-    return $this->belongsToMany(Projetmodule::class, 'projetmodulelocalites', 'projetlocalites_id', 'projetmodules_id');
-}
+    {
+        return $this->belongsToMany(Projetmodule::class, 'projetmodulelocalites', 'projetlocalites_id', 'projetmodules_id');
+    }
 
 }

@@ -256,24 +256,4 @@ class ProjetlocaliteController extends Controller
         return redirect()->back();
     }
 
-    public function getLocalitesParModule(Request $request)
-    {
-        $module    = $request->input('module');
-        $projet_id = $request->input('projet_id');
-
-        // On récupère le projet module
-        $projetmodule = Projetmodule::where('projets_id', $projet_id)
-            ->where('module', $module)
-            ->first();
-
-        if (! $projetmodule) {
-            return response()->json([]);
-        }
-
-        // Puis on récupère les localités associées au projetmodule
-        $localites = $projetmodule->projetlocalites()->select('localite')->get();
-
-        return response()->json($localites);
-    }
-
 }

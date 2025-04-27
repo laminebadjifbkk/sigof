@@ -63,7 +63,7 @@
                                 @if (auth()->user()->hasRole(['super-admin', 'admin']))
                                     <li class="nav-item">
                                         <button class="nav-link" data-bs-toggle="tab"
-                                            data-bs-target="#localites-overview">Localités</button>
+                                            data-bs-target="#localites-overview">{{ $projet?->type_localite }}</button>
                                     </li>
                                 @endif
 
@@ -306,7 +306,7 @@
 
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                         <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <h5 class="card-title">Localités</h5>
+                                            <h5 class="card-title">Liste des {{ $projet?->type_localite }}</h5>
                                             @if (auth()->user()->hasRole(['super-admin', 'admin']))
                                                 <div class="pt-1">
                                                     {{-- <button type="button"
@@ -334,9 +334,10 @@
                                             <thead>
                                                 <tr>
                                                     <th width="5%" class="text-center" scope="col">N°</th>
-                                                    <th>Localité</th>
-                                                    <th class="text-center" scope="col">Type</th>
+                                                    <th>{{ $projet?->type_localite }}</th>
+                                                    {{-- <th class="text-center" scope="col">Type</th> --}}
                                                     <th class="text-center" scope="col">Besoin</th>
+                                                    <th class="text-center" scope="col">Reçues</th>
                                                     <th width="5%" class="text-center" scope="col">#</th>
                                                 </tr>
                                             </thead>
@@ -346,11 +347,30 @@
                                                     <tr>
                                                         <td style="text-align: center;">{{ $i++ }}</td>
                                                         <td>{{ $projetlocalite?->localite }}</td>
-                                                        <td style="text-align: center;">
+                                                        {{-- <td style="text-align: center;">
                                                             {{ $projetlocalite?->projet?->type_localite }}
+                                                        </td> --}}
+                                                        <td class="text-center">
+                                                            @if ($projetlocalite?->effectif > 0)
+                                                                <span class="badge bg-success rounded-pill">
+                                                                    {{ $projetlocalite?->effectif }}
+                                                                </span>
+                                                            @else
+                                                                <span class="badge bg-danger rounded-pill">
+                                                                    0
+                                                                </span>
+                                                            @endif
                                                         </td>
-                                                        <td style="text-align: center;">
-                                                            {{ $projetlocalite?->effectif }}
+                                                        <td class="text-center">
+                                                            @if ($projetlocalite?->individuelles?->count() > 0)
+                                                                <span class="badge bg-primary rounded-pill">
+                                                                    {{ $projetlocalite?->individuelles?->count() ?? 0 }}
+                                                                </span>
+                                                            @else
+                                                                <span class="badge bg-danger rounded-pill">
+                                                                    0
+                                                                </span>
+                                                            @endif
                                                         </td>
                                                         <td class="text-center">
                                                             <div class="btn-group align-items-center">
