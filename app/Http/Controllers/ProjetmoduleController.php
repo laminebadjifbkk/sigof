@@ -181,7 +181,17 @@ class ProjetmoduleController extends Controller
         $projetmodule = Projetmodule::findOrFail($id);
 
         $this->validate($request, [
-            'module'            => 'required|string',
+            /* 'module'            => 'required|string', */
+            'module'            => [
+                'required',
+                'string',
+                Rule::unique('projetmodules')
+                    ->ignore($projetmodule->id) // Ignore l'ID du projetmodule actuel
+                    ->where(function ($query) use ($projetmodule) {
+                        return $query->whereNull('deleted_at')
+                            ->where('projets_id', $projetmodule->projet->id); // Assure que la validation concerne le même projet
+                    }),
+            ],
             'domaine'           => 'required|string',
             'effectif'          => 'nullable|string',
             'description'       => 'nullable|string',
