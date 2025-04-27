@@ -110,7 +110,7 @@ class ProjetlocaliteController extends Controller
         }
     }
 
-    public function update(Request $request, Projetlocalite $projetlocalite)
+/*     public function update(Request $request, Projetlocalite $projetlocalite)
     {
         $this->validate($request, [
             'localite' => ["required", "string", Rule::unique('projetlocalites')->where(function ($query) {
@@ -128,6 +128,33 @@ class ProjetlocaliteController extends Controller
         $projetlocalite->save();
 
         Alert::success('Succès ! ', 'La localité a été modifiée avec succès');
+
+        return redirect()->back();
+    } */
+
+    public function update(Request $request, Projetlocalite $projetlocalite)
+    {
+        $request->validate([
+            'localite' => [
+                'required',
+                'string',
+                Rule::unique('projetlocalites', 'localite')
+                    ->ignore($projetlocalite->id) // Ignore la localité actuelle
+                    ->where(function ($query) use ($projetlocalite) {
+                        return $query->whereNull('deleted_at')
+                            ->where('projets_id', $projetlocalite->projets_id); // S'assurer que c'est dans le même projet
+                    }),
+            ],
+            'effectif' => 'nullable|numeric|min:0',
+        ]);
+
+        $projetlocalite->update([
+            'localite'   => $request->input('localite'),
+            'effectif'   => $request->input('effectif'),
+            'projets_id' => $request->input('id'), // À garder seulement si l'ID du projet peut changer ici
+        ]);
+
+        Alert::success('Succès !', 'La localité a été modifiée avec succès.');
 
         return redirect()->back();
     }
