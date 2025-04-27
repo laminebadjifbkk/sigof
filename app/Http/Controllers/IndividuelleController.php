@@ -215,10 +215,10 @@ class IndividuelleController extends Controller
             ->count();
 
         if ($projet->statut == 'fermer') {
-            Alert::warning('Avertissement !', 'La période de dépôt est terminée.');
+            Alert::warning('Attention !', 'La période de dépôt est terminée.');
             return redirect()->back();
         } elseif ($individuelle >= 3) {
-            Alert::warning('Avertissement !', 'Vous avez atteint la limite autorisée de demandes.');
+            Alert::warning('Attention !', 'Vous avez atteint la limite autorisée de demandes.');
             return redirect()->back();
         } else {
 

@@ -142,7 +142,7 @@
             </div>
         </div>
 
-        <div class="card shadow-sm">
+        {{-- <div class="card shadow-sm">
             <div class="card-header">
                 <h5 class="card-title">{{ 'Nombre de modules : ' . $projet->projetmodules->count() }}</h5>
             </div>
@@ -154,7 +154,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center gap-2" style="cursor: pointer;"
                                         data-bs-toggle="collapse" data-bs-target="#collapseModule-{{ $module->id }}">
-                                        <i class="bi bi-chevron-down"></i> {{-- Icône flèche --}}
+                                        <i class="bi bi-chevron-down"></i>
                                         <strong>{{ $index + 1 }}. {{ $module->module }}</strong>
                                     </div>
 
@@ -182,7 +182,55 @@
                     </div>
                 @endif
             </div>
+        </div> --}}
+
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h5 class="card-title">{{ 'Nombre de modules : ' . $projet->projetmodules->count() }}</h5>
+            </div>
+            <div class="card-body">
+                @if ($projet->projetmodules && $projet->projetmodules->count())
+                    <ul class="list-group list-group-flush">
+                        @foreach ($projet->projetmodules as $index => $module)
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center gap-2" style="cursor: pointer;"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseModule-{{ $module->id }}">
+                                        <i class="bi bi-chevron-down"></i> {{-- Icône flèche --}}
+                                        <strong>{{ $index + 1 }}. {{ $module->module }}</strong>
+                                    </div>
+
+                                    <!-- Vérifie si une demande existe déjà pour ce module -->
+                                    @php
+                                        $demandeExistante = $module->individuelles->firstWhere('user_id', Auth::id());
+                                    @endphp
+
+                                    <!-- Bouton "Ajouter" ou "Modifier" selon l'existence de la demande -->
+                                    <button type="button"
+                                        class="btn btn-outline-success btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center gap-2"
+                                        data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal{{ $module->id }}">
+                                        <i class="bi bi-plus-circle-fill"></i>
+                                        {{ $demandeExistante ? 'Modifier' : 'Ajouter' }}
+                                    </button>
+                                </div>
+
+                                <!-- Zone de description cachée -->
+                                <div class="collapse mt-3" id="collapseModule-{{ $module->id }}">
+                                    <div class="text-muted">
+                                        {!! '- ' . implode('- ', array_map(fn($line) => nl2br(e($line)), explode("\n", ucfirst($module->description)))) !!}
+                                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <div class="alert alert-info text-center text-muted">
+                        Aucun module disponible.
+                    </div>
+                @endif
+            </div>
         </div>
+
 
         @foreach (Auth::user()?->individuelles as $individuelle)
             @foreach ($projet->projetmodules as $index => $projetmodule)
@@ -201,6 +249,7 @@
                                     <div class="modal-body">
                                         <div class="row g-3">
                                             <input type="hidden" value="{{ $projetmodule->module }}" name="module">
+                                            <input type="hidden" name="idprojet" value="{{ $projet?->id }}">
                                             {{-- <div class="col-12 col-md-12 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
                                                 <label for="module" class="form-label">Formation sollicitée<span
                                                         class="text-danger mx-1">*</span></label>
@@ -227,14 +276,14 @@
                                                 <label for="module_select_{{ $projetmodule->id }}" class="form-label">
                                                     Lieu de formation <span class="text-danger mx-1">*</span>
                                                 </label>
-                                            
+
                                                 <select name="departement" id="module_select_{{ $projetmodule->id }}"
                                                     class="form-select form-select-sm @error('departement') is-invalid @enderror"
                                                     aria-label="Select">
-                                                    
+
                                                     <!-- OPTION PLACEHOLDER -->
                                                     <option value="" disabled selected>Choisir la localité</option>
-                                            
+
                                                     @foreach ($projetmodule->projetlocalites as $projetlocalite)
                                                         <option value="{{ $projetlocalite->localite }}"
                                                             {{ old('departement') == $projetlocalite->localite ? 'selected' : '' }}>
@@ -242,13 +291,13 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                            
+
                                                 @error('departement')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>
                                                     </span>
                                                 @enderror
-                                            </div>                                            
+                                            </div>
 
                                             <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-4">
                                                 <label for="adresse" class="form-label">Adresse<span
