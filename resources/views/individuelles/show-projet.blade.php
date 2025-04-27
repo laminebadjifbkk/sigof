@@ -820,7 +820,7 @@
                                                 data-placeholder="Choisir la localité">
                                                 <option value="{{ old('departement') }}">
                                                     {{ old('departement') }}</option>
-                                                @foreach ($projetlocalites as $projetlocalite)
+                                                @foreach ($projet?->projetlocalites as $projetlocalite)
                                                     <option value="{{ $projetlocalite->localite }}">
                                                         {{ $projetlocalite->localite }}
                                                     </option>
@@ -1175,3 +1175,38 @@
         @endforeach
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#select-field-projetmodule-ind').on('change', function() {
+                var module = $(this).val(); // Récupère le module sélectionné
+                var projet_id = $('input[name="idprojet"]').val(); // Ton id du projet
+
+                if (module) {
+                    $.ajax({
+                        url: "{{ route('get-localites-par-module') }}",
+                        type: "GET",
+                        data: {
+                            module: module,
+                            projet_id: projet_id
+                        },
+                        success: function(data) {
+                            $('#select-field-departement-ind').empty();
+                            $('#select-field-departement-ind').append(
+                                '<option value="">Choisir la localité</option>');
+
+                            $.each(data, function(key, value) {
+                                $('#select-field-departement-ind').append(
+                                    '<option value="' + value.localite + '">' +
+                                    value.localite + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#select-field-departement-ind').empty();
+                }
+            });
+        });
+    </script>
+@endpush

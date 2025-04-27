@@ -65,7 +65,7 @@
                                         </td>
                                         <td style="text-align: center;">
                                             <span class="d-flex mt-2 align-items-baseline"><a
-                                                    href="{{ route('projetlocalites.show', $projetlocalite->id) }}"
+                                                    href="{{ route('projetlocalites.show', $projetlocalite) }}"
                                                     class="btn btn-warning btn-sm mx-1" title="Voir détails">
                                                     <i class="bi bi-eye"></i></a>
                                                 @if (auth()->user()->hasRole('super-admin|admin'))
@@ -84,7 +84,7 @@
                                                             </li>
                                                             <li>
                                                                 <form
-                                                                    action="{{ url('projetlocalites', $projetlocalite->id) }}"
+                                                                    action="{{ route('projetlocalites.destroy', $projetlocalite) }}"
                                                                     method="post">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -167,7 +167,7 @@
             <div class="modal-content">
                 {{-- <form method="POST" action="{{ route('updateprojetlocalite') }}">
                             @csrf --}}
-                <form method="post" action="{{ route('projetlocalites.update', $projetlocalite->id) }}"
+                <form method="post" action="{{ route('projetlocalites.update', $projetlocalite) }}"
                     enctype="multipart/form-data" class="row g-3">
                     @csrf
                     @method('patch')

@@ -110,16 +110,14 @@ class ProjetlocaliteController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Projetlocalite $projetlocalite)
     {
         $this->validate($request, [
             'localite' => ["required", "string", Rule::unique('projetlocalites')->where(function ($query) {
                 return $query->whereNull('deleted_at');
-            })->ignore($id)],
+            })->ignore($projetlocalite->id)],
             'effectif' => 'nullable|numeric',
         ]);
-
-        $projetlocalite = Projetlocalite::findOrFail($id);
 
         $projetlocalite->update([
             "localite"   => $request->input("localite"),
@@ -129,13 +127,13 @@ class ProjetlocaliteController extends Controller
 
         $projetlocalite->save();
 
-        Alert::success('Succès ! ', 'localité modifiée avec succès');
+        Alert::success('Succès ! ', 'La localité a été modifiée avec succès');
 
         return redirect()->back();
     }
-    public function show($id)
+
+    /*  public function show(Projetlocalite $projetlocalite)
     {
-        $projetlocalite = Projetlocalite::findOrFail($id);
         $projet         = $projetlocalite?->projet;
         $type_localite  = $projet->type_localite;
 
@@ -181,15 +179,74 @@ class ProjetlocaliteController extends Controller
                 'region'
             ));
 
-    }
-    public function destroy($id)
-    {
-        $projetlocalite = Projetlocalite::findOrFail($id);
+    } */
 
+    public function show(Projetlocalite $projetlocalite)
+    {
+        $projet        = $projetlocalite->projet;
+        $type_localite = $projet?->type_localite;
+
+        $individuelles = Individuelle::where('projets_id', $projet?->id)
+            ->whereHas('module') // Vérifie que le module existe
+            ->get();
+
+        // Initialiser toutes les variables à null
+        $region = $departement = $arrondissement = $commune = null;
+
+        // Remplir uniquement celle correspondant au type_localite
+        switch ($type_localite) {
+            case 'Region':
+                $region = 'Région';
+                break;
+            case 'Departement':
+                $departement = 'Département';
+                break;
+            case 'Arrondissement':
+                $arrondissement = 'Arrondissement';
+                break;
+            case 'Commune':
+                $commune = 'Commune';
+                break;
+        }
+
+        return view('projetlocalites.individuelle', compact(
+            'individuelles',
+            'projet',
+            'commune',
+            'arrondissement',
+            'departement',
+            'projetlocalite',
+            'region'
+        ));
+    }
+
+    public function destroy(Projetlocalite $projetlocalite)
+    {
         $projetlocalite->delete();
 
-        Alert::success('Effectué ! ', 'localité supprimée avec succès');
+        Alert::success('Succès ! ', 'La localité a été supprimée avec succès');
 
         return redirect()->back();
     }
+
+    public function getLocalitesParModule(Request $request)
+    {
+        $module    = $request->input('module');
+        $projet_id = $request->input('projet_id');
+
+        // On récupère le projet module
+        $projetmodule = Projetmodule::where('projets_id', $projet_id)
+            ->where('module', $module)
+            ->first();
+
+        if (! $projetmodule) {
+            return response()->json([]);
+        }
+
+        // Puis on récupère les localités associées au projetmodule
+        $localites = $projetmodule->projetlocalites()->select('localite')->get();
+
+        return response()->json($localites);
+    }
+
 }

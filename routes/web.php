@@ -506,6 +506,7 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::put('validationIndividuelles/{uuid}', [IndividuelleController::class, 'validationIndividuelle'])->name('validationIndividuelles');
 
+        Route::get('/get-localites-par-module', [ProjetlocaliteController::class, 'getLocalitesParModule'])->name('get-localites-par-module');
         /* Pour visualiser la page d'erreur */
         /* Route::get('/errors/restored', [UserController::class, 'errors'])->name('users.errors'); */
 

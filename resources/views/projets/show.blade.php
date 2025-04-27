@@ -244,7 +244,7 @@
                                                                 <span
                                                                     class="d-flex align-items-baseline justify-content-center gap-2">
                                                                     <!-- Bouton "Voir détails" -->
-                                                                    <a href="{{ route('projetmodules.show', $projetmodule?->id) }}"
+                                                                    <a href="{{ route('projetmodules.show', $projetmodule) }}"
                                                                         class="btn btn-primary btn-sm shadow-sm rounded-pill transition-all hover:shadow-lg"
                                                                         title="Voir détails">
                                                                         <i class="bi bi-eye"></i>
@@ -267,7 +267,7 @@
                                                                                     <i class="bi bi-pencil-fill me-2"></i>
                                                                                     Modifier
                                                                                 </button> --}}
-                                                                                <a href="{{ route('projetmodules.edit', $projetmodule->id) }}"
+                                                                                <a href="{{ route('projetmodules.edit', $projetmodule) }}"
                                                                                     class="dropdown-item">
                                                                                     <i class="bi bi-pencil-fill me-2"></i>
                                                                                     Modifier
@@ -276,7 +276,7 @@
                                                                             <!-- Supprimer -->
                                                                             <li>
                                                                                 <form
-                                                                                    action="{{ route('projetmodules.destroy', $projetmodule?->id) }}"
+                                                                                    action="{{ route('projetmodules.destroy', $projetmodule) }}"
                                                                                     method="post">
                                                                                     @csrf
                                                                                     @method('DELETE')
@@ -354,7 +354,7 @@
                                                         </td>
                                                         <td style="text-align: center;">
                                                             <span class="d-flex mt-2 align-items-baseline"><a
-                                                                    href="{{ route('projetlocalites.show', $projetlocalite?->id) }}"
+                                                                    href="{{ route('projetlocalites.show', $projetlocalite) }}"
                                                                     class="btn btn-warning btn-sm mx-1"
                                                                     title="Voir détails">
                                                                     <i class="bi bi-eye"></i></a>
@@ -377,7 +377,7 @@
                                                                             </li>
                                                                             <li>
                                                                                 <form
-                                                                                    action="{{ url('projetlocalites', $projetlocalite?->id) }}"
+                                                                                    action="{{ route('projetlocalites.destroy', $projetlocalite) }}"
                                                                                     method="post">
                                                                                     @csrf
                                                                                     @method('DELETE')
@@ -736,7 +736,7 @@
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" action="{{ route('projetlocalites.update', $projetlocalite?->id) }}"
+                <form method="post" action="{{ route('projetlocalites.update', $projetlocalite) }}"
                     enctype="multipart/form-data" class="row g-3">
                     @csrf
                     @method('patch')

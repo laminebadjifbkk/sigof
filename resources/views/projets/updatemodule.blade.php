@@ -33,7 +33,7 @@
                             </div>
                             <h5 class="card-title text-center pb-0 fs-4">Modification du module
                                 {{ $projetmodule?->module }}</h5>
-                            <form method="post" action="{{ route('projetmodules.update', $projetmodule?->id) }}"
+                            <form method="post" action="{{ route('projetmodules.update', $projetmodule) }}"
                                 enctype="multipart/form-data" class="p-3">
                                 @csrf
                                 @method('PUT')

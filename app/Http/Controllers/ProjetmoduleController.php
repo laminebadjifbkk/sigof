@@ -103,10 +103,10 @@ class ProjetmoduleController extends Controller
 
     } */
 
-    public function edit($id)
+    public function edit(Projetmodule $projetmodule)
     {
         // Récupérer le projet module avec ses relations
-        $projetmodule  = Projetmodule::with('projet', 'projetlocalites')->findOrFail($id);
+        $projetmodule  = Projetmodule::with('projet', 'projetlocalites')->findOrFail($projetmodule->id);
         $projet        = $projetmodule->projet;
         $type_localite = $projet->type_localite;
 
@@ -145,10 +145,10 @@ class ProjetmoduleController extends Controller
         ));
     }
 
-    public function show($id)
+    public function show(Projetmodule $projetmodule)
     {
         // Récupérer le projet module avec ses relations
-        $projetmodule  = Projetmodule::with('projet')->findOrFail($id);
+        /* $projetmodule  = Projetmodule::with('projet')->findOrFail($id); */
         $projet        = $projetmodule->projet;
         $type_localite = $projet->type_localite;
 
@@ -176,9 +176,9 @@ class ProjetmoduleController extends Controller
         ));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Projetmodule $projetmodule)
     {
-        $projetmodule = Projetmodule::findOrFail($id);
+        /* $projetmodule = Projetmodule::findOrFail($id); */
 
         $this->validate($request, [
             /* 'module'            => 'required|string', */
@@ -242,9 +242,9 @@ class ProjetmoduleController extends Controller
         return redirect()->back();
     }
 
-    public function destroy($id)
+    public function destroy(Projetmodule $projetmodule)
     {
-        $projetmodule = Projetmodule::findOrFail($id);
+       /*  $projetmodule = Projetmodule::findOrFail($id); */
         $projetmodule->delete();
 
         Alert::success('Succès !', 'Le module a été supprimé avec succès');
