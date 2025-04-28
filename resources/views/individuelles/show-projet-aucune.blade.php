@@ -103,7 +103,7 @@
                                         data-bs-target="#{{ $demandeExistante ? 'EditIndividuelleModal' : 'AddIndividuelleModal' }}{{ $projetmodule->id }}">
                                         <i
                                             class="bi {{ $demandeExistante ? 'bi-pencil-fill' : 'bi-plus-circle-fill' }}"></i>
-                                        {{ $demandeExistante ? 'Modifier' : 'Ajouter' }}
+                                        {{ $demandeExistante ? 'Modifier' : 'Postuler' }}
                                     </button>
                                 </div>
 
