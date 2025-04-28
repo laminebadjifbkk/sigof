@@ -144,7 +144,7 @@
                                         {{-- <th class="text-center">Date corres.</th> --}}
                                         <th>Expéditeur</th>
                                         <th>Imputation</th>
-                                        {{-- <th>Objet</th> --}}
+                                        <th>Objet</th>
                                         <th width='2%'>#</th>
                                     </tr>
                                 </thead>
@@ -174,7 +174,7 @@
                                                     <span class="badge bg-info text-dark">Aucune</span>
                                                 @endif
                                             </td>
-                                            {{-- <td>{{ $arrive?->courrier?->objet }}</td> --}}
+                                            <td>{{ $arrive?->courrier?->objet }}</td>
                                             <td>
                                                 <div class="d-flex align-items-baseline">
                                                     <a href="{{ route('arrives.show', $arrive?->id) }}"
