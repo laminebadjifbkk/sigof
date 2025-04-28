@@ -201,7 +201,7 @@
         <div class="card shadow-sm">
             <div class="card-header">
                 <h5 class="card-title">
-                    {{ 'Nombre de modules : ' . $projet->projetmodules->count() . ' ' . $jours_restant }}
+                    {{ 'Nombre de modules : ' . $projet->projetmodules->count() }}
                 </h5>
             </div>
             <div class="card-body">
@@ -542,7 +542,7 @@
                                                     {{ $projetmodule?->projet?->type_localite }} <span
                                                         class="text-danger mx-1">*</span>
                                                 </label>
-                                                <select name="{{ strtolower($projetmodule->projet->type_localite) }}"
+                                                <select name="localite"
                                                     class="form-select form-select-sm @error(strtolower($projetmodule->projet->type_localite)) is-invalid @enderror"
                                                     aria-label="Select" id="module_select_{{ $projetmodule->id }}"
                                                     data-placeholder="Choisir {{ strtolower($projetmodule->projet->type_localite) }}">
@@ -568,7 +568,7 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                @error('departement')
+                                                @error('localite')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>
                                                     </span>

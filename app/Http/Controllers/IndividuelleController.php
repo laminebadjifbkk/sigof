@@ -646,7 +646,7 @@ class IndividuelleController extends Controller
             'date_depot'             => ['nullable', 'date_format:d/m/Y'],
             'telephone_secondaire'   => ['required', 'string', 'size:12'],
             'adresse'                => ['required', 'string', 'max:255'],
-            'departement'            => ['required', 'string', 'max:255'],
+            'localite'               => ['required', 'string', 'max:255'],
             'module'                 => ['required', 'string', 'max:255'],
             'niveau_etude'           => ['required', 'string', 'max:255'],
             'diplome_academique'     => ['required', 'string', 'max:255'],
@@ -666,16 +666,16 @@ class IndividuelleController extends Controller
     {
         $communeid = $arrondissementid = $departementid = $regionid = null;
 
-        if (! empty($request->input("departement"))) {
-            $departement = Departement::where('nom', $request->input("departement"))->first();
+        if (! empty($request->input("localite"))) {
+            $departement = Departement::where('nom', $request->input("localite"))->first();
             if ($projet?->type_localite == 'Commune') {
-                $commune          = Commune::where('nom', $request->input("departement"))->first();
+                $commune          = Commune::where('nom', $request->input("localite"))->first();
                 $communeid        = $commune?->id;
                 $arrondissementid = $commune?->arrondissement?->id;
                 $departementid    = $commune?->arrondissement?->departement?->id;
                 $regionid         = $commune?->arrondissement?->departement?->region?->id;
             } elseif ($projet?->type_localite == 'Arrondissement') {
-                $arrondissement   = Arrondissement::where('nom', $request->input("departement"))->first();
+                $arrondissement   = Arrondissement::where('nom', $request->input("localite"))->first();
                 $arrondissementid = $arrondissement?->id;
                 $departementid    = $arrondissement?->departement?->id;
                 $regionid         = $arrondissement?->departement?->region?->id;
