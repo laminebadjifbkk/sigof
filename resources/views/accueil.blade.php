@@ -67,7 +67,7 @@
                                             '-  ',
                                             array_map(
                                                 fn($line) => nl2br(e(wordwrap($line, 50, "\n", true))),
-                                                explode("\n", ucfirst(substr($une?->message, 0, 350))),
+                                                explode("\n", ucfirst(substr($une?->message, 0, 150))),
                                             ),
                                         ) !!}
                                 @else
