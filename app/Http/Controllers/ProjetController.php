@@ -457,7 +457,7 @@ class ProjetController extends Controller
         /* $projet = Projet::findOrFail($uuid); */
         $projet = Projet::where('uuid', $uuid)->firstOrFail();
 
-        $region = $departement = $arrondissement = $commune = null;
+        /* $region = $departement = $arrondissement = $commune = null;
 
         switch ($projet->type_localite) {
             case 'Region':
@@ -472,9 +472,9 @@ class ProjetController extends Controller
             case 'Commune':
                 $commune = 'Commune';
                 break;
-        }
+        } */
 
-        return view('projets.individuelle', compact('projet', 'commune', 'arrondissement', 'departement', 'region'));
+        return view('projets.individuelle', compact('projet'));
     }
 
     public function terminer($id)

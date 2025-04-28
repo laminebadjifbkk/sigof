@@ -369,7 +369,9 @@
                                                     <th width="5%" class="text-center" scope="col">N°</th>
                                                     <th>{{ $projet?->type_localite }}</th>
                                                     {{-- <th class="text-center" scope="col">Type</th> --}}
-                                                    <th class="text-center" scope="col">Besoin</th>
+                                                    @if ($projet?->effectif)
+                                                        <th class="text-center" scope="col">Besoin</th>
+                                                    @endif
                                                     <th class="text-center" scope="col">Reçues</th>
                                                     <th width="5%" class="text-center" scope="col">#</th>
                                                 </tr>
@@ -383,25 +385,43 @@
                                                         {{-- <td style="text-align: center;">
                                                             {{ $projetlocalite?->projet?->type_localite }}
                                                         </td> --}}
+                                                        @if ($projet?->effectif)
+                                                            <td class="text-center">
+                                                                @if ($projetlocalite?->effectif > 0)
+                                                                    <span class="badge bg-success rounded-pill">
+                                                                        {{ $projetlocalite?->effectif }}
+                                                                    </span>
+                                                                @else
+                                                                    <span class="badge bg-danger rounded-pill">
+                                                                        0
+                                                                    </span>
+                                                                @endif
+                                                            </td>
+                                                        @endif
+                                                        @php
+                                                            $count = $projet
+                                                                ->individuelles()
+                                                                ->whereHas(
+                                                                    strtolower($projet->type_localite), // relation dynamique
+                                                                    function ($query) use ($projetlocalite) {
+                                                                        $query->where('nom', $projetlocalite->localite);
+                                                                    },
+                                                                )
+                                                                ->count();
+                                                        @endphp
+
                                                         <td class="text-center">
-                                                            @if ($projetlocalite?->effectif > 0)
+                                                            @if ($count == 0)
+                                                                <span class="badge bg-danger rounded-pill">
+                                                                    0
+                                                                </span>
+                                                            @elseif ($count > 0 && $count <= 19)
+                                                                <span class="badge bg-warning text-dark rounded-pill">
+                                                                    {{ $count }}
+                                                                </span>
+                                                            @else
                                                                 <span class="badge bg-success rounded-pill">
-                                                                    {{ $projetlocalite?->effectif }}
-                                                                </span>
-                                                            @else
-                                                                <span class="badge bg-danger rounded-pill">
-                                                                    0
-                                                                </span>
-                                                            @endif
-                                                        </td>
-                                                        <td class="text-center">
-                                                            @if ($projetlocalite?->individuelles?->count() > 0)
-                                                                <span class="badge bg-primary rounded-pill">
-                                                                    {{ $projetlocalite?->individuelles?->count() ?? 0 }}
-                                                                </span>
-                                                            @else
-                                                                <span class="badge bg-danger rounded-pill">
-                                                                    0
+                                                                    {{ $count }}
                                                                 </span>
                                                             @endif
                                                         </td>
