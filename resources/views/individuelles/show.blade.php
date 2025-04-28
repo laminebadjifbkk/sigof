@@ -26,7 +26,8 @@
                                     $isAdmin = auth()
                                         ->user()
                                         ->hasRole(['super-admin', 'admin', 'DIOF', 'DEC']);
-                                    $route = $isAdmin ? route('individuelles.index') : route('demandesIndividuelle');
+                                    /* $route = $isAdmin ? route('individuelles.index') : route('demandesIndividuelle'); */
+                                    $route = $isAdmin ? route('individuelles.index') : route('profil');
                                     $btnClass = $isAdmin ? 'btn-secondary' : 'btn-info';
                                 @endphp
 
@@ -243,12 +244,23 @@
                                         </div>
                                     @endif
 
-                                    <div class="text-center">
-                                        <a href="{{ route('individuelles.edit', $individuelle) }}"
-                                            class="btn btn-primary btn-sm text-white" title="Modifier">Modifier</a>
-                                    </div>
+                                    @if (!empty($individuelle->projet))
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="label">{{ $individuelle->projet->type_projet }}</div>
+                                            <div>{{ $individuelle->projet->sigle }}</div>
+                                        </div>
+                                    @endif
+
+                                    @if ($individuelle->projet)
+                                    @else
+                                        <div class="text-center">
+                                            <a href="{{ route('individuelles.edit', $individuelle) }}"
+                                                class="btn btn-primary btn-sm text-white" title="Modifier">Modifier</a>
+                                        </div>
+                                    @endif
+
                                 </form>
-                                <div>
+                                <div class="pt-5">
                                     {{-- <div class="col-md-4">
                                         <div class="label">FICHIERS JOINTS</div>
 

@@ -109,7 +109,7 @@
                                                     <a href="{{ route('individuelles.show', $individuelle) }}"
                                                         class="btn btn-success btn-sm" title="voir détails"><i
                                                             class="bi bi-eye"></i></a>
-                                                    <div class="filter">
+                                                    {{-- <div class="filter">
                                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                 class="bi bi-three-dots"></i></a>
                                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -130,7 +130,7 @@
                                                                 </form>
                                                             </li>
                                                         </ul>
-                                                    </div>
+                                                    </div> --}}
                                                 </span>
                                             </td>
                                         </tr>
