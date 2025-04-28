@@ -49,22 +49,10 @@
                                     <tr>
                                         {{-- <th class="text-center">N°</th> --}}
                                         <th class="text-center">CIN</th>
-                                        <th>Prénom</th>
-                                        <th>NOM</th>
+                                        <th>Prénom & NOM</th>
                                         <th>Date naissance</th>
-                                        <th width="15%">Lieu naissance</th>
-                                        {{-- <th width="25%">Module</th> --}}
-                                        @if (!empty($region))
-                                            <th>{{ $region }}</th>
-                                        @elseif (!empty($departement))
-                                            <th>{{ $departement }}</th>
-                                        @elseif (!empty($arrondissement))
-                                            <th>{{ $arrondissement }}</th>
-                                        @elseif (!empty($commune))
-                                            <th>{{ $commune }}</th>
-                                        @else
-                                            <th></th>
-                                        @endif
+                                        <th>Lieu naissance</th>
+                                        <th class="text-center">{{ $projet->type_localite }}</th>
                                         <th class="text-center">Statut</th>
                                         <th class="text-center">#</th>
                                     </tr>
@@ -73,24 +61,14 @@
                                     <?php $i = 1; ?>
                                     @foreach ($individuelles as $individuelle)
                                         <tr>
-                                            {{-- <td style="text-align: center">{{ $individuelle?->numero }}</td> --}}
                                             <td style="text-align: center">{{ $individuelle?->user?->cin }}</td>
-                                            <td>{{ $individuelle?->user?->firstname }}</td>
-                                            <td>{{ $individuelle?->user?->name }}</td>
+                                            <td>{{ $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
+                                            </td>
                                             <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                             <td>{{ $individuelle?->user?->lieu_naissance }}</td>
-                                            {{-- <td>{{ $individuelle?->module?->name }}</td> --}}
-                                            @if (!empty($region))
-                                                <td>{{ $individuelle?->departement?->region?->nom }}</td>
-                                            @elseif (!empty($departement))
-                                                <td>{{ $individuelle?->departement?->nom }}</td>
-                                            @elseif (!empty($arrondissement))
-                                                <td>{{ $individuelle?->arrondissement?->nom }}</td>
-                                            @elseif (!empty($commune))
-                                                <td>{{ $individuelle?->commune?->nom }}</td>
-                                            @else
-                                                <td></td>
-                                            @endif
+                                            <td>
+                                                {{ (optional($individuelle->{($projet->type_localite)})->nom) }}
+                                            </td>
                                             <td>
                                                 <span class="{{ $individuelle?->statut }}">
                                                     {{ $individuelle?->statut }}

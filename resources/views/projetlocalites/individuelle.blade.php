@@ -50,12 +50,10 @@
                                     <tr>
                                         <th class="text-center">N°</th>
                                         <th class="text-center">CIN</th>
-                                        <th>Civilité</th>
-                                        <th>Prénom</th>
-                                        <th>NOM</th>
+                                        <th>Prénom & NOM</th>
                                         <th>Date naissance</th>
-                                        <th width="15%">Lieu naissance</th>
-                                        <th width="25%">Module</th>
+                                        <th>Lieu naissance</th>
+                                        <th>Module</th>
                                         {{-- @if (!empty($region))
                                     <th>{{ $region }}</th>
                                 @elseif (!empty($departement))
@@ -77,9 +75,8 @@
                                         <tr>
                                             <td style="text-align: center">{{ $individuelle?->numero }}</td>
                                             <td style="text-align: center">{{ $individuelle?->user?->cin }}</td>
-                                            <td>{{ $individuelle?->user?->civilite }}</td>
-                                            <td>{{ $individuelle?->user?->firstname }}</td>
-                                            <td>{{ $individuelle?->user?->name }}</td>
+                                            <td>{{ $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
+                                            </td>
                                             <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                             <td>{{ $individuelle?->user?->lieu_naissance }}</td>
                                             <td>{{ $individuelle?->module?->name }}</td>
