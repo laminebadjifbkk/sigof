@@ -185,6 +185,7 @@
                                                     <th style="text-align: center;" width="5%">N°</th>
                                                     <th>Module</th>
                                                     <th>Domaines</th>
+                                                    <th>Reçues</th>
                                                     @if ($projet?->effectif)
                                                         <th style="text-align: center;" width="10%">Besoin</th>
                                                     @endif
@@ -202,6 +203,8 @@
                                                         <td style="text-align: center;">{{ $i++ }}</td>
                                                         <td>{{ $projetmodule?->module }}</td>
                                                         <td>{{ $projetmodule?->domaine }}</td>
+                                                        <td>{{ number_format($projetmodule?->projet?->individuelles?->count() ?? 0) }}
+                                                        </td>
                                                         @if ($projet?->effectif)
                                                             <td style="text-align: center;">{{ $projetmodule?->effectif }}
                                                             </td>
