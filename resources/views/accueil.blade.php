@@ -61,7 +61,15 @@
 
                             <p class="mb-4 mb-md-5">
                                 @if (!empty($une?->message))
-                                    {{ substr($une?->message, 0, 350) }}...
+                                    {{-- {{ substr($une?->message, 0, 350) }}... --}}
+                                    {!! '' .
+                                        implode(
+                                            '-  ',
+                                            array_map(
+                                                fn($line) => nl2br(e(wordwrap($line, 50, "\n", true))),
+                                                explode("\n", ucfirst(substr($une?->message, 0, 350))),
+                                            ),
+                                        ) !!}
                                 @else
                                 @endif
                             </p>
@@ -1074,22 +1082,76 @@
 
         {{-- En savoir plus --}}
 
-        <div class="modal fade" id="enSavoirPlusModal" tabindex="-1">
-            <div class="modal-dialog">
+        {{-- <div class="modal fade" id="enSavoirPlusModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">{{ $une?->titre1 . ' | ' . $une?->titre2 }}</h5>
                     </div>
                     <div class="modal-body">
-                        {{-- @if (!empty($une->image))
+                        @if (!empty($une->image))
                             <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                 <img src="{{ asset($une?->getUne()) }}" class="d-block w-100 main-image rounded-4"
                                     alt="{{ $une->titre1 }}">
                             </div>
-                        @endif --}}
-                        <p>{{ $une?->message }}</p>
+                        @endif
+                        <p>
+                            {!! '' .
+                                implode(
+                                    '-  ',
+                                    array_map(
+                                        fn($line) => nl2br(e(wordwrap($line, 150, "\n", true))),
+                                        explode("\n", ucfirst($une?->message)),
+                                    ),
+                                ) !!}
+                        </p>
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-success btn-sm"
+                            data-bs-dismiss="modal">Postuler</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm"
+                            data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+
+        <div class="modal fade" id="enSavoirPlusModal" tabindex="-1" aria-labelledby="enSavoirPlusModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content rounded-4">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="enSavoirPlusModalLabel">
+                            {{ $une?->titre1 }} | {{ $une?->titre2 }}
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Fermer"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        @if (!empty($une?->image))
+                            <div class="mb-4 text-center">
+                                <img src="{{ asset($une->getUne()) }}" class="img-fluid rounded-4"
+                                    alt="{{ $une->titre1 }}">
+                            </div>
+                        @endif
+
+                        @if (!empty($une?->message))
+                            <ul class="list-unstyled">
+                                @foreach (explode("\n", wordwrap(ucfirst($une->message), 150, "\n", true)) as $line)
+                                    <li class="mb-2">
+                                        {{ $line }}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-between">
+                        <a href="#" class="btn btn-success btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#registerDemandeurModal">Postuler</a>
                         <button type="button" class="btn btn-secondary btn-sm"
                             data-bs-dismiss="modal">Fermer</button>
                     </div>
