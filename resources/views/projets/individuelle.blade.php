@@ -70,7 +70,9 @@
                                                 <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                                 <td>{{ $individuelle?->user?->lieu_naissance }}</td>
                                                 <td>{{ $individuelle?->module?->name }}</td>
-                                                <td>{{ strtolower($projet?->type_localite?->nom) }}</td>
+                                                <td>
+                                                    {{ optional($individuelle->{$projet->type_localite})->nom }}
+                                                </td>
                                                 <td>
                                                     <span class="{{ $individuelle?->statut }}">
                                                         {{ $individuelle?->statut }}
