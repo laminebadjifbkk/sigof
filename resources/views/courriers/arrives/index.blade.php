@@ -143,8 +143,8 @@
                                         {{-- <th class="text-center">N° corres.</th> --}}
                                         {{-- <th class="text-center">Date corres.</th> --}}
                                         <th>Expéditeur</th>
-                                        <th>Imputation</th>
                                         <th>Objet</th>
+                                        <th>Imputation</th>
                                         <th width='2%'>#</th>
                                     </tr>
                                 </thead>
@@ -158,6 +158,7 @@
                                             {{-- <td class="text-center">{{ $arrive?->courrier?->date_cores?->format('d/m/Y') }}
                                             </td> --}}
                                             <td>{{ $arrive?->courrier?->expediteur }}</td>
+                                            <td>{{ $arrive?->courrier?->objet }}</td>
                                             <td>
                                                 @if ($arrive?->employees && $arrive->employees->isNotEmpty())
                                                     <ul class="mb-0 ps-3">
@@ -174,7 +175,6 @@
                                                     <span class="badge bg-info text-dark">Aucune</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $arrive?->courrier?->objet }}</td>
                                             <td>
                                                 <div class="d-flex align-items-baseline">
                                                     <a href="{{ route('arrives.show', $arrive?->id) }}"
