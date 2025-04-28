@@ -160,7 +160,7 @@
                                         </h5>
 
                                         <h6 class="mb-0">
-                                            <span class="badge bg-info text-dark fs-6">
+                                            <span class="badge bg-info text-white fs-6">
                                                 <i class="bi bi-people-fill me-1"></i>
                                                 Demandes reçues : {{ count($projet?->individuelles) }}
                                             </span>
