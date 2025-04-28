@@ -182,15 +182,15 @@
                                             id="table-operateurModules">
                                             <thead>
                                                 <tr>
-                                                    <th style="text-align: center;" width="5%">N°</th>
+                                                    <th class="text-center" width="5%">N°</th>
                                                     <th>Module</th>
                                                     <th>Domaines</th>
-                                                    <th>Reçues</th>
+                                                    <th class="text-center">Reçues</th>
                                                     @if ($projet?->effectif)
-                                                        <th style="text-align: center;" width="10%">Besoin</th>
+                                                        <th class="text-center" width="10%">Besoin</th>
                                                     @endif
                                                     @if (auth()->user()->hasRole(['super-admin', 'admin']))
-                                                        <th width="5%" style="text-align: center;">
+                                                        <th width="5%" class="text-center">
                                                             <i class="bi bi-gear"></i>
                                                         </th>
                                                     @endif
@@ -200,17 +200,41 @@
                                                 @php $i = 1; @endphp
                                                 @foreach ($projet?->projetmodules as $projetmodule)
                                                     <tr>
-                                                        <td style="text-align: center;">{{ $i++ }}</td>
+                                                        <td class="text-center">{{ $i++ }}</td>
                                                         <td>{{ $projetmodule?->module }}</td>
                                                         <td>{{ $projetmodule?->domaine }}</td>
-                                                        <td>{{ number_format($projetmodule?->projet?->individuelles?->count() ?? 0) }}
+                                                        @php
+                                                            $count = $projet
+                                                                ->individuelles()
+                                                                ->whereHas('module', function ($query) use (
+                                                                    $projetmodule,
+                                                                ) {
+                                                                    $query->where('name', $projetmodule->module);
+                                                                })
+                                                                ->count();
+                                                        @endphp
+
+                                                        <td class="text-center">
+                                                            @if ($count == 0)
+                                                                <span class="badge bg-danger rounded-pill">
+                                                                    0
+                                                                </span>
+                                                            @elseif ($count > 0 && $count <= 19)
+                                                                <span class="badge bg-warning text-dark rounded-pill">
+                                                                    {{ $count }}
+                                                                </span>
+                                                            @else
+                                                                <span class="badge bg-success rounded-pill">
+                                                                    {{ $count }}
+                                                                </span>
+                                                            @endif
                                                         </td>
                                                         @if ($projet?->effectif)
-                                                            <td style="text-align: center;">{{ $projetmodule?->effectif }}
+                                                            <td class="text-center">{{ $projetmodule?->effectif }}
                                                             </td>
                                                         @endif
                                                         @if (auth()->user()->hasRole(['super-admin', 'admin']))
-                                                            {{-- <td style="text-align: center;">
+                                                            {{-- <td class="text-center">
                                                                 <span
                                                                     class="d-flex align-items-baseline justify-content-center gap-2">
                                                                     <a href="{{ route('projetmodules.show', $projetmodule?->id) }}"
