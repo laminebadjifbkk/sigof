@@ -73,7 +73,10 @@ class FileController extends Controller
             $filePath = $uploadedFile->storeAs('uploads', $filename, 'public');
 
             // Mettre à jour le modèle en base de données
-            $file->update(['file' => $filePath]);
+            $file->update([
+                'statut' => 'Attente',
+                'file'   => $filePath,
+            ]);
 
             // Message de succès
             Alert::success('Succès !', 'Fichier téléchargé avec succès');

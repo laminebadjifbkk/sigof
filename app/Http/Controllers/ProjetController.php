@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\File;
 use App\Models\Individuelle;
 use App\Models\Projet;
 use App\Models\Projetlocalite;
@@ -82,7 +83,7 @@ class ProjetController extends Controller
     {
         /* $projet          = Projet::findOrFail($id); */
         $projetlocalites = Projetlocalite::where('projets_id', $projet->id)->get();
-        
+
         $moduleLocalites = $projet->projetlocalites->pluck('lacalite', 'lacalite')->all();
 
         return view(
@@ -299,6 +300,23 @@ class ProjetController extends Controller
             ->where('numero', '!=', null)
             ->get();
 
+        // Récupérer les fichiers associés à l'utilisateur
+        $files = File::where('users_id', $user->id)
+            ->whereNotNull('file')
+            ->distinct()
+            ->get();
+
+        /* $user_files = File::where('users_id', $user->id)
+            ->whereNull('file')
+            ->distinct()
+            ->get(); */
+
+        $user_files = File::where('users_id', $user?->id)
+            ->whereNull('file')
+            ->whereNotIn('sigle', ['AC', 'Arrêté', 'Ninea/RC'])
+            ->distinct()
+            ->get();
+
         $statut_projet = $projet->statut;
 
         if ($statut_projet == 'ouvert') {
@@ -333,6 +351,8 @@ class ProjetController extends Controller
                     "projetlocalites",
                     "projetmodules",
                     "individuelles",
+                    "files",
+                    "user_files",
                     "statut",
                     "projet"
                 )

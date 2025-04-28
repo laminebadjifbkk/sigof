@@ -242,6 +242,206 @@
             </div>
         </div>
 
+        @can('upload-file-view')
+            <hr>
+            <div class="row mb-3 pt-5">
+                <h5 class="card-title col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                    FICHIERS JOINTS</h5>
+                <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                    <table class="table table-bordered table-hover datatables" id="table-iles">
+                        <thead>
+                            <tr class="text-center">
+                                <th style="width: 5%">N°</th>
+                                <th>Légende</th>
+                                <th style="width: 10%">Fichier</th>
+                                <th style="width: 10%">Statut</th>
+                                <th style="width: 10%">Supprimer</th>
+                                @hasanyrole('super-admin|admin|DIOF')
+                                    <th style="width: 10%">Valider</th>
+                                    <th style="width: 10%">Rejeter</th>
+                                @endhasanyrole
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{-- <?php $i = 1; ?>
+                                            @foreach ($files as $file)
+                                                <tr class="text-center">
+                                                    <td>{{ $i++ }}</td>
+                                                    <td>{{ $file?->legende }}</td>
+                                                    <td>
+                                                        <a class="btn btn-default btn-sm" title="télécharger le fichier joint"
+                                                            target="_blank" href="{{ asset($file->getFichier()) }}">
+                                                            <i class="bi bi-download"></i>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <span class="{{ $file?->statut ?? 'Attente' }}">{{ $file?->statut ?? 'Attente' }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <form action="{{ route('fileDestroy') }}" method="post">
+                                                            @csrf
+                                                            @method('put')
+                                                            <input type="hidden" name="idFile" value="{{ $file->id }}">
+                                                            <button type="submit" style="background:none;border:0px;"
+                                                                class="show_confirm" title="retirer">
+                                                                <span class="badge border-danger border-1 text-danger">
+                                                                    <i class="bi bi-trash"></i>
+                                                                </span>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach --}}
+                            @php $i = 1; @endphp
+                            @foreach ($files as $file)
+                                <tr class="text-center align-middle">
+                                    <td>{{ $i++ }}</td>
+                                    <td>{{ $file->legende }}</td>
+                                    <td>
+                                        <a class="btn btn-outline-secondary btn-sm" title="Télécharger" target="_blank"
+                                            href="{{ asset($file->getFichier()) }}">
+                                            <i class="bi bi-download"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @php
+                                            $statut = $file->statut ?? 'Attente';
+                                            $badgeClass = match ($statut) {
+                                                'Validé' => 'success',
+                                                'Rejeté', 'Invalide' => 'danger',
+                                                default => 'secondary',
+                                            };
+                                        @endphp
+                                        <span class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
+                                    </td>
+                                    {{-- Supprimer --}}
+                                    <td>
+                                        @if ($file->statut !== 'Validé')
+                                            <form action="{{ route('fileDestroy') }}" method="post" class="d-inline">
+                                                @csrf
+                                                @method('put')
+                                                <input type="hidden" name="idFile" value="{{ $file->id }}">
+                                                <button type="submit" class="btn btn-outline-danger btn-sm show_confirm"
+                                                    title="Supprimer">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </td>
+                                    @hasanyrole('super-admin|admin|DIOF')
+                                        {{-- Valider --}}
+                                        <td>
+                                            <form action="{{ route('fileValidate') }}" method="post" class="d-inline">
+                                                @csrf
+                                                @method('put')
+                                                <input type="hidden" name="idFile" value="{{ $file->id }}">
+                                                <button type="submit" class="btn btn-outline-success btn-sm show_confirm_valider"
+                                                    title="Valider">
+                                                    <i class="bi bi-check-circle"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                        {{-- Invalider --}}
+                                        <td>
+                                            <form action="{{ route('fileInvalide') }}" method="post" class="d-inline">
+                                                @csrf
+                                                @method('put')
+                                                <input type="hidden" name="idFile" value="{{ $file->id }}">
+                                                <button type="submit" class="btn btn-outline-warning btn-sm show_confirm_rejeter"
+                                                    title="Invalider">
+                                                    <i class="bi bi-x-circle"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    @endhasanyrole
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <form method="post" action="{{ route('files.update', Auth::user()?->uuid) }}" enctype="multipart/form-data">
+                @csrf
+                @method('patch')
+                <h5 class="card-title">JOINDRE VOS SCANS DE DOSSIERS</h5>
+                <input type="hidden" name="idUser" value="{{ Auth::user()?->id }}">
+                <span style="color:red;">NB : </span>Pièces requises<br>
+                <ul>
+                    <li>Une copie de la carte nationale d’identité;</li>
+                    <li>Un certificat de résidence;</li>
+                    <li>Un CV (optionnel);</li>
+                    <li>Copie des diplômes ou attestations (si disponibles);</li>
+                </ul>
+                <!-- Profile Edit Form -->
+                <div class="row mb-3 mt-3">
+                    <label for="legende"
+                        class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">LEGENDE<span
+                            class="text-danger mx-1">*</span></label>
+                    <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                        {{-- <input name="legende" type="text"
+                                        class="form-control form-control-sm @error('legende') is-invalid @enderror"
+                                        id="legende" value="{{ old('legende') }}" autocomplete="legende"
+                                        placeholder="Légende"> --}}
+                        <select name="legende" class="form-select  @error('legende') is-invalid @enderror"
+                            aria-label="Select" id="select-field-file" data-placeholder="Choisir">
+                            <option value="{{ old('legende') }}">
+
+                            </option>
+                            @foreach ($user_files as $file)
+                                <option value="{{ $file?->id }}">
+                                    {{ $file?->legende }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('legende')
+                            <span class="invalid-feedback" role="alert">
+                                <div>{{ $message }}</div>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="file"
+                        class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">FICHIER<span
+                            class="text-danger mx-1">*</span></label>
+                    <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                        <div class="pt-2">
+                            <input type="file" name="file" id="file"
+                                class="form-control @error('file') is-invalid @enderror btn btn-primary btn-sm">
+                            @error('file')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                {{-- <div class="row mb-3">
+                                    <label for="file"
+                                        class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label"><span
+                                            class="text-danger mx-1"></span></label>
+                                    <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                        <div class="pt-2">
+                                            <button type="submit" class="btn btn-info btn-sm text-white">ENREGISTRER</button>
+                                        </div>
+                                    </div>
+                                </div> --}}
+                <div class="row mb-3">
+                    <label for="file" class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">
+                        Téléverser un fichier <span class="text-danger mx-1">*</span>
+                    </label>
+                    <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                        <div class="pt-2">
+                            <button type="submit" class="btn btn-primary btn-sm text-white">
+                                <i class="bi bi-upload me-1"></i> Téléverser
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        @endcan
+
         @foreach (Auth::user()?->individuelles as $individuelle)
             @foreach ($projet->projetmodules as $index => $projetmodule)
                 <div
