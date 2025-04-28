@@ -178,7 +178,7 @@
                                 <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <label for="titre1" class="form-label">Titre 1<span
                                             class="text-danger mx-1">*</span></label>
-                                    <textarea name="titre1" rows="1" maxlength="15"
+                                    <textarea name="titre1" rows="1" maxlength="20"
                                         class="form-control form-control-sm @error('titre1') is-invalid @enderror" placeholder="Titre 1">{{ old('titre1') }}</textarea>
                                     @error('titre1')
                                         <span class="invalid-feedback" role="alert">
