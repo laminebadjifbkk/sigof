@@ -185,9 +185,24 @@
             </div>
         </div> --}}
 
+        @php
+
+            $projet_count = $projet->individuelles
+                ->where('projets_id', $projet->id)
+                ->where('users_id', Auth::user()->id)
+                ->count();
+
+            $statut_badge = $projet->statut === 'ouvert' ? 'bg-success text-white' : 'bg-secondary text-white';
+
+            $jours_restant = \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($projet->fin), false);
+
+        @endphp
+
         <div class="card shadow-sm">
             <div class="card-header">
-                <h5 class="card-title">{{ 'Nombre de modules : ' . $projet->projetmodules->count() }}</h5>
+                <h5 class="card-title">
+                    {{ 'Nombre de modules : ' . $projet->projetmodules->count() . ' ' . $jours_restant }}
+                </h5>
             </div>
             <div class="card-body">
                 @if ($projet->projetmodules && $projet->projetmodules->count())
@@ -214,14 +229,24 @@
 
 
                                     <!-- Bouton "Ajouter" ou "Modifier" selon l'existence de la demande -->
-                                    <button type="button"
-                                        class="btn {{ $demandeExistante ? 'btn-outline-warning' : 'btn-outline-success' }} btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center gap-2"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#{{ $demandeExistante ? 'EditIndividuelleModal' : 'AddIndividuelleModal' }}{{ $projetmodule->id }}">
-                                        <i
-                                            class="bi {{ $demandeExistante ? 'bi-pencil-fill' : 'bi-plus-circle-fill' }}"></i>
-                                        {{ $demandeExistante ? 'Modifier' : 'Ajouter' }}
-                                    </button>
+
+                                    @if (!($jours_restant < 0))
+                                        <button type="button"
+                                            class="btn {{ $demandeExistante ? 'btn-outline-warning' : 'btn-outline-success' }} btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center gap-2"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#{{ $demandeExistante ? 'EditIndividuelleModal' : 'AddIndividuelleModal' }}{{ $projetmodule->id }}">
+                                            <i
+                                                class="bi {{ $demandeExistante ? 'bi-pencil-fill' : 'bi-plus-circle-fill' }}"></i>
+                                            {{ $demandeExistante ? 'Modifier' : 'Ajouter' }}
+                                        </button>
+                                    @else
+                                        <button type="button"
+                                            class="btn btn-outline-secondary btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center gap-2"
+                                            disabled>
+                                            <i class="bi bi-clock-fill"></i>
+                                            Expiré
+                                        </button>
+                                    @endif
                                 </div>
 
                                 <!-- Zone de description cachée -->
