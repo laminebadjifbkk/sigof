@@ -2967,17 +2967,32 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var telephoneInput = document.getElementById("telephone_secondaire");
+            // Ajouter un événement pour tous les modals
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('shown.bs.modal', function(e) {
+                    // Cibler l'élément spécifique dans ce modal
+                    var telephoneInput = modal.querySelector('[name="telephone_secondaire"]');
 
-            telephoneInput.addEventListener("input", function(e) {
-                var value = e.target.value.replace(/\D/g, ""); // Supprime tout sauf les chiffres
+                    if (telephoneInput) {
+                        telephoneInput.addEventListener("input", function(e) {
+                            var value = e.target.value.replace(/\D/g,
+                                ""); // Supprime tout sauf les chiffres
 
-                // Appliquer le format XX:XXX:XX:XX
-                if (value.length > 2) value = value.slice(0, 2) + " " + value.slice(2);
-                if (value.length > 6) value = value.slice(0, 6) + " " + value.slice(6);
-                if (value.length > 9) value = value.slice(0, 9) + " " + value.slice(9, 11);
+                            // Appliquer le format XX:XXX:XX:XX
+                            if (value.length > 2) value = value.slice(0, 2) + " " + value
+                                .slice(2);
+                            if (value.length > 6) value = value.slice(0, 6) + " " + value
+                                .slice(6);
+                            if (value.length > 9) value = value.slice(0, 9) + " " + value
+                                .slice(9, 11);
 
-                e.target.value = value.slice(0, 12); // Limite à 12 caractères (avec les ":")
+                            // Limite à 12 caractères (y compris les ":")
+                            e.target.value = value.slice(0,
+                                12
+                                ); // On applique le formatage et on limite à 12 caractères
+                        });
+                    }
+                });
             });
         });
     </script>
