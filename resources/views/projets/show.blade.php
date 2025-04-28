@@ -166,7 +166,7 @@
                                             </span>
                                         </h6>
 
-                                        @if ($projetmodule?->effectif)
+                                        @if ($projet?->effectif)
                                             <h6 class="mb-0">
                                                 <span class="badge bg-success fs-6">
                                                     <i class="bi bi-bar-chart-line-fill me-1"></i>
@@ -185,7 +185,7 @@
                                                     <th style="text-align: center;" width="5%">N°</th>
                                                     <th>Module</th>
                                                     <th>Domaines</th>
-                                                    @if ($projetmodule?->effectif)
+                                                    @if ($projet?->effectif)
                                                         <th style="text-align: center;" width="10%">Besoin</th>
                                                     @endif
                                                     @if (auth()->user()->hasRole(['super-admin', 'admin']))
@@ -202,7 +202,7 @@
                                                         <td style="text-align: center;">{{ $i++ }}</td>
                                                         <td>{{ $projetmodule?->module }}</td>
                                                         <td>{{ $projetmodule?->domaine }}</td>
-                                                        @if ($projetmodule?->effectif)
+                                                        @if ($projet?->effectif)
                                                             <td style="text-align: center;">{{ $projetmodule?->effectif }}
                                                             </td>
                                                         @endif
