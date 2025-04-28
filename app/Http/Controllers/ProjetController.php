@@ -420,7 +420,7 @@ class ProjetController extends Controller
             )
         );
     }
-    public function projetsBeneficiaire(Request $request, $id)
+    public function projetsBeneficiaire(Request $request, $uuid)
     {
         /* $projet = Projet::findOrFail($id);
 
@@ -453,7 +453,8 @@ class ProjetController extends Controller
             $arrondissement = null;
         } */
 
-        $projet = Projet::findOrFail($id);
+        /* $projet = Projet::findOrFail($uuid); */
+        $projet = Projet::where('uuid', $uuid)->firstOrFail();
 
         $region = $departement = $arrondissement = $commune = null;
 

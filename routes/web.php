@@ -433,7 +433,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::put('fileDestroy', [FileController::class, 'fileDestroy'])->name('fileDestroy');
         Route::put('fileValidate', [FileController::class, 'fileValidate'])->name('fileValidate');
         Route::put('fileInvalide', [FileController::class, 'fileInvalide'])->name('fileInvalide');
-        Route::get('projetsBeneficiaire/{id}', [ProjetController::class, 'projetsBeneficiaire'])->name('projetsBeneficiaire');
+        Route::get('projetsBeneficiaire/{uuid}', [ProjetController::class, 'projetsBeneficiaire'])->name('projetsBeneficiaire');
         Route::get('showConventions', [FormationController::class, 'showConventions'])->name('showConventions');
         Route::get('showMasculin', [IndividuelleController::class, 'showMasculin'])->name('showMasculin');
         Route::get('showFeminin', [IndividuelleController::class, 'showFeminin'])->name('showFeminin');
