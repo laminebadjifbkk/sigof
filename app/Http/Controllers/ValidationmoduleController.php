@@ -15,7 +15,7 @@ class ValidationmoduleController extends Controller
         $operateurmodule   = Operateurmodule::findOrFail($id);
 
         if ($operateurmodule->statut == 'agréer') {
-            Alert::warning('Désolez ! ', 'déjà agréé');
+            Alert::warning('Désolé ! ', 'déjà agréé');
         } else {
             $operateurmodule->update([
                 'statut'             => 'agréer',
@@ -48,7 +48,7 @@ class ValidationmoduleController extends Controller
         $operateurmodule   = Operateurmodule::findOrFail($id);
 
         if ($operateurmodule->statut == 'Rejetée') {
-            Alert::warning('Désolez', 'déjà rejeté');
+            Alert::warning('Désolé', 'déjà rejeté');
         } else {
             $operateurmodule->update([
                 'statut'             =>  'Rejetée',

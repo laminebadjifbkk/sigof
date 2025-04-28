@@ -17,12 +17,12 @@ class ValidationformationController extends Controller
         $count = $formation->individuelles->count();
         
         if ($count == '0' || empty($formation->operateur)) {
-            Alert::warning('Désolez !', 'action non autorisée');
+            Alert::warning('Désolé !', 'action non autorisée');
         } else {
             if ($formation->statut == "Terminée") {
-                Alert::warning('Désolez !', 'formation déjà exécutée');
+                Alert::warning('Désolé !', 'formation déjà exécutée');
             } elseif ($formation->statut == "Démarrée") {
-                Alert::warning('Désolez !', 'formation en cours...');
+                Alert::warning('Désolé !', 'formation en cours...');
             } else {
                 $formation->update([
                     'statut'             => "Démarrée",
@@ -56,9 +56,9 @@ class ValidationformationController extends Controller
         $formation   = Formation::findOrFail($id);
 
         if ($formation->statut == 'Annulée') {
-            Alert::warning('Désolez !', 'formation déjà annulée');
+            Alert::warning('Désolé !', 'formation déjà annulée');
         } elseif ($formation->statut == "Terminée") {
-            Alert::warning('Désolez !', 'formation déjà exécutée');
+            Alert::warning('Désolé !', 'formation déjà exécutée');
         } else {
             $formation->update([
                 'statut'                => 'Annulée',

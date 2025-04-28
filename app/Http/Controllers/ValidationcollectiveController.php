@@ -15,9 +15,9 @@ class ValidationcollectiveController extends Controller
     {
         $collective = Collective::findOrFail($id);
         if ($collective->statut_demande == 'Attente') {
-            Alert::warning('Désolez !', 'demande déjà validée');
+            Alert::warning('Désolé !', 'demande déjà validée');
         } elseif ($collective->statut_demande == 'Retenue') {
-            Alert::warning('Désolez !', 'demande déjà retenue');
+            Alert::warning('Désolé !', 'demande déjà retenue');
         } else {
             $collective->update([
                 'statut_demande' => 'Attente',
@@ -50,9 +50,9 @@ class ValidationcollectiveController extends Controller
         $collective   = Collective::findOrFail($id);
 
         if ($collective->statut_demande == 'Rejetée') {
-            Alert::warning('Désolez !', 'demande déjà rejetée');
+            Alert::warning('Désolé !', 'demande déjà rejetée');
         }  elseif ($collective->statut_demande == 'Retenue') {
-            Alert::warning('Désolez !', 'demande déjà retenue');
+            Alert::warning('Désolé !', 'demande déjà retenue');
         } else {
             $collective->update([
                 'statut_demande'                => 'Rejetée',

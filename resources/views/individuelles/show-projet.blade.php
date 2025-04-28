@@ -40,7 +40,7 @@
                                 <p> | Profil</p>
                             </span>
                             <button type="button" class="btn btn-info btn-sm">
-                                <span class="badge bg-white text-info">{{ $individuelle_total }} sur 3</span>
+                                <span class="badge bg-white text-info">{{ $individuelle_total }} sur 1</span>
                             </button>
 
                             @if (!empty(Auth::user()->cin) && !empty($statut))

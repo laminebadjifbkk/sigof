@@ -83,7 +83,7 @@ class IndividuelleController extends Controller
             ->count();
 
         if ($individuelle_total >= 3) {
-            Alert::warning('Avertissement !', 'Vous avez atteint la limite autorisée de demandes.');
+            Alert::warning('Désolé !', 'Vous avez atteint la limite autorisée de demandes.');
             return redirect()->back();
         } else {
 
@@ -215,10 +215,10 @@ class IndividuelleController extends Controller
             ->count();
 
         if ($projet->statut == 'fermer') {
-            Alert::warning('Attention !', 'La période de dépôt est terminée.');
+            Alert::warning('Désolé !', 'La période de dépôt est terminée.');
             return redirect()->back();
-        } elseif ($individuelle >= 3) {
-            Alert::warning('Attention !', 'Vous avez atteint la limite autorisée de demandes.');
+        } elseif ($individuelle >= 1) {
+            Alert::warning('Désolé !', 'Vous avez atteint la limite autorisée de demandes.');
             return redirect()->back();
         } else {
 
@@ -617,7 +617,7 @@ class IndividuelleController extends Controller
 
 // Check if the module is already assigned
         if ($this->isModuleAlreadyAssigned($demandeur_ind, $module_find)) {
-            Alert::warning('Désolez !', 'Le module ' . $module_find->name . ' a déjà été choisi');
+            Alert::warning('Désolé !', 'Le module ' . $module_find->name . ' a déjà été choisi');
             return redirect()->back();
         }
 
@@ -971,7 +971,7 @@ class IndividuelleController extends Controller
             ->count();
 
         if ($individuelle_total >= 3) {
-            Alert::warning('Avertissement !', 'Vous avez atteint la limite autorisée de demandes.');
+            Alert::warning('Désolé !', 'Vous avez atteint la limite autorisée de demandes.');
             return redirect()->back();
         } else {
 

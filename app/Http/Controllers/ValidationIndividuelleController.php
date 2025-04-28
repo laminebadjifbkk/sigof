@@ -19,17 +19,17 @@ class ValidationIndividuelleController extends Controller
         foreach (Auth::user()->roles as $role) {
             if (! empty($role?->name) && ($role?->name != 'super-admin')) {
                 if ($individuelle->statut == 'Attente') {
-                    Alert::warning('Désolez !', 'demande déjà validée');
+                    Alert::warning('Désolé !', 'demande déjà validée');
                 } elseif ($individuelle->statut == 'programmer') {
-                    Alert::warning('Désolez !', 'demande déjà programmée');
+                    Alert::warning('Désolé !', 'demande déjà programmée');
                 } elseif ($individuelle->statut == 'Retenue') {
-                    Alert::warning('Désolez !', 'demande déjà traitée');
+                    Alert::warning('Désolé !', 'demande déjà traitée');
                 } elseif ($individuelle->statut == "Terminée") {
-                    Alert::warning('Désolez !', 'demandeur déjà formé');
+                    Alert::warning('Désolé !', 'demandeur déjà formé');
                 } elseif ($individuelle->statut == 'Rejetée') {
-                    Alert::warning('Désolez !', 'demandeur déjà rejetée');
+                    Alert::warning('Désolé !', 'demandeur déjà rejetée');
                 } else {
-                    Alert::warning('Désolez !', 'action impossible');
+                    Alert::warning('Désolé !', 'action impossible');
                 }
             } else {
                 $individuelle->update([

@@ -1489,7 +1489,7 @@ class FormationController extends Controller
         }
 
         if ($count == '0' || empty($formation->operateur)) {
-            Alert::warning('Désolez !', 'action non autorisée');
+            Alert::warning('Désolé !', 'action non autorisée');
         } else {
 
             /* if ($formation->statut == "Terminée") {
@@ -1497,9 +1497,9 @@ class FormationController extends Controller
             } else */
 
             if ($formation->statut == 'Annulée') {
-                Alert::warning('Désolez !', 'formation déjà annulée');
+                Alert::warning('Désolé !', 'formation déjà annulée');
             } elseif ($formation->statut == 'Attente') {
-                Alert::warning('Désolez !', 'la formation n\'a pas encore démarrée');
+                Alert::warning('Désolé !', 'la formation n\'a pas encore démarrée');
             } else {
 
                 if ($formation->types_formation?->name == 'collective') {
@@ -1584,12 +1584,12 @@ class FormationController extends Controller
         $count = $formation->listecollectives->count();
 
         if ($count == '0' || empty($formation->operateur)) {
-            Alert::warning('Désolez !', 'action non autorisée');
+            Alert::warning('Désolé !', 'action non autorisée');
         } else {
             if ($formation->statut == "Terminée") {
                 Alert::warning('Désolé !', 'Cette formation a déjà été exécutée.');
             } elseif ($formation->statut == "Démarrée") {
-                Alert::warning('Désolez !', 'formation en cours...');
+                Alert::warning('Désolé !', 'formation en cours...');
             } else {
                 $formation->update([
                     'statut'       => "Démarrée",

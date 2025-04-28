@@ -100,7 +100,7 @@ class CollectivemoduleController extends Controller
         $this->authorize('update', $collectivemodule);
 
         if (! empty($collectivemodule->formations_id)) {
-            Alert::warning('Désolez ! ', 'action impossible');
+            Alert::warning('Désolé ! ', 'action impossible');
             return redirect()->back();
         } else {
             $collectivemodule->update([

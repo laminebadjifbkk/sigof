@@ -59,7 +59,7 @@ class SMSController extends Controller
             } catch (ApiException $apiException) {
                 // HANDLE THE EXCEPTION
 
-                Alert::warning("Désolez !!!", "Echec de l'envoi");
+                Alert::warning("Désolé !!!", "Echec de l'envoi");
 
                 return redirect()->back();
             }
@@ -111,7 +111,7 @@ class SMSController extends Controller
             } catch (ApiException $apiException) {
                 // HANDLE THE EXCEPTION
 
-                Alert::warning("Désolez !!!", "Echec de l'envoi");
+                Alert::warning("Désolé !!!", "Echec de l'envoi");
 
                 return redirect()->back();
             }

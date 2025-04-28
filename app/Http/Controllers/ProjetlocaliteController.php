@@ -59,7 +59,7 @@ class ProjetlocaliteController extends Controller
                 $projetlocalite->save();
                 Alert::success('Succès ! ', 'localité ajoutée avec succès');
             } else {
-                Alert::warning('Désolez ! ', $request->input("localite") . " n'est pas reconnu(e) comme " . $request?->type_localite);
+                Alert::warning('Désolé ! ', $request->input("localite") . " n'est pas reconnu(e) comme " . $request?->type_localite);
             }
             return redirect()->back();
         }
@@ -74,7 +74,7 @@ class ProjetlocaliteController extends Controller
                 $projetlocalite->save();
                 Alert::success('Succès ! ', 'localité ajoutée avec succès');
             } else {
-                Alert::warning('Désolez ! ', $request->input("localite") . " n'est pas reconnu(e) comme " . $request?->type_localite);
+                Alert::warning('Désolé ! ', $request->input("localite") . " n'est pas reconnu(e) comme " . $request?->type_localite);
             }
             return redirect()->back();
         }
@@ -89,7 +89,7 @@ class ProjetlocaliteController extends Controller
                 $projetlocalite->save();
                 Alert::success('Succès ! ', 'localité ajoutée avec succès');
             } else {
-                Alert::warning('Désolez ! ', $request->input("localite") . " n'est pas reconnu(e) comme " . $request?->type_localite);
+                Alert::warning('Désolé ! ', $request->input("localite") . " n'est pas reconnu(e) comme " . $request?->type_localite);
             }
             return redirect()->back();
         }
@@ -104,7 +104,7 @@ class ProjetlocaliteController extends Controller
                 $projetlocalite->save();
                 Alert::success('Succès ! ', 'localité ajoutée avec succès');
             } else {
-                Alert::warning('Désolez ! ', $request->input("localite") . " n'est pas reconnu(e) comme " . $request?->type_localite);
+                Alert::warning('Désolé ! ', $request->input("localite") . " n'est pas reconnu(e) comme " . $request?->type_localite);
             }
             return redirect()->back();
         }

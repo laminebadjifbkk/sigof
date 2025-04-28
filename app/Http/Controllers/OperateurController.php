@@ -782,7 +782,7 @@ class OperateurController extends Controller
                 return redirect()->back();
             }
         } else {
-            Alert::warning('Désolez ! ', 'assurez-vous d\'avoir ajouté au moins un module');
+            Alert::warning('Désolé ! ', 'assurez-vous d\'avoir ajouté au moins un module');
             return redirect()->back();
         }
 
@@ -833,10 +833,10 @@ class OperateurController extends Controller
         $count_nouveau = $operateur->operateurmodules->where('statut', 'nouveau')->count();
 
         if ($count_nouveau > 0) {
-            Alert::warning('Désolez ! ', 'il reste de(s) module(s) à traiter');
+            Alert::warning('Désolé ! ', 'il reste de(s) module(s) à traiter');
             return redirect()->back();
         } elseif ($moduleoperateur_count <= '0') {
-            Alert::warning('Désolez ! ', 'aucun module disponible pour cet opérateur');
+            Alert::warning('Désolé ! ', 'aucun module disponible pour cet opérateur');
             return redirect()->back();
         } else {
             $operateur->update([
