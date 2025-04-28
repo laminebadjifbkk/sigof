@@ -330,7 +330,8 @@
                                                     secondaire<span class="text-danger mx-1">*</span></label>
                                                 <input name="telephone_secondaire" type="text" maxlength="12"
                                                     class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror"
-                                                    id="telephone_secondaire" value="{{ old('telephone_secondaire') }}"
+                                                    id="telephone_secondaire"
+                                                    value="{{ old('telephone_secondaire', $individuelle?->user?->telephone ?? '') }}"
                                                     autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                                 @error('telephone_secondaire')
                                                     <span class="invalid-feedback" role="alert">
@@ -721,7 +722,7 @@
                                                     </span>
                                                 @enderror
                                             </div> --}}
-                                                <input type="hidden" value="{{ $projetmodule->module }}"
+                                                <input type="hidden" value="{{ $individuelle?->module?->name }}"
                                                     name="module">
                                                 <input type="hidden" name="projet" value="{{ $projet?->sigle }}">
                                                 <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
@@ -783,7 +784,7 @@
                                                     <input name="telephone_secondaire" type="text" maxlength="12"
                                                         class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror"
                                                         id="telephone_secondaire"
-                                                        value="{{ old('telephone_secondaire', $individuelle?->telephone ?? '') }}"
+                                                        value="{{ old('telephone_secondaire', $individuelle?->user?->telephone ?? '') }}"
                                                         autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                                     @error('telephone_secondaire')
                                                         <span class="invalid-feedback" role="alert">

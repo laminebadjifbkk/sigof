@@ -617,7 +617,7 @@ class IndividuelleController extends Controller
 
 // Check if the module is already assigned
         if ($this->isModuleAlreadyAssigned($demandeur_ind, $module_find)) {
-            Alert::warning('Attention !', 'Le module ' . $module_find->name . ' a déjà été choisi par vous-même.');
+            Alert::warning('Désolez !', 'Le module ' . $module_find->name . ' a déjà été choisi');
             return redirect()->back();
         }
 
@@ -956,7 +956,7 @@ class IndividuelleController extends Controller
             'telephone_secondaire'   => ['required', 'string', 'size:12'],
             'adresse'                => ['required', 'string', 'max:255'],
             'departement'            => ['required', 'string', 'max:255'],
-            'module'                 => ['required', 'string', 'max:255'],
+            /* 'module'                 => ['required', 'string', 'max:255'], */
             'niveau_etude'           => ['required', 'string', 'max:255'],
             'diplome_academique'     => ['required', 'string', 'max:255'],
             'diplome_professionnel'  => ['required', 'string', 'max:255'],
@@ -1036,7 +1036,7 @@ class IndividuelleController extends Controller
             // Chercher si le module existe déjà dans la base de données
             $module_find = DB::table('modules')->where('name', $request->input('module'))->first();
 
-// Créer un tableau des données communes pour l'Individuelle
+            // Créer un tableau des données communes pour l'Individuelle
             $individuelleData = [
                 'date_depot'                       => $date_depot,
                 'numero'                           => $numero_individuelle,
