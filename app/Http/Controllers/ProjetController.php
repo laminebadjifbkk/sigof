@@ -29,7 +29,8 @@ class ProjetController extends Controller
 
     public function index()
     {
-        $projets = Projet::get();
+        $projets = Projet::orderBy('created_at', 'desc')->get();
+
         return view('projets.index', compact('projets'));
     }
 

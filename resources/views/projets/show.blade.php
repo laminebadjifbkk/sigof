@@ -166,12 +166,14 @@
                                             </span>
                                         </h6>
 
-                                        <h6 class="mb-0">
-                                            <span class="badge bg-success fs-6">
-                                                <i class="bi bi-bar-chart-line-fill me-1"></i>
-                                                Effectif total : {{ $projet?->effectif }}
-                                            </span>
-                                        </h6>
+                                        @if ($projetmodule?->effectif)
+                                            <h6 class="mb-0">
+                                                <span class="badge bg-success fs-6">
+                                                    <i class="bi bi-bar-chart-line-fill me-1"></i>
+                                                    Effectif total : {{ $projet?->effectif }}
+                                                </span>
+                                            </h6>
+                                        @endif
                                     </div>
 
                                     <!-- Tableau des modules -->
@@ -183,7 +185,9 @@
                                                     <th style="text-align: center;" width="5%">N°</th>
                                                     <th>Module</th>
                                                     <th>Domaines</th>
-                                                    <th style="text-align: center;" width="10%">Besoin</th>
+                                                    @if ($projetmodule?->effectif)
+                                                        <th style="text-align: center;" width="10%">Besoin</th>
+                                                    @endif
                                                     @if (auth()->user()->hasRole(['super-admin', 'admin']))
                                                         <th width="5%" style="text-align: center;">
                                                             <i class="bi bi-gear"></i>
@@ -198,8 +202,10 @@
                                                         <td style="text-align: center;">{{ $i++ }}</td>
                                                         <td>{{ $projetmodule?->module }}</td>
                                                         <td>{{ $projetmodule?->domaine }}</td>
-                                                        <td style="text-align: center;">{{ $projetmodule?->effectif }}
-                                                        </td>
+                                                        @if ($projetmodule?->effectif)
+                                                            <td style="text-align: center;">{{ $projetmodule?->effectif }}
+                                                            </td>
+                                                        @endif
                                                         @if (auth()->user()->hasRole(['super-admin', 'admin']))
                                                             {{-- <td style="text-align: center;">
                                                                 <span
