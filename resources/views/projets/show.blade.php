@@ -182,7 +182,7 @@
                                             id="table-operateurModules">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center" width="5%">N°</th>
+                                                    {{-- <th class="text-center" width="5%">N°</th> --}}
                                                     <th>Module</th>
                                                     <th>Domaines</th>
                                                     <th class="text-center">Reçues</th>
@@ -200,7 +200,7 @@
                                                 @php $i = 1; @endphp
                                                 @foreach ($projet?->projetmodules as $projetmodule)
                                                     <tr>
-                                                        <td class="text-center">{{ $i++ }}</td>
+                                                        {{-- <td class="text-center">{{ $i++ }}</td> --}}
                                                         <td>{{ $projetmodule?->module }}</td>
                                                         <td>{{ $projetmodule?->domaine }}</td>
                                                         @php
@@ -876,7 +876,7 @@
             }
         },
         "order": [
-            [0, 'asc']
+            [2, 'desc']
         ],
         language: {
             "sProcessing": "Traitement en cours...",
