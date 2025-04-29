@@ -223,12 +223,13 @@ class NotifierGroupesVingtDemandeurs extends Command
 
                 Mail::to(
                     ['lamine.badji@onfp.sn',
-                        'badjilaminefbkk@gmail.com',
-                        'dado.toure@onfp.sn', 
-                        'mohamadou.soumare@onfp.sn', 
-                        'gorgui.ndiaye@onfp.sn',
+                        'dado.toure@onfp.sn',
+                        'mohamadou.soumare@onfp.sn',
+                        'ndiayego104@yahoo.fr',
+                        'diallomansa10@gmail.com',
+                        'mourtallabiteye89@yahoo.fr',
+                        'diadiafall3@gmail.com',
                         'cissbigue6@gmail.com',
-                        'dado.toure@onfp.sn', 
                         'mouhamadoulaminebara@onfp.sn'])
                     ->send(new NotificationDemandeursMail($nomRegion, $nomModule, $total));
 
