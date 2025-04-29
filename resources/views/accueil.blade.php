@@ -1247,11 +1247,8 @@
                             <p class="small fst-italic pt-1">
                                 {!! '' .
                                     implode(
-                                        '',
-                                        array_map(
-                                            fn($line) => nl2br(e(wordwrap($line, 100, "\n", true))),
-                                            explode("\n", old('objet', ucfirst($post?->name))),
-                                        ),
+                                        '-  ',
+                                        array_map(fn($line) => nl2br(e(wordwrap($line, 100, "\n", true))), explode("\n", ucfirst($post?->name))),
                                     ) !!}
                             </p>
                         </div>
