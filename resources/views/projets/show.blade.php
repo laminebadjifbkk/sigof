@@ -144,14 +144,6 @@
                                         </button>
                                     </div>
 
-                                    {{-- Ancien formulaire direct (désormais déplacé dans un modal) --}}
-                                    {{-- 
-                                    <form method="post" action="{{ url('projetmodules') }}" enctype="multipart/form-data" class="row g-3">
-                                        @csrf
-                                        ...
-                                    </form> 
-                                    --}}
-
                                     <!-- Section Infos -->
                                     <div
                                         class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
@@ -234,45 +226,6 @@
                                                             </td>
                                                         @endif
                                                         @if (auth()->user()->hasRole(['super-admin', 'admin']))
-                                                            {{-- <td class="text-center">
-                                                                <span
-                                                                    class="d-flex align-items-baseline justify-content-center gap-2">
-                                                                    <a href="{{ route('projetmodules.show', $projetmodule?->id) }}"
-                                                                        class="btn btn-primary btn-sm"
-                                                                        title="Voir détails">
-                                                                        <i class="bi bi-eye"></i>
-                                                                    </a>
-                                                                    <div class="dropdown">
-                                                                        <a class="btn btn-light btn-sm" href="#"
-                                                                            role="button" data-bs-toggle="dropdown"
-                                                                            aria-expanded="false">
-                                                                            <i class="bi bi-three-dots"></i>
-                                                                        </a>
-                                                                        <ul class="dropdown-menu dropdown-menu-end">
-                                                                            <li>
-                                                                                <button class="dropdown-item"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#EditModuleModal{{ $projetmodule?->id }}">
-                                                                                    Modifier
-                                                                                </button>
-                                                                            </li>
-                                                                            <li>
-                                                                                <form
-                                                                                    action="{{ route('projetmodules.destroy', $projetmodule?->id) }}"
-                                                                                    method="post">
-                                                                                    @csrf
-                                                                                    @method('DELETE')
-                                                                                    <button type="submit"
-                                                                                        class="dropdown-item show_confirm"
-                                                                                        title="Supprimer">
-                                                                                        Supprimer
-                                                                                    </button>
-                                                                                </form>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </span>
-                                                            </td> --}}
                                                             <td style="text-align: center;">
                                                                 <span
                                                                     class="d-flex align-items-baseline justify-content-center gap-2">
@@ -342,25 +295,19 @@
                                             <h5 class="card-title">Liste des {{ $projet?->type_localite }}</h5>
                                             @if (auth()->user()->hasRole(['super-admin', 'admin']))
                                                 <div class="pt-1">
-                                                    {{-- <button type="button"
-                                                        class="btn btn-primary btn-sm float-end btn-rounded"
-                                                        data-bs-toggle="modal" data-bs-target="#AddprojetlocaliteModal">
-                                                        Ajouter
-                                                    </button> --}}
                                                     <div class="d-flex justify-content-end m-3">
                                                         <button type="button"
                                                             class="btn btn-primary btn-sm rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#AddprojetlocaliteModal">
                                                             <i class="bi bi-plus-circle-fill"></i>
-                                                            Ajouter localité
+                                                            Ajouter {{ strtolower($projet?->type_localite) }}
                                                         </button>
                                                     </div>
                                                 </div>
                                             @endcan
                                     </div>
-                                    {{-- <form method="post" action="#" enctype="multipart/form-data"
-                                                    class="row g-3"> --}}
+
                                     <div class="row g-3">
                                         <table class="table datatables align-middle justify-content-center"
                                             id="table-projetlocalites">
@@ -368,7 +315,6 @@
                                                 <tr>
                                                     <th width="5%" class="text-center" scope="col">N°</th>
                                                     <th>{{ $projet?->type_localite }}</th>
-                                                    {{-- <th class="text-center" scope="col">Type</th> --}}
                                                     @if ($projet?->effectif)
                                                         <th class="text-center" scope="col">Besoin</th>
                                                     @endif
@@ -382,9 +328,6 @@
                                                     <tr>
                                                         <td style="text-align: center;">{{ $i++ }}</td>
                                                         <td>{{ $projetlocalite?->localite }}</td>
-                                                        {{-- <td style="text-align: center;">
-                                                            {{ $projetlocalite?->projet?->type_localite }}
-                                                        </td> --}}
                                                         @if ($projet?->effectif)
                                                             <td class="text-center">
                                                                 @if ($projetlocalite?->effectif > 0)
@@ -432,7 +375,6 @@
                                                                     title="Voir détails">
                                                                     <i class="bi bi-eye"></i>
                                                                 </a>
-
                                                                 @if (auth()->user()->hasRole(['super-admin', 'admin']))
                                                                     <button type="button"
                                                                         class="btn btn-sm btn-outline-secondary dropdown-toggle"
@@ -473,79 +415,17 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    {{-- </form> --}}
                                 </div>
                             </div>
-                        </div><!-- End Bordered Tabs -->
+                        </div>
+                        <!-- End Bordered Tabs -->
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Modal -->
-        {{-- <div class="modal fade" id="AddModuleModal" tabindex="-1" aria-labelledby="AddModuleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content rounded-4 shadow">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="AddModuleModalLabel">Ajouter un nouveau module</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Fermer"></button>
-                </div>
-
-                <form method="post" action="{{ url('projetmodules') }}" enctype="multipart/form-data"
-                    class="row g-3">
-                    @csrf
-                    <div class="modal-body">
-
-                        <input type="hidden" name="projet" value="{{ $projet?->id }}">
-
-                        <table class="table table-bordered" id="dynamicAddRemove">
-                            <thead>
-                                <tr>
-                                    <th>Modules<span class="text-danger mx-1">*</span></th>
-                                    <th>Domaines<span class="text-danger mx-1">*</span></th>
-                                    <th>Effectif<span class="text-danger mx-1">*</span></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <input type="text" name="module" id="module_name"
-                                            class="form-control form-control-sm" placeholder="Module" />
-                                        <div id="countryList"></div>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="domaine" placeholder="Entrer un domaine"
-                                            class="form-control form-control-sm" />
-                                    </td>
-                                    <td>
-                                        <input type="number" min="0" name="effectif"
-                                            placeholder="Effectif prévu" class="form-control form-control-sm" />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-
-                    <div class="modal-footer">
-                        @if (auth()->user()->hasRole(['super-admin', 'admin']))
-                            <button type="submit" class="btn btn-outline-success btn-sm">
-                                <i class="bi bi-check2-circle"></i> Enregistrer
-                            </button>
-                        @endif
-                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
-                            Fermer
-                        </button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div> --}}
         <div class="modal fade" id="AddModuleModal" tabindex="-1" aria-labelledby="AddModuleModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-lg"> <!-- modal-lg pour un format adapté -->
+            <div class="modal-dialog modal-lg"><!-- modal-lg pour un format adapté -->
                 <div class="modal-content rounded-4 shadow-sm border-0">
                     <div class="modal-header bg-primary text-white rounded-top-4">
                         <h5 class="modal-title" id="AddModuleModalLabel">
@@ -554,13 +434,11 @@
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                             aria-label="Fermer"></button>
                     </div>
-
                     <form method="post" action="{{ url('projetmodules') }}" enctype="multipart/form-data"
                         class="p-3">
                         @csrf
                         <div class="modal-body">
                             <input type="hidden" name="projet" value="{{ $projet?->id }}">
-
                             <div class="row g-3">
                                 <div class="col-md-12">
                                     <label for="module_name" class="form-label">Module<span
@@ -569,20 +447,17 @@
                                         class="form-control form-control-sm" placeholder="Nom du module" required>
                                     <div id="countryList"></div>
                                 </div>
-
                                 <div class="col-md-6">
                                     <label for="domaine" class="form-label">Domaine<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="domaine" id="domaine"
                                         class="form-control form-control-sm" placeholder="Entrer un domaine" required>
                                 </div>
-
                                 <div class="col-md-6">
                                     <label for="effectif" class="form-label">Effectif prévu</label>
                                     <input type="number" min="0" name="effectif" id="effectif"
                                         class="form-control form-control-sm" placeholder="Effectif prévu">
                                 </div>
-
                                 <div class="col-md-12">
                                     <label for="description" class="form-label">Description du module</label>
                                     <textarea name="description" id="description" rows="4" class="form-control form-control-sm"
@@ -590,7 +465,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="modal-footer">
                             @if (auth()->user()->hasRole(['super-admin', 'admin']))
                                 <button type="submit" class="btn btn-primary btn-sm">
@@ -607,152 +481,6 @@
             </div>
         </div>
         <!-- End Modal -->
-
-        @foreach ($projet?->projetmodules as $projetmodule)
-            {{-- <div class="modal fade" id="EditModuleModal{{ $projetmodule?->id }}" tabindex="-1"
-            role="dialog" aria-labelledby="EditModuleModalLabel{{ $projetmodule?->id }}"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form method="post" action="{{ route('projetmodules.update', $projetmodule?->id) }}"
-                        enctype="multipart/form-data" class="row g-3">
-                        @csrf
-                        @method('patch')
-                        <div class="card-header text-center bg-gradient-default">
-                            <h1 class="h4 text-black mb-0">Modifier module {{ $projetmodule?->module }}</h1>
-                        </div>
-                        <div class="modal-body">
-                            <input type="hidden" name="id" value="{{ $projetmodule?->id }}">
-                            <div class="form-floating mb-3">
-                                <input type="text" name="module"
-                                    value="{{ $projetmodule?->module ?? old('module') }}"
-                                    class="form-control form-control-sm @error('module') is-invalid @enderror"
-                                    placeholder="Module" autofocus>
-                                @error('module')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                                <label for="floatingInput">Module</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="text" name="domaine"
-                                    value="{{ $projetmodule?->domaine ?? old('domaine') }}"
-                                    class="form-control form-control-sm @error('domaine') is-invalid @enderror"
-                                    id="domaine" placeholder="Domaine">
-                                @error('domaine')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                                <label for="floatingInput">Domaine</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="number" name="effectif" min="0" step="1"
-                                    value="{{ $projetmodule?->effectif ?? old('effectif') }}"
-                                    class="form-control form-control-sm @error('effectif') is-invalid @enderror"
-                                    id="effectif" placeholder="effectif">
-                                @error('effectif')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                                <label for="floatingInput">Effectif</label>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm"
-                                data-bs-dismiss="modal">Fermer</button>
-                            <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-printer"></i>
-                                Modifier</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> --}}
-            {{-- <div class="modal fade" id="EditModuleModal{{ $projetmodule?->id }}" tabindex="-1"
-            aria-labelledby="EditModuleModalLabel{{ $projetmodule?->id }}" aria-hidden="true">
-            <div class="modal-dialog modal-lg"> <!-- modal-lg pour un format adapté -->
-                <div class="modal-content rounded-4 shadow-sm border-0">
-                    <div class="modal-header bg-warning text-white rounded-top-4">
-                        <h5 class="modal-title" id="EditModuleModalLabel{{ $projetmodule?->id }}">
-                            <i class="bi bi-pencil-fill me-2"></i> Modifier le module :
-                            {{ $projetmodule?->module }}
-                        </h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Fermer"></button>
-                    </div>
-
-                    <form method="post" action="{{ route('projetmodules.update', $projetmodule?->id) }}"
-                        enctype="multipart/form-data" class="p-3">
-                        @csrf
-                        @method('PUT')
-                        <div class="modal-body">
-                            <input type="hidden" name="projet" value="{{ $projet?->id }}">
-
-                            <div class="row g-3">
-                                <div class="col-md-12">
-                                    <label for="module_name" class="form-label">Module<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="module" id="module_name"
-                                        class="form-control form-control-sm"
-                                        value="{{ old('module', $projetmodule?->module) }}" required>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="domaine" class="form-label">Domaine<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="domaine" id="domaine"
-                                        class="form-control form-control-sm"
-                                        value="{{ $projetmodule?->domaine }}" required>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="effectif" class="form-label">Effectif prévu</label>
-                                    <input type="number" min="0" name="effectif" id="effectif"
-                                        class="form-control form-control-sm"
-                                        value="{{ old('effectif', $projetmodule?->effectif) }}">
-                                </div>
-
-                                <div class="col-md-12">
-                                    <label for="localites" class="form-label">Sélectionner les localités</label>
-                                    <select name="projetlocalites[]" class="form-select" aria-label="Select"
-                                        id="multiple-select-field" multiple
-                                        data-placeholder="Choisir une ou plusieurs localités">
-                                        @foreach ($projetlocalites as $projetlocalite)
-                                            <option value="{{ $projetlocalite->id }}"
-                                                {{ in_array($projetlocalite->localite, $moduleLocalites) ? 'selected' : '' }}>
-                                                {{ $projetlocalite->localite ?? old('projetlocalite') }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <label for="description" class="form-label">Description du module</label>
-                                    <textarea name="description" id="description" rows="4" class="form-control form-control-sm"
-                                        placeholder="Modifier la description du module...">{{ old('description', $projetmodule?->description) }}</textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            @if (auth()->user()->hasRole(['super-admin', 'admin']))
-                                <button type="submit" class="btn btn-warning btn-sm">
-                                    <i class="bi bi-pencil-square me-1"></i> Sauvegarder les modifications
-                                </button>
-                            @endif
-                            <button type="button" class="btn btn-outline-secondary btn-sm"
-                                data-bs-dismiss="modal">
-                                <i class="bi bi-x-circle me-1"></i> Fermer
-                            </button>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div> --}}
-        @endforeach
     </div>
 
     <!-- Add projetlocalite -->

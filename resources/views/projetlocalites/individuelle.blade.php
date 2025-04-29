@@ -37,14 +37,15 @@
 
                 <div class="card">
                     <div class="card-body">
-                        @if (!empty($projet))
-                            <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('projets.index') }}"
-                                    class="btn btn-info btn-sm" title="retour"><i
-                                        class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                <p> | retour</p>
-                            </span>
-                            <h4 class="card-title">Liste des demandeurs pour la localité de :
-                                {{ $projetlocalite?->localite }}</h4>
+                        <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('projets.index') }}"
+                                class="btn btn-info btn-sm" title="retour"><i
+                                    class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                            <p> | retour</p>
+                        </span>
+                        <h4 class="card-title">
+                            {{ 'Liste des demandeurs : ' . $projetlocalite->projet->type_localite . ' de ' . $projetlocalite?->localite }}
+                        </h4>
+                        @if (!empty($individuelles) && $individuelles->isNotEmpty())
                             <table class="table datatables align-middle" id="table-individuelles">
                                 <thead>
                                     <tr>
@@ -130,6 +131,10 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                        @else
+                            <div class="alert alert-info text-center text-muted">
+                                Aucune donnée disponible.
+                            </div>
                         @endif
                     </div>
                 </div>

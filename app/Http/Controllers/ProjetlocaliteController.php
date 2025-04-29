@@ -213,9 +213,29 @@ class ProjetlocaliteController extends Controller
         $projet        = $projetlocalite->projet;
         $type_localite = $projet?->type_localite;
 
-        $individuelles = Individuelle::where('projets_id', $projet?->id)
+        /* $individuelles = Individuelle::where('projets_id', $projet?->id)
             ->whereHas('module') // Vérifie que le module existe
-            ->get();
+            ->get(); */
+
+        if ($type_localite === 'Departement') {
+            $departement   = Departement::where('nom', $projetlocalite->localite)->first();
+            $individuelles = Individuelle::where('projets_id', $projet?->id)
+                ->where('departements_id', $departement?->id)
+                ->get();
+
+        } elseif ($type_localite === 'Region') {
+            $region        = Region::where('nom', $projetlocalite->localite)->first();
+            $individuelles = Individuelle::where('projets_id', $projet?->id)
+                ->where('regions_id', $region?->id)
+                ->get();
+
+        } else {
+            // Fallback vers département par défaut
+            $departement   = Departement::where('nom', $projetlocalite->localite)->first();
+            $individuelles = Individuelle::where('projets_id', $projet?->id)
+                ->where('departements_id', $departement?->id)
+                ->get();
+        }
 
         // Initialiser toutes les variables à null
         $region = $departement = $arrondissement = $commune = null;

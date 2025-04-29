@@ -37,13 +37,14 @@
 
                 <div class="card">
                     <div class="card-body">
-                        @if (!empty($projet))
-                            <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('projets.index') }}"
-                                    class="btn btn-info btn-sm" title="retour"><i
-                                        class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                <p> | retour</p>
-                            </span>
-                            <h4 class="card-title">Liste des demandeurs pour le module : {{ $projetmodule?->module }}</h4>
+                        <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('projets.index') }}"
+                                class="btn btn-info btn-sm" title="retour"><i
+                                    class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                            <p> | retour</p>
+                        </span>
+                        <h4 class="card-title">Liste des demandeurs pour le module : {{ $projetmodule?->module }}</h4>
+
+                        @if (!empty($individuelles) && $individuelles->isNotEmpty())
                             <table class="table datatables align-middle" id="table-individuelles">
                                 <thead>
                                     <tr>
@@ -67,7 +68,7 @@
                                             <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                             <td>{{ $individuelle?->user?->lieu_naissance }}</td>
                                             <td>
-                                                {{ (optional($individuelle->{($projet->type_localite)})->nom) }}
+                                                {{ optional($individuelle->{$projet->type_localite})->nom }}
                                             </td>
                                             <td>
                                                 <span class="{{ $individuelle?->statut }}">
@@ -108,6 +109,10 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                        @else
+                            <div class="alert alert-info text-center text-muted">
+                                Aucune donnée disponible.
+                            </div>
                         @endif
                     </div>
                 </div>
