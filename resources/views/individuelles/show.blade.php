@@ -144,8 +144,8 @@
             'Lieu naissance' => $individuelle?->user?->lieu_naissance,
             'Adresse' => $individuelle?->user?->adresse,
             'Email' => '<a href="mailto:' . $individuelle?->user?->email . '">' . $individuelle?->user?->email . '</a>',
-            'Téléphone personnel' => '<a href="tel:+' . $individuelle?->user?->telephone . '">' . $individuelle?->user?->telephone . '</a>',
-            'Téléphone secondaire' => '<a href="tel:+' . $individuelle?->telephone . '">' . $individuelle?->telephone . '</a>',
+            'Téléphone personnel' => '<a href="tel:+221' . $individuelle?->user?->telephone . '">' . $individuelle?->user?->telephone . '</a>',
+            'Téléphone secondaire' => '<a href="tel:+221' . $individuelle?->telephone . '">' . $individuelle?->telephone . '</a>',
             'Lieu de formation' => $individuelle?->departement?->nom,
         ] as $label => $value)
                                         <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
