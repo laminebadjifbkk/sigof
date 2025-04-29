@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -29,7 +28,7 @@ class NotificationDemandeursMail extends Mailable
      */
     public function build()
     {
-        return $this->subject("⚠️ {$this->total} demandes 'Nouvelles' pour {$this->module} dans la région : {$this->region}")
-                    ->view('emails.notif-vingt-demandeurs');
+        return $this->subject("⚠️ {$this->total} nouvelles demandes en {$this->module} pour la région de {$this->region}")
+            ->view('emails.notif-vingt-demandeurs');
     }
 }

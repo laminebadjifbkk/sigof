@@ -9,10 +9,12 @@
 <body>
     <p>Bonjour,</p>
 
-    <p>Nous vous informons que la région <strong>{{ $region }}</strong> a atteint
-        <strong>{{ $total }}</strong> demandes individuelles au statut <strong>Nouvelle</strong>.</p>
+    <p>Nous vous informons que la région de <strong>{{ $region }}</strong> a reçu
+        <strong>{{ $total }}</strong> nouvelles demandes individuelles en attente de traitement.
+    </p>
 
-    <p>Il est peut-être temps d’organiser une session de formation pour ce groupe.</p>
+    <p>Il serait peut-être opportun de procéder à leur validation et d’envisager l’organisation d’une session de
+        formation pour ce groupe.</p>
 
     <p><strong>L'équipe de l'ONFP</strong></p>
 
