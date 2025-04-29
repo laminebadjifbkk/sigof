@@ -101,7 +101,7 @@
                                                 </td>
                                                 <td>
                                                     <span class="d-flex align-items-baseline">
-                                                        <a href="{{ route('collectives.show', $collective->id) }}"
+                                                        <a href="{{ route('collectives.show', $collective) }}"
                                                             class="btn btn-success btn-sm" title="voir détails"><i
                                                                 class="bi bi-eye"></i></a>
                                                         <div class="filter">
@@ -109,13 +109,13 @@
                                                                     class="bi bi-three-dots"></i></a>
                                                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                 <li><a class="dropdown-item btn btn-sm"
-                                                                        href="{{ route('collectives.edit', $collective->id) }}"
+                                                                        href="{{ route('collectives.edit', $collective) }}"
                                                                         class="mx-1" title="Modifier"><i
                                                                             class="bi bi-pencil"></i>Modifier</a>
                                                                 </li>
                                                                 <li>
                                                                     <form
-                                                                        action="{{ route('collectives.destroy', $collective->id) }}"
+                                                                        action="{{ route('collectives.destroy', $collective) }}"
                                                                         method="post">
                                                                         @csrf
                                                                         @method('DELETE')
@@ -136,7 +136,7 @@
                             </form>
                         @else
                             @foreach ($demandeur->collectives as $collective)
-                                <a href="{{ route('collectives.edit', $collective->id) }}"
+                                <a href="{{ route('collectives.edit', $collective) }}"
                                     class="btn btn-primary float-end btn-rounded"><i class="fas fa-plus"></i>
                                     <i class="bi bi-person-plus" title="Ajouter"></i> </a>
                             @endforeach

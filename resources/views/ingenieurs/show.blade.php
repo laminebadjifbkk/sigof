@@ -174,7 +174,7 @@
                                                 <td class="text-center">
                                                     @can('collective-show')
                                                         <div class="d-flex align-items-center">
-                                                            <a href="{{ route('collectives.show', $collective->id) }}"
+                                                            <a href="{{ route('collectives.show', $collective) }}"
                                                                 class="btn btn-primary btn-sm me-1" title="Voir détails">
                                                                 <i class="bi bi-eye"></i>
                                                             </a>
@@ -186,7 +186,7 @@
                                                                 <ul class="dropdown-menu dropdown-menu-end">
                                                                     @can('collective-update')
                                                                         <li>
-                                                                            <a href="{{ route('collectives.edit', $collective->id) }}"
+                                                                            <a href="{{ route('collectives.edit', $collective) }}"
                                                                                 class="dropdown-item">
                                                                                 <i class="bi bi-pencil"></i> Modifier
                                                                             </a>
@@ -195,7 +195,7 @@
                                                                     @can('collective-delete')
                                                                         <li>
                                                                             <form
-                                                                                action="{{ route('collectives.destroy', $collective->id) }}"
+                                                                                action="{{ route('collectives.destroy', $collective) }}"
                                                                                 method="POST">
                                                                                 @csrf
                                                                                 @method('DELETE')
