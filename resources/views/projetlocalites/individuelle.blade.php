@@ -40,10 +40,11 @@
                         <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('projets.index') }}"
                                 class="btn btn-info btn-sm" title="retour"><i
                                     class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                            <p> | retour</p>
+                            <p> | Retour</p>
                         </span>
                         <h4 class="card-title">
-                            {{ 'Liste des demandeurs : ' . $projetlocalite->projet->type_localite . ' de ' . $projetlocalite?->localite }}
+                            Liste des demandeurs : <strong>{{ $projetlocalite->projet->type_localite . ' de ' . $projetlocalite?->localite }}</strong>
+                            <span class="badge bg-success text-white">{{ $individuelles->count() }}</span>
                         </h4>
                         @if (!empty($individuelles) && $individuelles->isNotEmpty())
                             <table class="table datatables align-middle" id="table-individuelles">

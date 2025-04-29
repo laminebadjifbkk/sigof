@@ -40,10 +40,12 @@
                         <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('projets.index') }}"
                                 class="btn btn-info btn-sm" title="retour"><i
                                     class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                            <p> | retour</p>
+                            <p> | Retour</p>
                         </span>
-                        <h4 class="card-title">Liste des demandeurs pour le module : {{ $projetmodule?->module }}</h4>
-
+                        <h4 class="card-title">
+                            Liste des demandeurs pour le module : <strong>{{ $projetmodule?->module }}</strong>
+                            <span class="badge bg-success text-white">{{ $individuelles->count() }}</span>
+                        </h4>
                         @if (!empty($individuelles) && $individuelles->isNotEmpty())
                             <table class="table datatables align-middle" id="table-individuelles">
                                 <thead>
