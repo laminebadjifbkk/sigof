@@ -326,10 +326,58 @@
                                                                 </h6>
                                                                 <span
                                                                     class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
+
+                                                                @if ($file->statut !== 'Validé')
+                                                                    <form action="{{ route('fileDestroy') }}"
+                                                                        method="post" class="d-inline">
+                                                                        @csrf
+                                                                        @method('put')
+                                                                        <input type="hidden" name="idFile"
+                                                                            value="{{ $file->id }}">
+                                                                        <button type="submit"
+                                                                            class="btn btn-outline-danger btn-sm show_confirm"
+                                                                            title="Supprimer">
+                                                                            <i class="bi bi-trash"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                @endif
+
+                                                                @hasanyrole('super-admin|admin|DIOF')
+                                                                    @if ($file->statut !== 'Validé')
+                                                                        <form action="{{ route('fileValidate') }}"
+                                                                            method="post" class="d-inline">
+                                                                            @csrf
+                                                                            @method('put')
+                                                                            <input type="hidden" name="idFile"
+                                                                                value="{{ $file->id }}">
+                                                                            <button type="submit"
+                                                                                class="btn btn-outline-success btn-sm show_confirm_valider"
+                                                                                title="Valider">
+                                                                                <i class="bi bi-check-circle"></i>
+                                                                            </button>
+                                                                        </form>
+                                                                    @endif
+
+                                                                    @if ($file->statut === 'Validé')
+                                                                        <form action="{{ route('fileInvalide') }}"
+                                                                            method="post" class="d-inline">
+                                                                            @csrf
+                                                                            @method('put')
+                                                                            <input type="hidden" name="idFile"
+                                                                                value="{{ $file->id }}">
+                                                                            <button type="submit"
+                                                                                class="btn btn-outline-warning btn-sm show_confirm_rejeter"
+                                                                                title="Invalider">
+                                                                                <i class="bi bi-x-circle"></i>
+                                                                            </button>
+                                                                        </form>
+                                                                    @endif
+                                                                @endhasanyrole
                                                             </div>
                                                             <a href="{{ asset($file->getFichier()) }}"
-                                                                class="btn btn-outline-primary btn-sm" target="_blank">
-                                                                Télécharger
+                                                                class="btn btn-outline-info btn-sm d-flex align-items-center"
+                                                                target="_blank" title="Visualiser le fichier">
+                                                                <i class="bi bi-eye me-1"></i> Visualiser
                                                             </a>
                                                         </div>
                                                     </div>
