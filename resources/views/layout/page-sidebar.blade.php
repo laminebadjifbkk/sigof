@@ -1,7 +1,6 @@
 <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
-        {{-- @can('user-view') --}}
 
         @hasanyrole('Employe|super-admin|admin')
             <li class="nav-item">
@@ -10,7 +9,6 @@
                     <span>Tableau de bord</span>
                 </a>
             </li>
-            {{-- @endcan --}}
         @endhasanyrole
 
         @hasanyrole('super-admin|admin')
@@ -213,8 +211,6 @@
                             </a>
                         </li>
                     @endcan
-
-
                     @hasrole('super-admin')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('individuelles.corbeille') }}">
@@ -222,99 +218,16 @@
                             </a>
                         </li>
                     @endhasrole
-
-                    {{--  @can('dg')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ url('demandesdg') }}">
-                                <span>Direction générale</span>
-                            </a>
-                        </li>
-                    @endcan
-
-                    @can('antTH')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ url('demandesth') }}">
-                                <span>Antenne Thies</span>
-                            </a>
-                        </li>
-                    @endcan
-                    @can('antKL')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ url('demandeskl') }}">
-                                <span>Antenne Kaolack</span>
-                            </a>
-                        </li>
-                    @endcan
-                    @can('antKD')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ url('demandeskd') }}">
-                                <span>Antenne Kolda</span>
-                            </a>
-                        </li>
-                    @endcan
-                    @can('antSL')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ url('demandessl') }}">
-                                <span>Antenne Saint Louis</span>
-                            </a>
-                        </li>
-                    @endcan
-                    @can('antKG')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ url('demandeskg') }}">
-                                <span>Antenne Kédougou</span>
-                            </a>
-                        </li>
-                    @endcan
-                    @can('antMT')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ url('demandesmt') }}">
-                                <span>Antenne Matam</span>
-                            </a>
-                        </li>
-                    @endcan
-                    @can('antDL')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ url('demandesdl') }}">
-                                <span>Antenne Diourbel</span>
-                            </a>
-                        </li>
-                    @endcan
-                    @can('antZG')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ url('demandeszig') }}">
-                                <span>Antenne Ziguinchor</span>
-                            </a>
-                        </li>
-                    @endcan --}}
                 </ul>
             </li>
         @endcan
 
-        {{-- @can('demande-view')
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#demande-col-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-folder-plus"></i><span>Demandes collectives</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="demande-col-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    @can('collective-view')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ url('collectives') }}">
-                                <span>Demandes collectives</span>
-                            </a>
-                        </li>
-                    @endcan
-                </ul>
-            </li>
-        @endcan --}}
-
         @can('demandeur-view')
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#demandeurs-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-folder-plus"></i><span>Mes demandes</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-journal-check"></i><span>Mes demandes</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="demandeurs-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <ul id="demandeurs-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="{{ route('demandesIndividuelle') }}">
                             <span>Individuelles</span>
@@ -325,6 +238,23 @@
                             <span>Collectives</span>
                         </a>
                     </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#demandeurs-nav-programme" data-bs-toggle="collapse"
+                    href="#">
+                    <i class="bi bi-list-check"></i><span>Offres programmes</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="demandeurs-nav-programme" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    @foreach ($projets as $projet)
+                        <li class="nav-item">
+                            <a class="nav-link collapsed"
+                                href="{{ route('projetsIndividuelle', ['uuid' => $projet->uuid]) }}">
+                                <span>{{ $projet->sigle }}</span>
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
             </li>
         @endcan

@@ -41,6 +41,7 @@ namespace App\Providers;
 
 use App\Models\Antenne;
 use App\Models\Direction;
+use App\Models\Projet;
 use Carbon\Carbon;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -72,12 +73,15 @@ class AppServiceProvider extends ServiceProvider
 
         // Composer pour la sidebar
         View::composer('layout.page-sidebar', function ($view) {
-            $antennes   = Antenne::select('id', 'code', 'name')->orderBy('name')->get();
-            $directions = Direction::select('*')->orderBy('sigle')->get();
+            $antennes = Antenne::select('id', 'code', 'name')->orderBy('name')->get();
+            /* $directions = Direction::select('*')->orderBy('sigle')->get(); */
+            $directions = Direction::orderBy('sigle')->get();
+            $projets    = Projet::where('statut', 'ouvert')->orderBy('sigle')->get();
 
             $view->with([
                 'antennes'   => $antennes,
                 'directions' => $directions,
+                'projets'     => $projets,
             ]);
         });
 

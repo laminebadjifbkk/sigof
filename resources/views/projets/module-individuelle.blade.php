@@ -55,6 +55,7 @@
                                         <th>Prénom & NOM</th>
                                         <th>Date naissance</th>
                                         <th>Lieu naissance</th>
+                                        <th>Telephone</th>
                                         <th class="text-center">{{ $projet->type_localite }}</th>
                                         <th class="text-center">Statut</th>
                                         <th class="text-center">#</th>
@@ -69,6 +70,7 @@
                                             </td>
                                             <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                             <td>{{ $individuelle?->user?->lieu_naissance }}</td>
+                                            <td>{{ $individuelle?->user?->telephone }}</td>
                                             <td>
                                                 {{ optional($individuelle->{$projet->type_localite})->nom }}
                                             </td>

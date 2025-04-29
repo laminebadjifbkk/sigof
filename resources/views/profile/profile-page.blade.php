@@ -771,25 +771,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        {{-- Scan CIN --}}
-                                        {{-- <div class="row mb-3">
-                                            <label for="scan_cin"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">SCAN
-                                                CIN Recto/Verso
-                                                profil<span class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
-                                                <input type="file" name="scan_cin" id="scan_cin"
-                                                    class="form-control @error('scan_cin') is-invalid @enderror btn btn-primary btn-sm">
-                                                @error('scan_cin')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                                @error('scan_cin')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <div>{{ $message }}</div>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div> --}}
+                                        
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-info btn-sm">Sauvegarder les
                                                 modifications</button>
@@ -1475,29 +1457,6 @@
             @endif
         @endhasrole
     </div>
-
-    {{-- <div class="modal fade" id="ShowProfilImage{{ Auth::id() }}" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title mx-auto">
-                        {{ (Auth::user()?->civilite ?? '') . ' ' . (Auth::user()?->firstname ?? '') . ' ' . (Auth::user()?->name ?? (Auth::user()?->username ?? '')) }}
-                    </h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="col-12">
-                        <img src="{{ asset($user->getImage() ?? 'images/default.png') }}"
-                            class="d-block w-100 main-image rounded-4"
-                            alt="{{ Auth::user()?->legende ?? 'Photo de profil' }}">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 
     <div class="modal fade" id="ShowProfilImage{{ Auth::id() }}" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

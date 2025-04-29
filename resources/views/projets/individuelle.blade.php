@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', $projet?->sigle . ', liste des demandeurs ')
+@section('title', $projet?->sigle . ' | Liste des demandeurs ')
 @section('space-work')
     <div class="pagetitle">
         {{-- <h1>Data Tables</h1> --}}
@@ -52,6 +52,7 @@
                                         <th>Prénom & NOM</th>
                                         <th>Date naissance</th>
                                         <th>Lieu naissance</th>
+                                        <th>Telephone</th>
                                         <th>Module</th>
                                         <th class="text-center">{{ $projet->type_localite }}</th>
                                         <th class="text-center">Statut</th>
@@ -69,6 +70,7 @@
                                                 </td>
                                                 <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                                 <td>{{ $individuelle?->user?->lieu_naissance }}</td>
+                                                <td>{{ $individuelle?->user?->telephone }}</td>
                                                 <td>{{ $individuelle?->module?->name }}</td>
                                                 <td>
                                                     {{ optional($individuelle->{$projet->type_localite})->nom }}

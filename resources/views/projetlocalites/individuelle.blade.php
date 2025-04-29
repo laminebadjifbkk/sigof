@@ -43,7 +43,8 @@
                             <p> | Retour</p>
                         </span>
                         <h4 class="card-title">
-                            Liste des demandeurs : <strong>{{ $projetlocalite->projet->type_localite . ' de ' . $projetlocalite?->localite }}</strong>
+                            Liste des demandeurs :
+                            <strong>{{ $projetlocalite->projet->type_localite . ' de ' . $projetlocalite?->localite }}</strong>
                             <span class="badge bg-success text-white">{{ $individuelles->count() }}</span>
                         </h4>
                         @if (!empty($individuelles) && $individuelles->isNotEmpty())
@@ -55,6 +56,7 @@
                                         <th>Prénom & NOM</th>
                                         <th>Date naissance</th>
                                         <th>Lieu naissance</th>
+                                        <th>Telephone</th>
                                         <th>Module</th>
                                         {{-- @if (!empty($region))
                                     <th>{{ $region }}</th>
@@ -81,6 +83,7 @@
                                             </td>
                                             <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                             <td>{{ $individuelle?->user?->lieu_naissance }}</td>
+                                            <td>{{ $individuelle?->user?->telephone }}</td>
                                             <td>{{ $individuelle?->module?->name }}</td>
                                             {{-- @if (!empty($region))
                                         <td>{{ $individuelle?->departement?->region?->nom }}</td>
