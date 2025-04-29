@@ -67,20 +67,20 @@
                                     @enderror
                                 </div>
                                 <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
-                                    <label for="departement" class="form-label">Département<span
+                                    <label for="localite" class="form-label">Département<span
                                             class="text-danger mx-1">*</span></label>
-                                    <select name="departement"
-                                        class="form-select  @error('departement') is-invalid @enderror" aria-label="Select"
+                                    <select name="localite"
+                                        class="form-select  @error('localite') is-invalid @enderror" aria-label="Select"
                                         id="select-field-departement" data-placeholder="Choisir">
-                                        <option value="{{ $individuelle?->departement?->nom ?? old('departement') }}">
-                                            {{ $individuelle?->departement?->nom ?? old('departement') }}</option>
+                                        <option value="{{ $individuelle?->departement?->nom ?? old('localite') }}">
+                                            {{ $individuelle?->departement?->nom ?? old('localite') }}</option>
                                         @foreach ($departements as $departement)
                                             <option value="{{ $departement->nom }}">
                                                 {{ $departement->nom }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('departement')
+                                    @error('localite')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
                                         </span>
