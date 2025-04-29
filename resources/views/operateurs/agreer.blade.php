@@ -75,7 +75,7 @@
                                                     href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
                                             </td>
                                             <td><a
-                                                    href="tel:+{{ $operateur?->user?->telephone }}">{{ $operateur?->user?->telephone }}</a>
+                                                    href="tel:+221{{ $operateur?->user?->telephone }}">{{ $operateur?->user?->telephone }}</a>
                                             </td>
                                             <td>{{ $operateur?->user?->adresse }}</td>
                                             @can('operateur-show')

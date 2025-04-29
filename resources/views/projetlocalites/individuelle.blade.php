@@ -83,7 +83,7 @@
                                             </td>
                                             <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                             <td>{{ $individuelle?->user?->lieu_naissance }}</td>
-                                            <td>{{ $individuelle?->user?->telephone }}</td>
+                                            <td><a href="tel:+221{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a></td>
                                             <td>{{ $individuelle?->module?->name }}</td>
                                             {{-- @if (!empty($region))
                                         <td>{{ $individuelle?->departement?->region?->nom }}</td>

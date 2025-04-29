@@ -193,7 +193,7 @@
                     <td><b>{{ __('CONTACTS') }}</b></td>
                     <td colspan="3">
                         @if (!empty($operateur?->user?->fixe))
-                            Tél 1 : <a href="tel:+{{ $operateur?->user?->fixe }}">
+                            Tél 1 : <a href="tel:+221{{ $operateur?->user?->fixe }}">
                                 {{ substr($operateur?->user?->fixe, 0, 2) .
                                     ' ' .
                                     substr($operateur?->user?->fixe, 2, 3) .
@@ -204,7 +204,7 @@
                             </a>
                         @endif
                         @if (!empty($operateur?->user?->telephone))
-                            / <a href="tel:+{{ $operateur?->user?->telephone }}">
+                            / <a href="tel:+221{{ $operateur?->user?->telephone }}">
 
                                 {{ substr($operateur?->user?->telephone, 0, 2) .
                                     ' ' .
@@ -218,7 +218,7 @@
                         <br>
                         @if (!empty($operateur?->user?->telephone_parent))
                             Tél 2 : <a
-                                href="tel:+{{ $operateur?->user?->telephone_parent }}">{{ $operateur?->user?->telephone_parent }}</a>
+                                href="tel:+221{{ $operateur?->user?->telephone_parent }}">{{ $operateur?->user?->telephone_parent }}</a>
                         @endif
                     </td>
                     <td colspan="3">
@@ -434,7 +434,7 @@
                                     {{ $operateureference?->organisme . ',' }}
                                     {{ $operateureference?->periode }} <br>
                                     Tél : <a
-                                        href="tel:+{{ $operateureference?->contact }}">{{ $operateureference?->contact }}</a>
+                                        href="tel:+221{{ $operateureference?->contact }}">{{ $operateureference?->contact }}</a>
                                 </td> --}}
 
                             <td colspan="7">
@@ -442,7 +442,7 @@
                                 {{ $operateureference?->periode }} <br>
                                 @if (!empty($operateureference?->contact))
                                     Tél : <a
-                                        href="tel:+{{ $operateureference?->contact }}">{{ $operateureference?->contact }}</a>
+                                        href="tel:+221{{ $operateureference?->contact }}">{{ $operateureference?->contact }}</a>
                                     <br>
                                 @endif
                                 <b><u>Description</u></b> : {{ $operateureference?->description }}

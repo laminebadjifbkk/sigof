@@ -275,7 +275,7 @@
                                                     </td>
                                                 @endcan
                                                 @can('afficher-operateur-telephone')
-                                                    <td><a href="tel:+{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe . ' ' . $operateur?->user?->telephone }}
+                                                    <td><a href="tel:+221{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe . ' ' . $operateur?->user?->telephone }}
                                                         </a>
                                                     </td>
                                                 @endcan

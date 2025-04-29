@@ -70,7 +70,7 @@
                                             </td>
                                             <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                             <td>{{ $individuelle?->user?->lieu_naissance }}</td>
-                                            <td>{{ $individuelle?->user?->telephone }}</td>
+                                            <td><a href="tel:+221{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a></td>
                                             <td>
                                                 {{ optional($individuelle->{$projet->type_localite})->nom }}
                                             </td>

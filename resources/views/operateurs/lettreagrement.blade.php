@@ -151,7 +151,7 @@
             {{ $operateur?->user?->adresse }}
             <br>
             <b>Téléphone</b> :
-            <a style="text-decoration:none" href="tel:+{{ $operateur?->user?->telephone }}">
+            <a style="text-decoration:none" href="tel:+221{{ $operateur?->user?->telephone }}">
                 {{ substr($operateur?->user?->fixe, 0, 2) .
                     ' ' .
                     substr($operateur?->user?->fixe, 2, 3) .
