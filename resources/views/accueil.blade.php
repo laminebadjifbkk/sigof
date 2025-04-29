@@ -1249,7 +1249,7 @@
                                     implode(
                                         '',
                                         array_map(
-                                            fn($line) => nl2br(e(wordwrap($line, 40, "\n", true))),
+                                            fn($line) => nl2br(e(wordwrap($line, 100, "\n", true))),
                                             explode("\n", old('objet', ucfirst($post?->name))),
                                         ),
                                     ) !!}
