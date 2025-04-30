@@ -76,7 +76,7 @@
                             <div class="hero-buttons">
                                 @if (!empty($une?->message))
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#enSavoirPlusModal"
-                                        class="btn btn-success btn-sm me-0 me-sm-2 mx-1">S'inscrire</a>
+                                        class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">Postuler</a>
                                 @else
                                     <a href="#apropos" class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">En savoir
                                         plus</a>
@@ -1150,8 +1150,8 @@
                     </div>
 
                     <div class="modal-footer d-flex justify-content-between">
-                        <a href="#" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#registerDemandeurModal">Postuler</a>
+                        <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#registerDemandeurModal">S'inscrire</a>
                         <button type="button" class="btn btn-secondary btn-sm"
                             data-bs-dismiss="modal">Fermer</button>
                     </div>
