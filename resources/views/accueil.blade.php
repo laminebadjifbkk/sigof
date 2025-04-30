@@ -76,7 +76,7 @@
                             <div class="hero-buttons">
                                 @if (!empty($une?->message))
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#enSavoirPlusModal"
-                                        class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">En savoir plus</a>
+                                        class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">Postuler</a>
                                 @else
                                     <a href="#apropos" class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">En savoir
                                         plus</a>
