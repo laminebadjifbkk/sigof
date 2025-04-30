@@ -771,7 +771,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        
+
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-info btn-sm">Sauvegarder les
                                                 modifications</button>
@@ -1311,7 +1311,7 @@
                         <div class="modal-content rounded-4 shadow">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="modalModulesLabel-{{ $projet->id }}">
-                                    Modules du {{ $projet->type_projet }} : {{ $projet->name }}
+                                    Modules du {{ strtolower($projet->type_projet) }} : {{ $projet->name }}
                                 </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Fermer"></button>
@@ -1348,7 +1348,8 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                <button type="button" class="btn btn-secondary btn-sm"
+                                    data-bs-dismiss="modal">Fermer</button>
                             </div>
                         </div>
                     </div>
