@@ -85,7 +85,7 @@
                                     <a href="{{ $une?->video }}" class="btn btn-sm btn-link mt-2 mt-sm-0 glightbox">
                                         <i class="bi bi-play-circle me-1"></i>Lire la vidéo</a>
                                 @else
-                                    {{--  <a href="https://www.youtube.com/watch?v=lceGzvSiL1Y&t=5s"
+                                   {{--  <a href="https://www.youtube.com/watch?v=lceGzvSiL1Y&t=5s"
                                         class="btn btn-sm btn-link mt-2 mt-sm-0 glightbox">
                                         <i class="bi bi-play-circle me-1"></i>Vidéo présentation</a> --}}
                                 @endif
@@ -1150,10 +1150,8 @@
                     </div>
 
                     <div class="modal-footer d-flex justify-content-between">
-                        <span class="hero-buttons">
-                            <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#registerDemandeurModal">S'inscrire</a>
-                        </span>
+                        <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#registerDemandeurModal">S'inscrire</a>
                         <button type="button" class="btn btn-secondary btn-sm"
                             data-bs-dismiss="modal">Fermer</button>
                     </div>
