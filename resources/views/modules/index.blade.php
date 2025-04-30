@@ -90,15 +90,15 @@
                                             <td style="text-align: center;">
                                                 @foreach ($module->formations as $formation)
                                                     @if ($loop->last)
-                                                        <a href="{{ url('formations/' . $formation->id) }}"><span
-                                                                class="badge bg-info">{{ $loop->count }}</span></a>
+                                                        <a href="{{ route('formations.show', $formation) }}"><span
+                                                                class="badge bg-warning">{{ $loop->count }}</span></a>
                                                     @endif
                                                 @endforeach
                                             </td>
                                             <td style="text-align: center;">
                                                 @foreach ($module->individuelles as $individuelle)
                                                     @if ($loop->last)
-                                                        <a href="{{ url('modules/' . $module->id) }}"><span
+                                                        <a href="{{ route('modules.show', $module) }}"><span
                                                                 class="badge bg-info">{{ $loop->count }}</span></a>
                                                     @endif
                                                 @endforeach
@@ -228,11 +228,6 @@
                                 enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 @method('patch')
-                                {{-- <div class="modal-header" id="EditRegionModalLabel{{ $module->id }}">
-                                    <h5 class="modal-title"><i class="bi bi-pencil" title="Ajouter"></i> Modifier module</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div> --}}
                                 <div class="modal-header">
                                     <h5 class="modal-title">Modification module</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -282,86 +277,6 @@
                     </div>
                 </div>
             @endforeach
-            {{-- <div class="modal fade" id="generate_rapport_module_region" tabindex="-1" role="dialog"
-            aria-labelledby="generate_rapport_module_regionLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Générer une recherche<span class="text-danger mx-1">*</span></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form method="post" action="{{ route('modules.report') }}">
-                        @csrf
-                        <div class="modal-body">
-                            <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                    <div class="form-group">
-                                        <label for="region" class="form-label">Région</label>
-                                        <select name="region" class="form-select  @error('region') is-invalid @enderror"
-                                            aria-label="Select" id="select-field-region-module-rapport"
-                                            data-placeholder="Choisir la région">
-                                            <option value="">Toutes</option>
-                                            @foreach ($regions as $region)
-                                                <option value="{{ $region->nom }}">
-                                                    {{ $region->nom }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('region')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                    <div class="form-group">
-                                        <label for="statut" class="form-label">Statut<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <select name="statut"
-                                            class="form-select form-select-sm @error('statut') is-invalid @enderror"
-                                            aria-label="Select" id="select-field-statut-report"
-                                            data-placeholder="Choisir statut">
-                                            <option value="{{ old('statut') }}">
-                                                {{ old('statut') }}
-                                            </option>
-                                            <option value="nouvelle">
-                                                nouvelle
-                                            </option>
-                                            <option value='Attente'>
-                                                attente
-                                            </option>
-                                            <option value="former">
-                                                former
-                                            </option>
-                                            <option value='Rejetée'>
-                                                rejeter
-                                            </option>
-                                            <option value="retenu">
-                                                retenu
-                                            </option>
-                                        </select>
-                                        @error('statut')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm"
-                                        data-bs-dismiss="modal">Fermer</button>
-                                    <div class="text-center">
-                                        <button type="submit"
-                                            class="btn btn-primary btn-block submit_rapport btn-sm">Rechercher</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> --}}
         </section>
     @endcan
 @endsection
