@@ -357,7 +357,7 @@
                                                                                 <td class="float-end">
                                                                                     @can('view', $collective)
                                                                                         <span class="d-flex align-items-baseline"><a
-                                                                                                href="{{ route('collectivemodules.show', $module_collective->id) }}"
+                                                                                                href="{{ route('collectivemodules.show', $module_collective) }}"
                                                                                                 class="btn btn-info btn-sm text-white"
                                                                                                 title="voir détails">ajouter</a>
                                                                                             <div class="filter">

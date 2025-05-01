@@ -411,7 +411,7 @@
                                                                     </td>
                                                                     @can('user-show')
                                                                         <td class="text-center">
-                                                                            <a href="{{ route('collectivemodules.show', $collectivemodule?->id) }}"
+                                                                            <a href="{{ route('collectivemodules.show', $collectivemodule) }}"
                                                                                 class="btn btn-primary btn-sm" target="_blank"
                                                                                 title="voir détails"><i
                                                                                     class="bi bi-eye"></i></a>

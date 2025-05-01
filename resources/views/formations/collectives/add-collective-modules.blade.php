@@ -79,7 +79,7 @@
                                                         @foreach ($collectivemodule?->listecollectives as $listecollective)
                                                             @if ($loop->last)
                                                                 <a
-                                                                    href="{{ url('collectivemodules/' . $collectivemodule?->id) }}"><span
+                                                                    href="{{ route('collectivemodules.show', $collectivemodule) }}"><span
                                                                         class="badge bg-info">{{ $loop?->count }}</span></a>
                                                             @endif
                                                         @endforeach

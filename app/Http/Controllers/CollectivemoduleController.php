@@ -85,18 +85,18 @@ class CollectivemoduleController extends Controller
             'collectives_id' => $request->input('collectiveid'),
         ]);
 
-        Alert::success('Fait !', 'Module ajouté avec succès.');
+        Alert::success('Succès !', 'Module ajouté avec succès.');
         return redirect()->back();
 
     }
-    public function update(Request $request, $id)
+    public function update(Request $request, Collectivemodule $collectivemodule)
     {
         $this->validate($request, [
             /* "module_name"             => "required|string|unique:collectivemodules,module,except,id", */
             "module_name" => "required|string",
         ]);
 
-        $collectivemodule = Collectivemodule::find($id);
+        /* $collectivemodule = Collectivemodule::find($id); */
         $this->authorize('update', $collectivemodule);
 
         if (! empty($collectivemodule->formations_id)) {
@@ -116,16 +116,16 @@ class CollectivemoduleController extends Controller
         }
     }
 
-    public function show($id)
+    public function show(Collectivemodule $collectivemodule)
     {
-        $collectivemodule = Collectivemodule::find($id);
+        /* $collectivemodule = Collectivemodule::find($id); */
         $this->authorize('view', $collectivemodule);
         return view("collectives.showliste", compact('collectivemodule'));
     }
 
-    public function destroy($id)
+    public function destroy(Collectivemodule $collectivemodule)
     {
-        $collectivemodule = Collectivemodule::find($id);
+        /* $collectivemodule = Collectivemodule::find($id); */
         $this->authorize('delete', $collectivemodule);
 
         if ($collectivemodule && $collectivemodule->listecollectives()->count() > 0) {
@@ -195,7 +195,7 @@ class CollectivemoduleController extends Controller
 
         $collectivemodule->save();
 
-        Alert::success('Module supprimer !', 'Merci à bientôt');
+        Alert::success('Succès !', 'Module supprimé avec succès');
 
         return redirect()->back();
     }

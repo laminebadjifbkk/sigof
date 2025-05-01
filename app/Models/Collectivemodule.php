@@ -1,16 +1,16 @@
 <?php
-
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Str;
 
 /**
  * Class Module
- * 
+ *
  * @property int $id
  * @property string $uuid
  * @property string|null $numero
@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @property string|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Domaine|null $domaine
  * @property Specialite|null $specialite
  * @property Collective|null $collective
@@ -47,10 +47,10 @@ class Collectivemodule extends Model
     protected $table = 'collectivemodules';
 
     protected $casts = [
-        'collectives_id' => 'int',
+        'collectives_id'  => 'int',
         'departements_id' => 'int',
-		'formations_id' => 'int',
-        'regions_id' => 'int'
+        'formations_id'   => 'int',
+        'regions_id'      => 'int',
     ];
 
     protected $fillable = [
@@ -64,26 +64,42 @@ class Collectivemodule extends Model
         'contact',
         'statut',
         'collectives_id',
-		'formations_id',
+        'formations_id',
         'departements_id',
-        'regions_id'
+        'regions_id',
     ];
 
-	public function formation()
-	{
-		return $this->belongsTo(Formation::class, 'formations_id')->latest();
-	}
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->uuid)) {
+                $model->uuid = (string) Str::uuid();
+            }
+        });
+    }
+
+    public function formation()
+    {
+        return $this->belongsTo(Formation::class, 'formations_id')->latest();
+    }
     public function collective()
     {
         return $this->belongsTo(Collective::class, 'collectives_id');
     }
-	public function listecollectives()
-	{
-		return $this->hasMany(Listecollective::class, 'collectivemodules_id');
-	}
+    public function listecollectives()
+    {
+        return $this->hasMany(Listecollective::class, 'collectivemodules_id');
+    }
 
-	public function formations()
-	{
-		return $this->hasMany(Formation::class, 'collectivemodules_id');
-	}
+    public function formations()
+    {
+        return $this->hasMany(Formation::class, 'collectivemodules_id');
+    }
 }
