@@ -183,14 +183,6 @@
                                             })
                                             ->first();
                                         $statut = $projetmodule->statut;
-
-                                        $badgeClass = match ($statut) {
-                                            'ouvert' => 'bg-success',
-                                            'fermé' => 'bg-danger',
-                                            'terminé' => 'bg-secondary',
-                                            default => 'bg-light text-dark',
-                                        };
-
                                     @endphp
 
 
@@ -207,7 +199,7 @@
                                         </button>
                                     @else
                                         <button type="button"
-                                            class="btn btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center gap-2 {{ $badgeClass }}"
+                                            class="btn btn-outline-secondary btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center gap-2"
                                             disabled>
                                             <i class="bi bi-clock-fill"></i>
                                             {{ ucfirst(strtolower($projetmodule->statut)) }}
