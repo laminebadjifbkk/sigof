@@ -41,13 +41,39 @@
                                     <input type="hidden" name="projet" value="{{ $projet?->id }}">
 
                                     <div class="row g-3">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <label for="module_name" class="form-label">Module<span
                                                     class="text-danger">*</span></label>
                                             <input type="text" name="module" id="module_name"
                                                 class="form-control form-control-sm"
                                                 value="{{ old('module', $projetmodule?->module) }}" required>
                                             <div id="countryList"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="statut" class="form-label">Statut<span
+                                                    class="text-danger">*</span></label>
+                                            <select name="statut"
+                                                class="form-select  @error('statut') is-invalid @enderror"
+                                                aria-label="Select" id="select-field-statut"
+                                                data-placeholder="Choisir statut">
+                                                <option value="{{ old('statut', $projetmodule?->statut) }}">
+                                                    {{ old('statut', $projetmodule?->statut) }}
+                                                </option>
+                                                <option value="ouvert">
+                                                    ouvert
+                                                </option>
+                                                <option value="fermé">
+                                                    fermé
+                                                </option>
+                                                <option value="terminé">
+                                                    terminé
+                                                </option>
+                                            </select>
+                                            @error('statut')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
                                         </div>
 
                                         <div class="col-md-6">

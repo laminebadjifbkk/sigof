@@ -177,6 +177,7 @@
                                                     {{-- <th class="text-center" width="5%">N°</th> --}}
                                                     <th>Module</th>
                                                     <th>Domaines</th>
+                                                    <th>Statut</th>
                                                     <th class="text-center">Reçues</th>
                                                     @if ($projet?->effectif)
                                                         <th class="text-center" width="10%">Besoin</th>
@@ -195,6 +196,25 @@
                                                         {{-- <td class="text-center">{{ $i++ }}</td> --}}
                                                         <td>{{ $projetmodule?->module }}</td>
                                                         <td>{{ $projetmodule?->domaine }}</td>
+                                                        <td>
+                                                            @if ($projetmodule?->statut == 'ouvert')
+                                                                <span class="badge bg-success rounded-pill">
+                                                                    {{ $projetmodule?->statut }}
+                                                                </span>
+                                                            @elseif ($projetmodule?->statut == 'fermé')
+                                                                <span class="badge bg-danger rounded-pill">
+                                                                    {{ $projetmodule?->statut }}
+                                                                </span>
+                                                            @elseif ($projetmodule?->statut == 'terminé')
+                                                                <span class="badge bg-primary rounded-pill">
+                                                                    {{ $projetmodule?->statut }}
+                                                                </span>
+                                                            @else
+                                                                <span class="badge bg-default rounded-pill">
+                                                                    {{ $projetmodule?->statut }}
+                                                                </span>
+                                                            @endif
+                                                        </td>
                                                         @php
                                                             $count = $projet
                                                                 ->individuelles()
@@ -604,7 +624,7 @@
             }
         },
         "order": [
-            [2, 'desc']
+            [3, 'desc']
         ],
         language: {
             "sProcessing": "Traitement en cours...",

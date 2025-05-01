@@ -192,6 +192,7 @@ class ProjetmoduleController extends Controller
                             ->where('projets_id', $projetmodule->projet->id); // Assure que la validation concerne le même projet
                     }),
             ],
+            'statut'            => 'required|string',
             'domaine'           => 'required|string',
             'effectif'          => 'nullable|string',
             'description'       => 'nullable|string',
@@ -202,6 +203,7 @@ class ProjetmoduleController extends Controller
 
         $projetmodule->update([
             "module"      => $request->input("module"),
+            "statut"      => $request->input("statut"),
             "domaine"     => $request->input("domaine"),
             "effectif"    => $request->input("effectif"),
             "description" => $request->input("description"),
@@ -239,7 +241,7 @@ class ProjetmoduleController extends Controller
             }
         }
 
-        Alert::success('Succès ! ', 'Le module a été modifié avec succès');
+        Alert::success('Succès ! ', 'La modification a été modifiée avec succès');
 
         return redirect()->back();
     }

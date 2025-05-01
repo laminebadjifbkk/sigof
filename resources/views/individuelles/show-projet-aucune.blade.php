@@ -381,17 +381,34 @@
                                                     $query->where('name', $projetmodule->module);
                                                 })
                                                 ->first();
+
+                                            $jours_restant = \Carbon\Carbon::now()->diffInDays(
+                                                \Carbon\Carbon::parse($projet->fin),
+                                                false,
+                                            );
+
+                                            $statut = $projetmodule->statut;
+
                                         @endphp
 
                                         <!-- Bouton "Ajouter" ou "Modifier" selon l'existence de la demande -->
-                                        <button type="button"
-                                            class="btn {{ $demandeExistante ? 'btn-outline-warning' : 'btn-outline-success' }} btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center gap-2"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#{{ $demandeExistante ? 'EditIndividuelleModal' : 'AddIndividuelleModal' }}{{ $projetmodule->id }}">
-                                            <i
-                                                class="bi {{ $demandeExistante ? 'bi-pencil-fill' : 'bi-plus-circle-fill' }}"></i>
-                                            {{ $demandeExistante ? 'Modifier' : 'Postuler' }}
-                                        </button>
+                                        @if (!($jours_restant < 0) && $statut == 'ouvert')
+                                            <button type="button"
+                                                class="btn {{ $demandeExistante ? 'btn-outline-warning' : 'btn-outline-success' }} btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center gap-2"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#{{ $demandeExistante ? 'EditIndividuelleModal' : 'AddIndividuelleModal' }}{{ $projetmodule->id }}">
+                                                <i
+                                                    class="bi {{ $demandeExistante ? 'bi-pencil-fill' : 'bi-plus-circle-fill' }}"></i>
+                                                {{ $demandeExistante ? 'Modifier' : 'Postuler' }}
+                                            </button>
+                                        @else
+                                            <button type="button"
+                                                class="btn btn-outline-secondary btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center gap-2"
+                                                disabled>
+                                                <i class="bi bi-clock-fill"></i>
+                                                {{ ucfirst(strtolower($projetmodule->statut)) }}
+                                            </button>
+                                        @endif
                                     </div>
 
                                     <!-- Zone de description cachée -->
@@ -434,7 +451,7 @@
                                                 <input type="hidden" value="{{ $projetmodule?->module }}"
                                                     name="module">
 
-                                                    <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-4">
+                                                <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-4">
                                                     <label for="module_select_{{ $projetmodule->id }}"
                                                         class="form-label">
                                                         {{ $projetmodule?->projet?->type_localite }} <span

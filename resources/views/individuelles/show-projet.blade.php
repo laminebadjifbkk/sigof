@@ -142,49 +142,6 @@
                 </div>
             </div>
         </div>
-
-        {{-- <div class="card shadow-sm">
-            <div class="card-header">
-                <h5 class="card-title">{{ 'Nombre de modules : ' . $projet->projetmodules->count() }}</h5>
-            </div>
-            <div class="card-body">
-                @if ($projet->projetmodules && $projet->projetmodules->count())
-                    <ul class="list-group list-group-flush">
-                        @foreach ($projet->projetmodules as $index => $module)
-                            <li class="list-group-item">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="d-flex align-items-center gap-2" style="cursor: pointer;"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseModule-{{ $module->id }}">
-                                        <i class="bi bi-chevron-down"></i>
-                                        <strong>{{ $index + 1 }}. {{ $module->module }}</strong>
-                                    </div>
-
-                                    <!-- Bouton Formuler une demande -->
-                                    <button type="button"
-                                        class="btn btn-outline-success btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center gap-2"
-                                        data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal{{ $module->id }}">
-                                        <i class="bi bi-plus-circle-fill"></i>
-                                        Ajouter
-                                    </button>
-                                </div>
-
-                                <!-- Zone de description cachée -->
-                                <div class="collapse mt-3" id="collapseModule-{{ $module->id }}">
-                                    <div class="text-muted">
-                                        {!! '- ' . implode('- ', array_map(fn($line) => nl2br(e($line)), explode("\n", ucfirst($module->description)))) !!}
-                                    </div>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                @else
-                    <div class="alert alert-info text-center text-muted">
-                        Aucun module disponible.
-                    </div>
-                @endif
-            </div>
-        </div> --}}
-
         @php
 
             $projet_count = $projet->individuelles
@@ -225,26 +182,27 @@
                                                 $query->where('name', $projetmodule->module);
                                             })
                                             ->first();
+                                        $statut = $projetmodule->statut;
                                     @endphp
 
 
                                     <!-- Bouton "Ajouter" ou "Modifier" selon l'existence de la demande -->
 
-                                    @if (!($jours_restant < 0))
+                                    @if (!($jours_restant < 0) && $statut == 'ouvert')
                                         <button type="button"
                                             class="btn {{ $demandeExistante ? 'btn-outline-warning' : 'btn-outline-success' }} btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center gap-2"
                                             data-bs-toggle="modal"
                                             data-bs-target="#{{ $demandeExistante ? 'EditIndividuelleModal' : 'AddIndividuelleModal' }}{{ $projetmodule->id }}">
                                             <i
                                                 class="bi {{ $demandeExistante ? 'bi-pencil-fill' : 'bi-plus-circle-fill' }}"></i>
-                                            {{ $demandeExistante ? 'Modifier' : 'Ajouter' }}
+                                            {{ $demandeExistante ? 'Modifier' : ucfirst(strtolower($projetmodule->statut)) }}
                                         </button>
                                     @else
                                         <button type="button"
                                             class="btn btn-outline-secondary btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center gap-2"
                                             disabled>
                                             <i class="bi bi-clock-fill"></i>
-                                            Expiré
+                                            {{ ucfirst(strtolower($projetmodule->statut)) }}
                                         </button>
                                     @endif
                                 </div>
@@ -879,7 +837,7 @@
                                                 </div>
                                             @endif
 
-                                            @can('projet-view')
+                                            {{-- @can('projet-view')
                                                 <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                                     <label for="projet" class="form-label">Partenaire</label>
                                                     <select name="projet"
@@ -904,7 +862,7 @@
                                                         </span>
                                                     @enderror
                                                 </div>
-                                            @endcan
+                                            @endcan --}}
 
                                             <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                                 <label for="qualification" class="form-label">Qualification et autres
