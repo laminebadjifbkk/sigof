@@ -207,12 +207,10 @@
                                         </button>
                                     @else
                                         <button type="button"
-                                            class="btn btn-outline-secondary btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center gap-2"
+                                            class="btn btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center gap-2 {{ $badgeClass }}"
                                             disabled>
                                             <i class="bi bi-clock-fill"></i>
-                                            <span class="badge {{ $badgeClass }} text-capitalize">
-                                                {{ ucfirst(strtolower($projetmodule->statut)) }}
-                                            </span>
+                                            {{ ucfirst(strtolower($projetmodule->statut)) }}
                                         </button>
                                     @endif
                                 </div>
