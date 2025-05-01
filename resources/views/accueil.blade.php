@@ -64,7 +64,7 @@
                                     {{-- {{ substr($une?->message, 0, 350) }}... --}}
                                     {!! '' .
                                         implode(
-                                            '-  ',
+                                            ' ',
                                             array_map(
                                                 fn($line) => nl2br(e(wordwrap($line, 50, "\n", true))),
                                                 explode("\n", ucfirst(substr($une?->message, 0, 185))),
@@ -1247,7 +1247,7 @@
                             <p class="small fst-italic pt-1">
                                 {!! '' .
                                     implode(
-                                        '-  ',
+                                        ' ',
                                         array_map(fn($line) => nl2br(e(wordwrap($line, 100, "\n", true))), explode("\n", ucfirst($post?->name))),
                                     ) !!}
                             </p>
