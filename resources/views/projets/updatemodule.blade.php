@@ -53,7 +53,7 @@
                                             <label for="statut" class="form-label">Statut<span
                                                     class="text-danger">*</span></label>
                                             <select name="statut"
-                                                class="form-select  @error('statut') is-invalid @enderror"
+                                                class="form-select form-select-sm @error('statut') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-statut"
                                                 data-placeholder="Choisir statut">
                                                 <option value="{{ old('statut', $projetmodule?->statut) }}">
