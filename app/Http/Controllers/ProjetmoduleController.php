@@ -229,12 +229,14 @@ class ProjetmoduleController extends Controller
             ->delete();
 
 // Ensuite, insérer les nouvelles associations proprement
-        foreach ($request->projetlocalites as $localite) {
-            $projetlocaliteId = Projetlocalite::where('localite', $localite)->first()->id;
-            DB::table('projetmodulelocalites')->insert([
-                'projetmodules_id'   => $projetmodule->id,
-                'projetlocalites_id' => $projetlocaliteId,
-            ]);
+        if (! empty($request->projetlocalites)) {
+            foreach ($request->projetlocalites as $localite) {
+                $projetlocaliteId = Projetlocalite::where('localite', $localite)->first()->id;
+                DB::table('projetmodulelocalites')->insert([
+                    'projetmodules_id'   => $projetmodule->id,
+                    'projetlocalites_id' => $projetlocaliteId,
+                ]);
+            }
         }
 
         Alert::success('Succès ! ', 'Le module a été modifié avec succès');
