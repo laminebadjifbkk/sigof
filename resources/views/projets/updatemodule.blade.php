@@ -93,9 +93,6 @@
                                             <i class="bi bi-pencil-square me-1"></i> Sauvegarder les modifications
                                         </button>
                                     @endif
-                                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
-                                        <i class="bi bi-x-circle me-1"></i> Fermer
-                                    </button>
                                 </div>
                             </form>
                         </div>

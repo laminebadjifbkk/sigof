@@ -195,7 +195,7 @@ class ProjetmoduleController extends Controller
             'domaine'           => 'required|string',
             'effectif'          => 'nullable|string',
             'description'       => 'nullable|string',
-            'projetlocalites'   => 'required|array',                  // Vérifie que la valeur est un tableau
+            'projetlocalites'   => 'nullable|array',                  // Vérifie que la valeur est un tableau
             'projetlocalites.*' => 'exists:projetlocalites,localite', // Chaque élément doit exister dans la colonne 'localite' de la table 'projetlocalites'
 
         ]);
