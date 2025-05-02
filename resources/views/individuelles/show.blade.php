@@ -106,9 +106,10 @@
                                     </span>
                                 @endif
 
-                                @can('valider-demande')
-                                    <span class="d-flex align-items-baseline">
-                                        <span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
+
+                                <span class="d-flex align-items-baseline">
+                                    <span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
+                                    @can('valider-demande')
                                         <div class="filter">
                                             <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                     class="bi bi-three-dots"></i></a>
@@ -124,8 +125,8 @@
                                                     data-bs-target="#RejetDemandeModal">Validation</button>
                                             </ul>
                                         </div>
-                                    </span>
-                                @endcan
+                                    @endcan
+                                </span>
                             </div>
 
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
