@@ -89,14 +89,16 @@ class ValidationcollectiveController extends Controller
         // Bloquer certains statuts uniquement pour les non-super-admins
         if (! auth()->user()->hasRole('super-admin')) {
             $messages = [
-                'Rejetée'    => 'demande déjà rejetée',
-                'Programmer' => 'demande déjà programmée',
-                'Attente'    => 'demande déjà traitée',
-                'Retenue'    => 'demande déjà traitée',
-                'Terminée'   => 'demandeur déjà formé',
-                'Former'     => 'demandeur déjà formé',
-                'À corriger' => 'demandeur déjà traitée',
-                'Non validé' => 'demandeur déjà traitée',
+                'Rejetée'      => 'demande déjà rejetée',
+                'Programmer'   => 'demande déjà programmée',
+                'Attente'      => 'demande déjà traitée',
+                'Retenue'      => 'demande déjà traitée',
+                'Terminée'     => 'demandeur déjà formé',
+                'Former'       => 'demandeur déjà formé',
+                'À corriger'   => 'demandeur déjà traitée',
+                'Non validé'   => 'demandeur déjà traitée',
+                'Conforme'     => 'demandeur déjà traitée',
+                'Non conforme' => 'demandeur déjà traitée',
             ];
 
             if (array_key_exists($statut, $messages)) {

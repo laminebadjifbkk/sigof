@@ -78,6 +78,14 @@ class ValidationIndividuelleController extends Controller
                 case 'Retenue':
                     Alert::warning('Désolé !', 'demande déjà traitée');
                     break;
+                case 'Conforme':
+                    $messagestatutdemande = 'conforme';
+                    $suiteMessage         = true;
+                    break;
+                case 'Non conforme':
+                    $messagestatutdemande = 'non conforme car : ';
+                    $suiteMessage         = true;
+                    break;
                 case 'Terminée':
                     Alert::warning('Désolé !', 'demandeur déjà formé');
                     break;
@@ -126,7 +134,7 @@ class ValidationIndividuelleController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        
+
         $statut = $request->statut;
 
         if ($statut !== 'Attente') {
@@ -141,14 +149,16 @@ class ValidationIndividuelleController extends Controller
         // Bloquer certains statuts uniquement pour les non-super-admins
         if (! auth()->user()->hasRole('super-admin')) {
             $messages = [
-                'Rejetée'    => 'demande déjà rejetée',
-                'Programmer' => 'demande déjà programmée',
-                'Attente'    => 'demande déjà traitée',
-                'Retenue'    => 'demande déjà traitée',
-                'Terminée'   => 'demandeur déjà formé',
-                'Former'     => 'demandeur déjà formé',
-                'À corriger' => 'demandeur déjà traitée',
-                'Non validé' => 'demandeur déjà traitée',
+                'Rejetée'      => 'demande déjà rejetée',
+                'Programmer'   => 'demande déjà programmée',
+                'Attente'      => 'demande déjà traitée',
+                'Retenue'      => 'demande déjà traitée',
+                'Terminée'     => 'demandeur déjà formé',
+                'Former'       => 'demandeur déjà formé',
+                'À corriger'   => 'demandeur déjà traitée',
+                'Non validé'   => 'demandeur déjà traitée',
+                'Conforme'     => 'demandeur déjà traitée',
+                'Non conforme' => 'demandeur déjà traitée',
             ];
 
             if (array_key_exists($statut, $messages)) {
@@ -192,6 +202,13 @@ class ValidationIndividuelleController extends Controller
                 $messagestatutdemande = 'en attente de corrections pour le motif suivant';
                 $suiteMessage         = true;
                 break;
+            case 'Conforme':
+                $messagestatutdemande = 'conforme';
+                $suiteMessage         = true;
+                break;
+            case 'Non conforme':
+                $messagestatutdemande = 'non conforme car : ';
+                $suiteMessage         = true;
             case 'Non validé':
                 $messagestatutdemande = 'Non validée pour le motif suivant';
                 $suiteMessage         = true;
