@@ -132,6 +132,8 @@ class ValidationcollectiveController extends Controller
 
             $statutdemande = $value?->statut;
 
+            dd($statutdemande);
+
             switch ($statutdemande) {
                 case 'Attente':
                     $messagestatutdemande = 'validée et est en attente de formation';
