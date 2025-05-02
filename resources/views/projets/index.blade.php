@@ -101,7 +101,7 @@
                                         </td>
                                         <td class="text-center">{{ $projet?->effectif }}</td> --}}
                                         <td class="text-center">
-                                            @hasrole(['super-admin', 'admin'])
+                                            @hasrole(['super-admin', 'admin', 'DIOF', 'Ingenieur', 'ADIOF'])
                                                 @can('projet-show')
                                                     <div class="d-flex justify-content-center align-items-center gap-2">
                                                         {{-- Voir Détails --}}
@@ -189,7 +189,7 @@
                                                 @endcan
                                             @endhasrole
 
-                                            @hasrole(['CCP', 'DPP', 'DG', 'SG', 'DIOF', 'Ingenieur', 'ADIOF'])
+                                            @hasrole(['CCP', 'DPP', 'DG', 'SG'])
                                                 <div class="d-flex justify-content-center align-items-center gap-2">
                                                     @can('projet-update')
                                                         {{-- Modifier --}}
