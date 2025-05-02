@@ -542,7 +542,7 @@
             </li>
         @endcan
 
-        @hasrole(['CCP', 'super-admin', 'DG', 'admin', 'SG', 'DPP'])
+        @hasrole(['CCP', 'super-admin', 'DG', 'admin', 'SG', 'DPP', 'ADIOF', 'Ingenieur'])
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ url('projets') }}">
                     <i class="bi bi-layers-half"></i>
