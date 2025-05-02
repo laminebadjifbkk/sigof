@@ -106,7 +106,7 @@
                                     </span>
                                 @endif
 
-                                @can('user-view')
+                                @can('valider-demande')
                                     <span class="d-flex align-items-baseline">
                                         <span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
                                         <div class="filter">

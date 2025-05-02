@@ -343,6 +343,7 @@ class DatabaseSeeder extends Seeder
         'manuel-update',
         'manuel-delete',
         'manuel-create',
+        'valider-demande',
     ];
 
     public function run(): void
