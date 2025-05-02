@@ -145,6 +145,14 @@ class ValidationcollectiveController extends Controller
                     $messagestatutdemande = 'validée et est en attente de formation';
                     $suiteMessage         = true;
                     break;
+                case 'Conforme':
+                    $messagestatutdemande = 'conforme';
+                    $suiteMessage         = true;
+                    break;
+                case 'Non conforme':
+                    $messagestatutdemande = 'non conforme car : ';
+                    $suiteMessage         = true;
+                    break;
                 case 'Non validé':
                     $messagestatutdemande = 'Non validée pour le motif suivant';
                     $suiteMessage         = true;
