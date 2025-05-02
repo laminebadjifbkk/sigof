@@ -395,7 +395,7 @@
                                                                     title="Voir détails">
                                                                     <i class="bi bi-eye"></i>
                                                                 </a>
-                                                                @if (auth()->user()->hasRole(['super-admin', 'admin']))
+                                                                @if (auth()->user()->hasRole(['super-admin', 'admin', 'DIOF', 'Ingenieur', 'ADIOF']))
                                                                     <button type="button"
                                                                         class="btn btn-sm btn-outline-secondary dropdown-toggle"
                                                                         data-bs-toggle="dropdown"
@@ -486,7 +486,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            @if (auth()->user()->hasRole(['super-admin', 'admin']))
+                            @if (auth()->user()->hasRole(['super-admin', 'admin', 'DIOF', 'Ingenieur', 'ADIOF']))
                                 <button type="submit" class="btn btn-primary btn-sm">
                                     <i class="bi bi-check-circle me-1"></i> Enregistrer
                                 </button>
