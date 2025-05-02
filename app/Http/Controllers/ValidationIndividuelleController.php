@@ -137,7 +137,7 @@ class ValidationIndividuelleController extends Controller
 
         $statut = $request->statut;
 
-        if ($statut !== 'Attente') {
+        if ($statut !== 'Attente' || $statut !== 'Conforme') {
             $request->validate([
                 'motif' => 'required|string',
             ]);
@@ -209,10 +209,10 @@ class ValidationIndividuelleController extends Controller
             case 'Non conforme':
                 $messagestatutdemande = 'non conforme car : ';
                 $suiteMessage         = true;
-            case 'Non validé':
+            /* case 'Non validé':
                 $messagestatutdemande = 'Non validée pour le motif suivant';
                 $suiteMessage         = true;
-                break;
+                break; */
             default:
                 $messagestatutdemande = 'en cours de traitement';
                 $suiteMessage         = false;
@@ -254,6 +254,11 @@ class ValidationIndividuelleController extends Controller
             case 'Non validé':
                 $subject = "Votre demande de formation en « {$moduleName} » n'a pas été validée";
                 break;
+            case 'Conforme':
+                $subject = "Votre demande de formation en « {$moduleName} » est conforme";
+                break;
+            case 'Non conforme':
+                $subject = "Votre demande de formation en « {$moduleName} » est non conforme";
             default:
                 $subject = "Mise à jour concernant votre demande de formation";
                 break;

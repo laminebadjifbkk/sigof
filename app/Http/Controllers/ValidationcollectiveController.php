@@ -77,7 +77,7 @@ class ValidationcollectiveController extends Controller
 
         $statut = $request->statut;
 
-        if ($statut !== 'Validée') {
+        if ($statut !== 'Validée' || $statut !== 'Conforme') {
             $request->validate([
                 "motif" => "required|string",
             ]);
@@ -157,10 +157,10 @@ class ValidationcollectiveController extends Controller
                     $messagestatutdemande = 'non conforme car : ';
                     $suiteMessage         = true;
                     break;
-                case 'Non validé':
+                /* case 'Non validé':
                     $messagestatutdemande = 'Non validée pour le motif suivant';
                     $suiteMessage         = true;
-                    break;
+                    break; */
                 default:
                     $messagestatutdemande = 'en cours de traitement';
                     $suiteMessage         = false;
@@ -198,9 +198,14 @@ class ValidationcollectiveController extends Controller
                 case 'À corriger':
                     $subject = "Des ajustements sont requis pour votre demande en « {$moduleName} »";
                     break;
-                case 'Non validé':
+                /* case 'Non validé':
                     $subject = "Votre demande de formation en « {$moduleName} » n'a pas été validée";
+                    break; */
+                case 'Conforme':
+                    $subject = "Votre demande de formation en « {$moduleName} » est conforme";
                     break;
+                case 'Non conforme':
+                    $subject = "Votre demande de formation en « {$moduleName} » est non conforme";
                 default:
                     $subject = "Mise à jour concernant votre demande de formation";
                     break;

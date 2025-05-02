@@ -484,8 +484,8 @@
                                             Non conforme</option>
                                         <option value="Validée" {{ $selectedStatut === 'Validée' ? 'selected' : '' }}>
                                             Validée</option>
-                                        <option value="Non validé"
-                                            {{ $selectedStatut === 'Non validé' ? 'selected' : '' }}>Non validé</option>
+                                        {{-- <option value="Non validé"
+                                            {{ $selectedStatut === 'Non validé' ? 'selected' : '' }}>Non validé</option> --}}
                                     </select>
                                 </div>
 

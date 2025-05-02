@@ -1291,9 +1291,9 @@
                                             <option value="Non conforme"
                                                 {{ $selectedStatut === 'Non conforme' ? 'selected' : '' }}>
                                                 Non conforme</option>
-                                            <option value="Non validée"
+                                            {{-- <option value="Non validée"
                                                 {{ $selectedStatut === 'Non validée' ? 'selected' : '' }}>
-                                                Non validée</option>
+                                                Non validée</option> --}}
                                         </select>
                                     </div>
 
@@ -1395,9 +1395,12 @@
                                                 <option value="À corriger"
                                                     {{ $selectedStatut === 'À corriger' ? 'selected' : '' }}>À
                                                     corriger</option>
-                                                <option value="Non validé"
-                                                    {{ $selectedStatut === 'Non validé' ? 'selected' : '' }}>
-                                                    Non validé</option>
+                                                <option value="Conforme"
+                                                    {{ $selectedStatut === 'Conforme' ? 'selected' : '' }}>
+                                                    Conforme</option>
+                                                <option value="Non conforme"
+                                                    {{ $selectedStatut === 'Non conforme' ? 'selected' : '' }}>
+                                                    Non conforme</option>
                                             </select>
                                         </div>
 
