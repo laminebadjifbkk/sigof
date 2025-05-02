@@ -1285,6 +1285,9 @@
                                             <option value="Validée"
                                                 {{ $selectedStatut === 'Validée' ? 'selected' : '' }}>
                                                 Validée</option>
+                                            <option value="Conforme"
+                                                {{ $selectedStatut === 'Conforme' ? 'selected' : '' }}>
+                                                Conforme</option>
                                             <option value="Non conforme"
                                                 {{ $selectedStatut === 'Non conforme' ? 'selected' : '' }}>
                                                 Non conforme</option>
