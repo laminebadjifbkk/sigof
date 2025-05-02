@@ -60,7 +60,7 @@
                                         data-bs-target="#modules-overview">Modules</button>
                                 </li>
 
-                                @if (auth()->user()->hasRole(['super-admin', 'admin']))
+                                @if (auth()->user()->hasRole(['super-admin', 'admin', 'DIOF', 'Ingenieur', 'ADIOF']))
                                     <li class="nav-item">
                                         <button class="nav-link" data-bs-toggle="tab"
                                             data-bs-target="#localites-overview">{{ $projet?->type_localite }}</button>
