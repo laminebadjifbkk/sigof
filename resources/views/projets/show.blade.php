@@ -182,7 +182,7 @@
                                                     @if ($projet?->effectif)
                                                         <th class="text-center" width="10%">Besoin</th>
                                                     @endif
-                                                    @if (auth()->user()->hasRole(['super-admin', 'admin']))
+                                                    @if (auth()->user()->hasRole(['super-admin', 'admin', 'DIOF', 'Ingenieur', 'ADIOF']))
                                                         <th width="5%" class="text-center">
                                                             <i class="bi bi-gear"></i>
                                                         </th>
