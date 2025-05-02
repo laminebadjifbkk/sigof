@@ -343,7 +343,7 @@
                                                                     </form>
                                                                 @endif
 
-                                                                @hasanyrole('super-admin|admin|DIOF')
+                                                                @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
                                                                     @if ($file->statut !== 'Validé')
                                                                         <form action="{{ route('fileValidate') }}"
                                                                             method="post" class="d-inline">
