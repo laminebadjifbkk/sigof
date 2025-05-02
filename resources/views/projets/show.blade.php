@@ -245,7 +245,7 @@
                                                             <td class="text-center">{{ $projetmodule?->effectif }}
                                                             </td>
                                                         @endif
-                                                        @if (auth()->user()->hasRole(['super-admin', 'admin']))
+                                                        @if (auth()->user()->hasRole(['super-admin', 'admin', 'DIOF', 'Ingenieur', 'ADIOF']))
                                                             <td style="text-align: center;">
                                                                 <span
                                                                     class="d-flex align-items-baseline justify-content-center gap-2">
