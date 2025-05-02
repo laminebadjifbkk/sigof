@@ -58,17 +58,6 @@
                                         <th>Lieu naissance</th>
                                         <th>Telephone</th>
                                         <th>Module</th>
-                                        {{-- @if (!empty($region))
-                                    <th>{{ $region }}</th>
-                                @elseif (!empty($departement))
-                                    <th>{{ $departement }}</th>
-                                @elseif (!empty($arrondissement))
-                                    <th>{{ $arrondissement }}</th>
-                                @elseif (!empty($commune))
-                                    <th>{{ $commune }}</th>
-                                @else
-                                    <th></th>
-                                @endif --}}
                                         <th class="text-center">Statut</th>
                                         <th class="text-center">#</th>
                                     </tr>
@@ -87,17 +76,6 @@
                                                     href="tel:+221{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a>
                                             </td>
                                             <td>{{ $individuelle?->module?->name }}</td>
-                                            {{-- @if (!empty($region))
-                                        <td>{{ $individuelle?->departement?->region?->nom }}</td>
-                                    @elseif (!empty($departement))
-                                        <td>{{ $individuelle?->departement?->nom }}</td>
-                                    @elseif (!empty($arrondissement))
-                                        <td>{{ $individuelle?->arrondissement?->nom }}</td>
-                                    @elseif (!empty($commune))
-                                        <td>{{ $individuelle?->commune?->nom }}</td>
-                                    @else
-                                        <td></td>
-                                    @endif --}}
                                             <td>
                                                 <span class="{{ $individuelle?->statut }}">
                                                     {{ $individuelle?->statut }}
@@ -106,8 +84,8 @@
                                             <td>
                                                 <span class="d-flex align-items-baseline"><a
                                                         href="{{ route('individuelles.show', $individuelle) }}"
-                                                        class="btn btn-primary btn-sm" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
+                                                        target="_blank" class="btn btn-primary btn-sm"
+                                                        title="voir détails"><i class="bi bi-eye"></i></a>
                                                     <div class="filter">
                                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                 class="bi bi-three-dots"></i></a>
