@@ -313,7 +313,7 @@
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                         <div class="d-flex justify-content-between align-items-center mt-3">
                                             <h5 class="card-title">Liste des {{ $projet?->type_localite }}</h5>
-                                            @if (auth()->user()->hasRole(['super-admin', 'admin']))
+                                            @if (auth()->user()->hasRole(['super-admin', 'admin', 'DIOF', 'Ingenieur', 'ADIOF']))
                                                 <div class="pt-1">
                                                     <div class="d-flex justify-content-end m-3">
                                                         <button type="button"
