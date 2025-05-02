@@ -476,6 +476,8 @@
                                             attente</option>
                                         <option value="À corriger"
                                             {{ $selectedStatut === 'À corriger' ? 'selected' : '' }}>À corriger</option>
+                                        <option value="Validée" {{ $selectedStatut === 'Validée' ? 'selected' : '' }}>
+                                            Validée</option>
                                         <option value="Non validé"
                                             {{ $selectedStatut === 'Non validé' ? 'selected' : '' }}>Non validé</option>
                                     </select>

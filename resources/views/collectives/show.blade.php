@@ -1282,6 +1282,9 @@
                                             </option>
                                             <option value="À corriger" {{ $selectedStatut === 'À corriger' ? 'selected' : '' }}>À
                                                 corriger</option>
+                                            <option value="Validée"
+                                                {{ $selectedStatut === 'Validée' ? 'selected' : '' }}>
+                                                Validée</option>
                                             <option value="Non validée"
                                                 {{ $selectedStatut === 'Non validée' ? 'selected' : '' }}>
                                                 Non validée</option>
