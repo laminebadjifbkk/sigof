@@ -176,7 +176,8 @@
                                                                         method="POST">
                                                                         @csrf
                                                                         @method('PUT')
-                                                                        <button type="submit" class="dropdown-item show_confirm_terminer"
+                                                                        <button type="submit"
+                                                                            class="dropdown-item show_confirm_terminer"
                                                                             title="Terminer le projet">
                                                                             <i class="bi bi-flag-fill me-2"></i> Terminer
                                                                         </button>
@@ -188,7 +189,7 @@
                                                 @endcan
                                             @endhasrole
 
-                                            @hasrole(['CCP', 'DPP', 'DG', 'SG'])
+                                            @hasrole(['CCP', 'DPP', 'DG', 'SG', 'DIOF', 'Ingenieur', 'ADIOF'])
                                                 <div class="d-flex justify-content-center align-items-center gap-2">
                                                     @can('projet-update')
                                                         {{-- Modifier --}}
