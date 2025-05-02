@@ -37,9 +37,9 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('projets.index') }}"
-                                class="btn btn-info btn-sm" title="retour"><i
-                                    class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                        <span class="d-flex mt-2 align-items-baseline"><a
+                                href="{{ route('projets.show', $projetmodule->projet) }}" class="btn btn-info btn-sm"
+                                title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                             <p> | Retour</p>
                         </span>
                         <h4 class="card-title">
@@ -70,7 +70,9 @@
                                             </td>
                                             <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                             <td>{{ $individuelle?->user?->lieu_naissance }}</td>
-                                            <td><a href="tel:+221{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a></td>
+                                            <td><a
+                                                    href="tel:+221{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a>
+                                            </td>
                                             <td>
                                                 {{ optional($individuelle->{$projet->type_localite})->nom }}
                                             </td>
