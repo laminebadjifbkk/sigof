@@ -240,12 +240,12 @@
                                         data-bs-target="#profile-change-password">Mot de passe</button>
                                 </li>
 
-                                @role('Demandeur')
+                                @if (optional(Auth::user())->individuelles->isNotEmpty() || optional(Auth::user())->collectives->isNotEmpty())
                                     <li class="nav-item">
                                         <button class="nav-link" data-bs-toggle="tab"
                                             data-bs-target="#files">Fichiers</button>
                                     </li>
-                                @endrole
+                                @endif
 
                                 {{-- <li class="nav-item">
                                     <button class="nav-link">
@@ -1022,7 +1022,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <form method="post" action="{{ route('files.update', $user?->id) }}"
+                                    <form method="post" action="{{ route('files.update', $user) }}"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('patch')
@@ -1040,6 +1040,7 @@
                                                     class="form-control form-control-sm @error('legende') is-invalid @enderror"
                                                     id="legende" value="{{ old('legende') }}" autocomplete="legende"
                                                     placeholder="Légende"> --}}
+                                                <input type="hidden" name="idUser" value="{{ $user->id }}">
                                                 <select name="legende"
                                                     class="form-select  @error('legende') is-invalid @enderror"
                                                     aria-label="Select" id="select-field-file"
