@@ -371,7 +371,7 @@
                     <li>Un certificat de résidence;</li>
                     <li>Un CV (optionnel);</li>
                     <li>Copie des diplômes ou attestations (si disponibles);</li>
-                    <li>Permis C (pour conduite d'engins TP);</li>
+                    <li>Permis C (uniquement pour conduite d'engins TP);</li>
                 </ul>
                 <!-- Profile Edit Form -->
                 <div class="row mb-3 mt-3">
