@@ -142,6 +142,15 @@
                 </div>
             </div>
         </div>
+
+        <div class="alert alert-danger text-center fw-bold mb-4" role="alert">
+            ⚠️ <span class="text-primary">Faites défiler vers le bas</span> pour télécharger et joindre les fichiers requis
+            pour votre candidature avant la date limite.
+            <span class="fw-normal">Tous les dossiers incomplets seront systématiquement rejetés !</span><br>
+            <span class="fw-normal">Si vous postulez pour la conduite d'engins TP, le permis C est exigé et doit être
+                téléchargé dans la section <strong>"Autres"</strong>.</span>
+        </div>
+
         @php
 
             $projet_count = $projet->individuelles
