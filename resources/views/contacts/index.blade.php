@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'Contact')
+@section('title', 'ONFP | QUESTIONS REPONSES')
 @section('space-work')
 
     <div class="pagetitle">
@@ -35,7 +35,7 @@
                             <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
                                 data-bs-toggle="modal" data-bs-target="#AddUneModal">Ajouter</button>
                         </div>
-                        <h5 class="card-title">Contact</h5>
+                        <h5 class="card-title">QUESTIONS REPONSES</h5>
                         <table class="table datatables align-middle" id="table-contacts">
                             <thead>
                                 <tr>
@@ -294,11 +294,11 @@
 @push('scripts')
     <script>
         new DataTable('#table-contacts', {
-            /* layout: {
+            layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
-            }, */
+            },
             "order": [
                 [0, 'asc']
             ],

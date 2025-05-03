@@ -275,7 +275,7 @@
         new DataTable('#table-regions', {
             layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: [ 'csv', 'excel', 'print'],
                 }
             },
             "order": [

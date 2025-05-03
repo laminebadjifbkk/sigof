@@ -112,7 +112,7 @@
         new DataTable('#table-operateurs', {
             layout: {
                 topStart: {
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: [ 'csv', 'excel', 'print'],
                 }
             },
             "lengthMenu": [
