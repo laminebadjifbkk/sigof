@@ -33,8 +33,8 @@ class ContactController extends Controller
         $data = request()->validate([
             'emailadresse' => ['required', 'email'],
             'telephone'    => ['required', 'string', 'size:12'],
-            'objet'        => ['required', 'string'],
-            'message'      => ['required', 'string'],
+            'objet'        => ['required', 'string', 'max:50'],
+            'message'      => ['required', 'string', 'max:150'],
 
         ]);
 

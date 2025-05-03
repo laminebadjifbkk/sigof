@@ -85,7 +85,7 @@
                                     <a href="{{ $une?->video }}" class="btn btn-sm btn-link mt-2 mt-sm-0 glightbox">
                                         <i class="bi bi-play-circle me-1"></i>Lire la vidéo</a>
                                 @else
-                                   {{--  <a href="https://www.youtube.com/watch?v=lceGzvSiL1Y&t=5s"
+                                    {{--  <a href="https://www.youtube.com/watch?v=lceGzvSiL1Y&t=5s"
                                         class="btn btn-sm btn-link mt-2 mt-sm-0 glightbox">
                                         <i class="bi bi-play-circle me-1"></i>Vidéo présentation</a> --}}
                                 @endif
@@ -516,6 +516,12 @@
                                 Cordialement,
                                 L'équipe digitale
                             </p>
+                            <marquee behavior="scroll" direction="left">
+                                <strong style="color: red; font-weight: bold; animation: blink 1s linear infinite;">
+                                    ℹ️ Ce formulaire est réservé aux questions et demandes d'information. Merci de ne
+                                    pas y déposer votre candidature : elle ne pourra pas être prise en compte.
+                                </strong>
+                            </marquee>
 
                             <form class="row g-3 needs-validation" novalidate method="POST"
                                 action="{{ route('contacts.store') }}">
@@ -558,7 +564,8 @@
                                     <div class="input-group has-validation">
                                         <input type="name" name="objet"
                                             class="form-control form-control-sm @error('objet') is-invalid @enderror"
-                                            id="objet" required placeholder="Objet" value="{{ old('objet') }}">
+                                            id="objet" required placeholder="Ex. : Demande d’information"
+                                            value="{{ old('objet') }}">
                                         <div class="invalid-feedback">
                                             @error('objet')
                                                 {{ $message }}
@@ -572,7 +579,7 @@
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
                                         <textarea class="form-control" name="message" rows="4"
-                                            placeholder="Ecrire votre message ici, Poser votre question, ..." required></textarea>
+                                            placeholder="Faire un résumé de votre message ou question ici" required></textarea>
                                     </div>
                                 </div>
 
