@@ -73,6 +73,9 @@
                         <div class="service-box">
                             <h4>Téléchargements</h4>
                             <div class="download-catalog">
+                                <a href="{{ url('/programme2025-1.pdf') }}" target="_blank"><i class="bi bi-filetype-pdf"></i><span>Appel à candidature 2025 - Phase 1</span></a>
+                            </div>
+                            <div class="download-catalog">
                                 <a href="{{ url('/guide.pdf') }}" target="_blank"><i class="bi bi-filetype-pdf"></i><span>Guide utilisateur
                                         (PDF)</span></a>
                             </div>

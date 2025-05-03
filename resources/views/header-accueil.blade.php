@@ -66,8 +66,6 @@
         }
     </style>
 
-
-
     <style>
         @keyframes blink {
             0% {
@@ -80,6 +78,31 @@
 
             100% {
                 opacity: 1;
+            }
+        }
+    </style>
+
+    <style>
+        .pulse-animation {
+            animation: pulse 1.5s infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .pulse-animation:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 165, 0, 0.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 165, 0, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 165, 0, 0);
             }
         }
     </style>

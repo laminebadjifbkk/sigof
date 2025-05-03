@@ -601,6 +601,18 @@ Route::group(['middleware' => ['XSS']], function () {
         ]);
     });
 
+    Route::get('/programme2025-1', function () {
+        $path = public_path('programme2025-1.pdf');
+
+        if (! file_exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path, [
+            'Content-Type' => 'application/pdf',
+        ]);
+    });
+
 });
 
 /* Route::get('/book/view/{filename}', [BookController::class, 'show'])->name('book.view'); */

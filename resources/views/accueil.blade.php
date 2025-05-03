@@ -29,6 +29,17 @@
                             </div>
                         @endforeach
                     @endif
+                    <marquee behavior="scroll" direction="left">
+                        <strong style="color: red; font-weight: bold; animation: blink 1s linear infinite;">
+                            ⚠️ IMPORTANT : La fiche de candidature remplie et signée n’est plus requise puisque les
+                            dépôts se
+                            font exclusivement en ligne.
+                            Les candidats en conduite d’engins TP doivent obligatoirement joindre leur permis C en
+                            sélectionnant "Autres" dans la partie légende.
+                            Toute candidature incomplète sera automatiquement rejetée. Veuillez télécharger tous les
+                            documents exigés avant la clôture des dépôts.
+                        </strong>
+                    </marquee>
                     <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                         <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
 
@@ -75,8 +86,12 @@
                             </p>
                             <div class="hero-buttons">
                                 @if (!empty($une?->message))
+                                    {{--  <a href="#" data-bs-toggle="modal" data-bs-target="#enSavoirPlusModal"
+                                        class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">Postuler</a> --}}
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#enSavoirPlusModal"
-                                        class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">Postuler</a>
+                                        class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
+                                        🚀 Postuler maintenant
+                                    </a>
                                 @else
                                     <a href="#apropos" class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">En savoir
                                         plus</a>
@@ -120,6 +135,13 @@
                                         <i class="bi bi-link-45deg text-2xl mr-2"></i> Ressources utiles
                                     </h4>
                                     <div class="services-list space-y-3">
+
+                                        <a href="{{ url('/programme2025-1.pdf') }}"
+                                            class="flex items-center text-gray-700 hover:text-blue-500 transition duration-300"
+                                            target="_blank">
+                                            <i class="bi bi-filetype-pdf"></i>
+                                            <span>Appel à candidature 2025 - Phase 1</span>
+                                        </a>
                                         <a href="{{ route('services.details') }}"
                                             class="flex items-center text-gray-700 hover:text-blue-500 transition duration-300">
                                             <i class="bi bi-arrow-right-circle mr-2 text-blue-500"></i>
@@ -1125,7 +1147,7 @@
             </div>
         </div> --}}
 
-        <div class="modal fade" id="enSavoirPlusModal" tabindex="-1" aria-labelledby="enSavoirPlusModalLabel"
+        {{-- <div class="modal fade" id="enSavoirPlusModal" tabindex="-1" aria-labelledby="enSavoirPlusModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content rounded-4">
@@ -1161,6 +1183,47 @@
                             data-bs-target="#registerDemandeurModal">S'inscrire</a>
                         <button type="button" class="btn btn-secondary btn-sm"
                             data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+
+        <div class="modal fade" id="enSavoirPlusModal" tabindex="-1" aria-labelledby="enSavoirPlusModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content border-0 shadow-lg rounded-4">
+                    <div class="modal-header bg-warning bg-gradient text-white rounded-top-4">
+                        <h5 class="modal-title fw-bold" id="enSavoirPlusModalLabel">
+                            {{ $une?->titre1 }} <span class="text-light">|</span> {{ $une?->titre2 }}
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Fermer"></button>
+                    </div>
+
+                    <div class="modal-body px-4 py-3">
+                        @if (!empty($une?->image))
+                            <div class="text-center mb-4">
+                                <img src="{{ asset($une->getUne()) }}" class="img-fluid rounded-4 shadow-sm"
+                                    alt="{{ $une->titre1 }}">
+                            </div>
+                        @endif
+
+                        @if (!empty($une?->message))
+                            <div class="text-muted fs-6" style="white-space: pre-line;">
+                                {!! nl2br(e($une->message)) !!}
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="modal-footer bg-light rounded-bottom-4 d-flex justify-content-between">
+                        <a href="#" class="btn btn-sm fw-bold" data-bs-toggle="modal"
+                            style="background-color: #F28500; color: #FFFFFF"
+                            data-bs-target="#registerDemandeurModal">
+                            👤 S'inscrire d'abord
+                        </a>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
+                            ✖ Fermer
+                        </button>
                     </div>
                 </div>
             </div>
