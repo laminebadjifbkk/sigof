@@ -135,12 +135,11 @@
                                         <i class="bi bi-link-45deg text-2xl mr-2"></i> Ressources utiles
                                     </h4>
                                     <div class="services-list space-y-3">
-
                                         <a href="{{ url('/programme2025-1.pdf') }}"
-                                            class="flex items-center text-gray-700 hover:text-blue-500 transition duration-300"
+                                            class="flex items-center text-orange-600 fw-bold blink-me hover:text-orange-800 transition duration-300"
                                             target="_blank">
-                                            <i class="bi bi-filetype-pdf"></i>
-                                            <span>Appel à candidature 2025 - Phase 1</span>
+                                            <i class="bi bi-filetype-pdf me-1 fs-5"></i>
+                                            <span>📢 Appel à candidature 2025 - Phase 1</span>
                                         </a>
                                         <a href="{{ route('services.details') }}"
                                             class="flex items-center text-gray-700 hover:text-blue-500 transition duration-300">

@@ -107,6 +107,25 @@
         }
     </style>
 
+    <style>
+        .blink-me {
+            animation: blink 1.6s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.2;
+            }
+        }
+    </style>
+
+
     {{-- Pour sweetAlert --}}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
