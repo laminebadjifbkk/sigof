@@ -143,12 +143,13 @@
             </div>
         </div>
 
-        <div class="alert alert-danger text-center fw-bold mb-4" role="alert">
+        <div class="alert alert-danger fw-bold mb-4" role="alert">
             ⚠️ <span class="text-primary">Faites défiler vers le bas</span> pour télécharger et joindre les fichiers requis
             pour votre candidature avant la date limite.
             <span class="fw-normal">Tous les dossiers incomplets seront systématiquement rejetés !</span><br>
             <span class="fw-normal">Si vous postulez pour la conduite d'engins TP, le permis C est exigé et doit être
-                téléchargé dans la section <strong>"Autres"</strong>.</span>
+                téléchargé dans la section <strong>"Autres"</strong>.</span> <br><br>
+            <span class="text-success">La fiche de candidature dûment remplie et signée </span> n'est plus nécessaire.
         </div>
 
         @php
@@ -370,6 +371,7 @@
                     <li>Un certificat de résidence;</li>
                     <li>Un CV (optionnel);</li>
                     <li>Copie des diplômes ou attestations (si disponibles);</li>
+                    <li>Permis C (pour conduite d'engins TP);</li>
                 </ul>
                 <!-- Profile Edit Form -->
                 <div class="row mb-3 mt-3">
