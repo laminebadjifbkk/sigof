@@ -97,6 +97,13 @@
                             </div>
                         </div>
                     </div> --}}
+
+                    <div class="alert alert-info text-center fw-bold mb-4" role="alert">
+                        📣 <span class="text-primary">Veuillez faire défiler vers le bas</span> pour consulter l'Appel à
+                        Candidature 2025 - Phase 1 !
+                        <span class="fw-normal">Ne manquez pas votre chance de postuler !</span>
+                    </div>
+
                     <div class="col-12">
                         <div class="card shadow-lg border-0 rounded-4 bg-light">
                             <div class="card-body p-3 p-md-4 bg-white rounded-4 shadow-sm border border-primary-subtle">
