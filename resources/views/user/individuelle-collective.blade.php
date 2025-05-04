@@ -55,7 +55,7 @@
                                 <tbody>
                                     <?php $i = 1; ?>
                                     @foreach ($user_liste as $user)
-                                        @if (optional($user->individuelles)->isNotEmpty() && optional($user->collectives)->isNotEmpty())
+                                        {{-- @if (optional($user->individuelles)->isNotEmpty() && optional($user->collectives)->isNotEmpty()) --}}
                                             <tr>
                                                 <th scope="row">
                                                     <a href="{{ route('users.show', $user) }}">
@@ -85,7 +85,7 @@
                                                     </span>
                                                 </td> --}}
                                             </tr>
-                                        @endif
+                                       {{--  @endif --}}
                                     @endforeach
 
                                 </tbody>

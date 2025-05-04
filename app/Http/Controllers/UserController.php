@@ -1055,7 +1055,10 @@ class UserController extends Controller
         /* $user_liste = User::orderBy("created_at", "desc")->take(2000)->get(); */
 
         $user_liste = User::select('id', 'uuid', 'firstname', 'name', 'telephone', 'email', 'created_at') // Ajoute ici les colonnes dont tu as besoin
-            ->whereHas('individuelles')                                                                       // Ne prend que les utilisateurs ayant au moins une demande individuelle
+            ->whereHas('individuelles')
+            ->with(['individuelles' => function ($query) {
+                $query->select('id', 'users_id', 'created_at'); // Sélectionne seulement les colonnes utiles
+            }])                                             // Ne prend que les utilisateurs ayant au moins une demande individuelle
             ->orderBy('created_at', 'desc')
             ->limit(1000)
             ->get();
@@ -1087,7 +1090,19 @@ class UserController extends Controller
         /* $roles = Role::pluck('name', 'name')->all(); */
 
 // Récupération des 100 derniers utilisateurs
-        $user_liste          = User::orderBy("created_at", "desc")->get();
+        /* $user_liste = User::orderBy("created_at", "desc")->get(); */
+
+        $user_liste = User::select('id', 'uuid', 'firstname', 'name', 'date_naissance', 'lieu_naissance', 'adresse', 'telephone', 'email', 'created_at')
+            ->whereHas('individuelles')
+            ->whereHas('collectives')
+            ->with([
+                'individuelles:id,users_id,created_at', // ou plus selon besoin
+                'collectives:id,users_id,created_at',
+            ])
+            ->orderBy('created_at', 'desc')
+            ->limit(500)
+            ->get();
+
         $count_demandeur_raw = $user_liste->count();
         $count_demandeur     = number_format($count_demandeur_raw, 0, ',', ' ');
 
