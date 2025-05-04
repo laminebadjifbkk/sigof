@@ -22,10 +22,20 @@ class ModuleController extends Controller
     }
     public function index()
     {
-        // Récupérer toutes les données en une seule requête par type
-        $modules  = Module::latest('created_at')->get();
-        $domaines = Domaine::latest('created_at')->get();
-        $regions  = Region::latest('created_at')->get();
+                                                                                                             // Récupérer toutes les données en une seule requête par type
+        $modules = Module::select('id', 'uuid', 'name', 'niveau_qualification', 'domaines_id', 'created_at') // ajoute ici uniquement les colonnes nécessaires
+            ->with([
+                'domaine:id,id,name,secteurs_id', // Domaine lié
+                'domaine.secteur:id,id,name',     // Secteur lié au domaine
+            ])
+            ->latest('created_at')
+            ->get();
+
+        $domaines = Domaine::select('id', 'uuid', 'name', 'created_at') // ajoute ici uniquement les colonnes nécessaires
+            ->latest('created_at')->get();
+
+        $regions = Region::select('id', 'uuid', 'nom', 'created_at') // ajoute ici uniquement les colonnes nécessaires
+            ->latest('created_at')->get();
 
 // Compter directement les modules sans récupérer toute la collection
         $total_count  = Module::count();
