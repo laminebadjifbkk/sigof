@@ -1050,8 +1050,8 @@ class UserController extends Controller
         // Nombre total d'utilisateurs
         $total_count = number_format(User::count(), 0, ',', ' ');
 
-        // Récupération uniquement des 100 derniers utilisateurs
-        $user_liste = User::latest()->limit(1000)->get();
+        // Récupération uniquement des 1000 derniers utilisateurs
+        $user_liste = User::withoutTrashed()->latest()->limit(1000)->get();
         $count_demandeur_raw = $user_liste->count();
         $count_demandeur     = number_format($count_demandeur_raw, 0, ',', ' ');
 
