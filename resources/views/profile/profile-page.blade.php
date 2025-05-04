@@ -1229,9 +1229,13 @@
 
                                         {{-- Bouton --}}
                                         @if ($jours_restant >= 0)
-                                            <a href="{{ route('projetsIndividuelle', ['uuid' => $projet->uuid]) }}"
+                                            {{-- <a href="{{ route('projetsIndividuelle', ['uuid' => $projet->uuid]) }}"
                                                 class="btn btn-outline-primary btn-sm">
                                                 Postuler
+                                            </a> --}}
+                                            <a href="{{ route('projetsIndividuelle', ['uuid' => $projet->uuid]) }}"
+                                                class="btn btn-danger btn-sm fw-bold shadow pulse-animation mx-1">
+                                                Cliquez ici pour postuler ici
                                             </a>
                                         @endif
                                     </div>
