@@ -1047,8 +1047,9 @@ class UserController extends Controller
 
     public function demandeursIndividuel()
     {
-        // Nombre total d'utilisateurs
-        $total_count = number_format(User::count(), 0, ',', ' ');
+                                                                                                                         // Nombre total d'utilisateurs
+        $total_count = number_format(User::select('id', 'uuid', 'firstname', 'name', 'telephone', 'email', 'created_at') // Ajoute ici les colonnes dont tu as besoin
+                ->whereHas('individuelles')->count(), 0, ',', ' ');
 
         // Récupération uniquement des 1000 derniers utilisateurs
         /* $user_liste = User::orderBy("created_at", "desc")->take(2000)->get(); */
@@ -1056,6 +1057,7 @@ class UserController extends Controller
         $user_liste = User::select('id', 'uuid', 'firstname', 'name', 'telephone', 'email', 'created_at') // Ajoute ici les colonnes dont tu as besoin
             ->whereHas('individuelles')                                                                       // Ne prend que les utilisateurs ayant au moins une demande individuelle
             ->orderBy('created_at', 'desc')
+            ->limit(2000)
             ->get();
 
         $count_demandeur_raw = $user_liste->count();
