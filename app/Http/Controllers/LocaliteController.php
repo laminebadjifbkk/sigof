@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Departement;
-use App\Models\Region;
-use Illuminate\Http\Request;
 
 class LocaliteController extends Controller
 {
@@ -20,9 +17,20 @@ class LocaliteController extends Controller
         $localites = Departement::orderBy("created_at", "desc")->get();
         return view("localites.index", compact("localites"));
     }
-    public function show($id)
+
+    /*   public function show($id)
     {
-        $localite = Region::find($id);
+        $localite = Region::findOrFail($id);
+
+        return view("localites.show", compact("localite"));
+    } */
+
+    public function show($id)
+    {                                // On ne sélectionne que les colonnes utiles pour alléger la requête
+        $localite = Departement::select('id', 'nom', 'created_at') // adapte selon ton modèle
+            ->findOrFail($id);
+
         return view("localites.show", compact("localite"));
     }
+
 }

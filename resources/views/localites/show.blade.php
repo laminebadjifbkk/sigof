@@ -49,20 +49,6 @@
                                                     <span
                                                         class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
                                                 </a>
-                                                {{--  @isset($individuelle?->statut)
-                                                    @if ($individuelle?->statut == 'Attente')
-                                                    <span class="badge bg-secondary text-white">{{ $individuelle?->statut }}
-                                                        </span>
-                                                    @endif
-                                                    @if ($individuelle?->statut == 'Validée')
-                                                        <span class="badge bg-success text-white">{{ $individuelle?->statut }}
-                                                        </span>
-                                                    @endif
-                                                    @if ($individuelle?->statut == 'Rejetée')
-                                                        <span class="badge bg-danger text-white">{{ $individuelle?->statut }}
-                                                        </span>
-                                                    @endif
-                                                @endisset --}}
                                             </td>
                                             <td>
                                                 <span class="d-flex align-items-baseline"><a
@@ -118,7 +104,7 @@
                 }
             },
             "order": [
-                [2, 'desc']
+                [0, 'desc']
             ],
             language: {
                 "sProcessing": "Traitement en cours...",

@@ -1061,7 +1061,7 @@ class UserController extends Controller
         } elseif ($count_demandeur_raw == 1) {
             $title = '1 demandeur individuel sur un total de ' . $total_count;
         } else {
-            $title = 'Liste des ' . $count_demandeur . ' dernières demandeurs individuels sur un total de ' . $total_count;
+            $title = 'Liste des ' . $count_demandeur . ' derniers demandeurs individuels sur un total de ' . $total_count;
         }
 
         // Retour de la vue avec les données paginées

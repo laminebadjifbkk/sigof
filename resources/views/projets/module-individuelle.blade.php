@@ -50,7 +50,7 @@
                             <table class="table datatables align-middle" id="table-individuelles">
                                 <thead>
                                     <tr>
-                                        {{-- <th class="text-center">N°</th> --}}
+                                        <th class="text-center">N°</th>
                                         <th class="text-center">CIN</th>
                                         <th>Prénom & NOM</th>
                                         <th>Date naissance</th>
@@ -65,6 +65,7 @@
                                     <?php $i = 1; ?>
                                     @foreach ($individuelles as $individuelle)
                                         <tr>
+                                            <td style="text-align: center">{{ $individuelle?->numero }}</td>
                                             <td style="text-align: center">{{ $individuelle?->user?->cin }}</td>
                                             <td>{{ $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
                                             </td>
@@ -84,8 +85,8 @@
                                             <td>
                                                 <span class="d-flex align-items-baseline"><a
                                                         href="{{ route('individuelles.show', $individuelle) }}"
-                                                        class="btn btn-primary btn-sm" title="voir détails" target="_blank"><i
-                                                            class="bi bi-eye"></i></a>
+                                                        class="btn btn-primary btn-sm" title="voir détails"
+                                                        target="_blank"><i class="bi bi-eye"></i></a>
                                                     <div class="filter">
                                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                 class="bi bi-three-dots"></i></a>
