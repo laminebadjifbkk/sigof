@@ -1235,7 +1235,7 @@
                                             </a> --}}
                                             <a href="{{ route('projetsIndividuelle', ['uuid' => $projet->uuid]) }}"
                                                 class="btn btn-danger btn-sm fw-bold shadow pulse-animation mx-1">
-                                                Cliquez ici pour postuler ici
+                                                Cliquez ici pour postuler
                                             </a>
                                         @endif
                                     </div>
