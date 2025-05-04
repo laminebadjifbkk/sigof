@@ -1057,7 +1057,7 @@ class UserController extends Controller
         $user_liste = User::select('id', 'uuid', 'firstname', 'name', 'telephone', 'email', 'created_at') // Ajoute ici les colonnes dont tu as besoin
             ->whereHas('individuelles')                                                                       // Ne prend que les utilisateurs ayant au moins une demande individuelle
             ->orderBy('created_at', 'desc')
-            ->limit(2000)
+            ->limit(3000)
             ->get();
 
         $count_demandeur_raw = $user_liste->count();
