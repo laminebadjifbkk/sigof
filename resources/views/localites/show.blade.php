@@ -39,17 +39,17 @@
                                             <td>{{ $individuelle?->user?->cin }}</td>
                                             <td>{{ $individuelle?->user?->firstname }}</td>
                                             <td>{{ $individuelle?->user?->name }}</td>
-                                            <td>{{ $individuelle?->user->date_naissance?->format('d/m/Y') }}</td>
-                                            <td>{{ $individuelle?->user->lieu_naissance }}</td>
+                                            <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
+                                            <td>{{ $individuelle?->user?->lieu_naissance }}</td>
                                             <td>{{ $individuelle->module?->name }}</td>
                                             <td>
-                                                
+
                                                 <a
                                                     href="{{ url('regionstatut', ['$idlocalite' => $individuelle->departement->region->id, 'statut' => $individuelle?->statut]) }}">
                                                     <span
                                                         class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
                                                 </a>
-                                               {{--  @isset($individuelle?->statut)
+                                                {{--  @isset($individuelle?->statut)
                                                     @if ($individuelle?->statut == 'Attente')
                                                     <span class="badge bg-secondary text-white">{{ $individuelle?->statut }}
                                                         </span>
@@ -114,7 +114,7 @@
         new DataTable('#table-modules', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

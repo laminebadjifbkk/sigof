@@ -951,6 +951,21 @@ class IndividuelleController extends Controller
     public function showIndividuelleProjet(Request $request)
     {
         $projet = Projet::findOrFail($request->idprojet);
+        $user   = Auth::user();
+
+        $module_name = $request->input("module");
+        $module      = DB::table('modules')
+            ->where('name', $request->input("module"))
+            ->whereNull('deleted_at') // ou ->where('is_deleted', false)
+            ->first();
+        $demandeur_ind = Individuelle::where('users_id', $user->id)->whereHas('module', function ($query) use ($module_name) {
+            $query->where('name', $module_name);
+        })->first();
+
+        if ($demandeur_ind) {
+            Alert::warning('Attention !', 'Le module ' . $demandeur_ind->module->name . ' a déjà été sélectionné.');
+            return redirect()->back();
+        }
 
         $this->validate($request, [
             'telephone_secondaire'   => ['required', 'string', 'size:12'],
@@ -964,8 +979,6 @@ class IndividuelleController extends Controller
             'projetprofessionnel'    => ['required', 'string', 'max:2000'],
             'qualification'          => ['nullable', 'string', 'max:200'],
         ]);
-
-        $user = Auth::user();
 
         $individuelle_total = Individuelle::where('users_id', $user->id)->where('projets_id', $projet->id)
             ->count();
