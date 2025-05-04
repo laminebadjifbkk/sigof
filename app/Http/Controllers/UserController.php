@@ -579,7 +579,7 @@ class UserController extends Controller
     {
         // Vérifier si l'utilisateur connecté est un admin ou super-admin
         $userRoles = collect(Auth::user()->roles)->pluck('name');
-        if (! $userRoles->contains(fn($role) => str_contains($role, 'super-admin') || str_contains($role, 'admin')|| str_contains($role, 'DIOF')|| str_contains($role, 'ADIOF')|| str_contains($role, 'Ingenieur'))) {
+        if (! $userRoles->contains(fn($role) => str_contains($role, 'super-admin') || str_contains($role, 'admin') || str_contains($role, 'DIOF') || str_contains($role, 'ADIOF') || str_contains($role, 'Ingenieur'))) {
             $this->authorize('delete', $user);
         }
 
@@ -1047,29 +1047,25 @@ class UserController extends Controller
 
     public function demandeursIndividuel()
     {
-        // Nombre total d'utilisateurs (sans charger toute la table)
-        $count_raw   = User::count();
-        $total_count = number_format($count_raw, 0, ',', ' ');
+        // Nombre total d'utilisateurs
+        $total_count = number_format(User::count(), 0, ',', ' ');
 
-// Récupération de la liste des rôles sous forme de tableau clé-valeur
-        /* $roles = Role::pluck('name', 'name')->all(); */
-
-// Récupération des 100 derniers utilisateurs
-        $user_liste          = User::orderBy("created_at", "desc")->get();
+        // Récupération uniquement des 100 derniers utilisateurs
+        $user_liste = User::orderBy("created_at", "desc")->take(1000)->get();
         $count_demandeur_raw = $user_liste->count();
         $count_demandeur     = number_format($count_demandeur_raw, 0, ',', ' ');
 
-// Définition du titre avec des comparaisons correctes
-        /* if ($count_demandeur_raw < 1) {
-            $title = 'Aucun demandeur';
+        // Définition du titre avec des comparaisons correctes
+        if ($count_demandeur_raw < 1) {
+            $title = 'Aucune demandeur individuel';
         } elseif ($count_demandeur_raw == 1) {
-            $title = '1 utilisateur sur un total de ' . $total_count;
+            $title = '1 demandeur individuel sur un total de ' . $total_count;
         } else {
-            $title = 'Liste des ' . $count_demandeur . ' derniers utilisateurs sur un total de ' . $total_count;
-        } */
+            $title = 'Liste des ' . $count_demandeur . ' dernières demandeurs individuels sur un total de ' . $total_count;
+        }
 
-// Retour de la vue avec les données optimisées
-        return view("user.demandeur-individuel", compact("user_liste"));
+        // Retour de la vue avec les données paginées
+        return view("user.demandeur-individuel", compact("user_liste", "total_count", "title"));
 
     }
 
@@ -1087,7 +1083,7 @@ class UserController extends Controller
         $count_demandeur_raw = $user_liste->count();
         $count_demandeur     = number_format($count_demandeur_raw, 0, ',', ' ');
 
-    // Définition du titre avec des comparaisons correctes
+        // Définition du titre avec des comparaisons correctes
         /* if ($count_demandeur_raw < 1) {
             $title = 'Aucun demandeur';
         } elseif ($count_demandeur_raw == 1) {
@@ -1096,7 +1092,7 @@ class UserController extends Controller
             $title = 'Liste des ' . $count_demandeur . ' derniers utilisateurs sur un total de ' . $total_count;
         } */
 
-    // Retour de la vue avec les données optimisées
+        // Retour de la vue avec les données optimisées
         return view("user.individuelle-collective", compact("user_liste"));
 
     }

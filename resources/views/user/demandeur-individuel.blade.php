@@ -35,7 +35,7 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Liste des demandeurs individuels</h5>
+                        <h5 class="card-title">{{ $title }}</h5>
                         @if ($user_liste->isNotEmpty())
                             <table class="table datatables align-middle" id="table-users">
                                 <thead>
