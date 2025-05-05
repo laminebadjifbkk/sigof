@@ -76,8 +76,10 @@
                                                                 <p><span
                                                                         class="{{ $validationindividuelle->action }}">{{ $validationindividuelle->action }}</span>
                                                                 </p>
-                                                                <p>{{ $validationindividuelle->user->firstname }}
-                                                                    {{ $validationindividuelle->user->name }}</p>
+                                                                @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
+                                                                    <p>{{ $validationindividuelle->user->firstname }}
+                                                                        {{ $validationindividuelle->user->name }}</p>
+                                                                @endhasanyrole
                                                                 <p>{!! $validationindividuelle->created_at->diffForHumans() !!}</p>
                                                             </div>
                                                             {{-- </a> --}}
