@@ -953,6 +953,15 @@ class IndividuelleController extends Controller
         $projet = Projet::findOrFail($request->idprojet);
         $user   = Auth::user();
 
+        $individuelle_total = Individuelle::where('users_id', $user->id)
+            ->where('projets_id', $request->idprojet)
+            ->count();
+
+        if ($individuelle_total >= 1) {
+            Alert::warning('Désolé !', 'Vous avez atteint la limite autorisée de demandes.');
+            return redirect()->back();
+        }
+
         $module_name = $request->input("module");
         $module      = DB::table('modules')
             ->where('name', $request->input("module"))
