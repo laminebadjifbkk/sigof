@@ -767,6 +767,7 @@ class IndividuelleController extends Controller
         Alert::success('Opération réussie!', 'La région a été modifiée avec succès.');
         return redirect()->route('modal');
     }
+    
     public function destroy(Individuelle $individuelle)
     {
         /* $individuelle  = Individuelle::findOrFail($id); */
@@ -791,6 +792,7 @@ class IndividuelleController extends Controller
         Alert::success('Succès !', 'La demande a été supprimée avec succès.');
         return redirect()->back();
     }
+
     public function validationsRejetMessage(Request $request)
     {
         $individuelle = Individuelle::findOrFail($request?->input('id'));
@@ -853,6 +855,7 @@ class IndividuelleController extends Controller
         return view($view, $viewData);
 
     }
+
     public function rapports(Request $request)
     {
         $title = 'rapports demandes individuelles';
@@ -860,6 +863,7 @@ class IndividuelleController extends Controller
             'title'
         ));
     }
+
     public function generateRapport(Request $request)
     {
 
