@@ -35,7 +35,7 @@
             <p>{!! $validationindividuelle?->motif !!}</p>
             </p>
             <p>{!! $validationindividuelle->created_at->diffForHumans() . ',' !!}
-                {{ 'le (' . $validationindividuelle->created_at->format('d/m/Y, H:i:s') . ')' }}
+                {{ 'le ' . $validationindividuelle->created_at->format('d/m/Y, H:i:s') }}
             </p>
         </div>
         <hr class="dropdown-divider">
