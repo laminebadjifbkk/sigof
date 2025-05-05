@@ -22,9 +22,7 @@
         {{-- <img src="{{ asset($validationindividuelle->user->getImage()) }}" alt="" class="rounded-circle w-20" width="40" height="auto"> --}}
         {{-- @if ($validationindividuelle->action == 'Rejetée') --}}
         <div class="d-flex align-items-center mt-3">
-            @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
                 <h4>{{ $validationindividuelle->user->firstname . ' ' . $validationindividuelle->user->name }}</h4>
-            @endhasanyrole
             <p class="ms-auto mb-0">
                 <span class="{{ $validationindividuelle->action }}">{{ $validationindividuelle->action }}</span>
             </p>
