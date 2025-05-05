@@ -767,7 +767,7 @@ class IndividuelleController extends Controller
         Alert::success('Opération réussie!', 'La région a été modifiée avec succès.');
         return redirect()->route('modal');
     }
-    
+
     public function destroy(Individuelle $individuelle)
     {
         /* $individuelle  = Individuelle::findOrFail($id); */
@@ -795,7 +795,10 @@ class IndividuelleController extends Controller
 
     public function validationsRejetMessage(Request $request)
     {
-        $individuelle = Individuelle::findOrFail($request?->input('id'));
+        /* $individuelle = Individuelle::findOrFail($request?->input('id')); */
+        $individuelle = Individuelle::with(['validationindividuelles' => function ($query) {
+            $query->orderBy('created_at', 'desc');
+        }])->findOrFail($request->input('id'));
 
         return view("individuelles.validationsrejetmessage", compact('individuelle'));
     }
