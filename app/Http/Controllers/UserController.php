@@ -894,12 +894,11 @@ class UserController extends Controller
 
     public function resetuserPassword(Request $request, $uuid)
     {
-
         $request->validate([
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::findOrFail($uuid);
+        $user = User::where('uuid', $uuid)->firstOrFail();
 
         $user->update([
             'password' => Hash::make($request->password),
