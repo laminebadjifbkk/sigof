@@ -25,7 +25,7 @@
                                 @php
                                     $isAdmin = auth()
                                         ->user()
-                                        ->hasRole(['super-admin', 'admin', 'DIOF', 'DEC']);
+                                        ->hasRole(['super-admin', 'admin', 'DIOF', 'DEC', 'Ingenieur']);
                                     /* $route = $isAdmin ? route('individuelles.index') : route('demandesIndividuelle'); */
                                     $route = $isAdmin ? route('individuelles.index') : route('profil');
                                     $btnClass = $isAdmin ? 'btn-secondary' : 'btn-info';
@@ -262,42 +262,6 @@
 
                                 </form>
                                 <div class="pt-5">
-                                    {{-- <div class="col-md-4">
-                                        <div class="label">FICHIERS JOINTS</div>
-
-                                        @php
-                                            $fichiersDisponibles = $files->filter(fn($file) => !empty($file->file));
-                                        @endphp
-
-                                        @if ($fichiersDisponibles->isNotEmpty())
-                                            @foreach ($fichiersDisponibles as $file)
-                                                <div class="d-flex align-items-center justify-content-between mb-2">
-                                                    <!-- Affichage de la légende -->
-                                                    <p class="mb-0 me-3">{{ $file->legende }}</p>
-                                                    <p>
-                                                        @php
-                                                            $statut = $file->statut ?? 'Attente';
-                                                            $badgeClass = match ($statut) {
-                                                                'Validé' => 'success',
-                                                                'Rejeté', 'Invalide' => 'danger',
-                                                                default => 'secondary',
-                                                            };
-                                                        @endphp
-                                                        <span
-                                                            class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
-                                                    </p>
-
-                                                    <!-- Bouton de téléchargement -->
-                                                    <a href="{{ asset($file->getFichier()) }}"
-                                                        class="btn btn-sm btn-secondary" target="_blank">
-                                                        Télécharger
-                                                    </a>
-                                                </div>
-                                            @endforeach
-                                        @else
-                                            <div class="alert alert-info">Aucun fichier</div>
-                                        @endif
-                                    </div> --}}
                                     <div class="col-md-6">
                                         <h5 class="mb-3 text-uppercase fw-bold">📎 Fichiers joints</h5>
 
@@ -397,48 +361,6 @@
                 </div>
             </div>
 
-            {{-- <div class="modal fade" id="RejetDemandeModal" tabindex="-1" aria-labelledby="RejetDemandeLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form method="POST" action="{{ route('validation-individuelles.destroy', $individuelle?->id) }}"
-                            enctype="multipart/form-data" class="row">
-                            @csrf
-                            @method('DELETE')
-
-                            <div class="card-header text-center bg-gradient-default">
-                                <h1 class="h4 text-black mb-0">REJET</h1>
-                            </div>
-                            <div class="modal-body">
-                                <label for="motif" class="form-label">Motifs du rejet</label>
-
-                                @php
-                                    $lastValidation = collect($individuelle?->validationindividuelles)
-                                        ->sortByDesc('created_at')
-                                        ->first();
-                                @endphp
-
-                                <textarea name="motif" id="motif" rows="5"
-                                    class="form-control form-control-sm @error('motif') is-invalid @enderror"
-                                    placeholder="Enumérez les motifs du rejet" aria-describedby="motifHelp">{{ old('motif', $lastValidation?->motif) }}</textarea>
-
-                                @error('motif')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm"
-                                    data-bs-dismiss="modal">Fermer</button>
-                                <button type="submit" class="btn btn-danger btn-sm">Rejeter</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div> --}}
-
             <div class="modal fade" id="RejetDemandeModal" tabindex="-1" aria-labelledby="RejetDemandeLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -459,13 +381,7 @@
 
                                 <div class="mb-3">
                                     <label for="statut" class="form-label">Statut de la
-                                        demande<span class="text-danger mx-1">*</span></label>{{-- 
-                                    <select name="statut" id="statut" class="form-select form-select-sm" required>
-                                        <option value="" disabled selected>-- Sélectionner un statut --</option>
-                                        <option value="Attente">En attente</option>
-                                        <option value="À corriger">À corriger</option>
-                                        <option value="Non validé">Non validé</option>
-                                    </select> --}}
+                                        demande<span class="text-danger mx-1">*</span></label>
                                     @php
                                         $selectedStatut = old('statut', $individuelle->statut);
                                     @endphp

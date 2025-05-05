@@ -916,39 +916,6 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {{-- <?php $i = 1; ?>
-                                                    @foreach ($files as $file)
-                                                        <tr class="text-center">
-                                                            <td>{{ $i++ }}</td>
-                                                            <td>{{ $file?->legende }}</td>
-                                                            <td>
-                                                                <a class="btn btn-default btn-sm"
-                                                                    title="télécharger le fichier joint" target="_blank"
-                                                                    href="{{ asset($file->getFichier()) }}">
-                                                                    <i class="bi bi-download"></i>
-                                                                </a>
-                                                            </td>
-                                                            <td>
-                                                                <span class="{{ $file?->statut ?? 'Attente' }}">{{ $file?->statut ?? 'Attente' }}</span>
-                                                            </td>
-                                                            <td>
-                                                                <form action="{{ route('fileDestroy') }}" method="post">
-                                                                    @csrf
-                                                                    @method('put')
-                                                                    <input type="hidden" name="idFile"
-                                                                        value="{{ $file->id }}">
-                                                                    <button type="submit"
-                                                                        style="background:none;border:0px;"
-                                                                        class="show_confirm" title="retirer">
-                                                                        <span
-                                                                            class="badge border-danger border-1 text-danger">
-                                                                            <i class="bi bi-trash"></i>
-                                                                        </span>
-                                                                    </button>
-                                                                </form>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach --}}
                                                     @php $i = 1; @endphp
                                                     @foreach ($files as $file)
                                                         <tr class="text-center align-middle">
@@ -1029,7 +996,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <form method="post" action="{{ route('files.update', $user) }}"
+                                    {{-- <form method="post" action="{{ route('files.update', $user) }}"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('patch')
@@ -1037,16 +1004,11 @@
                                         <span style="color:red;">NB:</span>
                                         <span>Seule la Carte Nationale d'Identité (recto/verso) </span><span
                                             style="color:red;"> est requise</span>.
-                                        <!-- Profile Edit Form -->
                                         <div class="row mb-3 mt-3">
                                             <label for="legende"
                                                 class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Légende<span
                                                     class="text-danger mx-1">*</span></label>
                                             <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
-                                                {{-- <input name="legende" type="text"
-                                                    class="form-control form-control-sm @error('legende') is-invalid @enderror"
-                                                    id="legende" value="{{ old('legende') }}" autocomplete="legende"
-                                                    placeholder="Légende"> --}}
                                                 <input type="hidden" name="idUser" value="{{ $user->id }}">
                                                 <select name="legende"
                                                     class="form-select  @error('legende') is-invalid @enderror"
@@ -1083,7 +1045,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="row mb-3">
                                             <label for="file"
                                                 class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label"><span
@@ -1094,8 +1055,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                    </form>
+                                    </form> --}}
                                 </div>
                             </div>
 

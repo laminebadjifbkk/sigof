@@ -263,35 +263,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- <?php $i = 1; ?>
-                                            @foreach ($files as $file)
-                                                <tr class="text-center">
-                                                    <td>{{ $i++ }}</td>
-                                                    <td>{{ $file?->legende }}</td>
-                                                    <td>
-                                                        <a class="btn btn-default btn-sm" title="télécharger le fichier joint"
-                                                            target="_blank" href="{{ asset($file->getFichier()) }}">
-                                                            <i class="bi bi-download"></i>
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <span class="{{ $file?->statut ?? 'Attente' }}">{{ $file?->statut ?? 'Attente' }}</span>
-                                                    </td>
-                                                    <td>
-                                                        <form action="{{ route('fileDestroy') }}" method="post">
-                                                            @csrf
-                                                            @method('put')
-                                                            <input type="hidden" name="idFile" value="{{ $file->id }}">
-                                                            <button type="submit" style="background:none;border:0px;"
-                                                                class="show_confirm" title="retirer">
-                                                                <span class="badge border-danger border-1 text-danger">
-                                                                    <i class="bi bi-trash"></i>
-                                                                </span>
-                                                            </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            @endforeach --}}
                             @php $i = 1; @endphp
                             @foreach ($files as $file)
                                 <tr class="text-center align-middle">
@@ -379,10 +350,6 @@
                         class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">LEGENDE<span
                             class="text-danger mx-1">*</span></label>
                     <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
-                        {{-- <input name="legende" type="text"
-                                        class="form-control form-control-sm @error('legende') is-invalid @enderror"
-                                        id="legende" value="{{ old('legende') }}" autocomplete="legende"
-                                        placeholder="Légende"> --}}
                         <select name="legende" class="form-select  @error('legende') is-invalid @enderror"
                             aria-label="Select" id="select-field-file" data-placeholder="Choisir">
                             <option value="{{ old('legende') }}">
@@ -416,17 +383,7 @@
                         </div>
                     </div>
                 </div>
-
-                {{-- <div class="row mb-3">
-                                    <label for="file"
-                                        class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label"><span
-                                            class="text-danger mx-1"></span></label>
-                                    <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
-                                        <div class="pt-2">
-                                            <button type="submit" class="btn btn-info btn-sm text-white">ENREGISTRER</button>
-                                        </div>
-                                    </div>
-                                </div> --}}
+                
                 <div class="row mb-3">
                     <label for="file" class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">
                         Téléverser un fichier <span class="text-danger mx-1">*</span>
