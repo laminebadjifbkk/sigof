@@ -66,7 +66,7 @@
                                                     <li>
                                                         <hr class="dropdown-divider">
                                                     </li>
-                                                    @foreach ($individuelle?->validationindividuelles->take(2) as $validationindividuelle)
+                                                    @foreach ($individuelle?->validationindividuelles->sortByDesc('created_at')->take(2) as $validationindividuelle)
                                                         <li class="message-item">
                                                             {{-- <a
                                                                 href="{{ url('validationsRejetMessage/' . $individuelle?->id) }}"> --}}
