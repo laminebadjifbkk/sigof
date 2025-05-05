@@ -25,7 +25,7 @@
             @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
                 <h4>{{ $validationindividuelle->user->firstname . ' ' . $validationindividuelle->user->name }}</h4>
             @endhasanyrole
-            <p>
+            <p class="float-end">
                 <span class="{{ $validationindividuelle->action }}">{{ $validationindividuelle->action }}</span>
             </p>
         </div>
