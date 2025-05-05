@@ -396,15 +396,6 @@ class ProjetController extends Controller
     {
         $user = Auth::user();
 
-        /*  $projets = Projet::join('individuelles', 'projets.id', 'individuelles.projets_id')
-            ->select('projets.*')
-            ->where('individuelles.users_id',  $user->id)
-            ->where('individuelles.projets_id', '!=', null)
-            ->where('projets.statut', 'ouvert')
-            ->orwhere('projets.statut', 'fermer')
-            ->distinct()
-            ->get(); */
-
         $projets = Individuelle::join('projets', 'projets.id', 'individuelles.projets_id')
             ->select('projets.*')
             ->where('individuelles.users_id', $user->id)
@@ -423,56 +414,7 @@ class ProjetController extends Controller
     }
     public function projetsBeneficiaire(Request $request, $uuid)
     {
-        /* $projet = Projet::findOrFail($id);
-
-        $type_localite = $projet->type_localite;
-
-        if ($type_localite == 'Region') {
-            $region         = 'Région';
-            $departement    = null;
-            $arrondissement = null;
-            $commune        = null;
-        } elseif ($type_localite == 'Departement') {
-            $departement    = 'Département';
-            $arrondissement = null;
-            $commune        = null;
-            $region         = null;
-        } elseif ($type_localite == 'Arrondissement') {
-            $arrondissement = 'Arrondissement';
-            $commune        = null;
-            $departement    = null;
-            $region         = null;
-        } elseif ($type_localite == 'Commune') {
-            $commune        = 'Commune';
-            $departement    = null;
-            $region         = null;
-            $arrondissement = null;
-        } else {
-            $commune        = null;
-            $departement    = null;
-            $region         = null;
-            $arrondissement = null;
-        } */
-
-        /* $projet = Projet::findOrFail($uuid); */
         $projet = Projet::where('uuid', $uuid)->firstOrFail();
-
-        /* $region = $departement = $arrondissement = $commune = null;
-
-        switch ($projet->type_localite) {
-            case 'Region':
-                $region = 'Région';
-                break;
-            case 'Departement':
-                $departement = 'Département';
-                break;
-            case 'Arrondissement':
-                $arrondissement = 'Arrondissement';
-                break;
-            case 'Commune':
-                $commune = 'Commune';
-                break;
-        } */
 
         return view('projets.individuelle', compact('projet'));
     }
