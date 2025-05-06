@@ -1,13 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Mail\NotificationRejetIndividuelle;
-use App\Mail\ValidationDemandeIndividuelleNotification;
 use App\Models\Individuelle;
 use App\Models\Validationindividuelle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ValidationIndividuelleController extends Controller
@@ -111,6 +108,8 @@ class ValidationIndividuelleController extends Controller
             'individuelles_id' => $individuelle->id,
         ]);
 
+        dd("ok");
+
         // Envoi de mail
         /* $toEmail     = $individuelle?->user?->email;
         $toUserName  = 'Bonjour ! ' . $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name;
@@ -178,7 +177,7 @@ class ValidationIndividuelleController extends Controller
         ]);
 
         // Envoi de mail
-        $toEmail = $individuelle?->user?->email;
+        /*  $toEmail = $individuelle?->user?->email;
 
         if (empty($toEmail)) {
             Alert::warning('Désolé !', 'Aucun email trouvé pour l\'utilisateur.');
@@ -186,8 +185,6 @@ class ValidationIndividuelleController extends Controller
         }
 
         $toUserName = 'Bonjour ' . $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name . ',';
-
-        /* $statutdemande = strtolower($request?->statut); */
         $statutdemande = $request?->statut;
 
         switch ($statutdemande) {
@@ -206,10 +203,6 @@ class ValidationIndividuelleController extends Controller
             case 'Non conforme':
                 $messagestatutdemande = 'non conforme car : ';
                 $suiteMessage         = true;
-            /* case 'Non validé':
-                $messagestatutdemande = 'Non validée pour le motif suivant';
-                $suiteMessage         = true;
-                break; */
             default:
                 $messagestatutdemande = 'en cours de traitement';
                 $suiteMessage         = false;
@@ -234,9 +227,6 @@ class ValidationIndividuelleController extends Controller
 // Ajouter le lien vers le site
         $siteUrl = 'https://sigof.onfp.sn'; // ou mettre en dur : 'https://sigof.onfp.sn'
         $safeMessage .= "<p>Consultez notre plateforme : <a href=\"$siteUrl\">$siteUrl</a></p>";
-
-        /* $subject = 'Notification de rejet de votre demande de formation';
-        $message = strip_tags($safeMessage, '<b><i><p><a><br>'); */
 
         $moduleName = $individuelle->module->name ?? 'votre module de formation';
         $statut     = strtolower($request?->statut);
@@ -263,7 +253,7 @@ class ValidationIndividuelleController extends Controller
 
         $message = strip_tags($safeMessage, '<b><i><p><a><br>');
 
-        Mail::to($toEmail)->send(new NotificationRejetIndividuelle($message, $subject, $toEmail, $toUserName));
+        Mail::to($toEmail)->send(new NotificationRejetIndividuelle($message, $subject, $toEmail, $toUserName)); */
 
         return redirect()->back();
     }
