@@ -112,21 +112,18 @@ class ValidationIndividuelleController extends Controller
         ]);
 
         // Envoi de mail
-        $toEmail     = $individuelle?->user?->email;
+        /* $toEmail     = $individuelle?->user?->email;
         $toUserName  = 'Bonjour ! ' . $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name;
         $safeMessage = "Votre demande de formation en <b><i>" . ($individuelle->module->name ?? 'cette formation') .
             "</i></b> a été retenue. Vous pourrez être contacté à tout moment pour le démarrage de la formation.
         Merci pour votre patience ; nous mettons tout en œuvre afin qu’elle puisse débuter dans les plus brefs délais.";
 
-        // Ajouter le lien vers le site
-        /* $siteUrl = config('app.url'); // ou une URL en dur comme 'https://sigof.onfp.sn' */
-        $siteUrl = 'https://sigof.onfp.sn'; // ou une URL en dur comme 'https://sigof.onfp.sn'
         $safeMessage .= "<p>Consultez notre plateforme : <a href=\"$siteUrl\">$siteUrl</a></p>";
 
         $subject = 'Notification de validation !';
         $message = strip_tags($safeMessage, '<b><i><p><a>');
 
-        Mail::to($toEmail)->send(new ValidationDemandeIndividuelleNotification($message, $subject, $toEmail, $toUserName));
+        Mail::to($toEmail)->send(new ValidationDemandeIndividuelleNotification($message, $subject, $toEmail, $toUserName)); */
 
         return redirect()->back();
 
