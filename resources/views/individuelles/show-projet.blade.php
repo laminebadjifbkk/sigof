@@ -75,34 +75,49 @@
                         </div>
                         <table class="table table-bordered table-hover table-borderless">
                             <thead>
-                                <tr>
-                                    <th width="2%" class="text-center">N°</th>
-                                    <th width="8%" class="text-center">Numéro</th>
+                                <tr class="text-center">
+                                    <th width="2%">N°</th>
+                                    <th width="8%">Numéro</th>
                                     <th>Module</th>
-                                    <th width="12%" class="text-center">{{ $projet->type_localite }}</th>
-                                    <th width="12%" class="text-center">Niveau étude</th>
-                                    <th width="13%" class="text-center">Diplome académique</th>
-                                    <th width="13%" class="text-center">Diplome professionnel</th>
-                                    <th width="5%" class="text-center">Statut</th>
-                                    <th style="width:5%;"><i class="bi bi-gear"></i></th>
+                                    <th width="12%">{{ $projet->type_localite }}</th>
+                                    <th width="12%">Niveau étude</th>
+                                    <th width="13%">Diplome académique</th>
+                                    <th width="13%">Diplome professionnel</th>
+                                    <th width="5%">Statut</th>
+                                    <th style="width:3%;"><i class="bi bi-gear"></i></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 1; ?>
                                 @foreach ($individuelles as $individuelle)
                                     @isset($individuelle->numero)
-                                        <tr>
-                                            <td class="text-center">{{ $i++ }}</td>
-                                            <td class="text-center">{{ $individuelle?->numero }}</td>
+                                        <tr class="text-center">
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $individuelle?->numero }}</td>
                                             <td>{{ $individuelle?->module?->name }}</td>
-                                            <td class="text-center">
+                                            <td>
                                                 {{ $individuelle?->{strtolower($projet->type_localite)}?->nom }}</td>
-                                            <td class="text-center">{{ $individuelle?->niveau_etude }}</td>
-                                            <td class="text-center">{{ $individuelle?->diplome_academique }}</td>
-                                            <td class="text-center">{{ $individuelle?->diplome_professionnel }}</td>
-                                            <td class="text-center">
-                                                <span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}
-                                                </span>
+                                            <td>{{ $individuelle?->niveau_etude }}</td>
+                                            <td>{{ $individuelle?->diplome_academique }}</td>
+                                            <td>{{ $individuelle?->diplome_professionnel }}</td>
+                                            <td>
+                                                @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
+                                                    <span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
+                                                @endhasanyrole
+
+                                                @hasrole('Demandeur')
+                                                    @if (!empty($individuelle->projets_id))
+                                                        @if ($individuelle->projet?->statut === 'ouvert')
+                                                            <span class="badge bg-info">Enregistré avec succès</span>
+                                                        @else
+                                                            <span
+                                                                class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
+                                                        @endif
+                                                    @else
+                                                        <span
+                                                            class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
+                                                    @endif
+                                                @endhasrole
                                             </td>
                                             <td>
                                                 <span class="d-flex align-items-baseline">
@@ -383,7 +398,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row mb-3">
                     <label for="file" class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">
                         Téléverser un fichier <span class="text-danger mx-1">*</span>
