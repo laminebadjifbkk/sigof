@@ -71,7 +71,8 @@
                                         <td>{{ $individuelle?->niveau_etude }}</td>
                                         <td>{{ $individuelle?->diplome_academique }}</td>
                                         <td>{{ $individuelle?->diplome_professionnel }}</td>
-                                        <td>{{ $individuelle?->projet?->name }}</td>
+                                        <td>{{ $individuelle?->projet?->name . ' (' . $individuelle?->projet?->name . ')' }}
+                                        </td>
                                         <td>
                                             @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
                                                 <span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
