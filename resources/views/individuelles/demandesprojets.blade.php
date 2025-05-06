@@ -56,7 +56,7 @@
                                     <th>Niveau étude</th>
                                     <th>Diplome académique</th>
                                     <th>Diplome professionnel</th>
-                                    <th>Partenaires</th>
+                                    <th>Partenaires / Projets / Programmes</th>
                                     <th width="5%">Statut</th>
                                     <th style="width:3%;"><i class="bi bi-gear"></i></th>
                                 </tr>
@@ -71,7 +71,7 @@
                                         <td>{{ $individuelle?->niveau_etude }}</td>
                                         <td>{{ $individuelle?->diplome_academique }}</td>
                                         <td>{{ $individuelle?->diplome_professionnel }}</td>
-                                        <td>{{ $individuelle?->projet?->sigle }}</td>
+                                        <td>{{ $individuelle?->projet?->name }}</td>
                                         <td>
                                             @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
                                                 <span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
