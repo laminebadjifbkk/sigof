@@ -108,7 +108,7 @@
                                                 @hasrole('Demandeur')
                                                     @if (!empty($individuelle->projets_id))
                                                         @if ($individuelle->projet?->statut === 'ouvert')
-                                                            <span class="badge bg-info">Enregistré avec succès</span>
+                                                            <span class="badge bg-info">Enregistrée avec succès</span>
                                                         @else
                                                             <span
                                                                 class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
