@@ -216,7 +216,7 @@ return [
             'to'   => 'laminebadjifbkk@gmail.com',
 
             'from' => [
-                'address' => env('MAIL_FROM_ADDRESS', 'danilobadji@gmail.com'),
+                'address' => env('MAIL_FROM_ADDRESS', 'badjilaminefbkk@gmail.com'),
                 'name'    => env('MAIL_FROM_NAME', 'ONFP'),
             ],
         ],
