@@ -64,59 +64,57 @@
                             <tbody>
                                 <?php $i = 1; ?>
                                 @foreach ($userIndividuellesAvecProjet as $individuelle)
-                                    @isset($individuelle->numero)
-                                        <tr class="text-center">
-                                            <td>{{ $i++ }}</td>
-                                            <td>{{ $individuelle?->numero }}</td>
-                                            <td>{{ $individuelle?->module?->name }}</td>
-                                            <td>{{ $individuelle?->niveau_etude }}</td>
-                                            <td>{{ $individuelle?->diplome_academique }}</td>
-                                            <td>{{ $individuelle?->diplome_professionnel }}</td>
-                                            <td>{{ $individuelle?->projet?->sigle }}</td>
-                                            <td>
-                                                @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
-                                                    <span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
-                                                @endhasanyrole
-                                                @hasrole('Demandeur')
-                                                    @if (!empty($individuelle->projets_id))
-                                                        @if ($individuelle->projet?->statut === 'ouvert')
-                                                            <span class="badge bg-info">Enregistrée avec succès</span>
-                                                        @else
-                                                            <span
-                                                                class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
-                                                        @endif
+                                    <tr class="text-center">
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $individuelle?->numero }}</td>
+                                        <td>{{ $individuelle?->module?->name }}</td>
+                                        <td>{{ $individuelle?->niveau_etude }}</td>
+                                        <td>{{ $individuelle?->diplome_academique }}</td>
+                                        <td>{{ $individuelle?->diplome_professionnel }}</td>
+                                        <td>{{ $individuelle?->projet?->sigle }}</td>
+                                        <td>
+                                            @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
+                                                <span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
+                                            @endhasanyrole
+                                            @hasrole('Demandeur')
+                                                @if (!empty($individuelle->projets_id))
+                                                    @if ($individuelle->projet?->statut === 'ouvert')
+                                                        <span class="badge bg-info">Enregistrée avec succès</span>
                                                     @else
                                                         <span
                                                             class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
                                                     @endif
-                                                @endhasrole
-                                            </td>
-                                            <td>
-                                                <span class="d-flex align-items-baseline">
-                                                    <a href="{{ route('individuelles.show', $individuelle) }}"
-                                                        class="btn btn-success btn-sm" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            <li>
-                                                                <form
-                                                                    action="{{ route('individuelles.destroy', $individuelle) }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item show_confirm"
-                                                                        title="Supprimer"><i
-                                                                            class="bi bi-trash"></i>Supprimer</button>
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    @endisset
+                                                @else
+                                                    <span
+                                                        class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
+                                                @endif
+                                            @endhasrole
+                                        </td>
+                                        <td>
+                                            <span class="d-flex align-items-baseline">
+                                                <a href="{{ route('individuelles.show', $individuelle) }}"
+                                                    class="btn btn-success btn-sm" title="voir détails"><i
+                                                        class="bi bi-eye"></i></a>
+                                                <div class="filter">
+                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                            class="bi bi-three-dots"></i></a>
+                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                        <li>
+                                                            <form
+                                                                action="{{ route('individuelles.destroy', $individuelle) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="dropdown-item show_confirm"
+                                                                    title="Supprimer"><i
+                                                                        class="bi bi-trash"></i>Supprimer</button>
+                                                            </form>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </span>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

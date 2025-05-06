@@ -103,68 +103,69 @@
                         Candidature 2025 - Phase 1 !
                         <span class="fw-normal">Ne manquez pas votre chance de postuler !</span>
                     </div>
+                    @hasanyrole('super-admin|admin|DIOF|Employe')
+                        <div class="col-12">
+                            <div class="card shadow-lg border-0 rounded-4 bg-light">
+                                <div class="card-body p-3 p-md-4 bg-white rounded-4 shadow-sm border border-primary-subtle">
+                                    <h5
+                                        class="card-title mb-4 d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-2">
+                                        <span>📋 Demandes <span class="text-muted">| Personnelles</span></span>
+                                    </h5>
 
-                    <div class="col-12">
-                        <div class="card shadow-lg border-0 rounded-4 bg-light">
-                            <div class="card-body p-3 p-md-4 bg-white rounded-4 shadow-sm border border-primary-subtle">
-                                <h5
-                                    class="card-title mb-4 d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-2">
-                                    <span>📋 Demandes <span class="text-muted">| Personnelles</span></span>
-                                </h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover align-middle mb-0">
+                                            <thead class="table-primary text-primary">
+                                                <tr>
+                                                    <th scope="col">Type de demande</th>
+                                                    <th scope="col" class="text-center">Nombre</th>
+                                                    <th scope="col" class="text-center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span class="fw-semibold text-primary">
+                                                            <i class="bi bi-person-circle me-2"></i>Individuelle
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span class="badge bg-primary-subtle text-primary fs-6 px-3 py-2">
+                                                            {{ count($individuelles) }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="{{ route('demandesIndividuelle') }}"
+                                                            class="btn btn-sm btn-outline-primary rounded-pill">
+                                                            <i class="bi bi-plus-circle me-1"></i> Ajouter
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="fw-semibold text-primary">
+                                                            <i class="bi bi-people-fill me-2"></i>Collective
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span class="badge bg-primary-subtle text-primary fs-6 px-3 py-2">
+                                                            {{ count($collectives) }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="{{ route('demandesCollective') }}"
+                                                            class="btn btn-sm btn-outline-primary rounded-pill">
+                                                            <i class="bi bi-plus-circle me-1"></i> Ajouter
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
 
-                                <div class="table-responsive">
-                                    <table class="table table-hover align-middle mb-0">
-                                        <thead class="table-primary text-primary">
-                                            <tr>
-                                                <th scope="col">Type de demande</th>
-                                                <th scope="col" class="text-center">Nombre</th>
-                                                <th scope="col" class="text-center">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <span class="fw-semibold text-primary">
-                                                        <i class="bi bi-person-circle me-2"></i>Individuelle
-                                                    </span>
-                                                </td>
-                                                <td class="text-center">
-                                                    <span class="badge bg-primary-subtle text-primary fs-6 px-3 py-2">
-                                                        {{ count($individuelles) }}
-                                                    </span>
-                                                </td>
-                                                <td class="text-center">
-                                                    <a href="{{ route('demandesIndividuelle') }}"
-                                                        class="btn btn-sm btn-outline-primary rounded-pill">
-                                                        <i class="bi bi-plus-circle me-1"></i> Ajouter
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="fw-semibold text-primary">
-                                                        <i class="bi bi-people-fill me-2"></i>Collective
-                                                    </span>
-                                                </td>
-                                                <td class="text-center">
-                                                    <span class="badge bg-primary-subtle text-primary fs-6 px-3 py-2">
-                                                        {{ count($collectives) }}
-                                                    </span>
-                                                </td>
-                                                <td class="text-center">
-                                                    <a href="{{ route('demandesCollective') }}"
-                                                        class="btn btn-sm btn-outline-primary rounded-pill">
-                                                        <i class="bi bi-plus-circle me-1"></i> Ajouter
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
                                 </div>
-
                             </div>
                         </div>
-                    </div>
+                    @endhasanyrole
                 @endrole
 
                 @role('Demandeur')
