@@ -859,6 +859,23 @@ class IndividuelleController extends Controller
 
     }
 
+    public function demandesProjet(Request $request)
+    {
+        $userIndividuellesAvecProjet = Auth::user()->individuelles->whereNotNull('projets_id')->sortByDesc('created_at'); // Trie du plus récent au plus ancien
+        $count                       = Auth::user()->individuelles->whereNotNull('projets_id')->count();
+
+        // Passer directement à la vue sans duplication de code
+        $viewData = compact(
+            'userIndividuellesAvecProjet', 'count'
+        );
+
+        // Renvoi de la vue en fonction du nombre d'individuelles
+        $view = 'individuelles.demandesprojets';
+
+        return view($view, $viewData);
+
+    }
+
     public function rapports(Request $request)
     {
         $title = 'rapports demandes individuelles';

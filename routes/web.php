@@ -259,6 +259,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/showCollective/{id}', [DemandeurController::class, 'showCollective'])->name('showCollective');
 
         Route::get('/demandesIndividuelles', [IndividuelleController::class, 'demandesIndividuelle'])->name('demandesIndividuelle');
+        Route::get('/demandesProjet', [IndividuelleController::class, 'demandesProjet'])->name('demandesProjet');
         Route::post('/showIndividuelleProjet', [IndividuelleController::class, 'showIndividuelleProjet'])->name('showIndividuelleProjet');
 
         Route::get('/projetsIndividuelle/{uuid}', [ProjetController::class, 'projetsIndividuelle'])->name('projetsIndividuelle');

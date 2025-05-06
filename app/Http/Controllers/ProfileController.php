@@ -26,6 +26,7 @@ class ProfileController extends Controller
     {
         $user    = Auth::user();
         $projets = Projet::where('statut', 'ouvert')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $usercin = File::where('users_id', $user->id)
@@ -265,7 +266,7 @@ class ProfileController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
-/* 
+/*
         if (request('image')) {
             if (! empty($user->image)) {
                 Storage::disk('public')->delete($user->image);
@@ -293,31 +294,30 @@ class ProfileController extends Controller
         } */
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            if (!empty($user->image)) {
+            if (! empty($user->image)) {
                 Storage::disk('public')->delete($user->image);
             }
-        
+
             $file = $request->file('image');
-        
+
             // Crée une version renommée et propre du nom
-            $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-            $filename = preg_replace("/[^A-Za-z0-9 ]/", '', $filename);
-            $filename = preg_replace("/\s+/", '-', $filename);
-            $extension = $file->getClientOriginalExtension();
+            $filename        = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $filename        = preg_replace("/[^A-Za-z0-9 ]/", '', $filename);
+            $filename        = preg_replace("/\s+/", '-', $filename);
+            $extension       = $file->getClientOriginalExtension();
             $fileNameToStore = 'avatars/' . $filename . time() . '.' . $extension;
-        
+
             // Utilise Intervention sur le fichier temporaire directement
             $image = Image::make($file->getRealPath())->fit(800, 800);
-        
+
             // Sauvegarde manuellement dans le disque 'public'
             Storage::disk('public')->put($fileNameToStore, (string) $image->encode());
-        
+
             // Met à jour l'utilisateur
             $user->update([
                 'image' => $fileNameToStore,
             ]);
         }
-        
 
         $request->user()->save();
 
