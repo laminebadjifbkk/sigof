@@ -74,8 +74,8 @@
                                         <th>Domaines</th>
                                         <th>Secteurs</th>
                                         <th>Niveau qualification</th>
-                                        <th class="text-center" scope="col">Formations</th>
-                                        <th class="text-center" scope="col">Demandes</th>
+                                        {{-- <th class="text-center" scope="col">Formations</th>
+                                        <th class="text-center" scope="col">Demandes</th> --}}
                                         <th class="text-center" scope="col">#</th>
                                     </tr>
                                 </thead>
@@ -87,7 +87,7 @@
                                             <td>{{ $module?->domaine?->name }}</td>
                                             <td>{{ $module?->domaine?->secteur?->name }}</td>
                                             <td>{{ $module?->niveau_qualification }}</td>
-                                            <td style="text-align: center;">
+                                            {{-- <td style="text-align: center;">
                                                 @foreach ($module->formations as $formation)
                                                     @if ($loop->last)
                                                         <a href="{{ route('formations.show', $formation) }}"><span
@@ -102,14 +102,7 @@
                                                                 class="badge bg-info">{{ $loop->count }}</span></a>
                                                     @endif
                                                 @endforeach
-                                            </td>
-                                            {{-- <td style="text-align: center;">
-                                            <span class="d-flex mt-2 align-items-baseline">
-                                                <a href="{{ url('modules/' . $module->id) }}"
-                                                    class="btn btn-success btn-sm mx-1" title="Voir détails"><i
-                                                        class="bi bi-eye"></i></a>
-                                            </span>
-                                        </td> --}}
+                                            </td> --}}
                                             <td style="text-align: center;">
                                                 @can('module-show')
                                                     <span class="d-flex mt-2 align-items-baseline"><a
@@ -289,9 +282,9 @@
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
-            "order": [
+            /* "order": [
                 [5, 'desc']
-            ],
+            ], */
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",

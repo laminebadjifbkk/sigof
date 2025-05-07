@@ -56,7 +56,7 @@
                                     <th>Niveau étude</th>
                                     <th>Diplome académique</th>
                                     <th>Diplome professionnel</th>
-                                    <th>Projets / Programmes</th>
+                                    <th>Projets ou Programmes</th>
                                     <th width="5%">Statut</th>
                                     <th style="width:3%;"><i class="bi bi-gear"></i></th>
                                 </tr>

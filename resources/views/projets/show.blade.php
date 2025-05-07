@@ -67,13 +67,13 @@
                                     </li>
                                 @endif
 
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <button class="nav-link">
                                         <a style="text-decoration: none; color: black"
                                             href="{{ route('projetsBeneficiaire', $projet?->uuid) }}" title="voir"
                                             target="_blank">Liste</a>
                                     </button>
-                                </li>
+                                </li> --}}
 
                             </ul>
 
