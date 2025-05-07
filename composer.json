@@ -11,6 +11,7 @@
         "php": "^8.1",
         "barryvdh/laravel-dompdf": "^2.1",
         "biscolab/laravel-recaptcha": "^6.1",
+        "doctrine/dbal": "^3.9",
         "guzzlehttp/guzzle": "^7.2",
         "infobip/infobip-api-php-client": "6.1.0",
         "intervention/image": "^2",
