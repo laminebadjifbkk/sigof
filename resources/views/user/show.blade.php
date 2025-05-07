@@ -331,7 +331,7 @@
                                                             <th width="5%" class="text-center">N°</th>
                                                             <th>Modules</th>
                                                             <th width="5%" class="text-center">Dépôt</th>
-                                                            <th width="10%" class="text-center">Statut</th>
+                                                            <th width="20%" class="text-center">Statut</th>
                                                             @can('user-show')
                                                                 <th width="5%" class="text-center"><i
                                                                         class="bi bi-gear"></i></th>
@@ -339,9 +339,37 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @php
+                                                            // Liste de classes Bootstrap ou personnalisées à alterner
+                                                            $availableColors = [
+                                                                'table-primary',
+                                                                'table-success',
+                                                                'table-warning',
+                                                                'table-info',
+                                                                'table-secondary',
+                                                            ];
+                                                            $sigleColors = []; // Association sigle => couleur
+                                                            $colorIndex = 0;
+                                                        @endphp
                                                         @php $i = 1; @endphp
                                                         @foreach ($user->individuelles->sortBy('created_at') as $individuelle)
-                                                            <tr>
+                                                            @php
+                                                                $sigle = $individuelle->projet?->sigle;
+                                                                $rowClass = ''; // par défaut : aucune classe
+
+                                                                if (!empty($sigle)) {
+                                                                    if (!isset($sigleColors[$sigle])) {
+                                                                        $sigleColors[$sigle] =
+                                                                            $availableColors[
+                                                                                $colorIndex % count($availableColors)
+                                                                            ];
+                                                                        $colorIndex++;
+                                                                    }
+                                                                    $rowClass = $sigleColors[$sigle];
+                                                                }
+                                                            @endphp
+
+                                                            <tr class="{{ $rowClass }}">
                                                                 <td class="text-center">{{ $i++ }}</td>
                                                                 <td>{{ $individuelle?->module?->name }}</td>
                                                                 <td class="text-center">

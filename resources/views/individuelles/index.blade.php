@@ -61,16 +61,12 @@
                                     @endcan
                                 </div>
                             </div>
-                            {{-- <p>Le tableau des demandes individuelles</p> --}}
-                            <!-- Table with stripped rows -->
                             @if ($individuelles->isNotEmpty())
                                 <table class="table datatables align-middle" id="table-individuelles">
                                     <thead>
                                         <tr>
                                             <th class="text-center">N°</th>
                                             <th width="20%" class="text-center">N° CIN</th>
-                                            {{-- <th>Prénom</th>
-                                            <th>NOM</th> --}}
                                             <th width="20%">Prénom & NOM</th>
                                             <th width="15%">Date nais.</th>
                                             <th width="15%">Lieu nais.</th>

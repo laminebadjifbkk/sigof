@@ -44,6 +44,13 @@
                                 <span>Restaurés</span>
                             </a>
                         </li>
+                        @can('rapport-user-view')
+                            <li class="nav-item">
+                                <a class="nav-link collapsed" href="{{ route('users.rapport') }}">
+                                    <span>Utilisateurs</span>
+                                </a>
+                            </li>
+                        @endcan
                     </ul>
                 </li>
             @endcan
@@ -697,14 +704,6 @@
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('operateurs.rapport') }}">
                                 <span>Opérateurs</span>
-                            </a>
-                        </li>
-                    @endcan
-
-                    @can('rapport-user-view')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ route('users.rapport') }}">
-                                <span>Utilisateurs</span>
                             </a>
                         </li>
                     @endcan
