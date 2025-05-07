@@ -63,17 +63,17 @@ class IndividuelleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'module'                 => ['required', 'string', 'max:255'],
+            'module'                 => ['required', 'string', 'max:250'],
             'telephone_secondaire'   => ['required', 'string', 'size:12'],
-            'adresse'                => ['required', 'string', 'max:255'],
-            'departement'            => ['required', 'string', 'max:255'],
-            'module'                 => ['required', 'string', 'max:255'],
-            'niveau_etude'           => ['required', 'string', 'max:255'],
-            'diplome_academique'     => ['required', 'string', 'max:255'],
-            'diplome_professionnel'  => ['required', 'string', 'max:255'],
-            'projet_poste_formation' => ['required', 'string', 'max:255'],
-            'projetprofessionnel'    => ['required', 'string', 'max:2000'],
-            'qualification'          => ['nullable', 'string', 'max:200'],
+            'adresse'                => ['required', 'string', 'max:250'],
+            'departement'            => ['required', 'string', 'max:250'],
+            'module'                 => ['required', 'string', 'max:250'],
+            'niveau_etude'           => ['required', 'string', 'max:250'],
+            'diplome_academique'     => ['required', 'string', 'max:250'],
+            'diplome_professionnel'  => ['required', 'string', 'max:250'],
+            'projet_poste_formation' => ['required', 'string', 'max:250'],
+            'projetprofessionnel'    => ['required', 'string', 'max:500'],
+            'qualification'          => ['nullable', 'string', 'max:500'],
         ]);
 
         $user = User::findOrFail($request->iduser);
@@ -197,14 +197,14 @@ class IndividuelleController extends Controller
     {
         $this->validate($request, [
             'telephone_secondaire'   => ['required', 'string', 'size:12'],
-            'adresse'                => ['required', 'string', 'max:255'],
-            'departement'            => ['required', 'string', 'max:255'],
-            'module'                 => ['required', 'string', 'max:255'],
-            'niveau_etude'           => ['required', 'string', 'max:255'],
-            'diplome_academique'     => ['required', 'string', 'max:255'],
-            'diplome_professionnel'  => ['required', 'string', 'max:255'],
-            'projet_poste_formation' => ['required', 'string', 'max:255'],
-            'qualification'          => ['nullable', 'string', 'max:200'],
+            'adresse'                => ['required', 'string', 'max:250'],
+            'departement'            => ['required', 'string', 'max:250'],
+            'module'                 => ['required', 'string', 'max:250'],
+            'niveau_etude'           => ['required', 'string', 'max:250'],
+            'diplome_academique'     => ['required', 'string', 'max:250'],
+            'diplome_professionnel'  => ['required', 'string', 'max:250'],
+            'projet_poste_formation' => ['required', 'string', 'max:250'],
+            'qualification'          => ['nullable', 'string', 'max:500'],
         ]);
 
         $user   = Auth::user();
@@ -357,7 +357,7 @@ class IndividuelleController extends Controller
                 'required',
                 'string',
                 'email',
-                'max:255',
+                'max:250',
                 Rule::unique('users')->whereNull('deleted_at'), // Ignore les utilisateurs supprimés
             ],
             'firstname'                 => ['required', 'string', 'max:50'],
@@ -366,15 +366,15 @@ class IndividuelleController extends Controller
             'telephone_secondaire'      => ['nullable', 'string', 'size:12'],
             'date_naissance'            => ['nullable', 'date_format:d/m/Y'],
             'lieu_naissance'            => ['required', 'string'],
-            'adresse'                   => ['required', 'string', 'max:255'],
-            'departement'               => ['required', 'string', 'max:255'],
-            'module'                    => ['required', 'string', 'max:255'],
-            'situation_professionnelle' => ['nullable', 'string', 'max:255'],
-            'situation_familiale'       => ['nullable', 'string', 'max:255'],
-            'niveau_etude'              => ['required', 'string', 'max:255'],
-            'diplome_academique'        => ['required', 'string', 'max:255'],
-            'diplome_professionnel'     => ['required', 'string', 'max:255'],
-            'projet_poste_formation'    => ['required', 'string', 'max:255'],
+            'adresse'                   => ['required', 'string', 'max:250'],
+            'departement'               => ['required', 'string', 'max:250'],
+            'module'                    => ['required', 'string', 'max:250'],
+            'situation_professionnelle' => ['nullable', 'string', 'max:250'],
+            'situation_familiale'       => ['nullable', 'string', 'max:250'],
+            'niveau_etude'              => ['required', 'string', 'max:250'],
+            'diplome_academique'        => ['required', 'string', 'max:250'],
+            'diplome_professionnel'     => ['required', 'string', 'max:250'],
+            'projet_poste_formation'    => ['required', 'string', 'max:250'],
             'qualification'             => ['nullable', 'string', 'max:200'],
         ]);
 
@@ -645,15 +645,15 @@ class IndividuelleController extends Controller
         $this->validate($request, [
             'date_depot'             => ['nullable', 'date_format:d/m/Y'],
             'telephone_secondaire'   => ['required', 'string', 'size:12'],
-            'adresse'                => ['required', 'string', 'max:255'],
-            'localite'               => ['required', 'string', 'max:255'],
-            'module'                 => ['required', 'string', 'max:255'],
-            'niveau_etude'           => ['required', 'string', 'max:255'],
-            'diplome_academique'     => ['required', 'string', 'max:255'],
-            'diplome_professionnel'  => ['required', 'string', 'max:255'],
-            'projet_poste_formation' => ['required', 'string', 'max:255'],
-            'projetprofessionnel'    => ['required', 'string', 'max:2000'],
-            'qualification'          => ['nullable', 'string', 'max:200'],
+            'adresse'                => ['required', 'string', 'max:250'],
+            'localite'               => ['required', 'string', 'max:250'],
+            'module'                 => ['required', 'string', 'max:250'],
+            'niveau_etude'           => ['required', 'string', 'max:250'],
+            'diplome_academique'     => ['required', 'string', 'max:250'],
+            'diplome_professionnel'  => ['required', 'string', 'max:250'],
+            'projet_poste_formation' => ['required', 'string', 'max:250'],
+            'projetprofessionnel'    => ['required', 'string', 'max:500'],
+            'qualification'          => ['nullable', 'string', 'max:500'],
         ]);
     }
 
@@ -1002,15 +1002,15 @@ class IndividuelleController extends Controller
 
         $this->validate($request, [
             'telephone_secondaire'   => ['required', 'string', 'size:12'],
-            'adresse'                => ['required', 'string', 'max:255'],
-            'departement'            => ['required', 'string', 'max:255'],
-            /* 'module'                 => ['required', 'string', 'max:255'], */
-            'niveau_etude'           => ['required', 'string', 'max:255'],
-            'diplome_academique'     => ['required', 'string', 'max:255'],
-            'diplome_professionnel'  => ['required', 'string', 'max:255'],
+            'adresse'                => ['required', 'string', 'max:250'],
+            'departement'            => ['required', 'string', 'max:250'],
+            /* 'module'                 => ['required', 'string', 'max:250'], */
+            'niveau_etude'           => ['required', 'string', 'max:250'],
+            'diplome_academique'     => ['required', 'string', 'max:250'],
+            'diplome_professionnel'  => ['required', 'string', 'max:250'],
             'projet_poste_formation' => ['required', 'string'],
-            'projetprofessionnel'    => ['required', 'string', 'max:2000'],
-            'qualification'          => ['nullable', 'string', 'max:200'],
+            'projetprofessionnel'    => ['required', 'string', 'max:500'],
+            'qualification'          => ['nullable', 'string', 'max:500'],
         ]);
 
         $individuelle_total = Individuelle::where('users_id', $user->id)->where('projets_id', $projet->id)
