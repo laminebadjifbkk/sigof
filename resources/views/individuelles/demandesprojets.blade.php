@@ -80,9 +80,9 @@
                                             @hasrole('Demandeur')
                                                 @if (!empty($individuelle->projets_id))
                                                     @if ($individuelle->projet?->statut === 'ouvert')
-                                                        <span class="btn btn-info btn-sm text-white">
-  <i class="bi bi-check-circle me-1"></i> Enregistrée
-</span>
+                                                    <span class="btn btn-info btn-sm text-white d-inline-flex align-items-center">
+                                                        <i class="bi bi-check-circle me-1"></i> Enregistrée
+                                                      </span>                                                      
                                                     @else
                                                         <span
                                                             class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
