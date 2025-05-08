@@ -76,7 +76,7 @@
                     </div>
                 </div>
             </div> --}}
-                <div class="col-lg-12">
+                {{-- <div class="col-lg-12">
                     @if (!empty($count_formations))
                         <div class="card">
                             <div class="card-body">
@@ -117,14 +117,12 @@
                                             </div>
                                         @endif
                                     @elseif (!empty($formation->collectivemodule->module) && count($formation->emargementcollectives) > 0)
-                                        {{-- Pour les demandes collectives --}}
                                         @php
                                             $progress = round(
                                                 (count($formation->emargementcollectives) /
                                                     $formation->duree_formation) *
                                                     100,
                                             );
-                                            // Déterminer la couleur en fonction du pourcentage
                                             if ($progress <= 20) {
                                                 $color = 'bg-danger'; // Rouge
                                             } elseif ($progress <= 40) {
@@ -137,7 +135,6 @@
                                                 $color = 'bg-success'; // Vert
                                             }
                                         @endphp
-                                        <!-- Nom de la formation -->
                                         <p class="mt-3"><strong> {{ $formation->collectivemodule->module }}</strong></p>
                                         <div class="progress mt-0">
                                             <div class="progress-bar progress-bar-striped progress-bar-animated {{ $color }}"
@@ -151,7 +148,6 @@
                                             </div>
                                         </div>
                                     @else
-                                        {{-- Si les deux conditions ne sont pas vérifiées --}}
                                     @endif
                                 @endforeach
                             </div>
@@ -197,7 +193,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 {{-- <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
@@ -230,7 +226,7 @@
                     </div>
                 </div>
             </div> --}}
-                <div class="col-lg-6">
+                {{-- <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Diagramme demandes individulles</h5>
@@ -267,29 +263,7 @@
                                             labelLine: {
                                                 show: false
                                             },
-                                            {{-- 
-                                                data: [{
-                                                    value: {{ $nouvelle }},
-                                                    name: 'Nouvelles'
-                                                },
-                                                {
-                                                    value: {{ $attente }},
-                                                    name: 'Attente'
-                                                },
-                                                {
-                                                    value: {{ $retenue }},
-                                                    name: 'Sélectionnés'
-                                                },
-                                                {
-                                                    value: {{ $terminer }},
-                                                    name: 'Formés'
-                                                },
-                                                {
-                                                    value: {{ $rejeter }},
-                                                    name: 'Rejetés'
-                                                }
-                                            ]
-                                            --}}
+                                            
 
                                             data: [{
                                                     value: {{ $masculin }},
@@ -304,11 +278,9 @@
                                     });
                                 });
                             </script>
-                            <!-- End Donut Chart -->
-
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </section>
 
@@ -403,7 +375,7 @@
                             </div> --}}
 
                             {{-- Demandes collectives --}}
-                            <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                            {{-- <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
                                 <div class="card info-card sales-card">
                                     <div class="filter">
                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -422,7 +394,6 @@
                                                         <span
                                                             class="text-primary">{{ number_format(count($collectives), 0, '', ' ') }}</span>
                                                     </h6>
-                                                    {{-- <span class="text-muted small pt-2 ps-1">dont</span> --}}
                                                     <span
                                                         class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_femmes_collective, 2, ',', ' ') . '%' }}</span>
                                                     <span class="text-muted small pt-2 ps-1">f</span>
@@ -431,7 +402,7 @@
                                         </div>
                                     </a>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             {{-- <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
                             <div class="card info-card sales-card">
@@ -531,7 +502,7 @@
                     <div class="col-lg-12">
                         <div class="row">
                             <!-- Sales Card -->
-                           {{--  @if (auth()->user()->hasRole('super-admin|admin'))
+                            {{--  @if (auth()->user()->hasRole('super-admin|admin'))
                                 <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
                                     <div class="card info-card sales-card">
                                         <a href="{{ route('user.index') }}">
