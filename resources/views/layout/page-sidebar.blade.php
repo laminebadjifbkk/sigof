@@ -3,8 +3,14 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         @hasanyrole('Employe|super-admin|admin')
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link " href="{{ url('/home') }}">
+                    <i class="bi bi-grid"></i>
+                    <span>Tableau de bord</span>
+                </a>
+            </li> --}}
+            <li class="nav-item">
+                <a class="nav-link " href="{{ url('/') }}">
                     <i class="bi bi-grid"></i>
                     <span>Tableau de bord</span>
                 </a>
