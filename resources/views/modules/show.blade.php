@@ -30,27 +30,51 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $i = 1; ?>
+                                    @php
+                                        // Liste de classes Bootstrap ou personnalisées à alterner
+                                        $availableColors = [
+                                            'table-primary',
+                                            'table-success',
+                                            'table-warning',
+                                            'table-info',
+                                            'table-secondary',
+                                        ];
+                                        $sigleColors = []; // Association sigle => couleur
+                                        $colorIndex = 0;
+                                    @endphp
                                     @foreach ($module->individuelles as $individuelle)
-                                        @isset($individuelle?->numero)
-                                            <tr>
-                                                <td>{{ $individuelle?->numero }}
-                                                </td>
-                                                <td>{{ $individuelle?->user?->cin }}</td>
-                                                <td>{{ $individuelle?->user?->firstname }}</td>
-                                                <td>{{ $individuelle?->user?->name }}</td>
-                                                <td>{{ $individuelle?->user->date_naissance?->format('d/m/Y') }}</td>
-                                                <td>{{ $individuelle?->user->lieu_naissance }}</td>
-                                                <td><a
-                                                        href="{{ url('modulelocalite', ['$idlocalite' => $individuelle->departement->region->id, '$idmodule' => $module?->id]) }}">{{ $individuelle->departement->region->nom }}</a>
-                                                </td>
-                                                <td>
-                                                    <a
-                                                        href="{{ url('modulestatut', ['$statut' => $individuelle->statut, '$idmodule' => $module?->id]) }}">
-                                                        @isset($individuelle?->statut)
-                                                            <span
-                                                                class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
-                                                            {{--  @if ($individuelle?->statut == 'Attente')
+                                        @php
+                                            $sigle = $individuelle->projet?->sigle;
+                                            $rowClass = ''; // par défaut : aucune classe
+
+                                            if (!empty($sigle)) {
+                                                if (!isset($sigleColors[$sigle])) {
+                                                    $sigleColors[$sigle] =
+                                                        $availableColors[$colorIndex % count($availableColors)];
+                                                    $colorIndex++;
+                                                }
+                                                $rowClass = $sigleColors[$sigle];
+                                            }
+                                        @endphp
+
+                                        <tr class="{{ $rowClass }}">
+                                            <td>{{ $individuelle?->numero }}
+                                            </td>
+                                            <td>{{ $individuelle?->user?->cin }}</td>
+                                            <td>{{ $individuelle?->user?->firstname }}</td>
+                                            <td>{{ $individuelle?->user?->name }}</td>
+                                            <td>{{ $individuelle?->user->date_naissance?->format('d/m/Y') }}</td>
+                                            <td>{{ $individuelle?->user->lieu_naissance }}</td>
+                                            <td><a
+                                                    href="{{ url('modulelocalite', ['$idlocalite' => $individuelle->departement->region->id, '$idmodule' => $module?->id]) }}">{{ $individuelle->departement->region->nom }}</a>
+                                            </td>
+                                            <td>
+                                                <a
+                                                    href="{{ url('modulestatut', ['$statut' => $individuelle->statut, '$idmodule' => $module?->id]) }}">
+                                                    @isset($individuelle?->statut)
+                                                        <span
+                                                            class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
+                                                        {{--  @if ($individuelle?->statut == 'Attente')
                                                             {{ $individuelle?->statut }}
                                                         @endif
                                                         @if ($individuelle?->statut == 'Validée')
@@ -59,50 +83,48 @@
                                                         @if ($individuelle?->statut == 'Rejetée')
                                                             {{ $individuelle?->statut }}
                                                         @endif --}}
-                                                        @endisset
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <span class="d-flex align-items-baseline"><a
-                                                            href="{{ route('individuelles.show', $individuelle) }}"
-                                                            class="btn btn-primary btn-sm" title="voir détails"><i
-                                                                class="bi bi-eye"></i></a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                @can('individuelle-update')
-                                                                    <li><a class="dropdown-item btn btn-sm"
-                                                                            href="{{ route('individuelles.edit', $individuelle) }}"
-                                                                            class="mx-1" title="Modifier"><i
-                                                                                class="bi bi-pencil"></i>Modifier</a>
-                                                                    </li>
-                                                                @endcan
-                                                                @can('individuelle-delete')
-                                                                    <li>
-                                                                        <form
-                                                                            action="{{ route('individuelles.destroy', $individuelle) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit" class="dropdown-item show_confirm"
-                                                                                title="Supprimer"><i
-                                                                                    class="bi bi-trash"></i>Supprimer</button>
-                                                                        </form>
-                                                                    </li>
-                                                                @endcan
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        @endisset
+                                                    @endisset
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <span class="d-flex align-items-baseline"><a
+                                                        href="{{ route('individuelles.show', $individuelle) }}"
+                                                        class="btn btn-primary btn-sm" title="voir détails"><i
+                                                            class="bi bi-eye"></i></a>
+                                                    <div class="filter">
+                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                class="bi bi-three-dots"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            @can('individuelle-update')
+                                                                <li><a class="dropdown-item btn btn-sm"
+                                                                        href="{{ route('individuelles.edit', $individuelle) }}"
+                                                                        class="mx-1" title="Modifier"><i
+                                                                            class="bi bi-pencil"></i>Modifier</a>
+                                                                </li>
+                                                            @endcan
+                                                            @can('individuelle-delete')
+                                                                <li>
+                                                                    <form
+                                                                        action="{{ route('individuelles.destroy', $individuelle) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="dropdown-item show_confirm"
+                                                                            title="Supprimer"><i
+                                                                                class="bi bi-trash"></i>Supprimer</button>
+                                                                    </form>
+                                                                </li>
+                                                            @endcan
+                                                        </ul>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                        </tr>
                                     @endforeach
 
                                 </tbody>
                             </table>
                             <!-- End Table with stripped rows -->
-
                         </div>
                     </div>
 
