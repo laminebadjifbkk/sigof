@@ -95,8 +95,7 @@
                                             <td>{{ $i++ }}</td>
                                             <td>{{ $individuelle?->numero }}</td>
                                             <td>{{ $individuelle?->module?->name }}</td>
-                                            <td>
-                                                {{ $individuelle?->{strtolower($projet->type_localite)}?->nom }}</td>
+                                            <td>{{ $individuelle?->{strtolower($projet->type_localite)}?->nom }}</td>
                                             <td>{{ $individuelle?->niveau_etude }}</td>
                                             <td>{{ $individuelle?->diplome_academique }}</td>
                                             <td>{{ $individuelle?->diplome_professionnel }}</td>
@@ -104,11 +103,10 @@
                                                 @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
                                                     <span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
                                                 @endhasanyrole
-
                                                 @hasrole('Demandeur')
                                                     @if (!empty($individuelle->projets_id))
                                                         @if ($individuelle->projet?->statut === 'ouvert')
-                                                            <span class="badge bg-info">Enregistrée avec succès</span>
+                                                            <span class="btn btn-info btn-sm">Enregistrée avec succès</span>
                                                         @else
                                                             <span
                                                                 class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
