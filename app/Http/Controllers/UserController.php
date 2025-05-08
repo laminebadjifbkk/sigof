@@ -50,7 +50,7 @@ class UserController extends Controller
 
     public function homePage()
     {
-        $total_user = User::count();
+        $total_user = User::limit(1000)->get()->count();
         /* $email_verified_at = DB::table(table: 'users')->where('email_verified_at', '!=', null)->count(); */
 
         $email_verified_at = User::whereNotNull('email_verified_at')->count();
@@ -103,11 +103,20 @@ class UserController extends Controller
 
         $annee_lettre = 'Diagramme à barres, année: ' . date('Y');
 
-        $count_today_individuelle = Individuelle::where("created_at", "LIKE", "{$today}%")->count();
+        $count_today_individuelle = Individuelle::where("created_at", "LIKE", "{$today}%")
+            ->limit(1000)
+            ->get()
+            ->count();
 
-        $count_today_collective = Collective::where("created_at", "LIKE", "{$today}%")->count();
+        $count_today_collective = Collective::where("created_at", "LIKE", "{$today}%")
+            ->limit(1000)
+            ->get()
+            ->count();
 
-        $count_operateurs = Operateur::where("statut_agrement", "agréer")->count();
+        $count_operateurs = Operateur::where("statut_agrement", "agréer")
+            ->limit(1000)
+            ->get()
+            ->count();
 
         $count_today = $count_today_individuelle + $count_today_collective;
 
@@ -116,7 +125,10 @@ class UserController extends Controller
             ->whereYear('created_at', $annee)
             ->whereNull('deleted_at')
             ->groupBy(DB::raw('MONTH(created_at)'))
-            ->pluck('count', 'month');
+            ->pluck('count', 'month')
+            ->map(function ($count) {
+                return min(1000, $count);
+            });
 
         // Initialiser les variables avec 0 au cas où il manque un mois
         $janvier   = $counts->get(1, 0);
