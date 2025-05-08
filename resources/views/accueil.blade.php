@@ -141,7 +141,7 @@
                                             <i class="bi bi-filetype-pdf me-1 fs-5"></i>
                                             <span>📢 Appel à candidature 2025 - Phase 1</span>
                                         </a>
-                                        <a href="{{ route('services.details') }}"
+                                       {{--  <a href="{{ route('services.details') }}"
                                             class="flex items-center text-gray-700 hover:text-blue-500 transition duration-300">
                                             <i class="bi bi-arrow-right-circle mr-2 text-blue-500"></i>
                                             <span>Comment s'inscrire ?</span>
@@ -155,7 +155,7 @@
                                             class="flex items-center text-gray-700 hover:text-blue-500 transition duration-300">
                                             <i class="bi bi-arrow-right-circle mr-2 text-blue-500"></i>
                                             <span>Comment déposer une demande de formation collective ?</span>
-                                        </a>
+                                        </a> --}}
                                         {{-- <a href="{{ route('services.details') }}"
                                             class="flex items-center text-gray-700 hover:text-blue-500 transition duration-300">
                                             <i class="bi bi-arrow-right-circle mr-2 text-blue-500"></i>
