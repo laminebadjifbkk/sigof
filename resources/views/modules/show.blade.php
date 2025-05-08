@@ -58,8 +58,7 @@
                                         @endphp
 
                                         <tr class="{{ $rowClass }}">
-                                            <td>{{ $individuelle?->numero }}
-                                            </td>
+                                            <td>{{ $individuelle?->numero }}</td>
                                             <td>{{ $individuelle?->user?->cin }}</td>
                                             <td>{{ $individuelle?->user?->firstname }}</td>
                                             <td>{{ $individuelle?->user?->name }}</td>

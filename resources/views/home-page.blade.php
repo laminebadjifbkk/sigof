@@ -533,7 +533,7 @@
                     <div class="col-lg-12">
                         <div class="row">
                             <!-- Sales Card -->
-                            @if (auth()->user()->hasRole('super-admin|admin'))
+                           {{--  @if (auth()->user()->hasRole('super-admin|admin'))
                                 <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
                                     <div class="card info-card sales-card">
                                         <a href="{{ route('user.index') }}">
@@ -556,8 +556,8 @@
                                             </div>
                                         </a>
                                     </div>
-                                </div><!-- End Sales Card -->
-                            @endif
+                                </div>
+                            @endif --}}
 
                             @if (auth()->user()->hasRole('super-admin|admin|courrier'))
                                 <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
