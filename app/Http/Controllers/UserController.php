@@ -136,13 +136,13 @@ class UserController extends Controller
             ->groupBy('statut')
             ->pluck('count', 'statut');
 
-        dd($statuts);
-
         $attente  = $statuts['Attente'] ?? 0;
         $nouvelle = $statuts['Nouvelle'] ?? 0;
         $retenue  = $statuts['Retenue'] ?? 0;
         $terminer = $statuts['Terminée'] ?? 0;
         $rejeter  = $statuts['Rejetée'] ?? 0;
+
+        dd($statuts);
 
         $pourcentage_hommes = $individuelles->count() > 0
         ? ($masculin / $individuelles->count()) * 100
