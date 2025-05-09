@@ -68,6 +68,9 @@ class UserController extends Controller
 
         $count_formations = Formation::where('statut', "Démarrée")->count();
 
+        
+        dd($total_user);
+
         $total_courrier = $total_arrive + $total_depart + $total_interne;
 
         $pourcentage_arrive  = $total_courrier != 0 ? ($total_arrive / $total_courrier) * 100 : 0;
@@ -89,8 +92,6 @@ class UserController extends Controller
         $today = date('Y-m-d');
 
         $annee = date('Y');
-
-        dd($total_user);
 
         $annee_lettre = 'Diagramme à barres, année: ' . date('Y');
 
