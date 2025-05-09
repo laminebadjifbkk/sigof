@@ -78,6 +78,8 @@ class UserController extends Controller
         $roles              = Role::orderBy('created_at', 'desc')->get();
         /*  $individuelles      = Individuelle::get(); */
 
+        $individuelles = Individuelle::select('id')->get();
+
         $collectives = Collective::get();
 
         $listecollectives = Listecollective::get();
@@ -121,7 +123,7 @@ class UserController extends Controller
         $novembre  = $counts->get(11, 0);
         $decembre  = $counts->get(12, 0);
 
-        /* $masculin = Individuelle::join('users', 'users.id', 'individuelles.users_id')
+        $masculin = Individuelle::join('users', 'users.id', 'individuelles.users_id')
             ->select('individuelles.*')
             ->where('users.civilite', "M.")
             ->count();
@@ -129,7 +131,7 @@ class UserController extends Controller
         $feminin = Individuelle::join('users', 'users.id', 'individuelles.users_id')
             ->select('individuelles.*')
             ->where('users.civilite', "Mme")
-            ->count(); */
+            ->count();
 
         $statuts = Individuelle::selectRaw('statut, count(*) as count')
             ->whereIn('statut', ['Attente', 'Nouvelle', 'Retenue', 'Terminée', 'Rejetée'])
@@ -142,13 +144,13 @@ class UserController extends Controller
         $terminer = $statuts['Terminée'] ?? 0;
         $rejeter  = $statuts['Rejetée'] ?? 0;
 
-        /* $pourcentage_hommes = $individuelles->count() > 0
+        $pourcentage_hommes = $individuelles->count() > 0
         ? ($masculin / $individuelles->count()) * 100
         : 0;
 
         $pourcentage_femmes = $individuelles->count() > 0
         ? ($feminin / $individuelles->count()) * 100
-        : 0; */
+        : 0;
 
         $feminin_collective = Listecollective::where('civilite', "Mme")
             ->count();
@@ -167,8 +169,6 @@ class UserController extends Controller
         /* $count_demandes = ($individuelles ? $individuelles->count() : 0) +
             ($listecollectives ? $listecollectives->count() : 0); */
 
-        dd($total_individuelle);
-
         return view(
             "home-page",
             compact(
@@ -177,8 +177,8 @@ class UserController extends Controller
                 'total_arrive',
                 'total_depart',
                 'total_individuelle',
-                /* "pourcentage_hommes",
-                "pourcentage_femmes", */
+                "pourcentage_hommes",
+                "pourcentage_femmes",
                 "pourcentage_femmes_collective",
                 "pourcentage_hommes_collective",
                 /* "count_demandes", */
@@ -207,8 +207,8 @@ class UserController extends Controller
                 'decembre',
                 'annee',
                 'annee_lettre',
-                /* 'masculin',
-                'feminin', */
+                'masculin',
+                'feminin',
                 'email_verified_at',
                 'total_interne',
                 'pourcentage_arrive',

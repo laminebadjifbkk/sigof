@@ -230,11 +230,14 @@
                     </div>
                 </div>
             </div> --}}
-                {{-- <div class="col-lg-6">
+                <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Diagramme demandes individulles</h5>
+
+                            <!-- Donut Chart -->
                             <div id="donutChart" style="min-height: 200px;" class="echart"></div>
+
                             <script>
                                 document.addEventListener("DOMContentLoaded", () => {
                                     echarts.init(document.querySelector("#donutChart")).setOption({
@@ -264,6 +267,30 @@
                                             labelLine: {
                                                 show: false
                                             },
+                                            {{-- 
+                                                data: [{
+                                                    value: {{ $nouvelle }},
+                                                    name: 'Nouvelles'
+                                                },
+                                                {
+                                                    value: {{ $attente }},
+                                                    name: 'Attente'
+                                                },
+                                                {
+                                                    value: {{ $retenue }},
+                                                    name: 'Sélectionnés'
+                                                },
+                                                {
+                                                    value: {{ $terminer }},
+                                                    name: 'Formés'
+                                                },
+                                                {
+                                                    value: {{ $rejeter }},
+                                                    name: 'Rejetés'
+                                                }
+                                            ]
+                                            --}}
+
                                             data: [{
                                                     value: {{ $masculin }},
                                                     name: 'Hommes'
@@ -277,9 +304,11 @@
                                     });
                                 });
                             </script>
+                            <!-- End Donut Chart -->
+
                         </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
         </section>
 
@@ -364,9 +393,10 @@
                                                         <span
                                                             class="text-primary">{{ number_format($total_individuelle, 0, '', ' ') }}</span>
                                                     </h6>
-                                                    {{-- <span
+                                                    {{-- <span class="text-muted small pt-2 ps-1">dont</span> --}}
+                                                    <span
                                                         class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_femmes, 2, ',', ' ') . '%' }}</span>
-                                                    <span class="text-muted small pt-2 ps-1">f</span> --}}
+                                                    <span class="text-muted small pt-2 ps-1">f</span>
                                                 </div>
                                             </div>
                                         </div>
