@@ -90,7 +90,7 @@
                                                     @can('user-view')
                                                         <td>
                                                             <span class="d-flex align-items-baseline"><a
-                                                                    href="{{ route('formations.show', $formation->id) }}"
+                                                                    href="{{ route('formations.show', $formation) }}"
                                                                     class="btn btn-primary btn-sm" title="voir détails"><i
                                                                         class="bi bi-eye"></i></a>
                                                             </span>

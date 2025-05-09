@@ -198,7 +198,7 @@
                 aria-labelledby="EditRegionModalLabel{{ $module->id }}" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form method="post" action="{{ route('modules.update', $module->id) }}"
+                        <form method="post" action="{{ route('modules.update', $module) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
                             @method('patch')

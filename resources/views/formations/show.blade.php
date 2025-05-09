@@ -43,7 +43,7 @@
                                 <ul class="nav nav-tabs nav-tabs-bordered">
 
                                     <li class="nav-item">
-                                        <span class="nav-link"><a href="{{ route('formations.index', $formation->id) }}"
+                                        <span class="nav-link"><a href="{{ route('formations.index', $formation) }}"
                                                 class="btn btn-secondary btn-sm" title="retour"><i
                                                     class="bi bi-arrow-counterclockwise"></i></a>
                                         </span>
@@ -194,7 +194,7 @@
                                                                         @foreach ($formation->individuelles as $individuelle)
                                                                             @if ($loop->last)
                                                                                 <a class="text-primary fw-bold"
-                                                                                    href="{{ route('formations.show', $formation->id) }}">{!! $loop->count ?? '0' !!}</a>
+                                                                                    href="{{ route('formations.show', $formation) }}">{!! $loop->count ?? '0' !!}</a>
                                                                             @endif
                                                                         @endforeach
                                                                     </td>
@@ -203,7 +203,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <span class="d-flex align-items-baseline"><a
-                                                                                href="{{ route('formations.show', $formation->id) }}"
+                                                                                href="{{ route('formations.show', $formation) }}"
                                                                                 class="btn btn-primary btn-sm"
                                                                                 title="voir détails"><i class="bi bi-eye"></i></a>
                                                                             <div class="filter">
@@ -213,13 +213,13 @@
                                                                                 <ul
                                                                                     class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                                     <li><a class="dropdown-item btn btn-sm"
-                                                                                            href="{{ route('formations.edit', $formation->id) }}"
+                                                                                            href="{{ route('formations.edit', $formation) }}"
                                                                                             class="mx-1" title="Modifier"><i
                                                                                                 class="bi bi-pencil"></i>Modifier</a>
                                                                                     </li>
                                                                                     <li>
                                                                                         <form
-                                                                                            action="{{ route('formations.destroy', $formation->id) }}"
+                                                                                            action="{{ route('formations.destroy', $formation) }}"
                                                                                             method="post">
                                                                                             @csrf
                                                                                             @method('DELETE')
@@ -399,7 +399,7 @@
                                                                         @foreach ($formation->individuelles as $individuelle)
                                                                             @if ($loop->last)
                                                                                 <a class="text-primary fw-bold"
-                                                                                    href="{{ route('formations.show', $formation->id) }}">{!! $loop->count ?? '0' !!}</a>
+                                                                                    href="{{ route('formations.show', $formation) }}">{!! $loop->count ?? '0' !!}</a>
                                                                             @endif
                                                                         @endforeach
                                                                     </td>
@@ -408,7 +408,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <span class="d-flex align-items-baseline"><a
-                                                                                href="{{ route('formations.show', $formation->id) }}"
+                                                                                href="{{ route('formations.show', $formation) }}"
                                                                                 class="btn btn-primary btn-sm"
                                                                                 title="voir détails"><i class="bi bi-eye"></i></a>
                                                                             <div class="filter">
@@ -418,13 +418,13 @@
                                                                                 <ul
                                                                                     class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                                     <li><a class="dropdown-item btn btn-sm"
-                                                                                            href="{{ route('formations.edit', $formation->id) }}"
+                                                                                            href="{{ route('formations.edit', $formation) }}"
                                                                                             class="mx-1" title="Modifier"><i
                                                                                                 class="bi bi-pencil"></i>Modifier</a>
                                                                                     </li>
                                                                                     <li>
                                                                                         <form
-                                                                                            action="{{ route('formations.destroy', $formation->id) }}"
+                                                                                            action="{{ route('formations.destroy', $formation) }}"
                                                                                             method="post">
                                                                                             @csrf
                                                                                             @method('DELETE')

@@ -89,7 +89,7 @@
                                             <td style="text-align: center;">
                                                 @foreach ($module->formations as $formation)
                                                     @if ($loop->last)
-                                                        <a href="{{ url('formations/' . $formation->id) }}"><span
+                                                        <a href="{{ route('formations.show' . $formation) }}"><span
                                                                 class="badge bg-info">{{ $loop->count }}</span></a>
                                                     @endif
                                                 @endforeach
@@ -97,7 +97,7 @@
                                             <td style="text-align: center;">
                                                 @foreach ($module->individuelles as $individuelle)
                                                     @if ($loop->last)
-                                                        <a href="{{ url('modules/' . $module->id) }}"><span
+                                                        <a href="{{ route('modules.show' . $module) }}"><span
                                                                 class="badge bg-info">{{ $loop->count }}</span></a>
                                                     @endif
                                                 @endforeach

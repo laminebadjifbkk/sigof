@@ -59,7 +59,7 @@
                                         <td style="text-align: center;">
                                             @foreach ($module->formations as $formation)
                                                 @if ($loop->last)
-                                                    <a href="{{ url('formations/' . $formation->id) }}"><span
+                                                    <a href="{{ route('formations.show' . $formation) }}"><span
                                                             class="badge bg-info">{{ $loop->count }}</span></a>
                                                 @endif
                                             @endforeach
@@ -67,7 +67,7 @@
                                         <td style="text-align: center;">
                                             @foreach ($module->individuelles as $individuelle)
                                                 @if ($loop->last)
-                                                    <a href="{{ url('modules/' . $module->id) }}"><span
+                                                    <a href="{{ route('modules.show' . $module) }}"><span
                                                             class="badge bg-info">{{ $loop->count }}</span></a>
                                                 @endif
                                             @endforeach
@@ -75,7 +75,7 @@
                                         <td style="text-align: center;">
                                             @can('module-show')
                                                 <span class="d-flex mt-2 align-items-baseline"><a
-                                                        href="{{ url('modules/' . $module->id) }}"
+                                                        href="{{ route('modules.show' . $module) }}"
                                                         class="btn btn-success btn-sm mx-1" title="Voir détails">
                                                         <i class="bi bi-eye"></i></a>
                                                     <div class="filter">
@@ -84,14 +84,14 @@
                                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                             @can('module-update')
                                                                 <li><a class="dropdown-item btn btn-sm"
-                                                                        href="{{ route('modules.edit', $module?->id) }}"
+                                                                        href="{{ route('modules.edit', $module) }}"
                                                                         class="mx-1"><i class="bi bi-pencil"></i>
                                                                         Modifier</a>
                                                                 </li>
                                                             @endcan
                                                             @can('module-delete')
                                                                 <li>
-                                                                    <form action="{{ url('modules', $module->id) }}"
+                                                                    <form action="{{ route('modules', $module) }}"
                                                                         method="post">
                                                                         @csrf
                                                                         @method('DELETE')
@@ -123,7 +123,7 @@
         new DataTable('#table-domaines', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

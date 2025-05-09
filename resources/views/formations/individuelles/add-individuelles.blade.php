@@ -169,7 +169,7 @@
                         <div class="row">
                             <div class="col-sm-12 pt-0">
                                 <span class="d-flex mt-0 align-items-baseline">
-                                    <a href="{{ route('formations.show', $formation->id) }}" class="btn btn-success btn-sm"
+                                    <a href="{{ route('formations.show', $formation) }}" class="btn btn-success btn-sm"
                                         title="Retour">
                                         <i class="bi bi-arrow-counterclockwise"></i>
                                     </a>&nbsp;
@@ -218,7 +218,7 @@
                                                     @endif
                                                     <td>
                                                         <span class="d-flex align-items-baseline">
-                                                            <a href="{{ route('individuelles.show', $individuelle->id) }}"
+                                                            <a href="{{ route('individuelles.show', $individuelle) }}"
                                                                 class="btn btn-primary btn-sm" title="Voir détails"
                                                                 target="_blank">
                                                                 <i class="bi bi-eye"></i>

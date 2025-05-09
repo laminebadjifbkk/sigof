@@ -47,7 +47,7 @@
                                                 <td>
                                                     @can('formation-show')
                                                         <span class="d-flex align-items-baseline">
-                                                            <a href="{{ route('formations.show', $formation->id) }}"
+                                                            <a href="{{ route('formations.show', $formation) }}"
                                                                 class="btn btn-primary btn-sm" title="Voir détails">
                                                                 <i class="bi bi-eye"></i>
                                                             </a>
@@ -59,7 +59,7 @@
                                                                     @can('formation-update')
                                                                         <li>
                                                                             <a class="dropdown-item"
-                                                                                href="{{ route('formations.edit', $formation->id) }}"
+                                                                                href="{{ route('formations.edit', $formation) }}"
                                                                                 title="Modifier">
                                                                                 <i class="bi bi-pencil"></i> Modifier
                                                                             </a>
@@ -68,7 +68,7 @@
                                                                     @can('formation-delete')
                                                                         <li>
                                                                             <form
-                                                                                action="{{ route('formations.destroy', $formation->id) }}"
+                                                                                action="{{ route('formations.destroy', $formation) }}"
                                                                                 method="post">
                                                                                 @csrf
                                                                                 @method('DELETE')

@@ -298,7 +298,7 @@
                                                                 <td>
                                                                     @can('formation-show')
                                                                         <span class="d-flex align-items-baseline"><a
-                                                                                href="{{ route('formations.show', $operateurformation->id) }}"
+                                                                                href="{{ route('formations.show', $operateurformation) }}"
                                                                                 class="btn btn-primary btn-sm"
                                                                                 title="voir détails"><i
                                                                                     class="bi bi-eye"></i></a>
