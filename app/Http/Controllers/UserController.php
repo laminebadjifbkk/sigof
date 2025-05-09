@@ -73,13 +73,13 @@ class UserController extends Controller
         $pourcentage_arrive  = $total_courrier != 0 ? ($total_arrive / $total_courrier) * 100 : 0;
         $pourcentage_depart  = $total_courrier != 0 ? ($total_depart / $total_courrier) * 100 : 0;
         $pourcentage_interne = $total_courrier != 0 ? ($total_interne / $total_courrier) * 100 : 0;
-        
-        dd($total_user);
 
         $total_individuelle = Individuelle::count();
         $roles              = Role::orderBy('created_at', 'desc')->get();
         $individuelles      = Individuelle::get();
 
+        dd($total_user);
+        
         $collectives = Collective::get();
 
         $listecollectives = Listecollective::get();
