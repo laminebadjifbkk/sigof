@@ -680,8 +680,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
             @if (auth()->user()->hasRole('super-admin|admin|DIOF|DEC'))
-                <a href="{{ url('/') }}" class="logo d-flex align-items-center">
-                    {{-- <a href="{{ url('/home') }}" class="logo d-flex align-items-center"> --}}
+                <a href="{{ url('/home') }}" class="logo d-flex align-items-center">
                     <img src="assets/img/logo_sigle.png" alt="">
                     <span class="d-none d-lg-block">SIGOF</span>
                     {{-- Système d'information et de gestion des opérations de formation --}}
