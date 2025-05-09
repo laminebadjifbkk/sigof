@@ -136,6 +136,8 @@ class UserController extends Controller
             ->groupBy('statut')
             ->pluck('count', 'statut');
 
+        dd($statuts);
+
         $attente  = $statuts['Attente'] ?? 0;
         $nouvelle = $statuts['Nouvelle'] ?? 0;
         $retenue  = $statuts['Retenue'] ?? 0;
@@ -166,7 +168,7 @@ class UserController extends Controller
 
         $count_demandes = ($individuelles ? $individuelles->count() : 0) +
             ($listecollectives ? $listecollectives->count() : 0);
-        dd($count_demandes);
+
         return view(
             "home-page",
             compact(
