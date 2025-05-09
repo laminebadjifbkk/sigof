@@ -362,11 +362,11 @@
                                                 <div class="ps-3">
                                                     <h6>
                                                         <span
-                                                            class="text-primary">{{ number_format(count($individuelles), 0, '', ' ') }}</span>
+                                                            class="text-primary">{{ number_format($total_individuelle, 0, '', ' ') }}</span>
                                                     </h6>
-                                                    <span
+                                                    {{-- <span
                                                         class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_femmes, 2, ',', ' ') . '%' }}</span>
-                                                    <span class="text-muted small pt-2 ps-1">f</span>
+                                                    <span class="text-muted small pt-2 ps-1">f</span> --}}
                                                 </div>
                                             </div>
                                         </div>

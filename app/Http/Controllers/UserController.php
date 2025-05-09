@@ -166,8 +166,6 @@ class UserController extends Controller
 
         /* $count_demandes = ($individuelles ? $individuelles->count() : 0) +
             ($listecollectives ? $listecollectives->count() : 0); */
-        
-        dd($total_individuelle);
 
         return view(
             "home-page",
@@ -176,7 +174,7 @@ class UserController extends Controller
                 'roles',
                 'total_arrive',
                 'total_depart',
-                /* 'total_individuelle', */
+                'total_individuelle',
                 /* "pourcentage_hommes",
                 "pourcentage_femmes", */
                 "pourcentage_femmes_collective",
