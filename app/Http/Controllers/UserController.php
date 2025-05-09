@@ -107,8 +107,6 @@ class UserController extends Controller
             ->groupBy(DB::raw('MONTH(created_at)'))
             ->pluck('count', 'month');
 
-        dd($counts);
-
         // Initialiser les variables avec 0 au cas où il manque un mois
         $janvier   = $counts->get(1, 0);
         $fevrier   = $counts->get(2, 0);
@@ -168,7 +166,7 @@ class UserController extends Controller
 
         $count_demandes = ($individuelles ? $individuelles->count() : 0) +
             ($listecollectives ? $listecollectives->count() : 0);
-
+        dd($count_demandes);
         return view(
             "home-page",
             compact(
