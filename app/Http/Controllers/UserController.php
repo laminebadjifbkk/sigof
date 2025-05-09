@@ -69,25 +69,13 @@ class UserController extends Controller
 
         $total_courrier = $total_arrive + $total_depart + $total_interne;
 
-        /*     if ($total_courrier != 0) {
-            $pourcentage_arrive  = ($total_arrive / $total_courrier) * 100;
-            $pourcentage_depart  = ($total_depart / $total_courrier) * 100;
-            $pourcentage_interne = ($total_interne / $total_courrier) * 100;
-        } else {
-            $pourcentage_arrive  = 0;
-            $pourcentage_depart  = 0;
-            $pourcentage_interne = 0;
-        } */
         $pourcentage_arrive  = $total_courrier != 0 ? ($total_arrive / $total_courrier) * 100 : 0;
         $pourcentage_depart  = $total_courrier != 0 ? ($total_depart / $total_courrier) * 100 : 0;
         $pourcentage_interne = $total_courrier != 0 ? ($total_interne / $total_courrier) * 100 : 0;
 
         $total_individuelle = Individuelle::count();
         $roles              = Role::orderBy('created_at', 'desc')->get();
-        /* return view("home-page", compact("total_user", 'roles', 'total_arrive', 'total_depart', 'total_individuelle')); */
-
-        /* $individuelles = Individuelle::skip(0)->take(1000)->get(); */
-        $individuelles = Individuelle::get();
+        $individuelles      = Individuelle::get();
 
         $collectives = Collective::get();
 
@@ -177,6 +165,8 @@ class UserController extends Controller
 
         $count_demandes = ($individuelles ? $individuelles->count() : 0) +
             ($listecollectives ? $listecollectives->count() : 0);
+
+        dd($total_user);
 
         return view(
             "home-page",
