@@ -164,8 +164,8 @@ class UserController extends Controller
         ? ($masculin_collective / $listecollectives->count()) * 100
         : 0;
 
-        $count_demandes = ($individuelles ? $individuelles->count() : 0) +
-            ($listecollectives ? $listecollectives->count() : 0);
+        /* $count_demandes = ($individuelles ? $individuelles->count() : 0) +
+            ($listecollectives ? $listecollectives->count() : 0); */
 
         return view(
             "home-page",
@@ -179,7 +179,7 @@ class UserController extends Controller
                 "pourcentage_femmes", */
                 "pourcentage_femmes_collective",
                 "pourcentage_hommes_collective",
-                "count_demandes",
+                /* "count_demandes", */
                 'rejeter',
                 "terminer",
                 "retenue",
