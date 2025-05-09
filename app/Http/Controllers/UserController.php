@@ -90,6 +90,8 @@ class UserController extends Controller
 
         $annee = date('Y');
 
+        dd($total_user);
+
         $annee_lettre = 'Diagramme à barres, année: ' . date('Y');
 
         $count_today_individuelle = Individuelle::where("created_at", "LIKE", "{$today}%")->count();
@@ -106,8 +108,6 @@ class UserController extends Controller
             ->whereNull('deleted_at')
             ->groupBy(DB::raw('MONTH(created_at)'))
             ->pluck('count', 'month');
-
-        dd($total_user);
 
         // Initialiser les variables avec 0 au cas où il manque un mois
         $janvier   = $counts->get(1, 0);
