@@ -352,9 +352,8 @@ class FormationController extends Controller
         return redirect()->back();
     }
 
-    public function edit($id)
+    public function edit(Formation $formation)
     {
-        $formation        = Formation::findOrFail($id);
         $departements     = Departement::orderBy("created_at", "desc")->get();
         $types_formations = TypesFormation::orderBy("created_at", "desc")->get();
         $projets          = Projet::orderBy("created_at", "desc")->get();
@@ -380,10 +379,8 @@ class FormationController extends Controller
         );
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Formation $formation)
     {
-        $formation = Formation::findOrFail($id);
-
         $this->validate($request, [
             "code"               => "required|string|unique:formations,code,{$formation->id}",
             "name"               => "required|string|unique:formations,name,{$formation->id}",
@@ -391,17 +388,17 @@ class FormationController extends Controller
             "lieu"               => "required|string",
             "type_certification" => "required|string",
             "titre"              => "nullable|string",
-            "date_debut"         => "nullable|date|min:10|max:10|date_format:Y-m-d",
-            "date_convention"    => "nullable|date|min:10|max:10|date_format:Y-m-d",
-            "date_lettre"        => "nullable|date|min:10|max:10|date_format:Y-m-d",
-            "date_fin"           => "nullable|date|min:10|max:10|date_format:Y-m-d",
+            "date_debut"         => "nullable|date|size:10|date_format:Y-m-d",
+            "date_convention"    => "nullable|date|size:10|date_format:Y-m-d",
+            "date_lettre"        => "nullable|date|size:10|date_format:Y-m-d",
+            "date_fin"           => "nullable|date|size:10|date_format:Y-m-d",
             "lettre_mission"     => "nullable|string",
             "annee"              => "nullable|numeric",
-            "file_convention"    => ['sometimes', 'file', 'mimes:pdf', 'max:2048'],
-            "detf-file"          => ['sometimes', 'file', 'mimes:pdf', 'max:2048'],
+            "file_convention"    => ['sometimes', 'file', 'mimes:pdf', 'max:1024'],
+            "detf-file"          => ['sometimes', 'file', 'mimes:pdf', 'max:1024'],
         ]);
 
-        if (! empty($request->input('prevue_h'))) {
+        /* if (! empty($request->input('prevue_h'))) {
             $prevue_h = $request->input('prevue_h');
         } else {
             $prevue_h = null;
@@ -530,9 +527,55 @@ class FormationController extends Controller
             ]);
 
             $formation->save();
+        } */
+
+        // Simplification des champs simples
+        $prevue_h = (int) $request->input('prevue_h', 0);
+        $prevue_f = (int) $request->input('prevue_f', 0);
+
+        $effectif_prevu = $prevue_h + $prevue_f;
+
+// Chargement projet et référentiel
+        $projet      = Projet::where('sigle', $request->input('projet'))->first();
+        $referentiel = Referentiel::where('titre', $request->titre)->first();
+
+// Détermination du type et du titre
+        if (! empty($referentiel) && $request->titre !== 'Renforcement de capacités') {
+            $referentiel_id = $referentiel->id;
+            $titre          = null;
+            $type           = 'Titre';
+        } elseif ($request->titre === 'Renforcement de capacités') {
+            $referentiel_id = null;
+            $titre          = 'Renforcement de capacités';
+            $type           = 'Attestation';
+        } else {
+            $referentiel_id = null;
+            $titre          = null;
+            $type           = null;
         }
 
-        if (! empty($request->input('date_debut'))) {
+// Fonction pour gérer les fichiers
+        function handleFileUpload($requestKey, $storagePath, $formation, $fieldName)
+        {
+            if (request()->hasFile($requestKey)) {
+                if (! empty($formation->$fieldName)) {
+                    Storage::disk('public')->delete($formation->$fieldName);
+                }
+                $filePath = request()->file($requestKey)->store($storagePath, 'public');
+                $formation->update([
+                    $fieldName => $filePath,
+                ]);
+            }
+        }
+
+// Traitement des fichiers
+        handleFileUpload('file_convention', 'conventions', $formation, 'file_convention');
+        handleFileUpload('detf_file', 'detfs', $formation, 'detf_file');
+        handleFileUpload('file_pv', 'pvs', $formation, 'file_pv');
+        handleFileUpload('abe_file', 'abe', $formation, 'abe_file');
+        handleFileUpload('lettre_mission_file', 'lm', $formation, 'lettre_mission_file');
+
+        /* if (! empty($request->input('date_debut'))) {
             $date_debut = date('Y-m-d H:i:s', strtotime($request->input('date_debut')));
         } else {
             $date_debut = null;
@@ -604,7 +647,30 @@ class FormationController extends Controller
             $indemnite_transport_jour = $request->input('indemnite_transport_jour');
         } else {
             $indemnite_transport_jour = null;
+        } */
+
+        // Fonction utilitaire pour parser une date ou retourner null
+        function parseDateOrNull($value)
+        {
+            return ! empty($value) ? date('Y-m-d H:i:s', strtotime($value)) : null;
         }
+
+// Dates
+        $date_debut      = parseDateOrNull($request->input('date_debut'));
+        $date_fin        = parseDateOrNull($request->input('date_fin'));
+        $date_pv         = parseDateOrNull($request->input('date_pv'));
+        $date_lettre     = parseDateOrNull($request->input('date_lettre'));
+        $date_convention = parseDateOrNull($request->input('date_convention'));
+        $date_etat       = parseDateOrNull($request->input('date_etat'));
+
+// Champs simples (valeur ou null)
+        $frais_operateurs         = $request->input('frais_operateurs') ?: null;
+        $frais_add                = $request->input('frais_add') ?: null;
+        $autes_frais              = $request->input('autes_frais') ?: null;
+        $frais_evaluateur         = $request->input('frais_evaluateur') ?: null;
+        $onfpevaluateur           = $request->input('onfpevaluateur') ?: null;
+        $duree_formation          = $request->input('duree_formation') ?: null;
+        $indemnite_transport_jour = $request->input('indemnite_transport_jour') ?: null;
 
         $formation->update([
             "code"                     => $request->input('code'),
@@ -648,26 +714,23 @@ class FormationController extends Controller
 
         $formation->save();
 
-        Alert::success("Modification réussie", "La formation a été modifiée avec succès.");
+        Alert::success("Succès !", "Modification effectuée avec succès.");
 
         return redirect()->back();
     }
 
-    public function show($id)
+    public function show(Formation $formation)
     {
-        $formation         = Formation::findOrFail($id);
+        /* $formation         = Formation::findOrFail($id);
         $type_formation    = $formation?->types_formation->name;
         $operateur         = $formation?->operateur;
         $module            = $formation?->module;
         $module_collective = $formation?->collectivemodule;
         $ingenieur         = $formation?->ingenieur;
-        /* $emargements = $formation->emargements->unique('jour'); */
         $emargements           = $formation->emargements;
         $emargementcollectives = $formation->emargementcollectives;
 
         $count_demandes = count($formation->individuelles);
-
-        /* $individuelles    = Individuelle::orderBy("created_at", "desc")->get(); */
         $listecollectives = Listecollective::orderBy("created_at", "desc")->get();
         $evaluateurs      = Evaluateur::orderBy("created_at", "desc")->get();
         $onfpevaluateurs  = Onfpevaluateur::orderBy("created_at", "desc")->get();
@@ -697,6 +760,54 @@ class FormationController extends Controller
             ->where('formations_id', '!=', null)
             ->where('formations_id', '!=', $formation->id)
             ->pluck('formations_id', 'formations_id')
+            ->all(); */
+
+        /* $formation = Formation::with([
+            'types_formation:id,name',
+            'operateur',
+            'module',
+            'collectivemodule',
+            'ingenieur',
+            'emargements',
+            'emargementcollectives',
+            'individuelles',
+        ])->findOrFail($id); */
+
+        $type_formation        = $formation->types_formation?->name;
+        $operateur             = $formation->operateur;
+        $module                = $formation->module;
+        $module_collective     = $formation->collectivemodule;
+        $ingenieur             = $formation->ingenieur;
+        $emargements           = $formation->emargements;
+        $emargementcollectives = $formation->emargementcollectives;
+        $count_demandes        = $formation->individuelles->count();
+
+// Chargement en batch des données secondaires
+        $listecollectives = Listecollective::latest()->get();
+        $evaluateurs      = Evaluateur::latest()->get();
+        $onfpevaluateurs  = Onfpevaluateur::latest()->get();
+        $referentiels     = Referentiel::all();
+
+// collectives_id est déjà chargé via $formation
+        $collectivemodule = Collectivemodule::where('collectives_id', $formation->collectives_id)->get();
+
+        $collectiveFormation = Formation::where('collectivemodules_id', $formation->collectivemodules_id)
+            ->pluck('collectivemodules_id')
+            ->all();
+
+        $collectivemodules = Collectivemodule::join('collectives', 'collectives.id', '=', 'collectivemodules.collectives_id')
+            ->select('collectivemodules.*')
+            ->where('collectives.statut_demande', 'Attente')
+            ->orWhereIn('collectivemodules.statut', ['Retenu', 'Retiré', 'formés'])
+            ->get();
+
+        $collectiveModule = Collectivemodule::where('formations_id', $formation->id)
+            ->pluck('formations_id')
+            ->all();
+
+        $collectiveModuleCheck = Collectivemodule::whereNotNull('formations_id')
+            ->where('formations_id', '!=', $formation->id)
+            ->pluck('formations_id')
             ->all();
 
         return view(
@@ -709,7 +820,6 @@ class FormationController extends Controller
                 "module",
                 "module_collective",
                 "type_formation",
-                /* "individuelles", */
                 "listecollectives",
                 "collectiveFormation",
                 "onfpevaluateurs",
@@ -724,9 +834,9 @@ class FormationController extends Controller
         );
     }
 
-    public function destroy($id)
+    public function destroy(Formation $formation)
     {
-        $formation = Formation::find($id);
+        /* $formation = Formation::find($id); */
 
         if (! empty($formation->types_formation->name) && $formation->types_formation->name == "collective") {
             foreach ($formation->listecollectives as $liste) {
@@ -3296,7 +3406,7 @@ class FormationController extends Controller
 
         $this->validate($request, [
             'jour' => "required|numeric",
-            /* 'date' => 'nullable|date|min:10|max:10|date_format:Y-m-d', */
+            /* 'date' => 'nullable|date|size:10|date_format:Y-m-d', */
         ]);
 
         $formation = Formation::findOrFail($request->idformation);
@@ -3358,7 +3468,7 @@ class FormationController extends Controller
     {
         $this->validate($request, [
             'jour' => "required|numeric",
-            /* 'date' => 'nullable|date|min:10|max:10|date_format:Y-m-d', */
+            /* 'date' => 'nullable|date|size:10|date_format:Y-m-d', */
         ]);
 
         $formation = Formation::findOrFail($request->idformation);

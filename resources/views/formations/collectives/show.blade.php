@@ -42,7 +42,7 @@
                             <ul class="nav nav-tabs nav-tabs-bordered">
 
                                 <li class="nav-item">
-                                    <span class="nav-link"><a href="{{ route('formations.index', $formation->id) }}"
+                                    <span class="nav-link"><a href="{{ route('formations.index', $formation) }}"
                                             class="btn btn-secondary btn-sm" title="retour"><i
                                                 class="bi bi-arrow-counterclockwise"></i></a>
                                     </span>
@@ -240,7 +240,7 @@
 
                                         <div class="col-12 col-md-12 col-lg-12 mb-0 text-center pt-5">
                                             <a class="btn btn-outline-primary btn-sm"
-                                                href="{{ route('formations.edit', $formation->id) }}" class="mx-1"
+                                                href="{{ route('formations.edit', $formation) }}" class="mx-1"
                                                 title="Modifier">Modifier cette formation</a>
                                         </div>
                                     </form>

@@ -309,10 +309,11 @@ class Formation extends Model
         'indemnite',
     ];
 
-    /* public function getRouteKeyName()
+    public function getRouteKeyName()
     {
         return 'uuid';
-    } */
+    }
+
     protected static function boot()
     {
         parent::boot();

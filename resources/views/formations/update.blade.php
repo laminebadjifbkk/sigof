@@ -26,7 +26,7 @@
                                     </div>
                                 </div>
                                 <h5 class="card-title text-center pb-0 fs-4">Modification formation</h5>
-                                <form method="post" action="{{ url('formations/' . $formation?->id) }}"
+                                <form method="post" action="{{ route('formations.update', $formation) }}"
                                     enctype="multipart/form-data" class="row g-3">
                                     @csrf
                                     @method('PUT')
@@ -381,8 +381,8 @@
                                         <label for="detf_file" class="form-label">Fichier</label>
                                         @if (!empty($formation?->detf_file))
                                             <div>
-                                                <a class="btn btn-outline-secondary btn-sm" title="DETF"
-                                                    target="_blank" href="{{ asset($formation->getFileDetf()) }}">
+                                                <a class="btn btn-outline-secondary btn-sm" title="DETF" target="_blank"
+                                                    href="{{ asset($formation->getFileDetf()) }}">
                                                     <i class="bi bi-file-earmark-pdf"></i>
                                                 </a>
                                             </div>
@@ -390,7 +390,7 @@
                                             <div class="badge bg-warning">Aucun</div>
                                         @endif
                                     </div>
-                                    
+
 
                                     <div class="col-12 col-md-12 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                                         <label for="file_pv" class="form-label">Joindre scan PV</label>
@@ -404,8 +404,8 @@
                                         <label for="file_pv" class="form-label">Fichier</label>
                                         @if (!empty($formation?->file_pv))
                                             <div>
-                                                <a class="btn btn-outline-secondary btn-sm" title="DETF"
-                                                    target="_blank" href="{{ asset($formation->getFilePV()) }}">
+                                                <a class="btn btn-outline-secondary btn-sm" title="DETF" target="_blank"
+                                                    href="{{ asset($formation->getFilePV()) }}">
                                                     <i class="bi bi-file-earmark-pdf"></i>
                                                 </a>
                                             </div>
@@ -427,8 +427,8 @@
                                         <label for="lettre_mission_file" class="form-label">Fichier</label>
                                         @if (!empty($formation?->lettre_mission_file))
                                             <div>
-                                                <a class="btn btn-outline-secondary btn-sm" title="DETF"
-                                                    target="_blank" href="{{ asset($formation->getFileLM()) }}">
+                                                <a class="btn btn-outline-secondary btn-sm" title="DETF" target="_blank"
+                                                    href="{{ asset($formation->getFileLM()) }}">
                                                     <i class="bi bi-file-earmark-pdf"></i>
                                                 </a>
                                             </div>
@@ -436,7 +436,7 @@
                                             <div class="badge bg-warning">Aucun</div>
                                         @endif
                                     </div>
-                                    
+
 
                                     <div class="col-12 col-md-12 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                                         <label for="abe_file" class="form-label">Joindre ABE</label>
@@ -450,8 +450,8 @@
                                         <label for="abe_file" class="form-label">Fichier</label>
                                         @if (!empty($formation?->abe_file))
                                             <div>
-                                                <a class="btn btn-outline-secondary btn-sm" title="DETF"
-                                                    target="_blank" href="{{ asset($formation->getFileABE()) }}">
+                                                <a class="btn btn-outline-secondary btn-sm" title="DETF" target="_blank"
+                                                    href="{{ asset($formation->getFileABE()) }}">
                                                     <i class="bi bi-file-earmark-pdf"></i>
                                                 </a>
                                             </div>
@@ -459,7 +459,7 @@
                                             <div class="badge bg-warning">Aucun</div>
                                         @endif
                                     </div>
-                                   
+
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <div class="mb-3">
@@ -604,7 +604,8 @@
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <div class="mb-3">
                                             <label class="form-label">Indemnité transport (jours)</label>
-                                            <input type="number" name="indemnite_transport_jour" min="0" step="0.001"
+                                            <input type="number" name="indemnite_transport_jour" min="0"
+                                                step="0.001"
                                                 value="{{ $formation?->indemnite_transport_jour ?? old('indemnite_transport_jour') }}"
                                                 class="form-control form-control-sm @error('indemnite_transport_jour') is-invalid @enderror"
                                                 id="indemnite_transport_jour" placeholder="Indemnité transport">
@@ -643,8 +644,10 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="text-center p-1">
-                                        <button type="submit" class="btn btn-primary btn-sm">Enregister les modifications</button>
+                                    <div class="text-center gap-2 p-3 bg-light border-top">
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="bi bi-check-circle"></i> Enregistrer les modifications
+                                        </button>
                                     </div>
                                 </form>
                             </div>

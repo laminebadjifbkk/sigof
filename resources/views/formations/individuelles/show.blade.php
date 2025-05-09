@@ -43,7 +43,7 @@
                             <ul class="nav nav-tabs nav-tabs-bordered">
 
                                 <li class="nav-item">
-                                    <span class="nav-link"><a href="{{ route('formations.index', $formation->id) }}"
+                                    <span class="nav-link"><a href="{{ route('formations.index', $formation) }}"
                                             class="btn btn-secondary btn-sm" title="retour"><i
                                                 class="bi bi-arrow-counterclockwise"></i></a>
                                     </span>
@@ -217,7 +217,7 @@
                                         @endif
                                         <div class="col-12 col-md-12 col-lg-12 mb-0 text-center pt-5">
                                             <a class="btn btn-outline-primary btn-sm"
-                                                href="{{ route('formations.edit', $formation->id) }}" class="mx-1"
+                                                href="{{ route('formations.edit', $formation) }}" class="mx-1"
                                                 title="Modifier">Modifier cette formation</a>
                                         </div>
                                     </form>
@@ -288,7 +288,7 @@
                                                                     @foreach ($operateurformation->individuelles as $individuelle)
                                                                         @if ($loop->last)
                                                                             <a class="text-primary fw-bold"
-                                                                                href="{{ route('formations.show', $operateurformation->id) }}">{!! $loop->count ?? '0' !!}</a>
+                                                                                href="{{ route('formations.show', $operateurformation) }}">{!! $loop->count ?? '0' !!}</a>
                                                                         @endif
                                                                     @endforeach
                                                                 </td>
@@ -310,7 +310,7 @@
                                                                                     class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                                     @can('formation-update')
                                                                                         <li><a class="dropdown-item btn btn-sm"
-                                                                                                href="{{ route('formations.edit', $operateurformation->id) }}"
+                                                                                                href="{{ route('formations.edit', $operateurformation) }}"
                                                                                                 class="mx-1" title="Modifier"><i
                                                                                                     class="bi bi-pencil"></i>Modifier</a>
                                                                                         </li>
@@ -319,7 +319,7 @@
                                                                                     @can('formation-delete')
                                                                                         <li>
                                                                                             <form
-                                                                                                action="{{ route('formations.destroy', $operateurformation->id) }}"
+                                                                                                action="{{ route('formations.destroy', $operateurformation) }}"
                                                                                                 method="post">
                                                                                                 @csrf
                                                                                                 @method('DELETE')
