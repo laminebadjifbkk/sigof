@@ -76,7 +76,7 @@ class UserController extends Controller
 
         /* $total_individuelle = Individuelle::count(); */
         $roles              = Role::orderBy('created_at', 'desc')->get();
-        $individuelles      = Individuelle::get();
+       /*  $individuelles      = Individuelle::get(); */
 
         dd($total_user);
 
