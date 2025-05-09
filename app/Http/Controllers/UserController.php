@@ -75,10 +75,8 @@ class UserController extends Controller
         $pourcentage_interne = $total_courrier != 0 ? ($total_interne / $total_courrier) * 100 : 0;
 
         /* $total_individuelle = Individuelle::count(); */
-        $roles              = Role::orderBy('created_at', 'desc')->get();
-       /*  $individuelles      = Individuelle::get(); */
-
-        dd($total_user);
+        $roles = Role::orderBy('created_at', 'desc')->get();
+        /*  $individuelles      = Individuelle::get(); */
 
         $collectives = Collective::get();
 
@@ -109,6 +107,8 @@ class UserController extends Controller
             ->groupBy(DB::raw('MONTH(created_at)'))
             ->pluck('count', 'month');
 
+        dd($counts);
+
         // Initialiser les variables avec 0 au cas où il manque un mois
         $janvier   = $counts->get(1, 0);
         $fevrier   = $counts->get(2, 0);
@@ -123,7 +123,7 @@ class UserController extends Controller
         $novembre  = $counts->get(11, 0);
         $decembre  = $counts->get(12, 0);
 
-        $masculin = Individuelle::join('users', 'users.id', 'individuelles.users_id')
+        /* $masculin = Individuelle::join('users', 'users.id', 'individuelles.users_id')
             ->select('individuelles.*')
             ->where('users.civilite', "M.")
             ->count();
@@ -131,7 +131,7 @@ class UserController extends Controller
         $feminin = Individuelle::join('users', 'users.id', 'individuelles.users_id')
             ->select('individuelles.*')
             ->where('users.civilite', "Mme")
-            ->count();
+            ->count(); */
 
         $statuts = Individuelle::selectRaw('statut, count(*) as count')
             ->whereIn('statut', ['Attente', 'Nouvelle', 'Retenue', 'Terminée', 'Rejetée'])
@@ -176,7 +176,7 @@ class UserController extends Controller
                 'roles',
                 'total_arrive',
                 'total_depart',
-                'total_individuelle',
+                /* 'total_individuelle', */
                 "pourcentage_femmes",
                 "pourcentage_femmes_collective",
                 "pourcentage_hommes_collective",
@@ -207,8 +207,8 @@ class UserController extends Controller
                 'decembre',
                 'annee',
                 'annee_lettre',
-                'masculin',
-                'feminin',
+                /* 'masculin',
+                'feminin', */
                 'email_verified_at',
                 'total_interne',
                 'pourcentage_arrive',
