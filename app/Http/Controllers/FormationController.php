@@ -667,7 +667,7 @@ class FormationController extends Controller
 
         $count_demandes = count($formation->individuelles);
 
-        $individuelles    = Individuelle::orderBy("created_at", "desc")->get();
+        /* $individuelles    = Individuelle::orderBy("created_at", "desc")->get(); */
         $listecollectives = Listecollective::orderBy("created_at", "desc")->get();
         $evaluateurs      = Evaluateur::orderBy("created_at", "desc")->get();
         $onfpevaluateurs  = Onfpevaluateur::orderBy("created_at", "desc")->get();
@@ -709,7 +709,7 @@ class FormationController extends Controller
                 "module",
                 "module_collective",
                 "type_formation",
-                "individuelles",
+                /* "individuelles", */
                 "listecollectives",
                 "collectiveFormation",
                 "onfpevaluateurs",
