@@ -345,7 +345,7 @@
                         </div> --}}
 
                             {{-- Demandes individuelles --}}
-                            {{-- <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                            <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
                                 <div class="card info-card sales-card">
                                     <div class="filter">
                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -372,7 +372,7 @@
                                         </div>
                                     </a>
                                 </div>
-                            </div> --}}
+                            </div>
 
                             {{-- Demandes collectives --}}
                             <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">

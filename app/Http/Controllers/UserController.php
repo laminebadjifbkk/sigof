@@ -74,7 +74,7 @@ class UserController extends Controller
         $pourcentage_depart  = $total_courrier != 0 ? ($total_depart / $total_courrier) * 100 : 0;
         $pourcentage_interne = $total_courrier != 0 ? ($total_interne / $total_courrier) * 100 : 0;
 
-        /* $total_individuelle = Individuelle::count(); */
+        $total_individuelle = Individuelle::count();
         $roles = Role::orderBy('created_at', 'desc')->get();
         /*  $individuelles      = Individuelle::get(); */
 
@@ -166,6 +166,8 @@ class UserController extends Controller
 
         /* $count_demandes = ($individuelles ? $individuelles->count() : 0) +
             ($listecollectives ? $listecollectives->count() : 0); */
+        
+        dd($total_individuelle);
 
         return view(
             "home-page",
@@ -185,7 +187,7 @@ class UserController extends Controller
                 "retenue",
                 "nouvelle",
                 'attente',
-                /* "individuelles", */
+                "individuelles",
                 "collectives",
                 "modules",
                 "departements",
