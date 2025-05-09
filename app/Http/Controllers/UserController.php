@@ -142,16 +142,14 @@ class UserController extends Controller
         $terminer = $statuts['Terminée'] ?? 0;
         $rejeter  = $statuts['Rejetée'] ?? 0;
 
-        $pourcentage_hommes = $individuelles->count() > 0
+        /* $pourcentage_hommes = $individuelles->count() > 0
         ? ($masculin / $individuelles->count()) * 100
         : 0;
 
         $pourcentage_femmes = $individuelles->count() > 0
         ? ($feminin / $individuelles->count()) * 100
-        : 0;
+        : 0; */
 
-        dd($statuts);
-        
         $feminin_collective = Listecollective::where('civilite', "Mme")
             ->count();
 
@@ -177,10 +175,10 @@ class UserController extends Controller
                 'total_arrive',
                 'total_depart',
                 /* 'total_individuelle', */
-                "pourcentage_femmes",
+                /* "pourcentage_hommes",
+                "pourcentage_femmes", */
                 "pourcentage_femmes_collective",
                 "pourcentage_hommes_collective",
-                "pourcentage_hommes",
                 "count_demandes",
                 'rejeter',
                 "terminer",
