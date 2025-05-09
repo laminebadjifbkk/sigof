@@ -51,6 +51,8 @@ class UserController extends Controller
     public function homePage()
     {
         $total_user = User::count();
+
+        dd($total_user);
         /* $email_verified_at = DB::table(table: 'users')->where('email_verified_at', '!=', null)->count(); */
 
         $email_verified_at = User::whereNotNull('email_verified_at')->count();
@@ -165,8 +167,6 @@ class UserController extends Controller
 
         $count_demandes = ($individuelles ? $individuelles->count() : 0) +
             ($listecollectives ? $listecollectives->count() : 0);
-
-        dd($total_user);
 
         return view(
             "home-page",
