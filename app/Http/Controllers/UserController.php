@@ -52,7 +52,6 @@ class UserController extends Controller
     {
         $total_user = User::count();
 
-        dd($total_user);
         /* $email_verified_at = DB::table(table: 'users')->where('email_verified_at', '!=', null)->count(); */
 
         $email_verified_at = User::whereNotNull('email_verified_at')->count();
@@ -107,6 +106,8 @@ class UserController extends Controller
             ->whereNull('deleted_at')
             ->groupBy(DB::raw('MONTH(created_at)'))
             ->pluck('count', 'month');
+
+        dd($total_user);
 
         // Initialiser les variables avec 0 au cas où il manque un mois
         $janvier   = $counts->get(1, 0);
