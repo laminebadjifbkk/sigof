@@ -1039,7 +1039,7 @@
             </div>
         </div>
 
-        @foreach ($users as $user)
+        {{-- @foreach ($users as $user) --}}
             <div class="modal fade" id="ShowProfilImage{{ $user->id }}" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -1062,6 +1062,6 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        {{-- @endforeach --}}
     </section>
 @endsection

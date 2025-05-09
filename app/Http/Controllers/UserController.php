@@ -486,7 +486,7 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        $users = User::get();
+        /* $users = User::get(); */
 
         // Vérifie si l'utilisateur connecté a le rôle 'super-admin' ou 'admin'
         if (! Auth::user()->hasRole(['super-admin', 'admin', 'DIOF', 'ADIOF', 'Ingenieur'])) {
@@ -533,7 +533,7 @@ class UserController extends Controller
                 "user_create_name",
                 "user_update_name",
                 "roles",
-                "users",
+                /* "users", */
                 "userRoles",
                 "directions",
                 "fonctions"));
