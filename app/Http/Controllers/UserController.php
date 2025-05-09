@@ -167,6 +167,8 @@ class UserController extends Controller
         /* $count_demandes = ($individuelles ? $individuelles->count() : 0) +
             ($listecollectives ? $listecollectives->count() : 0); */
 
+        dd($statuts);
+
         return view(
             "home-page",
             compact(
