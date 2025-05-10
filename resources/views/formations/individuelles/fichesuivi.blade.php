@@ -87,7 +87,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
-<body>    
+<body>
     <div style="text-align: center;">
         <b>REPUBLIQUE DU SENEGAL<br></b>
         Un Peuple - Un But - Une Foi<br>
@@ -110,7 +110,7 @@
                         {{ $formation->code }}
                     </td>
                     <td colspan="4"><b>{{ __('Suivi : ') }}</b>
-                        @if(!empty($formation?->date_suivi))
+                        @if (!empty($formation?->date_suivi))
                             {{ $formation?->suivi_dossier . ', le ' . $formation?->date_suivi?->format('d/m/Y') }}
                         @endif
                     </td>
@@ -128,7 +128,7 @@
                         {{ $formation?->lieu }}
                     </td>
                     <td colspan="4"><b>{{ __('Contact : ') }}</b>
-                        {{ substr($formation?->operateur?->user?->fixe, 0, 2) .
+                        {{-- {{ substr($formation?->operateur?->user?->fixe, 0, 2) .
                             ' ' .
                             substr($formation?->operateur?->user?->fixe, 2, 3) .
                             ' ' .
@@ -144,6 +144,10 @@
                                 substr($formation?->operateur?->user?->telephone, 5, 2) .
                                 ' ' .
                                 substr($formation?->operateur?->user?->telephone, 7, 2) }}
+                        @endif --}}
+                        {{ $formation?->operateur?->user?->fixe }}
+                        @if (!empty($formation?->operateur?->user?->telephone))
+                            {{ ' / ' . $formation?->operateur?->user?->telephone }}
                         @endif
                     </td>
                 </tr>

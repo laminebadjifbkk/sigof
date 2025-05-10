@@ -110,12 +110,12 @@
                         {{ $formation?->code }}
                     </td>
                     <td colspan="2"><b>{{ __('Responsable suivi : ') }}</b>
-                        @if(!empty($formation?->date_suivi))
+                        @if (!empty($formation?->date_suivi))
                             {{ $formation?->suivi_dossier }}
                         @endif
                     </td>
                     <td colspan="1"><b>{{ __('Date : ') }}</b>
-                        @if(!empty($emargement?->date))
+                        @if (!empty($emargement?->date))
                             {{ $emargement?->date?->format('d/m/Y') }}
                         @endif
                     </td>
@@ -135,7 +135,7 @@
                         {{ $formation?->lieu }}
                     </td>
                     <td colspan="5"><b>{{ __('Contact : ') }}</b>
-                        {{ substr($formation?->operateur?->user?->fixe, 0, 2) .
+                        {{-- {{ substr($formation?->operateur?->user?->fixe, 0, 2) .
                             ' ' .
                             substr($formation?->operateur?->user?->fixe, 2, 3) .
                             ' ' .
@@ -151,6 +151,10 @@
                                 substr($formation?->operateur?->user?->telephone, 5, 2) .
                                 ' ' .
                                 substr($formation?->operateur?->user?->telephone, 7, 2) }}
+                        @endif --}}
+                        {{ $formation?->operateur?->user?->fixe }}
+                        @if (!empty($formation?->operateur?->user?->telephone))
+                            {{ ' / ' . $formation?->operateur?->user?->telephone }}
                         @endif
                     </td>
                 </tr>
@@ -179,20 +183,22 @@
                         <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                         <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
                         <td>
-                            {{ substr($individuelle?->user?->telephone, 0, 2) .
+                            {{-- {{ substr($individuelle?->user?->telephone, 0, 2) .
                                 ' ' .
                                 substr($individuelle?->user?->telephone, 2, 3) .
                                 ' ' .
                                 substr($individuelle?->user?->telephone, 5, 2) .
                                 ' ' .
-                                substr($individuelle?->user?->telephone, 7, 2) }}
-                                </td>
+                                substr($individuelle?->user?->telephone, 7, 2) }} --}}
+
+                            {{ $individuelle?->user?->telephone }}
+                        </td>
                         <td>
                             {{-- {{ ucwords($individuelle?->feuillepresence) }} --}}
 
                             @foreach ($individuelle?->feuillepresences as $feuillepresence)
-                            {{ ucwords(in_array($feuillepresence?->emargements_id, $feuillepresenceIndividuelle) ? $feuillepresence?->presence : '') }}
-                        @endforeach
+                                {{ ucwords(in_array($feuillepresence?->emargements_id, $feuillepresenceIndividuelle) ? $feuillepresence?->presence : '') }}
+                            @endforeach
                         </td>
                         <td></td>
                     </tr>
