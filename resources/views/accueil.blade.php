@@ -88,6 +88,9 @@
                                 @if (!empty($une?->message))
                                     {{--  <a href="#" data-bs-toggle="modal" data-bs-target="#enSavoirPlusModal"
                                         class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">Postuler</a> --}}
+                                    <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
+                                        ⏳ Dernière chance, il reste <span id="countdown"></span> pour la ferméture.
+                                    </div>
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#enSavoirPlusModal"
                                         class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
                                         🚀 Postuler maintenant
@@ -141,7 +144,7 @@
                                             <i class="bi bi-filetype-pdf me-1 fs-5"></i>
                                             <span>📢 Appel à candidature 2025 - Phase 1</span>
                                         </a>
-                                       {{--  <a href="{{ route('services.details') }}"
+                                        {{--  <a href="{{ route('services.details') }}"
                                             class="flex items-center text-gray-700 hover:text-blue-500 transition duration-300">
                                             <i class="bi bi-arrow-right-circle mr-2 text-blue-500"></i>
                                             <span>Comment s'inscrire ?</span>
@@ -1333,6 +1336,37 @@
     </main>
 
     @include('footer-accueil')
+    <script>
+        function updateCountdown() {
+            const countdownContainer = document.getElementById('countdownContainer');
+            const countdown = document.getElementById('countdown');
+
+            if (!countdown || !countdownContainer) return;
+
+            const now = new Date();
+            const midnight = new Date();
+            midnight.setHours(24, 0, 0, 0); // minuit
+
+            const diff = midnight.getTime() - now.getTime();
+
+            if (diff <= 0) {
+                countdownContainer.style.display = 'none';
+                return;
+            }
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            countdown.innerText = `${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        // Lance le compte à rebours dès que la page est chargée
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
+    </script>
 
 </body>
 

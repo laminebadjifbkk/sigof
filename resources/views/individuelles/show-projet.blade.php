@@ -106,9 +106,10 @@
                                                 @hasrole('Demandeur')
                                                     @if (!empty($individuelle->projets_id))
                                                         @if ($individuelle->projet?->statut === 'ouvert')
-                                                        <span class="btn btn-info btn-sm text-white d-inline-flex align-items-center">
-                                                            <i class="bi bi-check-circle me-1"></i> Enregistrée
-                                                          </span>                                                          
+                                                            <span
+                                                                class="btn btn-info btn-sm text-white d-inline-flex align-items-center">
+                                                                <i class="bi bi-check-circle me-1"></i> Enregistrée
+                                                            </span>
                                                         @else
                                                             <span
                                                                 class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
@@ -158,6 +159,9 @@
             </div>
         </div>
 
+        <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
+            ⏳ Dernière chance, il reste <span id="countdown"></span> pour la cloture.
+        </div>
         <div class="alert alert-danger fw-bold mb-4" role="alert">
             ⚠️ <span class="text-primary">Faites défiler vers le bas</span> pour télécharger et joindre les fichiers requis
             pour votre candidature avant la date limite.

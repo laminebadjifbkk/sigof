@@ -3111,6 +3111,37 @@
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
     @stack('scripts')
+    <script>
+        function updateCountdown() {
+            const countdownContainer = document.getElementById('countdownContainer');
+            const countdown = document.getElementById('countdown');
+
+            if (!countdown || !countdownContainer) return;
+
+            const now = new Date();
+            const midnight = new Date();
+            midnight.setHours(24, 0, 0, 0); // minuit
+
+            const diff = midnight.getTime() - now.getTime();
+
+            if (diff <= 0) {
+                countdownContainer.style.display = 'none';
+                return;
+            }
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            countdown.innerText = `${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        // Lance le compte à rebours dès que la page est chargée
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
+    </script>
 </body>
 
 </html>
