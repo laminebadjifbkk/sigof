@@ -88,45 +88,46 @@
                                 @if (!empty($une?->message))
                                     {{--  <a href="#" data-bs-toggle="modal" data-bs-target="#enSavoirPlusModal"
                                         class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">Postuler</a> --}}
-                                    <{{-- div id="countdownContainer" class="alert alert-warning text-center fw-bold">
+                                    {{-- < div id="countdownContainer" class="alert alert-warning text-center fw-bold">
                                         ⏳ Dernière chance, il reste <span id="countdown"></span> pour la ferméture.
                                     </div>
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#enSavoirPlusModal"
                                         class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
                                         🚀 Postuler maintenant
-                                    </a> --}} <div id="countdownContainer"
-                                        class="alert alert-warning text-center fw-bold">
+                                    </a> --}}
+
+                                    <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
                                         ⏳ Dernière chance, il reste <span id="countdown"></span> pour la fermeture.
-                            </div>
+                                    </div>
 
-                            <a id="postulerBtn" href="#" data-bs-toggle="modal"
-                                data-bs-target="#enSavoirPlusModal"
-                                class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
-                                🚀 Postuler maintenant
-                            </a>
+                                    <a id="postulerBtn" href="#" data-bs-toggle="modal"
+                                        data-bs-target="#enSavoirPlusModal"
+                                        class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
+                                        🚀 Postuler maintenant
+                                    </a>
 
-                            <div id="closedMessage" class="alert alert-danger text-center fw-bold"
-                                style="display: none;">
-                                ❌ Les dépôts sont maintenant clôturés.
-                            </div>
-                        @else
-                            <a href="#apropos" class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">En savoir
-                                plus</a>
-                            @endif
-                            @if (!empty($une?->video))
-                                <a href="{{ $une?->video }}" class="btn btn-sm btn-link mt-2 mt-sm-0 glightbox">
-                                    <i class="bi bi-play-circle me-1"></i>Lire la vidéo</a>
-                            @else
-                                {{--  <a href="https://www.youtube.com/watch?v=lceGzvSiL1Y&t=5s"
+                                    <div id="closedMessage" class="alert alert-danger text-center fw-bold"
+                                        style="display: none;">
+                                        ❌ Les dépôts sont maintenant clôturés.
+                                    </div>
+                                @else
+                                    <a href="#apropos" class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">En savoir
+                                        plus</a>
+                                @endif
+                                @if (!empty($une?->video))
+                                    <a href="{{ $une?->video }}" class="btn btn-sm btn-link mt-2 mt-sm-0 glightbox">
+                                        <i class="bi bi-play-circle me-1"></i>Lire la vidéo</a>
+                                @else
+                                    {{--  <a href="https://www.youtube.com/watch?v=lceGzvSiL1Y&t=5s"
                                         class="btn btn-sm btn-link mt-2 mt-sm-0 glightbox">
                                         <i class="bi bi-play-circle me-1"></i>Vidéo présentation</a> --}}
-                            @endif
+                                @endif
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
-                    {{-- <div class="hero-image" data-aos="zoom-out" data-aos-delay="300">
+                    <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                        {{-- <div class="hero-image" data-aos="zoom-out" data-aos-delay="300">
 
                             @if (!empty($une?->image))
                                 <img class="img-fluid main-image rounded-4" alt="Image"
@@ -145,20 +146,20 @@
                                 </p>
                             </div>
                         </div> --}}
-                    <section class="service-details py-6">
-                        <div class="container mx-auto px-4">
-                            <div class="p-6 rounded-lg">
-                                <h4 class="text-xl font-bold text-blue-600 mb-4 flex items-center">
-                                    <i class="bi bi-link-45deg text-2xl mr-2"></i> Ressources utiles
-                                </h4>
-                                <div class="services-list space-y-3">
-                                    <a href="{{ url('/programme2025-1.pdf') }}"
-                                        class="flex items-center text-orange-600 fw-bold blink-me hover:text-orange-800 transition duration-300"
-                                        target="_blank">
-                                        <i class="bi bi-filetype-pdf me-1 fs-5"></i>
-                                        <span>📢 Appel à candidature 2025 - Phase 1</span>
-                                    </a>
-                                    {{--  <a href="{{ route('services.details') }}"
+                        <section class="service-details py-6">
+                            <div class="container mx-auto px-4">
+                                <div class="p-6 rounded-lg">
+                                    <h4 class="text-xl font-bold text-blue-600 mb-4 flex items-center">
+                                        <i class="bi bi-link-45deg text-2xl mr-2"></i> Ressources utiles
+                                    </h4>
+                                    <div class="services-list space-y-3">
+                                        <a href="{{ url('/programme2025-1.pdf') }}"
+                                            class="flex items-center text-orange-600 fw-bold blink-me hover:text-orange-800 transition duration-300"
+                                            target="_blank">
+                                            <i class="bi bi-filetype-pdf me-1 fs-5"></i>
+                                            <span>📢 Appel à candidature 2025 - Phase 1</span>
+                                        </a>
+                                        {{--  <a href="{{ route('services.details') }}"
                                             class="flex items-center text-gray-700 hover:text-blue-500 transition duration-300">
                                             <i class="bi bi-arrow-right-circle mr-2 text-blue-500"></i>
                                             <span>Comment s'inscrire ?</span>
@@ -173,52 +174,52 @@
                                             <i class="bi bi-arrow-right-circle mr-2 text-blue-500"></i>
                                             <span>Comment déposer une demande de formation collective ?</span>
                                         </a> --}}
-                                    {{-- <a href="{{ route('services.details') }}"
+                                        {{-- <a href="{{ route('services.details') }}"
                                             class="flex items-center text-gray-700 hover:text-blue-500 transition duration-300">
                                             <i class="bi bi-arrow-right-circle mr-2 text-blue-500"></i>
                                             <span>Comment devenir opérateur ?</span>
                                         </a> --}}
-                                    <a href="{{ route('nos-modules') }}"
-                                        class="flex items-center text-gray-700 hover:text-blue-500 transition duration-300"
-                                        target="_blank">
-                                        <i class="bi bi-filetype-pdf"></i>
-                                        <span>Quels sont nos modules de formation ?</span>
-                                    </a>
+                                        <a href="{{ route('nos-modules') }}"
+                                            class="flex items-center text-gray-700 hover:text-blue-500 transition duration-300"
+                                            target="_blank">
+                                            <i class="bi bi-filetype-pdf"></i>
+                                            <span>Quels sont nos modules de formation ?</span>
+                                        </a>
 
-                                    <a href="{{ url('/guide.pdf') }}"
-                                        class="flex items-center text-gray-700 hover:text-blue-500 transition duration-300"
-                                        target="_blank">
-                                        <i class="bi bi-filetype-pdf"></i>
-                                        <span>Guide d'utilisation (PDF) ?</span>
-                                    </a>
+                                        <a href="{{ url('/guide.pdf') }}"
+                                            class="flex items-center text-gray-700 hover:text-blue-500 transition duration-300"
+                                            target="_blank">
+                                            <i class="bi bi-filetype-pdf"></i>
+                                            <span>Guide d'utilisation (PDF) ?</span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                </div>
-
-                @if ($posts_count)
-                    <div class="row stats-row gy-4 mt-5" data-aos="fade-up" data-aos-delay="500">
-                        @foreach ($posts as $post)
-                            @if (!empty($post->image))
-                                <div class="col-12 col-md-12 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                                    <a href="#" data-bs-toggle="modal"
-                                        data-bs-target="#ShowPostModal{{ $post->id }}">
-                                        <div class="stat-item">
-                                            <img class="rounded-circle" alt="{{ $post->titre }}"
-                                                src="{{ asset($post->getPoste()) }}" width="50" height="auto">
-                                            <div class="stat-content">
-                                                <p>{{ $post?->titre }}</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            @endif
-                        @endforeach
+                        </section>
                     </div>
-                @endif
 
-            </div>
+                    @if ($posts_count)
+                        <div class="row stats-row gy-4 mt-5" data-aos="fade-up" data-aos-delay="500">
+                            @foreach ($posts as $post)
+                                @if (!empty($post->image))
+                                    <div class="col-12 col-md-12 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
+                                        <a href="#" data-bs-toggle="modal"
+                                            data-bs-target="#ShowPostModal{{ $post->id }}">
+                                            <div class="stat-item">
+                                                <img class="rounded-circle" alt="{{ $post->titre }}"
+                                                    src="{{ asset($post->getPoste()) }}" width="50" height="auto">
+                                                <div class="stat-content">
+                                                    <p>{{ $post?->titre }}</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    @endif
+
+                </div>
 
         </section>
 
