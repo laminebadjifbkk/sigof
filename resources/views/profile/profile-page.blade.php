@@ -98,14 +98,16 @@
                         </div>
                     </div> --}}
 
-                    {{-- <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
-                        ⏳ Dernière chance, il reste <span id="countdown"></span> pour la cloture.
+                    <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
+                        ⏳ Jusqu'à 17h 00, il reste <span id="countdown"></span> pour la fermeture
+                        défnitive.
                     </div>
+
                     <div class="alert alert-info text-center fw-bold mb-4" role="alert">
                         📣 <span class="text-primary">Veuillez faire défiler vers le bas</span> pour consulter l'Appel à
                         Candidature 2025 - Phase 1 !
                         <span class="fw-normal">Ne manquez pas votre chance de postuler !</span>
-                    </div> --}}
+                    </div>
                     @hasanyrole('super-admin|admin|DIOF|Employe')
                         <div class="col-12">
                             <div class="card shadow-lg border-0 rounded-4 bg-light">

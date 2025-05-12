@@ -3113,34 +3113,33 @@
     @stack('scripts')
     <script>
         function updateCountdown() {
-            const countdownContainer = document.getElementById('countdownContainer');
-            const countdown = document.getElementById('countdown');
-
-            if (!countdown || !countdownContainer) return;
-
             const now = new Date();
-            const midnight = new Date();
-            midnight.setHours(24, 0, 0, 0); // minuit
+            const closingTime = new Date();
+            closingTime.setHours(17, 0, 0, 0); // Aujourd'hui à 17h00
+            closingTime.setMinutes(0);
+            closingTime.setSeconds(0);
+            closingTime.setMilliseconds(0);
 
-            const diff = midnight.getTime() - now.getTime();
+            if (now >= closingTime) {
+                // À 17h00 ou après : cacher le compte à rebours et le bouton, afficher le message
+                document.getElementById('countdownContainer').style.display = 'none';
+                document.getElementById('postulerBtn').style.display = 'none';
+                document.getElementById('closedMessage').style.display = 'block';
+            } else {
+                // Calcul du temps restant
+                const diff = closingTime - now;
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-            if (diff <= 0) {
-                countdownContainer.style.display = 'none';
-                return;
+                document.getElementById('countdown').textContent =
+                    `${hours}h ${minutes}min ${seconds}s`;
             }
-
-            const hours = Math.floor(diff / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-            countdown.innerText = `${hours}h ${minutes}m ${seconds}s`;
         }
 
-        // Lance le compte à rebours dès que la page est chargée
-        document.addEventListener('DOMContentLoaded', function() {
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-        });
+        // Démarrage et mise à jour chaque seconde
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
     </script>
 </body>
 

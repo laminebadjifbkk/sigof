@@ -159,9 +159,11 @@
             </div>
         </div>
 
-        {{-- <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
-            ⏳ Dernière chance, il reste <span id="countdown"></span> pour la cloture.
-        </div> --}}
+        <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
+            ⏳ Jusqu'à 17h 00, il reste <span id="countdown"></span> pour la fermeture
+            défnitive.
+        </div>
+        
         <div class="alert alert-danger fw-bold mb-4" role="alert">
             ⚠️ <span class="text-primary">Faites défiler vers le bas</span> pour télécharger et joindre les fichiers requis
             pour votre candidature avant la date limite.
