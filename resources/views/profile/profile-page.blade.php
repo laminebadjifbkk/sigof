@@ -98,14 +98,14 @@
                         </div>
                     </div> --}}
 
-                    <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
+                    {{-- <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
                         ⏳ Dernière chance, il reste <span id="countdown"></span> pour la cloture.
                     </div>
                     <div class="alert alert-info text-center fw-bold mb-4" role="alert">
                         📣 <span class="text-primary">Veuillez faire défiler vers le bas</span> pour consulter l'Appel à
                         Candidature 2025 - Phase 1 !
                         <span class="fw-normal">Ne manquez pas votre chance de postuler !</span>
-                    </div>
+                    </div> --}}
                     @hasanyrole('super-admin|admin|DIOF|Employe')
                         <div class="col-12">
                             <div class="card shadow-lg border-0 rounded-4 bg-light">
@@ -1123,7 +1123,7 @@
                                     $projet->statut === 'ouvert' ? 'bg-success text-white' : 'bg-secondary text-white';
 
                                 $jours_restant = \Carbon\Carbon::now()->diffInDays(
-                                    \Carbon\Carbon::parse($projet->fin),
+                                    \Carbon\Carbon::parse($projet->date_fermeture),
                                     false,
                                 );
 
@@ -1151,7 +1151,7 @@
                                                 &nbsp;|&nbsp;
                                                 <i class="bi bi-calendar-x me-1"></i>
                                                 <strong>Clôture :</strong>
-                                                {{ \Carbon\Carbon::parse($projet->fin)->format('d/m/Y') }}
+                                                {{ \Carbon\Carbon::parse($projet->date_fermeture)->format('d/m/Y') }}
                                             </div>
                                             @if ($jours_restant > 0)
                                                 <div class="text-danger small">
