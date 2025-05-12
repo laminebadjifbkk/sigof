@@ -100,10 +100,14 @@
                                         ⏳ Dernière chance, il reste <span id="countdown"></span> pour la fermeture.
                                     </div> --}}
 
-                                    <a id="postulerBtn" href="#" data-bs-toggle="modal"
+                                    {{-- <a id="postulerBtn" href="#" data-bs-toggle="modal"
                                         data-bs-target="#enSavoirPlusModal"
                                         class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
                                         🚀 Postuler maintenant
+                                    </a> --}}
+                                    <a id="postulerBtn" href="#"
+                                        class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
+                                        ❌ Les dépôts sont maintenant clôturés.
                                     </a>
 
                                     <div id="closedMessage" class="alert alert-danger text-center fw-bold"
