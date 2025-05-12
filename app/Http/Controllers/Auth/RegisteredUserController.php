@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
             'email'           => [
                 'required',
                 'email',
-                'max:25',
+                'max:35',
                 Rule::unique('users')->whereNull('deleted_at'), // Ignore les utilisateurs supprimés
             ],
             'votre_telephone' => ['required', 'string', 'size:12'],
