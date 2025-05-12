@@ -30,7 +30,7 @@
                         @endforeach
                     @endif
                     <marquee behavior="scroll" direction="left">
-                        <strong style="color: red; font-weight: bold; animation: blink 1s linear infinite;">
+                        {{--  <strong style="color: red; font-weight: bold; animation: blink 1s linear infinite;">
                             ⚠️ IMPORTANT : La fiche de candidature remplie et signée n’est plus requise puisque les
                             dépôts se
                             font exclusivement en ligne.
@@ -38,6 +38,11 @@
                             sélectionnant "Autres" dans la partie légende.
                             Toute candidature incomplète sera automatiquement rejetée. Veuillez télécharger tous les
                             documents exigés avant la clôture des dépôts.
+                        </strong> --}}
+                        <strong style="color: green; font-weight: bold; animation: fadeBlink 2s ease-in-out infinite;">
+                            ✅ Merci à toutes et à tous pour votre intérêt et votre confiance !
+                            Vos candidatures ont bien été prises en compte.
+                            Nous vous souhaitons plein succès pour la suite du processus de sélection.
                         </strong>
                     </marquee>
                     <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">

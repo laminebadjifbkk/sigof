@@ -105,6 +105,18 @@
                 box-shadow: 0 0 0 0 rgba(255, 165, 0, 0);
             }
         }
+
+        @keyframes fadeBlink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+        }
     </style>
 
     <style>
