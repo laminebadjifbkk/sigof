@@ -105,7 +105,7 @@
 
                     <div class="alert alert-info text-center fw-bold mb-4" role="alert">
                         📣 <span class="text-primary">Si vous avez déjà postulé, cliquez sur <strong>Offres Spéciales</strong>
-                            pour consulter votre candidature.</span>
+                            pour consulter votre candidature.</span><br>
                         <span class="fw-normal">Bonne chance à toutes et à tous pour la suite !</span>
                     </div>
                     @hasanyrole('super-admin|admin|DIOF|Employe')
