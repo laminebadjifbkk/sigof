@@ -96,18 +96,15 @@
                                         🚀 Postuler maintenant
                                     </a> --}}
 
-                                    {{-- <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
-                                        ⏳ Dernière chance, il reste <span id="countdown"></span> pour la fermeture.
-                                    </div> --}}
+                                    <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
+                                        ⏳ Jusqu'à 17h 00, il reste <span id="countdown"></span> pour la fermeture
+                                        défnitive.
+                                    </div>
 
-                                    {{-- <a id="postulerBtn" href="#" data-bs-toggle="modal"
+                                    <a id="postulerBtn" href="#" data-bs-toggle="modal"
                                         data-bs-target="#enSavoirPlusModal"
                                         class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
                                         🚀 Postuler maintenant
-                                    </a> --}}
-                                    <a id="postulerBtn" href="#"
-                                        class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
-                                        ❌ Les dépôts sont maintenant clôturés.
                                     </a>
 
                                     <div id="closedMessage" class="alert alert-danger text-center fw-bold"
@@ -1355,43 +1352,35 @@
     </main>
 
     @include('footer-accueil')
-
     <script>
         function updateCountdown() {
-            const countdownContainer = document.getElementById('countdownContainer');
-            const countdown = document.getElementById('countdown');
-            const postulerBtn = document.getElementById('postulerBtn');
-            const closedMessage = document.getElementById('closedMessage');
-
-            if (!countdown || !countdownContainer || !postulerBtn || !closedMessage) return;
-
             const now = new Date();
-            const midnight = new Date();
-            midnight.setHours(24, 0, 0, 0); // aujourd’hui à 00:00 du lendemain
+            const closingTime = new Date();
+            closingTime.setHours(17, 0, 0, 0); // Aujourd'hui à 17h00
+            closingTime.setMinutes(0);
+            closingTime.setSeconds(0);
+            closingTime.setMilliseconds(0);
 
-            const diff = midnight.getTime() - now.getTime();
+            if (now >= closingTime) {
+                // À 17h00 ou après : cacher le compte à rebours et le bouton, afficher le message
+                document.getElementById('countdownContainer').style.display = 'none';
+                document.getElementById('postulerBtn').style.display = 'none';
+                document.getElementById('closedMessage').style.display = 'block';
+            } else {
+                // Calcul du temps restant
+                const diff = closingTime - now;
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-            if (diff <= 0) {
-                // Cacher le compte à rebours et le bouton
-                countdownContainer.style.display = 'none';
-                postulerBtn.style.display = 'none';
-
-                // Afficher le message de clôture
-                closedMessage.style.display = 'block';
-                return;
+                document.getElementById('countdown').textContent =
+                    `${hours}h ${minutes}min ${seconds}s`;
             }
-
-            const hours = Math.floor(diff / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-            countdown.innerText = `${hours}h ${minutes}m ${seconds}s`;
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-        });
+        // Démarrage et mise à jour chaque seconde
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
     </script>
 </body>
 

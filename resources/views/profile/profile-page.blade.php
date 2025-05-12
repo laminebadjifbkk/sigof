@@ -401,7 +401,6 @@
                                         <h5 class="card-title">Modification du profil</h5>
                                         <input type="hidden" name="idUser" value="{{ $user->id }}">
                                         <!-- Profile Edit Form -->
-
                                         <div class="row mb-3">
                                             <label for="profileImage"
                                                 class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">
