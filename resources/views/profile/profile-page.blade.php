@@ -104,9 +104,9 @@
                     </div>
 
                     <div class="alert alert-info text-center fw-bold mb-4" role="alert">
-                        📣 <span class="text-primary">Veuillez faire défiler vers le bas</span> pour consulter l'Appel à
-                        Candidature 2025 - Phase 1 !
-                        <span class="fw-normal">Ne manquez pas votre chance de postuler !</span>
+                        📣 <span class="text-primary">Si vous avez déjà postulé, cliquez sur <strong>Offres Spéciales</strong>
+                            pour consulter votre candidature.</span>
+                        <span class="fw-normal">Bonne chance à toutes et à tous pour la suite !</span>
                     </div>
                     @hasanyrole('super-admin|admin|DIOF|Employe')
                         <div class="col-12">
@@ -1206,7 +1206,7 @@
                             </div>
                         @endforeach
 
-                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        {{-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                             <div class="card info-card sales-card">
                                 <div class="filter">
                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -1236,7 +1236,40 @@
                                     </div>
                                 </a>
                             </div>
+                        </div> --}}
+
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <div class="card info-card sales-card">
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                </div>
+                                <a href="{{ route('demandesProjet') }}" class="text-decoration-none">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            Offres <span>| Spéciales</span>
+                                            <i class="bi bi-hand-index-thumb blinking-icon"></i>
+                                        </h5>
+                                        <div class="d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-person-plus-fill"></i>
+                                                @php
+                                                    $count = Auth::user()
+                                                        ->individuelles->whereNotNull('projets_id')
+                                                        ->count();
+                                                @endphp
+                                                <span class="ms-2">{{ $count }}</span>
+                                            </div>
+                                            <div class="ps-3">
+                                                <h6></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
+
 
                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                             <div class="card info-card sales-card">
@@ -1521,6 +1554,26 @@
 
         .animated-image {
             animation: zoomFadeIn 0.6s ease-out forwards;
+        }
+    </style>
+    <style>
+        .blinking-icon {
+            animation: blink 1s infinite;
+            color: #dc3545;
+            /* rouge pour attirer l'attention */
+            margin-left: 5px;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
         }
     </style>
 @endpush
