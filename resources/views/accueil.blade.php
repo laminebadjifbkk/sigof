@@ -96,9 +96,9 @@
                                         🚀 Postuler maintenant
                                     </a> --}}
 
-                                    <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
+                                    {{-- <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
                                         ⏳ Dernière chance, il reste <span id="countdown"></span> pour la fermeture.
-                                    </div>
+                                    </div> --}}
 
                                     <a id="postulerBtn" href="#" data-bs-toggle="modal"
                                         data-bs-target="#enSavoirPlusModal"

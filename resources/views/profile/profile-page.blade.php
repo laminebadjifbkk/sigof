@@ -1123,7 +1123,7 @@
                                     $projet->statut === 'ouvert' ? 'bg-success text-white' : 'bg-secondary text-white';
 
                                 $jours_restant = \Carbon\Carbon::now()->diffInDays(
-                                    \Carbon\Carbon::parse($projet->date_fermeture),
+                                    \Carbon\Carbon::parse($projet->fin),
                                     false,
                                 );
 
@@ -1151,7 +1151,7 @@
                                                 &nbsp;|&nbsp;
                                                 <i class="bi bi-calendar-x me-1"></i>
                                                 <strong>Clôture :</strong>
-                                                {{ \Carbon\Carbon::parse($projet->date_fermeture)->format('d/m/Y') }}
+                                                {{ \Carbon\Carbon::parse($projet->fin)->format('d/m/Y') }}
                                             </div>
                                             @if ($jours_restant > 0)
                                                 <div class="text-danger small">
