@@ -844,11 +844,11 @@ class UserController extends Controller
             'cin'       => 'nullable|string',
             'name'      => 'nullable|string',
             'firstname' => 'nullable|string',
-            'telephone' => 'nullable|string',
+            'telephone_responsable' => 'nullable|string',
             'email'     => 'nullable|email',
         ]);
 
-        if ($request?->cin == null && $request->firstname == null && $request->telephone == null && $request->name == null && $request->email == null) {
+        if ($request?->cin == null && $request->firstname == null && $request->telephone_responsable == null && $request->name == null && $request->email == null) {
             Alert::warning('Recherche impossible', 'Veuillez remplir au moins un champ avant de continuer.');
             return redirect()->back();
         }
@@ -856,7 +856,7 @@ class UserController extends Controller
         $user_liste = User::where('firstname', 'LIKE', "%{$request?->firstname}%")
             ->where('name', 'LIKE', "%{$request?->name}%")
             ->where('cin', 'LIKE', "%{$request?->cin}%")
-            ->where('telephone', 'LIKE', "%{$request?->telephone}%")
+            ->where('telephone', 'LIKE', "%{$request?->telephone_responsable}%")
             ->where('email', 'LIKE', "%{$request?->email}%")
             ->distinct()
             ->get();

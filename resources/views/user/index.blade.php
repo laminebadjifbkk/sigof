@@ -389,12 +389,12 @@
                                     <div class="row">
                                         <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                             <div class="form-group">
-                                                <label for="telephone" class="form-label">Téléphone</label>
-                                                <input name="telephone" type="text" maxlength="12"
-                                                    class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                                    id="telephone_secondaire" value="{{ old('telephone') }}" autocomplete="tel"
+                                                <label for="telephone_responsable" class="form-label">Téléphone</label>
+                                                <input name="telephone_responsable" type="text" maxlength="12"
+                                                    class="form-control form-control-sm @error('telephone_responsable') is-invalid @enderror"
+                                                    id="telephone_responsable" value="{{ old('telephone_responsable') }}" autocomplete="tel"
                                                     placeholder="XX:XXX:XX:XX">
-                                                @error('telephone')
+                                                @error('telephone_responsable')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>
                                                     </span>
