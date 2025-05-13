@@ -262,6 +262,13 @@
                                         </div>
                                     @endforeach
 
+                                    @if (!empty($individuelle?->niveau_etude))
+                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <div class="label">Niveau étude</div>
+                                            <div>{{ $individuelle?->niveau_etude }}</div>
+                                        </div>
+                                    @endif
+
                                     @if (!empty($individuelle?->diplome_academique))
                                         <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <div class="label">Diplôme académique</div>
