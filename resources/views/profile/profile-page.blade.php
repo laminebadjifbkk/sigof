@@ -1242,7 +1242,7 @@
                                 <a href="{{ route('demandesProjet') }}" class="text-decoration-none">
                                     <div class="card-body">
                                         <h5 class="card-title">
-                                            Offres <span>| Spéciales</span>
+                                            Mes offres <span>| spéciales</span>
                                             <i class="bi bi-hand-index-thumb blinking-icon"></i>
                                         </h5>
                                         <div class="d-flex align-items-center">
