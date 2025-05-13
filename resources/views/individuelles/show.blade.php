@@ -428,6 +428,18 @@
                                                                                 <i class="bi bi-check-circle"></i>
                                                                             </button>
                                                                         </form>
+                                                                        <form action="{{ route('fileInvalide') }}"
+                                                                            method="post" class="d-inline">
+                                                                            @csrf
+                                                                            @method('put')
+                                                                            <input type="hidden" name="idFile"
+                                                                                value="{{ $file->id }}">
+                                                                            <button type="submit"
+                                                                                class="btn btn-outline-warning btn-sm show_confirm_rejeter"
+                                                                                title="Invalider">
+                                                                                <i class="bi bi-x-circle"></i>
+                                                                            </button>
+                                                                        </form>
                                                                     @endif
 
                                                                     @if ($file->statut === 'Validé')
