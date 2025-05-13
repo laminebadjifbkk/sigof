@@ -1,9 +1,11 @@
 <?php
 namespace App\Console\Commands;
 
+use App\Notifications\DatabaseBackupStatus;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Notification;
 
 class BackupDatabase extends Command
 {
@@ -29,8 +31,16 @@ class BackupDatabase extends Command
 
         if ($result === 0) {
             $this->info("Sauvegarde réussie: {$filename}");
+            // En cas de succès
+            $message = "Sauvegarde réussie : $filename";
+            Notification::route('mail', 'laminebadjifbkk@gmail.com')
+                ->notify(new DatabaseBackupStatus($message));
         } else {
             $this->error("Erreur lors de la sauvegarde.");
+            // En cas d'erreur
+            Notification::route('mail', 'laminebadjifbkk@gmail.com')
+                ->notify(new DatabaseBackupStatus("❌ Échec de la sauvegarde."));
+
         }
     }
 }
