@@ -392,8 +392,8 @@
                                                 <label for="telephone" class="form-label">Téléphone</label>
                                                 <input name="telephone" type="text" maxlength="12"
                                                     class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                                    id="telephone" value="{{ old('telephone', $user->telephone ?? '') }}"
-                                                    autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                                    id="telephone" value="{{ old('telephone') }}" autocomplete="tel"
+                                                    placeholder="XX:XXX:XX:XX">
                                                 @error('telephone')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>
@@ -530,7 +530,7 @@
         new DataTable('#table-users', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [
