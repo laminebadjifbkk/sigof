@@ -91,17 +91,7 @@
                             </p>
                             <div class="hero-buttons">
                                 @if (!empty($une?->message))
-                                    {{--  <a href="#" data-bs-toggle="modal" data-bs-target="#enSavoirPlusModal"
-                                        class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">Postuler</a> --}}
-                                    {{-- < div id="countdownContainer" class="alert alert-warning text-center fw-bold">
-                                        ⏳ Dernière chance, il reste <span id="countdown"></span> pour la ferméture.
-                                    </div>
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#enSavoirPlusModal"
-                                        class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
-                                        🚀 Postuler maintenant
-                                    </a> --}}
-
-                                    <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
+                                    {{-- <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
                                         ⏳ Jusqu'à 17h 00, il reste <span id="countdown"></span> pour la fermeture
                                         défnitive.
                                     </div>
@@ -110,7 +100,7 @@
                                         data-bs-target="#enSavoirPlusModal"
                                         class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
                                         🚀 Postuler maintenant
-                                    </a>
+                                    </a> --}}
 
                                     <div id="closedMessage" class="alert alert-danger text-center fw-bold"
                                         style="display: none;">
@@ -1357,7 +1347,7 @@
     </main>
 
     @include('footer-accueil')
-    <script>
+    {{-- <script>
         function updateCountdown() {
             const now = new Date();
             const closingTime = new Date();
@@ -1386,7 +1376,7 @@
         // Démarrage et mise à jour chaque seconde
         updateCountdown();
         setInterval(updateCountdown, 1000);
-    </script>
+    </script> --}}
 </body>
 
 </html>
