@@ -114,7 +114,7 @@
 
                                     <div id="closedMessage" class="alert alert-danger text-center fw-bold"
                                         style="display: none;">
-                                        ❌ Les dépôts sont maintenant clôturés.
+                                        Fin des dépôts pour la phase 1.
                                     </div>
                                 @else
                                     <a href="#apropos" class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">En savoir
