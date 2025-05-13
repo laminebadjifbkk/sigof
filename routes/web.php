@@ -112,8 +112,8 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::get('/register-operateur', [ProfileController::class, 'registerOperateur'])->name('register-operateur');
 });
 Route::group(['middleware' => ['XSS']], function () {
-    /* Route::group(['middleware' => ['auth', 'verified']], function () { */
-    Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['auth', 'verified']], function () {
+        /* Route::group(['middleware' => ['auth']], function () { */
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
         Route::patch('/profiles/{id}', [ProfileOperateurController::class, 'update'])->name('profile.updated');
