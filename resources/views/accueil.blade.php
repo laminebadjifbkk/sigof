@@ -114,6 +114,12 @@
                                     <div id="closedMessage" class="alert alert-info text-center fw-bold"
                                         style="display: none;">
                                         Fin des dépôts pour la phase 1. À très bientôt pour la phase 2.
+                                        <br>
+                                        <strong
+                                            style="color: green; font-weight: bold; animation: fadeBlink 2s ease-in-out infinite;">
+                                            Néanmoins, vous pouvez toujours continuer à déposer des demandes de
+                                            formations individuelles.
+                                        </strong>
                                     </div>
                                 @else
                                     <a href="#apropos" class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">En savoir
@@ -1422,6 +1428,19 @@
             setInterval(updateCountdown, 1000);
         });
     </script>
+    <style>
+        @keyframes fadeBlink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
 
 </body>
 
