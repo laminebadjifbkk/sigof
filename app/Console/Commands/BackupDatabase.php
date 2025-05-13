@@ -3,6 +3,7 @@ namespace App\Console\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 
 class BackupDatabase extends Command
 {
@@ -33,3 +34,10 @@ class BackupDatabase extends Command
         }
     }
 }
+// Supprimer les sauvegardes de plus de 10 jours
+collect(File::glob(storage_path('app/backups/*.sql.gz')))
+    ->each(function ($file) {
+        if (filemtime($file) < now()->subDays(10)->timestamp) {
+            unlink($file);
+        }
+    });
