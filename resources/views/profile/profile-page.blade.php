@@ -98,10 +98,10 @@
                         </div>
                     </div> --}}
 
-                    <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
+                    {{-- <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
                         ⏳ Jusqu'à 17h 00, il reste <span id="countdown"></span> pour la fermeture
                         défnitive.
-                    </div>
+                    </div> --}}
 
                     <div class="alert alert-info text-center fw-bold mb-4" role="alert">
                         📣 <span class="text-primary">Si vous avez déjà postulé, cliquez sur <strong>Offres Spéciales</strong>
