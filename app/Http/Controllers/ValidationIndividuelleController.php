@@ -108,8 +108,6 @@ class ValidationIndividuelleController extends Controller
             'individuelles_id' => $individuelle->id,
         ]);
 
-        dd("ok");
-
         // Envoi de mail
         /* $toEmail     = $individuelle?->user?->email;
         $toUserName  = 'Bonjour ! ' . $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name;

@@ -100,8 +100,12 @@ class FileController extends Controller
             'file' => null,
         ]);
 
-        Alert::success('Succès !', 'le fichier ' . $file->legende . ' a été retiré avec succès');
-        return redirect()->back();
+        /* Alert::success('Succès !', 'le fichier ' . $file->legende . ' a été retiré avec succès');
+
+        return redirect()->back(); */
+
+        $status = "Succès " . $file->legende . " a été retiré avec succès";
+        return redirect()->back()->with('status', $status);
     }
 
     public function fileValidate(Request $request)
@@ -112,8 +116,11 @@ class FileController extends Controller
             'statut' => 'Validé',
         ]);
 
-        Alert::success('Succès !', 'le fichier ' . $file->legende . ' a été validé avec succès');
-        return redirect()->back();
+        /* Alert::success('Succès !', 'le fichier ' . $file->legende . ' a été validé avec succès');
+        return redirect()->back(); */
+
+        $status = "Succès " . $file->legende . " a été validé avec succès";
+        return redirect()->back()->with('status', $status);
     }
 
     public function fileInvalide(Request $request)
@@ -124,8 +131,11 @@ class FileController extends Controller
             'statut' => 'Rejeté',
         ]);
 
-        Alert::success('Succès !', 'le fichier ' . $file->legende . ' a été réjeté avec succès');
-        return redirect()->back();
+        /* Alert::success('Succès !', 'le fichier ' . $file->legende . ' a été réjeté avec succès');
+        return redirect()->back(); */
+
+        $status = "Succès " . $file->legende . " a été validé avec succès";
+        return redirect()->back()->with('status', $status);
     }
 
     public function destroy($id)
@@ -156,7 +166,7 @@ class FileController extends Controller
 
         $file?->save();
 
-        Alert::success('Félicitations !!!', 'fichier ajouté avec succès');
+        Alert::success('Succès !', 'fichier ajouté avec succès');
         return redirect()->back();
     }
 }

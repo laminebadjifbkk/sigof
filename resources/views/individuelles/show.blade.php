@@ -4,13 +4,6 @@
     <section class="section min-vh-0 d-flex flex-column align-items-center justify-content-center py-0 section profile">
         <div class="container-fluid">
             <div class="row justify-content-center">
-                @if ($message = Session::get('status'))
-                    <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
-                        role="alert">
-                        <strong>{{ $message }}</strong>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
 
                 @foreach ($errors->all() as $error)
                     <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
@@ -377,6 +370,14 @@
                                 </form>
                                 <div class="pt-5">
                                     <div class="col-md-6">
+                                        @if ($message = Session::get('status'))
+                                            <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
+                                                role="alert">
+                                                <strong>{{ $message }}</strong>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                        @endif
                                         <h5 class="mb-3 text-uppercase fw-bold">📎 Fichiers joints</h5>
 
                                         @php
