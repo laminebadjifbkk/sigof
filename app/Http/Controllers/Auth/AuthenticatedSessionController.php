@@ -15,6 +15,7 @@ use App\Models\Referentiel;
 use App\Models\Service;
 use App\Models\Une;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -90,6 +91,20 @@ class AuthenticatedSessionController extends Controller
 
         $title = $count_today <= 0 ? "module de formation" : "modules de formation";
 
+        $projet = Projet::where("statut", "ouvert")->first();
+
+        if ($projet) {
+            /* $date_ouverture = $projet->date_ouverture;
+            $date_fermeture = $projet->date_fermeture; */
+            $date_ouverture = Carbon::parse($projet->date_ouverture)->setTime(8, 0, 0);  // 08:00
+            $date_fermeture = Carbon::parse($projet->date_fermeture)->setTime(17, 0, 0); // 17:00
+        } else {
+            $date_ouverture = null;
+            $date_fermeture = null;
+        }
+
+        /* dd($date_ouverture, $date_fermeture); */
+
         return view(
             'accueil',
             compact(
@@ -109,6 +124,8 @@ class AuthenticatedSessionController extends Controller
                 'services',
                 'posts_count',
                 'posts',
+                'date_ouverture',
+                'date_fermeture',
             )
         );
     }

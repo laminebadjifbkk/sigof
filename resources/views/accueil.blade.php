@@ -91,7 +91,17 @@
                             </p>
                             <div class="hero-buttons">
                                 @if (!empty($une?->message))
-                                    {{-- <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
+                                    {{--  <a href="#" data-bs-toggle="modal" data-bs-target="#enSavoirPlusModal"
+                                        class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">Postuler</a> --}}
+                                    {{-- < div id="countdownContainer" class="alert alert-warning text-center fw-bold">
+                                        ⏳ Dernière chance, il reste <span id="countdown"></span> pour la ferméture.
+                                    </div>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#enSavoirPlusModal"
+                                        class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
+                                        🚀 Postuler maintenant
+                                    </a> --}}
+
+                                    <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
                                         ⏳ Jusqu'à 17h 00, il reste <span id="countdown"></span> pour la fermeture
                                         défnitive.
                                     </div>
@@ -100,7 +110,7 @@
                                         data-bs-target="#enSavoirPlusModal"
                                         class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
                                         🚀 Postuler maintenant
-                                    </a> --}}
+                                    </a>
 
                                     <div id="closedMessage" class="alert alert-danger text-center fw-bold"
                                         style="display: none;">
@@ -1377,6 +1387,43 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
     </script> --}}
+    <script>
+        const dateOuverture = new Date("{{ \Carbon\Carbon::parse($date_ouverture)->format('Y-m-d\TH:i:s') }}");
+        const dateFermeture = new Date("{{ \Carbon\Carbon::parse($date_fermeture)->format('Y-m-d\TH:i:s') }}");
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function updateCountdown() {
+                const now = new Date();
+
+                if (now < dateOuverture) {
+                    document.getElementById('countdownContainer').style.display = 'none';
+                    document.getElementById('postulerBtn').style.display = 'none';
+                    document.getElementById('closedMessage').style.display = 'none';
+                } else if (now >= dateOuverture && now < dateFermeture) {
+                    const diff = dateFermeture - now;
+                    const hours = Math.floor(diff / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    document.getElementById('countdown').textContent =
+                        `${hours}h ${minutes}min ${seconds}s`;
+
+                    document.getElementById('countdownContainer').style.display = 'block';
+                    document.getElementById('postulerBtn').style.display = 'inline-block';
+                    document.getElementById('closedMessage').style.display = 'none';
+                } else {
+                    document.getElementById('countdownContainer').style.display = 'none';
+                    document.getElementById('postulerBtn').style.display = 'none';
+                    document.getElementById('closedMessage').style.display = 'block';
+                }
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
+    </script>
+
 </body>
 
 </html>
