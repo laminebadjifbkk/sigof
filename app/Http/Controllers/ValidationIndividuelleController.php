@@ -143,7 +143,7 @@ class ValidationIndividuelleController extends Controller
         $statut       = $individuelle->statut;
 
         // Bloquer certains statuts uniquement pour les non-super-admins
-        if (! auth()->user()->hasRole('super-admin')) {
+        if (! auth()->user()->hasAnyRole(['super-admin', 'Ingenieur'])) {
             $messages = [
                 'Rejetée'      => 'demande déjà rejetée',
                 'Programmer'   => 'demande déjà programmée',
