@@ -111,10 +111,9 @@
                                         class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
                                         🚀 Postuler maintenant
                                     </a>
-
-                                    <div id="closedMessage" class="alert alert-danger text-center fw-bold"
+                                    <div id="closedMessage" class="alert alert-info text-center fw-bold"
                                         style="display: none;">
-                                        Fin des dépôts pour la phase 1.
+                                        Fin des dépôts pour la phase 1. À très bientôt pour la phase 2.
                                     </div>
                                 @else
                                     <a href="#apropos" class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">En savoir
