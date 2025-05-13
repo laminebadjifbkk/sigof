@@ -15,8 +15,8 @@ use Spatie\Permission\Traits\HasRoles;
 
 //A remettre quand on va reactive l'envoie de mail
 //Pensez à remmettre cette partie dans le web.php /* Route::group(['middleware' => ['auth', 'verified']], function () { */
-/* class User extends Authenticatable */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
+/* class User extends Authenticatable implements MustVerifyEmail */
 {
     //A remettre quand on va reactive l'envoie de mail
     /* use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes, UuidForKey; */
