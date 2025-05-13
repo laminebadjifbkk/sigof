@@ -105,7 +105,7 @@ class RegisteredUserController extends Controller
         Pour activer votre compte, veuillez vérifier votre <a href='#'>boîte e-mail</a> et suivre les instructions. <br>
         Si vous ne trouvez pas l'e-mail, pensez à vérifier votre dossier spam.", 'success'); */
 
-        /*  alert()->html(
+        /* alert()->html(
             '<i>Succès !</i>',
             "Votre inscription a été réalisée avec.<br>
             Pour activer votre compte, consultez votre <a href='#'>boîte e-mail</a> et suivez les instructions.<br>
@@ -114,12 +114,20 @@ class RegisteredUserController extends Controller
         ); */
 
         alert()->html(
+            '<strong>🎉 Succès !</strong>',
+            "Votre inscription a été effectuée avec succès.<br>
+    Pour activer votre compte, consultez votre <strong><a href='#'>boîte e-mail</a></strong> et suivez les instructions.<br>
+    📬 Si vous ne trouvez pas l'e-mail, pensez à vérifier votre dossier <strong><a href='#'>spam</a> ou <a href='#'>courriers indésirables</a></strong>.",
+            'success'
+        );
+
+        /* alert()->html(
             '<i>Succès !</i>',
             "Votre inscription a été réalisée avec succès.<br>
             <strong>La vérification par <a href='#'>e-mail est temporairement désactivée</a></strong> afin de permettre aux demandeurs de déposer leurs demandes plus facilement.<br>
             Vous pouvez vous <a href='#'>connecter directement à votre compte</a> avec vos identifiants.",
             'success'
-        );
+        ); */
 
         return redirect(RouteServiceProvider::LOGIN);
     }

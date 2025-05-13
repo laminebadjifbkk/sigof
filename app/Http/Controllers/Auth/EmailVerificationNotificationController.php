@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -21,9 +20,7 @@ class EmailVerificationNotificationController extends Controller
         }
 
         $request->user()->sendEmailVerificationNotification();
-
-        Alert::success('Féliciations !', 'Un nouveau mail a été envoyé à votre adresse e-mail');
-
+        Alert::success('✅ Vérification envoyée', "Merci ! Nous vous avons envoyé un e-mail de vérification 📩.\nN'oubliez pas de consulter votre boîte de réception, vos spams ou vos courriers indésirables.");
         return redirect()->back();
 
         /* return back()->with('status', 'verification-link-sent'); */
