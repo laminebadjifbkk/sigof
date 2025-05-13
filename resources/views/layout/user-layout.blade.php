@@ -3111,36 +3111,6 @@
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
     @stack('scripts')
-    <script>
-        function updateCountdown() {
-            const now = new Date();
-            const closingTime = new Date();
-            closingTime.setHours(17, 0, 0, 0); // Aujourd'hui à 17h00
-            closingTime.setMinutes(0);
-            closingTime.setSeconds(0);
-            closingTime.setMilliseconds(0);
-
-            if (now >= closingTime) {
-                // À 17h00 ou après : cacher le compte à rebours et le bouton, afficher le message
-                document.getElementById('countdownContainer').style.display = 'none';
-                document.getElementById('postulerBtn').style.display = 'none';
-                document.getElementById('closedMessage').style.display = 'block';
-            } else {
-                // Calcul du temps restant
-                const diff = closingTime - now;
-                const hours = Math.floor(diff / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-                document.getElementById('countdown').textContent =
-                    `${hours}h ${minutes}min ${seconds}s`;
-            }
-        }
-
-        // Démarrage et mise à jour chaque seconde
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-    </script>
 </body>
 
 </html>

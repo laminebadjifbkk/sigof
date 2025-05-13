@@ -6,9 +6,10 @@ use App\Models\File;
 use App\Models\Individuelle;
 use App\Models\Projet;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
+/* use Illuminate\Support\Carbon; */
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -94,6 +95,20 @@ class ProfileController extends Controller
 
         $count_ingenieur_formations = Auth::user()?->employee?->arrives?->count();
 
+        $projet = Projet::where("statut", "ouvert")->first();
+
+        if ($projet) {
+            /* $date_ouverture = $projet->date_ouverture;
+            $date_fermeture = $projet->date_fermeture; */
+            $date_ouverture = Carbon::parse($projet->date_ouverture)->setTime(8, 0, 0);  // 08:00
+            $date_fermeture = Carbon::parse($projet->date_fermeture)->setTime(17, 0, 0); // 17:00
+        } else {
+            $date_ouverture = null;
+            $date_fermeture = null;
+        }
+
+        /* dd($date_ouverture, $date_fermeture); */
+
         foreach (Auth::user()->roles as $role) {
             if ($role->name == 'Operateur') {
 
@@ -128,6 +143,8 @@ class ProfileController extends Controller
                     'files'                    => $files,
                     'user_files'               => $user_files,
                     'user_cin'                 => $user_cin,
+                    'date_ouverture'           => $date_ouverture,
+                    'date_fermeture'           => $date_fermeture,
                 ]);
             } else {
                 return view('profile.profile-page', [
@@ -143,6 +160,8 @@ class ProfileController extends Controller
                     'user_cin'                   => $user_cin,
                     'courriers_auj'              => $courriers_auj,
                     'count_ingenieur_formations' => $count_ingenieur_formations,
+                    'date_ouverture'             => $date_ouverture,
+                    'date_fermeture'             => $date_fermeture,
                 ]);
             }
         }
@@ -155,6 +174,8 @@ class ProfileController extends Controller
             'files'                    => $files,
             'user_files'               => $user_files,
             'user_cin'                 => $user_cin,
+            'date_ouverture'           => $date_ouverture,
+            'date_fermeture'           => $date_fermeture,
         ]);
     }
 
