@@ -1294,8 +1294,7 @@
                                             @can('attestation-formation')
                                                 Informer
                                                 <button type="button" class="btn btn-outline-primary btn-sm"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#EditRemiseAttestationsModal{{ $formation->id }}">
+                                                    data-bs-toggle="modal" data-bs-target="#EditRemiseAttestationsModal">
                                                     <i class="bi bi-plus" title="Ajouter les membres du jury"></i>
                                                 </button>
                                             @endcan
@@ -1373,6 +1372,65 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Remise attestation-->
+    <div class="modal fade" id="EditRemiseAttestationsModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <form method="post" action="{{ url('remiseAttestations', ['$idformation' => $formation->id]) }}"
+                    enctype="multipart/form-data" class="row">
+                    @csrf
+                    @method('PUT')
+                    {{-- <div class="modal-header">
+                            <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i> Situation des attestations
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div> --}}
+
+                    <div class="card-header text-center bg-gradient-default">
+                        <h1 class="h4 text-black mb-0">STATUT ATTESTATIONS</h1>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="formationid" value="{{ $formation->id }}">
+                        <label for="region" class="form-label">Statut attestations<span
+                                class="text-danger mx-1">*</span></label>
+                        <select name="statut"
+                            class="form-select form-select-sm @error('statut') is-invalid @enderror"
+                            aria-label="Select" id="select-field-statut-attestations"
+                            data-placeholder="Choisir statut attestations">
+                            <option value="{{ $formation?->attestation ?? old('statut') }}">
+                                {{ $formation?->attestation ?? old('statut') }}
+                            </option>
+                            <option value="En cours">
+                                En cours
+                            </option>
+                            <option value="disponible">
+                                disponible
+                            </option>
+                            <option value="retiré">
+                                retiré
+                            </option>
+                        </select>
+                        @error('statut')
+                            <span class="invalid-feedback" role="alert">
+                                <div>{{ $message }}</div>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm"
+                            data-bs-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-primary btn-sm"><i
+                                class="bi bi-arrow-right-circle"></i>
+                            Valider</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- End Edit Operateur-->
     @foreach ($formation->individuelles as $individuelle)
         <div class="modal fade" id="indiponibleModal{{ $individuelle->id }}" tabindex="-1">
@@ -1890,7 +1948,8 @@
                                     id="type_certificat" placeholder="Attestation ou Titre "> --}}
 
                                     <select name="titre" class="form-select  @error('titre') is-invalid @enderror"
-                                        aria-label="Select" id="select-field-titre" data-placeholder="Choisir titre">
+                                        aria-label="Select" id="select-field-titre"
+                                        data-placeholder="Choisir titre">
                                         <option>
                                             {{ $formation?->titre ?? ($formation?->referentiel?->titre ?? old('titre')) }}
                                         </option>
@@ -2204,62 +2263,6 @@
         </div>
     @endforeach
 
-    <!-- Remise attestation-->
-    <div class="modal fade" id="EditRemiseAttestationsModal{{ $formation->id }}" tabindex="-1">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <form method="post" action="{{ url('remiseAttestations', ['$idformation' => $formation->id]) }}"
-                    enctype="multipart/form-data" class="row">
-                    @csrf
-                    @method('PUT')
-                    {{-- <div class="modal-header">
-                            <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i> Situation des attestations
-                            </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div> --}}
-
-                    <div class="card-header text-center bg-gradient-default">
-                        <h1 class="h4 text-black mb-0">STATUT ATTESTATIONS</h1>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="formationid" value="{{ $formation->id }}">
-                        <label for="region" class="form-label">Statut attestations<span
-                                class="text-danger mx-1">*</span></label>
-                        <select name="statut"
-                            class="form-select form-select-sm @error('statut') is-invalid @enderror"
-                            aria-label="Select" id="select-field-statut-attestations"
-                            data-placeholder="Choisir statut attestations">
-                            <option value="{{ $formation?->attestation ?? old('statut') }}">
-                                {{ $formation?->attestation ?? old('statut') }}
-                            </option>
-                            <option value="En cours">
-                                En cours
-                            </option>
-                            <option value="disponible">
-                                disponible
-                            </option>
-                            <option value="retiré">
-                                retiré
-                            </option>
-                        </select>
-                        @error('statut')
-                            <span class="invalid-feedback" role="alert">
-                                <div>{{ $message }}</div>
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-sm"
-                            data-bs-dismiss="modal">Fermer</button>
-                        <button type="submit" class="btn btn-primary btn-sm"><i
-                                class="bi bi-arrow-right-circle"></i>
-                            Valider</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     {{-- @foreach ($emargementcollectives as $emargementcollective)
         <div class="modal fade" id="EditEmargementModal{{ $emargementcollective->id }}" tabindex="-1"
             role="dialog" aria-labelledby="EditEmargementModalLabel{{ $emargementcollective->id }}"
