@@ -1373,120 +1373,7 @@
         </div>
     </div>
 
-    {{-- Attestations --}}
-    @foreach ($formation->listecollectives as $listecollective)
-        <div class="modal fade" id="EditAttestationsModal{{ $listecollective->id }}" tabindex="-1" role="dialog"
-            aria-labelledby="EditAttestationsModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form method="post" action="{{ route('individuelles.updateAttestationsCol') }}"
-                        enctype="multipart/form-data" class="row g-3">
-                        @csrf
-                        @method('patch')
-                        <div class="card-header text-center bg-gradient-default">
-                            <h4 class="h4 text-black mb-0">
-                                {{ 'RETRAIT ' . strtoupper($formation?->type_certification) }}</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row g-3">
-                                <input type="hidden" name="id" value="{{ $listecollective->id }}">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                    <div class="row g-3">
-                                        <div class="row g-3">
-                                            <div>
-                                                {{ 'Bénéficiaire : ' . $listecollective->civilite . ' ' . $listecollective->prenom . ' ' . $listecollective->nom }}
-                                            </div>
-                                            <hr>
-                                            <label for="retrait" class="form-label">Qui va retirer le diplôme
-                                                ?<span class="text-danger mx-1">*</span></label>
-                                            <div class="col-6 col-md-6 col-lg-6 col-sm-6 col-xs-6 col-xxl-6">
-                                                <label class="form-check-label" for="moi">
-                                                    Le propriétaire
-                                                </label>
-                                                <input type="radio" name="personne" value="moi"
-                                                    class="form-check-input @error('moi') is-invalid @enderror">
-                                                @error('moi')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <div>{{ $message }}</div>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="col-6 col-md-6 col-lg-6 col-sm-6 col-xs-6 col-xxl-6">
-                                                <label class="form-check-label" for="autre">
-                                                    Une autre personne
-                                                </label>
-                                                <input type="radio" name="personne" value="autre"
-                                                    class="form-check-input @error('autre') is-invalid @enderror">
-                                                @error('autre')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <div>{{ $message }}</div>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 pt-3">
-                                        <label for="date_retrait" class="form-label">Date retrait<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input type="date" name="date_retrait"
-                                            value="{{ date('Y-m-d') ?? old('date_retrait') }}"
-                                            class="datepicker form-control form-control-sm @error('date_retrait') is-invalid @enderror"
-                                            id="date_retrait" placeholder="jj/mm/aaaa">
-                                        @error('date_retrait')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <br>
-                                    <label for="form-label">Si autre personne</label>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                        <label for="cin" class="form-label">N° CIN</label>
-                                        <input minlength="13" maxlength="14" type="text" name="cin"
-                                            value="{{ old('cin') }}"
-                                            class="form-control form-control-sm @error('cin') is-invalid @enderror"
-                                            placeholder="Numéro carte d'identité nationale">
-                                        @error('cin')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                        <label for="name" class="form-label">Name</label>
-                                        <input type="text" name="name" value="{{ old('name') }}"
-                                            class="form-control form-control-sm @error('name') is-invalid @enderror"
-                                            placeholder="Prénom et NOM">
-                                        @error('name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                        <label for="commentaires" class="form-label">Commentaires</label>
-                                        <input type="text" maxlength="150" name="commentaires"
-                                            value="{{ old('commentaires') }}"
-                                            class="form-control form-control-sm @error('commentaires') is-invalid @enderror"
-                                            placeholder="Un petit commentaire...">
-                                        @error('commentaires')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm"
-                                        data-bs-dismiss="modal">Fermer</button>
-                                    <button type="submit" class="btn btn-primary btn-sm">Valider</button>
-                                </div>
-                            </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    @endforeach
+
     <!-- Remise attestation-->
     <div class="modal fade" id="EditRemiseAttestationsModal" tabindex="-1">
         <div class="modal-dialog modal-xl">
@@ -1976,8 +1863,7 @@
                                             class="text-danger mx-1">*</span></label>
                                     <select name="evaluateur"
                                         class="form-select @error('evaluateur') is-invalid @enderror"
-                                        aria-label="Select" id="select-field"
-                                        data-placeholder="Choisir evaluateur">
+                                        aria-label="Select" id="select-field" data-placeholder="Choisir evaluateur">
                                         <option value="{{ $formation?->evaluateur?->id }}">
                                             @if (!empty($formation?->evaluateur?->name))
                                                 {{ $formation?->evaluateur?->name . ', ' . $formation?->evaluateur?->fonction }}
@@ -2061,8 +1947,7 @@
                                     class="form-control form-control-sm @error('type_certificat') is-invalid @enderror"
                                     id="type_certificat" placeholder="Attestation ou Titre "> --}}
 
-                                    <select name="titre"
-                                        class="form-select  @error('titre') is-invalid @enderror"
+                                    <select name="titre" class="form-select  @error('titre') is-invalid @enderror"
                                         aria-label="Select" id="select-field-titre"
                                         data-placeholder="Choisir titre">
                                         <option>
@@ -2249,6 +2134,121 @@
                                     Valider</button>
                             </div>
                         </form> --}}
+                </div>
+            </div>
+        </div>
+    @endforeach
+
+    {{-- Attestations --}}
+    @foreach ($formation->listecollectives as $listecollective)
+        <div class="modal fade" id="EditAttestationsModal{{ $listecollective->id }}" tabindex="-1"
+            role="dialog" aria-labelledby="EditAttestationsModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" action="{{ route('individuelles.updateAttestationsCol') }}"
+                        enctype="multipart/form-data" class="row g-3">
+                        @csrf
+                        @method('patch')
+                        <div class="card-header text-center bg-gradient-default">
+                            <h4 class="h4 text-black mb-0">
+                                {{ 'RETRAIT ' . strtoupper($formation?->type_certification) }}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                <input type="hidden" name="id" value="{{ $listecollective->id }}">
+                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="row g-3">
+                                        <div class="row g-3">
+                                            <div>
+                                                {{ 'Bénéficiaire : ' . $listecollective->civilite . ' ' . $listecollective->prenom . ' ' . $listecollective->nom }}
+                                            </div>
+                                            <hr>
+                                            <label for="retrait" class="form-label">Qui va retirer le diplôme
+                                                ?<span class="text-danger mx-1">*</span></label>
+                                            <div class="col-6 col-md-6 col-lg-6 col-sm-6 col-xs-6 col-xxl-6">
+                                                <label class="form-check-label" for="moi">
+                                                    Le propriétaire
+                                                </label>
+                                                <input type="radio" name="personne" value="moi"
+                                                    class="form-check-input @error('moi') is-invalid @enderror">
+                                                @error('moi')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="col-6 col-md-6 col-lg-6 col-sm-6 col-xs-6 col-xxl-6">
+                                                <label class="form-check-label" for="autre">
+                                                    Une autre personne
+                                                </label>
+                                                <input type="radio" name="personne" value="autre"
+                                                    class="form-check-input @error('autre') is-invalid @enderror">
+                                                @error('autre')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 pt-3">
+                                        <label for="date_retrait" class="form-label">Date retrait<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <input type="date" name="date_retrait"
+                                            value="{{ date('Y-m-d') ?? old('date_retrait') }}"
+                                            class="datepicker form-control form-control-sm @error('date_retrait') is-invalid @enderror"
+                                            id="date_retrait" placeholder="jj/mm/aaaa">
+                                        @error('date_retrait')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <br>
+                                    <label for="form-label">Si autre personne</label>
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <label for="cin" class="form-label">N° CIN</label>
+                                        <input minlength="13" maxlength="14" type="text" name="cin"
+                                            value="{{ old('cin') }}"
+                                            class="form-control form-control-sm @error('cin') is-invalid @enderror"
+                                            placeholder="Numéro carte d'identité nationale">
+                                        @error('cin')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" name="name" value="{{ old('name') }}"
+                                            class="form-control form-control-sm @error('name') is-invalid @enderror"
+                                            placeholder="Prénom et NOM">
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <label for="commentaires" class="form-label">Commentaires</label>
+                                        <input type="text" maxlength="150" name="commentaires"
+                                            value="{{ old('commentaires') }}"
+                                            class="form-control form-control-sm @error('commentaires') is-invalid @enderror"
+                                            placeholder="Un petit commentaire...">
+                                        @error('commentaires')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        data-bs-dismiss="modal">Fermer</button>
+                                    <button type="submit" class="btn btn-primary btn-sm">Valider</button>
+                                </div>
+                            </div>
+                    </form>
                 </div>
             </div>
         </div>
