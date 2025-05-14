@@ -1248,13 +1248,25 @@ class FormationController extends Controller
             ->where('statut', 'agréer')
             ->get(); */
 
-        $keywords = explode(' ', $modulename); // ['Teinture', 'Batik']
+        /*   $keywords = explode(' ', $modulename); // ['Teinture', 'Batik']
 
         $query = Operateurmodule::where('statut', 'agréer');
 
         foreach ($keywords as $word) {
             $query->where('module', 'like', '%' . $word . '%');
         }
+
+        $operateurmodules = $query->get(); */
+
+        $keywords = explode(' ', $modulename);
+
+        $query = Operateurmodule::where('statut', 'agréer');
+
+        $query->where(function ($q) use ($keywords) {
+            foreach ($keywords as $word) {
+                $q->orWhere('module', 'like', '%' . $word . '%');
+            }
+        });
 
         $operateurmodules = $query->get();
 
