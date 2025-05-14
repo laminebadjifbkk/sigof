@@ -778,7 +778,7 @@
                                         Structure :
                                         {{ $formation?->collectivemodule?->collective->name . ' (' . $formation?->collectivemodule?->collective->sigle . ')' }}
                                         <a class="btn btn-outline-info btn-sm" title="modifier module"
-                                            href="{{ route('collectives.show', $formation->collectivemodule?->collective->id) }}"
+                                            href="{{ route('collectives.show', $formation->collectivemodule?->collective) }}"
                                             target="_blank"><i class="bi bi-eye"></i></a>
                                     </h5>
                                     {{-- </div> --}}
@@ -794,7 +794,7 @@
                                                 <i class="bi bi-plus-circle fs-6"></i>
                                                 <span class="d-none d-sm-inline">Ajouter module</span>
                                             </a>
-                                      @endcan
+                                        @endcan
                                     </div>
                                     <div class="alert alert-info mt-5">Aucun module pour le moment !</div>
                                 @endif
@@ -2351,7 +2351,7 @@
     new DataTable('#table-operateurModule', {
         layout: {
             topStart: {
-                buttons: [ 'csv', 'excel', 'print'],
+                buttons: ['csv', 'excel', 'print'],
             }
         },
         "order": [
