@@ -1244,9 +1244,19 @@ class FormationController extends Controller
         $operateurs = Operateur::get();
 
         /* $operateurmodules = Operateurmodule::where('module', $modulename)->where('statut', 'agréer')->get(); */
-        $operateurmodules = Operateurmodule::where('module', 'like', '%' . $modulename . '%')
+        /* $operateurmodules = Operateurmodule::where('module', 'like', '%' . $modulename . '%')
             ->where('statut', 'agréer')
-            ->get();
+            ->get(); */
+
+        $keywords = explode(' ', $modulename); // ['Teinture', 'Batik']
+
+        $query = Operateurmodule::where('statut', 'agréer');
+
+        foreach ($keywords as $word) {
+            $query->where('module', 'like', '%' . $word . '%');
+        }
+
+        $operateurmodules = $query->get();
 
         $operateurFormation = DB::table('formations')
             ->where('operateurs_id', $formation->operateurs_id)
