@@ -913,7 +913,7 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <h1 class="card-title"> Liste des bénéficiaires :
                                                         {{ $count_demandes }}</h1>
-                                                    <h5 class="card-title">
+                                                    {{-- <h5 class="card-title">
                                                         @can('jury-formation')
                                                             Membres du jury
                                                             <button type="button" class="btn btn-outline-primary btn-sm"
@@ -922,7 +922,25 @@
                                                                 <i class="bi bi-plus" title="Ajouter les membres du jury"></i>
                                                             </button>
                                                         @endcan
+                                                    </h5> --}}
+                                                    <h5
+                                                        class="card-title d-flex align-items-center justify-content-between">
+                                                        @can('jury-formation')
+                                                            <span class="fw-bold text-dark">
+                                                                <i class="bi bi-people-fill me-2 text-primary fs-5"></i>
+                                                                Membres du jury&nbsp;&nbsp;
+                                                            </span>
+                                                            <button type="button"
+                                                                class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-1 shadow-sm"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#EditMembresJuryModal{{ $formation->id }}"
+                                                                title="Ajouter un membre du jury">
+                                                                <i class="bi bi-plus-circle fs-6"></i>
+                                                                <span class="d-none d-sm-inline">Ajouter</span>
+                                                            </button>
+                                                        @endcan
                                                     </h5>
+
                                                 </div>
                                                 <div class="row g-3">
                                                     <table class="table table-bordered table-hover datatables"
@@ -1022,10 +1040,19 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h1 class="card-title">Feuilles de présence</h1>
                                             <span class="d-flex align-items-baseline">
-                                                <button type="button" class="btn btn-outline-primary btn-sm"
+                                                {{-- <button type="button" class="btn btn-outline-primary btn-sm"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#ajouterJours{{ $formation->id }}">ajouter
+                                                </button> --}}
+                                                <button type="button"
+                                                    class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-1 shadow-sm"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#ajouterJours{{ $formation->id }}"
+                                                    title="Ajouter une feuille de présence">
+                                                    <i class="bi bi-clipboard-check fs-6"></i>
+                                                    <span class="d-none d-sm-inline">Ajouter</span>
                                                 </button>
+
                                                 <div class="filter">
                                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                             class="bi bi-three-dots"></i></a>
@@ -1175,7 +1202,7 @@
                                                 @method('PUT') --}}
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <h1 class="card-title">Retrait des attestations</h1>
-                                                <h5 class="card-title">
+                                                {{-- <h5 class="card-title">
                                                     @can('attestation-formation')
                                                         Informer
                                                         <button type="button" class="btn btn-outline-primary btn-sm"
@@ -1184,7 +1211,24 @@
                                                             <i class="bi bi-plus" title="Ajouter les membres du jury"></i>
                                                         </button>
                                                     @endcan
+                                                </h5> --}}
+                                                <h5 class="card-title d-flex align-items-center justify-content-between">
+                                                    @can('attestation-formation')
+                                                        <span class="fw-bold text-dark">
+                                                            <i class="bi bi-mortarboard-fill me-2 text-success fs-5"></i>
+                                                            Attestations&nbsp;&nbsp;
+                                                        </span>
+                                                        <button type="button"
+                                                            class="btn btn-sm btn-outline-warning rounded-pill d-flex align-items-center gap-1 shadow-sm"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#EditRemiseAttestationsModal{{ $formation->id }}"
+                                                            title="Informer les bénéficiaires">
+                                                            <i class="bi bi-plus-circle fs-6"></i>
+                                                            <span class="d-none d-sm-inline">Ajouter</span>
+                                                        </button>
+                                                    @endcan
                                                 </h5>
+
                                             </div>
                                             <div class="row g-3">
                                                 <table class="table table-bordered table-hover datatables"
