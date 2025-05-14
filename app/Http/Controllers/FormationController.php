@@ -1243,7 +1243,10 @@ class FormationController extends Controller
 
         $operateurs = Operateur::get();
 
-        $operateurmodules = Operateurmodule::where('module', $modulename)->where('statut', 'agréer')->get();
+        /* $operateurmodules = Operateurmodule::where('module', $modulename)->where('statut', 'agréer')->get(); */
+        $operateurmodules = Operateurmodule::where('module', 'like', '%' . $modulename . '%')
+            ->where('statut', 'agréer')
+            ->get();
 
         $operateurFormation = DB::table('formations')
             ->where('operateurs_id', $formation->operateurs_id)
