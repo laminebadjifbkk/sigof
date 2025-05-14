@@ -539,12 +539,26 @@ class IndividuelleController extends Controller
         }
 
 // Vérification des conditions de modification
-        if ($individuelle->projet && $individuelle->projet->statut !== 'ouvert') {
+        /* if ($individuelle->projet && $individuelle->projet->statut !== 'ouvert') {
             Alert::warning('Avertissement !', 'La modification a échoué.');
             return redirect()->back();
         } elseif ($individuelle->statut !== 'Nouvelle' && in_array('Demandeur', $roleNames)) {
             Alert::warning('Attention ! ', 'Action impossible, demande déjà traitée.');
             return redirect()->back();
+        } */
+
+        if (! empty(array_diff($roleNames, $restrictedRoles))) {
+            $this->authorize('update', $individuelle);
+            // Vérification des conditions de modification
+            if ($individuelle->projet && $individuelle->projet->statut !== 'ouvert') {
+                Alert::warning('Avertissement !', 'La modification a échoué.');
+                return redirect()->back();
+            } else
+            if ($individuelle->statut !== 'Nouvelle' && in_array('Demandeur', $roleNames)) {
+                Alert::warning('Attention ! ', 'Action impossible, demande déjà traitée.');
+                return redirect()->back();
+            }
+
         }
 
 // Retourner la vue si toutes les conditions sont remplies
