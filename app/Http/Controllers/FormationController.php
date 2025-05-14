@@ -1275,7 +1275,7 @@ class FormationController extends Controller
             ->pluck('operateurs_id', 'operateurs_id')
             ->all();
 
-        return view("formations..collectives.add-operateur-collective", compact('formation', 'operateurs', 'operateurmodules', 'collectivemodule', 'localite', 'operateurFormation'));
+        return view("formations.collectives.add-operateur-collective", compact('formation', 'operateurs', 'operateurmodules', 'collectivemodule', 'localite', 'operateurFormation'));
     }
 
     public function giveformationcollectiveoperateurs($idformation, $idcollectivemodule, $idlocalite, Request $request)

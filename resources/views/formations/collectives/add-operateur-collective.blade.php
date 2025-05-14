@@ -93,7 +93,7 @@
                                                             </td>
                                                             <td>
                                                                 <span class="d-flex align-items-baseline"><a
-                                                                        href="{{ route('operateurs.show', $operateurmodule?->operateur?->id) }}"
+                                                                        href="{{ route('operateurs.show', $operateurmodule?->operateur) }}" target="_blank"
                                                                         class="btn btn-primary btn-sm" title="voir détails"><i
                                                                             class="bi bi-eye"></i></a>
                                                                     <div class="filter">
@@ -102,18 +102,18 @@
                                                                                 class="bi bi-three-dots"></i></a>
                                                                         <ul
                                                                             class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                            <li>
+                                                                            {{-- <li>
                                                                                 <button type="button"
                                                                                     class="dropdown-item btn btn-sm mx-1"
                                                                                     data-bs-toggle="modal"
-                                                                                    data-bs-target="#EditOperateurModal{{ $operateurmodule?->operateur?->id }}">
+                                                                                    data-bs-target="#EditOperateurModal{{ $operateurmodule?->operateur }}">
                                                                                     <i class="bi bi-pencil" title="Modifier"></i>
                                                                                     Modifier
                                                                                 </button>
                                                                             </li>
-                                                                            {{-- <li>
+                                                                            <li>
                                                                                 <form
-                                                                                    action="{{ route('operateurs.destroy', $operateur->id) }}"
+                                                                                    action="{{ route('operateurs.destroy', $operateur) }}"
                                                                                     method="post">
                                                                                     @csrf
                                                                                     @method('DELETE')
