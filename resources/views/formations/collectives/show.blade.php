@@ -769,7 +769,7 @@
                                         Module : {{ $module_collective?->module }}
                                         @can('module-check')
                                             <a href="{{ url('formationcollectivemodules', ['$idformation' => $formation->id, '$idlocalite' => $formation->departement->region->id]) }}"
-                                                class="btn btn-outline-primary btn-sm">
+                                                class="btn btn-outline-primary btn-sm" target="_blank">
                                                 <i class="bi bi-pencil" title="Changer module"></i></a>
                                         @endcan
                                     </h5>
