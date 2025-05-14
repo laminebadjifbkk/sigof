@@ -544,6 +544,12 @@
                             </a>
                         </li>
                     @endcan
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ url('collectivemodules') }}">
+                            <span>Modules demandes collectives</span>
+                        </a>
+                    </li>
                     @hasrole('super-admin')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('modules.corbeille') }}">
