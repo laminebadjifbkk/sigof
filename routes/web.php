@@ -345,6 +345,7 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::post('lettreEvaluation', [FormationController::class, 'lettreEvaluation'])->name('lettreEvaluation');
         Route::post('abeEvaluation', [FormationController::class, 'abeEvaluation'])->name('abeEvaluation');
+        Route::post('abeEvaluationCol', [FormationController::class, 'abeEvaluationCol'])->name('abeEvaluationCol');
 
         Route::post('/addCourrierOperateur', [ArriveController::class, 'addCourrierOperateur'])->name('addCourrierOperateur');
 

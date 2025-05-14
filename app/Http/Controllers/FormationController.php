@@ -2883,7 +2883,7 @@ class FormationController extends Controller
             $options->setDefaultFont('Formation');
             $dompdf->setOptions($options);
 
-            $dompdf->loadHtml(view('formations.abe', compact(
+            $dompdf->loadHtml(view('formations.individuelles.abe', compact(
                 'formation',
                 'title',
                 'membres_jury',
@@ -2906,12 +2906,93 @@ class FormationController extends Controller
             // Render the HTML as PDF
             $dompdf->render();
 
-            /*  $anne = date('d');
-            $anne = $anne . ' ' . date('m');
-            $anne = $anne . ' ' . date('Y');
-            $anne = $anne . ' à ' . date('H') . 'h';
-            $anne = $anne . ' ' . date('i') . 'min';
-            $anne = $anne . ' ' . date('s') . 's'; */
+            $name = 'Attestation de bonne execution ' . $formation->name . ', code ' . $formation->code . '.pdf';
+
+            // Output the generated PDF to Browser
+            $dompdf->stream($name, ['Attachment' => false]);
+        } else {
+            Alert::warning('Désolé !', "La formation n'est pas encore terminée.");
+            return redirect()->back();
+        }
+    }
+
+    public function abeEvaluationCol(Request $request)
+    {
+
+        $formation = Formation::find($request->input('id'));
+
+        $admis = Listecollective::where('formations_id', $formation->id)
+            ->where('note_obtenue', '>=', '12')
+            ->get();
+
+        $recales = Listecollective::where('formations_id', $formation->id)
+            ->where('note_obtenue', '<', '12')
+            ->get();
+
+        $admis_h_count = Listecollective::where('formations_id', $formation->id)
+            ->where('.civilite', "M.")
+            ->where('note_obtenue', '>=', '12')
+            ->count();
+
+        $admis_f_count = Listecollective::where('formations_id', $formation->id)
+            ->where('civilite', "Mme")
+            ->where('note_obtenue', '>=', '12')
+            ->count();
+        
+        $formes_h_count = Listecollective::where('formations_id', $formation->id)
+            ->where('civilite', "M.")
+            ->count();
+
+        $formes_f_count = Listecollective::where('formations_id', $formation->id)
+            ->where('civilite', "Mme")
+            ->count();
+
+        $formes_total = $formes_h_count + $formes_f_count;
+
+        $retenus_h_count = Listecollective::where('formations_id', $formation->id)
+            ->where('civilite', "M.")
+            ->count();
+
+        $retenus_f_count = Listecollective::where('formations_id', $formation->id)
+            ->where('civilite', "Mme")
+            ->count();
+
+        $retenus_total = $retenus_h_count + $retenus_f_count;
+
+        if ($formation->statut == "Terminée") {
+
+            $title = 'Attestation de bonne execution ' . $formation->name;
+
+            $membres_jury  = explode(";", $formation->membres_jury);
+            $count_membres = count($membres_jury);
+
+            $dompdf  = new Dompdf();
+            $options = $dompdf->getOptions();
+            $options->setDefaultFont('Formation');
+            $dompdf->setOptions($options);
+
+            $dompdf->loadHtml(view('formations.collectives.abecollective', compact(
+                'formation',
+                'title',
+                'membres_jury',
+                'count_membres',
+                'admis',
+                'recales',
+                'admis_h_count',
+                'admis_f_count',
+                'formes_h_count',
+                'formes_f_count',
+                'formes_total',
+                'retenus_h_count',
+                'retenus_f_count',
+                'retenus_total',
+            )));
+
+            // (Optional) Setup the paper size and orientation (portrait ou landscape)
+            $dompdf->setPaper('A4', 'portrait');
+
+            // Render the HTML as PDF
+            $dompdf->render();
 
             $name = 'Attestation de bonne execution ' . $formation->name . ', code ' . $formation->code . '.pdf';
 

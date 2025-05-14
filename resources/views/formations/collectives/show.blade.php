@@ -470,7 +470,7 @@
                                                                     </form>
                                                                 @endcan
                                                                 @can('abe-formation')
-                                                                    <form action="{{ route('abeEvaluation') }}" method="post"
+                                                                    <form action="{{ route('abeEvaluationCol') }}" method="post"
                                                                         target="_blank">
                                                                         @csrf
                                                                         {{-- @method('PUT') --}}

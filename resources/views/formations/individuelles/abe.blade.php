@@ -165,12 +165,7 @@
                                 </p>
                                 <p style="text-align : justify;">
                                     <span><b>MODULE </b> :
-                                        @isset($formation?->module?->name)
                                             {{ $formation?->module?->name }}
-                                        @endisset
-                                        @isset($formation?->collectivemodule?->module)
-                                            {{ $formation?->collectivemodule?->module }}
-                                        @endisset
                                     </span>
                                     <br>
                                 </p>
