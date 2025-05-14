@@ -1319,7 +1319,7 @@
                                             </thead>
                                             <tbody>
                                                 <?php $i = 1; ?>
-                                                @foreach ($formation->listecollectives as $index => $listecollective)
+                                                @foreach ($formation->listecollectives as $listecollective)
                                                     <tr>
                                                         <td>{{ $i++ }}</td>
                                                         <td>{{ $listecollective?->civilite }}</td>
@@ -1353,7 +1353,7 @@
                                                                 <button type="button"
                                                                     class="btn btn-outline-primary btn-sm"
                                                                     data-bs-toggle="modal"
-                                                                    data-bs-target="#EditAttestationsModal{{ $listecollective->id }}_{{ $index }}">
+                                                                    data-bs-target="#EditAttestationsModal{{ $listecollective->id }}">
                                                                     <i class="bi bi-plus" title="Attestation"></i>
                                                                 </button>
                                                             @endcan
@@ -2138,10 +2138,11 @@
             </div>
         </div>
     @endforeach
+</section>
 
     {{-- Attestations --}}
-    @foreach ($formation->listecollectives as $index => $listecollective)
-        <div class="modal fade" id="EditAttestationsModal{{ $listecollective->id }}_{{ $index }}"
+    @foreach ($formation->listecollectives as $listecollective)
+        <div class="modal fade" id="EditAttestationsModal{{ $listecollective->id }}" tabindex="-1"
             role="dialog" aria-labelledby="EditAttestationsModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -2253,7 +2254,6 @@
             </div>
         </div>
     @endforeach
-</section>
 @endsection
 @push('scripts')
 <script>
