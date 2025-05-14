@@ -1319,7 +1319,7 @@
                                             </thead>
                                             <tbody>
                                                 <?php $i = 1; ?>
-                                                @foreach ($formation->listecollectives as $listecollective)
+                                                @foreach ($formation->listecollectives as $index => $listecollective)
                                                     <tr>
                                                         <td>{{ $i++ }}</td>
                                                         <td>{{ $listecollective?->civilite }}</td>
