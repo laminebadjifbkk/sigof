@@ -1353,7 +1353,7 @@
                                                                 <button type="button"
                                                                     class="btn btn-outline-primary btn-sm"
                                                                     data-bs-toggle="modal"
-                                                                    data-bs-target="#EditAttestationsModal{{ $listecollective->id }}">
+                                                                    data-bs-target="#EditAttestationsModal{{ $listecollective->id }}_{{ $index }}">
                                                                     <i class="bi bi-plus" title="Attestation"></i>
                                                                 </button>
                                                             @endcan
@@ -2140,24 +2140,15 @@
     @endforeach
 
     {{-- Attestations --}}
-    @foreach ($formation?->listecollectives as $listecollective)
-        <div class="modal fade" id="EditAttestationsModal{{ $listecollective->id }}" tabindex="-1"
-            role="dialog" aria-labelledby="EditAttestationsModalLabel{{ $listecollective->id }}"
-            aria-hidden="true">
+    @foreach ($formation->listecollectives as $index => $listecollective)
+        <div class="modal fade" id="EditAttestationsModal{{ $listecollective->id }}_{{ $index }}"
+            role="dialog" aria-labelledby="EditAttestationsModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form method="post" action="{{ route('individuelles.updateAttestationsCol') }}"
                         enctype="multipart/form-data" class="row g-3">
                         @csrf
                         @method('patch')
-                        {{-- <div class="modal-header" id="EditAttestationsModalLabel{{ $listecollective->id }}">
-                                <h5 class="modal-title">Retrait attestation de
-                                    {{ $listecollective?->civilite . ' ' . $listecollective?->prenom . ' ' . $listecollective?->nom }}
-                                </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div> --}}
-
                         <div class="card-header text-center bg-gradient-default">
                             <h4 class="h4 text-black mb-0">
                                 {{ 'RETRAIT ' . strtoupper($formation?->type_certification) }}</h4>
@@ -2262,91 +2253,6 @@
             </div>
         </div>
     @endforeach
-
-    {{-- @foreach ($emargementcollectives as $emargementcollective)
-        <div class="modal fade" id="EditEmargementModal{{ $emargementcollective->id }}" tabindex="-1"
-            role="dialog" aria-labelledby="EditEmargementModalLabel{{ $emargementcollective->id }}"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <form method="post"
-                        action="{{ route('emargementcollectives.update', $emargementcollective->id) }}"
-                        enctype="multipart/form-data" class="row g-3">
-                        @csrf
-                        @method('patch')
-                        <div class="card-header text-center bg-gradient-default">
-                            <h1 class="h4 text-black mb-0">Modification {{ $emargementcollective?->jour }}</h1>
-                        </div>
-                        <div class="modal-body">
-                            <input type="hidden" name="idformation" value="{{ $formation->id }}">
-                            <div class="row">
-                                <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
-                                    <div class="mb-3">
-                                        <label>Jour<span class="text-danger mx-1">*</span></label>
-                                        <input type="text" name="jour"
-                                            value="{{ $emargementcollective?->jour ?? old('jour') }}"
-                                            class="form-control form-control-sm @error('jour') is-invalid @enderror"
-                                            id="jour" placeholder="Nombre de jour">
-                                        @error('jour')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
-                                    <div class="mb-3">
-                                        <label>Date<span class="text-danger mx-1">*</span></label>
-                                        <input type="date" name="date"
-                                            value="{{ $emargementcollective?->date?->format('Y-m-d') ?? old('date') }}"
-                                            class="datepicker form-control form-control-sm @error('date') is-invalid @enderror"
-                                            id="date" placeholder="jj/mm/aaaa">
-                                        @error('date')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                    <div class="mb-3">
-                                        <label for="feuille" class="form-label">Joindre scan feuille de prsénce
-                                            {{ $emargementcollective?->jour }}</label>
-                                        <input type="file" name="feuille" id="feuille"
-                                            class="form-control @error('feuille') is-invalid @enderror btn btn-outline-secondary btn-sm">
-                                        @error('feuille')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                    <div class="mb-3">
-                                        <label>Observations</label>
-                                        <textarea name="observations" id="observations" cols="30" rows="3s"
-                                            class="form-control form-control-sm @error('observations') is-invalid @enderror" placeholder="observations"
-                                            autofocus>{{ $emargementcollective?->observations ?? old('observations') }}</textarea>
-                                        @error('observations')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm"
-                                data-bs-dismiss="modal">Fermer</button>
-                            <button type="submit" class="btn btn-primary btn-sm">
-                                Modifier</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    @endforeach --}}
 </section>
 @endsection
 @push('scripts')
