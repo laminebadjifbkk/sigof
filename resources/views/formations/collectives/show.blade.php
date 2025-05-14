@@ -1283,18 +1283,14 @@
                         <div class="tab-content pt-2">
                             <div class="tab-pane fade attestation-overview pt-1" id="retrait-attestation-overview">
                                 <div class="col-12 col-md-12 col-lg-12 mb-0">
-                                    {{-- <form method="post"
-                                                action="{{ url('notedemandeurs', ['$idformation' => $formation->id]) }}"
-                                                enctype="multipart/form-data" class="row g-3">
-                                                @csrf
-                                                @method('PUT') --}}
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h1 class="card-title">Retrait des attestations</h1>
                                         <h5 class="card-title">
                                             @can('attestation-formation')
                                                 Informer
                                                 <button type="button" class="btn btn-outline-primary btn-sm"
-                                                    data-bs-toggle="modal" data-bs-target="#EditRemiseAttestationsModal">
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#EditRemiseAttestationsModal{{ $formation->id }}">
                                                     <i class="bi bi-plus" title="Ajouter les membres du jury"></i>
                                                 </button>
                                             @endcan
@@ -1362,7 +1358,6 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
-                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -1372,25 +1367,15 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Remise attestation-->
-    <div class="modal fade" id="EditRemiseAttestationsModal" tabindex="-1">
-        <div class="modal-dialog modal-xl">
+    <div class="modal fade" id="EditRemiseAttestationsModal{{ $formation->id }}" tabindex="-1">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form method="post" action="{{ url('remiseAttestations', ['$idformation' => $formation->id]) }}"
                     enctype="multipart/form-data" class="row">
                     @csrf
                     @method('PUT')
-                    {{-- <div class="modal-header">
-                            <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i> Situation des attestations
-                            </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div> --}}
-
                     <div class="card-header text-center bg-gradient-default">
-                        <h1 class="h4 text-black mb-0">STATUT ATTESTATIONS</h1>
+                        <h1 class="h4 text-black mb-0">SATATUT ATTESTATIONS</h1>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="formationid" value="{{ $formation->id }}">
@@ -1430,43 +1415,6 @@
             </div>
         </div>
     </div>
-
-    <!-- End Edit Operateur-->
-    @foreach ($formation->individuelles as $individuelle)
-        <div class="modal fade" id="indiponibleModal{{ $individuelle->id }}" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form method="post" action="{{ url('indisponibles', ['$idformation' => $formation->id]) }}"
-                        enctype="multipart/form-data" class="row">
-                        @csrf
-                        @method('PUT')
-                        <div class="card-header text-center bg-gradient-default">
-                            <h1 class="h4 text-black mb-0">Retirer demandeur</h1>
-                        </div>
-                        <div class="modal-body">
-                            <input type="hidden" name="individuelleid" value="{{ $individuelle->id }}">
-                            <label for="motif" class="form-label">Justification du retrait</label>
-                            <textarea name="motif" id="motif" rows="5"
-                                class="form-control form-control-sm @error('motif') is-invalid @enderror"
-                                placeholder="Expliquer les raisons du retrait de ce bénéficiaire">{{ old('motif') }}</textarea>
-                            @error('motif')
-                                <span class="invalid-feedback" role="alert">
-                                    <div>{{ $message }}</div>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm"
-                                data-bs-dismiss="modal">Fermer</button>
-                            <button type="submit" class="btn btn-danger btn-sm"><i
-                                    class="bi bi-arrow-right-circle"></i>
-                                Retirer</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    @endforeach
     <div class="modal fade" id="RejetDemandeModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -1948,8 +1896,7 @@
                                     id="type_certificat" placeholder="Attestation ou Titre "> --}}
 
                                     <select name="titre" class="form-select  @error('titre') is-invalid @enderror"
-                                        aria-label="Select" id="select-field-titre"
-                                        data-placeholder="Choisir titre">
+                                        aria-label="Select" id="select-field-titre" data-placeholder="Choisir titre">
                                         <option>
                                             {{ $formation?->titre ?? ($formation?->referentiel?->titre ?? old('titre')) }}
                                         </option>
@@ -2138,11 +2085,11 @@
             </div>
         </div>
     @endforeach
-
     {{-- Attestations --}}
     @foreach ($formation->listecollectives as $listecollective)
         <div class="modal fade" id="EditAttestationsModal{{ $listecollective->id }}" tabindex="-1"
-            role="dialog" aria-labelledby="EditAttestationsModalLabel" aria-hidden="true">
+            role="dialog" aria-labelledby="EditAttestationsModalLabel{{ $listecollective->id }}"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form method="post" action="{{ route('individuelles.updateAttestationsCol') }}"
@@ -2151,103 +2098,107 @@
                         @method('patch')
                         <div class="card-header text-center bg-gradient-default">
                             <h4 class="h4 text-black mb-0">
-                                {{ 'RETRAIT ' . strtoupper($formation?->type_certification) }}</h4>
+                                {{ 'RETRAIT ' . strtoupper($formation?->type_certification) }}
+                            </h4>
                         </div>
                         <div class="modal-body">
-                            <div class="row g-3">
-                                <input type="hidden" name="id" value="{{ $listecollective->id }}">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                    <div class="row g-3">
-                                        <div class="row g-3">
-                                            <div>
-                                                {{ 'Bénéficiaire : ' . $listecollective->civilite . ' ' . $listecollective->prenom . ' ' . $listecollective->nom }}
-                                            </div>
-                                            <hr>
-                                            <label for="retrait" class="form-label">Qui va retirer le diplôme
-                                                ?<span class="text-danger mx-1">*</span></label>
-                                            <div class="col-6 col-md-6 col-lg-6 col-sm-6 col-xs-6 col-xxl-6">
-                                                <label class="form-check-label" for="moi">
-                                                    Le propriétaire
-                                                </label>
-                                                <input type="radio" name="personne" value="moi"
-                                                    class="form-check-input @error('moi') is-invalid @enderror">
-                                                @error('moi')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <div>{{ $message }}</div>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="col-6 col-md-6 col-lg-6 col-sm-6 col-xs-6 col-xxl-6">
-                                                <label class="form-check-label" for="autre">
-                                                    Une autre personne
-                                                </label>
-                                                <input type="radio" name="personne" value="autre"
-                                                    class="form-check-input @error('autre') is-invalid @enderror">
-                                                @error('autre')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <div>{{ $message }}</div>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 pt-3">
-                                        <label for="date_retrait" class="form-label">Date retrait<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input type="date" name="date_retrait"
-                                            value="{{ date('Y-m-d') ?? old('date_retrait') }}"
-                                            class="datepicker form-control form-control-sm @error('date_retrait') is-invalid @enderror"
-                                            id="date_retrait" placeholder="jj/mm/aaaa">
-                                        @error('date_retrait')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <br>
-                                    <label for="form-label">Si autre personne</label>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                        <label for="cin" class="form-label">N° CIN</label>
-                                        <input minlength="13" maxlength="14" type="text" name="cin"
-                                            value="{{ old('cin') }}"
-                                            class="form-control form-control-sm @error('cin') is-invalid @enderror"
-                                            placeholder="Numéro carte d'identité nationale">
-                                        @error('cin')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                        <label for="name" class="form-label">Name</label>
-                                        <input type="text" name="name" value="{{ old('name') }}"
-                                            class="form-control form-control-sm @error('name') is-invalid @enderror"
-                                            placeholder="Prénom et NOM">
-                                        @error('name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                        <label for="commentaires" class="form-label">Commentaires</label>
-                                        <input type="text" maxlength="150" name="commentaires"
-                                            value="{{ old('commentaires') }}"
-                                            class="form-control form-control-sm @error('commentaires') is-invalid @enderror"
-                                            placeholder="Un petit commentaire...">
-                                        @error('commentaires')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
+                            <input type="hidden" name="id" value="{{ $listecollective->id }}">
+
+                            <div class="mb-2">
+                                <strong>Bénéficiaire :</strong>
+                                {{ $listecollective->civilite . ' ' . $listecollective->prenom . ' ' . $listecollective->nom }}
+                            </div>
+
+                            <hr>
+
+                            <div class="mb-3">
+                                <label class="form-label">Qui va retirer le diplôme ?<span
+                                        class="text-danger mx-1">*</span></label>
+                                <div class="form-check">
+                                    <input class="form-check-input personne-radio" type="radio" name="personne"
+                                        id="personne_moi_{{ $listecollective->id }}" value="moi"
+                                        {{ old('personne') == 'moi' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="personne_moi_{{ $listecollective->id }}">
+                                        Le propriétaire
+                                    </label>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm"
-                                        data-bs-dismiss="modal">Fermer</button>
-                                    <button type="submit" class="btn btn-primary btn-sm">Valider</button>
+                                <div class="form-check">
+                                    <input class="form-check-input personne-radio" type="radio" name="personne"
+                                        id="personne_autre_{{ $listecollective->id }}" value="autre"
+                                        {{ old('personne') == 'autre' ? 'checked' : '' }}>
+                                    <label class="form-check-label"
+                                        for="personne_autre_{{ $listecollective->id }}">
+                                        Une autre personne
+                                    </label>
+                                </div>
+                                @error('personne')
+                                    <span class="invalid-feedback d-block" role="alert">
+                                        <div>{{ $message }}</div>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="date_retrait" class="form-label">Date de retrait <span
+                                        class="text-danger mx-1">*</span></label>
+                                <input type="date" name="date_retrait"
+                                    value="{{ old('date_retrait', date('Y-m-d')) }}"
+                                    class="form-control form-control-sm @error('date_retrait') is-invalid @enderror"
+                                    id="date_retrait_{{ $listecollective->id }}">
+                                @error('date_retrait')
+                                    <span class="invalid-feedback" role="alert">
+                                        <div>{{ $message }}</div>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div id="autre-personne-fields-{{ $listecollective->id }}"
+                                style="{{ old('personne') === 'autre' ? '' : 'display: none;' }}">
+                                <div class="mb-3">
+                                    <label for="cin" class="form-label">N° CIN</label>
+                                    <input type="text" name="cin" minlength="13" maxlength="14"
+                                        value="{{ old('cin') }}"
+                                        class="form-control form-control-sm @error('cin') is-invalid @enderror"
+                                        placeholder="Numéro carte d'identité nationale">
+                                    @error('cin')
+                                        <span class="invalid-feedback" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Nom du tiers</label>
+                                    <input type="text" name="name" value="{{ old('name') }}"
+                                        class="form-control form-control-sm @error('name') is-invalid @enderror"
+                                        placeholder="Prénom et NOM">
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
+
+                            <div class="mb-3">
+                                <label for="commentaires" class="form-label">Commentaires</label>
+                                <input type="text" name="commentaires" maxlength="150"
+                                    value="{{ old('commentaires') }}"
+                                    class="form-control form-control-sm @error('commentaires') is-invalid @enderror"
+                                    placeholder="Un petit commentaire...">
+                                @error('commentaires')
+                                    <span class="invalid-feedback" role="alert">
+                                        <div>{{ $message }}</div>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-sm"
+                                data-bs-dismiss="modal">Fermer</button>
+                            <button type="submit" class="btn btn-primary btn-sm">Valider</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -2257,6 +2208,25 @@
 @endsection
 @push('scripts')
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.personne-radio').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                const modalContent = radio.closest('.modal-content');
+                const id = modalContent.closest('.modal').id.replace('EditAttestationsModal',
+                    '');
+                const autreFields = modalContent.querySelector('#autre-personne-fields-' + id);
+
+                if (radio.value === 'autre') {
+                    autreFields.style.display = 'block';
+                } else {
+                    autreFields.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
+{{-- <script>
     new DataTable('#table-operateurModule', {
         layout: {
             topStart: {
@@ -2296,5 +2266,5 @@
             }
         }
     });
-</script>
+</script> --}}
 @endpush
