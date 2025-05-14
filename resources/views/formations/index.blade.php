@@ -186,9 +186,10 @@
                                 <thead>
                                     <tr>
                                         <th width='6%' class="text-center">Code</th>
+                                        <th width='6%' class="text-center">N° convention</th>
                                         {{-- <th width='15%'>Type formation</th> --}}
                                         {{--  <th width='15%'>Localité</th> --}}
-                                        <th width='15%'>Bénéficiaires</th>
+                                        <th width='25%'>Bénéficiaires</th>
                                         <th width='15%'>Modules</th>
                                         <th width='17%'>Niveau qualif.</th>
                                         <th width='5%' class="text-center">Statut</th>
@@ -198,7 +199,8 @@
                                 <tbody>
                                     @foreach ($formations as $formation)
                                         <tr>
-                                            <td style="text-align: center">{{ $formation->code }}</td>
+                                            <td style="text-align: center">{{ $formation?->code }}</td>
+                                            <td style="text-align: center">{{ $formation?->numero_convention }}</td>
                                             {{-- <td>{{ $formation->types_formation->name ?? 'Non spécifié' }}</td> --}}
                                             {{--  <td>{{ $formation->departement->region->nom ?? 'Non spécifié' }}</td> --}}
                                             <td>{{ $formation?->name ?? 'Non spécifié' }}</td>
