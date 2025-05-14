@@ -149,7 +149,6 @@ class CollectivemoduleController extends Controller
 
         if ($collectivemodule && $collectivemodule->listecollectives()->count() > 0) {
             Alert::warning('Attention', 'Ce module contient des membres et ne peut pas être supprimé.');
-            $collectivemodule->delete();
         } else {
             $collectivemodule->delete();
             Alert::success('Succès', 'Suppression effectuée avec succès');
