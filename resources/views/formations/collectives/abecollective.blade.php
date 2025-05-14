@@ -236,8 +236,7 @@
 
                                 <p>
                                     Je soussigné
-                                    <b>{{ $formation?->onfpevaluateur?->name . ', ' . $formation->onfpevaluateur?->fonction }}
-                                    </b>
+                                    <b>{{ $formation?->onfpevaluateur?->name . ', ' . $formation->onfpevaluateur?->fonction }}</b>
                                     certifie, au nom de
                                     l'ONFP, que l'opérateur a exécuté la formation conformément à la convention
                                     d'assistance sus mentionnée.

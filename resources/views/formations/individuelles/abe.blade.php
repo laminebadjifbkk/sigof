@@ -123,7 +123,7 @@
                 style="width: 100%; max-width: 300px" />
         </b>
     </h6> --}}
-    
+
     <h6 valign="top" style="text-align: center;">
         <b>REPUBLIQUE DU SENEGAL<br></b>
         Un Peuple - Un But - Une Foi<br>
@@ -165,7 +165,7 @@
                                 </p>
                                 <p style="text-align : justify;">
                                     <span><b>MODULE </b> :
-                                            {{ $formation?->module?->name }}
+                                        {{ $formation?->module?->name }}
                                     </span>
                                     <br>
                                 </p>
@@ -175,7 +175,7 @@
                                         @if (!empty($formation?->referentiel?->titre))
                                             {{ $formation?->referentiel?->titre . ', ' . $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
                                         @else
-                                        {{ $formation?->titre }}
+                                            {{ $formation?->titre }}
                                         @endif
                                     </span>
                                 </p>
@@ -235,7 +235,9 @@
                                 </p>
 
                                 <p>
-                                    Je soussigné <b>{{ $formation?->onfpevaluateur?->name . ', ' . $formation->onfpevaluateur?->fonction }}</b> certifie, au nom de
+                                    Je soussigné
+                                    <b>{{ $formation?->onfpevaluateur?->name . ', ' . $formation->onfpevaluateur?->fonction }}</b>
+                                    certifie, au nom de
                                     l'ONFP, que l'opérateur a exécuté la formation conformément à la convention
                                     d'assistance sus mentionnée.
                                 </p>
