@@ -551,7 +551,7 @@ class IndividuelleController extends Controller
             $this->authorize('update', $individuelle);
             // Vérification des conditions de modification
             if ($individuelle->projet && $individuelle->projet->statut !== 'ouvert') {
-                Alert::warning('Avertissement !', 'La modification a échoué.');
+                Alert::warning('Avertissement !', 'Action impossible, la modification a échoué.');
                 return redirect()->back();
             } else
             if ($individuelle->statut !== 'Nouvelle' && in_array('Demandeur', $roleNames)) {
