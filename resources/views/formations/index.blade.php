@@ -186,10 +186,11 @@
                                 <thead>
                                     <tr>
                                         <th width='6%' class="text-center">Code</th>
-                                        <th width='15%'>Type formation</th>
-                                        <th width='15%'>Localité</th>
+                                        {{-- <th width='15%'>Type formation</th> --}}
+                                        {{--  <th width='15%'>Localité</th> --}}
+                                        <th width='15%'>Bénéficiaires</th>
                                         <th width='15%'>Modules</th>
-                                        <th width='17%'>Niveau qualification</th>
+                                        <th width='17%'>Niveau qualif.</th>
                                         <th width='5%' class="text-center">Statut</th>
                                         <th width='5%'><i class="bi bi-gear"></i></th>
                                     </tr>
@@ -198,8 +199,9 @@
                                     @foreach ($formations as $formation)
                                         <tr>
                                             <td style="text-align: center">{{ $formation->code }}</td>
-                                            <td>{{ $formation->types_formation->name ?? 'Non spécifié' }}</td>
-                                            <td>{{ $formation->departement->region->nom ?? 'Non spécifié' }}</td>
+                                            {{-- <td>{{ $formation->types_formation->name ?? 'Non spécifié' }}</td> --}}
+                                            {{--  <td>{{ $formation->departement->region->nom ?? 'Non spécifié' }}</td> --}}
+                                            <td>{{ $formation?->name ?? 'Non spécifié' }}</td>
                                             <td>
                                                 <span
                                                     class="{{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}">
