@@ -467,8 +467,7 @@
                                                                     {{-- Infos de modification --}}
                                                                     <span class="text-muted small ms-2">
                                                                         Dernière modification le
-                                                                        {{ $file?->updated_at?->format('d/m/Y à H:i') }}
-                                                                        par <strong>{{ $file?->user?->name }}</strong>
+                                                                        {{ $file?->updated_at?->format('d/m/Y à H:i:s') }}
                                                                     </span>
                                                                 @endhasanyrole
                                                             </div>
