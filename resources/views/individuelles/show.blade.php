@@ -464,6 +464,12 @@
                                                                             </button>
                                                                         </form>
                                                                     @endif
+                                                                    {{-- Infos de modification --}}
+                                                                    <span class="text-muted small ms-2">
+                                                                        Dernière modification le
+                                                                        {{ $file?->updated_at?->format('d/m/Y à H:i') }}
+                                                                        par <strong>{{ $file?->user?->name }}</strong>
+                                                                    </span>
                                                                 @endhasanyrole
                                                             </div>
                                                             <a href="{{ asset($file->getFichier()) }}"
