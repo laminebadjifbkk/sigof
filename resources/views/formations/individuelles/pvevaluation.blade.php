@@ -184,21 +184,25 @@
                 </tr>
 
                 <tr class="heading">
-                    <td colspan="2"><b>{{ __('Code: ') }}</b> {{ $formation?->code }}
+                    <td colspan="2"><b>{{ __('Code formation : ') }}</b>
+                        {{ $formation?->code }}
                     </td>
-                    @if ($formation?->type_certification !== 'Titre')
-                        <td colspan="3"><b>{{ __('Niveau qualification: ') }}</b>
+                    <td colspan="3"><b>{{ __('Niveau de qualification : ') }}</b>
+                        @if ($formation?->type_certification !== 'Titre')
                             {{ $formation?->titre ?? $formation?->referentiel?->titre }}
-                        </td>
-                        <td colspan="6"><b>{{ __('Titre: ') }}</b> {{ $formation?->type_certification }}
-                        </td>
-                    @else
-                        <td colspan="3"><b>{{ __('Niveau qualification: ') }}</b>
-                            {{ $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
-                        </td>
-                        <td colspan="6"><b>{{ __('Titre: ') }}</b> {{ $formation?->referentiel?->titre }}
-                        </td>
-                    @endif
+                        @else
+                            @if (!empty($formation?->referentiel?->categorie))
+                                {{ $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
+                            @endif
+                        @endif
+                    </td>
+                    <td colspan="6"><b>{{ __('Titre : ') }}</b>
+                        @if ($formation?->type_certification !== 'Titre')
+                            {{ $formation?->type_certification }}
+                        @else
+                            {{ $formation?->referentiel?->titre }}
+                        @endif
+                    </td>
                 </tr>
                 <tr class="heading">
                     {{--  <td colspan="7">

@@ -146,7 +146,7 @@
         <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
             style="width: 100%; max-width: 300px" />
     </h6> --}}
-        <div style="text-align: center;">
+    <div style="text-align: center;">
         <b>REPUBLIQUE DU SENEGAL<br></b>
         Un Peuple - Un But - Une Foi<br>
         <b>********<br>
@@ -181,27 +181,30 @@
                     </td>
                     <td colspan="5"><b>{{ __('Opérateur : ') }}</b>
                         @if (!empty($formation?->operateur?->user?->operateur))
-                        {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}                            
+                            {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
                         @endif
                     </td>
                 </tr>
-               
                 <tr class="heading">
-                    <td colspan="2"><b>{{ __('Code: ') }}</b> {{ $formation?->code . '-C' }}
+                    <td colspan="2"><b>{{ __('Code formation : ') }}</b>
+                        {{ $formation?->code . '-C' }}
                     </td>
-                    @if ($formation?->type_certification !== 'Titre')
-                        <td colspan="3"><b>{{ __('Niveau qualification: ') }}</b>
+                    <td colspan="3"><b>{{ __('Niveau de qualification : ') }}</b>
+                        @if ($formation?->type_certification !== 'Titre')
                             {{ $formation?->titre ?? $formation?->referentiel?->titre }}
-                        </td>
-                        <td colspan="6"><b>{{ __('Titre: ') }}</b> {{ $formation?->type_certification }}
-                        </td>
-                    @else
-                        <td colspan="3"><b>{{ __('Niveau qualification: ') }}</b>
-                            {{ $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
-                        </td>
-                        <td colspan="6"><b>{{ __('Titre: ') }}</b> {{ $formation?->referentiel?->titre }}
-                        </td>
-                    @endif
+                        @else
+                            @if (!empty($formation?->referentiel?->categorie))
+                                {{ $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
+                            @endif
+                        @endif
+                    </td>
+                    <td colspan="5"><b>{{ __('Titre : ') }}</b>
+                        @if ($formation?->type_certification !== 'Titre')
+                            {{ $formation?->type_certification }}
+                        @else
+                            {{ $formation?->referentiel?->titre }}
+                        @endif
+                    </td>
                 </tr>
                 <tr class="heading">
                     {{--  <td colspan="7">
