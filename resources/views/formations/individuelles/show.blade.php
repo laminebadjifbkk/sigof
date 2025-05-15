@@ -1050,7 +1050,7 @@
                                                     data-bs-target="#ajouterJours{{ $formation->id }}"
                                                     title="Ajouter une feuille de présence">
                                                     <i class="bi bi-clipboard-check fs-6"></i>
-                                                    <span class="d-none d-sm-inline">Ajouter</span>
+                                                    <span class="d-none d-sm-inline">Emargement</span>
                                                 </button>
 
                                                 <div class="filter">

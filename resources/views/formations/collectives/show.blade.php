@@ -1159,10 +1159,10 @@
                                             <button type="button"
                                                 class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-1 shadow-sm"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#ajouterJours{{ $formation->id }}"
+                                                data-bs-target="#ajouterJoursCol{{ $formation->id }}"
                                                 title="Ajouter une feuille de présence">
                                                 <i class="bi bi-clipboard-check fs-6"></i>
-                                                <span class="d-none d-sm-inline">Ajouter</span>
+                                                <span class="d-none d-sm-inline">Emargement</span>
                                             </button>
 
                                             <div class="filter">
@@ -1650,19 +1650,6 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
-                                <div class="mb-3">
-                                    <label>Date<span class="text-danger mx-1">*</span></label>
-                                    <input type="date" name="date" value="{{ old('date') }}"
-                                        class="datepicker form-control form-control-sm @error('date') is-invalid @enderror"
-                                        id="date" placeholder="jj/mm/aaaa">
-                                    @error('date')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div> --}}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm"
