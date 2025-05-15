@@ -102,7 +102,7 @@
         <table class="table table-responsive">
             <thead>
                 <tr class="heading" style="text-align: center;">
-                    <td colspan="9"><b>{{ __('FEUILLE DE PRÉSENCE') }}</b>
+                    <td colspan="9"><b>{{ __('FEUILLE DE PRÉSENCE FINALE') }}</b>
                     </td>
                 </tr>
                 <tr class="heading">

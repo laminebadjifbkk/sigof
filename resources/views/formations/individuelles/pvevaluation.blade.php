@@ -145,8 +145,8 @@
     {{-- <h6 valign="top" style="text-align: center;">
         <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
             style="width: 100%; max-width: 300px" />
-    </h6> --}}    
-        <div style="text-align: center;">
+    </h6> --}}
+    <div style="text-align: center;">
         <b>REPUBLIQUE DU SENEGAL<br></b>
         Un Peuple - Un But - Une Foi<br>
         <b>********<br>
@@ -182,14 +182,23 @@
                         {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
                     </td>
                 </tr>
+
                 <tr class="heading">
                     <td colspan="2"><b>{{ __('Code: ') }}</b> {{ $formation?->code }}
                     </td>
-                    <td colspan="3"><b>{{ __('Niveau qualification: ') }}</b>
-                        {{ $formation?->type_certification }}
-                    </td>
-                    <td colspan="6"><b>{{ __('Titre: ') }}</b> {{ $formation?->titre ?? $formation?->referentiel?->titre }}
-                    </td>
+                    @if ($formation?->type_certification !== 'Titre')
+                        <td colspan="3"><b>{{ __('Niveau qualification: ') }}</b>
+                            {{ $formation?->titre ?? $formation?->referentiel?->titre }}
+                        </td>
+                        <td colspan="6"><b>{{ __('Titre: ') }}</b> {{ $formation?->type_certification }}
+                        </td>
+                    @else
+                        <td colspan="3"><b>{{ __('Niveau qualification: ') }}</b>
+                            {{ $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
+                        </td>
+                        <td colspan="6"><b>{{ __('Titre: ') }}</b> {{ $formation?->referentiel?->titre }}
+                        </td>
+                    @endif
                 </tr>
                 <tr class="heading">
                     {{--  <td colspan="7">

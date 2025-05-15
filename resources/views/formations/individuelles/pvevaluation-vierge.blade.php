@@ -145,8 +145,8 @@
     {{-- <h6 valign="top" style="text-align: center;">
         <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
             style="width: 100%; max-width: 300px" />
-    </h6> --}}    
-        <div style="text-align: center;">
+    </h6> --}}
+    <div style="text-align: center;">
         <b>REPUBLIQUE DU SENEGAL<br></b>
         Un Peuple - Un But - Une Foi<br>
         <b>********<br>
@@ -185,11 +185,19 @@
                 <tr class="heading">
                     <td colspan="2"><b>{{ __('Code: ') }}</b> {{ $formation?->code }}
                     </td>
-                    <td colspan="3"><b>{{ __('Niveau qualification : ') }}</b>
-                        {{ $formation?->type_certification }}
-                    </td>
-                    <td colspan="6"><b>{{ __('Titre: ') }}</b> {{ $formation?->titre ?? $formation?->referentiel?->titre }}
-                    </td>
+                    @if ($formation?->type_certification !== 'Titre')
+                        <td colspan="3"><b>{{ __('Niveau qualification: ') }}</b>
+                            {{ $formation?->titre ?? $formation?->referentiel?->titre }}
+                        </td>
+                        <td colspan="6"><b>{{ __('Titre: ') }}</b> {{ $formation?->type_certification }}
+                        </td>
+                    @else
+                        <td colspan="3"><b>{{ __('Niveau qualification: ') }}</b>
+                            {{ $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
+                        </td>
+                        <td colspan="6"><b>{{ __('Titre: ') }}</b> {{ $formation?->referentiel?->titre }}
+                        </td>
+                    @endif
                 </tr>
                 <tr class="heading">
                     {{--  <td colspan="7">
@@ -232,7 +240,7 @@
             </tbody>
         </table>
         <h4 valign="top">
-            <b><u>SIGNATURE DES MEMBRES DU JURY</u></b> 
+            <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>
             {{-- : @isset($formation?->date_pv)
                 <span
                     style="float: right; font-style: italic">{{ $formation?->departement?->nom . ', ' . $formation?->region?->nom . ', le ' . $formation?->date_pv?->format('d/m/Y') }}</span>

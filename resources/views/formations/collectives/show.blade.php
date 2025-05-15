@@ -1142,7 +1142,6 @@
                                         @endif
                                     </form>
                                 </div>
-
                             </div>
                         </div>
 
@@ -1334,7 +1333,7 @@
                                                     data-bs-target="#EditRemiseAttestationsModal{{ $formation->id }}"
                                                     title="Informer les bénéficiaires">
                                                     <i class="bi bi-plus-circle fs-6"></i>
-                                                    <span class="d-none d-sm-inline">Ajouter</span>
+                                                    <span class="d-none d-sm-inline">Statut</span>
                                                 </button>
                                             @endcan
                                         </h5>
@@ -1352,8 +1351,8 @@
                                                     <th>Lieu de naissance</th>
                                                     <th class="text-center">Note<span
                                                             class="text-danger mx-1">*</span></th>
-                                                    <th>Diplôme</th>
-                                                    <th class="col"><i class="bi bi-gear"></i></th>
+                                                    <th class="text-center">Diplôme</th>
+                                                    <th class="text-center"><i class="bi bi-gear"></i></th>
                                                 </tr>
                                             </thead>
                                             <tbody>

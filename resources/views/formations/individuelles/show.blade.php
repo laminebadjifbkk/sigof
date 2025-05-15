@@ -1224,7 +1224,7 @@
                                                             data-bs-target="#EditRemiseAttestationsModal{{ $formation->id }}"
                                                             title="Informer les bénéficiaires">
                                                             <i class="bi bi-plus-circle fs-6"></i>
-                                                            <span class="d-none d-sm-inline">Ajouter</span>
+                                                            <span class="d-none d-sm-inline">Statut</span>
                                                         </button>
                                                     @endcan
                                                 </h5>
