@@ -60,7 +60,7 @@
                                         <th>Date naissance</th>
                                         <th>Lieu naissance</th>
                                         <th>Telephone</th>
-                                        <th class="text-center">{{ $projetmodule->projet->type_localite }}</th>
+                                        <th>{{ $projetmodule->projet->type_localite }}</th>
                                         {{-- <th class="text-center">Statut</th> --}}
                                         <th class="text-center">#</th>
                                     </tr>
