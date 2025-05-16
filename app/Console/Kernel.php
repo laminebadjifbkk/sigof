@@ -23,6 +23,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('email:notify-end-agreements')->dailyAt('08:00');
         $schedule->command('email:send-training-reminders')->dailyAt('11:10');
         $schedule->command('projets:fermer-modules')->dailyAt('17:00');
+        $schedule->command('individuelles:mark-non-conformes')->dailyAt('01:00'); // Exécute chaque jour à 01h du matin
         foreach ([1, 2, 3, 4, 5] as $day) {
             $schedule->command('groupes:verifier-vingt')->weeklyOn($day, '08:00'); // Lundi à Vendredi à 8h
         }

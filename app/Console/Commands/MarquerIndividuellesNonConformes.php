@@ -36,7 +36,7 @@ class MarquerIndividuellesNonConformes extends Command
                 // Si TOUS les fichiers ont `file === null` → OK
                 return $files->every(fn($file) => $file->file === null);
             });
-            
+
         $count = 0;
 
         foreach ($individuelles as $individuelle) {
@@ -44,11 +44,11 @@ class MarquerIndividuellesNonConformes extends Command
             $individuelle->canceled_by = 'Systeme';
             $individuelle->save();
 
-            Validationindividuelle::create([
-                'validated_id'     => $individuelle->id,
+            $validationindividuelle = Validationindividuelle::create([
+                'validated_id'     => $individuelle?->user?->id,
                 'action'           => 'Non conforme',
                 'motif'            => 'Dossier incomplet',
-                'individuelles_id' => $individuelle->id,
+                'individuelles_id' => $individuelle?->id,
             ]);
 
             $count++;
