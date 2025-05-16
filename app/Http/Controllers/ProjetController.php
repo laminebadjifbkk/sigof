@@ -434,11 +434,12 @@ class ProjetController extends Controller
     {
 
         $projetmodule = Projetmodule::findOrFail($projetmoduleid);
-        $projet = $projetmodule->projet;
+        $projet       = $projetmodule->projet;
 
-        $individuelles = Individuelle::whereHas('module', function ($query) use ($module) {
-            $query->where('name', $module);
-        })
+        $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->whereHas('module', function ($query) use ($module) {
+                $query->where('name', $module);
+            })
             ->when($statut !== 'Aucun statut', function ($query) use ($statut) {
                 $query->where('statut', $statut);
             }, function ($query) {
