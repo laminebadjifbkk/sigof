@@ -162,7 +162,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <a href="{{ route('projets.show', $projet) }}" target="_blank"
+                                                        <a href="{{ route('projets.show', $projet) }}"
                                                             class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
                                                             style="font-size: 0.85rem; gap: 6px;">
                                                             Voir plus <i class="bi bi-arrow-right-short"></i>
@@ -192,7 +192,7 @@
                                                                     <span class="text-muted small">demandeurs</span>
                                                                 </div>
                                                             </div>
-                                                            <a href="{{ route('projets.parStatut', ['statut' => $statut, 'projetid' => $projet->id]) }}"
+                                                            <a href="{{ route('projets.parStatut', ['statut' => $statut, 'projetid' => $projet->id]) }}" target="_blank"
                                                                 class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
                                                                 style="font-size: 0.85rem; gap: 6px;">
                                                                 Voir plus <i class="bi bi-arrow-right-short"></i>
