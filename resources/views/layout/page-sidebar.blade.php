@@ -367,6 +367,11 @@
                             </a>
                         </li>
                     @endcan
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ url('lettrevaluations') }}">
+                            <span>Lettre évaluation</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
         @endcan

@@ -38,6 +38,7 @@ use App\Http\Controllers\IndemniteController;
 use App\Http\Controllers\IndividuelleController;
 use App\Http\Controllers\IngenieurController;
 use App\Http\Controllers\InterneController;
+use App\Http\Controllers\LettrevaluationController;
 use App\Http\Controllers\ListecollectiveController;
 use App\Http\Controllers\LocaliteController;
 use App\Http\Controllers\LoiController;
@@ -113,7 +114,7 @@ Route::group(['middleware' => ['XSS']], function () {
 });
 Route::group(['middleware' => ['XSS']], function () {
     /* Route::group(['middleware' => ['auth', 'verified']], function () { */
-        Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['auth']], function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
         Route::patch('/profiles/{id}', [ProfileOperateurController::class, 'update'])->name('profile.updated');
@@ -466,6 +467,9 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('backup', [UserController::class, 'backup'])->name('backup');
 
+        Route::get('/operateurs/statut/{module}/{statut}/{projetmoduleid}', [ProjetController::class, 'filtrerParStatut'])
+            ->name('operateurs.parStatut');
+
         /* Route::get('demandesdg', [IndividuelleController::class, 'demandesdg'])->name('demandesdg');
         Route::get('demandesth', [IndividuelleController::class, 'demandesth'])->name('demandesth');
         Route::get('demandeszig', [IndividuelleController::class, 'demandeszig'])->name('demandeszig');
@@ -576,6 +580,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('/feuillepresences', FeuillepresenceController::class);
         Route::resource('/feuillepresencecollectives', FeuillepresencecollectiveController::class);
         Route::resource('/commissionmembres', CommissionmembreController::class);
+        Route::resource('/lettrevaluations', LettrevaluationController::class);
 
         Route::middleware('admin')->group(function () {
             Route::get('/manuels', [BookController::class, 'index'])->name('manuels.index');

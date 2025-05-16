@@ -170,9 +170,17 @@ class ProjetmoduleController extends Controller
             ->where('projets_id', $projet->id)
             ->get();
 
+        // Récupérer les différents statuts
+        $statuts = $individuelles->pluck('statut')->unique();
+
+        // Regrouper par statut (y compris les null)
+        $groupes = $individuelles->groupBy(function ($item) {
+            return $item->statut ?? 'Aucun statut';
+        });
+
         return view('projets.module-individuelle', array_merge(
             $localiteData,
-            compact('individuelles', 'projet', 'projetmodule')
+            compact('individuelles', 'projet', 'projetmodule', 'statuts', 'groupes')
         ));
     }
 

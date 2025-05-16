@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', $projet?->sigle . ', liste des demandeurs ')
+@section('title', $projetmodule?->projet?->sigle . ', liste des demandes ' . $statut)
 @section('space-work')
     <div class="pagetitle">
         {{-- <h1>Data Tables</h1> --}}
@@ -7,67 +7,10 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Accueil</a></li>
                 <li class="breadcrumb-item">Tables</li>
-                <li class="breadcrumb-item active">{{ $projet?->sigle }}</li>
+                <li class="breadcrumb-item active">{{ $projetmodule?->projet?->sigle }}</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
-
-    <section class="section dashboard">
-        <div class="row">
-            <!-- Left side columns -->
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                <div class="row">
-
-                    <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
-                        <div class="card info-card revenue-card">
-                            <a href="{{ route('operateurs.index') }}">
-                                <div class="card-body">
-                                    <h5 class="card-title"><span>{{ $projetmodule?->module }}</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                {{ count($individuelles) }}
-                                            </h6>
-                                            <span class="text-muted small pt-2 ps-1"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Sales Card -->
-                    @foreach ($groupes as $statut => $items)
-                        <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
-                            <div class="card info-card sales-card">
-                                <a
-                                    href="{{ route('operateurs.parStatut', ['module' => $projetmodule->module, 'statut' => $statut, 'projetmoduleid' => $projetmodule->id]) }}">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><span>{{ $statut }}</span></h5>
-                                        <div class="d-flex align-items-center">
-                                            <div
-                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                <i class="bi bi-people"></i>
-                                            </div>
-                                            <div class="ps-3">
-                                                <h6>
-                                                    {{ $items->count() }}
-                                                </h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section class="section">
         <div class="row">
@@ -96,14 +39,16 @@
                 <div class="card">
                     <div class="card-body">
                         <span class="d-flex mt-2 align-items-baseline"><a
-                                href="{{ route('projets.show', $projetmodule->projet) }}" class="btn btn-info btn-sm"
+                                href="{{ route('projetmodules.show', $projetmodule) }}" class="btn btn-info btn-sm"
                                 title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                             <p> | Retour</p>
                         </span>
                         <h4 class="card-title">
-                            Liste des demandeurs
-                            {{-- pour le module : <strong>{{ $projetmodule?->module }}</strong>
-                            <span class="badge bg-success text-white">{{ $individuelles->count() }}</span> --}}
+                            <div
+                                class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
+                                <span>{{ $module }}</span>
+                                <span class="{{ $statut }} text-white">{{ $statut }}</span>
+                            </div>
                         </h4>
                         @if (!empty($individuelles) && $individuelles->isNotEmpty())
                             <table class="table datatables align-middle" id="table-individuelles">
@@ -115,14 +60,14 @@
                                         <th>Date naissance</th>
                                         <th>Lieu naissance</th>
                                         <th>Telephone</th>
-                                        <th class="text-center">{{ $projet->type_localite }}</th>
-                                        <th class="text-center">Statut</th>
+                                        <th class="text-center">{{ $projetmodule->projet->type_localite }}</th>
+                                        {{-- <th class="text-center">Statut</th> --}}
                                         <th class="text-center">#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $i = 1; ?>
-                                    @foreach ($individuelles as $individuelle)
+                                    @forelse($individuelles as $individuelle)
                                         <tr>
                                             <td style="text-align: center">{{ $individuelle?->numero }}</td>
                                             <td style="text-align: center">{{ $individuelle?->user?->cin }}</td>
@@ -134,13 +79,13 @@
                                                     href="tel:+221{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a>
                                             </td>
                                             <td>
-                                                {{ optional($individuelle->{$projet->type_localite})->nom }}
+                                                {{ optional($individuelle->{$projetmodule->projet->type_localite})->nom }}
                                             </td>
-                                            <td>
+                                            {{-- <td>
                                                 <span class="{{ $individuelle?->statut }}">
                                                     {{ $individuelle?->statut }}
                                                 </span>
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 <span class="d-flex align-items-baseline"><a
                                                         href="{{ route('individuelles.show', $individuelle) }}"

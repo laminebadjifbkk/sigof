@@ -429,4 +429,23 @@ class ProjetController extends Controller
 
         return redirect()->back();
     }
+
+    public function filtrerParStatut($module, $statut, $projetmoduleid)
+    {
+
+        $projetmodule = Projetmodule::findOrFail($projetmoduleid);
+        $projet = $projetmodule->projet;
+
+        $individuelles = Individuelle::whereHas('module', function ($query) use ($module) {
+            $query->where('name', $module);
+        })
+            ->when($statut !== 'Aucun statut', function ($query) use ($statut) {
+                $query->where('statut', $statut);
+            }, function ($query) {
+                $query->whereNull('statut');
+            })
+            ->get();
+
+        return view('projets.filtrage-statut', compact('individuelles', 'statut', 'module', 'projet', 'projetmodule'));
+    }
 }
