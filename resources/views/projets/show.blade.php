@@ -157,7 +157,7 @@
                                                             </div>
                                                             <div class="ps-2">
                                                                 <h6 class="mb-0" style="font-size: 0.9rem;">
-                                                                    {{ count($individuelles) }}</h6>
+                                                                    {{ number_format(count($individuelles), 0, '', ' ') }}</h6>
                                                                 <span class="text-muted small">demandeurs</span>
                                                             </div>
                                                         </div>
@@ -188,7 +188,7 @@
                                                                 </div>
                                                                 <div class="ps-2">
                                                                     <h6 class="mb-0" style="font-size: 0.9rem;">
-                                                                        {{ $items->count() }}</h6>
+                                                                        {{ number_format($items->count(), 0, '', ' ') }}</h6>
                                                                     <span class="text-muted small">demandeurs</span>
                                                                 </div>
                                                             </div>
