@@ -60,8 +60,9 @@
                                         <th>Date naissance</th>
                                         <th>Lieu naissance</th>
                                         <th>Telephone</th>
-                                        <th class="text-center">{{ $projet->type_localite }}</th>
+                                        <th>{{ $projet->type_localite }}</th>
                                         {{-- <th class="text-center">Statut</th> --}}
+                                        <th>Module</th>
                                         <th class="text-center">#</th>
                                     </tr>
                                 </thead>
@@ -81,6 +82,7 @@
                                             <td>
                                                 {{ optional($individuelle->{$projet->type_localite})->nom }}
                                             </td>
+                                            <td>{{ $individuelle?->module?->name }}</td>
                                             {{-- <td>
                                                 <span class="{{ $individuelle?->statut }}">
                                                     {{ $individuelle?->statut }}
