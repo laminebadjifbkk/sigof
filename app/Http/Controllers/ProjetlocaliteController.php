@@ -213,6 +213,7 @@ class ProjetlocaliteController extends Controller
         $projet        = $projetlocalite->projet;
         $type_localite = $projet?->type_localite;
 
+
         /* $individuelles = Individuelle::where('projets_id', $projet?->id)
             ->whereHas('module') // Vérifie que le module existe
             ->get(); */
@@ -237,6 +238,13 @@ class ProjetlocaliteController extends Controller
                 ->get();
         }
 
+        // Récupérer les différents statuts
+        $statuts = $individuelles->pluck('statut')->unique();
+
+        // Regrouper par statut (y compris les null)
+        $groupes = $individuelles->groupBy(function ($item) {
+            return $item->statut ?? 'Aucun statut';
+        });
         // Initialiser toutes les variables à null
         $region = $departement = $arrondissement = $commune = null;
 
@@ -259,6 +267,8 @@ class ProjetlocaliteController extends Controller
         return view('projetlocalites.individuelle', compact(
             'individuelles',
             'projet',
+            'statuts',
+            'groupes',
             'commune',
             'arrondissement',
             'departement',

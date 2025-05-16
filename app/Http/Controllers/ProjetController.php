@@ -6,6 +6,7 @@ use App\Models\Individuelle;
 use App\Models\Projet;
 use App\Models\Projetlocalite;
 use App\Models\Projetmodule;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -479,5 +480,29 @@ class ProjetController extends Controller
             ->get();
 
         return view('projets.filtrageprojet-statut', compact('individuelles', 'statut', 'projet'));
+    }
+
+    public function filtrerProjetLocaliteParStatut($statut, $projetlocaliteid, $typelocalite, $localite)
+    {
+
+        /* Alert::info('Info !', 'En cours de développement');
+
+        return redirect()->back(); */
+
+        $projetlocalite = Projetlocalite::findOrFail($projetlocaliteid);
+        $projet         = $projetlocalite->projet;
+
+        $region = Region::where('nom', $projetlocalite->localite)->first();
+
+        $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->where('regions_id', $region?->id) // sécurise si $region est null
+            ->when($statut !== 'Aucun statut', function ($query) use ($statut) {
+                $query->where('statut', $statut);
+            }, function ($query) {
+                $query->whereNull('statut');
+            })
+            ->get();
+
+        return view('projetlocalites.filtragelocalite-statut', compact('individuelles', 'statut', 'projetlocalite', 'region', 'typelocalite', 'localite', 'projet'));
     }
 }
