@@ -162,7 +162,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <a href="{{ route('projets.show', $projet) }}"
+                                                        <a href="{{ route('projets.show', $projet) }}" target="_blank"
                                                             class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
                                                             style="font-size: 0.85rem; gap: 6px;">
                                                             Voir plus <i class="bi bi-arrow-right-short"></i>
