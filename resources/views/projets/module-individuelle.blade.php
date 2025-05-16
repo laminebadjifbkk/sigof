@@ -20,7 +20,7 @@
 
                     <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
                         <div class="card info-card revenue-card">
-                            <a href="{{ route('operateurs.index') }}">
+                            <a href="{{ route('projetmodules.show', $projetmodule) }}">
                                 <div class="card-body">
                                     <h5 class="card-title"><span>{{ $projetmodule?->module }}</span></h5>
                                     <div class="d-flex align-items-center">
