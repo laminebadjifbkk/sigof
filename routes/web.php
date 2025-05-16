@@ -467,8 +467,11 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('backup', [UserController::class, 'backup'])->name('backup');
 
-        Route::get('/operateurs/statut/{module}/{statut}/{projetmoduleid}', [ProjetController::class, 'filtrerParStatut'])
-            ->name('operateurs.parStatut');
+        Route::get('/projetmodules/statut/{module}/{statut}/{projetmoduleid}', [ProjetController::class, 'filtrerParStatut'])
+            ->name('projetmodules.parStatut');
+
+        Route::get('/projets/statut/{statut}/{projetid}', [ProjetController::class, 'filtrerProjetParStatut'])
+            ->name('projets.parStatut');
 
         /* Route::get('demandesdg', [IndividuelleController::class, 'demandesdg'])->name('demandesdg');
         Route::get('demandesth', [IndividuelleController::class, 'demandesth'])->name('demandesth');

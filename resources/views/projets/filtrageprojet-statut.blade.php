@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', $projet?->sigle . ', liste des demandeurs ')
+@section('title', $projet?->sigle . ', liste des demandes ' . $statut)
 @section('space-work')
     <div class="pagetitle">
         {{-- <h1>Data Tables</h1> --}}
@@ -11,72 +11,6 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
-
-    <section class="section dashboard">
-        <div class="row">
-            <!-- Left side columns -->
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                <div class="row">
-                    <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
-                        <div class="card info-card revenue-card shadow-sm" style="max-width: 220px;">
-                            <div class="card-body p-2">
-                                <h5 class="card-title text-truncate mb-1" title="{{ $projetmodule?->module }}"
-                                    style="font-size: 1rem;">
-                                    {{ $projetmodule?->module }}
-                                </h5>
-                                <div class="d-flex align-items-center mb-2">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
-                                        style="width: 32px; height: 32px; font-size: 1.25rem;">
-                                        <i class="bi bi-people"></i>
-                                    </div>
-                                    <div class="ps-2">
-                                        <h6 class="mb-0" style="font-size: 0.9rem;">{{ count($individuelles) }}</h6>
-                                        <span class="text-muted small">demandeurs</span>
-                                    </div>
-                                </div>
-
-                                <a href="{{ route('projetmodules.show', $projetmodule) }}"
-                                    class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
-                                    style="font-size: 0.85rem; gap: 6px;">
-                                    Voir plus <i class="bi bi-arrow-right-short"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sales Card -->
-                    @foreach ($groupes as $statut => $items)
-                        <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
-                            <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
-                                <div class="card-body p-2">
-                                    <h5 class="card-title text-truncate mb-1" title="{{ $statut }}"
-                                        style="font-size: 1rem;">
-                                        {{ $statut }}
-                                    </h5>
-                                    <div class="d-flex align-items-center mb-2">
-                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
-                                            style="width: 32px; height: 32px; font-size: 1.25rem;">
-                                            <i class="bi bi-people"></i>
-                                        </div>
-                                        <div class="ps-2">
-                                            <h6 class="mb-0" style="font-size: 0.9rem;">{{ $items->count() }}</h6>
-                                            <span class="text-muted small">demandeurs</span>
-                                        </div>
-                                    </div>
-
-                                    <a href="{{ route('projetmodules.parStatut', ['module' => $projetmodule->module, 'statut' => $statut, 'projetmoduleid' => $projetmodule->id]) }}"
-                                        class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
-                                        style="font-size: 0.85rem; gap: 6px;">
-                                        Voir plus <i class="bi bi-arrow-right-short"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section class="section">
         <div class="row">
@@ -105,14 +39,16 @@
                 <div class="card">
                     <div class="card-body">
                         <span class="d-flex mt-2 align-items-baseline"><a
-                                href="{{ route('projets.show', $projetmodule->projet) }}" class="btn btn-info btn-sm"
+                                href="{{ route('projets.show', $projet) }}" class="btn btn-info btn-sm"
                                 title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                             <p> | Retour</p>
                         </span>
                         <h4 class="card-title">
-                            Liste des demandeurs
-                            {{-- pour le module : <strong>{{ $projetmodule?->module }}</strong>
-                            <span class="badge bg-success text-white">{{ $individuelles->count() }}</span> --}}
+                            <div
+                                class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
+                                <span>{{ $projet->sigle }}</span>
+                                <span class="{{ $statut }} text-white">{{ $statut }}</span>
+                            </div>
                         </h4>
                         @if (!empty($individuelles) && $individuelles->isNotEmpty())
                             <table class="table datatables align-middle" id="table-individuelles">
@@ -125,13 +61,13 @@
                                         <th>Lieu naissance</th>
                                         <th>Telephone</th>
                                         <th class="text-center">{{ $projet->type_localite }}</th>
-                                        <th class="text-center">Statut</th>
+                                        {{-- <th class="text-center">Statut</th> --}}
                                         <th class="text-center">#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $i = 1; ?>
-                                    @foreach ($individuelles as $individuelle)
+                                    @forelse($individuelles as $individuelle)
                                         <tr>
                                             <td style="text-align: center">{{ $individuelle?->numero }}</td>
                                             <td style="text-align: center">{{ $individuelle?->user?->cin }}</td>
@@ -145,11 +81,11 @@
                                             <td>
                                                 {{ optional($individuelle->{$projet->type_localite})->nom }}
                                             </td>
-                                            <td>
+                                            {{-- <td>
                                                 <span class="{{ $individuelle?->statut }}">
                                                     {{ $individuelle?->statut }}
                                                 </span>
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 <span class="d-flex align-items-baseline"><a
                                                         href="{{ route('individuelles.show', $individuelle) }}"

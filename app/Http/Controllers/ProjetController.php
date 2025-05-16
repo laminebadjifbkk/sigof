@@ -87,11 +87,26 @@ class ProjetController extends Controller
 
         $moduleLocalites = $projet->projetlocalites->pluck('lacalite', 'lacalite')->all();
 
+        // Récupérer les individuelles avec Eloquent et relations pour plus de clarté
+        $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->get();
+
+        // Récupérer les différents statuts
+        $statuts = $individuelles->pluck('statut')->unique();
+
+        // Regrouper par statut (y compris les null)
+        $groupes = $individuelles->groupBy(function ($item) {
+            return $item->statut ?? 'Aucun statut';
+        });
+
         return view(
             'projets.show',
             compact(
                 'projet',
                 'projetlocalites',
+                'individuelles',
+                'statuts',
+                'groupes',
                 'moduleLocalites'
             )
         );
@@ -448,5 +463,21 @@ class ProjetController extends Controller
             ->get();
 
         return view('projets.filtrage-statut', compact('individuelles', 'statut', 'module', 'projet', 'projetmodule'));
+    }
+
+    public function filtrerProjetParStatut($statut, $projetid)
+    {
+
+        $projet = Projet::findOrFail($projetid);
+
+        $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->when($statut !== 'Aucun statut', function ($query) use ($statut) {
+                $query->where('statut', $statut);
+            }, function ($query) {
+                $query->whereNull('statut');
+            })
+            ->get();
+
+        return view('projets.filtrageprojet-statut', compact('individuelles', 'statut', 'projet'));
     }
 }
