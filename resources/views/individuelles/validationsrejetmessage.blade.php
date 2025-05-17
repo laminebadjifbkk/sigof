@@ -32,6 +32,7 @@
                         {{ $validationindividuelle->user->firstname . ' ' . $validationindividuelle->user->name }}
                     @endif
                 </h4>
+                
             @endhasanyrole
             <p class="ms-auto mb-0">
                 <span class="{{ $validationindividuelle->action }}">{{ $validationindividuelle->action }}</span>
