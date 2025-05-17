@@ -23,7 +23,7 @@
         {{-- @if ($validationindividuelle->action == 'Rejetée') --}}
         <div class="d-flex align-items-center mt-3">
             @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
-                <h4>
+                {{-- <h4>
                     @if (
                         $validationindividuelle->created_at >= \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', '2025-05-16 22:40:00') &&
                             $validationindividuelle->created_at <= \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', '2025-05-16 22:50:00'))
@@ -31,8 +31,7 @@
                     @else
                         {{ $validationindividuelle->user->firstname . ' ' . $validationindividuelle->user->name }}
                     @endif
-                </h4>
-                
+                </h4> --}}
             @endhasanyrole
             <p class="ms-auto mb-0">
                 <span class="{{ $validationindividuelle->action }}">{{ $validationindividuelle->action }}</span>
