@@ -25,8 +25,8 @@
             @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
                 <h4>
                     @if (
-                        $validationindividuelle->created_at >= \Carbon\Carbon::createFromFormat('d/m/Y, H:i:s', '16/05/2025, 22:40:00') &&
-                            $validationindividuelle->created_at <= \Carbon\Carbon::createFromFormat('d/m/Y, H:i:s', '16/05/2025, 22:50:00'))
+                        $validationindividuelle->created_at >= \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', '2025-05-16 22:40:00') &&
+                            $validationindividuelle->created_at <= \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', '2025-05-16 22:50:00'))
                         Système
                     @else
                         {{ $validationindividuelle->user->firstname . ' ' . $validationindividuelle->user->name }}
