@@ -61,8 +61,15 @@
                                                                     <p><span
                                                                             class="{{ $validationindividuelle->action }}">{{ $validationindividuelle->action }}</span>
                                                                     </p>
-                                                                    <p>{{ $validationindividuelle->user->firstname }}
-                                                                        {{ $validationindividuelle->user->name }}</p>
+                                                                    <p>
+                                                                        @if (
+                                                                            $validationindividuelle->created_at >= \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', '2025-05-16 22:40:00') &&
+                                                                                $validationindividuelle->created_at <= \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', '2025-05-16 22:50:00'))
+                                                                            Système
+                                                                        @else
+                                                                            {{ $validationindividuelle->user->firstname . ' ' . $validationindividuelle->user->name }}
+                                                                        @endif
+                                                                    </p>
                                                                     <p>{!! $validationindividuelle->created_at->diffForHumans() !!}</p>
                                                                 </div>
                                                             </li>
