@@ -23,7 +23,15 @@
         {{-- @if ($validationindividuelle->action == 'Rejetée') --}}
         <div class="d-flex align-items-center mt-3">
             @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
-                <h4>{{ $validationindividuelle->user->firstname . ' ' . $validationindividuelle->user->name }}</h4>
+                <h4>
+                    @if (
+                        $validationindividuelle->created_at >= \Carbon\Carbon::createFromFormat('d/m/Y, H:i:s', '16/05/2025, 22:40:00') &&
+                            $validationindividuelle->created_at <= \Carbon\Carbon::createFromFormat('d/m/Y, H:i:s', '16/05/2025, 22:50:00'))
+                        Système
+                    @else
+                        {{ $validationindividuelle->user->firstname . ' ' . $validationindividuelle->user->name }}
+                    @endif
+                </h4>
             @endhasanyrole
             <p class="ms-auto mb-0">
                 <span class="{{ $validationindividuelle->action }}">{{ $validationindividuelle->action }}</span>
