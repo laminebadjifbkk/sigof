@@ -112,7 +112,7 @@
                                     <?php $i = 1; ?>
                                     @forelse($individuelles as $individuelle)
                                         <tr>
-                                            <td style="text-align: center">{{ $i++ }}</td>
+                                            <td style="text-align: center">{{ $individuelle?->numero }}</td>
                                             <td>{{ $individuelle?->user?->cin }}</td>
                                             <td>{{ $individuelle?->user?->civilite }}</td>
                                             <td>{{ $individuelle?->user?->firstname }}</td>
@@ -185,7 +185,7 @@
                 }
             },
             "order": [
-                [9, 'desc']
+                [8, 'desc']
             ],
             language: {
                 "sProcessing": "Traitement en cours...",
