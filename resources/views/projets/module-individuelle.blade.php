@@ -63,7 +63,6 @@
                                             <span class="text-muted small">demandeurs</span>
                                         </div>
                                     </div>
-
                                     <a href="{{ route('projetmodules.parStatut', ['module' => $projetmodule->module, 'statut' => $statut, 'projetmoduleid' => $projetmodule->id]) }}"
                                         class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
                                         style="font-size: 0.85rem; gap: 6px;">

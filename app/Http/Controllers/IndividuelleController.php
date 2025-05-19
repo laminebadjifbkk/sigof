@@ -1796,5 +1796,4 @@ class IndividuelleController extends Controller
         return redirect()->back();
 
     }
-
 }

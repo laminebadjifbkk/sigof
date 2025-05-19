@@ -47,7 +47,46 @@
                             <div
                                 class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
                                 <span>{{ $module }}</span>
-                                <span class="{{ $statut }} text-white">{{ $statut }}</span>
+                                <span class="d-flex align-items-baseline">
+                                    <span class="{{ $statut }} text-white">{{ $statut }}</span>
+                                    @can('valider-demande')
+                                        @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
+                                            @if ($statut == 'Conforme')
+                                                <div class="filter">
+                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                            class="bi bi-three-dots"></i></a>
+                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+
+                                                        <form action="{{ route('listeSelectionnes') }}" method="post"
+                                                            target="_blank">
+                                                            @csrf
+                                                            <input type="hidden" name="statut" value="{{ $statut }}">
+                                                            <input type="hidden" name="projetmoduleid"
+                                                                value="{{ $projetmodule->id }}">
+                                                            <button class="btn btn-sm mx-1">Liste sélectionnés</button>
+                                                        </form>
+                                                        <form action="{{ route('listeAttente') }}" method="post" target="_blank">
+                                                            @csrf
+                                                            <input type="hidden" name="statut" value="{{ $statut }}">
+                                                            <input type="hidden" name="projetmoduleid"
+                                                                value="{{ $projetmodule->id }}">
+                                                            <button class="btn btn-sm mx-1">Liste attente</button>
+                                                        </form>
+
+                                                        {{-- <li>
+                                                        <button class="btn btn-sm mx-1" data-bs-toggle="modal"
+                                                            data-bs-target="#RejetDemandeModal">Liste sélectionnés</button>
+                                                    </li> --}}
+                                                        {{-- <li>
+                                                        <button class="btn btn-sm mx-1" data-bs-toggle="modal"
+                                                            data-bs-target="#NoteDemandeModal">Liste attente</button>
+                                                    </li> --}}
+                                                    </ul>
+                                                </div>
+                                            @endif
+                                        @endhasanyrole
+                                    @endcan
+                                </span>
                             </div>
                         </h4>
                         @if (!empty($individuelles) && $individuelles->isNotEmpty())
@@ -55,6 +94,7 @@
                                 <thead>
                                     <tr>
                                         {{-- <th class="text-center">N°</th> --}}
+                                        <th>Rang</th>
                                         <th>CIN</th>
                                         <th>Civilite</th>
                                         <th>Prénom</th>
@@ -74,6 +114,7 @@
                                     @forelse($individuelles as $individuelle)
                                         <tr>
                                             {{-- <td style="text-align: center">{{ $individuelle?->numero }}</td> --}}
+                                            <td></td>
                                             <td>{{ $individuelle?->user?->cin }}</td>
                                             <td>{{ $individuelle?->user?->civilite }}</td>
                                             <td>{{ $individuelle?->user?->firstname }}</td>

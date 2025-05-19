@@ -836,7 +836,7 @@ class FormationController extends Controller
 
     public function destroy(Formation $formation)
     {
-        /* $formation = Formation::find($id); */
+        /* $formation = Formation::findOrFail($id); */
 
         if (! empty($formation->types_formation->name) && $formation->types_formation->name == "collective") {
             foreach ($formation->listecollectives as $liste) {
@@ -2097,7 +2097,7 @@ class FormationController extends Controller
     public function ficheSuivi(Request $request)
     {
 
-        $formation = Formation::find($request->input('id'));
+        $formation = Formation::findOrFail($request->input('id'));
 
         $title = 'Fiche de suivi de la formation en  ' . $formation->name;
 
@@ -2133,7 +2133,7 @@ class FormationController extends Controller
     public function feuillePresence(Request $request)
     {
 
-        $formation = Formation::find($request->input('id'));
+        $formation = Formation::findOrFail($request->input('id'));
 
         $title = 'Feuille de présence de la formation en  ' . $formation->name;
 
@@ -2169,7 +2169,7 @@ class FormationController extends Controller
     public function feuillePresenceCol(Request $request)
     {
 
-        $formation = Formation::find($request->input('id'));
+        $formation = Formation::findOrFail($request->input('id'));
 
         $title = 'Feuille de présence de la formation en  ' . $formation->name;
 
@@ -2205,7 +2205,7 @@ class FormationController extends Controller
     public function feuillePresenceJour(Request $request)
     {
 
-        $formation = Formation::find($request->input('idformation'));
+        $formation = Formation::findOrFail($request->input('idformation'));
         /* $module     = Module::findOrFail($request->input('idmodule'));
         $region     = Region::findOrFail($request->input('idlocalite')); */
         $emargement = Emargement::findOrFail($request->input('idemargement'));
@@ -2271,7 +2271,7 @@ class FormationController extends Controller
     public function feuillePresenceColJour(Request $request)
     {
 
-        $formation            = Formation::find($request->input('idformation'));
+        $formation            = Formation::findOrFail($request->input('idformation'));
         $emargementcollective = Emargementcollective::findOrFail($request->input('idemargement'));
 
         $feuillepresenceListecollective = DB::table('feuillepresencecollectives')
@@ -2308,7 +2308,7 @@ class FormationController extends Controller
     public function feuillePresenceTous(Request $request)
     {
 
-        $formation  = Formation::find($request->input('idformation'));
+        $formation  = Formation::findOrFail($request->input('idformation'));
         $emargement = Emargement::findOrFail($request->input('idemargement'));
 
         $feuillepresences = Feuillepresence::where('emargements_id', $request->idemargement)
@@ -2332,7 +2332,7 @@ class FormationController extends Controller
     public function feuillePresenceColTous(Request $request)
     {
 
-        $formation  = Formation::find($request->input('idformation'));
+        $formation  = Formation::findOrFail($request->input('idformation'));
         $emargement = Emargementcollective::findOrFail($request->input('idemargement'));
 
         $feuillepresences = Feuillepresencecollective::where('emargementcollectives_id', $request->idemargement)
@@ -2356,7 +2356,7 @@ class FormationController extends Controller
     public function feuillePresenceFinale(Request $request)
     {
 
-        $formation = Formation::find($request->input('idformation'));
+        $formation = Formation::findOrFail($request->input('idformation'));
         /* $module    = Module::findOrFail($request->input('idmodule'));
         $region    = Region::findOrFail($request->input('idlocalite')); */
 
@@ -2416,7 +2416,7 @@ class FormationController extends Controller
     public function feuillePresenceColFinale(Request $request)
     {
 
-        $formation = Formation::find($request->input('idformation'));
+        $formation = Formation::findOrFail($request->input('idformation'));
 
         $title = 'Feuille de présence de la formation en  ' . $formation->name;
 
@@ -2445,7 +2445,7 @@ class FormationController extends Controller
     public function etatTransport(Request $request)
     {
 
-        $formation = Formation::find($request->input('idformation'));
+        $formation = Formation::findOrFail($request->input('idformation'));
 
         $title = 'Etat transport de la formation en  ' . $formation->name;
 
@@ -2474,7 +2474,7 @@ class FormationController extends Controller
     public function etatTransportCol(Request $request)
     {
 
-        $formation = Formation::find($request->input('idformation'));
+        $formation = Formation::findOrFail($request->input('idformation'));
 
         $title = 'Etat transport de la formation en  ' . $formation->name;
 
@@ -2503,7 +2503,7 @@ class FormationController extends Controller
     public function pvEvaluation(Request $request)
     {
 
-        $formation = Formation::find($request->input('id'));
+        $formation = Formation::findOrFail($request->input('id'));
 
         if ($formation->statut == "Terminée") {
 
@@ -2550,7 +2550,7 @@ class FormationController extends Controller
     public function pvVierge(Request $request)
     {
 
-        $formation = Formation::find($request->input('id'));
+        $formation = Formation::findOrFail($request->input('id'));
 
         if ($formation->statut == "Terminée") {
 
@@ -2597,7 +2597,7 @@ class FormationController extends Controller
     public function ficheSuiviCol(Request $request)
     {
 
-        $formation = Formation::find($request->input('id'));
+        $formation = Formation::findOrFail($request->input('id'));
 
         $title = 'Fiche de suivi de la formation en  ' . $formation->name;
 
@@ -2626,7 +2626,7 @@ class FormationController extends Controller
     public function pvEvaluationCol(Request $request)
     {
 
-        $formation = Formation::find($request->input('id'));
+        $formation = Formation::findOrFail($request->input('id'));
 
         if ($formation->statut == "Terminée") {
 
@@ -2666,7 +2666,7 @@ class FormationController extends Controller
     public function pvViergeCol(Request $request)
     {
 
-        $formation = Formation::find($request->input('id'));
+        $formation = Formation::findOrFail($request->input('id'));
 
         $title = 'PV Evaluation de la formation en  ' . $formation->name;
 
@@ -2772,7 +2772,7 @@ class FormationController extends Controller
     public function lettreEvaluation(Request $request)
     {
 
-        $formation = Formation::find($request->input('id'));
+        $formation = Formation::findOrFail($request->input('id'));
 
         if ($formation->statut == "Terminée") {
 
@@ -2819,7 +2819,7 @@ class FormationController extends Controller
     public function abeEvaluation(Request $request)
     {
 
-        $formation = Formation::find($request->input('id'));
+        $formation = Formation::findOrFail($request->input('id'));
 
         $admis = Individuelle::where('formations_id', $formation->id)
             ->where('note_obtenue', '>=', '12')
@@ -2919,7 +2919,7 @@ class FormationController extends Controller
     public function abeEvaluationCol(Request $request)
     {
 
-        $formation = Formation::find($request->input('id'));
+        $formation = Formation::findOrFail($request->input('id'));
 
         $admis = Listecollective::where('formations_id', $formation->id)
             ->where('note_obtenue', '>=', '12')

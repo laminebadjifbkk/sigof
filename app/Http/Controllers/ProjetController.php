@@ -7,6 +7,7 @@ use App\Models\Projet;
 use App\Models\Projetlocalite;
 use App\Models\Projetmodule;
 use App\Models\Region;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -504,5 +505,131 @@ class ProjetController extends Controller
             ->get();
 
         return view('projetlocalites.filtragelocalite-statut', compact('individuelles', 'statut', 'projetlocalite', 'region', 'typelocalite', 'localite', 'projet'));
+    }
+
+    public function listeSelectionnes(Request $request)
+    {
+
+        /*  $statut        = $request->input('statut');
+        $projetmodule  = Projetmodule::findOrFail($request->input('projetmoduleid'));
+        $projet        = $projetmodule->projet;
+        $module        = $projetmodule->module;
+
+        $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->whereHas('module', function ($query) use ($module) {
+                $query->where('name', $module);
+            })
+            ->when($statut !== 'Aucun statut', function ($query) use ($statut) {
+                $query->where('statut', $statut);
+            }, function ($query) {
+                $query->whereNull('statut');
+            })
+            ->get(); */
+
+        $statut       = $request->input('statut');
+        $projetmodule = Projetmodule::findOrFail($request->input('projetmoduleid'));
+        $projet       = $projetmodule->projet;
+        $module       = $projetmodule->module;
+
+        $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->whereHas('module', function ($query) use ($module) {
+                $query->where('name', $module);
+            })
+            ->when($statut !== 'Aucun statut', function ($query) use ($statut) {
+                $query->where('statut', $statut);
+            }, function ($query) {
+                $query->whereNull('statut');
+            })
+            ->orderBy('note', 'desc') // 🔽 Classement par note décroissante
+            ->get();
+
+        $title = $projet->sigle . ',liste des candidats selectionnés pour la formation en ' . $projetmodule->module;
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('Formation');
+        $dompdf->setOptions($options);
+
+        $dompdf->loadHtml(view('projets.liste-selectionne', compact(
+            'projet',
+            'projetmodule',
+            'individuelles',
+            'title',
+        )));
+
+        // (Optional) Setup the paper size and orientation (portrait ou landscape)
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        $name = $projet->sigle . ',liste des candidats selectionnés pour la formation en  ' . $projetmodule->module . '.pdf';
+
+        // Output the generated PDF to Browser
+        $dompdf->stream($name, ['Attachment' => false]);
+
+    }
+
+    public function listeAttente(Request $request)
+    {
+
+        /*  $statut        = $request->input('statut');
+        $projetmodule  = Projetmodule::findOrFail($request->input('projetmoduleid'));
+        $projet        = $projetmodule->projet;
+        $module        = $projetmodule->module;
+
+        $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->whereHas('module', function ($query) use ($module) {
+                $query->where('name', $module);
+            })
+            ->when($statut !== 'Aucun statut', function ($query) use ($statut) {
+                $query->where('statut', $statut);
+            }, function ($query) {
+                $query->whereNull('statut');
+            })
+            ->get(); */
+
+        $statut       = $request->input('statut');
+        $projetmodule = Projetmodule::findOrFail($request->input('projetmoduleid'));
+        $projet       = $projetmodule->projet;
+        $module       = $projetmodule->module;
+
+        $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->whereHas('module', function ($query) use ($module) {
+                $query->where('name', $module);
+            })
+            ->when($statut !== 'Aucun statut', function ($query) use ($statut) {
+                $query->where('statut', $statut);
+            }, function ($query) {
+                $query->whereNull('statut');
+            })
+            ->orderBy('note', 'desc') // 🔽 Classement par note décroissante
+            ->get();
+
+        $title = $projet->sigle . ',liste des candidats selectionnés pour la formation en ' . $projetmodule->module;
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('Formation');
+        $dompdf->setOptions($options);
+
+        $dompdf->loadHtml(view('projets.liste-attente', compact(
+            'projet',
+            'projetmodule',
+            'individuelles',
+            'title',
+        )));
+
+        // (Optional) Setup the paper size and orientation (portrait ou landscape)
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        $name = $projet->sigle . ',liste des candidats selectionnés pour la formation en  ' . $projetmodule->module . '.pdf';
+
+        // Output the generated PDF to Browser
+        $dompdf->stream($name, ['Attachment' => false]);
+
     }
 }
