@@ -93,8 +93,7 @@
                             <table class="table datatables align-middle" id="table-individuelles">
                                 <thead>
                                     <tr>
-                                        {{-- <th class="text-center">N°</th> --}}
-                                        <th>Rang</th>
+                                        <th class="text-center">N°</th>
                                         <th>CIN</th>
                                         <th>Civilite</th>
                                         <th>Prénom</th>
@@ -113,8 +112,7 @@
                                     <?php $i = 1; ?>
                                     @forelse($individuelles as $individuelle)
                                         <tr>
-                                            {{-- <td style="text-align: center">{{ $individuelle?->numero }}</td> --}}
-                                            <td></td>
+                                            <td style="text-align: center">{{ $i++ }}</td>
                                             <td>{{ $individuelle?->user?->cin }}</td>
                                             <td>{{ $individuelle?->user?->civilite }}</td>
                                             <td>{{ $individuelle?->user?->firstname }}</td>
@@ -187,7 +185,7 @@
                 }
             },
             "order": [
-                [6, 'desc']
+                [9, 'desc']
             ],
             language: {
                 "sProcessing": "Traitement en cours...",
