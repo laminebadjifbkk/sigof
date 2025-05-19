@@ -56,7 +56,9 @@
                                     <tr>
                                         {{-- <th class="text-center">N°</th> --}}
                                         <th class="text-center">CIN</th>
-                                        <th>Prénom & NOM</th>
+                                        <th>Civilite</th>
+                                        <th>Prénom</th>
+                                        <th>Nom</th>
                                         <th>Date naissance</th>
                                         <th>Lieu naissance</th>
                                         <th>Telephone</th>
@@ -72,9 +74,10 @@
                                     @forelse($individuelles as $individuelle)
                                         <tr>
                                             {{-- <td style="text-align: center">{{ $individuelle?->numero }}</td> --}}
-                                            <td style="text-align: center">{{ $individuelle?->user?->cin }}</td>
-                                            <td>{{ $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
-                                            </td>
+                                            <td>{{ $individuelle?->user?->cin }}</td>
+                                            <td>{{ $individuelle?->user?->civilite }}</td>
+                                            <td>{{ $individuelle?->user?->firstname }}</td>
+                                            <td>{{ $individuelle?->user?->name }}</td>
                                             <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                             <td>{{ $individuelle?->user?->lieu_naissance }}</td>
                                             <td><a
