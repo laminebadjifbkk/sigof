@@ -177,14 +177,14 @@
                     <td class="item" style="text-align: center;" width="10%"><b>Téléphone</b></td>
                     <td class="item" style="text-align: center;"><b>Localité</b></td> --}}
                     <td class="item" style="text-align: center;"><b>Rang</b></td>
-                    <td class="item" style="text-align: center;"><b>CIN</b></td>
+                    <td class="item" style="text-align: center;" width="15%"><b>CIN</b></td>
                     <td class="item" style="text-align: center;"><b>Civilité</b></td>
                     <td class="item" style="text-align: center;"><b>Prénom</b></td>
                     <td class="item" style="text-align: center;"><b>NOM</b></td>
                     <td class="item" style="text-align: center;"><b>Date naissance</b></td>
                     <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
                     <td class="item" style="text-align: center;"><b>Email</b></td>
-                    <td class="item" style="text-align: center;"><b>Téléphone</b></td>
+                    <td class="item" style="text-align: center;" width="12%"><b>Téléphone</b></td>
                     <td class="item" style="text-align: center;"><b>Localité</b></td>
                 </tr>
             </thead>
