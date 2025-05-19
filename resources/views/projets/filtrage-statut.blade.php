@@ -55,7 +55,7 @@
                                 <thead>
                                     <tr>
                                         {{-- <th class="text-center">N°</th> --}}
-                                        <th class="text-center">CIN</th>
+                                        <th>CIN</th>
                                         <th>Civilite</th>
                                         <th>Prénom</th>
                                         <th>Nom</th>
