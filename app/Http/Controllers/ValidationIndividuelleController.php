@@ -168,7 +168,7 @@ class ValidationIndividuelleController extends Controller
         ]);
 
         $validation = Validationindividuelle::create([
-            'validated_id'     => '1',
+            'validated_id'     => Auth::user()->id,
             'action'           => $request->statut,
             'motif'            => $request->input('motif'),
             'individuelles_id' => $individuelle->id,

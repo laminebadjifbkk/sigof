@@ -1780,4 +1780,21 @@ class IndividuelleController extends Controller
 
         return redirect()->back();
     }
+
+    public function updateNote(Request $request, $id)
+    {
+        $request->validate([
+            'note' => 'required|string|max:4',
+        ]);
+
+        $individuelle       = Individuelle::findOrFail($id);
+        $individuelle->note = $request->note;
+        $individuelle->save();
+
+        Alert::success('Succès !', 'La note a été mise à jour avec succès.');
+
+        return redirect()->back();
+
+    }
+
 }

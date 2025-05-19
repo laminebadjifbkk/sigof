@@ -476,6 +476,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/projetlocalites/statut/{statut}/{projetlocaliteid}/{typelocalite}/{localite}', [ProjetController::class, 'filtrerProjetLocaliteParStatut'])
             ->name('projetlocalites.parStatut');
 
+            Route::put('/individuelles/{id}/note', [IndividuelleController::class, 'updateNote'])->name('individuelles.update-note');
+
+
         /* Route::get('demandesdg', [IndividuelleController::class, 'demandesdg'])->name('demandesdg');
         Route::get('demandesth', [IndividuelleController::class, 'demandesth'])->name('demandesth');
         Route::get('demandeszig', [IndividuelleController::class, 'demandeszig'])->name('demandeszig');

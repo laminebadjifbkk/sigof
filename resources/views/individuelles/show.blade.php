@@ -217,21 +217,22 @@
                                         @endif
                                     @endhasrole
                                     @can('valider-demande')
-                                        <div class="filter">
-                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                    class="bi bi-three-dots"></i></a>
-                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                {{-- <form action="{{ route('validationIndividuelles', $individuelle) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <input type="hidden" name="id" value="{{ $individuelle?->id }}">
-                                                    <button class="show_confirm_valider btn btn-sm mx-1">Accepter</button>
-                                                </form> --}}
-                                                <button class="btn btn-sm mx-1" data-bs-toggle="modal"
-                                                    data-bs-target="#RejetDemandeModal">Validation</button>
-                                            </ul>
-                                        </div>
+                                        @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
+                                            <div class="filter">
+                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                        class="bi bi-three-dots"></i></a>
+                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                    <li>
+                                                        <button class="btn btn-sm mx-1" data-bs-toggle="modal"
+                                                            data-bs-target="#RejetDemandeModal">Validation</button>
+                                                    </li>
+                                                    <li>
+                                                        <button class="btn btn-sm mx-1" data-bs-toggle="modal"
+                                                            data-bs-target="#NoteDemandeModal">Notation</button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        @endhasanyrole
                                     @endcan
                                 </span>
                             </div>
@@ -363,6 +364,30 @@
                                         <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                             <div class="label">{{ $individuelle->projet->type_projet }}</div>
                                             <div>{{ $individuelle->projet->sigle }}</div>
+                                        </div>
+                                    @endif
+                                    @if (!empty($individuelle?->note))
+                                        @php
+                                            $note = floatval($individuelle->note);
+                                            $noteClass = match (true) {
+                                                $note < 5 => 'text-danger fw-bold', // Rouge pour < 5
+                                                $note < 7 => 'text-warning fw-bold', // Orange pour 5-6.9
+                                                $note < 9 => 'text-primary fw-bold', // Bleu pour 7-8.9
+                                                default => 'text-success fw-bold', // Vert pour 9-10
+                                            };
+                                            $formattedNote =
+                                                fmod($note, 1) == 0.0
+                                                    ? number_format($note, 0, ',', ' ') // Pas de décimale si entier
+                                                    : number_format($note, 1, ',', ' '); // Une décimale sinon
+                                        @endphp
+
+                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                            <div class="label">Note étude dossier</div>
+                                            <div>
+                                                <span class="{{ $noteClass }}">
+                                                    {{ $formattedNote }}/10
+                                                </span>
+                                            </div>
                                         </div>
                                     @endif
 
@@ -569,6 +594,50 @@
                                 <button type="button" class="btn btn-outline-secondary btn-sm"
                                     data-bs-dismiss="modal">Annuler</button>
                                 <button type="submit" class="btn btn-outline-danger btn-sm">Soumettre</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="NoteDemandeModal" tabindex="-1" aria-labelledby="NoteDemandeLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content shadow-lg rounded-3">
+                        <form method="POST" action="{{ route('individuelles.update-note', $individuelle?->id) }}"
+                            enctype="multipart/form-data" class="row g-3 p-3">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="modal-header bg-light border-bottom-0">
+                                <h5 class="modal-title fw-bold text-primary" id="NoteDemandeLabel">Traitement de la
+                                    demande</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Fermer"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="note" class="form-label">Note <span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" name="note" id="note"
+                                        class="form-control form-control-sm @error('note') is-invalid @enderror"
+                                        placeholder="Attribuez une note entre 0 et 10" min="0" max="10"
+                                        step="0.1" value="{{ old('note', $individuelle?->note) }}">
+
+                                    @error('note')
+                                        <span class="invalid-feedback d-block" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                            <div class="modal-footer border-top-0">
+                                <button type="button" class="btn btn-outline-secondary btn-sm"
+                                    data-bs-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-outline-primary btn-sm">Enregistrer</button>
                             </div>
                         </form>
                     </div>
