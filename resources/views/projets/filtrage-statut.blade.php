@@ -54,14 +54,16 @@
                             <table class="table datatables align-middle" id="table-individuelles">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">N°</th>
+                                        {{-- <th class="text-center">N°</th> --}}
                                         <th class="text-center">CIN</th>
                                         <th>Prénom & NOM</th>
                                         <th>Date naissance</th>
                                         <th>Lieu naissance</th>
                                         <th>Telephone</th>
                                         <th>{{ $projetmodule->projet->type_localite }}</th>
-                                        {{-- <th class="text-center">Statut</th> --}}
+                                        @if ($statut == 'Conforme')
+                                            <th class="text-center">Note</th>
+                                        @endif
                                         <th class="text-center">#</th>
                                     </tr>
                                 </thead>
@@ -69,7 +71,7 @@
                                     <?php $i = 1; ?>
                                     @forelse($individuelles as $individuelle)
                                         <tr>
-                                            <td style="text-align: center">{{ $individuelle?->numero }}</td>
+                                            {{-- <td style="text-align: center">{{ $individuelle?->numero }}</td> --}}
                                             <td style="text-align: center">{{ $individuelle?->user?->cin }}</td>
                                             <td>{{ $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
                                             </td>
@@ -81,11 +83,11 @@
                                             <td>
                                                 {{ optional($individuelle->{$projetmodule->projet->type_localite})->nom }}
                                             </td>
-                                            {{-- <td>
-                                                <span class="{{ $individuelle?->statut }}">
-                                                    {{ $individuelle?->statut }}
-                                                </span>
-                                            </td> --}}
+                                            @if ($statut == 'Conforme')
+                                                <td>
+                                                    {{ $individuelle?->note }}
+                                                </td>
+                                            @endif
                                             <td>
                                                 <span class="d-flex align-items-baseline"><a
                                                         href="{{ route('individuelles.show', $individuelle) }}"
@@ -141,7 +143,7 @@
                 }
             },
             "order": [
-                [0, 'desc']
+                [6, 'desc']
             ],
             language: {
                 "sProcessing": "Traitement en cours...",
