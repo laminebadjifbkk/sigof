@@ -87,6 +87,7 @@
                 </tr>
 
                 <tr class="heading">
+                    <td class="item" style="text-align: center;"><b>N°</b></td>
                     <td class="item" style="text-align: center;"><b>Rang</b></td>
                     <td class="item" style="text-align: center;"><b>CIN</b></td>
                     <td class="item" style="text-align: center;"><b>Civilité</b></td>
@@ -100,6 +101,7 @@
             </thead>
             <tbody>
                 @php
+                    $i = 1;
                     $rang = 1;
                     $precedenteNote = null;
                     $compteur = 0;
@@ -134,6 +136,7 @@
                     @endphp
 
                     <tr class="item" style="text-align: center;">
+                        <td>{{ $i++ }}</td>
                         <td>
                             {{ $formatRangFr($rangAffiche) }}
                             @if ($compteur > 1)
