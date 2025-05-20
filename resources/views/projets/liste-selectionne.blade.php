@@ -106,25 +106,15 @@
                     $precedenteNote = null;
                     $compteur = 0;
                     $rangAffiche = 1;
-                    $rangLimiteDepasse = false;
-
-                    $formatRangFr = function ($rang) {
-                        return $rang === 1 ? '1er' : $rang . 'ème';
-                    };
+                    $formatRangFr = fn($rang) => $rang === 1 ? '1er' : $rang . 'ème';
                 @endphp
 
                 @foreach ($individuelles as $individuelle)
                     @php
                         $noteActuelle = $individuelle->note;
 
-                        // Nouveau rang si note différente
+                        // Nouveau rang si la note est différente
                         if ($noteActuelle !== $precedenteNote) {
-                            // On vérifie si on a dépassé le rang 25
-                            if ($rang > 25) {
-                                $rangLimiteDepasse = true;
-                                break;
-                            }
-
                             $rangAffiche = $rang;
                             $compteur = 1;
                         } else {
@@ -132,11 +122,17 @@
                         }
 
                         $precedenteNote = $noteActuelle;
+
+                        // Si on atteint 25 lignes affichées, on stoppe
+                        if ($i > 25) {
+                            break;
+                        }
+
                         $rang++;
                     @endphp
 
                     <tr class="item" style="text-align: center;">
-                        <td>{{ $i++ }}</td>
+                        <td>{{ $i }}</td>
                         <td>{{ $individuelle->user->cin }}</td>
                         <td>{{ $individuelle?->user?->civilite }}</td>
                         <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
@@ -152,9 +148,12 @@
                             @endif
                         </td>
                     </tr>
+
+                    @php
+                        $i++;
+                    @endphp
                 @endforeach
             </tbody>
-
         </table>
     </div>
 </body>
