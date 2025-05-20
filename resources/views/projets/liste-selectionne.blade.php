@@ -61,12 +61,12 @@
         }
 
         .first-table {
-            margin-top: 30px;
+            margin-top: 20px;
             /* ou padding-top si tu préfères */
         }
 
         .second-table {
-            margin-top: 30px;
+            margin-top: 20px;
             /* ou padding-top si tu préfères */
         }
     </style>
@@ -281,6 +281,16 @@
             </tbody>
         </table>
         <div class="page-break"></div>
+        <div style="text-align: center;">
+            <b>REPUBLIQUE DU SENEGAL<br></b>
+            Un Peuple - Un But - Une Foi<br>
+            <b>********<br>
+                MINISTERE DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE<br>
+                ********<br><br>
+                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
+                    style="width: 100%; max-width: 300px" />
+            </b>
+        </div>
         <table class="second-table table table-responsive">
             <thead>
                 <tr class="heading" style="text-align: center;">
