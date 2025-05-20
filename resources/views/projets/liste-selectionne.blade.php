@@ -88,7 +88,6 @@
 
                 <tr class="heading">
                     <td class="item" style="text-align: center;"><b>N°</b></td>
-                    <td class="item" style="text-align: center;"><b>Rang</b></td>
                     <td class="item" style="text-align: center;"><b>CIN</b></td>
                     <td class="item" style="text-align: center;"><b>Civilité</b></td>
                     <td class="item" style="text-align: center;"><b>Prénom</b></td>
@@ -97,6 +96,7 @@
                     <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
                     <td class="item" style="text-align: center;"><b>Téléphone</b></td>
                     <td class="item" style="text-align: center;"><b>Localité</b></td>
+                    <td class="item" style="text-align: center;"><b>Rang</b></td>
                 </tr>
             </thead>
             <tbody>
@@ -137,12 +137,6 @@
 
                     <tr class="item" style="text-align: center;">
                         <td>{{ $i++ }}</td>
-                        <td>
-                            {{ $formatRangFr($rangAffiche) }}
-                            @if ($compteur > 1)
-                                <sup>(exæquo)</sup>
-                            @endif
-                        </td>
                         <td>{{ $individuelle->user->cin }}</td>
                         <td>{{ $individuelle?->user?->civilite }}</td>
                         <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
@@ -151,6 +145,12 @@
                         <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
                         <td>{{ $individuelle?->user?->telephone }}</td>
                         <td>{{ $individuelle->departement->nom }}</td>
+                        <td>
+                            {{ $formatRangFr($rangAffiche) }}
+                            @if ($compteur > 1)
+                                <sup>(exæquo)</sup>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
