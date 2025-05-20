@@ -65,13 +65,13 @@
                                                                 value="{{ $projetmodule->id }}">
                                                             <button class="btn btn-sm mx-1">Liste sélectionnés</button>
                                                         </form>
-                                                        <form action="{{ route('listeAttente') }}" method="post" target="_blank">
+                                                        {{-- <form action="{{ route('listeAttente') }}" method="post" target="_blank">
                                                             @csrf
                                                             <input type="hidden" name="statut" value="{{ $statut }}">
                                                             <input type="hidden" name="projetmoduleid"
                                                                 value="{{ $projetmodule->id }}">
                                                             <button class="btn btn-sm mx-1">Liste attente</button>
-                                                        </form>
+                                                        </form> --}}
 
                                                         {{-- <li>
                                                         <button class="btn btn-sm mx-1" data-bs-toggle="modal"
