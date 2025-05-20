@@ -60,6 +60,11 @@
             /* adapte selon ton besoin */
         }
 
+        .first-table {
+            margin-top: 30px;
+            /* ou padding-top si tu préfères */
+        }
+
         .second-table {
             margin-top: 30px;
             /* ou padding-top si tu préfères */
@@ -75,7 +80,7 @@
 </head>
 
 <body>
-    <div style="text-align: center;">
+    <div class="first-table" style="text-align: center;">
         <b>REPUBLIQUE DU SENEGAL<br></b>
         Un Peuple - Un But - Une Foi<br>
         <b>********<br>
