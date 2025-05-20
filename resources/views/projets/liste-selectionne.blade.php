@@ -53,6 +53,17 @@
             text-align: center;
             line-height: 1.5cm;
         }
+
+        .page-break {
+            page-break-before: always;
+            margin-top: 50px;
+            /* adapte selon ton besoin */
+        }
+
+        .second-table {
+            margin-top: 30px;
+            /* ou padding-top si tu préfères */
+        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//db.onlinewebfonts.com/c/dd79278a2e4c4a2090b763931f2ada53?family=ArialW02-Regular" rel="stylesheet"
@@ -264,10 +275,11 @@
                 @endforeach
             </tbody>
         </table>
-        <table class="table table-responsive">
+        <div class="page-break"></div>
+        <table class="second-table table table-responsive">
             <thead>
                 <tr class="heading" style="text-align: center;">
-                    <td colspan="10"><b>{{ __('LISTE DES CANDIDATS SELECTIONNES') }}</b></td>
+                    <td colspan="10"><b>{{ __('LISTE DES CANDIDATS EN ATTENTE') }}</b></td>
                 </tr>
                 <tr class="heading">
                     <td colspan="6"><b>{{ $projet?->type_projet }}</b> : {{ $projet?->name }}
