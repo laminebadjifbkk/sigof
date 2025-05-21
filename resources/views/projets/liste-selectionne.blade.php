@@ -252,7 +252,7 @@
                     <td class="item" style="text-align: center;"><b>CIN</b></td>
                     <td class="item" style="text-align: center;" width="5%"><b>Civilité</b></td>
                     <td class="item" style="text-align: center;"><b>Prénom</b></td>
-                    <td class="item" style="text-align: center;"><b>NOM</b></td>
+                    <td class="item" style="text-align: center;" width="10%"><b>NOM</b></td>
                     <td class="item" style="text-align: center;" width="8%"><b>Date naissance</b></td>
                     <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
                     <td class="item" style="text-align: center;" width="7%"><b>Téléphone</b></td>
@@ -309,7 +309,7 @@
                     <td class="item" style="text-align: center;"><b>CIN</b></td>
                     <td class="item" style="text-align: center;" width="5%"><b>Civilité</b></td>
                     <td class="item" style="text-align: center;"><b>Prénom</b></td>
-                    <td class="item" style="text-align: center;"><b>NOM</b></td>
+                    <td class="item" style="text-align: center;" width="10%"><b>NOM</b></td>
                     <td class="item" style="text-align: center;" width="8%"><b>Date naissance</b></td>
                     <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
                     <td class="item" style="text-align: center;" width="7%"><b>Téléphone</b></td>
