@@ -65,10 +65,10 @@
                                 <tr>
                                     <th>Domaine</th>
                                     <th>Module</th>
-                                    <th>Niveau de qualification</th>
+                                    <th width="22%">Niveau de qualification</th>
                                     <th>Opérateur</th>
                                     <th>Statut</th>
-                                    <th><i class="bi bi-gear"></i></th>
+                                    <th width="5%"><i class="bi bi-gear"></i></th>
                                 </tr>
                             </thead>
                             <tbody>
