@@ -24,12 +24,12 @@ class OperateurmoduleController extends Controller
             ->get();
 
         $module_statuts = Operateurmodule::get()->unique('statut');
-        $operateurs     = Operateur::orderBy('created_at', 'desc')->get();
+        /* $operateurs     = Operateur::orderBy('created_at', 'desc')->get(); */
         return view(
             "operateurmodules.index",
             compact(
                 "operateurmodules",
-                "operateurs",
+                /* "operateurs", */
                 "module_statuts",
             )
         );
@@ -202,10 +202,11 @@ class OperateurmoduleController extends Controller
             }
         }
     }
-
+    
     public function rapports()
     {
-        $operateurmodules = Operateurmodule::latest()
+        $operateurmodules = Operateurmodule::take(50)
+            ->latest()
             ->get();
 
         $module_statuts = Operateurmodule::get()->unique('statut');
