@@ -589,6 +589,8 @@ class ProjetController extends Controller
             })
             ->get(); */
 
+        
+
         $statut       = $request->input('statut');
         $projetmodule = Projetmodule::findOrFail($request->input('projetmoduleid'));
         $projet       = $projetmodule->projet;
