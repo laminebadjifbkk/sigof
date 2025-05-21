@@ -294,17 +294,17 @@
         <table class="second-table table table-responsive">
             <thead>
                 <tr class="heading" style="text-align: center;">
-                    <td colspan="10"><b>{{ __('LISTE DES CANDIDATS EN ATTENTE') }}</b></td>
+                    <td colspan="9"><b>{{ __('LISTE DES CANDIDATS EN ATTENTE') }}</b></td>
                 </tr>
                 <tr class="heading">
-                    <td colspan="6"><b>{{ $projet?->type_projet }}</b> : {{ $projet?->name }}
+                    <td colspan="5"><b>{{ $projet?->type_projet }}</b> : {{ $projet?->name }}
                         ({{ $projet?->sigle }})
                     </td>
                     <td colspan="4"><b>{{ __('Module : ') }}</b> {{ $projetmodule->module }}</td>
                 </tr>
 
                 <tr class="heading">
-                    <td class="item" style="text-align: center;"><b>N°</b></td>
+                    <td class="item" style="text-align: center;" width="5%"><b>N°</b></td>
                     <td class="item" style="text-align: center;"><b>CIN</b></td>
                     <td class="item" style="text-align: center;"><b>Civilité</b></td>
                     <td class="item" style="text-align: center;"><b>Prénom</b></td>
@@ -313,7 +313,7 @@
                     <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
                     <td class="item" style="text-align: center;"><b>Téléphone</b></td>
                     <td class="item" style="text-align: center;"><b>Localité</b></td>
-                    <td class="item" style="text-align: center;"><b>Rang</b></td>
+                    {{-- <td class="item" style="text-align: center;"><b>Rang</b></td> --}}
                 </tr>
             </thead>
             <tbody>
