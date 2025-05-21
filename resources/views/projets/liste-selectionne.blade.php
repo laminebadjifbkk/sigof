@@ -273,7 +273,8 @@
                         <td>{{ $individuelle?->user?->telephone }}</td>
                         <td>{{ $individuelle->departement->nom }}</td>
                         <td>{{ $formatRangFr($individuelle->rang) }} @if ($individuelle->exaequo)
-                                <sup>(exæquo)</sup>
+                                {{-- <sup>(exæquo)</sup> --}}
+                                <sup>(ex)</sup>
                             @endif
                         </td>
                     </tr>
@@ -329,7 +330,8 @@
                         <td>{{ $individuelle?->user?->telephone }}</td>
                         <td>{{ $individuelle->departement->nom }}</td>
                         <td>{{ $formatRangFr($individuelle->rang) }} @if ($individuelle->exaequo)
-                                <sup>(exæquo)</sup>
+                                {{-- <sup>(exæquo)</sup> --}}
+                                <sup>(ex)</sup>
                             @endif
                         </td>
                     </tr>
