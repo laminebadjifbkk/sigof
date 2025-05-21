@@ -223,28 +223,23 @@ class OperateurmoduleController extends Controller
     {
         $this->validate($request, [
             'module' => 'required|string',
-            /* 'statut'    => 'nullable|string',
-            'operateur' => 'nullable|string', */
         ]);
 
         $operateurs = Operateur::orderBy('created_at', 'desc')->get();
 
-        /*   $module_statuts = Operateurmodule::get()->unique('statut');
+        /* $operateurmodules = Operateurmodule::where('module', $request?->module)->get(); */
 
-        if ($request?->module == null && $request->statut == null && $request->operateur == null) {
-            Alert::warning('Attention ', 'Renseigner au moins un champ pour rechercher');
-            return redirect()->back();
-        } elseif (! empty($request?->module)) {
-            $operateurmodules = Operateurmodule::where('module', $request?->module)->get();
-        } elseif (! empty($request?->statut)) {
-            $operateurmodules = Operateurmodule::where('statut', $request?->statut)->get();
-        } elseif (! empty($request?->operateur)) {
-            $operateurmodules = Operateurmodule::where('operateurs_id', $request?->operateur)->get();
-        } else {
-            Alert::warning('Attention ', 'Renseigner au moins un champ pour rechercher');
-        } */
+        $keywords = explode(' ', $request?->module);
 
-        $operateurmodules = Operateurmodule::where('module', $request?->module)->get();
+        $query = Operateurmodule::where('statut', 'agréer');
+
+        $query->where(function ($q) use ($keywords) {
+            foreach ($keywords as $word) {
+                $q->orWhere('module', 'like', '%' . $word . '%');
+            }
+        });
+
+        $operateurmodules = $query->get();
 
         return view('operateurmodules.index', compact(
             'operateurmodules',

@@ -1205,7 +1205,24 @@ class FormationController extends Controller
         ->pluck('module', 'module')
         ->all(); */
 
-        $operateurmodules = Operateurmodule::where('module', 'LIKE', "%{$modulename}%")->where('statut', 'agréer')->get();
+        /* $operateurmodules = Operateurmodule::where('module', 'LIKE', "%{$modulename}%")->where('statut', 'agréer')->get(); */
+
+        /*  $operateurFormation = DB::table('formations')
+            ->where('operateurs_id', $formation->operateurs_id)
+            ->pluck('operateurs_id', 'operateurs_id')
+            ->all(); */
+
+        $keywords = explode(' ', $modulename);
+
+        $query = Operateurmodule::where('statut', 'agréer');
+
+        $query->where(function ($q) use ($keywords) {
+            foreach ($keywords as $word) {
+                $q->orWhere('module', 'like', '%' . $word . '%');
+            }
+        });
+
+        $operateurmodules = $query->get();
 
         $operateurFormation = DB::table('formations')
             ->where('operateurs_id', $formation->operateurs_id)
@@ -2938,7 +2955,7 @@ class FormationController extends Controller
             ->where('civilite', "Mme")
             ->where('note_obtenue', '>=', '12')
             ->count();
-        
+
         $formes_h_count = Listecollective::where('formations_id', $formation->id)
             ->where('civilite', "M.")
             ->count();
