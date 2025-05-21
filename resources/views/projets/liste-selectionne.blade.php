@@ -248,14 +248,14 @@
                 </tr>
 
                 <tr class="heading">
-                    <td class="item" style="text-align: center;"><b>N°</b></td>
+                    <td class="item" style="text-align: center;" width="5%"><b>N°</b></td>
                     <td class="item" style="text-align: center;"><b>CIN</b></td>
-                    <td class="item" style="text-align: center;"><b>Civilité</b></td>
+                    <td class="item" style="text-align: center;" width="5%"><b>Civilité</b></td>
                     <td class="item" style="text-align: center;"><b>Prénom</b></td>
                     <td class="item" style="text-align: center;"><b>NOM</b></td>
-                    <td class="item" style="text-align: center;"><b>Date naissance</b></td>
+                    <td class="item" style="text-align: center;" width="8%"><b>Date naissance</b></td>
                     <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
-                    <td class="item" style="text-align: center;"><b>Téléphone</b></td>
+                    <td class="item" style="text-align: center;" width="7%"><b>Téléphone</b></td>
                     <td class="item" style="text-align: center;"><b>Localité</b></td>
                     <td class="item" style="text-align: center;"><b>Rang</b></td>
                 </tr>
@@ -304,14 +304,14 @@
                 </tr>
 
                 <tr class="heading">
-                    <td class="item" style="text-align: center;"><b>N°</b></td>
+                    <td class="item" style="text-align: center;" width="5%"><b>N°</b></td>
                     <td class="item" style="text-align: center;"><b>CIN</b></td>
-                    <td class="item" style="text-align: center;"><b>Civilité</b></td>
+                    <td class="item" style="text-align: center;" width="5%"><b>Civilité</b></td>
                     <td class="item" style="text-align: center;"><b>Prénom</b></td>
                     <td class="item" style="text-align: center;"><b>NOM</b></td>
-                    <td class="item" style="text-align: center;"><b>Date naissance</b></td>
+                    <td class="item" style="text-align: center;" width="8%"><b>Date naissance</b></td>
                     <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
-                    <td class="item" style="text-align: center;"><b>Téléphone</b></td>
+                    <td class="item" style="text-align: center;" width="7%"><b>Téléphone</b></td>
                     <td class="item" style="text-align: center;"><b>Localité</b></td>
                     <td class="item" style="text-align: center;"><b>Rang</b></td>
                 </tr>
