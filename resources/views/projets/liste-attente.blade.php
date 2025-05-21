@@ -328,10 +328,10 @@
                         <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
                         <td>{{ $individuelle?->user?->telephone }}</td>
                         <td>{{ $individuelle->departement->nom }}</td>
-                        <td>{{ $formatRangFr($individuelle->rang) }} @if ($individuelle->exaequo)
+                        {{-- <td>{{ $formatRangFr($individuelle->rang) }} @if ($individuelle->exaequo)
                                 <sup>(exæquo)</sup>
                             @endif
-                        </td>
+                        </td> --}}
                     </tr>
                 @endforeach
             </tbody>
