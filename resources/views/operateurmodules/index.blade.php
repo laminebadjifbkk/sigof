@@ -63,7 +63,7 @@
                             id="table-operateurModules">
                             <thead>
                                 <tr>
-                                    <th>Domaine</th>
+                                    <th width="10%">Domaine</th>
                                     <th>Module</th>
                                     <th width="22%">Niveau de qualification</th>
                                     <th>Opérateur</th>
