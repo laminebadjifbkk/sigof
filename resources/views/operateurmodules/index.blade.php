@@ -62,29 +62,31 @@
                         <table class="table datatables table-bordered table-hover align-middle justify-content-center"
                             id="table-operateurModules">
                             <thead>
-                                <tr class="text-center">
+                                <tr>
                                     <th>Domaine</th>
                                     <th>Module</th>
                                     <th>Niveau de qualification</th>
                                     <th>Opérateur</th>
                                     <th>Statut</th>
-                                    {{-- <th>Formations</th> --}}
                                     <th><i class="bi bi-gear"></i></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 1; ?>
                                 @foreach ($operateurmodules as $operateurmodule)
-                                    <tr style="text-align: center;">
+                                    <tr>
                                         <td>{{ $operateurmodule?->domaine }}</td>
                                         <td>{{ $operateurmodule?->module }}</td>
                                         <td>{{ $operateurmodule?->categorie }}</td>
-                                        <td><a
-                                                href="{{ route('operateurs.show', $operateurmodule?->operateur) }}">{{ $operateurmodule?->operateur?->user?->operateur . ' (' . $operateurmodule?->operateur?->user?->username . ')' }}</a>
+                                        <td>
+                                            <a href="{{ route('operateurs.show', $operateurmodule?->operateur) }}">{{ $operateurmodule?->operateur?->user?->operateur . ' (' . $operateurmodule?->operateur?->user?->username . ')' }}
+
+                                            </a>
                                         </td>
                                         <td>
-                                            <span
-                                                class="{{ $operateurmodule?->statut }}">{{ $operateurmodule?->statut }}</span>
+                                            <span class="{{ $operateurmodule?->statut }}">
+                                                {{ $operateurmodule?->statut }}
+                                            </span>
                                         </td>
                                         <td>
                                             <span class="d-flex align-items-baseline justify-content-center"><a
