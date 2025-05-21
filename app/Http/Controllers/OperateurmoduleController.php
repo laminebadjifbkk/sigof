@@ -202,10 +202,10 @@ class OperateurmoduleController extends Controller
             }
         }
     }
+
     public function rapports()
     {
-        $operateurmodules = Operateurmodule::take(50)
-            ->latest()
+        $operateurmodules = Operateurmodule::latest()
             ->get();
 
         $module_statuts = Operateurmodule::get()->unique('statut');
