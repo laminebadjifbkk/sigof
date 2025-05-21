@@ -257,7 +257,7 @@
                     <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
                     <td class="item" style="text-align: center;" width="7%"><b>Téléphone</b></td>
                     <td class="item" style="text-align: center;"><b>Localité</b></td>
-                    <td class="item" style="text-align: center;"><b>Rang</b></td>
+                    <td class="item" style="text-align: center;" width="7%"><b>Rang</b></td>
                 </tr>
             </thead>
             <tbody>
@@ -313,7 +313,7 @@
                     <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
                     <td class="item" style="text-align: center;" width="7%"><b>Téléphone</b></td>
                     <td class="item" style="text-align: center;"><b>Localité</b></td>
-                    <td class="item" style="text-align: center;"><b>Rang</b></td>
+                    <td class="item" style="text-align: center;" width="7%"><b>Rang</b></td>
                 </tr>
             </thead>
             <tbody>
