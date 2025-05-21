@@ -115,14 +115,24 @@ class OperateurmoduleController extends Controller
             'niveau_qualification' => 'required|string',
         ]);
 
-        foreach (Auth::user()->roles as $key => $role) {
+        $roleNames       = Auth::user()->roles->pluck('name')->toArray();
+        $restrictedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC', 'ADEC'];
+
+        if (! empty(array_diff($roleNames, $restrictedRoles))) {
+            if ($operateurmodule->statut !== 'nouveau') {
+                Alert::warning('Attention ! ', 'action impossible module déjà traité');
+                return redirect()->back();
+            }
+        }
+
+        /* foreach (Auth::user()->roles as $key => $role) {
             if (! empty($role?->name) && ($role?->name != 'super-admin') && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
                 if ($operateurmodule->statut != 'nouveau') {
                     Alert::warning('Attention ! ', 'action impossible module déjà traité');
                     return redirect()->back();
                 }
             }
-        }
+        } */
 
         $operateurmodule_find = DB::table('operateurmodules')->where('module', $request->input("module"))->first();
 
@@ -202,7 +212,7 @@ class OperateurmoduleController extends Controller
             }
         }
     }
-    
+
     public function rapports()
     {
         $operateurmodules = Operateurmodule::take(50)
