@@ -14,7 +14,7 @@ class OperateurmoduleController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(['role:super-admin|admin|DIOF|DEC|DPP|Operateur']);
+        $this->middleware(['role:super-admin|admin|DIOF|DEC|DPP|Operateur|Ingenieur']);
     }
 
     public function index()
