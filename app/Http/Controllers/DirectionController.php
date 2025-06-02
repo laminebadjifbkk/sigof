@@ -85,8 +85,6 @@ class DirectionController extends Controller
             "employe" => ['required', 'string'],
         ]); */
 
-        dd($direction->id);
-        
         $this->validate($request, [
             "direction" => [
                 "required",
