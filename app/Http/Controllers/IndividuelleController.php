@@ -150,6 +150,8 @@ class IndividuelleController extends Controller
                     // Restaurer le module supprimé
                     $module->restore();
                 } else {
+                    Alert::warning('Module introuvable', 'Le module "' . $request->input("module") . '" ne figure pas dans notre base de données.');
+                    return redirect()->back();
                     $module = new Module([
                         'name' => $request->input("module"),
                     ]);
@@ -295,6 +297,9 @@ class IndividuelleController extends Controller
                     }
                 }
             } else {
+
+                Alert::warning('Module introuvable', 'Le module "' . $request->input("module") . '" ne figure pas dans notre base de données.');
+                return redirect()->back();
                 $module = new Module(['name' => $request->input('module')]);
                 $module->save();
                 $module_find = $module; // Réassigner pour les prochaines étapes
@@ -447,6 +452,9 @@ class IndividuelleController extends Controller
                 // Restaurer le module supprimé
                 $module->restore();
             } else {
+
+                Alert::warning('Module introuvable', 'Le module "' . $request->input("module") . '" ne figure pas dans notre base de données.');
+                return redirect()->back();
                 $module = new Module([
                     'name' => $request->input("module"),
                 ]);
@@ -616,6 +624,9 @@ class IndividuelleController extends Controller
                 // Restaurer le module supprimé
                 $module->restore();
             } else {
+
+                Alert::warning('Module introuvable', 'Le module "' . $request->input("module") . '" ne figure pas dans notre base de données.');
+                return redirect()->back();
                 $module = new Module([
                     'name' => $request->input("module"),
                 ]);
