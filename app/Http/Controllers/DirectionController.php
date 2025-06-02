@@ -86,14 +86,14 @@ class DirectionController extends Controller
         ]); */
 
         $this->validate($request, [
-            "name" => [
+            "name"    => [
                 "required",
                 "string",
                 Rule::unique('directions', 'name')
                     ->ignore($direction->id)
                     ->whereNull('deleted_at'),
             ],
-            "sigle"     => [
+            "sigle"   => [
                 "required",
                 "string",
                 Rule::unique('directions', 'sigle')
@@ -101,7 +101,7 @@ class DirectionController extends Controller
                     ->whereNull('deleted_at'),
             ],
             "type"    => ['required', 'string'],
-            "employe" => ['nullable', 'string'],
+            "employe" => ['required', 'string'],
         ]);
 
         $employe = Employee::findOrFail($request->input("employe"));
