@@ -85,9 +85,9 @@
                                     {{-- Liste des employés --}}
                                     @foreach ($employes as $employe)
                                         <option value="{{ $employe->id }}" {{-- Vérification si l'employé actuel correspond à celui déjà assigné --}}
-                                            {{ isset($direction->chef_id) && $direction->chef_id == $employe->id ? 'selected' : '' }}>
-                                            {{ $employe->matricule . ' ' . ($employe->user ? $employe->user->firstname : '') }}
-                                            {{ $employe->user->name }}
+                                            {{ isset($direction?->chef_id) && $direction?->chef_id == $employe?->id ? 'selected' : '' }}>
+                                            {{ $employe?->matricule . ' ' . ($employe?->user ? $employe?->user->firstname : '') }}
+                                            {{ $employe?->user?->name }}
                                         </option>
                                     @endforeach
                                 </select>

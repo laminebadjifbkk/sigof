@@ -58,7 +58,7 @@
                                         <td>{{ $direction->name }}</td>
                                         <td>{{ $direction->sigle }}</td>
                                         <td>{{ $direction->type }}</td>
-                                        <td>{{ $direction->chef?->user->civilite . ' ' . $direction->chef?->user->firstname . ' ' . $direction->chef?->user->name }}
+                                        <td>{{ $direction->chef?->user?->civilite . ' ' . $direction->chef?->user?->firstname . ' ' . $direction->chef?->user?->name }}
                                         </td>
                                         <td style="text-align: center;">
                                             @foreach ($direction->employees as $employe)

@@ -22,7 +22,7 @@ class AntenneController extends Controller
         $this->validate($request, [
             "name"           => "required|string|unique:antennes,name,except,id",
             "code"           => "required|string|unique:antennes,code,except,id",
-            'date_ouverture' => "nullable|date|min:10|max:10|date_format:Y-m-d",
+            'date_ouverture' => "nullable|date|size:10|date_format:Y-m-d",
             "informations"   => "nullable|string",
             "contact"        => "required|string|size:12",
             "adresse"        => "required|string",
@@ -74,7 +74,7 @@ class AntenneController extends Controller
         $this->validate($request, [
             "name"           => ['required', 'string', Rule::unique(Antenne::class)->ignore($id)],
             "code"           => ['required', 'string', Rule::unique(Antenne::class)->ignore($id)],
-            'date_ouverture' => ["nullable", "date", "min:10", "max:10", "date_format:Y-m-d"],
+            'date_ouverture' => ["nullable", "date", "size:10", "date_format:Y-m-d"],
             "informations"   => ["nullable", "string"],
             "contact"        => "required|string|size:12",
             "adresse"        => ["required", "string"],

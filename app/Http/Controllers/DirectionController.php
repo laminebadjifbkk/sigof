@@ -35,9 +35,22 @@ class DirectionController extends Controller
     public function store(Request $request)
     {
 
-        $this->validate($request, [
+        /* $this->validate($request, [
             "direction" => "required|string|unique:directions,name,except,id",
             "sigle"     => "required|string|unique:directions,sigle,except,id",
+            "type"      => "required|string",
+        ]); */
+        $this->validate($request, [
+            "direction" => [
+                "required",
+                "string",
+                Rule::unique('directions', 'name')->whereNull('deleted_at'),
+            ],
+            "sigle"     => [
+                "required",
+                "string",
+                Rule::unique('directions', 'sigle')->whereNull('deleted_at'),
+            ],
             "type"      => "required|string",
         ]);
 
@@ -65,14 +78,34 @@ class DirectionController extends Controller
     }
     public function update(Request $request, Direction $direction)
     {
-        $this->validate($request, [
+        /* $this->validate($request, [
             'name'    => ['required', 'string', 'max:255', Rule::unique(Direction::class)->ignore($direction->id)],
             'sigle'   => ['required', 'string', 'max:10', Rule::unique(Direction::class)->ignore($direction->id)],
             "type"    => ['required', 'string'],
             "employe" => ['required', 'string'],
+        ]); */
+
+        dd($direction->id);
+        
+        $this->validate($request, [
+            "direction" => [
+                "required",
+                "string",
+                Rule::unique('directions', 'name')
+                    ->ignore($direction->id)
+                    ->whereNull('deleted_at'),
+            ],
+            "sigle"     => [
+                "required",
+                "string",
+                Rule::unique('directions', 'sigle')
+                    ->ignore($direction->id)
+                    ->whereNull('deleted_at'),
+            ],
+            "type"      => "required|string",
         ]);
 
-        $employe   = Employee::findOrFail($request->input("employe"));
+        $employe = Employee::findOrFail($request->input("employe"));
 
         $direction->update([
             'name'    => $request->input("name"),
