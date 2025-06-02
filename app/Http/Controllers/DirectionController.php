@@ -100,7 +100,8 @@ class DirectionController extends Controller
                     ->ignore($direction->id)
                     ->whereNull('deleted_at'),
             ],
-            "type"      => "required|string",
+            "type"    => ['required', 'string'],
+            "employe" => ['nullable', 'string'],
         ]);
 
         $employe = Employee::findOrFail($request->input("employe"));
