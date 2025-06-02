@@ -86,7 +86,7 @@ class DirectionController extends Controller
         ]); */
 
         $this->validate($request, [
-            "direction" => [
+            "name" => [
                 "required",
                 "string",
                 Rule::unique('directions', 'name')
