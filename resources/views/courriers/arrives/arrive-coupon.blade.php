@@ -170,7 +170,7 @@
                                     ) !!}
                             </span>
                         </p>
-                        <table class="table table-striped">
+                        {{-- <table class="table table-striped">
                             <tbody>
                                 @foreach (collect($directions)->chunk(6) as $chunk)
                                     <tr class="item">
@@ -185,9 +185,27 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                        </table> --}}
+                        <table class="table table-striped">
+                            <tbody>
+                                @foreach (collect($directions)->chunk(6) as $chunk)
+                                    <tr class="item">
+                                        @foreach ($chunk as $direction)
+                                            @php
+                                                $displayDirection = $direction === 'DG' ? 'ADG' : $direction;
+                                            @endphp
+                                            <td style="padding-left:5px; width: 25%;">
+                                                {!! $displayDirection ?? 'Aucune' !!}
+                                                <span style="float:right; color: red; padding-right:5px;">
+                                                    {!! in_array($direction, $arriveDirections) ? 'X' : '' !!}
+                                                </span>
+                                            </td>
+                                        @endforeach
+                                    </tr>
+                                @endforeach
+                            </tbody>
                         </table>
                     </td>
-
                     <!-- Colonne Actions Attendues (4 colonnes) -->
                     <td class="col-md-4" valign="top" style="padding-left:10px; padding-top:20px;">
                         <table class="table table-striped">
