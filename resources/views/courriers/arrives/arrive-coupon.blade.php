@@ -192,7 +192,7 @@
                                     <tr class="item">
                                         @foreach ($chunk as $direction)
                                             @php
-                                                $displayDirection = $direction === 'DG' ? 'A-DG' : $direction;
+                                                $displayDirection = $direction === 'DG' ? 'ADG' : $direction;
                                             @endphp
                                             <td style="padding-left:5px; width: 25%;">
                                                 {!! $displayDirection ?? 'Aucune' !!}
