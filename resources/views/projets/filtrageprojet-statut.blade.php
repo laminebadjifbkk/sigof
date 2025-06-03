@@ -38,9 +38,9 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <span class="d-flex mt-2 align-items-baseline"><a
-                                href="{{ route('projets.show', $projet) }}" class="btn btn-info btn-sm"
-                                title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                        <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('projets.show', $projet) }}"
+                                class="btn btn-info btn-sm" title="retour"><i
+                                    class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                             <p> | Retour</p>
                         </span>
                         <h4 class="card-title">
@@ -63,6 +63,7 @@
                                         <th>{{ $projet->type_localite }}</th>
                                         {{-- <th class="text-center">Statut</th> --}}
                                         <th>Module</th>
+                                        <th class="text-center">Note</th>
                                         <th class="text-center">#</th>
                                     </tr>
                                 </thead>
@@ -83,6 +84,7 @@
                                                 {{ optional($individuelle->{$projet->type_localite})->nom }}
                                             </td>
                                             <td>{{ $individuelle?->module?->name }}</td>
+                                            <td class="text-center">{{ $individuelle?->note }}</td>
                                             {{-- <td>
                                                 <span class="{{ $individuelle?->statut }}">
                                                     {{ $individuelle?->statut }}
