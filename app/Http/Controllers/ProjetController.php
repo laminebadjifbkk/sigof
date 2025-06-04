@@ -502,6 +502,8 @@ class ProjetController extends Controller
         $projet       = Projet::findOrFail($projetid);
         $projetmodule = Projetmodule::findOrFail($projetmoduleid);
 
+        $lemodule = Module::where('name', $projetmodule->module)->firstOrFail();
+
         // Vérifier si la région existe
         $laregion = Region::where('nom', $region)->first();
 
@@ -521,6 +523,9 @@ class ProjetController extends Controller
             })
             ->when($region, function ($query) use ($laregion) {
                 $query->where('regions_id', $laregion->id);
+            })
+            ->when($module, function ($query) use ($lemodule) {
+                $query->where('modules_id', $lemodule->id);
             })
             ->get();
 
