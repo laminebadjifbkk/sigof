@@ -7,6 +7,7 @@ use App\Models\Projet;
 use App\Models\Projetlocalite;
 use App\Models\Projetmodule;
 use App\Models\Region;
+use App\Models\Module;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -512,6 +513,17 @@ class ProjetController extends Controller
                 $query->where('statut', $statut);
             }, function ($query) {
                 $query->whereNull('statut');
+            })
+            ->get(); */
+
+        /* $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->when($statut !== 'Aucun statut', function ($query) use ($statut) {
+                $query->where('statut', $statut);
+            }, function ($query) {
+                $query->whereNull('statut');
+            })
+            ->when($region, function ($query) use ($laregion) {
+                $query->where('regions_id', $laregion->id);
             })
             ->get(); */
 
