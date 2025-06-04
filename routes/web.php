@@ -473,6 +473,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/projets/statut/{statut}/{projetid}', [ProjetController::class, 'filtrerProjetParStatut'])
             ->name('projets.parStatut');
 
+        Route::get('/projets/{statut}/{module}/{region}/{projetid}/{projetmoduleid}', [ProjetController::class, 'filtrerProjetParStatutEtRegion'])
+            ->name('projets.parStatutEtRegion');
+
         Route::get('/projetlocalites/statut/{statut}/{projetlocaliteid}/{typelocalite}/{localite}', [ProjetController::class, 'filtrerProjetLocaliteParStatut'])
             ->name('projetlocalites.parStatut');
 
@@ -480,6 +483,9 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::post('listeSelectionnes', [ProjetController::class, 'listeSelectionnes'])->name('listeSelectionnes');
         Route::post('listeAttente', [ProjetController::class, 'listeAttente'])->name('listeAttente');
+
+        Route::post('listeSelectionnesregion', [ProjetController::class, 'listeSelectionnesregion'])->name('listeSelectionnesregion');
+        Route::post('listeAttenteregion', [ProjetController::class, 'listeAttenteregion'])->name('listeAttenteregion');
 
         /* Route::get('demandesdg', [IndividuelleController::class, 'demandesdg'])->name('demandesdg');
         Route::get('demandesth', [IndividuelleController::class, 'demandesth'])->name('demandesth');

@@ -89,6 +89,38 @@
                                 </span>
                             </div>
                         </h4>
+
+                        <table class="table table-bordered table-striped align-middle">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th scope="col" style="width: 50px;">N°</th>
+                                    <th scope="col">Région</th>
+                                    <th scope="col">Effectif</th>
+                                    <th scope="col" style="width: 120px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($groupes as $index => $items)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $index }}</td>
+                                        <td>{{ number_format($items->count(), 0, '', ' ') }}</td>
+                                        <td>
+                                            <a href="{{ route('projets.parStatutEtRegion', ['statut' => $statut, 'module' => $module, 'region' => $index, 'projetid' => $projet->id, 'projetmoduleid' => $projetmodule->id]) }}"
+                                                class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1"
+                                                target="_blank">
+                                                Voir plus <i class="bi bi-arrow-right-short"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                        <br>
+                        <hr>
+                        <br>
+
                         @if (!empty($individuelles) && $individuelles->isNotEmpty())
                             <table class="table datatables align-middle" id="table-individuelles">
                                 <thead>

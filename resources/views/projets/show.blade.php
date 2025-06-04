@@ -189,7 +189,7 @@
                                                                 <div class="ps-2">
                                                                     <h6 class="mb-0" style="font-size: 0.9rem;">
                                                                         {{ number_format($items->count(), 0, '', ' ') }}</h6>
-                                                                    <span class="text-muted small">demandeurs</span>
+                                                                    <span class="text-muted small">demandeur(s)</span>
                                                                 </div>
                                                             </div>
                                                             <a href="{{ route('projets.parStatut', ['statut' => $statut, 'projetid' => $projet->id]) }}" target="_blank"

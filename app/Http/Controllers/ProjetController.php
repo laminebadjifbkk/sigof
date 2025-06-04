@@ -464,7 +464,12 @@ class ProjetController extends Controller
             })
             ->get();
 
-        return view('projets.filtrage-statut', compact('individuelles', 'statut', 'module', 'projet', 'projetmodule'));
+        // Regrouper par statut (y compris les null)
+        $groupes = $individuelles->groupBy(function ($item) {
+            return $item->region->nom ?? 'Aucune région';
+        });
+
+        return view('projets.filtrage-statut', compact('individuelles', 'statut', 'module', 'projet', 'projetmodule', 'groupes'));
     }
 
     public function filtrerProjetParStatut($statut, $projetid)
@@ -480,7 +485,46 @@ class ProjetController extends Controller
             })
             ->get();
 
-        return view('projets.filtrageprojet-statut', compact('individuelles', 'statut', 'projet'));
+        // Récupérer les différents statuts
+        $statuts = $individuelles->pluck('regions_id')->unique();
+
+        // Regrouper par statut (y compris les null)
+        $groupes = $individuelles->groupBy(function ($item) {
+            return $item->region->nom ?? 'Aucune région';
+        });
+
+        return view('projets.filtrageprojet-statut', compact('individuelles', 'statut', 'projet', 'statuts', 'groupes'));
+    }
+
+    public function filtrerProjetParStatutEtRegion($statut, $module, $region, $projetid, $projetmoduleid)
+    {
+
+        $projet       = Projet::findOrFail($projetid);
+        $projetmodule = Projetmodule::findOrFail($projetmoduleid);
+
+        // Vérifier si la région existe
+        $laregion = Region::where('nom', $region)->first();
+
+        /* $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->when($statut !== 'Aucun statut', function ($query) use ($statut) {
+                $query->where('statut', $statut);
+            }, function ($query) {
+                $query->whereNull('statut');
+            })
+            ->get(); */
+
+        $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->when($statut !== 'Aucun statut', function ($query) use ($statut) {
+                $query->where('statut', $statut);
+            }, function ($query) {
+                $query->whereNull('statut');
+            })
+            ->when($region, function ($query) use ($laregion) {
+                $query->where('regions_id', $laregion->id);
+            })
+            ->get();
+
+        return view('projets.filtrageprojet-statut-region', compact('individuelles', 'statut', 'module', 'projet', 'region', 'projetmodule'));
     }
 
     public function filtrerProjetLocaliteParStatut($statut, $projetlocaliteid, $typelocalite, $localite)
@@ -570,6 +614,70 @@ class ProjetController extends Controller
 
     }
 
+    public function listeSelectionnesregion(Request $request)
+    {
+
+        $statut = $request->input('statut');
+        $region = $request->input('region');
+        $region = Region::where('nom', $region)->firstOrFail();
+
+        $projetmodule = Projetmodule::findOrFail($request->input('projetmoduleid'));
+        $projet       = $projetmodule->projet;
+        $module       = $projetmodule->module;
+
+        /*  $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->whereHas('module', function ($query) use ($module) {
+                $query->where('name', $module);
+            })
+            ->when($statut !== 'Aucun statut', function ($query) use ($statut) {
+                $query->where('statut', $statut);
+            }, function ($query) {
+                $query->whereNull('statut');
+            })
+            ->orderBy('note', 'desc') // 🔽 Classement par note décroissante
+            ->get(); */
+
+        $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->where('regions_id', $region->id) // ✅ Ajout du filtre sur la région
+            ->whereHas('module', function ($query) use ($module) {
+                $query->where('name', $module);
+            })
+            ->when($statut !== 'Aucun statut', function ($query) use ($statut) {
+                $query->where('statut', $statut);
+            }, function ($query) {
+                $query->whereNull('statut');
+            })
+            ->orderBy('note', 'desc') // 🔽 Classement par note décroissante
+            ->get();
+
+        $title = $projet->sigle . ',liste des candidats selectionnés pour la formation en ' . $projetmodule->module;
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('Formation');
+        $dompdf->setOptions($options);
+
+        $dompdf->loadHtml(view('projets.liste-selectionne-region', compact(
+            'projet',
+            'region',
+            'projetmodule',
+            'individuelles',
+            'title',
+        )));
+
+        // (Optional) Setup the paper size and orientation (portrait ou landscape)
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        $name = $projet->sigle . ',liste des candidats selectionnés pour la formation en  ' . $projetmodule->module . '.pdf';
+
+        // Output the generated PDF to Browser
+        $dompdf->stream($name, ['Attachment' => false]);
+
+    }
+
     public function listeAttente(Request $request)
     {
 
@@ -589,14 +697,73 @@ class ProjetController extends Controller
             })
             ->get(); */
 
-        
-
         $statut       = $request->input('statut');
         $projetmodule = Projetmodule::findOrFail($request->input('projetmoduleid'));
         $projet       = $projetmodule->projet;
         $module       = $projetmodule->module;
 
         $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->whereHas('module', function ($query) use ($module) {
+                $query->where('name', $module);
+            })
+            ->when($statut !== 'Aucun statut', function ($query) use ($statut) {
+                $query->where('statut', $statut);
+            }, function ($query) {
+                $query->whereNull('statut');
+            })
+            ->orderBy('note', 'desc') // 🔽 Classement par note décroissante
+            ->get();
+
+        $title = $projet->sigle . ',liste des candidats selectionnés pour la formation en ' . $projetmodule->module;
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('Formation');
+        $dompdf->setOptions($options);
+
+        $dompdf->loadHtml(view('projets.liste-attente', compact(
+            'projet',
+            'projetmodule',
+            'individuelles',
+            'title',
+        )));
+
+        // (Optional) Setup the paper size and orientation (portrait ou landscape)
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        $name = $projet->sigle . ',liste des candidats selectionnés pour la formation en  ' . $projetmodule->module . '.pdf';
+
+        // Output the generated PDF to Browser
+        $dompdf->stream($name, ['Attachment' => false]);
+
+    }
+
+    public function listeAttenteregion(Request $request)
+    {
+        $statut       = $request->input('statut');
+        $region       = $request->input('region');
+        $region       = Region::where('nom', $region)->firstOrFail();
+        $projetmodule = Projetmodule::findOrFail($request->input('projetmoduleid'));
+        $projet       = $projetmodule->projet;
+        $module       = $projetmodule->module;
+
+        /* $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->whereHas('module', function ($query) use ($module) {
+                $query->where('name', $module);
+            })
+            ->when($statut !== 'Aucun statut', function ($query) use ($statut) {
+                $query->where('statut', $statut);
+            }, function ($query) {
+                $query->whereNull('statut');
+            })
+            ->orderBy('note', 'desc') // 🔽 Classement par note décroissante
+            ->get(); */
+
+        $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->where('regions_id', $region->id) // ✅ Ajout du filtre sur la région
             ->whereHas('module', function ($query) use ($module) {
                 $query->where('name', $module);
             })
