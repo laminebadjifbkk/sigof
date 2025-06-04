@@ -152,7 +152,16 @@
                     <!-- Colonne Expéditeur (8 colonnes) -->
                     <td class="col-md-8" style="word-wrap: break-word;">
                         <p>
-                            <b>{{ __('Expéditeur') }}</b> : {{ mb_strtoupper($courrier->expediteur) }}<br>
+                            <b>{{ __('Expéditeur') }}</b> :
+                            {!! '' .
+                                implode(
+                                    '',
+                                    array_map(
+                                        fn($line) => nl2br(e(wordwrap($line, 40, "\n", true))),
+                                        explode("\n", old('expediteur', mb_strtoupper($courrier?->expediteur))),
+                                    ),
+                                ) !!}
+                            <br>
                             <b>{{ __('Réf') }}</b> : {{ $courrier->reference }}&nbsp;&nbsp;&nbsp;&nbsp;
                             <b>{{ __('du') }}</b> : {{ $courrier->date_recep?->format('d/m/Y') }}<br>
                             <b>{{ __('Objet') }}</b> :

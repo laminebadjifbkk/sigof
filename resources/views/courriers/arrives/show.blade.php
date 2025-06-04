@@ -429,13 +429,15 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                             <label for="expediteur" class="form-label">Expéditeur<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <input type="text" name="expediteur"
+                                            {{-- <input type="text" name="expediteur"
                                                 value="{{ $arrive?->courrier?->expediteur ?? old('expediteur') }}"
                                                 class="form-control form-control-sm @error('expediteur') is-invalid @enderror"
-                                                id="expediteur" placeholder="Expéditeur">
+                                                id="expediteur" placeholder="Expéditeur"> --}}
+                                            <textarea name="expediteur" id="expediteur" rows="2"
+                                                class="form-control form-control-sm @error('expediteur') is-invalid @enderror" placeholder="Expéditeur">{{ old('expediteur', $arrive?->courrier?->expediteur) }}</textarea>
                                             @error('expediteur')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
