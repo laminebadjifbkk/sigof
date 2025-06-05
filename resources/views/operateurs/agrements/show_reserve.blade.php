@@ -41,7 +41,7 @@
                             @method('PUT')
                             <div class="row mb-0">
                                 <div class="form-check col-md-12 pt-5">
-                                    <table class="table datatables align-middle" id="table-operateurs">
+                                    <table class="table datatables table-bordered table-hover align-middle justify-content-center" id="table-operateurs">
                                         <thead>
                                             <tr>
                                                 <th>Opérateurs</th>

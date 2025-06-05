@@ -45,7 +45,7 @@
                                 </button>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-hover table-striped align-middle" id="table-jury">
+                                <table class="table datatables table-bordered table-hover align-middle justify-content-center" id="table-jury">
                                     <thead class="table-primary text-center">
                                         <tr>
                                             <th width="8%">Civilité</th>

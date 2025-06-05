@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table datatables table-bordered table-hover table-striped" id="table-operateurs">
+                            <table class="table datatables table-bordered table-hover align-middle justify-content-center" id="table-operateurs">
                                 <thead>
                                     <tr>
                                         <th width="15%" class="text-center">N° agrément</th>
