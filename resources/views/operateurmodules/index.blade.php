@@ -37,16 +37,6 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        {{-- <div class="d-flex justify-content-between align-items-center mt-3">
-                            <h5 class="card-title">Liste des modules opérateurs</h5>
-                            @can('rapport-operateur-view')
-                                <span class="d-flex align-items-baseline">
-                                    <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#generate_rapport_module_region" title="Générer rapports">Rechercher
-                                        plus</a>
-                                </span>
-                            @endcan
-                        </div> --}}
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <h5 class="card-title mb-0">Liste des modules opérateurs</h5>
                             @can('rapport-operateur-view')
@@ -58,7 +48,6 @@
                                 </a>
                             @endcan
                         </div>
-                        <!-- Table with stripped rows -->
                         <table class="table datatables table-bordered table-hover align-middle justify-content-center"
                             id="table-operateurModules">
                             <thead>
