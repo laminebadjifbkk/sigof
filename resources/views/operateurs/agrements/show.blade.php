@@ -1,10 +1,9 @@
 @extends('layout.user-layout')
 @section('title', $operateur?->user?->username)
 @section('space-work')
-
     <section
         class="section profile min-vh-0 d-flex flex-column align-items-center justify-content-center py-0 section profile">
-        <div class="container">
+        <div class="container-fluid">
             <div class="pagetitle">
                 {{-- <h1>Data Tables</h1> --}}
                 <nav>
@@ -104,6 +103,18 @@
                                             <div>{{ $operateur?->user?->username }}</div>
                                         </div>
                                         <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                            <div class="label">Région</div>
+                                            <div>{{ $operateur?->region?->nom }}</div>
+                                        </div>
+                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                            <div class="label">Département</div>
+                                            <div>{{ $operateur?->departement?->nom }}</div>
+                                        </div>
+                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                            <div class="label">Adrese</div>
+                                            <div>{{ $operateur?->user?->adresse }}</div>
+                                        </div>
+                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
                                             <div class="label">Numéro agrément</div>
                                             <div>{{ $operateur?->numero_agrement }}</div>
                                         </div>
@@ -136,14 +147,6 @@
                                         <div class="col-12 col-md-4 col-lg-4 mb-2">
                                             <div class="label">Autre statut</div>
                                             <div>{{ $operateur?->autre_statut }}</div>
-                                        </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
-                                            <div class="label">Siège</div>
-                                            <div>{{ $operateur?->departement?->nom }}</div>
-                                        </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
-                                            <div class="label">Adrese</div>
-                                            <div>{{ $operateur?->user?->adresse }}</div>
                                         </div>
                                         <div class="col-12 col-md-4 col-lg-4 mb-2">
                                             <div class="label">RCCM/Ninea</div>

@@ -67,6 +67,7 @@
                                     <th>Module</th>
                                     <th width="22%">Niveau de qualification</th>
                                     <th>Opérateur</th>
+                                    <th>Région</th>
                                     <th>Statut</th>
                                     <th width="5%"><i class="bi bi-gear"></i></th>
                                 </tr>
@@ -83,6 +84,7 @@
 
                                             </a>
                                         </td>
+                                        <td>{{ $operateurmodule?->operateur?->region?->nom }}</td>
                                         <td>
                                             <span class="{{ $operateurmodule?->statut }}">
                                                 {{ $operateurmodule?->statut }}

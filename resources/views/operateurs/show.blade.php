@@ -106,6 +106,18 @@
                                                 <div>{{ $operateur?->user?->username }}</div>
                                             </div>
                                             <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                                <div class="label">Région</div>
+                                                <div>{{ $operateur?->region?->nom }}</div>
+                                            </div>
+
+                                            @if (!empty($operateur?->departement?->nom))
+                                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                                    <div class="label">Département</div>
+                                                    <div>{{ $operateur?->departement?->nom }}</div>
+                                                </div>
+                                            @endif
+
+                                            <div class="col-12 col-md-4 col-lg-4 mb-0">
                                                 <div class="label">Numéro agrément</div>
                                                 <div>{{ $operateur?->numero_agrement }}</div>
                                             </div>
@@ -145,13 +157,6 @@
                                                 <div class="col-12 col-md-4 col-lg-4 mb-0">
                                                     <div class="label">Autre statut</div>
                                                     <div>{{ $operateur?->autre_statut }}</div>
-                                                </div>
-                                            @endif
-
-                                            @if (!empty($operateur?->departement?->nom))
-                                                <div class="col-12 col-md-4 col-lg-4 mb-0">
-                                                    <div class="label">Siège</div>
-                                                    <div>{{ $operateur?->departement?->nom }}</div>
                                                 </div>
                                             @endif
 

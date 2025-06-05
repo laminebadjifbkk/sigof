@@ -153,10 +153,10 @@
                                     @endcan
                                     <th width="5%" class="text-center">Année</th>
                                     <th width="5%" class="text-center">Type</th>
-                                    <th width="55%" class="text-center">Opérateurs</th>
-                                    <th width="10%" class="text-center">Sigle</th>
+                                    <th width="55%">Opérateurs</th>
+                                    <th width="10%">Sigle</th>
                                     <th width="15%" class="text-center">Statut</th>
-                                    <th width="5%"><i class="bi bi-gear"></i></th>
+                                    <th width="3%"><i class="bi bi-gear"></i></th>
                                 </tr>
                             </thead>
                             <tbody>

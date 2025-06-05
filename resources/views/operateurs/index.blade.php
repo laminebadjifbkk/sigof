@@ -237,6 +237,7 @@
                                             @can('afficher-operateur-telephone')
                                                 <th>Telephone</th>
                                             @endcan
+                                            <th>Région</th>
                                             @can('afficher-operateur-adresse')
                                                 <th>Adresse</th>
                                             @endcan
@@ -279,6 +280,7 @@
                                                         </a>
                                                     </td>
                                                 @endcan
+                                                <td>{{ $operateur?->region?->nom }}</td>
                                                 @can('afficher-operateur-adresse')
                                                     <td>{{ $operateur?->user?->adresse }}</td>
                                                 @endcan
@@ -541,7 +543,7 @@
         new DataTable('#table-operateurs', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

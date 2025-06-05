@@ -554,7 +554,7 @@
 
                     <div class="col-lg-7">
                         <div class="contact-form" data-aos="fade-up" data-aos-delay="300">
-                            <h3>Connectez-nous ! Posez vos questions !</h3>
+                            <h3>Contactez-nous ! Posez vos questions !</h3>
                             <p>
                                 Bonjour et bienvenue sur notre application !
 
