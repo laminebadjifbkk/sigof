@@ -131,7 +131,7 @@
                         @endif
                         @if ($operateurs->isNotEmpty())
                             <div class="table-responsive">
-                                <table class="table datatables table-bordered table-hover table-striped"
+                                <table class="table datatables table-bordered table-hover align-middle justify-content-center"
                                     id="table-operateurs">
                                     <thead>
                                         <tr>
