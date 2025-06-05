@@ -72,9 +72,19 @@ class OperateurController extends Controller
             default => "Liste des $count_operateur derniers opérateurs sur un total de $total_count",
         };
 
+        // Récupérer les différents statuts
+        $statuts = $operateurs->pluck('statut_agrement')->unique();
+
+        // Regrouper par statut_agrement (y compris les null)
+        $groupes = $operateurs->groupBy(function ($item) {
+            return $item->statut_agrement ?? 'Aucun statut agrement';
+        });
+
         return view("operateurs.index",
             compact(
                 "operateurs",
+                "statuts",
+                "groupes",
                 "departements",
                 "operateur_agreer",
                 "operateur_rejeter",
@@ -1364,4 +1374,71 @@ class OperateurController extends Controller
         $dompdf->stream($name, ['Attachment' => false]);
     }
 
+    public function filtrerOperateurParStatut($statut)
+    {
+        $operateurs = Operateur::when($statut !== 'Aucun statut', function ($query) use ($statut) {
+            $query->where('statut_agrement', $statut);
+        }, function ($query) {
+            $query->whereNull('statut_agrement');
+        })
+            ->get();
+
+        // Regrouper par statut (y compris les null)
+        $groupes = $operateurs->groupBy(function ($item) {
+            return $item->user->categorie ?? 'Aucune';
+        });
+
+        $operateur_liste = $operateurs->take(50);
+
+        $total_count = number_format($operateurs->count(), 0, ',', ' ');
+
+        $count_operateur = number_format($operateur_liste->count(), 0, ',', ' ');
+
+        $title = match ($count_operateur) {
+            "0" => 'Aucun opérateur',
+            "1" => "$count_operateur opérateur sur un total de $total_count",
+            default => "Liste des $count_operateur derniers opérateurs sur un total de $total_count",
+        };
+        return view('operateurs.filtrageoperateur-statut', compact('operateurs', 'statut', 'groupes', 'title'));
+    }
+
+    public function filtrerOperateurParStatutCategorie($statut, $categorie)
+    {
+        /* $operateurs = Operateur::when($statut !== 'Aucun statut', function ($query) use ($statut) {
+            $query->where('statut_agrement', $statut);
+        }, function ($query) {
+            $query->whereNull('statut_agrement');
+        })
+            ->get(); */
+
+        $operateurs = Operateur::when($statut !== 'Aucun statut', function ($query) use ($statut) {
+            $query->where('statut_agrement', $statut);
+        }, function ($query) {
+            $query->whereNull('statut_agrement');
+        })
+            ->when($categorie !== 'Toutes', function ($query) use ($categorie) {
+                $query->whereHas('user', function ($q) use ($categorie) {
+                    $q->where('categorie', $categorie);
+                });
+            })
+            ->get();
+
+        // Regrouper par statut (y compris les null)
+        $groupes = $operateurs->groupBy(function ($item) {
+            return $item->user->categorie ?? 'Aucune';
+        });
+
+        $operateur_liste = $operateurs->take(50);
+
+        $total_count = number_format($operateurs->count(), 0, ',', ' ');
+
+        $count_operateur = number_format($operateur_liste->count(), 0, ',', ' ');
+
+        $title = match ($count_operateur) {
+            "0" => 'Aucun opérateur',
+            "1" => "Structure $categorie(s) | $count_operateur opérateur sur un total de $total_count",
+            default => "Structure $categorie | liste des $count_operateur derniers opérateurs sur un total de $total_count",
+        };
+        return view('operateurs.filtrageoperateur-statut-categorie', compact('operateurs', 'statut', 'groupes', 'title', 'categorie'));
+    }
 }

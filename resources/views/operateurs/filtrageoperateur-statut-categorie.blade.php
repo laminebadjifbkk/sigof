@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | OPERATEURS')
+@section('title', 'ONFP | OPERATEURS - ' . $categorie)
 @section('space-work')
 
     <div class="pagetitle">
@@ -11,104 +11,7 @@
                 <li class="breadcrumb-item active">Données</li>
             </ol>
         </nav>
-    </div><!-- End Page Title -->
-    {{-- <section class="section dashboard">
-        <div class="row">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                <div class="row">
-                    <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                        <div class="card info-card revenue-card">
-                            <a href="{{ route('operateurs.index') }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">Demandes <span>| opérateurs</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                {{ count($operateurs) }}
-                                            </h6>
-                                            <span class="text-muted small pt-2 ps-1"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                        <div class="card info-card sales-card">
-                            <a href="{{ route('operateurs.agreer') }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">Agréments <span>| en cours</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                {{ $operateur_agreer }}
-                                            </h6>
-                                            <span
-                                                class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_agreer, 2, ',', ' ') . '%' }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                        <div class="card info-card customers-card">
-                            <a href="{{ route('operateurs.expirer') }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">Agréments <span>| expirés</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                {{ $operateur_expirer }}
-                                            </h6>
-                                            <span
-                                                class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_expirer, 2, ',', ' ') . '%' }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                        <div class="card info-card revenue-card">
-                            <a href="#">
-                                <div class="card-body">
-                                    <h5 class="card-title">Nouvelles <span>| demandes</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                {{ $operateur_nouveau }}
-                                            </h6>
-                                            <span
-                                                class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_nouveau, 2, ',', ' ') . '%' }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
-
+    </div>
     <section class="section">
         <div class="row">
             <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
@@ -135,69 +38,6 @@
                 <div class="card">
                     <div class="card-body">
                         @if (auth()->user()->hasRole('super-admin|admin|DEC'))
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 pt-5">
-                                <div class="row">
-                                    <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
-                                        <div class="card info-card revenue-card shadow-sm" style="max-width: 220px;">
-                                            <div class="card-body p-2">
-                                                <h5 class="card-title text-truncate mb-1" title="operateurs"
-                                                    style="font-size: 1rem;">
-                                                    Opérateurs
-                                                </h5>
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
-                                                        style="width: 32px; height: 32px; font-size: 1.25rem;">
-                                                        <i class="bi bi-people"></i>
-                                                    </div>
-                                                    <div class="ps-2">
-                                                        <h6 class="mb-0" style="font-size: 0.9rem;">
-                                                            {{ number_format(count($operateurs), 0, '', ' ') }}</h6>
-                                                        <span class="text-muted small">opérateur(s)</span>
-                                                    </div>
-                                                </div>
-
-                                                <a href="{{ route('operateurs.index') }}"
-                                                    class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
-                                                    style="font-size: 0.85rem; gap: 6px;">
-                                                    Voir plus <i class="bi bi-arrow-right-short"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Sales Card -->
-                                    @foreach ($groupes as $statut => $items)
-                                        <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
-                                            <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
-                                                <div class="card-body p-2">
-                                                    <h5 class="card-title text-truncate mb-1" title="{{ $statut }}"
-                                                        style="font-size: 1rem;">
-                                                        {{ $statut }}
-                                                    </h5>
-                                                    <div class="d-flex align-items-center mb-2">
-                                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
-                                                            style="width: 32px; height: 32px; font-size: 1.25rem;">
-                                                            <i class="bi bi-people"></i>
-                                                        </div>
-                                                        <div class="ps-2">
-                                                            <h6 class="mb-0" style="font-size: 0.9rem;">
-                                                                {{ number_format($items->count(), 0, '', ' ') }}</h6>
-                                                            <span class="text-muted small">opérateur(s)</span>
-                                                        </div>
-                                                    </div>
-                                                    <a href="{{ route('operateurs.parStatut', ['statut' => $statut]) }}"
-                                                        target="_blank"
-                                                        class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
-                                                        style="font-size: 0.85rem; gap: 6px;">
-                                                        Voir plus <i class="bi bi-arrow-right-short"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">{{ $title }}</h5>
                                 <span class="d-flex align-items-baseline">
@@ -232,13 +72,12 @@
                                     id="table-operateurs">
                                     <thead>
                                         <tr>
+                                            <th width="3%" class="text-center">Année</th>
                                             @can('afficher-dossier-operateur')
                                                 <th width="3%" class="text-center">Dossier</th>
                                             @endcan
                                             <th width="15%" class="text-center">N° agrément</th>
-                                            @can('afficher-operateur-name')
-                                                <th width="40%">Opérateurs</th>
-                                            @endcan
+                                            <th width="40%">Opérateurs</th>
                                             <th>Sigle</th>
                                             @can('afficher-operateur-email')
                                                 <th>Email</th>
@@ -254,14 +93,14 @@
                                                 <th>Responsable</th>
                                             @endcan
                                             @can('afficher-operateur-module')
-                                                <th class="text-center">Modules</th>
+                                                <th class="text-center" width="5%">Modules</th>
                                             @endcan
                                             @can('afficher-operateur-formation')
-                                                <th class="text-center">Formations</th>
+                                                <th class="text-center" width="5%">Formations</th>
                                             @endcan
-                                            @can('afficher-operateur-statut')
-                                                <th width="15%" class="text-center">Statut</th>
-                                            @endcan
+                                            {{-- @can('afficher-operateur-statut')
+                                                <th width="10%" class="text-center">Statut</th>
+                                            @endcan --}}
                                             @can('operateur-show')
                                                 <th width="2%"><i class="bi bi-gear"></i></th>
                                             @endcan
@@ -271,13 +110,12 @@
                                         <?php $i = 1; ?>
                                         @foreach ($operateurs as $operateur)
                                             <tr>
+                                                <td class="text-center">{{ $operateur?->annee_agrement?->format('Y') }}</td>
                                                 @can('afficher-dossier-operateur')
                                                     <td class="text-center">{{ $operateur?->numero_dossier }}</td>
                                                 @endcan
                                                 <td>{{ $operateur?->numero_agrement }}</td>
-                                                @can('afficher-operateur-name')
-                                                    <td>{{ $operateur?->user?->operateur }}</td>
-                                                @endcan
+                                                <td>{{ $operateur?->user?->operateur }}</td>
                                                 <td>{{ $operateur?->user?->username }}</td>
                                                 @can('afficher-operateur-email')
                                                     <td><a
@@ -317,11 +155,11 @@
                                                         @endforeach
                                                     </td>
                                                 @endcan
-                                                @can('afficher-operateur-statut')
+                                                {{-- @can('afficher-operateur-statut')
                                                     <td style="text-align: center;"><span
                                                             class="{{ $operateur?->statut_agrement }}">
                                                             {{ $operateur?->statut_agrement }}</span></td>
-                                                @endcan
+                                                @endcan --}}
                                                 @can('operateur-show')
                                                     <td>
                                                         <span class="d-flex align-items-baseline"><a
@@ -331,8 +169,7 @@
                                                             <div class="filter">
                                                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                         class="bi bi-three-dots"></i></a>
-                                                                <ul
-                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                     @can('operateur-update')
                                                                         <li>
                                                                             <a class="dropdown-item btn btn-sm"
@@ -376,8 +213,8 @@
             </div>
         </div>
 
-        <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog"
-            aria-labelledby="generate_rapportLabel" aria-hidden="true">
+        <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog" aria-labelledby="generate_rapportLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="card-header text-center bg-gradient-default">
@@ -490,60 +327,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="modal fade" id="importOperateur" tabindex="-1" role="dialog"
-            aria-labelledby="importOperateurLabel" aria-hidden="true" data-bs-backdrop="static"
-            data-bs-keyboard="false">
-
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-
-                    <!-- Header du Modal avec texte centré -->
-                    {{-- <div class="modal-header bg-secondary text-white">
-                        <h5 class="modal-title w-100 text-center" id="importOperateurLabel">
-                            FAIRE UNE RECHERCHE
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div> --}}
-
-                    <div class="card-header text-center bg-gradient-default">
-                        <h1 class="h4 text-black mb-0">IMPORTER</h1>
-                    </div>
-
-                    <!-- Formulaire -->
-                    <form method="post" action="{{ route('import.operateurs') }}" enctype="multipart/form-data"
-                        class="p-3" novalidate>
-                        @csrf
-
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="file" class="form-label">
-                                    Fichier (.XLSX, .CSV, .XLS) <span class="text-danger">*</span>
-                                </label>
-                                <input type="file" name="file" value="{{ old('file') }}"
-                                    class="form-control form-control-sm @error('file') is-invalid @enderror"
-                                    id="file" required>
-
-                                @error('file')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <!-- Footer du Modal -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm"
-                                data-bs-dismiss="modal">Fermer</button>
-                            <button type="submit" class="btn btn-primary btn-sm text-white">Importer</button>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-
     </section>
 
 @endsection
