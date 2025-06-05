@@ -98,7 +98,7 @@ class UserController extends Controller
 
         $count_today_collective = Collective::where("created_at", "LIKE", "{$today}%")->count();
 
-        $count_operateurs = Operateur::where("statut_agrement", "agréer")->count();
+        $count_operateurs = Operateur::where("statut_agrement", "agréé")->count();
 
         $count_today = $count_today_individuelle + $count_today_collective;
 
@@ -789,14 +789,14 @@ class UserController extends Controller
 
             if (isset($count) && $count <= "1") {
                 $operateur = 'opérateur';
-                if (isset($request->statut) && $request->statut == "agréer") {
+                if (isset($request->statut) && $request->statut == "agréé") {
                     $statut = 'agréé';
                 } else {
                     $statut = $request->statut;
                 }
             } else {
                 $operateur = 'opérateurs';
-                if (isset($request->statut) && $request->statut == "agréer") {
+                if (isset($request->statut) && $request->statut == "agréé") {
                     $statut = 'agréés';
                 } else {
                     $statut = $request->statut;

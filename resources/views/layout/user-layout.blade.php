@@ -445,7 +445,7 @@
             /* border-radius: 5px; */
         }
 
-        .agréer {
+        .agréé {
             background-color: #198754;
             color: white;
             padding: 4px 8px;

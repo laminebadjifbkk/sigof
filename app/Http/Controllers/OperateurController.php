@@ -44,14 +44,14 @@ class OperateurController extends Controller
         $operateurs   = Operateur::latest()->get();
         $departements = Departement::orderBy("nom", "asc")->get();
 
-        $statuts = ['agréer', 'Rejetée', 'nouveau', 'expirer'];
+        $statuts = ['agréé', 'Rejetée', 'nouveau', 'expirer'];
 
         $counts = Operateur::whereIn('statut_agrement', $statuts)
             ->selectRaw("statut_agrement, COUNT(*) as count")
             ->groupBy('statut_agrement')
             ->pluck('count', 'statut_agrement');
 
-        $operateur_agreer  = $counts['agréer'] ?? 0;
+        $operateur_agreer  = $counts['agréé'] ?? 0;
         $operateur_rejeter = $counts['Rejetée'] ?? 0;
         $operateur_nouveau = $counts['nouveau'] ?? 0;
         $operateur_expirer = $counts['expirer'] ?? 0;
@@ -850,7 +850,7 @@ class OperateurController extends Controller
             return redirect()->back();
         } else {
             $operateur->update([
-                'statut_agrement' => 'agréer',
+                'statut_agrement' => 'agréé',
                 'motif'           => null,
                 'date', "max:10", "min:10", "date_format:Y-m-d" => date('Y-m-d'),
             ]);
@@ -859,7 +859,7 @@ class OperateurController extends Controller
 
             $validateoperateur = new Validationoperateur([
                 'validated_id'  => Auth::user()->id,
-                'action'        => 'agréer',
+                'action'        => 'agréé',
                 'session'       => $operateur?->session_agrement,
                 'operateurs_id' => $operateur?->id,
 
@@ -879,7 +879,7 @@ class OperateurController extends Controller
         foreach ($operateur->operateurmodules as $key => $operateurmodule) {
 
             $operateurmodule->update([
-                'statut'   => 'agréer',
+                'statut'   => 'agréé',
                 'users_id' => Auth::user()->id,
             ]);
 
@@ -1015,14 +1015,14 @@ class OperateurController extends Controller
 
             if (isset($count) && $count <= "1") {
                 $operateur = 'opérateur';
-                if (isset($request->statut) && $request->statut == "agréer") {
+                if (isset($request->statut) && $request->statut == "agréé") {
                     $statut = 'agréé';
                 } else {
                     $statut = $request->statut;
                 }
             } else {
                 $operateur = 'opérateurs';
-                if (isset($request->statut) && $request->statut == "agréer") {
+                if (isset($request->statut) && $request->statut == "agréé") {
                     $statut = 'agréés';
                 } else {
                     $statut = $request->statut;
@@ -1046,14 +1046,14 @@ class OperateurController extends Controller
             $count = $operateurs->count();
             if (isset($count) && $count <= "1") {
                 $operateur = 'opérateur';
-                if (isset($request->statut) && $request->statut == "agréer") {
+                if (isset($request->statut) && $request->statut == "agréé") {
                     $statut = 'agréé';
                 } else {
                     $statut = $request->statut;
                 }
             } else {
                 $operateur = 'opérateurs';
-                if (isset($request->statut) && $request->statut == "agréer") {
+                if (isset($request->statut) && $request->statut == "agréé") {
                     $statut = 'agréés';
                 } else {
                     $statut = $request->statut;
@@ -1081,14 +1081,14 @@ class OperateurController extends Controller
 
             if (isset($count) && $count <= "1") {
                 $operateur = 'opérateur';
-                if (isset($request->statut) && $request->statut == "agréer") {
+                if (isset($request->statut) && $request->statut == "agréé") {
                     $statut = 'agréé';
                 } else {
                     $statut = $request->statut;
                 }
             } else {
                 $operateur = 'opérateurs';
-                if (isset($request->statut) && $request->statut == "agréer") {
+                if (isset($request->statut) && $request->statut == "agréé") {
                     $statut = 'agréés';
                 } else {
                     $statut = $request->statut;
@@ -1193,15 +1193,15 @@ class OperateurController extends Controller
     {
         $commission = Commissionagrement::find($request->input('id'));
 
-        $operateurs_count = Operateur::where('statut_agrement', 'agréer')
+        $operateurs_count = Operateur::where('statut_agrement', 'agréé')
             ->where('commissionagrements_id', $request->input('id'))
             ->count();
 
-        /* $operateurs = Operateur::offset($request->value1)->limit($request->value2)->where('statut_agrement', 'agréer')
+        /* $operateurs = Operateur::offset($request->value1)->limit($request->value2)->where('statut_agrement', 'agréé')
         ->where('commissionagrements_id', $request->input('id'))
         ->get(); */
 
-        $operateurs = Operateur::where('statut_agrement', 'agréer')
+        $operateurs = Operateur::where('statut_agrement', 'agréé')
             ->where('commissionagrements_id', $request->input('id'))
             ->get();
 
@@ -1257,9 +1257,9 @@ class OperateurController extends Controller
         $departements = Departement::latest()->get();
 
         // Comptage des statuts avec une seule requête SQL
-        $statCounts = Operateur::whereIn('statut_agrement', ['agréer', 'Rejetée', 'nouveau', 'expirer'])
+        $statCounts = Operateur::whereIn('statut_agrement', ['agréé', 'Rejetée', 'nouveau', 'expirer'])
             ->selectRaw("
-            SUM(statut_agrement = 'agréer') AS agreer,
+            SUM(statut_agrement = 'agréé') AS agreer,
             SUM(statut_agrement = 'Rejetée') AS rejeter,
             SUM(statut_agrement = 'nouveau') AS nouveau,
             SUM(statut_agrement = 'expirer') AS expirer,
@@ -1323,7 +1323,7 @@ class OperateurController extends Controller
     public function agreer(Request $request)
     {
         $title      = "Liste des opérateurs agréés";
-        $operateurs = Operateur::where('statut_agrement', 'agréer')->get();
+        $operateurs = Operateur::where('statut_agrement', 'agréé')->get();
         return view(
             'operateurs.agreer',
             compact(

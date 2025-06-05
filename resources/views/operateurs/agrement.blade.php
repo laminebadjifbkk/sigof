@@ -385,7 +385,7 @@
                                                             @method('PUT')
                                                             <button class="show_confirm_valider btn btn-sm mx-1"><i
                                                                     class="bi bi-check2-circle"
-                                                                    title="Valider"></i>&nbsp;agréer opérateur</button>
+                                                                    title="Valider"></i>&nbsp;agréé opérateur</button>
                                                         </form>
                                                         <div>
                                                             <button class="btn btn-sm mx-1" data-bs-toggle="modal"
@@ -406,7 +406,7 @@
                                                             @method('PUT')
                                                             <button class="show_confirm_valider btn btn-sm mx-1"><i
                                                                 class="bi bi-check2-circle"
-                                                                title="Valider"></i>&nbsp;agréer modules</button>
+                                                                title="Valider"></i>&nbsp;agréé modules</button>
                                                         </form>
                                                     </ul>
                                                 </div>
@@ -458,7 +458,7 @@
                                                                                 @csrf
                                                                                 @method('PUT')
                                                                                 <button
-                                                                                    class="show_confirm_valider dropdown-item btn btn-sm mx-1">agréer</button>
+                                                                                    class="show_confirm_valider dropdown-item btn btn-sm mx-1">agréé</button>
                                                                             </form>
                                                                             <button class="dropdown-item btn btn-sm mx-1"
                                                                                 data-bs-toggle="modal"

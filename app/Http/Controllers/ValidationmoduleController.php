@@ -14,18 +14,18 @@ class ValidationmoduleController extends Controller
     {
         $operateurmodule   = Operateurmodule::findOrFail($id);
 
-        if ($operateurmodule->statut == 'agréer') {
+        if ($operateurmodule->statut == 'agréé') {
             Alert::warning('Désolé ! ', 'déjà agréé');
         } else {
             $operateurmodule->update([
-                'statut'             => 'agréer',
+                'statut'             => 'agréé',
                 'users_id'           =>  Auth::user()->id,
             ]);
 
             $operateurmodule->save();
 
             $moduleoperateurstatut = new Moduleoperateurstatut([
-                'statut'                =>  "agréer",
+                'statut'                =>  "agréé",
                 'validated_id'          =>  Auth::user()->id,
                 'operateurmodules_id'   =>  $operateurmodule->id,
 

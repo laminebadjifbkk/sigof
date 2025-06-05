@@ -59,7 +59,7 @@ class AuthenticatedSessionController extends Controller
         $count_projets       = Projet::count();
         $antennes            = Antenne::get();
 
-        $count_operateurs = Operateur::where('statut_agrement', 'agréer')->count();
+        $count_operateurs = Operateur::where('statut_agrement', 'agréé')->count();
 
         if ($count_today <= "0") {
             $title = "module de formation";
@@ -87,7 +87,7 @@ class AuthenticatedSessionController extends Controller
         $count_projets       = Projet::count();
         $antennes            = Antenne::all();
 
-        $count_operateurs = Operateur::where('statut_agrement', 'agréer')->count();
+        $count_operateurs = Operateur::where('statut_agrement', 'agréé')->count();
 
         $title = $count_today <= 0 ? "module de formation" : "modules de formation";
 

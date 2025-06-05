@@ -57,7 +57,7 @@ class OperateursImport implements ToModel, WithHeadingRow
                 foreach ($modules as $index => $module) {
                     Operateurmodule::create([
                         'operateurs_id'        => $operateur->id,
-                        "statut"               => $row['statut'], // agréer
+                        "statut"               => $row['statut'], // agréé
                         'module'               => trim($module),
                         'domaine'              => $domaines[$index] ?? null, // Vérifie si l'index existe
                         'categorie'            => $categories[$index] ?? null,

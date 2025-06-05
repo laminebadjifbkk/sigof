@@ -143,8 +143,8 @@
                                     <option value="{{ old('statut') }}">
                                         {{ old('statut') }}
                                     </option>
-                                    <option value="agréer">
-                                        agréer
+                                    <option value="agréé">
+                                        agréé
                                     </option>
                                     <option value="nouveau">
                                         nouveau
@@ -210,8 +210,8 @@
                                     <option value="{{ old('statut') }}">
                                         {{ old('statut') }}
                                     </option>
-                                    <option value="agréer">
-                                        agréer
+                                    <option value="agréé">
+                                        agréé
                                     </option>
                                     <option value="nouveau">
                                         nouveau

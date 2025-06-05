@@ -108,7 +108,7 @@ class CommissionagrementController extends Controller
         }
 
         $operateurs_agreer_count = Operateur::where('commissionagrements_id', $id)
-            ->where('statut_agrement', 'agréer')
+            ->where('statut_agrement', 'agréé')
             ->count();
 
         $operateurs_reserve_count = Operateur::where('commissionagrements_id', $id)
@@ -228,21 +228,21 @@ class CommissionagrementController extends Controller
         $commissionagrement = Commissionagrement::findOrFail($id);
 
         $operateurs = Operateur::where('commissionagrements_id', $commissionagrement->id)
-            ->where('statut_agrement', 'agréer')
+            ->where('statut_agrement', 'agréé')
             ->get();
 
         $operateurmodules = Operateurmodule::join('operateurs', 'operateurs.id', 'operateurmodules.operateurs_id')
             ->select('operateurmodules.*')
-            ->where('operateurs.statut_agrement', "agréer")
+            ->where('operateurs.statut_agrement', "agréé")
             ->where('operateurs.commissionagrements_id', $commissionagrement->id)
-            ->where('operateurmodules.statut', "agréer")
+            ->where('operateurmodules.statut', "agréé")
             ->get();
 
         $count_operateurmodules_distinct = Operateurmodule::join('operateurs', 'operateurs.id', 'operateurmodules.operateurs_id')
             ->select('operateurmodules.*')
-            ->where('operateurs.statut_agrement', "agréer")
+            ->where('operateurs.statut_agrement', "agréé")
             ->where('operateurs.commissionagrements_id', $commissionagrement->id)
-            ->where('operateurmodules.statut', "agréer")
+            ->where('operateurmodules.statut', "agréé")
             ->distinct('module')
             ->count('module');
 

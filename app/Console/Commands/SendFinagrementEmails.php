@@ -45,7 +45,7 @@ class SendFinagrementEmails extends Command
             /* dd($commission->operateurs); */
             if (! empty($commission)) {
                 foreach ($commission?->operateurs as $key => $operateur) {
-                    if (! empty($operateur) && $operateur->statut_agrement == 'agréer') {
+                    if (! empty($operateur) && $operateur->statut_agrement == 'agréé') {
                         $operateur->update(['statut_agrement' => 'expirer']);
                         Mail::to($operateur?->user?->email)->send(new FinAgrementMail($operateur));
                     }

@@ -242,7 +242,7 @@ class OperateurmoduleController extends Controller
 
         $keywords = explode(' ', $request?->module);
 
-        $query = Operateurmodule::where('statut', 'agréer');
+        $query = Operateurmodule::where('statut', 'agréé');
 
         $query->where(function ($q) use ($keywords) {
             foreach ($keywords as $word) {

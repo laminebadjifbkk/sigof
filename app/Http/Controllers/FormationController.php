@@ -1205,7 +1205,7 @@ class FormationController extends Controller
         ->pluck('module', 'module')
         ->all(); */
 
-        /* $operateurmodules = Operateurmodule::where('module', 'LIKE', "%{$modulename}%")->where('statut', 'agréer')->get(); */
+        /* $operateurmodules = Operateurmodule::where('module', 'LIKE', "%{$modulename}%")->where('statut', 'agréé')->get(); */
 
         /*  $operateurFormation = DB::table('formations')
             ->where('operateurs_id', $formation->operateurs_id)
@@ -1214,7 +1214,7 @@ class FormationController extends Controller
 
         $keywords = explode(' ', $modulename);
 
-        $query = Operateurmodule::where('statut', 'agréer');
+        $query = Operateurmodule::where('statut', 'agréé');
 
         $query->where(function ($q) use ($keywords) {
             foreach ($keywords as $word) {
@@ -1260,14 +1260,14 @@ class FormationController extends Controller
 
         $operateurs = Operateur::get();
 
-        /* $operateurmodules = Operateurmodule::where('module', $modulename)->where('statut', 'agréer')->get(); */
+        /* $operateurmodules = Operateurmodule::where('module', $modulename)->where('statut', 'agréé')->get(); */
         /* $operateurmodules = Operateurmodule::where('module', 'like', '%' . $modulename . '%')
-            ->where('statut', 'agréer')
+            ->where('statut', 'agréé')
             ->get(); */
 
         /*   $keywords = explode(' ', $modulename); // ['Teinture', 'Batik']
 
-        $query = Operateurmodule::where('statut', 'agréer');
+        $query = Operateurmodule::where('statut', 'agréé');
 
         foreach ($keywords as $word) {
             $query->where('module', 'like', '%' . $word . '%');
@@ -1277,7 +1277,7 @@ class FormationController extends Controller
 
         $keywords = explode(' ', $modulename);
 
-        $query = Operateurmodule::where('statut', 'agréer');
+        $query = Operateurmodule::where('statut', 'agréé');
 
         $query->where(function ($q) use ($keywords) {
             foreach ($keywords as $word) {
