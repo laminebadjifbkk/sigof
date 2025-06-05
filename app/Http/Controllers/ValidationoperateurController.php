@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Operateur;
@@ -26,21 +25,21 @@ class ValidationoperateurController extends Controller
             "motif" => "required|string",
         ]);
 
-        $operateur   = Operateur::findOrFail($id);
+        $operateur = Operateur::findOrFail($id);
 
         $operateur->update([
-            'statut_agrement'    =>  'sous réserve',
-            'motif'              =>  $request->input('motif'),
+            'statut_agrement' => 'sous réserve',
+            'motif'           => $request->input('motif'),
         ]);
 
         $operateur->save();
 
         $validationoperateur = new Validationoperateur([
-            'action'          =>  "agréer sous réserve",
-            'motif'           =>  $request->input('motif'),
-            'validated_id'    =>  Auth::user()->id,
-            'session'         =>  $operateur?->session_agrement,
-            'operateurs_id'   =>  $operateur->id,
+            'action'        => "agréé sous réserve",
+            'motif'         => $request->input('motif'),
+            'validated_id'  => Auth::user()->id,
+            'session'       => $operateur?->session_agrement,
+            'operateurs_id' => $operateur->id,
 
         ]);
 
@@ -57,28 +56,27 @@ class ValidationoperateurController extends Controller
             "motif" => "required|string",
         ]);
 
-        $operateur   = Operateur::findOrFail($id);
+        $operateur = Operateur::findOrFail($id);
 
         $operateur->update([
-            'statut_agrement'    =>  'Rejetée',
-            'motif'              =>  $request->input('motif'),
+            'statut_agrement' => 'Rejetée',
+            'motif'           => $request->input('motif'),
         ]);
 
         $operateur->save();
 
         $validationoperateur = new Validationoperateur([
-            'action'                =>  'Rejetée',
-            'motif'                 =>  $request->input('motif'),
-            'validated_id'          =>  Auth::user()->id,
-            'session'               =>  $operateur?->session_agrement,
-            'operateurs_id'         =>  $operateur->id,
+            'action'        => 'Rejetée',
+            'motif'         => $request->input('motif'),
+            'validated_id'  => Auth::user()->id,
+            'session'       => $operateur?->session_agrement,
+            'operateurs_id' => $operateur->id,
 
         ]);
 
         $validationoperateur->save();
 
-        Alert::success('Effectué !', $operateur->sigle . ' a été rejeté');
-
+        Alert::success('Succès !', $operateur->sigle . ' a été rejeté');
 
         return redirect()->back();
     }

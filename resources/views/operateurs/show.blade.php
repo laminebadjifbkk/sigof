@@ -255,7 +255,7 @@
                                             @endif
 
                                             <div class="text-center">
-                                                <a href="{{ route('operateurs.edit', $operateur?->id) }}"
+                                                <a href="{{ route('operateurs.edit', $operateur) }}"
                                                     class="btn btn-outline-primary btn-sm" title="Modifier">Modifier cet
                                                     opérateur</a>
                                             </div>
