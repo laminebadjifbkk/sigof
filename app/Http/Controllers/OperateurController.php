@@ -1411,17 +1411,31 @@ class OperateurController extends Controller
         })
             ->get(); */
 
-        $operateurs = Operateur::when($statut !== 'Aucun statut', function ($query) use ($statut) {
-            $query->where('statut_agrement', $statut);
-        }, function ($query) {
-            $query->whereNull('statut_agrement');
-        })
-            ->when($categorie !== 'Toutes', function ($query) use ($categorie) {
-                $query->whereHas('user', function ($q) use ($categorie) {
-                    $q->where('categorie', $categorie);
-                });
+        if ($categorie === 'Aucune') {
+            $operateurs = Operateur::when($statut !== 'Aucun statut', function ($query) use ($statut) {
+                $query->where('statut_agrement', $statut);
+            }, function ($query) {
+                $query->whereNull('statut_agrement');
             })
-            ->get();
+                ->when($categorie !== 'Toutes', function ($query) use ($categorie) {
+                    $query->whereHas('user', function ($q) use ($categorie) {
+                        $q->where('categorie', null);
+                    });
+                })
+                ->get();
+        } else {
+            $operateurs = Operateur::when($statut !== 'Aucun statut', function ($query) use ($statut) {
+                $query->where('statut_agrement', $statut);
+            }, function ($query) {
+                $query->whereNull('statut_agrement');
+            })
+                ->when($categorie !== 'Toutes', function ($query) use ($categorie) {
+                    $query->whereHas('user', function ($q) use ($categorie) {
+                        $q->where('categorie', $categorie);
+                    });
+                })
+                ->get();
+        }
 
         // Regrouper par statut (y compris les null)
         $groupes = $operateurs->groupBy(function ($item) {
