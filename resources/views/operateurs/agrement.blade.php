@@ -551,7 +551,7 @@
                                                             <td style="text-align: center;">
                                                                 <span
                                                                     class="d-flex align-items-baseline justify-content-center">
-                                                                    <a href="{{ route('operateurmodules.show', $operateurmodule->id) }}"
+                                                                    <a href="{{ route('operateurmodules.show', $operateurmodule) }}"
                                                                         class="btn btn-primary btn-sm"
                                                                         title="voir détails"><i class="bi bi-eye"></i></a>
                                                                     <div class="filter">
@@ -575,10 +575,10 @@
                                                                             </button>
                                                                             <button class="dropdown-item btn btn-sm mx-1"
                                                                                 data-bs-toggle="modal"
-                                                                                data-bs-target="#EditOperateurmoduleModal{{ $operateurmodule->id }}">modifier
+                                                                                data-bs-target="#EditOperateurmoduleModal{{ $operateurmodule }}">modifier
                                                                             </button>
                                                                             <form
-                                                                                action="{{ route('operateurmodules.destroy', $operateurmodule->id) }}"
+                                                                                action="{{ route('operateurmodules.destroy', $operateurmodule) }}"
                                                                                 method="post">
                                                                                 @csrf
                                                                                 @method('DELETE')
@@ -821,7 +821,7 @@
 
                         <!-- Modal footer -->
                         <div class="modal-footer">
-                            <form method="post" action="{{ route('operateurmodules.destroy', $operateurmodule->id) }}">
+                            <form method="post" action="{{ route('operateurmodules.destroy', $operateurmodule) }}">
                                 @csrf
                                 @method('DELETE')
                                 <div class="modal-footer">
@@ -878,7 +878,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content shadow-lg rounded-3">
                         <form method="POST"
-                            action="{{ route('validation-operateur-modules.destroy', $operateurmodule->id) }}">
+                            action="{{ route('validation-operateur-modules.destroy', $operateurmodule) }}">
                             @csrf
                             @method('DELETE')
                             <div class="modal-header bg-light border-bottom-0">
