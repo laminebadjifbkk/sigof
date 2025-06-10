@@ -63,15 +63,18 @@
                                                             <input type="hidden" name="region" value="{{ $region }}">
                                                             <input type="hidden" name="projetmoduleid"
                                                                 value="{{ $projetmodule->id }}">
-                                                            <button class="btn btn-sm mx-1">Liste privée région</button>
+                                                            <button class="btn btn-sm mx-1">Liste privée,
+                                                                {{ $region }}</button>
                                                         </form>
-                                                        <form action="{{ route('listeAttenteregion') }}" method="post" target="_blank">
+                                                        <form action="{{ route('listeAttenteregion') }}" method="post"
+                                                            target="_blank">
                                                             @csrf
                                                             <input type="hidden" name="statut" value="{{ $statut }}">
                                                             <input type="hidden" name="region" value="{{ $region }}">
                                                             <input type="hidden" name="projetmoduleid"
                                                                 value="{{ $projetmodule->id }}">
-                                                            <button class="btn btn-sm mx-1">Liste publique région</button>
+                                                            <button class="btn btn-sm mx-1">Liste publique,
+                                                                {{ $region }}</button>
                                                         </form>
                                                     </ul>
                                                 </div>
