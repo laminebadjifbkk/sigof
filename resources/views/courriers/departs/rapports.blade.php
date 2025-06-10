@@ -56,22 +56,20 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($departs as $depart)
-                                            @if (!empty($depart?->numero))
-                                                <tr>
-                                                    <td>{{ $depart->courrier->date_depart?->format('d/m/Y') }} <br>
-                                                        <span style="color: rgb(255, 0, 0);">{{ ' n° ' . $depart?->numero }}</span>
-                                                    </td>
-                                                    <td>{{ $depart->courrier->date_cores?->format('d/m/Y') }} <br>
-                                                        <span
-                                                            style="color: rgb(255, 0, 0);">{{ ' n° ' . $depart?->courrier->numero }}</span>
-                                                    </td>
-                                                    <td>{{ $depart?->destinataire }}</td>
-                                                    <td>{{ $depart->courrier?->objet }}</td>
-                                                    <td>{{ $depart->courrier?->reference }}</td>
-                                                    <td>{{ date_format(date_create($depart?->created_at), 'd/m/Y') }}
-                                                    </td>
-                                                </tr>
-                                            @endif
+                                            <tr>
+                                                <td>{{ $depart->courrier->date_depart?->format('d/m/Y') }} <br>
+                                                    <span style="color: rgb(255, 0, 0);">{{ ' n° ' . $depart?->numero }}</span>
+                                                </td>
+                                                <td>{{ $depart->courrier->date_cores?->format('d/m/Y') }} <br>
+                                                    <span
+                                                        style="color: rgb(255, 0, 0);">{{ ' n° ' . $depart?->courrier->numero }}</span>
+                                                </td>
+                                                <td>{{ $depart?->destinataire }}</td>
+                                                <td>{{ $depart->courrier?->objet }}</td>
+                                                <td>{{ $depart->courrier?->reference }}</td>
+                                                <td>{{ date_format(date_create($depart?->created_at), 'd/m/Y') }}
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -135,7 +133,7 @@
         new DataTable('#table-depart', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [
