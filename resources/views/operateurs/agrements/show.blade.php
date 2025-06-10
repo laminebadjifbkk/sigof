@@ -1056,7 +1056,7 @@
                         @method('PUT')
 
                         <div class="modal-header bg-light border-bottom-0">
-                            <h5 class="modal-title fw-bold text-danger" id="RejetAgrementModalLabel{{ $operateur->id }}">
+                            <h5 class="modal-title fw-bold text-info" id="RejetAgrementModalLabel{{ $operateur->id }}">
                                 Traitement de la demande
                             </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"

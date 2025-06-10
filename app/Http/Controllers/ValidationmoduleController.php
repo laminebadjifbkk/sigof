@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Moduleoperateurstatut;
@@ -12,22 +11,22 @@ class ValidationmoduleController extends Controller
 {
     public function update($id)
     {
-        $operateurmodule   = Operateurmodule::findOrFail($id);
+        $operateurmodule = Operateurmodule::findOrFail($id);
 
         if ($operateurmodule->statut == 'agréé') {
             Alert::warning('Désolé ! ', 'déjà agréé');
         } else {
             $operateurmodule->update([
-                'statut'             => 'agréé',
-                'users_id'           =>  Auth::user()->id,
+                'statut'   => 'agréé',
+                'users_id' => Auth::user()->id,
             ]);
 
             $operateurmodule->save();
 
             $moduleoperateurstatut = new Moduleoperateurstatut([
-                'statut'                =>  "agréé",
-                'validated_id'          =>  Auth::user()->id,
-                'operateurmodules_id'   =>  $operateurmodule->id,
+                'statut'              => "agréé",
+                'validated_id'        => Auth::user()->id,
+                'operateurmodules_id' => $operateurmodule->id,
 
             ]);
 
@@ -41,35 +40,34 @@ class ValidationmoduleController extends Controller
 
     public function destroy(Request $request, $id)
     {
+
+        $statut = $request->statut;
+
         $this->validate($request, [
             "motif" => "required|string",
         ]);
 
-        $operateurmodule   = Operateurmodule::findOrFail($id);
+        $operateurmodule = Operateurmodule::findOrFail($id);
 
-        if ($operateurmodule->statut == 'Rejetée') {
-            Alert::warning('Désolé', 'déjà rejeté');
-        } else {
-            $operateurmodule->update([
-                'statut'             =>  'Rejetée',
-                'motif'              =>  $request->input('motif'),
-                'users_id'           =>  Auth::user()->id,
-            ]);
+        $operateurmodule->update([
+            'statut'   => $request->statut,
+            'motif'    => $request->input('motif'),
+            'users_id' => Auth::user()->id,
+        ]);
 
-            $operateurmodule->save();
+        $operateurmodule->save();
 
-            $moduleoperateurstatut = new Moduleoperateurstatut([
-                'statut'                =>  'Rejetée',
-                'motif'                 =>  $request->input('motif'),
-                'validated_id'          =>  Auth::user()->id,
-                'operateurmodules_id'   =>  $operateurmodule->id,
+        $moduleoperateurstatut = new Moduleoperateurstatut([
+            'statut'              => $request->statut,
+            'motif'               => $request->input('motif'),
+            'validated_id'        => Auth::user()->id,
+            'operateurmodules_id' => $operateurmodule->id,
 
-            ]);
+        ]);
 
-            $moduleoperateurstatut->save();
+        $moduleoperateurstatut->save();
 
-            Alert::success('Effectué !', 'le module ' . $operateurmodule->module . ' a été rejeté');
-        }
+        Alert::success('Succès !', 'le module ' . $operateurmodule->module . ' est ' . $request->statut, );
 
         return redirect()->back();
     }

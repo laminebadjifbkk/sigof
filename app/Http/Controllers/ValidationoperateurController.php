@@ -52,7 +52,7 @@ class ValidationoperateurController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $this->validate($request, [
+        /* $this->validate($request, [
             "motif" => "required|string",
         ]);
 
@@ -77,6 +77,62 @@ class ValidationoperateurController extends Controller
         $validationoperateur->save();
 
         Alert::success('Succès !', $operateur->sigle . ' a été rejeté');
+
+        return redirect()->back(); */
+
+        $statut = $request->statut;
+
+        $request->validate([
+            'motif' => 'required|string',
+        ]);
+
+        $operateur = Operateur::findOrFail($id);
+        $statut    = $operateur->statut_agrement;
+
+        // Bloquer certains statuts uniquement pour les non-super-admins
+        if (! auth()->user()->hasAnyRole(['super-admin', 'Ingenieur'])) {
+            $messages = [
+                'Rejetée'      => 'demande déjà rejetée',
+                'Programmer'   => 'demande déjà programmée',
+                'Attente'      => 'demande déjà traitée',
+                'Retenue'      => 'demande déjà traitée',
+                'Terminée'     => 'demandeur déjà formé',
+                'Former'       => 'demandeur déjà formé',
+                'À corriger'   => 'demandeur déjà traitée',
+                'Non validé'   => 'demandeur déjà traitée',
+                'Conforme'     => 'demandeur déjà traitée',
+                'Non conforme' => 'demandeur déjà traitée',
+                'agréé'        => 'demandeur déjà traitée',
+                'sous réserve' => 'demandeur déjà traitée',
+                'rejeté'       => 'demandeur déjà traitée',
+            ];
+
+            if (array_key_exists($statut, $messages)) {
+                Alert::warning('Désolé !', $messages[$statut]);
+                return redirect()->back();
+            }
+        }
+
+        /* if ($operateur->statut_agrement == 'Nouveau' || $operateur->statut_agrement == 'Retenue') { */
+        $operateur->update([
+            'statut_agrement' => $request->statut,
+            'motif'           => $request->input('motif'),
+        ]);
+
+        $operateur->save();
+
+        $validationoperateur = new Validationoperateur([
+            'action'        => $request->statut,
+            'motif'         => $request->input('motif'),
+            'validated_id'  => Auth::user()->id,
+            'session'       => $operateur?->session_agrement,
+            'operateurs_id' => $operateur->id,
+
+        ]);
+
+        $validationoperateur->save();
+
+        Alert::success('Succès !', $operateur?->user?->username . " est " . $request->statut);
 
         return redirect()->back();
     }

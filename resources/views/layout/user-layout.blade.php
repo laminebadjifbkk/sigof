@@ -169,6 +169,15 @@
             /* border-radius: 5px; */
         }
 
+        .rejeté {
+            background-color: #DC3545;
+            color: white;
+            padding: 4px 8px;
+            text-align: center;
+            border-radius: 25% 10%;
+            /* border-radius: 5px; */
+        }
+
         .annuler {
             background-color: #DC3545;
             color: white;
