@@ -51,7 +51,7 @@
                                             <th>Expéditeur</th>
                                             <th>Objet</th>
                                             <th>Imputation</th>
-                                            <th class="text-center" width="8%">Date cores.</th>
+                                            <th class="text-center" width="10%">Date cores.</th>
                                             <th class="text-center" width="8%">Date créa.</th>
                                         <th width='2%'></th>
                                         </tr>
