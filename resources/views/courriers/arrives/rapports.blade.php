@@ -47,32 +47,54 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">N°</th>
-                                            <th class="text-center">Date arrivé</th>
-                                            <th class="text-center">N° correspondance</th>
-                                            <th class="text-center">Date correspondance</th>
+                                            <th class="text-center" width="8%">Date arrivé</th>
                                             <th>Expéditeur</th>
                                             <th>Objet</th>
-                                            <th>Date</th>
+                                            <th>Imputation</th>
+                                            <th class="text-center" width="8%">Date cores.</th>
+                                            <th class="text-center" width="8%">Date créa.</th>
+                                        <th width='2%'></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($arrives as $arrive)
-                                            @if (!empty($arrive?->numero))
-                                                <tr>
-                                                    <td style="text-align: center;">{{ $arrive?->numero }}</td>
-                                                    {{-- Date reception = date arrivée --}}
-                                                    <td style="text-align: center;">
-                                                        {{ $arrive?->courrier?->date_recep?->format('d/m/Y') }} </td>
-                                                    <td style="text-align: center;">{{ $arrive?->courrier?->numero }}</td>
-                                                    <td style="text-align: center;">
-                                                        {{ $arrive?->courrier?->date_cores?->format('d/m/Y') }} </td>
-                                                    {{-- <td class="text-center">{{ $arrive->numero }}</td> --}}
-                                                    <td>{{ $arrive?->courrier?->expediteur }}</td>
-                                                    <td>{{ $arrive?->courrier?->objet }}</td>
-                                                    <td>{{ date_format(date_create($arrive?->created_at), 'd/m/Y') }}
-                                                    </td>
-                                                </tr>
-                                            @endif
+                                            <tr>
+                                                <td class="text-center">{{ $arrive?->numero_arrive }}</td>
+                                                {{-- Date reception = date arrivée --}}
+                                                <td style="text-align: center;">
+                                                    {{ $arrive?->courrier?->date_recep?->format('d/m/Y') }}</td>
+                                                <td>{{ $arrive?->courrier?->expediteur }}</td>
+                                                <td>{{ $arrive?->courrier?->objet }}</td>
+                                                <td>
+                                                    @if ($arrive?->employees && $arrive->employees->isNotEmpty())
+                                                        <ul class="mb-0 ps-3">
+                                                            @foreach ($arrive->employees as $index => $employee)
+                                                                <li>
+                                                                    {!! $employee->user->firstname . ' ' . $employee->user->name !!}
+                                                                    @if (!empty($employee->fonction?->sigle))
+                                                                        <strong>[{!! $employee->fonction?->sigle ?? '' !!}]</strong>
+                                                                    @endif
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @else
+                                                        <span class="badge bg-info text-dark">Aucune</span>
+                                                    @endif
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    {{ $arrive?->courrier?->date_cores?->format('d/m/Y') }} </td>
+                                                {{-- <td class="text-center">{{ $arrive->numero }}</td> --}}
+                                                <td class="text-center">{{ date_format(date_create($arrive?->created_at), 'd/m/Y') }}
+                                                </td>
+                                                <td>
+                                                <div class="d-flex align-items-baseline">
+                                                    <a href="{{ route('arrives.show', $arrive?->id) }}"
+                                                        class="btn btn-success btn-sm" title="voir détails">
+                                                        <i class="bi bi-eye"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -136,7 +158,7 @@
         new DataTable('#table-arrive', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [
