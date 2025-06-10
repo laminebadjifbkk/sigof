@@ -87,6 +87,114 @@
                             </div>
                             {{-- Détail opérateur --}}
                             <div class="tab-content pt-0">
+                                @php
+                                    $validations = $operateur?->validationoperateurs;
+                                @endphp
+
+                                @if ($validations && $validations->isNotEmpty())
+                                    @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
+                                        <span class="d-flex mt-2 align-items-baseline">
+                                            <nav class="header-nav ms-auto">
+                                                <ul class="d-flex align-items-center list-unstyled mb-0 pt-2">
+                                                    <li class="me-3 fw-semibold text-uppercase text-muted"
+                                                        style="letter-spacing: 1px;">
+                                                        Historique
+                                                    </li>
+                                                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                                                        <i class="bi bi-chat-left-text m-1"></i>
+                                                        <span class="badge bg-success badge-number"
+                                                            title="{{ $operateur?->statut }}">
+                                                            {{ $operateur?->validationoperateurs->count() }}
+                                                        </span>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+                                                        <li class="dropdown-header">
+                                                            Vous avez
+                                                            {{ $operateur?->validationoperateurs->count() }}
+                                                            validation(s)
+                                                        </li>
+                                                        <li>
+                                                            <hr class="dropdown-divider">
+                                                        </li>
+                                                        @foreach ($operateur?->validationoperateurs->sortByDesc('created_at')->take(2) as $validationoperateur)
+                                                            <li class="message-item">
+                                                                <div>
+                                                                    <p><span
+                                                                            class="{{ $validationoperateur->action }}">{{ $validationoperateur->action }}</span>
+                                                                    </p>
+                                                                    <p>
+                                                                        {{ $validationoperateur->user->firstname . ' ' . $validationoperateur->user->name }}
+                                                                    </p>
+                                                                    <p>{!! $validationoperateur->created_at->diffForHumans() !!}</p>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <hr class="dropdown-divider">
+                                                            </li>
+                                                        @endforeach
+                                                        <li class="dropdown-footer">
+                                                            <form action="{{ route('validationmessageop') }}" method="post"
+                                                                target="_blank">
+                                                                @csrf
+                                                                <input type="hidden" name="id"
+                                                                    value="{{ $operateur?->id }}">
+                                                                <button class="btn btn-sm mx-1">Voir
+                                                                    toutes les validations</button>
+                                                            </form>
+                                                        </li>
+                                                    </ul>
+                                                </ul>
+                                            </nav>
+                                        </span>
+                                    @endhasanyrole
+                                @else
+                                    <span class="d-flex mt-2 align-items-baseline">
+                                        <nav class="header-nav ms-auto">
+                                            <ul class="d-flex align-items-center">
+                                                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                                                    <i class="bi bi-chat-left-text m-1"></i>
+                                                    <span class="badge bg-success badge-number"
+                                                        title="{{ $operateur?->statut }}">
+                                                        {{ $operateur?->validationoperateurs->count() }}
+                                                    </span>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+                                                    <li class="dropdown-header">
+                                                        Vous avez
+                                                        {{ $operateur?->validationoperateurs->count() }}
+                                                        validation(s)
+                                                    </li>
+                                                    <li>
+                                                        <hr class="dropdown-divider">
+                                                    </li>
+                                                    @foreach ($operateur?->validationoperateurs->sortByDesc('created_at')->take(2) as $validationoperateur)
+                                                        <li class="message-item">
+                                                            <div>
+                                                                <p><span
+                                                                        class="{{ $validationoperateur->action }}">{{ $validationoperateur->action }}</span>
+                                                                </p>
+                                                                <p>{!! $validationoperateur->created_at->diffForHumans() !!}</p>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <hr class="dropdown-divider">
+                                                        </li>
+                                                    @endforeach
+                                                    <li class="dropdown-footer">
+                                                        <form action="{{ route('validationmessage') }}" method="post"
+                                                            target="_blank">
+                                                            @csrf
+                                                            <input type="hidden" name="id"
+                                                                value="{{ $operateur?->id }}">
+                                                            <button class="btn btn-sm mx-1">Voir
+                                                                toutes les validations</button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </ul>
+                                        </nav>
+                                    </span>
+                                @endif
                                 <div class="tab-pane fade profile-overview" id="profile-overview">
                                     <form method="post" action="#" enctype="multipart/form-data" class="row">
                                         @csrf
@@ -549,7 +657,7 @@
                                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
 
                                                             {{-- Validation automatique --}}
-                                                            <form
+                                                            {{-- <form
                                                                 action="{{ route('validateOperateur', ['id' => $operateur->id]) }}"
                                                                 method="post">
                                                                 @csrf
@@ -557,7 +665,7 @@
                                                                 <button class="show_confirm_valider btn btn-sm mx-1"><i
                                                                         class="bi bi-check2-circle"
                                                                         title="Valider"></i>&nbsp;Retenu</button>
-                                                            </form>
+                                                            </form> --}}
                                                             {{--   <form
                                                             action="{{ route('agreerOperateur', ['id' => $operateur->id]) }}"
                                                             method="post">
@@ -577,9 +685,8 @@
                                                             {{-- @isset($operateur->motif) --}}
                                                             <button class="btn btn-sm mx-1" data-bs-toggle="modal"
                                                                 data-bs-target="#RejetAgrementModal{{ $operateur->id }}"><i
-                                                                    class="bi bi-trash"
-                                                                    title="Justification"></i>&nbsp;Non
-                                                                retenu
+                                                                    class="bi bi-check2-circle"
+                                                                    title="Justification"></i>&nbsp;Validation
                                                             </button>
                                                             {{-- @endisset --}}
                                                         </ul>
@@ -903,7 +1010,7 @@
             </div>
         @endforeach --}}
         {{-- Agrément rejeter --}}
-        @foreach ($operateurs as $operateur)
+        {{-- @foreach ($operateurs as $operateur)
             <div class="modal fade" id="RejetAgrementModal{{ $operateur->id }}" tabindex="-1">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -929,7 +1036,7 @@
                                 @enderror
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
                                 <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-printer"></i>
                                     Rejeter</button>
                             </div>
@@ -937,7 +1044,102 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @endforeach --}}
+
+        <div class="modal fade" id="RejetAgrementModal{{ $operateur->id }}" tabindex="-1"
+            aria-labelledby="RejetAgrementModalLabel{{ $operateur->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content shadow-lg rounded-3">
+
+                    <form method="POST" action="{{ route('nonRetenu', ['id' => $operateur->id]) }}">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="modal-header bg-light border-bottom-0">
+                            <h5 class="modal-title fw-bold text-danger" id="RejetAgrementModalLabel{{ $operateur->id }}">
+                                Traitement de la demande
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Fermer"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            {{-- Champ Statut --}}
+                            <div class="mb-3">
+                                <label for="statut-{{ $operateur->id }}" class="form-label">
+                                    Statut de la demande <span class="text-danger">*</span>
+                                </label>
+                                @php
+                                    $selectedStatut = old('statut', $operateur->statut_agrement);
+                                @endphp
+                                <select name="statut" id="statut-{{ $operateur->id }}"
+                                    class="form-select form-select-sm @error('statut') is-invalid @enderror"
+                                    autofocus>
+                                    <option value="" disabled {{ !$selectedStatut ? 'selected' : '' }}>
+                                        -- Sélectionner un statut --
+                                    </option>
+                                    <option value="Attente" {{ $selectedStatut === 'Attente' ? 'selected' : '' }}>
+                                        En attente
+                                    </option>
+                                    <option value="À corriger" {{ $selectedStatut === 'À corriger' ? 'selected' : '' }}>
+                                        À corriger
+                                    </option>
+                                    <option value="Conforme" {{ $selectedStatut === 'Conforme' ? 'selected' : '' }}>
+                                        Conforme
+                                    </option>
+                                    <option value="Non conforme"
+                                        {{ $selectedStatut === 'Non conforme' ? 'selected' : '' }}>
+                                        Non conforme
+                                    </option>
+                                    <option value="Retenue"
+                                        {{ $selectedStatut === 'Retenue' ? 'selected' : '' }}>
+                                        Retenue
+                                    </option>
+                                    <option value="Non retenue"
+                                        {{ $selectedStatut === 'Non retenue' ? 'selected' : '' }}>
+                                        Non retenue
+                                    </option>
+                                    <option value="Validée" {{ $selectedStatut === 'Validée' ? 'selected' : '' }}>
+                                        Validée
+                                    </option>
+                                </select>
+                                @error('statut')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            {{-- Champ Commentaires --}}
+                            <div class="mb-3">
+                                <label for="motif-{{ $operateur->id }}" class="form-label">
+                                    Commentaires ou remarques <span class="text-danger">*</span>
+                                </label>
+                                @php
+                                    $lastValidation = collect($operateur->validationoperateurs)
+                                        ->sortByDesc('created_at')
+                                        ->first();
+                                @endphp
+                                <textarea name="motif" id="motif-{{ $operateur->id }}" rows="5"
+                                    class="form-control form-control-sm @error('motif') is-invalid @enderror"
+                                    placeholder="Indiquez les raisons ou recommandations">{{ old('motif', $lastValidation?->motif) }}</textarea>
+                                @error('motif')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="modal-footer border-top-0">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
+                                Annuler
+                            </button>
+                            <button type="submit" class="btn btn-info btn-sm">
+                                Soumettre
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
 
         <!-- Add References -->
         {{-- <div class="modal fade" id="AddRefModal" tabindex="-1">
@@ -1159,7 +1361,7 @@
         new DataTable('#table-operateurModules', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

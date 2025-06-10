@@ -593,7 +593,7 @@
                             <div class="modal-footer border-top-0">
                                 <button type="button" class="btn btn-outline-secondary btn-sm"
                                     data-bs-dismiss="modal">Annuler</button>
-                                <button type="submit" class="btn btn-outline-danger btn-sm">Soumettre</button>
+                                <button type="submit" class="btn btn-outline-info btn-sm">Soumettre</button>
                             </div>
                         </form>
                     </div>

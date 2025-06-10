@@ -199,7 +199,7 @@ class Operateur extends Model
 
     public function validationoperateurs()
     {
-        return $this->hasMany(Validationoperateur::class, 'validationoperateurs_id')->latest();
+        return $this->hasMany(Validationoperateur::class, 'operateurs_id')->latest();
     }
 
     public function operateurmodules()

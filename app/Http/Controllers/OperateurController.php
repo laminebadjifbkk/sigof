@@ -800,39 +800,66 @@ class OperateurController extends Controller
 
     public function nonRetenu(Request $request, $id)
     {
-        $this->validate($request, [
-            "motif" => "required|string",
-        ]);
+
+        $statut = $request->statut;
+
+        if ($statut !== 'Attente' || $statut !== 'Conforme') {
+            $request->validate([
+                'motif' => 'required|string',
+            ]);
+        }
 
         $operateur = Operateur::findOrFail($id);
+        $statut    = $operateur->statut_agrement;
 
-        if ($operateur->statut_agrement == 'Nouveau' || $operateur->statut_agrement == 'Retenue') {
-            $operateur->update([
-                'statut_agrement' => 'non retenu',
-                'motif'           => $request->input('motif'),
-            ]);
+        // Bloquer certains statuts uniquement pour les non-super-admins
+        if (! auth()->user()->hasAnyRole(['super-admin', 'Ingenieur'])) {
+            $messages = [
+                'Rejetée'      => 'demande déjà rejetée',
+                'Programmer'   => 'demande déjà programmée',
+                'Attente'      => 'demande déjà traitée',
+                'Retenue'      => 'demande déjà traitée',
+                'Terminée'     => 'demandeur déjà formé',
+                'Former'       => 'demandeur déjà formé',
+                'À corriger'   => 'demandeur déjà traitée',
+                'Non validé'   => 'demandeur déjà traitée',
+                'Conforme'     => 'demandeur déjà traitée',
+                'Non conforme' => 'demandeur déjà traitée',
+            ];
 
-            $operateur->save();
+            if (array_key_exists($statut, $messages)) {
+                Alert::warning('Désolé !', $messages[$statut]);
+                return redirect()->back();
+            }
+        }
 
-            $validationoperateur = new Validationoperateur([
-                'action'        => "non retenu",
-                'motif'         => $request->input('motif'),
-                'validated_id'  => Auth::user()->id,
-                'session'       => $operateur?->session_agrement,
-                'operateurs_id' => $operateur->id,
+        /* if ($operateur->statut_agrement == 'Nouveau' || $operateur->statut_agrement == 'Retenue') { */
+        $operateur->update([
+            'statut_agrement' => $request->statut,
+            'motif'           => $request->input('motif'),
+        ]);
 
-            ]);
+        $operateur->save();
 
-            $validationoperateur->save();
+        $validationoperateur = new Validationoperateur([
+            'action'        => $request->statut,
+            'motif'         => $request->input('motif'),
+            'validated_id'  => Auth::user()->id,
+            'session'       => $operateur?->session_agrement,
+            'operateurs_id' => $operateur->id,
 
-            Alert::success('Effectué !', $operateur?->user?->username . " n'a pas été retenu");
+        ]);
 
-            return redirect()->back();
-        } else {
+        $validationoperateur->save();
+
+        Alert::success('Succès !', $operateur?->user?->username . " est " . $request->statut);
+
+        return redirect()->back();
+        /* } else {
             Alert::warning("Imopssible ", "Car l'opérateur " . $operateur?->user?->username . ' a déjà été validé');
 
             return redirect()->back();
-        }
+        } */
     }
 
     public function agreerOperateur($id)
@@ -1454,5 +1481,15 @@ class OperateurController extends Controller
             default => "Structure $categorie | liste des $count_operateur derniers opérateurs sur un total de $total_count",
         };
         return view('operateurs.filtrageoperateur-statut-categorie', compact('operateurs', 'statut', 'groupes', 'title', 'categorie'));
+    }
+
+        public function validationsRejetMessageOP(Request $request)
+    {
+        /* $individuelle = Individuelle::findOrFail($request?->input('id')); */
+        $operateur = Operateur::with(['validationoperateurs' => function ($query) {
+            $query->orderBy('created_at', 'desc');
+        }])->findOrFail($request->input('id'));
+
+        return view("operateurs.validationsrejetmessageop", compact('operateur'));
     }
 }
