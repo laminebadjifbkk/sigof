@@ -575,10 +575,10 @@
                                                                             </button>
                                                                             <button class="dropdown-item btn btn-sm mx-1"
                                                                                 data-bs-toggle="modal"
-                                                                                data-bs-target="#EditOperateurmoduleModal{{ $operateurmodule }}">modifier
+                                                                                data-bs-target="#EditOperateurmoduleModal{{ $operateurmodule->id }}">modifier
                                                                             </button>
                                                                             <form
-                                                                                action="{{ route('operateurmodules.destroy', $operateurmodule) }}"
+                                                                                action="{{ route('operateurmodules.destroy', $operateurmodule->id) }}"
                                                                                 method="post">
                                                                                 @csrf
                                                                                 @method('DELETE')
@@ -821,7 +821,7 @@
 
                         <!-- Modal footer -->
                         <div class="modal-footer">
-                            <form method="post" action="{{ route('operateurmodules.destroy', $operateurmodule) }}">
+                            <form method="post" action="{{ route('operateurmodules.destroy', $operateurmodule->id) }}">
                                 @csrf
                                 @method('DELETE')
                                 <div class="modal-footer">
@@ -878,7 +878,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content shadow-lg rounded-3">
                         <form method="POST"
-                            action="{{ route('validation-operateur-modules.destroy', $operateurmodule) }}">
+                            action="{{ route('validation-operateur-modules.destroy', $operateurmodule->id) }}">
                             @csrf
                             @method('DELETE')
                             <div class="modal-header bg-light border-bottom-0">
