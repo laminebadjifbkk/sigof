@@ -166,7 +166,7 @@
                                                             <li>
                                                                 {!! $employee->user->firstname . ' ' . $employee->user->name !!}
                                                                 @if (!empty($employee->fonction?->sigle))
-                                                                    <strong>[{!! $employee->fonction?->sigle ?? '' !!}]</strong>
+                                                                    <strong>({!! $employee->fonction?->sigle ?? '' !!})</strong>
                                                                 @endif
                                                             </li>
                                                         @endforeach
