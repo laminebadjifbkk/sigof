@@ -53,7 +53,7 @@
                                             <th>Imputation</th>
                                             <th class="text-center" width="10%">Date cores.</th>
                                             <th class="text-center" width="8%">Date créa.</th>
-                                        <th width='2%'></th>
+                                            <th width='2%'></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -69,12 +69,10 @@
                                                     @if ($arrive?->employees && $arrive->employees->isNotEmpty())
                                                         <ul class="mb-0 ps-3">
                                                             @foreach ($arrive->employees as $index => $employee)
-                                                                <li>
-                                                                    {!! $employee->user->firstname . ' ' . $employee->user->name !!}
-                                                                    @if (!empty($employee->fonction?->sigle))
-                                                                        <strong>({!! $employee->fonction?->sigle ?? '' !!})</strong>
-                                                                    @endif
-                                                                </li>
+                                                                {!! $employee->user->firstname . ' ' . $employee->user->name !!}
+                                                                @if (!empty($employee->fonction?->sigle))
+                                                                    <strong>({!! $employee->fonction?->sigle ?? '' !!})</strong>
+                                                                @endif;
                                                             @endforeach
                                                         </ul>
                                                     @else
@@ -84,16 +82,17 @@
                                                 <td style="text-align: center;">
                                                     {{ $arrive?->courrier?->date_cores?->format('d/m/Y') }} </td>
                                                 {{-- <td class="text-center">{{ $arrive->numero }}</td> --}}
-                                                <td class="text-center">{{ date_format(date_create($arrive?->created_at), 'd/m/Y') }}
+                                                <td class="text-center">
+                                                    {{ date_format(date_create($arrive?->created_at), 'd/m/Y') }}
                                                 </td>
                                                 <td>
-                                                <div class="d-flex align-items-baseline">
-                                                    <a href="{{ route('arrives.show', $arrive?->id) }}"
-                                                        class="btn btn-success btn-sm" title="voir détails">
-                                                        <i class="bi bi-eye"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
+                                                    <div class="d-flex align-items-baseline">
+                                                        <a href="{{ route('arrives.show', $arrive?->id) }}"
+                                                            class="btn btn-success btn-sm" title="voir détails">
+                                                            <i class="bi bi-eye"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
