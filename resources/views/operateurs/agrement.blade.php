@@ -91,7 +91,6 @@
                                 @php
                                     $validations = $operateur?->validationoperateurs;
                                 @endphp
-
                                 @if ($validations && $validations->isNotEmpty())
                                     @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
                                         <span class="d-flex mt-2 align-items-baseline">
@@ -883,8 +882,7 @@
                             @csrf
                             @method('DELETE')
                             <div class="modal-header bg-light border-bottom-0">
-                                <h5 class="modal-title fw-bold text-info"
-                                    id="AddRegionModal{{ $operateurmodule->id }}">
+                                <h5 class="modal-title fw-bold text-info" id="AddRegionModal{{ $operateurmodule->id }}">
                                     Traitement du module
                                 </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -908,8 +906,7 @@
                                         <option value="agréé" {{ $selectedStatut === 'agréé' ? 'selected' : '' }}>
                                             agréé
                                         </option>
-                                        <option value="réserve"
-                                            {{ $selectedStatut === 'réserve' ? 'selected' : '' }}>
+                                        <option value="réserve" {{ $selectedStatut === 'réserve' ? 'selected' : '' }}>
                                             réserve
                                         </option>
                                         <option value="rejeté" {{ $selectedStatut === 'rejeté' ? 'selected' : '' }}>
@@ -927,10 +924,10 @@
                                         Commentaires ou remarques <span class="text-danger">*</span>
                                     </label>
                                     @php
-                                    $lastValidation = collect($operateurmodule->moduleoperateurstatuts)
-                                        ->sortByDesc('created_at')
-                                        ->first();
-                                @endphp
+                                        $lastValidation = collect($operateurmodule->moduleoperateurstatuts)
+                                            ->sortByDesc('created_at')
+                                            ->first();
+                                    @endphp
                                     <textarea name="motif" id="motif-{{ $operateurmodule->id }}" rows="5"
                                         class="form-control form-control-sm @error('motif') is-invalid @enderror"
                                         placeholder="Indiquez les raisons ou recommandations">{{ old('motif', $lastValidation?->motif) }}</textarea>
