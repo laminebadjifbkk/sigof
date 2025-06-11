@@ -202,15 +202,15 @@ class DepartController extends Controller
         }
 
         $this->validate($request, [
-            "date_depart"     => ["required", "date", "max:10", "min:10", "date_format:Y-m-d"],
-            "date_corres"     => ["required", "date", "max:10", "min:10", "date_format:Y-m-d"],
-            "numero_courrier" => ["nullable", "string", "min:4", "max:6", "unique:courriers,numero_courrier,{$depart->courrier->id}"],
-            "numero_depart"   => ["nullable", "string", "min:4", "max:6", "unique:departs,numero_depart,{$depart->id}"],
+            "date_depart"     => ["required", "date", "size:10", "date_format:Y-m-d"],
+            "date_corres"     => ["required", "date", "size:10", "date_format:Y-m-d"],
+            "numero_courrier" => ["nullable", "string", "unique:courriers,numero_courrier,{$depart->courrier->id}"],
+            "numero_depart"   => ["nullable", "string", "unique:departs,numero_depart,{$depart->id}"],
             "annee"           => ["required", "string"],
             "objet"           => ["required", "string"],
             "destinataire"    => ["required", "string"],
-            "numero_reponse"  => ["string", "min:4", "max:6", "nullable", "unique:courriers,numero_reponse,Null,id,deleted_at,NULL" . $courrier->id],
-            "date_reponse"    => ["nullable", "date", "max:10", "min:10", "date_format:Y-m-d"],
+            "numero_reponse"  => ["string", "nullable", "unique:courriers,numero_reponse,Null,id,deleted_at,NULL" . $courrier->id],
+            "date_reponse"    => ["nullable", "date", "size:10", "date_format:Y-m-d"],
             "observation"     => ["nullable", "string"],
             "reference"       => ["nullable", "string"],
         ]);

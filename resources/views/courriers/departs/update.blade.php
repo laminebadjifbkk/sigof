@@ -81,7 +81,7 @@
                                     <label for="numero_courrier" class="form-label">Numéro correspondance<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
-                                        <input type="number" min="0" name="numero_courrier"
+                                        <input type="text" name="numero_courrier"
                                             value="{{ $depart->courrier->numero_courrier ?? old('numero_courrier') }}"
                                             class="form-control form-control-sm @error('numero_courrier') is-invalid @enderror"
                                             id="numero_courrier" placeholder="Numéro de correspondance">
