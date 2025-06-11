@@ -186,7 +186,7 @@
                                                             </li>
                                                         @endforeach
                                                         <li class="dropdown-footer">
-                                                            <form action="{{ route('validationmessage') }}" method="post"
+                                                            <form action="{{ route('validationmessageop') }}" method="post"
                                                                 target="_blank">
                                                                 @csrf
                                                                 <input type="hidden" name="id"
