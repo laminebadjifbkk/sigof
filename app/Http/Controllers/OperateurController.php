@@ -1018,10 +1018,19 @@ class OperateurController extends Controller
         $title          = 'rapports opérateurs';
         $regions        = Region::orderBy("created_at", "desc")->get();
         $module_statuts = Operateurmodule::get()->unique('statut');
+
+        $operateurs = Operateur::get();
+
+         // Regrouper par statut (y compris les null)
+        $groupes = $operateurs->groupBy(function ($item) {
+            return $item->statut_agrement ?? 'Aucun statut';
+        });
+
         return view('operateurs.rapports', compact(
             'title',
             'regions',
             'module_statuts',
+            'groupes'
         ));
     }
 

@@ -143,9 +143,14 @@
                                     <option value="{{ old('statut') }}">
                                         {{ old('statut') }}
                                     </option>
-                                    @foreach ($module_statuts as $module)
+                                    {{-- @foreach ($module_statuts as $module)
                                         <option value="{{ $module?->statut }}">
                                             {{ $module?->statut }}
+                                        </option>
+                                    @endforeach --}}
+                                    @foreach ($groupes as $statut => $items)
+                                        <option value="{{ $statut }}">
+                                            {{ $statut }}
                                         </option>
                                     @endforeach
                                     {{-- <option value="agréé">
@@ -215,9 +220,14 @@
                                     <option value="{{ old('statut') }}">
                                         {{ old('statut') }}
                                     </option>
-                                    @foreach ($module_statuts as $module)
+                                    {{-- @foreach ($module_statuts as $module)
                                         <option value="{{ $module?->statut }}">
                                             {{ $module?->statut }}
+                                        </option>
+                                    @endforeach --}}
+                                    @foreach ($groupes as $statut => $items)
+                                        <option value="{{ $statut }}">
+                                            {{ $statut }}
                                         </option>
                                     @endforeach
                                     {{-- <option value="agréé">
@@ -307,9 +317,14 @@
                                     <option value="{{ old('statut') }}">
                                         {{ old('statut') }}
                                     </option>
-                                    @foreach ($module_statuts as $module)
+                                    {{-- @foreach ($module_statuts as $module)
                                         <option value="{{ $module?->statut }}">
                                             {{ $module?->statut }}
+                                        </option>
+                                    @endforeach --}}
+                                    @foreach ($groupes as $statut => $items)
+                                        <option value="{{ $statut }}">
+                                            {{ $statut }}
                                         </option>
                                     @endforeach
                                 </select>
