@@ -475,7 +475,6 @@ class ProjetController extends Controller
 
     public function filtrerProjetParStatut($statut, $projetid)
     {
-
         $projet = Projet::findOrFail($projetid);
 
         $individuelles = Individuelle::where('projets_id', $projet->id)

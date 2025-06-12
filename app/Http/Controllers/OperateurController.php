@@ -74,20 +74,24 @@ class OperateurController extends Controller
             "1" => "$count_operateur opérateur sur un total de $total_count",
             default => "Liste des $count_operateur derniers opérateurs sur un total de $total_count",
         };
+
         $operateurs = Operateur::select('*')->get();
         // Récupérer les différents statuts
-        $statuts = $operateurs->pluck('statut_agrement')->unique();
+        /* $statuts = $operateurs->pluck('statut_agrement')->unique(); */
 
         // Regrouper par statut_agrement (y compris les null)
-        $groupes = $operateurs->groupBy(function ($item) {
+        $groupesStatutAgrement = $operateurs->groupBy(function ($item) {
             return $item->statut_agrement ?? 'Aucun statut agrement';
         });
+
+        $commissionagrements = Commissionagrement::get();
 
         return view("operateurs.index",
             compact(
                 "operateurs",
-                "groupes",
+                "groupesStatutAgrement",
                 "departements",
+                "commissionagrements",
                 /* "operateur_agreer",
                 "operateur_rejeter",
                 "pourcentage_agreer",
@@ -1493,5 +1497,39 @@ class OperateurController extends Controller
         }])->findOrFail($request->input('id'));
 
         return view("operateurs.validationsrejetmessageop", compact('operateur'));
+    }
+
+    public function filtrerOperateurParCAL($calid)
+    {
+        $operateurs = Operateur::where('commissionagrements_id', $calid)->get();
+        $cal = Commissionagrement::findOrFail($calid);
+
+        $total_count  = number_format($operateurs->count(), 0, ',', ' ');
+        $departements = Departement::orderBy("nom", "asc")->get();
+
+        $operateur_liste = Operateur::latest()->take(50)->get();
+        $count_operateur = number_format($operateur_liste->count(), 0, ',', ' ');
+
+        $title = match ($count_operateur) {
+            "0" => 'Aucun opérateur',
+            "1" => "$count_operateur opérateur sur un total de $total_count",
+            default => "Liste des $count_operateur derniers opérateurs sur un total de $total_count",
+        };
+
+        $title = $cal?->commission . ' du ' . $cal?->date?->translatedFormat('l d F Y') . ' à ' . $cal?->lieu;
+
+        $groupesStatutAgrement = $operateurs->groupBy(function ($item) {
+            return $item->statut_agrement ?? 'Aucun statut agrement';
+        });
+
+        return view("operateurs.cal",
+            compact(
+                "operateurs",
+                "groupesStatutAgrement",
+                "departements",
+                "title",
+                "cal",
+            ));
+
     }
 }

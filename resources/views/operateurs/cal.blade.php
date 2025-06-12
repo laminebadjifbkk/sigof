@@ -133,16 +133,19 @@
                     @endforeach
                 @endif
                 <div class="card">
+                    <span class="nav-link"><a href="{{ route('operateurs.index') }}" class="btn btn-secondary btn-sm"
+                            title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>
+                    </span>
                     <div class="card-body">
                         @if (auth()->user()->hasRole('super-admin|admin|DEC'))
-                            {{-- <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 pt-5">
+                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 pt-2">
                                 <div class="row">
                                     <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
                                         <div class="card info-card revenue-card shadow-sm" style="max-width: 220px;">
                                             <div class="card-body p-2">
                                                 <h5 class="card-title text-truncate mb-1" title="operateurs"
                                                     style="font-size: 1rem;">
-                                                    Opérateurs
+                                                    {{ $cal?->commission }}
                                                 </h5>
                                                 <div class="d-flex align-items-center mb-2">
                                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
@@ -195,34 +198,8 @@
                                         </div>
                                     @endforeach
                                 </div>
-                            </div> --}}
-                            <table class="table table-bordered table-striped align-middle">
-                                <thead class="table-primary">
-                                    <tr class="text-center">
-                                        <th scope="col" style="width: 50px;">N°</th>
-                                        <th scope="col">CAL</th>
-                                        <th scope="col">Opérateurs</th>
-                                        <th scope="col" style="width: 120px;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($commissionagrements as $index => $items)
-                                        <tr class="text-center">
-                                            <td>{{ $loop?->iteration }}</td>
-                                            <td>{{ $items?->commission }}</td>
-                                            <td>{{ number_format($items->operateurs->count(), 0, '', ' ') }}</td>
+                            </div>
 
-                                        <td>
-                                            <a href="{{ route('operateurs.filtrerOperateurParCAL', ['calid' => $items?->id]) }}"
-                                                class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1"
-                                                target="_blank">
-                                                Voir plus <i class="bi bi-arrow-right-short"></i>
-                                            </a>
-                                        </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">{{ $title }}</h5>
                                 <span class="d-flex align-items-baseline">
@@ -357,7 +334,8 @@
                                                             <div class="filter">
                                                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                         class="bi bi-three-dots"></i></a>
-                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                <ul
+                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                     @can('operateur-update')
                                                                         <li>
                                                                             <a class="dropdown-item btn btn-sm"
