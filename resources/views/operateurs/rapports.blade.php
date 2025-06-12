@@ -143,14 +143,19 @@
                                     <option value="{{ old('statut') }}">
                                         {{ old('statut') }}
                                     </option>
-                                    <option value="agréé">
+                                    @foreach ($module_statuts as $module)
+                                        <option value="{{ $module?->statut }}">
+                                            {{ $module?->statut }}
+                                        </option>
+                                    @endforeach
+                                    {{-- <option value="agréé">
                                         agréé
                                     </option>
                                     <option value="nouveau">
                                         nouveau
                                     </option>
-                                    <option value='Rejetée'>
-                                        rejeter
+                                    <option value='rejeté'>
+                                        rejeté
                                     </option>
                                     <option value="sous réserve">
                                         sous réserve
@@ -158,9 +163,9 @@
                                     <option value="retenu">
                                         retenu
                                     </option>
-                                    <option value='Attente'>
+                                    <option value='attente'>
                                         attente
-                                    </option>
+                                    </option> --}}
                                 </select>
                                 @error('statut')
                                     <span class="invalid-feedback" role="alert">
@@ -210,14 +215,19 @@
                                     <option value="{{ old('statut') }}">
                                         {{ old('statut') }}
                                     </option>
-                                    <option value="agréé">
+                                    @foreach ($module_statuts as $module)
+                                        <option value="{{ $module?->statut }}">
+                                            {{ $module?->statut }}
+                                        </option>
+                                    @endforeach
+                                    {{-- <option value="agréé">
                                         agréé
                                     </option>
                                     <option value="nouveau">
                                         nouveau
                                     </option>
-                                    <option value='Rejetée'>
-                                        rejeter
+                                    <option value='rejeté'>
+                                        rejeté
                                     </option>
                                     <option value="sous réserve">
                                         sous réserve
@@ -225,9 +235,9 @@
                                     <option value="retenu">
                                         retenu
                                     </option>
-                                    <option value='Attente'>
+                                    <option value='attente'>
                                         attente
-                                    </option>
+                                    </option> --}}
                                 </select>
                                 @error('statut')
                                     <span class="invalid-feedback" role="alert">
@@ -297,7 +307,6 @@
                                     <option value="{{ old('statut') }}">
                                         {{ old('statut') }}
                                     </option>
-
                                     @foreach ($module_statuts as $module)
                                         <option value="{{ $module?->statut }}">
                                             {{ $module?->statut }}
@@ -332,7 +341,7 @@
     new DataTable('#table-operateur', {
         layout: {
             topStart: {
-                buttons: [ 'csv', 'excel', 'print'],
+                buttons: ['csv', 'excel', 'print'],
             }
         },
         "order": [
