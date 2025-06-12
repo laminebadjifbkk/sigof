@@ -1504,17 +1504,17 @@ class OperateurController extends Controller
         $operateurs = Operateur::where('commissionagrements_id', $calid)->get();
         $cal = Commissionagrement::findOrFail($calid);
 
-        $total_count  = number_format($operateurs->count(), 0, ',', ' ');
+        /* $total_count  = number_format($operateurs->count(), 0, ',', ' '); */
         $departements = Departement::orderBy("nom", "asc")->get();
 
         $operateur_liste = Operateur::latest()->take(50)->get();
         $count_operateur = number_format($operateur_liste->count(), 0, ',', ' ');
 
-        $title = match ($count_operateur) {
+        /* $title = match ($count_operateur) {
             "0" => 'Aucun opérateur',
             "1" => "$count_operateur opérateur sur un total de $total_count",
             default => "Liste des $count_operateur derniers opérateurs sur un total de $total_count",
-        };
+        }; */
 
         $title = $cal?->commission . ' du ' . $cal?->date?->translatedFormat('l d F Y') . ' à ' . $cal?->lieu;
 
