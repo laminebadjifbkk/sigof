@@ -383,7 +383,8 @@ class FormationController extends Controller
     {
         $this->validate($request, [
             "code"               => "required|string|unique:formations,code,{$formation->id}",
-            "name"               => "required|string|unique:formations,name,{$formation->id}",
+            /* "name"               => "required|string|unique:formations,name,{$formation->id}", */
+            "name"               => "required|string",
             "departement"        => "required|string",
             "lieu"               => "required|string",
             "type_certification" => "required|string",
