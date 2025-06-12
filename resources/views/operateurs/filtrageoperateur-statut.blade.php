@@ -37,6 +37,19 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
+                        @php
+                            $isAdmin = auth()
+                                ->user()
+                                ->hasRole(['super-admin', 'admin', 'DIOF', 'DEC', 'Ingenieur']);
+                            $route = $isAdmin ? route('operateurs.index') : route('profil');
+                            $btnClass = $isAdmin ? 'btn-secondary' : 'btn-info';
+                        @endphp
+                        <span class="d-flex mt-2 align-items-baseline">
+                            <a href="{{ $route }}" class="btn {{ $btnClass }} btn-sm" title="Retour">
+                                <i class="bi bi-arrow-counterclockwise"></i>
+                            </a>&nbsp;
+                            <p> | Retour</p>
+                        </span>
                         @if (auth()->user()->hasRole('super-admin|admin|DEC'))
                             <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 pt-5">
                                 <div class="row">
@@ -131,7 +144,8 @@
                         @endif
                         @if ($operateurs->isNotEmpty())
                             <div class="table-responsive">
-                                <table class="table datatables table-bordered table-hover align-middle justify-content-center"
+                                <table
+                                    class="table datatables table-bordered table-hover align-middle justify-content-center"
                                     id="table-operateurs">
                                     <thead>
                                         <tr>
@@ -173,7 +187,8 @@
                                         <?php $i = 1; ?>
                                         @foreach ($operateurs as $operateur)
                                             <tr>
-                                                <td class="text-center">{{ $operateur?->annee_agrement?->format('Y') }}
+                                                <td class="text-center">
+                                                    {{ $operateur?->commissionagrement?->date?->format('Y') }}
                                                 </td>
                                                 @can('afficher-dossier-operateur')
                                                     <td class="text-center">{{ $operateur?->numero_dossier }}</td>

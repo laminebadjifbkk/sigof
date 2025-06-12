@@ -44,7 +44,7 @@ class OperateurController extends Controller
         $operateurs   = Operateur::latest()->get();
         $departements = Departement::orderBy("nom", "asc")->get();
 
-        $statuts = ['agréé', 'Rejetée', 'nouveau', 'expirer'];
+        $statuts = ['agréé', 'rejeté', 'nouveau', 'expirer'];
 
         $counts = Operateur::whereIn('statut_agrement', $statuts)
             ->selectRaw("statut_agrement, COUNT(*) as count")
@@ -52,7 +52,7 @@ class OperateurController extends Controller
             ->pluck('count', 'statut_agrement');
 
         $operateur_agreer  = $counts['agréé'] ?? 0;
-        $operateur_rejeter = $counts['Rejetée'] ?? 0;
+        $operateur_rejeter = $counts['rejeté'] ?? 0;
         $operateur_nouveau = $counts['nouveau'] ?? 0;
         $operateur_expirer = $counts['expirer'] ?? 0;
         $operateur_total   = $operateur_agreer + $operateur_rejeter + $operateur_nouveau;
@@ -815,7 +815,7 @@ class OperateurController extends Controller
         // Bloquer certains statuts uniquement pour les non-super-admins
         if (! auth()->user()->hasAnyRole(['super-admin', 'Ingenieur'])) {
             $messages = [
-                'Rejetée'      => 'demande déjà rejetée',
+                'rejeté'      => 'demande déjà rejeté',
                 'Programmer'   => 'demande déjà programmée',
                 'Attente'      => 'demande déjà traitée',
                 'Retenue'      => 'demande déjà traitée',
@@ -1284,10 +1284,10 @@ class OperateurController extends Controller
         $departements = Departement::latest()->get();
 
         // Comptage des statuts avec une seule requête SQL
-        $statCounts = Operateur::whereIn('statut_agrement', ['agréé', 'Rejetée', 'nouveau', 'expirer'])
+        $statCounts = Operateur::whereIn('statut_agrement', ['agréé', 'rejeté', 'nouveau', 'expirer'])
             ->selectRaw("
             SUM(statut_agrement = 'agréé') AS agreer,
-            SUM(statut_agrement = 'Rejetée') AS rejeter,
+            SUM(statut_agrement = 'rejeté') AS rejeter,
             SUM(statut_agrement = 'nouveau') AS nouveau,
             SUM(statut_agrement = 'expirer') AS expirer,
             COUNT(*) AS total
@@ -1331,6 +1331,11 @@ class OperateurController extends Controller
             default => "$count opérateurs trouvés"
         };
 
+        // Regrouper par statut_agrement (y compris les null)
+        $groupes = $operateurs->groupBy(function ($item) {
+            return $item->statut_agrement ?? 'Aucun statut agrement';
+        });
+
         return view('operateurs.index', compact(
             'operateurs',
             'departements',
@@ -1343,6 +1348,7 @@ class OperateurController extends Controller
             "operateur_rejeter",
             "operateur_nouveau",
             "operateur_expirer",
+            "groupes",
             'title'
         ));
     }
@@ -1483,7 +1489,7 @@ class OperateurController extends Controller
         return view('operateurs.filtrageoperateur-statut-categorie', compact('operateurs', 'statut', 'groupes', 'title', 'categorie'));
     }
 
-        public function validationsRejetMessageOP(Request $request)
+    public function validationsRejetMessageOP(Request $request)
     {
         /* $individuelle = Individuelle::findOrFail($request?->input('id')); */
         $operateur = Operateur::with(['validationoperateurs' => function ($query) {
