@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Liste des agréments')
+@section('title', 'ONFP | CALS')
 @section('space-work')
 
     <section class="section register">
@@ -50,7 +50,7 @@
                         <table class="table datatables align-middle justify-content-center" id="table-agrements">
                             <thead>
                                 <tr>
-                                    <th>Commission agrément</th>
+                                    <th>Name</th>
                                     <th class="text-center">Session</th>
                                     <th width="5%" class="text-center">Date</th>
                                     <th>Lieu</th>
@@ -406,7 +406,7 @@
                 }
             },
             "order": [
-                [0, 'asc']
+                [0, 'desc']
             ],
             language: {
                 "sProcessing": "Traitement en cours...",

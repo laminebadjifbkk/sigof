@@ -182,7 +182,8 @@
                             @endcan
                         </div>
                         @if ($formations->isNotEmpty())
-                            <table class="table datatables" id="table-formations">
+                            <table class="table datatables table-bordered table-hover align-middle justify-content-center"
+                                id="table-formations">
                                 <thead>
                                     <tr>
                                         <th width='6%' class="text-center">Code</th>
