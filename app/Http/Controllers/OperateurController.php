@@ -41,10 +41,14 @@ class OperateurController extends Controller
 
     public function index()
     {
-        $operateurs   = Operateur::latest()->get();
+        $operateurs   = Operateur::count();
+        $total_count  = number_format($operateurs, 0, ',', ' ');
         $departements = Departement::orderBy("nom", "asc")->get();
 
-        $statuts = ['agréé', 'rejeté', 'nouveau', 'expirer'];
+        /* $statuts = ['agréé', 'rejeté', 'nouveau', 'expirer']; */
+
+        // Récupérer les différents statuts
+        /* $statuts = $operateurs->pluck('statut_agrement')->unique()->values()->all();
 
         $counts = Operateur::whereIn('statut_agrement', $statuts)
             ->selectRaw("statut_agrement, COUNT(*) as count")
@@ -60,9 +64,8 @@ class OperateurController extends Controller
         $pourcentage_agreer  = $operateur_total ? ($operateur_agreer / $operateur_total) * 100 : 0;
         $pourcentage_rejeter = $operateur_total ? ($operateur_rejeter / $operateur_total) * 100 : 0;
         $pourcentage_nouveau = $operateur_total ? ($operateur_nouveau / $operateur_total) * 100 : 0;
-        $pourcentage_expirer = $operateur_total ? ($operateur_expirer / $operateur_total) * 100 : 0;
+        $pourcentage_expirer = $operateur_total ? ($operateur_expirer / $operateur_total) * 100 : 0; */
 
-        $total_count     = number_format(Operateur::count(), 0, ',', ' ');
         $operateur_liste = Operateur::latest()->take(50)->get();
         $count_operateur = number_format($operateur_liste->count(), 0, ',', ' ');
 
@@ -71,7 +74,7 @@ class OperateurController extends Controller
             "1" => "$count_operateur opérateur sur un total de $total_count",
             default => "Liste des $count_operateur derniers opérateurs sur un total de $total_count",
         };
-
+        $operateurs = Operateur::select('*')->get();
         // Récupérer les différents statuts
         $statuts = $operateurs->pluck('statut_agrement')->unique();
 
@@ -83,18 +86,17 @@ class OperateurController extends Controller
         return view("operateurs.index",
             compact(
                 "operateurs",
-                "statuts",
                 "groupes",
                 "departements",
-                "operateur_agreer",
+                /* "operateur_agreer",
                 "operateur_rejeter",
                 "pourcentage_agreer",
                 "pourcentage_rejeter",
                 "operateur_nouveau",
                 "operateur_expirer",
-                "title",
                 "pourcentage_nouveau",
-                "pourcentage_expirer"
+                "pourcentage_expirer" */
+                "title",
             ));
 
     }
@@ -815,7 +817,7 @@ class OperateurController extends Controller
         // Bloquer certains statuts uniquement pour les non-super-admins
         if (! auth()->user()->hasAnyRole(['super-admin', 'Ingenieur'])) {
             $messages = [
-                'rejeté'      => 'demande déjà rejeté',
+                'rejeté'       => 'demande déjà rejeté',
                 'Programmer'   => 'demande déjà programmée',
                 'Attente'      => 'demande déjà traitée',
                 'Retenue'      => 'demande déjà traitée',
@@ -1021,7 +1023,7 @@ class OperateurController extends Controller
 
         $operateurs = Operateur::get();
 
-         // Regrouper par statut (y compris les null)
+        // Regrouper par statut (y compris les null)
         $groupes = $operateurs->groupBy(function ($item) {
             return $item->statut_agrement ?? 'Aucun statut';
         });
@@ -1036,6 +1038,7 @@ class OperateurController extends Controller
 
     public function generateRapport(Request $request)
     {
+
         if ($request->valeur_region == "1") {
             $this->validate($request, [
                 'region' => 'required|string',
@@ -1047,25 +1050,18 @@ class OperateurController extends Controller
             $operateurs = Operateur::where('statut_agrement', 'LIKE', "{$request->statut}")
                 ->where('regions_id', "{$request->region}")
                 ->get();
+
+            // Regrouper par statut_agrement (y compris les null)
+            $groupes = $operateurs->groupBy(function ($item) {
+                return $item->statut_agrement ?? 'Aucun statut agrement';
+            });
+
             $count = $operateurs->count();
 
-            if (isset($count) && $count <= "1") {
-                $operateur = 'opérateur';
-                if (isset($request->statut) && $request->statut == "agréé") {
-                    $statut = 'agréé';
-                } else {
-                    $statut = $request->statut;
-                }
-            } else {
-                $operateur = 'opérateurs';
-                if (isset($request->statut) && $request->statut == "agréé") {
-                    $statut = 'agréés';
-                } else {
-                    $statut = $request->statut;
-                }
-            }
+            $statut = $request->statut;
 
-            $title = $count . ' ' . $operateur . ' ' . $statut . ' à ' . $region->nom;
+            $title = $count . ' opérateur(s) ' . $statut . '(s) à ' . $region->nom;
+
         } elseif ($request->valeur_module == "1") {
             $this->validate($request, [
                 'module' => 'required|string',
@@ -1079,23 +1075,17 @@ class OperateurController extends Controller
                 ->distinct()
                 ->get();
 
+            // Regrouper par statut_agrement (y compris les null)
+            $groupes = $operateurs->groupBy(function ($item) {
+                return $item->statut_agrement ?? 'Aucun statut agrement';
+            });
+
             $count = $operateurs->count();
-            if (isset($count) && $count <= "1") {
-                $operateur = 'opérateur';
-                if (isset($request->statut) && $request->statut == "agréé") {
-                    $statut = 'agréé';
-                } else {
-                    $statut = $request->statut;
-                }
-            } else {
-                $operateur = 'opérateurs';
-                if (isset($request->statut) && $request->statut == "agréé") {
-                    $statut = 'agréés';
-                } else {
-                    $statut = $request->statut;
-                }
-            }
-            $title = $count . ' ' . $operateur . ' ' . $statut . ' en ' . $request->module;
+
+            $statut = $request->statut;
+
+            $title = $count . ' opérateur(s) ' . $statut . '(s) en ' . $request->module;
+
         } else {
             $this->validate($request, [
                 'region' => 'required|string',
@@ -1113,24 +1103,17 @@ class OperateurController extends Controller
                 ->distinct()
                 ->get();
 
+            // Regrouper par statut_agrement (y compris les null)
+            $groupes = $operateurs->groupBy(function ($item) {
+                return $item->statut_agrement ?? 'Aucun statut agrement';
+            });
+
             $count = $operateurs->count();
 
-            if (isset($count) && $count <= "1") {
-                $operateur = 'opérateur';
-                if (isset($request->statut) && $request->statut == "agréé") {
-                    $statut = 'agréé';
-                } else {
-                    $statut = $request->statut;
-                }
-            } else {
-                $operateur = 'opérateurs';
-                if (isset($request->statut) && $request->statut == "agréé") {
-                    $statut = 'agréés';
-                } else {
-                    $statut = $request->statut;
-                }
-            }
-            $title = $count . ' ' . $operateur . ' ' . $statut . ' dans la région de  ' . $region->nom . ' en ' . $request->module;
+            $statut = $request->statut;
+
+            $title = $count . ' opérateur(s) ' . $statut . '(s) dans la région de  ' . $region->nom . ' en ' . $request->module;
+
         }
 
         $regions        = Region::orderBy("created_at", "desc")->get();
@@ -1140,6 +1123,7 @@ class OperateurController extends Controller
             'module_statuts',
             'operateurs',
             'title',
+            'groupes',
             'regions'
         ));
     }
@@ -1267,6 +1251,7 @@ class OperateurController extends Controller
 
     public function generateReport(Request $request)
     {
+        /* dd("ok"); */
         $this->validate($request, [
             'operateur_name'  => 'nullable|string',
             'operateur_sigle' => 'nullable|string',
@@ -1285,15 +1270,17 @@ class OperateurController extends Controller
         ];
 
         if (empty(array_filter($searchFields))) {
-            Alert::warning('Attention ', 'Renseigner au moins un champ pour rechercher');
+            Alert::warning('Oups !', 'Renseigner au moins un champ pour rechercher');
             return redirect()->back();
         }
 
         // Récupération des départements
         $departements = Departement::latest()->get();
 
+        /* $statuts = $operateurs->pluck('statut_agrement')->unique()->values()->all(); */
+
         // Comptage des statuts avec une seule requête SQL
-        $statCounts = Operateur::whereIn('statut_agrement', ['agréé', 'rejeté', 'nouveau', 'expirer'])
+        /* $statCounts = Operateur::whereIn('statut_agrement', $statuts)
             ->selectRaw("
             SUM(statut_agrement = 'agréé') AS agreer,
             SUM(statut_agrement = 'rejeté') AS rejeter,
@@ -1311,7 +1298,7 @@ class OperateurController extends Controller
         $operateur_agreer  = $statCounts->agreer;
         $operateur_rejeter = $statCounts->rejeter;
         $operateur_nouveau = $statCounts->nouveau;
-        $operateur_expirer = $statCounts->expirer;
+        $operateur_expirer = $statCounts->expirer; */
 
         // Requête de recherche optimisée
         $operateurs = Operateur::join('users', 'users.id', '=', 'operateurs.users_id')
@@ -1348,7 +1335,7 @@ class OperateurController extends Controller
         return view('operateurs.index', compact(
             'operateurs',
             'departements',
-            'statCounts',
+            /* 'statCounts',
             'pourcentage_agreer',
             'pourcentage_rejeter',
             'pourcentage_nouveau',
@@ -1356,7 +1343,7 @@ class OperateurController extends Controller
             "operateur_agreer",
             "operateur_rejeter",
             "operateur_nouveau",
-            "operateur_expirer",
+            "operateur_expirer", */
             "groupes",
             'title'
         ));
