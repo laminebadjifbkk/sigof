@@ -103,17 +103,10 @@
                                                             {{ $formation?->numero_convention . ' du ' . $formation?->date_convention?->format('d/m/Y') }}
                                                         @endif
                                                     </td>
-                                                    {{-- <td>{{ $formation?->frais_operateurs }}</td>
+                                                    <td>{{ $formation?->frais_operateurs }}</td>
                                                     <td>{{ $formation?->frais_add }}</td>
                                                     <td>{{ $formation?->autes_frais }}</td>
                                                     <td>{{ $formation?->frais_operateurs + $formation?->frais_add + $formation?->autes_frais }}
-                                                    </td> --}}
-                                                    <td>{{ number_format($formation?->frais_operateurs, 0, ',', ' ') }}
-                                                    </td>
-                                                    <td>{{ number_format($formation?->frais_add, 0, ',', ' ') }}</td>
-                                                    <td>{{ number_format($formation?->autes_frais, 0, ',', ' ') }}</td>
-                                                    <td>
-                                                        {{ number_format(($formation?->frais_operateurs ?? 0) + ($formation?->frais_add ?? 0) + ($formation?->autes_frais ?? 0), 0, ',', ' ') }}
                                                     </td>
                                                     <td>
                                                         @if (!empty($formation?->referentiel?->titre))
