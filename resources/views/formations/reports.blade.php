@@ -28,11 +28,12 @@
     <section class="section">
         <div class="row">
             <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                @if($formations->isEmpty())
+                @if ($formations->isNotEmpty())
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title"><a href="{{ route('formations.index') }}" class="btn btn-success btn-sm"
-                                    title="retour"><i class="bi bi-arrow-counterclockwise"></i></a> | {{ $title }}</h5>
+                                    title="retour"><i class="bi bi-arrow-counterclockwise"></i></a> | {{ $title }}
+                            </h5>
                             <div class="table-responsive">
                                 <table class="table datatables align-middle" id="table-formations">
                                     <thead>
@@ -95,8 +96,8 @@
                                                     <td>{{ $formation?->forme_f }}</td>
                                                     <td></td>
                                                     <td>{{ $formation?->total }}</td>
-                                                    <td>{{ date_format(date_create($formation?->date_debut), 'd/m/Y') }}</td>
-                                                    <td>{{ date_format(date_create($formation?->date_fin), 'd/m/Y') }}</td>
+                                                    <td>{{ $formation?->date_debut?->format('d/m/Y') }}</td>
+                                                    <td>{{ $formation?->date_fin?->format('d/m/Y') }}</td>
                                                     <td>
                                                         @if (!empty($formation?->numero_convention))
                                                             {{ $formation?->numero_convention . ' du ' . $formation?->date_convention?->format('d/m/Y') }}
@@ -130,54 +131,54 @@
                             </div>
                         </div>
                     </div>
-                @endisset
+                @endif
             </div>
         </div>
         {{-- <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog" aria-labelledby="generate_rapportLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="card-header text-center bg-gradient-default">
-                        <h1 class="h4 text-black mb-0">Générer rapport</h1>
-                    </div>
-                    <form method="post" action="{{ route('formations.rapport') }}">
-                        @csrf
-                        <div class="modal-body">
-                            <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                    <label class="form-label">De<span class="text-danger mx-1">*</span></label>
-                                    <input type="date" name="from_date"
-                                        class="form-control form-control-sm @error('from_date') is-invalid @enderror from_date">
-                                    @error('from_date')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                    <label class="form-label">À<span class="text-danger mx-1">*</span></label>
-                                    <input type="date" name="to_date"
-                                        class="form-control form-control-sm @error('to_date') is-invalid @enderror to_date">
-                                    @error('to_date')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm"
-                                        data-bs-dismiss="modal">Fermer</button>
-                                    <div class="text-center">
-                                        <button type="submit"
-                                            class="btn btn-primary btn-block submit_rapport btn-sm">Envoyer</button>
-                                    </div>
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="card-header text-center bg-gradient-default">
+                    <h1 class="h4 text-black mb-0">Générer rapport</h1>
+                </div>
+                <form method="post" action="{{ route('formations.rapport') }}">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <label class="form-label">De<span class="text-danger mx-1">*</span></label>
+                                <input type="date" name="from_date"
+                                    class="form-control form-control-sm @error('from_date') is-invalid @enderror from_date">
+                                @error('from_date')
+                                    <span class="invalid-feedback" role="alert">
+                                        <div>{{ $message }}</div>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <label class="form-label">À<span class="text-danger mx-1">*</span></label>
+                                <input type="date" name="to_date"
+                                    class="form-control form-control-sm @error('to_date') is-invalid @enderror to_date">
+                                @error('to_date')
+                                    <span class="invalid-feedback" role="alert">
+                                        <div>{{ $message }}</div>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm"
+                                    data-bs-dismiss="modal">Fermer</button>
+                                <div class="text-center">
+                                    <button type="submit"
+                                        class="btn btn-primary btn-block submit_rapport btn-sm">Envoyer</button>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
-        </div> --}}
+        </div>
+    </div> --}}
     </section>
 @endsection
 
