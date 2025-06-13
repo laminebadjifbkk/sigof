@@ -62,8 +62,9 @@ class CommissionagrementController extends Controller
         $request->validate([
             'commission'    => ["required", "string", "unique:commissionagrements,commission,{$id}"],
             'session'       => 'required|string',
-            'date_agrement' => "nullable|date|min:10|max:10|date_format:Y-m-d",
+            'date_agrement' => "nullable|date|size:10|date_format:Y-m-d",
             'lieu'          => 'nullable|string',
+            'statut'        => 'nullable|string',
             'annee'         => 'required|string',
 
         ]);
@@ -79,6 +80,7 @@ class CommissionagrementController extends Controller
             'session'     => $request->input('session'),
             'description' => $request->input('description'),
             'lieu'        => $request->input('lieu'),
+            'statut'      => $request->input('statut'),
             'annee'       => $request->input('annee'),
             'date'        => $date_agrement,
 
@@ -86,7 +88,7 @@ class CommissionagrementController extends Controller
 
         $commissionagrement->save();
 
-        Alert::success('Effectuée !', 'Commission modifiée avec succès');
+        Alert::success('Succès !', 'Commission modifiée avec succès');
 
         return redirect()->back();
     }
@@ -129,7 +131,7 @@ class CommissionagrementController extends Controller
         ->where('commissionagrements_id', '!=', $id)
         ->pluck('id', 'id')
         ->all(); */
-        
+
         return view('operateurs.commissionagrements.show',
             compact('commissionagrement',
                 'operateurs',
@@ -308,7 +310,7 @@ class CommissionagrementController extends Controller
         ]);
 
         $commissionagrement = Commissionagrement::findOrFail($id);
-        
+
         $commissionagrement->commissionmembres()->sync($request->membres);
 
         Alert::success('Bravo !', 'Membres ajoutés avec succès');

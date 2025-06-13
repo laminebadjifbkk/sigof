@@ -203,6 +203,7 @@
                                         <th scope="col" style="width: 50px;">N°</th>
                                         <th scope="col">CAL</th>
                                         <th scope="col">Opérateurs</th>
+                                        <th scope="col">Statut</th>
                                         <th scope="col" style="width: 120px;">Action</th>
                                     </tr>
                                 </thead>
@@ -212,14 +213,13 @@
                                             <td>{{ $loop?->iteration }}</td>
                                             <td>{{ $items?->commission }}</td>
                                             <td>{{ number_format($items->operateurs->count(), 0, '', ' ') }}</td>
-
-                                        <td>
-                                            <a href="{{ route('operateurs.filtrerOperateurParCAL', ['calid' => $items?->id]) }}"
-                                                class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1"
-                                                target="_blank">
-                                                Voir plus <i class="bi bi-arrow-right-short"></i>
-                                            </a>
-                                        </td>
+                                            <td><span class="{{ $items?->statut }}">{{ $items?->statut }}</span></td>
+                                            <td>
+                                                <a href="{{ route('operateurs.filtrerOperateurParCAL', ['calid' => $items?->id]) }}"
+                                                    class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
+                                                    Voir plus <i class="bi bi-arrow-right-short"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

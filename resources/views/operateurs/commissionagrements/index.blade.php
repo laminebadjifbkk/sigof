@@ -57,7 +57,7 @@
                                     {{-- <th>PV</th> --}}
                                     <th>Fin agrément</th>
                                     <th width="5%" class="text-center">Operateurs</th>
-                                    <th width="5%" class="text-center">Statut</th>
+                                    <th width="8%" class="text-center">Statut</th>
                                     <th width="5%" class="text-center" scope="col"><i class="bi bi-gear"></i>
                                     </th>
                                 </tr>
@@ -81,7 +81,7 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td></td>
+                                        <td><span class="{{ $commissionagrement?->statut }}">{{ $commissionagrement?->statut }}</span></td>
                                         <td style="text-align: center;">
                                             @can('commission-show')
                                                 <span class="d-flex mt-2 align-items-baseline"><a
@@ -187,7 +187,7 @@
 
                             <div class="mb-3">
                                 <label for="floatingInput">Session<span class="text-danger mx-1">*</span></label>
-                                <select name="session" class="form-select  @error('session') is-invalid @enderror"
+                                <select name="session" class="form-select form-select-sm  @error('session') is-invalid @enderror"
                                     aria-label="Select" id="select-field" data-placeholder="Choisir session">
                                     <option value="">
                                         {{ old('session') }}
@@ -299,7 +299,7 @@
 
                                 <div class="mb-3">
                                     <label for="floatingInput">Session<span class="text-danger mx-1">*</span></label>
-                                    <select name="session" class="form-select  @error('session') is-invalid @enderror"
+                                    <select name="session" class="form-select form-select-sm @error('session') is-invalid @enderror"
                                         aria-label="Select" id="select-field" data-placeholder="Choisir session">
                                         <option value="{{ $commissionagrement?->session ?? old('session') }}">
                                             {{ $commissionagrement?->session ?? old('session') }}
@@ -381,6 +381,31 @@
                                         </span>
                                     @enderror
                                 </div>
+
+                                  <div class="mb-3">
+                                    <label for="floatingInput">statut<span class="text-danger mx-1">*</span></label>
+                                    <select name="statut" class="form-select form-select-sm @error('statut') is-invalid @enderror"
+                                        aria-label="Select" id="select-field" data-placeholder="Choisir statut">
+                                        <option value="{{ $commissionagrement?->statut ?? old('statut') }}">
+                                            {{ $commissionagrement?->statut ?? old('statut') }}
+                                        </option>
+                                        <option value="En attente">
+                                            En attente
+                                        </option>
+                                        <option value="En cours">
+                                            En cours
+                                        </option>
+                                        <option value="Expiré">
+                                            Expiré
+                                        </option>
+                                    </select>
+                                    @error('statut')
+                                        <span class="invalid-feedback" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
+                                </div>
+
                             </div>
 
                             <div class="modal-footer">

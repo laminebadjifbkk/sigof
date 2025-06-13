@@ -66,7 +66,7 @@ class OperateurController extends Controller
         $pourcentage_nouveau = $operateur_total ? ($operateur_nouveau / $operateur_total) * 100 : 0;
         $pourcentage_expirer = $operateur_total ? ($operateur_expirer / $operateur_total) * 100 : 0; */
 
-        $operateurs = Operateur::latest()->take(250)->get();
+        $operateurs      = Operateur::latest()->take(250)->get();
         $count_operateur = number_format($operateurs->count(), 0, ',', ' ');
 
         $title = match ($count_operateur) {
@@ -84,7 +84,7 @@ class OperateurController extends Controller
             return $item->statut_agrement ?? 'Aucun statut agrement';
         }); */
 
-        $commissionagrements = Commissionagrement::get();
+        $commissionagrements = Commissionagrement::orderBy('created_at', 'desc')->get();
 
         return view("operateurs.index",
             compact(
@@ -1502,7 +1502,7 @@ class OperateurController extends Controller
     public function filtrerOperateurParCAL($calid)
     {
         $operateurs = Operateur::where('commissionagrements_id', $calid)->get();
-        $cal = Commissionagrement::findOrFail($calid);
+        $cal        = Commissionagrement::findOrFail($calid);
 
         /* $total_count  = number_format($operateurs->count(), 0, ',', ' '); */
         $departements = Departement::orderBy("nom", "asc")->get();

@@ -240,7 +240,7 @@
         }
 
         .cours {
-            background-color: #6C757D;
+            background-color: #28a745;  /* vert vif classique pour succès */
             color: white;
             padding: 4px 8px;
             text-align: center;
@@ -338,7 +338,7 @@
         }
 
         .Expiré {
-            background-color: #ffcc00;
+            background-color: #DC3545;
             color: white;
             padding: 4px 8px;
             text-align: center;
