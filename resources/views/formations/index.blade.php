@@ -212,7 +212,7 @@
                                                 </span>
                                             </td>
                                             {{-- <td>{{ $formation->type_certification }}</td> --}}
-                                            <td>{{ $formation?->titre }}</td>
+                                            <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
                                             <td class="text-center">
                                                 <a><span
                                                         class="{{ $formation->statut }}">{{ $formation->statut }}</span></a>
