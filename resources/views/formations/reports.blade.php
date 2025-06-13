@@ -8,7 +8,7 @@
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Accueil</a></li>
                 @endcan
                 <li class="breadcrumb-item">Tables</li>
-                <li class="breadcrumb-item active">Générer des rapports</li>
+                <li class="breadcrumb-item active">{{ $title }}</li>
             </ol>
         </nav>
     </div>
@@ -28,7 +28,7 @@
     <section class="section">
         <div class="row">
             <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                @isset($formations)
+                @if($formations->isEmpty())
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title"><a href="{{ route('formations.index') }}" class="btn btn-success btn-sm"
@@ -133,7 +133,7 @@
                 @endisset
             </div>
         </div>
-        <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog" aria-labelledby="generate_rapportLabel"
+        {{-- <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog" aria-labelledby="generate_rapportLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -177,7 +177,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </section>
 @endsection
 
