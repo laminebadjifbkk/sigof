@@ -494,7 +494,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/operateur/{statut}/{categorie}', [OperateurController::class, 'filtrerOperateurParStatutCategorie'])
             ->name('operateurs.parStatutCategorie');
 
-        Route::get('/operateurs/{calid}', [OperateurController::class, 'filtrerOperateurParCAL'])
+        Route::get('/operateurs/statut/{calid}', [OperateurController::class, 'filtrerOperateurParCAL'])
             ->name('operateurs.filtrerOperateurParCAL');
 
         /* Route::get('demandesdg', [IndividuelleController::class, 'demandesdg'])->name('demandesdg');

@@ -66,8 +66,8 @@ class OperateurController extends Controller
         $pourcentage_nouveau = $operateur_total ? ($operateur_nouveau / $operateur_total) * 100 : 0;
         $pourcentage_expirer = $operateur_total ? ($operateur_expirer / $operateur_total) * 100 : 0; */
 
-        $operateur_liste = Operateur::latest()->take(50)->get();
-        $count_operateur = number_format($operateur_liste->count(), 0, ',', ' ');
+        $operateurs = Operateur::latest()->take(250)->get();
+        $count_operateur = number_format($operateurs->count(), 0, ',', ' ');
 
         $title = match ($count_operateur) {
             "0" => 'Aucun opérateur',
@@ -75,21 +75,21 @@ class OperateurController extends Controller
             default => "Liste des $count_operateur derniers opérateurs sur un total de $total_count",
         };
 
-        $operateurs = Operateur::select('*')->get();
+        /* $operateurs = Operateur::select('*')->get(); */
         // Récupérer les différents statuts
         /* $statuts = $operateurs->pluck('statut_agrement')->unique(); */
 
         // Regrouper par statut_agrement (y compris les null)
-        $groupesStatutAgrement = $operateurs->groupBy(function ($item) {
+        /* $groupesStatutAgrement = $operateurs->groupBy(function ($item) {
             return $item->statut_agrement ?? 'Aucun statut agrement';
-        });
+        }); */
 
         $commissionagrements = Commissionagrement::get();
 
         return view("operateurs.index",
             compact(
                 "operateurs",
-                "groupesStatutAgrement",
+                /* "groupesStatutAgrement", */
                 "departements",
                 "commissionagrements",
                 /* "operateur_agreer",

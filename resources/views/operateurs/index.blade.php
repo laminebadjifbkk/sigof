@@ -196,6 +196,7 @@
                                     @endforeach
                                 </div>
                             </div> --}}
+                                <h5 class="card-title">Opérateurs par CAL</h5>
                             <table class="table table-bordered table-striped align-middle">
                                 <thead class="table-primary">
                                     <tr class="text-center">
@@ -227,8 +228,7 @@
                                 <h5 class="card-title">{{ $title }}</h5>
                                 <span class="d-flex align-items-baseline">
                                     <a href="{{ route('operateurs.create') }}"
-                                        class="btn btn-primary btn-sm float-end btn-rounded"><i
-                                            class="fas fa-plus"></i>Ajouter</a>
+                                        class="btn btn-primary btn-sm btn-rounded"><i class="bi bi-person-plus"></i> Ajouter</a>
                                     <div class="filter">
                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                 class="bi bi-three-dots"></i></a>
@@ -254,9 +254,9 @@
                         @if ($operateurs->isNotEmpty())
                             <div class="table-responsive">
                                 <table
-                                    class="table datatables table-bordered table-hover align-middle justify-content-center"
+                                    class="table datatables table-striped table-bordered table-hover align-middle justify-content-center"
                                     id="table-operateurs">
-                                    <thead>
+                                    <thead class="table-success">
                                         <tr>
                                             @can('afficher-dossier-operateur')
                                                 <th width="3%" class="text-center">Dossier</th>
