@@ -959,7 +959,7 @@ class FormationController extends Controller
         $module    = Module::findOrFail($idmodule);
         $region    = Region::findOrFail($idlocalite);
 
-        $statutsVoulus = ['attente', 'conforme', 'retiré', 'non conforme', 'liste attente', 'sélectionnée', 'Nouvelle'];
+        $statutsVoulus = ['attente', 'conforme', 'retiré', 'non conforme', 'liste attente', 'sélectionnée'];
 
         if (! empty($formation?->projets_id)) {
             /* $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
@@ -1465,7 +1465,7 @@ class FormationController extends Controller
         /* $collectivemodule    = $formation?->collectivemodule?->module; */
 
         /* $collectivemodules = Collectivemodule::get(); */
-        $collectivemodules = Collectivemodule::select('id', 'uuid', 'collectives_id', 'module')->get();
+        $collectivemodules = Collectivemodule::select('id', 'uuid', 'collectives_id', 'module', 'statut')->get();
 
         $collectivemoduleFormation = DB::table('formations')
             ->where('collectivemodules_id', $formation->collectivemodules_id)
@@ -2759,10 +2759,13 @@ class FormationController extends Controller
         $collectivemodule = Collectivemodule::findOrFail($idcollectivemodule);
         $localite         = Region::findOrFail($idlocalite);
 
+        $statutsVoulus = ['attente', 'conforme', 'nouvelle', 'validée'];
+
         $listecollectives = Listecollective::join('collectives', 'collectives.id', 'listecollectives.collectives_id')
             ->select('listecollectives.*')
             ->where('collectives.id', $collectivemodule->collective->id)
             ->where('collectivemodules_id', $idcollectivemodule)
+            ->whereIn('collectives.statut_demande', $statutsVoulus)
             ->get();
 
         $candidatsretenus = Listecollective::where('collectivemodules_id', $idcollectivemodule)

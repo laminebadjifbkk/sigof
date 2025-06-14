@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'Ajouter module à cette formation')
+@section('title', 'Formation collective - Sélectionner un module')
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
@@ -28,8 +28,23 @@
                                 </span>
                             </div>
                         </div>
-                        <h5><u><b>MODULE</b>:</u> {{ $formation?->collectivemodule?->module  ?? 'Aucun module' }}</h5>
-                        <h5><u><b>REGION</b>:</u> {{ $localite->nom ?? 'Aucune région' }}</h5>
+                        {{--  <h5><u><b>MODULE</b>:</u> {{ $formation?->collectivemodule?->module  ?? 'Aucun module' }}</h5>
+                        <h5><u><b>REGION</b>:</u> {{ $localite->nom ?? 'Aucune région' }}</h5> --}}
+
+                        <div class="p-3 mb-4 border rounded bg-light shadow-sm">
+                            <div class="row text-center fw-semibold">
+                                <div class="col-md-6 mb-2">
+                                    <span class="text-secondary">📍 Région</span><br>
+                                    <span class="fs-5 text-dark">{{ $localite->nom ?? 'Aucune' }}</span>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <span class="text-secondary">📘 Module</span><br>
+                                    <span
+                                        class="fs-5 text-dark">{{ $formation?->collectivemodule?->module ?? 'Aucun' }}</span>
+                                </div>
+                            </div>
+                        </div>
+
                         <form method="post"
                             action="{{ url('formationcollectivemodules', ['$idformation' => $formation->id]) }}"
                             enctype="multipart/form-data" class="row g-3">
@@ -40,13 +55,14 @@
                                     <table class="table datatables align-middle" id="table-modules">
                                         <thead>
                                             <tr>
-                                                <th>Structure</th>
-                                                <th>E-mail</th>
+                                                <th width="40%">Structure</th>
+                                                {{-- <th>E-mail</th>
                                                 <th>Téléphone</th>
-                                                <th>Localité</th>
+                                                <th>Localité</th> --}}
                                                 <th>Modules</th>
                                                 <th class="text-center" scope="col">Effectif</th>
                                                 <th class="text-center" scope="col">Formations</th>
+                                                <th class="text-center" scope="col">Statut</th>
                                                 <th width="3%"><i class="bi bi-gear"></i></th>
                                             </tr>
                                         </thead>
@@ -66,16 +82,16 @@
                                                         @enderror
                                                         {{ $collectivemodule?->collective?->name . ' (' . $collectivemodule?->collective?->sigle . ')' }}
                                                     </td>
-                                                    <td><a
+                                                    {{--  <td><a
                                                             href="mailto:{{ $collectivemodule?->collective?->user?->email }}">{{ $collectivemodule?->collective?->user?->email }}</a>
                                                     </td>
                                                     <td><a
                                                             href="tel:+221{{ $collectivemodule?->collective?->telephone }}">{{ $collectivemodule?->collective?->telephone }}</a>
                                                     </td>
                                                     <td>{{ $collectivemodule?->collective?->departement?->region?->nom }}
-                                                    </td>
+                                                    </td> --}}
                                                     <td>{{ $collectivemodule?->module }}</td>
-                                                    <td style="text-align: center;">
+                                                    <td class="text-center">
                                                         @foreach ($collectivemodule?->listecollectives as $listecollective)
                                                             @if ($loop->last)
                                                                 <a
@@ -84,12 +100,17 @@
                                                             @endif
                                                         @endforeach
                                                     </td>
-                                                    <td style="text-align: center;">
-                                                        <a class="badge bg-primary">
+                                                    <td class="text-center">
+                                                        <span class="badge bg-primary">
                                                             {{ count($collectivemodule?->formations) }}
-                                                        </a>
+                                                        </span>
                                                     </td>
-                                                    <td style="text-align: center;">
+                                                    <td>
+                                                        <span class="{{ $collectivemodule?->statut }}">
+                                                            {{ $collectivemodule?->statut }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center">
                                                         <span class="d-flex mt-2 align-items-baseline"><a
                                                                 href="{{ route('collectives.show', $collectivemodule->collective) }}"
                                                                 class="btn btn-success btn-sm mx-1" title="Voir détails">

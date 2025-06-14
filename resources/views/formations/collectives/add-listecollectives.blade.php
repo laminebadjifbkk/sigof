@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ajouter dans la formation')
+@section('title', 'Formation | Choisir une demande collective')
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
@@ -28,9 +28,26 @@
                                 </span>
                             </div>
                         </div>
-                        <h5><u><b>Module</b></u> : {{ $collectivemodule?->module }}</h5>
+                        {{-- <h5><u><b>Module</b></u> : {{ $collectivemodule?->module }}</h5>
                         <h5><u><b>Région</b></u> : {{ $localite?->nom }}</h5>
-                        <h5><u><b>Sélectionnés</b></u> : {{ $candidatsretenus?->count() ?? '' }}</h5>
+                        <h5><u><b>Sélectionnés</b></u> : {{ $candidatsretenus?->count() ?? '' }}</h5> --}}
+
+                        <div class="p-3 mb-4 border rounded bg-light shadow-sm">
+                            <div class="row text-center fw-semibold">
+                                <div class="col-md-4 mb-2">
+                                    <span class="text-secondary">📍 Région</span><br>
+                                    <span class="fs-5 text-dark">{{ $localite?->nom ?? 'Aucune' }}</span>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <span class="text-secondary">📘 Module</span><br>
+                                    <span class="fs-5 text-dark">{{ $collectivemodule?->module ?? 'Aucun' }}</span>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <span class="text-secondary">👥 Effectif</span><br>
+                                    <span class="fs-5 text-dark">{{ $candidatsretenus?->count() ?? 0 }}</span>
+                                </div>
+                            </div>
+                        </div>
                         <form method="post"
                             action="{{ url('formationdemandeurscollectives', ['$idformation' => $formation->id, '$idcollectivemodule' => $formation->collectivemodule->id, '$idlocalite' => $formation->departement->region->id]) }}"
                             enctype="multipart/form-data" class="row g-3">
@@ -61,47 +78,47 @@
                                         <tbody>
                                             <?php $i = 1; ?>
                                             @foreach ($listecollectives as $listecollective)
-                                                    <tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" name="listecollectives[]"
+                                                            value="{{ $listecollective->id }}"
+                                                            {{ in_array($listecollective->formations_id, $listecollectiveFormation) ? 'checked' : '' }}
+                                                            class="form-check-input @error('listecollectives') is-invalid @enderror">
+                                                        @error('listecollectives')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <div>{{ $message }}</div>
+                                                            </span>
+                                                            @enderror{{ $listecollective?->cin }}
+                                                        </td>
+                                                        <td>{{ $listecollective?->civilite }}</td>
+                                                        <td>{{ $listecollective?->prenom }}</td>
+                                                        <td>{{ $listecollective?->nom }}</td>
+                                                        <td>{{ $listecollective?->date_naissance->format('d/m/Y') }}
+                                                        </td>
+                                                        <td>{{ $listecollective?->lieu_naissance }}</td>
+                                                        <td>{{ $listecollective?->niveau_etude }}</td>
+                                                        {{-- <td>{{ $listecollective?->collectivemodule?->module }}</td> --}}
                                                         <td>
-                                                            <input type="checkbox" name="listecollectives[]"
-                                                                value="{{ $listecollective->id }}"
-                                                                {{ in_array($listecollective->formations_id, $listecollectiveFormation) ? 'checked' : '' }}
-                                                                class="form-check-input @error('listecollectives') is-invalid @enderror">
-                                                            @error('listecollectives')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <div>{{ $message }}</div>
-                                                                </span>
-                                                                @enderror{{ $listecollective?->cin }}
-                                                            </td>
-                                                            <td>{{ $listecollective?->civilite }}</td>
-                                                            <td>{{ $listecollective?->prenom }}</td>
-                                                            <td>{{ $listecollective?->nom }}</td>
-                                                            <td>{{ $listecollective?->date_naissance->format('d/m/Y') }}
-                                                            </td>
-                                                            <td>{{ $listecollective?->lieu_naissance }}</td>
-                                                            <td>{{ $listecollective?->niveau_etude }}</td>
-                                                            {{-- <td>{{ $listecollective?->collectivemodule?->module }}</td> --}}
-                                                            <td>
-                                                                <span
-                                                                    class="{{ $listecollective?->statut }}">{{ $listecollective?->statut }}</span>
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <span class="d-flex align-items-baseline">
-                                                                    <a href="{{ route('listecollectives.show', $listecollective?->id) }}"
-                                                                        class="btn btn-primary btn-sm"
-                                                                        title="voir détails" target="_blank"><i class="bi bi-eye"></i></a>
-                                                                    <div class="filter">
-                                                                        <a class="icon" href="#"
-                                                                            data-bs-toggle="dropdown"><i
-                                                                                class="bi bi-three-dots"></i></a>
-                                                                        <ul
-                                                                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                            <li><a class="dropdown-item btn btn-sm"
-                                                                                    href="{{ route('listecollectives.edit', $listecollective->id) }}"
-                                                                                    class="mx-1" title="Modifier"><i
-                                                                                        class="bi bi-pencil"></i>Modifier</a>
-                                                                            </li>
-                                                                            {{-- <form
+                                                            <span
+                                                                class="{{ $listecollective?->statut }}">{{ $listecollective?->statut }}</span>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <span class="d-flex align-items-baseline">
+                                                                <a href="{{ route('listecollectives.show', $listecollective?->id) }}"
+                                                                    class="btn btn-primary btn-sm" title="voir détails"
+                                                                    target="_blank"><i class="bi bi-eye"></i></a>
+                                                                <div class="filter">
+                                                                    <a class="icon" href="#"
+                                                                        data-bs-toggle="dropdown"><i
+                                                                            class="bi bi-three-dots"></i></a>
+                                                                    <ul
+                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                        <li><a class="dropdown-item btn btn-sm"
+                                                                                href="{{ route('listecollectives.edit', $listecollective->id) }}"
+                                                                                class="mx-1" title="Modifier"><i
+                                                                                    class="bi bi-pencil"></i>Modifier</a>
+                                                                        </li>
+                                                                        {{-- <form
                                                                                 action="{{ route('listecollectives.destroy', $listecollective->id) }}"
                                                                                 method="post">
                                                                                 @csrf
@@ -111,11 +128,11 @@
                                                                                     title="Supprimer"><i
                                                                                         class="bi bi-trash"></i>Supprimer</button>
                                                                             </form> --}}
-                                                                        </ul>
-                                                                    </div>
-                                                                </span>
-                                                            </td>
-                                                        </tr>
+                                                                    </ul>
+                                                                </div>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
