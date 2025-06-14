@@ -49,8 +49,8 @@
                                             <tr>
                                                 <th>Modules</th>
                                                 <th>Domaines</th>
-                                                <th class="text-center" scope="col">Effectif</th>
-                                                {{-- <th width="3%"><i class="bi bi-gear"></i></th> --}}
+                                                {{-- <th class="text-center" scope="col">Effectif</th> --}}
+                                                <th width="3%"><i class="bi bi-gear"></i></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -69,21 +69,15 @@
                                                         {{ $module->name }}
                                                     </td>
                                                     <td>{{ $module?->domaine?->name }}</td>
-                                                    <td style="text-align: center;">
-                                                        {{-- @foreach ($module->individuelles as $individuelle)
-                                                            @if ($loop->last)
-                                                                <a href="{{ route('modules.show', $module) }}"><span
-                                                                        class="badge bg-info">{{ $loop->count }}</span></a>
-                                                            @endif
-                                                        @endforeach --}}
-                                                        {{-- @if ($module->individuelles->isNotEmpty())
-                                                            <a href="{{ route('modules.show', $module) }}"> --}}
+                                                    {{-- <td style="text-align: center;">
+                                                        @if ($module->individuelles->isNotEmpty())
+                                                            <a href="{{ route('modules.show', $module) }}">
                                                                 <span
                                                                     class="badge bg-info">{{ $module->individuelles->count() }}</span>
-                                                           {{--  </a>
-                                                        @endif --}}
-                                                    </td>
-                                                    {{-- <td style="text-align: center;">
+                                                            </a>
+                                                        @endif
+                                                    </td> --}}
+                                                    <td style="text-align: center;">
                                                         <span class="d-flex mt-2 align-items-baseline"><a
                                                                 href="{{ route('modules.show', $module) }}"
                                                                 class="btn btn-success btn-sm mx-1" title="Voir détails">
@@ -106,7 +100,7 @@
                                                                 </ul>
                                                             </div>
                                                         </span>
-                                                    </td> --}}
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
