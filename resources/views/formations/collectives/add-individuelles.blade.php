@@ -31,7 +31,7 @@
                         {{-- <h5><u><b>MODULE</b></u> : {{ $module->name }}</h5>
                         <h5><u><b>REGION</b></u> : {{ $localite->nom }}</h5>
                         <h5><u><b>Candisdats éligibles</b></u> : {{ $individuelles->count() ?? '' }}</h5> --}}
-                        <div class="p-3 mb-4 border rounded bg-light shadow-sm">
+                        <div class="p-1 mb-4 border rounded bg-light shadow-sm">
                             <div class="row text-center fw-semibold">
                                 <div class="col-md-4 mb-2">
                                     <span class="text-secondary">📍 Région</span><br>

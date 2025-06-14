@@ -31,7 +31,7 @@
                         {{--  <h5><u><b>MODULE</b>:</u> {{ $formation?->collectivemodule?->module  ?? 'Aucun module' }}</h5>
                         <h5><u><b>REGION</b>:</u> {{ $localite->nom ?? 'Aucune région' }}</h5> --}}
 
-                        <div class="p-3 mb-4 border rounded bg-light shadow-sm">
+                        <div class="p-1 mb-4 border rounded bg-light shadow-sm">
                             <div class="row text-center fw-semibold">
                                 <div class="col-md-6 mb-2">
                                     <span class="text-secondary">📍 Région</span><br>

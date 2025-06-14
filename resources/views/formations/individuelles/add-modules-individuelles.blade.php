@@ -32,13 +32,25 @@
                             data-bs-target="#AddIndividuelModal">
                             <i class="bi bi-plus" title="Ajouter"></i>
                         </button>
-                        <h5><u><b>MODULE</b>:</u> {{ $formation->module?->name ?? 'Aucun module' }}</h5>
-                        <h5><u><b>REGION</b>:</u> {{ $localite->nom ?? 'Aucune région' }}</h5>
+                        {{-- <h5><u><b>MODULE</b>:</u> {{ $formation->module?->name ?? 'Aucun module' }}</h5>
+                        <h5><u><b>REGION</b>:</u> {{ $localite->nom ?? 'Aucune région' }}</h5> --}}
+                        <div class="p-1 mb-4 border rounded bg-light shadow-sm">
+                            <div class="row text-center fw-semibold">
+                                <div class="col-md-6 mb-2">
+                                    <span class="text-secondary">📍 Région</span><br>
+                                    <span class="fs-5 text-dark">{{ $region->nom ?? 'Aucune' }}</span>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <span class="text-secondary">📘 Module</span><br>
+                                    <span class="fs-5 text-dark">{{ $module->name ?? 'Aucun' }}</span>
+                                </div>
+                            </div>
+                        </div>
                         <form method="post" action="{{ url('formationmodules', ['$idformation' => $formation->id]) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
                             @method('PUT')
-                            <div class="row mb-3">
+                            <div class="row mb-3 border rounded bg-light shadow-sm">
                                 {{-- <div class="form-check col-md-2 pt-5">
                                     <label for="#">Choisir tout</label>
                                     <input type="checkbox" class="form-check-input" id="checkAll">

@@ -35,7 +35,7 @@
                                 {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
                             @endif
                         </h5> --}}
-                        <div class="p-3 mb-4 border rounded bg-light shadow-sm">
+                        <div class="p-1 mb-4 border rounded bg-light shadow-sm">
                             <div class="row text-center fw-semibold">
                                 <div class="col-md-4 mb-2">
                                     <span class="text-secondary">📍 Région</span><br>
