@@ -184,7 +184,7 @@
                         @if ($formations->isNotEmpty())
                             <table class="table datatables table-bordered table-hover align-middle justify-content-center"
                                 id="table-formations">
-                                <thead class="table-success">
+                                <thead class="table-success text-center">
                                     <tr>
                                         <th width='6%' class="text-center">Code</th>
                                         <th width='6%' class="text-center">N° convention</th>
