@@ -38,7 +38,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             @can('formation-create')
-                                <h5 class="card-title">Liste des formations {{ $libelle . '(s)' }}</h5>
+                                <h5 class="card-title">Liste des formations {{ $libelle . 's' }}</h5>
                                 @can('formation-create')
                                     <span class="d-flex align-items-baseline">
                                         <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
