@@ -18,12 +18,8 @@
             <div class="col-lg-12">
                 <div class="row">
                     <!-- Sales Card -->
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    {{--  <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 pt-5">
                         <div class="card info-card customers-card">
-                            {{-- <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                        class="bi bi-three-dots"></i></a>
-                            </div> --}}
                             <a href="#">
                                 <div class="card-body">
                                     <h5 class="card-title">Formations<span> | {{ date('d/m/Y') }}</span></h5>
@@ -37,19 +33,97 @@
                                                 <span class="text-primary">{{ $count_today ?? '0' }}</span>
                                             </h6>
                                             <span class="text-success small pt-1 fw-bold">Aujourd'hui</span>
-                                            {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
                                         </div>
                                     </div>
                                 </div>
                             </a>
                         </div>
+                    </div> --}}
+                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 pt-5">
+                        <div class="row">
+                            <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
+                                <div class="card info-card revenue-card shadow-sm" style="max-width: 220px;">
+                                    <div class="card-body p-2">
+                                        <h5 class="card-title text-truncate mb-1" title="Formations"
+                                            style="font-size: 1rem;">
+                                            Formations
+                                        </h5>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                                style="width: 32px; height: 32px; font-size: 1.25rem;">
+                                                <i class="bi bi-people"></i>
+                                            </div>
+                                            <div class="ps-2">
+                                                <h6 class="mb-0" style="font-size: 0.9rem;">
+                                                    {{ number_format(count($formations), 0, '', ' ') }}</h6>
+                                            </div>
+                                        </div>
+
+                                        <a href="{{ route('formations.index') }}"
+                                            class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
+                                            style="font-size: 0.85rem; gap: 6px;">
+                                            Voir plus <i class="bi bi-arrow-right-short"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
+                                <div class="card info-card customers-card revenue-card shadow-sm" style="max-width: 220px;">
+                                    <div class="card-body p-2">
+                                        <h5 class="card-title text-truncate mb-1" title="Aujourd'hui"
+                                            style="font-size: 1rem;">
+                                            Aujourd'hui
+                                        </h5>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                                style="width: 32px; height: 32px; font-size: 1.25rem;">
+                                                <i class="bi bi-calendar-date-fill"></i>
+                                            </div>
+                                            <div class="ps-2">
+                                                <h6 class="mb-0" style="font-size: 0.9rem;">{{ $count_today ?? '0' }}</h6>
+                                            </div>
+                                        </div>
+                                        <a href="#"
+                                            class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
+                                            style="font-size: 0.85rem; gap: 6px;">
+                                            Voir plus <i class="bi bi-arrow-right-short"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Sales Card -->
+                            @foreach ($groupes as $statut => $items)
+                                <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
+                                    <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
+                                        <div class="card-body p-2">
+                                            <h5 class="card-title text-truncate mb-1" title="{{ $statut }}"
+                                                style="font-size: 1rem;">
+                                                {{ $statut }}
+                                            </h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                                    style="width: 32px; height: 32px; font-size: 1.25rem;">
+                                                    <i class="bi bi-people"></i>
+                                                </div>
+                                                <div class="ps-2">
+                                                    <h6 class="mb-0" style="font-size: 0.9rem;">
+                                                        {{ number_format($items->count(), 0, '', ' ') }}</h6>
+                                                </div>
+                                            </div>
+                                            <a href="{{ route('formations.parType', ['libelle' => $statut]) }}" target="_blank"
+                                                class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
+                                                style="font-size: 0.85rem; gap: 6px;">
+                                                Voir plus <i class="bi bi-arrow-right-short"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    {{-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                         <div class="card info-card sales-card">
-                            {{-- <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                        class="bi bi-three-dots"></i></a>
-                            </div> --}}
                             <a href="#">
                                 <div class="card-body">
                                     <h5 class="card-title">Formations<span> | individuelles</span></h5>
@@ -64,19 +138,14 @@
                                                     class="text-primary">{{ $individuelles_formations_count ?? '0' }}</span>
                                             </h6>
                                             <span class="text-success small pt-1 fw-bold"></span>
-                                            {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
                                         </div>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    </div> --}}
+                    {{-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                         <div class="card info-card revenue-card">
-                            {{-- <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                        class="bi bi-three-dots"></i></a>
-                            </div> --}}
                             <a href="#">
                                 <div class="card-body">
                                     <h5 class="card-title">Formations<span> | collectives</span></h5>
@@ -90,19 +159,14 @@
                                                 <span class="text-primary">{{ $collectives_formations_count ?? '0' }}</span>
                                             </h6>
                                             <span class="text-success small pt-1 fw-bold"></span>
-                                            {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
                                         </div>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    </div> --}}
+                    {{-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                         <div class="card info-card sales-card">
-                            {{-- <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                        class="bi bi-three-dots"></i></a>
-                            </div> --}}
                             <a href="#">
                                 <div class="card-body">
                                     <h5 class="card-title">Formations <span>| Toutes</span></h5>
@@ -116,13 +180,12 @@
                                                 <span class="text-primary">{{ count($formations) ?? '0' }}</span>
                                             </h6>
                                             <span class="text-success small pt-1 fw-bold">Toutes</span>
-                                            {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
                                         </div>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
@@ -171,7 +234,8 @@
                                                     class="bi bi-three-dots"></i></a>
                                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                 <li>
-                                                    <button type="button" class="dropdown-item btn btn-sm" data-bs-toggle="modal"
+                                                    <button type="button" class="dropdown-item btn btn-sm"
+                                                        data-bs-toggle="modal"
                                                         data-bs-target="#generate_rapportFormation"></i>Générer
                                                         suivi-convention</button>
                                                 </li>

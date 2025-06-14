@@ -581,7 +581,7 @@
                 }
             },
             "order": [
-                [0, 'desc']
+                [1, 'desc']
             ],
             language: {
                 "sProcessing": "Traitement en cours...",

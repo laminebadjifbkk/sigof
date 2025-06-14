@@ -540,6 +540,9 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::put('validationIndividuelles/{uuid}', [IndividuelleController::class, 'validationIndividuelle'])->name('validationIndividuelles');
 
+        Route::get('/formations/type/{libelle}', [FormationController::class, 'parType'])
+            ->name('formations.parType')
+            ->where('libelle', 'individuelle|collective');
         /* Pour visualiser la page d'erreur */
         /* Route::get('/errors/restored', [UserController::class, 'errors'])->name('users.errors'); */
 

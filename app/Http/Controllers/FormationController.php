@@ -54,9 +54,14 @@ class FormationController extends Controller
 
     public function index()
     {
-        $formations = Formation::where('statut', '!=', 'supprimer')->orderBy('created_at', 'desc')->get();
+        /* $formations = Formation::where('statut', '!=', 'supprimer')->orderBy('created_at', 'desc')->get(); */
+        $formations = Formation::select('*')->orderBy('created_at', 'desc')->get();
 
-        $individuelles_formations_count = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
+        $groupes = $formations->groupBy(function ($item) {
+            return $item->types_formation->name ?? 'Aucun type';
+        });
+
+        /* $individuelles_formations_count = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
             ->select('formations.*')
             ->where('types_formations.name', "individuelle")
             ->where('statut', '!=', 'supprimer')
@@ -66,32 +71,30 @@ class FormationController extends Controller
             ->select('formations.*')
             ->where('types_formations.name', "collective")
             ->where('statut', '!=', 'supprimer')
-            ->count();
+            ->count(); */
 
         $qrcode      = QrCode::size(200)->generate("tel:+221776994173");
         $today       = date('Y-m-d');
         $count_today = Formation::where("created_at", "LIKE", "{$today}%")->count();
 
-        $modules          = Module::orderBy("created_at", "desc")->get();
-        $departements     = Departement::orderBy("created_at", "desc")->get();
-        $regions          = Region::orderBy("created_at", "desc")->get();
-        $operateurs       = Operateur::orderBy("created_at", "desc")->get();
-        $projets          = Projet::orderBy("created_at", "desc")->get();
-        $programmes       = Programme::orderBy("created_at", "desc")->get();
-        $choixoperateurs  = Choixoperateur::orderBy("created_at", "desc")->get();
+        $modules      = Module::orderBy("created_at", "desc")->get();
+        $departements = Departement::orderBy("created_at", "desc")->get();
+        $regions      = Region::orderBy("created_at", "desc")->get();
+        $operateurs   = Operateur::orderBy("created_at", "desc")->get();
+        $projets      = Projet::orderBy("created_at", "desc")->get();
+        $programmes   = Programme::orderBy("created_at", "desc")->get();
+        /* $choixoperateurs  = Choixoperateur::orderBy("created_at", "desc")->get(); */
         $types_formations = TypesFormation::orderBy("created_at", "desc")->get();
 
         $anneeEnCours = date('Y');
-        $annee        = date('y');
+        $an           = date('y');
 
         $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
             ->select('formations.*')
             ->where('formations.annee', $anneeEnCours)
             ->get()->last();
 
-        /*->where('types_formations.name', $request->types_formation)*/
-
-        if (isset($numFormation)) {
+        /*  if (isset($numFormation)) {
             $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
                 ->select('formations.*')
                 ->where('formations.annee', $anneeEnCours)
@@ -99,7 +102,6 @@ class FormationController extends Controller
 
             $numFormation = ++$numFormation;
 
-            /*  ->where('types_formations.name', $request->types_formation) */
         } else {
             $numFormation = $annee . "0001";
 
@@ -120,7 +122,21 @@ class FormationController extends Controller
             } else {
                 $numFormation = strtoupper($numFormation);
             }
+        } */
+
+        if ($numFormation) {
+            // Si un formation existe, incrémenter son numéro
+            $numFormation = ++$numFormation->code;
+        } else {
+            // Si aucun formation n'existe, initialiser avec l'année et le numéro 0001
+            $numFormation = $an . "0001";
+            $numFormation = 'F' . $numFormation;
         }
+
+// Mise en forme du numéro de formation en ajoutant des zéros au début
+        /* $numFormation = str_pad($numFormation, 7, '0', STR_PAD_LEFT); */
+
+        /* dd($numFormation); */
 
         /* $title = 'Liste des formations de ' . $anneeEnCours; */
         $title = 'Liste des formations';
@@ -136,8 +152,8 @@ class FormationController extends Controller
             compact(
                 "qrcode",
                 "count_today",
-                "collectives_formations_count",
-                "individuelles_formations_count",
+                /* "collectives_formations_count",
+                "individuelles_formations_count", */
                 "formations",
                 "modules",
                 "departements",
@@ -147,10 +163,11 @@ class FormationController extends Controller
                 'projets',
                 'programmes',
                 'numFormation',
-                'choixoperateurs',
+                /* 'choixoperateurs', */
                 'title',
                 'formations_annee',
                 'formations_statut',
+                'groupes',
             )
         );
     }
@@ -3662,5 +3679,16 @@ class FormationController extends Controller
         Alert::success('Les e-mails ont été envoyés avec succès !');
 
         return redirect()->back();
+    }
+
+    public function parType($libelle)
+    {
+        // Récupère l'objet TypesFormation correspondant (ex: 'individuelle' ou 'collective')
+        $type = TypesFormation::where('name', $libelle)->firstOrFail();
+
+        // Récupère les formations associées à ce type
+        $formations = Formation::where('types_formations_id', $type->id)->get();
+
+        return view('formations.liste', compact('formations', 'libelle'));
     }
 }
