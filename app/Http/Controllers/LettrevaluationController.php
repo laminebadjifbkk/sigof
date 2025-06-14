@@ -20,13 +20,10 @@ class LettrevaluationController extends Controller
             return redirect()->back();
         }
 
-        /* $lettres    = Lettrevaluation::latest()->get(); */
-        /* $formations = Formation::latest()->get(); */
-        /*  $formations = Formation::with('lettrevaluations')->latest()->get(); */
-        $formations = Formation::with('lettrevaluations')->select('*')->orderBy('created_at', 'desc')->get();
-        dd("ok");
+        $lettres    = Lettrevaluation::latest()->get();
+        $formations = Formation::latest()->get();
         //$lettres = Lettrevaluation::where('users_id', Auth::id())->latest()->get();
-        return view('formations.lettrevaluations.index', compact('formations'));
+        return view('formations.lettrevaluations.index', compact('lettres', 'formations'));
     }
 
     // Formulaire de création

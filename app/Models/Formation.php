@@ -577,9 +577,4 @@ class Formation extends Model
     {
         return $this->hasMany(Emargementcollective::class, 'formations_id');
     }
-
-    public function lettrevaluations()
-{
-    return $this->hasMany(Lettrevaluation::class, 'formations_id');
-}
 }
