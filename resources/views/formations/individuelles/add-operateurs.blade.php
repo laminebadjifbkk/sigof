@@ -28,13 +28,29 @@
                                 </span>
                             </div>
                         </div>
-                        <h5><u><b>MODULE</b>:</u> {{ $module?->name }}</h5>
+                        {{-- <h5><u><b>MODULE</b>:</u> {{ $module?->name }}</h5>
                         <h5><u><b>REGION</b>:</u> {{ $localite->nom }}</h5>
                         <h5><u><b>OPERATEUR</b>:</u>
                             @if (!empty($formation?->operateur?->user?->username))
                                 {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
                             @endif
-                        </h5>
+                        </h5> --}}
+                        <div class="p-3 mb-4 border rounded bg-light shadow-sm">
+                            <div class="row text-center fw-semibold">
+                                <div class="col-md-4 mb-2">
+                                    <span class="text-secondary">📍 Région</span><br>
+                                    <span class="fs-5 text-dark">{{ $localite->nom ?? 'Aucune' }}</span>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <span class="text-secondary">📘 Module</span><br>
+                                    <span class="fs-5 text-dark">{{ $module->name ?? 'Aucun' }}</span>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <span class="text-secondary">👥 Opérateur</span><br>
+                                    <span class="fs-5 text-dark">{{ $formation?->operateur?->user?->username ?? 'Aucun' }}</span>
+                                </div>
+                            </div>
+                        </div>
                         <form method="post"
                             action="{{ url('formationoperateurs', ['$idformation' => $formation->id, '$idmodule' => $formation->module->id, '$idlocalite' => $formation->departement->id]) }}"
                             enctype="multipart/form-data" class="row g-3">
@@ -45,13 +61,13 @@
                                     <label for="#">Choisir tout</label>
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div> --}}
-                                <div class="form-check col-md-12 pt-5">
+                                <div class="form-check col-md-12 pt-5 border rounded bg-light shadow-sm">
                                     <table class="table datatables align-middle" id="table-operateurs">
                                         <thead>
                                             <tr>
                                                 <th>N° agrément</th>
                                                 <th>Opérateurs</th>
-                                                <th>Sigle</th>
+                                                <th class="text-center">Sigle</th>
                                                 <th class="text-center">Modules</th>
                                                 <th class="text-center">Formations</th>
                                                 <th><i class="bi bi-gear"></i></th>

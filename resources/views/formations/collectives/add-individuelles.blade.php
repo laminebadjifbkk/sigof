@@ -28,15 +28,31 @@
                                 </span>
                             </div>
                         </div>
-                        <h5><u><b>MODULE</b></u> : {{ $module->name }}</h5>
+                        {{-- <h5><u><b>MODULE</b></u> : {{ $module->name }}</h5>
                         <h5><u><b>REGION</b></u> : {{ $localite->nom }}</h5>
-                        <h5><u><b>Candisdats éligibles</b></u> : {{ $individuelles->count() ?? '' }}</h5>
+                        <h5><u><b>Candisdats éligibles</b></u> : {{ $individuelles->count() ?? '' }}</h5> --}}
+                        <div class="p-3 mb-4 border rounded bg-light shadow-sm">
+                            <div class="row text-center fw-semibold">
+                                <div class="col-md-4 mb-2">
+                                    <span class="text-secondary">📍 Région</span><br>
+                                    <span class="fs-5 text-dark">{{ $localite->nom ?? 'Aucune' }}</span>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <span class="text-secondary">📘 Module</span><br>
+                                    <span class="fs-5 text-dark">{{ $module->name ?? 'Aucun' }}</span>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <span class="text-secondary">👥 Effectif</span><br>
+                                    <span class="fs-5 text-dark">{{ $individuelles->count() ?? 0 }}</span>
+                                </div>
+                            </div>
+                        </div>
                         <form method="post"
                             action="{{ url('formationdemandeurs', ['$idformation' => $formation->id, '$idmodule' => $formation->module->id, '$idlocalite' => $formation->departement->id]) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
                             @method('PUT')
-                            <div class="row mb-3">
+                            <div class="row mb-3 border rounded bg-light shadow-sm p-3">
                                 <div class="form-check col-md-2 pt-5">
                                     <label for="#">Choisir tout</label>
                                     <input type="checkbox" class="form-check-input" id="checkAll">
