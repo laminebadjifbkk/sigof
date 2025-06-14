@@ -187,7 +187,7 @@
                                 <thead class="table-success text-center">
                                     <tr>
                                         <th width='6%' class="text-center">Code</th>
-                                        <th width='6%' class="text-center">N° convention</th>
+                                        <th width='6%' class="text-center">N° conv.</th>
                                         {{-- <th width='15%'>Type formation</th> --}}
                                         {{--  <th width='15%'>Localité</th> --}}
                                         <th width='25%'>Bénéficiaires</th>
