@@ -18,16 +18,16 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">CONVENTIONS & DETF</h4>
-                        <table class="table datatables" id="table-formations">
+                        <table class="table datatables table-bordered table-hover align-middle justify-content-center" id="table-formations">
                             <thead>
                                 <tr>
                                     <th width='10%' class="text-center">N° Conv.</th>
-                                    <th width='10%' class="text-center">Date Conv.</th>
+                                    <th width='12%' class="text-center">Date Conv.</th>
                                     {{-- <th width='15%'>Type formation</th> --}}
                                     <th>Bénéficiaires</th>
                                     <th width='15%'>Région</th>
                                     <th width='20%'>Modules</th>
-                                    <th width='10%'>Scan Conv.</th>
+                                    <th width='12%'>Scan Conv.</th>
                                     <th width='10%'>Scan DETF</th>
                                     <th width='5%' class="text-center">Statut</th>
                                 </tr>
