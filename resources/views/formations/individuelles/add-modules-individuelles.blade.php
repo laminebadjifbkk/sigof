@@ -76,12 +76,12 @@
                                                                         class="badge bg-info">{{ $loop->count }}</span></a>
                                                             @endif
                                                         @endforeach --}}
-                                                        @if ($module->individuelles->isNotEmpty())
-                                                            <a href="{{ route('modules.show', $module) }}">
+                                                        {{-- @if ($module->individuelles->isNotEmpty())
+                                                            <a href="{{ route('modules.show', $module) }}"> --}}
                                                                 <span
                                                                     class="badge bg-info">{{ $module->individuelles->count() }}</span>
-                                                            </a>
-                                                        @endif
+                                                           {{--  </a>
+                                                        @endif --}}
                                                     </td>
                                                     {{-- <td style="text-align: center;">
                                                         <span class="d-flex mt-2 align-items-baseline"><a
