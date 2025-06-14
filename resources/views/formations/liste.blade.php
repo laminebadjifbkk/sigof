@@ -38,7 +38,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             @can('formation-create')
-                                <h5 class="card-title">Liste des formations {{ $libelle }}</h5>
+                                <h5 class="card-title">Liste des formations {{ $libelle . '(s)' }}</h5>
                                 @can('formation-create')
                                     <span class="d-flex align-items-baseline">
                                         <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
@@ -77,7 +77,8 @@
                                     @foreach ($formations as $formation)
                                         <tr>
                                             <td style="text-align: center">{{ $formation?->code }}</td>
-                                            <td style="text-align: center">{{ $formation?->created_at?->format('d/m/Y') }}</td>
+                                            <td style="text-align: center">{{ $formation?->created_at?->format('d/m/Y') }}
+                                            </td>
                                             <td style="text-align: center">{{ $formation?->numero_convention }}</td>
                                             <td>{{ $formation?->name ?? 'Non spécifié' }}</td>
                                             <td>
