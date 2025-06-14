@@ -19,7 +19,7 @@ class LettrevaluationController extends Controller
             return redirect()->back();
         }
 
-        $lettres    = Lettrevaluation::latest()->get();
+        $lettres    = Lettrevaluation::select('id')->latest()->get();
         dd($lettres);
         $formations = Formation::latest()->get();
 
