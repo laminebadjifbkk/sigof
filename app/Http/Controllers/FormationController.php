@@ -1434,11 +1434,9 @@ class FormationController extends Controller
             ->pluck('modules_id', 'modules_id')
             ->all();
 
-        /* dd($moduleFormation);
+        $domaines = Domaine::orderBy("created_at", "desc")->get();
 
-        $domaines = Domaine::orderBy("created_at", "desc")->get(); */
-
-        return view("formations.individuelles.add-modules-individuelles", compact('formation', 'modules', 'localite', 'moduleFormation'));
+        return view("formations.individuelles.add-modules-individuelles", compact('formation', 'modules', 'localite', 'moduleFormation', 'domaines'));
     }
 
     public function addcollectivemoduleformations($idformation, $idlocalite)

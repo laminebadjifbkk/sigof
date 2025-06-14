@@ -70,12 +70,12 @@
                                                     </td>
                                                     <td>{{ $module?->domaine?->name }}</td>
                                                     <td style="text-align: center;">
-                                                        {{-- @foreach ($module->individuelles as $individuelle)
+                                                        @foreach ($module->individuelles as $individuelle)
                                                             @if ($loop->last)
                                                                 <a href="{{ route('modules.show', $module) }}"><span
                                                                         class="badge bg-info">{{ $loop->count }}</span></a>
                                                             @endif
-                                                        @endforeach --}}
+                                                        @endforeach
                                                     </td>
                                                     {{-- <td style="text-align: center;">
                                                         <span class="d-flex mt-2 align-items-baseline">
@@ -105,16 +105,6 @@
                                                                             Modifier
                                                                         </button>
                                                                     </li>
-                                                                    {{-- <li>
-                                                                        <form action="{{ url('modules', $module->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit"
-                                                                                class="dropdown-item show_confirm"><i
-                                                                                    class="bi bi-trash"></i>Supprimer</button>
-                                                                        </form>
-                                                                    </li> --}}
                                                                 </ul>
                                                             </div>
                                                         </span>
@@ -134,7 +124,7 @@
             </div>
         </div>
         {{-- Add module --}}
-        <div class="modal fade" id="AddIndividuelModal" tabindex="-1">
+        {{-- <div class="modal fade" id="AddIndividuelModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form method="post" action="{{ url('addModule') }}" enctype="multipart/form-data" class="row g-3">
@@ -146,10 +136,6 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-floating mb-3">
-                                {{-- <input type="text" name="name" value="{{ old('name') }}"
-                                    class="form-control form-control-sm @error('name') is-invalid @enderror" id="name"
-                                    placeholder="Nom du module" autofocus> --}}
-
                                 <input type="text" name="name" id="module_name" class="form-control form-control-sm"
                                     placeholder="Enter module" />
                                 <div id="countryList"></div>
@@ -191,10 +177,10 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Edit Module -->
-        @foreach ($modules as $module)
+        {{-- @foreach ($modules as $module)
             <div class="modal fade" id="EditRegionModal{{ $module->id }}" tabindex="-1" role="dialog"
                 aria-labelledby="EditRegionModalLabel{{ $module->id }}" aria-hidden="true">
                 <div class="modal-dialog">
@@ -251,7 +237,7 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @endforeach --}}
     </section>
 @endsection
 @push('scripts')
