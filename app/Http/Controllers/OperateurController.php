@@ -84,7 +84,7 @@ class OperateurController extends Controller
             return $item->statut_agrement ?? 'Aucun statut agrement';
         }); */
 
-        $commissionagrements = Commissionagrement::orderBy('created_at', 'desc')->get();
+        $commissionagrements = Commissionagrement::orderBy('commission', 'desc')->get();
 
         return view("operateurs.index",
             compact(
