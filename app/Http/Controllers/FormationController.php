@@ -1425,9 +1425,9 @@ class FormationController extends Controller
         /* $module    = $formation?->module?->name; */
         $localite = Region::findOrFail($idlocalite);
 
-        dd($localite);
-
         $modules = Module::select('id', 'uuid', 'domaines_id', 'name')->get();
+
+        dd($modules);
 
         $moduleFormation = DB::table('formations')
             ->where('modules_id', $formation->modules_id)
