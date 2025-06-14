@@ -16,17 +16,16 @@ class LettrevaluationController extends Controller
 
         if (! Auth::user()->hasAnyRole(['DEC', 'ADEC', 'super-admin', 'admin'])) {
             Alert::error('Attention !', 'Accès refusé.');
+            /* return redirect()->route('home')->with('error', 'Accès refusé.'); */
             return redirect()->back();
         }
 
-        /* $lettres    = Lettrevaluation::select('*')->get();
-        dd($lettres); */
-        $lettres = Lettrevaluation::all();
-        dd($lettres);
-        $formations = Formation::latest()->get();
-
+        /* $lettres    = Lettrevaluation::latest()->get(); */
+        /* $formations = Formation::latest()->get(); */
+        $formations = Formation::with('lettrevaluations')->latest()->get();
+        dd($formations);
         //$lettres = Lettrevaluation::where('users_id', Auth::id())->latest()->get();
-        return view('formations.lettrevaluations.index', compact('lettres', 'formations'));
+        return view('formations.lettrevaluations.index', compact('formations'));
     }
 
     // Formulaire de création
