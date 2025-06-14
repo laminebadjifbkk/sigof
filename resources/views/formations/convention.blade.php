@@ -18,16 +18,17 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">CONVENTIONS & DETF</h4>
-                        <table class="table datatables table-bordered table-hover align-middle justify-content-center" id="table-formations">
+                        <table class="table datatables table-bordered table-hover align-middle justify-content-center"
+                            id="table-formations">
                             <thead>
                                 <tr>
-                                    <th width='10%' class="text-center">N° Conv.</th>
-                                    <th width='12%' class="text-center">Date Conv.</th>
+                                    <th width='10%' class="text-center">Conv.</th>
+                                    {{-- <th width='12%' class="text-center">Date Conv.</th> --}}
                                     {{-- <th width='15%'>Type formation</th> --}}
                                     <th>Bénéficiaires</th>
-                                    <th width='15%'>Région</th>
-                                    <th width='20%'>Modules</th>
-                                    <th width='12%'>Scan Conv.</th>
+                                    <th width='10%'>Région</th>
+                                    <th width='15%'>Modules</th>
+                                    <th width='10%'>Scan Conv.</th>
                                     <th width='10%'>Scan DETF</th>
                                     <th width='5%' class="text-center">Statut</th>
                                 </tr>
@@ -36,10 +37,11 @@
                                 <?php $i = 1; ?>
                                 @foreach ($conventions as $formation)
                                     <tr>
-                                        <td style="text-align: center">{{ $formation?->numero_convention }}</td>
-                                        <td style="text-align: center">{{ $formation?->date_convention?->format('d/m/Y') }}
-                                        </td>
-                                       {{--  <td><a>{{ $formation->types_formation?->name }}</a></td> --}}
+                                        <td style="text-align: center">{{ $formation?->numero_convention }} <br>
+                                            {{ 'du ' . $formation?->date_convention?->format('d/m/Y') }}</td>
+                                        {{-- <td style="text-align: center">{{ $formation?->date_convention?->format('d/m/Y') }}
+                                        </td> --}}
+                                        {{--  <td><a>{{ $formation->types_formation?->name }}</a></td> --}}
                                         <td>{{ $formation?->name }}</td>
                                         <td>{{ $formation->departement?->region?->nom }}</td>
                                         <td>
@@ -62,8 +64,8 @@
                                         </td>
                                         <td style="text-align: center">
                                             @if (!empty($formation?->detf_file))
-                                                <a class="btn btn-outline-secondary btn-sm" title="DETF"
-                                                    target="_blank" href="{{ asset($formation->getFileDetf()) }}">
+                                                <a class="btn btn-outline-secondary btn-sm" title="DETF" target="_blank"
+                                                    href="{{ asset($formation->getFileDetf()) }}">
                                                     <i class="bi bi-file-earmark-pdf"></i>
                                                 </a>
                                             @else
@@ -89,7 +91,7 @@
         new DataTable('#table-formations', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [
