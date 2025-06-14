@@ -265,11 +265,24 @@
                                             </h5>
                                         </div>
                                     @elseif(!empty($formation->collectivemodule->module))
-                                        <div class="pt-1">
+                                        {{-- <div class="pt-1">
                                             <a href="{{ url('formationcollectiveoperateurs', ['$idformation' => $formation?->id, '$idcollectivemodule' => $formation?->collectivemodule?->id, '$idlocalite' => $formation?->departement?->region?->id]) }}"
                                                 class="btn btn-primary float-end btn-sm">
                                                 <i class="bi bi-person-plus-fill" title="Ajouter opérateur"></i> </a>
-                                        </div>
+                                        </div> --}}
+                                        @can('operateur-check')
+                                            <div class="pt-2 text-end">
+                                                <a href="{{ url('formationcollectiveoperateurs', [
+                                                    'idformation' => $formation?->id,
+                                                    'idcollectivemodule' => $formation?->collectivemodule?->id,
+                                                    'idlocalite' => $formation?->departement?->region?->id,
+                                                ]) }}"
+                                                    class="btn btn-info btn-sm shadow-sm d-inline-flex align-items-center gap-1">
+                                                    <i class="bi bi-person-plus-fill"></i>
+                                                    <span>Ajouter opérateur</span>
+                                                </a>
+                                            </div>
+                                        @endcan
                                     @else
                                     @endif
                                     <div class="col-12 col-md-12 col-lg-12 mb-0">
