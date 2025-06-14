@@ -55,7 +55,7 @@
                                         </thead>
                                         <tbody>
                                             <?php $i = 1; ?>
-                                            @foreach ($modules as $module)
+                                            {{-- @foreach ($modules as $module)
                                                 <tr>
                                                     <td>
                                                         <input type="radio" name="module" value="{{ $module?->id }}"
@@ -77,14 +77,6 @@
                                                             @endif
                                                         @endforeach
                                                     </td>
-                                                    {{-- <td style="text-align: center;">
-                                                        <span class="d-flex mt-2 align-items-baseline">
-                                                            <a href="{{ url('modules/' . $module->id) }}"
-                                                                class="btn btn-success btn-sm mx-1" title="Voir détails"><i
-                                                                    class="bi bi-eye"></i></a>
-                                                        </span>
-                                                    </td> --}}
-
                                                     <td style="text-align: center;">
                                                         <span class="d-flex mt-2 align-items-baseline"><a
                                                                 href="{{ route('modules.show', $module) }}"
@@ -110,7 +102,7 @@
                                                         </span>
                                                     </td>
                                                 </tr>
-                                            @endforeach
+                                            @endforeach --}}
                                         </tbody>
                                     </table>
                                 </div>
