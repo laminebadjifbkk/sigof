@@ -19,6 +19,8 @@ class LettrevaluationController extends Controller
             return redirect()->back();
         }
 
+        dd('Vous êtes un administrateur !');
+
         $lettres    = Lettrevaluation::select('id')->get();
         dd($lettres);
         $formations = Formation::latest()->get();
