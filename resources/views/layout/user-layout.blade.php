@@ -117,74 +117,122 @@
     <style>
         .nouvelle {
             background-color: #ff9966;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Nouvelle {
             background-color: #ff9966;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .nouveau {
             background-color: #36e0e0;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Nouveau {
             background-color: #36e0e0;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .rejeter {
             background-color: #DC3545;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Rejetée {
             background-color: #DC3545;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .rejeté {
             background-color: #DC3545;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .annuler {
             background-color: #DC3545;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Aucun {
@@ -198,422 +246,731 @@
 
         .Annulée {
             background-color: #DC3545;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .retirer {
             background-color: #ffcc00;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .corriger {
             background-color: #ffcc00;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .attente {
             background-color: #6C757D;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Attente {
             background-color: #6C757D;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .cours {
-            background-color: #28a745;  /* vert vif classique pour succès */
-            color: white;
-            padding: 4px 8px;
+            background-color: #28a745;
+            /* vert vif classique pour succès */
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .accepter {
             background-color: #0D6EFD;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .réserve {
             background-color: #ffcc00;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .new {
             background-color: #0DCAF0;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .retiré {
             background-color: #0DCAF0;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Retirée {
             background-color: #0DCAF0;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Retiré {
             background-color: #0DCAF0;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .renew {
             background-color: #ffcc00;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Renouvellement {
             background-color: #ffcc00;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Absent {
             background-color: #ffcc00;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .expirer {
             background-color: #ffcc00;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Expiré {
             background-color: #DC3545;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Absente {
             background-color: #ffcc00;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .démarrer {
             background-color: #0DCAF0;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Démarrée {
             background-color: #0DCAF0;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .ouvert {
             background-color: #0DCAF0;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .disponible {
             background-color: #0DCAF0;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .terminer {
             background-color: #198754;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .confirmer {
             background-color: #198754;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Terminée {
             background-color: #198754;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Présent {
             background-color: #198754;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Présente {
             background-color: #198754;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .former {
             background-color: #198754;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Conforme {
             background-color: #198754;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .agréé {
             background-color: #198754;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .programmer {
             background-color: #0DCAF0;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Oui {
             background-color: #0DCAF0;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .retenue {
             background-color: #0DCAF0;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .retenu {
             background-color: #0DCAF0;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Retenu {
             background-color: #0DCAF0;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Retenue {
+            background-color: #0DCAF0;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
+        }
+
+        .sélectionnée {
+            background-color: #0DCAF0;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
+        }
+
+       /*  .sélectionnée {
             background-color: #0DCAF0;
             color: white;
             padding: 4px 8px;
             text-align: center;
             border-radius: 25% 10%;
-            /* border-radius: 5px; */
-        }
+        } */
 
         .non {
             background-color: #DC3545;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Abandon {
             background-color: #DC3545;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .fermer {
             background-color: #DC3545;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Non {
             background-color: #DC3545;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .incomplète {
             background-color: #DC3545;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .invalide {
             background-color: #DC3545;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .fin {
             background-color: #DC3545;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .décliner {
             background-color: #DC3545;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .valide {
             background-color: #46a579;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Validée {
             background-color: #46a579;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         .Validé {
             background-color: #46a579;
-            color: white;
-            padding: 4px 8px;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
             text-align: center;
-            border-radius: 25% 10%;
-            /* border-radius: 5px; */
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
         }
 
         a {

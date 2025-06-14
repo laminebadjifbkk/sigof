@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'Ajouter dans la formation')
+@section('title', 'Ajouter demandeurs à la formation en ' . $formation->module->name)
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
@@ -32,18 +32,29 @@
                                 </span>
                             </div>
                         </div>
-                        <h5><u><b>Région</b></u> : {{ $region->nom }}</h5>
-                        <h5><u><b>Module</b></u> : {{ $module->name }}</h5>
-                        <h5><u><b>Sélectionnés</b></u> : {{ $candidatsretenus?->count() ?? '' }}</h5>
+                        <div class="p-3 mb-4 border rounded bg-light shadow-sm">
+                            <div class="row text-center fw-semibold">
+                                <div class="col-md-4 mb-2">
+                                    <span class="text-secondary">📍 Région</span><br>
+                                    <span class="fs-5 text-dark">{{ $region->nom ?? 'Aucune' }}</span>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <span class="text-secondary">📘 Module</span><br>
+                                    <span class="fs-5 text-dark">{{ $module->name ?? 'Aucun' }}</span>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <span class="text-secondary">👥 Effectif</span><br>
+                                    <span class="fs-5 text-dark">{{ $candidatsretenus?->count() ?? 0 }}</span>
+                                </div>
+                            </div>
+                        </div>
                         <form method="post"
                             action="{{ url('formationdemandeurs', ['idformation' => $formation->id, 'idmodule' => $formation->module->id, 'idlocalite' => $formation->departement->id]) }}"
                             enctype="multipart/form-data" class="row g-3 mt-2">
                             @csrf
                             @method('PUT')
 
-                            @foreach ($individuelles as $nonvide)
-                            @endforeach
-                            @if (!empty($nonvide))
+                            @if ($individuelles->isNotEmpty())
                                 <div class="form-check col-md-12">
                                     <table class="table datatables align-middle" id="table-individuelles">
                                         <thead>
@@ -147,7 +158,7 @@
             </div>
         </div>
         {{-- autre --}}
-        <div class="row justify-content-center">
+        {{-- <div class="row justify-content-center">
             <div class="col-lg-12">
                 @if ($message = Session::get('status'))
                     <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
@@ -251,9 +262,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
-        @foreach ($retirer_individuelles as $individuelle)
+        {{-- @foreach ($retirer_individuelles as $individuelle)
             <div class="modal fade" id="diponibleModal{{ $individuelle->id }}" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -300,6 +311,6 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @endforeach --}}
     </section>
 @endsection

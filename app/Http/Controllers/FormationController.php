@@ -959,43 +959,60 @@ class FormationController extends Controller
         $module    = Module::findOrFail($idmodule);
         $region    = Region::findOrFail($idlocalite);
 
+        $statutsVoulus = ['attente', 'conforme', 'retiré', 'non conforme', 'liste attente', 'sélectionnée'];
+
         if (! empty($formation?->projets_id)) {
-            $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
+            /* $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
                 ->join('regions', 'regions.id', 'individuelles.regions_id')
                 ->select('individuelles.*')
                 ->where('individuelles.projets_id', $formation?->projets_id)
                 ->where('modules.name', 'LIKE', "%{$module->name}%")
                 ->where('regions.nom', $region->nom)
                 ->where('individuelles.statut', 'Attente')
-            /* ->orwhere('individuelles.statut', 'Retirée')
-                ->orwhere('individuelles.statut', 'Retenue') */
+                ->get(); */
+
+            $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
+                ->join('regions', 'regions.id', 'individuelles.regions_id')
+                ->select('individuelles.*')
+                ->where('individuelles.projets_id', $formation?->projets_id)
+                ->where('modules.name', 'LIKE', '%' . $module->name . '%')
+                ->where('regions.nom', $region->nom)
+                ->whereIn('individuelles.statut', $statutsVoulus)
                 ->get();
 
-            $retirer_individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
+            /* $retirer_individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
                 ->join('regions', 'regions.id', 'individuelles.regions_id')
                 ->select('individuelles.*')
                 ->where('individuelles.projets_id', $formation?->projets_id)
                 ->where('modules.name', 'LIKE', "%{$module->name}%")
                 ->where('regions.nom', $region->nom)
                 ->where('individuelles.statut', 'Retirée')
-                ->get();
+                ->get(); */
         } else {
-            $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
+            /* $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
                 ->join('regions', 'regions.id', 'individuelles.regions_id')
                 ->select('individuelles.*')
                 ->where('modules.name', 'LIKE', "%{$module->name}%")
                 ->where('regions.nom', $region->nom)
                 ->where('individuelles.statut', 'Attente')
-            /* ->orwhere('individuelles.statut', 'Retirée')
-                ->orwhere('individuelles.statut', 'Retenue') */
+                ->get(); */
+
+            $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
+                ->join('regions', 'regions.id', 'individuelles.regions_id')
+                ->select('individuelles.*')
+                ->where('individuelles.projets_id', $formation?->projets_id)
+                ->where('modules.name', 'LIKE', '%' . $module->name . '%')
+                ->where('regions.nom', $region->nom)
+                ->whereIn('individuelles.statut', $statutsVoulus)
                 ->get();
-            $retirer_individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
+
+            /* $retirer_individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
                 ->join('regions', 'regions.id', 'individuelles.regions_id')
                 ->select('individuelles.*')
                 ->where('modules.name', 'LIKE', "%{$module->name}%")
                 ->where('regions.nom', $region->nom)
                 ->where('individuelles.statut', 'Retirée')
-                ->get();
+                ->get(); */
         }
 
         $candidatsretenus = Individuelle::where('formations_id', $idformation)
@@ -1021,7 +1038,7 @@ class FormationController extends Controller
                 'module',
                 'region',
                 'candidatsretenus',
-                'retirer_individuelles',
+                /*'retirer_individuelles', */
                 'individuelleFormationCheck'
             )
         );
@@ -1044,7 +1061,7 @@ class FormationController extends Controller
                 $individuelle = Individuelle::findOrFail($individuelle);
                 $individuelle->update([
                     "formations_id" => $idformation,
-                    "statut"        => 'Retenue',
+                    "statut"        => 'sélectionnée',
                 ]);
 
                 $individuelle->save();
@@ -1052,7 +1069,7 @@ class FormationController extends Controller
 
             $validated_by = new Validationindividuelle([
                 'validated_id'     => Auth::user()->id,
-                'action'           => 'Retenue',
+                'action'           => 'sélectionnée',
                 'individuelles_id' => $individuelle->id,
             ]);
 
