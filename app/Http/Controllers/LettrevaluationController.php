@@ -22,7 +22,8 @@ class LettrevaluationController extends Controller
 
         /* $lettres    = Lettrevaluation::latest()->get(); */
         /* $formations = Formation::latest()->get(); */
-       /*  $formations = Formation::with('lettrevaluations')->latest()->get(); */
+        /*  $formations = Formation::with('lettrevaluations')->latest()->get(); */
+        $formations = Formation::select('*')->orderBy('created_at', 'desc')->get();
         dd("ok");
         //$lettres = Lettrevaluation::where('users_id', Auth::id())->latest()->get();
         return view('formations.lettrevaluations.index', compact('formations'));
