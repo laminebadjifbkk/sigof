@@ -14,18 +14,15 @@ class LettrevaluationController extends Controller
     {
         // Vérifie si l'utilisateur est un administrateur
 
-        dd(Auth::user());
-
         if (! Auth::user()->hasAnyRole(['DEC', 'ADEC', 'super-admin', 'admin'])) {
             Alert::error('Attention !', 'Accès refusé.');
-            /* return redirect()->route('home')->with('error', 'Accès refusé.'); */
             return redirect()->back();
         }
 
         $lettres    = Lettrevaluation::latest()->get();
+        dd($lettres);
         $formations = Formation::latest()->get();
 
-        dd($lettres);
         //$lettres = Lettrevaluation::where('users_id', Auth::id())->latest()->get();
         return view('formations.lettrevaluations.index', compact('lettres', 'formations'));
     }
