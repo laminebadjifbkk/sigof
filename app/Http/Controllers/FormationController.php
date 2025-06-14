@@ -1427,12 +1427,12 @@ class FormationController extends Controller
 
         $modules = Module::select('id', 'uuid', 'domaines_id', 'name')->get();
 
-        dd($modules);
-
         $moduleFormation = DB::table('formations')
             ->where('modules_id', $formation->modules_id)
             ->pluck('modules_id', 'modules_id')
             ->all();
+
+        dd($moduleFormation);
 
         $domaines = Domaine::orderBy("created_at", "desc")->get();
 
