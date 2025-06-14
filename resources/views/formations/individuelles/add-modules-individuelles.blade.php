@@ -55,8 +55,8 @@
                                         </thead>
                                         <tbody>
                                             <?php $i = 1; ?>
-                                            {{-- @foreach ($modules as $module)
-                                                <tr>
+                                            @foreach ($modules as $module)
+                                                {{-- <tr>
                                                     <td>
                                                         <input type="radio" name="module" value="{{ $module?->id }}"
                                                             {{ in_array($module->id, $moduleFormation) ? 'checked' : '' }}
@@ -101,8 +101,8 @@
                                                             </div>
                                                         </span>
                                                     </td>
-                                                </tr>
-                                            @endforeach --}}
+                                                </tr> --}}
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
