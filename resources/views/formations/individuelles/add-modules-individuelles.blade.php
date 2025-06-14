@@ -32,8 +32,8 @@
                             data-bs-target="#AddIndividuelModal">
                             <i class="bi bi-plus" title="Ajouter"></i>
                         </button>
-                        <h5><u><b>MODULE</b>:</u> {{ $formation->module?->name }}</h5>
-                        <h5><u><b>REGION</b>:</u> {{ $localite->nom }}</h5>
+                        <h5><u><b>MODULE</b>:</u> {{ $formation->module?->name ?? 'Aucun module' }}</h5>
+                        <h5><u><b>REGION</b>:</u> {{ $localite->nom ?? 'Aucune région' }}</h5>
                         <form method="post" action="{{ url('formationmodules', ['$idformation' => $formation->id]) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
@@ -72,7 +72,7 @@
                                                     <td style="text-align: center;">
                                                         @foreach ($module->individuelles as $individuelle)
                                                             @if ($loop->last)
-                                                                <a href="{{ url('modules/' . $module->id) }}"><span
+                                                                <a href="{{ route('modules.show', $module) }}"><span
                                                                         class="badge bg-info">{{ $loop->count }}</span></a>
                                                             @endif
                                                         @endforeach
@@ -87,7 +87,7 @@
 
                                                     <td style="text-align: center;">
                                                         <span class="d-flex mt-2 align-items-baseline"><a
-                                                                href="{{ url('modules/' . $module->id) }}"
+                                                                href="{{ route('modules.show', $module) }}"
                                                                 class="btn btn-success btn-sm mx-1" title="Voir détails">
                                                                 <i class="bi bi-eye"></i></a>
                                                             <div class="filter">
@@ -184,7 +184,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+                            <button type="button" class="btn btn-secondary btn-sm"
+                                data-bs-dismiss="modal">Fermer</button>
                             <button type="submit" class="btn btn-primary btn-sm">Enregistrer</button>
                         </div>
                     </form>
@@ -242,7 +243,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+                                <button type="button" class="btn btn-secondary btn-sm"
+                                    data-bs-dismiss="modal">Fermer</button>
                                 <button type="submit" class="btn btn-primary btn-sm">Modifier</button>
                             </div>
                         </form>

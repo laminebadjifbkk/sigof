@@ -28,8 +28,8 @@
                                 </span>
                             </div>
                         </div>
-                        <h5><u><b>MODULE</b>:</u> {{ $formation?->collectivemodule?->module }}</h5>
-                        <h5><u><b>REGION</b>:</u> {{ $localite->nom }}</h5>
+                        <h5><u><b>MODULE</b>:</u> {{ $formation?->collectivemodule?->module  ?? 'Aucun module' }}</h5>
+                        <h5><u><b>REGION</b>:</u> {{ $localite->nom ?? 'Aucune région' }}</h5>
                         <form method="post"
                             action="{{ url('formationcollectivemodules', ['$idformation' => $formation->id]) }}"
                             enctype="multipart/form-data" class="row g-3">
@@ -91,7 +91,7 @@
                                                     </td>
                                                     <td style="text-align: center;">
                                                         <span class="d-flex mt-2 align-items-baseline"><a
-                                                                href="{{ url('collectives/' . $collectivemodule->collective?->id) }}"
+                                                                href="{{ route('collectives.show', $collectivemodule->collective) }}"
                                                                 class="btn btn-success btn-sm mx-1" title="Voir détails">
                                                                 <i class="bi bi-eye"></i></a>
                                                             {{-- <div class="filter">
