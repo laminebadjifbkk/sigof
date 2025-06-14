@@ -56,7 +56,7 @@
                                         <tbody>
                                             <?php $i = 1; ?>
                                             @foreach ($modules as $module)
-                                                {{-- <tr>
+                                                <tr>
                                                     <td>
                                                         <input type="radio" name="module" value="{{ $module?->id }}"
                                                             {{ in_array($module->id, $moduleFormation) ? 'checked' : '' }}
@@ -70,15 +70,15 @@
                                                     </td>
                                                     <td>{{ $module?->domaine?->name }}</td>
                                                     <td style="text-align: center;">
-                                                        @foreach ($module->individuelles as $individuelle)
+                                                        {{-- @foreach ($module->individuelles as $individuelle)
                                                             @if ($loop->last)
                                                                 <a href="{{ route('modules.show', $module) }}"><span
                                                                         class="badge bg-info">{{ $loop->count }}</span></a>
                                                             @endif
-                                                        @endforeach
+                                                        @endforeach --}}
                                                     </td>
                                                     <td style="text-align: center;">
-                                                        <span class="d-flex mt-2 align-items-baseline"><a
+                                                        {{-- <span class="d-flex mt-2 align-items-baseline"><a
                                                                 href="{{ route('modules.show', $module) }}"
                                                                 class="btn btn-success btn-sm mx-1" title="Voir détails">
                                                                 <i class="bi bi-eye"></i></a>
@@ -99,9 +99,9 @@
                                                                     </li>
                                                                 </ul>
                                                             </div>
-                                                        </span>
+                                                        </span> --}}
                                                     </td>
-                                                </tr> --}}
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
