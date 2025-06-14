@@ -28,8 +28,8 @@
                                     <th>Bénéficiaires</th>
                                     <th width='10%'>Région</th>
                                     <th width='15%'>Modules</th>
-                                    <th width='10%'>Scan Conv.</th>
-                                    <th width='10%'>Scan DETF</th>
+                                    <th width='8%'>Conv.</th>
+                                    <th width='8%'>DETF</th>
                                     <th width='5%' class="text-center">Statut</th>
                                 </tr>
                             </thead>
