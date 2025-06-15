@@ -55,7 +55,7 @@
                                     <table class="table datatables align-middle" id="table-modules">
                                         <thead>
                                             <tr>
-                                                <th width="40%">Structure</th>
+                                                <th width="30%">Structure</th>
                                                 {{-- <th>E-mail</th>
                                                 <th>Téléphone</th>
                                                 <th>Localité</th> --}}
