@@ -813,10 +813,17 @@ class FormationController extends Controller
             ->pluck('collectivemodules_id')
             ->all();
 
-        $collectivemodules = Collectivemodule::join('collectives', 'collectives.id', '=', 'collectivemodules.collectives_id')
+        /*  $collectivemodules = Collectivemodule::join('collectives', 'collectives.id', '=', 'collectivemodules.collectives_id')
             ->select('collectivemodules.*')
             ->where('collectives.statut_demande', 'Attente')
             ->orWhereIn('collectivemodules.statut', ['Retenu', 'Retiré', 'formés'])
+            ->get(); */
+
+        $statutsVoulus = ['attente', 'conforme'];
+
+        $collectivemodules = Collectivemodule::join('collectives', 'collectives.id', '=', 'collectivemodules.collectives_id')
+            ->select('collectivemodules.*')
+            ->whereIn('collectivemodules.statut', $statutsVoulus)
             ->get();
 
         $collectiveModule = Collectivemodule::where('formations_id', $formation->id)
