@@ -1412,7 +1412,7 @@ class FormationController extends Controller
         $collective       = $collectivemodule?->collective;
 
         $collectivemodule->update([
-            "statut" => 'Retenue',
+            "statut" => 'sélectionnée',
         ]);
 
         $collectivemodule->save();
@@ -1429,7 +1429,7 @@ class FormationController extends Controller
 
         $collective->save();
 
-        Alert::success('Module', 'ajouté avec succès');
+        Alert::success('Succès', 'demande sélectionnée avec succès');
 
         return redirect()->back();
 
