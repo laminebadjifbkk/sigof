@@ -620,6 +620,21 @@
             display: inline-block;
         }
 
+        .formés {
+            background-color: #198754;
+            /* couleur cyan Bootstrap (info) */
+            color: #ffffff;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            /* plus doux et moderne */
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* légère ombre */
+            display: inline-block;
+        }
+
         .Présent {
             background-color: #198754;
             /* couleur cyan Bootstrap (info) */
