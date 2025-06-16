@@ -40,76 +40,83 @@
                         {{-- @endcan --}}
                         <h5 class="card-title">Domaine : {{ $domaine?->name }}</h5>
                         <!-- Table with stripped rows -->
-                        <table class="table datatables align-middle justify-content-center" id="table-domaines">
-                            <thead>
-                                <tr>
-                                    <th>Modules</th>
-                                    <th>Niveau qualification</th>
-                                    <th class="text-center" scope="col">Formations</th>
-                                    <th class="text-center" scope="col">Demandes</th>
-                                    <th class="text-center" scope="col">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($domaine?->modules as $module)
+
+                        @if ($domaine?->modules->isEmpty())
+                            <div class="alert alert-warning text-center" role="alert">
+                                <strong>Ce domaine ne contient aucun module.</strong>
+                            </div>
+                        @else
+                            <table class="table datatables align-middle justify-content-center" id="table-domaines">
+                                <thead>
                                     <tr>
-                                        <td>{{ $module->name }}</td>
-                                        <td>{{ $module?->niveau_qualification }}</td>
-                                        <td style="text-align: center;">
-                                            @foreach ($module->formations as $formation)
-                                                @if ($loop->last)
-                                                    <a href="{{ route('formations.show' . $formation) }}"><span
-                                                            class="badge bg-info">{{ $loop->count }}</span></a>
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td style="text-align: center;">
-                                            @foreach ($module->individuelles as $individuelle)
-                                                @if ($loop->last)
-                                                    <a href="{{ route('modules.show' . $module) }}"><span
-                                                            class="badge bg-info">{{ $loop->count }}</span></a>
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td style="text-align: center;">
-                                            @can('module-show')
-                                                <span class="d-flex mt-2 align-items-baseline"><a
-                                                        href="{{ route('modules.show' . $module) }}"
-                                                        class="btn btn-success btn-sm mx-1" title="Voir détails">
-                                                        <i class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            @can('module-update')
-                                                                <li><a class="dropdown-item btn btn-sm"
-                                                                        href="{{ route('modules.edit', $module) }}"
-                                                                        class="mx-1"><i class="bi bi-pencil"></i>
-                                                                        Modifier</a>
-                                                                </li>
-                                                            @endcan
-                                                            @can('module-delete')
-                                                                <li>
-                                                                    <form action="{{ route('modules', $module) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit" class="dropdown-item show_confirm"><i
-                                                                                class="bi bi-trash"></i>Supprimer</button>
-                                                                    </form>
-                                                                </li>
-                                                            @endcan
-                                                        </ul>
-                                                    </div>
-                                                </span>
-                                            @endcan
-                                        </td>
+                                        <th>Modules</th>
+                                        <th>Niveau qualification</th>
+                                        <th class="text-center" scope="col">Formations</th>
+                                        <th class="text-center" scope="col">Demandes</th>
+                                        <th class="text-center" scope="col">#</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($domaine?->modules as $module)
+                                        <tr>
+                                            <td>{{ $module?->name }}</td>
+                                            <td>{{ $module?->niveau_qualification }}</td>
+                                            <td style="text-align: center;">
+                                                @foreach ($module->formations as $formation)
+                                                    @if ($loop->last)
+                                                        <a href="{{ route('formations.show' . $formation) }}"><span
+                                                                class="badge bg-info">{{ $loop->count }}</span></a>
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td style="text-align: center;">
+                                                @foreach ($module->individuelles as $individuelle)
+                                                    @if ($loop->last)
+                                                        <a href="{{ route('modules.show' . $module) }}"><span
+                                                                class="badge bg-info">{{ $loop->count }}</span></a>
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td style="text-align: center;">
+                                                @can('module-show')
+                                                    <span class="d-flex mt-2 align-items-baseline"><a
+                                                            href="{{ route('modules.show' . $module) }}"
+                                                            class="btn btn-success btn-sm mx-1" title="Voir détails">
+                                                            <i class="bi bi-eye"></i></a>
+                                                        <div class="filter">
+                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                    class="bi bi-three-dots"></i></a>
+                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                @can('module-update')
+                                                                    <li><a class="dropdown-item btn btn-sm"
+                                                                            href="{{ route('modules.edit', $module) }}"
+                                                                            class="mx-1"><i class="bi bi-pencil"></i>
+                                                                            Modifier</a>
+                                                                    </li>
+                                                                @endcan
+                                                                @can('module-delete')
+                                                                    <li>
+                                                                        <form action="{{ route('modules', $module) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"><i
+                                                                                    class="bi bi-trash"></i>Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                @endcan
+                                                            </ul>
+                                                        </div>
+                                                    </span>
+                                                @endcan
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
                     </div>
                 </div>
 

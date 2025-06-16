@@ -28,8 +28,6 @@ class DomaineController extends Controller
     {
         $domaine = Domaine::findOrFail($id);
 
-        dd($domaine);
-
         return view("domaines.show", compact("domaine"));
     }
 
