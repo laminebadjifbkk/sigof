@@ -68,17 +68,17 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        {{-- <div class="row">
                                             <div class="card-title col-lg-3 col-md-4 label">Conditions :
                                             </div>
                                             <p class="col-lg-9 col-md-8">
                                                 {!! '- ' .
                                                     implode(
                                                         '- ',
-                                                        array_map(fn($line) => nl2br(e($line)), explode("\n", ucfirst($individuelle?->formation?->qualifications))),
+                                                        array_map(fn($line) => nl2br(e($line)), explode("\n", ucfirst($individuelle?->formation?->conditions))),
                                                     ) !!}
                                             </p>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Statut</div>
