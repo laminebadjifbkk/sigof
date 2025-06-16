@@ -51,15 +51,18 @@
                                 n’oubliez pas de <span class="bg bg-danger text-white"><em>décliner</em></span> votre
                                 invitation.
                             </p>
-                            <h5 class="card-title"><strong><em><u>CONDITIONS:</u></strong></em></h5>
-                            <div>
-                                {!! '- ' .
-                                    implode('- ', array_map(fn($line) => nl2br(e($line)), explode("\n", ucfirst($formation?->qualifications)))) !!}
-                            </div>
                             <div class="tab-content pt-2">
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                                     <?php $i = 1; ?>
                                     @foreach ($nouvelle_formations as $individuelle)
+                                        <h5 class="card-title"><strong><em><u>CONDITIONS:</u></strong></em></h5>
+                                        <div>
+                                            {!! '- ' .
+                                                implode(
+                                                    '- ',
+                                                    array_map(fn($line) => nl2br(e($line)), explode("\n", ucfirst($individuelle?->formation?->qualifications))),
+                                                ) !!}
+                                        </div>
                                         <div class="d-flex align-items-baseline mb-2">
                                             <h5 class="card-title">Formation {{ $i++ }} :
                                                 @if (!empty($individuelle?->formation?->module?->name))
