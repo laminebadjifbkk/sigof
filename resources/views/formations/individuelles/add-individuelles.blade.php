@@ -75,10 +75,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php $i = 1; ?>
                                             @foreach ($individuelles as $individuelle)
                                                 @if (!empty($individuelle?->numero))
                                                     <tr>
-                                                        <?php $i = 1; ?>
                                                         <td>{{ $i++ }}</td>
                                                         <td>
                                                             <input type="checkbox" name="individuelles[]"
