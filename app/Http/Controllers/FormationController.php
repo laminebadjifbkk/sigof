@@ -1068,7 +1068,7 @@ class FormationController extends Controller
                 $individuelle = Individuelle::findOrFail($individuelle);
                 $individuelle->update([
                     "formations_id" => $idformation,
-                    "statut"        => 'sélectionnée',
+                    "statut"        => 'Sélectionné(e)',
                 ]);
 
                 $individuelle->save();
@@ -1076,7 +1076,7 @@ class FormationController extends Controller
 
             $validated_by = new Validationindividuelle([
                 'validated_id'     => Auth::user()->id,
-                'action'           => 'sélectionnée',
+                'action'           => 'Sélectionné(e)',
                 'individuelles_id' => $individuelle->id,
             ]);
 
@@ -1419,7 +1419,7 @@ class FormationController extends Controller
         $collective       = $collectivemodule?->collective;
 
         $collectivemodule->update([
-            "statut" => 'sélectionnée',
+            "statut" => 'Sélectionné(e)',
         ]);
 
         $collectivemodule->save();
