@@ -966,7 +966,7 @@ class FormationController extends Controller
         $module    = Module::findOrFail($idmodule);
         $region    = Region::findOrFail($idlocalite);
 
-        $statutsVoulus = ['attente', 'conforme', 'retiré', 'non conforme', 'liste attente', 'Sélectionné'];
+        $statutsVoulus = ['attente', 'conforme', 'retiré', 'liste attente', 'Sélectionné'];
 
         if (! empty($formation?->projets_id)) {
             /* $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
