@@ -79,7 +79,6 @@
                                             @foreach ($individuelles as $individuelle)
                                                 @if (!empty($individuelle?->numero))
                                                     <tr>
-                                                        <td>{{ $i++ }}</td>
                                                         <td>
                                                             <input type="checkbox" name="individuelles[]"
                                                                 value="{{ $individuelle->id }}"
@@ -92,6 +91,7 @@
                                                                     role="alert">{{ $message }}</span>
                                                             @enderror
                                                         </td>
+                                                        <td>{{ $i++ }}</td>
                                                         <td>{{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
                                                         </td>
                                                         <td>{{ $individuelle?->user->date_naissance?->format('d/m/Y') }}
