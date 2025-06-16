@@ -85,8 +85,7 @@
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-4 label ">Motif</div>
                                                 <div class="col-lg-9 col-md-8">
-                                                    <p
-                                                        class="text-danger">{{ $individuelle?->motif_declinaison }}</p>
+                                                    <p class="text-danger">{{ $individuelle?->motif_declinaison }}</p>
                                                 </div>
                                             </div>
                                         @endif
@@ -117,7 +116,7 @@
                                                     {{ $individuelle?->formation?->date_debut->format('d/m/Y') }}
                                                 </div>
                                             @else
-                                                <div class="col-lg-9 col-md-8 badge bg-warning">Non définie</div>
+                                                <div class="col-lg-9 col-md-8"><span class="Non">Non définie</span></div>
                                             @endif
                                         </div>
 
@@ -128,7 +127,7 @@
                                                     {{ $individuelle?->formation?->date_fin->format('d/m/Y') }}
                                                 </div>
                                             @else
-                                                <div class="col-lg-9 col-md-8 badge bg-warning">Non définie</div>
+                                                <div class="col-lg-9 col-md-8"><span class="Non">Non définie</span></div>
                                             @endif
                                         </div>
 
@@ -139,7 +138,7 @@
                                                     {{ $individuelle?->formation?->duree_formation . ' jours' }}
                                                 </div>
                                             @else
-                                                <div class="col-lg-9 col-md-8 badge bg-warning">Non définie</div>
+                                                <div class="col-lg-9 col-md-8"><span class="Non">Non définie</span></div>
                                             @endif
                                         </div>
 
@@ -219,8 +218,8 @@
                                                             <h1 class="h4 text-black mb-0">Indisponibilité</h1>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <label for="motif" class="form-label">Décliner formation<span
-                                                                    class="text-danger mx-1">*</span></label>
+                                                            <label for="motif" class="form-label">Décliner
+                                                                formation<span class="text-danger mx-1">*</span></label>
                                                             <textarea name="motif" id="motif" rows="3"
                                                                 class="form-control form-control-sm @error('motif') is-invalid @enderror"
                                                                 placeholder="Expliquer pourquoi vous ne souhaitez pas y participer">{{ $individuelle?->motif_declinaison ?? old('motif') }}</textarea>
