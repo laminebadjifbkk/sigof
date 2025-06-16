@@ -966,7 +966,7 @@ class FormationController extends Controller
         $module    = Module::findOrFail($idmodule);
         $region    = Region::findOrFail($idlocalite);
 
-        $statutsVoulus = ['attente', 'conforme', 'retiré', 'non conforme', 'liste attente'];
+        $statutsVoulus = ['attente', 'conforme', 'retiré', 'non conforme', 'liste attente', 'Sélectionné'];
 
         if (! empty($formation?->projets_id)) {
             /* $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
@@ -1068,7 +1068,7 @@ class FormationController extends Controller
                 $individuelle = Individuelle::findOrFail($individuelle);
                 $individuelle->update([
                     "formations_id" => $idformation,
-                    "statut"        => 'sélectionnée',
+                    "statut"        => 'Sélectionné',
                 ]);
 
                 $individuelle->save();
@@ -1076,7 +1076,7 @@ class FormationController extends Controller
 
             $validated_by = new Validationindividuelle([
                 'validated_id'     => Auth::user()->id,
-                'action'           => 'sélectionnée',
+                'action'           => 'Sélectionné',
                 'individuelles_id' => $individuelle->id,
             ]);
 
@@ -1403,7 +1403,7 @@ class FormationController extends Controller
 
         $formation->save();
 
-        Alert::success('Module', 'ajouté avec succès');
+        Alert::success('Succès', 'Module ajouté avec succès');
 
         return redirect()->back();
     }
@@ -1419,7 +1419,7 @@ class FormationController extends Controller
         $collective       = $collectivemodule?->collective;
 
         $collectivemodule->update([
-            "statut" => 'sélectionnée',
+            "statut" => 'Sélectionné',
         ]);
 
         $collectivemodule->save();
@@ -1785,11 +1785,11 @@ class FormationController extends Controller
         } else {
             if ($formation->statut == "Terminée") {
                 Alert::warning('Désolé !', 'Cette formation a déjà été exécutée.');
-            } elseif ($formation->statut == "Démarrée") {
+            } elseif ($formation->statut == "En cours") {
                 Alert::warning('Désolé !', 'formation en cours...');
             } else {
                 $formation->update([
-                    'statut'       => "Démarrée",
+                    'statut'       => "En cours",
                     'validated_by' => Auth::user()->firstname . ' ' . Auth::user()->name,
                 ]);
 
@@ -1797,7 +1797,7 @@ class FormationController extends Controller
 
                 $validated_by = new Validationformation([
                     'validated_id'  => Auth::user()->id,
-                    'action'        => "Démarrée",
+                    'action'        => "En cours",
                     'formations_id' => $formation->id,
                 ]);
 

@@ -530,7 +530,7 @@
             display: inline-block;
         }
 
-        .Démarrée {
+        .cours {
             background-color: #0DCAF0;
             /* couleur cyan Bootstrap (info) */
             color: #ffffff;

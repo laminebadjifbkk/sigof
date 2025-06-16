@@ -18,7 +18,7 @@
                     @endforeach
                 @endif
                 <div class="card">
-                    <div class="card-body">
+                    <div class="m-2 card-body">
                         <div class="row">
                             <div class="col-sm-12 pt-0">
                                 <span class="d-flex mt-0 align-items-baseline"><a
@@ -28,60 +28,59 @@
                                 </span>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary float-end btn-rounded" data-bs-toggle="modal"
+                        {{-- <button type="button" class="btn btn-primary float-end btn-rounded" data-bs-toggle="modal"
                             data-bs-target="#AddIndividuelModal">
                             <i class="bi bi-plus" title="Ajouter"></i>
-                        </button>
+                        </button> --}}
                         {{-- <h5><u><b>MODULE</b>:</u> {{ $formation->module?->name ?? 'Aucun module' }}</h5>
                         <h5><u><b>REGION</b>:</u> {{ $localite->nom ?? 'Aucune région' }}</h5> --}}
-                        <div class="p-1 mb-4 border rounded bg-light shadow-sm">
+                        <div class="mb-4 border rounded bg-light shadow-sm">
                             <div class="row text-center fw-semibold">
                                 <div class="col-md-4 mb-2">
                                     <span class="text-secondary">📍 Région</span><br>
-                                    <span class="fs-5 text-dark">{{ $region->nom ?? 'Aucune' }}</span>
+                                    <span class="fs-5 text-dark">{{ $localite?->nom ?? 'Aucune' }}</span>
                                 </div>
                                 <div class="col-md-8 mb-2">
                                     <span class="text-secondary">📘 Module</span><br>
-                                    <span class="fs-5 text-dark">{{ $module->name ?? 'Aucun' }}</span>
+                                    <span class="fs-5 text-dark">{{ $module ?? 'Aucun' }}</span>
                                 </div>
                             </div>
                         </div>
                         <form method="post" action="{{ url('formationmodules', ['$idformation' => $formation->id]) }}"
-                            enctype="multipart/form-data" class="row g-3">
+                            enctype="multipart/form-data" class="row g-3 mb-4 border rounded bg-light shadow-sm">
                             @csrf
                             @method('PUT')
-                            <div class="row mb-3 border rounded bg-light shadow-sm">
-                                {{-- <div class="form-check col-md-2 pt-5">
+                            {{-- <div class="form-check col-md-2 pt-5">
                                     <label for="#">Choisir tout</label>
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div> --}}
-                                <div class="form-check col-md-12 pt-5">
-                                    <table class="m-2 table datatables align-middle" id="table-modules">
-                                        <thead>
+                            <div class="form-check col-md-12 pt-5">
+                                <table class="m-2 table datatables align-middle" id="table-modules">
+                                    <thead>
+                                        <tr>
+                                            <th>Modules</th>
+                                            <th>Domaines</th>
+                                            {{-- <th class="text-center" scope="col">Effectif</th> --}}
+                                            <th width="3%"><i class="bi bi-gear"></i></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($modules as $module)
                                             <tr>
-                                                <th>Modules</th>
-                                                <th>Domaines</th>
-                                                {{-- <th class="text-center" scope="col">Effectif</th> --}}
-                                                <th width="3%"><i class="bi bi-gear"></i></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                            @foreach ($modules as $module)
-                                                <tr>
-                                                    <td>
-                                                        <input type="radio" name="module" value="{{ $module?->id }}"
-                                                            {{ in_array($module->id, $moduleFormation) ? 'checked' : '' }}
-                                                            class="form-check-input @error('module') is-invalid @enderror">
-                                                        @error('module')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <div>{{ $message }}</div>
-                                                            </span>
-                                                        @enderror
-                                                        {{ $module->name }}
-                                                    </td>
-                                                    <td>{{ $module?->domaine?->name }}</td>
-                                                    {{-- <td style="text-align: center;">
+                                                <td>
+                                                    <input type="radio" name="module" value="{{ $module?->id }}"
+                                                        {{ in_array($module->id, $moduleFormation) ? 'checked' : '' }}
+                                                        class="form-check-input @error('module') is-invalid @enderror">
+                                                    @error('module')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                                    {{ $module->name }}
+                                                </td>
+                                                <td>{{ $module?->domaine?->name }}</td>
+                                                {{-- <td style="text-align: center;">
                                                         @if ($module->individuelles->isNotEmpty())
                                                             <a href="{{ route('modules.show', $module) }}">
                                                                 <span
@@ -89,39 +88,37 @@
                                                             </a>
                                                         @endif
                                                     </td> --}}
-                                                    <td style="text-align: center;">
-                                                        <span class="d-flex mt-2 align-items-baseline"><a
-                                                                href="{{ route('modules.show', $module) }}"
-                                                                class="btn btn-success btn-sm mx-1" title="Voir détails">
-                                                                <i class="bi bi-eye"></i></a>
-                                                            <div class="filter">
-                                                                <a class="icon" href="#"
-                                                                    data-bs-toggle="dropdown"><i
-                                                                        class="bi bi-three-dots"></i></a>
-                                                                <ul
-                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                    <li>
-                                                                        <button type="button"
-                                                                            class="dropdown-item btn btn-sm mx-1"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#EditRegionModal{{ $module->id }}">
-                                                                            <i class="bi bi-pencil" title="Modifier"></i>
-                                                                            Modifier
-                                                                        </button>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-outline-primary btn-sm"><i
-                                            class="bi bi-check2-circle"></i>&nbsp;Sélectionner</button>
-                                </div>
+                                                <td style="text-align: center;">
+                                                    <span class="d-flex mt-2 align-items-baseline"><a
+                                                            href="{{ route('modules.show', $module) }}"
+                                                            class="btn btn-success btn-sm mx-1" title="Voir détails">
+                                                            <i class="bi bi-eye"></i></a>
+                                                        <div class="filter">
+                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                    class="bi bi-three-dots"></i></a>
+                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                <li>
+                                                                    <button type="button"
+                                                                        class="dropdown-item btn btn-sm mx-1"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#EditRegionModal{{ $module->id }}">
+                                                                        <i class="bi bi-pencil" title="Modifier"></i>
+                                                                        Modifier
+                                                                    </button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-2">
+                                <button type="submit" class="btn btn-outline-primary btn-sm"><i
+                                        class="bi bi-check2-circle"></i>&nbsp;Sélectionner</button>
+                            </div>
                         </form>
                     </div>
                 </div>
