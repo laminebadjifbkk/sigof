@@ -57,8 +57,8 @@
                             <thead>
                                 <tr class="text-center">
                                     <th width="8%">Choix n°</th>
-                                    <th width="8%">N° demande</th>
-                                    <th width="8%">Date dépôt</th>
+                                    <th width="8%">Numéro</th>
+                                    <th width="8%">Dépôt</th>
                                     <th width="12%">Département</th>
                                     <th width="12%">Région</th>
                                     {{-- <th width="15%">Niveau étude</th>
