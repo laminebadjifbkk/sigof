@@ -75,8 +75,8 @@
                                         <th>Domaines</th>
                                         <th>Secteurs</th>
                                         <th>Niveau qualification</th>
-                                        {{-- <th class="text-center" scope="col">Formations</th>
-                                        <th class="text-center" scope="col">Demandes</th> --}}
+                                        {{-- <th class="text-center" scope="col">Formations</th> --}}
+                                        <th class="text-center" scope="col">Demandes</th>
                                         <th class="text-center" scope="col">#</th>
                                     </tr>
                                 </thead>
@@ -96,7 +96,7 @@
                                                                 class="badge bg-warning">{{ $loop->count }}</span></a>
                                                     @endif
                                                 @endforeach
-                                            </td>
+                                            </td> --}}
                                             <td style="text-align: center;">
                                                 @foreach ($module->individuelles as $individuelle)
                                                     @if ($loop->last)
@@ -104,7 +104,7 @@
                                                                 class="badge bg-info">{{ $loop->count }}</span></a>
                                                     @endif
                                                 @endforeach
-                                            </td> --}}
+                                            </td>
                                             <td style="text-align: center;">
                                                 @can('module-show')
                                                     <span class="d-flex mt-2 align-items-baseline"><a
