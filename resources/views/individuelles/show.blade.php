@@ -553,8 +553,6 @@
                                     <select name="statut" id="statut" class="form-select form-select-sm" required>
                                         <option value="" disabled {{ !$selectedStatut ? 'selected' : '' }}>--
                                             Sélectionner un statut --</option>
-                                        <option value="Attente" {{ $selectedStatut === 'Attente' ? 'selected' : '' }}>En
-                                            attente</option>
                                         <option value="À corriger"
                                             {{ $selectedStatut === 'À corriger' ? 'selected' : '' }}>À corriger</option>
                                         <option value="Conforme" {{ $selectedStatut === 'Conforme' ? 'selected' : '' }}>
@@ -564,6 +562,8 @@
                                             Non conforme</option>
                                         <option value="Validée" {{ $selectedStatut === 'Validée' ? 'selected' : '' }}>
                                             Validée</option>
+                                        <option value="liste attente" {{ $selectedStatut === 'liste attente' ? 'selected' : '' }}>En
+                                            liste attente</option>
                                         {{-- <option value="Non validé"
                                             {{ $selectedStatut === 'Non validé' ? 'selected' : '' }}>Non validé</option> --}}
                                     </select>
