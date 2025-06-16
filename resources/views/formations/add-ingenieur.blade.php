@@ -28,7 +28,15 @@
                                 </span>
                             </div>
                         </div>
-                        <h5><u><b>INGENIEUR</b>:</u> {{ $ingenieur }}</h5>
+                        {{-- <h5><u><b>INGENIEUR</b>:</u> {{ $ingenieur }}</h5> --}}
+                        <div class="p-1 mb-4 border rounded bg-light shadow-sm">
+                            <div class="row text-center fw-semibold">
+                                <div class="col-md-4 mb-2">
+                                    <span class="text-secondary">👥 Ingénieur</span><br>
+                                    <span class="fs-5 text-dark">{{ $ingenieur ?? 'Aucun' }}</span>
+                                </div>
+                            </div>
+                        </div>
                         <form method="post" action="{{ url('formationingenieurs', ['$idformation' => $formation->id]) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
