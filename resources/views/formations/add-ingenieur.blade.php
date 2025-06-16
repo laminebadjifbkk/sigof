@@ -47,7 +47,7 @@
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div> --}}
                                 <div class="form-check col-md-12 pt-5 p-1 mb-4 border rounded bg-light shadow-sm">
-                                    <table class="table datatables align-middle" id="table-modules">
+                                    <table class="m-2 table datatables align-middle" id="table-modules">
                                         <thead>
                                             <tr>
                                                 {{-- <th>Matricule</th> --}}
