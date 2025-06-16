@@ -71,13 +71,13 @@
                                         <div class="row">
                                             <div class="card-title col-lg-3 col-md-4 label">Conditions :
                                             </div>
-                                            <div class="col-lg-9 col-md-8">
+                                            <p class="col-lg-9 col-md-8">
                                                 {!! '- ' .
                                                     implode(
                                                         '- ',
                                                         array_map(fn($line) => nl2br(e($line)), explode("\n", ucfirst($individuelle?->formation?->qualifications))),
                                                     ) !!}
-                                            </div>
+                                            </p>
                                         </div>
 
                                         <div class="row">
