@@ -59,10 +59,9 @@
                                     <table class="m-2 table datatables align-middle" id="table-individuelles">
                                         <thead>
                                             <tr>
-                                                <th><input type="checkbox" class="form-check-input" id="checkAll"> Civilité
-                                                </th>
-                                                <th>Prénom</th>
-                                                <th>NOM</th>
+                                                <th><input type="checkbox" class="form-check-input" id="checkAll"> N°</th>
+                                                <th>Civilité</th>
+                                                <th>Prénom et NOM</th>
                                                 <th>Date naissance</th>
                                                 <th>Lieu naissance</th>
                                                 <th>Département</th>
@@ -79,6 +78,8 @@
                                             @foreach ($individuelles as $individuelle)
                                                 @if (!empty($individuelle?->numero))
                                                     <tr>
+                                                        <?php $i = 1; ?>
+                                                        <td>{{ $i++ }}</td>
                                                         <td>
                                                             <input type="checkbox" name="individuelles[]"
                                                                 value="{{ $individuelle->id }}"
@@ -91,8 +92,8 @@
                                                                     role="alert">{{ $message }}</span>
                                                             @enderror
                                                         </td>
-                                                        <td>{{ $individuelle?->user?->firstname }}</td>
-                                                        <td>{{ $individuelle?->user?->name }}</td>
+                                                        <td>{{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
+                                                        </td>
                                                         <td>{{ $individuelle?->user->date_naissance?->format('d/m/Y') }}
                                                         </td>
                                                         <td>{{ $individuelle?->user->lieu_naissance }}</td>
