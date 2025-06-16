@@ -73,7 +73,7 @@
                                             <td style="text-align: center;">
                                                 @foreach ($module->individuelles as $individuelle)
                                                     @if ($loop->last)
-                                                        <a href="{{ route('modules.show' . $module) }}"><span
+                                                        <a href="{{ route('modules.show', $module) }}"><span
                                                                 class="badge bg-info">{{ $loop->count }}</span></a>
                                                     @endif
                                                 @endforeach
@@ -81,7 +81,7 @@
                                             <td style="text-align: center;">
                                                 @can('module-show')
                                                     <span class="d-flex mt-2 align-items-baseline"><a
-                                                            href="{{ route('modules.show' . $module) }}"
+                                                            href="{{ route('modules.show', $module) }}"
                                                             class="btn btn-success btn-sm mx-1" title="Voir détails">
                                                             <i class="bi bi-eye"></i></a>
                                                         <div class="filter">
@@ -116,14 +116,13 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <!-- End Table with stripped rows -->
+                        @endif
                     </div>
                 </div>
 
             </div>
         </div>
     </section>
-
 @endsection
 @push('scripts')
     <script>
