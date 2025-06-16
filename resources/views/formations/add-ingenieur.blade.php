@@ -46,7 +46,7 @@
                                     <label for="#">Choisir tout</label>
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div> --}}
-                                <div class="form-check col-md-12 pt-5 p-1 mb-4 border rounded bg-light shadow-sm">
+                                <div class="form-check col-md-12 pt-5 p-1 m-4 border rounded bg-light shadow-sm">
                                     <table class="m-2 p-3 table datatables align-middle" id="table-modules">
                                         <thead>
                                             <tr>
