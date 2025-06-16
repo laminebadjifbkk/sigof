@@ -1,8 +1,6 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\Departement;
 use App\Models\Domaine;
 use App\Models\Secteur;
 use Illuminate\Http\Request;
@@ -26,57 +24,59 @@ class DomaineController extends Controller
         $domaines = Domaine::orderBy("created_at", "desc")->get();
         return view("domaines.index", compact("secteurs", "domaines"));
     }
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $domaine = domaine::find($id);
+        $domaine = Domaine::findOrFail($id);
+
         return view("domaines.show", compact("domaine"));
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            "name"             => ["required", "string", Rule::unique(Domaine::class)->ignore($id)->whereNull('deleted_at')],
-            "secteur"          => ["required", "string"],
+            "name"    => ["required", "string", Rule::unique(Domaine::class)->ignore($id)->whereNull('deleted_at')],
+            "secteur" => ["required", "string"],
         ]);
 
         $domaine = Domaine::findOrFail($id);
 
         $domaine->update([
-            'name'            => $request->input('name'),
-            'secteurs_id'     => $request->input('secteur'),
+            'name'        => $request->input('name'),
+            'secteurs_id' => $request->input('secteur'),
         ]);
 
         $domaine->save();
 
-        Alert::success('Fait ! ', 'domaine modifié avec succès');
+        Alert::success('Succès ! ', 'domaine modifié avec succès');
 
         return redirect()->back();
     }
+
     public function addDomaine(Request $request)
     {
         $this->validate($request, [
-            "name"             => ['required', 'string', Rule::unique(Domaine::class)->whereNull('deleted_at')],
-            "secteur"          => ["required", "string"],
+            "name"    => ['required', 'string', Rule::unique(Domaine::class)->whereNull('deleted_at')],
+            "secteur" => ["required", "string"],
         ]);
 
         $domaine = Domaine::create([
-            'name'            => $request->input('name'),
-            'secteurs_id'     => $request->input('secteur'),
+            'name'        => $request->input('name'),
+            'secteurs_id' => $request->input('secteur'),
         ]);
 
         $domaine->save();
 
-        Alert::success('Fait ! ', 'domaine ajouté avec succès');
+        Alert::success('Succès ! ', 'domaine ajouté avec succès');
 
         return redirect()->back();
     }
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $domaine   = Domaine::find($id);
+        $domaine = Domaine::findOrFail($id);
 
         $domaine->delete();
 
-        Alert::success('Fait !', 'domaine supprimé');
+        Alert::success('Succès !', 'domaine supprimé');
 
         return redirect()->back();
     }

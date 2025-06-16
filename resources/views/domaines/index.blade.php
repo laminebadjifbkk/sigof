@@ -87,7 +87,7 @@
                                                                 @endcan
                                                                 @can('domaine-create')
                                                                     <li>
-                                                                        <form action="{{ url('domaines', $domaine->id) }}"
+                                                                        <form action="{{ route('domaines.destroy', $domaine->id) }}"
                                                                             method="post">
                                                                             @csrf
                                                                             @method('DELETE')
