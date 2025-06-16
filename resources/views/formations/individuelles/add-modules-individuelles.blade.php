@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="col-md-8 mb-2">
                                     <span class="text-secondary">📘 Module</span><br>
-                                    <span class="fs-5 text-dark">{{ $module ?? 'Aucun' }}</span>
+                                    <span class="fs-5 text-dark">{{ $formation?->module?->name ?? 'Aucun' }}</span>
                                 </div>
                             </div>
                         </div>

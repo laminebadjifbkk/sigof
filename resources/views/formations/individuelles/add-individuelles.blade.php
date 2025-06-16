@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="col-md-4 mb-2">
                                     <span class="text-secondary">📘 Module</span><br>
-                                    <span class="fs-5 text-dark">{{ $module->name ?? 'Aucun' }}</span>
+                                    <span class="fs-5 text-dark">{{ $formation?->module?->name ?? 'Aucun' }}</span>
                                 </div>
                                 <div class="col-md-4 mb-2">
                                     <span class="text-secondary">👥 Effectif</span><br>
@@ -67,6 +67,7 @@
                                                 <th>Lieu naissance</th>
                                                 <th>Département</th>
                                                 <th>Module</th>
+                                                <th>Note</th>
                                                 <th>Statut</th>
                                                 @if (!empty($formation->projets_id))
                                                     <th>Projet</th>
@@ -97,6 +98,7 @@
                                                         <td>{{ $individuelle?->user->lieu_naissance }}</td>
                                                         <td>{{ $individuelle?->departement->nom }}</td>
                                                         <td>{{ $individuelle?->module->name }}</td>
+                                                        <td>{{ $individuelle?->note }}</td>
                                                         <td><span
                                                                 class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
                                                         </td>
