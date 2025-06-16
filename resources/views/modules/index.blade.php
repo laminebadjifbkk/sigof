@@ -98,12 +98,13 @@
                                                 @endforeach
                                             </td> --}}
                                             <td style="text-align: center;">
-                                                @if ($module->individuelles->isNotEmpty())
+                                                {{-- @if ($module->individuelles->isNotEmpty())
                                                     <a href="{{ route('modules.show', $module) }}">
                                                         <span
                                                             class="badge bg-info">{{ $module->individuelles->count() }}</span>
                                                     </a>
-                                                @endif
+                                                @endif --}}
+                                                <span class="badge bg-info">{{ $module?->individuelles->count() }}</span>
                                             </td>
                                             <td style="text-align: center;">
                                                 @can('module-show')
