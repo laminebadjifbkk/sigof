@@ -55,10 +55,10 @@
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                                     <?php $i = 1; ?>
                                     @foreach ($nouvelle_formations as $individuelle)
-                                        <div class="row d-flex align-items-baseline">
+                                        <div class="row">
                                             <div class="card-title col-lg-3 col-md-4 label">Formation {{ $i++ }} :
                                             </div>
-                                            <div class="col-lg-9 col-md-8">
+                                            <div class="card-title col-lg-9 col-md-8">
                                                 @if (!empty($individuelle?->formation?->module?->name))
                                                     {{ $individuelle?->formation?->module?->name }}
                                                 @elseif(!empty($individuelle?->formation->collectivemodule->module))
@@ -68,7 +68,7 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="row d-flex align-items-baseline">
+                                        <div class="row">
                                             <div class="card-title col-lg-3 col-md-4 label">Conditions :
                                             </div>
                                             <div class="col-lg-9 col-md-8">
