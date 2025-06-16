@@ -56,7 +56,7 @@
 
                             @if ($individuelles->isNotEmpty())
                                 <div class="form-check col-md-12 border rounded bg-light shadow-sm p-3">
-                                    <table class="table datatables align-middle" id="table-individuelles">
+                                    <table class="m-2 table datatables align-middle" id="table-individuelles">
                                         <thead>
                                             <tr>
                                                 <th><input type="checkbox" class="form-check-input" id="checkAll"> Civilité

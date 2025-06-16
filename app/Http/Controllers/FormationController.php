@@ -1003,11 +1003,11 @@ class FormationController extends Controller
                 ->where('regions.nom', $region->nom)
                 ->where('individuelles.statut', 'Attente')
                 ->get(); */
-
+            
             $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
                 ->join('regions', 'regions.id', 'individuelles.regions_id')
                 ->select('individuelles.*')
-                ->where('individuelles.projets_id', $formation?->projets_id)
+                /* ->where('individuelles.projets_id', $formation?->projets_id) */
                 ->where('modules.name', 'LIKE', '%' . $module->name . '%')
                 ->where('regions.nom', $region->nom)
                 ->whereIn('individuelles.statut', $statutsVoulus)
@@ -1068,7 +1068,7 @@ class FormationController extends Controller
                 $individuelle = Individuelle::findOrFail($individuelle);
                 $individuelle->update([
                     "formations_id" => $idformation,
-                    "statut"        => 'Sélectionné(e)',
+                    "statut"        => 'sélectionnée',
                 ]);
 
                 $individuelle->save();
@@ -1076,7 +1076,7 @@ class FormationController extends Controller
 
             $validated_by = new Validationindividuelle([
                 'validated_id'     => Auth::user()->id,
-                'action'           => 'Sélectionné(e)',
+                'action'           => 'sélectionnée',
                 'individuelles_id' => $individuelle->id,
             ]);
 
@@ -1419,7 +1419,7 @@ class FormationController extends Controller
         $collective       = $collectivemodule?->collective;
 
         $collectivemodule->update([
-            "statut" => 'Sélectionné(e)',
+            "statut" => 'sélectionnée',
         ]);
 
         $collectivemodule->save();

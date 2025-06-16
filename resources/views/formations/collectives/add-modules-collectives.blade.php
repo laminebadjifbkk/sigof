@@ -35,7 +35,7 @@
                             @method('PUT')
                             <div class="row mb-3">
                                 <div class="form-check col-md-12 pt-5">
-                                    <table class="table datatables align-middle" id="table-modules">
+                                    <table class="m-2 table datatables align-middle" id="table-modules">
                                         <thead>
                                             <tr>
                                                 <th>N° DEM.</th>

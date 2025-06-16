@@ -62,7 +62,7 @@
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div> --}}
                                 <div class="form-check col-md-12 pt-5 border rounded bg-light shadow-sm">
-                                    <table class="table datatables align-middle" id="table-operateurs">
+                                    <table class="m-2 table datatables align-middle" id="table-operateurs">
                                         <thead>
                                             <tr>
                                                 <th>N° agrément</th>

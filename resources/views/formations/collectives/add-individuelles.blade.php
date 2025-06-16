@@ -59,7 +59,7 @@
                                 </div>
                                 <div></div>
                                 <div class="form-check col-md-12">
-                                    <table class="table datatables align-middle" id="table-individuelles">
+                                    <table class="m-2 table datatables align-middle" id="table-individuelles">
                                         <thead>
                                             <tr>
                                                 <th>N°</th>
