@@ -65,6 +65,8 @@
                                                     Aucun
                                                 @endif
                                             </h5>
+                                        </div>
+                                        <div class="d-flex align-items-baseline mb-2">
                                             <h5 class="card-title">Conditions :
                                                 {!! '- ' .
                                                     implode(
