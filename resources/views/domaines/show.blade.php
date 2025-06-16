@@ -65,7 +65,7 @@
                                             <td style="text-align: center;">
                                                 @foreach ($module->formations as $formation)
                                                     @if ($loop->last)
-                                                        <a href="{{ route('formations.show' . $formation) }}"><span
+                                                        <a href="{{ route('formations.show', $formation) }}"><span
                                                                 class="badge bg-info">{{ $loop->count }}</span></a>
                                                     @endif
                                                 @endforeach
@@ -97,7 +97,7 @@
                                                                 @endcan
                                                                 @can('module-delete')
                                                                     <li>
-                                                                        <form action="{{ route('modules', $module) }}"
+                                                                        <form action="{{ route('modules.destroy', $module) }}"
                                                                             method="post">
                                                                             @csrf
                                                                             @method('DELETE')
