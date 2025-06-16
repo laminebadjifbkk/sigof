@@ -85,13 +85,13 @@
                                                                 {{ in_array($individuelle->formations_id, $individuelleFormation) ? 'checked' : '' }}
                                                                 {{ in_array($individuelle->formations_id, $individuelleFormationCheck) ? 'disabled' : '' }}
                                                                 class="form-check-input @error('individuelles') is-invalid @enderror">
-                                                            {{ $individuelle?->user?->civilite }}
+                                                            {{ $i++ }}
                                                             @error('individuelles')
                                                                 <span class="invalid-feedback"
                                                                     role="alert">{{ $message }}</span>
                                                             @enderror
                                                         </td>
-                                                        <td>{{ $i++ }}</td>
+                                                        <td>{{ $individuelle?->user?->civilite }}</td>
                                                         <td>{{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
                                                         </td>
                                                         <td>{{ $individuelle?->user->date_naissance?->format('d/m/Y') }}
