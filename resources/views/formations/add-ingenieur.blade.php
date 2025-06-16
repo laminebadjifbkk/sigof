@@ -28,15 +28,7 @@
                                 </span>
                             </div>
                         </div>
-                        {{-- <h5><u><b>INGENIEUR</b>:</u> {{ $ingenieur }}</h5> --}}                        
-                        <div class="p-1 mb-4 border rounded bg-light shadow-sm">
-                            <div class="row text-center fw-semibold">
-                                <div class="col-md-4 mb-2">
-                                    <span class="text-secondary">👥 Ingénieur</span><br>
-                                    <span class="fs-5 text-dark">{{ $ingenieur ?? 'Aucun' }}</span>
-                                </div>
-                            </div>
-                        </div>
+                        <h5><u><b>INGENIEUR</b>:</u> {{ $ingenieur }}</h5>
                         <form method="post" action="{{ url('formationingenieurs', ['$idformation' => $formation->id]) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
@@ -46,8 +38,8 @@
                                     <label for="#">Choisir tout</label>
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div> --}}
-                                <div class="form-check col-md-12 pt-5 p-1 mb-4 border rounded bg-light shadow-sm">
-                                    <table class="m-2 p-3 table datatables align-middle" id="table-modules">
+                                <div class="form-check col-md-12 pt-5">
+                                    <table class="table datatables align-middle" id="table-modules">
                                         <thead>
                                             <tr>
                                                 {{-- <th>Matricule</th> --}}
@@ -64,8 +56,7 @@
                                         <tbody>
                                             <?php $i = 1; ?>
                                             @foreach ($ingenieurs as $ingenieur)
-                                                <tr class="m-2">
-                                                    {{-- <td>{{ $ingenieur->matricule }}</td> --}}
+                                                <tr>
                                                     <td>
                                                         <input type="radio" name="ingenieur" value="{{ $ingenieur?->id }}"
                                                             {{ in_array($ingenieur->id, $ingenieurFormation) ? 'checked' : '' }}
