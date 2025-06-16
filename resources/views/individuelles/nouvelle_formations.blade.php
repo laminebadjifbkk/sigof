@@ -55,8 +55,10 @@
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                                     <?php $i = 1; ?>
                                     @foreach ($nouvelle_formations as $individuelle)
-                                        <div class="d-flex align-items-baseline mb-2">
-                                            <h5 class="card-title">Formation {{ $i++ }} :
+                                        <div class="row d-flex align-items-baseline">
+                                            <div class="card-title col-lg-3 col-md-4 label">Formation {{ $i++ }} :
+                                            </div>
+                                            <div class="col-lg-9 col-md-8">
                                                 @if (!empty($individuelle?->formation?->module?->name))
                                                     {{ $individuelle?->formation?->module?->name }}
                                                 @elseif(!empty($individuelle?->formation->collectivemodule->module))
@@ -64,20 +66,22 @@
                                                 @else
                                                     Aucun
                                                 @endif
-                                            </h5>
+                                            </div>
                                         </div>
-                                        <div class="d-flex align-items-baseline mb-2">
-                                            <h5 class="card-title">Conditions :
+                                        <div class="row d-flex align-items-baseline">
+                                            <div class="card-title col-lg-3 col-md-4 label">Conditions :
+                                            </div>
+                                            <div class="col-lg-9 col-md-8">
                                                 {!! '- ' .
                                                     implode(
                                                         '- ',
                                                         array_map(fn($line) => nl2br(e($line)), explode("\n", ucfirst($individuelle?->formation?->qualifications))),
                                                     ) !!}
-                                            </h5>
+                                            </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-lg-3 col-md-4 label ">Statut</div>
+                                            <div class="col-lg-3 col-md-4 label">Statut</div>
                                             <div class="col-lg-9 col-md-8">
                                                 @if (!empty($individuelle?->confirmation))
                                                     <span
@@ -92,7 +96,7 @@
 
                                         @if (!empty($individuelle?->motif_declinaison))
                                             <div class="row">
-                                                <div class="col-lg-3 col-md-4 label ">Motif</div>
+                                                <div class="col-lg-3 col-md-4 label">Motif</div>
                                                 <div class="col-lg-9 col-md-8">
                                                     <p class="text-danger">{{ $individuelle?->motif_declinaison }}</p>
                                                 </div>
@@ -100,12 +104,12 @@
                                         @endif
 
                                         <div class="row">
-                                            <div class="col-lg-3 col-md-4 label ">Bénéficiaires</div>
+                                            <div class="col-lg-3 col-md-4 label">Bénéficiaires</div>
                                             <div class="col-lg-9 col-md-8">{{ $individuelle?->formation?->name }}</div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-lg-3 col-md-4 label ">Opérateur</div>
+                                            <div class="col-lg-3 col-md-4 label">Opérateur</div>
                                             @if (!empty($individuelle?->formation?->operateur?->user?->operateur))
                                                 <div class="col-lg-9 col-md-8">
                                                     {{ $individuelle?->formation?->operateur?->user?->operateur }}
@@ -119,7 +123,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-lg-3 col-md-4 label ">Date début</div>
+                                            <div class="col-lg-3 col-md-4 label">Date début</div>
                                             @if (!empty($individuelle?->formation?->date_debut))
                                                 <div class="col-lg-9 col-md-8">
                                                     {{ $individuelle?->formation?->date_debut->format('d/m/Y') }}
@@ -130,7 +134,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-lg-3 col-md-4 label ">Date fin</div>
+                                            <div class="col-lg-3 col-md-4 label">Date fin</div>
                                             @if (!empty($individuelle?->formation?->date_fin))
                                                 <div class="col-lg-9 col-md-8">
                                                     {{ $individuelle?->formation?->date_fin->format('d/m/Y') }}
@@ -141,7 +145,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-lg-3 col-md-4 label ">Durée</div>
+                                            <div class="col-lg-3 col-md-4 label">Durée</div>
                                             @if (!empty($individuelle?->formation?->duree_formation))
                                                 <div class="col-lg-9 col-md-8">
                                                     {{ $individuelle?->formation?->duree_formation . ' jours' }}
@@ -152,7 +156,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-lg-3 col-md-4 label ">Lieu formation</div>
+                                            <div class="col-lg-3 col-md-4 label">Lieu formation</div>
                                             @if (!empty($individuelle?->formation?->lieu))
                                                 <div class="col-lg-9 col-md-8">
                                                     {{ $individuelle?->formation?->lieu . ', ' . $individuelle?->formation?->departement?->nom }}
@@ -163,7 +167,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-lg-3 col-md-4 label ">Type de diplôme</div>
+                                            <div class="col-lg-3 col-md-4 label">Type de diplôme</div>
                                             @if (!empty($individuelle?->formation?->referentiel?->titre))
                                                 <div class="col-lg-9 col-md-8">
                                                     @if ($individuelle?->formation?->referentiel?->titre == 'Attestation')
