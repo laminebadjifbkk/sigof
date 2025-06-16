@@ -76,7 +76,7 @@
                                         <th>Secteurs</th>
                                         <th>Niveau qualification</th>
                                         {{-- <th class="text-center" scope="col">Formations</th> --}}
-                                        <th class="text-center" scope="col">Demandes</th>
+                                        {{-- <th class="text-center" scope="col">Demandes</th> --}}
                                         <th class="text-center" scope="col">#</th>
                                     </tr>
                                 </thead>
@@ -97,15 +97,14 @@
                                                     @endif
                                                 @endforeach
                                             </td> --}}
-                                            <td style="text-align: center;">
-                                                {{-- @if ($module->individuelles->isNotEmpty())
+                                            {{-- <td style="text-align: center;">
+                                                @if ($module->individuelles->isNotEmpty())
                                                     <a href="{{ route('modules.show', $module) }}">
                                                         <span
                                                             class="badge bg-info">{{ $module->individuelles->count() }}</span>
                                                     </a>
-                                                @endif --}}
-                                                <span class="badge bg-info">{{ $module?->individuelles->count() }}</span>
-                                            </td>
+                                                @endif
+                                            </td> --}}
                                             <td style="text-align: center;">
                                                 @can('module-show')
                                                     <span class="d-flex mt-2 align-items-baseline"><a
