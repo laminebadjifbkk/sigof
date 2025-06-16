@@ -117,7 +117,7 @@
                                                     {{ $individuelle?->formation?->date_debut->format('d/m/Y') }}
                                                 </div>
                                             @else
-                                                <div class="col-lg-9 col-md-8">Non définie</div>
+                                                <div class="col-lg-9 col-md-8 badge bg-warning">Non définie</div>
                                             @endif
                                         </div>
 
@@ -128,7 +128,7 @@
                                                     {{ $individuelle?->formation?->date_fin->format('d/m/Y') }}
                                                 </div>
                                             @else
-                                                <div class="col-lg-9 col-md-8">Non définie</div>
+                                                <div class="col-lg-9 col-md-8 badge bg-warning">Non définie</div>
                                             @endif
                                         </div>
 
@@ -139,7 +139,7 @@
                                                     {{ $individuelle?->formation?->duree_formation . ' jours' }}
                                                 </div>
                                             @else
-                                                <div class="col-lg-9 col-md-8">Non définie</div>
+                                                <div class="col-lg-9 col-md-8 badge bg-warning">Non définie</div>
                                             @endif
                                         </div>
 
