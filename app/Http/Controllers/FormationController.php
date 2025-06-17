@@ -1256,12 +1256,28 @@ class FormationController extends Controller
         $localite   = Region::findOrFail($idlocalite);
         $modulename = $module->name;
 
-        $operateurs = Operateur::where('statut_agrement', 'agréé')
+        /* $operateurs = Operateur::where('statut_agrement', 'agréé')
             ->whereHas('operateurmodules', function ($query) use ($modulename) {
                 $query->where('module', 'like', '%' . $modulename . '%')
                     ->where('statut', 'agréé');
             })->get();
+ */
+        $articles = ['le', 'la', 'les', 'un', 'une', 'de', 'du', 'des', 'en', 'et', 'à', 'au', 'aux', 'pour', 'par', 'dans', 'sur', 'avec'];
+        $keywords = array_filter(
+            explode(' ', strtolower($modulename)),
+            fn($word) => strlen($word) >= 3 && ! in_array($word, $articles)
+        );
 
+        $operateurs = Operateur::where('statut_agrement', 'agréé')
+            ->whereHas('operateurmodules', function ($query) use ($keywords) {
+                $query->where('statut', 'agréé');
+                $query->where(function ($q) use ($keywords) {
+                    foreach ($keywords as $word) {
+                        $q->orWhere('module', 'like', '%' . $word . '%');
+                    }
+                });
+            })
+            ->get();
         /* dd($operateurs);
 
         $operateurs = Operateur::get();
@@ -1341,11 +1357,28 @@ class FormationController extends Controller
 
         $operateurmodules = $query->get(); */
 
-        $operateurs = Operateur::where('statut_agrement', 'agréé')
+        /* $operateurs = Operateur::where('statut_agrement', 'agréé')
             ->whereHas('operateurmodules', function ($query) use ($modulename) {
                 $query->where('module', 'like', '%' . $modulename . '%')
                     ->where('statut', 'agréé');
-            })->get();
+            })->get(); */
+
+        $articles = ['le', 'la', 'les', 'un', 'une', 'de', 'du', 'des', 'en', 'et', 'à', 'au', 'aux', 'pour', 'par', 'dans', 'sur', 'avec'];
+        $keywords = array_filter(
+            explode(' ', strtolower($modulename)),
+            fn($word) => strlen($word) >= 3 && ! in_array($word, $articles)
+        );
+
+        $operateurs = Operateur::where('statut_agrement', 'agréé')
+            ->whereHas('operateurmodules', function ($query) use ($keywords) {
+                $query->where('statut', 'agréé');
+                $query->where(function ($q) use ($keywords) {
+                    foreach ($keywords as $word) {
+                        $q->orWhere('module', 'like', '%' . $word . '%');
+                    }
+                });
+            })
+            ->get();
 
         $operateurFormation = DB::table('formations')
             ->where('operateurs_id', $formation->operateurs_id)
@@ -1546,7 +1579,7 @@ class FormationController extends Controller
             ->select('collectivemodules.*')
             ->where('collectives.statut_demande', 'Attente')
             ->where('collectivemodules.statut', 'Attente')
-            ->orwhere('collectivemodules.statut', 'Retenue')
+            ->orwhere('collectivemodules.statut', 'Sélectionné')
             ->get();
 
         $collectiveModule = DB::table('collectivemodules')
@@ -1586,14 +1619,14 @@ class FormationController extends Controller
 
                 $collectivemodule->update([
                     "formations_id" => null,
-                    "statut"        => 'Attente',
+                    "statut"        => 'Conforme',
                 ]);
 
                 $collectivemodule->save();
 
                 $collectivemodule->update([
                     "formations_id" => $idformation,
-                    "statut"        => 'Retenue',
+                    "statut"        => 'Sélectionné',
                 ]);
 
                 $collectivemodule->save();
@@ -1605,7 +1638,7 @@ class FormationController extends Controller
 
                 $collectivemodule->update([
                     "formations_id" => $idformation,
-                    "statut"        => 'Retenue',
+                    "statut"        => 'Sélectionné',
                 ]);
 
                 $collectivemodule->save();
@@ -1618,7 +1651,7 @@ class FormationController extends Controller
         } else {
             $collectivemodule->update([
                 "formations_id" => $idformation,
-                "statut"        => 'Retenue',
+                "statut"        => 'Sélectionné',
             ]);
 
             $collectivemodule->save();
@@ -2832,7 +2865,7 @@ class FormationController extends Controller
 
                 $listecollective->update([
                     "formations_id" => $idformation,
-                    "statut"        => 'Retenue',
+                    "statut"        => 'Sélectionnée',
                 ]);
 
                 $listecollective->save();
