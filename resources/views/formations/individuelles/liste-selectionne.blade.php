@@ -97,9 +97,14 @@
                     <td colspan="9"><b>{{ __('LISTE DES CANDIDATS SELECTIONNES') }}</b></td>
                 </tr>
                 <tr class="heading">
-                    <td colspan="6"><b>Formation</b> : {{ $formation?->name }}
+                    <td colspan="9"><b>Formation</b> : {{ $formation?->name }}
                     </td>
-                    <td colspan="3"><b>{{ __('Module : ') }}</b> {{ $formation?->module?->name }}</td>
+                </tr>
+                <tr class="heading">
+                    <td colspan="2"><b>Code</b> : {{ $formation?->code }}
+                    </td>
+                    <td colspan="5"><b>{{ __('Module : ') }}</b> {{ $formation?->module?->name }}</td>
+                    <td colspan="2"><b>{{ __('Région : ') }}</b> {{ $formation?->region?->nom }}</td>
                 </tr>
 
                 <tr class="heading">
@@ -130,7 +135,7 @@
                 @endforeach
             </tbody>
         </table>
-     {{--    <div class="page-break"></div>
+        {{--    <div class="page-break"></div>
         <div style="text-align: center;">
             <b>REPUBLIQUE DU SENEGAL<br></b>
             Un Peuple - Un But - Une Foi<br>
