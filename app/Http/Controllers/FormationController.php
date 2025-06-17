@@ -1258,7 +1258,8 @@ class FormationController extends Controller
         $modulename = $module->name;
 
         $operateurs = Operateur::whereHas('operateurmodules', function ($query) use ($modulename) {
-            $query->where('module', $modulename);
+            $query->where('module', 'like', '%' . $modulename . '%')
+                ->where('statut', 'agréé');
         })->get();
 
         dd($operateurs);
