@@ -79,7 +79,7 @@
                                             </td>
                                             <td>
                                                 <span class="d-flex align-items-baseline"><a
-                                                        href="{{ route('ingenieurs.show', $ingenieur->id) }}"
+                                                        href="{{ route('formations.show', $formation->id) }}"
                                                         class="btn btn-primary btn-sm" title="voir détails"><i
                                                             class="bi bi-eye"></i></a>
                                                     <div class="filter">
