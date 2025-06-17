@@ -1257,7 +1257,7 @@ class FormationController extends Controller
         $localite   = Region::findOrFail($idlocalite);
         $modulename = $module->name;
 
-        $operateurs = Operateur::get();
+        /* $operateurs = Operateur::get(); */
 
         /* $operateurmodules   =   DB::table('operateurmodules')
         ->where('module', $modulename)
@@ -1271,7 +1271,7 @@ class FormationController extends Controller
             ->pluck('operateurs_id', 'operateurs_id')
             ->all(); */
 
-        $keywords = explode(' ', $modulename);
+        /* $keywords = explode(' ', $modulename);
 
         $query = Operateurmodule::where('statut', 'agréé');
 
@@ -1281,14 +1281,24 @@ class FormationController extends Controller
             }
         });
 
-        $operateurmodules = $query->get();
+        $operateurmodules = $query->get(); */
+
+        $operateurs = DB::table('operateurs')
+            ->join('operateurmodules', 'operateurs.id', '=', 'operateurmodules.operateur_id')
+            ->where('operateurs.statut_agrement', 'agréé')
+            ->where('operateurmodules.statut', 'agréé')
+            ->where('operateurmodules.module', $modulename)
+            ->select('operateurs.*')
+            ->get();
+
+        dd($operateurs);
 
         $operateurFormation = DB::table('formations')
             ->where('operateurs_id', $formation->operateurs_id)
             ->pluck('operateurs_id', 'operateurs_id')
             ->all();
 
-        return view("formations.individuelles.add-operateurs", compact('formation', 'operateurs', 'operateurmodules', 'module', 'localite', 'operateurFormation'));
+        return view("formations.individuelles.add-operateurs", compact('formation', 'operateurs', 'module', 'localite', 'operateurFormation'));
     }
 
     public function giveformationoperateurs($idformation, $idmodule, $idlocalite, Request $request)
