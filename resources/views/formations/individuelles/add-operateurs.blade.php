@@ -75,7 +75,7 @@
                                         </thead>
                                         <tbody>
                                             <?php $i = 1; ?>
-                                            @foreach ($operateurs as $operateur)
+                                            @foreach ($operateurmodules as $operateurmodule)
                                                 {{-- @isset($operateurmodule?->operateur?->numero_agrement) --}}
                                                     <tr>
                                                         <td>
