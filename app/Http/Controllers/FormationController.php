@@ -1262,7 +1262,7 @@ class FormationController extends Controller
                 ->where('statut', 'agréé');
         })->get();
 
-        dd($operateurs);
+        /* dd($operateurs);
 
         $operateurs = Operateur::get();
 
@@ -1276,14 +1276,14 @@ class FormationController extends Controller
             }
         });
 
-        $operateurmodules = $query->get();
+        $operateurmodules = $query->get(); */
 
         $operateurFormation = DB::table('formations')
             ->where('operateurs_id', $formation->operateurs_id)
             ->pluck('operateurs_id', 'operateurs_id')
             ->all();
 
-        return view("formations.individuelles.add-operateurs", compact('formation', 'operateurs', 'operateurmodules', 'module', 'localite', 'operateurFormation'));
+        return view("formations.individuelles.add-operateurs", compact('formation', 'operateurs', 'module', 'localite', 'operateurFormation'));
     }
 
     public function giveformationoperateurs($idformation, $idmodule, $idlocalite, Request $request)
