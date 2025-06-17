@@ -1420,7 +1420,7 @@
         @endrole
 
         {{-- DIOF --}}
-        @role('DIOF')
+        {{-- @role('DIOF')
             @if (!empty($nouvelle_formation_count))
                 <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                     <a href="#">
@@ -1442,7 +1442,32 @@
                     </a>
                 </div>
             @endif
-        @endrole
+        @endrole --}}
+
+        @hasrole('Ingenieur|DIOF')
+            <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
+                <a href="#">
+                    <div class="card shadow-lg border-0 rounded-lg">
+                        <div class="card-body d-flex align-items-center justify-content-between">
+                            <div>
+                                <h5 class="card-title text-secondary d-flex align-items-center">
+                                    <i class="bi bi-graduation-cap me-0"></i> Formations <span class="fw-bold">&nbsp;|
+                                        {{ Auth::user()->ingenieur?->initiale ?? '' }}</span>
+                                    </span>
+                                </h5>
+                                <p class="text-muted">Mes formations</p>
+                            </div>
+                            <div class="card-icon bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center"
+                                style="width: 30px; height: 30px; font-size: 1.2rem;">
+                                {{ Auth::user()->ingenieur?->formations?->count ?? 0 }}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        @endhasrole
+
+        {{-- Formations --}}
 
         {{-- Ingénieurs --}}
         @role('Ingenieur')
