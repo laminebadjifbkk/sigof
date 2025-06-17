@@ -81,7 +81,7 @@
                                             <td style="text-align: center">{{ $formation?->created_at?->format('d/m/Y') }}
                                             </td>
                                             <td style="text-align: center">{{ $formation?->numero_convention }}</td>
-                                            <td>{{ $formation?->name ?? 'Non spécifié' }}</td>
+                                            <td>{{ $formation?->name ?? ' ' }}</td>
                                             <td>
                                                 <span
                                                     class="{{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}">
@@ -90,7 +90,7 @@
                                             </td>
                                             {{-- <td>{{ $formation->type_certification }}</td> --}}
                                             <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
-                                            <td>{{ $formation?->operateur?->user?->username ?? 'Non spécifié' }}</td>
+                                            <td>{{ $formation?->operateur?->user?->username ?? ' ' }}</td>
                                             <td class="text-center">
                                                 <a><span
                                                         class="{{ $formation->statut }}">{{ $formation->statut }}</span></a>
