@@ -1287,7 +1287,7 @@ class FormationController extends Controller
             ->join('operateurmodules', 'operateurs.id', '=', 'operateurmodules.operateurs_id')
             ->where('operateurs.statut_agrement', 'agréé')
             ->where('operateurmodules.statut', 'agréé')
-            ->where('operateurmodules.module', 'like', '%' . $modulename . '%')
+            ->where('operateurmodules.module', $modulename)
             ->select('operateurs.*')
             ->get();
 
