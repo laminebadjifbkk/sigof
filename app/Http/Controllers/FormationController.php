@@ -19,6 +19,7 @@ use App\Models\Listecollective;
 use App\Models\Module;
 use App\Models\Onfpevaluateur;
 use App\Models\Operateur;
+use App\Models\Operateurmodule;
 use App\Models\Programme;
 use App\Models\Projet;
 use App\Models\Referentiel;
@@ -1256,7 +1257,7 @@ class FormationController extends Controller
         $localite   = Region::findOrFail($idlocalite);
         $modulename = $module->name;
 
-        /*   $operateurs = Operateur::get();
+        $operateurs = Operateur::get();
 
         $keywords = explode(' ', $modulename);
 
@@ -1268,28 +1269,14 @@ class FormationController extends Controller
             }
         });
 
-        $operateurmodules = $query->get(); */
-
-        $keywords = explode(' ', $modulename);
-
-        $operateurs = Operateur::where('statut_agrement', 'agréé')
-            ->whereHas('operateurmodules', function ($q) use ($keywords) {
-                $q->where('statut', 'agréé')
-                    ->where(function ($query) use ($keywords) {
-                        foreach ($keywords as $word) {
-                            $query->orWhere('module', 'like', '%' . $word . '%');
-                        }
-                    });
-            })
-            ->distinct()
-            ->get();
+        $operateurmodules = $query->get();
 
         $operateurFormation = DB::table('formations')
             ->where('operateurs_id', $formation->operateurs_id)
             ->pluck('operateurs_id', 'operateurs_id')
             ->all();
 
-        return view("formations.individuelles.add-operateurs", compact('formation', 'operateurs', 'module', 'localite', 'operateurFormation'));
+        return view("formations.individuelles.add-operateurs", compact('formation', 'operateurs', 'operateurmodules', 'module', 'localite', 'operateurFormation'));
     }
 
     public function giveformationoperateurs($idformation, $idmodule, $idlocalite, Request $request)
@@ -1335,7 +1322,7 @@ class FormationController extends Controller
 
         $operateurmodules = $query->get(); */
 
-        /* $keywords = explode(' ', $modulename);
+        $keywords = explode(' ', $modulename);
 
         $query = Operateurmodule::where('statut', 'agréé');
 
@@ -1345,28 +1332,14 @@ class FormationController extends Controller
             }
         });
 
-        $operateurmodules = $query->get(); */
-
-        $keywords = explode(' ', $modulename);
-
-        $operateurs = Operateur::where('statut_agrement', 'agréé')
-            ->whereHas('operateurmodules', function ($q) use ($keywords) {
-                $q->where('statut', 'agréé')
-                    ->where(function ($query) use ($keywords) {
-                        foreach ($keywords as $word) {
-                            $query->orWhere('module', 'like', '%' . $word . '%');
-                        }
-                    });
-            })
-            ->distinct()
-            ->get();
+        $operateurmodules = $query->get();
 
         $operateurFormation = DB::table('formations')
             ->where('operateurs_id', $formation->operateurs_id)
             ->pluck('operateurs_id', 'operateurs_id')
             ->all();
 
-        return view("formations.collectives.add-operateur-collective", compact('formation', 'operateurs', 'collectivemodule', 'localite', 'operateurFormation'));
+        return view("formations.collectives.add-operateur-collective", compact('formation', 'operateurs', 'operateurmodules', 'collectivemodule', 'localite', 'operateurFormation'));
     }
 
     public function giveformationcollectiveoperateurs($idformation, $idcollectivemodule, $idlocalite, Request $request)

@@ -111,7 +111,7 @@
                                                             <td>
                                                                 <span class="d-flex align-items-baseline"><a
                                                                         href="{{ route('operateurs.show', $operateur) }}" target="_blank"
-                                                                        class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                        class="btn btn-primary btn-sm" title="voir détails" target="_blank"><i
                                                                             class="bi bi-eye"></i></a>
                                                                     <div class="filter">
                                                                         <a class="icon" href="#"
