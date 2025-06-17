@@ -80,7 +80,7 @@
                                             <td>
                                                 <span class="d-flex align-items-baseline"><a
                                                         href="{{ route('formations.show', $formation) }}"
-                                                        class="btn btn-primary btn-sm" title="voir détails"><i
+                                                        class="btn btn-primary btn-sm" title="voir détails" target="_blank"><i
                                                             class="bi bi-eye"></i></a>
                                                     <div class="filter">
                                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i

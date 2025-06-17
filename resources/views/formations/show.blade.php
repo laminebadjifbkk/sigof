@@ -204,7 +204,7 @@
                                                                     <td>
                                                                         <span class="d-flex align-items-baseline"><a
                                                                                 href="{{ route('formations.show', $formation) }}"
-                                                                                class="btn btn-primary btn-sm"
+                                                                                class="btn btn-primary btn-sm" target="_blank"
                                                                                 title="voir détails"><i class="bi bi-eye"></i></a>
                                                                             <div class="filter">
                                                                                 <a class="icon" href="#"
