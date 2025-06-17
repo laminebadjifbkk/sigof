@@ -1265,6 +1265,7 @@ class FormationController extends Controller
         $articles = ['le', 'la', 'les', 'un', 'une', 'de', 'du', 'des', 'en', 'et', 'à', 'au', 'aux', 'pour', 'par', 'dans', 'sur', 'avec'];
         // Supprimer les parenthèses et leur contenu
         $modulenameClean = preg_replace('/\([^)]*\)/', '', strtolower($modulename));
+        dd($modulenameClean);
         $keywords        = array_filter(
             explode(' ', strtolower($modulename)),
             fn($word) => strlen($word) >= 3 && ! in_array($word, $articles)
