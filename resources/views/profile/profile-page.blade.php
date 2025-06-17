@@ -1444,28 +1444,27 @@
             @endif
         @endrole --}}
 
-        @hasrole('Ingenieur|DIOF')
+        @hasanyrole('Ingenieur|DIOF')
             <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                 <a href="#">
                     <div class="card shadow-lg border-0 rounded-lg">
                         <div class="card-body d-flex align-items-center justify-content-between">
                             <div>
                                 <h5 class="card-title text-secondary d-flex align-items-center">
-                                    <i class="bi bi-graduation-cap me-0"></i> Formations <span class="fw-bold">&nbsp;|
-                                        {{ Auth::user()->ingenieur?->initiale ?? '' }}</span>
-                                    </span>
+                                    <i class="bi bi-graduation-cap me-0"></i> Formations
+                                    <span class="fw-bold">&nbsp;| {{ Auth::user()->ingenieur?->initiale ?? '' }}</span>
                                 </h5>
                                 <p class="text-muted">Mes formations</p>
                             </div>
                             <div class="card-icon bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center"
                                 style="width: 30px; height: 30px; font-size: 1.2rem;">
-                                {{ Auth::user()->ingenieur?->formations?->count ?? 0 }}
+                                {{ Auth::user()->ingenieur?->formations?->count() ?? 0 }}
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
-        @endhasrole
+        @endhasanyrole
 
         {{-- Formations --}}
 
@@ -1495,7 +1494,7 @@
         @endrole
 
         {{-- Courriers --}}
-        @hasrole('Employe|super-admin')
+        @hasanyrole('Employe|super-admin')
             @if ($courriers_auj)
                 <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                     <a href="{{ route('mescourriers') }}">
@@ -1516,7 +1515,7 @@
                     </a>
                 </div>
             @endif
-        @endhasrole
+        @endhasanyrole
     </div>
 
     <div class="modal fade" id="ShowProfilImage{{ Auth::id() }}" tabindex="-1" aria-hidden="true">
