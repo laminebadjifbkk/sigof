@@ -1263,7 +1263,9 @@ class FormationController extends Controller
             })->get();
  */
         $articles = ['le', 'la', 'les', 'un', 'une', 'de', 'du', 'des', 'en', 'et', 'à', 'au', 'aux', 'pour', 'par', 'dans', 'sur', 'avec'];
-        $keywords = array_filter(
+        // Supprimer les parenthèses et leur contenu
+        $modulenameClean = preg_replace('/\([^)]*\)/', '', strtolower($modulename));
+        $keywords        = array_filter(
             explode(' ', strtolower($modulename)),
             fn($word) => strlen($word) >= 3 && ! in_array($word, $articles)
         );
@@ -1364,7 +1366,9 @@ class FormationController extends Controller
             })->get(); */
 
         $articles = ['le', 'la', 'les', 'un', 'une', 'de', 'du', 'des', 'en', 'et', 'à', 'au', 'aux', 'pour', 'par', 'dans', 'sur', 'avec'];
-        $keywords = array_filter(
+        // Supprimer les parenthèses et leur contenu
+        $modulenameClean = preg_replace('/\([^)]*\)/', '', strtolower($modulename));
+        $keywords        = array_filter(
             explode(' ', strtolower($modulename)),
             fn($word) => strlen($word) >= 3 && ! in_array($word, $articles)
         );
