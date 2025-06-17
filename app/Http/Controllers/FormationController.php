@@ -1257,7 +1257,7 @@ class FormationController extends Controller
         $localite   = Region::findOrFail($idlocalite);
         $modulename = $module->name;
 
-        $operateurs = Operateur::get();
+        /* $operateurs = Operateur::get();
 
         $keywords = explode(' ', $modulename);
 
@@ -1269,7 +1269,23 @@ class FormationController extends Controller
             }
         });
 
-        $operateurmodules = $query->get();
+        $operateurmodules = $query->get(); */
+
+        $keywords = explode(' ', $modulename);
+
+        $operateurs = Operateur::where('statut_agrement', 'agréé')
+            ->whereHas('operateurmodules', function ($query) use ($keywords) {
+                $query->where('statut', 'agréé')
+                    ->where(function ($q) use ($keywords) {
+                        foreach ($keywords as $word) {
+                            $q->orWhere('module', 'like', '%' . $word . '%');
+                        }
+                    });
+            })
+            ->distinct()
+            ->get();
+
+        dd($operateurs);
 
         $operateurFormation = DB::table('formations')
             ->where('operateurs_id', $formation->operateurs_id)
