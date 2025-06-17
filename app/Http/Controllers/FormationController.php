@@ -100,8 +100,6 @@ class FormationController extends Controller
             ->orderBy('formations.id', 'desc')
             ->first();
 
-        dd($numFormation);
-
         /*  if (isset($numFormation)) {
             $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
                 ->select('formations.*')
