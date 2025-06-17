@@ -1257,6 +1257,12 @@ class FormationController extends Controller
         $localite   = Region::findOrFail($idlocalite);
         $modulename = $module->name;
 
+        $operateurs = Operateur::whereHas('operateurmodules', function ($query) use ($modulename) {
+            $query->where('module', $modulename);
+        })->get();
+
+        dd($operateurs);
+
         $operateurs = Operateur::get();
 
         $keywords = explode(' ', $modulename);
