@@ -65,7 +65,7 @@ class IngenieurController extends Controller
 
         $ingenieur->save();
 
-        Alert::success('Félicitation !', 'Enregistrement effectué');
+        Alert::success('Succès !', 'Enregistrement effectué');
 
         return redirect()->back();
     }
@@ -95,7 +95,7 @@ class IngenieurController extends Controller
 
         $ingenieur->save();
 
-        Alert::success('Fait ! ', 'modification effectuée');
+        Alert::success('Succès ! ', 'Modification effectuée');
 
         return redirect()->back();
     }
@@ -117,7 +117,7 @@ class IngenieurController extends Controller
         $ingenieur = Ingenieur::find($id);
         $ingenieur->delete();
 
-        Alert::success('Fait !', 'Suppression effectuée');
+        Alert::success('Succès !', 'Suppression effectuée');
 
         return redirect()->back();
     }
