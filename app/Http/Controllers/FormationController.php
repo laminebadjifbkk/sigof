@@ -89,10 +89,16 @@ class FormationController extends Controller
         $anneeEnCours = date('Y');
         $an           = date('y');
 
+        /* $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
+            ->select('formations.*')
+            ->where('formations.annee', $anneeEnCours)
+            ->get(); */
+
         $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
             ->select('formations.*')
             ->where('formations.annee', $anneeEnCours)
-            ->get();
+            ->orderBy('formations.id', 'desc')
+            ->first();
 
         dd($numFormation);
 
@@ -1006,7 +1012,7 @@ class FormationController extends Controller
                 ->where('individuelles.statut', 'Attente')
                 ->get(); */
 
-            $statutsVoulus = ['attente', 'conforme', 'retiré', 'liste attente','Non conforme', 'Sélectionné'];
+            $statutsVoulus = ['attente', 'conforme', 'retiré', 'liste attente', 'Non conforme', 'Sélectionné'];
 
             $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
                 ->join('regions', 'regions.id', 'individuelles.regions_id')
