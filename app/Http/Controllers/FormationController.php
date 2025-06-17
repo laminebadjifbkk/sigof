@@ -1285,7 +1285,7 @@ class FormationController extends Controller
             ->distinct()
             ->get();
 
-        dd($operateurs);
+        dd($keywords);
 
         $operateurFormation = DB::table('formations')
             ->where('operateurs_id', $formation->operateurs_id)
