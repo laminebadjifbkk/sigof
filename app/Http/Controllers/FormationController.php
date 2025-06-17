@@ -94,10 +94,18 @@ class FormationController extends Controller
             ->where('formations.annee', $anneeEnCours)
             ->get(); */
 
+        // Si tu veux le dernier enregistrement selon la colonne id (le plus grand id)
         $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
             ->select('formations.*')
             ->where('formations.annee', $anneeEnCours)
             ->orderBy('formations.id', 'desc')
+            ->first();
+
+        // Si tu veux le dernier enregistrement selon created_at
+        $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
+            ->select('formations.*')
+            ->where('formations.annee', $anneeEnCours)
+            ->latest('formations.created_at')
             ->first();
 
         /*  if (isset($numFormation)) {
