@@ -94,8 +94,9 @@ class FormationController extends Controller
             ->where('formations.annee', $anneeEnCours)
             ->get()->last();
 
+        dd($numFormation->code);
 
-         if (isset($numFormation)) {
+        /*  if (isset($numFormation)) {
             $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
                 ->select('formations.*')
                 ->where('formations.annee', $anneeEnCours)
@@ -123,18 +124,16 @@ class FormationController extends Controller
             } else {
                 $numFormation = strtoupper($numFormation);
             }
-        }
+        } */
 
-       /*  if ($numFormation) {
+        if ($numFormation) {
             // Si un formation existe, incrémenter son numéro
             $numFormation = ++$numFormation->code;
         } else {
             // Si aucun formation n'existe, initialiser avec l'année et le numéro 0001
             $numFormation = $an . "0001";
             $numFormation = 'F' . $numFormation;
-        } */
-        
-        /* dd($numFormation); */
+        }
 
 // Mise en forme du numéro de formation en ajoutant des zéros au début
         /* $numFormation = str_pad($numFormation, 7, '0', STR_PAD_LEFT); */
