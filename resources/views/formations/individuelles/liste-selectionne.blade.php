@@ -97,14 +97,14 @@
                     <td colspan="9"><b>{{ __('LISTE DES CANDIDATS SELECTIONNES') }}</b></td>
                 </tr>
                 <tr class="heading">
-                    <td colspan="9"><b>Formation</b> : {{ $formation?->name }}
-                    </td>
-                </tr>
-                <tr class="heading">
                     <td colspan="2"><b>Code</b> : {{ $formation?->code }}
                     </td>
                     <td colspan="5"><b>{{ __('Module : ') }}</b> {{ $formation?->module?->name }}</td>
-                    <td colspan="2"><b>{{ __('Région : ') }}</b> {{ $formation?->region?->nom }}</td>
+                    <td colspan="2"><b>{{ __('Région : ') }}</b> {{ $formation?->departement?->region?->nom }}</td>
+                </tr>
+                <tr class="heading">
+                    <td colspan="9"><b>Formation</b> : {{ $formation?->name }}
+                    </td>
                 </tr>
 
                 <tr class="heading">
@@ -116,7 +116,7 @@
                     <td class="item" style="text-align: center;" width="8%"><b>Date naissance</b></td>
                     <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
                     <td class="item" style="text-align: center;" width="7%"><b>Téléphone</b></td>
-                    <td class="item" style="text-align: center;"><b>Localité</b></td>
+                    <td class="item" style="text-align: center;"><b>Département</b></td>
                 </tr>
             </thead>
             <tbody>
