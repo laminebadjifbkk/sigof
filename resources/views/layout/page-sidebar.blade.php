@@ -349,13 +349,13 @@
                 </a>
                 <ul id="formations-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li class="nav-item">
-                        <a class="nav-link collapsed" href="{{ url('formations') }}">
+                        <a class="nav-link collapsed" href="{{ route('formations.index') }}">
                             <span>Formations</span>
                         </a>
                     </li>
                     @can('ingenieur-view')
                         <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ url('ingenieurs') }}">
+                            <a class="nav-link collapsed" href="{{ route('ingenieurs.index') }}">
                                 <span>Ingénieurs</span>
                             </a>
                         </li>
