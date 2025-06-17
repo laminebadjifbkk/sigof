@@ -278,10 +278,14 @@
                                         <label for="floatingInput">Email<span class="text-danger mx-1">*</span></label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="number" min="0" name="telephone"
+                                        {{-- <input type="number" min="0" name="telephone"
                                             value="{{ $ingenieur->telephone ?? old('telephone') }}"
                                             class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                            id="telephone" placeholder="7xxxxxxxx">
+                                            id="telephone" placeholder="7xxxxxxxx"> --}}
+                                        <input name="telephone" type="text" maxlength="12"
+                                            class="form-control form-control-sm @error('telephone') is-invalid @enderror"
+                                            id="telephone" value="{{ $ingenieur->telephone ?? old('telephone') }}" autocomplete="tel"
+                                            placeholder="XX:XXX:XX:XX">
                                         @error('telephone')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
