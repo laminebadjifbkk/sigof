@@ -76,7 +76,7 @@
                                         <tbody>
                                             <?php $i = 1; ?>
                                             @foreach ($operateurmodules as $operateurmodule)
-                                                @isset($operateurmodule?->operateur?->numero_agrement)
+                                                {{-- @isset($operateurmodule?->operateur?->numero_agrement) --}}
                                                     <tr>
                                                         <td>
                                                             <input type="radio" name="operateur"
@@ -149,7 +149,7 @@
                                                                 </span>
                                                             </td>
                                                         </tr>
-                                                    @endisset
+                                                    {{-- @endisset --}}
                                                 @endforeach
                                             </tbody>
                                         </table>
