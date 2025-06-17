@@ -1278,7 +1278,7 @@ class FormationController extends Controller
             })
             ->get();
 
-        dd($operateurs);
+        dd($modulename, Operateurmodule::where('module', $modulename)->first());
 
         $operateurFormation = DB::table('formations')
             ->where('operateurs_id', $formation->operateurs_id)
