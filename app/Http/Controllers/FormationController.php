@@ -1262,14 +1262,16 @@ class FormationController extends Controller
                     ->where('statut', 'agréé');
             })->get();
  */
-        $articles = ['le', 'la', 'les', 'un', 'une', 'de', 'du', 'des', 'en', 'et', 'à', 'au', 'aux', 'pour', 'par', 'dans', 'sur', 'avec'];
-        // Supprimer les parenthèses et leur contenu
-        $modulenameClean = preg_replace('/\([^)]*\)/', '', strtolower($modulename));
+        // Convertir en minuscules
+        $modulenameLower = strtolower($modulename);
 
-        dd($modulenameClean, $modulename);
+// Supprimer uniquement les parenthèses, mais garder le contenu
+        $modulenameClean = str_replace(['(', ')'], ' ', $modulenameLower);
+
+        $articles = ['le', 'la', 'les', 'un', 'une', 'de', 'du', 'des', 'en', 'et', 'à', 'au', 'aux', 'pour', 'par', 'dans', 'sur', 'avec'];
 
         $keywords = array_filter(
-            explode(' ', strtolower($modulename)),
+            explode(' ', $modulenameClean),
             fn($word) => strlen($word) >= 3 && ! in_array($word, $articles)
         );
 
