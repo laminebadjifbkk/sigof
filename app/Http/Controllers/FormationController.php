@@ -1006,7 +1006,7 @@ class FormationController extends Controller
                 ->where('individuelles.projets_id', $formation?->projets_id)
                 ->where('modules.name', 'LIKE', "%{$module->name}%")
                 ->where('regions.nom', $region->nom)
-                ->where('individuelles.statut', 'Retirée')
+                ->where('individuelles.statut', 'Retiré')
                 ->get(); */
         } else {
             /* $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
@@ -1034,7 +1034,7 @@ class FormationController extends Controller
                 ->select('individuelles.*')
                 ->where('modules.name', 'LIKE', "%{$module->name}%")
                 ->where('regions.nom', $region->nom)
-                ->where('individuelles.statut', 'Retirée')
+                ->where('individuelles.statut', 'Retiré')
                 ->get(); */
         }
 
@@ -1125,7 +1125,7 @@ class FormationController extends Controller
         } else {
             $individuelle->update([
                 "formations_id" => null,
-                "statut"        => 'Retirée',
+                "statut"        => 'Retiré',
                 "motif_rejet"   => $individuelle->motif_rejet
                 . ' retiré de la formation ' . $formation->name
                 . ', le ' . $date . ' par ' . Auth::user()->firstname
@@ -1145,7 +1145,7 @@ class FormationController extends Controller
 
             $validated_by = new Validationindividuelle([
                 'validated_id'     => Auth::user()->id,
-                'action'           => 'Retirée',
+                'action'           => 'Retiré',
                 'motif'            => $request->input('motif') . ', pour la formation : ' . $formation->name,
                 'individuelles_id' => $individuelle->id,
             ]);
@@ -1215,7 +1215,7 @@ class FormationController extends Controller
         } else {
             $listecollective->update([
                 "formations_id" => null,
-                "statut"        => 'Retirée',
+                "statut"        => 'Retiré',
                 "motif_rejet"   => $request->motif . ' '
                 . $date . ' par ' . Auth::user()->firstname
                 . ' ' . Auth::user()->name . ';',

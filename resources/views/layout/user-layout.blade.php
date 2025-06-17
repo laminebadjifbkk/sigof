@@ -396,7 +396,7 @@
         }
 
         .Retirée {
-            background-color: #0DCAF0;
+            background-color: #ffcc00;
             /* couleur cyan Bootstrap (info) */
             color: #ffffff;
             padding: 6px 12px;
@@ -411,7 +411,7 @@
         }
 
         .Retiré {
-            background-color: #0DCAF0;
+            background-color: #ffcc00;
             /* couleur cyan Bootstrap (info) */
             color: #ffffff;
             padding: 6px 12px;
