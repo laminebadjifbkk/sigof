@@ -1271,21 +1271,14 @@ class FormationController extends Controller
 
         $operateurmodules = $query->get(); */
 
-        $keywords = explode(' ', $modulename);
-
         $operateurs = Operateur::where('statut_agrement', 'agréé')
-            ->whereHas('operateurmodules', function ($query) use ($keywords) {
+            ->whereHas('operateurmodules', function ($query) use ($modulename) {
                 $query->where('statut', 'agréé')
-                    ->where(function ($q) use ($keywords) {
-                        foreach ($keywords as $word) {
-                            $q->orWhere('module', 'like', '%' . $word . '%');
-                        }
-                    });
+                    ->where('module', $modulename);
             })
-            ->distinct()
             ->get();
 
-        dd($keywords);
+        dd($operateurs);
 
         $operateurFormation = DB::table('formations')
             ->where('operateurs_id', $formation->operateurs_id)
