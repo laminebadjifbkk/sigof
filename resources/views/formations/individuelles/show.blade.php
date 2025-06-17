@@ -377,6 +377,16 @@
                                                             <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                     class="bi bi-three-dots"></i></a>
                                                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                
+                                                                <form action="{{ route('listePresence') }}" method="post"
+                                                                    target="_blank">
+                                                                    @csrf
+                                                                    {{-- @method('PUT') --}}
+                                                                    <input type="hidden" name="id"
+                                                                        value="{{ $formation->id }}">
+                                                                    <button class="btn btn-sm mx-1">Liste bénéficiaires</button>
+                                                                </form>
+                                                                <hr>
                                                                 @can('demarrer-formation')
                                                                     <form
                                                                         action="{{ route('validation-formations.update', $formation?->id) }}"

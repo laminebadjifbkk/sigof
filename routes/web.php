@@ -195,6 +195,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::post('etatTransport', [FormationController::class, 'etatTransport'])->name('etatTransport');
         Route::post('etatTransportCol', [FormationController::class, 'etatTransportCol'])->name('etatTransportCol');
 
+        Route::post('listePresence', [FormationController::class, 'listePresence'])->name('listePresence');
+        Route::post('listePresenceCol', [FormationController::class, 'listePresenceCol'])->name('listePresenceCol');
+
         Route::post('pvEvaluationCol', [FormationController::class, 'pvEvaluationCol'])->name('pvEvaluationCol');
         Route::post('ficheSuiviCol', [FormationController::class, 'ficheSuiviCol'])->name('ficheSuiviCol');
 

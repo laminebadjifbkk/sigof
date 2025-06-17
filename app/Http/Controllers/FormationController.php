@@ -2230,7 +2230,7 @@ class FormationController extends Controller
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
-        $options->setDefaultFont('Formation');
+        $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
         $dompdf->loadHtml(view('formations.individuelles.fichesuivi', compact(
@@ -2266,7 +2266,7 @@ class FormationController extends Controller
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
-        $options->setDefaultFont('Formation');
+        $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
         $dompdf->loadHtml(view('formations.individuelles.feuillepresence', compact(
@@ -2302,7 +2302,7 @@ class FormationController extends Controller
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
-        $options->setDefaultFont('Formation');
+        $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
         $dompdf->loadHtml(view('formations.collectives.feuillepresence', compact(
@@ -2365,7 +2365,7 @@ class FormationController extends Controller
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
-        $options->setDefaultFont('Formation');
+        $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
         $dompdf->loadHtml(view('formations.individuelles.feuillepresencejour', compact(
@@ -2410,7 +2410,7 @@ class FormationController extends Controller
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
-        $options->setDefaultFont('Formation');
+        $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
         $dompdf->loadHtml(view('formations.collectives.feuillepresencecoljour', compact(
@@ -2512,7 +2512,7 @@ class FormationController extends Controller
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
-        $options->setDefaultFont('Formation');
+        $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
         $dompdf->loadHtml(view('formations.individuelles.feuillepresencefinale', compact(
@@ -2549,7 +2549,7 @@ class FormationController extends Controller
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
-        $options->setDefaultFont('Formation');
+        $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
         $dompdf->loadHtml(view('formations.collectives.feuillepresencecolfinale', compact(
@@ -2578,7 +2578,7 @@ class FormationController extends Controller
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
-        $options->setDefaultFont('Formation');
+        $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
         $dompdf->loadHtml(view('formations.individuelles.etatTransport', compact(
@@ -2607,7 +2607,7 @@ class FormationController extends Controller
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
-        $options->setDefaultFont('Formation');
+        $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
         $dompdf->loadHtml(view('formations.collectives.etatTransportCol', compact(
@@ -2641,7 +2641,7 @@ class FormationController extends Controller
 
             $dompdf  = new Dompdf();
             $options = $dompdf->getOptions();
-            $options->setDefaultFont('Formation');
+            $options->setDefaultFont('DejaVu Sans');
             $dompdf->setOptions($options);
 
             $dompdf->loadHtml(view('formations.individuelles.pvevaluation', compact(
@@ -2688,7 +2688,7 @@ class FormationController extends Controller
 
             $dompdf  = new Dompdf();
             $options = $dompdf->getOptions();
-            $options->setDefaultFont('Formation');
+            $options->setDefaultFont('DejaVu Sans');
             $dompdf->setOptions($options);
 
             $dompdf->loadHtml(view('formations.individuelles.pvevaluation-vierge', compact(
@@ -2730,7 +2730,7 @@ class FormationController extends Controller
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
-        $options->setDefaultFont('Formation');
+        $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
         $dompdf->loadHtml(view('formations.collectives.fichesuivicol', compact(
@@ -2764,7 +2764,7 @@ class FormationController extends Controller
 
             $dompdf  = new Dompdf();
             $options = $dompdf->getOptions();
-            $options->setDefaultFont('Formation');
+            $options->setDefaultFont('DejaVu Sans');
             $dompdf->setOptions($options);
 
             $dompdf->loadHtml(view('formations.collectives.pvevaluationcol', compact(
@@ -2802,7 +2802,7 @@ class FormationController extends Controller
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
-        $options->setDefaultFont('Formation');
+        $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
         $dompdf->loadHtml(view('formations.collectives.pvevaluationcol-vierge', compact(
@@ -2913,7 +2913,7 @@ class FormationController extends Controller
 
             $dompdf  = new Dompdf();
             $options = $dompdf->getOptions();
-            $options->setDefaultFont('Formation');
+            $options->setDefaultFont('DejaVu Sans');
             $dompdf->setOptions($options);
 
             $dompdf->loadHtml(view('formations.lettrevaluation', compact(
@@ -3010,7 +3010,7 @@ class FormationController extends Controller
 
             $dompdf  = new Dompdf();
             $options = $dompdf->getOptions();
-            $options->setDefaultFont('Formation');
+            $options->setDefaultFont('DejaVu Sans');
             $dompdf->setOptions($options);
 
             $dompdf->loadHtml(view('formations.individuelles.abe', compact(
@@ -3098,7 +3098,7 @@ class FormationController extends Controller
 
             $dompdf  = new Dompdf();
             $options = $dompdf->getOptions();
-            $options->setDefaultFont('Formation');
+            $options->setDefaultFont('DejaVu Sans');
             $dompdf->setOptions($options);
 
             $dompdf->loadHtml(view('formations.collectives.abecollective', compact(
@@ -3785,5 +3785,63 @@ class FormationController extends Controller
         $formations = Formation::where('types_formations_id', $type->id)->get();
 
         return view('formations.liste', compact('formations', 'libelle'));
+    }
+
+    public function listePresence(Request $request)
+    {
+
+        $formation = Formation::findOrFail($request->input('id'));
+
+        $title = 'LISTE DES CANDIDATS SELECTIONNES EN  ' . $formation->name;
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+        $dompdf->loadHtml(view('formations.individuelles.liste-selectionne', compact(
+            'formation',
+            'title'
+        )));
+
+        // (Optional) Setup the paper size and orientation (portrait ou landscape)
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        $name = 'LISTE DES CANDIDATS SELECTIONNES EN  ' . $formation->name . ', code ' . $formation->code . '.pdf';
+
+        // Output the generated PDF to Browser
+        $dompdf->stream($name, ['Attachment' => false]);
+    }
+
+    public function listePresenceCol(Request $request)
+    {
+
+        $formation = Formation::findOrFail($request->input('id'));
+
+        $title = 'LISTE DES CANDIDATS SELECTIONNES EN  ' . $formation->name;
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+        $dompdf->loadHtml(view('formations.individuelles.liste-selectionne', compact(
+            'formation',
+            'title'
+        )));
+
+        // (Optional) Setup the paper size and orientation (portrait ou landscape)
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        $name = 'LISTE DES CANDIDATS SELECTIONNES EN  ' . $formation->name . ', code ' . $formation->code . '.pdf';
+
+        // Output the generated PDF to Browser
+        $dompdf->stream($name, ['Attachment' => false]);
     }
 }
