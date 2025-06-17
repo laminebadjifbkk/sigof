@@ -1370,11 +1370,16 @@ class FormationController extends Controller
                     ->where('statut', 'agréé');
             })->get(); */
 
+        // Convertir en minuscules
+        $modulenameLower = strtolower($modulename);
+
+// Supprimer uniquement les parenthèses, mais garder le contenu
+        $modulenameClean = str_replace(['(', ')'], ' ', $modulenameLower);
+
         $articles = ['le', 'la', 'les', 'un', 'une', 'de', 'du', 'des', 'en', 'et', 'à', 'au', 'aux', 'pour', 'par', 'dans', 'sur', 'avec'];
-        // Supprimer les parenthèses et leur contenu
-        $modulenameClean = preg_replace('/\([^)]*\)/', '', strtolower($modulename));
-        $keywords        = array_filter(
-            explode(' ', strtolower($modulename)),
+
+        $keywords = array_filter(
+            explode(' ', $modulenameClean),
             fn($word) => strlen($word) >= 3 && ! in_array($word, $articles)
         );
 
