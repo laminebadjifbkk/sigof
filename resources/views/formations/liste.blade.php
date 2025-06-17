@@ -68,7 +68,8 @@
                                         <th width='8%' class="text-center">N° conv.</th>
                                         <th width='25%'>Bénéficiaires</th>
                                         <th width='15%'>Modules</th>
-                                        <th width='17%'>Niveau qualif.</th>
+                                        <th width='15%'>Niveau qualif.</th>
+                                        <th width='10%'>Opérateurs</th>
                                         <th width='5%' class="text-center">Statut</th>
                                         <th width='5%'><i class="bi bi-gear"></i></th>
                                     </tr>
@@ -89,6 +90,7 @@
                                             </td>
                                             {{-- <td>{{ $formation->type_certification }}</td> --}}
                                             <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
+                                            <td>{{ $formation?->operateur?->name ?? 'Non spécifié' }}</td>
                                             <td class="text-center">
                                                 <a><span
                                                         class="{{ $formation->statut }}">{{ $formation->statut }}</span></a>
