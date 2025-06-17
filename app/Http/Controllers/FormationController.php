@@ -1284,10 +1284,10 @@ class FormationController extends Controller
         $operateurmodules = $query->get(); */
 
         $operateurs = DB::table('operateurs')
-            ->join('operateurmodules', 'operateurs.id', '=', 'operateurmodules.operateur_id')
+            ->join('operateurmodules', 'operateurs.id', '=', 'operateurmodules.operateurs_id')
             ->where('operateurs.statut_agrement', 'agréé')
             ->where('operateurmodules.statut', 'agréé')
-            ->where('operateurmodules.module', $modulename)
+            ->where('operateurmodules.module', 'like', '%' . $modulename . '%')
             ->select('operateurs.*')
             ->get();
 
