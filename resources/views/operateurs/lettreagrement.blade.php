@@ -152,7 +152,7 @@
             <br>
             <b>Téléphone</b> :
             <a style="text-decoration:none" href="tel:+221{{ $operateur?->user?->telephone }}">
-                {{ substr($operateur?->user?->fixe, 0, 2) .
+                {{-- {{ substr($operateur?->user?->fixe, 0, 2) .
                     ' ' .
                     substr($operateur?->user?->fixe, 2, 3) .
                     ' ' .
@@ -167,7 +167,9 @@
                     ' ' .
                     substr($operateur?->user?->telephone, 5, 2) .
                     ' ' .
-                    substr($operateur?->user?->telephone, 7, 2) }}
+                    substr($operateur?->user?->telephone, 7, 2) }} --}}
+
+                {{ $operateur?->user?->fixe . ' / ' . $operateur?->user?->telephone }}
             </a>
             <br>
             <b>Email</b> :
