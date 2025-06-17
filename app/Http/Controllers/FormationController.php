@@ -3810,7 +3810,7 @@ class FormationController extends Controller
         // Render the HTML as PDF
         $dompdf->render();
 
-        $name = $formation?->module?->name . ', liste des candidats sélectionnés en  ' . $formation->name . ', code ' . $formation->code . '.pdf';
+        $name = $formation?->module?->name . ', liste des candidats sélectionnés, ' . $formation->code . '.pdf';
 
         // Output the generated PDF to Browser
         $dompdf->stream($name, ['Attachment' => false]);
@@ -3839,7 +3839,7 @@ class FormationController extends Controller
         // Render the HTML as PDF
         $dompdf->render();
 
-        $name = $formation?->operateurmodule?->module?->name . ', liste des candidats sélectionnés en  ' . $formation->name . ', code ' . $formation->code . '.pdf';
+        $name = $formation?->operateurmodule?->module?->name . ', liste des candidats sélectionnés, ' . $formation->code . '.pdf';
 
         // Output the generated PDF to Browser
         $dompdf->stream($name, ['Attachment' => false]);
