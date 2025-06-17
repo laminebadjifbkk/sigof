@@ -52,7 +52,7 @@
                                     @can('valider-demande')
                                         @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
                                             @if ($statut == 'Conforme')
-                                                <div class="filter">
+                                                {{-- <div class="filter">
                                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                             class="bi bi-three-dots"></i></a>
                                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -72,17 +72,8 @@
                                                                 value="{{ $projetmodule->id }}">
                                                             <button class="btn btn-sm mx-1">Liste publique</button>
                                                         </form>
-
-                                                        {{-- <li>
-                                                        <button class="btn btn-sm mx-1" data-bs-toggle="modal"
-                                                            data-bs-target="#RejetDemandeModal">Liste sélectionnés</button>
-                                                    </li> --}}
-                                                        {{-- <li>
-                                                        <button class="btn btn-sm mx-1" data-bs-toggle="modal"
-                                                            data-bs-target="#NoteDemandeModal">Liste attente</button>
-                                                    </li> --}}
                                                     </ul>
-                                                </div>
+                                                </div> --}}
                                             @endif
                                         @endhasanyrole
                                     @endcan
