@@ -887,7 +887,7 @@ class OperateurController extends Controller
             $operateur->update([
                 'statut_agrement' => 'agréé',
                 'motif'           => null,
-                'date', "max:10", "min:10", "date_format:Y-m-d" => date('Y-m-d'),
+                'date'            => date('Y-m-d'),
             ]);
 
             $operateur->save();
@@ -902,7 +902,7 @@ class OperateurController extends Controller
 
             $validateoperateur->save();
 
-            Alert::success("Effectué !", "l'opérateur " . $operateur?->user?->username . ' a été agréé');
+            Alert::success("Succès !", "L'opérateur " . $operateur?->user?->username . ' a été agréé');
             return redirect()->back();
         }
     }
@@ -920,7 +920,7 @@ class OperateurController extends Controller
 
             $operateurmodule->save();
 
-            Alert::success('Effectué !', 'Tous les modules ont été agréés');
+            Alert::success('Succès !', 'Tous les modules ont été agréés');
         }
 
         return redirect()->back();
@@ -950,7 +950,7 @@ class OperateurController extends Controller
 
         $validateoperateur->save();
 
-        Alert::success("Effectué !", "l'opérateur a été retiré");
+        Alert::success("Succès !", "L'opérateur a été retiré");
 
         return redirect()->back();
     }
