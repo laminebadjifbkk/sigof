@@ -832,7 +832,7 @@
                                         </div>
                                         <div class="alert alert-info mt-5">Aucun ingénieur pour le moment !!!</div>
                                     @endif
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    {{-- <div class="col-12 col-md-12 col-lg-12 mb-0">
                                         @if (!empty($ingenieur))
                                             <h1 class="card-title">
                                                 Liste des formations
@@ -849,8 +849,6 @@
                                                             <th>Type</th>
                                                             <th>Intitulé formation</th>
                                                             <th>Localité</th>
-                                                            {{-- <th>Modules</th> --}}
-                                                            {{-- <th>Niveau qualification</th> --}}
                                                             <th>Effectif</th>
                                                             <th>Statut</th>
                                                             <th class="text-center"><i class="bi bi-gear"></i></th>
@@ -867,8 +865,6 @@
                                                                 <td>{{ $ingenieurformation?->name }}</td>
                                                                 <td>{{ $ingenieurformation->departement?->region?->nom }}
                                                                 </td>
-                                                                {{-- <td>{{ $ingenieurformation->module?->name }}</td> --}}
-                                                                {{-- <td>{{ $ingenieurformation->niveau_qualification }}</td> --}}
                                                                 <td class="text-center">
                                                                     @foreach ($ingenieurformation->individuelles as $individuelle)
                                                                         @if ($loop->last)
@@ -919,7 +915,7 @@
                                                 </table>
                                             </div>
                                         @endif
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                             </div>

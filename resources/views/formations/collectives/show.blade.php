@@ -414,7 +414,8 @@
                                                                     {{-- @method('PUT') --}}
                                                                     <input type="hidden" name="id"
                                                                         value="{{ $formation->id }}">
-                                                                    <button class="btn btn-sm mx-1">Liste bénéficiaires</button>
+                                                                    <button class="btn btn-sm mx-1">Liste
+                                                                        bénéficiaires</button>
                                                                 </form>
                                                                 <hr>
                                                                 @can('demarrer-formation')
@@ -897,7 +898,7 @@
                                             @endcan
                                         </h5>
                                     </div>
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    {{-- <div class="col-12 col-md-12 col-lg-12 mb-0">
                                         <div class="row g-3">
                                             <table class="table table-bordered table-hover datatables"
                                                 id="table-formations">
@@ -908,8 +909,6 @@
                                                         <th>Intitulé formation</th>
                                                         <th>Localité</th>
                                                         <th>Modules</th>
-                                                        {{-- <th>Niveau qualification</th> --}}
-                                                        {{-- <th>Effectif</th> --}}
                                                         <th class="text-center">Statut</th>
                                                         <th>#</th>
                                                     </tr>
@@ -932,15 +931,6 @@
                                                                     {{ $form?->collectivemodule?->module }}
                                                                 @endisset
                                                             </td>
-                                                            {{-- <td>{{ $form->niveau_qualification }}</td> --}}
-                                                            {{--   <td class="text-center">
-                                                                @foreach ($form->individuelles as $individuelle)
-                                                                    @if ($loop->last)
-                                                                        <a class="text-primary fw-bold"
-                                                                            href="{{ route('formations.show', $form->id) }}">{!! $loop->count ?? '0' !!}</a>
-                                                                    @endif
-                                                                @endforeach
-                                                            </td> --}}
                                                             <td class="text-center"><a href="#"><span
                                                                         class="{{ $form?->statut }}">{{ $form?->statut }}</span></a>
                                                             </td>
@@ -961,11 +951,6 @@
                                                                                     href="{{ route('formations.edit', $form->id) }}"
                                                                                     class="mx-1" title="Modifier"><i
                                                                                         class="bi bi-pencil"></i>Modifier</a>
-                                                                                {{-- <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#EditFormationModal{{ $form->id }}">
-                                                                                    <i class="bi bi-pencil" title="Modifier"></i> Modifier
-                                                                                </button> --}}
                                                                             </li>
                                                                             <li>
                                                                                 <form
@@ -992,7 +977,7 @@
                                 @else
                                     <div class="alert alert-info">Aucun ingénieur pour le moment
                                     </div>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                         {{-- Détail Demandes collectives --}}
@@ -2021,8 +2006,8 @@
                             <label for="recommandations" class="form-label">Recommandations</label>
 
                             <textarea name="recommandations" id="recommandations" cols="30" rows="3s"
-                                class="form-control form-control-sm @error('recommandations') is-invalid @enderror"
-                                placeholder="Recommandations" autofocus>{{ $formation?->recommandations ?? old('recommandations') }}</textarea>
+                                class="form-control form-control-sm @error('recommandations') is-invalid @enderror" placeholder="Recommandations"
+                                autofocus>{{ $formation?->recommandations ?? old('recommandations') }}</textarea>
                             @error('recommandations')
                                 <span class="invalid-feedback" role="alert">
                                     <div>{{ $message }}</div>
