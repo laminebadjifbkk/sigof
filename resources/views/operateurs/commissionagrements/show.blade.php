@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', $commissionagrement?->commission)
+@section('title', 'OPERATEURS | ' . $commissionagrement?->commission)
 @section('space-work')
     <section class="section dashboard">
         <div class="pagetitle">
@@ -17,11 +17,8 @@
             <div class="col-lg-12">
                 <div class="row">
                     <!-- Sales Card -->
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    {{-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                         <div class="card info-card sales-card">
-                            {{-- <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                            </div> --}}
                             <a href="{{ route('commissionagrements.show', $commissionagrement->id) }}">
                                 <div class="card-body">
                                     <h5 class="card-title">Operateurs <span>| Total</span></h5>
@@ -34,20 +31,70 @@
                                             <h6>
                                                 {{ count($commissionagrement?->operateurs) }}
                                             </h6>
-                                            {{-- <span class="text-success small pt-1 fw-bold">12%</span> <span
-                                            class="text-muted small pt-2 ps-1">increase</span> --}}
                                         </div>
                                     </div>
                                 </div>
                             </a>
                         </div>
+                    </div> --}}
+
+
+                    <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
+                        <div class="card info-card revenue-card shadow-sm" style="max-width: 220px;">
+                            <div class="card-body p-2">
+                                <h5 class="card-title text-truncate mb-1" title="operateurs" style="font-size: 1rem;">
+                                    {{ $commissionagrement?->commission }}
+                                </h5>
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                        style="width: 32px; height: 32px; font-size: 1.25rem;">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                    <div class="ps-2">
+                                        <h6 class="mb-0" style="font-size: 0.9rem;">
+                                            {{ number_format(count($commissionagrement?->operateurs), 0, '', ' ') }}</h6>
+                                        <span class="text-muted small">opérateur(s)</span>
+                                    </div>
+                                </div>
+
+                                <a href="{{ route('commissionagrements.show', $commissionagrement->id) }}"
+                                    class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
+                                    style="font-size: 0.85rem; gap: 6px;">
+                                    Voir plus <i class="bi bi-arrow-right-short"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    @foreach ($groupesStatutAgrement as $statut => $items)
+                        <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
+                            <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
+                                <div class="card-body p-2">
+                                    <h5 class="card-title text-truncate mb-1" title="{{ $statut }}"
+                                        style="font-size: 1rem;">
+                                        {{ $statut }}
+                                    </h5>
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                            style="width: 32px; height: 32px; font-size: 1.25rem;">
+                                            <i class="bi bi-people"></i>
+                                        </div>
+                                        <div class="ps-2">
+                                            <h6 class="mb-0" style="font-size: 0.9rem;">
+                                                {{ number_format($items->count(), 0, '', ' ') }}</h6>
+                                            <span class="text-muted small">opérateur(s)</span>
+                                        </div>
+                                    </div>
+                                    <a href="{{ route('operateurs.parStatut', ['statut' => $statut]) }}" target="_blank"
+                                        class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
+                                        style="font-size: 0.85rem; gap: 6px;">
+                                        Voir plus <i class="bi bi-arrow-right-short"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    {{-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                         <div class="card info-card sales-card">
-                            {{-- <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                        class="bi bi-three-dots"></i></a>
-                            </div> --}}
                             <a href="{{ route('showAgreer', ['id' => $commissionagrement->id]) }}">
                                 <div class="card-body">
                                     <h5 class="card-title">Opérateurs <span>| agréés</span></h5>
@@ -60,8 +107,6 @@
                                             <h6>
                                                 {{ $operateurs_agreer_count }}
                                             </h6>
-                                            {{-- <span class="text-success small pt-1 fw-bold">12%</span> <span
-                                            class="text-muted small pt-2 ps-1">increase</span> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -70,10 +115,6 @@
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                         <div class="card info-card revenue-card">
-                            {{-- <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                        class="bi bi-three-dots"></i></a>
-                            </div> --}}
                             <a href="{{ route('showReserve', ['id' => $commissionagrement->id]) }}">
                                 <div class="card-body">
                                     <h5 class="card-title">Opérateurs <span>| Sous réserve</span></h5>
@@ -86,8 +127,6 @@
                                             <h6>
                                                 {{ $operateurs_reserve_count }}
                                             </h6>
-                                            {{-- <span class="text-success small pt-1 fw-bold">12%</span> <span
-                                            class="text-muted small pt-2 ps-1">increase</span> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -96,10 +135,6 @@
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                         <div class="card info-card customers-card">
-                            {{-- <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                        class="bi bi-three-dots"></i></a>
-                            </div> --}}
                             <a href="{{ route('showRejeter', ['id' => $commissionagrement->id]) }}">
                                 <div class="card-body">
                                     <h5 class="card-title">Opérateurs <span>| Rejetés</span></h5>
@@ -112,14 +147,12 @@
                                             <h6>
                                                 {{ $operateurs_rejeter_count }}
                                             </h6>
-                                            {{-- <span class="text-success small pt-1 fw-bold">12%</span> <span
-                                            class="text-muted small pt-2 ps-1">increase</span> --}}
                                         </div>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

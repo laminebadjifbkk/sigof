@@ -98,18 +98,22 @@ class CommissionagrementController extends Controller
         $commissionagrement = Commissionagrement::findOrFail($id);
 
         $operateurs = Operateur::where('commissionagrements_id', $id)
-            ->where('statut_agrement', '!=', 'non retenu')
+            /* ->where('statut_agrement', '!=', 'non retenu') */
             ->get();
 
-        $operateur_count = $operateurs->count();
+        $groupesStatutAgrement = $operateurs->groupBy(function ($item) {
+            return $item->statut_agrement ?? 'Aucun statut agrement';
+        });
+
+        /* $operateur_count = $operateurs->count();
 
         if (! empty($operateur_count) && $operateur_count > 50) {
             $decoupage = ($operateur_count / 50);
         } else {
             $decoupage = null;
-        }
+        } */
 
-        $operateurs_agreer_count = Operateur::where('commissionagrements_id', $id)
+        /* $operateurs_agreer_count = Operateur::where('commissionagrements_id', $id)
             ->where('statut_agrement', 'agréé')
             ->count();
 
@@ -119,7 +123,7 @@ class CommissionagrementController extends Controller
 
         $operateurs_rejeter_count = Operateur::where('commissionagrements_id', $id)
             ->where('statut_agrement', 'Rejeté')
-            ->count();
+            ->count(); */
 
         /*  $operateurAgrement = DB::table('operateurs')
         ->where('commissionagrements_id', $commissionagrement->id)
@@ -135,10 +139,11 @@ class CommissionagrementController extends Controller
         return view('operateurs.commissionagrements.show',
             compact('commissionagrement',
                 'operateurs',
-                'decoupage',
+                'groupesStatutAgrement',
+                /* 'decoupage',
                 'operateurs_agreer_count',
                 'operateurs_reserve_count',
-                'operateurs_rejeter_count'
+                'operateurs_rejeter_count' */
             ));
     }
 
@@ -177,7 +182,7 @@ class CommissionagrementController extends Controller
 
             $operateur->update([
                 "commissionagrements_id" => $idcommissionagrement,
-                "statut_agrement"        => 'Sélectionné',
+                "statut_agrement"        => 'En commission',
             ]);
 
             $operateur->save();
@@ -185,7 +190,7 @@ class CommissionagrementController extends Controller
             $historiqueagrement = new Historiqueagrement([
                 'operateurs_id'          => $operateur->id,
                 'commissionagrements_id' => $idcommissionagrement,
-                'statut'                 => 'Sélectionné',
+                'statut'                 => 'En commission',
                 'validated_id'           => Auth::user()->id,
 
             ]);
@@ -193,7 +198,7 @@ class CommissionagrementController extends Controller
             $historiqueagrement->save();
         }
 
-        Alert::success('Succès !', 'Opérateur(s) sélectionné(s) avec succès');
+        Alert::success('Succès !', 'Opérateur(s) ajouté(s) en commission avec succès');
 
         return redirect()->back();
     }
@@ -202,7 +207,7 @@ class CommissionagrementController extends Controller
     {
         $commissionagrement = Commissionagrement::findOrFail($id);
 
-        $statutsVoulus = ['attente', 'Conforme'];
+        $statutsVoulus = ['attente', 'Conforme', 'Sélectionné', 'En commission'];
 
         $operateurs = Operateur::whereIn('statut_agrement', $statutsVoulus)
             ->get();

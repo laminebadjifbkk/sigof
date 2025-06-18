@@ -317,7 +317,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::put('/agreerOperateur/{id}', [OperateurController::class, 'agreerOperateur'])->name('agreerOperateur');
         Route::get('/agrement', [OperateurController::class, 'agrement'])->name('agrement');
 
-        Route::get('commisionagrement/{idcommissionagrement}', [CommissionagrementController::class, 'addcommisionagrement']);
+        /* Route::get('commisionagrement/{idcommissionagrement}', [CommissionagrementController::class, 'addcommisionagrement']); */
         Route::put('commisionagrement/{idcommissionagrement}', [CommissionagrementController::class, 'givecommisionagrement']);
 
         Route::get('/addopCommission/{id}', [CommissionagrementController::class, 'addopCommission'])->name('addopCommission');
