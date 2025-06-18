@@ -177,7 +177,7 @@ class CommissionagrementController extends Controller
 
             $operateur->update([
                 "commissionagrements_id" => $idcommissionagrement,
-                "statut_agrement"        => 'Attente',
+                "statut_agrement"        => 'Sélectionné',
             ]);
 
             $operateur->save();
@@ -185,7 +185,7 @@ class CommissionagrementController extends Controller
             $historiqueagrement = new Historiqueagrement([
                 'operateurs_id'          => $operateur->id,
                 'commissionagrements_id' => $idcommissionagrement,
-                'statut'                 => 'Attente',
+                'statut'                 => 'Sélectionné',
                 'validated_id'           => Auth::user()->id,
 
             ]);
@@ -193,7 +193,7 @@ class CommissionagrementController extends Controller
             $historiqueagrement->save();
         }
 
-        Alert::success('Félicitations !', 'opérateur(s) ajouté(s) avec succès');
+        Alert::success('Succès !', 'Opérateur(s) sélectionné(s) avec succès');
 
         return redirect()->back();
     }
