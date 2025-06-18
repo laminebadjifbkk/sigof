@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', $operateur?->user?->username)
+@section('title', 'AGREMENT | ' . $operateur?->user?->username)
 @section('space-work')
     <section
         class="section profile min-vh-0 d-flex flex-column align-items-center justify-content-center py-0 section profile">
@@ -1067,14 +1067,13 @@
                             {{-- Champ Statut --}}
                             <div class="mb-3">
                                 <label for="statut-{{ $operateur->id }}" class="form-label">
-                                    Statut de la demande <span class="text-danger">*</span>
+                                    Statut de la demande 
                                 </label>
                                 @php
                                     $selectedStatut = old('statut', $operateur->statut_agrement);
                                 @endphp
                                 <select name="statut" id="statut-{{ $operateur->id }}"
-                                    class="form-select form-select-sm @error('statut') is-invalid @enderror"
-                                    autofocus>
+                                    class="form-select form-select-sm @error('statut') is-invalid @enderror" autofocus>
                                     <option value="" disabled {{ !$selectedStatut ? 'selected' : '' }}>
                                         -- Sélectionner un statut --
                                     </option>
@@ -1091,8 +1090,7 @@
                                         {{ $selectedStatut === 'Non conforme' ? 'selected' : '' }}>
                                         Non conforme
                                     </option>
-                                    <option value="Retenue"
-                                        {{ $selectedStatut === 'Retenue' ? 'selected' : '' }}>
+                                    <option value="Retenue" {{ $selectedStatut === 'Retenue' ? 'selected' : '' }}>
                                         Retenue
                                     </option>
                                     <option value="Non retenue"
