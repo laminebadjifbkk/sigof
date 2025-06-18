@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'AGREMENT - ' . $operateur?->user?->username)
+@section('title', 'AGREMENT | ' . $operateur?->user?->username)
 @section('space-work')
 
     <section
