@@ -1111,7 +1111,7 @@
                             {{-- Champ Commentaires --}}
                             <div class="mb-3">
                                 <label for="motif-{{ $operateur->id }}" class="form-label">
-                                    Commentaires ou remarques <span class="text-danger">*</span>
+                                    Commentaires ou remarques
                                 </label>
                                 @php
                                     $lastValidation = collect($operateur->validationoperateurs)

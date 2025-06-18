@@ -118,7 +118,7 @@ class CommissionagrementController extends Controller
             ->count();
 
         $operateurs_rejeter_count = Operateur::where('commissionagrements_id', $id)
-            ->where('statut_agrement', 'Rejetée')
+            ->where('statut_agrement', 'Rejeté')
             ->count();
 
         /*  $operateurAgrement = DB::table('operateurs')
@@ -150,7 +150,7 @@ class CommissionagrementController extends Controller
             Alert::warning('Attention !', 'Impossible de supprimer cette commission');
         } else {
             $commissionagrement->delete();
-            Alert::success('Effectuée !', 'Commission supprimée avec succès');
+            Alert::success('Succès !', 'Commission supprimée avec succès');
         }
         return redirect()->back();
     }
@@ -202,9 +202,9 @@ class CommissionagrementController extends Controller
     {
         $commissionagrement = Commissionagrement::findOrFail($id);
 
-        $operateurs = Operateur::where('statut_agrement', 'Retenu')
-            ->orwhere('statut_agrement', 'Attente')
-            ->orwhere('statut_agrement', 'Retiré')
+        $statutsVoulus = ['attente', 'Conforme'];
+
+        $operateurs = Operateur::whereIn('statut_agrement', $statutsVoulus)
             ->get();
 
         $operateurAgrement = DB::table('operateurs')
@@ -282,7 +282,7 @@ class CommissionagrementController extends Controller
         $commissionagrement = Commissionagrement::findOrFail($id);
 
         $operateurs = Operateur::where('commissionagrements_id', $commissionagrement->id)
-            ->where('statut_agrement', 'Rejetée')
+            ->where('statut_agrement', 'Rejeté')
             ->get();
 
         return view('operateurs.agrements.show_rejeter',

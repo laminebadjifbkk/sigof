@@ -809,11 +809,9 @@ class OperateurController extends Controller
 
         $statut = $request->statut;
 
-        if ($statut !== 'Attente' || $statut !== 'Conforme') {
-            $request->validate([
-                'motif' => 'required|string',
-            ]);
-        }
+        $request->validate([
+            'motif' => $request->statut !== 'Conforme' ? 'required|string' : 'nullable|string',
+        ]);
 
         $operateur = Operateur::findOrFail($id);
         $statut    = $operateur->statut_agrement;
@@ -840,16 +838,23 @@ class OperateurController extends Controller
         }
 
         /* if ($operateur->statut_agrement == 'Nouveau' || $operateur->statut_agrement == 'Retenue') { */
-        $operateur->update([
+        /*  $operateur->update([
             'statut_agrement' => $request->statut,
             'motif'           => $request->input('motif'),
         ]);
 
         $operateur->save();
+ */
+        $motif = $request->input('motif') ?? $request->statut;
+
+        $operateur->update([
+            'statut_agrement' => $request->statut,
+            'motif'           => $motif,
+        ]);
 
         $validationoperateur = new Validationoperateur([
             'action'        => $request->statut,
-            'motif'         => $request->input('motif'),
+            'motif'         => $motif,
             'validated_id'  => Auth::user()->id,
             'session'       => $operateur?->session_agrement,
             'operateurs_id' => $operateur->id,
