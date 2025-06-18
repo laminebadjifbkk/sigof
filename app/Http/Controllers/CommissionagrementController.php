@@ -98,7 +98,7 @@ class CommissionagrementController extends Controller
         $commissionagrement = Commissionagrement::findOrFail($id);
 
         $operateurs = Operateur::where('commissionagrements_id', $id)
-            /* ->where('statut_agrement', '!=', 'non retenu') */
+        /* ->where('statut_agrement', '!=', 'non retenu') */
             ->get();
 
         $groupesStatutAgrement = $operateurs->groupBy(function ($item) {
@@ -209,7 +209,8 @@ class CommissionagrementController extends Controller
 
         $statutsVoulus = ['attente', 'Conforme', 'Sélectionné', 'En commission'];
 
-        $operateurs = Operateur::whereIn('statut_agrement', $statutsVoulus)
+        $operateurs = Operateur::whereNull('commissionagrements_id')
+            ->whereIn('statut_agrement', $statutsVoulus)
             ->get();
 
         $operateurAgrement = DB::table('operateurs')
