@@ -34,8 +34,8 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="favicon-onfp">
+    <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -143,6 +143,25 @@
                                                     </div>
                                                 </div>
 
+                                                <!-- Téléphone -->
+                                                <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                    <label for="votre_telephone" class="form-label">Téléphone<span
+                                                            class="text-danger mx-1">*</span></label>
+                                                    <div class="input-group has-validation">
+                                                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                                        <input type="text" name="votre_telephone" maxlength="12"
+                                                            class="form-control form-control-sm @error('votre_telephone') is-invalid @enderror"
+                                                            id="votre_telephone" required placeholder="Votre téléphone"
+                                                            value="{{ old('votre_telephone') }}"
+                                                            autocomplete="votre_telephone">
+                                                        <div class="invalid-feedback">
+                                                            @error('votre_telephone')
+                                                                {{ $message }}
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <!-- Mot de passe -->
                                                 <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
                                                     <label for="password" class="form-label">Mot de passe<span
@@ -155,6 +174,10 @@
                                                             id="password" required placeholder="Votre mot de passe"
                                                             value="{{ old('password') }}"
                                                             autocomplete="new-password">
+                                                        <button class="btn btn-outline-secondary" type="button"
+                                                            id="togglePassword">
+                                                            <i class="bi bi-eye"></i>
+                                                        </button>
                                                         <div class="invalid-feedback">
                                                             @error('password')
                                                                 {{ $message }}
@@ -177,6 +200,10 @@
                                                             placeholder="Confimez votre mot de passe"
                                                             value="{{ old('password_confirmation') }}"
                                                             autocomplete="new-password_confirmation">
+                                                        <button class="btn btn-outline-secondary" type="button"
+                                                            id="togglePassword">
+                                                            <i class="bi bi-eye"></i>
+                                                        </button>
                                                         <div class="invalid-feedback">
                                                             @error('password_confirmation')
                                                                 {{ $message }}
@@ -207,13 +234,15 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
-                                                    <button class="btn btn-primary w-100" type="submit">Créer un
-                                                        compte personnel ou collectif</button>
+                                                    <button class="btn text-white fw-bold w-100"
+                                                        style="background: #FF8000;" type="submit">
+                                                        S'inscrire
+                                                    </button>
                                                 </div>
                                                 <div
                                                     class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12 justify-content-center">
                                                     <p class="small">Vous avez déjà un compte ? <a
-                                                            href="{{ url('/login-page') }}">Se connecter</a></p>
+                                                            href="{{ route('login') }}">Se connecter</a></p>
                                                 </div>
                                             </form>
                                         </div>
@@ -251,6 +280,38 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
+
+    <script>
+        document.getElementById("togglePassword").addEventListener("click", function() {
+            let passwordField = document.getElementById("password");
+            let icon = this.querySelector("i");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                icon.classList.remove("bi-eye");
+                icon.classList.add("bi-eye-slash");
+            } else {
+                passwordField.type = "password";
+                icon.classList.remove("bi-eye-slash");
+                icon.classList.add("bi-eye");
+            }
+        });
+    </script>
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var telephoneInput = document.getElementById("votre_telephone");
+
+            telephoneInput.addEventListener("input", function(e) {
+                var value = e.target.value.replace(/\D/g, ""); // Supprime tout sauf les chiffres
+
+                // Appliquer le format XX:XXX:XX:XX
+                if (value.length > 2) value = value.slice(0, 2) + " " + value.slice(2);
+                if (value.length > 6) value = value.slice(0, 6) + " " + value.slice(6);
+                if (value.length > 9) value = value.slice(0, 9) + " " + value.slice(9, 11);
+
+                e.target.value = value.slice(0, 12); // Limite à 12 caractères (avec les ":")
+            });
+        });
+    </script>
 
 </body>
 
