@@ -70,62 +70,70 @@
                                         </thead>
                                         <tbody>
                                             <?php $i = 1; ?>
-                                            @foreach ($operateurs as $operateur)
-                                                {{-- @isset($operateur?->numero_agrement) --}}
+                                            @if ($operateurs->isEmpty())
                                                 <tr>
-                                                    <td>
-                                                        <input type="checkbox" name="operateurs[]"
-                                                            value="{{ $operateur?->id }}"
-                                                            {{ in_array($operateur?->id, $operateurAgrement) ? 'checked' : '' }}
-                                                            {{ in_array($operateur?->id, $operateurAgrementCheck) ? 'disabled' : '' }}
-                                                            {{-- hidden or disabled --}}
-                                                            class="form-check-input @error('operateurs') is-invalid @enderror">
-                                                        {{ $operateur?->numero_agrement }}
-                                                        @error('operateurs')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <div>{{ $message }}</div>
-                                                            </span>
-                                                        @enderror
+                                                    <td colspan="6" class="text-center">
+                                                        <span class="badge bg-danger">Aucun opérateur trouvé</span>
                                                     </td>
-                                                    <td>{{ $operateur?->user?->operateur }}</td>
-                                                    <td>{{ $operateur?->user?->username }}</td>
-                                                    <td style="text-align: center;">
-                                                        @foreach ($operateur?->operateurmodules as $operateurmodule)
-                                                            @if ($loop->last)
-                                                                <a href="#"><span
-                                                                        class="badge bg-info">{{ $loop->count }}</span></a>
-                                                            @endif
-                                                        @endforeach
-                                                    </td>
-                                                    {{-- <td class="text-center">
+                                                </tr>
+                                            @else
+                                                @foreach ($operateurs as $operateur)
+                                                    {{-- @isset($operateur?->numero_agrement) --}}
+                                                    <tr>
+                                                        <td>
+                                                            <input type="checkbox" name="operateurs[]"
+                                                                value="{{ $operateur?->id }}"
+                                                                {{ in_array($operateur?->id, $operateurAgrement) ? 'checked' : '' }}
+                                                                {{ in_array($operateur?->id, $operateurAgrementCheck) ? 'disabled' : '' }}
+                                                                {{-- hidden or disabled --}}
+                                                                class="form-check-input @error('operateurs') is-invalid @enderror">
+                                                            {{ $operateur?->numero_agrement }}
+                                                            @error('operateurs')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div>{{ $message }}</div>
+                                                                </span>
+                                                            @enderror
+                                                        </td>
+                                                        <td>{{ $operateur?->user?->operateur }}</td>
+                                                        <td>{{ $operateur?->user?->username }}</td>
+                                                        <td style="text-align: center;">
+                                                            @foreach ($operateur?->operateurmodules as $operateurmodule)
+                                                                @if ($loop->last)
+                                                                    <a href="#"><span
+                                                                            class="badge bg-info">{{ $loop->count }}</span></a>
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                        {{-- <td class="text-center">
                                                         <span
                                                             class="{{ $operateur->statut_agrement }}">{{ $operateur->statut_agrement }}</span>
                                                     </td> --}}
-                                                    <td class="text-center">
-                                                        <span
-                                                            class="{{ $operateur->type_demande }}">{{ $operateur->type_demande }}</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="d-flex align-items-baseline"><a
-                                                                href="{{ route('operateurs.show', $operateur?->id) }}"
-                                                                class="btn btn-primary btn-sm" title="voir détails"><i
-                                                                    class="bi bi-eye"></i></a>
-                                                            <div class="filter">
-                                                                <a class="icon" href="#"
-                                                                    data-bs-toggle="dropdown"><i
-                                                                        class="bi bi-three-dots"></i></a>
-                                                                <ul
-                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                    <li>
-                                                                        <button type="button"
-                                                                            class="dropdown-item btn btn-sm mx-1"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#EditOperateurModal{{ $operateur?->id }}">
-                                                                            <i class="bi bi-pencil" title="Modifier"></i>
-                                                                            Modifier
-                                                                        </button>
-                                                                    </li>
-                                                                    {{-- <li>
+                                                        <td class="text-center">
+                                                            <span
+                                                                class="{{ $operateur->type_demande }}">{{ $operateur->type_demande }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="d-flex align-items-baseline"><a
+                                                                    href="{{ route('operateurs.show', $operateur?->id) }}"
+                                                                    class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                        class="bi bi-eye"></i></a>
+                                                                <div class="filter">
+                                                                    <a class="icon" href="#"
+                                                                        data-bs-toggle="dropdown"><i
+                                                                            class="bi bi-three-dots"></i></a>
+                                                                    <ul
+                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                        <li>
+                                                                            <button type="button"
+                                                                                class="dropdown-item btn btn-sm mx-1"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#EditOperateurModal{{ $operateur?->id }}">
+                                                                                <i class="bi bi-pencil"
+                                                                                    title="Modifier"></i>
+                                                                                Modifier
+                                                                            </button>
+                                                                        </li>
+                                                                        {{-- <li>
                                                                                 <form
                                                                                     action="{{ route('operateurs.destroy', $operateur->id) }}"
                                                                                     method="post">
@@ -137,13 +145,14 @@
                                                                                             class="bi bi-trash"></i>Supprimer</button>
                                                                                 </form>
                                                                             </li> --}}
-                                                                </ul>
-                                                            </div>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                {{--  @endisset --}}
-                                            @endforeach
+                                                                    </ul>
+                                                                </div>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    {{--  @endisset --}}
+                                                @endforeach
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
