@@ -47,7 +47,7 @@
                         @if ($operateurs->isEmpty())
                             <div class="alert alert-info bg-info text-light border-0 alert-dismissible fade show"
                                 role="alert">
-                                <strong>Aucune demande collective n'est encore imputée à cet ingénieur.</strong>
+                                <strong>Aucun opérateur n'est encore imputé à cet agrément.</strong>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
