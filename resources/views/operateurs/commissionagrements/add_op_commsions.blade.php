@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ajouter dans la formation')
+@section('title', 'Choix des opérateurs dans la commission')
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
@@ -55,7 +55,7 @@
                                                 <th>Sigle</th>
                                                 <th class="text-center">Modules</th>
                                                 {{-- <th width="15%" class="text-center">Statut</th> --}}
-                                                <th width="5%" class="text-center">Type</th>
+                                                <th width="8%" class="text-center">Type demande</th>
                                                 <th><i class="bi bi-gear"></i></th>
                                             </tr>
                                         </thead>
