@@ -266,13 +266,19 @@
                                                     <td>{{ $operateur?->numero_agrement }}</td>
                                                     <td>{{ $operateur?->user?->operateur }}</td>
                                                     <td>{{ $operateur?->user?->username }}</td>
-                                                    <td style="text-align: center;">
+                                                    {{-- <td style="text-align: center;">
                                                         @foreach ($operateur?->operateurmodules as $operateurmodule)
                                                             @if ($loop->last)
                                                                 <a href="#"><span
                                                                         class="badge bg-info">{{ $loop->count }}</span></a>
                                                             @endif
                                                         @endforeach
+                                                    </td> --}}
+                                                    <td class="text-center">
+                                                        @if ($operateur?->operateurmodules?->count())
+                                                            <a href="#"><span
+                                                                    class="badge bg-warning">{{ $operateur->operateurmodules->count() }}</span></a>
+                                                        @endif
                                                     </td>
                                                     <td class="text-center">
                                                         <span
