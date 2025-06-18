@@ -806,9 +806,6 @@ class OperateurController extends Controller
 
     public function nonRetenu(Request $request, $id)
     {
-
-        $statut = $request->statut;
-
         $request->validate([
             'motif' => $request->statut !== 'Conforme' ? 'required|string' : 'nullable|string',
         ]);

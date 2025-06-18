@@ -129,13 +129,17 @@ class ValidationIndividuelleController extends Controller
     public function destroy(Request $request, $id)
     {
 
-        $statut = $request->statut;
+        /*  $statut = $request->statut;
 
         if ($statut !== 'Attente' || $statut !== 'Conforme') {
             $request->validate([
                 'motif' => 'required|string',
             ]);
-        }
+        } */
+
+        $request->validate([
+            'motif' => $request->statut !== 'Conforme' ? 'required|string' : 'nullable|string',
+        ]);
 
         $individuelle = Individuelle::findOrFail($id);
         $statut       = $individuelle->statut;
@@ -162,6 +166,9 @@ class ValidationIndividuelleController extends Controller
         }
 
         // Continuer le rejet (autorisé pour super-admin ou cas autorisé)
+        
+        $motif = $request->input('motif') ?? $request->statut;
+
         $individuelle->update([
             'statut'      => $request->statut,
             'canceled_by' => Auth::user()->firstname . ' ' . Auth::user()->name,
@@ -170,7 +177,7 @@ class ValidationIndividuelleController extends Controller
         $validation = Validationindividuelle::create([
             'validated_id'     => Auth::user()->id,
             'action'           => $request->statut,
-            'motif'            => $request->input('motif'),
+            'motif'            => $motif,
             'individuelles_id' => $individuelle->id,
         ]);
 
