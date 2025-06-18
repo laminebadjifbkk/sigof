@@ -44,39 +44,40 @@
                                 </div>
                             </div>
                         @endisset
-                        <form method="post"
-                            action="{{ url('commisionagrement', ['$idcommissionagrement' => $commissionagrement->id]) }}"
-                            enctype="multipart/form-data" class="row g-3">
-                            @csrf
-                            @method('PUT')
-                            <div class="row mb-0">
-                                {{-- <div class="form-check col-md-2 pt-3">
+                        @if ($operateurs->isEmpty())
+                            <div class="alert alert-info bg-info text-light border-0 alert-dismissible fade show"
+                                role="alert">
+                                <strong>Aucune demande collective n'est encore imputée à cet ingénieur.</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @else
+                            <form method="post"
+                                action="{{ url('commisionagrement', ['$idcommissionagrement' => $commissionagrement->id]) }}"
+                                enctype="multipart/form-data" class="row g-3">
+                                @csrf
+                                @method('PUT')
+                                <div class="row mb-0">
+                                    {{-- <div class="form-check col-md-2 pt-3">
                                     <label for="#">Choisir tout</label>
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div> --}}
-                                <div class="form-check col-md-12 pt-3">
-                                    <table class="table datatables align-middle" id="table-operateurs">
-                                        <thead>
-                                            <tr>
-                                                <th><input type="checkbox" class="form-check-input" id="checkAll">N°
-                                                    agrément</th>
-                                                <th>Opérateurs</th>
-                                                <th>Sigle</th>
-                                                <th class="text-center">Modules</th>
-                                                {{-- <th class="text-center">Statut</th> --}}
-                                                <th class="text-center">Type demande</th>
-                                                <th width="2%"><i class="bi bi-gear"></i></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                            @if ($operateurs->isEmpty())
+                                    <div class="form-check col-md-12 pt-3">
+                                        <table class="table datatables align-middle" id="table-operateurs">
+                                            <thead>
                                                 <tr>
-                                                    <td colspan="6" class="text-center">
-                                                        <span class="badge bg-danger">Aucun opérateur trouvé</span>
-                                                    </td>
+                                                    <th><input type="checkbox" class="form-check-input" id="checkAll">N°
+                                                        agrément</th>
+                                                    <th>Opérateurs</th>
+                                                    <th>Sigle</th>
+                                                    <th class="text-center">Modules</th>
+                                                    {{-- <th class="text-center">Statut</th> --}}
+                                                    <th class="text-center">Type demande</th>
+                                                    <th width="2%"><i class="bi bi-gear"></i></th>
                                                 </tr>
-                                            @else
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
                                                 @foreach ($operateurs as $operateur)
                                                     {{-- @isset($operateur?->numero_agrement) --}}
                                                     <tr>
@@ -152,15 +153,15 @@
                                                     </tr>
                                                     {{--  @endisset --}}
                                                 @endforeach
-                                            @endif
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-outline-primary btn-sm"><i
-                                            class="bi bi-check2-circle"></i>&nbsp;Valider</button>
-                                </div>
-                        </form>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-outline-primary btn-sm"><i
+                                                class="bi bi-check2-circle"></i>&nbsp;Valider</button>
+                                    </div>
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>
