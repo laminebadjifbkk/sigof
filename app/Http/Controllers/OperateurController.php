@@ -845,12 +845,12 @@ class OperateurController extends Controller
         $motif = $request->input('motif') ?? $request->statut;
 
         $operateur->update([
-            'statut_agrement' => $request->statut,
-            'motif'           => $motif,
-            'commissionagrements_id'           => null,
+            'statut_agrement'        => $request->statut,
+            'motif'                  => $motif,
+            /* 'commissionagrements_id' => null, */
         ]);
 
-        /* $validationoperateur = new Validationoperateur([
+        $validationoperateur = new Validationoperateur([
             'action'        => $request->statut,
             'motif'         => $motif,
             'validated_id'  => Auth::user()->id,
@@ -859,7 +859,7 @@ class OperateurController extends Controller
 
         ]);
 
-        $validationoperateur->save(); */
+        $validationoperateur->save();
 
         Alert::success('Succès !', $operateur?->user?->username . " est " . $request->statut);
 
