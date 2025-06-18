@@ -56,7 +56,7 @@
                                                 <th class="text-center">Modules</th>
                                                 {{-- <th width="15%" class="text-center">Statut</th> --}}
                                                 <th width="8%" class="text-center">Type demande</th>
-                                                <th><i class="bi bi-gear"></i></th>
+                                                <th width="2%"><i class="bi bi-gear"></i></th>
                                             </tr>
                                         </thead>
                                         <tbody>
