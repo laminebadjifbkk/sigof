@@ -209,8 +209,11 @@ class CommissionagrementController extends Controller
 
         $statutsVoulus = ['attente', 'Conforme', 'Sélectionné', 'En commission'];
 
-        $operateurs = Operateur::whereNull('commissionagrements_id')
+        /* $operateurs = Operateur::whereNull('commissionagrements_id')
             ->whereIn('statut_agrement', $statutsVoulus)
+            ->get(); */
+
+        $operateurs = Operateur::whereIn('statut_agrement', $statutsVoulus)
             ->get();
 
         $operateurAgrement = DB::table('operateurs')
