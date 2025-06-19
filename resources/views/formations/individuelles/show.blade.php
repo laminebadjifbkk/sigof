@@ -241,13 +241,6 @@
                                             </h5>
                                         </div>
                                     @elseif(!empty($module))
-                                        {{-- <div class="pt-2">
-                                            @can('operateur-check')
-                                                <a href="{{ url('formationoperateurs', ['$idformation' => $formation?->id, '$idmodule' => $formation?->module?->id, '$idlocalite' => $formation?->departement?->region?->id]) }}"
-                                                    class="btn btn-primary float-end btn-sm">
-                                                    <i class="bi bi-person-plus-fill" title="Ajouter opérateur"></i> </a>
-                                            @endcan
-                                        </div> --}}
                                         @can('operateur-check')
                                             <div class="pt-2 text-end">
                                                 <a href="{{ url('formationoperateurs', [
@@ -263,7 +256,7 @@
                                         @endcan
                                     @else
                                     @endif
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    {{-- <div class="col-12 col-md-12 col-lg-12 mb-0">
                                         @if (!empty($operateur))
                                             <h1 class="card-title">
                                                 Liste des formations
@@ -277,8 +270,6 @@
                                                             <th>Type</th>
                                                             <th>Intitulé formation</th>
                                                             <th>Localité</th>
-                                                            {{-- <th>Modules</th> --}}
-                                                            {{-- <th>Niveau qualification</th> --}}
                                                             <th>Effectif</th>
                                                             <th>Statut</th>
                                                             <th class="text-center">#</th>
@@ -295,8 +286,6 @@
                                                                 <td>{{ $operateurformation?->name }}</td>
                                                                 <td>{{ $operateurformation->departement?->region?->nom }}
                                                                 </td>
-                                                                {{-- <td>{{ $operateurformation->module?->name }}</td> --}}
-                                                                {{-- <td>{{ $operateurformation->niveau_qualification }}</td> --}}
                                                                 <td class="text-center">
                                                                     @foreach ($operateurformation->individuelles as $individuelle)
                                                                         @if ($loop->last)
@@ -356,7 +345,7 @@
                                         @else
                                             <div class="alert alert-info mt-5">Aucun opérateur pour le moment !!!</div>
                                         @endif
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="tab-content pt-0">
@@ -377,14 +366,15 @@
                                                             <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                     class="bi bi-three-dots"></i></a>
                                                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                
+
                                                                 <form action="{{ route('listePresence') }}" method="post"
                                                                     target="_blank">
                                                                     @csrf
                                                                     {{-- @method('PUT') --}}
                                                                     <input type="hidden" name="id"
                                                                         value="{{ $formation->id }}">
-                                                                    <button class="btn btn-sm mx-1">Liste bénéficiaires</button>
+                                                                    <button class="btn btn-sm mx-1">Liste
+                                                                        bénéficiaires</button>
                                                                 </form>
                                                                 <hr>
                                                                 @can('demarrer-formation')
@@ -1932,8 +1922,7 @@
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="evaluateur"
                                             class="form-select @error('evaluateur') is-invalid @enderror"
-                                            aria-label="Select" id="select-field"
-                                            data-placeholder="Choisir evaluateur">
+                                            aria-label="Select" id="select-field" data-placeholder="Choisir evaluateur">
                                             <option value="{{ $formation?->evaluateur?->id }}">
                                                 @if (!empty($formation?->evaluateur?->name))
                                                     {{ $formation?->evaluateur?->name . ', ' . $formation?->evaluateur?->fonction }}
@@ -2286,15 +2275,16 @@
                 });
             });
         });
-    </script>
-    {{-- <script>
+
         new DataTable('#table-operateurModules', {
+            paging: false, // Supprime la pagination
+            info: false, // Supprime les infos en bas (Affichage de l'élément X à Y...)
             layout: {
                 topStart: {
-                    buttons: ['excel', 'pdf', 'print'],
+                    buttons: ['excel', 'pdf'],
                 }
             },
-            "order": [
+            order: [
                 [0, 'asc']
             ],
             language: {
@@ -2320,12 +2310,12 @@
                 },
                 "select": {
                     "rows": {
-                        _: "%d lignes sÃ©lÃ©ctionnÃ©es",
-                        0: "Aucune ligne sÃ©lÃ©ctionnÃ©e",
-                        1: "1 ligne sÃ©lÃ©ctionnÃ©e"
+                        _: "%d lignes sélectionnées",
+                        0: "Aucune ligne sélectionnée",
+                        1: "1 ligne sélectionnée"
                     }
                 }
             }
         });
-    </script> --}}
+    </script>
 @endpush

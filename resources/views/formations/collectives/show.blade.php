@@ -382,7 +382,6 @@
                                             <div class="alert alert-info">Aucun opérateur pour l'instant
                                             </div>
                                         @endif
-                                        {{-- @endisset --}}
                                     </div>
                                 </div>
                             </div>
@@ -974,10 +973,11 @@
                                             </table>
                                         </div>
                                     </div>
+                                 --}}
                                 @else
                                     <div class="alert alert-info">Aucun ingénieur pour le moment
                                     </div>
-                                @endif --}}
+                                @endif
                             </div>
                         </div>
                         {{-- Détail Demandes collectives --}}
@@ -2260,13 +2260,13 @@
             });
         });
     });
-</script>
 
-{{-- <script>
-    new DataTable('#table-operateurModule', {
+    new DataTable('#table-operateurModules', {
+        paging: false, // Supprime la pagination
+        info: false, // Supprime les infos en bas (Affichage de l'élément X à Y...)
         layout: {
             topStart: {
-                buttons: ['csv', 'excel', 'print'],
+                buttons: ['csv', 'excel'],
             }
         },
         "order": [
@@ -2302,5 +2302,5 @@
             }
         }
     });
-</script> --}}
+</script>
 @endpush
