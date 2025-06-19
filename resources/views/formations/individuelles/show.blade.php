@@ -580,7 +580,7 @@
                                                                     {{ $individuelle?->user?->telephone }}
                                                                 </td>
                                                                 <td style="text-align: center;">
-                                                                    {{ $individuelle?->user?->niveau_etude }}
+                                                                    {{ $individuelle?->niveau_etude }}
                                                                 </td>
                                                                 {{-- Condition pour afficher la note ou la confirmation --}}
                                                                 @if ($formation->statut === 'Terminée')
