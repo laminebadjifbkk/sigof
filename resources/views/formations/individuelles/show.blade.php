@@ -543,6 +543,7 @@
                                                             <th class="text-center">Date naissance</th>
                                                             <th class="text-center">Lieu de naissance</th>
                                                             <th class="text-center">Telephone</th>
+                                                            <th class="text-center">Niveau étude</th>
                                                             {{-- Condition pour afficher la note ou la confirmation --}}
                                                             @if ($formation->statut === 'Terminée')
                                                                 <th class="text-center">Note</th>
@@ -577,6 +578,9 @@
                                                                 </td>
                                                                 <td style="text-align: center;">
                                                                     {{ $individuelle?->user?->telephone }}
+                                                                </td>
+                                                                <td style="text-align: center;">
+                                                                    {{ $individuelle?->user?->niveau_etude }}
                                                                 </td>
                                                                 {{-- Condition pour afficher la note ou la confirmation --}}
                                                                 @if ($formation->statut === 'Terminée')
