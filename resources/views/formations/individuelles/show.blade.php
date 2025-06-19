@@ -2281,7 +2281,7 @@
             info: false, // Supprime les infos en bas (Affichage de l'élément X à Y...)
             layout: {
                 topStart: {
-                    buttons: ['excel', 'pdf'],
+                    buttons: ['csv', 'excel'],
                 }
             },
             order: [
