@@ -116,6 +116,7 @@
                     <td class="item" style="text-align: center;" width="8%"><b>Date naissance</b></td>
                     <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
                     <td class="item" style="text-align: center;" width="7%"><b>Téléphone</b></td>
+                    <td class="item" style="text-align: center;" ><b>Niveau d'étude</b></td>
                     <td class="item" style="text-align: center;"><b>Département</b></td>
                 </tr>
             </thead>
@@ -130,7 +131,8 @@
                         <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                         <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
                         <td>{{ $individuelle?->user?->telephone }}</td>
-                        <td>{{ $individuelle->departement->nom }}</td>
+                        <td>{{ $individuelle?->niveau_etude }}</td>
+                        <td>{{ $individuelle?->departement?->nom }}</td>
                     </tr>
                 @endforeach
             </tbody>
