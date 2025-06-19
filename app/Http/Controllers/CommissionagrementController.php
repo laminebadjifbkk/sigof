@@ -182,7 +182,7 @@ class CommissionagrementController extends Controller
 
             $operateur->update([
                 "commissionagrements_id" => $idcommissionagrement,
-                "statut_agrement"        => 'En commission',
+                "statut_agrement"        => 'agréé',
             ]);
 
             $operateur->save();
@@ -207,7 +207,7 @@ class CommissionagrementController extends Controller
     {
         $commissionagrement = Commissionagrement::findOrFail($id);
 
-        $statutsVoulus = ['attente', 'Conforme', 'Sélectionné', 'En commission'];
+        $statutsVoulus = ['attente', 'agréé', 'Conforme', 'Sélectionné', 'En commission'];
 
         $operateurs = Operateur::whereNull('commissionagrements_id')
             ->whereIn('statut_agrement', $statutsVoulus)

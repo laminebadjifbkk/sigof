@@ -200,7 +200,7 @@
                                 </div>
                             </div>
 
-                            <div class="d-flex justify-content-between align-items-center">
+                            {{-- <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">{{ $title }}</h5>
                                 <span class="d-flex align-items-baseline">
                                     <a href="{{ route('operateurs.create') }}"
@@ -226,7 +226,7 @@
                                         </ul>
                                     </div>
                                 </span>
-                            </div>
+                            </div> --}}
                         @endif
                         @if ($operateurs->isNotEmpty())
                             <div class="table-responsive">

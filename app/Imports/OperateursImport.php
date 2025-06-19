@@ -26,7 +26,7 @@ class OperateursImport implements ToModel, WithHeadingRow
                     "telephone"         => $row['telephone'],
                     'adresse'           => $row['adresse'],
                     'email_responsable' => $row['email_responsable'],
-                    'password'          => Hash::make('p@ssw0rd123'), // Mot de passe par défaut sécurisé
+                    'password'          => Hash::make('P@ssw0rd123'), // Mot de passe par défaut sécurisé
                 ]
             );
 
