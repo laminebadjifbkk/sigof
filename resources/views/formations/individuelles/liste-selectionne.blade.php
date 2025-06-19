@@ -94,16 +94,16 @@
         <table class="table table-responsive">
             <thead>
                 <tr class="heading" style="text-align: center;">
-                    <td colspan="9"><b>{{ __('LISTE DES CANDIDATS SELECTIONNES') }}</b></td>
+                    <td colspan="10"><b>{{ __('LISTE DES CANDIDATS SELECTIONNES') }}</b></td>
                 </tr>
                 <tr class="heading">
                     <td colspan="2"><b>Code</b> : {{ $formation?->code }}
                     </td>
-                    <td colspan="5"><b>{{ __('Module : ') }}</b> {{ $formation?->module?->name }}</td>
+                    <td colspan="6"><b>{{ __('Module : ') }}</b> {{ $formation?->module?->name }}</td>
                     <td colspan="2"><b>{{ __('Région : ') }}</b> {{ $formation?->departement?->region?->nom }}</td>
                 </tr>
                 <tr class="heading">
-                    <td colspan="9"><b>Formation</b> : {{ $formation?->name }}
+                    <td colspan="10"><b>Formation</b> : {{ $formation?->name }}
                     </td>
                 </tr>
 
