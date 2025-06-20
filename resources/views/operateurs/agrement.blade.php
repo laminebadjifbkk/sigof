@@ -1043,11 +1043,13 @@
                                     Statut de la demande <span class="text-danger">*</span>
                                 </label>
                                 @php
-                                    $selectedStatut = old('statut', $operateur->statut_agrement);
+                                    $selectedStatut = old('statut') ?? $operateur->statut_agrement;
                                 @endphp
+
                                 <select name="statut" id="statut-{{ $operateur->id }}"
                                     class="form-select form-select-sm @error('statut') is-invalid @enderror" autofocus>
-                                    <option value="" disabled {{ !$selectedStatut ? 'selected' : '' }}>
+
+                                    <option value="" disabled {{ empty($selectedStatut) ? 'selected' : '' }}>
                                         -- Sélectionner un statut --
                                     </option>
 

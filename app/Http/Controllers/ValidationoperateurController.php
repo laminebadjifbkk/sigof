@@ -83,7 +83,7 @@ class ValidationoperateurController extends Controller
         $statut = $request->statut;
 
         $request->validate([
-            'motif' => $request->statut !== 'Conforme' ? 'required|string' : 'nullable|string',
+            'motif' => $request->statut !== 'agréé' ? 'required|string' : 'nullable|string',
         ]);
 
         $operateur       = Operateur::findOrFail($id);
