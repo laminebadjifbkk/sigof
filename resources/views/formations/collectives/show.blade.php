@@ -903,7 +903,6 @@
                                             @endcan
                                         </div> --}}
 
-
                                         <h5 class="card-title">
                                             {{ $formation?->suivi_dossier }}
                                             @can('ingenieur-check')
