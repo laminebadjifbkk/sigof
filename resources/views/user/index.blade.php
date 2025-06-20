@@ -337,6 +337,23 @@
                                     <div class="row">
                                         <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                             <div class="form-group">
+                                                <label for="username" class="form-label">Username</label>
+                                                <input type="text" name="username" value="{{ old('username') }}"
+                                                    class="form-control form-control-sm @error('username') is-invalid @enderror"
+                                                    id="username" placeholder="Username">
+                                                @error('username')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="form-group">
                                                 <label for="firstname" class="form-label">Prénom</label>
                                                 <input type="text" name="firstname" value="{{ old('firstname') }}"
                                                     class="form-control form-control-sm @error('firstname') is-invalid @enderror"
