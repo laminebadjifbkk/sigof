@@ -76,7 +76,7 @@
                                         <th>Téléphone</th>
                                         <th>Roles</th>
                                         <th class="text-center">Statut</th>
-                                        <th>#</th>
+                                        <th width="2%">#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -409,8 +409,8 @@
                                                 <label for="telephone_responsable" class="form-label">Téléphone</label>
                                                 <input name="telephone_responsable" type="text" maxlength="12"
                                                     class="form-control form-control-sm @error('telephone_responsable') is-invalid @enderror"
-                                                    id="telephone_responsable" value="{{ old('telephone_responsable') }}" autocomplete="tel"
-                                                    placeholder="XX:XXX:XX:XX">
+                                                    id="telephone_responsable" value="{{ old('telephone_responsable') }}"
+                                                    autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                                 @error('telephone_responsable')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>
