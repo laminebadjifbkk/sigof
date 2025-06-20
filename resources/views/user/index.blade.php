@@ -76,7 +76,7 @@
                                         <th>Téléphone</th>
                                         <th>Roles</th>
                                         <th class="text-center">Statut</th>
-                                        <th width="2%">#</th>
+                                        <th width="2%"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
