@@ -37,7 +37,7 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                            <h5 class="card-title mb-0">Liste des opérateurs</h5>
+                        {{-- <h5 class="card-title mb-0">Liste des opérateurs</h5>
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <h5 class="card-title mb-0">{{ $module }}</h5>
                             @can('rapport-operateur-view')
@@ -48,7 +48,26 @@
                                     <i class="bi bi-search"></i> Rechercher plus
                                 </a>
                             @endcan
+                        </div> --}}
+                        <div class="card shadow-sm rounded-4 border-0 mb-4 p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h4 class="fw-bold text-primary mb-1">Liste des opérateurs</h4>
+                                    <h6 class="text-muted">{{ $module }}</h6>
+                                </div>
+
+                                @can('rapport-operateur-view')
+                                    <a href="#"
+                                        class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 px-3 py-2 rounded-pill shadow-sm"
+                                        data-bs-toggle="modal" data-bs-target="#generate_rapport_module_region"
+                                        title="Générer rapports">
+                                        <i class="bi bi-file-earmark-bar-graph-fill fs-5"></i>
+                                        <span class="fw-semibold">Rapport</span>
+                                    </a>
+                                @endcan
+                            </div>
                         </div>
+
                         <table class="table datatables table-bordered table-hover align-middle justify-content-center"
                             id="table-operateurModules">
                             <thead>
