@@ -48,6 +48,11 @@ class OperateurPolicy
         return $user->id === $operateur->users_id;
     }
 
+       public function show(User $user, Operateur $operateur): bool
+    {
+        return $user->id === $operateur->users_id;
+    }
+
     /**
      * Determine whether the user can restore the model.
      */
