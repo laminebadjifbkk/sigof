@@ -634,7 +634,7 @@ class OperateurController extends Controller
 
         $excludedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'Operateur'];
 
-        if (! array_intersect($rolesAutorises, $excludedRoles)) {
+        if (! empty(array_diff($userRoles, $excludedRoles))) {
             $this->authorize('show', $operateur);
         }
 
