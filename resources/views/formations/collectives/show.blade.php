@@ -917,8 +917,8 @@
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#EditAgentSuiviModal{{ $formation->id }}"
                                                     title="{{ $formation?->suivi_dossier ? 'Modifier' : 'Ajouter' }} l’agent de suivi">
-                                                    <i class="bi bi-person-plus fs-5"></i>
-                                                    <span class="d-none d-sm-inline">
+                                                    {{-- <i class="bi bi-person-plus fs-5"></i> --}}
+                                                    <span class="d-none d-sm-inline p-3">
                                                         {{ $formation?->suivi_dossier ? 'Modifier' : 'Ajouter' }}
                                                     </span>
                                                 </button>
