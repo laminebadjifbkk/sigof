@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'Ajouter demandeurs à la formation en ' . $formation->module->name)
+@section('title', 'Choisir bénéficiaires à la formation en ' . $formation->module->name)
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
