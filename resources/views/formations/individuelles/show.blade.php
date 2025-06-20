@@ -812,7 +812,7 @@
                                                 <div>
                                                     <h6 class="text-muted mb-0">Agent de suivi</h6>
                                                     <h5 class="mb-0">
-                                                        {{ $formation?->suivi_dossier ?? '— Aucun agent de suivi —' }}
+                                                        {{ $formation?->suivi_dossier ?? '— Aucun agent de suivi —' }} &nbsp;&nbsp;
                                                         {{-- {{ $formation?->suivi_dossier ? $formation?->suivi_dossier : '— Aucun agent de suivi —' }} --}}
                                                     </h5>
                                                 </div>
