@@ -840,12 +840,12 @@ class UserController extends Controller
 
     public function generateReport(Request $request)
     {
-        $this->validate($request, [
-            'cin'       => 'nullable|string',
-            'name'      => 'nullable|string',
-            'firstname' => 'nullable|string',
+        /* $this->validate($request, [
+            'cin'                   => 'nullable|string',
+            'name'                  => 'nullable|string',
+            'firstname'             => 'nullable|string',
             'telephone_responsable' => 'nullable|string',
-            'email'     => 'nullable|email',
+            'email'                 => 'nullable|email',
         ]);
 
         if ($request?->cin == null && $request->firstname == null && $request->telephone_responsable == null && $request->name == null && $request->email == null) {
@@ -869,11 +869,57 @@ class UserController extends Controller
             $title = $count . ' utilisateur trouvée';
         } else {
             $title = $count . ' utilisateurs trouvées';
+        } */
+
+        // Validation basique
+        $request->validate([
+            'cin'                   => 'nullable|string',
+            'name'                  => 'nullable|string',
+            'firstname'             => 'nullable|string',
+            'telephone_responsable' => 'nullable|string',
+            'email'                 => 'nullable|email',
+        ]);
+
+        // Vérifie si au moins un champ est rempli
+        if (! $request->filled(['cin', 'firstname', 'name', 'telephone_responsable', 'email'])) {
+            Alert::warning('Recherche impossible', 'Veuillez remplir au moins un champ avant de continuer.');
+            return redirect()->back();
+        }
+
+        // Requête dynamique
+        $query = User::query();
+
+        if ($request->filled('firstname')) {
+            $query->where('firstname', 'like', '%' . $request->firstname . '%');
+        }
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+        if ($request->filled('cin')) {
+            $query->where('cin', 'like', '%' . $request->cin . '%');
+        }
+        if ($request->filled('telephone_responsable')) {
+            $query->where('telephone', 'like', '%' . $request->telephone_responsable . '%');
+        }
+        if ($request->filled('email')) {
+            $query->where('email', 'like', '%' . $request->email . '%');
+        }
+
+        // Exécution
+        $user_liste = $query->distinct()->get();
+        $count      = $user_liste->count();
+
+        // Message titre
+        if ($count === 0) {
+            $title = 'Aucun utilisateur trouvé';
+        } elseif ($count === 1) {
+            $title = '1 utilisateur trouvé';
+        } else {
+            $title = $count . ' utilisateurs trouvés';
         }
 
         $roles        = Role::pluck('name', 'name')->all();
         $departements = Departement::orderBy("created_at", "DESC")->get();
-        /* $modules = Module::orderBy("created_at", "desc")->get(); */
 
         return view('user.index', compact(
             'user_liste',
