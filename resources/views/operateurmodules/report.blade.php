@@ -61,8 +61,9 @@
                                         class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 px-3 py-2 rounded-pill shadow-sm"
                                         data-bs-toggle="modal" data-bs-target="#generate_rapport_module_region"
                                         title="Générer rapports">
-                                        <i class="bi bi-file-earmark-bar-graph-fill fs-5"></i>
-                                        <span class="fw-semibold">Rapport</span>
+                                        {{-- <i class="bi bi-file-earmark-bar-graph-fill fs-5"></i>
+                                        <span class="fw-semibold">Rapport</span> --}}
+                                        <i class="bi bi-search"></i> <span class="fw-semibold">Rechercher plus</span>
                                     </a>
                                 @endcan
                             </div>
