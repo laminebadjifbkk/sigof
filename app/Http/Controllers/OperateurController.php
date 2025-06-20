@@ -630,6 +630,8 @@ class OperateurController extends Controller
         $operateureferences = Operateureference::get();
         $user               = $operateur->user;
 
+        dd($user);
+
         $rolesAutorises = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'Operateur'];
 
         $userRoles = Auth::user()->roles->pluck('name')->toArray();
@@ -845,8 +847,8 @@ class OperateurController extends Controller
         $motif = $request->input('motif') ?? $request->statut;
 
         $operateur->update([
-            'statut_agrement'        => $request->statut,
-            'motif'                  => $motif,
+            'statut_agrement' => $request->statut,
+            'motif'           => $motif,
             /* 'commissionagrements_id' => null, */
         ]);
 
@@ -961,9 +963,9 @@ class OperateurController extends Controller
         $user = Auth::user();
 
         // Récupérer l'opérateur lié à l'utilisateur
-        $operateur    = Operateur::where('users_id', $user->id)->orderBy("created_at", "desc")->first();
-        $operateurA   = Operateur::where('users_id', $user->id)->orderBy("created_at", "desc")->get();
-        $operateurs   = Operateur::all();
+        $operateur  = Operateur::where('users_id', $user->id)->orderBy("created_at", "desc")->first();
+        $operateurA = Operateur::where('users_id', $user->id)->orderBy("created_at", "desc")->get();
+        $operateurs = Operateur::all();
 
         $departements = Departement::orderBy("nom", "asc")->get();
 
