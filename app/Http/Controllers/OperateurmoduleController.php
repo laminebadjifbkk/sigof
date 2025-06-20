@@ -240,9 +240,23 @@ class OperateurmoduleController extends Controller
 
         /* $operateurmodules = Operateurmodule::where('module', $request?->module)->get(); */
 
-        $keywords = explode(' ', $request?->module);
+        // Convertir en minuscules
+        $module = $request?->module;
+        $modulenameLower = strtolower($module);
 
-        $query = Operateurmodule::where('statut', 'agréé');
+        /* $keywords = explode(' ', $request?->module); */
+
+        // Supprimer uniquement les parenthèses, mais garder le contenu
+        $modulenameClean = str_replace(['(', ')'], ' ', $modulenameLower);
+
+        $articles = ['le', 'la', 'les', 'un', 'une', 'de', 'du', 'des', 'en', 'et', 'à', 'au', 'aux', 'pour', 'par', 'dans', 'sur', 'avec'];
+
+        $keywords = array_filter(
+            explode(' ', $modulenameClean),
+            fn($word) => strlen($word) >= 3 && ! in_array($word, $articles)
+        );
+
+        /* $query = Operateurmodule::where('statut', 'agréé');
 
         $query->where(function ($q) use ($keywords) {
             foreach ($keywords as $word) {
@@ -250,11 +264,23 @@ class OperateurmoduleController extends Controller
             }
         });
 
-        $operateurmodules = $query->get();
+        $operateurmodules = $query->get(); */
 
-        return view('operateurmodules.index', compact(
-            'operateurmodules',
+        $operateurs = Operateur::where('statut_agrement', 'agréé')
+            ->whereHas('operateurmodules', function ($query) use ($keywords) {
+                $query->where('statut', 'agréé');
+                $query->where(function ($q) use ($keywords) {
+                    foreach ($keywords as $word) {
+                        $q->orWhere('module', 'like', '%' . $word . '%');
+                    }
+                });
+            })
+            ->get();
+
+        return view('operateurmodules.report', compact(
+            /* 'operateurmodules', */
             'operateurs',
+            'module',
             /* 'module_statuts', */
         ));
     }
