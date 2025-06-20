@@ -37,8 +37,9 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
+                            <h5 class="card-title mb-0">Liste des opérateurs</h5>
                         <div class="d-flex justify-content-between align-items-center mt-3">
-                            <h5 class="card-title mb-0">Liste des opérateurs agréé en : </h5>{{ $module }}
+                            <h5 class="card-title mb-0">{{ $module }}</h5>
                             @can('rapport-operateur-view')
                                 <a href="#"
                                     class="btn btn-outline-primary btn-sm d-flex align-items-center gap-1 px-3 py-2 rounded-pill shadow-sm"
