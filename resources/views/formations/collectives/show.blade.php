@@ -885,6 +885,7 @@
                                         </h5> --}}
                                         <h5 class="card-title d-flex justify-content-between align-items-center">
                                             <span>Agent de suivi</span>&nbsp;
+                                                {{ $formation?->suivi_dossier ?? 'Aucun agent de suivi' }}
                                             @can('ingenieur-check')
                                                 <button type="button"
                                                     class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-1 shadow-sm"

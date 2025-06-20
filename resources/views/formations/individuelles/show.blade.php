@@ -232,7 +232,7 @@
                                                 {{ $formation?->operateur?->user?->operateur . '(' . $formation?->operateur?->user?->username . ')' }}
                                                 @can('operateur-check')
                                                     <a class="btn btn-info btn-sm" title=""
-                                                        href="{{ route('operateurs.show', $formation?->operateur?->id) }}"><i
+                                                        href="{{ route('operateurs.show', $formation?->operateur) }}"><i
                                                             class="bi bi-eye"></i></a>&nbsp;
                                                     <a href="{{ url('formationoperateurs', ['$idformation' => $formation->id, '$idmodule' => $formation->module->id, '$idlocalite' => $formation->departement->region->id]) }}"
                                                         class="btn btn-primary float-end btn-sm">
@@ -798,6 +798,7 @@
                                             </h5> --}}
                                             <h5 class="card-title d-flex justify-content-between align-items-center">
                                                 <span>Agent de suivi</span>&nbsp;
+                                                {{ $formation?->suivi_dossier ?? 'Aucun agent de suivi' }}
                                                 @can('ingenieur-check')
                                                     <button type="button"
                                                         class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-1 shadow-sm"
@@ -1926,7 +1927,8 @@
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="evaluateur"
                                             class="form-select @error('evaluateur') is-invalid @enderror"
-                                            aria-label="Select" id="select-field" data-placeholder="Choisir evaluateur">
+                                            aria-label="Select" id="select-field"
+                                            data-placeholder="Choisir evaluateur">
                                             <option value="{{ $formation?->evaluateur?->id }}">
                                                 @if (!empty($formation?->evaluateur?->name))
                                                     {{ $formation?->evaluateur?->name . ', ' . $formation?->evaluateur?->fonction }}
