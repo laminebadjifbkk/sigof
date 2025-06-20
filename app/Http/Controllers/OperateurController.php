@@ -630,14 +630,12 @@ class OperateurController extends Controller
         $operateureferences = Operateureference::get();
         $user               = $operateur->user;
 
-        dd($user);
-
-        $rolesAutorises = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'Operateur'];
-
         $userRoles = Auth::user()->roles->pluck('name')->toArray();
 
-        if (! array_intersect($rolesAutorises, $userRoles)) {
-            $this->authorize('view', $operateur);
+        $excludedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'Operateur'];
+
+        if (! array_intersect($rolesAutorises, $excludedRoles)) {
+            $this->authorize('show', $operateur);
         }
 
         return view("operateurs.show", compact("operateur", "operateureferences", "operateurs"));
