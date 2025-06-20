@@ -16,7 +16,8 @@ class ListecollectiveController extends Controller
     {
         // examples:
         $this->middleware('auth');
-        $this->middleware(['role:super-admin|admin|Demandeur|DIOF']);
+        $this->middleware(['role:super-admin|admin|Demandeur|DIOF|Ingenieur|ADIOF'])
+            ->except(['index', 'store', 'generateReport']);
     }
 
     public function index()
