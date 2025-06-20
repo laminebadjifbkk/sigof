@@ -185,22 +185,6 @@
                 </a>
                 <ul id="demande--ind-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-                    @can('demande-show')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ route('demandeurs.individuel') }}">
-                                <span>Demandeurs individuels</span>
-                            </a>
-                        </li>
-                    @endcan
-
-                    @can('demande-show')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ route('collectives.index') }}">
-                                <span>Demandeurs collectifs</span>
-                            </a>
-                        </li>
-                    @endcan
-
                     @can('individuelle-view')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ url('individuelles') }}">
@@ -209,10 +193,26 @@
                         </li>
                     @endcan
 
+                    @can('demande-show')
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('collectives.index') }}">
+                                <span>Demandes collectives</span>
+                            </a>
+                        </li>
+                    @endcan
+                    <hr>
+                    @can('demande-show')
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('demandeurs.individuel') }}">
+                                <span>Demandeurs individuels</span>
+                            </a>
+                        </li>
+                    @endcan
+
                     @can('collective-view')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ url('listecollectives') }}">
-                                <span>Demandes collectives</span>
+                                <span>Demandeurs collectives</span>
                             </a>
                         </li>
                     @endcan
