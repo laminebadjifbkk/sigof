@@ -903,23 +903,26 @@
                                             @endcan
                                         </div> --}}
 
-                                        <h5 class="card-title">
-                                            {{ $formation?->suivi_dossier }}
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <div>
+                                                <h6 class="text-muted mb-0">Agent de suivi</h6>
+                                                <h5 class="mb-0">
+                                                    {{ $formation?->suivi_dossier ?? '— Aucun agent de suivi —' }}
+                                                </h5>
+                                            </div>
+
                                             @can('ingenieur-check')
-                                                <div class="d-flex justify-content-between align-items-center gap-2 pb-2">
-                                                    @can('ingenieur-check')
-                                                        <button type="button"
-                                                            class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-2 shadow-sm"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#EditAgentSuiviModal{{ $formation->id }}"
-                                                            title="Ajouter ou modifier l'agent de suivi">
-                                                            <i class="bi bi-person-plus fs-5"></i>
-                                                            <span class="d-none d-sm-inline">&nbsp;Ajouter</span>
-                                                        </button>
-                                                    @endcan
-                                                </div>
+                                                <button type="button"
+                                                    class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-2 shadow-sm"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#EditAgentSuiviModal{{ $formation->id }}"
+                                                    title="Ajouter ou modifier l'agent de suivi">
+                                                    <i class="bi bi-person-plus fs-5"></i>
+                                                    <span class="d-none d-sm-inline">Ajouter</span>
+                                                </button>
                                             @endcan
-                                        </h5>
+                                        </div>
+
 
                                     </div>
                                     {{-- <div class="col-12 col-md-12 col-lg-12 mb-0">
