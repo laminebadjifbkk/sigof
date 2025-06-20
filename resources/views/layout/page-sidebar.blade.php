@@ -200,7 +200,7 @@
                             </a>
                         </li>
                     @endcan
-                    <hr>
+                    
                     @can('demande-show')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('demandeurs.individuel') }}">
