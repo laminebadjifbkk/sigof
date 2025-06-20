@@ -196,7 +196,7 @@
                                     @endforeach
                                 </div>
                             </div> --}}
-                                <h5 class="card-title">Opérateurs par CAL</h5>
+                            <h5 class="card-title">Opérateurs par CAL</h5>
                             <table class="table table-bordered table-striped align-middle">
                                 <thead class="table-primary">
                                     <tr class="text-center">
@@ -228,7 +228,8 @@
                                 <h5 class="card-title">{{ $title }}</h5>
                                 <span class="d-flex align-items-baseline">
                                     <a href="{{ route('operateurs.create') }}"
-                                        class="btn btn-primary btn-sm btn-rounded"><i class="bi bi-person-plus"></i> Ajouter</a>
+                                        class="btn btn-primary btn-sm btn-rounded"><i class="bi bi-person-plus"></i>
+                                        Ajouter</a>
                                     <div class="filter">
                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                 class="bi bi-three-dots"></i></a>
@@ -311,7 +312,10 @@
                                                     </td>
                                                 @endcan
                                                 @can('afficher-operateur-telephone')
-                                                    <td><a href="tel:+221{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe . ' ' . $operateur?->user?->telephone }}
+                                                    <td>
+                                                        <a href="tel:+221{{ $operateur?->user?->fixe }}">
+                                                            {{ $operateur?->user?->fixe }}<br>
+                                                            {{ $operateur?->user?->telephone }}
                                                         </a>
                                                     </td>
                                                 @endcan
