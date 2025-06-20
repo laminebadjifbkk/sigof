@@ -180,6 +180,7 @@ class Operateur extends Model
             }
         });
     }
+    
     public function getQuitus()
     {
         $quitusPath = $this->quitus;

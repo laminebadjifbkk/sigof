@@ -78,7 +78,7 @@
                                                 </span>
                                                 @can('devenir-operateur-agrement-ouvert')
                                                     @can('agrement-ouvert')
-                                                        <a href="{{ route('operateurs.show', $operateur->id) }}" target="_blank">
+                                                        <a href="{{ route('operateurs.show', $operateur) }}" target="_blank">
                                                             <i class="bi bi-plus" title="Voir"></i> </a>
                                                     @endcan
                                                 @endcan
@@ -147,7 +147,7 @@
                                                 </span>
                                             </td>
                                             <td style="text-align: center;">
-                                                <a class="btn btn-outline-secondary btn-sm" title="télécharger le quitus"
+                                                <a class="btn btn-outline-secondary btn-sm" title="Télécharger le quitus"
                                                     target="_blank" href="{{ asset($operateur?->getQuitus()) }}">
                                                     <i class="bi bi-file-image"></i>
                                                 </a>
@@ -182,7 +182,7 @@
                                                                             @can('delete', $operateur)
                                                                                 <li>
                                                                                     <form
-                                                                                        action="{{ route('operateurs.destroy', $operateur->id) }}"
+                                                                                        action="{{ route('operateurs.destroy', $operateur) }}"
                                                                                         method="post">
                                                                                         @csrf
                                                                                         @method('DELETE')

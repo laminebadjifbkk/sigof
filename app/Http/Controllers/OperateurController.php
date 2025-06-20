@@ -630,7 +630,7 @@ class OperateurController extends Controller
         $operateureferences = Operateureference::get();
         $user               = $operateur->user;
 
-        $rolesAutorises = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
+        $rolesAutorises = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'Operateur'];
 
         $userRoles = Auth::user()->roles->pluck('name')->toArray();
 
@@ -964,6 +964,7 @@ class OperateurController extends Controller
         $operateur    = Operateur::where('users_id', $user->id)->orderBy("created_at", "desc")->first();
         $operateurA   = Operateur::where('users_id', $user->id)->orderBy("created_at", "desc")->get();
         $operateurs   = Operateur::all();
+
         $departements = Departement::orderBy("nom", "asc")->get();
 
         $operateur_total = $operateurs->count();

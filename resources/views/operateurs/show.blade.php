@@ -78,9 +78,8 @@
                                         <button class="nav-link" data-bs-toggle="tab"
                                             data-bs-target="#localites-overview">Localités</button>
                                     </li> --}}
-                                    @foreach ($operateur?->formations as $item)
-                                    @endforeach
-                                    @if (!empty($item))
+                                    
+                                    @if ($operateur?->formations->isNotEmpty())
                                         <li class="nav-item">
                                             <button class="nav-link" data-bs-toggle="tab"
                                                 data-bs-target="#formation-overview">Formations</button>
