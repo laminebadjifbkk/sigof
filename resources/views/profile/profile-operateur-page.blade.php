@@ -1360,7 +1360,7 @@
                                                                     {{ $operateur?->statut_agrement }}</span></td>
                                                             <td>
                                                                 <span class="d-flex align-items-baseline"><a
-                                                                        href="{{ route('operateurs.show', $operateur->id) }}"
+                                                                        href="{{ route('operateurs.show', $operateur) }}"
                                                                         class="btn btn-primary btn-sm" target="_blank"
                                                                         title="voir détails"><i class="bi bi-eye"></i></a>
                                                                 </span>
