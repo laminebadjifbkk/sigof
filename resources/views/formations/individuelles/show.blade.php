@@ -763,12 +763,6 @@
                                             <h5 class="card-title">
                                                 {{ $ingenieur?->name }}
                                                 @can('ingenieur-check')
-                                                    {{-- <a class="btn btn-info btn-sm" title=""
-                                                        href="{{ route('ingenieurs.show', $ingenieur?->id) }}"><i
-                                                            class="bi bi-eye"></i></a>&nbsp;
-                                                    <a href="{{ url('formationingenieurs', ['$idformation' => $formation->id]) }}"
-                                                        class="btn btn-primary float-end btn-sm">
-                                                        <i class="bi bi-pencil" title="Changer ingenieur"></i> </a> --}}
                                                     <div class="d-flex justify-content-between align-items-center gap-2 pb-2">
                                                         <a href="{{ route('ingenieurs.show', $ingenieur?->id) }}"
                                                             class="btn btn-outline-info btn-sm rounded-pill d-flex align-items-center gap-1 shadow-sm"
@@ -796,14 +790,13 @@
                                                     </button>
                                                 @endcan
                                             </h5> --}}
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                            {{-- <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div>
                                                     <h6 class="text-muted mb-0">Agent de suivi :</h6>
                                                     <h5 class="mb-0">
                                                         {{ $formation?->suivi_dossier ?? '— Aucun agent de suivi —' }}
                                                     </h5>
                                                 </div>
-
                                                 @can('ingenieur-check')
                                                     <button type="button"
                                                         class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-2 shadow-sm"
@@ -811,10 +804,28 @@
                                                         data-bs-target="#EditAgentSuiviModal{{ $formation->id }}"
                                                         title="Ajouter ou modifier l'agent de suivi">
                                                         <i class="bi bi-person-plus fs-5"></i>
-                                                        <span class="d-none d-sm-inline">Ajouter</span>
+                                                        <span class="d-none d-sm-inline">&nbsp;Ajouter</span>
                                                     </button>
                                                 @endcan
-                                            </div>
+                                            </div> --}}
+
+                                            <h5 class="card-title">
+                                                {{ $formation?->suivi_dossier }}
+                                                @can('ingenieur-check')
+                                                    <div class="d-flex justify-content-between align-items-center gap-2 pb-2">
+                                                        @can('ingenieur-check')
+                                                            <button type="button"
+                                                                class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-2 shadow-sm"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#EditAgentSuiviModal{{ $formation->id }}"
+                                                                title="Ajouter ou modifier l'agent de suivi">
+                                                                <i class="bi bi-person-plus fs-5"></i>
+                                                                <span class="d-none d-sm-inline">&nbsp;Ajouter</span>
+                                                            </button>
+                                                        @endcan
+                                                    </div>
+                                                @endcan
+                                            </h5>
 
                                         </div>
                                     @else
