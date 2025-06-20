@@ -638,6 +638,8 @@ class OperateurController extends Controller
             $this->authorize('show', $operateur);
         }
 
+        dd($excludedRoles);
+        
         return view("operateurs.show", compact("operateur", "operateureferences", "operateurs"));
     }
 
