@@ -902,7 +902,7 @@ class UserController extends Controller
         // Requête dynamique
         $query = User::query();
 
-        if ($request->filled('firstname')) {
+        /* if ($request->filled('firstname')) {
             $query->where('firstname', 'like', '%' . $request->firstname . '%');
         }
         if ($request->filled('username')) {
@@ -919,6 +919,25 @@ class UserController extends Controller
         }
         if ($request->filled('email')) {
             $query->where('email', 'like', '%' . $request->email . '%');
+        } */
+
+        if ($request->filled('firstname')) {
+            $query->where('firstname', 'like', "%$request->firstname%");
+        }
+        if ($request->filled('username')) {
+            $query->where('username', 'like', "%$request->username%");
+        }
+        if ($request->filled('name')) {
+            $query->where('name', 'like', "%$request->name%");
+        }
+        if ($request->filled('cin')) {
+            $query->where('cin', 'like', "%$request->cin%");
+        }
+        if ($request->filled('telephone_responsable')) {
+            $query->where('telephone', 'like', "%$request->telephone_responsable%");
+        }
+        if ($request->filled('email')) {
+            $query->where('email', 'like', "%$request->email%");
         }
 
         // Exécution
