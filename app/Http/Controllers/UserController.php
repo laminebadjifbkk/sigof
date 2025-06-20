@@ -881,7 +881,18 @@ class UserController extends Controller
         ]);
 
         // Vérifie si au moins un champ est rempli
-        if (! $request->filled(['cin', 'firstname', 'name', 'telephone_responsable', 'email'])) {
+        /* if (! $request->filled(['cin', 'firstname', 'name', 'telephone_responsable', 'email'])) {
+            Alert::warning('Recherche impossible', 'Veuillez remplir au moins un champ avant de continuer.');
+            return redirect()->back();
+        } */
+       
+        if (
+            ! $request->filled('cin') &&
+            ! $request->filled('firstname') &&
+            ! $request->filled('name') &&
+            ! $request->filled('telephone_responsable') &&
+            ! $request->filled('email')
+        ) {
             Alert::warning('Recherche impossible', 'Veuillez remplir au moins un champ avant de continuer.');
             return redirect()->back();
         }
