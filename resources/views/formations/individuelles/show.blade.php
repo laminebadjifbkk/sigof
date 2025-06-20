@@ -812,7 +812,7 @@
                                                 <div>
                                                     <h6 class="text-muted mb-0">Agent de suivi</h6>
                                                     <h5 class="mb-0">
-                                                        {{ $formation?->suivi_dossier ?? '— Aucun agent de suivi —' }}
+                                                        {{ $formation?->suivi_dossier }}
                                                     </h5>
                                                 </div>
 
@@ -821,9 +821,11 @@
                                                         class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-2 shadow-sm"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#EditAgentSuiviModal{{ $formation->id }}"
-                                                        title="Ajouter ou modifier l'agent de suivi">
+                                                        title="{{ $formation?->suivi_dossier ? 'Modifier' : 'Ajouter' }} l’agent de suivi">
                                                         <i class="bi bi-person-plus fs-5"></i>
-                                                        <span class="d-none d-sm-inline">Ajouter</span>
+                                                        <span class="d-none d-sm-inline">
+                                                            {{ $formation?->suivi_dossier ? 'Modifier' : 'Ajouter' }}
+                                                        </span>
                                                     </button>
                                                 @endcan
                                             </div>
