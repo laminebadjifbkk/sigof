@@ -59,9 +59,9 @@
                                     <th>Telephone</th>
                                     {{-- <th>Région</th>
                                     <th>Adresse</th>
-                                    <th>Responsable</th>
                                     <th class="text-center">Modules</th>
                                     <th class="text-center">Formations</th> --}}
+                                    <th>Responsable</th>
                                     <th width="15%" class="text-center">Statut</th>
                                     <th width="2%"><i class="bi bi-gear"></i></th>
                                 </tr>
@@ -84,8 +84,6 @@
                                         </td>
                                         {{-- <td>{{ $operateur?->region?->nom }}</td>
                                         <td>{{ $operateur?->user?->adresse }}</td>
-                                        <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
-                                        </td>
                                         <td style="text-align: center;">
                                             @foreach ($operateur->operateurmodules as $operateurmodule)
                                                 @if ($loop->last)
@@ -102,6 +100,8 @@
                                                 @endif
                                             @endforeach
                                         </td> --}}
+                                        <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
+                                        </td>
                                         <td style="text-align: center;"><span class="{{ $operateur?->statut_agrement }}">
                                                 {{ $operateur?->statut_agrement }}</span></td>
                                         <td>
