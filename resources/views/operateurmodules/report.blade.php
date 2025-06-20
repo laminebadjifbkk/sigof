@@ -62,7 +62,7 @@
                                     <th class="text-center">Modules</th>
                                     <th class="text-center">Formations</th> --}}
                                     <th>Responsable</th>
-                                    <th width="15%" class="text-center">Statut</th>
+                                    <th class="text-center">Statut</th>
                                     <th width="2%"><i class="bi bi-gear"></i></th>
                                 </tr>
                             </thead>
