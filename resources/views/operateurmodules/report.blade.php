@@ -76,7 +76,10 @@
                                         <td><a
                                                 href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
                                         </td>
-                                        <td><a href="tel:+221{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe . ' ' . $operateur?->user?->telephone }}
+                                        <td>
+                                            <a href="tel:+221{{ $operateur?->user?->fixe }}">
+                                                {{ $operateur?->user?->fixe }}<br>
+                                                {{ $operateur?->user?->telephone }}
                                             </a>
                                         </td>
                                         {{-- <td>{{ $operateur?->region?->nom }}</td>
