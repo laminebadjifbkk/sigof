@@ -68,7 +68,49 @@
                                         </thead>
                                         <tbody>
                                             <?php $i = 1; ?>
-                                            
+                                            @foreach ($collectivemodules as $collectivemodule)
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="collectivemodule"
+                                                            value="{{ $collectivemodule?->id }}"
+                                                            {{ in_array($collectivemodule?->id, $collectivemoduleFormation) ? 'checked' : '' }}
+                                                            class="form-check-input @error('collectivemodule') is-invalid @enderror">
+                                                        @error('collectivemodule')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <div>{{ $message }}</div>
+                                                            </span>
+                                                        @enderror
+                                                        {{ $collectivemodule?->collective?->name . ' (' . $collectivemodule?->collective?->sigle . ')' }}
+                                                    </td>
+                                                    <td>{{ $collectivemodule?->module }}</td>
+                                                    <td class="text-center">
+                                                        {{-- @foreach ($collectivemodule?->listecollectives as $listecollective)
+                                                            @if ($loop->last)
+                                                                <a
+                                                                    href="{{ route('collectivemodules.show', $collectivemodule) }}"><span
+                                                                        class="badge bg-info">{{ $loop?->count }}</span></a>
+                                                            @endif
+                                                        @endforeach --}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{-- <span class="badge bg-primary">
+                                                            {{ count($collectivemodule?->formations) }}
+                                                        </span> --}}
+                                                    </td>
+                                                    <td>
+                                                        {{-- <span class="{{ $collectivemodule?->statut }}">
+                                                            {{ $collectivemodule?->statut }}
+                                                        </span> --}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span class="d-flex mt-2 align-items-baseline"><a
+                                                                href="{{ route('collectives.show', $collectivemodule?->collective) }}"
+                                                                class="btn btn-success btn-sm mx-1" title="Voir détails">
+                                                                <i class="bi bi-eye"></i></a>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
