@@ -82,7 +82,10 @@
                                                         @enderror
                                                         {{ $collectivemodule?->collective?->name . ' (' . $collectivemodule?->collective?->sigle . ')' }} --}}
                                                     </td>
-                                                    <td>{{ $collectivemodule?->module }}</td>
+                                                    <td>
+                                                        {{-- {{ $collectivemodule?->module }} --}}
+
+                                                    </td>
                                                     <td class="text-center">
                                                         {{-- @foreach ($collectivemodule?->listecollectives as $listecollective)
                                                             @if ($loop->last)
