@@ -1530,7 +1530,6 @@ class FormationController extends Controller
 
     public function addcollectivemoduleformations($idformation, $idlocalite)
     {
-
         $formation = Formation::findOrFail($idformation);
         $localite  = Region::findOrFail($idlocalite);
 
@@ -1539,13 +1538,13 @@ class FormationController extends Controller
         /* $collectivemodules = Collectivemodule::get(); */
         $collectivemodules = Collectivemodule::select('id', 'uuid', 'collectives_id', 'module', 'statut')->get();
 
-        
-        dd($idformation, $idlocalite);
-        
         $collectivemoduleFormation = DB::table('formations')
             ->where('collectivemodules_id', $formation->collectivemodules_id)
             ->pluck('collectivemodules_id', 'collectivemodules_id')
             ->all();
+
+            
+        dd($idformation, $idlocalite);
 
         $domaines = Domaine::orderBy("created_at", "desc")->get();
 
