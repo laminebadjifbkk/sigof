@@ -82,20 +82,6 @@ class ValidationoperateurController extends Controller
 
         $statut = $request->statut;
 
-        dd($statut);
-        
-        // Validation condition for 'agréé' status
-        if ($statut === 'agréé') {
-            $request->validate([
-                'motif' => 'nullable|string',
-            ]);
-        } else {
-            // Validation for other statuses
-            $request->validate([
-                'motif' => 'required|string',
-            ]);
-        }
-
         $request->validate([
             'motif' => $request->statut !== 'agréé' ? 'required|string' : 'nullable|string',
         ]);

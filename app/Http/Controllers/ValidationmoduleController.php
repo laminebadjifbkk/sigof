@@ -41,17 +41,23 @@ class ValidationmoduleController extends Controller
     public function destroy(Request $request, $id)
     {
 
-        $statut = $request->statut;
+        /* $statut = $request->statut;
 
         $this->validate($request, [
             "motif" => "required|string",
+        ]); */
+
+        $statut = $request->statut;
+
+        $request->validate([
+            'motif' => $request->statut !== 'agréé' ? 'required|string' : 'nullable|string',
         ]);
 
         $operateurmodule = Operateurmodule::findOrFail($id);
-
+        $motif           = $request->input('motif') ?? $request->statut;
         $operateurmodule->update([
             'statut'   => $request->statut,
-            'motif'    => $request->input('motif'),
+            'motif'    => $motif,
             'users_id' => Auth::user()->id,
         ]);
 
@@ -59,7 +65,7 @@ class ValidationmoduleController extends Controller
 
         $moduleoperateurstatut = new Moduleoperateurstatut([
             'statut'              => $request->statut,
-            'motif'               => $request->input('motif'),
+            'motif'               => $motif,
             'validated_id'        => Auth::user()->id,
             'operateurmodules_id' => $operateurmodule->id,
 
