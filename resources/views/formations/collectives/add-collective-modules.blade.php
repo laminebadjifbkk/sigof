@@ -106,11 +106,11 @@
                                                         </span> --}}
                                                     </td>
                                                     <td class="text-center">
-                                                        <span class="d-flex mt-2 align-items-baseline"><a
+                                                        {{-- <span class="d-flex mt-2 align-items-baseline"><a
                                                                 href="{{ route('collectives.show', $collectivemodule?->collective) }}"
                                                                 class="btn btn-success btn-sm mx-1" title="Voir détails">
                                                                 <i class="bi bi-eye"></i></a>
-                                                        </span>
+                                                        </span> --}}
                                                     </td>
                                                 </tr>
                                             @endforeach
