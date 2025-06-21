@@ -56,7 +56,7 @@
                                     <tr>
                                         {{-- <th class="text-center" scope="col">N°</th>
                                     <th>Matricule</th> --}}
-                                        <th width="25%">Name</th>
+                                        <th width="35%">Name</th>
                                         <th width="2%">Initiale</th>
                                         <th>Fonction</th>
                                         {{-- <th>Spécialité</th> --}}
