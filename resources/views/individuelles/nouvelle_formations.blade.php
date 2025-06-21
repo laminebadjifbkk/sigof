@@ -176,7 +176,8 @@
                                                     @endphp
 
                                                     @if (!empty($operateurUser?->operateur))
-                                                        {{ $operateurUser->operateur }} ({{ $operateurUser->username }})
+                                                        {{ $operateurUser->operateur }}
+                                                        (<strong>{{ $operateurUser->username }}</strong>)
                                                     @else
                                                         <span class="Non">Non définie</span>
                                                     @endif
