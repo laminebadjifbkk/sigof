@@ -1531,6 +1531,8 @@ class FormationController extends Controller
     public function addcollectivemoduleformations($idformation, $idlocalite)
     {
 
+        dd($idformation, $idlocalite);
+        
         $formation = Formation::findOrFail($idformation);
         $localite  = Region::findOrFail($idlocalite);
 
