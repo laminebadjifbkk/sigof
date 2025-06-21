@@ -92,13 +92,8 @@
                                                     </td> --}}
                                                     <td>{{ $collectivemodule?->module }}</td>
                                                     <td class="text-center">
-                                                        @foreach ($collectivemodule?->listecollectives as $listecollective)
-                                                            @if ($loop->last)
-                                                                <a
-                                                                    href="{{ route('collectivemodules.show', $collectivemodule) }}"><span
-                                                                        class="badge bg-info">{{ $loop?->count }}</span></a>
-                                                            @endif
-                                                        @endforeach
+                                                        @php $count = $collectivemodule?->listecollectives?->count() ?? 0; @endphp
+                                                        <span class="badge bg-info">{{ $count }}</span>
                                                     </td>
                                                     <td class="text-center">
                                                         <span class="badge bg-primary">
@@ -111,11 +106,11 @@
                                                         </span>
                                                     </td>
                                                     <td class="text-center">
-                                                        {{-- <span class="d-flex mt-2 align-items-baseline"><a
-                                                                href="{{ route('collectives.show', $collectivemodule->collective) }}"
+                                                        <span class="d-flex mt-2 align-items-baseline"><a
+                                                                href="{{ route('collectivemodules.show', $collectivemodule) }}"
                                                                 class="btn btn-success btn-sm mx-1" title="Voir détails">
                                                                 <i class="bi bi-eye"></i></a>
-                                                        </span> --}}
+                                                        </span>
                                                     </td>
                                                 </tr>
                                             @endforeach
