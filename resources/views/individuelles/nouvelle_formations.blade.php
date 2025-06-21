@@ -157,14 +157,14 @@
                                                         $duree = $individuelle?->formation?->duree_formation;
                                                     @endphp
 
-                                                    {{ $duree ? $duree . ' heures' : 'Non définie' }}
+                                                    {{ $duree ? $duree . ' heures' : '<span class="Non">Non définie</span>' }}
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-4 label">Lieu formation</div>
                                                 <div class="col-lg-9 col-md-8">
-                                                    {{ $individuelle?->formation?->lieu ?? 'Aucun' }}
+                                                    {{ $individuelle?->formation?->lieu ?? '<span class="Non">Non définie</span>' }}
                                                 </div>
                                             </div>
 
@@ -178,7 +178,7 @@
                                                     @if (!empty($operateurUser?->operateur))
                                                         {{ $operateurUser->operateur }} ({{ $operateurUser->username }})
                                                     @else
-                                                        Aucun
+                                                        <span class="Non">Non définie</span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -222,7 +222,7 @@
                                                             @endif
                                                         @endif
                                                     @else
-                                                        Aucun
+                                                        <span class="Non">Non définie</span>
                                                     @endif
                                                 </div>
                                             </div>
