@@ -71,7 +71,7 @@
                                             @foreach ($collectivemodules as $collectivemodule)
                                                 <tr>
                                                     <td>
-                                                        <input type="radio" name="collectivemodule"
+                                                        {{-- <input type="radio" name="collectivemodule"
                                                             value="{{ $collectivemodule?->id }}"
                                                             {{ in_array($collectivemodule?->id, $collectivemoduleFormation) ? 'checked' : '' }}
                                                             class="form-check-input @error('collectivemodule') is-invalid @enderror">
@@ -80,7 +80,7 @@
                                                                 <div>{{ $message }}</div>
                                                             </span>
                                                         @enderror
-                                                        {{ $collectivemodule?->collective?->name . ' (' . $collectivemodule?->collective?->sigle . ')' }}
+                                                        {{ $collectivemodule?->collective?->name . ' (' . $collectivemodule?->collective?->sigle . ')' }} --}}
                                                     </td>
                                                     <td>{{ $collectivemodule?->module }}</td>
                                                     <td class="text-center">
