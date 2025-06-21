@@ -1,6 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'Demande individuelle de ' . Auth::user()->civilite . ' ' . Auth::user()->firstname . ' ' .
-    Auth::user()->name)
+@section('title', 'Mes formations ' . Auth::user()->civilite . ' ' . Auth::user()->firstname . ' ' . Auth::user()->name)
 @section('space-work')
     <section class="section profile">
         <div class="row justify-content-center">
