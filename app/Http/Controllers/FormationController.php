@@ -988,7 +988,7 @@ class FormationController extends Controller
                 ->where('regions.nom', $region->nom)
                 ->where('individuelles.statut', 'Attente')
                 ->get(); */
-            $statutsVoulus = ['attente', 'conforme', 'retirée','retiré', 'liste attente', 'Sélectionné'];
+            $statutsVoulus = ['attente', 'conforme', 'retirée', 'retiré', 'liste attente', 'Sélectionné'];
 
             $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
                 ->join('regions', 'regions.id', 'individuelles.regions_id')
@@ -1017,7 +1017,7 @@ class FormationController extends Controller
                 ->where('individuelles.statut', 'Attente')
                 ->get(); */
 
-            $statutsVoulus = ['attente', 'conforme', 'retirée','retiré', 'liste attente', 'Sélectionné'];
+            $statutsVoulus = ['attente', 'conforme', 'retirée', 'retiré', 'liste attente', 'Sélectionné'];
 
             $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
                 ->join('regions', 'regions.id', 'individuelles.regions_id')
@@ -1543,10 +1543,9 @@ class FormationController extends Controller
             ->pluck('collectivemodules_id', 'collectivemodules_id')
             ->all();
 
-            
-        dd($idformation, $idlocalite);
-
         $domaines = Domaine::orderBy("created_at", "desc")->get();
+        
+        dd($idformation, $idlocalite);
 
         return view("formations.collectives.add-collective-modules", compact('formation', 'collectivemodules', 'localite', 'collectivemoduleFormation', 'domaines'));
     }
