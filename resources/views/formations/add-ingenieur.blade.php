@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'Attribuer cette formation à un ingénieur')
+@section('title', 'Formation - Choisir ingénieur')
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
