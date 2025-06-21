@@ -157,7 +157,7 @@
                                                         $duree = $individuelle?->formation?->duree_formation;
                                                     @endphp
 
-                                                    {{ $duree ? $duree . ' heures' : '<span class="Non">Non définie</span>' }}
+                                                    {!! $duree ? $duree . ' heures' : '<span class="Non">Non définie</span>' !!}
                                                 </div>
                                             </div>
 
