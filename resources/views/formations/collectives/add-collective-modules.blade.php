@@ -71,7 +71,7 @@
                                             @foreach ($collectivemodules as $collectivemodule)
                                                 <tr>
                                                     <td>
-                                                        {{-- <input type="radio" name="collectivemodule"
+                                                        <input type="radio" name="collectivemodule"
                                                             value="{{ $collectivemodule?->id }}"
                                                             {{ in_array($collectivemodule?->id, $collectivemoduleFormation) ? 'checked' : '' }}
                                                             class="form-check-input @error('collectivemodule') is-invalid @enderror">
@@ -80,34 +80,39 @@
                                                                 <div>{{ $message }}</div>
                                                             </span>
                                                         @enderror
-                                                        {{ $collectivemodule?->collective?->name . ' (' . $collectivemodule?->collective?->sigle . ')' }} --}}
+                                                        {{ $collectivemodule?->collective?->name . ' (' . $collectivemodule?->collective?->sigle . ')' }}
                                                     </td>
-                                                    <td>
-                                                        {{-- {{ $collectivemodule?->module }} --}}
-
+                                                    {{--  <td><a
+                                                            href="mailto:{{ $collectivemodule?->collective?->user?->email }}">{{ $collectivemodule?->collective?->user?->email }}</a>
                                                     </td>
+                                                    <td><a
+                                                            href="tel:+221{{ $collectivemodule?->collective?->telephone }}">{{ $collectivemodule?->collective?->telephone }}</a>
+                                                    </td>
+                                                    <td>{{ $collectivemodule?->collective?->departement?->region?->nom }}
+                                                    </td> --}}
+                                                    <td>{{ $collectivemodule?->module }}</td>
                                                     <td class="text-center">
-                                                        {{-- @foreach ($collectivemodule?->listecollectives as $listecollective)
+                                                        @foreach ($collectivemodule?->listecollectives as $listecollective)
                                                             @if ($loop->last)
                                                                 <a
                                                                     href="{{ route('collectivemodules.show', $collectivemodule) }}"><span
                                                                         class="badge bg-info">{{ $loop?->count }}</span></a>
                                                             @endif
-                                                        @endforeach --}}
+                                                        @endforeach
                                                     </td>
                                                     <td class="text-center">
-                                                        {{-- <span class="badge bg-primary">
+                                                        <span class="badge bg-primary">
                                                             {{ count($collectivemodule?->formations) }}
-                                                        </span> --}}
+                                                        </span>
                                                     </td>
                                                     <td>
-                                                        {{-- <span class="{{ $collectivemodule?->statut }}">
+                                                        <span class="{{ $collectivemodule?->statut }}">
                                                             {{ $collectivemodule?->statut }}
-                                                        </span> --}}
+                                                        </span>
                                                     </td>
                                                     <td class="text-center">
                                                         {{-- <span class="d-flex mt-2 align-items-baseline"><a
-                                                                href="{{ route('collectives.show', $collectivemodule?->collective) }}"
+                                                                href="{{ route('collectives.show', $collectivemodule->collective) }}"
                                                                 class="btn btn-success btn-sm mx-1" title="Voir détails">
                                                                 <i class="bi bi-eye"></i></a>
                                                         </span> --}}
