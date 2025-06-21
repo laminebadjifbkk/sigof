@@ -81,10 +81,10 @@
                                                     <td>{{ $ingenieur->fonction }}</td>
                                                     {{-- <td>{{ $ingenieur->specialite }}</td> --}}
                                                     <td><a
-                                                            href="mailto:{{ $ingenieur->email }}">{{ $ingenieur->email }}</a>
+                                                            href="mailto:{{ $ingenieur?->user?->email }}">{{ $ingenieur?->user?->email }}</a>
                                                     </td>
                                                     <td><a
-                                                            href="tel:+221{{ $ingenieur->telephone }}">{{ $ingenieur->telephone }}</a>
+                                                            href="tel:+221{{ $ingenieur?->user?->telephone }}">{{ $ingenieur?->user?->telephone }}</a>
                                                     </td>
                                                     <td style="text-align: center;">
                                                         @foreach ($ingenieur->formations as $formation)
