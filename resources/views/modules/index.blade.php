@@ -70,8 +70,8 @@
                             <table class="table datatables align-middle justify-content-center" id="table-modules">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Modules</th>
+                                        {{-- <th>ID</th> --}}
+                                        <th width="30%">Modules</th>
                                         <th>Domaines</th>
                                         <th>Secteurs</th>
                                         <th>Niveau qualification</th>
@@ -84,7 +84,7 @@
                                     <?php $i = 1; ?>
                                     @foreach ($modules as $module)
                                         <tr>
-                                            <td>{{ $module?->id }}</td>
+                                            {{-- <td>{{ $module?->id }}</td> --}}
                                             <td>{{ $module?->name }}</td>
                                             <td>{{ $module?->domaine?->name }}</td>
                                             <td>{{ $module?->domaine?->secteur?->name }}</td>
