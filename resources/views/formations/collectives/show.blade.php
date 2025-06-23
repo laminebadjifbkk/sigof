@@ -285,12 +285,11 @@
                                         @endcan
                                     @else
                                     @endif
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    {{-- <div class="col-12 col-md-12 col-lg-12 mb-0">
                                         <h1 class="card-title">
                                             {{ __('Opérateur') }}
                                         </h1>
                                         @if (!empty($operateur))
-                                            {{-- @isset($operateur) --}}
                                             <div class="row g-3">
                                                 <table class="table table-bordered table-hover datatables"
                                                     id="table-formations">
@@ -300,8 +299,6 @@
                                                             <th>Type</th>
                                                             <th>Intitulé formation</th>
                                                             <th>Localité</th>
-                                                            {{-- <th>Modules</th> --}}
-                                                            {{-- <th>Niveau qualification</th> --}}
                                                             <th>Effectif</th>
                                                             <th>Statut</th>
                                                             <th class="text-center">#</th>
@@ -317,8 +314,6 @@
                                                                 </td>
                                                                 <td>{{ $forma?->name }}</td>
                                                                 <td>{{ $forma->departement?->region?->nom }}</td>
-                                                                {{-- <td>{{ $forma->module?->name }}</td> --}}
-                                                                {{-- <td>{{ $forma->niveau_qualification }}</td> --}}
                                                                 <td class="text-center">
                                                                     @isset($forma->individuelles)
                                                                         @foreach ($forma->individuelles as $individuelle)
@@ -382,7 +377,7 @@
                                             <div class="alert alert-info">Aucun opérateur pour l'instant
                                             </div>
                                         @endif
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="tab-content pt-0">
