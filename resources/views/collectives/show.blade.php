@@ -263,9 +263,9 @@
                                                 <div class="d-flex justify-content-between align-items-center mt-3">
                                                     <span class="card-title d-flex align-items-baseline">N° :&nbsp;
                                                         <span class="badge bg-info text-white">
-                                                            {{ $collective?->numero }}</span>
+                                                            {{ $collective?->numero .' '. $collective?->statut_demande }}</span>
                                                     </span>
-                                                    <span class="card-title d-flex align-items-baseline">Statu:&nbsp;
+                                                    <span class="card-title d-flex align-items-baseline">Statut :&nbsp;
                                                         <span class="{{ $collective?->statut_demande }} text-white">
                                                             {{ $collective?->statut_demande }}</span>
                                                         @can('validate-module-collective')
