@@ -616,11 +616,15 @@ class OperateurController extends Controller
     public function edit(Operateur $operateur)
     {
         $departements = Departement::orderBy("nom", "asc")->get();
-        foreach (Auth::user()->roles as $key => $role) {
+
+        /*  foreach (Auth::user()->roles as $key => $role) {
             if (! empty($role?->name) && ($role?->name != 'super-admin') && ($role?->name != 'Employe') && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
                 $this->authorize('view', $operateur);
             }
-        }
+        } */
+
+        $this->authorize('view', $operateur);
+
         return view("operateurs.update", compact("operateur", "departements"));
     }
 
