@@ -103,7 +103,7 @@
                                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                             class="bi bi-three-dots"></i></a>
                                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                        @can('user-view')
+                                                        @can('validate-module-collective')
                                                             <form
                                                                 action="{{ route('Validatelistecollective', ['id' => $listecollective?->id]) }}"
                                                                 method="post">
