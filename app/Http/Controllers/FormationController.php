@@ -2868,7 +2868,7 @@ class FormationController extends Controller
             foreach ($listecollectiveformations as $key => $listecollectiveformation) {
                 $listecollectiveformation->update([
                     "formations_id" => null,
-                    "statut"        => 'Attente',
+                    "statut"        => 'Conforme',
                 ]);
                 $listecollectiveformation->save();
             }
@@ -2878,7 +2878,7 @@ class FormationController extends Controller
 
                 $listecollective->update([
                     "formations_id" => $idformation,
-                    "statut"        => 'Sélectionnée',
+                    "statut"        => 'Sélectionné',
                 ]);
 
                 $listecollective->save();
