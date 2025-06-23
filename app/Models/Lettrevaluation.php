@@ -47,9 +47,14 @@ class Lettrevaluation extends Model
         return $this->belongsTo(Operateur::class, 'operateurs_id');
     }
 
-    public function evaluateurOnfp()
+    public function onfpevaluateur()
     {
-        return $this->belongsTo(User::class, 'onfpevaluateurs_id');
+        return $this->belongsTo(Onfpevaluateur::class, 'onfpevaluateurs_id');
+    }
+
+    public function evaluateur()
+    {
+        return $this->belongsTo(Evaluateur::class, 'evaluateurs_id');
     }
 
     public function autreEvaluateur()

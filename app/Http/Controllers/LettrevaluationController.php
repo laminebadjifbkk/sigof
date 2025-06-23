@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Formation;
+use App\Models\Onfpevaluateur;
+use App\Models\Evaluateur;
 use App\Models\Lettrevaluation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,8 +24,10 @@ class LettrevaluationController extends Controller
 
         $lettres    = Lettrevaluation::latest()->get();
         $formations = Formation::latest()->get();
+        $onfpevaluateurs = Onfpevaluateur::latest()->get();
+        $evaluateurs = Evaluateur::latest()->get();
         //$lettres = Lettrevaluation::where('users_id', Auth::id())->latest()->get();
-        return view('formations.lettrevaluations.index', compact('lettres', 'formations'));
+        return view('formations.lettrevaluations.index', compact('lettres', 'formations', 'onfpevaluateurs', 'evaluateurs'));
     }
 
     // Formulaire de création
@@ -36,13 +40,13 @@ class LettrevaluationController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'titre'              => 'required|string|max:255',
-            'contenu'            => 'required|string',
+            'titre'              => 'nullable|string|max:255',
+            'contenu'            => 'nullable|string',
             'users_id'           => 'nullable|exists:users,id',
-            'formations_id'      => 'nullable|exists:formations,id',
+            'formations_id'      => 'required|exists:formations,id',
             'operateurs_id'      => 'nullable|exists:operateurs,id',
-            'onfpevaluateurs_id' => 'nullable|exists:users,id',
-            'evaluateurs_id'     => 'nullable|exists:users,id',
+            'onfpevaluateurs_id' => 'required|exists:users,id',
+            'evaluateurs_id'     => 'required|exists:users,id',
         ]);
 
         Lettrevaluation::create($validated);

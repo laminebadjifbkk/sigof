@@ -50,18 +50,20 @@
                                     <table class="table table-hover table-striped align-middle" id="table-jury">
                                         <thead class="table-primary text-center">
                                             <tr>
-                                                <th>Titre</th>
-                                                <th>Contenu</th>
+                                                <th>Initiateur</th>
                                                 <th>Formation</th>
+                                                <th>Operateur</th>
+                                                <th>Evaluateur</th>
                                                 <th width="8%">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($lettres as $lettre)
                                                 <tr>
-                                                    <td>{{ $lettre?->titre }}</td>
-                                                    <td>{{ $lettre?->contenu }}</td>
+                                                    <td>{{ $lettre?->onfpevaluateur?->name }}</td>
                                                     <td>{{ $lettre?->formation?->name }}</td>
+                                                    <td>{{ $lettre?->formation?->operateur?->user?->username }}</td>
+                                                    <td>{{ $lettre?->evaluateur?->name }}</td>
                                                     <td>
                                                         <div class="btn-group">
                                                             <a href="{{ route('lettrevaluations.show', $lettre->id) }}"
@@ -92,7 +94,8 @@
                                     </table>
                                 </div>
                             @else
-                                <div class="alert alert-info">Aucune lettre de mission pour l'évaluation créée pour l'instant !</div>
+                                <div class="alert alert-info">Aucune lettre de mission pour l'évaluation créée pour l'instant !
+                                </div>
                             @endif
                         </div>
                     </div>
@@ -112,7 +115,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row g-3">
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    {{-- <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                         <label for="titre" class="form-label">Titre<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="text" name="titre" value="{{ old('titre') }}"
@@ -123,24 +126,14 @@
                                                 <div>{{ $message }}</div>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
+
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                        <label for="contenu" class="form-label">Contenu<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <textarea name="contenu" id="contenu" rows="5"
-                                            class="form-control form-control-sm @error('contenu') is-invalid @enderror" placeholder="Contenu">{{ old('contenu') }}</textarea>
-                                        @error('contenu')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                        <label for="formations_id" class="form-label">Formation<span
+                                        <label for="formation" class="form-label">Formation<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="formations_id"
                                             class="form-select form-select-sm @error('formations_id') is-invalid @enderror"
-                                            aria-label="Select" id="formations_id" data-placeholder="Choisir formation">
+                                            aria-label="Select" id="formationSelect" data-placeholder="Choisir">
                                             <option value="{{ old('formations_id') }}">
                                                 {{ old('formations_id') }}
                                             </option>
@@ -156,11 +149,67 @@
                                             </span>
                                         @enderror
                                     </div>
+
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <label for="onfpevaluateurs_id" class="form-label">Initateur de la lettre<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <select name="onfpevaluateurs_id"
+                                            class="form-select form-select-sm @error('onfpevaluateurs_id') is-invalid @enderror"
+                                            aria-label="Select" id="onfpevaluateurSelect" data-placeholder="Choisir">
+                                            <option value="{{ old('onfpevaluateurs_id') }}">
+                                                {{ old('onfpevaluateurs_id') }}
+                                            </option>
+                                            @foreach ($onfpevaluateurs as $onfpevaluateur)
+                                                <option value="{{ $onfpevaluateur->id }}">
+                                                    {{ $onfpevaluateur->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('onfpevaluateurs_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <label for="evaluateurs_id" class="form-label">Evaluateur<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <select name="evaluateurs_id"
+                                            class="form-select form-select-sm @error('evaluateurs_id') is-invalid @enderror"
+                                            aria-label="Select" id="evaluateurSelect" data-placeholder="Choisir">
+                                            <option value="{{ old('evaluateurs_id') }}">
+                                                {{ old('evaluateurs_id') }}
+                                            </option>
+                                            @foreach ($evaluateurs as $evaluateur)
+                                                <option value="{{ $evaluateur->id }}">
+                                                    {{ $evaluateur->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('evaluateurs_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <label for="contenu" class="form-label">Commenatires</label>
+                                        <textarea name="contenu" id="contenu" rows="5"
+                                            class="form-control form-control-sm @error('contenu') is-invalid @enderror" placeholder="Commentaires">{{ old('contenu') }}</textarea>
+                                        @error('contenu')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
                                 </div>
                                 <div class="modal-footer mt-5">
                                     <button type="button" class="btn btn-secondary btn-sm"
                                         data-bs-dismiss="modal">Fermer</button>
-                                    <button type="submit" class="btn btn-primary btn-sm">Ajouter</button>
+                                    <button type="submit" class="btn btn-primary btn-sm">Etablir</button>
                                 </div>
                             </div>
                         </form>
@@ -271,7 +320,7 @@
         new DataTable('#table-jury', {
             layout: {
                 topStart: {
-                    buttons: ['csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel'],
                 }
             },
             "order": [
