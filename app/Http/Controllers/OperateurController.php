@@ -468,7 +468,7 @@ class OperateurController extends Controller
             }
         } */
 
-        $rolesAutorises = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
+        $rolesAutorises = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'ADEC', 'ADIOF', 'Ingenieur'];
         $userRoles      = Auth::user()->roles->pluck('name')->toArray();
 
 // Si aucun rôle autorisé n'est trouvé chez l'utilisateur
