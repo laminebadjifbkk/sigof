@@ -268,7 +268,7 @@
                                                     <span class="card-title d-flex align-items-baseline">Statut :&nbsp;
                                                         <span class="{{ $collective?->statut_demande }} text-white">
                                                             {{ $collective?->statut_demande }}</span>
-                                                        {{-- @can('validate-module-collective') --}}
+                                                        @can('validate-module-collective')
                                                             <div class="filter">
                                                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                         class="bi bi-three-dots"></i></a>
@@ -289,7 +289,7 @@
                                                                         data-bs-target="#RejetDemandeModal">Validation demande</button>
                                                                 </ul>
                                                             </div>
-                                                        {{-- @endcan --}}
+                                                        @endcan
                                                     </span>
 
                                                     @can('diof')
