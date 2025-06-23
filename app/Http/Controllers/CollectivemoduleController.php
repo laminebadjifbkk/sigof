@@ -173,18 +173,17 @@ class CollectivemoduleController extends Controller
 
     public function rejeterModuleCollective(Request $request)
     {
-        $statut = $request->statut;
 
-        if ($statut !== 'Validé') {
-            $request->validate([
-                'motif' => 'required|string',
-            ]);
-        }
+        $request->validate([
+            'motif' => $request->statut !== 'Conforme' ? 'required|string' : 'nullable|string',
+        ]);
+        
+        $motif = $request->input('motif') ?? $request->statut;
 
         $collectivemodule = Collectivemodule::findOrFail($request->id);
 
         $collectivemodule->update([
-            'motif'  => $request->motif,
+            'motif'  => $motif,
             'statut' => $request->statut,
         ]);
 
@@ -208,7 +207,7 @@ class CollectivemoduleController extends Controller
         $formation->save();
 
         $collectivemodule->update([
-            'statut'        => 'Attente',
+            'statut'        => 'Nouvelle',
             'formations_id' => null,
         ]);
 

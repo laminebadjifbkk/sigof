@@ -1377,8 +1377,7 @@
                                         <input type="hidden" name="id" value="{{ $collectivemodule->id }}">
 
                                         <div class="mb-3">
-                                            <label for="statut" class="form-label">Statut du module<span
-                                                    class="text-danger mx-1">(*)</span></label>
+                                            <label for="statut" class="form-label">Statut du module</label>
                                             @php
                                                 $selectedStatut = old('statut', $collectivemodule->statut);
                                             @endphp
