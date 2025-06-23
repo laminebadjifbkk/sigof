@@ -195,10 +195,12 @@ class ListecollectiveController extends Controller
         $listecollective = Listecollective::findOrFail($id);
 
         $listecollective->update([
-            'statut' => 'Attente',
+            'statut' => 'Conforme',
         ]);
+
         $listecollective->save();
-        Alert::success('Bravo !', 'La demande a été validée.');
+
+        Alert::success('Succès !', 'Demande jugée conforme');
         return redirect()->back();
     }
 
