@@ -265,7 +265,7 @@
                                                         <span class="badge bg-info text-white">
                                                             {{ $collective?->numero }}</span>
                                                     </span>
-                                                    <span class="card-title d-flex align-items-baseline">Statut :&nbsp;
+                                                    <span class="card-title d-flex align-items-baseline">Statu:&nbsp;
                                                         <span class="{{ $collective?->statut_demande }} text-white">
                                                             {{ $collective?->statut_demande }}</span>
                                                         @can('validate-module-collective')
