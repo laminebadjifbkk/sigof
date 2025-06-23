@@ -107,7 +107,8 @@
                                         @csrf
                                         @method('PUT')
                                         <h5 class="page-title">Détails formation : <span
-                                                class="{{ $formation?->statut }} btn btn-sm">
+                                                class="{{ $formation?->statut }} text-white">
+                                                {{-- {{ $formation?->statut }} --}}
                                                 {{ $formation?->statut }}</span>
                                         </h5>
 
