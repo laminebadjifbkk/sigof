@@ -139,12 +139,15 @@ class OperateurController extends Controller
         $operateurs         = Operateur::all();
         $operateureferences = Operateureference::all();
 
-        $excludedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
+        /*  $excludedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
         foreach (Auth::user()->roles as $role) {
             if (! empty($role?->name) && ! in_array($role->name, $excludedRoles)) {
                 $this->authorize('view', $operateur);
             }
-        }
+        } */
+
+        $this->authorize('view', $operateur);
+
         return view("operateurs.agrement",
             compact("operateurs",
                 "operateur",
@@ -329,13 +332,15 @@ class OperateurController extends Controller
             }
         } */
 
-        $rolesAutorises = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
+        /* $rolesAutorises = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
 
         $userRoles = Auth::user()->roles->pluck('name')->toArray();
 
         if (! array_intersect($rolesAutorises, $userRoles)) {
             $this->authorize('view', $operateur);
-        }
+        } */
+
+        $this->authorize('view', $operateur);
 
         $dateString  = $request->input('date_quitus');
         $date_quitus = ! empty($dateString) ? Carbon::createFromFormat('d/m/Y', $dateString) : null;
@@ -467,21 +472,21 @@ class OperateurController extends Controller
                 return redirect()->back();
             }
         } */
-
+/*
         $rolesAutorises = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'ADEC', 'ADIOF', 'Ingenieur'];
-        $userRoles      = Auth::user()->roles->pluck('name')->toArray();
+        $userRoles      = Auth::user()->roles->pluck('name')->toArray(); */
 
 // Si aucun rôle autorisé n'est trouvé chez l'utilisateur
-        if (! array_intersect($rolesAutorises, $userRoles)) {
-            // Vérifie la permission "update"
-            $this->authorize('update', $operateur);
+        /* if (! array_intersect($rolesAutorises, $userRoles)) { */
+        // Vérifie la permission "update"
+        $this->authorize('update', $operateur);
 
-            // Si le statut n'est pas "nouveau", bloquer l'action
-            if ($operateur->statut_agrement != 'nouveau') {
-                Alert::warning('Attention !', 'action impossible');
-                return redirect()->back();
-            }
+        // Si le statut n'est pas "nouveau", bloquer l'action
+        if ($operateur->statut_agrement != 'nouveau') {
+            Alert::warning('Attention !', 'action impossible');
+            return redirect()->back();
         }
+        /* } */
 
         $arrive = Arrive::where('numero_arrive', $request->input("numero_arrive"))->first();
 
@@ -565,23 +570,25 @@ class OperateurController extends Controller
             ],
         ]);
 
-        $rolesValid       = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'ADEC', 'ADIOF', 'Ingenieur'];
+        /*  $rolesValid       = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'ADEC', 'ADIOF', 'Ingenieur'];
         $rolesUtilisateur = Auth::user()->roles->pluck('name');
 
 // Vérifier si l'utilisateur possède un des rôles valides
         $roleValide = $rolesUtilisateur->intersect($rolesValid)->isNotEmpty();
 
-        if (! $roleValide) {
-            // Vérifier le statut de l'opérateur et autoriser l'action si nécessaire
-            if ($operateur->statut_agrement !== 'nouveau') {
-                Alert::warning('Attention !', 'Action impossible');
-                return redirect()->back();
-            }
+        if (! $roleValide) { */
 
-            // Si l'utilisateur n'a pas de rôle valide, on l'autorise à effectuer la mise à jour
-            $this->authorize('update', $operateur);
+        // Si l'utilisateur n'a pas de rôle valide, on l'autorise à effectuer la mise à jour
+        $this->authorize('update', $operateur);
+
+        // Vérifier le statut de l'opérateur et autoriser l'action si nécessaire
+        if ($operateur->statut_agrement !== 'nouveau') {
+            Alert::warning('Attention !', 'Action impossible');
+            return redirect()->back();
         }
 
+        /* }
+ */
         $dateString  = $request->input('date_quitus');
         $date_quitus = ! empty($dateString) ? Carbon::createFromFormat('d/m/Y', $dateString) : null;
 
@@ -634,13 +641,15 @@ class OperateurController extends Controller
         $operateureferences = Operateureference::get();
         $user               = $operateur->user;
 
-        $userRoles = Auth::user()->roles->pluck('name')->toArray();
+        /*  $userRoles = Auth::user()->roles->pluck('name')->toArray();
 
         $excludedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'Operateur', 'Ingenieur'];
 
         if (! empty(array_diff($userRoles, $excludedRoles))) {
             $this->authorize('show', $operateur);
-        }
+        } */
+
+        $this->authorize('show', $operateur);
 
         return view("operateurs.show", compact("operateur", "operateureferences", "operateurs"));
     }
@@ -656,6 +665,7 @@ class OperateurController extends Controller
     public function destroy(Operateur $operateur)
     {
 
+        $this->authorize('delete', $operateur);
 // Delete quitus file if it exists
         if ($operateur->quitus) {
             Storage::disk('public')->delete($operateur->quitus);
@@ -667,14 +677,14 @@ class OperateurController extends Controller
             return redirect()->back();
         }
 
-// Check if the user has the correct roles to delete the operator
+/* // Check if the user has the correct roles to delete the operator
         $validRoles   = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
         $hasValidRole = Auth::user()->roles->pluck('name')->intersect($validRoles)->isNotEmpty();
 
 // If the user doesn't have a valid role, check if they are authorized to delete
         if (! $hasValidRole) {
             $this->authorize('delete', $operateur);
-        }
+        } */
 
 // Delete the operator and show success alert
         $operateur->delete();
