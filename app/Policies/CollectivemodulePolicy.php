@@ -11,7 +11,12 @@ class CollectivemodulePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasRole(['Demandeur', 'DG', 'super-admin', 'admin', 'DIOF', 'ADIOF']); // Vérifie si l'utilisateur a l'un des rôles
+        /*  return $user->hasRole(['Demandeur', 'DG', 'super-admin', 'admin', 'DIOF', 'ADIOF']); // Vérifie si l'utilisateur a l'un des rôles */
+
+        // Si l'utilisateur a un rôle autorisé
+        if ($user->hasAnyRole(['Demandeur', 'DG', 'super-admin', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC', 'ADEC'])) {
+            return true;
+        }
     }
 
     /**
@@ -19,7 +24,13 @@ class CollectivemodulePolicy
      */
     public function view(User $user, Collectivemodule $collectivemodule): bool
     {
-        return $user?->id === $collectivemodule?->collective?->users_id || $user->hasRole('super-admin');
+
+        // Si l'utilisateur a un rôle autorisé
+        if ($user->hasAnyRole(['Demandeur', 'DG', 'super-admin', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC', 'ADEC'])) {
+            return true;
+        }
+
+        return $user?->id === $collectivemodule?->collective?->users_id;
     }
 
     /**
@@ -35,7 +46,13 @@ class CollectivemodulePolicy
      */
     public function update(User $user, Collectivemodule $collectivemodule): bool
     {
-        return $user?->id === $collectivemodule?->collective?->users_id || $user->hasRole('super-admin');
+
+        // Si l'utilisateur a un rôle autorisé
+        if ($user->hasAnyRole(['Demandeur', 'DG', 'super-admin', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC', 'ADEC'])) {
+            return true;
+        }
+
+        return $user?->id === $collectivemodule?->collective?->users_id;
     }
 
     /**
@@ -43,7 +60,13 @@ class CollectivemodulePolicy
      */
     public function delete(User $user, Collectivemodule $collectivemodule): bool
     {
-        return $user?->id === $collectivemodule?->collective?->users_id || $user->hasRole('super-admin');
+
+        // Si l'utilisateur a un rôle autorisé
+        if ($user->hasAnyRole(['Demandeur', 'DG', 'super-admin', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC', 'ADEC'])) {
+            return true;
+        }
+
+        return $user?->id === $collectivemodule?->collective?->users_id;
     }
 
     /**
@@ -51,6 +74,12 @@ class CollectivemodulePolicy
      */
     public function restore(User $user, Collectivemodule $collectivemodule): bool
     {
+
+        // Si l'utilisateur a un rôle autorisé
+        if ($user->hasAnyRole(['Demandeur', 'DG', 'super-admin', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC', 'ADEC'])) {
+            return true;
+        }
+
         return $user?->id === $collectivemodule?->collective?->users_id;
     }
 
