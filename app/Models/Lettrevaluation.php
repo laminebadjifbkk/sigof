@@ -57,8 +57,4 @@ class Lettrevaluation extends Model
         return $this->belongsTo(Evaluateur::class, 'evaluateurs_id');
     }
 
-    public function autreEvaluateur()
-    {
-        return $this->belongsTo(User::class, 'evaluateurs_id');
-    }
 }

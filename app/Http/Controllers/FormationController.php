@@ -988,7 +988,7 @@ class FormationController extends Controller
                 ->where('regions.nom', $region->nom)
                 ->where('individuelles.statut', 'Attente')
                 ->get(); */
-            $statutsVoulus = ['attente', 'conforme', 'retirée','retiré', 'liste attente', 'Sélectionné'];
+            $statutsVoulus = ['attente', 'conforme', 'retirée', 'retiré', 'liste attente', 'Sélectionné'];
 
             $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
                 ->join('regions', 'regions.id', 'individuelles.regions_id')
@@ -1017,7 +1017,7 @@ class FormationController extends Controller
                 ->where('individuelles.statut', 'Attente')
                 ->get(); */
 
-            $statutsVoulus = ['attente', 'conforme', 'retirée','retiré', 'liste attente', 'Sélectionné'];
+            $statutsVoulus = ['attente', 'conforme', 'retirée', 'retiré', 'liste attente', 'Sélectionné'];
 
             $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
                 ->join('regions', 'regions.id', 'individuelles.regions_id')
@@ -2999,6 +2999,129 @@ class FormationController extends Controller
             ->count();
 
         $retenus_total = $retenus_h_count + $retenus_f_count;
+
+        if ($formation->statut == "Terminée") {
+
+            $title = 'Attestation de bonne execution ' . $formation->name;
+
+            $membres_jury  = explode(";", $formation->membres_jury);
+            $count_membres = count($membres_jury);
+
+            $dompdf  = new Dompdf();
+            $options = $dompdf->getOptions();
+            $options->setDefaultFont('DejaVu Sans');
+            $dompdf->setOptions($options);
+
+            $dompdf->loadHtml(view('formations.individuelles.abe', compact(
+                'formation',
+                'title',
+                'membres_jury',
+                'count_membres',
+                'admis',
+                'recales',
+                'admis_h_count',
+                'admis_f_count',
+                'formes_h_count',
+                'formes_f_count',
+                'formes_total',
+                'retenus_h_count',
+                'retenus_f_count',
+                'retenus_total',
+            )));
+
+            // (Optional) Setup the paper size and orientation (portrait ou landscape)
+            $dompdf->setPaper('A4', 'portrait');
+
+            // Render the HTML as PDF
+            $dompdf->render();
+
+            $name = 'Attestation de bonne execution ' . $formation->name . ', code ' . $formation->code . '.pdf';
+
+            // Output the generated PDF to Browser
+            $dompdf->stream($name, ['Attachment' => false]);
+        } else {
+            Alert::warning('Désolé !', "La formation n'est pas encore terminée.");
+            return redirect()->back();
+        }
+    }
+
+    public function abeEvaluationlettre(Request $request, $idformation)
+    {
+
+        $formation = Formation::findOrFail($idformation);
+
+        /* $admis = Individuelle::where('formations_id', $formation->id)
+            ->where('note_obtenue', '>=', '12')
+            ->get();
+
+        $recales = Individuelle::where('formations_id', $formation->id)
+            ->where('note_obtenue', '<', '12')
+            ->get();
+
+        $admis_h_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
+            ->select('individuelles.*')
+            ->where('formations_id', $formation->id)
+            ->where('users.civilite', "M.")
+            ->where('note_obtenue', '>=', '12')
+            ->count();
+
+        $admis_f_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
+            ->select('individuelles.*')
+            ->where('formations_id', $formation->id)
+            ->where('users.civilite', "Mme")
+            ->where('note_obtenue', '>=', '12')
+            ->count();
+
+        $formes_h_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
+            ->select('individuelles.*')
+            ->where('formations_id', $formation->id)
+            ->where('users.civilite', "M.")
+            ->count();
+
+        $formes_f_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
+            ->select('individuelles.*')
+            ->where('formations_id', $formation->id)
+            ->where('users.civilite', "Mme")
+            ->count();
+
+        $formes_total = $formes_h_count + $formes_f_count;
+
+        $retenus_h_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
+            ->select('individuelles.*')
+            ->where('formations_id', $formation->id)
+            ->where('users.civilite', "M.")
+            ->count();
+
+        $retenus_f_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
+            ->select('individuelles.*')
+            ->where('formations_id', $formation->id)
+            ->where('users.civilite', "Mme")
+            ->count();
+
+        $retenus_total = $retenus_h_count + $retenus_f_count; */
+
+// Toutes les individuelles liées à la formation, avec jointure utilisateur
+        $individuelles = Individuelle::with('user')
+            ->where('formations_id', $idformation)
+            ->get();
+
+// Admis et recalés
+        $admis   = $individuelles->where('note_obtenue', '>=', 12);
+        $recales = $individuelles->where('note_obtenue', '<', 12);
+
+// Comptage par sexe parmi les admis
+        $admis_h_count = $admis->filter(fn($i) => $i->user?->civilite === 'M.')->count();
+        $admis_f_count = $admis->filter(fn($i) => $i->user?->civilite === 'Mme')->count();
+
+// Comptage total formés par sexe
+        $formes_h_count = $individuelles->filter(fn($i) => $i->user?->civilite === 'M.')->count();
+        $formes_f_count = $individuelles->filter(fn($i) => $i->user?->civilite === 'Mme')->count();
+        $formes_total   = $formes_h_count + $formes_f_count;
+
+// Comptage des retenus (identique à formés dans ton code, à confirmer)
+        $retenus_h_count = $formes_h_count;
+        $retenus_f_count = $formes_f_count;
+        $retenus_total   = $retenus_h_count + $retenus_f_count;
 
         if ($formation->statut == "Terminée") {
 

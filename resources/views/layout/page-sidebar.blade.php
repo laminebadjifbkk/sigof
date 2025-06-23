@@ -200,7 +200,7 @@
                             </a>
                         </li>
                     @endcan
-                    
+
                     @can('demande-show')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('demandeurs.individuel') }}">
@@ -367,11 +367,14 @@
                             </a>
                         </li>
                     @endcan
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="{{ url('lettrevaluations') }}">
-                            <span>Lettre évaluation</span>
-                        </a>
-                    </li>
+
+                    @can('lettre-formation')
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('lettrevaluations.index') }}">
+                                <span>Lettre évaluation & ABE</span>
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
             </li>
         @endcan

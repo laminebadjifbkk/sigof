@@ -19,7 +19,14 @@ class CollectivePolicy
      */
     public function view(User $user, Collective $collective): bool
     {
-        return $user->id === $collective->users_id || $user->hasRole('super-admin');
+
+        // Si l'utilisateur a un rôle autorisé
+        if ($user->hasAnyRole(['super-admin', 'Ingenieur', 'DIOF', 'DEC'])) {
+            return true;
+        }
+
+        // Sinon, il doit être le propriétaire de la collective
+        return $user->id === $collective->users_id;
     }
 
     /**

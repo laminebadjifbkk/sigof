@@ -438,12 +438,11 @@
                                                                         <button class="btn btn-sm mx-1">PV finale</button>
                                                                     </form>
                                                                 @endcan
-                                                                @can('lettre-formation')
+                                                                {{-- @can('lettre-formation')
                                                                     <hr>
                                                                     <form action="{{ route('lettreEvaluation') }}" method="post"
                                                                         target="_blank">
                                                                         @csrf
-                                                                        {{-- @method('PUT') --}}
                                                                         <input type="hidden" name="id"
                                                                             value="{{ $formation->id }}">
                                                                         <button class="btn btn-sm mx-1">Lettre mission</button>
@@ -453,12 +452,11 @@
                                                                     <form action="{{ route('abeEvaluation') }}" method="post"
                                                                         target="_blank">
                                                                         @csrf
-                                                                        {{-- @method('PUT') --}}
                                                                         <input type="hidden" name="id"
                                                                             value="{{ $formation->id }}">
                                                                         <button class="btn btn-sm mx-1">A B E</button>
                                                                     </form>
-                                                                @endcan
+                                                                @endcan --}}
                                                                 @can('email-formation')
                                                                     <hr>
                                                                     <form action="{{ route('sendFormationEmail') }}"
@@ -1006,9 +1004,9 @@
                                                                     <td>{{ $individuelle?->user?->cin }}</td>
                                                                     <td>{{ $individuelle?->user?->firstname }}</td>
                                                                     <td>{{ $individuelle?->user?->name }}</td>
-                                                                    <td>{{ $individuelle?->user->date_naissance?->format('d/m/Y') }}
+                                                                    <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}
                                                                     </td>
-                                                                    <td>{{ $individuelle?->user->lieu_naissance }}</td>
+                                                                    <td>{{ $individuelle?->user?->lieu_naissance }}</td>
                                                                     <td class="text-center"><input type="number"
                                                                             value="{{ $individuelle?->note_obtenue }}"
                                                                             name="notes[]" placeholder="note"

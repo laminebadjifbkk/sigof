@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | LETTRE EVALUATION')
+@section('title', 'ABE | LETTRE EVALUATION')
 @section('space-work')
     @can('ingenieur-view')
         <section class="section register">
@@ -38,11 +38,11 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="card-title mb-0">Lettre d'évaluation</h5>
+                                <h5 class="card-title mb-0">Lettre d'évaluation et ABE</h5>
                                 <button type="button" class="btn btn-primary btn-sm btn-rounded" data-bs-toggle="modal"
                                     data-bs-target="#AddlettreEvaluationModal">
                                     <i class="bi bi-plus-circle"></i>
-                                    Ajouter lettre d'évaluation
+                                    Ajouter
                                 </button>
                             </div>
                             @if ($lettres->isNotEmpty())
@@ -53,40 +53,89 @@
                                                 <th>Initiateur</th>
                                                 <th>Formation</th>
                                                 <th>Operateur</th>
+                                                <th>Evaluateur DEC</th>
                                                 <th>Evaluateur</th>
-                                                <th width="8%">Actions</th>
+                                                <th>Module</th>
+                                                <th>ABE</th>
+                                                <th>Lettre</th>
+                                                <th width="2%">#</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($lettres as $lettre)
                                                 <tr>
-                                                    <td>{{ $lettre?->onfpevaluateur?->name }}</td>
+                                                    <td>{{ $lettre?->titre }}</td>
                                                     <td>{{ $lettre?->formation?->name }}</td>
                                                     <td>{{ $lettre?->formation?->operateur?->user?->username }}</td>
+                                                    <td>{{ $lettre?->onfpevaluateur?->name }}</td>
                                                     <td>{{ $lettre?->evaluateur?->name }}</td>
                                                     <td>
-                                                        <div class="btn-group">
+                                                        <span
+                                                            class="{{ $lettre?->formation->module->name ?? ($lettre?->formation->collectivemodule->module ?? 'Aucun') }}">
+                                                            {{ $lettre?->formation->module->name ?? ($lettre?->formation->collectivemodule->module ?? 'Aucun') }}
+                                                        </span>
+                                                    </td>
+                                                    {{-- Actions ABE --}}
+                                                    <td>
+                                                        @php
+                                                            $formation = $lettre?->formation;
+                                                            $isIndividuel = $formation?->module?->name;
+                                                            $isCollectif = $formation?->collectivemodule?->module;
+                                                        @endphp
+
+                                                        @if ($isIndividuel || $isCollectif)
+                                                            <div class="btn-group" role="group" aria-label="Actions ABE">
+                                                                <a href="{{ route($isIndividuel ? 'abeEvaluationlettre' : 'abeEvaluationCollettre', ['idformation' => $formation->id]) }}"
+                                                                    class="btn btn-primary btn-sm" title="Télécharger l'ABE"
+                                                                    target="_blank">
+                                                                    <i class="bi bi-download"></i>
+                                                                </a>
+
+                                                                <button type="button"
+                                                                    class="btn btn-secondary btn-sm text-white"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#EditABEModal{{ $lettre->id }}"
+                                                                    title="Modifier l'ABE">
+                                                                    <i class="bi bi-pencil"></i>
+                                                                </button>
+                                                            </div>
+                                                        @else
+                                                            <span class="text-danger">Aucun ABE</span>
+                                                        @endif
+                                                    </td>
+
+                                                    {{-- Actions Lettre de mission --}}
+                                                    <td>
+                                                        <div class="btn-group" role="group" aria-label="Actions Lettre">
                                                             <a href="{{ route('lettrevaluations.show', $lettre->id) }}"
-                                                                class="btn btn-warning btn-sm" title="Voir détails">
-                                                                <i class="bi bi-eye"></i>
+                                                                class="btn btn-success btn-sm"
+                                                                title="Télécharger la lettre de mission" target="_blank">
+                                                                <i class="bi bi-download"></i>
                                                             </a>
-                                                            <button type="button" class="btn btn-secondary btn-sm"
+                                                            <a href="{{ route('lettrevaluations.edit', $lettre->id) }}"
+                                                                class="btn btn-warning btn-sm text-white"
+                                                                title="Modifier la lettre de mission" target="_blank">
+                                                                <i class="bi bi-pencil"></i>
+                                                            </a>
+                                                            {{-- <button type="button" class="btn btn-warning btn-sm text-white"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#EditmembreModal{{ $lettre->id }}"
-                                                                title="Modifier">
+                                                                title="Modifier la lettre">
                                                                 <i class="bi bi-pencil"></i>
-                                                            </button>
-                                                            <form action="{{ route('lettrevaluations.destroy', $lettre->id) }}"
-                                                                method="post" class="d-inline">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="btn btn-danger btn-sm show_confirm"
-                                                                    title="Supprimer">
-                                                                    <i class="bi bi-trash"></i>
-                                                                </button>
-                                                            </form>
+                                                            </button> --}}
                                                         </div>
+                                                    </td>
+                                                    {{-- Actions --}}
+                                                    <td>
+                                                        <form action="{{ route('lettrevaluations.destroy', $lettre->id) }}"
+                                                            method="POST" class="d-inline-block">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                                                title="Supprimer">
+                                                                <i class="bi bi-trash"></i>
+                                                            </button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -115,18 +164,6 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row g-3">
-                                    {{-- <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                        <label for="titre" class="form-label">Titre<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input type="text" name="titre" value="{{ old('titre') }}"
-                                            class="form-control form-control-sm @error('titre') is-invalid @enderror"
-                                            id="titre" placeholder="Titre">
-                                        @error('titre')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div> --}}
 
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                         <label for="formation" class="form-label">Formation<span
@@ -139,7 +176,7 @@
                                             </option>
                                             @foreach ($formations as $formation)
                                                 <option value="{{ $formation->id }}">
-                                                    {{ $formation->name }}
+                                                    {{ $formation->numero_convention }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -195,7 +232,7 @@
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                        <label for="contenu" class="form-label">Commenatires</label>
+                                        <label for="contenu" class="form-label">ABE</label>
                                         <textarea name="contenu" id="contenu" rows="5"
                                             class="form-control form-control-sm @error('contenu') is-invalid @enderror" placeholder="Commentaires">{{ old('contenu') }}</textarea>
                                         @error('contenu')
@@ -216,12 +253,9 @@
                     </div>
                 </div>
             </div>
-            <!-- End Add membre-->
-
-            <!-- Edit membre -->
             @foreach ($lettres as $lettre)
-                <div class="modal fade" id="EditmembreModal{{ $lettre->id }}" tabindex="-1" role="dialog"
-                    aria-labelledby="EditmembreModalLabel{{ $lettre->id }}" aria-hidden="true">
+                <div class="modal fade" id="EditABEModal{{ $lettre->id }}" tabindex="-1" role="dialog"
+                    aria-labelledby="EditABEModalLabel{{ $lettre->id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <form method="post" action="{{ route('lettrevaluations.update', $lettre->id) }}"

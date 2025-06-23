@@ -480,12 +480,11 @@
                                                                         <button class="btn btn-sm mx-1">PV Finale</button>
                                                                     </form>
                                                                 @endcan
-                                                                @can('lettre-formation')
+                                                                {{-- @can('lettre-formation')
                                                                     <hr>
                                                                     <form action="{{ route('lettreEvaluation') }}" method="post"
                                                                         target="_blank">
                                                                         @csrf
-                                                                        {{-- @method('PUT') --}}
                                                                         <input type="hidden" name="id"
                                                                             value="{{ $formation->id }}">
                                                                         <button class="btn btn-sm mx-1">Lettre mission</button>
@@ -495,12 +494,11 @@
                                                                     <form action="{{ route('abeEvaluationCol') }}" method="post"
                                                                         target="_blank">
                                                                         @csrf
-                                                                        {{-- @method('PUT') --}}
                                                                         <input type="hidden" name="id"
                                                                             value="{{ $formation->id }}">
                                                                         <button class="btn btn-sm mx-1">A B E</button>
                                                                     </form>
-                                                                @endcan
+                                                                @endcan --}}
                                                                 <hr>
                                                                 @can('email-formation')
                                                                     <form action="{{ route('sendFormationEmailCol') }}"
