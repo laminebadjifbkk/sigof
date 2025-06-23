@@ -358,34 +358,34 @@
                                                                 href="{{ route('operateurs.show', $operateur) }}"
                                                                 class="btn btn-primary btn-sm" title="voir détails"><i
                                                                     class="bi bi-eye"></i></a>
-                                                            <div class="filter">
-                                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                        class="bi bi-three-dots"></i></a>
-                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                    @can('operateur-update')
+                                                            @can('operateur-update')
+                                                                <div class="filter">
+                                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                            class="bi bi-three-dots"></i></a>
+                                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                         <li>
                                                                             <a class="dropdown-item btn btn-sm"
                                                                                 href="{{ route('operateurs.edit', $operateur) }}"
                                                                                 class="mx-1" title="Modifier"><i
                                                                                     class="bi bi-pencil"></i>Modifier</a>
                                                                         </li>
-                                                                    @endcan
-                                                                    @can('operateur-delete')
-                                                                        <li>
-                                                                            <form
-                                                                                action="{{ route('operateurs.destroy', $operateur) }}"
-                                                                                method="post">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit"
-                                                                                    class="dropdown-item show_confirm"
-                                                                                    title="Supprimer"><i
-                                                                                        class="bi bi-trash"></i>Supprimer</button>
-                                                                            </form>
-                                                                        </li>
-                                                                    @endcan
-                                                                </ul>
-                                                            </div>
+                                                                        @can('operateur-delete')
+                                                                            <li>
+                                                                                <form
+                                                                                    action="{{ route('operateurs.destroy', $operateur) }}"
+                                                                                    method="post">
+                                                                                    @csrf
+                                                                                    @method('DELETE')
+                                                                                    <button type="submit"
+                                                                                        class="dropdown-item show_confirm"
+                                                                                        title="Supprimer"><i
+                                                                                            class="bi bi-trash"></i>Supprimer</button>
+                                                                                </form>
+                                                                            </li>
+                                                                        @endcan
+                                                                    </ul>
+                                                                </div>
+                                                            @endcan
                                                         </span>
                                                     </td>
                                                 @endcan
