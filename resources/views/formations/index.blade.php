@@ -259,7 +259,7 @@
                                         <th width='15%'>Niveau qualif.</th>
                                         <th width='10%' class="text-center">Opérateurs</th>
                                         <th width='5%' class="text-center">Statut</th>
-                                        <th width='5%'><i class="bi bi-gear"></i></th>
+                                        <th width='3%'><i class="bi bi-gear"></i></th>
                                     </tr>
                                 </thead>
                                 <tbody>
