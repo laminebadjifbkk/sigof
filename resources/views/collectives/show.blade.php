@@ -1269,8 +1269,7 @@
                                 <div class="modal-body">
 
                                     <div class="mb-3">
-                                        <label for="statut" class="form-label">Statut de la
-                                            demande<span class="text-danger mx-1">*</span></label>
+                                        <label for="statut" class="form-label">Statut de la demande</label>
                                         @php
                                             $selectedStatut = old('statut', $collective->statut_demande);
                                         @endphp
@@ -1282,11 +1281,9 @@
                                             </option>
                                             <option value="À corriger" {{ $selectedStatut === 'À corriger' ? 'selected' : '' }}>À
                                                 corriger</option>
-                                            <option value="Validée"
-                                                {{ $selectedStatut === 'Validée' ? 'selected' : '' }}>
+                                            <option value="Validée" {{ $selectedStatut === 'Validée' ? 'selected' : '' }}>
                                                 Validée</option>
-                                            <option value="Conforme"
-                                                {{ $selectedStatut === 'Conforme' ? 'selected' : '' }}>
+                                            <option value="Conforme" {{ $selectedStatut === 'Conforme' ? 'selected' : '' }}>
                                                 Conforme</option>
                                             <option value="Non conforme"
                                                 {{ $selectedStatut === 'Non conforme' ? 'selected' : '' }}>
@@ -1395,8 +1392,7 @@
                                                 <option value="À corriger"
                                                     {{ $selectedStatut === 'À corriger' ? 'selected' : '' }}>À
                                                     corriger</option>
-                                                <option value="Conforme"
-                                                    {{ $selectedStatut === 'Conforme' ? 'selected' : '' }}>
+                                                <option value="Conforme" {{ $selectedStatut === 'Conforme' ? 'selected' : '' }}>
                                                     Conforme</option>
                                                 <option value="Non conforme"
                                                     {{ $selectedStatut === 'Non conforme' ? 'selected' : '' }}>
