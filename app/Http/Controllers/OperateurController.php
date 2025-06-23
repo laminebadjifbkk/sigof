@@ -565,7 +565,7 @@ class OperateurController extends Controller
             ],
         ]);
 
-        $rolesValid       = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
+        $rolesValid       = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'ADEC', 'ADIOF', 'Ingenieur'];
         $rolesUtilisateur = Auth::user()->roles->pluck('name');
 
 // Vérifier si l'utilisateur possède un des rôles valides
