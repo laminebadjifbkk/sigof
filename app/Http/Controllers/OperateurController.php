@@ -632,7 +632,7 @@ class OperateurController extends Controller
 
         $userRoles = Auth::user()->roles->pluck('name')->toArray();
 
-        $excludedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'Operateur'];
+        $excludedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'Operateur', 'Ingenieur'];
 
         if (! empty(array_diff($userRoles, $excludedRoles))) {
             $this->authorize('show', $operateur);
