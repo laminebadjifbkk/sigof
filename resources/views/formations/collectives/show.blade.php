@@ -566,19 +566,19 @@
                                                     class="table table-bordered table-hover datatables align-middle justify-content-center table-borderless"
                                                     id="table-operateurModules">
                                                     <thead>
-                                                        <tr>
+                                                        <tr class="text-center">
                                                             <th>N°</th>
-                                                            <th style="text-align: center;">CIN</th>
-                                                            <th style="text-align: center;">Civilité</th>
-                                                            <th style="text-align: center;">Prénom</th>
-                                                            <th style="text-align: center;">Nom</th>
-                                                            <th style="text-align: center;">Date naissance</th>
-                                                            <th style="text-align: center;">Lieu naissance</th>
-                                                            <th style="text-align: center;">Niveau étude</th>
-                                                            <th style="text-align: center;">Note</th>
-                                                            <th style="text-align: center;">Appréciation</th>
+                                                            <th>CIN</th>
+                                                            <th>Civilité</th>
+                                                            <th>Prénom</th>
+                                                            <th>Nom</th>
+                                                            <th>Date naissance</th>
+                                                            <th>Lieu naissance</th>
+                                                            <th>Niveau étude</th>
+                                                            <th>Note</th>
+                                                            <th>Appréciation</th>
                                                             @can('rapport-suivi-formes-view')
-                                                                <th style="text-align: center;">Suivi</th>
+                                                                <th>Suivi</th>
                                                             @endcan
                                                             <th class="col"><i class="bi bi-gear"></i></th>
                                                         </tr>
@@ -586,29 +586,29 @@
                                                     <tbody>
                                                         <?php $i = 1; ?>
                                                         @foreach ($formation->listecollectives as $listecollective)
-                                                            <tr>
-                                                                <td style="text-align: center;">{{ $i++ }}</td>
-                                                                <td style="text-align: center;">
+                                                            <tr class="text-center">
+                                                                <td>{{ $i++ }}</td>
+                                                                <td>
                                                                     {{ $listecollective?->cin }}</td>
-                                                                <td style="text-align: center;">
+                                                                <td>
                                                                     {{ $listecollective?->civilite }}</td>
-                                                                <td style="text-align: center;">
+                                                                <td>
                                                                     {{ $listecollective?->prenom }}</td>
-                                                                <td style="text-align: center;">
+                                                                <td>
                                                                     {{ $listecollective?->nom }}</td>
-                                                                <td style="text-align: center;">
+                                                                <td>
                                                                     {{ $listecollective?->date_naissance->format('d/m/Y') }}
                                                                 </td>
-                                                                <td style="text-align: center;">
+                                                                <td>
                                                                     {{ $listecollective?->lieu_naissance }}</td>
-                                                                <td style="text-align: center;">
+                                                                <td>
                                                                     {{ $listecollective?->niveau_etude }}</td>
-                                                                <td style="text-align: center;">
+                                                                <td>
                                                                     {{ $listecollective?->note_obtenue }}</td>
-                                                                <td style="text-align: center;">
+                                                                <td>
                                                                     {{ $listecollective?->appreciation }}</td>
                                                                 @can('rapport-suivi-formes-view')
-                                                                    <td style="text-align: center;">
+                                                                    <td>
                                                                         @if (empty($listecollective?->suivi))
                                                                             <form
                                                                                 action="{{ route('SuivreFormesCol', $listecollective?->id) }}"
@@ -2147,9 +2147,8 @@
     @endforeach
     {{-- Attestations --}}
     @foreach ($formation->listecollectives as $listecollective)
-        <div class="modal fade" id="EditAttestationsModal{{ $listecollective->id }}" tabindex="-1"
-            role="dialog" aria-labelledby="EditAttestationsModalLabel{{ $listecollective->id }}"
-            aria-hidden="true">
+        <div class="modal fade" id="EditAttestationsModal{{ $listecollective->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="EditAttestationsModalLabel{{ $listecollective->id }}" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form method="post" action="{{ route('individuelles.updateAttestationsCol') }}"

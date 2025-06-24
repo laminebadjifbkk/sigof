@@ -533,59 +533,58 @@
                                                     class="table table-bordered table-hover datatables align-middle justify-content-center table-borderless"
                                                     id="table-operateurModules">
                                                     <thead>
-                                                        <tr>
-                                                            <th class="text-center">N°</th>
-                                                            <th class="text-center">CIN</th>
+                                                        <tr class="text-center">
+                                                            <th>N°</th>
+                                                            <th>CIN</th>
                                                             <th>Prénom</th>
                                                             <th>NOM</th>
-                                                            <th class="text-center">Date naissance</th>
-                                                            <th class="text-center">Lieu de naissance</th>
-                                                            <th class="text-center">Telephone</th>
-                                                            <th class="text-center">Niveau étude</th>
+                                                            <th>Date naissance</th>
+                                                            <th>Lieu de naissance</th>
+                                                            <th>Telephone</th>
+                                                            <th>Niveau étude</th>
                                                             {{-- Condition pour afficher la note ou la confirmation --}}
                                                             @if ($formation->statut === 'Terminée')
-                                                                <th class="text-center">Note</th>
+                                                                <th>Note</th>
                                                             @else
-                                                                <th class="text-center">Confirmation</th>
+                                                                <th>Confirmation</th>
                                                             @endif
                                                             {{-- Masquer le suivi si la formation n'est pas encore Terminée --}}
                                                             @if ($formation->statut === 'Terminée')
                                                                 @can('rapport-suivi-formes-view')
-                                                                    <th width='3%' class="text-center">Suivi</th>
+                                                                    <th width='3%'>Suivi</th>
                                                                 @endcan
                                                             @endif
-                                                            <th width='2%' class="text-center"><i
-                                                                    class="bi bi-gear"></i>
+                                                            <th width='2%'><i class="bi bi-gear"></i>
                                                             </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php $i = 1; ?>
                                                         @foreach ($formation->individuelles as $individuelle)
-                                                            <tr valign="middle">
-                                                                <td class="text-center">{{ $i++ }}</td>
-                                                                <td style="text-align: center;">
+                                                            <tr valign="middle" class="text-center">
+                                                                <td>{{ $i++ }}</td>
+                                                                <td>
                                                                     {{ $individuelle?->user?->cin }}</td>
                                                                 <td>{{ $individuelle?->user?->firstname }}</td>
                                                                 <td>{{ $individuelle?->user?->name }}</td>
-                                                                <td style="text-align: center;">
+                                                                <td>
                                                                     {{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}
                                                                 </td>
-                                                                <td class="text-center">
+                                                                <td>
                                                                     {{ $individuelle?->user?->lieu_naissance }}
                                                                 </td>
-                                                                <td style="text-align: center;">
+                                                                <td>
                                                                     {{ $individuelle?->user?->telephone }}
                                                                 </td>
-                                                                <td style="text-align: center;">
+                                                                <td>
                                                                     {{ $individuelle?->niveau_etude }}
                                                                 </td>
                                                                 {{-- Condition pour afficher la note ou la confirmation --}}
                                                                 @if ($formation->statut === 'Terminée')
-                                                                    <td class="text-center">
+                                                                    <td>
                                                                         {{ $individuelle?->note_obtenue ?? ' ' }}</td>
                                                                 @else
-                                                                    <td class="text-center">
+                                                                    <td>
                                                                         <span
                                                                             class="{{ $individuelle?->confirmation }}">{{ $individuelle?->confirmation ?? ' ' }}</span>
                                                                         @if (!empty($individuelle?->motif_declinaison))
@@ -1946,8 +1945,7 @@
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="evaluateur"
                                             class="form-select @error('evaluateur') is-invalid @enderror"
-                                            aria-label="Select" id="select-field"
-                                            data-placeholder="Choisir evaluateur">
+                                            aria-label="Select" id="select-field" data-placeholder="Choisir evaluateur">
                                             <option value="{{ $formation?->evaluateur?->id }}">
                                                 @if (!empty($formation?->evaluateur?->name))
                                                     {{ $formation?->evaluateur?->name . ', ' . $formation?->evaluateur?->fonction }}
@@ -2029,10 +2027,8 @@
                                     class="form-control form-control-sm @error('type_certificat') is-invalid @enderror"
                                     id="type_certificat" placeholder="Attestation ou Titre "> --}}
 
-                                        <select name="titre"
-                                            class="form-select  @error('titre') is-invalid @enderror"
-                                            aria-label="Select" id="select-field-titre"
-                                            data-placeholder="Choisir titre">
+                                        <select name="titre" class="form-select  @error('titre') is-invalid @enderror"
+                                            aria-label="Select" id="select-field-titre" data-placeholder="Choisir titre">
                                             <option>
                                                 {{ $formation?->titre ?? ($formation?->referentiel?->titre ?? old('titre')) }}
                                             </option>
