@@ -1058,7 +1058,7 @@
                                                 @can('evaluation-formation')
                                                     <div class="text-center">
                                                         <button type="submit" class="btn btn-outline-primary btn-sm"><i
-                                                                class="bi bi-check2-circle"></i>&nbsp;Save</button>
+                                                                class="bi bi-check2-circle"></i>&nbsp;Evaluer</button>
                                                     </div>
                                                 @endcan
                                             </form>

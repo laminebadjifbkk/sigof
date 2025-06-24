@@ -22,7 +22,7 @@
                         <div class="row">
                             <div class="col-sm-12 pt-0">
                                 <span class="d-flex mt-0 align-items-baseline"><a
-                                        href="{{ route('collectives.show', $collective->id) }}"
+                                        href="{{ route('collectives.show', $collective) }}"
                                         class="btn btn-success btn-sm" title="retour"><i
                                             class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                     <p> | Détails demande collective</p>
