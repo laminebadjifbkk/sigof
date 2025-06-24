@@ -641,7 +641,7 @@
                                                                                         class="mx-1"
                                                                                         title="Modifier">Modifier</a>
                                                                                 </li>
-                                                                                @can('user-update')
+                                                                                @can('retirer-demandeur-formation')
                                                                                     <button class="btn btn-sm mx-1"
                                                                                         data-bs-toggle="modal"
                                                                                         data-bs-target="#indiponibleModal{{ $listecollective->id }}">Retirer
@@ -1125,7 +1125,7 @@
                                                                 </td>
                                                                 <td
                                                                     style="text-align: center; vertical-align: middle;">
-                                                                    @can('evaluer-formation')
+                                                                    @can('evaluation-formation')
                                                                         <button type="button"
                                                                             class="btn btn-outline-primary btn-sm"
                                                                             data-bs-toggle="modal"
@@ -1164,7 +1164,7 @@
                                                 </table>
                                                 </table>
                                             </div>
-                                            @can('evaluer-formation')
+                                            @can('evaluation-formation')
                                                 <div class="text-center">
                                                     <button type="submit" class="btn btn-outline-primary btn-sm"><i
                                                             class="bi bi-check2-circle"></i>&nbsp;Evaluer</button>
