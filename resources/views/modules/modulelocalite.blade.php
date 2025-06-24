@@ -63,6 +63,7 @@
                                     <th>Lieu naissance</th>
                                     <th>Département</th>
                                     <th>Telephone</th>
+                                    <th>Adresse</th>
                                     <th class="text-center">Statut</th>
                                     <th class="text-center">#</th>
                                 </tr>
@@ -83,6 +84,7 @@
                                             <td><a
                                                     href="tel:+221{{ $individuelle?->user->telephone }}">{{ $individuelle?->user->telephone }}</a>
                                             </td>
+                                            <td>{{ $individuelle?->user?->adresse }}</td>
                                             <td>
                                                 <a
                                                     href="{{ url('modulelocalitestatut', ['$idlocalite' => $individuelle->departement->region->id, '$idmodule' => $module?->id, '$statut' => $individuelle->statut]) }}">
