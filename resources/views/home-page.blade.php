@@ -77,7 +77,7 @@
                 </div>
             </div> --}}
                 <div class="col-lg-12">
-                    @if (!empty($count_formations))
+                    @if ($formations->isNotEmpty())
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Formations en cours</h5>

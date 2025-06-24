@@ -66,7 +66,7 @@ class UserController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $count_formations = Formation::where('statut', "En cours")->count();
+        /* $count_formations = Formation::where('statut', "En cours")->count(); */
 
         $total_courrier = $total_arrive + $total_depart + $total_interne;
 
@@ -214,7 +214,7 @@ class UserController extends Controller
                 'pourcentage_arrive',
                 'pourcentage_depart',
                 'pourcentage_interne',
-                'count_formations',
+                /* 'count_formations', */
                 'formations'
             )
         );
