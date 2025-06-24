@@ -18,7 +18,7 @@ class LettrevaluationController extends Controller
     {
         // Vérifie si l'utilisateur est un administrateur
 
-        if (! Auth::user()->hasAnyRole(['DEC', 'ADEC', 'super-admin', 'admin'])) {
+        if (! Auth::user()->hasAnyRole(['DEC', 'ADEC', 'super-admin', 'admin', 'Ingenieur'])) {
             Alert::error('Attention !', 'Accès refusé.');
             /* return redirect()->route('home')->with('error', 'Accès refusé.'); */
             return redirect()->back();
