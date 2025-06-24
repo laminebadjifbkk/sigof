@@ -1234,30 +1234,30 @@
                                         <table class="table table-bordered table-hover datatables"
                                             id="table-evaluation">
                                             <thead>
-                                                <tr>
-                                                    <th width="5%" class="text-center">N°</th>
-                                                    <th width="10%" class="text-center">Jours</th>
-                                                    <th width="10%" class="text-center">Date</th>
-                                                    <th width="10%" class="text-center">Effectif</th>
-                                                    <th width="10%" class="text-center">SCAN</th>
+                                                <tr class="text-center">
+                                                    <th width="5%">N°</th>
+                                                    <th width="10%">Jours</th>
+                                                    <th width="10%">Date</th>
+                                                    <th width="10%">Effectif</th>
+                                                    <th width="10%">SCAN</th>
                                                     <th>Observations</th>
-                                                    <th width="5%" class="text-center"><i class="bi bi-gear"></i>
+                                                    <th width="5%"><i class="bi bi-gear"></i>
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $i = 1; ?>
                                                 @foreach ($emargementcollectives as $emargementcollective)
-                                                    <tr valign="middle">
-                                                        <td class="text-center">{{ $i++ }}</td>
-                                                        <td class="text-center">{{ $emargementcollective?->jour }}
+                                                    <tr valign="middle" class="text-center">
+                                                        <td>{{ $i++ }}</td>
+                                                        <td>{{ $emargementcollective?->jour }}
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td>
                                                             {{ $emargementcollective?->date?->format('d/m/Y') }}</td>
-                                                        <td class="text-center">
+                                                        <td>
                                                             {{ count($emargementcollective?->formation?->listecollectives) }}
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td>
                                                             @if (!empty($emargementcollective?->file))
                                                                 <div>
                                                                     <a class="btn btn-outline-secondary btn-sm"
@@ -1271,7 +1271,7 @@
                                                             @endif
                                                         </td>
                                                         <td>{{ $emargementcollective?->observations }}</td>
-                                                        <td class="text-center">
+                                                        <td>
                                                             <span class="d-flex mt-2 align-items-baseline">
                                                                 <form
                                                                     action="{{ route('formationemargementcollective', [
@@ -1549,8 +1549,8 @@
                             @enderror
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                            <button type="submit" class="btn btn-primary"><i class="bi bi-printer"></i>
+                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+                            <button type="submit" class="btn btn-primary btn-sm"></i>
                                 Modifier</button>
                         </div>
                     </form>
