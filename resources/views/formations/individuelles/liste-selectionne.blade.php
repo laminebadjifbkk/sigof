@@ -108,7 +108,7 @@
                 </tr>
 
                 <tr class="heading">
-                    <td class="item" style="text-align: center;" width="5%"><b>N°</b></td>
+                    <td class="item" style="text-align: center;" width="3%"><b>N°</b></td>
                     <td class="item" style="text-align: center;" width="12%"><b>CIN</b></td>
                     <td class="item" style="text-align: center;" width="5%"><b>Civilité</b></td>
                     <td class="item" style="text-align: center;"><b>Prénom</b></td>

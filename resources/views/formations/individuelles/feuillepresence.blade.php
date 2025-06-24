@@ -159,7 +159,7 @@
                     </td>
                 </tr>
                 <tr class="item" style="text-align: center;">
-                    <td><b>N° CIN</b></td>
+                    <td width="3%"><b>N° CIN</b></td>
                     <td><b>Civilité</b></td>
                     <td><b>Prénom</b></td>
                     <td><b>NOM</b></td>

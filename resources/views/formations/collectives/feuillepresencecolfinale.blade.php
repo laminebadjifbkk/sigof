@@ -163,7 +163,7 @@
                     </td>
                 </tr>
                 <tr class="item" style="text-align: center;">
-                    <td><b>N°</b></td>
+                    <td width="3%"><b>N°</b></td>
                     <td><b>CIN</b></td>
                     {{-- <td><b>Civilité</b></td> --}}
                     <td><b>Prénom</b></td>
