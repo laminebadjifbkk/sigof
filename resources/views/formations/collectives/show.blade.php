@@ -1375,23 +1375,23 @@
                                         <table class="table table-bordered table-hover datatables"
                                             id="table-evaluation">
                                             <thead>
-                                                <tr>
+                                                <tr class="text-center">
                                                     <th>N°</th>
                                                     <th>Civilité</th>
                                                     <th>Prénom</th>
                                                     <th>NOM</th>
                                                     <th>Date naissance</th>
                                                     <th>Lieu de naissance</th>
-                                                    <th class="text-center">Note<span
+                                                    <th>Note<span
                                                             class="text-danger mx-1">*</span></th>
-                                                    <th class="text-center">Diplôme</th>
-                                                    <th class="text-center"><i class="bi bi-gear"></i></th>
+                                                    <th>Diplôme</th>
+                                                    <th><i class="bi bi-gear"></i></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $i = 1; ?>
                                                 @foreach ($formation->listecollectives as $listecollective)
-                                                    <tr>
+                                                    <tr class="text-center">
                                                         <td>{{ $i++ }}</td>
                                                         <td>{{ $listecollective?->civilite }}</td>
                                                         <td>{{ $listecollective?->prenom }}</td>
