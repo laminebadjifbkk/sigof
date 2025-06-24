@@ -209,7 +209,7 @@
                         <b>{{ __('Ingénieur en charge : ') }}</b>{{ $formation?->ingenieur?->name . '(' . $formation?->ingenieur?->initiale . ')' }}
                     </td> --}}
                     <td rowspan="2" class="item" style="text-align: center; width: 120px;"><b>N° CIN</b></td>
-                    <td rowspan="2" class="item" style="text-align: center; width: 60px;"><b>Civilité</b></td>
+                    <td rowspan="2" class="item" style="text-align: center; width: 50px;"><b>Civilité</b></td>
                     <td rowspan="2" class="item" style="text-align: center;"><b>Prénom</b></td>
                     <td rowspan="2" class="item" style="text-align: center;"><b>NOM</b></td>
                     <td rowspan="2" class="item" style="text-align: center;"><b>Date naissance</b></td>
