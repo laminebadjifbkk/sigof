@@ -167,7 +167,7 @@
                     <td><b>Date naissance</b></td>
                     <td><b>Lieu de naissance</b></td>
                     <td width="8%"><b>Téléphone</b></td>
-                    <td><b>Présence</b></td>
+                    <td width="8%"><b>Présence</b></td>
                     <td><b>Emargement</b></td>
                 </tr>
             </thead>
