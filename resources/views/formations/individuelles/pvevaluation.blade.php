@@ -209,18 +209,18 @@
                         <b>{{ __('Ingénieur en charge : ') }}</b>{{ $formation?->ingenieur?->name . '(' . $formation?->ingenieur?->initiale . ')' }}
                     </td> --}}
                     <td rowspan="2" class="item" style="text-align: center;"><b>N°</b></td>
-                    <td rowspan="2" class="item" style="text-align: center;"><b>CIN</b></td>
-                    <td rowspan="2" class="item" style="text-align: center;"><b>Civilité</b></td>
+                    <td rowspan="2" class="item" style="text-align: center; width: 120px;"><b>N° CIN</b></td>
+                    <td rowspan="2" class="item" style="text-align: center; width: 50px;"><b>Civilité</b></td>
                     <td rowspan="2" class="item" style="text-align: center;"><b>Prénom</b></td>
                     <td rowspan="2" class="item" style="text-align: center;"><b>NOM</b></td>
                     <td rowspan="2" class="item" style="text-align: center;"><b>Date naissance</b></td>
                     <td rowspan="2" class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
-                    <td rowspan="2" class="item" style="text-align: center;"><b>Téléphone</b></td>
+                    <td rowspan="2" class="item" style="text-align: center; width: 70px;"><b>Téléphone</b></td>
                     <td colspan="3" style="text-align: center;"><b>{{ __('DECISION DU JURY') }}</b>
                     </td>
                 </tr>
                 <tr class="item" style="text-align: center;">
-                    <td><b>Note</b></td>
+                    <td style="text-align: center; width: 50px;"><b>Note</b></td>
                     <td><b>Niveau de maitrise</b></td>
                     <td><b>Observations</b></td>
                 </tr>

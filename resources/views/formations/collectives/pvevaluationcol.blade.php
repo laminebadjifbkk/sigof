@@ -208,6 +208,7 @@
                     {{--  <td colspan="7">
                         <b>{{ __('Ingénieur en charge : ') }}</b>{{ $formation?->ingenieur?->name . '(' . $formation?->ingenieur?->initiale . ')' }}
                     </td> --}}
+                    <td rowspan="2" class="item" style="text-align: center;"><b>N°</b></td>
                     <td rowspan="2" class="item" style="text-align: center; width: 120px;"><b>N° CIN</b></td>
                     <td rowspan="2" class="item" style="text-align: center; width: 50px;"><b>Civilité</b></td>
                     <td rowspan="2" class="item" style="text-align: center;"><b>Prénom</b></td>
@@ -225,8 +226,10 @@
                 </tr>
             </thead>
             <tbody>
+                <?php $i = 1; ?>
                 @foreach ($formation->listecollectives as $listecollective)
                     <tr class="item" style="text-align: center;">
+                        <td>{{ $i++ }}</td>
                         <td>{{ $listecollective?->cin }}</td>
                         <td>{{ $listecollective->civilite }}</td>
                         <td>{{ format_proper_name($listecollective?->prenom) }}</td>
