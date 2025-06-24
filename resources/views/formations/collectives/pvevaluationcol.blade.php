@@ -213,7 +213,7 @@
                     <td rowspan="2" class="item" style="text-align: center; width: 50px;"><b>Civilité</b></td>
                     <td rowspan="2" class="item" style="text-align: center;"><b>Prénom</b></td>
                     <td rowspan="2" class="item" style="text-align: center;"><b>NOM</b></td>
-                    <td rowspan="2" class="item" style="text-align: center; width: 70px;"><b>Date naissance</b></td>
+                    <td rowspan="2" class="item" style="text-align: center; width: 80px;"><b>Date naissance</b></td>
                     <td rowspan="2" class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
                     <td rowspan="2" class="item" style="text-align: center; width: 70px;"><b>Téléphone</b></td>
                     <td colspan="3" style="text-align: center;"><b>{{ __('DECISION DU JURY') }}</b>
