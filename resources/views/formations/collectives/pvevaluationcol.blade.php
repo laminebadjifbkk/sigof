@@ -249,7 +249,7 @@
             <b><u>SIGNATURE DES MEMBRES DU JURY</u></b> :
             @if (!empty($formation?->date_pv))
                 <span
-                    style="float: right; font-style: italic">{{ $formation?->departement?->nom . ', ' . $formation?->departement?->region?->nom . ', le ' . $formation?->date_pv?->format('d/m/Y') }}</span>
+                    style="float: right; font-style: italic">{{ strtoupper($formation?->departement?->nom ?? '') . ', le ' . $formation?->date_pv?->format('d/m/Y') }}</span>
             @endif
             <br>
             <?php $i = 1; ?>
