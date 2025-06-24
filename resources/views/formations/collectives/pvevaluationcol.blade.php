@@ -160,7 +160,7 @@
         <table class="table table-responsive">
             <thead>
                 <tr class="heading" style="text-align: center;">
-                    <td colspan="10"><b>{{ __("PROCES VERBAL D'EVALUATION DE FORMATION") }}</b>
+                    <td colspan="11"><b>{{ __("PROCES VERBAL D'EVALUATION DE FORMATION") }}</b>
                     </td>
                 </tr>
                 <tr class="heading">
@@ -172,14 +172,14 @@
                             {{ ' au ' . $formation?->date_fin?->format('d/m/Y') }}
                         @endisset
                     </td>
-                    <td colspan="5"><b>{{ __('Intitulé formation : ') }}</b>
+                    <td colspan="6"><b>{{ __('Intitulé formation : ') }}</b>
                         {{ $formation?->collectivemodule?->module }}
                     </td>
                 </tr>
                 <tr class="heading">
                     <td colspan="5"><b>{{ __('Lieu : ') }}</b> {{ $formation?->lieu }}
                     </td>
-                    <td colspan="5"><b>{{ __('Opérateur : ') }}</b>
+                    <td colspan="6"><b>{{ __('Opérateur : ') }}</b>
                         {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
                     </td>
                 </tr>
@@ -196,7 +196,7 @@
                             @endif
                         @endif
                     </td>
-                    <td colspan="5"><b>{{ __('Titre : ') }}</b>
+                    <td colspan="6"><b>{{ __('Titre : ') }}</b>
                         @if ($formation?->type_certification !== 'Titre')
                             {{ $formation?->type_certification }}
                         @else
@@ -208,7 +208,7 @@
                     {{--  <td colspan="7">
                         <b>{{ __('Ingénieur en charge : ') }}</b>{{ $formation?->ingenieur?->name . '(' . $formation?->ingenieur?->initiale . ')' }}
                     </td> --}}
-                    <td rowspan="2" class="item" style="text-align: center;"><b>N°</b></td>
+                    <td rowspan="2" class="item" style="text-align: center; width: 50px;"><b>N°</b></td>
                     <td rowspan="2" class="item" style="text-align: center; width: 120px;"><b>N° CIN</b></td>
                     <td rowspan="2" class="item" style="text-align: center; width: 50px;"><b>Civilité</b></td>
                     <td rowspan="2" class="item" style="text-align: center;"><b>Prénom</b></td>
