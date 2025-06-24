@@ -106,7 +106,7 @@ class LettrevaluationController extends Controller
     // Formulaire d'édition
     public function edit(Lettrevaluation $lettrevaluation)
     {
-        if (! Auth::user()->hasAnyRole(['DEC', 'ADEC', 'super-admin', 'admin'])) {
+        if (! Auth::user()->hasAnyRole(['DEC', 'ADEC', 'super-admin', 'admin', 'Ingenieur'])) {
             Alert::error('Attention !', 'Accès refusé.');
             return redirect()->back();
         }
