@@ -1399,10 +1399,10 @@
                                                         <td>{{ $listecollective?->date_naissance?->format('d/m/Y') }}
                                                         </td>
                                                         <td>{{ $listecollective?->lieu_naissance }}</td>
-                                                        <td style="text-align: center">
+                                                        <td>
                                                             <span>{{ $listecollective?->note_obtenue }}</span>
                                                         </td>
-                                                        <td style="text-align: center; vertical-align: middle;">
+                                                        <td style="vertical-align: middle;">
                                                             @if (!empty($listecollective?->retrait_diplome))
                                                                 {{-- <button type="button"
                                                                         class="btn btn-outline-success btn-sm"
@@ -1551,7 +1551,8 @@
                             @enderror
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+                            <button type="button" class="btn btn-secondary btn-sm"
+                                data-bs-dismiss="modal">Fermer</button>
                             <button type="submit" class="btn btn-primary btn-sm"></i>
                                 Modifier</button>
                         </div>
