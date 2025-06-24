@@ -45,7 +45,7 @@
                                     Ajouter
                                 </button>
                             </div>
-                            @if ($lettres->isNotEmpty())
+                            @if ($lettrevaluations->isNotEmpty())
                                 <div class="table-responsive">
                                     <table class="table table-hover table-striped align-middle" id="table-jury">
                                         <thead class="table-primary text-center">
@@ -62,42 +62,42 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($lettres as $lettre)
+                                            @foreach ($lettrevaluations as $lettrevaluation)
                                                 <tr>
-                                                    <td>{{ $lettre?->titre }}</td>
-                                                    <td>{{ $lettre?->formation?->name }}</td>
-                                                    <td>{{ $lettre?->formation?->operateur?->user?->username }}</td>
-                                                    <td>{{ $lettre?->onfpevaluateur?->name }}</td>
-                                                    <td>{{ $lettre?->evaluateur?->name }}</td>
+                                                    <td>{{ $lettrevaluation?->titre }}</td>
+                                                    <td>{{ $lettrevaluation?->formation?->name }}</td>
+                                                    <td>{{ $lettrevaluation?->formation?->operateur?->user?->username }}</td>
+                                                    <td><span
+                                                            class="{{ $lettrevaluation?->formation?->onfpevaluateur?->name ?? 'Aucun' }}">{{ $lettrevaluation?->formation?->onfpevaluateur?->name ?? 'Aucun' }}</span>
+                                                    </td>
+                                                    <td><span
+                                                            class="{{ $lettrevaluation?->formation?->evaluateur?->name ?? 'Aucun' }}">{{ $lettrevaluation?->formation?->evaluateur?->name ?? 'Aucun' }}</span>
+                                                    </td>
                                                     <td>
                                                         <span
-                                                            class="{{ $lettre?->formation->module->name ?? ($lettre?->formation->collectivemodule->module ?? 'Aucun') }}">
-                                                            {{ $lettre?->formation->module->name ?? ($lettre?->formation->collectivemodule->module ?? 'Aucun') }}
+                                                            class="{{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}">
+                                                            {{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}
                                                         </span>
                                                     </td>
                                                     {{-- Actions ABE --}}
                                                     <td>
                                                         @php
-                                                            $formation = $lettre?->formation;
+                                                            $formation = $lettrevaluation?->formation;
                                                             $isIndividuel = $formation?->module?->name;
                                                             $isCollectif = $formation?->collectivemodule?->module;
                                                         @endphp
 
                                                         @if ($isIndividuel || $isCollectif)
                                                             <div class="btn-group" role="group" aria-label="Actions ABE">
-                                                                <a href="{{ route($isIndividuel ? 'abeEvaluationlettre' : 'abeEvaluationCollettre', ['idformation' => $formation->id]) }}"
-                                                                    class="btn btn-primary btn-sm" title="Télécharger l'ABE"
-                                                                    target="_blank">
-                                                                    <i class="bi bi-download"></i>
-                                                                </a>
-
-                                                                <button type="button"
-                                                                    class="btn btn-secondary btn-sm text-white"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#EditABEModal{{ $lettre->id }}"
-                                                                    title="Modifier l'ABE">
-                                                                    <i class="bi bi-pencil"></i>
-                                                                </button>
+                                                                <form
+                                                                    action="{{ route($isIndividuel ? 'abeEvaluationlettre' : 'abeEvaluationCollettre', ['idformation' => $formation->id]) }}"
+                                                                    method="POST" target="_blank" style="display:inline;">
+                                                                    @csrf
+                                                                    <button type="submit" class="btn btn-primary btn-sm"
+                                                                        title="Télécharger l'ABE">
+                                                                        <i class="bi bi-download"></i>
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         @else
                                                             <span class="text-danger">Aucun ABE</span>
@@ -107,19 +107,14 @@
                                                     {{-- Actions Lettre de mission --}}
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Actions Lettre">
-                                                            <a href="{{ route('lettrevaluations.show', $lettre->id) }}"
+                                                            <a href="{{ route('lettrevaluations.show', $lettrevaluation->id) }}"
                                                                 class="btn btn-success btn-sm"
-                                                                title="Télécharger la lettre de mission" target="_blank">
+                                                                title="Télécharger la lettre de mission">
                                                                 <i class="bi bi-download"></i>
-                                                            </a>
-                                                            <a href="{{ route('lettrevaluations.edit', $lettre->id) }}"
-                                                                class="btn btn-warning btn-sm text-white"
-                                                                title="Modifier la lettre de mission" target="_blank">
-                                                                <i class="bi bi-pencil"></i>
                                                             </a>
                                                             {{-- <button type="button" class="btn btn-warning btn-sm text-white"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#EditmembreModal{{ $lettre->id }}"
+                                                                data-bs-target="#EditmembreModal{{ $lettrevaluation->id }}"
                                                                 title="Modifier la lettre">
                                                                 <i class="bi bi-pencil"></i>
                                                             </button> --}}
@@ -127,15 +122,25 @@
                                                     </td>
                                                     {{-- Actions --}}
                                                     <td>
-                                                        <form action="{{ route('lettrevaluations.destroy', $lettre->id) }}"
-                                                            method="POST" class="d-inline-block">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                                title="Supprimer">
-                                                                <i class="bi bi-trash"></i>
-                                                            </button>
-                                                        </form>
+                                                        <span class="d-flex align-items-baseline">
+                                                            <a href="{{ route('lettrevaluations.edit', $lettrevaluation->id) }}"
+                                                                class="btn btn-warning btn-sm text-white"
+                                                                title="Modifier la lettre de mission">
+                                                                <i class="bi bi-pencil"></i>
+                                                            </a>
+                                                            &nbsp;
+                                                            <form
+                                                                action="{{ route('lettrevaluations.destroy', $lettrevaluation->id) }}"
+                                                                method="POST" class="d-inline-block">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="btn btn-danger btn-sm show_confirm"
+                                                                    title="Supprimer">
+                                                                    <i class="bi bi-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        </span>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -168,33 +173,39 @@
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                         <label for="formation" class="form-label">Formation<span
                                                 class="text-danger mx-1">*</span></label>
-                                        <select name="formations_id"
-                                            class="form-select form-select-sm @error('formations_id') is-invalid @enderror"
+                                        <select name="formation"
+                                            class="form-select form-select-sm @error('formation') is-invalid @enderror"
                                             aria-label="Select" id="formationSelect" data-placeholder="Choisir">
-                                            <option value="{{ old('formations_id') }}">
-                                                {{ old('formations_id') }}
+                                            <option value="{{ old('formation') }}">
+                                                {{ old('formation') }}
                                             </option>
                                             @foreach ($formations as $formation)
                                                 <option value="{{ $formation->id }}">
-                                                    {{ $formation->numero_convention }}
+                                                    {{ $formation->name }}
+                                                    @if ($formation->numero_convention)
+                                                        - {{ $formation->numero_convention }}
+                                                    @endif
+                                                    @if ($formation?->operateur?->user?->username)
+                                                        - {{ $formation?->operateur?->user?->username }}
+                                                    @endif
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('formations_id')
+                                        @error('formation')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
                                             </span>
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                        <label for="onfpevaluateurs_id" class="form-label">Initateur de la lettre<span
+                                    {{-- <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <label for="onfpevaluateur" class="form-label">Initateur de la lettre<span
                                                 class="text-danger mx-1">*</span></label>
-                                        <select name="onfpevaluateurs_id"
-                                            class="form-select form-select-sm @error('onfpevaluateurs_id') is-invalid @enderror"
+                                        <select name="onfpevaluateur"
+                                            class="form-select form-select-sm @error('onfpevaluateur') is-invalid @enderror"
                                             aria-label="Select" id="onfpevaluateurSelect" data-placeholder="Choisir">
-                                            <option value="{{ old('onfpevaluateurs_id') }}">
-                                                {{ old('onfpevaluateurs_id') }}
+                                            <option value="{{ old('onfpevaluateur') }}">
+                                                {{ old('onfpevaluateur') }}
                                             </option>
                                             @foreach ($onfpevaluateurs as $onfpevaluateur)
                                                 <option value="{{ $onfpevaluateur->id }}">
@@ -202,7 +213,7 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('onfpevaluateurs_id')
+                                        @error('onfpevaluateur')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
                                             </span>
@@ -210,13 +221,13 @@
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                        <label for="evaluateurs_id" class="form-label">Evaluateur<span
+                                        <label for="evaluateur" class="form-label">Evaluateur<span
                                                 class="text-danger mx-1">*</span></label>
-                                        <select name="evaluateurs_id"
-                                            class="form-select form-select-sm @error('evaluateurs_id') is-invalid @enderror"
+                                        <select name="evaluateur"
+                                            class="form-select form-select-sm @error('evaluateur') is-invalid @enderror"
                                             aria-label="Select" id="evaluateurSelect" data-placeholder="Choisir">
-                                            <option value="{{ old('evaluateurs_id') }}">
-                                                {{ old('evaluateurs_id') }}
+                                            <option value="{{ old('evaluateur') }}">
+                                                {{ old('evaluateur') }}
                                             </option>
                                             @foreach ($evaluateurs as $evaluateur)
                                                 <option value="{{ $evaluateur->id }}">
@@ -224,15 +235,15 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('evaluateurs_id')
+                                        @error('evaluateur')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                        <label for="contenu" class="form-label">ABE</label>
+                                        <label for="contenu" class="form-label">Commenataires</label>
                                         <textarea name="contenu" id="contenu" rows="5"
                                             class="form-control form-control-sm @error('contenu') is-invalid @enderror" placeholder="Commentaires">{{ old('contenu') }}</textarea>
                                         @error('contenu')
@@ -253,19 +264,19 @@
                     </div>
                 </div>
             </div>
-            @foreach ($lettres as $lettre)
-                <div class="modal fade" id="EditABEModal{{ $lettre->id }}" tabindex="-1" role="dialog"
-                    aria-labelledby="EditABEModalLabel{{ $lettre->id }}" aria-hidden="true">
+            @foreach ($lettrevaluations as $lettrevaluation)
+                <div class="modal fade" id="EditABEModal{{ $lettrevaluation->id }}" tabindex="-1" role="dialog"
+                    aria-labelledby="EditABEModalLabel{{ $lettrevaluation->id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form method="post" action="{{ route('lettrevaluations.update', $lettre->id) }}"
+                            <form method="post" action="{{ route('lettrevaluations.update', $lettrevaluation->id) }}"
                                 enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 @method('patch')
                                 <div class="card-header text-center bg-gradient-default">
                                     <h1 class="h4 text-black mb-0">Modifier membre</h1>
                                 </div>
-                                <input type="hidden" name="id" value="{{ $lettre->id }}">
+                                <input type="hidden" name="id" value="{{ $lettrevaluation->id }}">
                                 <div class="modal-body">
                                     <div class="row g-3">
                                         <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
@@ -274,8 +285,8 @@
                                             <select name="civilite"
                                                 class="form-select form-select-sm @error('civilite') is-invalid @enderror"
                                                 aria-label="Select" id="civiliteMembre" data-placeholder="Choisir civilité">
-                                                <option value="{{ old('civilite', $lettre->civilite ?? '') }}">
-                                                    {{ old('civilite', $lettre->civilite ?? '') }}</option>
+                                                <option value="{{ old('civilite', $lettrevaluation->civilite ?? '') }}">
+                                                    {{ old('civilite', $lettrevaluation->civilite ?? '') }}</option>
                                                 <option value="M.">
                                                     M.
                                                 </option>
@@ -294,7 +305,7 @@
                                             <label for="prenom" class="form-label">Prénom<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="prenom"
-                                                value="{{ old('prenom', $lettre->prenom ?? '') }}"
+                                                value="{{ old('prenom', $lettrevaluation->prenom ?? '') }}"
                                                 class="form-control form-control-sm @error('prenom') is-invalid @enderror"
                                                 id="prenom" placeholder="prenom">
                                             @error('prenom')
@@ -308,7 +319,7 @@
                                             <label for="nom" class="form-label">Nom<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="nom"
-                                                value="{{ old('nom', $lettre->nom ?? '') }}"
+                                                value="{{ old('nom', $lettrevaluation->nom ?? '') }}"
                                                 class="form-control form-control-sm @error('nom') is-invalid @enderror"
                                                 id="nom" placeholder="nom">
                                             @error('nom')
@@ -322,7 +333,7 @@
                                             <label for="fonction" class="form-label">Fonction<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="fonction"
-                                                value="{{ old('fonction', $lettre->fonction ?? '') }}"
+                                                value="{{ old('fonction', $lettrevaluation->fonction ?? '') }}"
                                                 class="form-control form-control-sm @error('fonction') is-invalid @enderror"
                                                 id="fonction" placeholder="fonction">
                                             @error('fonction')

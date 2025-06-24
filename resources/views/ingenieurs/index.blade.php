@@ -42,14 +42,14 @@
                                 {{-- <a href="{{ route('ingenieurs.create') }}" class="btn btn-primary float-end btn-rounded"><i
                                     class="fas fa-plus"></i>
                                 <i class="bi bi-person-plus" title="Ajouter"></i> </a> --}}
-                                @can('ingenieur-create')
+                                {{-- @can('ingenieur-create')
                                     <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
                                         data-bs-toggle="modal" data-bs-target="#AddingenieurModal">Ajouter
                                     </button>
-                                @endcan
+                                @endcan --}}
                             </div>
                             {{-- @endcan --}}
-                            <h5 class="card-title">Ingénieurs</h5>
+                            <h5 class="card-title">Liste des ingénieurs</h5>
                             <!-- Table with stripped rows -->
                             <table class="table datatables align-middle justify-content-center" id="table-ingenieurs">
                                 <thead>

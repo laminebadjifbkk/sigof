@@ -44,16 +44,19 @@
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="formation" id="formationSelected"
                                                 class="form-select form-select-sm @error('formation') is-invalid @enderror"
-                                                aria-label="Sélection de la formation" data-placeholder="Choisir">
-
-                                                <option value="{{ $lettrevaluation?->formation?->id ?? old('formation') }}"
-                                                    {{ $lettrevaluation?->formation?->numero_convention ?? old('formation') }}>
-                                                </option>
+                                                aria-label="Sélection de la formation" data-placeholder="Choisir une formation">
+                                                <option value="" disabled selected>-- Choisir une formation --</option>
 
                                                 @foreach ($formations as $formation)
                                                     <option value="{{ $formation->id }}"
-                                                        {{ old('formation', $lettrevaluation?->formation->id) == $formation->id ? 'selected' : '' }}>
-                                                        {{ $formation->numero_convention }}
+                                                        {{ old('formation', $lettrevaluation?->formation?->id) == $formation->id ? 'selected' : '' }}>
+                                                        {{ $formation->name }}
+                                                        @if ($formation->numero_convention)
+                                                            - {{ $formation->numero_convention }}
+                                                        @endif
+                                                        @if ($formation?->operateur?->user?->username)
+                                                            - {{ $formation?->operateur?->user?->username }}
+                                                        @endif
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -97,13 +100,88 @@
                                                     value="{{ $lettrevaluation?->formation->evaluateur->id ?? old('evaluateur') }}">
                                                     {{ $lettrevaluation?->formation->evaluateur->name ?? old('evaluateur') }}
                                                 </option>
-                                                @foreach ($lettres as $lettre)
-                                                    <option value="{{ $lettre?->evaluateur?->id }}">
-                                                        {{ $lettre?->evaluateur?->name }}
+                                                @foreach ($evaluateurs as $evaluateur)
+                                                    <option value="{{ $evaluateur->id }}">
+                                                        {{ $evaluateur->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                             @error('evaluateur')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <label for="frais_evaluateur" class="form-label">Montant indemnité de membre</label>
+                                            <input type="number" name="frais_evaluateur" min="0" step="0.001"
+                                                value="{{ $lettrevaluation?->formation?->frais_evaluateur ?? old('frais_evaluateur') }}"
+                                                class="form-control form-control-sm @error('frais_evaluateur') is-invalid @enderror"
+                                                id="frais_evaluateur" placeholder="Montant indemnité de membre ">
+                                            @error('frais_evaluateur')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <label for="date_pv" class="form-label">Date évaluation</label>
+                                            <input type="date" name="date_pv"
+                                                value="{{ $lettrevaluation?->formation?->date_pv?->format('Y-m-d') ?? old('date_pv') }}"
+                                                class="datepicker form-control form-control-sm @error('date_pv') is-invalid @enderror"
+                                                id="date_pv" placeholder="jj/mm/aaaa">
+                                            @error('date_pv')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <label for="titre" class="form-label">Titre (convention)</label>
+                                            <select name="titre" class="form-select  @error('titre') is-invalid @enderror"
+                                                aria-label="Select" id="select-field-titre" data-placeholder="Choisir titre">
+                                                <option>
+                                                    {{ $lettrevaluation?->formation?->titre ?? ($lettrevaluation?->formation?->referentiel?->titre ?? old('titre')) }}
+                                                </option>
+                                                <option value="null">
+                                                    Aucun
+                                                </option>
+                                                @foreach ($referentiels as $referentiel)
+                                                    <option value="{{ $referentiel?->titre }}">
+                                                        {{ $referentiel?->titre }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('titre')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <label for="type_certification" class="form-label">Titre (convention)</label>
+                                            <select name="type_certification"
+                                                class="form-select  @error('type_certification') is-invalid @enderror"
+                                                aria-label="Select" id="select-field-type_certification_update"
+                                                data-placeholder="Choisir type certification">
+                                                <option value="{{ $lettrevaluation?->formation?->type_certification }}">
+                                                    {{ $lettrevaluation?->formation?->type_certification ?? old('type_certification') }}
+                                                </option>
+                                                <option value="{{ old('c') }}">
+                                                    {{ old('type_certification') }}
+                                                </option>
+                                                <option value="Titre">
+                                                    Titre
+                                                </option>
+                                                <option value="Attestation">
+                                                    Attestation
+                                                </option>
+                                            </select>
+                                            @error('type_certification')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
                                                 </span>

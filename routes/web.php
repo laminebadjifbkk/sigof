@@ -350,7 +350,7 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::post('lettreEvaluation', [FormationController::class, 'lettreEvaluation'])->name('lettreEvaluation');
         Route::post('abeEvaluation', [FormationController::class, 'abeEvaluation'])->name('abeEvaluation');
-        Route::get('abeEvaluationlettre/{idformation}', [FormationController::class, 'abeEvaluationlettre'])->name('abeEvaluationlettre');
+        Route::post('abeEvaluationlettre/{idformation}', [FormationController::class, 'abeEvaluationlettre'])->name('abeEvaluationlettre');
         Route::post('abeEvaluationCol', [FormationController::class, 'abeEvaluationCol'])->name('abeEvaluationCol');
         Route::post('abeEvaluationCollettre/{idformation}', [FormationController::class, 'abeEvaluationCollettre'])->name('abeEvaluationCollettre');
 

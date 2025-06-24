@@ -5,6 +5,7 @@ use App\Models\Evaluateur;
 use App\Models\Formation;
 use App\Models\Lettrevaluation;
 use App\Models\Onfpevaluateur;
+use App\Models\Referentiel;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,12 +24,12 @@ class LettrevaluationController extends Controller
             return redirect()->back();
         }
 
-        $lettres         = Lettrevaluation::latest()->get();
-        $formations      = Formation::whereNotNull('numero_convention')->latest()->get();
-        $onfpevaluateurs = Onfpevaluateur::latest()->get();
-        $evaluateurs     = Evaluateur::latest()->get();
+        $lettrevaluations = Lettrevaluation::latest()->get();
+        $formations       = Formation::whereNotNull('numero_convention')->latest()->get();
+        $onfpevaluateurs  = Onfpevaluateur::latest()->get();
+        $evaluateurs      = Evaluateur::latest()->get();
         //$lettres = Lettrevaluation::where('users_id', Auth::id())->latest()->get();
-        return view('formations.lettrevaluations.index', compact('lettres', 'formations', 'onfpevaluateurs', 'evaluateurs'));
+        return view('formations.lettrevaluations.index', compact('lettrevaluations', 'formations', 'onfpevaluateurs', 'evaluateurs'));
     }
 
     // Formulaire de création
@@ -40,17 +41,27 @@ class LettrevaluationController extends Controller
     // Enregistre une nouvelle lettre
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        /* $validated = $request->validate([
             'titre'              => 'nullable|string|max:255',
             'contenu'            => 'nullable|string',
-            'users_id'           => 'nullable|exists:users,id',
             'formations_id'      => 'required|exists:formations,id',
             'operateurs_id'      => 'nullable|exists:operateurs,id',
             'onfpevaluateurs_id' => 'required|exists:users,id',
             'evaluateurs_id'     => 'required|exists:users,id',
         ]);
 
-        Lettrevaluation::create($validated);
+        Lettrevaluation::create($validated); */
+
+        $request->validate([
+            'formation' => 'required|string|unique:lettrevaluations,formations_id',
+            'contenu'   => 'nullable|string|max:500',
+        ]);
+
+        Lettrevaluation::create([
+            'formations_id' => $request->input('formation'),
+            'titre'         => Auth::user()->firstname . ' ' . Auth::user()->name,
+            'contenu'       => $request->input('contenu'),
+        ]);
 
         Alert::success('Succès !', 'Lettre créée avec succès.');
         return redirect()->back();
@@ -100,31 +111,68 @@ class LettrevaluationController extends Controller
             return redirect()->back();
         }
 
-        $lettres         = Lettrevaluation::latest()->get();
-        $formations      = Formation::whereNotNull('numero_convention')->latest()->get();
-        $onfpevaluateurs = Onfpevaluateur::latest()->get();
-        $evaluateurs     = Evaluateur::latest()->get();
-        return view('formations.lettrevaluations.update', compact('lettres', 'formations', 'onfpevaluateurs', 'evaluateurs', 'lettrevaluation'));
+        $formation = $lettrevaluation->formation;
+
+        $lettrevaluations = Lettrevaluation::latest()->get();
+        $formations       = Formation::whereNotNull('numero_convention')->latest()->get();
+        $onfpevaluateurs  = Onfpevaluateur::latest()->get();
+        $evaluateurs      = Evaluateur::latest()->get();
+        $referentiels     = Referentiel::latest()->get();
+        return view('formations.lettrevaluations.update', compact('lettrevaluations', 'formations', 'onfpevaluateurs', 'evaluateurs', 'lettrevaluation', 'formation', 'referentiels'));
     }
 
     // Met à jour une lettre
     public function update(Request $request, Lettrevaluation $lettrevaluation)
     {
         $validated = $request->validate([
-            'contenu'        => 'nullable|string|max:500',
-            'formation'      => 'required|string',
-            'onfpevaluateur' => 'required|string',
-            'evaluateur'     => 'required|string',
+            'formation'        => 'required|string',
+            'onfpevaluateur'   => 'required|string',
+            'evaluateur'       => 'required|string',
+            'frais_evaluateur' => 'nullable|string',
+            'date_pv'          => 'nullable|string',
+            'contenu'          => 'nullable|string|max:500',
         ]);
+        function parseDateOrNull($value)
+        {
+            return ! empty($value) ? date('Y-m-d H:i:s', strtotime($value)) : null;
+        }
+
+        $formation = Formation::findOrFail($request->input('formation'));
+        $date_pv   = parseDateOrNull($request->input('date_pv'));
+
+        $referentiel = Referentiel::where('titre', $request->titre)->first();
+
+// Détermination du type et du titre
+        if (! empty($referentiel) && $request->titre !== 'Renforcement de capacités') {
+            $referentiel_id = $referentiel->id;
+            $titre          = null;
+            $type           = 'Titre';
+        } elseif ($request->titre === 'Renforcement de capacités') {
+            $referentiel_id = null;
+            $titre          = 'Renforcement de capacités';
+            $type           = 'Attestation';
+        } else {
+            $referentiel_id = null;
+            $titre          = null;
+            $type           = null;
+        }
 
         $lettrevaluation->update([
-            'contenu'            => $request->input('contenu'),
-            'formations_id'      => $request->input('formation'),
-            'onfpevaluateurs_id' => $request->input('onfpevaluateur'),
-            'evaluateurs_id'     => $request->input('evaluateur'),
+            'formations_id' => $request->input('formation'),
+            'contenu'       => $request->input('contenu'),
         ]);
 
-        Alert::success('Succès !', 'Lettre mise à jour avec succès.');
+        $formation->update([
+            'evaluateurs_id'     => $request->input('evaluateur'),
+            'onfpevaluateurs_id' => $request->input('onfpevaluateur'),
+            'frais_evaluateur'   => $request->input('frais_evaluateur'),
+            'date_pv'            => $date_pv,
+            "type_certification" => $request->input('type_certification'),
+            "titre"              => $titre,
+            "referentiels_id"    => $referentiel_id,
+        ]);
+
+        Alert::success('Succès !', 'Mise à jour effectuée avec succès.');
         // Envoie un message de succès
         return redirect()->back();
     }
