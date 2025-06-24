@@ -25,6 +25,7 @@
                                         <th>Date naissance</th>
                                         <th>Lieu naissance</th>
                                         <th>Téléphone</th>
+                                        <th>Adresse</th>
                                         <th>Régions</th>
                                         <th>Statut</th>
                                         <th class="text-center">#</th>
@@ -66,6 +67,7 @@
                                             <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                             <td>{{ $individuelle?->user?->lieu_naissance }}</td>
                                             <td>{{ $individuelle?->user?->telephone }}</td>
+                                            <td>{{ $individuelle?->user?->adresse }}</td>
                                             <td><a
                                                     href="{{ url('modulelocalite', ['$idlocalite' => $individuelle->departement->region->id, '$idmodule' => $module?->id]) }}">{{ $individuelle->departement->region->nom }}</a>
                                             </td>
