@@ -170,7 +170,7 @@
                     <td><b>NOM</b></td>
                     <td><b>Date naissance</b></td>
                     <td><b>Lieu de naissance</b></td>
-                    <td><b>Téléphone</b></td>
+                    <td width="8%"><b>Téléphone</b></td>
                     <td><b>Nbre Jours</b></td>
                     <td><b>Emargement</b></td>
                 </tr>
