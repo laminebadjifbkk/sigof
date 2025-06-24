@@ -366,8 +366,8 @@
 
         @can('ingenieur-view')
             <li class="nav-item">
-                <i class="bi bi-people-fill"></i>
                 <a class="nav-link collapsed" href="{{ route('ingenieurs.index') }}">
+                    <i class="bi bi-people-fill"></i>
                     <span>Ingénieurs</span>
                 </a>
             </li>
@@ -375,6 +375,7 @@
         @can('lettre-formation')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('lettrevaluations.index') }}">
+                <i class="bi bi-file-fill"></i>
                     <span>Lettre évaluation & ABE</span>
                 </a>
             </li>
