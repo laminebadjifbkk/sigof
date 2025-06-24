@@ -483,6 +483,8 @@
                                                                             class="show_confirm_valider btn btn-sm mx-1">Résultats
                                                                             (e-mail)</button>
                                                                     </form>
+                                                                @endcan
+                                                                @can('sms-formation')
 
                                                                     <hr>
 
