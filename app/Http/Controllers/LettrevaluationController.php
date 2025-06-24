@@ -131,6 +131,7 @@ class LettrevaluationController extends Controller
             'frais_evaluateur' => 'nullable|string',
             'date_pv'          => 'nullable|string',
             'contenu'          => 'nullable|string|max:500',
+            'execution_statut' => 'required|in:0,1',
         ]);
         function parseDateOrNull($value)
         {
@@ -158,8 +159,9 @@ class LettrevaluationController extends Controller
         }
 
         $lettrevaluation->update([
-            'formations_id' => $request->input('formation'),
-            'contenu'       => $request->input('contenu'),
+            'formations_id'    => $request->input('formation'),
+            "execution_statut" => $request->input('execution_statut'),
+            'contenu'          => $request->input('contenu'),
         ]);
 
         $formation->update([

@@ -19,6 +19,7 @@ class Lettrevaluation extends Model
         'operateurs_id',
         'onfpevaluateurs_id',
         'evaluateurs_id',
+        'execution_statut',
     ];
 
     protected static function boot()

@@ -580,7 +580,7 @@ class Formation extends Model
 
     public function lettrevaluation()
     {
-        return $this->hasOne(LettreValuation::class, 'formations_id');
+        return $this->hasOne(Lettrevaluation::class, 'formations_id');
     }
 
 }

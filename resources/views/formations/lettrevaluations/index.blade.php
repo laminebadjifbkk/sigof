@@ -50,6 +50,7 @@
                                     <table class="table table-hover table-striped align-middle" id="table-jury">
                                         <thead class="table-primary text-center">
                                             <tr>
+                                                <th>Exécution</th>
                                                 <th>Initiateur</th>
                                                 <th>Formation</th>
                                                 <th>Operateur</th>
@@ -64,6 +65,13 @@
                                         <tbody>
                                             @foreach ($lettrevaluations as $lettrevaluation)
                                                 <tr>
+                                                    <td>
+                                                        @if ($lettrevaluation?->execution_statut == 1)
+                                                            <span class="badge bg-success">Oui</span>
+                                                        @else
+                                                            <span class="badge bg-danger">Non</span>
+                                                        @endif
+                                                    </td>
                                                     <td>{{ $lettrevaluation?->titre }}</td>
                                                     <td>{{ $lettrevaluation?->formation?->name }}</td>
                                                     <td>{{ $lettrevaluation?->formation?->operateur?->user?->username }}</td>

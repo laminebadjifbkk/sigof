@@ -200,6 +200,37 @@
                                         </div>
 
                                     </div>
+                                    <hr>
+
+                                    <div class="row g-3">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12 mb-3">
+                                            {{-- Boutons radio pour le statut d'exécution --}}
+                                            <div class="col-12 mb-3">
+                                                <label class="card-title">ABE | Exécution de l'opérateur</label>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="execution_statut"
+                                                        id="execution_success" value="1"
+                                                        {{ old('execution_statut', $lettrevaluation?->execution_statut) == '1' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="execution_success">
+                                                        L'opérateur a exécuté avec succès
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="execution_statut"
+                                                        id="execution_failed" value="0"
+                                                        {{ old('execution_statut', $lettrevaluation?->execution_statut) == '0' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="execution_failed">
+                                                        L'opérateur n'a pas exécuté avec succès
+                                                    </label>
+                                                </div>
+                                                @error('execution_statut')
+                                                    <span class="text-danger small">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+
+                                        </div>
+                                    </div>
 
                                     <div class="text-center gap-2 p-3 bg-light border-top">
                                         <button type="submit" class="btn btn-success btn-sm">
