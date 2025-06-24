@@ -106,7 +106,7 @@
                     </td>
                 </tr>
                 <tr class="heading">
-                    <td colspan="4">{{ __('Code formation : ') }}
+                    <td colspan="4">{{ __('Code : ') }}
                         @if (!empty($formation?->code))
                             {{ $formation?->code . 'C' }}
                         @endif

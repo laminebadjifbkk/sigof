@@ -106,7 +106,7 @@
                     </td>
                 </tr>
                 <tr class="heading">
-                    <td colspan="4">{{ __('Code formation : ') }}
+                    <td colspan="4">{{ __('Code : ') }}
                         {{ $formation->code }}
                     </td>
                     <td colspan="4"><b>{{ __('Suivi : ') }}</b>
