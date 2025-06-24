@@ -978,7 +978,7 @@
                                                     <table class="table table-bordered table-hover datatables"
                                                         id="table-evaluation">
                                                         <thead>
-                                                            <tr>
+                                                            <tr class="text-center">
                                                                 <th>N°</th>
                                                                 {{-- <th>Numéro</th> --}}
                                                                 <th>Civilité</th>
@@ -996,7 +996,7 @@
                                                         <tbody>
                                                             <?php $i = 1; ?>
                                                             @foreach ($formation->individuelles as $individuelle)
-                                                                <tr valign="middle">
+                                                                <tr valign="middle" class="text-center">
                                                                     <td>{{ $i++ }}</td>
                                                                     {{-- <td>{{ $individuelle?->numero }}</td> --}}
                                                                     <td>{{ $individuelle?->user?->civilite }}</td>
