@@ -1908,7 +1908,7 @@ class FormationController extends Controller
                 $individuelle->update([
                     "note_obtenue" => $value,
                     "appreciation" => $appreciation,
-                    "statut"       => 'formés',
+                    "statut"       => 'formé',
                 ]);
             } else {
                 Alert::warning('Désolé !', 'La formation n\'est pas encore achevée.');
@@ -1919,7 +1919,7 @@ class FormationController extends Controller
 
             $validated_by = new Validationindividuelle([
                 'validated_id'     => Auth::user()->id,
-                'action'           => 'formés',
+                'action'           => 'formé',
                 'individuelles_id' => $individuelle->id,
             ]);
 
@@ -1963,7 +1963,7 @@ class FormationController extends Controller
             $listecollective->update([
                 "note_obtenue" => $value,
                 "appreciation" => $appreciation,
-                "statut"       => 'formés',
+                "statut"       => 'formé',
             ]);
 
             $listecollective->save();
@@ -1971,7 +1971,7 @@ class FormationController extends Controller
             $collectivemodule = $listecollective->collectivemodule;
 
             $collectivemodule->update([
-                "statut" => 'formés',
+                "statut" => 'formé',
             ]);
 
             $collectivemodule->save();
@@ -1979,7 +1979,7 @@ class FormationController extends Controller
             $collective = $collectivemodule->collective;
 
             $collective->update([
-                "statut_demande" => 'formés',
+                "statut_demande" => 'formé',
             ]);
 
             $collective->save();
@@ -3439,7 +3439,7 @@ class FormationController extends Controller
 
             $formes = Individuelle::join('formations', 'formations.id', 'individuelles.formations_id')
                 ->select('individuelles.*')
-                ->where('individuelles.statut', 'formés')
+                ->where('individuelles.statut', 'formé')
                 ->where('individuelles.modules_id', 'LIKE', "%{$module?->id}%")
                 ->where('individuelles.regions_id', $region?->id)
                 ->where('individuelles.projets_id', $projet?->id)
@@ -3451,7 +3451,7 @@ class FormationController extends Controller
 
             $formes = Individuelle::join('formations', 'formations.id', 'individuelles.formations_id')
                 ->select('individuelles.*')
-                ->where('individuelles.statut', 'formés')
+                ->where('individuelles.statut', 'formé')
                 ->where('individuelles.regions_id', $region?->id)
                 ->whereBetween(DB::raw('DATE(formations.date_debut)'), [$request->from_date, $request->to_date])
                 ->get();
@@ -3460,7 +3460,7 @@ class FormationController extends Controller
 
             $formes = Individuelle::join('formations', 'formations.id', 'individuelles.formations_id')
                 ->select('individuelles.*')
-                ->where('individuelles.statut', 'formés')
+                ->where('individuelles.statut', 'formé')
                 ->where('individuelles.projets_id', $projet?->id)
                 ->whereBetween(DB::raw('DATE(formations.date_debut)'), [$request->from_date, $request->to_date])
                 ->get();
@@ -3469,14 +3469,14 @@ class FormationController extends Controller
 
             $formes = Individuelle::join('formations', 'formations.id', 'individuelles.formations_id')
                 ->select('individuelles.*')
-                ->where('individuelles.statut', 'formés')
+                ->where('individuelles.statut', 'formé')
                 ->where('individuelles.modules_id', 'LIKE', "%{$module?->id}%")
                 ->whereBetween(DB::raw('DATE(formations.date_debut)'), [$request->from_date, $request->to_date])
                 ->get();
         } else {
             $formes = Individuelle::join('formations', 'formations.id', 'individuelles.formations_id')
                 ->select('individuelles.*')
-                ->where('individuelles.statut', 'formés')
+                ->where('individuelles.statut', 'formé')
                 ->whereBetween(DB::raw('DATE(formations.date_debut)'), [$request->from_date, $request->to_date])
                 ->get();
         }
@@ -3534,14 +3534,14 @@ class FormationController extends Controller
             $module = Collectivemodule::where('module', $request->module)->first();
             $formes = Listecollective::join('formations', 'formations.id', 'listecollectives.formations_id')
                 ->select('listecollectives.*')
-                ->where('listecollectives.statut', 'formés')
+                ->where('listecollectives.statut', 'formé')
                 ->where('listecollectives.collectivemodules_id', 'LIKE', "%{$module?->id}%")
                 ->whereBetween(DB::raw('DATE(formations.date_debut)'), [$request->from_date, $request->to_date])
                 ->get();
         } else {
             $formes = Listecollective::join('formations', 'formations.id', 'listecollectives.formations_id')
                 ->select('listecollectives.*')
-                ->where('listecollectives.statut', 'formés')
+                ->where('listecollectives.statut', 'formé')
                 ->whereBetween(DB::raw('DATE(formations.date_debut)'), [$request->from_date, $request->to_date])
                 ->get();
         }
@@ -3624,7 +3624,7 @@ class FormationController extends Controller
 
             $formes = Individuelle::join('formations', 'formations.id', 'individuelles.formations_id')
                 ->select('individuelles.*')
-                ->where('individuelles.statut', 'formés')
+                ->where('individuelles.statut', 'formé')
                 ->where('individuelles.modules_id', 'LIKE', "%{$module?->id}%")
                 ->where('individuelles.regions_id', $region?->id)
                 ->whereBetween(DB::raw('DATE(formations.date_debut)'), [$request->from_date, $request->to_date])
@@ -3635,7 +3635,7 @@ class FormationController extends Controller
 
             $formes = Individuelle::join('formations', 'formations.id', 'individuelles.formations_id')
                 ->select('individuelles.*')
-                ->where('individuelles.statut', 'formés')
+                ->where('individuelles.statut', 'formé')
                 ->where('individuelles.regions_id', $region?->id)
                 ->whereBetween(DB::raw('DATE(formations.date_debut)'), [$request->from_date, $request->to_date])
                 ->get();
@@ -3645,7 +3645,7 @@ class FormationController extends Controller
 
             $formes = Individuelle::join('formations', 'formations.id', 'individuelles.formations_id')
                 ->select('individuelles.*')
-                ->where('individuelles.statut', 'formés')
+                ->where('individuelles.statut', 'formé')
                 ->where('individuelles.modules_id', 'LIKE', "%{$module?->id}%")
                 ->whereBetween(DB::raw('DATE(formations.date_debut)'), [$request->from_date, $request->to_date])
                 ->get();
@@ -3653,7 +3653,7 @@ class FormationController extends Controller
             $title_region_module = '';
             $formes              = Individuelle::join('formations', 'formations.id', 'individuelles.formations_id')
                 ->select('individuelles.*')
-                ->where('individuelles.statut', 'formés')
+                ->where('individuelles.statut', 'formé')
                 ->whereBetween(DB::raw('DATE(formations.date_debut)'), [$request->from_date, $request->to_date])
                 ->get();
         }
