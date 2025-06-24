@@ -186,7 +186,7 @@
                     </td>
                 </tr>
                 <tr class="heading">
-                    <td colspan="2"><b>{{ __('Code formation : ') }}</b>
+                    <td colspan="2"><b>{{ __('Code : ') }}</b>
                         {{ $formation?->code . '-C' }}
                     </td>
                     <td colspan="3"><b>{{ __('Niveau de qualification : ') }}</b>
