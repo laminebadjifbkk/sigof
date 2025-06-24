@@ -221,7 +221,7 @@
                 </tr>
                 <tr class="item" style="text-align: center;">
                     <td style="text-align: center; width: 50px;"><b>Note</b></td>
-                    <td><b>Niveau de maitrise</b></td>
+                    <td><b>Niveau maitrise</b></td>
                     <td><b>Observations</b></td>
                 </tr>
             </thead>
