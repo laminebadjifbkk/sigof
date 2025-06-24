@@ -372,10 +372,10 @@
                 </a>
             </li>
         @endcan
-        @can('lettre-formation')
+        @can('lettrevaluation-view')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('lettrevaluations.index') }}">
-                <i class="bi bi-file"></i>
+                    <i class="bi bi-file"></i>
                     <span>Lettre évaluation & ABE</span>
                 </a>
             </li>

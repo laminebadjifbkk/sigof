@@ -1,7 +1,7 @@
 @extends('layout.user-layout')
 @section('title', 'ABE | LETTRE EVALUATION')
 @section('space-work')
-    @can('ingenieur-view')
+    @can('lettrevaluation-view')
         <section class="section register">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-12 col-lg-12">
@@ -39,11 +39,13 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h5 class="card-title mb-0">Lettre d'évaluation et ABE</h5>
-                                <button type="button" class="btn btn-primary btn-sm btn-rounded" data-bs-toggle="modal"
-                                    data-bs-target="#AddlettreEvaluationModal">
-                                    <i class="bi bi-plus-circle"></i>
-                                    Ajouter
-                                </button>
+                                @can('lettrevaluation-create')
+                                    <button type="button" class="btn btn-primary btn-sm btn-rounded" data-bs-toggle="modal"
+                                        data-bs-target="#AddlettreEvaluationModal">
+                                        <i class="bi bi-plus-circle"></i>
+                                        Ajouter
+                                    </button>
+                                @endcan
                             </div>
                             @if ($lettrevaluations->isNotEmpty())
                                 <div class="table-responsive">
@@ -131,23 +133,27 @@
                                                     {{-- Actions --}}
                                                     <td>
                                                         <span class="d-flex align-items-baseline">
-                                                            <a href="{{ route('lettrevaluations.edit', $lettrevaluation->id) }}"
-                                                                class="btn btn-warning btn-sm text-white"
-                                                                title="Modifier la lettre de mission">
-                                                                <i class="bi bi-pencil"></i>
-                                                            </a>
-                                                            &nbsp;
-                                                            <form
-                                                                action="{{ route('lettrevaluations.destroy', $lettrevaluation->id) }}"
-                                                                method="POST" class="d-inline-block">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="btn btn-danger btn-sm show_confirm"
-                                                                    title="Supprimer">
-                                                                    <i class="bi bi-trash"></i>
-                                                                </button>
-                                                            </form>
+                                                            @can('lettrevaluation-update')
+                                                                <a href="{{ route('lettrevaluations.edit', $lettrevaluation->id) }}"
+                                                                    class="btn btn-warning btn-sm text-white"
+                                                                    title="Modifier la lettre de mission">
+                                                                    <i class="bi bi-pencil"></i>
+                                                                </a>
+                                                            @endcan
+                                                            @can('lettrevaluation-delete')
+                                                                &nbsp;
+                                                                <form
+                                                                    action="{{ route('lettrevaluations.destroy', $lettrevaluation->id) }}"
+                                                                    method="POST" class="d-inline-block">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger btn-sm show_confirm"
+                                                                        title="Supprimer">
+                                                                        <i class="bi bi-trash"></i>
+                                                                    </button>
+                                                                </form>
+                                                            @endcan
                                                         </span>
                                                     </td>
                                                 </tr>
