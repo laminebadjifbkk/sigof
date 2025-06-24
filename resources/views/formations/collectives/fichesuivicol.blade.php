@@ -131,7 +131,7 @@
                         {{ $formation?->lieu }}
                     </td>
                     <td colspan="4"><b>{{ __('Contact : ') }}</b>
-                        {{ substr($formation?->operateur?->user?->fixe, 0, 2) .
+                        {{-- {{ substr($formation?->operateur?->user?->fixe, 0, 2) .
                             ' ' .
                             substr($formation?->operateur?->user?->fixe, 2, 3) .
                             ' ' .
@@ -147,6 +147,10 @@
                                 substr($formation?->operateur?->user?->telephone, 5, 2) .
                                 ' ' .
                                 substr($formation?->operateur?->user?->telephone, 7, 2) }}
+                        @endif --}}
+                        {{ $formation?->operateur?->user?->fixe }}
+                        @if (!empty($formation?->operateur?->user?->telephone))
+                            {{ ' / ' . $formation?->operateur?->user?->telephone }}
                         @endif
                     </td>
                 </tr>
