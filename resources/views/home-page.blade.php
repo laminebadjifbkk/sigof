@@ -267,30 +267,6 @@
                                             labelLine: {
                                                 show: false
                                             },
-                                            {{-- 
-                                                data: [{
-                                                    value: {{ $nouvelle }},
-                                                    name: 'Nouvelles'
-                                                },
-                                                {
-                                                    value: {{ $attente }},
-                                                    name: 'Attente'
-                                                },
-                                                {
-                                                    value: {{ $retenue }},
-                                                    name: 'Sélectionnés'
-                                                },
-                                                {
-                                                    value: {{ $terminer }},
-                                                    name: 'Formés'
-                                                },
-                                                {
-                                                    value: {{ $rejeter }},
-                                                    name: 'Rejetés'
-                                                }
-                                            ]
-                                            --}}
-
                                             data: [{
                                                     value: {{ $masculin }},
                                                     name: 'Hommes'
