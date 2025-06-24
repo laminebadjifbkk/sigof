@@ -35,7 +35,15 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{{ $title }}</h5>
+                        @can('individuelle-create')
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="card-title mb-0">{{ $title }}</h5>
+                                <a href="#" class="btn btn-sm btn-primary d-flex align-items-center gap-1"
+                                    data-bs-toggle="modal" data-bs-target="#generate_rapport" title="Ajouter">
+                                    <i class="bi bi-search"></i> Rechercher plus
+                                </a>
+                            </div>
+                        @endcan
                         @if ($user_liste->isNotEmpty())
                             <table class="table datatables align-middle" id="table-users">
                                 <thead>
@@ -94,6 +102,119 @@
                             <div class="alert alert-info mt-3">Aucun demandeur pour le moment !!!</div>
                         @endif
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog" aria-labelledby="generate_rapportLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Générer une recherche<span class="text-danger mx-1">*</span></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                    </div>
+                    <form method="post" action="{{ route('demandeurs.report') }}">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <label for="firstname" class="form-label">Prénom</label>
+                                                <input type="text" name="firstname" value="{{ old('firstname') }}"
+                                                    class="form-control form-control-sm @error('firstname') is-invalid @enderror"
+                                                    id="firstname" placeholder="Prénom">
+                                                @error('firstname')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <label for="name" class="form-label">Nom</label>
+                                                <input type="text" name="name" value="{{ old('name') }}"
+                                                    class="form-control form-control-sm @error('name') is-invalid @enderror"
+                                                    id="name" placeholder="Nom">
+                                                @error('name')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <label for="cin" class="form-label">N° CIN</label>
+                                                <input minlength="5" maxlength="15" type="text" name="cin"
+                                                    value="{{ old('cin') }}"
+                                                    class="form-control form-control-sm @error('cin') is-invalid @enderror"
+                                                    id="cin" placeholder="Numéro demande">
+                                                @error('cin')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <label for="telephone_responsable" class="form-label">Téléphone</label>
+                                                <input name="telephone_responsable" type="text" maxlength="12"
+                                                    class="form-control form-control-sm @error('telephone_responsable') is-invalid @enderror"
+                                                    id="telephone_responsable" value="{{ old('telephone_responsable') }}"
+                                                    autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                                @error('telephone_responsable')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="email" name="email" value="{{ old('email') }}"
+                                                    class="form-control form-control-sm @error('email') is-invalid @enderror"
+                                                    id="email" placeholder="email@email.com">
+                                                @error('email')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        data-bs-dismiss="modal">Fermer</button>
+                                    <div class="text-center">
+                                        <button type="submit"
+                                            class="btn btn-primary btn-block submit_rapport btn-sm">Rechercher</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

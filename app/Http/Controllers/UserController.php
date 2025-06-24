@@ -1147,7 +1147,7 @@ class UserController extends Controller
         }
 
         // Retour de la vue avec les données paginées
-        return view("user.demandeur-individuel", compact("user_liste", "total_count", "title"));
+        return view("user.demandeur-individuel", compact("user_liste", "title"));
 
     }
 

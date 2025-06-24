@@ -1805,6 +1805,90 @@ class IndividuelleController extends Controller
         Alert::success('Succès !', 'La note a été mise à jour avec succès.');
 
         return redirect()->back();
+    }
 
+    public function rechercherDemandeur(Request $request)
+    {
+        // Validation basique
+        $request->validate([
+            'cin'                   => 'nullable|string',
+            'name'                  => 'nullable|string',
+            'firstname'             => 'nullable|string',
+            'telephone_responsable' => 'nullable|string',
+            'email'                 => 'nullable|email',
+        ]);
+
+        if (
+            ! $request->filled('cin') &&
+            ! $request->filled('firstname') &&
+            ! $request->filled('name') &&
+            ! $request->filled('telephone_responsable') &&
+            ! $request->filled('email')
+        ) {
+            Alert::warning('Recherche impossible', 'Veuillez remplir au moins un champ avant de continuer.');
+            return redirect()->back();
+        }
+/*
+        // Requête dynamique
+        $query = User::query();
+
+        if ($request->filled('firstname')) {
+            $query->where('firstname', 'like', "%$request->firstname%");
+        }
+        if ($request->filled('name')) {
+            $query->where('name', 'like', "%$request->name%");
+        }
+        if ($request->filled('cin')) {
+            $query->where('cin', 'like', "%$request->cin%");
+        }
+        if ($request->filled('telephone_responsable')) {
+            $query->where('telephone', 'like', "%$request->telephone_responsable%");
+        }
+        if ($request->filled('email')) {
+            $query->where('email', 'like', "%$request->email%");
+        }
+
+        // Exécution
+        $user_liste = $query->distinct()->get();
+        $count      = $user_liste->count(); */
+
+        // Requête dynamique avec filtre sur les utilisateurs ayant au moins une individuelle
+        $query = User::whereHas('individuelles', function ($q) {
+            // Tu peux ajouter des conditions ici si besoin, ou le laisser vide pour juste s'assurer de l'existence
+        });
+
+        if ($request->filled('firstname')) {
+            $query->where('firstname', 'like', "%{$request->firstname}%");
+        }
+        if ($request->filled('name')) {
+            $query->where('name', 'like', "%{$request->name}%");
+        }
+        if ($request->filled('cin')) {
+            $query->where('cin', 'like', "%{$request->cin}%");
+        }
+        if ($request->filled('telephone_responsable')) {
+            $query->where('telephone', 'like', "%{$request->telephone_responsable}%");
+        }
+        if ($request->filled('email')) {
+            $query->where('email', 'like', "%{$request->email}%");
+        }
+
+// Exécution
+        $user_liste = $query->distinct()->get();
+        $count      = $user_liste->count();
+
+        // Message titre
+        if ($count === 0) {
+            $title = 'Aucun demandeur trouvé';
+        } elseif ($count === 1) {
+            $title = '1 demandeur trouvé';
+        } else {
+            $title = $count . ' demandeurs trouvés';
+        }
+
+        return view('user.demandeur-individuel', compact(
+            'user_liste',
+            'title'
+        ));
     }
 }

@@ -397,6 +397,8 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('users/index', [UserController::class, 'index'])->name('users.report');
         Route::post('users/index', [UserController::class, 'generateReport']);
 
+        Route::post('demandeurs/rechercher', [IndividuelleController::class, 'rechercherDemandeur'])->name('demandeurs.report');
+
         Route::get('arrives/index', [ArriveController::class, 'index'])->name('arrives.report');
         Route::post('arrives/index', [ArriveController::class, 'generateReport']);
 
