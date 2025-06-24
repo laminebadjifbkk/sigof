@@ -353,13 +353,6 @@
                             <span>Formations</span>
                         </a>
                     </li>
-                    @can('ingenieur-view')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ route('ingenieurs.index') }}">
-                                <span>Ingénieurs</span>
-                            </a>
-                        </li>
-                    @endcan
                     @can('formation-view')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('showConventions') }}">
@@ -367,18 +360,24 @@
                             </a>
                         </li>
                     @endcan
-
-                    @can('lettre-formation')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ route('lettrevaluations.index') }}">
-                                <span>Lettre évaluation & ABE</span>
-                            </a>
-                        </li>
-                    @endcan
                 </ul>
             </li>
         @endcan
 
+        @can('ingenieur-view')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('ingenieurs.index') }}">
+                    <span>Ingénieurs</span>
+                </a>
+            </li>
+        @endcan
+        @can('lettre-formation')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('lettrevaluations.index') }}">
+                    <span>Lettre évaluation & ABE</span>
+                </a>
+            </li>
+        @endcan
 
         @can('evaluateur-view')
             <li class="nav-item">
