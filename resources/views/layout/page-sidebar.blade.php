@@ -366,6 +366,7 @@
 
         @can('ingenieur-view')
             <li class="nav-item">
+                <i class="bi bi-people-fill"></i>
                 <a class="nav-link collapsed" href="{{ route('ingenieurs.index') }}">
                     <span>Ingénieurs</span>
                 </a>
