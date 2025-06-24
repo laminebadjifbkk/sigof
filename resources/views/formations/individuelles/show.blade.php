@@ -485,7 +485,6 @@
                                                                     </form>
                                                                 @endcan
                                                                 @can('sms-formation')
-
                                                                     <hr>
 
                                                                     <button class="btn btn-sm mx-1" data-bs-toggle="modal"
@@ -2030,7 +2029,8 @@
                                     id="type_certificat" placeholder="Attestation ou Titre "> --}}
 
                                         <select name="titre" class="form-select  @error('titre') is-invalid @enderror"
-                                            aria-label="Select" id="select-field-titre" data-placeholder="Choisir titre">
+                                            aria-label="Select" id="select-field-titre"
+                                            data-placeholder="Choisir titre">
                                             <option>
                                                 {{ $formation?->titre ?? ($formation?->referentiel?->titre ?? old('titre')) }}
                                             </option>

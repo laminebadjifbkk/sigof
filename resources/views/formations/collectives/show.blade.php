@@ -519,6 +519,8 @@
                                                                             (e-mail)</button>
                                                                     </form>
 
+                                                                @endcan
+                                                                @can('sms-formation')
                                                                     <hr>
 
                                                                     <button class="btn btn-sm mx-1" data-bs-toggle="modal"
