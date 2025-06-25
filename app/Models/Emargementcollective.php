@@ -37,9 +37,9 @@ class Emargementcollective extends Model
 		return "/storage/" . $filePath;
 	}
 
-	public function listecollectives()
+	public function listecollective()
 	{
-		return $this->hasMany(Listecollective::class, 'listecollectives_id');
+		return $this->belongsTo(Listecollective::class, 'listecollectives_id');
 	}
 	
 	public function feuillesPresenceCollectives()

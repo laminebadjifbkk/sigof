@@ -141,4 +141,9 @@ class Listecollective extends Model
 	{
 		return $this->hasMany(Feuillepresencecollective::class, 'listecollectives_id');
 	}
+
+    public function emargementCollectives()
+{
+    return $this->hasMany(EmargementCollective::class, 'listecollectives_id');
+}
 }
