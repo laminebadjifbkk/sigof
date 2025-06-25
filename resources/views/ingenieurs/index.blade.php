@@ -58,7 +58,7 @@
                                     <th>Matricule</th> --}}
                                         <th width="35%">Ingénieur</th>
                                         <th width="2%">Initiale</th>
-                                        {{-- <th>Fonction</th> --}}
+                                        <th>Fonction</th>
                                         {{-- <th>Spécialité</th> --}}
                                         <th>Email</th>
                                         <th>Téléphone</th>
@@ -74,10 +74,13 @@
                                         <td>{{ $ingenieur->matricule }}</td> --}}
                                             <td>{{ $ingenieur->name }}</td>
                                             <td>{{ $ingenieur->initiale }}</td>
-                                            {{-- <td>{{ $ingenieur->fonction }}</td> --}}
+                                            <td>{{ $ingenieur?->user?->fonction }}</td>
                                             {{-- <td>{{ $ingenieur->specialite }}</td> --}}
-                                            <td><a href="mailto:{{ $ingenieur?->user?->email }}">{{ $ingenieur?->user?->email }}</a></td>
-                                            <td><a href="tel:+221{{ $ingenieur?->user?->telephone }}">{{ $ingenieur?->user?->telephone }}</a>
+                                            <td><a
+                                                    href="mailto:{{ $ingenieur?->user?->email }}">{{ $ingenieur?->user?->email }}</a>
+                                            </td>
+                                            <td><a
+                                                    href="tel:+221{{ $ingenieur?->user?->telephone }}">{{ $ingenieur?->user?->telephone }}</a>
                                             </td>
                                             <td style="text-align: center;">
                                                 @foreach ($ingenieur->formations as $formation)
@@ -92,7 +95,8 @@
                                                 @can('ingenieur-show')
                                                     <span class="d-flex mt-2 align-items-baseline"><a
                                                             href="{{ route('ingenieurs.show', $ingenieur->id) }}"
-                                                            class="btn btn-warning btn-sm mx-1" title="Voir détails" target="_blank">
+                                                            class="btn btn-warning btn-sm mx-1" title="Voir détails"
+                                                            target="_blank">
                                                             <i class="bi bi-eye"></i></a>
                                                         <div class="filter">
                                                             <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -251,7 +255,7 @@
                                         @enderror
                                         <label for="floatingInput">Initiale<span class="text-danger mx-1">*</span></label>
                                     </div>
-                                    <div class="form-floating mb-3">
+                                    {{-- <div class="form-floating mb-3">
                                         <input type="text" name="fonction"
                                             value="{{ $ingenieur->fonction ?? old('fonction') }}"
                                             class="form-control form-control-sm @error('fonction') is-invalid @enderror"
@@ -262,7 +266,7 @@
                                             </span>
                                         @enderror
                                         <label for="floatingInput">Fonction<span class="text-danger mx-1">*</span></label>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-floating mb-3">
                                         <input type="text" name="email" value="{{ $ingenieur->email ?? old('email') }}"
                                             class="form-control form-control-sm @error('email') is-invalid @enderror"
@@ -281,8 +285,8 @@
                                             id="telephone" placeholder="7xxxxxxxx"> --}}
                                         <input name="telephone" type="text" maxlength="12"
                                             class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                            id="telephone" value="{{ $ingenieur->telephone ?? old('telephone') }}" autocomplete="tel"
-                                            placeholder="XX:XXX:XX:XX">
+                                            id="telephone" value="{{ $ingenieur->telephone ?? old('telephone') }}"
+                                            autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                         @error('telephone')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
