@@ -206,34 +206,38 @@
                                             Module :
                                             {{ $isIndividuelle ? $formation?->module?->name : $formation?->collectivemodule?->module }}
                                         </h6>
-
-                                        <div class="row">
+                                        <div class="row text-sm">
                                             <div class="col-md-8 mb-2">
                                                 <i class="bi bi-person-circle me-1"></i>
-                                                <strong>Opérateur :</strong> {{ $formation?->operateur?->user?->operateur }}
+                                                <strong>Opérateur :</strong>
+                                                {{ $formation?->operateur?->user?->operateur ?? 'N/A' }}
                                             </div>
                                             <div class="col-md-4 mb-2">
                                                 <i class="bi bi-person-workspace me-1"></i>
-                                                <strong>Ingénieur :</strong> {{ $formation?->ingenieur?->name }}
+                                                <strong>Ingénieur :</strong> {{ $formation?->ingenieur?->name ?? 'N/A' }}
                                             </div>
+
                                             <div class="col-md-8 mb-2">
                                                 <i class="bi bi-geo-alt-fill me-1"></i>
-                                                <strong>Département :</strong> {{ $formation?->departement?->nom }}
+                                                <strong>Localité :</strong> {{ $formation?->departement?->nom ?? 'N/A' }}
                                             </div>
                                             <div class="col-md-4 mb-2">
-                                                <i class="bi bi-hourglass-split me-1"></i>
-                                                <strong>Durée :</strong> {{ $formation?->duree_formation }}h
+                                                <i class="bi bi-clock me-1"></i>
+                                                <strong>Durée :</strong> {{ $formation?->duree_formation ?? '-' }} h
                                             </div>
-                                            <div class="col-md-8 mb-2">
-                                                <i class="bi bi-geo-alt-fill me-1"></i>
+
+                                            <div class="col-md-6 mb-2">
+                                                <i class="bi bi-calendar-event me-1"></i>
                                                 <strong>Date début :</strong>
                                                 {{ $formation?->date_debut?->format('d/m/Y') ?? 'Non définie' }}
                                             </div>
-                                            <div class="col-md-4 mb-2">
-                                                <i class="bi bi-hourglass-split me-1"></i>
-                                                <strong>Date fin :</strong> {{ $formation?->date_fin?->format('d/m/Y')  ?? 'Non définie' }}
+                                            <div class="col-md-6 mb-2">
+                                                <i class="bi bi-calendar-check me-1"></i>
+                                                <strong>Date fin :</strong>
+                                                {{ $formation?->date_fin?->format('d/m/Y') ?? 'Non définie' }}
                                             </div>
                                         </div>
+
 
                                         @if (!is_null($progress))
                                             <div class="progress mt-3" style="height: 20px;">
