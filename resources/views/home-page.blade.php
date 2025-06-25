@@ -1,6 +1,9 @@
 @extends('layout.user-layout')
 @section('space-work')
-    @hasanyrole('Employe|super-admin|admin|DG')
+    @php
+        $user = auth()->user();
+    @endphp
+    @if ($user->hasAnyRole(['super-admin', 'admin', 'DIOF', 'DEC', 'Ingenieur']))
         <section class="section dashboard">
             <div class="row">
                 <!-- Left side columns -->
@@ -107,7 +110,8 @@
                                             <div class="progress mt-0">
                                                 <div class="progress-bar progress-bar-striped progress-bar-animated {{ $color }}"
                                                     role="progressbar" style="width: {{ $progress }}%"
-                                                    aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">
+                                                    aria-valuenow="{{ $progress }}" aria-valuemin="0"
+                                                    aria-valuemax="100">
                                                     @if ($progress == 100)
                                                         terminée
                                                     @else
@@ -488,7 +492,8 @@
                                                 @endphp --}}
 
                                                     <h6>
-                                                        <span class="text-primary">{{ number_format($count_operateurs) }}</span>
+                                                        <span
+                                                            class="text-primary">{{ number_format($count_operateurs) }}</span>
                                                     </h6>
                                                     <span class="text-success small pt-1 fw-bold">agréés</span>
                                                 </div>
@@ -509,7 +514,7 @@
                     <div class="col-lg-12">
                         <div class="row">
                             <!-- Sales Card -->
-                            @if (auth()->user()->hasRole('super-admin|admin'))
+                            @if ($user->hasAnyRole('super-admin', 'admin'))
                                 <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
                                     <div class="card info-card sales-card">
                                         <a href="{{ route('user.index') }}">
@@ -535,7 +540,7 @@
                                 </div><!-- End Sales Card -->
                             @endif
 
-                            @if (auth()->user()->hasRole('super-admin|admin|courrier'))
+                            @if ($user->hasAnyRole('super-admin', 'admin', 'courrier'))
                                 <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
                                     <div class="card info-card sales-card">
 
@@ -615,6 +620,6 @@
                     </div>
                 </div>
             </section>
-        @endhasanyrole
-    @endcan
+        @endcan
+    @endif
 @endsection
