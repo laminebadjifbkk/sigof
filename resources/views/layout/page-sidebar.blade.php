@@ -343,15 +343,15 @@
 
         @can('formation-view')
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#formations-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#formations-nav" href="#">
                     <i class="bi bi-folder-symlink-fill"></i>
                     <span>
                         Gestion formations
-                        {{-- @if ($formations->isNotEmpty())
-                            <span class="ms-2 small text-danger fst-italic">({{ $formations->count() }} en cours)</span>
-                        @endif --}}
+                        @if ($formationsEnCours > 0)
+                            <span class="badge bg-warning text-dark">{{ $formationsEnCours }} en cours</span>
+                        @endif
                     </span>
-                    </span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="formations-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li class="nav-item">

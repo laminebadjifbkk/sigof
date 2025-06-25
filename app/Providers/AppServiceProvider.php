@@ -41,8 +41,8 @@ namespace App\Providers;
 
 use App\Models\Antenne;
 use App\Models\Direction;
-use App\Models\Projet;
 use App\Models\Formation;
+use App\Models\Projet;
 use Carbon\Carbon;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -76,14 +76,15 @@ class AppServiceProvider extends ServiceProvider
         View::composer('layout.page-sidebar', function ($view) {
             $antennes = Antenne::select('id', 'code', 'name')->orderBy('name')->get();
             /* $directions = Direction::select('*')->orderBy('sigle')->get(); */
-            $directions = Direction::orderBy('sigle')->get();
-            $projets    = Projet::where('statut', 'ouvert')->orderBy('sigle')->get();
-            /* $formations    = Formation::where('statut', 'En cours')->get(); */
+            $directions        = Direction::orderBy('sigle')->get();
+            $projets           = Projet::where('statut', 'ouvert')->orderBy('sigle')->get();
+            $formationsEnCours = Formation::where('statut', 'En cours')->count();
 
             $view->with([
-                'antennes'   => $antennes,
-                'directions' => $directions,
-                'projets'     => $projets,
+                'antennes'          => $antennes,
+                'directions'        => $directions,
+                'projets'           => $projets,
+                'formationsEnCours' => $formationsEnCours,
             ]);
         });
 
