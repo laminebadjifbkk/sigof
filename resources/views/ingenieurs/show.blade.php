@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | Formations ' . $ingenieur->name)
+@section('title', 'Ingénieur | ' . $ingenieur->name)
 @section('space-work')
 
     <div class="pagetitle">
@@ -8,7 +8,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Accueil</a></li>
                 <li class="breadcrumb-item">Tables</li>
-                <li class="breadcrumb-item active">Données</li>
+                <li class="breadcrumb-item active">{{ $ingenieur->name }}</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -45,7 +45,7 @@
                                             class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                     <p> | retour</p>
                                 </span>
-                                <h5 class="card-title">Ingénieur : {{ $ingenieur->name }}</h5>
+                                {{-- <h5 class="card-title">Ingénieur : {{ $ingenieur->name }}</h5> --}}
                                 <h5 class="card-title">Liste des formations</h5>
                                 {{-- <h5 class="card-title">Liste des formations de {{ $ingenieur->name }}</h5> --}}
                                 @if ($ingenieur->formations->isNotEmpty())
