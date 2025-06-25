@@ -21,8 +21,6 @@ class EmargementcollectiveController extends Controller
 
         $feuillepresencecollective = Feuillepresencecollective::where('emargementcollectives_id', $request->input('idemargement'))->get();
 
-        dd($feuillepresencecollective);
-
         $collectiveFormation = DB::table('listecollectives')
             ->where('formations_id', $formation?->id)
             ->pluck('formations_id', 'formations_id')
