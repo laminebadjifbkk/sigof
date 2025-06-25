@@ -218,15 +218,6 @@
                                             </div>
 
                                             <div class="col-md-8 mb-2">
-                                                <i class="bi bi-geo-alt-fill me-1"></i>
-                                                <strong>Localité :</strong> {{ $formation?->departement?->nom ?? 'N/A' }}
-                                            </div>
-                                            <div class="col-md-4 mb-2">
-                                                <i class="bi bi-clock me-1"></i>
-                                                <strong>Durée :</strong> {{ $formation?->duree_formation ?? '-' }} h
-                                            </div>
-
-                                            <div class="col-md-8 mb-2">
                                                 <i class="bi bi-calendar-event me-1"></i>
                                                 <strong>Date début :</strong>
                                                 {{ $formation?->date_debut?->format('d/m/Y') ?? 'Non définie' }}
@@ -235,6 +226,15 @@
                                                 <i class="bi bi-calendar-check me-1"></i>
                                                 <strong>Date fin :</strong>
                                                 {{ $formation?->date_fin?->format('d/m/Y') ?? 'Non définie' }}
+                                            </div>
+
+                                            <div class="col-md-8 mb-2">
+                                                <i class="bi bi-geo-alt-fill me-1"></i>
+                                                <strong>Localité :</strong> {{ $formation?->departement?->nom ?? 'N/A' }}
+                                            </div>
+                                            <div class="col-md-4 mb-2">
+                                                <i class="bi bi-clock me-1"></i>
+                                                <strong>Durée :</strong> {{ $formation?->duree_formation ?? '-' }} h
                                             </div>
                                         </div>
 
