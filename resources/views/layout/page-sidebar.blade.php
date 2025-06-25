@@ -347,10 +347,10 @@
                     <i class="bi bi-folder-symlink-fill"></i>
                     <span>
                         @if ($formationsEnCours > 0)
-                        Formations
+                            Formations
                             <span class="badge bg-warning text-dark">{{ $formationsEnCours }} en cours</span>
                         @else
-                        Gestion formations
+                            Gestion formations
                         @endif
                     </span>
                     <i class="bi bi-chevron-down ms-auto"></i>
@@ -361,6 +361,19 @@
                             <span>Formations</span>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ route('formations.index') }}">
+                            @if ($formationsEnCours > 0)
+                                <span class="badge bg-warning text-dark">{{ $formationsEnCours }} formation en
+                                    cours</span>
+                            @elseif ($formationsEnCours > 1)
+                                <span class="badge bg-warning text-dark">{{ $formationsEnCours }} formations en
+                                    cours</span>
+                            @endif
+                        </a>
+                    </li>
+
                     @can('formation-view')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('showConventions') }}">
