@@ -135,7 +135,7 @@
                 </div>
             </div>
             <!-- Add ingenieur -->
-            <div class="modal fade" id="AddingenieurModal" tabindex="-1">
+            {{-- <div class="modal fade" id="AddingenieurModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <form method="post" action="{{ url('ingenieurs') }}" enctype="multipart/form-data" class="row g-3">
@@ -189,9 +189,6 @@
                                     <label for="floatingInput">Email<span class="text-danger mx-1">*</span></label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    {{-- <input type="number" name="telephone" min="0" value="{{ old('telephone') }}"
-                                        class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                        id="telephone" placeholder="7xxxxxxxx"> --}}
                                     <input name="telephone" type="text" maxlength="12"
                                         class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                         id="telephone" value="{{ old('telephone') }}" autocomplete="tel"
@@ -213,7 +210,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- End Add ingenieur-->
 
             <!-- Edit ingenieur -->
