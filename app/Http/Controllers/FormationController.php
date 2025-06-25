@@ -813,8 +813,6 @@ class FormationController extends Controller
         $emargementcollectives = $formation->emargementcollectives;
         $count_demandes        = $formation->individuelles->count();
 
-        dd($formation->emargementcollectives->count());
-
 // Chargement en batch des données secondaires
         $listecollectives = Listecollective::latest()->get();
         $evaluateurs      = Evaluateur::latest()->get();
