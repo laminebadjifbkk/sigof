@@ -1294,7 +1294,7 @@
                                                                     <button type="submit"
                                                                         class="btn btn-outline-primary btn-rounded btn-sm"><i
                                                                             class="bi bi-eye"
-                                                                            title="Ajouter bénéficiaires"></i></button>
+                                                                            title="Voir plus"></i></button>
                                                                 </form>
                                                                 <div class="filter">
                                                                     <a class="icon" href="#"

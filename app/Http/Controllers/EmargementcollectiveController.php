@@ -16,6 +16,8 @@ class EmargementcollectiveController extends Controller
         $formation            = Formation::findOrFail($request->input('idformation'));
         $emargementcollective = Emargementcollective::findOrFail($request->input('idemargement'));
 
+        dd($emargementcollective);
+
         $collectiveFormation = DB::table('listecollectives')
             ->where('formations_id', $formation?->id)
             ->pluck('formations_id', 'formations_id')
