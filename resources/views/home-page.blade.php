@@ -200,54 +200,43 @@
                                             };
                                         }
                                     @endphp
+                                    <div class="border rounded p-3 mb-3 shadow-sm bg-white">
+                                        <h6 class="text-primary mb-3">
+                                            <i class="bi bi-journal-code me-1"></i>
+                                            Module :
+                                            {{ $isIndividuelle ? $formation->module->name : $formation->collectivemodule->module }}
+                                        </h6>
 
-                                    @if ($isIndividuelle)
-                                        <div class="border rounded p-3 mb-3 shadow-sm bg-light">
-                                            <h6 class="mb-2 text-primary">
-                                                <i class="bi bi-book-fill"></i> {{ $formation->module->name }}
-                                            </h6>
-                                            <p class="mb-1">
-                                                <i class="bi bi-person-fill"></i>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-2">
+                                                <i class="bi bi-person-circle me-1"></i>
                                                 <strong>Opérateur :</strong> {{ $formation->operateur?->user?->username }}
-                                            </p>
-                                            <p class="mb-1">
-                                                <i class="bi bi-person"></i>
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <i class="bi bi-person-workspace me-1"></i>
                                                 <strong>Ingénieur :</strong> {{ $formation->ingenieur?->name }}
-                                            </p>
-                                            <p class="mb-0">
-                                                <i class="bi bi-geo-alt-fill"></i>
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <i class="bi bi-geo-alt-fill me-1"></i>
                                                 <strong>Département :</strong> {{ $formation->departement?->nom }}
-                                            </p>
-                                        </div>
-                                    @elseif ($isCollective)
-                                        <div class="border rounded p-3 mb-3 shadow-sm bg-light">
-                                            <h6 class="mb-2 text-primary">
-                                                <i class="bi bi-people-fill"></i> {{ $formation->collectivemodule->module }}
-                                            </h6>
-                                            <p class="mb-1">
-                                                <i class="bi bi-person-fill"></i>
-                                                <strong>Opérateur :</strong> {{ $formation->operateur?->user?->username }}
-                                            </p>
-                                            <p class="mb-1">
-                                                <i class="bi bi-person"></i>
-                                                <strong>Ingénieur :</strong> {{ $formation->ingenieur?->name }}
-                                            </p>
-                                            <p class="mb-0">
-                                                <i class="bi bi-geo-alt-fill"></i>
-                                                <strong>Département :</strong> {{ $formation->departement?->nom }}
-                                            </p>
-                                        </div>
-                                    @endif
-
-                                    @if (!is_null($progress))
-                                        <div class="progress mt-1">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated {{ $color }}"
-                                                role="progressbar" style="width: {{ $progress }}%"
-                                                aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">
-                                                {{ $progress === 100 ? 'terminée' : $progress . '%' }}
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <i class="bi bi-hourglass-split me-1"></i>
+                                                <strong>Durée :</strong> {{ $formation->duree_formation }}h
                                             </div>
                                         </div>
-                                    @endif
+
+                                        @if (!is_null($progress))
+                                            <div class="progress mt-3" style="height: 20px;">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ $color }}"
+                                                    role="progressbar" style="width: {{ $progress }}%"
+                                                    aria-valuenow="{{ $progress }}" aria-valuemin="0"
+                                                    aria-valuemax="100">
+                                                    {{ $progress === 100 ? 'Terminée' : $progress . '%' }}
+                                                </div>
+                                            </div>
+                                        @endif
+                                    </div>
                                 @endforeach
                             </div>
                         </div>
