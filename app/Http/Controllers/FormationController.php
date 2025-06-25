@@ -804,14 +804,17 @@ class FormationController extends Controller
             'individuelles',
         ])->findOrFail($id); */
 
-        $type_formation        = $formation->types_formation?->name;
-        $operateur             = $formation->operateur;
-        $module                = $formation->module;
-        $module_collective     = $formation->collectivemodule;
-        $ingenieur             = $formation->ingenieur;
-        $emargements           = $formation->emargements;
-        $emargementcollectives = $formation->emargementcollectives;
+        $type_formation    = $formation->types_formation?->name;
+        $operateur         = $formation->operateur;
+        $module            = $formation->module;
+        $module_collective = $formation->collectivemodule;
+        $ingenieur         = $formation->ingenieur;
+        $emargements       = $formation->emargements;
+        /* $emargementcollectives = $formation->emargementcollectives; */
+        $emargementcollectives = Emargementcollective::where('formations_id', $formation->id)->get();
         $count_demandes        = $formation->individuelles->count();
+
+        dd($emargementcollectives);
 
 // Chargement en batch des données secondaires
         $listecollectives = Listecollective::latest()->get();
