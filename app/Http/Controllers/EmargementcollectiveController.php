@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Emargementcollective;
+use App\Models\Feuillepresencecollective;
 use App\Models\Formation;
 use App\Models\Listecollective;
 use Illuminate\Http\Request;
@@ -17,9 +18,11 @@ class EmargementcollectiveController extends Controller
         $formation            = Formation::findOrFail($request->input('idformation'));
         $emargementcollective = Emargementcollective::findOrFail($request->input('idemargement'));
 
-        $listecollectives = Listecollective::where('formations_id', $request->input('idformation'))->get();
+        /* $listecollectives = Listecollective::where('formations_id', $request->input('idformation'))->get(); */
 
-        dd($listecollectives);
+        $feuillepresence = Feuillepresencecollective::where('emargementcollectives_id', $request->input('idemargement'))->get();
+
+        dd($feuillepresence);
 
         $collectiveFormation = DB::table('listecollectives')
             ->where('formations_id', $formation?->id)
