@@ -82,7 +82,7 @@
                 <div class="col-lg-12">
                     @if ($formations->isNotEmpty())
                         <div class="card">
-                            <div class="card-body">
+                            {{-- <div class="card-body">
                                 <h5 class="card-title">Formations en cours</h5>
                                 @foreach ($formations as $formation)
                                     @if (!empty($formation->module->name))
@@ -107,6 +107,9 @@
                                             @endphp
                                             <!-- Nom de la formation -->
                                             <p class="mt-3"><strong> {{ $formation->module->name }}</strong></p>
+                                            <p class="mt-3"><strong>
+                                                    {{ $formation?->operateur?->user?->username }}</strong></p>
+                                            <p class="mt-3"><strong> {{ $formation?->departement?->nom }}</strong></p>
                                             <div class="progress mt-0">
                                                 <div class="progress-bar progress-bar-striped progress-bar-animated {{ $color }}"
                                                     role="progressbar" style="width: {{ $progress }}%"
@@ -121,7 +124,6 @@
                                             </div>
                                         @endif
                                     @elseif (!empty($formation->collectivemodule->module) && count($formation->emargementcollectives) > 0)
-                                        {{-- Pour les demandes collectives --}}
                                         @php
                                             $progress = round(
                                                 (count($formation->emargementcollectives) /
@@ -155,7 +157,88 @@
                                             </div>
                                         </div>
                                     @else
-                                        {{-- Si les deux conditions ne sont pas vérifiées --}}
+                                    @endif
+                                @endforeach
+                            </div> --}}
+                            <div class="card-body">
+                                <h5 class="card-title">Formations en cours</h5>
+                                @foreach ($formations as $formation)
+                                    @php
+                                        // Définir les variables communes
+                                        $isIndividuelle =
+                                            !empty($formation->module?->name) &&
+                                            !empty($formation->duree_formation) &&
+                                            $formation->emargements->count() > 0;
+                                        $isCollective =
+                                            !empty($formation->collectivemodule?->module) &&
+                                            !empty($formation->duree_formation) &&
+                                            $formation->emargementcollectives->count() > 0;
+
+                                        $progress = null;
+                                        $color = '';
+
+                                        if ($isIndividuelle) {
+                                            $progress = round(
+                                                ($formation->emargements->count() / $formation->duree_formation) * 100,
+                                            );
+                                        } elseif ($isCollective) {
+                                            $progress = round(
+                                                ($formation->emargementcollectives->count() /
+                                                    $formation->duree_formation) *
+                                                    100,
+                                            );
+                                        }
+
+                                        // Déterminer la couleur
+                                        if (!is_null($progress)) {
+                                            $color = match (true) {
+                                                $progress <= 20 => 'bg-danger',
+                                                $progress <= 40 => 'bg-warning',
+                                                $progress <= 60 => 'bg-info',
+                                                $progress <= 80 => 'bg-primary',
+                                                default => 'bg-success',
+                                            };
+                                        }
+                                    @endphp
+
+                                    @if ($isIndividuelle)
+                                        <div class="border rounded p-3 mb-3 shadow-sm bg-light">
+                                            <h6 class="mb-2 text-primary">
+                                                <i class="bi bi-book-fill"></i> {{ $formation->module->name }}
+                                            </h6>
+                                            <p class="mb-1">
+                                                <i class="bi bi-person-fill"></i>
+                                                <strong>Opérateur :</strong> {{ $formation->operateur?->user?->username }}
+                                            </p>
+                                            <p class="mb-0">
+                                                <i class="bi bi-geo-alt-fill"></i>
+                                                <strong>Département :</strong> {{ $formation->departement?->nom }}
+                                            </p>
+                                        </div>
+                                    @elseif ($isCollective)
+                                        <div class="border rounded p-3 mb-3 shadow-sm bg-light">
+                                            <h6 class="mb-2 text-primary">
+                                                <i class="bi bi-people-fill"></i> {{ $formation->collectivemodule->module }}
+                                            </h6>
+                                            <p class="mb-1">
+                                                <i class="bi bi-person-fill"></i>
+                                                <strong>Opérateur :</strong> {{ $formation->operateur?->user?->username }}
+                                            </p>
+                                            <p class="mb-0">
+                                                <i class="bi bi-geo-alt-fill"></i>
+                                                <strong>Département :</strong> {{ $formation->departement?->nom }}
+                                            </p>
+                                        </div>
+                                    @endif
+
+                                    @if (!is_null($progress))
+                                        <div class="progress mt-1">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated {{ $color }}"
+                                                role="progressbar" style="width: {{ $progress }}%"
+                                                aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">
+                                                {{ $progress === 100 ? 'terminée' : $progress . '%' }}
+                                            </div>
+                                        </div>
                                     @endif
                                 @endforeach
                             </div>
