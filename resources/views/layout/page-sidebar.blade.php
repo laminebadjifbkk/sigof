@@ -344,8 +344,14 @@
         @can('formation-view')
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#formations-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-folder-symlink-fill"></i><span>{{ __('Gestion formations') }}</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-folder-symlink-fill"></i>
+                    <span>
+                        Gestion formations
+                        @if ($formations->isNotEmpty())
+                            ({{ $formations->count() }} en cours)
+                        @endif
+                    </span>
+                    </span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="formations-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li class="nav-item">
