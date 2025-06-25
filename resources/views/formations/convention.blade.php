@@ -38,7 +38,10 @@
                                 @foreach ($conventions as $formation)
                                     <tr>
                                         <td style="text-align: center">{{ $formation?->numero_convention }} <br>
-                                            {{ 'du ' . $formation?->date_convention?->format('d/m/Y') }}</td>
+                                            @if (!empty($formation?->date_convention))
+                                                {{ 'du ' . $formation?->date_convention?->format('d/m/Y') }}
+                                            @endif
+                                        </td>
                                         {{-- <td style="text-align: center">{{ $formation?->date_convention?->format('d/m/Y') }}
                                         </td> --}}
                                         {{--  <td><a>{{ $formation->types_formation?->name }}</a></td> --}}
