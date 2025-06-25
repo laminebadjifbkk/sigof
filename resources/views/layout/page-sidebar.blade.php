@@ -2,7 +2,7 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-        @hasanyrole('Employe|super-admin|admin')
+        @hasAnyRole('Employe', 'super-admin', 'admin')
             <li class="nav-item">
                 <a class="nav-link " href="{{ url('/home') }}">
                     <i class="bi bi-grid"></i>
@@ -15,9 +15,9 @@
                     <span>Tableau de bord</span>
                 </a>
             </li> --}}
-        @endhasanyrole
+        @endhasAnyRole
 
-        @hasanyrole('super-admin|admin')
+        @hasAnyRole('super-admin', 'admin')
             @can('user-view')
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
@@ -60,7 +60,7 @@
                     </ul>
                 </li>
             @endcan
-        @endhasanyrole
+        @endhasAnyRole
 
         @can('role-view')
             <li class="nav-item">
@@ -167,14 +167,14 @@
             </li>
         @endhasrole
 
-        @hasrole('DIOF|ADIOF|Ingenieur|')
+        @hasAnyRole('Demandeur')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('nouvellesformations') }}">
                     <i class="bi bi-grid"></i>
                     <span>Mes formations</span>
                 </a>
             </li>
-        @endhasrole
+        @endhasAnyRole
 
         @can('demande-view')
             <li class="nav-item">
