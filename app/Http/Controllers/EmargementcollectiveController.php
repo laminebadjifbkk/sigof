@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Emargementcollective;
 use App\Models\Formation;
+use App\Models\Listecollective;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +17,9 @@ class EmargementcollectiveController extends Controller
         $formation            = Formation::findOrFail($request->input('idformation'));
         $emargementcollective = Emargementcollective::findOrFail($request->input('idemargement'));
 
-        dd($emargementcollective);
+        $listecollectives = Listecollective::where('formations_id', $request->input('idformation'))->get();
+
+        dd($listecollectives);
 
         $collectiveFormation = DB::table('listecollectives')
             ->where('formations_id', $formation?->id)
@@ -82,23 +85,22 @@ class EmargementcollectiveController extends Controller
 
         if (request()->hasFile('feuille')) {
             // Si un fichier est envoyé, on supprime l'ancien fichier si nécessaire
-            if (!empty($emargementcollective->file)) {
+            if (! empty($emargementcollective->file)) {
                 Storage::disk('public')->delete($emargementcollective->file);
             }
-        
+
             // Générer un nom unique pour le fichier en ajoutant l'horodatage
-            $file = request()->file('feuille');
+            $file     = request()->file('feuille');
             $fileName = time() . '_' . $file->getClientOriginalName();
-        
+
             // Stocker le fichier avec le nouveau nom
             $filePath = $file->storeAs('feuilles', $fileName, 'public');
-        
+
             // Mise à jour de l'emargement avec le nouveau chemin du fichier
             $emargementcollective->update([
                 'file' => $filePath,
             ]);
         }
-        
 
         $emargementcollective->update([
             'jour'         => $request->jour,

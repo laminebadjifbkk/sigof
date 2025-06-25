@@ -79,21 +79,11 @@
                                         <thead>
                                             <tr>
                                                 <th width="3%">N°</th>
-                                                {{-- <th>CIN</th> --}}
-                                                {{--  <th width="3%"> --}}
-                                                {{-- <input type="checkbox" class="form-check-input" id="checkAll"> --}}
-                                                {{--      Civilité
-                                                </th> --}}
                                                 <th>Prénom</th>
                                                 <th>NOM</th>
                                                 <th>Date naissance</th>
                                                 <th>Lieu naissance</th>
-                                                {{-- <th>Adresse</th> --}}
-                                                {{-- <th>Module</th> --}}
                                                 <th style="text-align: center">Présence</th>
-                                                {{-- @if (!empty($formation->projets_id))
-                                                    <th>Projet</th>
-                                                @endif --}}
                                                 <th width="3%"><i class="bi bi-gear"></i></th>
                                             </tr>
                                         </thead>
@@ -108,13 +98,6 @@
                                                         <td>{{ $listecollective?->date_naissance->format('d/m/Y') }}
                                                         </td>
                                                         <td>{{ $listecollective?->lieu_naissance }}</td>
-                                                        {{-- <td style="text-align: center">
-                                                            @foreach ($listecollective?->feuillepresencecollectives as $feuillepresencecollective)
-                                                                <span class="{{ $feuillepresencecollective?->presence }}">
-                                                                    {{ in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective) ? $feuillepresencecollective?->presence : '' }}
-                                                                </span>
-                                                            @endforeach
-                                                        </td> --}}
                                                         <td class="text-center">
                                                             @foreach ($listecollective?->feuillepresencecollectives as $feuillepresencecollective)
                                                                 @if (in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective))
@@ -146,9 +129,6 @@
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#PresenceModal{{ $listecollective->id }}">Pointer
                                                                             </button>
-                                                                            {{-- <button type="button" class="dropdown-item btn btn-sm"
-                                                                            data-bs-toggle="modal" data-bs-target="#generate_rapport"></i>Rechercher
-                                                                            plus</button> --}}
                                                                         </li>
                                                                         <li>
                                                                             <form
