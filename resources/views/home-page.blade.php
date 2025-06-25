@@ -210,6 +210,10 @@
                                                 <i class="bi bi-person-fill"></i>
                                                 <strong>Opérateur :</strong> {{ $formation->operateur?->user?->username }}
                                             </p>
+                                            <p class="mb-1">
+                                                <i class="bi bi-person"></i>
+                                                <strong>Ingénieur :</strong> {{ $formation->ingenieur?->name }}
+                                            </p>
                                             <p class="mb-0">
                                                 <i class="bi bi-geo-alt-fill"></i>
                                                 <strong>Département :</strong> {{ $formation->departement?->nom }}
@@ -223,6 +227,10 @@
                                             <p class="mb-1">
                                                 <i class="bi bi-person-fill"></i>
                                                 <strong>Opérateur :</strong> {{ $formation->operateur?->user?->username }}
+                                            </p>
+                                            <p class="mb-1">
+                                                <i class="bi bi-person"></i>
+                                                <strong>Ingénieur :</strong> {{ $formation->ingenieur?->name }}
                                             </p>
                                             <p class="mb-0">
                                                 <i class="bi bi-geo-alt-fill"></i>
