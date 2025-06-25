@@ -482,10 +482,10 @@ class OperateurController extends Controller
         $this->authorize('update', $operateur);
 
         // Si le statut n'est pas "nouveau", bloquer l'action
-        if ($operateur->statut_agrement != 'nouveau') {
+        /* if ($operateur->statut_agrement != 'nouveau') {
             Alert::warning('Attention !', 'action impossible');
             return redirect()->back();
-        }
+        } */
         /* } */
 
         $arrive = Arrive::where('numero_arrive', $request->input("numero_arrive"))->first();
