@@ -252,7 +252,7 @@
                                         @endforeach
                                         <option value="Oui">Oui</option>
                                         <option value="Non">Non</option>
-                                        <option value="">Vide</option>
+                                        <option value="">Dépointer</option>
                                     </select>
                                     @error('presence')
                                         <div class="invalid-feedback">{{ $message }}</div>
