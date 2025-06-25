@@ -348,7 +348,7 @@
                     <span>
                         Gestion formations
                         @if ($formations->isNotEmpty())
-                            ({{ $formations->count() }} en cours)
+                            <span class="ms-2 small text-danger fst-italic">({{ $formations->count() }} en cours)</span>
                         @endif
                     </span>
                     </span><i class="bi bi-chevron-down ms-auto"></i>
