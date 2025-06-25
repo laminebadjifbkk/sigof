@@ -346,9 +346,11 @@
                 <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#formations-nav" href="#">
                     <i class="bi bi-folder-symlink-fill"></i>
                     <span>
-                        Formations
                         @if ($formationsEnCours > 0)
+                        Formations
                             <span class="badge bg-warning text-dark">{{ $formationsEnCours }} en cours</span>
+                        @else
+                        Gestion formations
                         @endif
                     </span>
                     <i class="bi bi-chevron-down ms-auto"></i>
