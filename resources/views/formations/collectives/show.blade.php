@@ -1243,7 +1243,7 @@
                                                     <th width="10%">Effectif</th>
                                                     <th width="10%">SCAN</th>
                                                     <th>Observations</th>
-                                                    <th width="5%"><i class="bi bi-gear"></i>
+                                                    <th width="3%"><i class="bi bi-gear"></i>
                                                     </th>
                                                 </tr>
                                             </thead>
