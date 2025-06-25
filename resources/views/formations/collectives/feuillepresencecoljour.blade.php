@@ -112,12 +112,12 @@
                         @endif
                     </td>
                     <td colspan="2"><b>{{ __('Responsable suivi : ') }}</b>
-                        @if(!empty($formation?->date_suivi))
+                        @if (!empty($formation?->date_suivi))
                             {{ $formation?->suivi_dossier }}
                         @endif
                     </td>
                     <td colspan="1"><b>{{ __('Date : ') }}</b>
-                        @if(!empty($emargementcollective?->date))
+                        @if (!empty($emargementcollective?->date))
                             {{ $emargementcollective?->date?->format('d/m/Y') }}
                         @endif
                     </td>
@@ -185,19 +185,20 @@
                         <td>{{ $listecollective?->date_naissance?->format('d/m/Y') }}</td>
                         <td>{{ remove_accents_uppercase($listecollective?->lieu_naissance) }}</td>
                         <td>
-                            {{ substr($listecollective?->telephone, 0, 2) .
+                            {{-- {{ substr($listecollective?->telephone, 0, 2) .
                                 ' ' .
                                 substr($listecollective?->telephone, 2, 3) .
                                 ' ' .
                                 substr($listecollective?->telephone, 5, 2) .
                                 ' ' .
-                                substr($listecollective?->telephone, 7, 2) }}
-                                </td>
+                                substr($listecollective?->telephone, 7, 2) }} --}}
+                            {{ $listecollective?->telephone }}
+                        </td>
                         <td>
                             {{-- {{ ucwords($individuelle?->feuillepresence) }} --}}
                             @foreach ($listecollective?->feuillepresencecollectives as $feuillepresencecollective)
-                            {{ ucwords(in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective) ? $feuillepresencecollective?->presence : '') }}
-                        @endforeach
+                                {{ ucwords(in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective) ? $feuillepresencecollective?->presence : '') }}
+                            @endforeach
                         </td>
                         <td></td>
                     </tr>

@@ -234,7 +234,7 @@
                                             </div>
                                             <div class="col-md-4 mb-2">
                                                 <i class="bi bi-clock me-1"></i>
-                                                <strong>Durée :</strong> {{ $formation?->duree_formation ?? '-' }} h
+                                                <strong>Durée :</strong> {{ $formation?->duree_formation ?? '-' }} jours
                                             </div>
                                         </div>
 
