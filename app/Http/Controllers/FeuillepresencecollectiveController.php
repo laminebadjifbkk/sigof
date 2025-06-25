@@ -9,8 +9,11 @@ class FeuillepresencecollectiveController extends Controller
 {
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'presence' => "nullable|string",
+        $validated = $request->validate([
+            'presence' => ['nullable', 'in:Oui,Non'],
+        ], [
+            'presence.in'       => 'La valeur de la présence doit être Oui ou Non.',
+            'presence.required' => 'Le champ présence est obligatoire.',
         ]);
 
         $feuillepresence = Feuillepresencecollective::where('emargementcollectives_id', $request->idemargement)

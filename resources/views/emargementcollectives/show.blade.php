@@ -252,7 +252,7 @@
                                 <div class="mb-3">
                                     <label for="selectPresence{{ $listecollective->id }}"
                                         class="form-label fw-semibold">Pointer <span class="text-danger">*</span></label>
-                                    <select id="selectPresence{{ $listecollective->id }}" name="presence"
+                                    {{-- <select id="selectPresence{{ $listecollective->id }}" name="presence"
                                         class="form-select form-select-sm @error('presence') is-invalid @enderror" required>
                                         <option value="" disabled selected hidden>--Choisir--</option>
                                         @foreach ($listecollective?->feuillepresencecollectives->unique('presence') as $feuillepresencecollective)
@@ -264,6 +264,34 @@
                                         @endforeach
                                         <option value="Oui">Oui</option>
                                         <option value="Non">Non</option>
+                                        <option value="">Dépointer</option>
+                                    </select> --}}
+                                    @php
+                                        // Récupère uniquement les valeurs de présence valides dans la liste
+                                        $presencesDisponibles = $listecollective?->feuillepresencecollectives
+                                            ->whereIn('emargementcollectives_id', $feuillepresenceListecollective)
+                                            ->pluck('presence')
+                                            ->unique()
+                                            ->filter(); // supprime les null/vides
+                                    @endphp
+
+                                    <select id="selectPresence{{ $listecollective->id }}" name="presence"
+                                        class="form-select form-select-sm @error('presence') is-invalid @enderror"
+                                        required>
+                                        <option value="" disabled selected hidden>-- Choisir une présence --</option>
+
+                                        @foreach ($presencesDisponibles as $presence)
+                                            <option value="{{ $presence }}">{{ $presence }}</option>
+                                        @endforeach
+
+                                        @unless ($presencesDisponibles->contains('Oui'))
+                                            <option value="Oui">Oui</option>
+                                        @endunless
+
+                                        @unless ($presencesDisponibles->contains('Non'))
+                                            <option value="Non">Non</option>
+                                        @endunless
+
                                         <option value="">Dépointer</option>
                                     </select>
                                     @error('presence')
