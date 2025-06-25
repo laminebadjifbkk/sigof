@@ -19,7 +19,7 @@ class EmargementcollectiveController extends Controller
 
         /* $listecollectives = Listecollective::where('formations_id', $request->input('idformation'))->get(); */
 
-        $feuillepresencecollective = Feuillepresencecollective::where('emargementcollectives_id', $request->input('idemargement'))->get();
+        $feuillepresencecollectives = Feuillepresencecollective::where('emargementcollectives_id', $request->input('idemargement'))->get();
 
         $collectiveFormation = DB::table('listecollectives')
             ->where('formations_id', $formation?->id)
@@ -43,7 +43,7 @@ class EmargementcollectiveController extends Controller
                 'emargementcollective',
                 'formation',
                 'feuillepresenceListecollective',
-                'feuillepresencecollective',
+                'feuillepresencecollectives',
             )
         );
     }
