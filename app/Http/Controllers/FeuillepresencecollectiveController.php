@@ -18,7 +18,7 @@ class FeuillepresencecollectiveController extends Controller
 
         $feuillepresence = Feuillepresencecollective::where('emargementcollectives_id', $request->idemargement)
             ->where('listecollectives_id', $id)
-            ->first();
+            ->get();
 
         /*  if (! empty($request->presence) && $request->presence == 'Présent' && $individuelle?->user?->civilite == 'Mme') {
         $presence = 'Présente';
