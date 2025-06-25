@@ -88,7 +88,6 @@ class IngenieurController extends Controller
             ],
             'fonction'  => [
                 'required', 'string', 'max:250',
-                Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
             ],
             'email'     => [
                 'required', 'string', 'max:250',
