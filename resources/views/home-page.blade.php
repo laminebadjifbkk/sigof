@@ -216,7 +216,7 @@
                                                 <i class="bi bi-person-workspace me-1"></i>
                                                 <strong>Ingénieur :</strong> {{ $formation->ingenieur?->name }}
                                             </div>
-                                            <div class="col-md-6 mb-2">
+                                            <div class="col-md-8 mb-2">
                                                 <i class="bi bi-geo-alt-fill me-1"></i>
                                                 <strong>Département :</strong> {{ $formation->departement?->nom }}
                                             </div>
