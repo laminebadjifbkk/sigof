@@ -368,7 +368,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('ingenieurs.index') }}">
                     <i class="bi bi-people-fill"></i>
-                    <span>Ingénieurs</span>
+                    <span>Gestion des ingénieurs</span>
                 </a>
             </li>
         @endcan
