@@ -224,6 +224,15 @@
                                                 <i class="bi bi-hourglass-split me-1"></i>
                                                 <strong>Durée :</strong> {{ $formation?->duree_formation }}h
                                             </div>
+                                            <div class="col-md-8 mb-2">
+                                                <i class="bi bi-geo-alt-fill me-1"></i>
+                                                <strong>Date début :</strong>
+                                                {{ $formation?->date_debut?->format('d/m/Y') }}
+                                            </div>
+                                            <div class="col-md-4 mb-2">
+                                                <i class="bi bi-hourglass-split me-1"></i>
+                                                <strong>Date fin :</strong> {{ $formation?->date_fin?->format('d/m/Y') }}
+                                            </div>
                                         </div>
 
                                         @if (!is_null($progress))
