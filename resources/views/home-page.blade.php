@@ -214,7 +214,9 @@
                                                 <i class="bi bi-geo-alt-fill"></i>
                                                 <strong>Département :</strong> {{ $formation->departement?->nom }}
                                             </p>
-                                        @elseif ($isCollective)
+                                        </div>
+                                    @elseif ($isCollective)
+                                        <div class="border rounded p-3 mb-3 shadow-sm bg-light">
                                             <h6 class="mb-2 text-primary">
                                                 <i class="bi bi-people-fill"></i> {{ $formation->collectivemodule->module }}
                                             </h6>
@@ -226,6 +228,7 @@
                                                 <i class="bi bi-geo-alt-fill"></i>
                                                 <strong>Département :</strong> {{ $formation->departement?->nom }}
                                             </p>
+                                        </div>
                                     @endif
 
                                     @if (!is_null($progress))
@@ -237,53 +240,52 @@
                                             </div>
                                         </div>
                                     @endif
+                                @endforeach
                             </div>
-                    @endforeach
+                        </div>
+                    @endif
                 </div>
-            </div>
-    @endif
-    </div>
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Graphique demandes individuelles</h5>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Graphique demandes individuelles</h5>
 
-                <canvas id="lineChart" style="min-height: 200px;"></canvas>
-                <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                        new Chart(document.querySelector('#lineChart'), {
-                            type: 'line',
-                            data: {
-                                labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août',
-                                    'Septembre', 'Octobre', 'Novembre', 'Décembre'
-                                ],
-                                datasets: [{
-                                    label: 'Graphique linéaire',
-                                    data: [{{ $janvier }}, {{ $fevrier }}, {{ $mars }},
-                                        {{ $avril }}, {{ $mai }}, {{ $juin }},
-                                        {{ $juillet }}, {{ $aout }}, {{ $septembre }},
-                                        {{ $octobre }}, {{ $novembre }}, {{ $decembre }}
-                                    ],
-                                    fill: false,
-                                    borderColor: 'rgb(75, 192, 192)',
-                                    tension: 0.1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                }
-                            }
-                        });
-                    });
-                </script>
+                            <canvas id="lineChart" style="min-height: 200px;"></canvas>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    new Chart(document.querySelector('#lineChart'), {
+                                        type: 'line',
+                                        data: {
+                                            labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août',
+                                                'Septembre', 'Octobre', 'Novembre', 'Décembre'
+                                            ],
+                                            datasets: [{
+                                                label: 'Graphique linéaire',
+                                                data: [{{ $janvier }}, {{ $fevrier }}, {{ $mars }},
+                                                    {{ $avril }}, {{ $mai }}, {{ $juin }},
+                                                    {{ $juillet }}, {{ $aout }}, {{ $septembre }},
+                                                    {{ $octobre }}, {{ $novembre }}, {{ $decembre }}
+                                                ],
+                                                fill: false,
+                                                borderColor: 'rgb(75, 192, 192)',
+                                                tension: 0.1
+                                            }]
+                                        },
+                                        options: {
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true
+                                                }
+                                            }
+                                        }
+                                    });
+                                });
+                            </script>
 
-            </div>
-        </div>
-    </div>
-    {{-- <div class="col-lg-6">
+                        </div>
+                    </div>
+                </div>
+                {{-- <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Diagramme circulaire</h5>
@@ -315,99 +317,99 @@
                     </div>
                 </div>
             </div> --}}
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Diagramme demandes individulles</h5>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Diagramme demandes individulles</h5>
 
-                <!-- Donut Chart -->
-                <div id="donutChart" style="min-height: 200px;" class="echart"></div>
+                            <!-- Donut Chart -->
+                            <div id="donutChart" style="min-height: 200px;" class="echart"></div>
 
-                <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                        echarts.init(document.querySelector("#donutChart")).setOption({
-                            tooltip: {
-                                trigger: 'item'
-                            },
-                            legend: {
-                                top: '5%',
-                                left: 'center'
-                            },
-                            series: [{
-                                name: 'Access From',
-                                type: 'pie',
-                                radius: ['40%', '70%'],
-                                avoidLabelOverlap: false,
-                                label: {
-                                    show: false,
-                                    position: 'center'
-                                },
-                                emphasis: {
-                                    label: {
-                                        show: true,
-                                        fontSize: '18',
-                                        fontWeight: 'bold'
-                                    }
-                                },
-                                labelLine: {
-                                    show: false
-                                },
-                                data: [{
-                                        value: {{ $masculin }},
-                                        name: 'Hommes'
-                                    },
-                                    {
-                                        value: {{ $feminin }},
-                                        name: 'Femmes'
-                                    }
-                                ]
-                            }]
-                        });
-                    });
-                </script>
-                <!-- End Donut Chart -->
+                            <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    echarts.init(document.querySelector("#donutChart")).setOption({
+                                        tooltip: {
+                                            trigger: 'item'
+                                        },
+                                        legend: {
+                                            top: '5%',
+                                            left: 'center'
+                                        },
+                                        series: [{
+                                            name: 'Access From',
+                                            type: 'pie',
+                                            radius: ['40%', '70%'],
+                                            avoidLabelOverlap: false,
+                                            label: {
+                                                show: false,
+                                                position: 'center'
+                                            },
+                                            emphasis: {
+                                                label: {
+                                                    show: true,
+                                                    fontSize: '18',
+                                                    fontWeight: 'bold'
+                                                }
+                                            },
+                                            labelLine: {
+                                                show: false
+                                            },
+                                            data: [{
+                                                    value: {{ $masculin }},
+                                                    name: 'Hommes'
+                                                },
+                                                {
+                                                    value: {{ $feminin }},
+                                                    name: 'Femmes'
+                                                }
+                                            ]
+                                        }]
+                                    });
+                                });
+                            </script>
+                            <!-- End Donut Chart -->
 
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    </div>
-    </section>
+        </section>
 
-    @can('home-view')
-        <section class="section dashboard">
-            <div class="row">
-                <!-- Left side columns -->
-                <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
-                    <div class="row">
-                        <!-- Sales Card -->
-                        <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
-                            <div class="card info-card sales-card">
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                </div>
-                                <a href="#">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Demandes<span> | {{ date('d/m/Y') }}</span></h5>
-                                        <div class="d-flex align-items-center">
-                                            <div
-                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                <i class="bi bi-calendar-check-fill"></i>
-                                            </div>
-                                            <div class="ps-3">
-                                                <h6>
-                                                    <span
-                                                        class="text-primary">{{ number_format($count_today, 0, '', ' ') }}</span>
-                                                </h6>
-                                                <span class="text-success small pt-1 fw-bold">Aujourd'hui</span>
-                                                {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
+        @can('home-view')
+            <section class="section dashboard">
+                <div class="row">
+                    <!-- Left side columns -->
+                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                        <div class="row">
+                            <!-- Sales Card -->
+                            <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                                <div class="card info-card sales-card">
+                                    <div class="filter">
+                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                class="bi bi-three-dots"></i></a>
+                                    </div>
+                                    <a href="#">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Demandes<span> | {{ date('d/m/Y') }}</span></h5>
+                                            <div class="d-flex align-items-center">
+                                                <div
+                                                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                    <i class="bi bi-calendar-check-fill"></i>
+                                                </div>
+                                                <div class="ps-3">
+                                                    <h6>
+                                                        <span
+                                                            class="text-primary">{{ number_format($count_today, 0, '', ' ') }}</span>
+                                                    </h6>
+                                                    <span class="text-success small pt-1 fw-bold">Aujourd'hui</span>
+                                                    {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        {{-- <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                            {{-- <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
                             <div class="card info-card sales-card">
                                 <div class="filter">
                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -434,69 +436,69 @@
                             </div>
                         </div> --}}
 
-                        {{-- Demandes individuelles --}}
-                        <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
-                            <div class="card info-card sales-card">
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                </div>
-                                <a href="{{ route('individuelles.index') }}">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Demandes <span>| individuelles</span></h5>
-                                        <div class="d-flex align-items-center">
-                                            <div
-                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                <i class="bi bi-file-earmark-text"></i>
-                                            </div>
-                                            <div class="ps-3">
-                                                <h6>
+                            {{-- Demandes individuelles --}}
+                            <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                                <div class="card info-card sales-card">
+                                    <div class="filter">
+                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                class="bi bi-three-dots"></i></a>
+                                    </div>
+                                    <a href="{{ route('individuelles.index') }}">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Demandes <span>| individuelles</span></h5>
+                                            <div class="d-flex align-items-center">
+                                                <div
+                                                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                    <i class="bi bi-file-earmark-text"></i>
+                                                </div>
+                                                <div class="ps-3">
+                                                    <h6>
+                                                        <span
+                                                            class="text-primary">{{ number_format($total_individuelle, 0, '', ' ') }}</span>
+                                                    </h6>
+                                                    {{-- <span class="text-muted small pt-2 ps-1">dont</span> --}}
                                                     <span
-                                                        class="text-primary">{{ number_format($total_individuelle, 0, '', ' ') }}</span>
-                                                </h6>
-                                                {{-- <span class="text-muted small pt-2 ps-1">dont</span> --}}
-                                                <span
-                                                    class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_femmes, 2, ',', ' ') . '%' }}</span>
-                                                <span class="text-muted small pt-2 ps-1">f</span>
+                                                        class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_femmes, 2, ',', ' ') . '%' }}</span>
+                                                    <span class="text-muted small pt-2 ps-1">f</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-                        {{-- Demandes collectives --}}
-                        <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
-                            <div class="card info-card sales-card">
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
+                                    </a>
                                 </div>
-                                <a href="{{ route('collectives.index') }}">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Demandes <span>| collectives</span></h5>
-                                        <div class="d-flex align-items-center">
-                                            <div
-                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                <i class="bi bi-file-earmark-text"></i>
-                                            </div>
-                                            <div class="ps-3">
-                                                <h6>
+                            </div>
+
+                            {{-- Demandes collectives --}}
+                            <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                                <div class="card info-card sales-card">
+                                    <div class="filter">
+                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                class="bi bi-three-dots"></i></a>
+                                    </div>
+                                    <a href="{{ route('collectives.index') }}">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Demandes <span>| collectives</span></h5>
+                                            <div class="d-flex align-items-center">
+                                                <div
+                                                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                    <i class="bi bi-file-earmark-text"></i>
+                                                </div>
+                                                <div class="ps-3">
+                                                    <h6>
+                                                        <span
+                                                            class="text-primary">{{ number_format(count($collectives), 0, '', ' ') }}</span>
+                                                    </h6>
+                                                    {{-- <span class="text-muted small pt-2 ps-1">dont</span> --}}
                                                     <span
-                                                        class="text-primary">{{ number_format(count($collectives), 0, '', ' ') }}</span>
-                                                </h6>
-                                                {{-- <span class="text-muted small pt-2 ps-1">dont</span> --}}
-                                                <span
-                                                    class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_femmes_collective, 2, ',', ' ') . '%' }}</span>
-                                                <span class="text-muted small pt-2 ps-1">f</span>
+                                                        class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_femmes_collective, 2, ',', ' ') . '%' }}</span>
+                                                    <span class="text-muted small pt-2 ps-1">f</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
 
-                        {{-- <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                            {{-- <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
                             <div class="card info-card sales-card">
                                 <div class="filter">
                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -525,7 +527,7 @@
                             </div>
                         </div> --}}
 
-                        {{-- <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                            {{-- <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
                             <div class="card info-card sales-card">
                                 <div class="filter">
                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -553,153 +555,154 @@
                                 </a>
                             </div>
                         </div> --}}
-                        <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
-                            <div class="card info-card sales-card">
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                </div>
-                                <a href="#">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Agréments <span>| opérateurs</span></h5>
-                                        <div class="d-flex align-items-center">
-                                            <div
-                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                <i class="bi bi-file-earmark-text"></i>
-                                            </div>
-                                            <div class="ps-3">
-                                                {{-- @php
+                            <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                                <div class="card info-card sales-card">
+                                    <div class="filter">
+                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                class="bi bi-three-dots"></i></a>
+                                    </div>
+                                    <a href="#">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Agréments <span>| opérateurs</span></h5>
+                                            <div class="d-flex align-items-center">
+                                                <div
+                                                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                    <i class="bi bi-file-earmark-text"></i>
+                                                </div>
+                                                <div class="ps-3">
+                                                    {{-- @php
                                                     $total = count($individuelles) + count($collectives);
                                                 @endphp --}}
 
-                                                <h6>
-                                                    <span class="text-primary">{{ number_format($count_operateurs) }}</span>
-                                                </h6>
-                                                <span class="text-success small pt-1 fw-bold">agréés</span>
+                                                    <h6>
+                                                        <span
+                                                            class="text-primary">{{ number_format($count_operateurs) }}</span>
+                                                    </h6>
+                                                    <span class="text-success small pt-1 fw-bold">agréés</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="section dashboard">
-            <div class="row">
+            <section class="section dashboard">
+                <div class="row">
 
-                <!-- Left side columns -->
-                <div class="col-lg-12">
-                    <div class="row">
-                        <!-- Sales Card -->
-                        @if ($user->hasAnyRole('super-admin', 'admin'))
-                            <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
-                                <div class="card info-card sales-card">
-                                    <a href="{{ route('user.index') }}">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Utilisateurs <span>| Tous</span></h5>
+                    <!-- Left side columns -->
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <!-- Sales Card -->
+                            @if ($user->hasAnyRole('super-admin', 'admin'))
+                                <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                                    <div class="card info-card sales-card">
+                                        <a href="{{ route('user.index') }}">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Utilisateurs <span>| Tous</span></h5>
 
-                                            <div class="d-flex align-items-center">
-                                                <div
-                                                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                    <i class="bi bi-person-plus-fill"></i>
-                                                </div>
-                                                <div class="ps-3">
-                                                    <h6>{{ number_format($total_user, 0, '', ' ') }}</h6>
-                                                    <span
-                                                        class="text-success small pt-1 fw-bold">{{ $email_verified_at . '%' }}</span>
-                                                    <span class="text-muted small pt-2 ps-1">V</span>
+                                                <div class="d-flex align-items-center">
+                                                    <div
+                                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                        <i class="bi bi-person-plus-fill"></i>
+                                                    </div>
+                                                    <div class="ps-3">
+                                                        <h6>{{ number_format($total_user, 0, '', ' ') }}</h6>
+                                                        <span
+                                                            class="text-success small pt-1 fw-bold">{{ $email_verified_at . '%' }}</span>
+                                                        <span class="text-muted small pt-2 ps-1">V</span>
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div><!-- End Sales Card -->
-                        @endif
-
-                        @if ($user->hasAnyRole('super-admin', 'admin', 'courrier'))
-                            <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
-                                <div class="card info-card sales-card">
-
-                                    <a href="{{ route('arrives.index') }}">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Courriers <span>| Arrivés</span></h5>
-
-                                            <div class="d-flex align-items-center">
-                                                <div
-                                                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                    <i class="bi bi-envelope-open"></i>
-                                                </div>
-                                                <div class="ps-3">
-                                                    <h6>{{ number_format($total_arrive, 0, '', ' ') }}</h6>
-                                                    <span
-                                                        class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_arrive, 2, ',', ' ') . '%' }}</span>
-                                                    {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
-
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    </div>
+                                </div><!-- End Sales Card -->
+                            @endif
 
-                                </div>
-                            </div><!-- End Sales Card -->
-                            <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
-                                <div class="card info-card sales-card">
+                            @if ($user->hasAnyRole('super-admin', 'admin', 'courrier'))
+                                <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                                    <div class="card info-card sales-card">
 
-                                    <a href="{{ route('departs.index') }}">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Courriers <span>| Départs</span></h5>
+                                        <a href="{{ route('arrives.index') }}">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Courriers <span>| Arrivés</span></h5>
 
-                                            <div class="d-flex align-items-center">
-                                                <div
-                                                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                    <i class="bi bi-envelope"></i>
-                                                </div>
-                                                <div class="ps-3">
-                                                    <h6>{{ number_format($total_depart, 0, '', ' ') }}</h6>
-                                                    <span
-                                                        class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_depart, 2, ',', ' ') . '%' }}</span>
-                                                    {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
+                                                <div class="d-flex align-items-center">
+                                                    <div
+                                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                        <i class="bi bi-envelope-open"></i>
+                                                    </div>
+                                                    <div class="ps-3">
+                                                        <h6>{{ number_format($total_arrive, 0, '', ' ') }}</h6>
+                                                        <span
+                                                            class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_arrive, 2, ',', ' ') . '%' }}</span>
+                                                        {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div><!-- End Sales Card -->
-                            <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
-                                <div class="card info-card sales-card">
-
-                                    <a href="{{ route('internes.index') }}">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Courriers <span>| Internes</span></h5>
-
-                                            <div class="d-flex align-items-center">
-                                                <div
-                                                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                    <i class="bi bi-envelope"></i>
-                                                </div>
-                                                <div class="ps-3">
-                                                    <h6>{{ number_format($total_interne, 0, '', ' ') }}</h6>
-                                                    <span
-                                                        class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_interne, 2, ',', ' ') . '%' }}</span>
-                                                    {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
-
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div><!-- End Sales Card -->
-                        @endif
+                                        </a>
 
+                                    </div>
+                                </div><!-- End Sales Card -->
+                                <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                                    <div class="card info-card sales-card">
+
+                                        <a href="{{ route('departs.index') }}">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Courriers <span>| Départs</span></h5>
+
+                                                <div class="d-flex align-items-center">
+                                                    <div
+                                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                        <i class="bi bi-envelope"></i>
+                                                    </div>
+                                                    <div class="ps-3">
+                                                        <h6>{{ number_format($total_depart, 0, '', ' ') }}</h6>
+                                                        <span
+                                                            class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_depart, 2, ',', ' ') . '%' }}</span>
+                                                        {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div><!-- End Sales Card -->
+                                <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                                    <div class="card info-card sales-card">
+
+                                        <a href="{{ route('internes.index') }}">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Courriers <span>| Internes</span></h5>
+
+                                                <div class="d-flex align-items-center">
+                                                    <div
+                                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                        <i class="bi bi-envelope"></i>
+                                                    </div>
+                                                    <div class="ps-3">
+                                                        <h6>{{ number_format($total_interne, 0, '', ' ') }}</h6>
+                                                        <span
+                                                            class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_interne, 2, ',', ' ') . '%' }}</span>
+                                                        {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div><!-- End Sales Card -->
+                            @endif
+
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    @endcan
+            </section>
+        @endcan
     @endif
 @endsection
