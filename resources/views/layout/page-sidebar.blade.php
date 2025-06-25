@@ -347,9 +347,9 @@
                     <i class="bi bi-folder-symlink-fill"></i>
                     <span>
                         Gestion formations
-                        @if ($formations->isNotEmpty())
+                        {{-- @if ($formations->isNotEmpty())
                             <span class="ms-2 small text-danger fst-italic">({{ $formations->count() }} en cours)</span>
-                        @endif
+                        @endif --}}
                     </span>
                     </span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>

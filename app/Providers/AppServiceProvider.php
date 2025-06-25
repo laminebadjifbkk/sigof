@@ -78,7 +78,7 @@ class AppServiceProvider extends ServiceProvider
             /* $directions = Direction::select('*')->orderBy('sigle')->get(); */
             $directions = Direction::orderBy('sigle')->get();
             $projets    = Projet::where('statut', 'ouvert')->orderBy('sigle')->get();
-            $formations    = Formation::where('statut', 'En cours')->get();
+            /* $formations    = Formation::where('statut', 'En cours')->get(); */
 
             $view->with([
                 'antennes'   => $antennes,
