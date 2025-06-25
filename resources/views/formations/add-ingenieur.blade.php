@@ -53,7 +53,7 @@
                                                 {{-- <th>Matricule</th> --}}
                                                 <th width="35%">Ingénieur</th>
                                                 <th width="2%">Initiale</th>
-                                                {{-- <th>Fonction</th> --}}
+                                                <th>Fonction</th>
                                                 {{-- <th>Spécialité</th> --}}
                                                 <th>Email</th>
                                                 <th>Téléphone</th>
@@ -74,11 +74,11 @@
                                                                 <div>{{ $message }}</div>
                                                             </span>
                                                         @enderror
-                                                        {{ $ingenieur->name }}
+                                                        {{ $ingenieur?->user?->firstname . ' ' . $ingenieur?->user?->name }}
                                                     </td>
                                                     {{--  <td>{{ $ingenieur->name }}</td> --}}
                                                     <td>{{ $ingenieur->initiale }}</td>
-                                                    {{-- <td>{{ $ingenieur->fonction }}</td> --}}
+                                                    <td>{{ $ingenieur?->user?->employee?->fonction?->name }}</td>
                                                     {{-- <td>{{ $ingenieur->specialite }}</td> --}}
                                                     <td><a
                                                             href="mailto:{{ $ingenieur?->user?->email }}">{{ $ingenieur?->user?->email }}</a>
@@ -158,7 +158,7 @@
                 [5, 10, 25, 50, 100, "Tout"]
             ],
             "order": [
-                [4, 'desc']
+                [5, 'desc']
             ],
             language: {
                 "sProcessing": "Traitement en cours...",
