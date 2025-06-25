@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Departement;
@@ -33,34 +32,34 @@ class IngenieurController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            "matricule"         => ["nullable", "string", Rule::unique('ingenieurs')->where(function ($query) {
+            "matricule" => ["nullable", "string", Rule::unique('ingenieurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "name"              => ["required", "string", Rule::unique('ingenieurs')->where(function ($query) {
+            "name"      => ["required", "string", Rule::unique('ingenieurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "initiale"          => ["required", "string", Rule::unique('ingenieurs')->where(function ($query) {
+            "initiale"  => ["required", "string", Rule::unique('ingenieurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "fonction"          => [Rule::unique('ingenieurs')->where(function ($query) {
+            "fonction"  => [Rule::unique('ingenieurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "email"             => ["required", "string", Rule::unique('ingenieurs')->where(function ($query) {
+            "email"     => ["required", "string", Rule::unique('ingenieurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "telephone"         => ["required", "string", Rule::unique('ingenieurs')->where(function ($query) {
+            "telephone" => ["required", "string", Rule::unique('ingenieurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
         ]);
 
         $ingenieur = Ingenieur::create([
-            "matricule"     => $request->input("matricule"),
-            "name"          => $request->input("name"),
-            "initiale"      => $request->input("initiale"),
-            "fonction"      => $request->input("fonction"),
-            "specialite"    => $request->input("specialite"),
-            "email"         => $request->input("email"),
-            "telephone"     => $request->input("telephone"),
+            "matricule"  => $request->input("matricule"),
+            "name"       => $request->input("name"),
+            "initiale"   => $request->input("initiale"),
+            "fonction"   => $request->input("fonction"),
+            "specialite" => $request->input("specialite"),
+            "email"      => $request->input("email"),
+            "telephone"  => $request->input("telephone"),
         ]);
 
         $ingenieur->save();
@@ -72,25 +71,43 @@ class IngenieurController extends Controller
 
     public function update(Request $request, $id)
     {
-        $ingenieur = Ingenieur::find($id);
+        $ingenieur = Ingenieur::findOrFail($id);
 
         $this->validate($request, [
-            'matricule'     => ['nullable', 'string', 'max:25', Rule::unique(Ingenieur::class)->ignore($id)->whereNull('deleted_at')],
-            "name"          => ['required', 'string', 'max:25', Rule::unique(Ingenieur::class)->ignore($id)->whereNull('deleted_at')],
-            "initiale"      => ['required', 'string', 'max:25', Rule::unique(Ingenieur::class)->ignore($id)->whereNull('deleted_at')],
-            "fonction"      => ['required', 'string', 'max:250', Rule::unique(Ingenieur::class)->ignore($id)->whereNull('deleted_at')],
-            "email"         => ['required', 'string', 'max:250', Rule::unique(Ingenieur::class)->ignore($id)->whereNull('deleted_at')],
-            "telephone"     => ['required', 'string', 'max:250', Rule::unique(Ingenieur::class)->ignore($id)->whereNull('deleted_at')],
+            'matricule' => [
+                'nullable', 'string', 'max:25',
+                Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
+            ],
+            'name'      => [
+                'required', 'string', 'max:25',
+                Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
+            ],
+            'initiale'  => [
+                'required', 'string', 'max:25',
+                Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
+            ],
+            'fonction'  => [
+                'required', 'string', 'max:250',
+                Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
+            ],
+            'email'     => [
+                'required', 'string', 'max:250',
+                Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
+            ],
+            'telephone' => [
+                'required', 'string', 'max:250',
+                Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
+            ],
         ]);
 
         $ingenieur->update([
-            "matricule"     => $request->input("matricule"),
-            "name"          => $request->input("name"),
-            "initiale"      => $request->input("initiale"),
-            "fonction"      => $request->input("fonction"),
-            "specialite"    => $request->input("specialite"),
-            "email"         => $request->input("email"),
-            "telephone"     => $request->input("telephone"),
+            "matricule"  => $request->input("matricule"),
+            "name"       => $request->input("name"),
+            "initiale"   => $request->input("initiale"),
+            "fonction"   => $request->input("fonction"),
+            "specialite" => $request->input("specialite"),
+            "email"      => $request->input("email"),
+            "telephone"  => $request->input("telephone"),
         ]);
 
         $ingenieur->save();
@@ -102,13 +119,13 @@ class IngenieurController extends Controller
 
     public function show($id)
     {
-        $ingenieur          = Ingenieur::findOrFail($id);
-        $modules            = Module::orderBy("created_at", "desc")->get();
-        $departements       = Departement::orderBy("created_at", "desc")->get();
-        $regions            = Region::orderBy("created_at", "desc")->get();
-        $operateurs         = Operateur::orderBy("created_at", "desc")->get();
-        $types_formations   = TypesFormation::orderBy("created_at", "desc")->get();
-        $ingenieurs         = Ingenieur::orderBy("created_at", "desc")->get();
+        $ingenieur        = Ingenieur::findOrFail($id);
+        $modules          = Module::orderBy("created_at", "desc")->get();
+        $departements     = Departement::orderBy("created_at", "desc")->get();
+        $regions          = Region::orderBy("created_at", "desc")->get();
+        $operateurs       = Operateur::orderBy("created_at", "desc")->get();
+        $types_formations = TypesFormation::orderBy("created_at", "desc")->get();
+        $ingenieurs       = Ingenieur::orderBy("created_at", "desc")->get();
         return view('ingenieurs.show', compact('ingenieur', 'departements', 'modules', 'regions', 'operateurs', 'types_formations', 'ingenieurs'));
     }
 
