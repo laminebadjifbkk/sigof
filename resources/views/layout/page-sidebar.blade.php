@@ -374,7 +374,7 @@
                         </a>
                     </li>
 
-                    @can('formation-view')
+                    @can('convention-view')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('showConventions') }}">
                                 <span>Conventions & DETF</span>
