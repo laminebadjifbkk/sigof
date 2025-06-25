@@ -204,25 +204,25 @@
                                         <h6 class="text-primary mb-3">
                                             <i class="bi bi-journal-code me-1"></i>
                                             Module :
-                                            {{ $isIndividuelle ? $formation->module->name : $formation->collectivemodule->module }}
+                                            {{ $isIndividuelle ? $formation?->module?->name : $formation?->collectivemodule?->module }}
                                         </h6>
 
                                         <div class="row">
                                             <div class="col-md-8 mb-2">
                                                 <i class="bi bi-person-circle me-1"></i>
-                                                <strong>Opérateur :</strong> {{ $formation->operateur?->user?->operateur }}
+                                                <strong>Opérateur :</strong> {{ $formation?->operateur?->user?->operateur }}
                                             </div>
                                             <div class="col-md-4 mb-2">
                                                 <i class="bi bi-person-workspace me-1"></i>
-                                                <strong>Ingénieur :</strong> {{ $formation->ingenieur?->name }}
+                                                <strong>Ingénieur :</strong> {{ $formation?->ingenieur?->name }}
                                             </div>
                                             <div class="col-md-8 mb-2">
                                                 <i class="bi bi-geo-alt-fill me-1"></i>
-                                                <strong>Département :</strong> {{ $formation->departement?->nom }}
+                                                <strong>Département :</strong> {{ $formation?->departement?->nom }}
                                             </div>
                                             <div class="col-md-4 mb-2">
                                                 <i class="bi bi-hourglass-split me-1"></i>
-                                                <strong>Durée :</strong> {{ $formation->duree_formation }}h
+                                                <strong>Durée :</strong> {{ $formation?->duree_formation }}h
                                             </div>
                                         </div>
 
