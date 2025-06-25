@@ -363,7 +363,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link collapsed" href="{{ route('formations.index') }}">
+                        <a class="nav-link collapsed" href="{{ url('home') }}">
                             @if ($formationsEnCours > 0)
                                 <span class="badge bg-warning text-dark">{{ $formationsEnCours }} formation en
                                     cours</span>
