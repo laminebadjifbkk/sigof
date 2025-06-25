@@ -39,7 +39,7 @@
                                     <input type="hidden" name="idlocalite"
                                         value="{{ $formation?->departement?->region?->id }}">
                                     <input type="hidden" name="idemargement" value="{{ $emargementcollective?->id }}">
-                                    <button class="btn btn-secondary btn-sm mx-1">Feuille présence</button>
+                                    <button class="btn btn-secondary btn-sm mx-1">Fiche de suivi</button>
                                 </form>
                                 <div class="filter">
                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
