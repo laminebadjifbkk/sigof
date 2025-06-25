@@ -89,64 +89,62 @@
                                         </thead>
                                         <tbody>
                                             <?php $i = 1; ?>
-                                            @foreach ($formation?->listecollectives as $listecollective)
-                                                @if (!empty($listecollective?->cin))
-                                                    <tr>
-                                                        <td>{{ $i++ }}</td>
-                                                        <td>{{ $listecollective?->prenom }}</td>
-                                                        <td>{{ $listecollective?->nom }}</td>
-                                                        <td>{{ $listecollective?->date_naissance->format('d/m/Y') }}
-                                                        </td>
-                                                        <td>{{ $listecollective?->lieu_naissance }}</td>
-                                                        <td class="text-center">
-                                                            @foreach ($listecollective?->feuillepresencecollectives as $feuillepresencecollective)
-                                                                @if (in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective))
-                                                                    <span
-                                                                        class="badge 
+                                            @foreach ($feuillepresencecollectives as $feuillepresencecollective)
+                                                <tr>
+                                                    <td>{{ $i++ }}</td>
+                                                    <td>{{ $feuillepresencecollective?->listecollective?->prenom }}</td>
+                                                    <td>{{ $feuillepresencecollective?->listecollective?->nom }}</td>
+                                                    <td>{{ $feuillepresencecollective?->listecollective?->date_naissance->format('d/m/Y') }}
+                                                    </td>
+                                                    <td>{{ $feuillepresencecollective?->listecollective?->lieu_naissance }}</td>
+                                                    <td class="text-center">
+                                                        @foreach ($feuillepresencecollective?->listecollective?->feuillepresencecollectives as $feuillepresencecollective)
+                                                            @if (in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective))
+                                                                <span
+                                                                    class="badge 
                                                                         {{ $feuillepresencecollective?->presence === 'Oui'
                                                                             ? 'bg-success'
                                                                             : ($feuillepresencecollective?->presence === 'Non'
                                                                                 ? 'bg-danger'
                                                                                 : 'bg-default') }}">
-                                                                        {{ $feuillepresencecollective?->presence }}
-                                                                    </span>
-                                                                @endif
-                                                            @endforeach
-                                                        </td>
-                                                        <td>
-                                                            <span class="d-flex align-items-baseline"><a
-                                                                    href="{{ route('listecollectives.show', $listecollective) }}"
-                                                                    class="btn btn-primary btn-sm" title="voir détails"
-                                                                    target="_blanck"><i class="bi bi-eye"></i></a>
-                                                                <div class="filter">
-                                                                    <a class="icon" href="#"
-                                                                        data-bs-toggle="dropdown"><i
-                                                                            class="bi bi-three-dots"></i></a>
-                                                                    <ul
-                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                        <li>
-                                                                            <button type="button" class="dropdown-item"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#PresenceModal{{ $listecollective->id }}">Pointer
-                                                                            </button>
-                                                                        </li>
-                                                                        <li>
-                                                                            <form
-                                                                                action="{{ route('feuillepresencecollectives.destroy', $listecollective) }}"
-                                                                                method="post">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit"
-                                                                                    class="dropdown-item show_confirm"
-                                                                                    title="Supprimer">Supprimer</button>
-                                                                            </form>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                @endif
+                                                                    {{ $feuillepresencecollective?->presence }}
+                                                                </span>
+                                                            @endif
+                                                        @endforeach
+                                                    </td>
+                                                    <td>
+                                                        <span class="d-flex align-items-baseline"><a
+                                                                href="{{ route('listecollectives.show', $feuillepresencecollective?->listecollective) }}"
+                                                                class="btn btn-primary btn-sm" title="voir détails"
+                                                                target="_blanck"><i class="bi bi-eye"></i></a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#"
+                                                                    data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul
+                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    <li>
+                                                                        <button type="button" class="dropdown-item"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#PresenceModal{{ $feuillepresencecollective?->listecollective->id }}">Pointer
+                                                                        </button>
+                                                                    </li>
+                                                                    <li>
+                                                                        <form
+                                                                            action="{{ route('feuillepresencecollectives.destroy', $feuillepresencecollective?->listecollective) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"
+                                                                                title="Supprimer">Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
