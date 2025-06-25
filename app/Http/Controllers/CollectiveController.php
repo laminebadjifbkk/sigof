@@ -699,12 +699,13 @@ class CollectiveController extends Controller
         $collective = Collective::findOrFail($id);
 
         $collective->update([
-            "ingenieurs_id" => $request->input('ingenieur'),
+            "ingenieurs_id"  => $request->input('ingenieur'),
+            "statut_demande" => 'Imputée',
         ]);
 
         $collective->save();
 
-        Alert::success('Bravo !', 'imputation effectuée avec succès');
+        Alert::success('Succès !', 'La demande collective a été assignée à l\'ingénieur avec succès.');
 
         return redirect()->back();
     }
