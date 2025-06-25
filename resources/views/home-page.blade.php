@@ -210,7 +210,7 @@
                                             <div class="col-md-8 mb-2">
                                                 <i class="bi bi-person-circle me-1"></i>
                                                 <strong>Opérateur :</strong>
-                                                {{ $formation?->operateur?->user?->operateur ?? 'N/A' }}
+                                                {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
                                             </div>
                                             <div class="col-md-4 mb-2">
                                                 <i class="bi bi-person-workspace me-1"></i>
