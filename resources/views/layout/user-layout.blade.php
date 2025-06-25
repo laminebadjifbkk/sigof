@@ -890,7 +890,7 @@
             display: inline-block;
         }
 
-       /*  .sélectionnée {
+        /*  .sélectionnée {
             background-color: #0DCAF0;
             color: white;
             padding: 4px 8px;
@@ -1135,21 +1135,23 @@
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
-            @if (auth()->user()->hasRole('super-admin|admin|DIOF|DEC'))
+            @php
+                $user = auth()->user();
+            @endphp
+
+            @if ($user->hasAnyRole(['super-admin', 'admin', 'DIOF', 'DEC', 'Ingenieur', 'Employe']))
                 <a href="{{ url('/home') }}" class="logo d-flex align-items-center">
-                    <img src="assets/img/logo_sigle.png" alt="">
-                    <span class="d-none d-lg-block">SIGOF</span>
-                    {{-- Système d'information et de gestion des opérations de formation --}}
-                </a>
-            @else
-                <a href="{{ url('/profil') }}" class="logo d-flex align-items-center">
-                    <img src="assets/img/logo_sigle.png" alt="">
-                    <span class="d-none d-lg-block">SIGOF</span>
-                    {{-- Système d'information et de gestion des opérations de formation --}}
-                </a>
+                @else
+                    <a href="{{ url('/profil') }}" class="logo d-flex align-items-center">
             @endif
+            <img src="{{ asset('assets/img/logo_sigle.png') }}" alt="Logo SIGOF">
+            <span class="d-none d-lg-block">SIGOF</span>
+            {{-- Système d'information et de gestion des opérations de formation --}}
+            </a>
+
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
+
         {{--   <div class="search-bar">
             <form class="search-form d-flex align-items-center" method="POST" action="#">
                 <input type="text" name="query" placeholder="Search" title="Enter search keyword">
