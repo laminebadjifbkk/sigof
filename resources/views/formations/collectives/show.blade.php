@@ -1257,7 +1257,7 @@
                                                         <td>
                                                             {{ $emargementcollective?->date?->format('d/m/Y') }}</td>
                                                         <td>
-                                                            {{ count($emargementcollective?->formation?->listecollectives) }}
+                                                            {{ count($emargementcollective?->listecollectives) }}
                                                         </td>
                                                         <td>
                                                             @if (!empty($emargementcollective?->file))
