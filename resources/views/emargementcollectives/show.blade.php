@@ -132,7 +132,7 @@
                                                         </td>
                                                         <td>
                                                             <span class="d-flex align-items-baseline"><a
-                                                                    href="{{ route('listecollectives.show', $listecollective->id) }}"
+                                                                    href="{{ route('listecollectives.show', $listecollective) }}"
                                                                     class="btn btn-primary btn-sm" title="voir détails"
                                                                     target="_blanck"><i class="bi bi-eye"></i></a>
                                                                 <div class="filter">
@@ -152,7 +152,7 @@
                                                                         </li>
                                                                         <li>
                                                                             <form
-                                                                                action="{{ route('feuillepresencecollectives.destroy', $listecollective->id) }}"
+                                                                                action="{{ route('feuillepresencecollectives.destroy', $listecollective) }}"
                                                                                 method="post">
                                                                                 @csrf
                                                                                 @method('DELETE')
