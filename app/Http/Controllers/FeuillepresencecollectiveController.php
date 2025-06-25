@@ -28,6 +28,8 @@ class FeuillepresencecollectiveController extends Controller
         $presence = $request->presence;
     } */
 
+        dd($feuillepresence);
+
         $feuillepresence->update([
             'presence' => $request->presence,
 
