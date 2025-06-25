@@ -72,7 +72,7 @@
                                         <tr>
                                             {{-- <td style="text-align: center;">{{ $i++ }}</td>
                                         <td>{{ $ingenieur->matricule }}</td> --}}
-                                            <td>{{ $ingenieur->name }}</td>
+                                            <td>{{ $ingenieur?->user?->firstname . ' ' . $ingenieur?->user?->firstname }}</td>
                                             <td>{{ $ingenieur->initiale }}</td>
                                             <td>{{ $ingenieur?->user?->employee?->fonction?->name }}</td>
                                             {{-- <td>{{ $ingenieur->specialite }}</td> --}}
@@ -233,7 +233,8 @@
                                 <input type="hidden" name="id" value="{{ $ingenieur->id }}">
                                 <div class="modal-body">
                                     <div class="form-floating mb-3">
-                                        <input type="text" name="name" value="{{ $ingenieur->name ?? old('name') }}"
+                                        <input type="text" name="name"
+                                            value="{{ $ingenieur?->user?->firstname . ' ' . $ingenieur?->user?->firstname ?? old('name') }}"
                                             class="form-control form-control-sm @error('name') is-invalid @enderror"
                                             id="name" placeholder="Ingénieur" autofocus>
                                         @error('name')
@@ -268,7 +269,8 @@
                                         <label for="floatingInput">Fonction<span class="text-danger mx-1">*</span></label>
                                     </div> --}}
                                     <div class="form-floating mb-3">
-                                        <input type="text" name="email" value="{{ $ingenieur->email ?? old('email') }}"
+                                        <input type="text" name="email"
+                                            value="{{ $ingenieur?->user?->email ?? old('email') }}"
                                             class="form-control form-control-sm @error('email') is-invalid @enderror"
                                             id="email" placeholder="email">
                                         @error('email')
@@ -285,7 +287,7 @@
                                             id="telephone" placeholder="7xxxxxxxx"> --}}
                                         <input name="telephone" type="text" maxlength="12"
                                             class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                            id="telephone" value="{{ $ingenieur->telephone ?? old('telephone') }}"
+                                            id="telephone" value="{{ $ingenieur?->user?->telephone ?? old('telephone') }}"
                                             autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                         @error('telephone')
                                             <span class="invalid-feedback" role="alert">
@@ -315,7 +317,7 @@
         new DataTable('#table-ingenieurs', {
             layout: {
                 topStart: {
-                    buttons: ['csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel'],
                 }
             },
             "order": [
