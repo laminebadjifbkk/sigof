@@ -70,13 +70,13 @@
 
                                 <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab"
-                                        data-bs-target="#emargement-overview">Émargement
+                                        data-bs-target="#ingenieur-overview">Ingénieur
                                     </button>
                                 </li>
 
                                 <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab"
-                                        data-bs-target="#ingenieur-overview">Ingénieur
+                                        data-bs-target="#emargement-overview">Suivi
                                     </button>
                                 </li>
 
@@ -1183,7 +1183,7 @@
                             <div class="tab-pane fade module-overview" id="emargement-overview">
                                 <div class="col-12 col-md-12 col-lg-12 mb-0">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <h1 class="card-title">Feuilles de présence</h1>
+                                        <h1 class="card-title">Fiches de suivi</h1>
                                         <span class="d-flex align-items-baseline">
                                             {{-- <button type="button" class="btn btn-outline-primary btn-sm"
                                                 data-bs-toggle="modal"
@@ -1194,8 +1194,8 @@
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#ajouterJoursCol{{ $formation->id }}"
                                                 title="Ajouter une feuille de présence">
-                                                <i class="bi bi-clipboard-check fs-6"></i>
-                                                <span class="d-none d-sm-inline">Emargement</span>
+                                                <i class="bi bi-plus fs-6"></i>
+                                                <span class="d-none d-sm-inline">Ajouter</span>
                                             </button>
 
                                             <div class="filter">
@@ -1212,7 +1212,7 @@
                                                                 value="{{ $formation?->collectivemodule?->id }}">
                                                             <input type="hidden" name="idlocalite"
                                                                 value="{{ $formation?->departement?->region?->id }}">
-                                                            <button class="btn btn-sm mx-1">Feuille présence</button>
+                                                            <button class="btn btn-sm mx-1">Fiche de suivi</button>
                                                         </form>
                                                     </li>
                                                     <li>
