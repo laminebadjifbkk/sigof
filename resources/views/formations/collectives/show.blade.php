@@ -1240,7 +1240,7 @@
                                                     <th width="5%">N°</th>
                                                     <th width="10%">Jours</th>
                                                     <th width="10%">Date</th>
-                                                    <th width="10%">Effectif</th>
+                                                    {{-- <th width="10%">Effectif</th> --}}
                                                     <th width="10%">SCAN</th>
                                                     <th>Observations</th>
                                                     <th width="3%"><i class="bi bi-gear"></i>
@@ -1256,9 +1256,9 @@
                                                         </td>
                                                         <td>
                                                             {{ $emargementcollective?->date?->format('d/m/Y') }}</td>
-                                                        <td>
+                                                        {{-- <td>
                                                             {{ count($emargementcollective?->formation?->listecollectives) }}
-                                                        </td>
+                                                        </td> --}}
                                                         <td>
                                                             @if (!empty($emargementcollective?->file))
                                                                 <div>
