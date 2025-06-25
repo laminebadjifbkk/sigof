@@ -90,6 +90,7 @@
                                         <tbody>
                                             <?php $i = 1; ?>
                                             @foreach ($feuillepresencecollectives as $feuillepresencecollective)
+                                            {{ $feuillepresencecollective }}
                                                 {{-- <tr>
                                                     <td>{{ $i++ }}</td>
                                                     <td>{{ $feuillepresencecollective?->listecollective?->prenom }}</td>
