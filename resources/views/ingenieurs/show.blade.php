@@ -49,7 +49,7 @@
                                 <h5 class="card-title">Liste des formations</h5>
                                 {{-- <h5 class="card-title">Liste des formations de {{ $ingenieur->name }}</h5> --}}
                                 @if ($ingenieur->formations->isNotEmpty())
-                                    <table class="table datatables" id="table-formations">
+                                    <table class="table datatables align-middle justify-content-center" id="table-formations">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">Code</th>
@@ -139,7 +139,7 @@
                             {{-- <h5 class="card-title">Liste des demandes collectives imputées à {{ $ingenieur->name }}</h5> --}}
                             <h5 class="card-title">Liste des demandes collectives</h5>
                             @if ($ingenieur->collectives->isNotEmpty())
-                                <table class="table table-striped table-hover datatables" id="table-collectives">
+                                <table class="table table-striped table-hover align-middle datatables" id="table-collectives">
                                     <thead>
                                         <tr>
                                             <th>N° DEM.</th>
