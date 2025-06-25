@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Models\Emargementcollective;
 use App\Models\Feuillepresencecollective;
 use App\Models\Formation;
-use App\Models\Listecollective;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -21,6 +20,8 @@ class EmargementcollectiveController extends Controller
         /* $listecollectives = Listecollective::where('formations_id', $request->input('idformation'))->get(); */
 
         $feuillepresencecollective = Feuillepresencecollective::where('emargementcollectives_id', $request->input('idemargement'))->get();
+
+        dd($feuillepresencecollective);
 
         $collectiveFormation = DB::table('listecollectives')
             ->where('formations_id', $formation?->id)
