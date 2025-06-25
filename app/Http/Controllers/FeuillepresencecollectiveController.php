@@ -10,7 +10,7 @@ class FeuillepresencecollectiveController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'presence' => "required|string",
+            'presence' => "nullable|string",
         ]);
 
         $feuillepresence = Feuillepresencecollective::where('emargementcollectives_id', $request->idemargement)
