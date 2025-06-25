@@ -357,12 +357,6 @@
                 </a>
                 <ul id="formations-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li class="nav-item">
-                        <a class="nav-link collapsed" href="{{ route('formations.index') }}">
-                            <span>Formations</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
                         <a class="nav-link collapsed" href="{{ url('home') }}">
                             @if ($formationsEnCours > 0)
                                 <span class="badge bg-warning text-dark">{{ $formationsEnCours }} formation en
@@ -371,6 +365,12 @@
                                 <span class="badge bg-warning text-dark">{{ $formationsEnCours }} formations en
                                     cours</span>
                             @endif
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ route('formations.index') }}">
+                            <span>Formations</span>
                         </a>
                     </li>
 
