@@ -72,7 +72,7 @@
                                         <tr>
                                             {{-- <td style="text-align: center;">{{ $i++ }}</td>
                                         <td>{{ $ingenieur->matricule }}</td> --}}
-                                            <td>{{ $ingenieur?->user?->firstname . ' ' . $ingenieur?->user?->firstname }}</td>
+                                            <td>{{ $ingenieur?->user?->firstname . ' ' . $ingenieur?->user?->name }}</td>
                                             <td>{{ $ingenieur->initiale }}</td>
                                             <td>{{ $ingenieur?->user?->employee?->fonction?->name }}</td>
                                             {{-- <td>{{ $ingenieur->specialite }}</td> --}}
@@ -234,7 +234,7 @@
                                 <div class="modal-body">
                                     <div class="form-floating mb-3">
                                         <input type="text" name="name"
-                                            value="{{ $ingenieur?->user?->firstname . ' ' . $ingenieur?->user?->firstname ?? old('name') }}"
+                                            value="{{ $ingenieur?->user?->firstname . ' ' . $ingenieur?->user?->name ?? old('name') }}"
                                             class="form-control form-control-sm @error('name') is-invalid @enderror"
                                             id="name" placeholder="Ingénieur" autofocus>
                                         @error('name')
