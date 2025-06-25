@@ -48,7 +48,7 @@
                             <table class="table datatables" id="table-formations">
                                 <thead>
                                     <tr>
-                                        <th width="5%" class="text-center">Code</th>
+                                        <th width="2%" class="text-center">Code</th>
                                         <th>Type</th>
                                         <th>Intitulé formation</th>
                                         <th>Localité</th>

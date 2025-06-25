@@ -52,7 +52,7 @@
                                     <table class="table datatables align-middle justify-content-center" id="table-formations">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">Code</th>
+                                                <th class="text-center" width="2%">Code</th>
                                                 <th>Type</th>
                                                 <th>Intitulé formation</th>
                                                 <th>Localité</th>

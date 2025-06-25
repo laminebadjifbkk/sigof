@@ -22,7 +22,7 @@
                                 <table class="table datatables" id="table-formations">
                                     <thead>
                                         <tr>
-                                            <th width="5%" class="text-center">Code</th>
+                                            <th width="2%" class="text-center">Code</th>
                                             <th width="15%">Type formation</th>
                                             <th width="15%">Localité</th>
                                             <th width="5%">Modules</th>
