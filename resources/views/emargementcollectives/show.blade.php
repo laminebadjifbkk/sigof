@@ -292,7 +292,7 @@
                                             <option value="Non">Non</option>
                                         @endunless
 
-                                        <option value="">Dépointer</option>
+                                        <option value="null">Dépointer</option>
                                     </select>
                                     @error('presence')
                                         <div class="invalid-feedback">{{ $message }}</div>
