@@ -3,7 +3,7 @@
     @php
         $user = auth()->user();
     @endphp
-    @if ($user->hasAnyRole(['super-admin', 'admin', 'DIOF', 'DEC', 'Ingenieur']))
+    @if ($user->hasAnyRole(['super-admin', 'admin', 'DIOF', 'DEC', 'Ingenieur', 'Employe']))
         <section class="section dashboard">
             <div class="row">
                 <!-- Left side columns -->
