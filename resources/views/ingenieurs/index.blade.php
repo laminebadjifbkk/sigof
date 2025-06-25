@@ -74,7 +74,7 @@
                                         <td>{{ $ingenieur->matricule }}</td> --}}
                                             <td>{{ $ingenieur->name }}</td>
                                             <td>{{ $ingenieur->initiale }}</td>
-                                            <td>{{ $ingenieur?->user?->fonction }}</td>
+                                            <td>{{ $ingenieur?->user?->employe?->fonction?->name }}</td>
                                             {{-- <td>{{ $ingenieur->specialite }}</td> --}}
                                             <td><a
                                                     href="mailto:{{ $ingenieur?->user?->email }}">{{ $ingenieur?->user?->email }}</a>
