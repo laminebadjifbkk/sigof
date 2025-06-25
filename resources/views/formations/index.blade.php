@@ -111,7 +111,8 @@
                                                         {{ number_format($items->count(), 0, '', ' ') }}</h6>
                                                 </div>
                                             </div>
-                                            <a href="{{ route('formations.parType', ['libelle' => $statut]) }}" target="_blank"
+                                            <a href="{{ route('formations.parType', ['libelle' => $statut]) }}"
+                                                target="_blank"
                                                 class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
                                                 style="font-size: 0.85rem; gap: 6px;">
                                                 Voir plus <i class="bi bi-arrow-right-short"></i>
@@ -259,7 +260,9 @@
                                         <th width='15%'>Niveau qualif.</th>
                                         <th width='10%' class="text-center">Opérateurs</th>
                                         <th width='5%' class="text-center">Statut</th>
-                                        <th width='3%'><i class="bi bi-gear"></i></th>
+                                        @can('formation-show')
+                                            <th width='3%'><i class="bi bi-gear"></i></th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -278,13 +281,14 @@
                                             </td>
                                             {{-- <td>{{ $formation->type_certification }}</td> --}}
                                             <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
-                                            <td class="text-center">{{ $formation?->operateur?->user?->username ?? ' ' }}</td>
+                                            <td class="text-center">{{ $formation?->operateur?->user?->username ?? ' ' }}
+                                            </td>
                                             <td class="text-center">
                                                 <a><span
                                                         class="{{ $formation->statut }}">{{ $formation->statut }}</span></a>
                                             </td>
-                                            <td>
-                                                @can('formation-show')
+                                            @can('formation-show')
+                                                <td>
                                                     <span class="d-flex align-items-baseline">
                                                         <a href="{{ route('formations.show', $formation) }}"
                                                             class="btn btn-primary btn-sm" title="Voir détails">
@@ -322,8 +326,8 @@
                                                             </ul>
                                                         </div>
                                                     </span>
-                                                @endcan
-                                            </td>
+                                                </td>
+                                            @endcan
                                         </tr>
                                     @endforeach
                                 </tbody>
