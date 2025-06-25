@@ -38,6 +38,6 @@ class Feuillepresencecollective extends Model
 
     public function listecollective()
     {
-        return $this->belongsTo(ListeCollective::class, 'listecollectives_id');
+        return $this->belongsTo(Listecollective::class, 'listecollectives_id');
     }
 }
