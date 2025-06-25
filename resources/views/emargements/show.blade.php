@@ -141,7 +141,7 @@
                                                                         <li>
                                                                             <button type="button" class="dropdown-item"
                                                                                 data-bs-toggle="modal"
-                                                                                data-bs-target="#PresenceModal{{ $individuelle->id }}">Présence
+                                                                                data-bs-target="#PresenceModal{{ $individuelle->id }}">Pointer
                                                                             </button>
                                                                         </li>
                                                                         <li>
@@ -240,7 +240,7 @@
 
                                 <div class="mb-3">
                                     <label for="selectPresence{{ $individuelle->id }}"
-                                        class="form-label fw-semibold">Présence <span class="text-danger">*</span></label>
+                                        class="form-label fw-semibold">Pointer <span class="text-danger">*</span></label>
                                     <select id="selectPresence{{ $individuelle->id }}" name="presence"
                                         class="form-select form-select-sm @error('presence') is-invalid @enderror"
                                         required>

@@ -144,7 +144,7 @@
                                                                         <li>
                                                                             <button type="button" class="dropdown-item"
                                                                                 data-bs-toggle="modal"
-                                                                                data-bs-target="#PresenceModal{{ $listecollective->id }}">Présence
+                                                                                data-bs-target="#PresenceModal{{ $listecollective->id }}">Pointer
                                                                             </button>
                                                                             {{-- <button type="button" class="dropdown-item btn btn-sm"
                                                                             data-bs-toggle="modal" data-bs-target="#generate_rapport"></i>Rechercher
@@ -251,7 +251,7 @@
 
                                 <div class="mb-3">
                                     <label for="selectPresence{{ $listecollective->id }}"
-                                        class="form-label fw-semibold">Présence <span class="text-danger">*</span></label>
+                                        class="form-label fw-semibold">Pointer <span class="text-danger">*</span></label>
                                     <select id="selectPresence{{ $listecollective->id }}" name="presence"
                                         class="form-select form-select-sm @error('presence') is-invalid @enderror" required>
                                         <option value="" disabled selected hidden>--Choisir--</option>
