@@ -16,7 +16,7 @@ class FeuillepresencecollectiveController extends Controller
             'presence.required' => 'Le champ présence est obligatoire.',
         ]);
 
-        dd($request->idemargement);
+        dd($id);
 
         $feuillepresence = Feuillepresencecollective::where('emargementcollectives_id', $request->idemargement)
             ->where('listecollectives_id', $id)
