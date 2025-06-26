@@ -1144,7 +1144,9 @@
                                                             <td class="text-center">
                                                                 {{ $emargement?->date?->format('d/m/Y') }}</td>
                                                             <td class="text-center">
-                                                                {{ count($emargement?->formation?->individuelles) }}</td>
+                                                                {{-- {{ count($emargement?->formation?->individuelles) }} --}}
+                                                                {{ count($emargement?->feuillesPresences) }}
+                                                            </td>
                                                             <td class="text-center">
                                                                 @if (!empty($emargement?->file))
                                                                     <div>
