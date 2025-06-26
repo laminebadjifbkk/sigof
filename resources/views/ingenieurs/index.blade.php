@@ -95,8 +95,7 @@
                                                 @can('ingenieur-show')
                                                     <span class="d-flex mt-2 align-items-baseline"><a
                                                             href="{{ route('ingenieurs.show', $ingenieur->id) }}"
-                                                            class="btn btn-warning btn-sm mx-1" title="Voir détails"
-                                                            target="_blank">
+                                                            class="btn btn-warning btn-sm mx-1" title="Voir détails">
                                                             <i class="bi bi-eye"></i></a>
                                                         <div class="filter">
                                                             <a class="icon" href="#" data-bs-toggle="dropdown"><i
