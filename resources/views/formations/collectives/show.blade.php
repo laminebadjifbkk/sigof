@@ -1240,7 +1240,7 @@
                                                     <th width="5%">N°</th>
                                                     <th width="10%">Jours</th>
                                                     <th width="10%">Date</th>
-                                                    {{-- <th width="10%">Effectif</th> --}}
+                                                    <th width="10%">Effectif</th>
                                                     <th width="10%">SCAN</th>
                                                     <th>Observations</th>
                                                     <th width="3%"><i class="bi bi-gear"></i>
@@ -1256,9 +1256,10 @@
                                                         </td>
                                                         <td>
                                                             {{ $emargementcollective?->date?->format('d/m/Y') }}</td>
-                                                        {{-- <td>
-                                                            {{ count($emargementcollective?->formation?->listecollectives) }}
-                                                        </td> --}}
+                                                        <td>
+                                                            {{-- {{ count($emargementcollective?->formation?->listecollectives) }} --}}
+                                                            {{ count($emargementcollective?->feuillesPresenceCollectives) }}
+                                                        </td>
                                                         <td>
                                                             @if (!empty($emargementcollective?->file))
                                                                 <div>
@@ -1382,8 +1383,7 @@
                                                     <th>NOM</th>
                                                     <th>Date naissance</th>
                                                     <th>Lieu de naissance</th>
-                                                    <th>Note<span
-                                                            class="text-danger mx-1">*</span></th>
+                                                    <th>Note<span class="text-danger mx-1">*</span></th>
                                                     <th>Diplôme</th>
                                                     <th><i class="bi bi-gear"></i></th>
                                                 </tr>
