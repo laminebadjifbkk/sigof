@@ -216,25 +216,30 @@
                                                 <i class="bi bi-person-workspace me-1"></i>
                                                 <strong>Ingénieur :</strong> {{ $formation?->ingenieur?->name ?? 'N/A' }}
                                             </div>
-
                                             <div class="col-md-4 mb-2">
                                                 <i class="bi bi-calendar-event me-1"></i>
                                                 <strong>Date début :</strong>
-                                                <span
-                                                    class="{{ $formation?->date_debut?->format('d/m/Y') ?? 'Non définie' }}">{{ $formation?->date_debut?->format('d/m/Y') ?? 'Non définie' }}</span>
+                                                <span class="{{ is_null($formation?->date_debut) ? 'text-danger' : '' }}">
+                                                    {{ $formation?->date_debut?->format('d/m/Y') ?? 'Non définie' }}
+                                                </span>
                                             </div>
+
                                             <div class="col-md-4 mb-2">
                                                 <i class="bi bi-calendar-check me-1"></i>
                                                 <strong>Date fin :</strong>
-                                                <span
-                                                    class="{{ $formation?->date_fin?->format('d/m/Y') ?? 'Non définie' }}">{{ $formation?->date_fin?->format('d/m/Y') ?? 'Non définie' }}</span>
+                                                <span class="{{ is_null($formation?->date_fin) ? 'text-danger' : '' }}">
+                                                    {{ $formation?->date_fin?->format('d/m/Y') ?? 'Non définie' }}
+                                                </span>
                                             </div>
+
                                             <div class="col-md-4 mb-2">
                                                 <i class="bi bi-calendar-check me-1"></i>
                                                 <strong>Date évaluation :</strong>
-                                                <span
-                                                    class="{{ $formation?->date_pv?->format('d/m/Y') ?? 'Non définie' }}">{{ $formation?->date_pv?->format('d/m/Y') ?? 'Non définie' }}</span>
+                                                <span class="{{ is_null($formation?->date_pv) ? 'text-danger' : '' }}">
+                                                    {{ $formation?->date_pv?->format('d/m/Y') ?? 'Non définie' }}
+                                                </span>
                                             </div>
+
 
                                             <div class="col-md-8 mb-2">
                                                 <i class="bi bi-geo-alt-fill me-1"></i>
