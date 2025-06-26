@@ -733,5 +733,4 @@
             </section>
         @endcan
     @endif
-@endhasAnyRole
 @endsection
