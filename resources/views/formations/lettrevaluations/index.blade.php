@@ -56,9 +56,9 @@
                                                 <th>Création</th>
                                                 <th>Eval. ONFP</th>
                                                 <th>Formation</th>
+                                                <th>Module</th>
                                                 <th>Operateur</th>
                                                 <th>Evaluateur</th>
-                                                <th>Module</th>
                                                 <th>ABE</th>
                                                 <th>Lettre</th>
                                                 <th width="2%">#</th>
@@ -79,15 +79,15 @@
                                                             class="{{ $lettrevaluation?->formation?->onfpevaluateur?->name ?? 'Aucun' }}">{{ $lettrevaluation?->formation?->onfpevaluateur?->name ?? 'Aucun' }}</span>
                                                     </td>
                                                     <td>{{ $lettrevaluation?->formation?->name }}</td>
-                                                    <td>{{ $lettrevaluation?->formation?->operateur?->user?->username }}</td>
-                                                    <td><span
-                                                            class="{{ $lettrevaluation?->formation?->evaluateur?->name ?? 'Aucun' }}">{{ $lettrevaluation?->formation?->evaluateur?->name ?? 'Aucun' }}</span>
-                                                    </td>
                                                     <td>
                                                         <span
                                                             class="{{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}">
                                                             {{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}
                                                         </span>
+                                                    </td>
+                                                    <td>{{ $lettrevaluation?->formation?->operateur?->user?->username }}</td>
+                                                    <td><span
+                                                            class="{{ $lettrevaluation?->formation?->evaluateur?->name ?? 'Aucun' }}">{{ $lettrevaluation?->formation?->evaluateur?->name ?? 'Aucun' }}</span>
                                                     </td>
                                                     {{-- Actions ABE --}}
                                                     <td>
