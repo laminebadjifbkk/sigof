@@ -519,7 +519,7 @@
                                         <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                             <label for="description" class="form-label">Description de l'organisation<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <textarea name="description" id="description" rows="2"
+                                            <textarea name="description" id="description" rows="4"
                                                 class="form-control form-control-sm @error('description') is-invalid @enderror"
                                                 placeholder="Description de l'organisation, de ses activités et de ses réalisations">{{ old('description') }}</textarea>
 
@@ -533,7 +533,7 @@
                                         <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                             <label for="projetprofessionnel" class="form-label">Projet professionnel<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <textarea name="projetprofessionnel" id="projetprofessionnel" rows="2"
+                                            <textarea name="projetprofessionnel" id="projetprofessionnel" rows="4"
                                                 class="form-control form-control-sm @error('projetprofessionnel') is-invalid @enderror"
                                                 placeholder="Description détaillée du projet professionnel et de l'effet attendu après la formation">{{ old('projetprofessionnel') }}</textarea>
 
