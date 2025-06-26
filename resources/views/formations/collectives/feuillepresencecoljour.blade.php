@@ -166,7 +166,7 @@
                     {{-- <td><b>Civilité</b></td> --}}
                     <td><b>Prénom</b></td>
                     <td><b>NOM</b></td>
-                    <td width="5%"><b>Date naissance</b></td>
+                    <td width="7%"><b>Date naissance</b></td>
                     <td><b>Lieu de naissance</b></td>
                     <td width="8%"><b>Téléphone</b></td>
                     <td width="8%"><b>Présence</b></td>
