@@ -175,15 +175,16 @@
             </thead>
             <tbody>
                 <?php $i = 1; ?>
-                @foreach ($formation?->listecollectives as $listecollective)
+                @foreach ($feuillepresencecollectives as $feuillepresencecollective)
                     <tr class="item" style="text-align: center;">
                         <td>{{ $i++ }}</td>
-                        <td>{{ $listecollective?->cin }}</td>
+                        <td>{{ $feuillepresencecollective?->listecollective?->cin }}</td>
                         {{-- <td>{{ $individuelle?->user?->civilite }}</td> --}}
-                        <td>{{ format_proper_name($listecollective?->prenom) }}</td>
-                        <td>{{ remove_accents_uppercase($listecollective?->nom) }}</td>
-                        <td>{{ $listecollective?->date_naissance?->format('d/m/Y') }}</td>
-                        <td>{{ remove_accents_uppercase($listecollective?->lieu_naissance) }}</td>
+                        <td>{{ format_proper_name($feuillepresencecollective?->listecollective?->prenom) }}</td>
+                        <td>{{ remove_accents_uppercase($feuillepresencecollective?->listecollective?->nom) }}</td>
+                        <td>{{ $feuillepresencecollective?->listecollective?->date_naissance?->format('d/m/Y') }}</td>
+                        <td>{{ remove_accents_uppercase($feuillepresencecollective?->listecollective?->lieu_naissance) }}
+                        </td>
                         <td>
                             {{-- {{ substr($listecollective?->telephone, 0, 2) .
                                 ' ' .
@@ -192,11 +193,11 @@
                                 substr($listecollective?->telephone, 5, 2) .
                                 ' ' .
                                 substr($listecollective?->telephone, 7, 2) }} --}}
-                            {{ $listecollective?->telephone }}
+                            {{ $feuillepresencecollective?->listecollective?->telephone }}
                         </td>
                         <td>
                             {{-- {{ ucwords($individuelle?->feuillepresence) }} --}}
-                            @foreach ($listecollective?->feuillepresencecollectives as $feuillepresencecollective)
+                            @foreach ($feuillepresencecollective?->listecollective?->feuillepresencecollectives as $feuillepresencecollective)
                                 {{ ucwords(in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective) ? $feuillepresencecollective?->presence : '') }}
                             @endforeach
                         </td>

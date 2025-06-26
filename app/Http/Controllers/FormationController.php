@@ -2406,6 +2406,8 @@ class FormationController extends Controller
             ->pluck('emargementcollectives_id', 'emargementcollectives_id')
             ->all();
 
+        $feuillepresencecollectives = Feuillepresencecollective::where('emargementcollectives_id', $emargementcollective?->id)->get();
+
         $title = 'Feuille de présence de la formation en  ' . $formation->name;
 
         $dompdf  = new Dompdf();
