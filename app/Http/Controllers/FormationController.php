@@ -2902,11 +2902,12 @@ class FormationController extends Controller
         return redirect()->back();
     }
 
-    public function addajouterDemandeursPresenceJourCollectives($idformation, $idcollectivemodule, $idlocalite)
+    public function addajouterDemandeursPresenceJourCollectives($idformation, $idcollectivemodule, $idlocalite, $idemargementcollective)
     {
-        $formation        = Formation::findOrFail($idformation);
-        $collectivemodule = Collectivemodule::findOrFail($idcollectivemodule);
-        $localite         = Region::findOrFail($idlocalite);
+        $formation            = Formation::findOrFail($idformation);
+        $collectivemodule     = Collectivemodule::findOrFail($idcollectivemodule);
+        $localite             = Region::findOrFail($idlocalite);
+        $emargementcollective = Emargementcollective::findOrFail($idemargementcollective);
 
         $statutsVoulus = ['attente', 'conforme', 'nouvelle', 'validée'];
 
@@ -2927,7 +2928,14 @@ class FormationController extends Controller
             ->pluck('formations_id', 'formations_id')
             ->all();
 
-        return view("formations.collectives.add-presencecollective-jour", compact('formation', 'listecollectives', 'listecollectiveFormation', 'collectivemodule', 'localite', 'candidatsretenus'));
+        return view("formations.collectives.add-presencecollective-jour",
+            compact('formation',
+                'listecollectives',
+                'listecollectiveFormation',
+                'collectivemodule',
+                'emargementcollective',
+                'localite',
+                'candidatsretenus'));
     }
 
     public function giveajouterDemandeursPresenceJourCollectives($idformation, $idcollectivemodule, $idlocalite, Request $request)

@@ -34,7 +34,11 @@
 
                         <div class="p-3 mb-4 border rounded bg-light shadow-sm">
                             <div class="row text-center fw-semibold">
-                                <div class="col-md-4 mb-2">
+                                <div class="col-md-2 mb-2">
+                                    <span class="text-secondary">Jour</span><br>
+                                    <span class="fs-5 text-dark">{{ $emargementcollective?->jour ?? 'Aucun' }}</span>
+                                </div>
+                                <div class="col-md-2 mb-2">
                                     <span class="text-secondary">📍 Région</span><br>
                                     <span class="fs-5 text-dark">{{ $localite?->nom ?? 'Aucune' }}</span>
                                 </div>

@@ -38,10 +38,11 @@
                                     'idformation' => $formation->id,
                                     'idcollectivemodule' => $formation?->collectivemodule?->id,
                                     'idlocalite' => $formation->departement->region->id,
+                                    'idemargementcollective' => $emargementcollective->id,
                                 ]) }}"
                                     class="btn btn-success btn-sm rounded-pill shadow-sm d-inline-flex align-items-center gap-1 px-3 py-1"
                                     title="Ajouter bénéficiaires" style="transition: all 0.3s ease;">
-                                    <i class="bi bi-people-fill"></i>
+                                    <i class="bi bi-people"></i>
                                     <span>Ajouter</span>
                                 </a>
                                 <div class="filter">
