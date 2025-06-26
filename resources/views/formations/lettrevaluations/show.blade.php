@@ -163,8 +163,8 @@
                                 <h2 style="text-align: center; margin-top: -25px;">LETTRE DE MISSION</h2>
 
                                 <p style="text-align : justify;">
-                                    <b>{{ $formation?->onfpevaluateur?->name . ', ' . $formation->onfpevaluateur?->fonction }},</b>
-                                    tel n° {{ $formation?->onfpevaluateur?->telephone }}, est sollicité
+                                    <b>{{ $formation?->evaluateur?->name . ', ' . $formation->evaluateur->fonction }},</b>
+                                    tel n° {{ $formation?->evaluateur?->telephone }}, est sollicité
                                     pour être membre du jury de certification selon les procédures de l'ONFP pour la
                                     formation ci-après:
                                 </p>
