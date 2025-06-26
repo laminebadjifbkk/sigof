@@ -2912,8 +2912,6 @@ class FormationController extends Controller
         $ids      = json_decode($request->query('ids'), true);
         $feuilles = Feuillepresencecollective::whereIn('id', $ids)->get();
 
-        dd($feuilles);
-
         $statutsVoulus = ['attente', 'conforme', 'nouvelle', 'validée'];
 
         $listecollectives = Listecollective::join('collectives', 'collectives.id', 'listecollectives.collectives_id')
@@ -2934,6 +2932,8 @@ class FormationController extends Controller
             ->where('formations_id', $idformation)
             ->pluck('formations_id', 'formations_id')
             ->all();
+
+        dd($listecollectiveFormation);
 
         return view("formations.collectives.add-presencecollective-jour",
             compact('formation',
