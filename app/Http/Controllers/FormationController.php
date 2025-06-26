@@ -2967,9 +2967,10 @@ class FormationController extends Controller
             'listecollectives' => ['required'],
         ]);
 
-        $formation = Formation::findOrFail($idformation);
+        $formation            = Formation::findOrFail($idformation);
+        $emargementcollective = Emargementcollective::findOrFail($idemargementcollective);
 
-        dd($formation);
+        dd($emargementcollective);
 
         if ($formation->statut == "Terminée") {
             Alert::warning('Désolé !', 'Cette formation a déjà été exécutée.');
