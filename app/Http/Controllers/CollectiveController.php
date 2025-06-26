@@ -64,7 +64,7 @@ class CollectiveController extends Controller
             /* "module"                =>      ["required","string"], */
             "adresse"               => ["required", "string"],
             "statut"                => ["required", "string"],
-            "description"           => ["required", "string"],
+            "description"           => ["required", "string", "max:250"],
             "projetprofessionnel"   => ["required", "string", "max:250"],
             "departement"           => ["required", "string"],
             "civilite"              => ["required", "string"],
