@@ -55,7 +55,11 @@
                             </div>
                         </div>
                         <form method="post"
-                            action="{{ url('formationdemandeurscollectives', ['$idformation' => $formation->id, '$idcollectivemodule' => $formation->collectivemodule->id, '$idlocalite' => $formation->departement->region->id]) }}"
+                            action="{{ url('ajouterDemandeursPresenceJourCollectives', [
+                                '$idformation' => $formation->id,
+                                '$idcollectivemodule' => $formation->collectivemodule->id,
+                                '$idlocalite' => $formation->departement->region->id,
+                            ]) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
                             @method('PUT')

@@ -2969,6 +2969,8 @@ class FormationController extends Controller
 
         $formation = Formation::findOrFail($idformation);
 
+        dd($formation);
+
         if ($formation->statut == "Terminée") {
             Alert::warning('Désolé !', 'Cette formation a déjà été exécutée.');
         } elseif ($formation->statut == 'Annulée') {
