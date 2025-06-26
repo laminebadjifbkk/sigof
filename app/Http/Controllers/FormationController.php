@@ -2949,7 +2949,7 @@ class FormationController extends Controller
             ->pluck('id')
             ->toArray();
 
-        dd($listecollectivesIdsDansEmargement, $listecollectiveFormation, $listecollectiveCochees);
+        /* dd($listecollectivesIdsDansEmargement, $listecollectiveFormation, $listecollectiveCochees); */
 
         return view("formations.collectives.add-presencecollective-jour",
             compact('formation',
@@ -2957,6 +2957,7 @@ class FormationController extends Controller
                 'listecollectiveFormation',
                 'collectivemodule',
                 'emargementcollective',
+                'listecollectiveCochees',
                 'localite',
                 'candidatsretenus'));
     }

@@ -89,7 +89,7 @@
                                                     <td>
                                                         <input type="checkbox" name="listecollectives[]"
                                                             value="{{ $listecollective->id }}"
-                                                            {{ in_array($listecollective->formations_id, $listecollectiveFormation) ? 'checked' : '' }}
+                                                            {{ in_array($listecollective->id, $listecollectiveCochees) ? 'checked' : '' }}
                                                             class="form-check-input @error('listecollectives') is-invalid @enderror">
                                                         @error('listecollectives')
                                                             <span class="invalid-feedback" role="alert">
