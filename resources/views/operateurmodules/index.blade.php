@@ -58,7 +58,9 @@
                                     <th>Opérateur</th>
                                     <th>Région</th>
                                     <th>Statut</th>
-                                    <th width="5%"><i class="bi bi-gear"></i></th>
+                                    @can('operateurmodule-show')
+                                        <th width="3%"><i class="bi bi-gear"></i></th>
+                                    @endcan
                                 </tr>
                             </thead>
                             <tbody>
@@ -79,33 +81,35 @@
                                                 {{ $operateurmodule?->statut }}
                                             </span>
                                         </td>
-                                        <td>
-                                            <span class="d-flex align-items-baseline justify-content-center"><a
-                                                    href="{{ route('operateurmodules.show', $operateurmodule) }}"
-                                                    class="btn btn-primary btn-sm" title="voir détails"><i
-                                                        class="bi bi-eye"></i></a>
-                                                <div class="filter">
-                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                        <li>
-                                                            <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#EditOperateurmoduleModal{{ $operateurmodule->uuid }}">
-                                                                <i class="bi bi-pencil" title="Modifier"></i> Modifier
-                                                            </button>
-                                                        </li>
-                                                        <li>
-                                                            <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#myModal{{ $operateurmodule->id }}">
-                                                                <i class="bi bi-trash" title="Supprimer"></i> Supprimer
-                                                            </button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </span>
-                                        </td>
+                                        @can('operateurmodule-show')
+                                            <td>
+                                                <span class="d-flex align-items-baseline justify-content-center"><a
+                                                        href="{{ route('operateurmodules.show', $operateurmodule) }}"
+                                                        class="btn btn-primary btn-sm" title="voir détails"><i
+                                                            class="bi bi-eye"></i></a>
+                                                    <div class="filter">
+                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                class="bi bi-three-dots"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            <li>
+                                                                <button type="button" class="dropdown-item btn btn-sm mx-1"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#EditOperateurmoduleModal{{ $operateurmodule->uuid }}">
+                                                                    <i class="bi bi-pencil" title="Modifier"></i> Modifier
+                                                                </button>
+                                                            </li>
+                                                            <li>
+                                                                <button type="button" class="dropdown-item btn btn-sm mx-1"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#myModal{{ $operateurmodule->id }}">
+                                                                    <i class="bi bi-trash" title="Supprimer"></i> Supprimer
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                        @endcan
                                     </tr>
                                 @endforeach
                             </tbody>

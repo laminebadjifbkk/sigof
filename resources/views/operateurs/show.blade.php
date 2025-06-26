@@ -78,7 +78,7 @@
                                         <button class="nav-link" data-bs-toggle="tab"
                                             data-bs-target="#localites-overview">Localités</button>
                                     </li> --}}
-                                    
+
                                     @if ($operateur?->formations->isNotEmpty())
                                         <li class="nav-item">
                                             <button class="nav-link" data-bs-toggle="tab"
@@ -726,33 +726,36 @@
                                                     :&nbsp;
                                                     <span class="{{ $operateur?->statut_agrement }} text-white btn-sm">
                                                         {{ $operateur?->statut_agrement }}</span>
-                                                    @can('operateur-view')
+                                                    @can('agrement-view')
                                                         <div class="filter">
                                                             <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                     class="bi bi-three-dots"></i></a>
                                                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                <li>
-                                                                    <form action="{{ route('ficheSyntheseOperateur') }}"
-                                                                        method="post" target="_blank">
-                                                                        @csrf
-                                                                        <input type="hidden" name="id"
-                                                                            value="{{ $operateur?->id }}">
-                                                                        <button class="btn btn-sm mx-1">Fiche synthèse</button>
-                                                                    </form>
-                                                                </li>
-                                                                <li>
-                                                                    <form action="{{ route('lettreOperateur') }}" method="post"
-                                                                        target="_blank">
-                                                                        @csrf
-                                                                        <input type="hidden" name="id"
-                                                                            value="{{ $operateur?->id }}">
-                                                                        <button class="btn btn-sm mx-1">Lettre agrément</button>
-                                                                    </form>
-                                                                </li>
+                                                                @can('fichesynthese-view')
+                                                                    <li>
+                                                                        <form action="{{ route('ficheSyntheseOperateur') }}"
+                                                                            method="post" target="_blank">
+                                                                            @csrf
+                                                                            <input type="hidden" name="id"
+                                                                                value="{{ $operateur?->id }}">
+                                                                            <button class="btn btn-sm mx-1">Fiche synthèse</button>
+                                                                        </form>
+                                                                    </li>
+                                                                @endcan
+                                                                @can('lettreagrement-view')
+                                                                    <li>
+                                                                        <form action="{{ route('lettreOperateur') }}" method="post"
+                                                                            target="_blank">
+                                                                            @csrf
+                                                                            <input type="hidden" name="id"
+                                                                                value="{{ $operateur?->id }}">
+                                                                            <button class="btn btn-sm mx-1">Lettre agrément</button>
+                                                                        </form>
+                                                                    </li>
+                                                                @endcan
                                                             </ul>
                                                         </div>
                                                     @endcan
-
                                                 </span>
                                             </div>
                                             <div class="row g-3">
