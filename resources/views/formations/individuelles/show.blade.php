@@ -418,7 +418,8 @@
                                                                     {{-- @method('PUT') --}}
                                                                     <input type="hidden" name="id"
                                                                         value="{{ $formation->id }}">
-                                                                    <button class="btn btn-sm mx-1">Fiche de suivi</button>
+                                                                    <button class="btn btn-sm mx-1">Feuille de
+                                                                        présence</button>
                                                                 </form>
                                                                 @can('pv-formation')
                                                                     <form action="{{ route('pvVierge') }}" method="post"
@@ -1071,7 +1072,7 @@
                                 <div class="tab-pane fade module-overview" id="emargement-overview">
                                     <div class="col-12 col-md-12 col-lg-12 mb-0">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <h1 class="card-title">Fiches de suivi</h1>
+                                            <h1 class="card-title">Feuilles de présence</h1>
                                             <span class="d-flex align-items-baseline">
                                                 {{-- <button type="button" class="btn btn-outline-primary btn-sm"
                                                     data-bs-toggle="modal"
@@ -1100,7 +1101,7 @@
                                                                     value="{{ $formation?->module?->id }}">
                                                                 <input type="hidden" name="idlocalite"
                                                                     value="{{ $formation?->departement?->region?->id }}">
-                                                                <button class="btn btn-sm mx-1">Fiche de suivi</button>
+                                                                <button class="btn btn-sm mx-1">Feuille de présence</button>
                                                             </form>
                                                         </li>
                                                         <li>

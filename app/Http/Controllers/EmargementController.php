@@ -108,31 +108,6 @@ class EmargementController extends Controller
     {
         $formation  = Formation::findOrFail($request->input('idformation'));
         $emargement = Emargement::findOrFail($request->input('idemargement'));
-        /* $module     = Module::findOrFail($request->input('idmodule'));
-        $region     = Region::findOrFail($request->input('idlocalite')); */
-
-        /* if (! empty($formation?->projets_id)) {
-            $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
-                ->join('regions', 'regions.id', 'individuelles.regions_id')
-                ->select('individuelles.*')
-                ->where('individuelles.projets_id', $formation?->projets_id)
-                ->where('individuelles.formations_id', $formation?->id)
-                ->where('modules.name', 'LIKE', "%{$module->name}%")
-                ->where('regions.nom', $region->nom)
-                ->get();
-        } else {
-            $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
-                ->join('regions', 'regions.id', 'individuelles.regions_id')
-                ->select('individuelles.*')
-                ->where('individuelles.formations_id', $formation?->id)
-                ->where('modules.name', 'LIKE', "%{$module->name}%")
-                ->where('regions.nom', $region->nom)
-                ->get();
-        } */
-
-        /* $candidatsretenus = Individuelle::where('formations_id', $formation?->id)
-            ->get(); */
-
         
         $feuillepresences = Feuillepresence::where('emargements_id', $request->input('idemargement'))->get();
 
@@ -152,8 +127,6 @@ class EmargementController extends Controller
             ->pluck('emargements_id', 'emargements_id')
             ->all();
 
-        /* dd($feuillepresenceIndividuelle); */
-
         return view(
             "emargements.show",
             compact(
@@ -161,12 +134,6 @@ class EmargementController extends Controller
                 'formation',
                 'feuillepresenceIndividuelle',
                 'feuillepresences',
-                /* 'individuelles',
-                'individuelleFormation',
-                'module',
-                'region',
-                'candidatsretenus',
-                'individuelleFormationCheck' */
             )
         );
     }
@@ -188,7 +155,7 @@ class EmargementController extends Controller
                 $individuelle = Individuelle::findOrFail($individuelle);
                 $individuelle->update([
                     "formations_id" => $idformation,
-                    "statut"        => 'Retenu',
+                    "statut"        => 'Sélectionné',
                 ]);
 
                 $individuelle->save();
@@ -196,7 +163,7 @@ class EmargementController extends Controller
 
             $validated_by = new Validationindividuelle([
                 'validated_id'     => Auth::user()->id,
-                'action'           => 'Retenu',
+                'action'           => 'Sélectionné',
                 'individuelles_id' => $individuelle->id,
             ]);
 

@@ -17,8 +17,6 @@ class EmargementcollectiveController extends Controller
         $formation            = Formation::findOrFail($request->input('idformation'));
         $emargementcollective = Emargementcollective::findOrFail($request->input('idemargement'));
 
-        /* $listecollectives = Listecollective::where('formations_id', $request->input('idformation'))->get(); */
-
         $feuillepresencecollectives = Feuillepresencecollective::where('emargementcollectives_id', $request->input('idemargement'))->get();
 
         $collectiveFormation = DB::table('listecollectives')

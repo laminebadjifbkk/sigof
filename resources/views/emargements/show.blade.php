@@ -32,8 +32,25 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <h5><u><b>{{ $emargement?->jour }}</b></u></h5>
                             <span class="d-flex align-items-baseline">
-                                <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
-                                    data-bs-target="#AddFormationModal" title="Ajouter">Ajouter</a>
+
+                                @php
+                                    $ids = $feuillepresences->pluck('id')->toArray();
+                                    $encodedIds = urlencode(json_encode($ids));
+                                @endphp
+
+                                <a href="{{ url('ajouterDemandeursPresenceJour', [
+                                    'idformation' => $formation->id,
+                                    'idmodule' => $formation?->module?->id,
+                                    'idlocalite' => $formation->departement->region->id,
+                                    'idemargement' => $emargement->id,
+                                ]) .
+                                    '?ids=' .
+                                    $encodedIds }}"
+                                    class="btn btn-success btn-sm rounded-pill shadow-sm d-inline-flex align-items-center gap-1 px-3 py-1"
+                                    title="Ajouter bénéficiaires" style="transition: all 0.3s ease;">
+                                    <i class="bi bi-people"></i>
+                                    <span>Ajouter</span>
+                                </a>
                                 <div class="filter">
                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                             class="bi bi-three-dots"></i></a>

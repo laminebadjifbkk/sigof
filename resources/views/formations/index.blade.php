@@ -41,7 +41,7 @@
                     </div> --}}
                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 pt-5">
                         <div class="row">
-                            <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
+                            {{-- <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
                                 <div class="card info-card revenue-card shadow-sm" style="max-width: 220px;">
                                     <div class="card-body p-2">
                                         <h5 class="card-title text-truncate mb-1" title="Formations"
@@ -66,7 +66,7 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
                                 <div class="card info-card customers-card revenue-card shadow-sm" style="max-width: 220px;">

@@ -2912,7 +2912,7 @@ class FormationController extends Controller
         /* $ids      = json_decode($request->query('ids'), true);
         $feuilles = Feuillepresencecollective::whereIn('id', $ids)->get(); */
 
-        $statutsVoulus = ['attente', 'conforme', 'nouvelle', 'validée'];
+        $statutsVoulus = ['attente', 'conforme', 'nouvelle', 'validée', 'Sélectionné'];
 
         $listecollectives = Listecollective::join('collectives', 'collectives.id', 'listecollectives.collectives_id')
             ->select('listecollectives.*')
@@ -3014,6 +3014,87 @@ class FormationController extends Controller
             'idcollectivemodule'     => $idcollectivemodule,
             'idlocalite'             => $idlocalite,
             'idemargementcollective' => $idemargementcollective,
+        ]);
+    }
+
+    public function addajouterDemandeursPresenceJour(Request $request, $idformation, $idmodule, $idlocalite, $idemargement)
+    {
+        $formation  = Formation::findOrFail($idformation);
+        $module     = Module::findOrFail($idmodule);
+        $localite   = Region::findOrFail($idlocalite);
+        $emargement = Emargement::findOrFail($idemargement);
+
+        $statutsVoulus = ['attente', 'conforme', 'nouvelle', 'validée', 'Sélectionné'];
+
+        $individuelles = Individuelle::where('modules_id', $idmodule)
+            ->where('formations_id', $idformation)
+            ->whereIn('statut', $statutsVoulus)
+            ->get();
+
+        /*  $listecollectives = Listecollective::join('collectives', 'collectives.id', 'listecollectives.collectives_id')
+            ->select('listecollectives.*')
+            ->where('listecollectives.collectivemodules_id', $idcollectivemodule)
+            ->where('listecollectives.formations_id', $idformation)
+            ->where('collectives.id', $collectivemodule->collective->id)
+            ->whereIn('collectives.statut_demande', $statutsVoulus)
+            ->get(); */
+
+        $candidatsretenus = Feuillepresence::where('emargements_id', $idemargement)->get();
+
+        $individuelleCochees = Feuillepresence::where('emargements_id', $idemargement)
+            ->pluck('individuelles_id')
+            ->toArray();
+
+        return view("formations.individuelles.add-presence-jour",
+            compact('formation',
+                'individuelles',
+                'module',
+                'emargement',
+                'individuelleCochees',
+                'localite',
+                'candidatsretenus'));
+    }
+
+    public function giveajouterDemandeursPresenceJour(Request $request, $idformation, $idmodule, $idlocalite, $idemargement)
+    {
+        $request->validate([
+            'individuelles' => ['required'],
+        ]);
+
+        $emargement = Emargement::findOrFail($idemargement);
+
+        // IDs cochés dans le formulaire
+        $idsCoches = $request->input('individuelles', []);
+
+        // IDs déjà enregistrés dans la feuille de présence
+        $idsExistants = Feuillepresence::where('emargements_id', $emargement->id)
+            ->pluck('individuelles_id')
+            ->toArray();
+
+        // Créer les absents (cochés mais pas encore enregistrés)
+        $idsACreer = array_diff($idsCoches, $idsExistants);
+
+        foreach ($idsACreer as $id) {
+            Feuillepresence::create([
+                'emargements_id'   => $emargement->id,
+                'individuelles_id' => $id,
+            ]);
+        }
+
+        // (Optionnel) Supprimer ceux qui ne sont plus cochés
+        $idsASupprimer = array_diff($idsExistants, $idsCoches);
+
+        Feuillepresence::where('emargements_id', $emargement->id)
+            ->whereIn('individuelles_id', $idsASupprimer)
+            ->delete();
+
+        Alert::success('Succès', 'Feuille de présence mise à jour avec succès.');
+        /* return redirect()->back(); */
+        return redirect()->route('ajout.presence.get', [
+            'idformation'  => $idformation,
+            'idmodule'     => $idmodule,
+            'idlocalite'   => $idlocalite,
+            'idemargement' => $idemargement,
         ]);
     }
 
