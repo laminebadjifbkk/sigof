@@ -2904,13 +2904,13 @@ class FormationController extends Controller
 
     public function addajouterDemandeursPresenceJourCollectives($idformation, $idcollectivemodule, $idlocalite)
     {
-        dd('ok');
-        
         $formation        = Formation::findOrFail($idformation);
         $collectivemodule = Collectivemodule::findOrFail($idcollectivemodule);
         $localite         = Region::findOrFail($idlocalite);
 
         $statutsVoulus = ['attente', 'conforme', 'nouvelle', 'validée'];
+
+        dd($statutsVoulus);
 
         $listecollectives = Listecollective::join('collectives', 'collectives.id', 'listecollectives.collectives_id')
             ->select('listecollectives.*')
