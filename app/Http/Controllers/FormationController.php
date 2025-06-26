@@ -2948,6 +2948,10 @@ class FormationController extends Controller
             ->pluck('id')
             ->toArray();
 
+        $listecollectiveCochees = Feuillepresencecollective::where('emargementcollectives_id', $idemargementcollective)
+            ->pluck('listecollectives_id')
+            ->toArray();
+
         /* dd($listecollectivesIdsDansEmargement, $listecollectiveFormation, $listecollectiveCochees); */
 
         return view("formations.collectives.add-presencecollective-jour",
