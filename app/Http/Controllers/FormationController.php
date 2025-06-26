@@ -2909,6 +2909,8 @@ class FormationController extends Controller
         $localite             = Region::findOrFail($idlocalite);
         $emargementcollective = Emargementcollective::findOrFail($idemargementcollective);
 
+        dd($emargementcollective);
+
         $ids      = json_decode($request->query('ids'), true);
         $feuilles = Feuillepresencecollective::whereIn('id', $ids)->get();
 
