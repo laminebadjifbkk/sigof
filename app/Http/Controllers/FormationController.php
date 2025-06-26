@@ -2919,9 +2919,11 @@ class FormationController extends Controller
             ->whereIn('collectives.statut_demande', $statutsVoulus)
             ->get();
 
-        $candidatsretenus = Listecollective::where('collectivemodules_id', $idcollectivemodule)
+        /* $candidatsretenus = Listecollective::where('collectivemodules_id', $idcollectivemodule)
             ->where('formations_id', $idformation)
-            ->get();
+            ->get(); */
+
+        $candidatsretenus = Feuillepresencecollective::where('emargementcollectives_id', $idemargementcollective)->get();
 
         $listecollectiveFormation = DB::table('listecollectives')
             ->where('formations_id', $idformation)
