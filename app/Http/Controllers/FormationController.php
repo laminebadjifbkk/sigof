@@ -2902,14 +2902,12 @@ class FormationController extends Controller
         return redirect()->back();
     }
 
-    public function addajouterDemandeursPresenceJourCollectives($idformation, $idcollectivemodule, $idlocalite, $idemargementcollective)
+    public function addajouterDemandeursPresenceJourCollectives(Request $request, $idformation, $idcollectivemodule, $idlocalite, $idemargementcollective)
     {
         $formation            = Formation::findOrFail($idformation);
         $collectivemodule     = Collectivemodule::findOrFail($idcollectivemodule);
         $localite             = Region::findOrFail($idlocalite);
         $emargementcollective = Emargementcollective::findOrFail($idemargementcollective);
-
-        dd($emargementcollective);
 
         $ids      = json_decode($request->query('ids'), true);
         $feuilles = Feuillepresencecollective::whereIn('id', $ids)->get();
