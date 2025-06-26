@@ -2933,8 +2933,6 @@ class FormationController extends Controller
             ->pluck('formations_id', 'formations_id')
             ->all();
 
-        dd($listecollectiveFormation);
-
         return view("formations.collectives.add-presencecollective-jour",
             compact('formation',
                 'listecollectives',
