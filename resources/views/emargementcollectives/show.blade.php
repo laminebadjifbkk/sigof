@@ -34,12 +34,30 @@
                             <span class="d-flex align-items-baseline">
                                 {{-- <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
                                     data-bs-target="#AddFormationModal" title="Ajouter">Ajouter</a> --}}
-                                <a href="{{ url('ajouterDemandeursPresenceJourCollectives', [
+                                {{-- <a href="{{ url('ajouterDemandeursPresenceJourCollectives', [
                                     'idformation' => $formation->id,
                                     'idcollectivemodule' => $formation?->collectivemodule?->id,
                                     'idlocalite' => $formation->departement->region->id,
                                     'idemargementcollective' => $emargementcollective->id,
                                 ]) }}"
+                                    class="btn btn-success btn-sm rounded-pill shadow-sm d-inline-flex align-items-center gap-1 px-3 py-1"
+                                    title="Ajouter bénéficiaires" style="transition: all 0.3s ease;">
+                                    <i class="bi bi-people"></i>
+                                    <span>Ajouter</span>
+                                </a> --}}
+                                @php
+                                    $ids = $feuillepresencecollectives->pluck('id')->toArray();
+                                    $encodedIds = urlencode(json_encode($ids));
+                                @endphp
+
+                                <a href="{{ url('ajouterDemandeursPresenceJourCollectives', [
+                                    'idformation' => $formation->id,
+                                    'idcollectivemodule' => $formation?->collectivemodule?->id,
+                                    'idlocalite' => $formation->departement->region->id,
+                                    'idemargementcollective' => $emargementcollective->id,
+                                ]) .
+                                    '?ids=' .
+                                    $encodedIds }}"
                                     class="btn btn-success btn-sm rounded-pill shadow-sm d-inline-flex align-items-center gap-1 px-3 py-1"
                                     title="Ajouter bénéficiaires" style="transition: all 0.3s ease;">
                                     <i class="bi bi-people"></i>
@@ -85,7 +103,6 @@
                                 'idmodule' => $formation?->collectivemodule?->id,
                                 'idlocalite' => $formation?->departement?->region?->id,
                                 'idemargement' => $emargementcollective?->id,
-                                'feuillepresencecollectives' => $feuillepresencecollectives,
                             ]) }}"
                             enctype="multipart/form-data" class="row g-3 mt-2">
                             @csrf
