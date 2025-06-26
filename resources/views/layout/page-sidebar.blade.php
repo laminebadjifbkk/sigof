@@ -321,14 +321,13 @@
                                 <span>Commission agrément</span>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('commissionmembres.index') }}">
+                                <span>Commission membres</span>
+                            </a>
+                        </li>
                     @endcan
-
-
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="{{ route('commissionmembres.index') }}">
-                            <span>Commission membres</span>
-                        </a>
-                    </li>
 
                     @can('operateurmodule-view')
                         <li class="nav-item">
