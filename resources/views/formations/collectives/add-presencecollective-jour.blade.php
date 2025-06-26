@@ -44,11 +44,11 @@
                                     <span class="text-secondary">📍 Région</span><br>
                                     <span class="fs-5 text-dark">{{ $localite?->nom ?? 'Aucune' }}</span>
                                 </div>
-                                <div class="col-md-4 mb-2">
+                                <div class="col-md-6 mb-2">
                                     <span class="text-secondary">📘 Module</span><br>
                                     <span class="fs-5 text-dark">{{ $collectivemodule?->module ?? 'Aucun' }}</span>
                                 </div>
-                                <div class="col-md-4 mb-2">
+                                <div class="col-md-2 mb-2">
                                     <span class="text-secondary">👥 Effectif</span><br>
                                     <span class="fs-5 text-dark">{{ $candidatsretenus?->count() ?? 0 }}</span>
                                 </div>

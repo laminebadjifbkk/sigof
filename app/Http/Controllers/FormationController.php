@@ -2928,20 +2928,20 @@ class FormationController extends Controller
 
         $candidatsretenus = Feuillepresencecollective::where('emargementcollectives_id', $idemargementcollective)->get();
 
-        $listecollectiveFormation = DB::table('listecollectives')
+        /* $listecollectiveFormation = DB::table('listecollectives')
             ->where('formations_id', $idformation)
             ->pluck('formations_id', 'formations_id')
-            ->all();
+            ->all(); */
 
         $listecollectivesIdsDansEmargement = DB::table('feuillepresencecollectives')
             ->where('emargementcollectives_id', $idemargementcollective)
             ->pluck('listecollectives_id')
             ->toArray();
 
-        $listecollectiveFormation = DB::table('listecollectives')
+        /* $listecollectiveFormation = DB::table('listecollectives')
             ->where('formations_id', $idformation)
             ->whereIn('id', $listecollectivesIdsDansEmargement)
-            ->get();
+            ->get(); */
 
         $listecollectiveCochees = DB::table('listecollectives')
             ->where('formations_id', $idformation)
@@ -2954,7 +2954,6 @@ class FormationController extends Controller
         return view("formations.collectives.add-presencecollective-jour",
             compact('formation',
                 'listecollectives',
-                'listecollectiveFormation',
                 'collectivemodule',
                 'emargementcollective',
                 'listecollectiveCochees',
