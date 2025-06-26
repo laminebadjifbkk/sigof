@@ -2910,8 +2910,6 @@ class FormationController extends Controller
 
         $statutsVoulus = ['attente', 'conforme', 'nouvelle', 'validée'];
 
-        dd($statutsVoulus);
-
         $listecollectives = Listecollective::join('collectives', 'collectives.id', 'listecollectives.collectives_id')
             ->select('listecollectives.*')
             ->where('collectives.id', $collectivemodule->collective->id)
@@ -2919,6 +2917,8 @@ class FormationController extends Controller
             ->where('formations_id', $idformation)
             ->whereIn('collectives.statut_demande', $statutsVoulus)
             ->get();
+
+        dd($listecollectives);
 
         $candidatsretenus = Listecollective::where('collectivemodules_id', $idcollectivemodule)
             ->where('formations_id', $idformation)
