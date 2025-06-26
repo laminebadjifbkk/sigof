@@ -22,7 +22,7 @@
                     <div class="card mb-3">
 
                         <div class="card-body">
-                            @if (auth()->user()->hasAnyRole(['super-admin', 'admin']))
+                            @if (auth()->user()->hasAnyRole(['super-admin', 'admin', 'Ingenieur']))
                                 <div class="row">
                                     <div class="col-sm-12 pt-2">
                                         <span class="d-flex mt-2 align-items-baseline">
@@ -34,7 +34,7 @@
                                         </span>
                                     </div>
                                 </div>
-                            @else
+                            @elseif (auth()->user()->hasAnyRole(['Demandeur']))
                                 <div class="row">
                                     <div class="col-sm-12 pt-2">
                                         <span class="d-flex mt-2 align-items-baseline">
