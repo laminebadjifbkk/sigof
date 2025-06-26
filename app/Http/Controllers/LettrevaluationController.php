@@ -131,7 +131,7 @@ class LettrevaluationController extends Controller
             'frais_evaluateur' => 'nullable|string',
             'date_pv'          => 'nullable|string',
             'contenu'          => 'nullable|string|max:500',
-            'execution_statut' => 'required|in:0,1',
+            'execution_statut' => 'nullable|in:0,1',
         ]);
         function parseDateOrNull($value)
         {
