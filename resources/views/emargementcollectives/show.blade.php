@@ -68,18 +68,6 @@
                                             class="bi bi-three-dots"></i></a>
                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                         <li>
-                                            <form action="{{ route('feuillePresenceColJour') }}" method="post"
-                                                target="_blank">
-                                                @csrf
-                                                <input type="hidden" name="idformation" value="{{ $formation->id }}">
-                                                <input type="hidden" name="idmodule"
-                                                    value="{{ $formation?->module?->id }}">
-                                                <input type="hidden" name="idlocalite"
-                                                    value="{{ $formation?->departement?->region?->id }}">
-                                                <input type="hidden" name="idemargement"
-                                                    value="{{ $emargementcollective?->id }}">
-                                                <button class="btn btn-sm mx-1">Fiche de suivi</button>
-                                            </form>
                                             <form action="{{ route('feuillePresenceColTous') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="idformation" value="{{ $formation->id }}">
@@ -90,6 +78,30 @@
                                                 <input type="hidden" name="idemargement"
                                                     value="{{ $emargementcollective?->id }}">
                                                 <button class="show_confirm_valider btn btn-sm mx-1">Pointer tous</button>
+                                            </form>
+                                            <form action="{{ route('feuillePresenceColJour') }}" method="post"
+                                                target="_blank">
+                                                @csrf
+                                                <input type="hidden" name="idformation" value="{{ $formation->id }}">
+                                                <input type="hidden" name="idmodule"
+                                                    value="{{ $formation?->module?->id }}">
+                                                <input type="hidden" name="idlocalite"
+                                                    value="{{ $formation?->departement?->region?->id }}">
+                                                <input type="hidden" name="idemargement"
+                                                    value="{{ $emargementcollective?->id }}">
+                                                <button class="btn btn-sm mx-1">Feuille de présence</button>
+                                            </form>
+                                            <form action="{{ route('fichePresenceColJour') }}" method="post"
+                                                target="_blank">
+                                                @csrf
+                                                <input type="hidden" name="idformation" value="{{ $formation->id }}">
+                                                <input type="hidden" name="idmodule"
+                                                    value="{{ $formation?->module?->id }}">
+                                                <input type="hidden" name="idlocalite"
+                                                    value="{{ $formation?->departement?->region?->id }}">
+                                                <input type="hidden" name="idemargement"
+                                                    value="{{ $emargementcollective?->id }}">
+                                                <button class="btn btn-sm mx-1">Fiche de suivi</button>
                                             </form>
                                         </li>
                                     </ul>
