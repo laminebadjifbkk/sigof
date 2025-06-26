@@ -2904,6 +2904,8 @@ class FormationController extends Controller
 
     public function addajouterDemandeursPresenceJourCollectives($idformation, $idcollectivemodule, $idlocalite)
     {
+        dd('ok');
+        
         $formation        = Formation::findOrFail($idformation);
         $collectivemodule = Collectivemodule::findOrFail($idcollectivemodule);
         $localite         = Region::findOrFail($idlocalite);
