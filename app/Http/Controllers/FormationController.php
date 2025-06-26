@@ -2912,13 +2912,11 @@ class FormationController extends Controller
 
         $listecollectives = Listecollective::join('collectives', 'collectives.id', 'listecollectives.collectives_id')
             ->select('listecollectives.*')
+            ->where('listecollectives.collectivemodules_id', $idcollectivemodule)
+            ->where('listecollectives.formations_id', $idformation)
             ->where('collectives.id', $collectivemodule->collective->id)
-            ->where('collectivemodules_id', $idcollectivemodule)
-            ->where('formations_id', $idformation)
             ->whereIn('collectives.statut_demande', $statutsVoulus)
             ->get();
-
-        dd($listecollectives);
 
         $candidatsretenus = Listecollective::where('collectivemodules_id', $idcollectivemodule)
             ->where('formations_id', $idformation)
