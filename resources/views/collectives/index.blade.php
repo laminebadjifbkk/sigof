@@ -225,9 +225,9 @@
                                                 <td>{{ $collective?->numero }}</td>
                                                 <td>
                                                     {{ $collective?->name }}
-                                                    {{-- @if ($collective?->sigle)
+                                                    @if ($collective?->sigle)
                                                         ({{ $collective?->sigle }})
-                                                    @endif --}}
+                                                    @endif
                                                 </td>
                                                 <td><a
                                                         href="mailto:{{ optional($collective?->user)?->email }}">{{ optional($collective?->user)?->email }}</a>
