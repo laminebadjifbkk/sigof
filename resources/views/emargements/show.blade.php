@@ -92,75 +92,66 @@
                                         </thead>
                                         <tbody>
                                             <?php $i = 1; ?>
-                                            @foreach ($formation?->individuelles as $individuelle)
-                                                @if (!empty($individuelle?->numero))
-                                                    <tr>
-                                                        <td>{{ $i++ }}</td>
-                                                        <td>{{ $individuelle?->user?->firstname }}</td>
-                                                        <td>{{ $individuelle?->user?->name }}</td>
-                                                        <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}
-                                                        </td>
-                                                        <td>{{ $individuelle?->user?->lieu_naissance }}</td>
-                                                        <td>{{ $individuelle?->departement?->nom }}</td>
-                                                        {{--  <td style="text-align: center">
-                                                            @foreach ($individuelle?->feuillepresences as $feuillepresence)
-                                                                <span class="{{ $feuillepresence?->presence }}">
-                                                                    {{ in_array($feuillepresence?->emargements_id, $feuillepresenceIndividuelle) ? $feuillepresence?->presence : '' }}
-                                                                </span>
-                                                            @endforeach
-                                                        </td> --}}
-                                                        <td class="text-center">
-                                                            @foreach ($individuelle?->feuillepresences as $feuillepresence)
-                                                                @if (in_array($feuillepresence?->emargements_id, $feuillepresenceIndividuelle))
-                                                                    <span
-                                                                        class="badge 
+                                            @foreach ($feuillepresences as $feuillepresence)
+                                                <tr>
+                                                    <td>{{ $i++ }}</td>
+                                                    <td>{{ $feuillepresence?->individuelle?->user?->firstname }}</td>
+                                                    <td>{{ $feuillepresence?->individuelle?->user?->name }}</td>
+                                                    <td>{{ $feuillepresence?->individuelle?->user?->date_naissance?->format('d/m/Y') }}
+                                                    </td>
+                                                    <td>{{ $feuillepresence?->individuelle?->user?->lieu_naissance }}</td>
+                                                    <td>{{ $feuillepresence?->individuelle?->departement?->nom }}</td>
+                                                    <td class="text-center">
+                                                        {{-- @foreach ($feuillepresence?->individuelle?->feuillepresences as $feuillepresence) --}}
+                                                        @if (in_array($feuillepresence?->emargements_id, $feuillepresenceIndividuelle))
+                                                            <span
+                                                                class="badge 
                                                                         {{ $feuillepresence?->presence === 'Oui'
                                                                             ? 'bg-success'
                                                                             : ($feuillepresence?->presence === 'Non'
                                                                                 ? 'bg-danger'
                                                                                 : 'bg-default') }}">
-                                                                        {{ $feuillepresence?->presence }}
-                                                                    </span>
-                                                                @endif
-                                                            @endforeach
-                                                        </td>
-                                                        @if (!empty($formation->projets_id))
-                                                            <td>{{ $individuelle?->projet?->sigle }}</td>
-                                                        @endif
-                                                        <td>
-                                                            <span class="d-flex align-items-baseline"><a
-                                                                    href="{{ route('individuelles.show', $individuelle) }}"
-                                                                    class="btn btn-primary btn-sm" title="voir détails"
-                                                                    target="_blanck"><i class="bi bi-eye"></i></a>
-                                                                <div class="filter">
-                                                                    <a class="icon" href="#"
-                                                                        data-bs-toggle="dropdown"><i
-                                                                            class="bi bi-three-dots"></i></a>
-                                                                    <ul
-                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                        <li>
-                                                                            <button type="button" class="dropdown-item"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#PresenceModal{{ $individuelle->id }}">Pointer
-                                                                            </button>
-                                                                        </li>
-                                                                        <li>
-                                                                            <form
-                                                                                action="{{ route('feuillepresences.destroy', $individuelle->id) }}"
-                                                                                method="post">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit"
-                                                                                    class="dropdown-item show_confirm"
-                                                                                    title="Supprimer">Supprimer</button>
-                                                                            </form>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
+                                                                {{ $feuillepresence?->presence }}
                                                             </span>
-                                                        </td>
-                                                    </tr>
-                                                @endif
+                                                        @endif
+                                                        {{-- @endforeach --}}
+                                                    </td>
+                                                    @if (!empty($formation->projets_id))
+                                                        <td>{{ $feuillepresence?->individuelle?->projet?->sigle }}</td>
+                                                    @endif
+                                                    <td>
+                                                        <span class="d-flex align-items-baseline"><a
+                                                                href="{{ route('individuelles.show', $feuillepresence?->individuelle) }}"
+                                                                class="btn btn-primary btn-sm" title="voir détails"
+                                                                target="_blanck"><i class="bi bi-eye"></i></a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#"
+                                                                    data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul
+                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    <li>
+                                                                        <button type="button" class="dropdown-item"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#PresenceModal{{ $feuillepresence?->individuelle->id }}">Pointer
+                                                                        </button>
+                                                                    </li>
+                                                                    <li>
+                                                                        <form
+                                                                            action="{{ route('feuillepresences.destroy', $feuillepresence?->individuelle->id) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"
+                                                                                title="Supprimer">Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>

@@ -133,6 +133,9 @@ class EmargementController extends Controller
         /* $candidatsretenus = Individuelle::where('formations_id', $formation?->id)
             ->get(); */
 
+        
+        $feuillepresences = Feuillepresence::where('emargements_id', $request->input('idemargement'))->get();
+
         $individuelleFormation = DB::table('individuelles')
             ->where('formations_id', $formation?->id)
             ->pluck('formations_id', 'formations_id')
@@ -157,6 +160,7 @@ class EmargementController extends Controller
                 'emargement',
                 'formation',
                 'feuillepresenceIndividuelle',
+                'feuillepresences',
                 /* 'individuelles',
                 'individuelleFormation',
                 'module',
