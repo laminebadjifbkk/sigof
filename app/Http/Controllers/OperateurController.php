@@ -672,11 +672,11 @@ class OperateurController extends Controller
         }
 
 // Check if the operator's status is 'nouveau'
-        if ($operateur->statut_agrement !== 'nouveau') {
+        /* if ($operateur->statut_agrement !== 'nouveau') {
             Alert::warning('Attention !', 'Action impossible');
             return redirect()->back();
         }
-
+ */
 /* // Check if the user has the correct roles to delete the operator
         $validRoles   = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
         $hasValidRole = Auth::user()->roles->pluck('name')->intersect($validRoles)->isNotEmpty();
