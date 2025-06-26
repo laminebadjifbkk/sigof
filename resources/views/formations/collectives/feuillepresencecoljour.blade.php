@@ -163,7 +163,7 @@
                 <tr class="item" style="text-align: center;">
                     <td width="3%"><b>N°</b></td>
                     <td><b>CIN</b></td>
-                    <td width="4%"><b>Civilité</b></td>
+                    {{-- <td><b>Civilité</b></td> --}}
                     <td><b>Prénom</b></td>
                     <td><b>NOM</b></td>
                     <td><b>Date naissance</b></td>
@@ -179,7 +179,7 @@
                     <tr class="item" style="text-align: center;">
                         <td>{{ $i++ }}</td>
                         <td>{{ $feuillepresencecollective?->listecollective?->cin }}</td>
-                        <td>{{ $individuelle?->user?->civilite }}</td>
+                        {{-- <td>{{ $individuelle?->user?->civilite }}</td> --}}
                         <td>{{ format_proper_name($feuillepresencecollective?->listecollective?->prenom) }}</td>
                         <td>{{ remove_accents_uppercase($feuillepresencecollective?->listecollective?->nom) }}</td>
                         <td>{{ $feuillepresencecollective?->listecollective?->date_naissance?->format('d/m/Y') }}</td>
