@@ -2966,7 +2966,7 @@ class FormationController extends Controller
         $request->validate([
             'listecollectives' => ['required'],
         ]);
-
+        /*
         $formation            = Formation::findOrFail($idformation);
         $emargementcollective = Emargementcollective::findOrFail($idemargementcollective);
 
@@ -2975,8 +2975,36 @@ class FormationController extends Controller
                 'emargementcollectives_id' => $emargement->id,
                 'listecollectives_id'      => $listecollective->id,
             ]);
+        } */
+
+        $emargement = Emargementcollective::findOrFail($idemargementcollective);
+
+        // IDs cochés dans le formulaire
+        $idsCoches = $request->input('listecollectives', []);
+
+        // IDs déjà enregistrés dans la feuille de présence
+        $idsExistants = Feuillepresencecollective::where('emargementcollectives_id', $emargement->id)
+            ->pluck('listecollectives_id')
+            ->toArray();
+
+        // Créer les absents (cochés mais pas encore enregistrés)
+        $idsACreer = array_diff($idsCoches, $idsExistants);
+
+        foreach ($idsACreer as $id) {
+            Feuillepresencecollective::create([
+                'emargementcollectives_id' => $emargement->id,
+                'listecollectives_id'      => $id,
+            ]);
         }
-        Alert::success('Opération réussie !', 'Le(s) candidat(s) a/ont été ajouté(s) avec succès.');
+
+        // (Optionnel) Supprimer ceux qui ne sont plus cochés
+        $idsASupprimer = array_diff($idsExistants, $idsCoches);
+
+        Feuillepresencecollective::where('emargementcollectives_id', $emargement->id)
+            ->whereIn('listecollectives_id', $idsASupprimer)
+            ->delete();
+
+        Alert::success('Succès', 'Feuille de présence mise à jour avec succès.');
         return redirect()->back();
     }
 
