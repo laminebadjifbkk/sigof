@@ -102,11 +102,18 @@
                                                             </span>
                                                         @enderror
                                                         {{ $i++ }} --}}
+                                                        @php
+                                                            $isChecked = in_array(
+                                                                $listecollective->id,
+                                                                old('listecollectives', $listecollectiveCochees),
+                                                            );
+                                                        @endphp
+
                                                         <label for="liste_{{ $listecollective->id }}">
                                                             <input id="liste_{{ $listecollective->id }}" type="checkbox"
                                                                 name="listecollectives[]"
                                                                 value="{{ $listecollective->id }}"
-                                                                {{ in_array($listecollective->id, $listecollectiveCochees) ? 'checked' : '' }}
+                                                                {{ $isChecked ? 'checked' : '' }}
                                                                 class="form-check-input @error('listecollectives') is-invalid @enderror">
                                                             {{ $i++ }}
                                                         </label>
