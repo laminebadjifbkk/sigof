@@ -95,7 +95,7 @@
                                                             <span class="invalid-feedback" role="alert">
                                                                 <div>{{ $message }}</div>
                                                             </span>
-                                                        @enderror 
+                                                        @enderror
                                                         {{ $i++ }}
                                                     </td>
                                                     <td>{{ $listecollective?->cin }}
@@ -148,7 +148,8 @@
                                     </table>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-outline-primary btn-sm"><i
-                                                class="bi bi-check2-circle"></i>&nbsp;Sélectionner</button>
+                                                class="bi bi-check2-circle"></i>&nbsp;Ajouter à la fiche du
+                                            {{ $emargementcollective?->jour }}</button>
                                     </div>
                                 </div>
                             </div>
