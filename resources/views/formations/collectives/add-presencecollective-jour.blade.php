@@ -69,6 +69,7 @@
                                     <table class="m-2 table datatables align-middle" id="table-individuelles">
                                         <thead>
                                             <tr>
+                                                <th scope="col">N°</th>
                                                 <th scope="col">CIN</th>
                                                 <th scope="col">Civilité</th>
                                                 <th scope="col">Prénom</th>
@@ -85,6 +86,9 @@
                                             <?php $i = 1; ?>
                                             @foreach ($listecollectives as $listecollective)
                                                 <tr>
+                                                    <td>
+                                                        {{ $i++ }}
+                                                    </td>
                                                     <td>
                                                         <input type="checkbox" name="listecollectives[]"
                                                             value="{{ $listecollective->id }}"
