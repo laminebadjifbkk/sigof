@@ -59,6 +59,7 @@
                                 '$idformation' => $formation->id,
                                 '$idcollectivemodule' => $formation->collectivemodule->id,
                                 '$idlocalite' => $formation->departement->region->id,
+                                'idemargementcollective' => $emargementcollective->id,
                             ]) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf

@@ -2961,7 +2961,7 @@ class FormationController extends Controller
                 'candidatsretenus'));
     }
 
-    public function giveajouterDemandeursPresenceJourCollectives($idformation, $idcollectivemodule, $idlocalite, Request $request)
+    public function giveajouterDemandeursPresenceJourCollectives(Request $request, $idformation, $idcollectivemodule, $idlocalite)
     {
         $request->validate([
             'listecollectives' => ['required'],
