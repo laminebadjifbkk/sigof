@@ -2902,7 +2902,7 @@ class FormationController extends Controller
         return redirect()->back();
     }
 
-    public function addajouterDemandeursPresenceJourCollectives($idformation, $idcollectivemodule, $idlocalite, $idemargementcollective)
+    public function addajouterDemandeursPresenceJourCollectives($idformation, $idcollectivemodule, $idlocalite, $idemargementcollective, $feuillepresencecollectives)
     {
         $formation            = Formation::findOrFail($idformation);
         $collectivemodule     = Collectivemodule::findOrFail($idcollectivemodule);

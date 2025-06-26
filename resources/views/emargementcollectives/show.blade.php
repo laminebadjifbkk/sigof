@@ -85,6 +85,7 @@
                                 'idmodule' => $formation?->collectivemodule?->id,
                                 'idlocalite' => $formation?->departement?->region?->id,
                                 'idemargement' => $emargementcollective?->id,
+                                'feuillepresencecollectives' => $feuillepresencecollectives,
                             ]) }}"
                             enctype="multipart/form-data" class="row g-3 mt-2">
                             @csrf
