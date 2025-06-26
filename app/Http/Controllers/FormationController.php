@@ -2934,7 +2934,7 @@ class FormationController extends Controller
             ->all();
 
         $listecollectivesIdsDansEmargement = DB::table('feuillepresencecollectives')
-            ->where('emargementcollective_id', $idemargementcollective)
+            ->where('emargementcollectives_id', $idemargementcollective)
             ->pluck('listecollectives_id')
             ->toArray();
 
