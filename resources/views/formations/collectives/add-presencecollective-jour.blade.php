@@ -146,8 +146,8 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-outline-primary btn-sm"><i
+                                    <div class="text-center pt-3">
+                                        <button type="submit" class="btn btn-warning btn-sm"><i
                                                 class="bi bi-check2-circle"></i>&nbsp;Ajouter à la fiche du
                                             {{ $emargementcollective?->jour }}</button>
                                     </div>
