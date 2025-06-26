@@ -32,20 +32,24 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <h5><u><b>{{ $emargement?->jour }}</b></u></h5>
                             <span class="d-flex align-items-baseline">
-                                <form action="{{ route('feuillePresenceJour') }}" method="post" target="_blank">
-                                    @csrf
-                                    <input type="hidden" name="idformation" value="{{ $formation->id }}">
-                                    <input type="hidden" name="idmodule" value="{{ $formation?->module?->id }}">
-                                    <input type="hidden" name="idlocalite"
-                                        value="{{ $formation?->departement?->region?->id }}">
-                                    <input type="hidden" name="idemargement" value="{{ $emargement?->id }}">
-                                    <button class="btn btn-secondary btn-sm mx-1">Fiche de suivi</button>
-                                </form>
+                                <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
+                                    data-bs-target="#AddFormationModal" title="Ajouter">Ajouter</a>
                                 <div class="filter">
                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                             class="bi bi-three-dots"></i></a>
                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                         <li>
+                                            <form action="{{ route('feuillePresenceJour') }}" method="post"
+                                                target="_blank">
+                                                @csrf
+                                                <input type="hidden" name="idformation" value="{{ $formation->id }}">
+                                                <input type="hidden" name="idmodule"
+                                                    value="{{ $formation?->module?->id }}">
+                                                <input type="hidden" name="idlocalite"
+                                                    value="{{ $formation?->departement?->region?->id }}">
+                                                <input type="hidden" name="idemargement" value="{{ $emargement?->id }}">
+                                                <button class="btn btn-sm mx-1">Fiche de suivi</button>
+                                            </form>
                                             <form action="{{ route('feuillePresenceTous') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="idformation" value="{{ $formation->id }}">
