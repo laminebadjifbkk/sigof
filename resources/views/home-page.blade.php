@@ -217,7 +217,7 @@
                                                 <strong>Ingénieur :</strong> {{ $formation?->ingenieur?->name ?? 'N/A' }}
                                             </div>
 
-                                            <div class="col-md-8 mb-2">
+                                            <div class="col-md-4 mb-2">
                                                 <i class="bi bi-calendar-event me-1"></i>
                                                 <strong>Date début :</strong>
                                                 <span
@@ -229,6 +229,12 @@
                                                 <span
                                                     class="{{ $formation?->date_fin?->format('d/m/Y') ?? 'Non définie' }}">{{ $formation?->date_fin?->format('d/m/Y') ?? 'Non définie' }}</span>
                                             </div>
+                                            <div class="col-md-4 mb-2">
+                                                <i class="bi bi-calendar-check me-1"></i>
+                                                <strong>Date évaluation :</strong>
+                                                <span
+                                                    class="{{ $formation?->date_pv?->format('d/m/Y') ?? 'Non définie' }}">{{ $formation?->date_pv?->format('d/m/Y') ?? 'Non définie' }}</span>
+                                            </div>
 
                                             <div class="col-md-8 mb-2">
                                                 <i class="bi bi-geo-alt-fill me-1"></i>
@@ -236,7 +242,12 @@
                                             </div>
                                             <div class="col-md-4 mb-2">
                                                 <i class="bi bi-clock me-1"></i>
-                                                <strong>Durée :</strong> {{ $formation?->duree_formation ?? '-' }} jours
+                                                <strong>Durée :</strong> {{ $formation?->duree_formation ?? '-' }}
+                                                @if ($formation?->duree_formation === 1)
+                                                    jour
+                                                @elseif ($formation?->duree_formation > 1)
+                                                    jours
+                                                @endif
                                             </div>
                                         </div>
 

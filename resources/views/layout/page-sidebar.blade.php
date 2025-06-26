@@ -357,7 +357,7 @@
                 <ul id="formations-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="{{ url('home') }}">
-                            @if ($formationsEnCours > 0)
+                            @if ($formationsEnCours === 1)
                                 <span class="badge bg-warning text-dark">{{ $formationsEnCours }} formation en
                                     cours</span>
                             @elseif ($formationsEnCours > 1)
