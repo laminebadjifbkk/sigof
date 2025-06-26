@@ -53,10 +53,10 @@
                                         <thead class="table-primary text-center">
                                             <tr>
                                                 <th>Exécution</th>
-                                                <th>Initiateur</th>
+                                                <th>Création</th>
+                                                <th>Eval. ONFP</th>
                                                 <th>Formation</th>
                                                 <th>Operateur</th>
-                                                <th>Evaluateur DEC</th>
                                                 <th>Evaluateur</th>
                                                 <th>Module</th>
                                                 <th>ABE</th>
@@ -75,11 +75,11 @@
                                                         @endif
                                                     </td>
                                                     <td>{{ $lettrevaluation?->titre }}</td>
-                                                    <td>{{ $lettrevaluation?->formation?->name }}</td>
-                                                    <td>{{ $lettrevaluation?->formation?->operateur?->user?->username }}</td>
                                                     <td><span
                                                             class="{{ $lettrevaluation?->formation?->onfpevaluateur?->name ?? 'Aucun' }}">{{ $lettrevaluation?->formation?->onfpevaluateur?->name ?? 'Aucun' }}</span>
                                                     </td>
+                                                    <td>{{ $lettrevaluation?->formation?->name }}</td>
+                                                    <td>{{ $lettrevaluation?->formation?->operateur?->user?->username }}</td>
                                                     <td><span
                                                             class="{{ $lettrevaluation?->formation?->evaluateur?->name ?? 'Aucun' }}">{{ $lettrevaluation?->formation?->evaluateur?->name ?? 'Aucun' }}</span>
                                                     </td>
