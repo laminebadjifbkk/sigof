@@ -106,17 +106,26 @@
                     </td>
                 </tr>
                 <tr class="heading">
-                    <td colspan="4">{{ __('Code : ') }}
+                    <td colspan="4">{{ __('Ref. Convention : ') }}
+                        {{ $formation?->numero_convention }}
+                        du {{ $formation?->date_convention?->format('Y-m-d') }}
+                    </td>
+                    <td colspan="5"><b>{{ __('Opérateur : ') }}</b>
+                        {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
+                    </td>
+                </tr>
+                <tr class="heading">
+                    <td colspan="2">{{ __('Code : ') }}
                         @if (!empty($formation?->code))
                             {{ $formation?->code . 'C' }}
                         @endif
                     </td>
-                    <td colspan="2"><b>{{ __('Responsable suivi : ') }}</b>
+                    <td colspan="3"><b>{{ __('Responsable suivi : ') }}</b>
                         @if (!empty($formation?->date_suivi))
                             {{ $formation?->suivi_dossier }}
                         @endif
                     </td>
-                    <td colspan="1"><b>{{ __('Date : ') }}</b>
+                    <td colspan="2"><b>{{ __('Date suivi : ') }}</b>
                         @if (!empty($emargementcollective?->date))
                             {{ $emargementcollective?->date?->format('d/m/Y') }}
                         @endif
@@ -128,12 +137,12 @@
                     <td colspan="4">{{ __('Intitulé formation : ') }}
                         {{ $formation?->collectivemodule?->module }}
                     </td>
-                    <td colspan="5"><b>{{ __('Opérateur : ') }}</b>
-                        {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
+                    <td colspan="5"><b>{{ __('Module: ') }}</b>
+                        {{ $formation?->collectivemodule?->module }}
                     </td>
                 </tr>
                 <tr class="heading">
-                    <td colspan="4">{{ __('Adresse : ') }}
+                    <td colspan="4">{{ __('Lieu : ') }}
                         {{ $formation?->lieu }}
                     </td>
                     <td colspan="5"><b>{{ __('Contact : ') }}</b>
