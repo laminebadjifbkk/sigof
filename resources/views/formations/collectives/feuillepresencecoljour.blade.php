@@ -197,9 +197,9 @@
                         </td>
                         <td>
                             {{-- {{ ucwords($individuelle?->feuillepresence) }} --}}
-                            @foreach ($feuillepresencecollective?->listecollective?->feuillepresencecollectives as $feuillepresencecollective)
+                            {{-- @foreach ($feuillepresencecollective?->listecollective?->feuillepresencecollectives as $feuillepresencecollective)
                                 {{ ucwords(in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective) ? $feuillepresencecollective?->presence : '') }}
-                            @endforeach
+                            @endforeach --}}
                         </td>
                         <td></td>
                     </tr>
