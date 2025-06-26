@@ -2970,44 +2970,13 @@ class FormationController extends Controller
         $formation            = Formation::findOrFail($idformation);
         $emargementcollective = Emargementcollective::findOrFail($idemargementcollective);
 
-        dd($emargementcollective);
-
-        if ($formation->statut == "Terminée") {
-            Alert::warning('Désolé !', 'Cette formation a déjà été exécutée.');
-        } elseif ($formation->statut == 'Annulée') {
-            Alert::warning('Désolé !', 'La formation a été annulée.');
-        } else {
-            $listecollectiveformations = Listecollective::where('formations_id', $idformation)->get();
-            foreach ($listecollectiveformations as $key => $listecollectiveformation) {
-                $listecollectiveformation->update([
-                    "formations_id" => null,
-                    "statut"        => 'Conforme',
-                ]);
-                $listecollectiveformation->save();
-            }
-
-            foreach ($request->listecollectives as $listecollective) {
-                $listecollective = Listecollective::findOrFail($listecollective);
-
-                $listecollective->update([
-                    "formations_id" => $idformation,
-                    "statut"        => 'Sélectionné',
-                ]);
-
-                $listecollective->save();
-            }
-
-            /*  $validated_by = new Validationcollective([
-            'validated_id'       =>      Auth::user()->id,
-            'action'             =>      'Retenue',
-            'collectives_id'   =>      $listecollective->id
+        foreach ($formation->listecollectives as $key => $listecollective) {
+            $feuillepresence = Feuillepresencecollective::create([
+                'emargementcollectives_id' => $emargement->id,
+                'listecollectives_id'      => $listecollective->id,
             ]);
-
-            $validated_by->save(); */
-
-            Alert::success('Opération réussie !', 'Le(s) candidat(s) a/ont été ajouté(s) avec succès.');
         }
-
+        Alert::success('Opération réussie !', 'Le(s) candidat(s) a/ont été ajouté(s) avec succès.');
         return redirect()->back();
     }
 

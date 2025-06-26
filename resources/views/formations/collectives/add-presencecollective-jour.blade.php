@@ -92,7 +92,7 @@
                                             @foreach ($listecollectives as $listecollective)
                                                 <tr>
                                                     <td>
-                                                        <input type="checkbox" name="listecollectives[]"
+                                                        {{-- <input type="checkbox" name="listecollectives[]"
                                                             value="{{ $listecollective->id }}"
                                                             {{ in_array($listecollective->id, $listecollectiveCochees) ? 'checked' : '' }}
                                                             class="form-check-input @error('listecollectives') is-invalid @enderror">
@@ -101,7 +101,15 @@
                                                                 <div>{{ $message }}</div>
                                                             </span>
                                                         @enderror
-                                                        {{ $i++ }}
+                                                        {{ $i++ }} --}}
+                                                        <label for="liste_{{ $listecollective->id }}">
+                                                            <input id="liste_{{ $listecollective->id }}" type="checkbox"
+                                                                name="listecollectives[]"
+                                                                value="{{ $listecollective->id }}"
+                                                                {{ in_array($listecollective->id, $listecollectiveCochees) ? 'checked' : '' }}
+                                                                class="form-check-input @error('listecollectives') is-invalid @enderror">
+                                                            {{ $i++ }}
+                                                        </label>
                                                     </td>
                                                     <td>{{ $listecollective?->cin }}
                                                     </td>
