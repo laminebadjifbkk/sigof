@@ -2909,8 +2909,8 @@ class FormationController extends Controller
         $localite             = Region::findOrFail($idlocalite);
         $emargementcollective = Emargementcollective::findOrFail($idemargementcollective);
 
-        $ids      = json_decode($request->query('ids'), true);
-        $feuilles = Feuillepresencecollective::whereIn('id', $ids)->get();
+        /* $ids      = json_decode($request->query('ids'), true);
+        $feuilles = Feuillepresencecollective::whereIn('id', $ids)->get(); */
 
         $statutsVoulus = ['attente', 'conforme', 'nouvelle', 'validée'];
 
