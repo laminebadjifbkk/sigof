@@ -2914,7 +2914,7 @@ class FormationController extends Controller
             ->select('listecollectives.*')
             ->where('collectives.id', $collectivemodule->collective->id)
             ->where('collectivemodules_id', $idcollectivemodule)
-            /* ->where('formations_id', $idformation) */
+            ->where('formations_id', $idformation)
             ->whereIn('collectives.statut_demande', $statutsVoulus)
             ->get();
 
