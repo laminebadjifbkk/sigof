@@ -2902,6 +2902,81 @@ class FormationController extends Controller
         return redirect()->back();
     }
 
+    public function addajouterDemandeursPresenceJourCollectives($idformation, $idcollectivemodule, $idlocalite)
+    {
+        $formation        = Formation::findOrFail($idformation);
+        $collectivemodule = Collectivemodule::findOrFail($idcollectivemodule);
+        $localite         = Region::findOrFail($idlocalite);
+
+        $statutsVoulus = ['attente', 'conforme', 'nouvelle', 'validée'];
+
+        $listecollectives = Listecollective::join('collectives', 'collectives.id', 'listecollectives.collectives_id')
+            ->select('listecollectives.*')
+            ->where('collectives.id', $collectivemodule->collective->id)
+            ->where('collectivemodules_id', $idcollectivemodule)
+            ->where('formations_id', $idformation)
+            ->whereIn('collectives.statut_demande', $statutsVoulus)
+            ->get();
+
+        $candidatsretenus = Listecollective::where('collectivemodules_id', $idcollectivemodule)
+            ->where('formations_id', $idformation)
+            ->get();
+
+        $listecollectiveFormation = DB::table('listecollectives')
+            ->where('formations_id', $idformation)
+            ->pluck('formations_id', 'formations_id')
+            ->all();
+
+        return view("formations.collectives.add-presencecollective-jour", compact('formation', 'listecollectives', 'listecollectiveFormation', 'collectivemodule', 'localite', 'candidatsretenus'));
+    }
+
+    public function giveajouterDemandeursPresenceJourCollectives($idformation, $idcollectivemodule, $idlocalite, Request $request)
+    {
+        $request->validate([
+            'listecollectives' => ['required'],
+        ]);
+
+        $formation = Formation::findOrFail($idformation);
+
+        if ($formation->statut == "Terminée") {
+            Alert::warning('Désolé !', 'Cette formation a déjà été exécutée.');
+        } elseif ($formation->statut == 'Annulée') {
+            Alert::warning('Désolé !', 'La formation a été annulée.');
+        } else {
+            $listecollectiveformations = Listecollective::where('formations_id', $idformation)->get();
+            foreach ($listecollectiveformations as $key => $listecollectiveformation) {
+                $listecollectiveformation->update([
+                    "formations_id" => null,
+                    "statut"        => 'Conforme',
+                ]);
+                $listecollectiveformation->save();
+            }
+
+            foreach ($request->listecollectives as $listecollective) {
+                $listecollective = Listecollective::findOrFail($listecollective);
+
+                $listecollective->update([
+                    "formations_id" => $idformation,
+                    "statut"        => 'Sélectionné',
+                ]);
+
+                $listecollective->save();
+            }
+
+            /*  $validated_by = new Validationcollective([
+            'validated_id'       =>      Auth::user()->id,
+            'action'             =>      'Retenue',
+            'collectives_id'   =>      $listecollective->id
+            ]);
+
+            $validated_by->save(); */
+
+            Alert::success('Opération réussie !', 'Le(s) candidat(s) a/ont été ajouté(s) avec succès.');
+        }
+
+        return redirect()->back();
+    }
+
     public function lettreEvaluation(Request $request)
     {
 

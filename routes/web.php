@@ -220,6 +220,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('formationdemandeurscollectives/{idformation}/{idcollectivemodule}/{idlocalite}', [FormationController::class, 'addformationdemandeurscollectives']);
         Route::put('formationdemandeurscollectives/{idformation}/{idcollectivemodule}/{idlocalite}', [FormationController::class, 'giveformationdemandeurscollectives']);
 
+        Route::get('ajouterDemandeursPresenceJourCollectives/{idformation}/{idcollectivemodule}/{idlocalite}', [FormationController::class, 'addajouterDemandeursPresenceJourCollectives']);
+        Route::put('ajouterDemandeursPresenceJourCollectives/{idformation}/{idcollectivemodule}/{idlocalite}', [FormationController::class, 'giveajouterDemandeursPresenceJourCollectives']);
+
         Route::get('formationoperateurs/{idformation}/{idmodule}/{idlocalite}', [FormationController::class, 'addformationoperateurs']);
         Route::put('formationoperateurs/{idformation}/{idmodule}/{idlocalite}', [FormationController::class, 'giveformationoperateurs']);
 

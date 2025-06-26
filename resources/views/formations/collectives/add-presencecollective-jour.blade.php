@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'Formation | Choisir demandeurs collectifs')
+@section('title', 'Formation | Choisir une demande collective')
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
