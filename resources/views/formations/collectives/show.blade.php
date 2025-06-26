@@ -1197,19 +1197,10 @@
                                                 <i class="bi bi-plus fs-6"></i>
                                                 <span class="d-none d-sm-inline">Ajouter</span>
                                             </button>
+
                                             <div class="filter">
-                                                {{-- <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                        class="bi bi-three-dots"></i></a> --}}
-                                                <a href="{{ url('ajouterDemandeursPresenceJourCollectives', [
-                                                    'idformation' => $formation->id,
-                                                    'idcollectivemodule' => $formation?->collectivemodule?->id,
-                                                    'idlocalite' => $formation->departement->region->id,
-                                                ]) }}"
-                                                    class="btn btn-success btn-sm rounded-pill shadow-sm d-inline-flex align-items-center gap-1 px-3 py-1"
-                                                    title="Ajouter" style="transition: all 0.3s ease;">
-                                                    <i class="bi bi-people"></i>
-                                                    <span>Ajouter</span>
-                                                </a>
+                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                        class="bi bi-three-dots"></i></a>
                                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                     <li>
                                                         <form action="{{ route('feuillePresenceColFinale') }}"
