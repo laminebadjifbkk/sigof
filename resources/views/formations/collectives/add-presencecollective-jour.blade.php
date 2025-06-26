@@ -105,7 +105,7 @@
                                                         @php
                                                             $isChecked = in_array(
                                                                 $listecollective->id,
-                                                                old('listecollectives', $listecollectiveCochees),
+                                                                $listecollectiveCochees,
                                                             );
                                                         @endphp
 

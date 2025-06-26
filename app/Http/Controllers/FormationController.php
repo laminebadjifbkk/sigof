@@ -2944,7 +2944,6 @@ class FormationController extends Controller
             ->get(); */
 
         $listecollectiveCochees = DB::table('listecollectives')
-            ->where('formations_id', $idformation)
             ->whereIn('id', $listecollectivesIdsDansEmargement)
             ->pluck('id')
             ->toArray();
