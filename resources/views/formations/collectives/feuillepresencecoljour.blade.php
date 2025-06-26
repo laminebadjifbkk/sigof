@@ -163,7 +163,7 @@
                 <tr class="item" style="text-align: center;">
                     <td width="3%"><b>N°</b></td>
                     <td><b>CIN</b></td>
-                    {{-- <td><b>Civilité</b></td> --}}
+                    <td width="4%"><b>Civilité</b></td>
                     <td><b>Prénom</b></td>
                     <td><b>NOM</b></td>
                     <td><b>Date naissance</b></td>
@@ -179,27 +179,17 @@
                     <tr class="item" style="text-align: center;">
                         <td>{{ $i++ }}</td>
                         <td>{{ $feuillepresencecollective?->listecollective?->cin }}</td>
-                        {{-- <td>{{ $individuelle?->user?->civilite }}</td> --}}
+                        <td>{{ $individuelle?->user?->civilite }}</td>
                         <td>{{ format_proper_name($feuillepresencecollective?->listecollective?->prenom) }}</td>
                         <td>{{ remove_accents_uppercase($feuillepresencecollective?->listecollective?->nom) }}</td>
                         <td>{{ $feuillepresencecollective?->listecollective?->date_naissance?->format('d/m/Y') }}</td>
                         <td>{{ remove_accents_uppercase($feuillepresencecollective?->listecollective?->lieu_naissance) }}
                         </td>
                         <td>
-                            {{-- {{ substr($listecollective?->telephone, 0, 2) .
-                                ' ' .
-                                substr($listecollective?->telephone, 2, 3) .
-                                ' ' .
-                                substr($listecollective?->telephone, 5, 2) .
-                                ' ' .
-                                substr($listecollective?->telephone, 7, 2) }} --}}
                             {{ $feuillepresencecollective?->listecollective?->telephone }}
                         </td>
                         <td>
-                            {{-- {{ ucwords($individuelle?->feuillepresence) }} --}}
-                            {{-- @foreach ($feuillepresencecollective?->listecollective?->feuillepresencecollectives as $feuillepresencecollective) --}}
-                                {{ ucwords(in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective) ? $feuillepresencecollective?->presence : '') }}
-                            {{-- @endforeach --}}
+                            {{ ucwords(in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective) ? $feuillepresencecollective?->presence : '') }}
                         </td>
                         <td></td>
                     </tr>
@@ -207,17 +197,7 @@
 
             </tbody>
         </table>
-        {{--  <h4 valign="top">
-            <b><u>AGENT DE SUIVI</u>:</b>
-            @isset($formation?->date_suivi)
-                {{ $formation?->suivi_dossier . ', le ' . $formation?->date_suivi?->format('d/m/Y') }}
-            @endisset
-        </h4> --}}
     </div>
-    {{-- <footer>
-        {{ __("Cité SIPRES 1 lot 2 - 2 voies liberté 6 extension VDN  Tél. : 33 827 92 51- Fax : 33 827 92 55
-                B.P. 21013 Dakar-Ponty  E-mail : onfp@onfp.sn - site web www.onfp.sn") }}
-    </footer> --}}
 </body>
 
 </html>
