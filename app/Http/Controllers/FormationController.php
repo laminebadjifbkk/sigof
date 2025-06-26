@@ -2933,20 +2933,24 @@ class FormationController extends Controller
             ->pluck('formations_id', 'formations_id')
             ->all(); */
 
-        $listecollectivesIdsDansEmargement = DB::table('feuillepresencecollectives')
+        /* $listecollectivesIdsDansEmargement = DB::table('feuillepresencecollectives')
             ->where('emargementcollectives_id', $idemargementcollective)
             ->pluck('listecollectives_id')
-            ->toArray();
+            ->toArray(); */
 
         /* $listecollectiveFormation = DB::table('listecollectives')
             ->where('formations_id', $idformation)
             ->whereIn('id', $listecollectivesIdsDansEmargement)
             ->get(); */
 
-        $listecollectiveCochees = DB::table('listecollectives')
+        /* $listecollectiveCochees = DB::table('listecollectives')
             ->where('formations_id', $idformation)
             ->whereIn('id', $listecollectivesIdsDansEmargement)
             ->pluck('id')
+            ->toArray(); */
+
+        $listecollectiveCochees = Feuillepresencecollective::where('emargementcollectives_id', $emargementcollective->id)
+            ->pluck('listecollectives_id')
             ->toArray();
 
         /* dd($listecollectivesIdsDansEmargement, $listecollectiveFormation, $listecollectiveCochees); */
