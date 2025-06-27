@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Collectivemodule;
 use App\Models\Formation;
+use App\Models\Listecollective;
 use App\Models\Module;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -177,7 +178,7 @@ class CollectivemoduleController extends Controller
         $request->validate([
             'motif' => $request->statut !== 'Conforme' ? 'required|string' : 'nullable|string',
         ]);
-        
+
         $motif = $request->input('motif') ?? $request->statut;
 
         $collectivemodule = Collectivemodule::findOrFail($request->id);
@@ -214,6 +215,17 @@ class CollectivemoduleController extends Controller
         $collectivemodule->save();
 
         Alert::success('Succès !', 'Module supprimé avec succès');
+
+        return redirect()->back();
+    }
+
+    public function changerModule(Request $request, $id)
+    {
+        $liste                       = Listecollective::findOrFail($id);
+        $liste->collectivemodules_id = $request->collectivemodules_id;
+        $liste->save();
+
+        Alert::success('Succès !', 'Changement de module effectué avec succès.');
 
         return redirect()->back();
     }

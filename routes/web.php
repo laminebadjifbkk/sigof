@@ -560,6 +560,7 @@ Route::group(['middleware' => ['XSS']], function () {
             ->where('libelle', 'individuelle|collective');
         /* Pour visualiser la page d'erreur */
         /* Route::get('/errors/restored', [UserController::class, 'errors'])->name('users.errors'); */
+        Route::post('/listecollectives/{id}/changer-module', [CollectivemoduleController::class, 'changerModule'])->name('listecollectives.changerModule');
 
         /* Vues ressouces */
         Route::resource('/users', UserController::class);

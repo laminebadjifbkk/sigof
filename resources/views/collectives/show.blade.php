@@ -464,20 +464,32 @@
                                                                                     <span class="d-flex align-items-baseline">
                                                                                         <a href="{{ route('listecollectives.show', $listecollective) }}"
                                                                                             class="btn btn-primary btn-sm"
-                                                                                            title="voir détails"
-                                                                                            target="_blank"><i
-                                                                                                class="bi bi-eye"></i></a>
+                                                                                            title="voir détails" target="_blank">
+                                                                                            <i class="bi bi-eye"></i>
+                                                                                        </a>
+
+                                                                                        <!-- Bouton changer module -->
+                                                                                        <button class="btn btn-warning btn-sm mx-1"
+                                                                                            data-bs-toggle="modal"
+                                                                                            data-bs-target="#changerModuleModal-{{ $listecollective->id }}"
+                                                                                            title="Changer module">
+                                                                                            <i class="bi bi-arrow-left-right"></i>
+                                                                                        </button>
+
                                                                                         <div class="filter">
                                                                                             <a class="icon" href="#"
                                                                                                 data-bs-toggle="dropdown"><i
                                                                                                     class="bi bi-three-dots"></i></a>
                                                                                             <ul
                                                                                                 class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                                                <li><a class="dropdown-item btn btn-sm"
+                                                                                                <li>
+                                                                                                    <a class="dropdown-item btn btn-sm"
                                                                                                         href="{{ route('listecollectives.edit', $listecollective) }}"
-                                                                                                        class="mx-1"
-                                                                                                        title="Modifier"><i
-                                                                                                            class="bi bi-pencil"></i>Modifier</a>
+                                                                                                        title="Modifier">
+                                                                                                        <i
+                                                                                                            class="bi bi-pencil"></i>
+                                                                                                        Modifier
+                                                                                                    </a>
                                                                                                 </li>
                                                                                                 <form
                                                                                                     action="{{ route('listecollectives.destroy', $listecollective) }}"
@@ -486,13 +498,72 @@
                                                                                                     @method('DELETE')
                                                                                                     <button type="submit"
                                                                                                         class="dropdown-item show_confirm"
-                                                                                                        title="Supprimer"><i
-                                                                                                            class="bi bi-trash"></i>Supprimer</button>
+                                                                                                        title="Supprimer">
+                                                                                                        <i class="bi bi-trash"></i>
+                                                                                                        Supprimer
+                                                                                                    </button>
                                                                                                 </form>
                                                                                             </ul>
                                                                                         </div>
                                                                                     </span>
+
+                                                                                    <!-- MODAL pour changer de module -->
+                                                                                    <div class="modal fade"
+                                                                                        id="changerModuleModal-{{ $listecollective->id }}"
+                                                                                        tabindex="-1"
+                                                                                        aria-labelledby="changerModuleLabel"
+                                                                                        aria-hidden="true">
+                                                                                        <div class="modal-dialog modal-lg">
+                                                                                            <form
+                                                                                                action="{{ route('listecollectives.changerModule', $listecollective->id) }}"
+                                                                                                method="POST">
+                                                                                                @csrf
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header">
+                                                                                                        <h5 class="modal-title"
+                                                                                                            id="changerModuleLabel">
+                                                                                                            Changer le module pour
+                                                                                                            {{ $listecollective?->prenom . ' ' . $listecollective?->nom }}
+                                                                                                        </h5>
+                                                                                                        <button type="button"
+                                                                                                            class="btn-close"
+                                                                                                            data-bs-dismiss="modal"
+                                                                                                            aria-label="Fermer"></button>
+                                                                                                    </div>
+                                                                                                    <div class="modal-body">
+                                                                                                        <div class="mb-3">
+                                                                                                            <label for="collectivemodules_id"
+                                                                                                                class="form-label">Sélectionnez
+                                                                                                                un nouveau module
+                                                                                                                :</label>
+                                                                                                            <select
+                                                                                                                name="collectivemodules_id"
+                                                                                                                id="collectivemodules_id"
+                                                                                                                class="form-select form-select-sm"
+                                                                                                                required>
+                                                                                                                @foreach ($collective->collectivemodules as $collectivemodule)
+                                                                                                                    <option
+                                                                                                                        value="{{ $collectivemodule->id }}"
+                                                                                                                        {{ $collectivemodule->id == $listecollective->collectivemodules_id ? 'selected' : '' }}>
+                                                                                                                        {{ $collectivemodule->module }}
+                                                                                                                    </option>
+                                                                                                                @endforeach
+                                                                                                            </select>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="modal-footer">
+                                                                                                        <button type="button"
+                                                                                                            class="btn btn-secondary btn-sm"
+                                                                                                            data-bs-dismiss="modal">Annuler</button>
+                                                                                                        <button type="submit"
+                                                                                                            class="btn btn-success btn-sm">Changer</button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </form>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </td>
+
                                                                             </tr>
                                                                         @endforeach
                                                                     </tbody>
