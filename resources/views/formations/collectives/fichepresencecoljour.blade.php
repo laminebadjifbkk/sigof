@@ -184,6 +184,21 @@
                 @endforeach
             </tbody>
         </table>
+        <h4 valign="top">
+            <b><u>AGENT DE SUIVI</u></b> : @isset($formation?->date_suivi)
+                <span
+                    style="float: right; font-style: italic">{{ strtoupper($formation?->suivi_dossier ?? '') . ', le ' . $formation?->date_suivi?->format('d/m/Y') }}</span>
+            @endisset
+            {{-- <br>
+            <?php $i = 1; ?>
+            {{ $formation?->evaluateur?->name . ', ' . $formation?->evaluateur?->fonction }}<br>
+            {{ $formation?->onfpevaluateur?->name . ', ' . $formation?->onfpevaluateur?->fonction }}<br>
+            @isset($membres_jury)
+                @foreach ($membres_jury as $item)
+                    {{ $item }} <br>
+                @endforeach
+            @endisset --}}
+        </h4>
     </div>
 </body>
 
