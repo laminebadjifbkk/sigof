@@ -2272,7 +2272,7 @@
                             @csrf
                             @method('patch')
                             <div class="card-header text-center bg-gradient-default">
-                                <h1 class="h4 text-black mb-0">Modification {{ $emargement?->jour }}</h1>
+                                <h1 class="h4 text-black mb-0">Modification du {{ $emargement?->jour }}</h1>
                             </div>
                             <div class="modal-body">
                                 <input type="hidden" name="idformation" value="{{ $formation->id }}">
@@ -2321,7 +2321,7 @@
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                         <div class="mb-3">
                                             <label>Observations</label>
-                                            <textarea name="observations" id="observations" cols="30" rows="3s"
+                                            <textarea name="observations" id="observations" cols="30" rows="10"
                                                 class="form-control form-control-sm @error('observations') is-invalid @enderror" placeholder="observations"
                                                 autofocus>{{ $emargement?->observations ?? old('observations') }}</textarea>
                                             @error('observations')

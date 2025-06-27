@@ -1828,7 +1828,7 @@
                             <div class="modal-header bg-default rounded-top">
                                 <h5 class="modal-title w-100 text-center"
                                     id="EditEmargementModalLabel{{ $emargementcol->id }}">
-                                    Modification du jour {{ $emargementcol?->jour }}
+                                    Modification du {{ $emargementcol?->jour }}
                                 </h5>
                             </div>
 
@@ -1879,7 +1879,7 @@
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label for="observations" class="form-label">Observations</label>
-                                            <textarea name="observations" id="observations" cols="30" rows="3"
+                                            <textarea name="observations" id="observations" cols="30" rows="10"
                                                 class="form-control form-control-sm @error('observations') is-invalid @enderror" placeholder="Observations">{{ $emargementcol?->observations ?? old('observations') }}</textarea>
                                             @error('observations')
                                                 <div class="invalid-feedback">{{ $message }}</div>
