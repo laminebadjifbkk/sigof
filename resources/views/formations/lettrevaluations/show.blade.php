@@ -204,7 +204,7 @@
                                 <ol>
                                     <span>
                                         Convention d'assistance n°
-                                        {{ $formation?->numero_convention . ' du ' . $formation?->date_convention?->format('d/m/Y') }}<br />
+                                        {{ $formation?->numero_convention . '/ONFP/DG/DIOF/' . $formation?->ingenieur?->initiale . ' du ' . $formation?->date_convention?->format('d/m/Y') }}<br />
                                     </span>
                                     <span>
                                         DETF<br />
