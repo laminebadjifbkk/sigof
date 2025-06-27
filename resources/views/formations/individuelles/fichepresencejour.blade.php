@@ -102,71 +102,58 @@
         <table class="table table-responsive">
             <thead>
                 <tr class="heading" style="text-align: center;">
-                    <td colspan="9"><b>{{ __('FICHE DE SUIVI') }}</b>
+                    <td colspan="9"><b>{{ __("Direction de l'Ingénieurie et des Opérations de Formation") }}</b>
+                    </td>
+                </tr>
+            </thead>
+        </table>
+        <br>
+        <table class="table table-responsive">
+            <thead>
+                <tr class="heading" style="text-align: center;">
+                    <td colspan="9"><b>{{ __('FICHE DE SUIVI DE FORMATION') }}</b>
                     </td>
                 </tr>
                 <tr class="heading">
                     <td colspan="4">{{ __('Ref. Convention : ') }}
                         {{ $formation?->numero_convention }}
-                        du {{ $formation?->date_convention?->format('Y-m-d') }}
+                        @if (!empty($formation?->date_convention))
+                            du {{ $formation?->date_convention?->format('Y-m-d') }}
+                        @endif
                     </td>
                     <td colspan="5"><b>{{ __('Opérateur : ') }}</b>
                         {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
                     </td>
                 </tr>
                 <tr class="heading">
-                    <td colspan="2">{{ __('Code : ') }}
-                        {{ $formation?->code }}
+                    <td colspan="4">{{ __('Module : ') }}
+                        {{ $formation?->module?->name }}
                     </td>
-                    <td colspan="3"><b>{{ __('Responsable suivi : ') }}</b>
-                        @if (!empty($formation?->date_suivi))
-                            {{ $formation?->suivi_dossier }}
-                        @endif
-                    </td>
-                    <td colspan="2"><b>{{ __('Date suivi: ') }}</b>
-                        @if (!empty($emargement?->date))
-                            {{ $emargement?->date?->format('d/m/Y') }}
-                        @endif
-                    </td>
-                    <td colspan="2"><b>{{ $emargement?->jour }}</b>
+                    <td colspan="5">{{ __('Lieu : ') }}
+                        {{ $formation?->lieu }}
                     </td>
                 </tr>
                 <tr class="heading">
-                    <td colspan="4">{{ __('Intitulé formation : ') }}
-                        {{ $formation?->module?->name }}
+                    <td colspan="2">{{ __('Effectif prévu : ') }}
+                        {{ $formation?->prevue_h + $formation?->prevue_f }}
                     </td>
-                    <td colspan="5"><b>{{ __('Module: ') }}</b>
-                        {{ $formation?->module?->name }}
+                    <td colspan="7"><b>{{ __('Bénéficiaires : ') }}</b>
+
+                        {{ $formation?->name }}
+
                     </td>
                 </tr>
-                <tr class="heading">
+                {{-- <tr class="heading">
                     <td colspan="4">{{ __('Lieu : ') }}
                         {{ $formation?->lieu }}
                     </td>
                     <td colspan="5"><b>{{ __('Contact : ') }}</b>
-                        {{-- {{ substr($formation?->operateur?->user?->fixe, 0, 2) .
-                            ' ' .
-                            substr($formation?->operateur?->user?->fixe, 2, 3) .
-                            ' ' .
-                            substr($formation?->operateur?->user?->fixe, 5, 2) .
-                            ' ' .
-                            substr($formation?->operateur?->user?->fixe, 7, 2) }}
-                        @if (!empty($formation?->operateur?->user?->telephone))
-                            {{ ' / ' .
-                                substr($formation?->operateur?->user?->telephone, 0, 2) .
-                                ' ' .
-                                substr($formation?->operateur?->user?->telephone, 2, 3) .
-                                ' ' .
-                                substr($formation?->operateur?->user?->telephone, 5, 2) .
-                                ' ' .
-                                substr($formation?->operateur?->user?->telephone, 7, 2) }}
-                        @endif --}}
                         {{ $formation?->operateur?->user?->fixe }}
                         @if (!empty($formation?->operateur?->user?->telephone))
                             {{ ' / ' . $formation?->operateur?->user?->telephone }}
                         @endif
                     </td>
-                </tr>
+                </tr> --}}
                 <tr class="item" style="text-align: center;">
                     <td width="3%"><b>N°</b></td>
                     <td><b>CIN</b></td>
