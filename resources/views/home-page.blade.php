@@ -241,10 +241,9 @@
                                                 </span>
                                             </div>
 
-
                                             <div class="col-md-8 mb-2">
                                                 <i class="bi bi-geo-alt-fill me-1"></i>
-                                                <strong>Localité :</strong> {{ $formation?->departement?->nom ?? 'N/A' }}
+                                                <strong>Localité :</strong> {{ $formation?->lieu ?? 'N/A' }}
                                             </div>
                                             <div class="col-md-4 mb-2">
                                                 <i class="bi bi-clock me-1"></i>
@@ -256,7 +255,6 @@
                                                 @endif
                                             </div>
                                         </div>
-
 
                                         @if (!is_null($progress))
                                             <div class="progress mt-3" style="height: 20px;">
