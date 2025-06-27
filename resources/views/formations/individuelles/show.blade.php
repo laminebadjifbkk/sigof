@@ -537,7 +537,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center" width="2%">N°</th>
-                                                            <th class="text-center" width="7">CIN</th>
+                                                            <th class="text-center">CIN</th>
                                                             <th>Prénom</th>
                                                             <th>NOM</th>
                                                             <th width="10%">Date naissance</th>
