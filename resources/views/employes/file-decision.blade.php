@@ -12,7 +12,7 @@
             padding: 20px;
             font-size: 14px;
             line-height: 20px;
-            color: color: rgb(0, 0, 0);
+            color:rgb(0, 0, 0);
             ;
         }
 

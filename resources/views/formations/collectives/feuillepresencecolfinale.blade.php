@@ -15,7 +15,7 @@
             /* padding: 30px; */
             font-size: 12px;
             line-height: 18px;
-            color: color: rgb(0, 0, 0);
+            color:rgb(0, 0, 0);
             ;
         }
 

@@ -2443,31 +2443,12 @@ class FormationController extends Controller
         $region     = Region::findOrFail($request->input('idlocalite')); */
         $emargement = Emargement::findOrFail($request->input('idemargement'));
 
-        /* if (! empty($formation?->projets_id)) {
-            $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
-                ->join('regions', 'regions.id', 'individuelles.regions_id')
-                ->select('individuelles.*')
-                ->where('individuelles.projets_id', $formation?->projets_id)
-                ->where('individuelles.formations_id', $formation?->id)
-                ->where('modules.name', 'LIKE', "%{$module->name}%")
-                ->where('regions.nom', $region->nom)
-                ->get();
-        } else {
-            $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
-                ->join('regions', 'regions.id', 'individuelles.regions_id')
-                ->select('individuelles.*')
-                ->where('individuelles.formations_id', $formation?->id)
-                ->where('modules.name', 'LIKE', "%{$module->name}%")
-                ->where('regions.nom', $region->nom)
-                ->get();
-        } */
-
         $feuillepresenceIndividuelle = DB::table('feuillepresences')
             ->where('emargements_id', $emargement?->id)
             ->pluck('emargements_id', 'emargements_id')
             ->all();
 
-        $title = 'Feuille de présence de la formation en  ' . $formation->name;
+        $title = 'Fiche de suivi de la formation en  ' . $formation->name;
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
@@ -2483,7 +2464,7 @@ class FormationController extends Controller
         )));
 
         // (Optional) Setup the paper size and orientation (portrait ou landscape)
-        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('A4', 'portrait');
 
         // Render the HTML as PDF
         $dompdf->render();
@@ -2530,12 +2511,12 @@ class FormationController extends Controller
         )));
 
         // (Optional) Setup the paper size and orientation (portrait ou landscape)
-        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('A4', 'portrait');
 
         // Render the HTML as PDF
         $dompdf->render();
 
-        $name = 'Feuille de présence de la formation en  ' . $formation->name . ', code ' . $formation->code . '.pdf';
+        $name = 'Fiche de suivi de la formation en  ' . $formation->name . ', code ' . $formation->code . '.pdf';
 
         // Output the generated PDF to Browser
         $dompdf->stream($name, ['Attachment' => false]);

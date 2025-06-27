@@ -6,16 +6,17 @@
     <title>{{ $title }}</title>
     <style>
         @page {
-            margin: 0cm 0cm;
+            size: A4 portrait;
+            margin: 1cm;
         }
 
         .invoice-box {
-            max-width: 1000px;
+            max-width: 100%;
             margin: auto;
             /* padding: 30px; */
             font-size: 12px;
             line-height: 18px;
-            color: color: rgb(0, 0, 0);
+            color: rgb(0, 0, 0);
             ;
         }
 
@@ -134,25 +135,32 @@
                     </td>
                 </tr>
                 <tr class="heading">
-                    <td colspan="2">{{ __('Effectif prévu : ') }}
+                    <td colspan="3">{{ __('Effectif prévu : ') }}
                         {{ $formation?->prevue_h + $formation?->prevue_f }}
                     </td>
-                    <td colspan="7"><b>{{ __('Bénéficiaires : ') }}</b>
+                    <td colspan="5"><b>{{ __('Bénéficiaires : ') }}</b>
 
                         {{ $formation?->name }}
 
                     </td>
                 </tr>
+                <tr class="heading">
+                    <td colspan="4">{{ __('Date début: ') }}
+                        {{ $formation?->date_debut?->format('d/m/Y') }}
+                    </td>
+                    <td colspan="5"><b>{{ __('Date fin : ') }}</b>
+                        {{ $formation?->date_fin?->format('d/m/Y') }}
+                    </td>
                 </tr>
                 <tr class="item" style="text-align: center;">
                     <td width="3%"><b>N°</b></td>
-                    <td><b>CIN</b></td>
                     <td><b>Prénom</b></td>
                     <td><b>NOM</b></td>
-                    <td width="8%"><b>Date naissance</b></td>
-                    <td><b>Lieu de naissance</b></td>
-                    <td width="8%"><b>Téléphone</b></td>
-                    <td width="8%"><b>Présence</b></td>
+                    <td><b>Date naissance</b></td>
+                    <td><b>Lieu naissance</b></td>
+                    <td><b>Téléphone</b></td>
+                    <td><b>CIN</b></td>
+                    <td width="5%"><b>Présence</b></td>
                     <td><b>Emargement</b></td>
                 </tr>
             </thead>
@@ -161,22 +169,19 @@
                 @foreach ($feuillepresencecollectives as $feuillepresencecollective)
                     <tr class="item" style="text-align: center;">
                         <td>{{ $i++ }}</td>
-                        <td>{{ $feuillepresencecollective?->listecollective?->cin }}</td>
                         <td>{{ format_proper_name($feuillepresencecollective?->listecollective?->prenom) }}</td>
                         <td>{{ remove_accents_uppercase($feuillepresencecollective?->listecollective?->nom) }}</td>
                         <td>{{ $feuillepresencecollective?->listecollective?->date_naissance?->format('d/m/Y') }}</td>
                         <td>{{ remove_accents_uppercase($feuillepresencecollective?->listecollective?->lieu_naissance) }}
                         </td>
-                        <td>
-                            {{ $feuillepresencecollective?->listecollective?->telephone }}
-                        </td>
+                        <td>{{ $feuillepresencecollective?->listecollective?->telephone }}</td>
+                        <td>{{ $feuillepresencecollective?->listecollective?->cin }}</td>
                         <td>
                             {{ ucwords(in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective) ? $feuillepresencecollective?->presence : '') }}
                         </td>
                         <td></td>
                     </tr>
                 @endforeach
-
             </tbody>
         </table>
     </div>
