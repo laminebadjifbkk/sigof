@@ -48,7 +48,7 @@
                     </ul>
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-title">Modules: {{ $collectivemodule->module }}</h5>
+                            <h5 class="card-title">Module: {{ $collectivemodule->module }}</h5>
                             <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
                                 data-bs-toggle="modal" data-bs-target="#AddIndividuelModal">
                                 Ajouter
