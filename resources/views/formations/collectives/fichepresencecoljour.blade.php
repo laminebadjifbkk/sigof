@@ -138,7 +138,7 @@
                     <td colspan="3">{{ __('Effectif prévu : ') }}
                         {{ $formation?->prevue_h + $formation?->prevue_f }}
                     </td>
-                    <td colspan="5"><b>{{ __('Bénéficiaires : ') }}</b>
+                    <td colspan="6"><b>{{ __('Bénéficiaires : ') }}</b>
 
                         {{ $formation?->name }}
 
