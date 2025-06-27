@@ -187,7 +187,7 @@
         <h4 valign="top">
             <b><u>AGENT DE SUIVI</u></b> : @isset($formation?->date_suivi)
                 <span
-                    style="float: right; font-style: italic">{{ remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $feuillepresencecollective?->emargementcollective?->date?->format('d/m/Y')?->format('d/m/Y') }}</span>
+                    style="float: right; font-style: italic">{{ remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $emargementcollective?->date?->format('d/m/Y') }}</span>
             @endisset
             <br>
             {{ $formation?->suivi_dossier }}<br>
