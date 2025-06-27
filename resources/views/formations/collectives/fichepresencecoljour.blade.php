@@ -159,7 +159,7 @@
                     <td><b>Date naissance</b></td>
                     <td><b>Lieu naissance</b></td>
                     <td><b>Téléphone</b></td>
-                    <td width="12%"><b>CIN</b></td>
+                    <td width="15%"><b>CIN</b></td>
                     <td width="5%"><b>Présence</b></td>
                     <td><b>Emargement</b></td>
                 </tr>
