@@ -299,7 +299,7 @@
                                                                     {{ $ingenieur->name }}
                                                                     @can('ingenieur-check')
                                                                         <a class="btn btn-info btn-sm" title="Voir ingénieur"
-                                                                            href="{{ route('ingenieurs.show', $collective) }}">
+                                                                            href="{{ route('ingenieurs.show', $ingenieur->id) }}">
                                                                             <i class="bi bi-eye"></i>
                                                                         </a>&nbsp;
                                                                         <a href="{{ route('addcollectiveingenieurs', $collective->id) }}"
