@@ -243,7 +243,7 @@
 
                                             <div class="col-md-8 mb-2">
                                                 <i class="bi bi-geo-alt-fill me-1"></i>
-                                                <strong>Localité :</strong> {{ $formation?->lieu ?? 'N/A' }}
+                                                <strong>Lieu :</strong> {{ $formation?->lieu ?? 'N/A' }}
                                             </div>
                                             <div class="col-md-4 mb-2">
                                                 <i class="bi bi-clock me-1"></i>
