@@ -3132,8 +3132,12 @@ class FormationController extends Controller
 
         $statutsVoulus = ['attente', 'conforme', 'nouvelle', 'validée', 'Sélectionné'];
 
-        $individuelles = Individuelle::where('modules_id', $idmodule)
+        /* $individuelles = Individuelle::where('modules_id', $idmodule)
             ->where('formations_id', $idformation)
+            ->whereIn('statut', $statutsVoulus)
+            ->get(); */
+
+        $individuelles = Individuelle::where('formations_id', $idformation)
             ->whereIn('statut', $statutsVoulus)
             ->get();
 

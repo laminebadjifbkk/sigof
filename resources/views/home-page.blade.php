@@ -204,7 +204,8 @@
                                         <h6 class="text-primary mb-3">
                                             <i class="bi bi-journal-code me-1"></i>
                                             Module :
-                                            {{ $isIndividuelle ? $formation?->module?->name : $formation?->collectivemodule?->module }}
+                                            <a
+                                                href="{{ route('formations.show', $formation) }}">{{ $isIndividuelle ? $formation?->module?->name : $formation?->collectivemodule?->module }}</a>
                                         </h6>
                                         <div class="row text-sm">
                                             <div class="col-md-8 mb-2">
