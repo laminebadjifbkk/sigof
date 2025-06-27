@@ -256,7 +256,6 @@
             @isset($membres_jury)
                 @foreach ($membres_jury as $item)
                     {{ $item }} <br>
-                    {{-- {{ $i++ . '/' . $count_membres . '. ' . $item }} <br><br> --}}
                 @endforeach
             @endisset
         </h4>
