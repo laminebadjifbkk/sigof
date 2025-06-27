@@ -157,7 +157,7 @@
                     <td><b>Prénom</b></td>
                     <td><b>NOM</b></td>
                     <td><b>Date naissance</b></td>
-                    <td width="18%"><b>Lieu naissance</b></td>
+                    <td width="20%"><b>Lieu naissance</b></td>
                     <td><b>Téléphone</b></td>
                     <td width="15%"><b>CIN</b></td>
                     <td width="5%"><b>Présence</b></td>
