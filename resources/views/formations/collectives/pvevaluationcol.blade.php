@@ -70,7 +70,7 @@
             /* padding: 30px; */
             font-size: 12px;
             line-height: 15px;
-            color:rgb(0, 0, 0);
+            color: rgb(0, 0, 0);
             ;
         }
 
@@ -249,7 +249,7 @@
             <b><u>SIGNATURE DES MEMBRES DU JURY</u></b> :
             @if (!empty($formation?->date_pv))
                 <span
-                    style="float: right; font-style: italic">{{ strtoupper($formation?->departement?->nom ?? '') . ', le ' . $formation?->date_pv?->format('d/m/Y') }}</span>
+                    style="float: right; font-style: italic">{{ remove_accents_uppercase($formation?->lieu ?? '') . ', ' . remove_accents_uppercase($formation?->departement?->nom ?? '') . ', le ' . $formation?->date_pv?->format('d/m/Y') }}</span>
             @endif
             <br>
             <?php $i = 1; ?>
