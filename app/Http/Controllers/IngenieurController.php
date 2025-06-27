@@ -75,7 +75,7 @@ class IngenieurController extends Controller
                 Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
             ],
             'name'      => [
-                'required', 'string', 'max:25',
+                'required', 'string', 'max:50',
                 Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
             ],
             'initiale'  => [
@@ -83,11 +83,11 @@ class IngenieurController extends Controller
                 Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
             ],
             'email'     => [
-                'required', 'string', 'max:250',
+                'required', 'string', 'max:50',
                 Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
             ],
             'telephone' => [
-                'required', 'string', 'max:250',
+                'required', 'string', 'size:12',
                 Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
             ],
         ]);
