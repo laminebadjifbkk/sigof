@@ -186,17 +186,15 @@
 
             </tbody>
         </table>
-        {{--  <h4 valign="top">
-            <b><u>AGENT DE SUIVI</u>:</b>
-            @isset($formation?->date_suivi)
-                {{ $formation?->suivi_dossier . ', le ' . $formation?->date_suivi?->format('d/m/Y') }}
+        <h4 valign="top">
+            <b><u>AGENT DE SUIVI</u></b> : @isset($formation?->date_suivi)
+                <span
+                    style="float: right; font-style: italic">{{ remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $emargement?->date?->format('d/m/Y') }}</span>
             @endisset
-        </h4> --}}
+            <br>
+            {{ $formation?->suivi_dossier }}<br>
+        </h4>
     </div>
-    {{-- <footer>
-        {{ __("Cité SIPRES 1 lot 2 - 2 voies liberté 6 extension VDN  Tél. : 33 827 92 51- Fax : 33 827 92 55
-                B.P. 21013 Dakar-Ponty  E-mail : onfp@onfp.sn - site web www.onfp.sn") }}
-    </footer> --}}
 </body>
 
 </html>
