@@ -99,6 +99,7 @@
         </b>
     </div>
     <div class="invoice-box">
+        <h4><u>{{ __("Direction de l'Ingénieurie et des Opérations de Formation") }}</u></h4>
         <table class="table table-responsive">
             <thead>
                 <tr class="heading" style="text-align: center;">
@@ -109,8 +110,8 @@
                     <td colspan="4">{{ __('Code : ') }}
                         {{ $formation?->code . '-C' }}
                     </td>
-                    <td colspan="4"><b>{{ __('Suivi : ') }}</b>
-                        @if(!empty($formation?->date_suivi))
+                    <td colspan="4"><b>{{ __('FICHE DE SUIVI DE FORMATION') }}</b>
+                        @if (!empty($formation?->date_suivi))
                             {{ $formation?->suivi_dossier . ', le ' . $formation?->date_suivi?->format('d/m/Y') }}
                         @endif
                     </td>

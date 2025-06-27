@@ -99,10 +99,11 @@
         </b>
     </div>
     <div class="invoice-box">
+        <h4><u>{{ __("Direction de l'Ingénieurie et des Opérations de Formation") }}</u></h4>
         <table class="table table-responsive">
             <thead>
                 <tr class="heading" style="text-align: center;">
-                    <td colspan="8"><b>{{ __('FICHE DE SUIVI') }}</b>
+                    <td colspan="8"><b>{{ __('FICHE DE SUIVI DE FORMATION') }}</b>
                     </td>
                 </tr>
                 <tr class="heading">
