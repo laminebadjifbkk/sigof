@@ -54,8 +54,8 @@
                                             <tr>
                                                 <th>Exécution</th>
                                                 <th>Création</th>
-                                                <th>Eval. ONFP</th>
-                                                <th>Formation</th>
+                                                <th>Evaluteur ONFP</th>
+                                                {{-- <th>Formation</th> --}}
                                                 <th>Module</th>
                                                 <th>Operateur</th>
                                                 <th>Evaluateur</th>
@@ -78,7 +78,7 @@
                                                     <td><span
                                                             class="{{ $lettrevaluation?->formation?->onfpevaluateur?->name ?? 'Aucun' }}">{{ $lettrevaluation?->formation?->onfpevaluateur?->name ?? 'Aucun' }}</span>
                                                     </td>
-                                                    <td>{{ $lettrevaluation?->formation?->name }}</td>
+                                                    {{-- <td>{{ $lettrevaluation?->formation?->name }}</td> --}}
                                                     <td>
                                                         <span
                                                             class="{{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}">
@@ -103,7 +103,7 @@
                                                                     action="{{ route($isIndividuel ? 'abeEvaluationlettre' : 'abeEvaluationCollettre', ['idformation' => $formation->id]) }}"
                                                                     method="POST" target="_blank" style="display:inline;">
                                                                     @csrf
-                                                                    <button type="submit" class="btn btn-primary btn-sm"
+                                                                    <button type="submit" class="btn btn-secondary btn-sm"
                                                                         title="Télécharger l'ABE">
                                                                         <i class="bi bi-download"></i>
                                                                     </button>
@@ -122,39 +122,51 @@
                                                                 title="Télécharger la lettre de mission">
                                                                 <i class="bi bi-download"></i>
                                                             </a>
-                                                            {{-- <button type="button" class="btn btn-warning btn-sm text-white"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#EditmembreModal{{ $lettrevaluation->id }}"
-                                                                title="Modifier la lettre">
-                                                                <i class="bi bi-pencil"></i>
-                                                            </button> --}}
                                                         </div>
                                                     </td>
                                                     {{-- Actions --}}
                                                     <td>
-                                                        <span class="d-flex align-items-baseline">
-                                                            @can('lettrevaluation-update')
-                                                                <a href="{{ route('lettrevaluations.edit', $lettrevaluation->id) }}"
-                                                                    class="btn btn-warning btn-sm text-white"
-                                                                    title="Modifier la lettre de mission">
-                                                                    <i class="bi bi-pencil"></i>
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <!-- Bouton Voir détails -->
+                                                            <a href="{{ route('formations.show', $formation) }}"
+                                                                class="btn btn-warning btn-sm" title="Voir détails">
+                                                                <i class="bi bi-eye"></i>
+                                                            </a>
+
+                                                            <!-- Dropdown actions -->
+                                                            <div class="dropdown">
+                                                                <a class="btn btn-sm btn-light" href="#"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                                                    title="Actions">
+                                                                    <i class="bi bi-three-dots-vertical"></i>
                                                                 </a>
-                                                            @endcan
-                                                            @can('lettrevaluation-delete')
-                                                                &nbsp;
-                                                                <form
-                                                                    action="{{ route('lettrevaluations.destroy', $lettrevaluation->id) }}"
-                                                                    method="POST" class="d-inline-block">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="btn btn-danger btn-sm show_confirm"
-                                                                        title="Supprimer">
-                                                                        <i class="bi bi-trash"></i>
-                                                                    </button>
-                                                                </form>
-                                                            @endcan
-                                                        </span>
+                                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                                    @can('formation-update')
+                                                                        <li>
+                                                                            <a class="dropdown-item"
+                                                                                href="{{ route('lettrevaluations.edit', $lettrevaluation->id) }}">
+                                                                                <i class="bi bi-pencil"></i> Modifier
+                                                                            </a>
+                                                                        </li>
+                                                                    @endcan
+                                                                    @can('formation-delete')
+                                                                        <li>
+                                                                            <form
+                                                                                action="{{ route('lettrevaluations.destroy', $lettrevaluation->id) }}"
+                                                                                method="POST"
+                                                                                onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette lettre ?')">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item text-danger">
+                                                                                    <i class="bi bi-trash"></i> Supprimer
+                                                                                </button>
+                                                                            </form>
+                                                                        </li>
+                                                                    @endcan
+                                                                </ul>
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             @endforeach

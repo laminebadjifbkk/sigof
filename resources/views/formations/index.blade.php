@@ -223,27 +223,33 @@
                                 <i class="bi bi-folder-plus" title="Ajouter"></i>
                             </button>
                         </div> --}}
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">{{ $title }}</h5>
+
                             @can('formation-create')
-                                <h5 class="card-title">{{ $title }}</h5>
-                                @can('formation-create')
-                                    <span class="d-flex align-items-baseline">
-                                        <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
-                                            data-bs-target="#AddFormationModal" title="Ajouter">Ajouter</a>
-                                        <div class="filter">
-                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                    class="bi bi-three-dots"></i></a>
-                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                <li>
-                                                    <button type="button" class="dropdown-item btn btn-sm"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#generate_rapportFormation"></i>Générer
-                                                        suivi-convention</button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </span>
-                                @endcan
+                                <div class="d-flex align-items-center gap-2">
+                                    <!-- Bouton Ajouter -->
+                                    <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#AddFormationModal" title="Ajouter une formation">
+                                        Ajouter
+                                    </a>
+
+                                    <!-- Menu déroulant -->
+                                    <div class="dropdown">
+                                        <a href="#" class="btn btn-sm btn-light" data-bs-toggle="dropdown"
+                                            title="Options">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                    data-bs-target="#generate_rapportFormation">
+                                                    <i class="bi bi-file-earmark-text"></i> Générer suivi-convention
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             @endcan
                         </div>
                         @if ($formations->isNotEmpty())
@@ -289,21 +295,25 @@
                                             </td>
                                             @can('formation-show')
                                                 <td>
-                                                    <span class="d-flex align-items-baseline">
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <!-- Bouton Voir détails -->
                                                         <a href="{{ route('formations.show', $formation) }}"
-                                                            class="btn btn-primary btn-sm" title="Voir détails">
+                                                            class="btn btn-primary btn-sm" title="Voir les détails">
                                                             <i class="bi bi-eye"></i>
                                                         </a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown">
-                                                                <i class="bi bi-three-dots"></i>
+
+                                                        <!-- Menu déroulant d'actions -->
+                                                        <div class="dropdown">
+                                                            <a href="#" class="btn btn-sm btn-light"
+                                                                data-bs-toggle="dropdown" aria-expanded="false"
+                                                                title="Plus d'actions">
+                                                                <i class="bi bi-three-dots-vertical"></i>
                                                             </a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            <ul class="dropdown-menu dropdown-menu-end">
                                                                 @can('formation-update')
                                                                     <li>
-                                                                        <a class="dropdown-item btn btn-sm"
-                                                                            href="{{ route('formations.edit', $formation) }}"
-                                                                            title="Modifier">
+                                                                        <a href="{{ route('formations.edit', $formation) }}"
+                                                                            class="dropdown-item">
                                                                             <i class="bi bi-pencil"></i> Modifier
                                                                         </a>
                                                                     </li>
@@ -312,12 +322,12 @@
                                                                     <li>
                                                                         <form
                                                                             action="{{ route('formations.destroy', $formation) }}"
-                                                                            method="POST">
+                                                                            method="POST"
+                                                                            onsubmit="return confirm('Confirmer la suppression de cette formation ?')">
                                                                             @csrf
                                                                             @method('DELETE')
                                                                             <button type="submit"
-                                                                                class="dropdown-item show_confirm"
-                                                                                title="Supprimer">
+                                                                                class="dropdown-item text-danger">
                                                                                 <i class="bi bi-trash"></i> Supprimer
                                                                             </button>
                                                                         </form>
@@ -325,7 +335,7 @@
                                                                 @endcan
                                                             </ul>
                                                         </div>
-                                                    </span>
+                                                    </div>
                                                 </td>
                                             @endcan
                                         </tr>

@@ -535,18 +535,18 @@
                                                     class="table table-bordered table-hover datatables align-middle justify-content-center table-borderless"
                                                     id="table-operateurModules">
                                                     <thead>
-                                                        <tr class="text-center">
-                                                            <th>N°</th>
-                                                            <th>CIN</th>
+                                                        <tr>
+                                                            <th class="text-center" width="2%">N°</th>
+                                                            <th class="text-center" width="7">CIN</th>
                                                             <th>Prénom</th>
                                                             <th>NOM</th>
-                                                            <th>Date naissance</th>
+                                                            <th width="10%">Date naissance</th>
                                                             <th>Lieu de naissance</th>
-                                                            <th>Telephone</th>
+                                                            <th class="text-center">Telephone</th>
                                                             <th>Niveau étude</th>
                                                             {{-- Condition pour afficher la note ou la confirmation --}}
                                                             @if ($formation->statut === 'Terminée')
-                                                                <th>Note</th>
+                                                                <th class="text-center">Note</th>
                                                             @else
                                                                 <th>Confirmation</th>
                                                             @endif
@@ -556,17 +556,16 @@
                                                                     <th width='3%'>Suivi</th>
                                                                 @endcan
                                                             @endif
-                                                            <th width='2%'><i class="bi bi-gear"></i>
-                                                            </th>
+                                                            <th width='2%'></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php $i = 1; ?>
                                                         @foreach ($formation->individuelles as $individuelle)
-                                                            <tr valign="middle" class="text-center">
-                                                                <td>{{ $i++ }}</td>
-                                                                <td>
-                                                                    {{ $individuelle?->user?->cin }}</td>
+                                                            <tr valign="middle">
+                                                                <td class="text-center">{{ $i++ }}</td>
+                                                                <td class="text-center">{{ $individuelle?->user?->cin }}
+                                                                </td>
                                                                 <td>{{ $individuelle?->user?->firstname }}</td>
                                                                 <td>{{ $individuelle?->user?->name }}</td>
                                                                 <td>
@@ -575,7 +574,7 @@
                                                                 <td>
                                                                     {{ $individuelle?->user?->lieu_naissance }}
                                                                 </td>
-                                                                <td>
+                                                                <td class="text-center">
                                                                     {{ $individuelle?->user?->telephone }}
                                                                 </td>
                                                                 <td>
@@ -623,40 +622,57 @@
                                                                         </td>
                                                                     @endcan
                                                                 @endif
-
                                                                 <td>
-                                                                    <span class="d-flex align-items-baseline">
+                                                                    <div class="d-flex align-items-center gap-2">
+                                                                        <!-- Bouton voir détails -->
                                                                         <a href="{{ route('individuelles.show', $individuelle) }}"
                                                                             class="btn btn-primary btn-sm"
-                                                                            title="voir détails"><i
-                                                                                class="bi bi-eye"></i></a>
-                                                                        <div class="filter">
-                                                                            <a class="icon" href="#"
-                                                                                data-bs-toggle="dropdown"><i
-                                                                                    class="bi bi-three-dots"></i></a>
-                                                                            <ul
-                                                                                class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                            title="Voir détails">
+                                                                            <i class="bi bi-eye"></i>
+                                                                        </a>
+
+                                                                        <!-- Menu déroulant -->
+                                                                        <div class="dropdown">
+                                                                            <a href="#" class="btn btn-sm btn-light"
+                                                                                data-bs-toggle="dropdown"
+                                                                                aria-expanded="false" title="Actions">
+                                                                                <i class="bi bi-three-dots-vertical"></i>
+                                                                            </a>
+                                                                            <ul class="dropdown-menu dropdown-menu-end">
                                                                                 @can('retirer-demandeur-formation')
-                                                                                    <button class="btn btn-sm mx-1"
-                                                                                        data-bs-toggle="modal"
-                                                                                        data-bs-target="#indiponibleModal{{ $individuelle->id }}">Retirer
-                                                                                    </button>
+                                                                                    <li>
+                                                                                        <button type="button"
+                                                                                            class="dropdown-item"
+                                                                                            data-bs-toggle="modal"
+                                                                                            data-bs-target="#indiponibleModal{{ $individuelle->id }}">
+                                                                                            <i class="bi bi-person-x"></i>
+                                                                                            Retirer
+                                                                                        </button>
+                                                                                    </li>
                                                                                 @endcan
+
                                                                                 @if (!empty($individuelle?->suivi) && $formation->statut !== 'Attente')
-                                                                                    <form
-                                                                                        action="{{ route('nepasSuivre', $individuelle?->id) }}"
-                                                                                        method="post">
-                                                                                        @csrf
-                                                                                        @method('PUT')
-                                                                                        <button
-                                                                                            class="show_confirm_suivi btn btn-sm mx-1">Ne
-                                                                                            plus suivre</button>
-                                                                                    </form>
+                                                                                    <li>
+                                                                                        <form
+                                                                                            action="{{ route('nepasSuivre', $individuelle->id) }}"
+                                                                                            method="POST"
+                                                                                            onsubmit="return confirm('Voulez-vous vraiment ne plus suivre ce demandeur ?')">
+                                                                                            @csrf
+                                                                                            @method('PUT')
+                                                                                            <button type="submit"
+                                                                                                class="dropdown-item text-danger">
+                                                                                                <i
+                                                                                                    class="bi bi-slash-circle"></i>
+                                                                                                Ne plus suivre
+                                                                                            </button>
+                                                                                        </form>
+                                                                                    </li>
                                                                                 @endif
                                                                             </ul>
                                                                         </div>
-                                                                    </span>
+                                                                    </div>
                                                                 </td>
+
                                                             </tr>
                                                         @endforeach
 
@@ -980,10 +996,9 @@
                                                     <table class="table table-bordered table-hover datatables"
                                                         id="table-evaluation">
                                                         <thead>
-                                                            <tr class="text-center">
-                                                                <th>N°</th>
-                                                                {{-- <th>Numéro</th> --}}
-                                                                <th>Civilité</th>
+                                                            <tr>
+                                                                <th class="text-center" width="2%">N°</th>
+                                                                <th class="text-center" width="4%">Civilité</th>
                                                                 <th>CIN</th>
                                                                 <th>Prénom</th>
                                                                 <th>NOM</th>
@@ -992,7 +1007,6 @@
                                                                 <th class="text-center">Note<span
                                                                         class="text-danger mx-1">*</span></th>
                                                                 <th class="text-center">Observations</th>
-                                                                {{-- <th class="col"><i class="bi bi-gear"></i></th> --}}
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -1000,7 +1014,6 @@
                                                             @foreach ($formation->individuelles as $individuelle)
                                                                 <tr valign="middle" class="text-center">
                                                                     <td>{{ $i++ }}</td>
-                                                                    {{-- <td>{{ $individuelle?->numero }}</td> --}}
                                                                     <td>{{ $individuelle?->user?->civilite }}</td>
                                                                     <td>{{ $individuelle?->user?->cin }}</td>
                                                                     <td>{{ $individuelle?->user?->firstname }}</td>
@@ -1073,11 +1086,8 @@
                                     <div class="col-12 col-md-12 col-lg-12 mb-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h1 class="card-title">Feuilles de présence</h1>
-                                            <span class="d-flex align-items-baseline">
-                                                {{-- <button type="button" class="btn btn-outline-primary btn-sm"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#ajouterJours{{ $formation->id }}">ajouter
-                                                </button> --}}
+                                            <div class="d-flex align-items-center gap-2">
+                                                <!-- Bouton Ajouter -->
                                                 <button type="button"
                                                     class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-1 shadow-sm"
                                                     data-bs-toggle="modal"
@@ -1087,13 +1097,16 @@
                                                     <span class="d-none d-sm-inline">Ajouter</span>
                                                 </button>
 
-                                                <div class="filter">
-                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                <!-- Menu déroulant -->
+                                                <div class="dropdown">
+                                                    <a href="#" class="btn btn-sm btn-light"
+                                                        data-bs-toggle="dropdown" aria-expanded="false" title="Actions">
+                                                        <i class="bi bi-three-dots-vertical"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
                                                         <li>
                                                             <form action="{{ route('feuillePresenceFinale') }}"
-                                                                method="post" target="_blank">
+                                                                method="POST" target="_blank" class="px-3">
                                                                 @csrf
                                                                 <input type="hidden" name="idformation"
                                                                     value="{{ $formation->id }}">
@@ -1101,12 +1114,15 @@
                                                                     value="{{ $formation?->module?->id }}">
                                                                 <input type="hidden" name="idlocalite"
                                                                     value="{{ $formation?->departement?->region?->id }}">
-                                                                <button class="btn btn-sm mx-1">Feuille de présence</button>
+                                                                <button type="submit" class="dropdown-item">
+                                                                    <i class="bi bi-journal-text me-1"></i> Feuille de
+                                                                    présence
+                                                                </button>
                                                             </form>
                                                         </li>
                                                         <li>
-                                                            <form action="{{ route('etatTransport') }}" method="post"
-                                                                target="_blank">
+                                                            <form action="{{ route('etatTransport') }}" method="POST"
+                                                                target="_blank" class="px-3">
                                                                 @csrf
                                                                 <input type="hidden" name="idformation"
                                                                     value="{{ $formation->id }}">
@@ -1114,12 +1130,15 @@
                                                                     value="{{ $formation?->module?->id }}">
                                                                 <input type="hidden" name="idlocalite"
                                                                     value="{{ $formation?->departement?->region?->id }}">
-                                                                <button class="btn btn-sm mx-1">Etat transport</button>
+                                                                <button type="submit" class="dropdown-item">
+                                                                    <i class="bi bi-truck me-1"></i> État transport
+                                                                </button>
                                                             </form>
                                                         </li>
                                                     </ul>
                                                 </div>
-                                            </span>
+                                            </div>
+
                                         </div>
                                         <div class="row g-3">
                                             <table class="table table-bordered table-hover datatables"
@@ -1161,16 +1180,73 @@
                                                                     <div class="badge bg-warning">Aucun</div>
                                                                 @endif
                                                             </td>
-                                                            <td>{{ $emargement?->observations }}</td>
+                                                            <td>
+                                                                @php
+                                                                    $obs = trim($emargement?->observations ?? '');
+                                                                    $words = $obs ? explode(' ', $obs) : [];
+                                                                    $preview =
+                                                                        count($words) > 10
+                                                                            ? implode(' ', array_slice($words, 0, 10)) .
+                                                                                '...'
+                                                                            : $obs;
+                                                                @endphp
+
+                                                                @if ($obs)
+                                                                    <span>{{ $preview }}</span>
+
+                                                                    @if (count($words) > 10)
+                                                                        <!-- Bouton pour ouvrir le modal -->
+                                                                        <button type="button"
+                                                                            class="btn btn-link btn-sm p-0 ms-2"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#observationsModal{{ $emargement->id }}">
+                                                                            Voir plus
+                                                                        </button>
+
+                                                                        <!-- Modal Bootstrap -->
+                                                                        <div class="modal fade"
+                                                                            id="observationsModal{{ $emargement->id }}"
+                                                                            tabindex="-1"
+                                                                            aria-labelledby="observationsModalLabel{{ $emargement->id }}"
+                                                                            aria-hidden="true">
+                                                                            <div
+                                                                                class="modal-dialog modal-dialog-centered">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title"
+                                                                                            id="observationsModalLabel{{ $emargement->id }}">
+                                                                                            Observations complètes
+                                                                                        </h5>
+                                                                                        <button type="button"
+                                                                                            class="btn-close"
+                                                                                            data-bs-dismiss="modal"
+                                                                                            aria-label="Fermer"></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        {!! nl2br(e($obs)) !!}
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button"
+                                                                                            class="btn btn-secondary btn-sm"
+                                                                                            data-bs-dismiss="modal">Fermer</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    @endif
+                                                                @endif
+                                                            </td>
                                                             <td class="text-center">
-                                                                <span class="d-flex mt-2 align-items-baseline">
+                                                                <div
+                                                                    class="d-flex justify-content-center align-items-center gap-2 mt-2">
+                                                                    <!-- Voir / Ajouter bénéficiaires -->
                                                                     <form
                                                                         action="{{ route('formationemargement', [
-                                                                            '$idformation' => $formation->id,
-                                                                            '$idmodule' => $formation->module->id,
-                                                                            '$idlocalite' => $formation->departement->id,
+                                                                            'idformation' => $formation->id,
+                                                                            'idmodule' => $formation->module->id,
+                                                                            'idlocalite' => $formation->departement->id,
                                                                         ]) }}"
-                                                                        method="get">
+                                                                        method="GET">
                                                                         @csrf
                                                                         <input type="hidden" name="idformation"
                                                                             value="{{ $formation?->id }}">
@@ -1181,45 +1257,52 @@
                                                                         <input type="hidden" name="idemargement"
                                                                             value="{{ $emargement?->id }}">
                                                                         <button type="submit"
-                                                                            class="btn btn-outline-primary btn-rounded btn-sm"><i
-                                                                                class="bi bi-eye"
-                                                                                title="Ajouter bénéficiaires"></i></button>
+                                                                            class="btn btn-outline-primary btn-sm"
+                                                                            title="Ajouter bénéficiaires">
+                                                                            <i class="bi bi-eye"></i>
+                                                                        </button>
                                                                     </form>
-                                                                    <div class="filter">
-                                                                        <a class="icon" href="#"
-                                                                            data-bs-toggle="dropdown"><i
-                                                                                class="bi bi-three-dots"></i></a>
-                                                                        <ul
-                                                                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+
+                                                                    <!-- Dropdown actions -->
+                                                                    <div class="dropdown">
+                                                                        <a href="#" class="btn btn-sm btn-light"
+                                                                            data-bs-toggle="dropdown"
+                                                                            aria-expanded="false" title="Actions">
+                                                                            <i class="bi bi-three-dots-vertical"></i>
+                                                                        </a>
+                                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                                            <!-- Modifier -->
                                                                             <li>
                                                                                 <button type="button"
-                                                                                    class="dropdown-item btn btn-sm mx-1"
+                                                                                    class="dropdown-item"
                                                                                     data-bs-toggle="modal"
                                                                                     data-bs-target="#EditEmargementModal{{ $emargement->id }}">
-                                                                                    <i class="bi bi-pencil"
-                                                                                        title="Modifier"></i> Modifier
+                                                                                    <i class="bi bi-pencil me-1"></i>
+                                                                                    Modifier
                                                                                 </button>
                                                                             </li>
+
+                                                                            <!-- Supprimer -->
                                                                             <li>
                                                                                 <form
                                                                                     action="{{ url('emargements', $emargement->id) }}"
-                                                                                    method="post">
+                                                                                    method="POST" class="px-3">
                                                                                     @csrf
                                                                                     @method('DELETE')
                                                                                     <button type="submit"
-                                                                                        class="dropdown-item show_confirm"><i
-                                                                                            class="bi bi-trash"></i>Supprimer</button>
+                                                                                        class="dropdown-item text-danger show_confirm">
+                                                                                        <i class="bi bi-trash me-1"></i>
+                                                                                        Supprimer
+                                                                                    </button>
                                                                                 </form>
                                                                             </li>
                                                                         </ul>
                                                                     </div>
-                                                                </span>
-                                                                </span>
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
-                                            </table>
                                             </table>
                                         </div>
                                     </div>
@@ -1949,7 +2032,8 @@
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="evaluateur"
                                             class="form-select @error('evaluateur') is-invalid @enderror"
-                                            aria-label="Select" id="select-field" data-placeholder="Choisir evaluateur">
+                                            aria-label="Select" id="select-field"
+                                            data-placeholder="Choisir evaluateur">
                                             <option value="{{ $formation?->evaluateur?->id }}">
                                                 @if (!empty($formation?->evaluateur?->name))
                                                     {{ $formation?->evaluateur?->name . ', ' . $formation?->evaluateur?->fonction }}
@@ -2031,7 +2115,8 @@
                                     class="form-control form-control-sm @error('type_certificat') is-invalid @enderror"
                                     id="type_certificat" placeholder="Attestation ou Titre "> --}}
 
-                                        <select name="titre" class="form-select  @error('titre') is-invalid @enderror"
+                                        <select name="titre"
+                                            class="form-select  @error('titre') is-invalid @enderror"
                                             aria-label="Select" id="select-field-titre"
                                             data-placeholder="Choisir titre">
                                             <option>

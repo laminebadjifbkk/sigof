@@ -31,20 +31,7 @@
                         <br>
                         <div class="d-flex justify-content-between align-items-center">
                             <h5><u><b>{{ $emargementcollective?->jour }}</b></u></h5>
-                            <span class="d-flex align-items-baseline">
-                                {{-- <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
-                                    data-bs-target="#AddFormationModal" title="Ajouter">Ajouter</a> --}}
-                                {{-- <a href="{{ url('ajouterDemandeursPresenceJourCollectives', [
-                                    'idformation' => $formation->id,
-                                    'idcollectivemodule' => $formation?->collectivemodule?->id,
-                                    'idlocalite' => $formation->departement->region->id,
-                                    'idemargementcollective' => $emargementcollective->id,
-                                ]) }}"
-                                    class="btn btn-success btn-sm rounded-pill shadow-sm d-inline-flex align-items-center gap-1 px-3 py-1"
-                                    title="Ajouter bénéficiaires" style="transition: all 0.3s ease;">
-                                    <i class="bi bi-people"></i>
-                                    <span>Ajouter</span>
-                                </a> --}}
+                            <span class="d-flex align-items-center gap-2">
                                 @php
                                     $ids = $feuillepresencecollectives->pluck('id')->toArray();
                                     $encodedIds = urlencode(json_encode($ids));
@@ -63,12 +50,16 @@
                                     <i class="bi bi-people"></i>
                                     <span>Ajouter</span>
                                 </a>
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
+
+                                <div class="dropdown">
+                                    <a href="#" class="btn btn-light btn-sm" data-bs-toggle="dropdown"
+                                        aria-expanded="false" title="Actions">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </a>
                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                         <li>
-                                            <form action="{{ route('feuillePresenceColTous') }}" method="post">
+                                            <form action="{{ route('feuillePresenceColTous') }}" method="post"
+                                                class="px-3 py-1">
                                                 @csrf
                                                 <input type="hidden" name="idformation" value="{{ $formation->id }}">
                                                 <input type="hidden" name="idmodule"
@@ -77,10 +68,13 @@
                                                     value="{{ $formation?->departement?->region?->id }}">
                                                 <input type="hidden" name="idemargement"
                                                     value="{{ $emargementcollective?->id }}">
-                                                <button class="show_confirm_valider btn btn-sm mx-1">Pointer tous</button>
+                                                <button type="submit" class="btn btn-sm w-100 show_confirm_valider">Pointer
+                                                    tous</button>
                                             </form>
+                                        </li>
+                                        <li>
                                             <form action="{{ route('feuillePresenceColJour') }}" method="post"
-                                                target="_blank">
+                                                target="_blank" class="px-3 py-1">
                                                 @csrf
                                                 <input type="hidden" name="idformation" value="{{ $formation->id }}">
                                                 <input type="hidden" name="idmodule"
@@ -89,10 +83,12 @@
                                                     value="{{ $formation?->departement?->region?->id }}">
                                                 <input type="hidden" name="idemargement"
                                                     value="{{ $emargementcollective?->id }}">
-                                                <button class="btn btn-sm mx-1">Feuille de présence</button>
+                                                <button type="submit" class="btn btn-sm w-100">Feuille présence</button>
                                             </form>
+                                        </li>
+                                        <li>
                                             <form action="{{ route('fichePresenceColJour') }}" method="post"
-                                                target="_blank">
+                                                target="_blank" class="px-3 py-1">
                                                 @csrf
                                                 <input type="hidden" name="idformation" value="{{ $formation->id }}">
                                                 <input type="hidden" name="idmodule"
@@ -101,7 +97,7 @@
                                                     value="{{ $formation?->departement?->region?->id }}">
                                                 <input type="hidden" name="idemargement"
                                                     value="{{ $emargementcollective?->id }}">
-                                                <button class="btn btn-sm mx-1">Fiche de suivi</button>
+                                                <button type="submit" class="btn btn-sm w-100">Fiche de suivi</button>
                                             </form>
                                         </li>
                                     </ul>
@@ -160,36 +156,44 @@
                                                         @endforeach
                                                     </td>
                                                     <td>
-                                                        <span class="d-flex align-items-baseline"><a
-                                                                href="{{ route('listecollectives.show', $feuillepresencecollective?->listecollective) }}"
-                                                                class="btn btn-primary btn-sm" title="voir détails"
-                                                                target="_blanck"><i class="bi bi-eye"></i></a>
-                                                            <div class="filter">
-                                                                <a class="icon" href="#"
-                                                                    data-bs-toggle="dropdown"><i
-                                                                        class="bi bi-three-dots"></i></a>
+                                                        <div class="d-flex align-items-baseline gap-2">
+                                                            <a href="{{ route('listecollectives.show', $feuillepresencecollective?->listecollective) }}"
+                                                                class="btn btn-primary btn-sm" title="Voir détails"
+                                                                target="_blank" rel="noopener noreferrer">
+                                                                <i class="bi bi-eye"></i>
+                                                            </a>
+
+                                                            <div class="dropdown">
+                                                                <a href="#" class="btn btn-light btn-sm"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                                                    title="Actions">
+                                                                    <i class="bi bi-three-dots-vertical"></i>
+                                                                </a>
                                                                 <ul
                                                                     class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                     <li>
                                                                         <button type="button" class="dropdown-item"
                                                                             data-bs-toggle="modal"
-                                                                            data-bs-target="#PresenceModal{{ $feuillepresencecollective?->listecollective->id }}">Pointer
+                                                                            data-bs-target="#PresenceModal{{ $feuillepresencecollective?->listecollective->id }}">
+                                                                            Pointer
                                                                         </button>
                                                                     </li>
                                                                     <li>
                                                                         <form
                                                                             action="{{ route('feuillepresencecollectives.destroy', $feuillepresencecollective?->listecollective) }}"
-                                                                            method="post">
+                                                                            method="POST" class="m-0 p-0">
                                                                             @csrf
                                                                             @method('DELETE')
                                                                             <button type="submit"
                                                                                 class="dropdown-item show_confirm"
-                                                                                title="Supprimer">Supprimer</button>
+                                                                                title="Supprimer">
+                                                                                Supprimer
+                                                                            </button>
                                                                         </form>
                                                                     </li>
                                                                 </ul>
                                                             </div>
-                                                        </span>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             @endforeach

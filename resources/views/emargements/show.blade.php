@@ -31,7 +31,7 @@
                         <br>
                         <div class="d-flex justify-content-between align-items-center">
                             <h5><u><b>{{ $emargement?->jour }}</b></u></h5>
-                            <span class="d-flex align-items-baseline">
+                            <span class="d-flex align-items-center gap-2">
 
                                 @php
                                     $ids = $feuillepresences->pluck('id')->toArray();
@@ -51,12 +51,16 @@
                                     <i class="bi bi-people"></i>
                                     <span>Ajouter</span>
                                 </a>
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
+
+                                <div class="dropdown">
+                                    <a href="#" class="btn btn-light btn-sm" data-bs-toggle="dropdown"
+                                        aria-expanded="false" title="Actions">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </a>
                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                         <li>
-                                            <form action="{{ route('feuillePresenceTous') }}" method="post">
+                                            <form action="{{ route('feuillePresenceTous') }}" method="post"
+                                                class="px-3 py-1">
                                                 @csrf
                                                 <input type="hidden" name="idformation" value="{{ $formation->id }}">
                                                 <input type="hidden" name="idmodule"
@@ -64,10 +68,13 @@
                                                 <input type="hidden" name="idlocalite"
                                                     value="{{ $formation?->departement?->region?->id }}">
                                                 <input type="hidden" name="idemargement" value="{{ $emargement?->id }}">
-                                                <button class="show_confirm_valider btn btn-sm mx-1">Pointer tous</button>
+                                                <button type="submit" class="btn btn-sm w-100 show_confirm_valider">Pointer
+                                                    tous</button>
                                             </form>
+                                        </li>
+                                        <li>
                                             <form action="{{ route('feuillePresenceJour') }}" method="post"
-                                                target="_blank">
+                                                target="_blank" class="px-3 py-1">
                                                 @csrf
                                                 <input type="hidden" name="idformation" value="{{ $formation->id }}">
                                                 <input type="hidden" name="idmodule"
@@ -75,10 +82,12 @@
                                                 <input type="hidden" name="idlocalite"
                                                     value="{{ $formation?->departement?->region?->id }}">
                                                 <input type="hidden" name="idemargement" value="{{ $emargement?->id }}">
-                                                <button class="btn btn-sm mx-1">Feuille de présence</button>
+                                                <button type="submit" class="btn btn-sm w-100">Feuille présence</button>
                                             </form>
-                                            <form action="{{ route('fichePresenceJour') }}" method="post"
-                                                target="_blank">
+                                        </li>
+                                        <li>
+                                            <form action="{{ route('fichePresenceJour') }}" method="post" target="_blank"
+                                                class="px-3 py-1">
                                                 @csrf
                                                 <input type="hidden" name="idformation" value="{{ $formation->id }}">
                                                 <input type="hidden" name="idmodule"
@@ -86,7 +95,7 @@
                                                 <input type="hidden" name="idlocalite"
                                                     value="{{ $formation?->departement?->region?->id }}">
                                                 <input type="hidden" name="idemargement" value="{{ $emargement?->id }}">
-                                                <button class="btn btn-sm mx-1">Fiche de suivi</button>
+                                                <button type="submit" class="btn btn-sm w-100">Fiche de suivi</button>
                                             </form>
                                         </li>
                                     </ul>
@@ -152,36 +161,44 @@
                                                         <td>{{ $feuillepresence?->individuelle?->projet?->sigle }}</td>
                                                     @endif
                                                     <td>
-                                                        <span class="d-flex align-items-baseline"><a
-                                                                href="{{ route('individuelles.show', $feuillepresence?->individuelle) }}"
-                                                                class="btn btn-primary btn-sm" title="voir détails"
-                                                                target="_blanck"><i class="bi bi-eye"></i></a>
-                                                            <div class="filter">
-                                                                <a class="icon" href="#"
-                                                                    data-bs-toggle="dropdown"><i
-                                                                        class="bi bi-three-dots"></i></a>
+                                                        <div class="d-flex align-items-baseline gap-2">
+                                                            <a href="{{ route('individuelles.show', $feuillepresence?->individuelle) }}"
+                                                                class="btn btn-primary btn-sm" title="Voir détails"
+                                                                target="_blank" rel="noopener noreferrer">
+                                                                <i class="bi bi-eye"></i>
+                                                            </a>
+
+                                                            <div class="dropdown">
+                                                                <a href="#" class="btn btn-light btn-sm"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                                                    title="Actions">
+                                                                    <i class="bi bi-three-dots-vertical"></i>
+                                                                </a>
                                                                 <ul
                                                                     class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                     <li>
                                                                         <button type="button" class="dropdown-item"
                                                                             data-bs-toggle="modal"
-                                                                            data-bs-target="#PresenceModal{{ $feuillepresence?->individuelle->id }}">Pointer
+                                                                            data-bs-target="#PresenceModal{{ $feuillepresence?->individuelle->id }}">
+                                                                            Pointer
                                                                         </button>
                                                                     </li>
                                                                     <li>
                                                                         <form
                                                                             action="{{ route('feuillepresences.destroy', $feuillepresence?->individuelle->id) }}"
-                                                                            method="post">
+                                                                            method="POST" class="m-0 p-0">
                                                                             @csrf
                                                                             @method('DELETE')
                                                                             <button type="submit"
                                                                                 class="dropdown-item show_confirm"
-                                                                                title="Supprimer">Supprimer</button>
+                                                                                title="Supprimer">
+                                                                                Supprimer
+                                                                            </button>
                                                                         </form>
                                                                     </li>
                                                                 </ul>
                                                             </div>
-                                                        </span>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             @endforeach
