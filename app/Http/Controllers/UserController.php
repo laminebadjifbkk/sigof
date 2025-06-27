@@ -410,7 +410,7 @@ class UserController extends Controller
                 'name'           => ['required', 'string', 'max:50'],
                 'date_naissance' => ['nullable', 'date_format:d/m/Y'],
                 'lieu_naissance' => ['nullable', 'string'],
-                'image'          => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+                'image'          => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
                 'telephone'      => ['required', 'string', 'min:9', 'max:12'],
                 'adresse'        => ['required', 'string', 'max:255'],
                 'roles.*'        => ['nullable', 'string', 'max:255'],
@@ -418,7 +418,9 @@ class UserController extends Controller
                     'nullable',
                     'email',
                     'max:255',
-                    Rule::unique(User::class, 'email')->ignore($user->uuid, 'uuid'),
+                    Rule::unique(User::class, 'email')
+                        ->ignore($user->uuid, 'uuid')
+                        ->whereNull('deleted_at'),
                 ],
             ]);
 
