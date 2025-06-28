@@ -227,7 +227,12 @@
                     @hasrole('super-admin')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('individuelles.corbeille') }}">
-                                <span>Corbeille</span>
+                                <span>Corbeille individuelles</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('collectives.corbeille') }}">
+                                <span>Corbeille collectives</span>
                             </a>
                         </li>
                     @endhasrole
@@ -336,6 +341,15 @@
                             </a>
                         </li>
                     @endcan
+
+                    
+                    @hasrole('super-admin')
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('operateurs.corbeille') }}">
+                                <span>Corbeille</span>
+                            </a>
+                        </li>
+                    @endhasrole
                 </ul>
             </li>
         @endcan

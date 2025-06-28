@@ -1407,6 +1407,59 @@
                 });
         });
     </script>
+
+    <script type="text/javascript">
+        $('.show_confirm_nettoyer').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                    title: `Êtes-vous sûr de vouloir nettoyer ?`,
+                    text: "Vous pouvez cliquer sur ok pour confirmer ou cliquer sur cancel pour annuler.",
+                    icon: "warning",
+                    buttons: ["Annuler", "Oui, nettoyer !"],
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        form.submit();
+                    }
+                });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Délégation d'événement pour s'assurer que tous les éléments dynamiques sont pris en charge
+            $(document).on('click', '.show_confirm_restaurer', function(event) {
+                event.preventDefault(); // Empêche la soumission automatique
+
+                const form = $(this).closest("form");
+
+                swal({
+                    title: "Êtes-vous sûr de vouloir restaurer ?",
+                    text: "Vous pouvez cliquer sur OK pour confirmer ou sur Annuler pour annuler.",
+                    icon: "warning", // "warning" est plus adapté pour une action risquée
+                    buttons: {
+                        cancel: "Annuler",
+                        confirm: {
+                            text: "Oui, restaurer !",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: true
+                        }
+                    },
+                    dangerMode: true
+                }).then((willRestore) => {
+                    if (willRestore) {
+                        form.submit(); // Soumet le formulaire si confirmé
+                    }
+                });
+            });
+        });
+    </script>
+
     <script>
         $("#checkAll").click(function() {
             $(".form-check-input").prop('checked', $(this).prop('checked'));

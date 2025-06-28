@@ -1,9 +1,8 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - UTILISATEURS SUPPRIMES')
+@section('title', 'ONFP - OPERATEURS SUPPRIMES')
 @section('space-work')
 
     <div class="pagetitle">
-        {{-- <h1>Data Tables</h1> --}}
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/home') }}">Accueil</a></li>
@@ -11,7 +10,7 @@
                 <li class="breadcrumb-item active">Données</li>
             </ol>
         </nav>
-    </div><!-- End Page Title -->
+    </div>
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -39,63 +38,54 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12 pt-1">
-                                <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('users.index') }}"
+                                <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('operateurs.index') }}"
                                         class="btn btn-success btn-sm" title="retour"><i
                                             class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                    <p> | Liste des utilisateurs</p>
+                                    <p> | Liste des demandeurs</p>
                                 </span>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
-                            @can('user-create')
+                            @can('operateur-create')
                                 <h5 class="card-title">{{ $title }}</h5>
-                                {{-- <span class="d-flex align-items-baseline">
-                                    <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
-                                        data-bs-target="#AddUserModal" title="Ajouter">Ajouter</a>
-                                    <div class="filter">
-                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                class="bi bi-three-dots"></i></a>
-                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                            <li>
-                                                <button type="button" class="dropdown-item btn btn-sm" data-bs-toggle="modal"
-                                                    data-bs-target="#generate_rapport"></i>Rechercher
-                                                    plus</button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </span> --}}
                             @endcan
                         </div>
-                        @if ($user_liste->isNotEmpty())
+                        @if ($operateurs->isNotEmpty())
                             <table class="table datatables align-middle" id="table-users">
                                 <thead>
+
                                     <tr>
-                                        <th></th>
-                                        <th>Username</th>
-                                        <th>E-mail</th>
-                                        <th>Téléphone</th>
-                                        <th class="text-center">Statut</th>
+                                        <th width="15%" class="text-center">N° agrément</th>
+                                        <th width="40%">Opérateurs</th>
+                                        <th>Sigle</th>
+                                        <th>Telephone</th>
+                                        <th>Responsable</th>
+                                        <th width="15%" class="text-center">Statut</th>
                                         <th class="text-center">Nettoyer</th>
                                         <th class="text-center">Restaurer</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($user_liste as $user)
+                                    <?php $i = 1; ?>
+                                    @foreach ($operateurs as $operateur)
                                         <tr>
+                                            <td>{{ $operateur?->numero_agrement }}</td>
+                                            <td>{{ $operateur?->user?->operateur }}</td>
+                                            <td>{{ $operateur?->user?->username }}</td>
                                             <td>
-                                                <img class="rounded-circle" src="{{ asset($user->getImage()) }}"
-                                                    alt="Profil" width="40">
+                                                <a href="tel:+221{{ $operateur?->user?->fixe }}">
+                                                    {{ $operateur?->user?->fixe }}<br>
+                                                    {{ $operateur?->user?->telephone }}
+                                                </a>
                                             </td>
-                                            <td>{{ $user->username }}</td>
-                                            <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                                            <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a></td>
-                                            <td class="text-center">
-                                                @if ($user->email_verified_at)
-                                                    <i class="bi bi-check-circle text-success" title="Compte vérifié"></i>
-                                                @endif
+                                            <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
+                                            </td>
+                                            <td style="text-align: center;"><span
+                                                    class="{{ $operateur?->statut_agrement }}">
+                                                    {{ $operateur?->statut_agrement }}</span>
                                             </td>
                                             <td class="text-center">
-                                                <form action="{{ route('users.forceDelete', $user->uuid) }}" method="POST">
+                                                <form action="{{ route('operateurs.forceDelete', $operateur->uuid) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm show_confirm_nettoyer">
@@ -104,7 +94,7 @@
                                                 </form>
                                             </td>
                                             <td class="text-center">
-                                                <form action="{{ route('users.restore', $user->uuid) }}" method="POST">
+                                                <form action="{{ route('operateurs.restore', $operateur->uuid) }}" method="POST">
                                                     @csrf
                                                     @method('PUT')
                                                     <button type="submit" class="btn btn-success btn-sm show_confirm_restaurer">
@@ -117,7 +107,7 @@
                                 </tbody>
                             </table>
                         @else
-                            <div class="alert alert-warning text-center">
+                            <div class="alert alert-warning">
                                 Aucun utilisateur trouvé.
                             </div>
                         @endif
@@ -135,9 +125,6 @@
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
-            "order": [
-                [0, 'asc']
-            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",

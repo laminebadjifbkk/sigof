@@ -1218,4 +1218,28 @@ class UserController extends Controller
 
         return view('individuelles.demandeurs-show', compact('user', 'departements', 'files', 'user_files'));
     }
+
+    public function forceDelete($uuid)
+    {
+        $user = User::withTrashed()->where('uuid', $uuid)->firstOrFail();
+
+        // Supprimer l’image de profil si besoin
+        if ($user->image && Storage::exists($user->image)) {
+            Storage::delete($user->image);
+        }
+// Avant de supprimer l'utilisateur
+        $user->operateurs()->delete(); // ou detach() si relation many-to-many
+        $user->forceDelete();
+
+        Alert::success('Succès ', 'Utilisateur supprimé définitivement.');
+        return redirect()->back();
+        
+    }
+    public function restore($uuid)
+    {
+        $user = User::onlyTrashed()->where('uuid', $uuid)->firstOrFail();
+        $user->restore();
+
+        return redirect()->back()->with('success', 'Utilisateur restauré avec succès.');
+    }
 }

@@ -754,4 +754,45 @@ class CollectiveController extends Controller
         }
     }
 
+    public function corbeille()
+    {
+        $total_count = Collective::onlyTrashed()->count();
+        $total_count = number_format($total_count, 0, ',', ' ');
+
+        $collectives = Collective::onlyTrashed()
+            ->orderByDesc('deleted_at') // Trie par la date de suppression la plus récente
+            ->take(250)
+            ->get();
+
+        $count_demandeur = number_format($collectives->count(), 0, ',', ' ');
+
+        if ($count_demandeur < 1) {
+            $title = 'Aucune demande collective supprimée';
+        } elseif ($count_demandeur == 1) {
+            $title = "$count_demandeur demande collective supprimée sur un total de $total_count";
+        } else {
+            $title = "Liste des $count_demandeur derniers demandes supprimées sur un total de $total_count";
+        }
+
+        return view("collectives.corbeille", compact("collectives", "title"));
+
+    }
+
+    public function forceDelete($uuid)
+    {
+        $collective = Collective::withTrashed()->where('uuid', $uuid)->firstOrFail();
+// Supprimer
+        $collective->forceDelete();
+
+        Alert::success('Succès ', 'Demande supprimé définitivement.');
+        return redirect()->back();
+
+    }
+    public function restore($uuid)
+    {
+        $collective = Collective::onlyTrashed()->where('uuid', $uuid)->firstOrFail();
+        $collective->restore();
+
+        return redirect()->back()->with('success', 'Demande restauré avec succès.');
+    }
 }

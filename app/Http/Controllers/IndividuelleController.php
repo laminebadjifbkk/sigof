@@ -1891,4 +1891,22 @@ class IndividuelleController extends Controller
             'title'
         ));
     }
+
+    public function forceDelete($uuid)
+    {
+        $individuelle = Individuelle::withTrashed()->where('uuid', $uuid)->firstOrFail();
+// Supprimer
+        $individuelle->forceDelete();
+
+        Alert::success('Succès ', 'Demande supprimé définitivement.');
+        return redirect()->back();
+
+    }
+    public function restore($uuid)
+    {
+        $individuelle = Individuelle::onlyTrashed()->where('uuid', $uuid)->firstOrFail();
+        $individuelle->restore();
+
+        return redirect()->back()->with('success', 'Demande restauré avec succès.');
+    }
 }

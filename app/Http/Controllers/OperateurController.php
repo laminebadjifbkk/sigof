@@ -1550,4 +1550,51 @@ class OperateurController extends Controller
             ));
 
     }
+
+    public function corbeille()
+    {
+        $total_count = Operateur::onlyTrashed()->count();
+        $total_count = number_format($total_count, 0, ',', ' ');
+
+        $operateurs = Operateur::onlyTrashed()
+            ->orderByDesc('deleted_at') // Trie par la date de suppression la plus récente
+            ->take(250)
+            ->get();
+
+        $count_operateur = number_format($operateurs->count(), 0, ',', ' ');
+
+        if ($count_operateur < 1) {
+            $title = 'Aucun opérateur supprimé';
+        } elseif ($count_operateur == 1) {
+            $title = "$count_operateur opérateur supprimé sur un total de $total_count";
+        } else {
+            $title = "Liste des $count_operateur derniers opérateurs supprimés sur un total de $total_count";
+        }
+
+        return view("operateurs.corbeille", compact("operateurs", "title"));
+
+    }
+
+    public function forceDelete($uuid)
+    {
+        $operateur = Operateur::withTrashed()->where('uuid', $uuid)->firstOrFail();
+
+        // Supprimer le quitus de profil si besoin
+        if ($operateur->quitus && Storage::exists($operateur->quitus)) {
+            Storage::delete($operateur->quitus);
+        }
+// Supprimer l'operateur
+        $operateur->forceDelete();
+
+        Alert::success('Succès ', 'Opérateur supprimé définitivement.');
+        return redirect()->back();
+
+    }
+    public function restore($uuid)
+    {
+        $operateur = Operateur::onlyTrashed()->where('uuid', $uuid)->firstOrFail();
+        $operateur->restore();
+
+        return redirect()->back()->with('success', 'Opérateur restauré avec succès.');
+    }
 }

@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - UTILISATEURS SUPPRIMES')
+@section('title', 'ONFP - DEMANDES COLLECTIVES SUPPRIMES')
 @section('space-work')
 
     <div class="pagetitle">
@@ -39,10 +39,10 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12 pt-1">
-                                <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('users.index') }}"
+                                <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('individuelles.index') }}"
                                         class="btn btn-success btn-sm" title="retour"><i
                                             class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                    <p> | Liste des utilisateurs</p>
+                                    <p> | Liste des demandeurs</p>
                                 </span>
                             </div>
                         </div>
@@ -66,36 +66,53 @@
                                 </span> --}}
                             @endcan
                         </div>
-                        @if ($user_liste->isNotEmpty())
+                        @if ($collectives->isNotEmpty())
                             <table class="table datatables align-middle" id="table-users">
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                        <th>Username</th>
+                                        <th>N°</th>
+                                        <th width="35%">Nom structure</th>
                                         <th>E-mail</th>
                                         <th>Téléphone</th>
+                                        <th>Région</th>
+                                        <th width="15%" class="text-center">Dépôt</th>
+                                        <th class="text-center">Modules</th>
+                                        <th class="text-center">Effectif</th>
                                         <th class="text-center">Statut</th>
                                         <th class="text-center">Nettoyer</th>
                                         <th class="text-center">Restaurer</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($user_liste as $user)
+                                    <?php $i = 1; ?>
+                                    @foreach ($collectives as $collective)
                                         <tr>
+                                            <td>{{ $collective?->numero }}</td>
                                             <td>
-                                                <img class="rounded-circle" src="{{ asset($user->getImage()) }}"
-                                                    alt="Profil" width="40">
-                                            </td>
-                                            <td>{{ $user->username }}</td>
-                                            <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                                            <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a></td>
-                                            <td class="text-center">
-                                                @if ($user->email_verified_at)
-                                                    <i class="bi bi-check-circle text-success" title="Compte vérifié"></i>
+                                                {{ $collective?->name }}
+                                                @if ($collective?->sigle)
+                                                    ({{ $collective?->sigle }})
                                                 @endif
                                             </td>
+                                            <td><a
+                                                    href="mailto:{{ optional($collective?->user)?->email }}">{{ optional($collective?->user)?->email }}</a>
+                                            </td>
+                                            <td><a
+                                                    href="tel:+221{{ $collective?->telephone }}">{{ $collective?->telephone }}</a>
+                                            </td>
+                                            <td>{{ optional(optional($collective?->departement)?->region)?->nom }}</td>
                                             <td class="text-center">
-                                                <form action="{{ route('users.forceDelete', $user->uuid) }}" method="POST">
+                                                {{-- {{ $collective?->date_depot ? \Carbon\Carbon::parse($collective?->date_depot)?->diffForHumans() : 'Aucun' }} --}}
+                                                {{ $collective?->date_depot ? \Carbon\Carbon::parse($collective->date_depot)->format('d/m/Y') : 'Aucun' }}
+                                            </td>
+                                            <td class="text-center">{{ $collective?->collectivemodules?->count() }}</td>
+                                            <td class="text-center">{{ $collective?->listecollectives?->count() }}</td>
+                                            <td><span
+                                                    class="{{ $collective?->statut_demande }}">{{ $collective?->statut_demande }}</span>
+                                            </td>
+                                            
+                                            <td class="text-center">
+                                                <form action="{{ route('collectives.forceDelete', $collective->uuid) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm show_confirm_nettoyer">
@@ -104,7 +121,7 @@
                                                 </form>
                                             </td>
                                             <td class="text-center">
-                                                <form action="{{ route('users.restore', $user->uuid) }}" method="POST">
+                                                <form action="{{ route('collectives.restore', $collective->uuid) }}" method="POST">
                                                     @csrf
                                                     @method('PUT')
                                                     <button type="submit" class="btn btn-success btn-sm show_confirm_restaurer">
@@ -117,7 +134,7 @@
                                 </tbody>
                             </table>
                         @else
-                            <div class="alert alert-warning text-center">
+                            <div class="alert alert-warning">
                                 Aucun utilisateur trouvé.
                             </div>
                         @endif
@@ -135,9 +152,6 @@
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
-            "order": [
-                [0, 'asc']
-            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",

@@ -533,7 +533,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/users/inactifs', [UserController::class, 'inactifs'])->name('users.inactifs');
         Route::get('/users/corbeille', [UserController::class, 'corbeille'])->name('users.corbeille');
         Route::get('/individuelles/corbeille', [IndividuelleController::class, 'corbeille'])->name('individuelles.corbeille');
+        Route::get('/collectives/corbeille', [CollectiveController::class, 'corbeille'])->name('collectives.corbeille');
         Route::get('/modules/corbeille', [ModuleController::class, 'corbeille'])->name('modules.corbeille');
+        Route::get('/operateurs/corbeille', [OperateurController::class, 'corbeille'])->name('operateurs.corbeille');
         Route::get('/users/restored', [UserController::class, 'restored'])->name('users.restored');
         Route::get('/users/online', [UserController::class, 'showOnlineUsers'])->name('users.online');
         Route::get('/users/demandeurs', [UserController::class, 'demandeursIndividuel'])->name('demandeurs.individuel');
@@ -561,6 +563,17 @@ Route::group(['middleware' => ['XSS']], function () {
         /* Pour visualiser la page d'erreur */
         /* Route::get('/errors/restored', [UserController::class, 'errors'])->name('users.errors'); */
         Route::post('/listecollectives/{id}/changer-module', [CollectivemoduleController::class, 'changerModule'])->name('listecollectives.changerModule');
+        Route::delete('/users/force-delete/{uuid}', [UserController::class, 'forceDelete'])->name('users.forceDelete');
+        Route::put('/users/restore/{uuid}', [UserController::class, 'restore'])->name('users.restore');
+
+        Route::delete('/operateurs/force-delete/{uuid}', [OperateurController::class, 'forceDelete'])->name('operateurs.forceDelete');
+        Route::put('/operateurs/restore/{uuid}', [OperateurController::class, 'restore'])->name('operateurs.restore');
+
+        Route::delete('/individuelles/force-delete/{uuid}', [IndividuelleController::class, 'forceDelete'])->name('individuelles.forceDelete');
+        Route::put('/individuelles/restore/{uuid}', [IndividuelleController::class, 'restore'])->name('individuelles.restore');
+
+        Route::delete('/collectives/force-delete/{uuid}', [CollectiveController::class, 'forceDelete'])->name('collectives.forceDelete');
+        Route::put('/collectives/restore/{uuid}', [CollectiveController::class, 'restore'])->name('collectives.restore');
 
         /* Vues ressouces */
         Route::resource('/users', UserController::class);

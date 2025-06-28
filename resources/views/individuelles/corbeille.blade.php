@@ -39,9 +39,9 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12 pt-1">
-                                <span class="d-flex mt-2 align-items-baseline"><a
-                                        href="{{ route('individuelles.index') }}" class="btn btn-success btn-sm"
-                                        title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                                <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('individuelles.index') }}"
+                                        class="btn btn-success btn-sm" title="retour"><i
+                                            class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                     <p> | Liste des demandeurs</p>
                                 </span>
                             </div>
@@ -78,6 +78,8 @@
                                         <th width="20%">Module</th>
                                         <th width="5%" class="text-center">Dépôt</th>
                                         <th class="text-center">Statut</th>
+                                        <th class="text-center">Nettoyer</th>
+                                        <th class="text-center">Restaurer</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -85,7 +87,8 @@
                                     @foreach ($individuelles as $individuelle)
                                         @if (!empty($individuelle?->numero))
                                             <tr>
-                                                <td style="text-align: center">{{ optional($individuelle?->deleted_at)->format('d/m/Y') }}</td>
+                                                <td style="text-align: center">
+                                                    {{ optional($individuelle?->deleted_at)->format('d/m/Y') }}</td>
                                                 <td style="text-align: center">{{ $individuelle?->user?->cin }}</td>
                                                 <td>{{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
                                                 </td>
@@ -103,6 +106,28 @@
                                                     <span class="{{ $individuelle?->statut }}">
                                                         {{ $individuelle?->statut }}
                                                     </span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <form action="{{ route('individuelles.forceDelete', $individuelle->uuid) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="btn btn-danger btn-sm show_confirm_nettoyer">
+                                                            <i class="bi bi-trash-fill"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                                <td class="text-center">
+                                                    <form action="{{ route('individuelles.restore', $individuelle->uuid) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit"
+                                                            class="btn btn-success btn-sm show_confirm_restaurer">
+                                                            <i class="bi bi-arrow-counterclockwise"></i>
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endif
