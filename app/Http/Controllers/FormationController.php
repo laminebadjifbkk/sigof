@@ -3449,10 +3449,11 @@ class FormationController extends Controller
             // Render the HTML as PDF
             $dompdf->render();
 
-            $name = 'Attestation de bonne execution ' . $formation->name . ', code ' . $formation->code . '.pdf';
+            $name = 'ABE_formation_code_' . $formation->code . '.pdf';
 
             // Output the generated PDF to Browser
-            $dompdf->stream($name, ['Attachment' => false]);
+            return $dompdf->stream($name, ['Attachment' => false]);
+
         } else {
             Alert::warning('Désolé !', "La formation n'est pas encore terminée.");
             return redirect()->back();
