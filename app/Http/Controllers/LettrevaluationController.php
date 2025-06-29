@@ -207,16 +207,15 @@ class LettrevaluationController extends Controller
             $moduleName = $formation?->collectivemodule?->module;
         }
 
-        $qrContent = "Formation : {$formation?->name}\n" .
+        /* $qrContent = "Formation : {$formation?->name}\n" .
         "Code : {$formation?->code}\n" .
         "Module : {$moduleName}\n" .
         "Date : " . $formation?->date_debut?->format('d/m/Y') . " au " . $formation?->date_fin?->format('d/m/Y');
 
         $qrCode       = QrCode::create($qrContent)->setSize(150);
-        dd($qrCode);
         $writer       = new PngWriter();
         $result       = $writer->write($qrCode);
-        $qrCodeBase64 = base64_encode($result->getString());
+        $qrCodeBase64 = base64_encode($result->getString()); */
 
 
         $dompdf  = new Dompdf();
