@@ -201,7 +201,7 @@ class LettrevaluationController extends Controller
         $membres_jury  = explode(";", $formation->membres_jury);
         $count_membres = count($membres_jury);
 // ✅ Génération QR PNG sans imagick avec endroid/qr-code
-        /* $moduleName = $formation->module->name ?? ($formation->collectivemodule->module->name ?? 'Aucun');
+        $moduleName = $formation->module->name ?? ($formation->collectivemodule->module->name ?? 'Aucun');
 
         $qrContent = "Formation : {$formation->name}\n" .
         "Code : {$formation->code}\n" .
@@ -211,7 +211,7 @@ class LettrevaluationController extends Controller
         $qrCode       = QrCode::create($qrContent)->setSize(150);
         $writer       = new PngWriter();
         $result       = $writer->write($qrCode);
-        $qrCodeBase64 = base64_encode($result->getString()); */
+        $qrCodeBase64 = base64_encode($result->getString());
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
@@ -228,6 +228,8 @@ class LettrevaluationController extends Controller
         $numberTransformer = $numberToWords->getNumberTransformer('fr');
         $montant_lettres   = ucfirst($numberTransformer->toWords($brut)) . ' francs CFA';
 
+        dd($montant_lettres);
+        
         $html = View::make('formations.lettrevaluations.demandepaiement', compact(
             'formation',
             'lettrevaluation',
