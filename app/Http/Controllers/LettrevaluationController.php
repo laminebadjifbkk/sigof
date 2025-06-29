@@ -228,13 +228,13 @@ class LettrevaluationController extends Controller
         $montant_ir  = round($brut * 0.05);
         $montant_net = $brut - $montant_ir;
 
-        dd($moduleName);
-
         // 🔤 Conversion en lettres (via number-to-words)
         $numberToWords     = new NumberToWords();
         $numberTransformer = $numberToWords->getNumberTransformer('fr');
         $montant_lettres   = ucfirst($numberTransformer->toWords($brut)) . ' francs CFA';
 
+        dd($moduleName);
+        
         $html = View::make('formations.lettrevaluations.demandepaiement', compact(
             'formation',
             'lettrevaluation',
