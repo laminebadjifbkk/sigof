@@ -118,7 +118,7 @@
             </div>
 
             <div class="date" style="width: 35%; float:right; text-align: right;">
-                Diourbel, le {{ $formation?->date_pv?->translatedFormat('jS F Y') }}
+                Diourbel, le {{ $formation?->date_pv?->translatedFormat('d F Y') }}
             </div>
 
             <div class="clear" style="clear: both;"></div>
@@ -131,7 +131,7 @@
 
         <div class="header" style="float:left; text-align: left;">
             <p><u><b>Réf.</b></u> : lettre de mission N°
-                {{ $formation?->lettre_mission . '/ONFP/DG/DIOF/' . $formation?->ingenieur?->initiale . ' du ' . $formation?->date_convention?->translatedFormat('jS F Y') }}
+                {{ $formation?->lettre_mission . '/ONFP/DG/DIOF/' . $formation?->ingenieur?->initiale . ' du ' . $formation?->date_convention?->translatedFormat('d F Y') }}
             </p>
         </div>
         <br>
@@ -143,7 +143,7 @@
             <p>Indemnités relatives à l’évaluation de la formation en
                 {{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}
                 techniques de sérigraphie
-                en date du {{ $formation?->date_pv?->translatedFormat('jS F Y') }} exécutée par l’opérateur
+                en date du {{ $formation?->date_pv?->translatedFormat('d F Y') }} exécutée par l’opérateur
                 {{ $formation?->operateur?->user?->operateur ?? ' ' }}
             </p>
         </div>
