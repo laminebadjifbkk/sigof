@@ -200,10 +200,13 @@ class LettrevaluationController extends Controller
         $title         = 'Demande de paiement évaluation formation en ' . $formation->name;
         $membres_jury  = explode(";", $formation->membres_jury);
         $count_membres = count($membres_jury);
+// ✅ Génération QR PNG sans imagick avec endroid/qr-code
+        $moduleName = $formation->module->name ?? ($formation->collectivemodule->module->name ?? 'Aucun');
 
-        // ✅ Génération QR PNG sans imagick avec endroid/qr-code
-        $qrContent = "Formation: {$formation->name}\nCode: {$formation->code}\nDate: " .
-        $formation->date_debut?->format('d/m/Y') . " au " . $formation->date_fin?->format('d/m/Y');
+        $qrContent = "Formation : {$formation->name}\n" .
+        "Code : {$formation->code}\n" .
+        "Module : {$moduleName}\n" .
+        "Date : " . $formation->date_debut?->format('d/m/Y') . " au " . $formation->date_fin?->format('d/m/Y');
 
         $qrCode       = QrCode::create($qrContent)->setSize(150);
         $writer       = new PngWriter();

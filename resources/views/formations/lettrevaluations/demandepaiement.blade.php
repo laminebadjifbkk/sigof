@@ -104,6 +104,12 @@
 
 <body>
     <div class="container">
+        {{-- QR code affiché en haut à droite --}}
+        {{-- @if (isset($qrCodeBase64))
+            <div style="text-align: right; margin-top: 10px;">
+                <img src="data:image/png;base64,{{ $qrCodeBase64 }}" width="100" alt="QR Code">
+            </div>
+        @endif --}}
         <div class="header">
             <div class="contact-info" style="float:left; width: 60%; text-align: left;">
                 <p><strong>Prénom & Nom:</strong> {{ $formation?->evaluateur?->name }}</p>
@@ -177,10 +183,11 @@
             <p>Prénom, Nom et Signature</p>
         </div>
 
-        {{-- Optionnel : QR code à droite --}}
-        {{-- <div class="qr">
-            <img src="data:image/png;base64,{{ $qrCodeBase64 }}" width="120" alt="QR Code">
-        </div> --}}
+        @if (isset($qrCodeBase64))
+            <div style="width: 35%; float: left; text-align: left;">
+                <img src="data:image/png;base64,{{ $qrCodeBase64 }}" width="100" alt="QR Code">
+            </div>
+        @endif
     </div>
 </body>
 
