@@ -59,8 +59,8 @@
                                                 <th>Module</th>
                                                 <th>Operateur</th>
                                                 <th>Evaluateur</th>
-                                                <th>ABE</th>
-                                                <th>Lettre</th>
+                                                {{-- <th>ABE</th>
+                                                <th>Lettre</th> --}}
                                                 <th width="2%">#</th>
                                             </tr>
                                         </thead>
@@ -90,7 +90,7 @@
                                                             class="{{ $lettrevaluation?->formation?->evaluateur?->name ?? 'Aucun' }}">{{ $lettrevaluation?->formation?->evaluateur?->name ?? 'Aucun' }}</span>
                                                     </td>
                                                     {{-- Actions ABE --}}
-                                                    <td>
+                                                    {{-- <td>
                                                         @php
                                                             $formation = $lettrevaluation?->formation;
                                                             $isIndividuel = $formation?->module?->name;
@@ -112,10 +112,10 @@
                                                         @else
                                                             <span class="text-danger">Aucun ABE</span>
                                                         @endif
-                                                    </td>
+                                                    </td> --}}
 
                                                     {{-- Actions Lettre de mission --}}
-                                                    <td>
+                                                    {{-- <td>
                                                         <div class="btn-group" role="group" aria-label="Actions Lettre">
                                                             <a href="{{ route('lettrevaluations.show', $lettrevaluation->id) }}"
                                                                 class="btn btn-success btn-sm"
@@ -123,17 +123,18 @@
                                                                 <i class="bi bi-download"></i>
                                                             </a>
                                                         </div>
-                                                    </td>
+                                                    </td> --}}
                                                     {{-- Actions --}}
                                                     <td>
                                                         <div class="d-flex align-items-center gap-2">
+
                                                             <!-- Bouton Voir détails -->
-                                                            <a href="{{ route('formations.show', $formation) }}"
+                                                            <a href="{{ route('formations.show', $lettrevaluation->formation) }}"
                                                                 class="btn btn-warning btn-sm" title="Voir détails">
                                                                 <i class="bi bi-eye"></i>
                                                             </a>
 
-                                                            <!-- Dropdown actions -->
+                                                            <!-- Dropdown pour les actions supplémentaires -->
                                                             <div class="dropdown">
                                                                 <a class="btn btn-sm btn-light" href="#"
                                                                     data-bs-toggle="dropdown" aria-expanded="false"
@@ -141,6 +142,8 @@
                                                                     <i class="bi bi-three-dots-vertical"></i>
                                                                 </a>
                                                                 <ul class="dropdown-menu dropdown-menu-end">
+
+                                                                    <!-- Modifier -->
                                                                     @can('formation-update')
                                                                         <li>
                                                                             <a class="dropdown-item"
@@ -149,6 +152,51 @@
                                                                             </a>
                                                                         </li>
                                                                     @endcan
+
+                                                                    <!-- Télécharger la lettre -->
+                                                                    <li>
+                                                                        <a href="{{ route('lettrevaluations.show', $lettrevaluation->id) }}"
+                                                                            class="dropdown-item">
+                                                                            <i class="bi bi-download"></i> Télécharger lettre
+                                                                        </a>
+                                                                    </li>
+
+                                                                    <!-- Télécharger l'ABE -->
+                                                                    @php
+                                                                        $formation = $lettrevaluation?->formation;
+                                                                        $isIndividuel = $formation?->module?->name;
+                                                                        $isCollectif =
+                                                                            $formation?->collectivemodule?->module;
+                                                                    @endphp
+
+                                                                    <li>
+                                                                        @if ($isIndividuel || $isCollectif)
+                                                                            <form
+                                                                                action="{{ route($isIndividuel ? 'abeEvaluationlettre' : 'abeEvaluationCollettre', ['idformation' => $formation->id]) }}"
+                                                                                method="POST" target="_blank">
+                                                                                @csrf
+                                                                                <button type="submit" class="dropdown-item">
+                                                                                    <i class="bi bi-download"></i> Télécharger
+                                                                                    ABE
+                                                                                </button>
+                                                                            </form>
+                                                                            {{-- @else
+                                                                            <span class="dropdown-item text-danger">
+                                                                                <i class="bi bi-exclamation-triangle"></i> Aucun
+                                                                                ABE
+                                                                            </span> --}}
+                                                                        @endif
+                                                                    </li>
+
+                                                                    <!-- Télécharger demande de paiement -->
+                                                                    <li>
+                                                                        <a href="{{ route('demandePaiement.telecharger', $lettrevaluation->id) }}"
+                                                                            class="dropdown-item">
+                                                                            <i class="bi bi-receipt"></i> Télécharger DP
+                                                                        </a>
+                                                                    </li>
+
+                                                                    <!-- Supprimer -->
                                                                     @can('formation-delete')
                                                                         <li>
                                                                             <form
@@ -164,6 +212,7 @@
                                                                             </form>
                                                                         </li>
                                                                     @endcan
+
                                                                 </ul>
                                                             </div>
                                                         </div>

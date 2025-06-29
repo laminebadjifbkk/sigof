@@ -7,8 +7,12 @@ use App\Models\Lettrevaluation;
 use App\Models\Onfpevaluateur;
 use App\Models\Referentiel;
 use Dompdf\Dompdf;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use NumberToWords\NumberToWords;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class LettrevaluationController extends Controller
@@ -185,5 +189,60 @@ class LettrevaluationController extends Controller
         $lettrevaluation->delete();
         Alert::success('Succès !', 'Lettre supprimée avec succès.');
         return redirect()->back();
+    }
+
+    // Affiche demande de paiement
+
+    public function telechargerDemandePaiement(Lettrevaluation $lettrevaluation)
+    {
+        $formation = $lettrevaluation->formation;
+
+        $title         = 'Demande de paiement évaluation formation en ' . $formation->name;
+        $membres_jury  = explode(";", $formation->membres_jury);
+        $count_membres = count($membres_jury);
+
+        // ✅ Génération QR PNG sans imagick avec endroid/qr-code
+        $qrContent = "Formation: {$formation->name}\nCode: {$formation->code}\nDate: " .
+        $formation->date_debut?->format('d/m/Y') . " au " . $formation->date_fin?->format('d/m/Y');
+
+        $qrCode       = QrCode::create($qrContent)->setSize(150);
+        $writer       = new PngWriter();
+        $result       = $writer->write($qrCode);
+        $qrCodeBase64 = base64_encode($result->getString());
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+        // 🔢 Calculs
+        $brut        = $formation->frais_evaluateur ?? 0;
+        $montant_ir  = round($brut * 0.05);
+        $montant_net = $brut - $montant_ir;
+
+        // 🔤 Conversion en lettres (via number-to-words)
+        $numberToWords     = new NumberToWords();
+        $numberTransformer = $numberToWords->getNumberTransformer('fr');
+        $montant_lettres   = ucfirst($numberTransformer->toWords($brut)) . ' francs CFA';
+
+        $html = View::make('formations.lettrevaluations.demandepaiement', compact(
+            'formation',
+            'lettrevaluation',
+            'title',
+            'membres_jury',
+            'count_membres',
+            'brut',
+            'montant_ir',
+            'montant_net',
+            'montant_lettres',
+            'qrCodeBase64'
+        ))->render();
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        $name = 'Demande_paiement_' . $formation->code . '.pdf';
+        return $dompdf->stream($name, ['Attachment' => false]);
     }
 }

@@ -189,6 +189,7 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
         'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 

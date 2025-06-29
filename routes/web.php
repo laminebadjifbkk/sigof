@@ -574,6 +574,8 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::delete('/collectives/force-delete/{uuid}', [CollectiveController::class, 'forceDelete'])->name('collectives.forceDelete');
         Route::put('/collectives/restore/{uuid}', [CollectiveController::class, 'restore'])->name('collectives.restore');
+        Route::get('/demande-paiement/{lettrevaluation}/telecharger', [LettrevaluationController::class, 'telechargerDemandePaiement'])
+            ->name('demandePaiement.telecharger');
 
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
