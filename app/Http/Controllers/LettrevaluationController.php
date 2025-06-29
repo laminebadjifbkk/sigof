@@ -217,15 +217,16 @@ class LettrevaluationController extends Controller
         $result       = $writer->write($qrCode);
         $qrCodeBase64 = base64_encode($result->getString()); */
 
-        dd($moduleName);
-        
+
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
         $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
+        dd($moduleName);
+
         // 🔢 Calculs
-        $brut        = $formation->frais_evaluateur ?? 0;
+        $brut        = $formation?->frais_evaluateur ?? 0;
         $montant_ir  = round($brut * 0.05);
         $montant_net = $brut - $montant_ir;
 
