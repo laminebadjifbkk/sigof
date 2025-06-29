@@ -233,8 +233,6 @@ class LettrevaluationController extends Controller
         $numberTransformer = $numberToWords->getNumberTransformer('fr');
         $montant_lettres   = ucfirst($numberTransformer->toWords($brut)) . ' francs CFA';
 
-        dd($moduleName);
-
         $html = View::make('formations.lettrevaluations.demandepaiement', compact(
             'formation',
             'lettrevaluation',
@@ -245,7 +243,7 @@ class LettrevaluationController extends Controller
             'montant_ir',
             'montant_net',
             'montant_lettres',
-            /* 'qrCodeBase64' */
+            'qrCodeBase64'
         ))->render();
 
         $dompdf->loadHtml($html);

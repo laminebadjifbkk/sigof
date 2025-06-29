@@ -183,11 +183,11 @@
             <p>Prénom, Nom et Signature</p>
         </div>
 
-        {{-- @if (isset($qrCodeBase64))
+        @if (isset($qrCodeBase64))
             <div style="width: 35%; float: left; text-align: left;">
                 <img src="data:image/png;base64,{{ $qrCodeBase64 }}" width="100" alt="QR Code">
             </div>
-        @endif --}}
+        @endif
     </div>
 </body>
 
