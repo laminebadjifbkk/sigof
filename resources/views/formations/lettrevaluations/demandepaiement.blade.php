@@ -131,7 +131,7 @@
 
         <div class="header" style="float:left; text-align: left;">
             <p><u>Réf.</u> : lettre de mission N°
-                {{ $formation?->numero_lettre . '/ONFP/DG/DIOF/' . $formation?->ingenieur?->initiale . ' du ' . $formation?->date_convention?->translatedFormat('jS F Y') }}
+                {{ $formation?->lettre_mission . '/ONFP/DG/DIOF/' . $formation?->ingenieur?->initiale . ' du ' . $formation?->date_convention?->translatedFormat('jS F Y') }}
             </p>
         </div>
         <br>
