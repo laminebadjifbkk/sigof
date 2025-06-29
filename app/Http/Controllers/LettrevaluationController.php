@@ -217,7 +217,8 @@ class LettrevaluationController extends Controller
         $result       = $writer->write($qrCode);
         $qrCodeBase64 = base64_encode($result->getString()); */
 
-
+        dd($moduleName);
+        
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
         $options->setDefaultFont('DejaVu Sans');
