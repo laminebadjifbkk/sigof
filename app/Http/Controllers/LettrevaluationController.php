@@ -77,7 +77,7 @@ class LettrevaluationController extends Controller
 
         $formation = $lettrevaluation->formation;
 
-        $title = 'Lettre de mission évaluation formation en  ' . $formation->name;
+        $title = 'Lettre de mission évaluation formation en ' . $formation->name;
 
         $membres_jury  = explode(";", $formation->membres_jury);
         $count_membres = count($membres_jury);
@@ -100,10 +100,9 @@ class LettrevaluationController extends Controller
         // Render the HTML as PDF
         $dompdf->render();
 
-        $name = 'Lettre de mission évaluation formation en  ' . $formation->name . ', code ' . $formation->code . '.pdf';
-
+        $name = 'Lettre_mission_formation_code_' . $formation->code . '.pdf';
         // Output the generated PDF to Browser
-        $dompdf->stream($name, ['Attachment' => false]);
+        return $dompdf->stream($name, ['Attachment' => false]);
 
     }
 
@@ -216,7 +215,6 @@ class LettrevaluationController extends Controller
         $writer       = new PngWriter();
         $result       = $writer->write($qrCode);
         $qrCodeBase64 = base64_encode($result->getString());
-
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
