@@ -128,12 +128,13 @@
         <div class="header" style="margin-top: 40px;">
             <p><strong>Office National de Formation Professionnelle (ONFP)</strong></p>
         </div>
+
         <div class="header" style="float:left; text-align: left;">
             <p><u>Réf.</u> : lettre de mission N°
                 {{ $formation?->numero_lettre . '/ONFP/DG/DIOF/' . $formation?->ingenieur?->initiale . ' du ' . $formation?->date_convention?->translatedFormat('jS F Y') }}
             </p>
         </div>
-
+        <br>
         <div class="title">Demande de Paiement</div>
 
         <div class="header">
