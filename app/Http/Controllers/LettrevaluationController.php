@@ -207,10 +207,12 @@ class LettrevaluationController extends Controller
             $moduleName = $formation?->collectivemodule?->module;
         }
 
-        $qrContent = "Formation : {$formation->name}\n" .
-        "Code : {$formation->code}\n" .
+        $qrContent = "Formation : {$formation?->name}\n" .
+        "Code : {$formation?->code}\n" .
         "Module : {$moduleName}\n" .
-        "Date : " . $formation->date_debut?->format('d/m/Y') . " au " . $formation->date_fin?->format('d/m/Y');
+        "Date : " . $formation?->date_debut?->format('d/m/Y') . " au " . $formation?->date_fin?->format('d/m/Y');
+
+        dd($qrContent);
 
         $qrCode       = QrCode::create($qrContent)->setSize(150);
         $writer       = new PngWriter();
@@ -231,9 +233,6 @@ class LettrevaluationController extends Controller
         $numberToWords     = new NumberToWords();
         $numberTransformer = $numberToWords->getNumberTransformer('fr');
         $montant_lettres   = ucfirst($numberTransformer->toWords($brut)) . ' francs CFA';
-
-        
-        dd($moduleName);
 
         $html = View::make('formations.lettrevaluations.demandepaiement', compact(
             'formation',
