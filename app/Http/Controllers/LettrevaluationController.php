@@ -212,12 +212,12 @@ class LettrevaluationController extends Controller
         "Module : {$moduleName}\n" .
         "Date : " . $formation?->date_debut?->format('d/m/Y') . " au " . $formation?->date_fin?->format('d/m/Y');
 
-        dd($qrContent);
-
         $qrCode       = QrCode::create($qrContent)->setSize(150);
         $writer       = new PngWriter();
         $result       = $writer->write($qrCode);
         $qrCodeBase64 = base64_encode($result->getString());
+
+        dd($qrCodeBase64);
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
