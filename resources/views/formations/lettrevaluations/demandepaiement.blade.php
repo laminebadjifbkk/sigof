@@ -165,15 +165,15 @@
                         <br><br>
                         <strong>Montant net</strong>
                     </td>
-                    <td class="center">{{ number_format($montant_net, 0, ',', ' ') }}</td>
+                    <td style="width: 25%; text-align: center;">{{ number_format($montant_net, 0, ',', ' ') }}</td>
                 </tr>
                 <tr>
                     <td>IR 5%</td>
-                    <td class="center">{{ number_format($montant_ir, 0, ',', ' ') }}</td>
+                    <td style="width: 25%; text-align: center;">{{ number_format($montant_ir, 0, ',', ' ') }}</td>
                 </tr>
                 <tr>
                     <td><strong>Montant brut</strong></td>
-                    <td class="center"><strong>{{ number_format($brut, 0, ',', ' ') }}</strong></td>
+                    <td style="width: 25%; border: 1px solid #000; padding: 8px; text-align: center;"><strong>{{ number_format($brut, 0, ',', ' ') }}</strong></td>
                 </tr>
             </tbody>
         </table>
