@@ -207,8 +207,6 @@ class LettrevaluationController extends Controller
             $moduleName = $formation?->collectivemodule?->module;
         }
 
-        dd($moduleName);
-
         $qrContent = "Formation : {$formation->name}\n" .
         "Code : {$formation->code}\n" .
         "Module : {$moduleName}\n" .
@@ -233,6 +231,9 @@ class LettrevaluationController extends Controller
         $numberToWords     = new NumberToWords();
         $numberTransformer = $numberToWords->getNumberTransformer('fr');
         $montant_lettres   = ucfirst($numberTransformer->toWords($brut)) . ' francs CFA';
+
+        
+        dd($moduleName);
 
         $html = View::make('formations.lettrevaluations.demandepaiement', compact(
             'formation',
