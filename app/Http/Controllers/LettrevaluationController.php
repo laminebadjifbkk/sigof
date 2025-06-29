@@ -203,6 +203,8 @@ class LettrevaluationController extends Controller
 // ✅ Génération QR PNG sans imagick avec endroid/qr-code
         $moduleName = $formation->module->name ?? ($formation->collectivemodule->module->name ?? 'Aucun');
 
+        dd( $moduleName);
+        
         $qrContent = "Formation : {$formation->name}\n" .
         "Code : {$formation->code}\n" .
         "Module : {$moduleName}\n" .
@@ -228,8 +230,6 @@ class LettrevaluationController extends Controller
         $numberTransformer = $numberToWords->getNumberTransformer('fr');
         $montant_lettres   = ucfirst($numberTransformer->toWords($brut)) . ' francs CFA';
 
-        dd($montant_lettres);
-        
         $html = View::make('formations.lettrevaluations.demandepaiement', compact(
             'formation',
             'lettrevaluation',
