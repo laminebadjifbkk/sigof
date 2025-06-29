@@ -201,10 +201,10 @@ class LettrevaluationController extends Controller
         $membres_jury  = explode(";", $formation->membres_jury);
         $count_membres = count($membres_jury);
 // ✅ Génération QR PNG sans imagick avec endroid/qr-code
-        if ($formation->module && $formation->module->name) {
+        if ($formation?->module && $formation?->module?->name) {
             $moduleName = $formation->module->name;
-        } elseif ($formation->collectivemodule && $formation->collectivemodule->module && $formation->collectivemodule->module->name) {
-            $moduleName = $formation->collectivemodule->module->name;
+        } elseif ($formation?->collectivemodule && $formation?->collectivemodule?->module && $formation?->collectivemodule?->module?->name) {
+            $moduleName = $formation?->collectivemodule?->module?->name;
         }
 
         dd($moduleName);
