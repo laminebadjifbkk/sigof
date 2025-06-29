@@ -223,12 +223,12 @@ class LettrevaluationController extends Controller
         $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
-        dd($moduleName);
-
         // 🔢 Calculs
         $brut        = $formation?->frais_evaluateur ?? 0;
         $montant_ir  = round($brut * 0.05);
         $montant_net = $brut - $montant_ir;
+
+        dd($moduleName);
 
         // 🔤 Conversion en lettres (via number-to-words)
         $numberToWords     = new NumberToWords();
