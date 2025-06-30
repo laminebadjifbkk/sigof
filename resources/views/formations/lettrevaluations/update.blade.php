@@ -75,11 +75,11 @@
                                                 aria-label="Select" id="onfpevaluateurSelected" data-placeholder="Choisir">
                                                 <option
                                                     value="{{ $lettrevaluation?->formation->onfpevaluateur?->id ?? old('onfpevaluateur') }}">
-                                                    {{ $lettrevaluation?->formation->onfpevaluateur->name ?? old('onfpevaluateur') }}
+                                                    {{ $lettrevaluation?->formation->onfpevaluateur->name . ' ' . $lettrevaluation?->formation->onfpevaluateur->lastname ?? old('onfpevaluateur') }}
                                                 </option>
                                                 @foreach ($onfpevaluateurs as $onfpevaluateur)
                                                     <option value="{{ $onfpevaluateur->id }}">
-                                                        {{ $onfpevaluateur?->name }}
+                                                        {{ $onfpevaluateur?->name . ' ' . $onfpevaluateur?->lastname }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -102,7 +102,7 @@
                                                 </option>
                                                 @foreach ($evaluateurs as $evaluateur)
                                                     <option value="{{ $evaluateur->id }}">
-                                                        {{ $evaluateur->name . ' ' . $evaluateur->lastname}}
+                                                        {{ $evaluateur->name . ' ' . $evaluateur->lastname }}
                                                     </option>
                                                 @endforeach
                                             </select>
