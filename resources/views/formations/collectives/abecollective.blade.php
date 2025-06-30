@@ -254,7 +254,7 @@
                                     {{ ' F : ' . str_pad($admis_f_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     {{ ' T : ' . str_pad($admis_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <span class="{{ $classe }}">
-                                        Soit un taux de : {{ number_format($pourcentage_admis, 2, ',', ' ') }}%
+                                        Soit {{ number_format($pourcentage_admis, 2, ',', ' ') }}% de réussite
                                     </span>
                                 </p>
 
@@ -268,8 +268,8 @@
 
                                 <p>
                                     <span>
-                                        <b>Recommandations éventuelles </b> :
-                                        {{ $formation?->recommandations }}
+                                        <b>Recommandations éventuelles</b> :
+                                        {{ trim($formation?->recommandations) !== '' ? $formation->recommandations : 'Aucune recommandation' }}
                                     </span>
                                 </p>
 
@@ -278,8 +278,8 @@
                                 </p>
                                 <p style="text-align: right; font-style: italic">
                                     <span>
-                                        <b>Prénom, Nom et Signature </b><br>
-                                        {{ $formation->evaluateur_onfp }}
+                                        <b>Prénom, Nom et Signature </b><br><br><br>
+                                        {{ $formation?->onfpevaluateur?->name . ' ' . $formation?->onfpevaluateur?->lastname }}
                                     </span>
                                 </p>
 
