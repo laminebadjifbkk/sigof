@@ -3263,6 +3263,8 @@ class FormationController extends Controller
             ->where('note_obtenue', '>=', '12')
             ->count();
 
+        $admis_count = $admis_h_count + $admis_f_count;
+
         $formes_h_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
             ->select('individuelles.*')
             ->where('formations_id', $formation->id)
@@ -3290,6 +3292,8 @@ class FormationController extends Controller
             ->count();
 
         $retenus_total = $retenus_h_count + $retenus_f_count;
+        
+        $pourcentage_admis = $formes_total > 0 ? round(($admis_count / $formes_total) * 100, 2) : 0;
 
         if ($formation->statut == "Terminée") {
 
@@ -3311,6 +3315,8 @@ class FormationController extends Controller
                 'admis',
                 'recales',
                 'admis_h_count',
+                'pourcentage_admis',
+                'admis_count',
                 'admis_f_count',
                 'formes_h_count',
                 'formes_f_count',
@@ -3483,6 +3489,8 @@ class FormationController extends Controller
             ->where('note_obtenue', '>=', '12')
             ->count();
 
+        $admis_count = $admis_h_count + $admis_f_count;
+
         $formes_h_count = Listecollective::where('formations_id', $formation->id)
             ->where('civilite', "M.")
             ->count();
@@ -3503,6 +3511,8 @@ class FormationController extends Controller
 
         $retenus_total = $retenus_h_count + $retenus_f_count;
 
+        $pourcentage_admis = $formes_total > 0 ? round(($admis_count / $formes_total) * 100, 2) : 0;
+
         if ($formation->statut == "Terminée") {
 
             $title = 'Attestation de bonne execution ' . $formation->name;
@@ -3522,6 +3532,8 @@ class FormationController extends Controller
                 'count_membres',
                 'admis',
                 'recales',
+                'pourcentage_admis',
+                'admis_count',
                 'admis_h_count',
                 'admis_f_count',
                 'formes_h_count',

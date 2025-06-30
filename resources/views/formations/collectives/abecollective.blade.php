@@ -232,6 +232,8 @@
                                 <p><b>NOMBRE DE BÉNÉFICIAIRES CERTIFIÉS </b>:
                                     {{ ' H : ' . str_pad($admis_h_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     {{ ' F : ' . str_pad($admis_f_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{ ' T : ' . str_pad($admis_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{ ' SOIT : ' . str_pad($pourcentage_admis, 2, '0', STR_PAD_LEFT) }}%
                                 </p>
 
                                 <p>
