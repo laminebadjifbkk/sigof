@@ -52,7 +52,8 @@
                                 <table class="table datatables align-middle justify-content-center" id="table-onfpevaluateurs">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
+                                            <th>Prénom</th>
+                                            <th>Nom</th>
                                             <th>Initiale</th>
                                             <th>Fonction</th>
                                             <th>Email</th>
@@ -66,6 +67,7 @@
                                         @foreach ($onfpevaluateurs as $onfpevaluateur)
                                             <tr>
                                                 <td>{{ $onfpevaluateur->name }}</td>
+                                                <td>{{ $onfpevaluateur->lastname }}</td>
                                                 <td>{{ $onfpevaluateur->initiale }}</td>
                                                 <td>{{ $onfpevaluateur->fonction }}</td>
                                                 <td><a
@@ -220,85 +222,6 @@
                     aria-labelledby="EditonfpevaluateurModalLabel{{ $onfpevaluateur->id }}" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
-                            {{-- <form method="post" action="{{ route('onfpevaluateurs.update', $onfpevaluateur->id) }}"
-                                enctype="multipart/form-data" class="row g-3">
-                                @csrf
-                                @method('patch')
-                                <div class="modal-header" id="EditonfpevaluateurModalLabel{{ $onfpevaluateur->id }}">
-                                    <h5 class="modal-title"><i class="bi bi-pencil" title="Ajouter"></i> Modifier ingénieur
-                                    </h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <input type="hidden" name="id" value="{{ $onfpevaluateur->id }}">
-                                <div class="modal-body">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" name="name"
-                                            value="{{ $onfpevaluateur->name ?? old('name') }}"
-                                            class="form-control form-control-sm @error('name') is-invalid @enderror"
-                                            id="name" placeholder="Ingénieur" autofocus>
-                                        @error('name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                        <label for="floatingInput">Ingénieur<span class="text-danger mx-1">*</span></label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" name="initiale"
-                                            value="{{ $onfpevaluateur->initiale ?? old('initiale') }}"
-                                            class="form-control form-control-sm @error('initiale') is-invalid @enderror"
-                                            id="initiale" placeholder="initiale">
-                                        @error('initiale')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                        <label for="floatingInput">Initiale<span class="text-danger mx-1">*</span></label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" name="fonction"
-                                            value="{{ $onfpevaluateur->fonction ?? old('fonction') }}"
-                                            class="form-control form-control-sm @error('fonction') is-invalid @enderror"
-                                            id="fonction" placeholder="fonction">
-                                        @error('specialite')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                        <label for="floatingInput">Fonction<span class="text-danger mx-1">*</span></label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" name="email"
-                                            value="{{ $onfpevaluateur->email ?? old('email') }}"
-                                            class="form-control form-control-sm @error('email') is-invalid @enderror"
-                                            id="email" placeholder="email">
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                        <label for="floatingInput">Email<span class="text-danger mx-1">*</span></label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="number" min="0" name="telephone"
-                                            value="{{ $onfpevaluateur->telephone ?? old('telephone') }}"
-                                            class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                            id="telephone" placeholder="7xxxxxxxx">
-                                        @error('telephone')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                        <label for="floatingInput">Telephone<span class="text-danger mx-1">*</span></label>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                    <button type="submit" class="btn btn-primary"><i class="bi bi-printer"></i>
-                                        Modifier</button>
-                                </div>
-                            </form> --}}
 
                             <form method="POST" action="{{ route('onfpevaluateurs.update', $onfpevaluateur->id) }}"
                                 enctype="multipart/form-data" class="needs-validation" novalidate>

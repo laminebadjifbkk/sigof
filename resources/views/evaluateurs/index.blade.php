@@ -51,7 +51,8 @@
                             <table class="table datatables align-middle justify-content-center" id="table-evaluateurs">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>Prénom</th>
+                                        <th>Nom</th>
                                         <th>Fonction/Spécialité</th>
                                         <th>Email</th>
                                         <th>Téléphone</th>
@@ -65,6 +66,7 @@
                                     @foreach ($evaluateurs as $evaluateur)
                                         <tr>
                                             <td>{{ $evaluateur->name }}</td>
+                                            <td>{{ $evaluateur->lastname }}</td>
                                             <td>{{ $evaluateur->fonction }}</td>
                                             <td><a href="mailto:{{ $evaluateur->email }}">{{ $evaluateur->email }}</a></td>
                                             <td><a
@@ -132,76 +134,6 @@
         <div class="modal fade" id="AddevaluateurModal" tabindex="-1">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    {{-- <form method="post" action="{{ url('evaluateurs') }}" enctype="multipart/form-data" class="row g-3">
-                        @csrf
-                        <div class="modal-header">
-                            <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i>Ajouter un évaluateur</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-floating mb-3">
-                                <input type="text" name="name" value="{{ old('name') }}"
-                                    class="form-control form-control-sm @error('name') is-invalid @enderror" id="name"
-                                    placeholder="Nom évaluateur" autofocus>
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                                <label for="floatingInput">Evaluateur<span class="text-danger mx-1">*</span></label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="text" name="fonction" value="{{ old('fonction') }}"
-                                    class="form-control form-control-sm @error('fonction') is-invalid @enderror"
-                                    id="fonction" placeholder="fonction">
-                                @error('fonction')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                                <label for="floatingInput">Fonction<span class="text-danger mx-1">*</span></label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="text" name="email" value="{{ old('email') }}"
-                                    class="form-control form-control-sm @error('email') is-invalid @enderror"
-                                    id="email" placeholder="email">
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                                <label for="floatingInput">Email<span class="text-danger mx-1">*</span></label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="number" name="telephone" min="0" value="{{ old('telephone') }}"
-                                    class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                    id="telephone" placeholder="7xxxxxxxx">
-                                @error('telephone')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                                <label for="floatingInput">Telephone<span class="text-danger mx-1">*</span></label>
-                            </div>
-
-                            <div class="form-floating mb-3">
-                                <input type="text" name="adresse" value="{{ old('adresse') }}"
-                                    class="form-control form-control-sm @error('adresse') is-invalid @enderror"
-                                    id="adresse" placeholder="adresse">
-                                @error('adresse')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                                <label for="floatingInput">Adresse<span class="text-danger mx-1">*</span></label>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                            <button type="submit" class="btn btn-primary"><i class="bi bi-printer"></i>
-                                Enregistrer</button>
-                        </div>
-                    </form> --}}
                     <form method="POST" action="{{ url('evaluateurs') }}" enctype="multipart/form-data"
                         class="needs-validation" novalidate>
                         @csrf
@@ -285,85 +217,6 @@
                 aria-labelledby="EditevaluateurModalLabel{{ $evaluateur->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        {{-- <form method="post" action="{{ route('evaluateurs.update', $evaluateur->id) }}"
-                            enctype="multipart/form-data" class="row g-3">
-                            @csrf
-                            @method('patch')
-                            <div class="modal-header" id="EditevaluateurModalLabel{{ $evaluateur->id }}">
-                                <h5 class="modal-title"><i class="bi bi-pencil" title="Ajouter"></i> Modifier évaluateur
-                                </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <input type="hidden" name="id" value="{{ $evaluateur->id }}">
-                            <div class="modal-body">
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="name" value="{{ $evaluateur->name ?? old('name') }}"
-                                        class="form-control form-control-sm @error('name') is-invalid @enderror"
-                                        id="name" placeholder="Ingénieur" autofocus>
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                    <label for="floatingInput">Ingénieur<span class="text-danger mx-1">*</span></label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="fonction"
-                                        value="{{ $evaluateur->fonction ?? old('fonction') }}"
-                                        class="form-control form-control-sm @error('fonction') is-invalid @enderror"
-                                        id="fonction" placeholder="fonction">
-                                    @error('specialite')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                    <label for="floatingInput">Fonction<span class="text-danger mx-1">*</span></label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="email"
-                                        value="{{ $evaluateur->email ?? old('email') }}"
-                                        class="form-control form-control-sm @error('email') is-invalid @enderror"
-                                        id="email" placeholder="email">
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                    <label for="floatingInput">Email<span class="text-danger mx-1">*</span></label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="number" min="0" name="telephone"
-                                        value="{{ $evaluateur->telephone ?? old('telephone') }}"
-                                        class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                        id="telephone" placeholder="7xxxxxxxx">
-                                    @error('telephone')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                    <label for="floatingInput">Telephone<span class="text-danger mx-1">*</span></label>
-                                </div>
-
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="adresse"
-                                        value="{{ $evaluateur->adresse ?? old('adresse') }}"
-                                        class="form-control form-control-sm @error('adresse') is-invalid @enderror"
-                                        id="adresse" placeholder="adresse">
-                                    @error('adresse')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                    <label for="floatingInput">Adresse<span class="text-danger mx-1">*</span></label>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                <button type="submit" class="btn btn-primary"><i class="bi bi-printer"></i>
-                                    Modifier</button>
-                            </div>
-                        </form> --}}
                         <form method="POST" action="{{ route('evaluateurs.update', $evaluateur->id) }}"
                             enctype="multipart/form-data" class="needs-validation" novalidate>
                             @csrf
