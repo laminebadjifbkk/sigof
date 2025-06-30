@@ -21,6 +21,7 @@ class Onfpevaluateur extends Model
 		'uuid',
 		'matricule',
 		'name',
+		'lastname',
 		'initiale',
 		'telephone',
 		'email',

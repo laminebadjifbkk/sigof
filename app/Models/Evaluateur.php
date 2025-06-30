@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int $id
  * @property string $uuid
  * @property string $name
+ * @property string $lastname
  * @property string|null $telephone
  * @property string|null $email
  * @property string|null $adresse
@@ -47,6 +48,7 @@ class Evaluateur extends Model
 	protected $fillable = [
 		'uuid',
 		'name',
+		'lastname',
 		'telephone',
 		'email',
 		'adresse',

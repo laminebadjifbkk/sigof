@@ -90,7 +90,7 @@ class CollectivemoduleController extends Controller
         // Vérifier la limite de modules pour la collective
         $module_collective_total = Collectivemodule::where('collectives_id', $request->input('collectiveid'))->count();
 
-        if ($module_collective_total >= 3) {
+        if ($module_collective_total >= 4) {
             Alert::warning('Attention !', 'Vous avez atteint le nombre maximum de modules autorisés.');
             return redirect()->back();
         }
