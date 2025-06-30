@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Departement;
@@ -33,39 +32,43 @@ class OnfpevaluateurController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            "matricule"         => ["nullable", "string", Rule::unique('onfpevaluateurs')->where(function ($query) {
+            "matricule" => ["nullable", "string", Rule::unique('onfpevaluateurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "name"              => ["required", "string", Rule::unique('onfpevaluateurs')->where(function ($query) {
+            "name"      => ["required", "string", Rule::unique('onfpevaluateurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "initiale"          => ["required", "string", Rule::unique('onfpevaluateurs')->where(function ($query) {
+            "lastname"  => ["required", "string", Rule::unique('onfpevaluateurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "fonction"          => [Rule::unique('onfpevaluateurs')->where(function ($query) {
+            "initiale"  => ["required", "string", Rule::unique('onfpevaluateurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "email"             => ["required", "string", Rule::unique('onfpevaluateurs')->where(function ($query) {
+            "fonction"  => [Rule::unique('onfpevaluateurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "telephone"         => ["required", "string", "size:12", Rule::unique('onfpevaluateurs')->where(function ($query) {
+            "email"     => ["required", "string", Rule::unique('onfpevaluateurs')->where(function ($query) {
+                return $query->whereNull('deleted_at');
+            })],
+            "telephone" => ["required", "string", "size:12", Rule::unique('onfpevaluateurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
         ]);
 
         $onfpevaluateur = Onfpevaluateur::create([
-            "matricule"     => $request->input("matricule"),
-            "name"          => $request->input("name"),
-            "initiale"      => $request->input("initiale"),
-            "fonction"      => $request->input("fonction"),
-            "specialite"    => $request->input("specialite"),
-            "email"         => $request->input("email"),
-            "telephone"     => $request->input("telephone"),
+            "matricule"  => $request->input("matricule"),
+            "name"       => $request->input("name"),
+            "lastname"   => $request->input("lastname"),
+            "initiale"   => $request->input("initiale"),
+            "fonction"   => $request->input("fonction"),
+            "specialite" => $request->input("specialite"),
+            "email"      => $request->input("email"),
+            "telephone"  => $request->input("telephone"),
         ]);
 
         $onfpevaluateur->save();
 
-        Alert::success('Félicitation !', 'Enregistrement effectué');
+        Alert::success('Succès !', 'Enregistrement effectué avec succès');
 
         return redirect()->back();
     }
@@ -75,40 +78,42 @@ class OnfpevaluateurController extends Controller
         $onfpevaluateur = Onfpevaluateur::find($id);
 
         $this->validate($request, [
-            'matricule'     => ['nullable', 'string', 'max:25', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
-            "name"          => ['required', 'string', 'max:25', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
-            "initiale"      => ['required', 'string', 'max:25', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
-            "fonction"      => ['required', 'string', 'max:250', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
-            "email"         => ['required', 'string', 'max:250', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
-            "telephone"     => ['required', 'string', 'size:12', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
+            'matricule' => ['nullable', 'string', 'max:25', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
+            "name"      => ['required', 'string', 'max:25', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
+            "lastname"  => ['required', 'string', 'max:25', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
+            "initiale"  => ['required', 'string', 'max:25', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
+            "fonction"  => ['required', 'string', 'max:250', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
+            "email"     => ['required', 'string', 'max:250', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
+            "telephone" => ['required', 'string', 'size:12', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
         ]);
 
         $onfpevaluateur->update([
-            "matricule"     => $request->input("matricule"),
-            "name"          => $request->input("name"),
-            "initiale"      => $request->input("initiale"),
-            "fonction"      => $request->input("fonction"),
-            "specialite"    => $request->input("specialite"),
-            "email"         => $request->input("email"),
-            "telephone"     => $request->input("telephone"),
+            "matricule"  => $request->input("matricule"),
+            "name"       => $request->input("name"),
+            "lastname"   => $request->input("lastname"),
+            "initiale"   => $request->input("initiale"),
+            "fonction"   => $request->input("fonction"),
+            "specialite" => $request->input("specialite"),
+            "email"      => $request->input("email"),
+            "telephone"  => $request->input("telephone"),
         ]);
 
         $onfpevaluateur->save();
 
-        Alert::success('Fait ! ', 'modification effectuée');
+        Alert::success('Succès ! ', 'Modification effectuée avec succès');
 
         return redirect()->back();
     }
 
     public function show($id)
     {
-        $onfpevaluateur     = Onfpevaluateur::findOrFail($id);
-        $modules            = Module::orderBy("created_at", "desc")->get();
-        $departements       = Departement::orderBy("created_at", "desc")->get();
-        $regions            = Region::orderBy("created_at", "desc")->get();
-        $operateurs         = Operateur::orderBy("created_at", "desc")->get();
-        $types_formations   = TypesFormation::orderBy("created_at", "desc")->get();
-        $onfpevaluateurs         = Onfpevaluateur::orderBy("created_at", "desc")->get();
+        $onfpevaluateur   = Onfpevaluateur::findOrFail($id);
+        $modules          = Module::orderBy("created_at", "desc")->get();
+        $departements     = Departement::orderBy("created_at", "desc")->get();
+        $regions          = Region::orderBy("created_at", "desc")->get();
+        $operateurs       = Operateur::orderBy("created_at", "desc")->get();
+        $types_formations = TypesFormation::orderBy("created_at", "desc")->get();
+        $onfpevaluateurs  = Onfpevaluateur::orderBy("created_at", "desc")->get();
         return view('onfpevaluateurs.show', compact('onfpevaluateur', 'departements', 'modules', 'regions', 'operateurs', 'types_formations', 'onfpevaluateurs'));
     }
 
@@ -117,7 +122,7 @@ class OnfpevaluateurController extends Controller
         $onfpevaluateur = Onfpevaluateur::find($id);
         $onfpevaluateur->delete();
 
-        Alert::success('Fait !', 'Suppression effectuée');
+        Alert::success('Succès !', 'Suppression effectuée avec succès');
 
         return redirect()->back();
     }

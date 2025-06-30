@@ -29,6 +29,7 @@ class EvaluateurController extends Controller
     {
         $this->validate($request, [
             "name"      => ["required", "string"],
+            "lastname"  => ["required", "string"],
             "adresse"   => ["required", "string"],
             "fonction"  => ["required", "string"],
             "email"     => ["required", "string", Rule::unique('evaluateurs')->where(function ($query) {
@@ -41,6 +42,7 @@ class EvaluateurController extends Controller
 
         $evaluateur = Evaluateur::create([
             "name"      => $request->input("name"),
+            "lastname"  => $request->input("lastname"),
             "initiale"  => $request->input("initiale"),
             "fonction"  => $request->input("fonction"),
             "email"     => $request->input("email"),
@@ -61,6 +63,7 @@ class EvaluateurController extends Controller
 
         $this->validate($request, [
             "name"      => ['required', 'string', 'max:25'],
+            "lastname"  => ['required', 'string', 'max:25'],
             "fonction"  => ['required', 'string', 'max:250'],
             "email"     => ['required', 'string', 'max:25', Rule::unique(Evaluateur::class)->ignore($id)->whereNull('deleted_at')],
             "telephone" => ['required', 'string', "size:12", Rule::unique(Evaluateur::class)->ignore($id)->whereNull('deleted_at')],
@@ -69,6 +72,7 @@ class EvaluateurController extends Controller
 
         $evaluateur->update([
             "name"      => $request->input("name"),
+            "lastname"  => $request->input("lastname"),
             "fonction"  => $request->input("fonction"),
             "email"     => $request->input("email"),
             "telephone" => $request->input("telephone"),
