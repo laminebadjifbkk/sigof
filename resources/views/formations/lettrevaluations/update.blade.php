@@ -98,7 +98,7 @@
                                                 aria-label="Select" id="evaluateurSelected" data-placeholder="Choisir">
                                                 <option
                                                     value="{{ $lettrevaluation?->formation->evaluateur->id ?? old('evaluateur') }}">
-                                                    {{ $lettrevaluation?->formation->evaluateur->name ?? old('evaluateur') }}
+                                                    {{ $lettrevaluation?->formation->evaluateur->name . ' ' . $lettrevaluation?->formation->evaluateur->lastname ?? old('evaluateur') }}
                                                 </option>
                                                 @foreach ($evaluateurs as $evaluateur)
                                                     <option value="{{ $evaluateur->id }}">
