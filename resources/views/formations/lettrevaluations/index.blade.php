@@ -156,7 +156,7 @@
                                                                     <!-- Télécharger la lettre -->
                                                                     <li>
                                                                         <a href="{{ route('lettrevaluations.show', $lettrevaluation->id) }}"
-                                                                            class="dropdown-item">
+                                                                            class="dropdown-item" target="_blank">
                                                                             <i class="bi bi-download"></i> Télécharger lettre
                                                                         </a>
                                                                     </li>
@@ -191,7 +191,7 @@
                                                                     <!-- Télécharger demande de paiement -->
                                                                     <li>
                                                                         <a href="{{ route('demandePaiement.telecharger', $lettrevaluation->id) }}"
-                                                                            class="dropdown-item">
+                                                                            class="dropdown-item" target="_blank">
                                                                             <i class="bi bi-receipt"></i> Télécharger DP
                                                                         </a>
                                                                     </li>
