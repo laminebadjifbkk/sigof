@@ -79,7 +79,7 @@ class OnfpevaluateurController extends Controller
 
         $this->validate($request, [
             'matricule' => ['nullable', 'string', 'max:25', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
-            "name"      => ['required', 'string', 'max:25', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
+            "name"      => ['required', 'string', 'max:50', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
             "lastname"  => ['required', 'string', 'max:25', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
             "initiale"  => ['required', 'string', 'max:25', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
             "fonction"  => ['required', 'string', 'max:250', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],

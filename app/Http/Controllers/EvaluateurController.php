@@ -62,10 +62,10 @@ class EvaluateurController extends Controller
         $evaluateur = Evaluateur::find($id);
 
         $this->validate($request, [
-            "name"      => ['required', 'string', 'max:25'],
+            "name"      => ['required', 'string', 'max:50'],
             "lastname"  => ['required', 'string', 'max:25'],
             "fonction"  => ['required', 'string', 'max:250'],
-            "email"     => ['required', 'string', 'max:25', Rule::unique(Evaluateur::class)->ignore($id)->whereNull('deleted_at')],
+            "email"     => ['required', 'string', 'max:250', Rule::unique(Evaluateur::class)->ignore($id)->whereNull('deleted_at')],
             "telephone" => ['required', 'string', "size:12", Rule::unique(Evaluateur::class)->ignore($id)->whereNull('deleted_at')],
             'adresse'   => ['required', 'string', 'max:25'],
         ]);
