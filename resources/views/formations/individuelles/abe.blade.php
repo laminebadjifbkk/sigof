@@ -237,7 +237,7 @@
                                 <p>
                                     Je soussigné
                                     <b>
-                                        {{ $formation?->onfpevaluateur?->name ?? '...' }},
+                                        {{ $formation?->onfpevaluateur?->name . ' ' . $formation?->onfpevaluateur?->lastname ?? '...' }},
                                         {{ $formation?->onfpevaluateur?->fonction ?? '...' }}
                                     </b>,
                                     certifie, au nom de l'ONFP, que
