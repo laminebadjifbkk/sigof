@@ -102,7 +102,7 @@
                                                 </option>
                                                 @foreach ($evaluateurs as $evaluateur)
                                                     <option value="{{ $evaluateur->id }}">
-                                                        {{ $evaluateur->name }}
+                                                        {{ $evaluateur->name . ' ' . $evaluateur->lastname}}
                                                     </option>
                                                 @endforeach
                                             </select>
