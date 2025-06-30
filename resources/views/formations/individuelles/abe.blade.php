@@ -109,6 +109,18 @@
         a:before {
             content: '- ';
         }
+
+        .taux-faible {
+            color: red;
+        }
+
+        .taux-moyen {
+            color: orange;
+        }
+
+        .taux-eleve {
+            color: green;
+        }
     </style>
 </head>
 
@@ -228,12 +240,22 @@
                                         {{ $formation?->type_certification }}
                                     </span>
                                 </p>
+                                @php
+                                    $classe = 'taux-faible';
 
+                                    if ($pourcentage_admis >= 75) {
+                                        $classe = 'taux-eleve';
+                                    } elseif ($pourcentage_admis >= 50) {
+                                        $classe = 'taux-moyen';
+                                    }
+                                @endphp
                                 <p><b>NOMBRE DE BÉNÉFICIAIRES CERTIFIÉS </b>:
-                                    {{ ' H : ' . str_pad($admis_h_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    {{ ' F : ' . str_pad($admis_f_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    {{ ' T : ' . str_pad($admis_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    {{ ' SOIT : ' . str_pad($pourcentage_admis, 2, '0', STR_PAD_LEFT) }}%
+                                    {{ ' H : ' . str_pad($admis_h_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{ ' F : ' . str_pad($admis_f_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{ ' T : ' . str_pad($admis_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span class="{{ $classe }}">
+                                        Soit un taux de : {{ number_format($pourcentage_admis, 2, ',', ' ') }}%
+                                    </span>
                                 </p>
 
                                 <p>

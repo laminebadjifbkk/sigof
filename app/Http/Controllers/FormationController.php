@@ -3263,8 +3263,6 @@ class FormationController extends Controller
             ->where('note_obtenue', '>=', '12')
             ->count();
 
-        $admis_count = $admis_h_count + $admis_f_count;
-
         $formes_h_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
             ->select('individuelles.*')
             ->where('formations_id', $formation->id)
@@ -3292,7 +3290,8 @@ class FormationController extends Controller
             ->count();
 
         $retenus_total = $retenus_h_count + $retenus_f_count;
-        
+
+        $admis_count       = $admis_h_count + $admis_f_count;
         $pourcentage_admis = $formes_total > 0 ? round(($admis_count / $formes_total) * 100, 2) : 0;
 
         if ($formation->statut == "Terminée") {
@@ -3347,56 +3346,6 @@ class FormationController extends Controller
 
         $formation = Formation::findOrFail($idformation);
 
-        /* $admis = Individuelle::where('formations_id', $formation->id)
-            ->where('note_obtenue', '>=', '12')
-            ->get();
-
-        $recales = Individuelle::where('formations_id', $formation->id)
-            ->where('note_obtenue', '<', '12')
-            ->get();
-
-        $admis_h_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
-            ->select('individuelles.*')
-            ->where('formations_id', $formation->id)
-            ->where('users.civilite', "M.")
-            ->where('note_obtenue', '>=', '12')
-            ->count();
-
-        $admis_f_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
-            ->select('individuelles.*')
-            ->where('formations_id', $formation->id)
-            ->where('users.civilite', "Mme")
-            ->where('note_obtenue', '>=', '12')
-            ->count();
-
-        $formes_h_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
-            ->select('individuelles.*')
-            ->where('formations_id', $formation->id)
-            ->where('users.civilite', "M.")
-            ->count();
-
-        $formes_f_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
-            ->select('individuelles.*')
-            ->where('formations_id', $formation->id)
-            ->where('users.civilite', "Mme")
-            ->count();
-
-        $formes_total = $formes_h_count + $formes_f_count;
-
-        $retenus_h_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
-            ->select('individuelles.*')
-            ->where('formations_id', $formation->id)
-            ->where('users.civilite', "M.")
-            ->count();
-
-        $retenus_f_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
-            ->select('individuelles.*')
-            ->where('formations_id', $formation->id)
-            ->where('users.civilite', "Mme")
-            ->count();
-
-        $retenus_total = $retenus_h_count + $retenus_f_count; */
-
 // Toutes les individuelles liées à la formation, avec jointure utilisateur
         $individuelles = Individuelle::with('user')
             ->where('formations_id', $idformation)
@@ -3420,6 +3369,9 @@ class FormationController extends Controller
         $retenus_f_count = $formes_f_count;
         $retenus_total   = $retenus_h_count + $retenus_f_count;
 
+        $admis_count       = $admis_h_count + $admis_f_count;
+        $pourcentage_admis = $formes_total > 0 ? round(($admis_count / $formes_total) * 100, 2) : 0;
+
         if ($formation->statut == "Terminée") {
 
             $title = 'Attestation de bonne execution ' . $formation->name;
@@ -3439,6 +3391,8 @@ class FormationController extends Controller
                 'count_membres',
                 'admis',
                 'recales',
+                'admis_count',
+                'pourcentage_admis',
                 'admis_h_count',
                 'admis_f_count',
                 'formes_h_count',
@@ -3489,8 +3443,6 @@ class FormationController extends Controller
             ->where('note_obtenue', '>=', '12')
             ->count();
 
-        $admis_count = $admis_h_count + $admis_f_count;
-
         $formes_h_count = Listecollective::where('formations_id', $formation->id)
             ->where('civilite', "M.")
             ->count();
@@ -3511,6 +3463,7 @@ class FormationController extends Controller
 
         $retenus_total = $retenus_h_count + $retenus_f_count;
 
+        $admis_count       = $admis_h_count + $admis_f_count;
         $pourcentage_admis = $formes_total > 0 ? round(($admis_count / $formes_total) * 100, 2) : 0;
 
         if ($formation->statut == "Terminée") {
@@ -3603,6 +3556,9 @@ class FormationController extends Controller
 
         $retenus_total = $retenus_h_count + $retenus_f_count;
 
+        $admis_count       = $admis_h_count + $admis_f_count;
+        $pourcentage_admis = $formes_total > 0 ? round(($admis_count / $formes_total) * 100, 2) : 0;
+
         if ($formation->statut == "Terminée") {
 
             $title = 'Attestation de bonne execution ' . $formation->name;
@@ -3622,6 +3578,8 @@ class FormationController extends Controller
                 'count_membres',
                 'admis',
                 'recales',
+                'admis_count',
+                'pourcentage_admis',
                 'admis_h_count',
                 'admis_f_count',
                 'formes_h_count',
