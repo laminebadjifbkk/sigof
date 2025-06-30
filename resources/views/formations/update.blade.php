@@ -525,12 +525,12 @@
                                                 data-placeholder="Choisir evaluateur ONFP">
                                                 <option value="{{ $formation?->onfpevaluateur?->id }}">
                                                     @if (!empty($formation?->onfpevaluateur?->name))
-                                                        {{ $formation?->onfpevaluateur?->name . ', ' . $formation?->onfpevaluateur?->fonction }}
+                                                        {{ $formation?->onfpevaluateur?->name . ' ' . $formation?->onfpevaluateur?->lastname . ', ' . $formation?->onfpevaluateur?->fonction }}
                                                     @endif
                                                 </option>
                                                 @foreach ($onfpevaluateurs as $onfpevaluateur)
                                                     <option value="{{ $onfpevaluateur->id }}">
-                                                        {{ $onfpevaluateur?->name . ', ' . $onfpevaluateur?->fonction ?? old('onfpevaluateur') }}
+                                                        {{ $onfpevaluateur?->name . ' ' . $onfpevaluateur?->lastname . ', ' . $onfpevaluateur?->fonction ?? old('onfpevaluateur') }}
                                                     </option>
                                                 @endforeach
                                             </select>

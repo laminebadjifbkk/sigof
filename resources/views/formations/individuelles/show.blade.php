@@ -2036,12 +2036,12 @@
                                             data-placeholder="Choisir evaluateur">
                                             <option value="{{ $formation?->evaluateur?->id }}">
                                                 @if (!empty($formation?->evaluateur?->name))
-                                                    {{ $formation?->evaluateur?->name . ', ' . $formation?->evaluateur?->fonction }}
+                                                    {{ $formation?->evaluateur?->name . ' ' . $formation?->evaluateur?->lastname . ', ' . $formation?->evaluateur?->fonction }}
                                                 @endif
                                             </option>
                                             @foreach ($evaluateurs as $evaluateur)
                                                 <option value="{{ $evaluateur->id }}">
-                                                    {{ $evaluateur?->name . ', ' . $evaluateur?->fonction ?? old('evaluateur') }}
+                                                    {{ $evaluateur?->name . ' ' . $evaluateur?->lastname . ', ' . $evaluateur?->fonction ?? old('evaluateur') }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -2089,13 +2089,13 @@
                                             aria-label="Select" id="select-field-onfp" data-placeholder="Choisir">
                                             <option value="{{ $formation->onfpevaluateur?->id }}">
                                                 @if (!empty($formation?->onfpevaluateur?->name))
-                                                    {{ $formation?->onfpevaluateur?->name . ', ' . $formation?->onfpevaluateur?->fonction }}
+                                                    {{ $formation?->onfpevaluateur?->name . ' ' . $formation?->onfpevaluateur?->lastname . ', ' . $formation?->onfpevaluateur?->fonction }}
                                                 @endif
                                             </option>
                                             <option value="Aucun">Aucun</option>
                                             @foreach ($onfpevaluateurs as $onfpevaluateur)
                                                 <option value="{{ $onfpevaluateur->id }}">
-                                                    {{ $onfpevaluateur?->name . ', ' . $onfpevaluateur?->fonction ?? old('onfpevaluateur') }}
+                                                    {{ $onfpevaluateur?->name . ' ' . $onfpevaluateur?->lastname . ', ' . $onfpevaluateur?->fonction ?? old('onfpevaluateur') }}
                                                 </option>
                                             @endforeach
                                         </select>
