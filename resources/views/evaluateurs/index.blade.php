@@ -378,9 +378,14 @@
                                     @php
                                         $fields = [
                                             'name' => [
-                                                'label' => 'Nom de l’évaluateur',
+                                                'label' => 'Prénom',
                                                 'type' => 'text',
-                                                'placeholder' => 'Nom complet',
+                                                'placeholder' => 'Prénom',
+                                            ],
+                                            'lastname' => [
+                                                'label' => 'Nom',
+                                                'type' => 'text',
+                                                'placeholder' => 'Nom',
                                             ],
                                             'fonction' => [
                                                 'label' => 'Fonction/Spécialité',
