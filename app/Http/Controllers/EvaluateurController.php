@@ -67,7 +67,7 @@ class EvaluateurController extends Controller
             "fonction"  => ['required', 'string', 'max:250'],
             "email"     => ['required', 'string', 'max:250', Rule::unique(Evaluateur::class)->ignore($id)->whereNull('deleted_at')],
             "telephone" => ['required', 'string', "size:12", Rule::unique(Evaluateur::class)->ignore($id)->whereNull('deleted_at')],
-            'adresse'   => ['required', 'string', 'max:25'],
+            'adresse'   => ['required', 'string', 'max:250'],
         ]);
 
         $evaluateur->update([
