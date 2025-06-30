@@ -112,7 +112,8 @@
         @endif --}}
         <div class="header">
             <div class="contact-info" style="float:left; width: 60%; text-align: left;">
-                <p><strong>Prénom & Nom:</strong> {{ $formation?->evaluateur?->name }}</p>
+                <p><strong>Prénom :</strong> {{ $formation?->evaluateur?->name }}</p>
+                <p><strong>Nom :</strong> {{ $formation?->evaluateur?->lastname }}</p>
                 <p><strong>Titre :</strong> {{ $formation?->evaluateur?->fonction }}</p>
                 <p><strong>Téléphone :</strong> {{ $formation?->evaluateur?->telephone }}</p>
             </div>
@@ -173,7 +174,8 @@
                 </tr>
                 <tr>
                     <td><strong>Montant brut</strong></td>
-                    <td style="width: 25%; border: 1px solid #000; padding: 8px; text-align: center;"><strong>{{ number_format($brut, 0, ',', ' ') }}</strong></td>
+                    <td style="width: 25%; border: 1px solid #000; padding: 8px; text-align: center;">
+                        <strong>{{ number_format($brut, 0, ',', ' ') }}</strong></td>
                 </tr>
             </tbody>
         </table>
