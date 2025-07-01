@@ -111,14 +111,14 @@
             </div>
         @endif --}}
         <div class="header">
-            <div class="contact-info" style="float:left; width: 60%; text-align: left;">
+            <div class="contact-info" style="float:left; width: 75%; text-align: left;">
                 <p><strong>Prénom :</strong> {{ $formation?->evaluateur?->name }}</p>
                 <p><strong>Nom :</strong> {{ $formation?->evaluateur?->lastname }}</p>
                 <p><strong>Titre :</strong> {{ $formation?->evaluateur?->fonction }}</p>
                 <p><strong>Téléphone :</strong> {{ $formation?->evaluateur?->telephone }}</p>
             </div>
 
-            <div class="date" style="width: 35%; float:right; text-align: right;">
+            <div class="date" style="width: 25%; float:right; text-align: right;">
                 Diourbel, le {{ $formation?->date_pv?->translatedFormat('d F Y') }}
             </div>
 
@@ -190,7 +190,7 @@
             <p style="text-align: right; font-style: italic">
                 <span>
                     <b>Prénom, Nom et Signature </b><br><br><br>
-                    {{ $formation?->evaluateur?->name . ' ' . $formation?->evaluateur?->lastname }}
+                    {{-- {{ $formation?->evaluateur?->name . ' ' . $formation?->evaluateur?->lastname }} --}}
                 </span>
             </p>
         </div>
