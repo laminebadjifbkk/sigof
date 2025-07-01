@@ -152,17 +152,17 @@
                                         <option value="{{ old('statut') }}">
                                             {{ old('statut') }}
                                         </option>
-                                        <option value="nouvelle">
-                                            nouvelle
+                                        <option value="Nouvelle">
+                                            Nouvelle
                                         </option>
-                                        <option value='Attente'>
-                                            attente
+                                        <option value="Conforme">
+                                            Conforme
                                         </option>
-                                        <option value="retenu">
-                                            retenu
+                                        <option value='Non conforme'>
+                                            Non conforme
                                         </option>
-                                        <option value="former">
-                                            former
+                                        <option value="formé">
+                                            formé
                                         </option>
                                         <option value='Rejetée'>
                                             rejeter
@@ -196,7 +196,7 @@
         new DataTable('#table-operateur', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [
