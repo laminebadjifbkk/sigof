@@ -3608,7 +3608,7 @@ class FormationController extends Controller
                 ->where('listecollectives.collectivemodules_id', 'LIKE', "%{$module?->id}%")
                 ->whereBetween(DB::raw('DATE(formations.date_debut)'), [$request->from_date, $request->to_date])
                 ->get();
-            dd($module);
+            dd($formes);
         } else {
             $formes = Listecollective::join('formations', 'formations.id', 'listecollectives.formations_id')
                 ->select('listecollectives.*')
