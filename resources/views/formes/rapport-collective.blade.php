@@ -47,6 +47,7 @@
                                             <th scope="col">Nom</th>
                                             <th scope="col">Date naissance</th>
                                             <th scope="col">Lieu naissance</th>
+                                            <th scope="col">Téléphone</th>
                                             <th scope="col">Niveau étude</th>
                                             {{-- <th scope="col">Module</th> --}}
                                             <th scope="col" class="text-center">Statut</th>
@@ -69,6 +70,9 @@
                                                 <td>{{ $listecollective?->date_naissance->format('d/m/Y') }}
                                                 </td>
                                                 <td>{{ $listecollective?->lieu_naissance }}</td>
+                                                <td><a
+                                                        href="{{ $listecollective?->telephone }}">{{ $listecollective?->telephone }}</a>
+                                                </td>
                                                 <td>{{ $listecollective?->niveau_etude }}</td>
                                                 {{-- <td>{{ $listecollective?->collectivemodule?->module }}</td> --}}
                                                 <td class="text-center">
@@ -226,7 +230,7 @@
         new DataTable('#table-formes', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             /* "order": [
