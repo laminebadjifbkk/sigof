@@ -185,7 +185,7 @@
                 </tr>
                 <tr class="heading">
                     <td colspan="2"><b>{{ __('Code : ') }}</b>
-                        {{ $formation?->code . '-C' }}
+                        {{ $formation?->code . 'C' }}
                     </td>
                     <td colspan="4"><b>{{ __('Niveau qualification : ') }}</b>
                         @if ($formation?->type_certification !== 'Titre')
