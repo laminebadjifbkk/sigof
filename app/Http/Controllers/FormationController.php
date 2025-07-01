@@ -3486,6 +3486,7 @@ class FormationController extends Controller
             'title'
         ));
     }
+
     public function generateRapportFormes(Request $request)
     {
         $this->validate($request, [
@@ -3584,6 +3585,7 @@ class FormationController extends Controller
             'title'
         ));
     }
+
     public function generateRapportFormesCollective(Request $request)
     {
         $this->validate($request, [
@@ -3599,6 +3601,7 @@ class FormationController extends Controller
 
         if (isset($request->module)) {
             $module = Collectivemodule::where('module', $request->module)->first();
+            dd($module);
             $formes = Listecollective::join('formations', 'formations.id', 'listecollectives.formations_id')
                 ->select('listecollectives.*')
                 ->where('listecollectives.statut', 'formé')
