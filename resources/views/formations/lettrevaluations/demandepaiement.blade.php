@@ -143,7 +143,6 @@
         <div class="header">
             <p>Indemnités relatives à l’évaluation de la formation en
                 {{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}
-                techniques de sérigraphie
                 en date du {{ $formation?->date_pv?->translatedFormat('d F Y') }} exécutée par l’opérateur
                 {{ $formation?->operateur?->user?->operateur ?? ' ' }}
             </p>
@@ -175,7 +174,8 @@
                 <tr>
                     <td><strong>Montant brut</strong></td>
                     <td style="width: 25%; border: 1px solid #000; padding: 8px; text-align: center;">
-                        <strong>{{ number_format($brut, 0, ',', ' ') }}</strong></td>
+                        <strong>{{ number_format($brut, 0, ',', ' ') }}</strong>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -187,14 +187,19 @@
 
 
         <div class="signature" style="width: 35%; float:right; text-align: right;">
-            <p>Prénom, Nom et Signature</p>
+            <p style="text-align: right; font-style: italic">
+                <span>
+                    <b>Prénom, Nom et Signature </b><br><br><br>
+                    {{ $formation?->onfpevaluateur?->name . ' ' . $formation?->onfpevaluateur?->lastname }}
+                </span>
+            </p>
         </div>
 
-        @if (isset($qrCodeBase64))
+        {{-- @if (isset($qrCodeBase64))
             <div style="width: 35%; float: left; text-align: left;">
                 <img src="data:image/png;base64,{{ $qrCodeBase64 }}" width="100" alt="QR Code">
             </div>
-        @endif
+        @endif --}}
     </div>
 </body>
 
