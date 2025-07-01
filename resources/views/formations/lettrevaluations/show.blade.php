@@ -178,7 +178,7 @@
                                         {{ $formation?->module?->name }}
                                     @endif
                                 </p>
-                                <p><b>Niveau de qualification </b>: {{ $formation?->type_certification }} </p>
+                                <p><b>Niveau de qualification </b>: {{ $formation?->titre }} </p>
                                 <p><b>Nombre de bénéficiaires </b>:
                                     {{ ' H: ' . str_pad($formation->prevue_h, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     {{ ' F: ' . str_pad($formation->prevue_f, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -217,7 +217,7 @@
                                 <p><b>Date de l'évaluation </b>:
                                     {{ 'Le ' . $formation?->date_pv?->translatedFormat('l d F Y') }} </p>
                                 <p><b>Montant indemnité de membre </b> :
-                                    {{ number_format($formation?->frais_evaluateur, 0, ',', ' ') }} F CFA versé sur
+                                    {{ number_format($formation?->frais_evaluateur, 0, ',', ' ') }} F CFA de brut versé sur
                                     présentation d'une demande de paiement
                                     et du PV d'évaluation.
                                 </p>

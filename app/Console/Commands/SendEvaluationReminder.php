@@ -20,6 +20,8 @@ class SendEvaluationReminder extends Command
         $todayAt8 = now()->setTime(8, 0, 0); // Aujourd'hui à 08h00
 
         // Dates cibles
+        $dateJmoins5 = $now->copy()->addDays(5);
+        $dateJmoins4 = $now->copy()->addDays(4);
         $dateJmoins3 = $now->copy()->addDays(3);
         $dateJmoins2 = $now->copy()->addDays(2);
         $dateJmoins1 = $now->copy()->addDay();
@@ -30,6 +32,8 @@ class SendEvaluationReminder extends Command
 
         // Regrouper les dates cibles
         $dates = [
+            'J-5' => $dateJmoins5,
+            'J-4' => $dateJmoins4,
             'J-3' => $dateJmoins3,
             'J-2' => $dateJmoins2,
             'J-1' => $dateJmoins1,
