@@ -190,7 +190,7 @@
             <p style="text-align: right; font-style: italic">
                 <span>
                     <b>Prénom, Nom et Signature </b><br><br><br>
-                    {{ $formation?->onfpevaluateur?->name . ' ' . $formation?->onfpevaluateur?->lastname }}
+                    {{ $formation?->evaluateur?->name . ' ' . $formation?->evaluateur?->lastname }}
                 </span>
             </p>
         </div>
