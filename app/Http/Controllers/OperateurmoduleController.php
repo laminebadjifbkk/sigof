@@ -19,8 +19,9 @@ class OperateurmoduleController extends Controller
 
     public function index()
     {
-        $operateurmodules = Operateurmodule::take(50)
+        $operateurmodules = Operateurmodule::whereHas('operateur')
             ->latest()
+            ->take(50)
             ->get();
 
         $module_statuts = Operateurmodule::get()->unique('statut');
@@ -241,7 +242,7 @@ class OperateurmoduleController extends Controller
         /* $operateurmodules = Operateurmodule::where('module', $request?->module)->get(); */
 
         // Convertir en minuscules
-        $module = $request?->module;
+        $module          = $request?->module;
         $modulenameLower = strtolower($module);
 
         /* $keywords = explode(' ', $request?->module); */

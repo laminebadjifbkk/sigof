@@ -138,8 +138,8 @@
                                 </div>
 
                                 <div class="card-body row g-4 px-4">
-                                    <input type="hidden" name="id" value="{{ $operateurmodule->id }}">
-                                    <input type="hidden" name="operateur" value="{{ $operateurmodule->operateur->id }}">
+                                    <input type="hidden" name="id" value="{{ $operateurmodule?->id }}">
+                                    <input type="hidden" name="operateur" value="{{ $operateurmodule?->operateur?->id }}">
 
                                     {{-- Module --}}
                                     <div class="col-12">

@@ -1341,6 +1341,7 @@ class OperateurController extends Controller
             ->get();
 
         $count = $operateurs->count();
+        $commissionagrements = Commissionagrement::orderBy('commission', 'desc')->get();
 
         // Gestion du titre des résultats
         $title = match ($count) {
@@ -1357,6 +1358,7 @@ class OperateurController extends Controller
         return view('operateurs.index', compact(
             'operateurs',
             'departements',
+            'commissionagrements',
             /* 'statCounts',
             'pourcentage_agreer',
             'pourcentage_rejeter',
