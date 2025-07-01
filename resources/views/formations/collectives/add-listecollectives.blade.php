@@ -108,7 +108,7 @@
                                                         </td>
                                                         <td class="text-center">
                                                             <span class="d-flex align-items-baseline">
-                                                                <a href="{{ route('listecollectives.show', $listecollective?->id) }}"
+                                                                <a href="{{ route('listecollectives.show', $listecollective) }}"
                                                                     class="btn btn-primary btn-sm" title="voir détails"
                                                                     target="_blank"><i class="bi bi-eye"></i></a>
                                                                 <div class="filter">
@@ -118,7 +118,7 @@
                                                                     <ul
                                                                         class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                         <li><a class="dropdown-item btn btn-sm"
-                                                                                href="{{ route('listecollectives.edit', $listecollective->id) }}"
+                                                                                href="{{ route('listecollectives.edit', $listecollective) }}"
                                                                                 class="mx-1" title="Modifier"><i
                                                                                     class="bi bi-pencil"></i>Modifier</a>
                                                                         </li>
