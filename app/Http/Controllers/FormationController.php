@@ -422,143 +422,13 @@ class FormationController extends Controller
             "date_debut"         => "nullable|date|size:10|date_format:Y-m-d",
             "date_convention"    => "nullable|date|size:10|date_format:Y-m-d",
             "date_lettre"        => "nullable|date|size:10|date_format:Y-m-d",
+            "date_lettre_dec"    => "nullable|date|size:10|date_format:Y-m-d",
             "date_fin"           => "nullable|date|size:10|date_format:Y-m-d",
             "lettre_mission"     => "nullable|string",
             "annee"              => "nullable|numeric",
             "file_convention"    => ['sometimes', 'file', 'mimes:pdf', 'max:1024'],
             "detf-file"          => ['sometimes', 'file', 'mimes:pdf', 'max:1024'],
         ]);
-
-        /* if (! empty($request->input('prevue_h'))) {
-            $prevue_h = $request->input('prevue_h');
-        } else {
-            $prevue_h = null;
-        }
-        if (! empty($request->input('prevue_f'))) {
-            $prevue_f = $request->input('prevue_f');
-        } else {
-            $prevue_f = null;
-        }
-
-        $effectif_prevu = $prevue_h + $prevue_f;
-
-        $projet = Projet::where('sigle', $request->input('projet'))->first();
-
-        $referentiel = Referentiel::where('titre', $request->titre)->first();
-
-        if (! empty($referentiel) && $request->titre != 'Renforcement de capacités') {
-            $referentiel_id = $referentiel?->id;
-            $titre          = null;
-            $type           = 'Titre';
-        } elseif ($request->titre == 'Renforcement de capacités') {
-            $referentiel_id = null;
-            $titre          = 'Renforcement de capacités';
-            $type           = 'Attestation';
-        } else {
-            $referentiel_id = null;
-            $titre          = null;
-            $type           = null;
-        }
-
-        if (request('file_convention') && ! empty($formation->file_convention)) {
-            Storage::disk('public')->delete($formation->file_convention);
-            $filePath = request('file_convention')->store('conventions', 'public');
-            $file     = $request->file('file_convention');
-            $formation->update([
-                'file_convention' => $filePath,
-            ]);
-
-            $formation->save();
-
-        } elseif (request('file_convention') && empty($formation->file_convention)) {
-            $filePath = request('file_convention')->store('conventions', 'public');
-            $file     = $request->file('file_convention');
-            $formation->update([
-                'file_convention' => $filePath,
-            ]);
-
-            $formation->save();
-        }
-
-        if (request('detf_file') && ! empty($formation->detf_file)) {
-            Storage::disk('public')->delete($formation->detf_file);
-            $filePath = request('detf_file')->store('detfs', 'public');
-            $file     = $request->file('detf_file');
-            $formation->update([
-                'detf_file' => $filePath,
-            ]);
-
-            $formation->save();
-
-        } elseif (request('detf_file') && empty($formation->detf_file)) {
-            $filePath = request('detf_file')->store('detfs', 'public');
-            $file     = $request->file('detf_file');
-            $formation->update([
-                'detf_file' => $filePath,
-            ]);
-
-            $formation->save();
-        }
-
-        if (request('file_pv') && ! empty($formation->file_pv)) {
-            Storage::disk('public')->delete($formation->file_pv);
-            $filePath = request('file_pv')->store('pvs', 'public');
-            $file     = $request->file('file_pv');
-            $formation->update([
-                'file_pv' => $filePath,
-            ]);
-
-            $formation->save();
-
-        } elseif (request('file_pv') && empty($formation->file_pv)) {
-            $filePath = request('file_pv')->store('pvs', 'public');
-            $file     = $request->file('file_pv');
-            $formation->update([
-                'file_pv' => $filePath,
-            ]);
-
-            $formation->save();
-        }
-
-        if (request('abe_file') && ! empty($formation->abe_file)) {
-            Storage::disk('public')->delete($formation->abe_file);
-            $filePath = request('abe_file')->store('abe', 'public');
-            $file     = $request->file('abe_file');
-            $formation->update([
-                'abe_file' => $filePath,
-            ]);
-
-            $formation->save();
-
-        } elseif (request('abe_file') && empty($formation->abe_file)) {
-            $filePath = request('abe_file')->store('abe', 'public');
-            $file     = $request->file('abe_file');
-            $formation->update([
-                'abe_file' => $filePath,
-            ]);
-
-            $formation->save();
-        }
-
-        if (request('lettre_mission_file') && ! empty($formation->lettre_mission_file)) {
-            Storage::disk('public')->delete($formation->lettre_mission_file);
-            $filePath = request('lettre_mission_file')->store('lm', 'public');
-            $file     = $request->file('lettre_mission_file');
-            $formation->update([
-                'lettre_mission_file' => $filePath,
-            ]);
-
-            $formation->save();
-
-        } elseif (request('lettre_mission_file') && empty($formation->lettre_mission_file)) {
-            $filePath = request('lettre_mission_file')->store('lm', 'public');
-            $file     = $request->file('lettre_mission_file');
-            $formation->update([
-                'lettre_mission_file' => $filePath,
-            ]);
-
-            $formation->save();
-        } */
 
         // Simplification des champs simples
         $prevue_h = (int) $request->input('prevue_h', 0);
@@ -606,80 +476,6 @@ class FormationController extends Controller
         handleFileUpload('abe_file', 'abe', $formation, 'abe_file');
         handleFileUpload('lettre_mission_file', 'lm', $formation, 'lettre_mission_file');
 
-        /* if (! empty($request->input('date_debut'))) {
-            $date_debut = date('Y-m-d H:i:s', strtotime($request->input('date_debut')));
-        } else {
-            $date_debut = null;
-        }
-
-        if (! empty($request->input('date_fin'))) {
-            $date_fin = date('Y-m-d H:i:s', strtotime($request->input('date_fin')));
-        } else {
-            $date_fin = null;
-        }
-
-        if (! empty($request->input('date_pv'))) {
-            $date_pv = date('Y-m-d H:i:s', strtotime($request->input('date_pv')));
-        } else {
-            $date_pv = null;
-        }
-
-        if (! empty($request->input('date_lettre'))) {
-            $date_lettre = date('Y-m-d H:i:s', strtotime($request->input('date_lettre')));
-        } else {
-            $date_lettre = null;
-        }
-
-        if (! empty($request->input('date_convention'))) {
-            $date_convention = date('Y-m-d H:i:s', strtotime($request->input('date_convention')));
-        } else {
-            $date_convention = null;
-        }
-
-        if (! empty($request->input('frais_operateurs'))) {
-            $frais_operateurs = $request->input('frais_operateurs');
-        } else {
-            $frais_operateurs = null;
-        }
-        if (! empty($request->input('frais_add'))) {
-            $frais_add = $request->input('frais_add');
-        } else {
-            $frais_add = null;
-        }
-        if (! empty($request->input('autes_frais'))) {
-            $autes_frais = $request->input('autes_frais');
-        } else {
-            $autes_frais = null;
-        }
-
-        if (! empty($request->input('frais_evaluateur'))) {
-            $frais_evaluateur = $request->input('frais_evaluateur');
-        } else {
-            $frais_evaluateur = null;
-        }
-        if (! empty($request->input('onfpevaluateur'))) {
-            $onfpevaluateur = $request->input('onfpevaluateur');
-        } else {
-            $onfpevaluateur = null;
-        }
-        if (! empty($request->input('duree_formation'))) {
-            $duree_formation = $request->input('duree_formation');
-        } else {
-            $duree_formation = null;
-        }
-
-        if (! empty($request->input('date_etat'))) {
-            $date_etat = date('Y-m-d H:i:s', strtotime($request->input('date_etat')));
-        } else {
-            $date_etat = null;
-        }
-
-        if (! empty($request->input('indemnite_transport_jour'))) {
-            $indemnite_transport_jour = $request->input('indemnite_transport_jour');
-        } else {
-            $indemnite_transport_jour = null;
-        } */
-
         // Fonction utilitaire pour parser une date ou retourner null
         function parseDateOrNull($value)
         {
@@ -691,6 +487,7 @@ class FormationController extends Controller
         $date_fin        = parseDateOrNull($request->input('date_fin'));
         $date_pv         = parseDateOrNull($request->input('date_pv'));
         $date_lettre     = parseDateOrNull($request->input('date_lettre'));
+        $date_lettre_dec = parseDateOrNull($request->input('date_lettre_dec'));
         $date_convention = parseDateOrNull($request->input('date_convention'));
         $date_etat       = parseDateOrNull($request->input('date_etat'));
 
@@ -718,6 +515,7 @@ class FormationController extends Controller
             "date_fin"                 => $date_fin,
             "date_convention"          => $date_convention,
             "date_lettre"              => $date_lettre,
+            "date_lettre_dec"          => $date_lettre_dec,
             "effectif_prevu"           => $effectif_prevu,
             "prevue_h"                 => $prevue_h,
             "prevue_f"                 => $prevue_f,
@@ -726,6 +524,7 @@ class FormationController extends Controller
             "autes_frais"              => $autes_frais,
             "projets_id"               => $projet?->id,
             "lettre_mission"           => $request->input('lettre_mission'),
+            "lettre_mission_dec"       => $request->input('lettre_mission_dec'),
             "programmes_id"            => $request->input('programme'),
             "choixoperateurs_id"       => $request->input('choixoperateur'),
             "referentiels_id"          => $referentiel_id,
@@ -875,8 +674,6 @@ class FormationController extends Controller
 
     public function destroy(Formation $formation)
     {
-        /* $formation = Formation::findOrFail($id); */
-
         if (! empty($formation->types_formation->name) && $formation->types_formation->name == "collective") {
             foreach ($formation->listecollectives as $liste) {
             }
@@ -904,6 +701,10 @@ class FormationController extends Controller
 
                 if (! empty($formation->lettre_mission_file)) {
                     Storage::disk('public')->delete($formation->lettre_mission_file);
+                }
+
+                if (! empty($formation->file_lettre_dec)) {
+                    Storage::disk('public')->delete($formation->file_lettre_dec);
                 }
 
                 if (! empty($formation->abe_file)) {
@@ -944,13 +745,17 @@ class FormationController extends Controller
                     Storage::disk('public')->delete($formation->lettre_mission_file);
                 }
 
+                if (! empty($formation->file_lettre_dec)) {
+                    Storage::disk('public')->delete($formation->file_lettre_dec);
+                }
+
                 if (! empty($formation->abe_file)) {
                     Storage::disk('public')->delete($formation->abe_file);
                 }
 
                 $formation->delete();
 
-                Alert::success('Opération réussie !', 'La formation a été supprimée avec succès.');
+                Alert::success('Succès !', 'La formation a été supprimée avec succès.');
 
                 return redirect()->back();
             }
@@ -968,7 +773,7 @@ class FormationController extends Controller
 
             $statut->save();
 
-            Alert::success('Opération réussie !', 'La formation a été supprimée avec succès.');
+            Alert::success('Succès !', 'La formation a été supprimée avec succès.');
 
             return redirect()->back();
         }

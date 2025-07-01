@@ -193,7 +193,7 @@
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="lettre_mission" class="form-label">N° lettre de mission</label>
+                                        <label for="lettre_mission" class="form-label">N° lettre de mission DIOF</label>
                                         <input type="text" name="lettre_mission"
                                             value="{{ $formation?->lettre_mission ?? old('lettre_mission') }}"
                                             class="form-control form-control-sm @error('lettre_mission') is-invalid @enderror"
@@ -206,7 +206,7 @@
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="date_lettre" class="form-label">Date lettre</label>
+                                        <label for="date_lettre" class="form-label">Date lettre mission DIOF</label>
                                         <input type="date" name="date_lettre"
                                             value="{{ $formation?->date_lettre?->format('Y-m-d') ?? old('date_lettre') }}"
                                             class="datepicker form-control form-control-sm @error('date_lettre') is-invalid @enderror"
@@ -474,6 +474,34 @@
                                                 </span>
                                             @enderror
                                         </div>
+                                    </div>
+
+
+
+                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <label for="lettre_mission_dec" class="form-label">N° lettre de mission DEC</label>
+                                        <input type="text" name="lettre_mission_dec"
+                                            value="{{ $formation?->lettre_mission_dec ?? old('lettre_mission_dec') }}"
+                                            class="form-control form-control-sm @error('lettre_mission_dec') is-invalid @enderror"
+                                            id="lettre_mission_dec" placeholder="Ex: 000876">
+                                        @error('lettre_mission_dec')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <label for="date_lettre_dec" class="form-label">Date lettre mission DEC</label>
+                                        <input type="date" name="date_lettre_dec"
+                                            value="{{ $formation?->date_lettre_dec?->format('Y-m-d') ?? old('date_lettre_dec') }}"
+                                            class="datepicker form-control form-control-sm @error('date_lettre_dec') is-invalid @enderror"
+                                            id="date_lettre_dec" placeholder="jj/mm/aaaa">
+                                        @error('date_lettre_dec')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">

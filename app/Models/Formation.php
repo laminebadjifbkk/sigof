@@ -27,6 +27,7 @@ use Illuminate\Support\Str;
  * @property Carbon|null $date_suivi
  * @property Carbon|null $date_debut
  * @property Carbon|null $date_lettre
+ * @property Carbon|null $date_lettre_dec
  * @property Carbon|null $date_convention
  * @property Carbon|null $date_fin
  * @property string|null $adresse
@@ -131,6 +132,8 @@ use Illuminate\Support\Str;
  * @property string|null $file_etat_hebergement
  * @property string|null $file_etat_restauration
  * @property string|null $file_etat_transport
+ * @property string|null $file_lettre_dec
+ * @property string|null $lettre_mission_dec
  *
  * @property float|null $indemnite_transport_jour
  * @property float|null $indemnite_transport
@@ -195,6 +198,7 @@ class Formation extends Model
         'date_fin'                    => 'datetime',
         'date_convention'             => 'datetime',
         'date_lettre'                 => 'datetime',
+        'date_lettre_dec'             => 'datetime',
         'date_etat'                   => 'datetime',
 
         'indemnite_transport_jour'    => 'float',
@@ -212,6 +216,7 @@ class Formation extends Model
         'date_debut',
         'date_fin',
         'date_etat',
+        'date_lettre_dec',
     ];
 
     protected $fillable = [
@@ -294,6 +299,7 @@ class Formation extends Model
         'zones_id',
         'date_convention',
         'date_lettre',
+        'date_lettre_dec',
 
         'duree_formation',
         'file_etat_hebergement',
@@ -307,6 +313,7 @@ class Formation extends Model
         'indemnite_restauration_jour',
         'indemnite_restauration',
         'indemnite',
+        'lettre_mission_dec',
     ];
 
     public function getRouteKeyName()
