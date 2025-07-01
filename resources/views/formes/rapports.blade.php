@@ -53,7 +53,7 @@
                                             <th>Date naissance</th>
                                             <th>Lieu naissance</th>
                                             <th>Téléphone</th>
-                                            <th width="20%">Module</th>
+                                            <th>Module</th>
                                             {{-- <th class="text-center">Statut</th> --}}
                                             <th>Région</th>
                                             <th>Projet</th>
