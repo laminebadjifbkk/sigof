@@ -160,7 +160,7 @@
                 <tr>
                     <td>
                         Indemnités d’évaluation de la formation en
-                        {{ $formation->module->name ?? ($formation->collectivemodule->module->name ?? 'Aucun') }}
+                        {{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}
                         en date du {{ $formation?->date_pv?->translatedFormat('d F Y') }}
                         <br><br>
                         <strong>Montant net</strong>
