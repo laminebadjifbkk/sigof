@@ -52,6 +52,7 @@
                                             <th>NOM</th>
                                             <th>Date naissance</th>
                                             <th>Lieu naissance</th>
+                                            <th>Téléphone</th>
                                             <th width="20%">Module</th>
                                             {{-- <th class="text-center">Statut</th> --}}
                                             <th>Région</th>
@@ -74,6 +75,7 @@
                                                     <td>{{ $individuelle?->user?->name }}</td>
                                                     <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                                     <td>{{ $individuelle?->user?->lieu_naissance }}</td>
+                                                    <td>{{ $individuelle?->user?->telephone }}</td>
                                                     <td>{{ $individuelle?->module?->name }}</td>
                                                     <td>{{ $individuelle?->region?->nom }}</td>
                                                     <td>{{ $individuelle?->projet?->sigle }}</td>
