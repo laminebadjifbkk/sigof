@@ -138,7 +138,7 @@
                                        
                                         <div class="col-12 col-md-3 col-lg-3 mb-0">
                                             <div class="label">Niveau qualification</div>
-                                            <div>{{ $formation?->titre }}</div>
+                                            <div>{{ $formation?->titre ?? ($formation?->referentiel?->titre) }}</div>
                                         </div>
 
                                         @isset($formation?->date_debut)

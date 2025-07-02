@@ -169,7 +169,7 @@
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="titre" class="form-label">Titre (convention)</label>
+                                        <label for="titre" class="form-label">Niveau qualification</label>
 
                                         <select name="titre" class="form-select  @error('titre') is-invalid @enderror"
                                             aria-label="Select" id="select-field-titre" data-placeholder="Choisir titre">
