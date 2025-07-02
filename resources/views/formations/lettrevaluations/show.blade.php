@@ -162,7 +162,7 @@
                                 <p style="font-weight: bold;">ONFP/DG/DEC/{{ $formation?->onfpevaluateur?->initiale }}
                                 </p>
                                 <p style="text-align: center; font-weight: bold;">Dakar, le</p><br><br><br>
-                                <p style="text-align: center; font-weight: bold; font-style: italic" class="ml-5">Le Directeur
+                                <p style="text-align: center; font-weight: bold; font-style: italic" class="m-5">Le Directeur
                                     général</p>
                             </td>
                         </tr>
