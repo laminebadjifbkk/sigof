@@ -41,7 +41,7 @@
     </div>
     <section class="section">
         <div class="row">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 @isset($individuelles)
                     <div class="card">
                         <div class="card-body">
@@ -109,7 +109,7 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="module" class="form-label">Module<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="module" value="{{ old('module_name') }}"
@@ -123,7 +123,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="region" class="form-label">Région<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="region" class="form-select  @error('region') is-invalid @enderror"
@@ -142,7 +142,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="region" class="form-label">Statut<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="statut"

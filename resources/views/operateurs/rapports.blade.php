@@ -46,7 +46,7 @@
     </div>
     <section class="section">
         <div class="row">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 @if (!empty($operateurs))
                     <div class="card">
                         <div class="card-body">
@@ -113,7 +113,7 @@
                     @csrf
                     <div class="modal-body">
                         <div class="row g-3">
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                            <div class="col-12">
                                 <label for="region" class="form-label">Région<span
                                         class="text-danger mx-1">*</span></label>
                                 <input type="hidden" value="1" name="valeur_region">
@@ -133,7 +133,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                            <div class="col-12">
                                 <label for="statut" class="form-label">Statut<span
                                         class="text-danger mx-1">*</span></label>
                                 <select name="statut"
@@ -203,14 +203,14 @@
                     @csrf
                     <div class="modal-body">
                         <div class="row g-3">
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                            <div class="col-12">
                                 <label for="module" class="form-label">Module<span
                                         class="text-danger mx-1">*</span></label>
                                 <input type="hidden" value="1" name="valeur_module">
                                 <input type="text" name="module" placeholder="module..."
                                     class="form-control form-control-sm module">
                             </div>
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                            <div class="col-12">
                                 <label for="region" class="form-label">Statut<span
                                         class="text-danger mx-1">*</span></label>
                                 <select name="statut"
@@ -280,7 +280,7 @@
                     @csrf
                     <div class="modal-body">
                         <div class="row g-3">
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                            <div class="col-12">
                                 <label for="module" class="form-label">Module<span
                                         class="text-danger mx-1">*</span></label>
                                 <input type="text" name="module" id="module_operateur"
@@ -288,7 +288,7 @@
                                 <div id="moduleList"></div>
                                 {{ csrf_field() }}
                             </div>
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                            <div class="col-12">
                                 <label for="region" class="form-label">Région<span
                                         class="text-danger mx-1">*</span></label>
                                 <select name="region" class="form-select  @error('region') is-invalid @enderror"
@@ -307,7 +307,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                            <div class="col-12">
                                 <label for="region" class="form-label">Statut<span
                                         class="text-danger mx-1">*</span></label>
                                 <select name="statut"

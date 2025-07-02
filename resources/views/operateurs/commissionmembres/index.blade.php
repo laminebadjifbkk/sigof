@@ -4,7 +4,7 @@
     @can('ingenieur-view')
         <section class="section register">
             <div class="row justify-content-center">
-                <div class="col-12 col-md-12 col-lg-12">
+                <div class="col-12">
                     <div class="pagetitle">
                         {{-- <h1>Data Tables</h1> --}}
                         <nav>
@@ -128,7 +128,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row g-3">
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="civilite" class="form-label">Civilité<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="civilite"
@@ -151,7 +151,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="prenom" class="form-label">Prénom<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="text" name="prenom" value="{{ old('prenom') }}"
@@ -164,7 +164,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="nom" class="form-label">Nom<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="text" name="nom" value="{{ old('nom') }}"
@@ -177,7 +177,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="fonction" class="form-label">Fonction<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="text" name="fonction" value="{{ old('fonction') }}"
@@ -190,7 +190,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="structure" class="form-label">Structure<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="text" name="structure" value="{{ old('structure') }}"
@@ -203,7 +203,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="Email" class="form-label">email<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="email" name="email" value="{{ old('email') }}"
@@ -216,7 +216,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="telephone" class="form-label">Téléphone<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input name="telephone" type="text" maxlength="12"
@@ -259,7 +259,7 @@
                                 <input type="hidden" name="id" value="{{ $membre->id }}">
                                 <div class="modal-body">
                                     <div class="row g-3">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="civilite" class="form-label">Civilité<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="civilite"
@@ -281,7 +281,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="prenom" class="form-label">Prénom<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="prenom"
@@ -295,7 +295,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="nom" class="form-label">Nom<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="nom"
@@ -309,7 +309,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="fonction" class="form-label">Fonction<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="fonction"
@@ -323,7 +323,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="structure" class="form-label">Structure<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="structure"
@@ -337,7 +337,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="Email" class="form-label">email<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="email" name="email"
@@ -351,7 +351,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="telephone" class="form-label">Téléphone<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input name="telephone" type="text" maxlength="12"

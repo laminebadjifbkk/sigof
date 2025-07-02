@@ -4,7 +4,7 @@
     @can('convention-view')
         <section class="section register">
             <div class="row justify-content-center">
-                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                <div class="col-12">
                     <div class="pagetitle">
                         <nav>
                             <ol class="breadcrumb">
@@ -116,7 +116,7 @@
                             <div class="modal-body">
                                 <div class="row g-3">
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="convention" class="form-label">Covention<span
                                                 class="text-danger mx-1">*</span></label>
                                         <textarea name="name" id="convention" rows="2"
@@ -154,7 +154,7 @@
                                 <div class="modal-body">
                                     <input type="hidden" name="id" value="{{ $convention?->id }}">
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="convention" class="form-label">Convention<span
                                                 class="text-danger mx-1">*</span></label>
                                         <textarea name="name" id="convention" rows="2"

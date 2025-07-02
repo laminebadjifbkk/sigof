@@ -5,7 +5,7 @@
 
     <section class="section register">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-12 col-lg-12">
+            <div class="col-12">
                 <div class="pagetitle">
                     {{-- <h1>Data Tables</h1> --}}
                     <nav>
@@ -126,7 +126,7 @@
                         <input type="hidden" name="operateur" value="{{ $operateur->id }}">
                         <div class="modal-body">
 
-                            <div class="col-12 col-md-12 col-lg-12 mb-2">
+                            <div class="col-12 mb-2">
                                 <label for="organisme" class="form-label">Dénomination de l'organisme<span
                                         class="text-danger mx-1">*</span></label>
                                 <input type="text" name="organisme" value="{{ old('organisme') }}"
@@ -138,7 +138,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-12 col-md-12 col-lg-12 mb-2">
+                            <div class="col-12 mb-2">
                                 <label for="periode" class="form-label">Période<span
                                         class="text-danger mx-1">*</span></label>
                                 <input type="text" name="periode" value="{{ old('periode') }}"
@@ -151,7 +151,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-12 col-md-12 col-lg-12 mb-2">
+                            <div class="col-12 mb-2">
                                 <label for="contact" class="form-label">Contact</label>
                                 <input type="number" min="0" name="contact" value="{{ old('contact') }}"
                                     class="form-control form-control-sm @error('contact') is-invalid @enderror"
@@ -163,7 +163,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-12 col-md-12 col-lg-12 mb-2">
+                            <div class="col-12 mb-2">
                                 <label for="contact" class="form-label">Description</label>
                                 <textarea name="description" id="description" cols="30" rows="5"
                                     class="form-control form-control-sm @error('description') is-invalid @enderror"
@@ -249,7 +249,7 @@
                             <div class="modal-body">
 
 
-                                <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                <div class="col-12 mb-2">
                                     <label for="organisme" class="form-label">Dénomination de l'organisme<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="organisme"
@@ -262,7 +262,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                <div class="col-12 mb-2">
                                     <label for="periode" class="form-label">Période<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="periode"
@@ -276,7 +276,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                <div class="col-12 mb-2">
                                     <label for="contact" class="form-label">Contact</label>
                                     <input type="number" min="0" name="contact"
                                         value="{{ $operateureference->contact ?? old('contact') }}"
@@ -289,7 +289,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                <div class="col-12 mb-2">
                                     <label for="contact" class="form-label">Description</label>
                                     <textarea name="description" id="description" cols="30" rows="5"
                                         class="form-control form-control-sm @error('description') is-invalid @enderror"

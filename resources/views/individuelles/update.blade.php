@@ -19,7 +19,7 @@
                     @endforeach
                 @endif
                 <div
-                    class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+                    class="col-12 d-flex flex-column align-items-center justify-content-center">
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="row">
@@ -51,7 +51,7 @@
                                 enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 @method('PUT')
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="module" class="form-label">Formation sollicitée (module)<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="module"
@@ -386,7 +386,7 @@
                                 @endif
 
                                 @can('projet-view')
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="projet" class="form-label">Partenaire</label>
                                         <select name="projet" class="form-select  @error('projet') is-invalid @enderror"
                                             aria-label="Select" id="select-field-projet" data-placeholder="Choisir">
@@ -410,7 +410,7 @@
                                     </div>
                                 @endcan
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="qualification" class="form-label">Qualification et autres diplômes</label>
                                     <textarea name="qualification" id="qualification" rows="2"
                                         class="form-control form-control-sm @error('qualification') is-invalid @enderror"
@@ -422,7 +422,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="experience" class="form-label">Expériences et stages</label>
                                     <textarea name="experience" id="experience" rows="2"
                                         class="form-control form-control-sm @error('experience') is-invalid @enderror"
@@ -434,7 +434,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="projetprofessionnel" class="form-label">Informations complémentaires sur
                                         le projet
                                         professionnel<span class="text-danger mx-1">*</span></label>

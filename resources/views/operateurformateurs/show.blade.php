@@ -5,7 +5,7 @@
 
     <section class="section register">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-12 col-lg-12">
+            <div class="col-12">
                 <div class="pagetitle">
                     {{-- <h1>Data Tables</h1> --}}
                     <nav>
@@ -128,7 +128,7 @@
                         </div>
                         <input type="hidden" name="operateur" value="{{ $operateur->id }}">
                         <div class="modal-body">
-                            <div class="col-12 col-md-12 col-lg-12 mb-2">
+                            <div class="col-12 mb-2">
                                 <label for="name" class="form-label">Prénom(s) et Nom formateur<span
                                         class="text-danger mx-1">*</span></label>
                                 <input type="text" name="name" value="{{ old('name') }}"
@@ -140,7 +140,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-12 col-md-12 col-lg-12 mb-2">
+                            <div class="col-12 mb-2">
                                 <label for="domaine" class="form-label">Domaine<span
                                         class="text-danger mx-1">*</span></label>
                                 <input type="text" name="domaine" value="{{ old('domaine') }}"
@@ -152,7 +152,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-12 col-md-12 col-lg-12 mb-2">
+                            <div class="col-12 mb-2">
                                 <label for="nbre_annees_experience" class="form-label">Nombre années expérience<span
                                         class="text-danger mx-1">*</span></label>
                                 <input type="number" min="0" name="nbre_annees_experience"
@@ -165,7 +165,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-12 col-md-12 col-lg-12 mb-2">
+                            <div class="col-12 mb-2">
                                 <label for="reference" class="form-label">Référence<span
                                         class="text-danger mx-1">*</span></label>
                                 <input type="text" name="reference" value="{{ old('reference') }}"
@@ -202,7 +202,7 @@
                             </div>
                             <input type="hidden" name="operateur" value="{{ $operateur->id }}">
                             <div class="modal-body">
-                                <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                <div class="col-12 mb-2">
                                     <label for="name" class="form-label">Prénom(s) et Nom formateur<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="name"
@@ -215,7 +215,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                <div class="col-12 mb-2">
                                     <label for="domaine" class="form-label">Domaine<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="domaine"
@@ -228,7 +228,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                <div class="col-12 mb-2">
                                     <label for="nbre_annees_experience" class="form-label">Nombre années expérience<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="number" min="0" name="nbre_annees_experience"
@@ -241,7 +241,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                <div class="col-12 mb-2">
                                     <label for="reference" class="form-label">Référence<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="reference"

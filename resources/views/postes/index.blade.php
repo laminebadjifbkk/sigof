@@ -12,7 +12,7 @@
                 @endif
                 <div class="row">
                     <!-- Left side columns -->
-                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-body pb-0">
                                 @if (auth()->user()->hasRole('super-admin|admin|COM'))
@@ -65,7 +65,7 @@
                 </div>
             </section>
             <div
-                class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+                class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="AddPosteModal" tabindex="-1">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
@@ -78,7 +78,7 @@
                                     <div class="row g-3">
                                         <input type="hidden" name="users_id" value="{{ Auth::user()->id }}">
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="titre" class="form-label">Titre<span
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="titre" id="titre" rows="1"
@@ -90,7 +90,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="name" class="form-label">Post<span
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="name" id="name" rows="3"
@@ -141,7 +141,7 @@
             </div>
             @foreach ($postes as $poste)
                 <div
-                    class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+                    class="col-12 d-flex flex-column align-items-center justify-content-center">
                     <div class="modal fade" id="ShowPostModal{{ $poste->id }}" tabindex="-1">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
@@ -153,7 +153,7 @@
                                     <div class="modal-body">
                                         <div class="row g-3">
 
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <img src="{{ asset($poste->getPoste()) }}" class="d-block w-100"
                                                     alt="{{ $poste->legende }}">
                                             </div>
@@ -174,7 +174,7 @@
             @endforeach
             @foreach ($postes as $poste)
                 <div
-                    class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+                    class="col-12 d-flex flex-column align-items-center justify-content-center">
                     <div class="modal fade" id="EditPostModal{{ $poste->id }}" tabindex="-1">
                         <div class="modal-dialog modal-xl">
                             <div class="modal-content">
@@ -189,7 +189,7 @@
                                         <div class="row g-3">
 
 
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <label for="titre" class="form-label">Titre<span
                                                         class="text-danger mx-1">*</span><span
                                                         class="text-danger mx-1">*</span></label>
@@ -202,7 +202,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <label for="name" class="form-label">Poste<span
                                                         class="text-danger mx-1">*</span></label>
                                                 <textarea name="name" id="name" rows="3"

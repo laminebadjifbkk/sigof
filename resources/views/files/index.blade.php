@@ -5,7 +5,7 @@
 
     <section class="section register">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 <div class="pagetitle">
                     {{-- <h1>Data Tables</h1> --}}
                     <nav>
@@ -132,7 +132,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="legende" class="form-label">Légende<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="legende" class="form-select  @error('legende') is-invalid @enderror"
@@ -150,7 +150,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="user" class="form-label">Utilisateur<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="user" class="form-select  @error('user') is-invalid @enderror"

@@ -4,7 +4,7 @@
 
     <section class="section register">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-12 col-lg-12">
+            <div class="col-12">
                 <div class="pagetitle">
                     {{-- <h1>Data Tables</h1> --}}
                     <nav>
@@ -156,9 +156,9 @@
                             <div class="card-body row g-4 px-4">
                                 <div class="modal-body">
                                     <div class="row g-3">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="row">
-                                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <div class="col-12">
                                                     <div class="form-group">
                                                         <label for="module" class="form-label">Module</label>
                                                         <input type="text" name="module" id="module_operateur"
@@ -168,7 +168,7 @@
                                                         {{ csrf_field() }}
                                                     </div>
                                                 </div>
-                                                {{-- <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                {{-- <div class="col-12">
                                             <div class="form-group">
                                                 <label for="operateur" class="form-label">Opérateur</label>
                                                 <select name="operateur"
@@ -189,7 +189,7 @@
                                                 @enderror
                                             </div>
                                         </div> --}}
-                                                {{-- <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                {{-- <div class="col-12">
                                             <div class="form-group">
                                                 <label for="statut" class="form-label">Statut</label>
                                                 <select name="statut"

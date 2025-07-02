@@ -202,65 +202,65 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h5 class="card-title">Opérateur</h5>
                                         </div>
-                                        <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                        <div class="col-12 mb-2">
                                             <div class="label">Raison sociale</div>
                                             <div>{{ $operateur?->user?->operateur }}</div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Sigle</div>
                                             <div>{{ $operateur?->user?->username }}</div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Numéro agrément</div>
                                             <div>{{ $operateur?->numero_agrement }}</div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Adresse email</div>
                                             <div><a
                                                     href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Téléphone fixe</div>
                                             <div><a
                                                     href="tel:+221{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe }}</a>
                                             </div>
                                         </div>
                                         @isset($operateur?->user?->bp)
-                                            <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                            <div class="col-12 col-md-4 mb-2">
                                                 <div class="label">Boite postale</div>
                                                 <div>{{ $operateur?->user?->bp }}</div>
                                             </div>
                                         @endisset
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Catégorie</div>
                                             <div>{{ $operateur?->user?->categorie }}</div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Statut juridique</div>
                                             <div>{{ $operateur?->statut }}</div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Autre statut</div>
                                             <div>{{ $operateur?->autre_statut }}</div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Siège</div>
                                             <div>{{ $operateur?->departement?->nom }}</div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Adrese</div>
                                             <div>{{ $operateur?->user?->adresse }}</div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">RCCM/Ninea</div>
                                             <div>{{ $operateur?->user?->rccm }}</div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">N° RCCM/Ninea</div>
                                             <div>{{ $operateur?->user?->ninea }}</div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Quitus</div>
                                             <div>
                                                 <a class="btn btn-outline-secondary btn-sm" title="télécharger le quitus"
@@ -269,7 +269,7 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4">
+                                        <div class="col-12 col-md-4">
                                             <div class="label">Date délivrance quitus</div>
                                             <div>{{ $operateur?->debut_quitus?->diffForHumans() }}</div>
                                         </div>
@@ -278,31 +278,31 @@
                                         @csrf
                                         @method('PUT')
                                         <h5 class="card-title">Personne morale</h5>
-                                        <div class="col-12 col-md-4 col-lg-4">
+                                        <div class="col-12 col-md-4">
                                             <div class="label">Civilité</div>
                                             <div>{{ $operateur?->user?->civilite }}</div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Prénom</div>
                                             <div>{{ $operateur?->user?->firstname }}</div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Nom</div>
                                             <div>{{ $operateur?->user?->name }}</div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Email</div>
                                             <div><a
                                                     href="mailto:{{ $operateur?->user?->email_responsable }}">{{ $operateur?->user?->email_responsable }}</a>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Téléphone</div>
                                             <div><a
                                                     href="tel:+221{{ $operateur?->user?->telephone }}">{{ $operateur?->user?->telephone }}</a>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-2">
+                                        <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Fonction</div>
                                             <div>{{ $operateur?->user?->fonction_responsable }}
                                             </div>
@@ -474,7 +474,7 @@
                             </div>
                             <div class="tab-content pt-0">
                                 <div class="tab-pane fade show active profile-overview pt-3" id="module-overview">
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    <div class="col-12 mb-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h5 class="card-title">DOMAINES DE COMPETENCES OU PROGRAMMES DE FORMATION</h5>
                                             <span class="card-title d-flex align-items-baseline">Statut
@@ -643,7 +643,7 @@
                             <div class="modal-body">
                                 <input type="hidden" name="id" value="{{ $operateurmodule->id }}">
 
-                                <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                <div class="col-12 mb-0">
                                     <label for="module" class="form-label">Module<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="module" id="module_operateur_edit"
@@ -659,7 +659,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                <div class="col-12 mb-0">
                                     <label for="domaine" class="form-label">Domaine<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="domaine"
@@ -672,7 +672,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                <div class="col-12 mb-0">
                                     <label for="categorie" class="form-label">Catégorie<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="categorie"
@@ -685,7 +685,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                <div class="col-12 mb-0">
                                     <label for="niveau_qualification" class="form-label">Niveau de qualification<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="niveau_qualification" class="form-select selectpicker"
@@ -1120,7 +1120,7 @@
                         <div class="modal-body">
                             <div class="row g-3">
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="visite_conformite" class="form-label">Visite conformité<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="visite_conformite"
@@ -1144,7 +1144,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="observation" class="form-label">Observations<span
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="observation" id="observation" rows="10"

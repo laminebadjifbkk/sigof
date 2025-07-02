@@ -39,7 +39,7 @@
 
                                     <div class="row g-3">
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="formation" class="form-label">Formation<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="formation" id="formationSelected"
@@ -67,7 +67,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="onfpevaluateur" class="form-label">Evaluateur ONFP<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="onfpevaluateur"
@@ -90,7 +90,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="evaluateur" class="form-label">Evaluateur<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="evaluateur"
@@ -113,7 +113,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="frais_evaluateur" class="form-label">Montant indemnité de membre</label>
                                             <input type="number" name="frais_evaluateur" min="0" step="0.001"
                                                 value="{{ $lettrevaluation?->formation?->frais_evaluateur ?? old('frais_evaluateur') }}"
@@ -126,7 +126,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="date_pv" class="form-label">Date évaluation</label>
                                             <input type="date" name="date_pv"
                                                 value="{{ $lettrevaluation?->formation?->date_pv?->format('Y-m-d') ?? old('date_pv') }}"
@@ -139,7 +139,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="titre" class="form-label">Titre (convention)</label>
                                             <select name="titre" class="form-select  @error('titre') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-titre" data-placeholder="Choisir titre">
@@ -162,7 +162,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="type_certification" class="form-label">Titre (convention)</label>
                                             <select name="type_certification"
                                                 class="form-select  @error('type_certification') is-invalid @enderror"
@@ -188,7 +188,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="contenu" class="form-label">Commentaires</label>
                                             <textarea name="contenu" id="contenu" rows="5"
                                                 class="form-control form-control-sm @error('contenu') is-invalid @enderror" placeholder="Commentaires">{{ old('contenu') }}</textarea>
@@ -203,7 +203,7 @@
                                     <hr>
 
                                     <div class="row g-3">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="col-12 mb-3">
                                                 {{-- Boutons radio pour le statut d'exécution --}}
                                                 <div class="col-12 mb-3">

@@ -29,7 +29,7 @@
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
                             @method('patch')
-                            <div class="row mb-3 col-12 col-md-6 col-lg-6 pt-5">
+                            <div class="row mb-3 col-12 col-md-6 pt-5">
                                 <div class="form-floating mb-3">
                                     <input type="text" name="nom" value="{{ $region->nom ??  old('nom') }}"
                                         class="form-control form-control-sm @error('nom') is-invalid @enderror"
@@ -42,7 +42,7 @@
                                     <label for="floatingInput">Région</label>
                                 </div>
                             </div>
-                            <div class="row mb-3 col-12 col-md-6 col-lg-6 pt-5">
+                            <div class="row mb-3 col-12 col-md-6 pt-5">
                                 <div class="form-floating mb-3">
                                     <input type="text" name="sigle" value="{{ $region->sigle ?? old('sigle') }}"
                                         class="form-control form-control-sm @error('sigle') is-invalid @enderror"

@@ -5,7 +5,7 @@
 
     <section class="section register">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-12 col-lg-12">
+            <div class="col-12">
                 <div class="pagetitle">
                     {{-- <h1>Data Tables</h1> --}}
                     <nav>
@@ -127,7 +127,7 @@
                         </div>
                         <input type="hidden" name="operateur" value="{{ $operateur->id }}">
                         <div class="modal-body">
-                            <div class="col-12 col-md-12 col-lg-12 mb-2">
+                            <div class="col-12 mb-2">
                                 <label for="designation" class="form-label">Désignation<span
                                         class="text-danger mx-1">*</span></label>
                                 <input type="text" name="designation" value="{{ old('designation') }}"
@@ -139,7 +139,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-12 col-md-12 col-lg-12 mb-2">
+                            <div class="col-12 mb-2">
                                 <label for="quantite" class="form-label">Quantité<span
                                         class="text-danger mx-1">*</span></label>
                                 <input type="number" min="0" name="quantite" value="{{ old('quantite') }}"
@@ -152,7 +152,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-12 col-md-12 col-lg-12 mb-2">
+                            <div class="col-12 mb-2">
                                 <label for="etat" class="form-label">Etat<span
                                         class="text-danger mx-1">*</span></label>
                                 <select name="etat" class="form-select selectpicker"
@@ -177,7 +177,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-12 col-md-12 col-lg-12 mb-2">
+                            <div class="col-12 mb-2">
                                 <label for="type" class="form-label">Type<span
                                         class="text-danger mx-1">*</span></label>
                                 <select name="type" class="form-select selectpicker"
@@ -225,7 +225,7 @@
                             </div>
                             <input type="hidden" name="operateur" value="{{ $operateur->id }}">
                             <div class="modal-body">
-                                <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                <div class="col-12 mb-2">
                                     <label for="designation" class="form-label">Désignation<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="designation"
@@ -238,7 +238,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                <div class="col-12 mb-2">
                                     <label for="quantite" class="form-label">Quantité<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="number" min="0" name="quantite"
@@ -252,7 +252,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                <div class="col-12 mb-2">
                                     <label for="etat" class="form-label">Etat<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="etat" class="form-select selectpicker"
@@ -277,7 +277,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                <div class="col-12 mb-2">
                                     <label for="type" class="form-label">Type<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="type" class="form-select selectpicker"

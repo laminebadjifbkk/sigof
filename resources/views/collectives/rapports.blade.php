@@ -34,7 +34,7 @@
     </div>
     <section class="section">
         <div class="row">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 @isset($collectives)
                     {{-- <div class="pb-2">
                         <span class="page-title badge bg-info">{{ $title }}</span>
@@ -107,7 +107,7 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="from_date" class="form-label">De<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="date" name="from_date"
@@ -118,7 +118,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="to_date" class="form-label">À<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="date" name="to_date"
@@ -130,7 +130,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="statut" class="form-label">Statut juridique</label>
                                     <select name="statut" class="form-select  @error('statut') is-invalid @enderror"
                                         aria-label="Select" id="select-field-statut-collective"

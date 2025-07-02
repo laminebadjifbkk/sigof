@@ -112,7 +112,7 @@
                 class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                        <div class="col-12 col-md-6 col-lg-4 d-flex flex-column align-items-center justify-content-center">
                             <div class="d-flex justify-content-center py-4">
                                 <a href="{{ route('accueil') }}" class="logo d-flex align-items-center w-auto"
                                     target="_blank">
@@ -136,7 +136,7 @@
                                         <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
                                         <!-- Addresse E-mail -->
-                                        <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-12">
                                             <label for="email" class="form-label">E-mail<span
                                                     class="text-danger mx-1">*</span></label>
                                             <div class="input-group has-validation">

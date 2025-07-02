@@ -18,7 +18,7 @@
             <div class="col-lg-12">
                 <div class="row">
                     <!-- Sales Card -->
-                    {{--  <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 pt-5">
+                    {{--  <div class="col-12 pt-5">
                         <div class="card info-card customers-card">
                             <a href="#">
                                 <div class="card-body">
@@ -39,7 +39,7 @@
                             </a>
                         </div>
                     </div> --}}
-                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 pt-5">
+                    <div class="col-12 pt-5">
                         <div class="row">
                             {{-- <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
                                 <div class="card info-card revenue-card shadow-sm" style="max-width: 220px;">
@@ -585,7 +585,7 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="annee" class="form-label">Année<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="annee"
@@ -608,7 +608,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="region" class="form-label">Statut<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="statut"

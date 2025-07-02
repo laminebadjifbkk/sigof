@@ -3,7 +3,7 @@
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 @if ($message = Session::get('status'))
                     <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" region="alert">
                         <strong>{{ $message }}</strong>
@@ -265,9 +265,9 @@
         @can('upload-file-view')
             <hr>
             <div class="row mb-3 pt-5">
-                <h5 class="card-title col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                <h5 class="card-title col-12 col-md-4">
                     FICHIERS JOINTS</h5>
-                <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                <div class="col-12 col-md-8">
                     <table class="table table-bordered table-hover datatables" id="table-iles">
                         <thead>
                             <tr class="text-center">
@@ -368,9 +368,9 @@
                 <!-- Profile Edit Form -->
                 <div class="row mb-3 mt-3">
                     <label for="legende"
-                        class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">LEGENDE<span
+                        class="col-12 col-md-4 col-form-label">LEGENDE<span
                             class="text-danger mx-1">*</span></label>
-                    <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                    <div class="col-12 col-md-8">
                         <select name="legende" class="form-select  @error('legende') is-invalid @enderror"
                             aria-label="Select" id="select-field-file" data-placeholder="Choisir">
                             <option value="{{ old('legende') }}">
@@ -392,9 +392,9 @@
 
                 <div class="row mb-3">
                     <label for="file"
-                        class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">FICHIER<span
+                        class="col-12 col-md-4 col-form-label">FICHIER<span
                             class="text-danger mx-1">*</span></label>
-                    <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                    <div class="col-12 col-md-8">
                         <div class="pt-2">
                             <input type="file" name="file" id="file"
                                 class="form-control @error('file') is-invalid @enderror btn btn-primary btn-sm">
@@ -406,10 +406,10 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="file" class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">
+                    <label for="file" class="col-12 col-md-4 col-form-label">
                         Téléverser un fichier <span class="text-danger mx-1">*</span>
                     </label>
-                    <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                    <div class="col-12 col-md-8">
                         <div class="pt-2">
                             <button type="submit" class="btn btn-primary btn-sm text-white">
                                 <i class="bi bi-upload me-1"></i> Téléverser
@@ -434,7 +434,7 @@
 
             @if ($demandeExistante)
                 <div
-                    class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+                    class="col-12 d-flex flex-column align-items-center justify-content-center">
                     <div class="modal fade" id="EditIndividuelleModal{{ $projetmodule->id }}" tabindex="-1">
                         <div class="modal-dialog modal-xl">
                             <div class="modal-content">
@@ -448,7 +448,7 @@
                                             enctype="multipart/form-data" class="row g-3">
                                             @csrf
                                             @method('PUT')
-                                            {{-- <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            {{-- <div class="col-12">
                                                 <label for="module" class="form-label">Formation sollicitée
                                                     (module)
                                                     <span class="text-danger mx-1">*</span></label>
@@ -833,7 +833,7 @@
                                             @endif
 
                                             {{-- @can('projet-view')
-                                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <div class="col-12">
                                                     <label for="projet" class="form-label">Partenaire</label>
                                                     <select name="projet"
                                                         class="form-select  @error('projet') is-invalid @enderror"
@@ -859,7 +859,7 @@
                                                 </div>
                                             @endcan --}}
 
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <label for="qualification" class="form-label">Qualification et autres
                                                     diplômes</label>
                                                 <textarea name="qualification" id="qualification" rows="2"
@@ -872,7 +872,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <label for="experience" class="form-label">Expériences et
                                                     stages</label>
                                                 <textarea name="experience" id="experience" rows="2"
@@ -885,7 +885,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <label for="projetprofessionnel" class="form-label">Informations
                                                     complémentaires sur
                                                     le projet

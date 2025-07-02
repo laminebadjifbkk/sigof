@@ -15,7 +15,7 @@
     <section class="section dashboard">
         <div class="row">
             <!-- Left side columns -->
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 <div class="row">
                     <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
                         <div class="card info-card revenue-card shadow-sm" style="max-width: 220px;">
@@ -80,7 +80,7 @@
 
     <section class="section">
         <div class="row">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 @if ($message = Session::get('status'))
                     <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                         role="alert">

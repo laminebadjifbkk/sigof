@@ -4,7 +4,7 @@
     @can('secteur-view')
         <section class="section register">
             <div class="row justify-content-center">
-                <div class="col-12 col-md-6 col-lg-6">
+                <div class="col-12 col-md-6">
                     <div class="pagetitle">
                         {{-- <h1>Data Tables</h1> --}}
                         <nav>

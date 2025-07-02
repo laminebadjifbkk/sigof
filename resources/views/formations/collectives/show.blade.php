@@ -112,129 +112,129 @@
                                                 {{ $formation?->statut }}</span>
                                         </h5>
 
-                                        <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                        <div class="col-12 mb-0">
                                             <div class="label">Intitulé formation</div>
                                             <div>{{ $formation?->name }}</div>
                                         </div>
 
-                                        <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                        <div class="col-12 col-md-3 mb-0">
                                             <div class="label">Code</div>
                                             <div>{{ $formation?->code }}</div>
                                         </div>
 
                                         @if (!empty($formation?->module?->name))
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Module</div>
                                                 <div>{{ $formation?->module?->name }}</div>
                                             </div>
                                         @endif
 
-                                        <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                        <div class="col-12 col-md-3 mb-0">
                                             <div class="label">Région</div>
                                             <div>{{ $formation?->departement->region->nom }}</div>
                                         </div>
 
-                                        <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                        <div class="col-12 col-md-3 mb-0">
                                             <div class="label">Département</div>
                                             <div>{{ $formation->departement->nom }}
                                             </div>
                                         </div>
 
-                                        <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                        <div class="col-12 col-md-3 mb-0">
                                             <div class="label">Adresse exacte</div>
                                             <div>{{ $formation?->lieu }}
                                             </div>
                                         </div>
 
-                                        <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                        <div class="col-12 col-md-3 mb-0">
                                             <div class="label">Type formation</div>
                                             <div>{{ $formation?->types_formation?->name }}</div>
                                         </div>
 
-                                        <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                        <div class="col-12 col-md-3 mb-0">
                                             <div class="label">Niveau qualification</div>
                                             <div>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</div>
                                         </div>
 
                                         @if (!empty($formation?->date_debut))
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Date début</div>
                                                 <div>{{ $formation?->date_debut->format('d/m/Y') }}</div>
                                             </div>
                                         @endif
 
                                         @if (!empty($formation?->date_fin))
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Date fin</div>
                                                 <div>{{ $formation?->date_fin->format('d/m/Y') }}</div>
                                             </div>
                                         @endif
 
                                         @if (!empty($formation?->effectif_prevu))
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Effectif prévu</div>
                                                 <div>{{ $formation?->effectif_prevu }}</div>
                                             </div>
                                         @endif
 
                                         @if (!empty($formation?->prevue_h))
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Prévu homme</div>
                                                 <div>{{ $formation?->prevue_h }}</div>
                                             </div>
                                         @endif
 
                                         @if (!empty($formation?->prevue_f))
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Prévu femmes</div>
                                                 <div>{{ $formation?->prevue_f }}</div>
                                             </div>
                                         @endif
 
                                         @if (!empty($formation?->frais_operateurs))
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Frais opérateur</div>
                                                 <div>{{ number_format($formation?->frais_operateurs, 2, ',', ' ') }}</div>
                                             </div>
                                         @endif
 
                                         @if (!empty($formation?->frais_add))
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Frais additionels</div>
                                                 <div>{{ number_format($formation?->frais_add, 2, ',', ' ') }}</div>
                                             </div>
                                         @endif
 
                                         @if (!empty($formation?->autes_frais))
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Autres frais</div>
                                                 <div>{{ number_format($formation?->autes_frais, 2, ',', ' ') }}</div>
                                             </div>
                                         @endif
 
                                         @if (!empty($formation?->projets_id))
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Projet</div>
                                                 <div>{{ $formation?->projet?->name }}</div>
                                             </div>
                                         @endif
 
                                         @if (!empty($formation?->programmes_id))
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Programme</div>
                                                 <div>{{ $formation?->programme?->name }}</div>
                                             </div>
                                         @endif
 
                                         @if (!empty($formation?->choixoperateur?->description))
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Choix opérateur</div>
                                                 <div>{{ !empty($formation?->choixoperateur?->description) }}</div>
                                             </div>
                                         @endif
 
 
-                                        <div class="col-12 col-md-12 col-lg-12 mb-0 text-center pt-5">
+                                        <div class="col-12 mb-0 text-center pt-5">
                                             <a class="btn btn-outline-primary btn-sm"
                                                 href="{{ route('formations.edit', $formation) }}" class="mx-1"
                                                 title="Modifier">Modifier cette formation</a>
@@ -281,7 +281,7 @@
                                         @endcan
                                     @else
                                     @endif
-                                    {{-- <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    {{-- <div class="col-12 mb-0">
                                         <h1 class="card-title">
                                             {{ __('Opérateur') }}
                                         </h1>
@@ -382,7 +382,7 @@
                                         {{ __('Liste des bénéficiaires') }}
                                     </h1>
                                     @if (!empty($formation?->collectivemodule))
-                                        <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                        <div class="col-12 mb-0">
                                             <div class="d-flex justify-content-between align-items-center mt-3">
                                                 <span class="card-title d-flex align-items-baseline">Code formation :&nbsp;
                                                     <span class="badge bg-info text-white">
@@ -970,7 +970,7 @@
 
 
                                         </div>
-                                        {{-- <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                        {{-- <div class="col-12 mb-0">
                                         <div class="row g-3">
                                             <table class="table table-bordered table-hover datatables"
                                                 id="table-formations">
@@ -1096,7 +1096,7 @@
 
                             <div class="tab-content pt-2">
                                 <div class="tab-pane fade evaluation-overview pt-3" id="evaluation-overview">
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    <div class="col-12 mb-0">
                                         <form method="post"
                                             action="{{ url('notedemandeurscollectives', ['$idformation' => $formation->id]) }}"
                                             enctype="multipart/form-data" class="row g-3">
@@ -1226,7 +1226,7 @@
                             {{-- Emargement --}}
                             <div class="tab-content pt-2">
                                 <div class="tab-pane fade module-overview" id="emargement-overview">
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    <div class="col-12 mb-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h1 class="card-title">Feuilles de présence</h1>
                                             <div class="d-flex align-items-center gap-2">
@@ -1456,7 +1456,7 @@
                             {{-- Retrait attestation --}}
                             <div class="tab-content pt-2">
                                 <div class="tab-pane fade attestation-overview pt-1" id="retrait-attestation-overview">
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    <div class="col-12 mb-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h1 class="card-title">Retrait des attestations</h1>
                                             {{-- <h5 class="card-title">
@@ -1785,7 +1785,7 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="idformation" value="{{ $formation->id }}">
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                            <div class="col-12">
                                 <div class="mb-3">
                                     <label>Nombre de jours<span class="text-danger mx-1">*</span></label>
                                     <input type="number" min="1" max="1" name="jour"
@@ -2010,7 +2010,7 @@
                                 </div>
 
                                 {{-- <div class="row">
-                                <div class="col-12 col-md-9 col-lg-9 mb-3">
+                                <div class="col-12 col-md-9 mb-3">
                                     <label>Evaluateur ONFP<span class="text-danger mx-1">*</span></label>
                                     <input type="text" name="nom_evaluateur_onfp"
                                         value="{{ $formation?->evaluateur_onfp ?? old('nom_evaluateur_onfp') }}"
@@ -2022,7 +2022,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-3 col-lg-3 mb-3">
+                                <div class="col-12 col-md-3 mb-3">
                                     <label>Initiale<span class="text-danger mx-1">*</span></label>
                                     <input type="text" name="initiale_evaluateur_onfp"
                                         value="{{ $formation?->initiale_evaluateur_onfp ?? old('initiale_evaluateur_onfp') }}"
@@ -2238,11 +2238,11 @@
                         <div class="modal-body">
                             <div class="row g-3">
                                 <input type="hidden" name="id" value="{{ $listecollective->id }}">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row g-3">
                                         <label for="retrait" class="form-label">Informations !<span
                                                 class="text-danger mx-1">*</span></label>
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label class="form-check-label" for="moi">
                                                 {{ 'Retrait effectué par ' . $listecollective?->retrait_diplome }}
                                             </label>

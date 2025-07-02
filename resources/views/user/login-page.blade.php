@@ -61,7 +61,7 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div
-                            class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 col-xxl-6 d-flex flex-column align-items-center justify-content-center">
+                            class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6 d-flex flex-column align-items-center justify-content-center">
 
                             <div class="d-flex justify-content-center py-4">
                                 <a href="{{ route('accueil') }}" class="logo d-flex align-items-center w-auto"
@@ -133,7 +133,7 @@
                                             <button class="btn btn-primary btn-sm w-100" type="submit">Se
                                                 connecter</button>
                                         </div> --}}
-                                                <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <div class="col-12 col-xxl-12">
                                                     <button class="btn text-white fw-bold w-100"
                                                         style="background: #FF8000;" type="submit">
                                                         Se connecter

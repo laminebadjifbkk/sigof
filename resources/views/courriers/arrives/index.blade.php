@@ -16,7 +16,7 @@
     <section class="section dashboard">
         <div class="row">
             <!-- Left side columns -->
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 @if ($errors->any())
                     @foreach ($errors->all() as $error)
                         <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
@@ -102,7 +102,7 @@
 
     <section class="section">
         <div class="row">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mt-0">
@@ -347,7 +347,7 @@
                                     @enderror
                                 </div> --}}
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="expediteur" class="form-label">
                                         Expéditeur <span class="text-danger">*</span>
                                     </label>
@@ -361,7 +361,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="objet" class="form-label">Objet<span
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="objet" id="objet" rows="2"
@@ -411,7 +411,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="observation" class="form-label">Observations</label>
                                     <textarea name="observation" id="observation" rows="2"
                                         class="form-control form-control-sm @error('observation') is-invalid @enderror" placeholder="Observations">{{ old('observation') }}</textarea>
@@ -651,7 +651,7 @@
                                     @enderror
                                 </div> --}}
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="observation" class="form-label">Observations</label>
                                     <textarea name="observation" id="observation" rows="1"
                                         class="form-control form-control-sm @error('date_reponse') is-invalid @enderror" placeholder="Observations">{{ old('observation') }}</textarea>
@@ -687,9 +687,9 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="numero" class="form-label">Numero</label>
                                                 <input type="text" name="numero" value="{{ old('numero') }}"
@@ -704,9 +704,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="objet" class="form-label">Objet</label>
                                                 <input type="text" name="objet" value="{{ old('objet') }}"
@@ -721,9 +721,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="expediteur" class="form-label">Expéditeur</label>
                                                 <input type="text" name="expediteur" value="{{ old('expediteur') }}"

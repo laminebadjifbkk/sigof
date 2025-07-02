@@ -645,7 +645,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <div class="mb-3">
                                             <label for="membres_jury">Autre membres du jury</label>
                                             <textarea name="membres_jury" id="membres_jury" cols="30" rows="2"
@@ -659,7 +659,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <div class="mb-3">
                                             <label for="recommandations">Recommandations</label>
                                             <textarea name="recommandations" id="recommandations" cols="30" rows="2"

@@ -34,7 +34,7 @@
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div>
                                 @foreach ($permissions as $permission)
-                                    <div class="form-check col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3 mt-1">
+                                    <div class="form-check col-12 col-md-3 col-sm-12 col-xs-12 col-xxl-3 mt-1">
                                         <label>
                                             <input 
                                             type="checkbox" 

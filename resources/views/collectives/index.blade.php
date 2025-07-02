@@ -298,7 +298,7 @@
                 </div>
             </div>
             <div
-                class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+                class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="AddCollectiveModal" tabindex="-1">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
@@ -310,7 +310,7 @@
                                 <div class="modal-body">
                                     <div class="row g-3">
 
-                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-lg-4">
                                             <label for="numero" class="form-label">N° courrier<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" placeholder="Rechercher numéro courrier..."
@@ -323,7 +323,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                        <div class="col-12 col-md-8">
                                             <label for="objet" class="form-label">Nom de la structure<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" placeholder="La raison sociale de l'opérateur"
@@ -336,7 +336,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="sigle" class="form-label">Sigle</label>
                                             <input type="text" name="sigle" value="{{ old('sigle') }}"
                                                 class="form-control form-control-sm @error('sigle') is-invalid @enderror"
@@ -348,7 +348,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-lg-4">
                                             <label for="email" class="form-label">Email<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="email" name="email" value="{{ old('email') }}"
@@ -361,7 +361,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-lg-4">
                                             <label for="fixe" class="form-label">Téléphone fixe</label>
                                             <input name="fixe" type="text" maxlength="12"
                                                 class="form-control form-control-sm @error('fixe') is-invalid @enderror"
@@ -374,7 +374,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-lg-4">
                                             <label for="telephone" class="form-label">Téléphone portable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input name="telephone" type="text" maxlength="12"
@@ -388,7 +388,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-lg-4">
                                             <label for="bp" class="form-label">Boite postal</label>
                                             <input type="text" name="bp" value="{{ old('bp') }}"
                                                 class="form-control form-control-sm @error('bp') is-invalid @enderror"
@@ -400,7 +400,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-lg-4">
                                             <label for="statut" class="form-label">Statut juridique<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="statut" class="form-select  @error('statut') is-invalid @enderror"
@@ -435,7 +435,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-lg-4">
                                             <label for="autre_statut" class="form-label">Si autre ?
                                                 précisez</label>
                                             <input type="text" name="autre_statut" value="{{ old('autre_statut') }}"
@@ -461,7 +461,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-lg-4">
                                             <label for="departement" class="form-label">Département<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="departement"
@@ -482,7 +482,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="adresse" class="form-label">Adresse<span
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="adresse" id="adresse" rows="1"
@@ -516,7 +516,7 @@
                                         @enderror
                                     </div> --}}
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="description" class="form-label">Description de l'organisation<span
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="description" id="description" rows="4"
@@ -530,7 +530,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="projetprofessionnel" class="form-label">Projet professionnel<span
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="projetprofessionnel" id="projetprofessionnel" rows="4"
@@ -546,7 +546,7 @@
 
                                         <hr class="dropdown-divider mt-3">
 
-                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-lg-4">
                                             <label for="civilite" class="form-label">Civilité responsable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="civilite"
@@ -570,7 +570,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-lg-4">
                                             <label for="prenom" class="form-label">Prénom responsable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="prenom" value="{{ old('prenom') }}"
@@ -583,7 +583,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-lg-4">
                                             <label for="nom" class="form-label">Nom responsable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="nom" value="{{ old('nom') }}"
@@ -596,7 +596,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-lg-4">
                                             <label for="email_responsable" class="form-label">Adresse e-mail<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="email" name="email_responsable"
@@ -610,7 +610,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-lg-4">
                                             <label for="telephone_responsable" class="form-label">Téléphone responsable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input name="telephone_responsable" type="text" maxlength="12"
@@ -624,7 +624,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-lg-4">
                                             <label for="fonction_responsable" class="form-label">Fonction responsable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="fonction_responsable"

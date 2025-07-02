@@ -14,7 +14,7 @@
         </div><!-- End Page Title -->
         <section class="section">
             <div class="row">
-                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                <div class="col-12">
                     @if ($message = Session::get('status'))
                         <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                             role="alert">
@@ -163,9 +163,9 @@
                             @csrf
                             <div class="modal-body">
                                 <div class="row g-3">
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <div class="row">
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="firstname" class="form-label">Prénom</label>
                                                     <input type="text" name="firstname" value="{{ old('firstname') }}"
@@ -180,9 +180,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <div class="row">
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="name" class="form-label">Nom</label>
                                                     <input type="text" name="name" value="{{ old('name') }}"
@@ -197,9 +197,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <div class="row">
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="cin" class="form-label">N° CIN</label>
                                                     <input name="cin" type="text"
@@ -215,9 +215,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <div class="row">
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="telephone" class="form-label">Téléphone</label>
                                                     <input name="telephone" type="text" maxlength="12"

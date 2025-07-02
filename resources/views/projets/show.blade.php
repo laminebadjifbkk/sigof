@@ -96,43 +96,43 @@
                                             <p class="fst-italic">{{ $projet?->description }}</p>
                                         @endif
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="label">Partenaire</div>
                                             <div class="pt-2">{{ $projet?->name }}</div>
                                         </div>
 
-                                        <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
+                                        <div class="col-12 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
                                             <div class="label">Sigle</div>
                                             <div class="pt-2">{{ $projet?->sigle }}</div>
                                         </div>
 
                                         @if ($projet?->date_signature)
-                                            <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
+                                            <div class="col-12 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Date signature</div>
                                                 <div class="pt-2">{{ $projet?->date_signature->format('d/m/Y') }}</div>
                                             </div>
                                         @endif
                                         @if ($projet?->budjet)
-                                            <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
+                                            <div class="col-12 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Budjet</div>
                                                 <div class="pt-2">{{ number_format($projet?->budjet, 2, ',', ' ') }}
                                                 </div>
                                             </div>
                                         @endif
                                         @if ($projet?->duree)
-                                            <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
+                                            <div class="col-12 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Durée</div>
                                                 <div class="pt-2">{{ $projet?->duree . ' mois' }}</div>
                                             </div>
                                         @endif
                                         @if ($projet?->debut)
-                                            <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
+                                            <div class="col-12 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Date début</div>
                                                 <div class="pt-2">{{ $projet?->debut->format('d/m/Y') }}</div>
                                             </div>
                                         @endif
                                         @if ($projet?->fin)
-                                            <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
+                                            <div class="col-12 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Date fin</div>
                                                 <div class="pt-2">{{ $projet?->fin->format('d/m/Y') }}</div>
                                             </div>
@@ -140,7 +140,7 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane fade show active profile-overview" id="modules-overview">
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 pt-5">
+                                    <div class="col-12 pt-5">
                                         <div class="row">
                                             <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
                                                 <div class="card info-card revenue-card shadow-sm"
@@ -379,7 +379,7 @@
 
                                 <div class="tab-pane fade profile-overview" id="localites-overview">
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <div class="d-flex justify-content-between align-items-center mt-3">
                                             <h5 class="card-title">Liste des {{ $projet?->type_localite }}</h5>
                                             @if (auth()->user()->hasRole(['super-admin', 'admin', 'DIOF', 'Ingenieur', 'ADIOF']))
@@ -587,7 +587,7 @@
                             <input name="projet" value="{{ $projet?->id }}" type="hidden">
                             <input name="type_localite" value="{{ $projet->type_localite }}" type="hidden">
 
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                            <div class="col-12">
                                 <label for="localite" class="form-label">Localité<span
                                         class="text-danger mx-1">*</span></label>
                                 <input type="text" name="localite" value="{{ old('localite') }}"
@@ -600,7 +600,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                            <div class="col-12">
                                 <label for="effectif" class="form-label">Effectif</label>
                                 <input type="number" min="0" name="effectif" value="{{ old('effectif') }}"
                                     class="form-control form-control-sm @error('effectif') is-invalid @enderror"

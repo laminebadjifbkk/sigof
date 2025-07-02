@@ -3,7 +3,7 @@
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-12 col-lg-8">
                 @if ($message = Session::get('status'))
                     <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                         role="alert">
@@ -15,7 +15,7 @@
                     <div class="card-body">
 
                         <div class="row">
-                            <div class="col-sm-12 pt-0">
+                            <div class="col-12 col-sm-12 pt-0">
                                 <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('arrives.index') }}"
                                         class="btn btn-success btn-sm" title="retour"><i
                                             class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
@@ -68,7 +68,7 @@
                                     </td>
                                 </tr>
                             </table>
-                            <div class="col-xs-12 col-sm-12 col-md-12 text-left mt-2">
+                            <div class="col-12 text-left mt-2">
                                 <button type="submit" class="btn btn-primary btn-sm text-white">Importer</button>
                             </div>
                         </form>

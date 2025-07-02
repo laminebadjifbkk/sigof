@@ -406,7 +406,7 @@
             <section class="section dashboard">
                 <div class="row">
                     <!-- Left side columns -->
-                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                    <div class="col-12 col-xxl-12">
                         <div class="row">
                             <!-- Sales Card -->
                             <div class="col-12 col-sm-6 col-lg-3">

@@ -35,7 +35,7 @@
                             <form method="post" action="{{ route('individuelles.store') }}" enctype="multipart/form-data"
                                 class="row g-3">
                                 @csrf
-                                {{-- <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                {{-- <div class="col-12 col-md-3 mb-0">
                                     <label for="date_depot" class="form-label">Date dépôt<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="date" name="date_depot" value="{{ old('date_depot') }}"
@@ -48,7 +48,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="numero_dossier" class="form-label">Numéro dossier<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
@@ -66,7 +66,7 @@
                                 {{-- <span class="badge bg-secondary">
                                     <h6>Informations personnelles</h6>
                                 </span>
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="cin" class="form-label">N° CIN<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="cin"
@@ -80,7 +80,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="civilite" class="form-label">Civilité<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="civilite"
@@ -103,7 +103,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="firstname" class="form-label">Prénom<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="firstname"
@@ -117,7 +117,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="name" class="form-label">Nom<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="name"
@@ -131,7 +131,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="date_naissance" class="form-label">Date naissance<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="date" name="date_naissance"
@@ -145,7 +145,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="name" class="form-label">Lieu naissance<span
                                             class="text-danger mx-1">*</span></label>
                                     <input name="lieu_naissance" type="text"
@@ -160,7 +160,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="adresse" class="form-label">Adresse<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="adresse"
@@ -174,7 +174,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="email" class="form-label">Email<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
@@ -191,7 +191,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="telephone" class="form-label">Téléphone personnel<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="telephone"
@@ -205,7 +205,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="telephone_secondaire" class="form-label">Téléphone secondaire<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="telephone_secondaire"
@@ -219,7 +219,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="matricule" class="form-label">Situation familiale<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="situation_familiale"
@@ -249,7 +249,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="situation professionnelle" class="form-label">Situation
                                         professionnelle<span class="text-danger mx-1">*</span></label>
                                     <select name="situation_professionnelle"
@@ -289,7 +289,7 @@
                                     <h6>Demande</h6>
                                 </span> --}}
 
-                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
                                     <label for="module" class="form-label">Formation sollicitée<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="module" class="form-select  @error('module') is-invalid @enderror"
@@ -310,7 +310,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
                                     <label for="autre_module" class="form-label">Si autre formation ? précisez</label>
                                     <input type="text" name="autre_module" value="{{ old('autre_module') }}"
                                         class="form-control form-control-sm @error('autre_module') is-invalid @enderror"
@@ -322,7 +322,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
                                     <label for="departement" class="form-label">Lieu de formation<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="departement"
@@ -343,7 +343,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
                                     <label for="Niveau étude" class="form-label">Niveau étude<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="niveau_etude"
@@ -378,7 +378,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
                                     <label for="diplome_academique" class="form-label">Diplôme académique<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="diplome_academique"
@@ -423,7 +423,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
                                     <label for="autre_diplome_academique" class="form-label">Si autre ? précisez</label>
                                     <input type="text" name="autre_diplome_academique"
                                         value="{{ old('autre_diplome_academique') }}"
@@ -436,7 +436,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
                                     <label for="option_diplome_academique" class="form-label">Option du diplôme</label>
                                     <input type="text" name="option_diplome_academique"
                                         value="{{ old('option_diplome_academique') }}"
@@ -449,7 +449,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
                                     <label for="etablissement_academique" class="form-label">Etablissement
                                         académique</label>
                                     <input type="text" name="etablissement_academique"
@@ -463,7 +463,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
                                     <label for="diplome_pro" class="form-label">Diplôme professionnel<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="diplome_professionnel"
@@ -508,7 +508,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
                                     <label for="autre_diplome_professionnel" class="form-label">Si autre ?
                                         précisez</label>
                                     <input type="text" name="autre_diplome_professionnel"
@@ -523,7 +523,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
                                     <label for="etablissement_professionnel" class="form-label">Etablissement
                                         professionnel</label>
                                     <input type="text" name="etablissement_professionnel"
@@ -537,7 +537,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
                                     <label for="specialite_diplome_professionnel" class="form-label">Spécialité</label>
                                     <input type="text" name="specialite_diplome_professionnel"
                                         value="{{ old('specialite_diplome_professionnel') }}"
@@ -550,7 +550,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
                                     <label for="projet_poste_formation" class="form-label">Votre projet après la
                                         formation<span class="text-danger mx-1">*</span></label>
                                     <select name="projet_poste_formation"
@@ -583,7 +583,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                <div class="col-12 mb-0">
                                     <label for="qualification" class="form-label">Qualification et autres diplômes</label>
                                     <textarea name="qualification" id="qualification" rows="1"
                                         class="form-control form-control-sm @error('qualification') is-invalid @enderror"
@@ -595,7 +595,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                <div class="col-12 mb-0">
                                     <label for="experience" class="form-label">Expériences et stages</label>
                                     <textarea name="experience" id="experience" rows="1"
                                         class="form-control form-control-sm @error('experience') is-invalid @enderror"
@@ -607,7 +607,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                <div class="col-12 mb-0">
                                     <label for="projetprofessionnel" class="form-label">Informations complémentaires sur
                                         le projet
                                         professionnel</label>

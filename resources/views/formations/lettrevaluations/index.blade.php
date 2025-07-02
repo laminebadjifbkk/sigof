@@ -4,7 +4,7 @@
     @can('lettrevaluation-view')
         <section class="section register">
             <div class="row justify-content-center">
-                <div class="col-12 col-md-12 col-lg-12">
+                <div class="col-12">
                     <div class="pagetitle">
                         {{-- <h1>Data Tables</h1> --}}
                         <nav>
@@ -245,7 +245,7 @@
                             <div class="modal-body">
                                 <div class="row g-3">
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="formation" class="form-label">Formation<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="formation"
@@ -273,7 +273,7 @@
                                         @enderror
                                     </div>
 
-                                    {{-- <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    {{-- <div class="col-12">
                                         <label for="onfpevaluateur" class="form-label">Initateur de la lettre<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="onfpevaluateur"
@@ -295,7 +295,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="evaluateur" class="form-label">Evaluateur<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="evaluateur"
@@ -317,7 +317,7 @@
                                         @enderror
                                     </div> --}}
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="contenu" class="form-label">Commenataires</label>
                                         <textarea name="contenu" id="contenu" rows="5"
                                             class="form-control form-control-sm @error('contenu') is-invalid @enderror" placeholder="Commentaires">{{ old('contenu') }}</textarea>
@@ -354,7 +354,7 @@
                                 <input type="hidden" name="id" value="{{ $lettrevaluation->id }}">
                                 <div class="modal-body">
                                     <div class="row g-3">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="civilite" class="form-label">Civilité<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="civilite"
@@ -376,7 +376,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="prenom" class="form-label">Prénom<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="prenom"
@@ -390,7 +390,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="nom" class="form-label">Nom<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="nom"
@@ -404,7 +404,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="fonction" class="form-label">Fonction<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="fonction"

@@ -130,7 +130,7 @@
         </div>
         @foreach ($unes as $une)
             <div
-                class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+                class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="ShowUneModal{{ $une->id }}" tabindex="-1">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -142,7 +142,7 @@
                                 <div class="modal-body">
                                     <div class="row g-3">
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <img src="{{ asset($une?->getUne()) }}" class="d-block w-100"
                                                 alt="{{ $une->titre1 }}">
                                         </div>
@@ -163,7 +163,7 @@
         @endforeach
     </section>
     <div
-        class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+        class="col-12 d-flex flex-column align-items-center justify-content-center">
         <div class="modal fade" id="AddUneModal" tabindex="-1">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -199,7 +199,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="message" class="form-label">Message<span
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="message" id="message" rows="3"
@@ -212,7 +212,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="image" class="form-label">Image</label>
                                     <input type="file" name="image" value="{{ old('image') }}"
                                         class="form-control form-control-sm @error('image') is-invalid @enderror"
@@ -238,7 +238,7 @@
     </div>
     @foreach ($unes as $une)
         <div
-            class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+            class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="EditUneModal{{ $une->id }}" tabindex="-1">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
@@ -275,7 +275,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="message" class="form-label">Mesage<span
                                                 class="text-danger mx-1">*</span></label>
                                         <textarea name="message" id="message" rows="3"

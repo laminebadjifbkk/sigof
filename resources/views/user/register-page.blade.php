@@ -73,7 +73,7 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div
-                            class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 col-xxl-6 d-flex flex-column align-items-center justify-content-center">
+                            class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6 d-flex flex-column align-items-center justify-content-center">
 
                             <div class="d-flex justify-content-center py-4">
                                 <a href="{{ route('accueil') }}" class="logo d-flex align-items-center w-auto"
@@ -107,7 +107,7 @@
 
                                                 <!-- Username -->
                                                 <input type="hidden" name="role" value="Demandeur">
-                                                <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <div class="col-12 col-xxl-12">
                                                     <label for="username" class="form-label">Username<span
                                                             class="text-danger mx-1">*</span></label>
                                                     <div class="input-group has-validation">
@@ -126,7 +126,7 @@
                                                 </div>
 
                                                 <!-- Addresse E-mail -->
-                                                <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <div class="col-12 col-xxl-12">
                                                     <label for="email" class="form-label">E-mail<span
                                                             class="text-danger mx-1">*</span></label>
                                                     <div class="input-group has-validation">
@@ -144,7 +144,7 @@
                                                 </div>
 
                                                 <!-- Téléphone -->
-                                                <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <div class="col-12 col-xxl-12">
                                                     <label for="votre_telephone" class="form-label">Téléphone<span
                                                             class="text-danger mx-1">*</span></label>
                                                     <div class="input-group has-validation">
@@ -163,7 +163,7 @@
                                                 </div>
 
                                                 <!-- Mot de passe -->
-                                                <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <div class="col-12 col-xxl-12">
                                                     <label for="password" class="form-label">Mot de passe<span
                                                             class="text-danger mx-1">*</span></label>
                                                     <div class="input-group has-validation">
@@ -187,7 +187,7 @@
                                                 </div>
 
                                                 <!-- Mot de passe de confirmation -->
-                                                <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <div class="col-12 col-xxl-12">
                                                     <label for="password_confirmation" class="form-label">Confirmez
                                                         mot de
                                                         passe<span class="text-danger mx-1">*</span></label>
@@ -212,7 +212,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <div class="col-12 col-xxl-12">
                                                     <div class="form-check">
                                                         <input
                                                             class="form-check-input @error('termes') is-invalid @enderror"
@@ -233,14 +233,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <div class="col-12 col-xxl-12">
                                                     <button class="btn text-white fw-bold w-100"
                                                         style="background: #FF8000;" type="submit">
                                                         S'inscrire
                                                     </button>
                                                 </div>
                                                 <div
-                                                    class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12 justify-content-center">
+                                                    class="col-12 col-xxl-12 justify-content-center">
                                                     <p class="small">Vous avez déjà un compte ? <a
                                                             href="{{ route('login') }}">Se connecter</a></p>
                                                 </div>

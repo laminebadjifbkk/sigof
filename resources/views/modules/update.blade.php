@@ -72,7 +72,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                        <div class="col-12">
                             <label for="niveau_qualification" class="form-label">Niveau de qualification<span
                                     class="text-danger mx-1">*</span></label>
                             <div class="input-group has-validation">

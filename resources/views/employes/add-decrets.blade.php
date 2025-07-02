@@ -35,7 +35,7 @@
                                 </div>
                                 <div></div>
                                 @foreach ($decrets as $decret)
-                                    <div class="form-check col-12 col-md-12 col-lg-12">
+                                    <div class="form-check col-12">
                                         <label>
                                             <input type="checkbox" name="decrets[]" value="{{ $decret->id }}"
                                                 {{ in_array($decret->id, $employesDecrets) ? 'checked' : '' }}

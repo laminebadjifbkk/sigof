@@ -17,7 +17,7 @@
                                 <h5 class="card-title">Mes courriers</h5>
                             </span>
                         </div>
-                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                        <div class="col-12">
                             @php
                                 $user = Auth::user();
                                 $employee = $user?->employee;
@@ -169,7 +169,7 @@
                                                                                 <span>{!! $comment?->user?->firstname . ' ' . $comment?->user?->name !!}</span>
                                                                                 <div class="activity">
                                                                                     <div
-                                                                                        class="activity-item d-flex col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                                                        class="activity-item d-flex col-12">
                                                                                         <div
                                                                                             class="activite-label col-2 col-md-2 col-lg-2 col-sm-2 col-xs-2 col-xxl-2">
                                                                                             {!! Carbon\Carbon::parse($comment?->created_at)?->diffForHumans() !!}
@@ -198,7 +198,7 @@
                                                                                 <div class="activity">
                                                                                     @forelse ($comment->comments as $replayComment)
                                                                                         <div
-                                                                                            class="row col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                                                            class="row col-12">
                                                                                             <label for=""
                                                                                                 class="col-1 col-md-1 col-lg-1 col-sm-1 col-xs-1 col-xxl-1"></label>
                                                                                             <div

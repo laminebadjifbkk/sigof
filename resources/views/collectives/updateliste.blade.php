@@ -63,7 +63,7 @@
                                 @method('PUT')
                                 <div class="row g-3">
                                     <input type="hidden" name="collective" value="{{ $listecollective->collective }}">
-                                    <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                    <div class="col-12 col-md-4 mb-0">
                                         <label for="cin" class="form-label">CIN<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input name="cin" type="text"
@@ -78,7 +78,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                    <div class="col-12 col-md-4 mb-0">
                                         <label for="civilite" class="form-label">Civilité<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="civilite"
@@ -101,7 +101,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                    <div class="col-12 col-md-4 mb-0">
                                         <label for="firstname" class="form-label">Prénom<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="text" name="firstname"
@@ -115,7 +115,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                    <div class="col-12 col-md-4 mb-0">
                                         <label for="name" class="form-label">Nom<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="text" name="name"
@@ -129,7 +129,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                    <div class="col-12 col-md-4 mb-0">
                                         <label for="date_naissance" class="form-label">Date naissance<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="text" name="date_naissance"
@@ -143,7 +143,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                    <div class="col-12 col-md-4 mb-0">
                                         <label for="name" class="form-label">Lieu naissance<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input name="lieu_naissance" type="text"
@@ -161,7 +161,7 @@
                                     <input type="hidden" name="module"
                                         value="{{ $listecollective?->collectivemodule->id }}">
 
-                                    <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                    <div class="col-12 col-md-4 mb-0">
                                         <label for="telephone" class="form-label">Téléphone</label>
                                         <input name="telephone" type="text" maxlength="12"
                                             class="form-control form-control-sm @error('telephone') is-invalid @enderror"
@@ -175,7 +175,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                    <div class="col-12 col-md-4 mb-0">
                                         <label for="Niveau étude" class="form-label">Niveau étude</label>
                                         <select name="niveau_etude"
                                             class="form-select  @error('niveau_etude') is-invalid @enderror"
@@ -210,7 +210,7 @@
                                         @enderror
                                     </div>
 
-                                    {{-- <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                    {{-- <div class="col-12 col-md-4 mb-0">
                                         <label for="Statut" class="form-label">Statut</label>
                                         <select name="statut"
                                             class="form-select  @error('statut') is-invalid @enderror"
@@ -230,7 +230,7 @@
                                         @enderror
                                     </div> --}}
 
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    <div class="col-12 mb-0">
                                         <label for="experience" class="form-label">Expériences</label>
                                         <textarea name="experience" id="experience" rows="1"
                                             class="form-control form-control-sm @error('experience') is-invalid @enderror"
@@ -242,7 +242,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    <div class="col-12 mb-0">
                                         <label for="autre_experience" class="form-label">Autres expériences</label>
                                         <textarea name="autre_experience" id="autre_experience" rows="1"
                                             class="form-control form-control-sm @error('autre_experience') is-invalid @enderror"
@@ -254,7 +254,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    <div class="col-12 mb-0">
                                         <label for="details" class="form-label">Commentaires</label>
                                         <textarea name="details" id="details" rows="1"
                                             class="form-control form-control-sm @error('details') is-invalid @enderror" placeholder="Autres expériences">{{ $listecollective?->details ?? old('details') }}</textarea>

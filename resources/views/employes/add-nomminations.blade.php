@@ -35,7 +35,7 @@
                                 </div>
                                 <div></div>
                                 @foreach ($nomminations as $nommination)
-                                    <div class="form-check col-12 col-md-12 col-lg-12">
+                                    <div class="form-check col-12">
                                         <label>
                                             <input type="radio" name="nomminations[]" value="{{ $nommination->id }}"
                                                 {{ in_array($nommination->id, $employesNomminations) ? 'checked' : '' }}

@@ -61,7 +61,7 @@
     </div>
     <section class="section">
         <div class="row">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 @isset($users)
                     <div class="card">
                         <div class="card-body">
@@ -161,9 +161,9 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <input type="hidden" name="cin_value" value="1">
                                             <div class="form-group">
                                                 <label for="cin" class="form-label">N° CIN<span
@@ -209,10 +209,10 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
                                         <input type="hidden" name="date_value" value="1">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label>De</label>
                                                 <input type="date" name="from_date"
@@ -224,7 +224,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label>À</label>
                                                 <input type="date" name="to_date"
@@ -265,9 +265,9 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <input type="hidden" name="telephone_value" value="1">
                                             <div class="form-group">
                                                 <label for="telephone" class="form-label">Téléphone<span
@@ -312,9 +312,9 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <input type="hidden" name="email_value" value="1">
                                             <div class="form-group">
                                                 <label for="email" class="form-label">E-mail<span
@@ -395,9 +395,9 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <input type="hidden" name="role_value" value="1">
                                             <div class="form-group">
                                                 <label for="role" class="form-label">Role<span

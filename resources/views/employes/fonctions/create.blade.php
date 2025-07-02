@@ -67,7 +67,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <div class="col-xs-12 col-sm-12 col-md-12 text-left mt-2">
+                                <div class="col-12 text-left mt-2">
                                     <button type="submit" class="btn btn-outline-success btn-sm">Sauvegarder</button>
                                 </div>
 

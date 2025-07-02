@@ -31,7 +31,7 @@
                             <form method="post" action="{{ route('arrives.store') }}" enctype="multipart/form-data"
                                 class="row g-3">
                                 @csrf
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="date_arrivee" class="form-label">Date arrivée<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="date" name="date_arrivee" value="{{ old('date_arrivee') }}"
@@ -44,7 +44,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="numero_arrive" class="form-label">Numéro<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="date_correspondance" class="form-label">Date correspondance<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="date" name="date_correspondance"
@@ -74,7 +74,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="numero_correspondance" class="form-label">Numéro correspondance<span
                                         class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
@@ -90,7 +90,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="annee" class="form-label">Année<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="number" min="2024" name="annee" value="{{ $anneeEnCours ?? old('annee') }}"
@@ -103,7 +103,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-9 col-lg-9 mb-0">
+                                <div class="col-12 col-md-9 mb-0">
                                     <label for="expediteur" class="form-label">Expéditeur<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="expediteur" value="{{ old('expediteur') }}"
@@ -116,7 +116,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                <div class="col-12 mb-0">
                                     <label for="objet" class="form-label">Objet<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="objet" value="{{ old('objet') }}"
@@ -129,7 +129,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
                                     <label for="reference" class="form-label">Référence</label>
                                     <input type="text" name="reference" value="{{ old('reference') }}"
                                         class="form-control form-control-sm @error('reference') is-invalid @enderror"
@@ -141,7 +141,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
                                     <label for="numero_reponse" class="form-label">Numéro réponse</label>
                                     <input type="number" min="0" name="numero_reponse"
                                         value="{{ old('numero_reponse') }}"
@@ -154,7 +154,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
                                     <label for="date_reponse" class="form-label">Date réponse</label>
                                     <input type="date" min="0" name="date_reponse"
                                         value="{{ old('date_reponse') }}"
@@ -167,7 +167,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                <div class="col-12 mb-0">
                                     <label for="observation" class="form-label">Observations</label>
                                     <textarea name="observation" id="observation" rows="1"
                                         class="form-control form-control-sm @error('date_reponse') is-invalid @enderror" placeholder="Observations">{{ old('observation') }}</textarea>

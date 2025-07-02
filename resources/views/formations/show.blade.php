@@ -80,52 +80,52 @@
                                             <h5>Détails formation : <span class="{{ $formation?->statut }}">
                                                     {{ $formation?->statut }}</span>
                                             </h5>
-                                            <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                            <div class="col-12 mb-0">
                                                 <div class="label">Intitulé formation</div>
                                                 <div>{{ $formation?->name }}</div>
                                             </div>
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Code</div>
                                                 <div>{{ $formation?->code }}</div>
                                             </div>
-                                            {{-- <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            {{-- <div class="col-12 col-md-3 mb-0">
                                             <div class="label">Module</div>
                                             <div>{{ $formation?->module?->name }}</div>
                                         </div> --}}
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Région</div>
                                                 <div>{{ $formation?->departement->region->nom }}</div>
                                             </div>
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Département</div>
                                                 <div>{{ $formation->departement->nom }}
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Adresse exacte</div>
                                                 <div>{{ $formation?->lieu }}
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Type formation</div>
                                                 <div>{{ $formation?->types_formation?->name }}</div>
                                             </div>
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Statut juridique</div>
                                                 <div>{{ $formation?->statut }}</div>
                                             </div>
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Niveau qualification</div>
                                                 <div>{{ $formation->niveau_qualification }}</div>
                                             </div>
                                             @isset($formation?->date_debut)
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Date début</div>
                                                     <div>{{ $formation?->date_debut->format('d/m/Y') }}</div>
                                                 </div>
                                             @endisset
                                             @isset($formation?->date_fin)
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Date fin</div>
                                                     <div>{{ $formation?->date_fin->format('d/m/Y') }}</div>
                                                 </div>
@@ -157,7 +157,7 @@
                                             </div>
                                         @else
                                         @endif
-                                        <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                        <div class="col-12 mb-0">
                                             @isset($operateur)
                                                 <div class="card-header">
                                                     <i class="bi bi-table"></i>
@@ -246,7 +246,7 @@
                                 <div class="tab-content pt-0">
                                     <div class="tab-pane fade show active profile-overview" id="beneficiaires-overview">
                                         @isset($module)
-                                            <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                            <div class="col-12 mb-0">
                                                 <div class="float-end">
                                                     <a href="{{ url('formationdemandeurs', ['$idformation' => $formation->id, '$idmodule' => $formation?->module?->id, '$idlocalite' => $formation->departement->region->id]) }}"
                                                         class="btn btn-primary btn-rounded"><i class="fas fa-plus"></i>
@@ -362,7 +362,7 @@
                                                     <i class="bi bi-person-plus-fill" title="Ajouter module"></i> </a>
                                             </div>
                                         @endif
-                                        <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                        <div class="col-12 mb-0">
                                             @isset($operateur)
                                                 <div class="card-header">
                                                     <i class="bi bi-table"></i>

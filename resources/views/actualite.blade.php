@@ -15,7 +15,7 @@
 </div>
 @foreach (App\Models\Poste::all() as $poste)
     <div
-        class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+        class="col-12 d-flex flex-column align-items-center justify-content-center">
         <div class="modal fade" id="ShowPostModal{{ $poste->id }}" tabindex="-1">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -27,7 +27,7 @@
                         <div class="modal-body">
                             <div class="row g-3">
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <img src="{{ asset($poste->getPoste()) }}" class="d-block w-100"
                                         alt="{{ $poste->legende }}">
                                 </div>

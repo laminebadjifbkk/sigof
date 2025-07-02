@@ -116,7 +116,7 @@
 
         <div class="container footer-top">
             <div class="row gy-4">
-                <div class="col-lg-4 col-md-6 footer-about">
+                <div class="col-12 col-md-6 col-lg-4 footer-about">
                     <a href="{{ url('/') }}" class="logo d-flex align-items-center">
                         <span class="sitename">SIGOF</span>
                     </a>
@@ -141,7 +141,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6 footer-links">
+                <div class="col-12 col-md-6 col-lg-4 footer-links">
                     <h4>Services</h4>
                     <ul>
                         <li><a href="#accueil">Accueil</a></li>
@@ -152,7 +152,7 @@
                     </ul>
                 </div>
 
-                {{-- <div class="col-lg-4 col-md-6 footer-links">
+                {{-- <div class="col-12 col-md-6 col-lg-4 footer-links">
                     <h4>Nos services</h4>
                     <ul>
                         <li><a href="#">Web Design</a></li>
@@ -163,7 +163,7 @@
                     </ul>
                 </div> --}}
 
-                <div class="col-lg-4 col-md-6 footer-links">
+                <div class="col-12 col-md-6 col-lg-4 footer-links">
                     <h4>Nos antennes</h4>
                     <ul>
                         @foreach ($antennes as $antenne)
@@ -173,7 +173,7 @@
                     </ul>
                 </div>
 
-                {{-- <div class="contact-form col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 footer-links">
+                {{-- <div class="contact-form col-12 col-md-6 col-lg-4 footer-links">
                     <h4>Connexion</h4>
                     <ul>
                         <div class="modal-content">
@@ -181,7 +181,7 @@
                                 @csrf
                                 <div class="modal-body">
                                     <div class="row g-3">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="input-group has-validation">
                                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
                                                 <input type="email" name="email"
@@ -196,7 +196,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="input-group has-validation">
                                                 <span class="input-group-text" id="inputGroupPrepend"><i
                                                         class="bi bi-key"></i></span>
@@ -211,7 +211,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="remember"
                                                     value="true" id="rememberMe">
@@ -219,14 +219,14 @@
                                                     moi</label>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12 col-xxl-12">
                                             <button class="btn btn-sm w-100" type="submit"
                                                 style="background-color: #F28500; color: #FFFFFF">Se
                                                 connecter</button>
                                         </div>
 
                                         <div
-                                            class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12 justify-content-center">
+                                            class="col-12 col-xxl-12 justify-content-center">
                                             @if (Route::has('password.request'))
                                                 <p class="small mb-0">Mot de passe oublié !
                                                     <a href="#" data-bs-toggle="modal"
@@ -260,7 +260,7 @@
     {{-- Antennes modal --}}
     @foreach ($antennes as $antenne)
         <div
-            class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+            class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="antenneModal{{ $antenne?->id }}" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -274,7 +274,7 @@
                             <div class="container" data-aos="fade-up" data-aos-delay="100">
                                 <div class="row justify-content-center">
                                     <!-- Standard Plan -->
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12"
+                                    <div class="col-12"
                                         data-aos="fade-up" data-aos-delay="200">
                                         <div class="pricing-card popular">
 

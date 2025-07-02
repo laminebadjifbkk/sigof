@@ -27,7 +27,7 @@
                             {{ $departement->region->nom }}</h5>
                         <!-- departement -->
                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
-                            <div class="row mb-3 col-12 col-md-6 col-lg-6 pt-1">
+                            <div class="row mb-3 col-12 col-md-6 pt-1">
                                 <div class="form-floating mb-3">
                                     <ol>
                                         @foreach ($departement->arrondissements as $arrondissement)

@@ -28,7 +28,7 @@
                         <form method="post" action="{{ url('departements') }}" enctype="multipart/form-data"
                             class="row g-3">
                             @csrf
-                            <div class="col-12 col-md-6 col-lg-6 mb-4">
+                            <div class="col-12 col-md-6 mb-4">
                                 <label for="nom" class="form-label">Département<span
                                         class="text-danger mx-1">*</span></label>
                                 <input type="text" name="nom" value="{{ old('nom') }}"
@@ -40,7 +40,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-12 col-md-6 col-lg-6 mb-4">
+                            <div class="col-12 col-md-6 mb-4">
                                 <label for="region" class="form-label">Région<span
                                         class="text-danger mx-1">*</span></label>
                                 <select name="region" class="form-select  @error('region') is-invalid @enderror"

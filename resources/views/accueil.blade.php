@@ -334,7 +334,7 @@
                     <div class="tab-pane fade active show" id="features-tab-1">
                         <div class="row">
                             <div
-                                class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
+                                class="col-12 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
                                 {{-- <h3>SIGOF</h3> --}}
                                 <p class="fst-italic">
                                     Le Système Intégré de Gestion des Opérations de Formation (SIGOF) de l’ONFP (Office
@@ -576,7 +576,7 @@
                             <form class="row g-3 needs-validation" novalidate method="POST"
                                 action="{{ route('contacts.store') }}">
                                 @csrf
-                                <div class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <label for="emailadresse" class="form-label">Email<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
@@ -592,7 +592,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <label for="telephone" class="form-label">Téléphone<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
@@ -608,7 +608,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="objet" class="form-label">Objet<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
@@ -624,7 +624,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="message" class="form-label">Message<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
@@ -633,7 +633,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 text-center">
+                                <div class="col-12 text-center">
                                     <button class="btn btn-sm" type="submit">Envoyer</button>
                                 </div>
                             </form>
@@ -718,7 +718,7 @@
 
         {{-- Connexion --}}
         <div
-            class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+            class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="loginModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -802,7 +802,7 @@
 
         {{-- Inscription Demandeur --}}
         <div
-            class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+            class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="registerDemandeurModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -962,7 +962,7 @@
 
         {{-- Inscription opérateur --}}
         <div
-            class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+            class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="registerOperateurModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -977,7 +977,7 @@
                             <div class="modal-body">
                                 <div class="row g-3">
                                     <input type="hidden" name="role" value="Operateur">
-                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12 col-xxl-12">
                                         <label for="username" class="form-label">Sigle<span
                                                 class="text-danger mx-1">*</span></label>
                                         <div class="input-group has-validation">
@@ -995,7 +995,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12 col-xxl-12">
                                         <label for="email" class="form-label">Email<span
                                                 class="text-danger mx-1">*</span></label>
                                         <div class="input-group has-validation">
@@ -1012,7 +1012,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12 col-xxl-12">
                                         <label for="password" class="form-label">Mot de passe<span
                                                 class="text-danger mx-1">*</span></label>
                                         <div class="input-group has-validation">
@@ -1030,7 +1030,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12 col-xxl-12">
                                         <label for="password_confirmation" class="form-label">Confirmez mot de
                                             passe<span class="text-danger mx-1">*</span></label>
                                         <div class="input-group has-validation">
@@ -1050,7 +1050,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12 col-xxl-12">
                                         <div class="form-check">
                                             <input class="form-check-input @error('termes') is-invalid @enderror"
                                                 name="termes" type="checkbox" value="1" id="acceptTerms"
@@ -1070,14 +1070,14 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12 col-xxl-12">
                                         <button type="submit" class="btn btn-sm w-100"
                                             style="background-color: #F28500; color: #FFFFFF">Créer un compte
                                             opérateur</button>
                                     </div>
 
                                     <div
-                                        class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12 justify-content-center">
+                                        class="col-12 col-xxl-12 justify-content-center">
                                         <p class="small">Vous avez déjà un compte ? <a href="#"
                                                 data-bs-toggle="modal" data-bs-target="#loginModal">Se connecter</a>
                                         </p>
@@ -1092,7 +1092,7 @@
 
         {{-- Mot de passe oublié --}}
         <div
-            class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+            class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="forgotModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -1107,7 +1107,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row g-3">
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="email" class="form-label">Email<span
                                                 class="text-danger mx-1">*</span></label>
                                         <div class="input-group has-validation">
@@ -1124,7 +1124,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <button class="btn btn-sm w-100" type="submit"
                                             style="background-color: #F28500; color: #FFFFFF">Lien de
                                             réinitialisation du mot de passe par e-mail</button>
@@ -1147,7 +1147,7 @@
                     </div>
                     <div class="modal-body">
                         @if (!empty($une->image))
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                            <div class="col-12">
                                 <img src="{{ asset($une?->getUne()) }}" class="d-block w-100 main-image rounded-4"
                                     alt="{{ $une->titre1 }}">
                             </div>
@@ -1260,7 +1260,7 @@
         {{-- Antennes modal --}}
         @foreach ($antennes as $antenne)
             <div
-                class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+                class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="antenneModal{{ $antenne?->id }}" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -1274,7 +1274,7 @@
                                 <div class="container" data-aos="fade-up" data-aos-delay="100">
                                     <div class="row justify-content-center">
                                         <!-- Standard Plan -->
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12"
+                                        <div class="col-12"
                                             data-aos="fade-up" data-aos-delay="200">
                                             <div class="pricing-card popular">
 
@@ -1338,7 +1338,7 @@
                             {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
                         </div>
                         <div class="modal-body">
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                            <div class="col-12">
                                 <img src="{{ asset($post->getPoste()) }}" class="d-block w-100 main-image rounded-4"
                                     alt="{{ $post->legende }}">
                             </div>

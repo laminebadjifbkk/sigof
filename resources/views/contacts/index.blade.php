@@ -103,7 +103,7 @@
         </div>
     </section>
     <div
-        class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+        class="col-12 d-flex flex-column align-items-center justify-content-center">
         <div class="modal fade" id="AddUneModal" tabindex="-1">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -146,7 +146,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="objet" class="form-label">Objet<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
@@ -161,7 +161,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="message" class="form-label">Message<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
@@ -183,7 +183,7 @@
     </div>
     @foreach ($contacts as $contact)
         <div
-            class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+            class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="EditUneModal{{ $contact->id }}" tabindex="-1">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">

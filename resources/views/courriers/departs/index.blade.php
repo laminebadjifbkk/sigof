@@ -15,7 +15,7 @@
     <section class="section dashboard">
         <div class="row">
             <!-- Left side columns -->
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 {{-- @if ($message = Session::get('status'))
                     <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                         role="alert">
@@ -98,7 +98,7 @@
     </section>
     <section class="section">
         <div class="row">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 @if ($message = Session::get('status'))
                     <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                         role="alert">
@@ -249,7 +249,7 @@
                         </div> --}}
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-4">
                                     <label for="date_depart" class="form-label">Date départ<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="date" name="date_depart" value="{{ old('date_depart') }}"
@@ -261,7 +261,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-4">
                                     <label for="numero_depart" class="form-label">Numéro départ<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
@@ -277,7 +277,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-4">
                                     <label for="date_corres" class="form-label">Date correspondance<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="date" name="date_corres" value="{{ old('date_corres') }}"
@@ -290,7 +290,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-4">
                                     <label for="numero_courrier" class="form-label">Numéro correspondance<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
@@ -306,7 +306,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-4">
                                     <label for="annee" class="form-label">Année<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="number" min="2024" name="annee"
@@ -320,7 +320,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-4">
                                     <label for="destinataire" class="form-label">Destinataire<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="destinataire" value="{{ old('destinataire') }}"
@@ -333,7 +333,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="objet" class="form-label">Objet<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="objet" value="{{ old('objet') }}"
@@ -359,7 +359,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-4">
                                     <label for="numero_reponse" class="form-label">Numéro réponse</label>
                                     <input type="number" min="0" name="numero_reponse"
                                         value="{{ old('numero_reponse') }}"
@@ -372,7 +372,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-4">
                                     <label for="date_reponse" class="form-label">Date réponse</label>
                                     <input type="date" min="0" name="date_reponse"
                                         value="{{ old('date_reponse') }}"
@@ -385,7 +385,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-8">
+                                <div class="col-12 col-sm-12 col-xs-12 col-xxl-8">
                                     <label for="observation" class="form-label">Observations</label>
                                     <textarea name="observation" id="observation" rows="1"
                                         class="form-control form-control-sm @error('date_reponse') is-invalid @enderror" placeholder="Observations">{{ old('observation') }}</textarea>
@@ -421,9 +421,9 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="numero_depart" class="form-label">Numéro courrier</label>
                                                 <input type="text" name="numero_depart" value="{{ old('numero_depart') }}"
@@ -438,9 +438,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="objet" class="form-label">Objet</label>
                                                 <input type="text" name="objet" value="{{ old('objet') }}"
@@ -455,9 +455,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="expediteur" class="form-label">Service expéditeur</label>
                                                 <input type="text" name="expediteur" value="{{ old('expediteur') }}"
@@ -472,9 +472,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="destinataire" class="form-label">Destinataire</label>
                                                 <input type="text" name="destinataire" value="{{ old('destinataire') }}"

@@ -38,7 +38,7 @@
                                     enctype="multipart/form-data" class="row g-3">
                                     @csrf
                                     @method('patch')
-                                    <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <label for="firstname" class="form-label">Civilité<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="civilite"
@@ -60,7 +60,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <label for="firstname" class="form-label">Prénom<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="text" name="firstname"
@@ -74,7 +74,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <label for="name" class="form-label">Nom<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="text" name="name" value="{{ $employe->user->name ?? old('name') }}"
@@ -87,7 +87,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <label for="name" class="form-label">Date naissance</label>
                                         <input type="text" name="date_naissance"
                                             value="{{ old('date_naissance', optional($employe->user->date_naissance)->format('d/m/Y')) }}"
@@ -100,7 +100,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <label for="name" class="form-label">Lieu naissance</label>
                                         <input name="lieu_naissance" type="text"
                                             class="form-control form-control-sm @error('lieu_naissance') is-invalid @enderror"
@@ -114,7 +114,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <label for="adresse" class="form-label">Adresse</label>
                                         <input type="text" name="adresse"
                                             value="{{ $employe->user->adresse ?? old('adresse') }}"
@@ -127,7 +127,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <label for="email" class="form-label">Email<span
                                                 class="text-danger mx-1">*</span></label>
                                         <div class="input-group has-validation">
@@ -144,7 +144,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <label for="telephone" class="form-label">Téléphone</label>
                                         <input name="telephone" type="text" maxlength="12"
                                             class="form-control form-control-sm @error('telephone') is-invalid @enderror"
@@ -157,7 +157,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <label for="cin" class="form-label">N° CIN</label>
                                         <input name="cin" type="text"
                                             class="form-control form-control-sm @error('cin') is-invalid @enderror"
@@ -171,7 +171,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <label for="name" class="form-label">Date embauche</label>
                                         <input type="text" name="date_embauche"
                                             value="{{ old('date_embauche', optional($employe->date_embauche)->format('d/m/Y')) }}"
@@ -184,7 +184,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <label for="categorie" class="form-label">Catégorie</label>
                                         <select name="categorie" class="form-select @error('categorie') is-invalid @enderror"
                                             aria-label="Select" id="select-field-categorie-emp"
@@ -203,7 +203,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <label for="direction" class="form-label">Direction<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="direction" class="form-select @error('direction') is-invalid @enderror"
@@ -222,7 +222,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <label for="fonction" class="form-label">Fonction<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="fonction" class="form-select @error('fonction') is-invalid @enderror"
@@ -242,7 +242,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <label for="matricule" class="form-label">Situation familiale</label>
                                         <select name="situation_familiale"
                                             class="form-select  @error('situation_familiale') is-invalid @enderror"
@@ -271,7 +271,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <label for="matricule" class="form-label">Matricule</label>
                                         <input type="text" name="matricule"
                                             value="{{ $employe->matricule ?? old('matricule') }}"
@@ -284,7 +284,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <label for="profil" class="form-label">Photo de profil</label>
                                         <input type="file" name="image" id="image" value="{{ old('image') }}"
                                             class="form-control @error('image') is-invalid @enderror btn btn-outline-info btn-sm">

@@ -5,7 +5,7 @@
 
     <section class="section register">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-12 col-lg-12">
+            <div class="col-12">
                 <div class="pagetitle">
                     {{-- <h1>Data Tables</h1> --}}
                     <nav>
@@ -123,7 +123,7 @@
                         </div>
                         <input type="hidden" name="operateur" value="{{ $operateur->id }}">
                         <div class="modal-body">
-                            <div class="col-12 col-md-12 col-lg-12 mb-2">
+                            <div class="col-12 mb-2">
                                 <label for="name" class="form-label">Localité<span
                                         class="text-danger mx-1">*</span></label>
                                 <input type="text" name="name" value="{{ old('name') }}"
@@ -139,7 +139,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-12 col-md-12 col-lg-12 mb-2">
+                            <div class="col-12 mb-2">
                                 <label for="region" class="form-label">Region<span
                                         class="text-danger mx-1">*</span></label>
                                 <select name="region" class="form-select  @error('region') is-invalid @enderror"
@@ -183,7 +183,7 @@
                             </div>
                             <input type="hidden" name="operateur" value="{{ $operateur->id }}">
                             <div class="modal-body">
-                                <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                <div class="col-12 mb-2">
                                     <label for="name" class="form-label">Localité<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="name"
@@ -197,7 +197,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 mb-2">
+                                <div class="col-12 mb-2">
                                     <label for="region" class="form-label">Region<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="region" class="form-select  @error('region') is-invalid @enderror"

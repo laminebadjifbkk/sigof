@@ -3,7 +3,7 @@
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 @if ($message = Session::get('status'))
                     <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" region="alert">
                         <strong>{{ $message }}</strong>
@@ -91,7 +91,7 @@
                                 @csrf
                                 @method('patch')
                                 <input type="hidden" name="idUser" value="{{ Auth::user()->id }}">
-                                <div class="col-12 col-md-9 col-lg-9 mb-0">
+                                <div class="col-12 col-md-9 mb-0">
                                     <label for="operateur" class="form-label">Opérateur<span
                                             class="text-danger mx-1">*</span></label>
                                     <input name="operateur" type="text"
@@ -105,7 +105,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="username" class="form-label">Sigle<span
                                             class="text-danger mx-1">*</span></label>
                                     <input name="username" type="text"
@@ -119,7 +119,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="categorie" class="form-label">Catégorie<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="categorie" class="form-select  @error('categorie') is-invalid @enderror"
@@ -144,7 +144,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="rccm" class="form-label">RCCM/Ninea<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="rccm"
@@ -173,7 +173,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="ninea" class="form-label">N° RCCM/Ninea<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="ninea" value="{{ $user?->ninea ?? old('ninea') }}"
@@ -186,7 +186,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="statut" class="form-label">Statut juridique</label>
                                     <select name="statut" class="form-select  @error('statut') is-invalid @enderror"
                                         aria-label="Select" id="statut-operateur" data-placeholder="Choisir">
@@ -231,7 +231,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="email" class="form-label">E-mail<span
                                             class="text-danger mx-1">*</span></label>
                                     <input name="email" type="email" readonly
@@ -245,7 +245,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="fixe" class="form-label">Telephone fixe<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
@@ -261,7 +261,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="telephone" class="form-label">Téléphone portable<span
                                             class="text-danger mx-1">*</span></label>
                                     <input name="telephone" type="text" maxlength="12"
@@ -275,7 +275,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="adresse" class="form-label">Adresse<span
                                             class="text-danger mx-1">*</span></label>
                                     <input name="adresse" type="adresse"
@@ -289,7 +289,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="web" class="form-label">Site web</label>
                                     <input name="web" type="web"
                                         class="form-control form-control-sm @error('web') is-invalid @enderror"
@@ -302,7 +302,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="Facebook" class="form-label">Facebook</label>
                                     <input name="facebook" type="facebook"
                                         class="form-control form-control-sm @error('facebook') is-invalid @enderror"
@@ -315,7 +315,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="twitter" class="form-label">X (ex twitter)</label>
                                     <input name="twitter" type="twitter"
                                         class="form-control form-control-sm @error('twitter') is-invalid @enderror"
@@ -328,7 +328,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="Instagram" class="form-label">Instagram</label>
                                     <input name="instagram" type="instagram"
                                         class="form-control form-control-sm @error('instagram') is-invalid @enderror"
@@ -341,7 +341,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                <div class="col-12 col-md-3 mb-0">
                                     <label for="Linkedin" class="form-label">Linkedin</label>
                                     <input name="linkedin" type="linkedin"
                                         class="form-control form-control-sm @error('linkedin') is-invalid @enderror"
@@ -480,7 +480,7 @@
 
         @can('agrement-ouvert')
             <div
-                class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+                class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="AddoperateurModal" tabindex="-1">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">

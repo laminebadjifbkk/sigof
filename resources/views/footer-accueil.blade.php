@@ -2,7 +2,7 @@
 
     <div class="container footer-top">
         <div class="row gy-4">
-            <div class="col-lg-4 col-md-6 footer-about">
+            <div class="col-12 col-md-6 col-lg-4 footer-about">
                 <a href="{{ url('/') }}" class="logo d-flex align-items-center">
                     <span class="sitename">SIGOF</span>
                 </a>
@@ -59,7 +59,7 @@
                 </ul>
             </div>
 
-            <div class="contact-form col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 footer-links">
+            <div class="contact-form col-12 col-md-6 col-lg-4 footer-links">
                 <h4>Connexion</h4>
                 <ul>
                     {{-- <li><a data-bs-toggle="modal" data-bs-target="#loginModal">Se connecter</a></li>
@@ -73,7 +73,7 @@
                             @csrf
                             <div class="modal-body">
                                 <div class="row g-3">
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         {{-- <label for="email" class="form-label">Email<span
                                                 class="text-danger mx-1">*</span></label> --}}
                                         <div class="input-group has-validation">
@@ -89,7 +89,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         {{-- <label for="password" class="form-label">Mot de passe<span
                                                 class="text-danger mx-1">*</span></label> --}}
                                         <div class="input-group has-validation">
@@ -110,7 +110,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="remember"
                                                 value="true" id="rememberMe">
@@ -118,14 +118,14 @@
                                                 moi</label>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12 col-xxl-12">
                                         <button class="btn btn-sm w-100" type="submit"
                                             style="background-color: #F28500; color: #FFFFFF">Se
                                             connecter</button>
                                     </div>
 
                                     <div
-                                        class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12 justify-content-center">
+                                        class="col-12 col-xxl-12 justify-content-center">
                                         @if (Route::has('password.request'))
                                             <p class="small mb-0">Mot de passe oublié !
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#forgotModal">

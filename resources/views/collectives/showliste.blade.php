@@ -4,7 +4,7 @@
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-12 col-lg-12">
+            <div class="col-12">
                 <div class="pagetitle">
                     {{-- <h1>Data Tables</h1> --}}
                     <nav>
@@ -152,7 +152,7 @@
                                 <div class="row g-3">
                                     <input type="hidden" name="collective"
                                         value="{{ $collectivemodule->collective->id }}">
-                                    <div class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                    <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6">
                                         <label for="cin" class="form-label">CIN<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input name="cin" type="text"
@@ -166,7 +166,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                    <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6">
                                         <label for="civilite" class="form-label">Civilité<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="civilite"
@@ -189,7 +189,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                    <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6">
                                         <label for="firstname" class="form-label">Prénom<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="text" name="firstname" value="{{ old('firstname') }}"
@@ -202,7 +202,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                    <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6">
                                         <label for="name" class="form-label">Nom<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="text" name="name" value="{{ old('name') }}"
@@ -215,7 +215,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                    <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6">
                                         <label for="date_naissance" class="form-label">Date naissance<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="text" name="date_naissance" value="{{ old('date_naissance') }}"
@@ -228,7 +228,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                    <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6">
                                         <label for="name" class="form-label">Lieu naissance<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input name="lieu_naissance" type="text"
@@ -244,7 +244,7 @@
 
                                     <input type="hidden" name="module" value="{{ $collectivemodule->id }}">
 
-                                    <div class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                    <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6">
                                         <label for="telephone" class="form-label">Téléphone</label>
                                         <input name="telephone" type="text" maxlength="12"
                                             class="form-control form-control-sm @error('telephone') is-invalid @enderror"
@@ -257,7 +257,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                    <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6">
                                         <label for="Niveau étude" class="form-label">Niveau étude</label>
                                         <select name="niveau_etude"
                                             class="form-select  @error('niveau_etude') is-invalid @enderror"
@@ -292,7 +292,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    <div class="col-12 mb-0">
                                         <label for="experience" class="form-label">Expériences</label>
                                         <textarea name="experience" id="experience" rows="1"
                                             class="form-control form-control-sm @error('experience') is-invalid @enderror"
@@ -304,7 +304,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    <div class="col-12 mb-0">
                                         <label for="autre_experience" class="form-label">Autres expériences</label>
                                         <textarea name="autre_experience" id="autre_experience" rows="1"
                                             class="form-control form-control-sm @error('autre_experience') is-invalid @enderror"
@@ -316,7 +316,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    <div class="col-12 mb-0">
                                         <label for="details" class="form-label">Commentaires</label>
                                         <textarea name="details" id="details" rows="1"
                                             class="form-control form-control-sm @error('details') is-invalid @enderror" placeholder="Autres expériences">{{ old('details') }}</textarea>
@@ -350,69 +350,69 @@
                             <div class="modal-body">
                                 <div class="row g-3">
 
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                    <div class="col-12 col-md-3 mb-0">
                                         <div class="label">N° CIN</div>
                                         <div>{{ $listecollective?->cin }}</div>
                                     </div>
 
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                    <div class="col-12 col-md-3 mb-0">
                                         <div class="label">Civilité</div>
                                         <div>{{ $listecollective?->civilite }}</div>
                                     </div>
 
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                    <div class="col-12 col-md-3 mb-0">
                                         <div class="label">Prénom</div>
                                         <div>{{ $listecollective?->prenom }}</div>
                                     </div>
 
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                    <div class="col-12 col-md-3 mb-0">
                                         <div class="label">Nom</div>
                                         <div>{{ $listecollective?->nom }}</div>
                                     </div>
 
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                    <div class="col-12 col-md-3 mb-0">
                                         <div for="date_naissance" class="label">Date naissance</div>
                                         <div>{{ $listecollective?->date_naissance?->format('d/m/Y') }}</div>
                                     </div>
 
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                    <div class="col-12 col-md-3 mb-0">
                                         <div class="label">Lieu naissance</div>
                                         <div>{{ $listecollective?->lieu_naissance }}</div>
                                     </div>
 
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                    <div class="col-12 col-md-3 mb-0">
                                         <div class="label">Telephone</div>
                                         <div>{{ $listecollective?->telephone }}</div>
                                     </div>
 
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                    <div class="col-12 col-md-3 mb-0">
                                         <div class="label">Niveau étude</div>
                                         <div>{{ $listecollective?->niveau_etude }}</div>
                                     </div>
 
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                    <div class="col-12 col-md-3 mb-0">
                                         <div class="label">Expérience</div>
                                         <div>{{ $listecollective?->experience }}</div>
                                     </div>
 
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                    <div class="col-12 col-md-3 mb-0">
                                         <div class="label">Autres experience</div>
                                         <div>{{ $listecollective?->autre_experience }}</div>
                                     </div>
 
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                    <div class="col-12 col-md-3 mb-0">
                                         <div class="label">Statut</div>
                                         <div><span
                                                 class="{{ $listecollective?->statut }}">{{ $listecollective?->statut }}</span>
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                    <div class="col-12 col-md-3 mb-0">
                                         <div class="label">Détails</div>
                                         <div>{{ $listecollective?->details }}</div>
                                     </div>
 
-                                    <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                    <div class="col-12 col-md-3 mb-0">
                                         <div class="label">Formation demandée</div>
                                         <div>{{ $listecollective?->collectivemodule?->module }}</div>
                                     </div>

@@ -38,7 +38,7 @@
                                 </div> --}}
                                 <div class="modal-body">
                                     <div class="row g-3">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="name" class="form-label">Partenaires<span
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="name" id="name" rows="1"
@@ -51,7 +51,7 @@
                                         </div>
 
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="sigle" class="form-label">Sigle<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="sigle"
@@ -66,7 +66,7 @@
                                         </div>
 
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="date_signature" class="form-label">Date signature<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="date" name="date_signature"
@@ -81,7 +81,7 @@
                                         </div>
 
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="duree" class="form-label">Durée</label>
                                             <input type="number" name="duree"
                                                 value="{{ $projet->duree ?? old('duree') }}" min="1" max="84"
@@ -95,7 +95,7 @@
                                         </div>
 
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="budjet" class="form-label">Budjet (F CFA)</label>
                                             <input type="number" name="budjet"
                                                 value="{{ $projet->budjet ?? old('budjet') }}" min="0"
@@ -108,7 +108,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="debut" class="form-label">Date début</label>
                                             <input type="date" name="debut"
                                                 value="{{ $projet->debut?->format('Y-m-d') ?? old('debut') }}"
@@ -121,7 +121,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="fin" class="form-label">Date fin</label>
                                             <input type="date" name="fin"
                                                 value="{{ $projet?->fin?->format('Y-m-d') ?? old('fin') }}"
@@ -134,7 +134,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="effectif" class="form-label">Effectif à former</label>
                                             <input type="number" name="effectif"
                                                 value="{{ $projet?->effectif ?? old('effectif') }}" min="0"
@@ -147,7 +147,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="type" class="form-label">Type localité<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="type"
@@ -167,7 +167,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="type_projet" class="form-label">Type partenaire<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="type_projet"
@@ -187,7 +187,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="date_ouverture" class="form-label">Date ouverture</label>
                                             <input type="date" name="date_ouverture"
                                                 value="{{ $projet->date_ouverture?->format('Y-m-d') ?? old('date_ouverture') }}"
@@ -200,7 +200,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="date_fermeture" class="form-label">Date ferméture</label>
                                             <input type="date" name="date_fermeture"
                                                 value="{{ $projet?->date_fermeture?->format('Y-m-d') ?? old('date_fermeture') }}"
@@ -267,7 +267,7 @@
                                             @endif
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="description" class="form-label">Description<span
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="description" id="description" rows="3"

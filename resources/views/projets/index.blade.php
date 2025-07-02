@@ -246,7 +246,7 @@
                                     <h4 class="mb-0">➕ Ajouter un nouveau partenaire</h4>
                                 </div>
                                 <div class="card-body row g-4 px-4">
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="name" class="form-label">Partenaire<span
                                                 class="text-danger mx-1">*</span></label>
                                         <textarea name="name" id="name" rows="1"
@@ -258,7 +258,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-4">
                                         <label for="sigle" class="form-label">Sigle<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="text" name="sigle" value="{{ old('sigle') }}"
@@ -271,7 +271,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-4">
                                         <label for="date_signature" class="form-label">Date signature<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="date" name="date_signature" value="{{ old('date_signature') }}"
@@ -284,7 +284,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-4">
                                         <label for="duree" class="form-label">Durée<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="number" name="duree" value="{{ old('duree') }}" min="1"
@@ -298,7 +298,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-4">
                                         <label for="budjet" class="form-label">Budjet (F CFA)</label>
                                         <input type="number" name="budjet" value="{{ old('budjet') }}" min="0"
                                             step="0.001"
@@ -311,7 +311,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-4">
                                         <label for="debut" class="form-label">Date début</label>
                                         <input type="date" name="debut" value="{{ old('debut') }}"
                                             class="datepicker form-control form-control-sm @error('debut') is-invalid @enderror"
@@ -323,7 +323,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-4">
                                         <label for="fin" class="form-label">Date fin</label>
                                         <input type="date" name="fin" value="{{ old('fin') }}"
                                             class="datepicker form-control form-control-sm @error('fin') is-invalid @enderror"
@@ -335,7 +335,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-4">
                                         <label for="effectif" class="form-label">Effectif à former</label>
                                         <input type="number" name="effectif" value="{{ old('effectif') }}"
                                             min="0"
@@ -348,7 +348,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-4">
                                         <label for="type" class="form-label">Localité<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="type" class="form-select  @error('type') is-invalid @enderror"
@@ -367,7 +367,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-4">
                                         <label for="type_projet" class="form-label">Type partenaire<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="type_projet"
@@ -387,7 +387,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="description" class="form-label">Description<span
                                                 class="text-danger mx-1">*</span></label>
                                         <textarea name="description" id="description" rows="3"
@@ -459,7 +459,7 @@
                                     <div class="row g-3">
 
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="name" class="form-label">Projet<span
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="name" id="name" rows="1"
@@ -473,7 +473,7 @@
                                         </div>
 
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="sigle" class="form-label">Sigle<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="sigle"
@@ -488,7 +488,7 @@
                                         </div>
 
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="date_signature" class="form-label">Date signature<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="date" name="date_signature"
@@ -503,7 +503,7 @@
                                         </div>
 
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="duree" class="form-label">Durée</label>
                                             <input type="number" name="duree"
                                                 value="{{ $projet->duree ?? old('duree') }}" min="1"
@@ -518,7 +518,7 @@
                                         </div>
 
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="budjet" class="form-label">Budjet (F CFA)</label>
                                             <input type="number" name="budjet"
                                                 value="{{ $projet->budjet ?? old('budjet') }}" min="0"
@@ -533,7 +533,7 @@
                                         </div>
 
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="debut" class="form-label">Date début</label>
                                             <input type="date" name="debut"
                                                 value="{{ $projet->debut?->format('Y-m-d') ?? old('debut') }}"
@@ -547,7 +547,7 @@
                                         </div>
 
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="fin" class="form-label">Date fin</label>
                                             <input type="date" name="fin"
                                                 value="{{ $projet?->fin?->format('Y-m-d') ?? old('fin') }}"
@@ -561,7 +561,7 @@
                                         </div>
 
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="effectif" class="form-label">Effectif à former</label>
                                             <input type="number" name="effectif"
                                                 value="{{ $projet?->effectif ?? old('effectif') }}" min="0"
@@ -575,7 +575,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="type" class="form-label">Type localité<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="type"
@@ -596,7 +596,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-4">
                                             <label for="type_projet" class="form-label">Type projet<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="type_projet"
@@ -615,7 +615,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="description" class="form-label">Description<span
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="description" id="description" rows="3"

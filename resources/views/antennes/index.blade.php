@@ -107,7 +107,7 @@
         </div>
     </section>
     <div
-        class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+        class="col-12 d-flex flex-column align-items-center justify-content-center">
         <div class="modal fade" id="AddAntenneModal" tabindex="-1">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -202,7 +202,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="region" class="form-label">Régions</label>
                                     <select name="region[]" class="form-select" aria-label="Select"
                                         id="multiple-select-field-region-antenne" multiple
@@ -215,7 +215,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="informations" class="form-label">Informations</label>
                                     <textarea name="informations" rows="2"
                                         class="form-control form-control-sm @error('informations') is-invalid @enderror"

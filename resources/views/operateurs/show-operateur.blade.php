@@ -3,7 +3,7 @@
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 @if ($message = Session::get('status'))
                     <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" region="alert">
                         <strong>{{ $message }}</strong>
@@ -210,7 +210,7 @@
                         @can('upload-file-view')
                             <hr>
                             <div class="row pt-5">
-                                <h5 class="card-title col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <h5 class="card-title col-12 col-md-4">
                                     FICHIERS JOINTS</h5>
                                 <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-6">
                                     <table class="table table-bordered table-hover datatables" id="table-iles">
@@ -349,7 +349,7 @@
                                 <!-- Profile Edit Form -->
                                 <div class="row mb-3 mt-3">
                                     <label for="legende"
-                                        class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">LEGENDE<span
+                                        class="col-12 col-md-4 col-form-label">LEGENDE<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-6">
                                         <select name="legende" class="form-select  @error('legende') is-invalid @enderror"
@@ -373,7 +373,7 @@
 
                                 <div class="row mb-3">
                                     <label for="file"
-                                        class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">FICHIER<span
+                                        class="col-12 col-md-4 col-form-label">FICHIER<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-6">
                                         <div class="pt-2">
@@ -388,7 +388,7 @@
 
                                 <div class="row mb-3">
                                     <label for="file"
-                                        class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label"><span
+                                        class="col-12 col-md-4 col-form-label"><span
                                             class="text-danger mx-1"></span></label>
                                     <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-6">
                                         <div class="pt-2">
@@ -403,7 +403,7 @@
                                 <div class="modal fade" id="validationViewModal{{ $operateur?->id }}" tabindex="-1">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <div class="col-12 col-md-12 col-lg-12">
+                                            <div class="col-12">
                                                 <table
                                                     class="table table-bordered table-hover table-borderless table-stripped">
                                                     <tr>
@@ -537,7 +537,7 @@
                             <div class="modal-body">
                                 <input type="hidden" name="id" value="{{ $operateur->id }}">
                                 <div class="row g-3">
-                                    {{-- <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    {{-- <div class="col-12">
                                         <label for="operateur" class="form-label">Raison sociale opérateur<span
                                                 class="text-danger mx-1">*</span></label>
                                         <textarea name="operateur" id="operateur" rows="1"

@@ -14,7 +14,7 @@
             </div>
             <section class="section faq">
                 <div class="row">
-                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                    <div class="col-12">
                         {{-- @forelse (Auth::user()->unReadNotifications as $notification)
                             <a class="dropdown-item d-flex align-items-centers"
                                 href="{{ route('courriers.showFromNotification', ['courrier' => $notification->data['courrierId'], 'notification' => $notification->id]) }}">
@@ -36,7 +36,7 @@
                                     <div class="accordion-body">
                                         <div class="activity">
                                             @forelse (Auth::user()->unReadNotifications as $notification)
-                                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <div class="col-12">
                                                     <div class="row">
                                                         {{-- <a class="align-items-centers"
                                                             href="{{ route('courriers.showFromNotification', ['courrier' => $notification->data['courrierId'], 'notification' => $notification->id]) }}"> --}}

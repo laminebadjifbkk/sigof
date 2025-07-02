@@ -118,7 +118,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="region" class="form-label">Régions</label>
                                     <select name="region[]" class="form-select" aria-label="Select"
                                         id="multiple-select-field-region-antenne-update" multiple
@@ -132,7 +132,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="informations" class="form-label">Informations</label>
                                     <textarea name="informations" rows="2"
                                         class="form-control form-control-sm @error('informations') is-invalid @enderror"

@@ -4,7 +4,7 @@
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 @if ($message = Session::get('status'))
                     <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" region="alert">
                         <strong>{{ $message }}</strong>
@@ -357,7 +357,7 @@
             </div>
         </div>
         <div
-            class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+            class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="AddIndividuelleModal{{ Auth::user()?->id }}" tabindex="-1">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
@@ -677,7 +677,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="qualification" class="form-label">Qualification et autres
                                             diplômes</label>
                                         <textarea name="qualification" id="qualification" rows="1"
@@ -690,7 +690,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="experience" class="form-label">Expériences et stages</label>
                                         <textarea name="experience" id="experience" rows="1"
                                             class="form-control form-control-sm @error('experience') is-invalid @enderror"
@@ -702,7 +702,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="projetprofessionnel" class="form-label">Informations complémentaires
                                             sur
                                             le projet

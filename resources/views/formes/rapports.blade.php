@@ -34,7 +34,7 @@
     </div>
     <section class="section">
         <div class="row">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 @if (!empty($formes))
                     {{-- <div class="pb-2">
                         <span class="page-title badge bg-info">{{ $title }}</span>
@@ -142,7 +142,7 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="from_date" class="form-label">De<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="date" name="from_date"
@@ -153,7 +153,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="from_date" class="form-label">À<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="date" name="to_date"
@@ -164,7 +164,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="module" class="form-label">Module</label>
                                     <input type="text" name="module" value="{{ old('module_name') }}"
                                         class="form-control form-control-sm @error('module_name') is-invalid @enderror"
@@ -177,7 +177,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="region" class="form-label">Région</label>
                                     <select name="region" class="form-select  @error('region') is-invalid @enderror"
                                         aria-label="Select" id="select-field-region-module-rapport"
@@ -195,7 +195,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="projet" class="form-label">Projet</label>
                                     <select name="projet" class="form-select  @error('projet') is-invalid @enderror"
                                         aria-label="Select" id="select-field-projet-module-rapport"
@@ -242,9 +242,9 @@
                                 @csrf
                                 <div class="modal-body">
                                     <div class="row g-3">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="row">
-                                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <div class="col-12">
                                                     <div class="form-group">
                                                         @if (!empty($individuelle?->informations_suivi))
                                                             <h5><u><b>Informations</b></u>:</h5>

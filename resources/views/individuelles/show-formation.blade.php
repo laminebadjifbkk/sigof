@@ -3,7 +3,7 @@
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header text-center bg-gradient-default">
                         <h1 class="h4 text-black mb-0">FORMATIONS</h1>
@@ -85,11 +85,11 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id" value="{{ $individuelle->id }}">
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                            <div class="col-12">
                                 <div class="row g-3">
                                     <label for="retrait" class="form-label">Informations !<span
                                             class="text-danger mx-1">*</span></label>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label class="form-check-label" for="moi">
                                             {{ 'Retrait effectué par ' . $individuelle?->retrait_diplome }}
                                         </label>

@@ -42,7 +42,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-12 col-md-4 col-lg-4 mb-4">
+                                    <div class="col-12 col-md-4 mb-4">
                                         <label for="sigle" class="form-label">Sigle<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="text" name="sigle" value="{{ $fonction->sigle ?? old('sigle') }}"
@@ -55,7 +55,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12 text-left mt-2">
+                                <div class="col-12 text-left mt-2">
                                     <button type="submit" class="btn btn-outline-success"><i
                                             class="far fa-save"></i>&nbsp;Modifier</button>
                                 </div>

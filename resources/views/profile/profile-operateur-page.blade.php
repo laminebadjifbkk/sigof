@@ -15,8 +15,8 @@
     <section class="section profile">
         <div class="row justify-content-center">
             {{-- Début Photo de profil --}}
-            <div class="col-12 col-md-4 col-lg-4">
-                <div class="col-12 col-md-12 col-lg-12">
+            <div class="col-12 col-md-4">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                             {{-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> --}}
@@ -50,7 +50,7 @@
                 </div>
                 <section class="section dashboard">
                     <div class="row">
-                        <div class="col-12 col-md-12 col-lg-12">
+                        <div class="col-12">
                             <div class="card info-card sales-card">
                                 <div class="filter">
                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -160,10 +160,10 @@
                                     </p>
 
                                     <div class="row">
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">
+                                        <div class="col-12 col-md-4 label">
                                             Informations personnelles
                                         </div>
-                                        <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                        <div class="col-12 col-md-8">
                                             @if (
                                                 !empty(Auth::user()?->operateur) &&
                                                     !empty(Auth::user()?->username) &&
@@ -180,10 +180,10 @@
                                     </div>
 
                                     {{-- <div class="row">
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">
+                                        <div class="col-12 col-md-4 label">
                                             Fichiers joints
                                         </div>
-                                        <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                        <div class="col-12 col-md-8">
                                             @if (!empty($user_cin))
                                                 <span class="badge bg-primary text-white">Valide</span>
                                             @else
@@ -196,26 +196,26 @@
 
                                     @if (!empty(Auth::user()?->username))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">Sigle
+                                            <div class="col-12 col-md-4 label">Sigle
                                             </div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 {{ Auth::user()?->username }}</div>
                                         </div>
                                     @endif
                                     @if (!empty(Auth::user()?->operateur))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">
+                                            <div class="col-12 col-md-4 label">
                                                 Opérateur</div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 {{ Auth::user()?->operateur }}</div>
                                         </div>
                                     @endif
 
                                     @if (!empty(Auth::user()?->email))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">Email
+                                            <div class="col-12 col-md-4 label">Email
                                             </div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8"><a
+                                            <div class="col-12 col-md-8"><a
                                                     href="mailto:{{ Auth::user()?->email }}">{{ Auth::user()?->email }}</a>
                                             </div>
                                         </div>
@@ -223,9 +223,9 @@
 
                                     @if (!empty(Auth::user()?->telephone))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">
+                                            <div class="col-12 col-md-4 label">
                                                 Téléphone</div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8"><a
+                                            <div class="col-12 col-md-8"><a
                                                     href="tel:+221{{ Auth::user()?->fixe }}">{{ Auth::user()?->fixe }}</a>
                                                 /
                                                 <a
@@ -236,17 +236,17 @@
 
                                     @if (!empty(Auth::user()?->adresse))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">
+                                            <div class="col-12 col-md-4 label">
                                                 Adresse</div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 {{ Auth::user()?->adresse }}</div>
                                         </div>
                                     @endif
 
                                     {{-- @if (!empty(Auth::user()?->web))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">Site web</div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8"><a href="{{ 'https://'.Auth::user()?->web }}" class="web"
+                                            <div class="col-12 col-md-4 label">Site web</div>
+                                            <div class="col-12 col-md-8"><a href="{{ 'https://'.Auth::user()?->web }}" class="web"
                                                     target="_blank"><i class="bi bi-globe" title="site web"></i></a></div>
                                         </div>
                                     @endif --}}
@@ -257,44 +257,44 @@
 
                                     @if (!empty(Auth::user()?->cin))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">CIN
+                                            <div class="col-12 col-md-4 label">CIN
                                             </div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 {{ Auth::user()?->cin }}</div>
                                         </div>
                                     @endif
 
                                     @if (!empty(Auth::user()?->civilite))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">
+                                            <div class="col-12 col-md-4 label">
                                                 Civilité</div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 {{ Auth::user()?->civilite }}</div>
                                         </div>
                                     @endif
 
                                     @if (!empty(Auth::user()?->firstname))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">
+                                            <div class="col-12 col-md-4 label">
                                                 Prénom</div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 {{ Auth::user()?->firstname }}</div>
                                         </div>
                                     @endif
 
                                     @if (!empty(Auth::user()?->name))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">Nom
+                                            <div class="col-12 col-md-4 label">Nom
                                             </div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 {{ Auth::user()?->name }}</div>
                                         </div>
                                     @endif
 
                                     {{-- @if (!empty(Auth::user()?->date_naissance))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">Date naissance</div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-4 label">Date naissance</div>
+                                            <div class="col-12 col-md-8">
                                                 {{ Auth::user()?->date_naissance->format('d-m-Y') }}
                                             </div>
                                         </div>
@@ -302,31 +302,31 @@
 
                                     @if (!empty(Auth::user()?->lieu_naissance))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">Lieu naissance</div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">{{ Auth::user()?->lieu_naissance }}</div>
+                                            <div class="col-12 col-md-4 label">Lieu naissance</div>
+                                            <div class="col-12 col-md-8">{{ Auth::user()?->lieu_naissance }}</div>
                                         </div>
                                     @endif --}}
 
                                     {{-- @if (!empty(Auth::user()?->situation_familiale))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">Situation familiale</div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">{{ Auth::user()?->situation_familiale }}</div>
+                                            <div class="col-12 col-md-4 label">Situation familiale</div>
+                                            <div class="col-12 col-md-8">{{ Auth::user()?->situation_familiale }}</div>
                                         </div>
                                     @endif
 
                                     @if (!empty(Auth::user()?->situation_professionnelle))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">Situation profes.</div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">{{ Auth::user()?->situation_professionnelle }}
+                                            <div class="col-12 col-md-4 label">Situation profes.</div>
+                                            <div class="col-12 col-md-8">{{ Auth::user()?->situation_professionnelle }}
                                             </div>
                                         </div>
                                     @endif --}}
 
                                     @if (!empty(Auth::user()?->telephone))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">
+                                            <div class="col-12 col-md-4 label">
                                                 Téléphone</div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8"><a
+                                            <div class="col-12 col-md-8"><a
                                                     href="tel:+221{{ Auth::user()?->telephone }}">{{ Auth::user()?->telephone }}</a>
                                             </div>
                                         </div>
@@ -334,9 +334,9 @@
 
                                     @if (!empty(Auth::user()?->email_responsable))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">Email
+                                            <div class="col-12 col-md-4 label">Email
                                             </div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8"><a
+                                            <div class="col-12 col-md-8"><a
                                                     href="mailto:{{ Auth::user()?->email_responsable }}">{{ Auth::user()?->email_responsable }}</a>
                                             </div>
                                         </div>
@@ -344,9 +344,9 @@
 
                                     @if (!empty(Auth::user()?->fonction_responsable))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">
+                                            <div class="col-12 col-md-4 label">
                                                 Fonction</div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 {{ Auth::user()?->fonction_responsable }}
                                             </div>
                                         </div>
@@ -1121,9 +1121,9 @@
                                 {{-- Début Edition --}}
                                 <div class="tab-pane fade files" id="files">
                                     <div class="row mb-3">
-                                        <h5 class="card-title col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <h5 class="card-title col-12 col-md-4">
                                             {{ __('Fichiers téléchargés') }}</h5>
-                                        <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                        <div class="col-12 col-md-8">
                                             <table class="table table-bordered table-hover datatables" id="table-iles">
                                                 <thead>
                                                     <tr class="text-center">
@@ -1261,9 +1261,9 @@
                                             style="color:red;"> sont exigés</span>.
                                         <div class="row mb-3 mt-3">
                                             <label for="legende"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Légende<span
+                                                class="col-12 col-md-4 col-form-label">Légende<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <select name="legende"
                                                     class="form-select  @error('legende') is-invalid @enderror"
                                                     aria-label="Select" id="select-field-file"
@@ -1287,9 +1287,9 @@
 
                                         <div class="row mb-3">
                                             <label for="file"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Fichier<span
+                                                class="col-12 col-md-4 col-form-label">Fichier<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <div class="pt-2">
                                                     <input type="file" name="file" id="file"
                                                         class="form-control @error('file') is-invalid @enderror btn btn-primary btn-sm">
@@ -1302,8 +1302,8 @@
 
                                         <div class="row mt-5">
                                             <label for="file"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label"></label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                                class="col-12 col-md-4 col-form-label"></label>
+                                            <div class="col-12 col-md-8">
                                                 <button type="submit"
                                                     class="btn btn-outline-info btn-sm">Ajouter</button>
                                             </div>
@@ -1319,7 +1319,7 @@
                                     <div class="row mb-3">
                                         @if (Auth::user()?->operateurs?->isNotEmpty())
                                             @foreach (Auth::user()?->operateurs->sortByDesc('created_at') as $operateur)
-                                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <div class="col-12">
                                                     <h5 class="card-title">Agrément :
                                                         {{ $operateur?->annee_agrement?->format('Y') }}
                                                     </h5>

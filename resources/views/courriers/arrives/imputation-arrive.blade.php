@@ -83,7 +83,7 @@
                                     class="form-control form-control-sm @error('imp') is-invalid @enderror" name="imp"
                                     id="imp" value="1">
 
-                                <div class="col-xs-12 col-sm-12 col-md-12 pt-3 text-center">
+                                <div class="col-12 pt-3 text-center">
                                     <button id="addMore" class="btn btn-success btn-sm"><i class="fa fa-plus"
                                             aria-hidden="true"></i>&nbsp;Ajouter</button>
                                 </div>

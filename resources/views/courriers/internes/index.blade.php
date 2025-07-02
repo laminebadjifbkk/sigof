@@ -19,7 +19,7 @@
     @endif
     <section class="section">
         <div class="row">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('courriers.index') }}"
@@ -216,7 +216,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="objet" class="form-label">Objet<span
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="objet" id="objet" rows="1"
@@ -266,7 +266,7 @@
                                     @enderror
                                 </div> --}}
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="observation" class="form-label">Observations</label>
                                     <textarea name="observation" id="observation" rows="1"
                                         class="form-control form-control-sm @error('date_reponse') is-invalid @enderror" placeholder="Observations">{{ old('observation') }}</textarea>
@@ -303,9 +303,9 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="numero_interne" class="form-label">Numero</label>
                                                 <input type="text" name="numero_interne"
@@ -321,9 +321,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="objet" class="form-label">Objet</label>
                                                 <input type="text" name="objet" value="{{ old('objet') }}"
@@ -338,9 +338,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="expediteur" class="form-label">Expéditeur</label>
                                                 <input type="text" name="expediteur" value="{{ old('expediteur') }}"

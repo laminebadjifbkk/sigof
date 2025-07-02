@@ -14,7 +14,7 @@
         </div><!-- End Page Title -->
         <section class="section">
             <div class="row">
-                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                <div class="col-12">
                     @if ($message = Session::get('status'))
                         <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                             role="alert">
@@ -172,7 +172,7 @@
             </div>
 
             <div
-                class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+                class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="AddIndividuelModal" tabindex="-1">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
@@ -709,7 +709,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <label for="qualification" class="form-label">Qualification et autres
                                                     diplômes</label>
                                                 <textarea name="qualification" id="qualification" rows="1"
@@ -722,7 +722,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <label for="experience" class="form-label">Expériences et stages</label>
                                                 <textarea name="experience" id="experience" rows="1"
                                                     class="form-control form-control-sm @error('experience') is-invalid @enderror"
@@ -734,7 +734,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <label for="projetprofessionnel" class="form-label">Informations
                                                     complémentaires
                                                     sur
@@ -777,9 +777,9 @@
                             @csrf
                             <div class="modal-body">
                                 <div class="row g-3">
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <div class="row">
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="firstname" class="form-label">Prénom</label>
                                                     <input type="text" name="firstname" value="{{ old('firstname') }}"
@@ -794,9 +794,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <div class="row">
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="name" class="form-label">Nom</label>
                                                     <input type="text" name="name" value="{{ old('name') }}"
@@ -811,9 +811,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <div class="row">
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="cin" class="form-label">N° CIN</label>
                                                     <input name="cin" type="text"
@@ -829,9 +829,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <div class="row">
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="telephone" class="form-label">Téléphone</label>
                                                     <input name="telephone" type="text" maxlength="12"
@@ -847,9 +847,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <div class="row">
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email" class="form-label">Email</label>
                                                     <input type="email" name="email" value="{{ old('email') }}"

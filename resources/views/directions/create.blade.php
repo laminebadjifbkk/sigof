@@ -28,7 +28,7 @@
                             <!-- departement -->
                             <form method="post" action="{{ url('directions') }}" enctype="multipart/form-data" class="row g-3">
                                 @csrf
-                                <div class="col-12 col-md-6 col-lg-6">
+                                <div class="col-12 col-md-6">
                                     <label for="direction" class="form-label">Nom direction<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="direction" value="{{ old('direction') }}"
@@ -40,7 +40,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-6 col-lg-6">
+                                <div class="col-12 col-md-6">
                                     <label for="sigle" class="form-label">Sigle<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="sigle" value="{{ old('sigle') }}"
@@ -52,7 +52,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-6 col-lg-6">
+                                <div class="col-12 col-md-6">
                                     <label for="type" class="form-label">Type de service</label>
                                     <select name="type" class="form-select  @error('type') is-invalid @enderror"
                                         aria-label="Select" id="select-field-type" data-placeholder="Choisir le type">
@@ -69,7 +69,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                {{--  <div class="col-12 col-md-6 col-lg-6">
+                                {{--  <div class="col-12 col-md-6">
                                 <label for="employe" class="form-label">Responsable</label>
                                 <select name="employe" class="form-select  @error('employe') is-invalid @enderror"
                                     aria-label="Select" id="select-field-employe" data-placeholder="Choisir le responsable">

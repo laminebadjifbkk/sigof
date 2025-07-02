@@ -4,7 +4,7 @@
     @can('module-view')
         <section class="section">
             <div class="row justify-content-center">
-                <div class="col-12 col-md-12 col-lg-12">
+                <div class="col-12">
                     <div class="pagetitle">
                         {{-- <h1>Data Tables</h1> --}}
                         <nav>
@@ -166,7 +166,7 @@
                             @csrf
                             <div class="modal-body">
                                 <div class="row g-3">
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="name" class="form-label">Module<span
                                                 class="text-danger mx-1">*</span></label>
                                         <div class="input-group has-validation">
@@ -180,7 +180,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="name" class="form-label">Domaine<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="domaine" class="form-select  @error('domaine') is-invalid @enderror"

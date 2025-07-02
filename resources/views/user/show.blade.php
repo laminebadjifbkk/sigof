@@ -251,7 +251,7 @@
                                 {{-- Début Edition --}}
                                 <div class="tab-pane fade files" id="files">
                                     <div class="row mb-3">
-                                        <h5 class="card-title col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <h5 class="card-title col-12 col-md-4">
                                             FICHIERS JOINTS</h5>
                                         {{-- @php
                                             // Filtrer uniquement les fichiers qui ont une valeur non vide
@@ -259,7 +259,7 @@
                                         @endphp --}}
 
                                         @if ($validFiles->isNotEmpty())
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <table class="table table-bordered table-hover datatables"
                                                     id="table-iles">
                                                     <thead>
@@ -323,7 +323,7 @@
                                     <div class="row mb-3">
                                         <h5 class="card-title">Formations individuelles</h5>
                                         @if ($user->individuelles->isNotEmpty())
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <table class="table table-bordered table-hover datatables"
                                                     id="table-iles">
                                                     <thead>
@@ -405,7 +405,7 @@
                                     <div class="row mb-3">
                                         <h5 class="card-title">Formations collectives</h5>
                                         @if ($user->collectives->isNotEmpty())
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <table class="table table-bordered table-hover datatables"
                                                     id="table-iles">
                                                     <thead>
@@ -913,7 +913,7 @@
                         <input name="employe" type="hidden" value="1">
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="cin" class="form-label">CIN<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="cin" value="{{ $user->cin ?? old('cin') }}"
@@ -926,7 +926,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="matricule" class="form-label">Matricule</label>
                                     <input type="text" name="matricule"
                                         value="{{ $employe->matricule ?? old('matricule') }}"
@@ -939,7 +939,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="direction" class="form-label">Direction<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="direction" class="form-select @error('direction') is-invalid @enderror"
@@ -989,7 +989,7 @@
                         <input name="ingenieur" type="hidden" value="1">
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="initiale" class="form-label">Initiale<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="initiale"
@@ -1003,7 +1003,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="fonction" class="form-label">Fonction<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="fonction" class="form-select @error('fonction') is-invalid @enderror"
@@ -1050,7 +1050,7 @@
                             {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
                         </div>
                         <div class="modal-body">
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                            <div class="col-12">
                                 <img src="{{ asset($user->getImage()) }}" class="d-block w-100 main-image rounded-4"
                                     alt="{{ $user->legende }}">
                             </div>

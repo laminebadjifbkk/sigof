@@ -30,7 +30,7 @@
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
                             @method('patch')
-                            <div class="col-12 col-md-6 col-lg-6 mb-4">
+                            <div class="col-12 col-md-6 mb-4">
                                 <label for="name" class="form-label">Direction<span
                                         class="text-danger mx-1">*</span></label>
                                 <input type="text" name="name" value="{{ $direction->name ?? old('name') }}"
@@ -42,7 +42,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-12 col-md-6 col-lg-6 mb-4">
+                            <div class="col-12 col-md-6 mb-4">
                                 <label for="sigle" class="form-label">Sigle<span
                                         class="text-danger mx-1">*</span></label>
                                 <input type="text" name="sigle" value="{{ $direction->sigle ?? old('sigle') }}"
@@ -54,7 +54,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-12 col-md-6 col-lg-6 mb-4">
+                            <div class="col-12 col-md-6 mb-4">
                                 <label for="type" class="form-label">Type<span class="text-danger mx-1">*</span></label>
                                 <select name="type" class="form-select  @error('type') is-invalid @enderror"
                                     aria-label="Select" id="select-field-type" data-placeholder="--Choisir--">
@@ -73,7 +73,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-12 col-md-6 col-lg-6">
+                            <div class="col-12 col-md-6">
                                 <label for="employe" class="form-label">Responsable</label>
                                 <select name="employe" class="form-select @error('employe') is-invalid @enderror"
                                     aria-label="Sélectionner le responsable" id="select-field-employe"

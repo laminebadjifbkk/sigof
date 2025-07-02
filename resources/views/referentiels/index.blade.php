@@ -4,7 +4,7 @@
     @can('referentiel-view')
         <section class="section register">
             <div class="row justify-content-center">
-                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                <div class="col-12">
                     <div class="pagetitle">
                         <nav>
                             <ol class="breadcrumb">
@@ -114,7 +114,7 @@
                             <div class="modal-body">
                                 <div class="row g-3">
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="intitule" class="form-label">Intitulé<span
                                                 class="text-danger mx-1">*</span></label>
                                         <textarea name="intitule" id="intitule" rows="1"
@@ -126,7 +126,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="titre" class="form-label">Titre<span
                                                 class="text-danger mx-1">*</span></label>
                                         <textarea name="titre" id="titre" rows="1"
@@ -138,7 +138,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="categorie" class="form-label">Catégorie</label>
                                         <textarea name="categorie" id="category" rows="1"
                                             class="form-control form-control-sm @error('categorie') is-invalid @enderror" placeholder="Catégorie">{{ old('categorie') }}</textarea>
@@ -149,7 +149,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="convention" class="form-label">Convention</label>
                                         <input type="text" placeholder="Convention"
                                             class="form-control form-control-sm @error('convention') is-invalid @enderror"
@@ -174,7 +174,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label for="reference" class="form-label">Référence</label>
                                         <textarea name="reference" id="reference" rows="2"
                                             class="form-control form-control-sm @error('reference') is-invalid @enderror" placeholder="Référence">{{ old('reference') }}</textarea>
@@ -213,7 +213,7 @@
                             <div class="modal-body">
                                 <input type="hidden" name="id" value="{{ $referentiel?->id }}">
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="intitule" class="form-label">Intitulé<span
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="intitule" id="intitule" rows="1"
@@ -225,7 +225,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="titre" class="form-label">Titre<span
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="titre" id="titre" rows="1"
@@ -237,7 +237,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="categorie" class="form-label">Catégorie<span
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="categorie" id="category" rows="1"
@@ -249,7 +249,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="convention" class="form-label">Convention<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="convention"
@@ -269,7 +269,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="reference" class="form-label">Référence<span
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="reference" id="reference" rows="2"

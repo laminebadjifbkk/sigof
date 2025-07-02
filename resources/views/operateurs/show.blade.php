@@ -205,92 +205,92 @@
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <h5 class="card-title">Opérateur</h5>
                                             </div>
-                                            <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                            <div class="col-12 mb-0">
                                                 <div class="label">Raison sociale</div>
                                                 <div>{{ $operateur?->user?->operateur }}</div>
                                             </div>
-                                            <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                            <div class="col-12 col-md-4 mb-0">
                                                 <div class="label">Sigle</div>
                                                 <div>{{ $operateur?->user?->username }}</div>
                                             </div>
-                                            <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                            <div class="col-12 col-md-4 mb-0">
                                                 <div class="label">Région</div>
                                                 <div>{{ $operateur?->region?->nom }}</div>
                                             </div>
 
                                             @if (!empty($operateur?->departement?->nom))
-                                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                                <div class="col-12 col-md-4 mb-0">
                                                     <div class="label">Département</div>
                                                     <div>{{ $operateur?->departement?->nom }}</div>
                                                 </div>
                                             @endif
 
-                                            <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                            <div class="col-12 col-md-4 mb-0">
                                                 <div class="label">Numéro agrément</div>
                                                 <div>{{ $operateur?->numero_agrement }}</div>
                                             </div>
-                                            <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                            <div class="col-12 col-md-4 mb-0">
                                                 <div class="label">Adresse email</div>
                                                 <div><a
                                                         href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                            <div class="col-12 col-md-4 mb-0">
                                                 <div class="label">Téléphone fixe</div>
                                                 <div><a
                                                         href="tel:+221{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe }}</a>
                                                 </div>
                                             </div>
                                             @if (!empty($operateur?->user?->bp))
-                                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                                <div class="col-12 col-md-4 mb-0">
                                                     <div class="label">Boite postale</div>
                                                     <div>{{ $operateur?->user?->bp }}</div>
                                                 </div>
                                             @endif
                                             @if (!empty($operateur?->user?->categorie))
-                                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                                <div class="col-12 col-md-4 mb-0">
                                                     <div class="label">Catégorie</div>
                                                     <div>{{ $operateur?->user?->categorie }}</div>
                                                 </div>
                                             @endif
 
                                             @if (!empty($operateur?->statut))
-                                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                                <div class="col-12 col-md-4 mb-0">
                                                     <div class="label">Statut juridique</div>
                                                     <div>{{ $operateur?->statut }}</div>
                                                 </div>
                                             @endif
 
                                             @if (!empty($operateur?->autre_statut))
-                                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                                <div class="col-12 col-md-4 mb-0">
                                                     <div class="label">Autre statut</div>
                                                     <div>{{ $operateur?->autre_statut }}</div>
                                                 </div>
                                             @endif
 
                                             @if (!empty($operateur?->user?->adresse))
-                                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                                <div class="col-12 col-md-4 mb-0">
                                                     <div class="label">Adrese</div>
                                                     <div>{{ $operateur?->user?->adresse }}</div>
                                                 </div>
                                             @endif
 
                                             @if (!empty($operateur?->user?->rccm))
-                                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                                <div class="col-12 col-md-4 mb-0">
                                                     <div class="label">RCCM/Ninea</div>
                                                     <div>{{ $operateur?->user?->rccm }}</div>
                                                 </div>
                                             @endif
 
                                             @if (!empty($operateur?->user?->ninea))
-                                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                                <div class="col-12 col-md-4 mb-0">
                                                     <div class="label">N° RCCM/Ninea</div>
                                                     <div>{{ $operateur?->user?->ninea }}</div>
                                                 </div>
                                             @endif
 
                                             @if (!empty($operateur?->debut_quitus))
-                                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                                <div class="col-12 col-md-4 mb-0">
                                                     <div class="label">Quitus</div>
                                                     <div>
                                                         @if (!empty($operateur?->debut_quitus))
@@ -305,7 +305,7 @@
                                             @endif
 
                                             @if (!empty($operateur?->debut_quitus))
-                                                <div class="col-12 col-md-4 col-lg-4">
+                                                <div class="col-12 col-md-4">
                                                     <div class="label">Durée quitus</div>
                                                     <div>
                                                         {{ $operateur?->debut_quitus?->diffForHumans(['parts' => 3, 'join' => ', ']) }}
@@ -316,28 +316,28 @@
                                             <h5 class="card-title">Personne morale</h5>
 
                                             @if (!empty($operateur?->user?->civilite))
-                                                <div class="col-12 col-md-4 col-lg-4">
+                                                <div class="col-12 col-md-4">
                                                     <div class="label">Civilité</div>
                                                     <div>{{ $operateur?->user?->civilite }}</div>
                                                 </div>
                                             @endif
 
                                             @if (!empty($operateur?->user?->firstname))
-                                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                                <div class="col-12 col-md-4 mb-0">
                                                     <div class="label">Prénom</div>
                                                     <div>{{ $operateur?->user?->firstname }}</div>
                                                 </div>
                                             @endif
 
                                             @if (!empty($operateur?->user?->name))
-                                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                                <div class="col-12 col-md-4 mb-0">
                                                     <div class="label">Nom</div>
                                                     <div>{{ $operateur?->user?->name }}</div>
                                                 </div>
                                             @endif
 
                                             @if (!empty($operateur?->user?->email_responsable))
-                                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                                <div class="col-12 col-md-4 mb-0">
                                                     <div class="label">Email</div>
                                                     <div><a
                                                             href="mailto:{{ $operateur?->user?->email_responsable }}">{{ $operateur?->user?->email_responsable }}</a>
@@ -346,7 +346,7 @@
                                             @endif
 
                                             @if (!empty($operateur?->user?->fonction_responsable))
-                                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                                <div class="col-12 col-md-4 mb-0">
                                                     <div class="label">Téléphone</div>
                                                     <div><a
                                                             href="tel:+221{{ $operateur?->user?->fonction_responsable }}">{{ $operateur?->user?->telephone }}</a>
@@ -355,7 +355,7 @@
                                             @endif
 
                                             @if (!empty($operateur?->user?->fonction_responsable))
-                                                <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                                <div class="col-12 col-md-4 mb-0">
                                                     <div class="label">Fonction</div>
                                                     <div>{{ $operateur?->user?->fonction_responsable }}
                                                     </div>
@@ -646,7 +646,7 @@
                                                 enctype="multipart/form-data" class="row g-3">
                                                 @csrf
                                                 @can('devenir-operateur-agrement-ouvert')
-                                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                                    <div class="col-12 mb-0">
                                                         <table class="table table-bordered table-hover" id="dynamicAddRemove">
 
                                                             <tr>
@@ -719,7 +719,7 @@
                                             </form><!-- End module -->
                                         @endcan
 
-                                        <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                        <div class="col-12 mb-0">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <h5 class="card-title">DOMAINES DE COMPETENCES OU PROGRAMMES DE FORMATION</h5>
                                                 <span class="card-title d-flex align-items-baseline">Statut

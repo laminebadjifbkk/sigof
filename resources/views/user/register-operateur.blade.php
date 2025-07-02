@@ -71,7 +71,7 @@
                 class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 col-xxl-6 d-flex flex-column align-items-center justify-content-center">
+                        <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6 d-flex flex-column align-items-center justify-content-center">
 
                             <div class="d-flex justify-content-center py-4">
                                 <a href="{{ route('accueil') }}" class="logo d-flex align-items-center w-auto"
@@ -102,7 +102,7 @@
                                             action="{{ route('register') }}">
                                             @csrf
                                             <input type="hidden" name="role" value="Operateur">
-                                            <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12 col-xxl-12">
                                                 <label for="username" class="form-label">Sigle<span
                                                         class="text-danger mx-1">*</span></label>
                                                 <div class="input-group has-validation">
@@ -121,7 +121,7 @@
                                             </div>
 
                                             <!-- Addresse E-mail -->
-                                            <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12 col-xxl-12">
                                                 <label for="email" class="form-label">E-mail<span
                                                         class="text-danger mx-1">*</span></label>
                                                 <div class="input-group has-validation">
@@ -139,7 +139,7 @@
                                             </div>
 
                                             <!-- Mot de passe -->
-                                            <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12 col-xxl-12">
                                                 <label for="password" class="form-label">Mot de passe<span
                                                         class="text-danger mx-1">*</span></label>
                                                 <div class="input-group has-validation">
@@ -158,7 +158,7 @@
                                             </div>
 
                                             <!-- Mot de passe de confirmation -->
-                                            <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12 col-xxl-12">
                                                 <label for="password_confirmation" class="form-label">Confirmez
                                                     mot de
                                                     passe<span class="text-danger mx-1">*</span></label>
@@ -178,12 +178,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12 col-xxl-12">
                                                 <button class="btn btn-primary w-100" type="submit">Créer un
                                                     compte opérateur</button>
                                             </div>
                                             <div
-                                                class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12 justify-content-center">
+                                                class="col-12 col-xxl-12 justify-content-center">
                                                 <p class="small">Vous avez déjà un compte ? <a
                                                         href="{{ url('/login-page') }}">Se connecter</a></p>
                                             </div>

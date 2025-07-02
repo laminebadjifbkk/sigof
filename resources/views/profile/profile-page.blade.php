@@ -16,8 +16,8 @@
     <section class="section profile">
         <div class="row justify-content-center">
             {{-- Début Photo de profil --}}
-            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12 col-md-4">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                             {{-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> --}}
@@ -56,7 +56,7 @@
                 </div>
 
                 @role('Demandeur')
-                    {{-- <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                    {{-- <div class="col-12">
                         <div class="card">
                             <div class="card-body pb-0">
                                 <h5 class="card-title">Demandes <span>| Personnelles</span></h5>
@@ -197,7 +197,7 @@
             {{-- Fin Photo de profil --}}
 
             {{-- Début aperçu --}}
-            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+            <div class="col-12 col-md-8">
                 <div class="flex items-center gap-4">
                     <div class="card">
                         @if ($message = Session::get('status'))
@@ -271,10 +271,10 @@
                                     </p>
 
                                     <div class="row">
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">
+                                        <div class="col-12 col-md-4 label">
                                             Informations personnelles
                                         </div>
-                                        <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                        <div class="col-12 col-md-8">
                                             @if (!empty(Auth::user()->cin))
                                                 <span class="badge bg-success text-white">Complètes</span>
                                             @else
@@ -284,10 +284,10 @@
                                         </div>
                                     </div>
                                     {{-- <div class="row">
-                                        <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">
+                                        <div class="col-12 col-md-4 label">
                                             Fichiers joints
                                         </div>
-                                        <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                        <div class="col-12 col-md-8">
                                             @if (!empty($user_cin))
                                                 <span class="badge bg-primary text-white">Valide</span>
                                             @else
@@ -299,67 +299,67 @@
 
                                     @if (Auth::user()?->cin)
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">CIN
+                                            <div class="col-12 col-md-4 label">CIN
                                             </div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 {{ Auth::user()->cin }}</div>
                                         </div>
                                     @endif
 
                                     @if (Auth::user()?->username)
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">
+                                            <div class="col-12 col-md-4 label">
                                                 Username
                                             </div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 {{ Auth::user()->username }}</div>
                                         </div>
                                     @endif
 
                                     @if (Auth::user()?->firstname)
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">
+                                            <div class="col-12 col-md-4 label">
                                                 Prénom
                                             </div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 {{ format_proper_name(Auth::user()->firstname) }}</div>
                                         </div>
                                     @endif
 
                                     @if (Auth::user()?->name)
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">Nom
+                                            <div class="col-12 col-md-4 label">Nom
                                             </div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 {{ Auth::user()->name }}</div>
                                         </div>
                                     @endif
 
                                     @if (Auth::user()?->date_naissance)
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">Date
+                                            <div class="col-12 col-md-4 label">Date
                                                 naissance
                                             </div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 {{ Auth::user()->date_naissance->translatedFormat('l jS F Y') }}</div>
                                         </div>
                                     @endif
 
                                     @if (Auth::user()?->lieu_naissance)
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">Lieu
+                                            <div class="col-12 col-md-4 label">Lieu
                                                 naissance
                                             </div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 {{ Auth::user()->lieu_naissance }}</div>
                                         </div>
                                     @endif
 
                                     @if (Auth::user()?->email)
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">Email
+                                            <div class="col-12 col-md-4 label">Email
                                             </div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8"><a
+                                            <div class="col-12 col-md-8"><a
                                                     href="mailto:{{ Auth::user()->email }}">{{ Auth::user()->email }}</a>
                                             </div>
                                         </div>
@@ -367,10 +367,10 @@
 
                                     @if (Auth::user()?->telephone)
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">
+                                            <div class="col-12 col-md-4 label">
                                                 Téléphone
                                             </div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8"><a
+                                            <div class="col-12 col-md-8"><a
                                                     href="tel:+221{{ Auth::user()->telephone }}">{{ Auth::user()->telephone }}</a>
                                             </div>
                                         </div>
@@ -378,10 +378,10 @@
 
                                     @if (Auth::user()?->adresse)
                                         <div class="row">
-                                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 label">
+                                            <div class="col-12 col-md-4 label">
                                                 Adresse
                                             </div>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 {{ remove_accents_uppercase(Auth::user()->adresse) }}</div>
                                         </div>
                                     @endif
@@ -400,11 +400,11 @@
                                         <!-- Profile Edit Form -->
                                         <div class="row mb-3">
                                             <label for="profileImage"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">
+                                                class="col-12 col-md-4 col-form-label">
                                                 Image de profil
                                             </label>
                                             {{-- <div class="col-md-8 col-lg-9"> --}}
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <img class="rounded-circle w-25" alt="Profil"
                                                     src="{{ asset(Auth::user()->getImage()) }}" width="50"
                                                     height="auto">
@@ -442,10 +442,10 @@
                                         {{-- CIN --}}
                                         <div class="row mb-3">
                                             <label for="cin"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">N°
+                                                class="col-12 col-md-4 col-form-label">N°
                                                 CIN (NIN)<span class="text-danger mx-1">*</span>
                                             </label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <div class="pt-2">
                                                     <input name="cin" type="text"
                                                         class="form-control form-control-sm @error('cin') is-invalid @enderror"
@@ -462,10 +462,10 @@
                                         {{-- Username --}}
                                         <div class="row mb-3">
                                             <label for="username"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Username<span
+                                                class="col-12 col-md-4 col-form-label">Username<span
                                                     class="text-danger mx-1">*</span>
                                             </label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <div class="pt-2">
                                                     <input name="username" type="text"
                                                         class="form-control form-control-sm @error('username') is-invalid @enderror"
@@ -481,10 +481,10 @@
                                         {{-- Civilité --}}
                                         <div class="row mb-3">
                                             <label for="Civilité"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Civilité<span
+                                                class="col-12 col-md-4 col-form-label">Civilité<span
                                                     class="text-danger mx-1">*</span>
                                             </label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <div class="pt-2">
                                                     <select name="civilite"
                                                         class="form-select form-select-sm @error('civilite') is-invalid @enderror"
@@ -509,10 +509,10 @@
                                         {{-- Prénom --}}
                                         <div class="row mb-3">
                                             <label for="firstname"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Prénom<span
+                                                class="col-12 col-md-4 col-form-label">Prénom<span
                                                     class="text-danger mx-1">*</span>
                                             </label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <div class="pt-2">
                                                     <input name="firstname" type="text"
                                                         class="form-control form-control-sm @error('firstname') is-invalid @enderror"
@@ -527,9 +527,9 @@
                                         {{-- Nom --}}
                                         <div class="row mb-3">
                                             <label for="name"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Nom<span
+                                                class="col-12 col-md-4 col-form-label">Nom<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <input name="name" type="text"
                                                     class="form-control form-control-sm @error('name') is-invalid @enderror"
                                                     id="name" value="{{ $user->name ?? old('name') }}"
@@ -544,9 +544,9 @@
                                         {{-- Date de naissance --}}
                                         <div class="row mb-3">
                                             <label for="date_naissance"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Date
+                                                class="col-12 col-md-4 col-form-label">Date
                                                 naissance<span class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <input type="text" name="date_naissance"
                                                     value="{{ old('date_naissance', optional($user->date_naissance)->format('d/m/Y')) }}"
                                                     class="form-control form-control-sm @error('date_naissance') is-invalid @enderror"
@@ -561,9 +561,9 @@
                                         {{-- Lieu naissance --}}
                                         <div class="row mb-3">
                                             <label for="lieu naissance"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Lieu
+                                                class="col-12 col-md-4 col-form-label">Lieu
                                                 naissance<span class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <input name="lieu_naissance" type="text"
                                                     class="form-control form-control-sm @error('lieu_naissance') is-invalid @enderror"
                                                     id="lieu_naissance"
@@ -579,9 +579,9 @@
                                         {{-- Email --}}
                                         <div class="row mb-3">
                                             <label for="Email"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Email<span
+                                                class="col-12 col-md-4 col-form-label">Email<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <input name="email" type="email" readonly
                                                     class="form-control form-control-sm @error('email') is-invalid @enderror"
                                                     id="Email" value="{{ $user->email ?? old('email') }}"
@@ -597,9 +597,9 @@
                                         {{-- Telephone --}}
                                         <div class="row mb-3">
                                             <label for="telephone"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Téléphone<span
+                                                class="col-12 col-md-4 col-form-label">Téléphone<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <input name="telephone" type="text" maxlength="12"
                                                     class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                                     id="telephone" value="{{ old('telephone', $user->telephone ?? '') }}"
@@ -615,9 +615,9 @@
                                         {{-- Adresse --}}
                                         <div class="row mb-3">
                                             <label for="adresse"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Adresse<span
+                                                class="col-12 col-md-4 col-form-label">Adresse<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <input name="adresse" type="adresse"
                                                     class="form-control form-control-sm @error('adresse') is-invalid @enderror"
                                                     id="adresse" value="{{ $user->adresse ?? old('adresse') }}"
@@ -633,9 +633,9 @@
                                         {{-- Situation familiale --}}
                                         <div class="row mb-3">
                                             <label for="adresse"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Situation
+                                                class="col-12 col-md-4 col-form-label">Situation
                                                 familiale<span class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <select name="situation_familiale"
                                                     class="form-select form-select-sm @error('situation_familiale') is-invalid @enderror"
                                                     aria-label="Select" id="select-field-familiale"
@@ -668,9 +668,9 @@
                                         {{-- Situation professionnelle --}}
                                         <div class="row mb-3">
                                             <label for="adresse"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Situation
+                                                class="col-12 col-md-4 col-form-label">Situation
                                                 professionnelle<span class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <select name="situation_professionnelle"
                                                     class="form-select  @error('situation_professionnelle') is-invalid @enderror"
                                                     aria-label="Select" id="select-field-professionnelle"
@@ -708,9 +708,9 @@
                                         {{-- facebook --}}
                                         <div class="row mb-3">
                                             <label for="facebook"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Facebook
+                                                class="col-12 col-md-4 col-form-label">Facebook
                                                 profil</label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <input name="facebook" type="facebook"
                                                     class="form-control form-control-sm @error('facebook') is-invalid @enderror"
                                                     id="facebook" value="{!! $user->facebook ?? old('facebook') !!}"
@@ -726,10 +726,10 @@
                                         {{-- twitter --}}
                                         <div class="row mb-3">
                                             <label for="twitter"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">X
+                                                class="col-12 col-md-4 col-form-label">X
                                                 profil (ex
                                                 twitter)</label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <input name="twitter" type="twitter"
                                                     class="form-control form-control-sm @error('twitter') is-invalid @enderror"
                                                     id="twitter" value="{{ $user->twitter ?? old('twitter') }}"
@@ -745,9 +745,9 @@
                                         {{-- instagram --}}
                                         <div class="row mb-3">
                                             <label for="instagram"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Instagram
+                                                class="col-12 col-md-4 col-form-label">Instagram
                                                 profil</label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <input name="instagram" type="instagram"
                                                     class="form-control form-control-sm @error('instagram') is-invalid @enderror"
                                                     id="instagram" value="{{ $user->instagram ?? old('instagram') }}"
@@ -763,9 +763,9 @@
                                         {{-- linkedin --}}
                                         <div class="row mb-3">
                                             <label for="linkedin"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Linkedin
+                                                class="col-12 col-md-4 col-form-label">Linkedin
                                                 profil</label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <input name="linkedin" type="linkedin"
                                                     class="form-control form-control-sm @error('linkedin') is-invalid @enderror"
                                                     id="linkedin" value="{{ $user->linkedin ?? old('linkedin') }}"
@@ -897,9 +897,9 @@
                                 {{-- Début Edition --}}
                                 <div class="tab-pane fade files" id="files">
                                     <div class="row mb-3">
-                                        <h5 class="card-title col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <h5 class="card-title col-12 col-md-4">
                                             FICHIERS JOINTS</h5>
-                                        <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                        <div class="col-12 col-md-8">
                                             <table class="table table-bordered table-hover datatables" id="table-iles">
                                                 <thead>
                                                     <tr class="text-center">
@@ -1006,9 +1006,9 @@
                                             style="color:red;"> est requise</span>.
                                         <div class="row mb-3 mt-3">
                                             <label for="legende"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Légende<span
+                                                class="col-12 col-md-4 col-form-label">Légende<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <input type="hidden" name="idUser" value="{{ $user->id }}">
                                                 <select name="legende"
                                                     class="form-select  @error('legende') is-invalid @enderror"
@@ -1033,9 +1033,9 @@
 
                                         <div class="row mb-3">
                                             <label for="file"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Fichier<span
+                                                class="col-12 col-md-4 col-form-label">Fichier<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <div class="pt-2">
                                                     <input type="file" name="file" id="file"
                                                         class="form-control @error('file') is-invalid @enderror btn btn-primary btn-sm">
@@ -1047,9 +1047,9 @@
                                         </div>
                                         <div class="row mb-3">
                                             <label for="file"
-                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label"><span
+                                                class="col-12 col-md-4 col-form-label"><span
                                                     class="text-danger mx-1"></span></label>
-                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                            <div class="col-12 col-md-8">
                                                 <div class="pt-2">
                                                     <button type="submit" class="btn btn-info btn-sm">Ajouter</button>
                                                 </div>

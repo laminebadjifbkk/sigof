@@ -103,117 +103,117 @@
                                                 class="{{ $formation?->statut }} text-white">
                                                 {{ $formation?->statut }}</span>
                                         </span>
-                                        <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                        <div class="col-12 mb-0">
                                             <div class="label">Intitulé formation</div>
                                             <div>{{ $formation?->name }}</div>
                                         </div>
-                                        <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                        <div class="col-12 col-md-3 mb-0">
                                             <div class="label">Code</div>
                                             <div>{{ $formation?->code }}</div>
                                         </div>
                                         @isset($formation?->module?->name)
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Module</div>
                                                 <div>{{ $formation?->module?->name }}</div>
                                             </div>
                                         @endisset
-                                        <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                        <div class="col-12 col-md-3 mb-0">
                                             <div class="label">Région</div>
                                             <div>{{ $formation?->departement->region->nom }}</div>
                                         </div>
-                                        <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                        <div class="col-12 col-md-3 mb-0">
                                             <div class="label">Département</div>
                                             <div>{{ $formation->departement->nom }}
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                        <div class="col-12 col-md-3 mb-0">
                                             <div class="label">Adresse exacte</div>
                                             <div>{{ $formation?->lieu }}
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                        <div class="col-12 col-md-3 mb-0">
                                             <div class="label">Type formation</div>
                                             <div>{{ $formation?->types_formation?->name }}</div>
                                         </div>
                                        
-                                        <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                        <div class="col-12 col-md-3 mb-0">
                                             <div class="label">Niveau qualification</div>
                                             <div>{{ $formation?->titre ?? ($formation?->referentiel?->titre) }}</div>
                                         </div>
 
                                         @isset($formation?->date_debut)
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Date début</div>
                                                 <div>{{ $formation?->date_debut->format('d/m/Y') }}</div>
                                             </div>
                                         @endisset
                                         @isset($formation?->date_fin)
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Date fin</div>
                                                 <div>{{ $formation?->date_fin->format('d/m/Y') }}</div>
                                             </div>
                                         @endisset
                                         @isset($formation?->effectif_prevu)
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Effectif prévu</div>
                                                 <div>{{ $formation?->effectif_prevu }}</div>
                                             </div>
                                         @endisset
                                         @isset($formation?->prevue_h)
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Prévu homme</div>
                                                 <div>{{ $formation?->prevue_h }}</div>
                                             </div>
                                         @endisset
                                         @isset($formation?->prevue_f)
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Prévu femmes</div>
                                                 <div>{{ $formation?->prevue_f }}</div>
                                             </div>
                                         @endisset
                                         @isset($formation?->frais_operateurs)
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Frais opérateur</div>
                                                 <div>{{ number_format($formation?->frais_operateurs, 2, ',', ' ') }}</div>
                                             </div>
                                         @endisset
                                         @isset($formation?->frais_add)
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Frais additionels</div>
                                                 <div>{{ number_format($formation?->frais_add, 2, ',', ' ') }}</div>
                                             </div>
                                         @endisset
                                         @isset($formation?->autes_frais)
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Autres frais</div>
                                                 <div>{{ number_format($formation?->autes_frais, 2, ',', ' ') }}</div>
                                             </div>
                                         @endisset
                                         @isset($formation?->projets_id)
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Projet</div>
                                                 <div>{{ $formation?->projet?->name }}</div>
                                             </div>
                                         @endisset
                                         @isset($formation?->programmes_id)
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Programme</div>
                                                 <div>{{ $formation?->programme?->name }}</div>
                                             </div>
                                         @endisset
                                         @isset($formation?->choixoperateur?->description)
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Choix opérateur</div>
                                                 <div>{{ $formation?->choixoperateur?->description }}</div>
                                             </div>
                                         @endisset
                                         @if (!empty($formation?->attestation))
-                                            <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                            <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Titres - Attestations</div>
                                                 <div>{{ $formation?->attestation }}</div>
                                             </div>
                                         @endif
-                                        <div class="col-12 col-md-12 col-lg-12 mb-0 text-center pt-5">
+                                        <div class="col-12 mb-0 text-center pt-5">
                                             <a class="btn btn-outline-primary btn-sm"
                                                 href="{{ route('formations.edit', $formation) }}" class="mx-1"
                                                 title="Modifier">Modifier cette formation</a>
@@ -254,7 +254,7 @@
                                         @endcan
                                     @else
                                     @endif
-                                    {{-- <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    {{-- <div class="col-12 mb-0">
                                         @if (!empty($operateur))
                                             <h1 class="card-title">
                                                 Liste des formations
@@ -349,7 +349,7 @@
                             <div class="tab-content pt-0">
                                 <div class="tab-pane fade show active profile-overview" id="beneficiaires-overview">
                                     @if (!empty($module))
-                                        <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                        <div class="col-12 mb-0">
                                             <div class="d-flex justify-content-between align-items-center mt-3">
                                                 <span class="card-title d-flex align-items-baseline">Code formation :&nbsp;
                                                     <span class="badge bg-info text-white">
@@ -716,7 +716,7 @@
                                         </div>
                                         <div class="alert alert-info mt-5">Aucun module pour le moment !!!</div>
                                     @endif
-                                    {{-- <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    {{-- <div class="col-12 mb-0">
                                         @isset($operateur)
                                             <h1 class="card-title">
                                                 @if (isset($module))
@@ -861,7 +861,7 @@
                                         </div>
                                         <div class="alert alert-info mt-5">Aucun ingénieur pour le moment !!!</div>
                                     @endif
-                                    {{-- <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    {{-- <div class="col-12 mb-0">
                                         @if (!empty($ingenieur))
                                             <h1 class="card-title">
                                                 Liste des formations
@@ -952,7 +952,7 @@
                             <div class="tab-content pt-2">
                                 <div class="tab-pane fade module-overview" id="evaluation-overview">
                                     @if (!empty($module))
-                                        <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                        <div class="col-12 mb-0">
                                             <form method="post"
                                                 action="{{ url('notedemandeurs', ['$idformation' => $formation->id]) }}"
                                                 enctype="multipart/form-data" class="row g-3">
@@ -1081,7 +1081,7 @@
                             {{-- Emargement --}}
                             <div class="tab-content pt-2">
                                 <div class="tab-pane fade module-overview" id="emargement-overview">
-                                    <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                    <div class="col-12 mb-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h1 class="card-title">Feuilles de présence</h1>
                                             <div class="d-flex align-items-center gap-2">
@@ -1311,7 +1311,7 @@
                             <div class="tab-content pt-2">
                                 <div class="tab-pane fade attestation-overview pt-1" id="retrait-attestation-overview">
                                     @if (!empty($module))
-                                        <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                        <div class="col-12 mb-0">
                                             {{-- <form method="post"
                                                 action="{{ url('notedemandeurs', ['$idformation' => $formation->id]) }}"
                                                 enctype="multipart/form-data" class="row g-3">
@@ -1477,7 +1477,7 @@
                                     @endif
                                 </div>
                                 <div class="row g-3">
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <input type="hidden" name="individuelleid" value="{{ $individuelle->id }}">
                                         <label for="motif" class="form-label">Justification du retrait<span
                                                 class="text-danger mx-1">*</span></label>
@@ -1595,7 +1595,7 @@
                         <div class="modal-body">
                             <input type="hidden" name="id" value="{{ $formation->id }}">
                             <div class="row">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="mb-3">
                                         <label for="titre" class="form-label">Titre<span
                                                 class="text-danger mx-1">*</span></label>
@@ -1608,7 +1608,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="sms" class="form-label">SMS<span
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="sms" id="sms" rows="3"
@@ -1649,7 +1649,7 @@
                         <div class="modal-body">
                             <input type="hidden" name="id" value="{{ $formation->id }}">
                             <div class="row">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="mb-3">
                                         <label for="titre" class="form-label">Titre<span
                                                 class="text-danger mx-1">*</span></label>
@@ -1662,7 +1662,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="sms" class="form-label">SMS<span
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="sms" id="sms" rows="3"
@@ -1870,11 +1870,11 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id" value="{{ $individuelle->id }}">
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                            <div class="col-12">
                                 <div class="row g-3">
                                     <label for="retrait" class="form-label">Informations !<span
                                             class="text-danger mx-1">*</span></label>
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <label class="form-check-label" for="moi">
                                             {{ 'Retrait effectué par ' . $individuelle?->retrait_diplome }}
                                         </label>
@@ -2052,7 +2052,7 @@
                                 </div>
 
                                 {{-- <div class="row">
-                                <div class="col-12 col-md-9 col-lg-9 mb-3">
+                                <div class="col-12 col-md-9 mb-3">
                                     <label>Evaluateur ONFP<span class="text-danger mx-1">*</span></label>
                                     <input type="text" name="nom_evaluateur_onfp"
                                         value="{{ $formation?->evaluateur_onfp ?? old('nom_evaluateur_onfp') }}"
@@ -2064,7 +2064,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-3 col-lg-3 mb-3">
+                                <div class="col-12 col-md-3 mb-3">
                                     <label>Initiale<span class="text-danger mx-1">*</span></label>
                                     <input type="text" name="initiale_evaluateur_onfp"
                                         value="{{ $formation?->initiale_evaluateur_onfp ?? old('initiale_evaluateur_onfp') }}"
@@ -2223,7 +2223,7 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="idformation" value="{{ $formation->id }}">
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                            <div class="col-12">
                                 <div class="mb-3">
                                     <label>Nombre de jours<span class="text-danger mx-1">*</span></label>
                                     <input type="number" min="1" max="1" name="jour"
@@ -2304,7 +2304,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <div class="mb-3">
                                             <label for="feuille" class="form-label">Joindre scan feuille de prsénce
                                                 {{ $emargement?->jour }}</label>
@@ -2316,7 +2316,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <div class="mb-3">
                                             <label>Observations</label>
                                             <textarea name="observations" id="observations" cols="30" rows="10"

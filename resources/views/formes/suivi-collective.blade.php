@@ -32,7 +32,7 @@
     </div>
     <section class="section">
         <div class="row">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 <div class="pb-0">
                     @if (empty($formes))
                         <h4 class="card-title">Aucun bénéficiaire suivi pour le moment</h4>
@@ -116,9 +116,9 @@
                             @csrf
                             <div class="modal-body">
                                 <div class="row g-3">
-                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12">
                                         <div class="row">
-                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12">
                                                 <div class="form-group">
                                                     <input type="hidden" name="id"
                                                         value="{{ $listecollective?->id }}">

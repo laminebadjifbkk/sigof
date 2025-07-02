@@ -123,53 +123,53 @@
                                                 <h5 class="card-title">Statut : <span
                                                         class="{{ $collective?->statut_demande }} text-white">
                                                         {{ $collective?->statut_demande }}</span></h5>
-                                                <div class="col-12 col-md-9 col-lg-9 mb-0">
+                                                <div class="col-12 col-md-9 mb-0">
                                                     <div class="label">Nom structure</div>
                                                     <div>{{ $collective?->name }}</div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Sigle</div>
                                                     <div>{{ $collective?->sigle }}</div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Numéro dossier</div>
                                                     <div>{{ $collective?->numero }}</div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Statut juridique</div>
                                                     <div>{{ $collective?->statut_juridique }}</div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Région</div>
                                                     <div>{{ $collective?->departement->region->nom }}</div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Département</div>
                                                     <div>{{ $collective->departement->nom }}
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Adresse exacte</div>
                                                     <div>{{ $collective?->adresse }}
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Téléphone</div>
                                                     <div><a
                                                             href="tel:+221{{ $collective?->telephone }}">{{ $collective?->telephone }}</a>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Fixe</div>
                                                     <div><a href="tel:+221{{ $collective?->fixe }}">{{ $collective?->fixe }}</a>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Email</div>
                                                     <div><a href="mailto:{{ $collective?->email }}">{{ $collective?->email }}</a>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                                <div class="col-12 mb-0">
                                                     <div class="label">Projet professionnel</div>
                                                     <div>
                                                         {!! '- ' .
@@ -182,31 +182,31 @@
                                                 @csrf
                                                 @method('PUT')
                                                 <h5 class="card-title">Responsable</h5>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Civilité</div>
                                                     <div>{{ $collective?->civilite_responsable }}</div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Prénom</div>
                                                     <div>{{ $collective->prenom_responsable }}</div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Nom</div>
                                                     <div>{{ $collective->nom_responsable }}</div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Email</div>
                                                     <div><a
                                                             href="mailto:{{ $collective->email_responsable }}">{{ $collective->email_responsable }}</a>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Téléphone</div>
                                                     <div><a
                                                             href="tel:+221{{ $collective->telephone_responsable }}">{{ $collective->telephone_responsable }}</a>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Fonction responsable</div>
                                                     <div>{{ $collective->fonction_responsable }}</div>
                                                 </div>
@@ -225,31 +225,31 @@
                                                 @csrf
                                                 @method('PUT')
                                                 <h5 class="card-title">Responsable</h5>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Civilité</div>
                                                     <div>{{ $collective?->civilite_responsable }}</div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Prénom</div>
                                                     <div>{{ $collective->prenom_responsable }}</div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Nom</div>
                                                     <div>{{ $collective->nom_responsable }}</div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Email</div>
                                                     <div><a
                                                             href="mailto:{{ $collective->email_responsable }}">{{ $collective->email_responsable }}</a>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Téléphone</div>
                                                     <div><a
                                                             href="tel:+221{{ $collective->telephone_responsable }}">{{ $collective->telephone_responsable }}</a>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-3 col-lg-3 mb-0">
+                                                <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Fonction responsable</div>
                                                     <div>{{ $collective->fonction_responsable }}</div>
                                                 </div>
@@ -259,7 +259,7 @@
 
                                     <div class="tab-content pt-0">
                                         <div class="tab-pane fade show active profile-overview" id="membres-overview">
-                                            <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                            <div class="col-12 mb-0">
                                                 <div class="d-flex justify-content-between align-items-center mt-3">
                                                     <span class="card-title d-flex align-items-baseline">N° :&nbsp;
                                                         <span class="badge bg-info text-white">
@@ -317,7 +317,7 @@
                                                 </div>
 
                                                 {{-- @can('demandeur') --}}
-                                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <div class="col-12">
                                                     <div class="card">
                                                         <div class="card-body pb-0">
                                                             <div class="d-flex justify-content-between align-items-center">
@@ -710,10 +710,10 @@
                                     <div class="tab-content pt-2">
                                         <div class="tab-pane fade files" id="files">
                                             <div class="row mb-3">
-                                                <h5 class="card-title col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                                <h5 class="card-title col-12 col-md-4">
                                                     Documents joints</h5>
                                                 @if ($validFiles->isNotEmpty())
-                                                    <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                                    <div class="col-12 col-md-8">
                                                         <table class="table table-bordered table-hover datatables"
                                                             id="table-iles">
                                                             <thead>
@@ -846,7 +846,7 @@
                                         <div class="tab-pane fade profile-overview pt-1" id="foration-overview">
                                             <h5 class="card-title">Formations </h5>
                                             @if ($collective)
-                                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <div class="col-12">
                                                     <table class="table table-bordered table-hover datatables" id="table-iles">
                                                         <thead>
                                                             <tr>
@@ -1039,7 +1039,7 @@
                                     <div class="modal-body">
                                         <div class="row g-3">
                                             <input type="hidden" name="collective" value="{{ $collective->id }}">
-                                            <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                            <div class="col-12 col-md-4 mb-0">
                                                 <label for="cin" class="form-label">CIN<span
                                                         class="text-danger mx-1">*</span></label>
                                                 <input type="text" name="cin" value="{{ old('cin') }}"
@@ -1052,7 +1052,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                            <div class="col-12 col-md-4 mb-0">
                                                 <label for="civilite" class="form-label">Civilité<span
                                                         class="text-danger mx-1">*</span></label>
                                                 <select name="civilite"
@@ -1075,7 +1075,7 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                            <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                            <div class="col-12 col-md-4 mb-0">
                                                 <label for="firstname" class="form-label">Prénom<span
                                                         class="text-danger mx-1">*</span></label>
                                                 <input type="text" name="firstname" value="{{ old('firstname') }}"
@@ -1088,7 +1088,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                            <div class="col-12 col-md-4 mb-0">
                                                 <label for="name" class="form-label">Nom<span
                                                         class="text-danger mx-1">*</span></label>
                                                 <input type="text" name="name" value="{{ old('name') }}"
@@ -1101,7 +1101,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                            <div class="col-12 col-md-4 mb-0">
                                                 <label for="date_naissance" class="form-label">Date naissance<span
                                                         class="text-danger mx-1">*</span></label>
                                                 <input type="date" name="date_naissance" value="{{ old('date_naissance') }}"
@@ -1114,7 +1114,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                            <div class="col-12 col-md-4 mb-0">
                                                 <label for="name" class="form-label">Lieu naissance<span
                                                         class="text-danger mx-1">*</span></label>
                                                 <input name="lieu_naissance" type="text"
@@ -1128,7 +1128,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                            <div class="col-12 col-md-4 mb-0">
                                                 <label for="module" class="form-label">Formation sollicitée<span
                                                         class="text-danger mx-1">*</span></label>
                                                 <select name="module" class="form-select  @error('module') is-invalid @enderror"
@@ -1150,7 +1150,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                            <div class="col-12 col-md-4 mb-0">
                                                 <label for="telephone" class="form-label">Téléphone</label>
                                                 <input type="number" min="0" name="telephone"
                                                     value="{{ old('telephone') }}"
@@ -1163,7 +1163,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-12 col-md-4 col-lg-4 mb-0">
+                                            <div class="col-12 col-md-4 mb-0">
                                                 <label for="Niveau étude" class="form-label">Niveau étude</label>
                                                 <select name="niveau_etude"
                                                     class="form-select  @error('niveau_etude') is-invalid @enderror"
@@ -1198,7 +1198,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                            <div class="col-12 mb-0">
                                                 <label for="experience" class="form-label">Expériences</label>
                                                 <textarea name="experience" id="experience" rows="1"
                                                     class="form-control form-control-sm @error('experience') is-invalid @enderror"
@@ -1210,7 +1210,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                            <div class="col-12 mb-0">
                                                 <label for="autre_experience" class="form-label">Autres expériences</label>
                                                 <textarea name="autre_experience" id="autre_experience" rows="1"
                                                     class="form-control form-control-sm @error('autre_experience') is-invalid @enderror"
@@ -1222,7 +1222,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-12 col-md-12 col-lg-12 mb-0">
+                                            <div class="col-12 mb-0">
                                                 <label for="details" class="form-label">Commentaires</label>
                                                 <textarea name="details" id="details" rows="1"
                                                     class="form-control form-control-sm @error('details') is-invalid @enderror" placeholder="Autres expériences">{{ old('details') }}</textarea>

@@ -4,7 +4,7 @@
     @can('module-view')
         <section class="section">
             <div class="row justify-content-center">
-                <div class="col-12 col-md-12 col-lg-12">
+                <div class="col-12">
                     <div class="pagetitle">
                         {{-- <h1>Data Tables</h1> --}}
                         <nav>

@@ -4,7 +4,7 @@
     @can('referentiel-view')
         <section class="section register">
             <div class="row justify-content-center">
-                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                <div class="col-12">
                     <div class="pagetitle">
                         <nav>
                             <ol class="breadcrumb">

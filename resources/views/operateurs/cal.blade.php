@@ -14,7 +14,7 @@
     </div><!-- End Page Title -->
     {{-- <section class="section dashboard">
         <div class="row">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 <div class="row">
                     <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                         <div class="card info-card revenue-card">
@@ -111,7 +111,7 @@
 
     <section class="section">
         <div class="row">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 @if ($message = Session::get('status'))
                     <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                         role="alert">
@@ -138,7 +138,7 @@
                     </span>
                     <div class="card-body">
                         @if (auth()->user()->hasRole('super-admin|admin|DEC'))
-                            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 pt-2">
+                            <div class="col-12 pt-2">
                                 <div class="row">
                                     <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
                                         <div class="card info-card revenue-card shadow-sm" style="max-width: 220px;">
@@ -390,9 +390,9 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="operateur_name" class="form-label">Raison sociale</label>
                                                 <input type="text" name="operateur_name"
@@ -408,9 +408,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="operateur_sigle" class="form-label">Sigle</label>
                                                 <input type="text" name="operateur_sigle"
@@ -426,9 +426,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="numero_agrement" class="form-label">N° agrément</label>
                                                 <input type="text" name="numero_agrement"
@@ -444,9 +444,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="telephone" class="form-label">Téléphone</label>
                                                 <input name="telephone" type="text" maxlength="12"
@@ -462,9 +462,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="email" class="form-label">Email</label>
                                                 <input type="email" name="email" value="{{ old('email') }}"

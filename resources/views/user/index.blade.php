@@ -187,7 +187,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-4">
                                     <label for="username" class="form-label">Username<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="username" value="{{ old('username') }}"
@@ -200,7 +200,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-4">
                                     <label for="firstname" class="form-label">Prénom<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="firstname" value="{{ old('firstname') }}"
@@ -213,7 +213,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-4">
                                     <label for="name" class="form-label">Nom<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="name" value="{{ old('name') }}"
@@ -226,7 +226,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-4">
                                     <label for="email" class="form-label">Email<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
@@ -242,7 +242,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-4">
                                     <label for="telephone" class="form-label">Téléphone<span
                                             class="text-danger mx-1">*</span></label>
                                     <input name="telephone" type="text" maxlength="12"
@@ -256,7 +256,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-4">
                                     <label for="adresse" class="form-label">Adresse<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="adresse" value="{{ old('adresse') }}"
@@ -269,7 +269,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                <div class="col-12 col-md-6 col-lg-8">
                                     <label for="roles" class="form-label">Roles</label>
                                     <select name="roles[]" class="form-select" aria-label="Select"
                                         id="multiple-select-field" multiple data-placeholder="Choisir roles">
@@ -286,7 +286,7 @@
                                     </small>
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-4">
                                     <label for="password" class="form-label">Mot de passe</label>
                                     <input type="password" name="password" value="{{ old('password') }}"
                                         class="form-control form-control-sm @error('password') is-invalid @enderror"
@@ -298,7 +298,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-4">
                                     <label for="image" class="form-label">Image de profil</label>
                                     <input type="file" name="image" id="image" multiple
                                         value="{{ old('image') }}"
@@ -333,9 +333,9 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="username" class="form-label">Username</label>
                                                 <input type="text" name="username" value="{{ old('username') }}"
@@ -350,9 +350,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="firstname" class="form-label">Prénom</label>
                                                 <input type="text" name="firstname" value="{{ old('firstname') }}"
@@ -367,9 +367,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="name" class="form-label">Nom</label>
                                                 <input type="text" name="name" value="{{ old('name') }}"
@@ -384,9 +384,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="cin" class="form-label">N° CIN</label>
                                                 <input minlength="5" maxlength="15" type="text" name="cin"
@@ -402,9 +402,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="telephone_responsable" class="form-label">Téléphone</label>
                                                 <input name="telephone_responsable" type="text" maxlength="12"
@@ -420,9 +420,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="email" class="form-label">Email</label>
                                                 <input type="email" name="email" value="{{ old('email') }}"
@@ -454,7 +454,7 @@
 
         @foreach ($user_liste as $user)
             <div
-                class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+                class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="forgotModal{{ $user->uuid }}" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -474,7 +474,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="row g-3">
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="col-12">
                                             <label for="email" class="form-label">Email<span
                                                     class="text-danger mx-1">*</span></label>
                                             <div class="input-group has-validation">
@@ -493,7 +493,7 @@
                                         <div class="row g-3">
 
                                             <!-- Mot de passe -->
-                                            <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12 col-xxl-12">
                                                 <label for="password" class="form-label">Mot de passe<span
                                                         class="text-danger mx-1">*</span></label>
                                                 <input type="text" name="password"
@@ -508,7 +508,7 @@
                                             </div>
 
                                             <!-- Mot de passe de confirmation -->
-                                            <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="col-12 col-xxl-12">
                                                 <label for="password_confirmation" class="form-label">Confirmez mot de
                                                     passe<span class="text-danger mx-1">*</span></label>
                                                 <input type="text" name="password_confirmation"

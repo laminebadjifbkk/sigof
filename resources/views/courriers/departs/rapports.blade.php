@@ -34,7 +34,7 @@
     </div>
     <section class="section">
         <div class="row">
-            <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+            <div class="col-12">
                 @isset($departs)
                     {{-- <div class="pb-2">
                         <span class="page-title badge bg-info">{{ $title }}</span>
@@ -91,7 +91,7 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label class="form-label">De<span class="text-danger mx-1">*</span></label>
                                     <input type="date" name="from_date"
                                         class="form-control form-control-sm @error('from_date') is-invalid @enderror from_date">
@@ -101,7 +101,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label class="form-label">À<span class="text-danger mx-1">*</span></label>
                                     <input type="date" name="to_date"
                                         class="form-control form-control-sm @error('to_date') is-invalid @enderror to_date">

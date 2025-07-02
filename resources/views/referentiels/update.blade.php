@@ -12,7 +12,7 @@
                     </div>
                 @endif
                 <div
-                    class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+                    class="col-12 d-flex flex-column align-items-center justify-content-center">
                     <div class="card mb-3">
                         <div class="card-body">
                             <form method="post" action="{{ route('referentiels.update', $referentiel?->id) }}"
@@ -33,7 +33,7 @@
                                     {{ $referentiel?->intitule }}</h5>
                                 <input type="hidden" name="id" value="{{ $referentiel?->id }}">
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="intitule" class="form-label">Intitulé<span
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="intitule" id="intitule" rows="1"
@@ -45,7 +45,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="titre" class="form-label">Titre<span
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="titre" id="titre" rows="1"
@@ -57,7 +57,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="categorie" class="form-label">Catégorie</label>
                                     <textarea name="categorie" id="category" rows="1"
                                         class="form-control form-control-sm @error('categorie') is-invalid @enderror" placeholder="Catégorie">{{ $referentiel?->categorie ?? old('categorie') }}</textarea>
@@ -68,7 +68,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="convention" class="form-label">Convention</label>
                                     {{-- <select name="convention" class="form-select  @error('convention') is-invalid @enderror"
                                         aria-label="Select" id="select-field-convention-update"
@@ -98,7 +98,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12">
                                     <label for="reference" class="form-label">Référence</label>
                                     <textarea name="reference" id="reference" rows="2"
                                         class="form-control form-control-sm @error('reference') is-invalid @enderror" placeholder="Référence">{{ $referentiel?->reference ?? old('reference') }}</textarea>
