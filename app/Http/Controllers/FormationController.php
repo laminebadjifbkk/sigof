@@ -1774,24 +1774,26 @@ class FormationController extends Controller
 
             $listecollective->save();
 
-            $collectivemodule = $listecollective?->collectivemodule;
+            Alert::success('Bravo !', 'L\'évaluation est terminée.');
 
-            /* $collectivemodule->update([
+            return redirect()->back();
+
+            $collectivemodule = $listecollective->collectivemodule;
+
+            $collectivemodule->update([
                 "statut" => 'formé',
             ]);
 
-            $collectivemodule->save(); */
+            $collectivemodule->save();
 
-            /* $collective = $collectivemodule?->collective; */
+            $collective = $collectivemodule->collective;
 
-            /* $collective->update([
+            $collective->update([
                 "statut_demande" => 'formé',
             ]);
 
-            $collective->save(); */
+            $collective->save();
         }
-
-        /* dd($collectivemodule); */
 
         /*  $validated_by = new Validationindividuelle([
         'validated_id'       =>      Auth::user()->id,
