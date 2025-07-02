@@ -109,6 +109,20 @@
         span:before {
             content: '- ';
         }
+
+        footer {
+            position: fixed;
+            bottom: 0cm;
+            left: 0cm;
+            right: 0cm;
+            height: 2cm;
+
+            /** Extra personal styles **/
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            line-height: 1.5cm;
+        }
     </style>
 </head>
 
@@ -148,7 +162,8 @@
                                 <p style="font-weight: bold;">ONFP/DG/DEC/{{ $formation?->onfpevaluateur?->initiale }}
                                 </p>
                                 <p style="text-align: center; font-weight: bold;">Dakar, le</p><br><br><br>
-                                <p style="text-align: center; font-weight: bold; font-style: italic">Le Directeur général</p>
+                                <p style="text-align: center; font-weight: bold; font-style: italic">Le Directeur
+                                    général</p>
                             </td>
                         </tr>
                     </table>
@@ -216,7 +231,8 @@
                                 <p><b>Date de l'évaluation </b>:
                                     {{ 'Le ' . $formation?->date_pv?->translatedFormat('l d F Y') }} </p>
                                 <p><b>Montant indemnité de membre </b> :
-                                    {{ number_format($formation?->frais_evaluateur, 0, ',', ' ') }} F CFA de brut versé sur
+                                    {{ number_format($formation?->frais_evaluateur, 0, ',', ' ') }} F CFA de brut versé
+                                    sur
                                     présentation d'une demande de paiement
                                     et du PV d'évaluation.
                                 </p>
@@ -227,6 +243,12 @@
             </tr>
         </table>
     </div>
+    <footer>
+        <div class="page-number" id="footer">
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/pied.png'))) }}"
+                style="display: block; width: 100%;" />
+        </div>
+    </footer>
 </body>
 
 </html>
