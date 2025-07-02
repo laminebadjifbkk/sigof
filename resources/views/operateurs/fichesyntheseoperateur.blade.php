@@ -194,25 +194,26 @@
                     <td colspan="3">
                         @if (!empty($operateur?->user?->fixe))
                             Tél 1 : <a href="tel:+221{{ $operateur?->user?->fixe }}">
-                                {{ substr($operateur?->user?->fixe, 0, 2) .
+                                {{-- {{ substr($operateur?->user?->fixe, 0, 2) .
                                     ' ' .
                                     substr($operateur?->user?->fixe, 2, 3) .
                                     ' ' .
                                     substr($operateur?->user?->fixe, 5, 2) .
                                     ' ' .
-                                    substr($operateur?->user?->fixe, 7, 2) }}
+                                    substr($operateur?->user?->fixe, 7, 2) }} --}}
+                                {{ $operateur?->user?->fixe }}
                             </a>
                         @endif
                         @if (!empty($operateur?->user?->telephone))
                             / <a href="tel:+221{{ $operateur?->user?->telephone }}">
-
-                                {{ substr($operateur?->user?->telephone, 0, 2) .
+                                {{ $operateur?->user?->telephone }}
+                                {{--  {{ substr($operateur?->user?->telephone, 0, 2) .
                                     ' ' .
                                     substr($operateur?->user?->telephone, 2, 3) .
                                     ' ' .
                                     substr($operateur?->user?->telephone, 5, 2) .
                                     ' ' .
-                                    substr($operateur?->user?->telephone, 7, 2) }}
+                                    substr($operateur?->user?->telephone, 7, 2) }} --}}
                             </a>
                         @endif
                         <br>
