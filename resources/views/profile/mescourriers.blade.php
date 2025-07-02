@@ -168,8 +168,7 @@
                                                                             <div class="accordion-body">
                                                                                 <span>{!! $comment?->user?->firstname . ' ' . $comment?->user?->name !!}</span>
                                                                                 <div class="activity">
-                                                                                    <div
-                                                                                        class="activity-item d-flex col-12">
+                                                                                    <div class="activity-item d-flex col-12">
                                                                                         <div
                                                                                             class="activite-label col-2 col-md-2 col-lg-2 col-sm-2 col-xs-2 col-xxl-2">
                                                                                             {!! Carbon\Carbon::parse($comment?->created_at)?->diffForHumans() !!}
@@ -197,8 +196,7 @@
                                                                                     {{ $i - 1 }}</h5>
                                                                                 <div class="activity">
                                                                                     @forelse ($comment->comments as $replayComment)
-                                                                                        <div
-                                                                                            class="row col-12">
+                                                                                        <div class="row col-12">
                                                                                             <label for=""
                                                                                                 class="col-1 col-md-1 col-lg-1 col-sm-1 col-xs-1 col-xxl-1"></label>
                                                                                             <div
@@ -258,10 +256,21 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            @empty
+                                                                {{-- @empty
 
                                                                 <div class="alert alert-info">Aucun commentaire pour ce
                                                                     courrier
+                                                                </div>
+                                                            @endforelse --}}
+
+                                                            @empty
+                                                                <div
+                                                                    class="alert alert-info d-flex justify-content-between align-items-center">
+                                                                    <span>Aucun commentaire pour ce courrier</span>
+                                                                    <a href="{{ route('arrives.show', $arrive?->id) }}"
+                                                                        class="btn btn-sm btn-primary">
+                                                                        Ajouter un commentaire
+                                                                    </a>
                                                                 </div>
                                                             @endforelse
 
