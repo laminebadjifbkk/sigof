@@ -1746,6 +1746,8 @@ class FormationController extends Controller
         $listecollectives = $request->listecollectives;
         $notes            = $request->notes;
 
+        dd($notes);
+
         $listecollectives_notes = array_combine($listecollectives, $notes);
 
         foreach ($listecollectives_notes as $key => $value) {
