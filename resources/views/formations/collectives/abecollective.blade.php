@@ -121,6 +121,49 @@
         .taux-eleve {
             color: green;
         }
+
+        footer {
+            position: fixed;
+            bottom: 0cm;
+            left: 0cm;
+            right: 0cm;
+            height: 1.5cm;
+
+            background-color: #ffffff;
+            color: #000;
+            font-size: 12px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+
+            z-index: 1000;
+        }
+
+        .page-number {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 0cm;
+        }
+
+        .footer-line {
+            width: 18cm;
+            height: 2px;
+            background-color: #5D4037;
+            margin-bottom: 0mm;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Supprime tout espace automatique du paragraphe */
+        .footer-text {
+            margin: 0;
+            padding: 0.5mm 0 0 0;
+            /* Légère marge haute pour l’espacement */
+            line-height: 1.5;
+        }
     </style>
 </head>
 
@@ -290,6 +333,14 @@
             </tr>
         </table>
     </div>
+    <footer>
+        <div class="page-number" id="footer">
+            <div class="footer-line"></div>
+            <p class="footer-text">Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN Tel: (+221) 33 827 92 51 -
+                Fax: (+221) 33 827 92
+                55 <br> BP: 21013 Dakar-Ponty Email: <a href="#">onfp@onfp.sn</a></p>
+        </div>
+    </footer>
 </body>
 
 </html>
