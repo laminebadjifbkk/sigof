@@ -43,7 +43,8 @@
                                     class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                             <p> | retour</p>
                         </span>
-                        <h5 class="card-title">Liste des formations de {{ $onfpevaluateur->name }}</h5>
+                        <h5 class="card-title">Liste des formations de
+                            {{ $onfpevaluateur->name . ' ' . $onfpevaluateur->lastname }}</h5>
                         @if ($onfpevaluateur->formations->isNotEmpty())
                             <table class="table datatables" id="table-formations">
                                 <thead>
