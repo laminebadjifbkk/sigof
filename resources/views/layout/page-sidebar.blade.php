@@ -361,7 +361,7 @@
                     <span>
                         @if ($formationsEnCours > 0)
                             Formations
-                            <span class="badge bg-warning text-dark">{{ $formationsEnCours }} en cours</span>
+                            <span class="badge bg-warning text-white ms-2">{{ $formationsEnCours }} en cours</span>
                         @else
                             Gestion formations
                         @endif
