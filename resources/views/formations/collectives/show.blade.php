@@ -152,13 +152,8 @@
                                         </div>
 
                                         <div class="col-12 col-md-3 col-lg-3 mb-0">
-                                            <div class="label">Statut juridique</div>
-                                            <div>{{ $formation?->statut }}</div>
-                                        </div>
-
-                                        <div class="col-12 col-md-3 col-lg-3 mb-0">
                                             <div class="label">Niveau qualification</div>
-                                            <div>{{ $formation->niveau_qualification }}</div>
+                                            <div>{{ $formation->titre }}</div>
                                         </div>
 
                                         @if (!empty($formation?->date_debut))
