@@ -1740,30 +1740,41 @@ class FormationController extends Controller
     public function givenotedemandeursCollective($idformation, Request $request)
     {
         $request->validate([
-            'notes' => ['required'],
+            'notes'            => ['required', 'array'],
+            'listecollectives' => ['required', 'array'],
         ]);
 
-        $listecollectives = $request->listecollectives;
-        $notes            = $request->notes;
+        $listecollectives = $request->input('listecollectives');
+        $notes            = $request->input('notes');
+
+        if (count($listecollectives) !== count($notes)) {
+            return back()->withErrors('Le nombre de notes ne correspond pas au nombre de demandeurs.');
+        }
 
         $listecollectives_notes = array_combine($listecollectives, $notes);
 
         foreach ($listecollectives_notes as $key => $value) {
-            $listecollective = Listecollective::findOrFail($key);
+            $listecollective = Listecollective::find($key);
+            if (! $listecollective) {
+                continue;
+            }
+
             if ($value <= 4) {
                 $appreciation = "Médiocre";
             } elseif ($value <= 8) {
-                $appreciation = "Insuffisant ";
+                $appreciation = "Insuffisant";
             } elseif ($value <= 11) {
-                $appreciation = "Passable ";
+                $appreciation = "Passable";
             } elseif ($value <= 13) {
                 $appreciation = "Assez bien";
             } elseif ($value <= 16) {
                 $appreciation = "Bien";
             } elseif ($value <= 19) {
                 $appreciation = "Très bien";
-            } elseif ($value = 20) {
-                $appreciation = "Excellent ";
+            } elseif ($value == 20) {
+                $appreciation = "Excellent";
+            } else {
+                $appreciation = "Non défini"; // cas limite
             }
 
             $listecollective->update([
@@ -1772,39 +1783,22 @@ class FormationController extends Controller
                 "statut"       => 'formé',
             ]);
 
-            $listecollective->save();
-
-            Alert::success('Bravo !', 'L\'évaluation est terminée.');
-
-            return redirect()->back();
-
             $collectivemodule = $listecollective->collectivemodule;
+            if ($collectivemodule) {
+                $collectivemodule->update([
+                    "statut" => 'formé',
+                ]);
 
-            $collectivemodule->update([
-                "statut" => 'formé',
-            ]);
-
-            $collectivemodule->save();
-
-            $collective = $collectivemodule->collective;
-
-            $collective->update([
-                "statut_demande" => 'formé',
-            ]);
-
-            $collective->save();
+                $collective = $collectivemodule->collective;
+                if ($collective) {
+                    $collective->update([
+                        "statut_demande" => 'formé',
+                    ]);
+                }
+            }
         }
 
-        /*  $validated_by = new Validationindividuelle([
-        'validated_id'       =>      Auth::user()->id,
-        'action'             =>      "Terminée",
-        'listecollectives_id'   =>      $listecollective->id
-        ]);
-
-        $validated_by->save(); */
-
         Alert::success('Bravo !', 'L\'évaluation est terminée.');
-
         return redirect()->back();
     }
 
