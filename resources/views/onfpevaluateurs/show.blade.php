@@ -52,6 +52,7 @@
                                         <th width="2%" class="text-center">Code</th>
                                         <th>Type</th>
                                         <th>Bénéficiaires</th>
+                                        <th>Opérateur</th>
                                         <th>Localité</th>
                                         <th>Modules</th>
                                         <th class="text-center">Statut</th>
@@ -65,6 +66,7 @@
                                             <td>{{ $formation?->code }}</td>
                                             <td><a href="#">{{ $formation->types_formation?->name }}</a></td>
                                             <td>{{ $formation?->name }}</td>
+                                            <td>{{ $formation?->user?->username }}</td>
                                             <td>{{ $formation->departement?->region?->nom }}</td>
                                             <td>
                                                 @isset($formation?->module?->name)
