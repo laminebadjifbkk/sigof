@@ -79,7 +79,7 @@
                     </div>
                 </div>
             </div> --}}
-                <div class="col-lg-12">
+                <div class="col-12">
                     @if ($formations->isNotEmpty())
                         <div class="card">
                             {{-- <div class="card-body">
@@ -161,7 +161,7 @@
                                 @endforeach
                             </div> --}}
                             <div class="card-body">
-                                <h5 class="card-title">Formations en cours</h5>
+                                <h5 class="card-title mb-4">Formations en cours</h5>
                                 @foreach ($formations as $formation)
                                     @php
                                         // Définir les variables communes
@@ -200,23 +200,26 @@
                                             };
                                         }
                                     @endphp
-                                    <div class="border rounded p-3 mb-3 shadow-sm bg-white">
+                                    <div class="border rounded p-3 mb-4 shadow-sm bg-white">
                                         <h6 class="text-primary mb-3">
                                             <i class="bi bi-journal-code me-1"></i>
                                             Module :
-                                            <a
-                                                href="{{ route('formations.show', $formation) }}">{{ $isIndividuelle ? $formation?->module?->name : $formation?->collectivemodule?->module }}</a>
+                                            <a href="{{ route('formations.show', $formation) }}">
+                                                {{ $isIndividuelle ? $formation?->module?->name : $formation?->collectivemodule?->module }}
+                                            </a>
                                         </h6>
-                                        <div class="row text-sm">
-                                            <div class="col-md-8 mb-2">
+
+                                        <div class="row fs-sm">
+                                            <div class="col-md-6 mb-2">
                                                 <i class="bi bi-person-circle me-1"></i>
                                                 <strong>Opérateur :</strong>
                                                 {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
                                             </div>
-                                            <div class="col-md-4 mb-2">
+                                            <div class="col-md-6 mb-2">
                                                 <i class="bi bi-person-workspace me-1"></i>
                                                 <strong>Ingénieur :</strong> {{ $formation?->ingenieur?->name ?? 'N/A' }}
                                             </div>
+
                                             <div class="col-md-4 mb-2">
                                                 <i class="bi bi-calendar-event me-1"></i>
                                                 <strong>Date début :</strong>
@@ -224,7 +227,6 @@
                                                     {{ $formation?->date_debut?->format('d/m/Y') ?? 'Non définie' }}
                                                 </span>
                                             </div>
-
                                             <div class="col-md-4 mb-2">
                                                 <i class="bi bi-calendar-check me-1"></i>
                                                 <strong>Date fin :</strong>
@@ -232,7 +234,6 @@
                                                     {{ $formation?->date_fin?->format('d/m/Y') ?? 'Non définie' }}
                                                 </span>
                                             </div>
-
                                             <div class="col-md-4 mb-2">
                                                 <i class="bi bi-calendar-check me-1"></i>
                                                 <strong>Date évaluation :</strong>
