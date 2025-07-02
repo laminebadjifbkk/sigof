@@ -1784,11 +1784,11 @@ class FormationController extends Controller
 
             $collective = $collectivemodule?->collective;
 
-            $collective->update([
+            /* $collective->update([
                 "statut_demande" => 'formé',
             ]);
 
-            $collective->save();
+            $collective->save(); */
         }
 
         dd($collective);
