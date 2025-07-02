@@ -1791,7 +1791,7 @@ class FormationController extends Controller
             $collective->save(); */
         }
 
-        dd($collective);
+        dd($collectivemodule);
 
         /*  $validated_by = new Validationindividuelle([
         'validated_id'       =>      Auth::user()->id,
