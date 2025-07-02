@@ -411,10 +411,6 @@
                             <!-- Sales Card -->
                             <div class="col-12 col-sm-6 col-lg-3">
                                 <div class="card info-card sales-card">
-                                    <div class="filter">
-                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                class="bi bi-three-dots"></i></a>
-                                    </div>
                                     <a href="#">
                                         <div class="card-body">
                                             <h5 class="card-title">Demandes<span> | {{ date('d/m/Y') }}</span></h5>
@@ -466,10 +462,6 @@
                             {{-- Demandes individuelles --}}
                             <div class="col-12 col-sm-6 col-lg-3">
                                 <div class="card info-card sales-card">
-                                    <div class="filter">
-                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                class="bi bi-three-dots"></i></a>
-                                    </div>
                                     <a href="{{ route('individuelles.index') }}">
                                         <div class="card-body">
                                             <h5 class="card-title">Demandes <span>| individuelles</span></h5>
@@ -497,10 +489,6 @@
                             {{-- Demandes collectives --}}
                             <div class="col-12 col-sm-6 col-lg-3">
                                 <div class="card info-card sales-card">
-                                    <div class="filter">
-                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                class="bi bi-three-dots"></i></a>
-                                    </div>
                                     <a href="{{ route('collectives.index') }}">
                                         <div class="card-body">
                                             <h5 class="card-title">Demandes <span>| collectives</span></h5>
@@ -584,10 +572,6 @@
                         </div> --}}
                             <div class="col-12 col-sm-6 col-lg-3">
                                 <div class="card info-card sales-card">
-                                    <div class="filter">
-                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                class="bi bi-three-dots"></i></a>
-                                    </div>
                                     <a href="#">
                                         <div class="card-body">
                                             <h5 class="card-title">Agréments <span>| opérateurs</span></h5>
