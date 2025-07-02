@@ -66,7 +66,7 @@
                                             <td>{{ $formation?->code }}</td>
                                             <td><a href="#">{{ $formation->types_formation?->name }}</a></td>
                                             <td>{{ $formation?->name }}</td>
-                                            <td>{{ $formation?->user?->username }}</td>
+                                            <td>{{ $formation?->operateur?->user?->username }}</td>
                                             <td>{{ $formation->departement?->region?->nom }}</td>
                                             <td>
                                                 @isset($formation?->module?->name)
