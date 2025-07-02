@@ -96,6 +96,8 @@ class LettrevaluationController extends Controller
 
         // (Optional) Setup the paper size and orientation (portrait ou landscape)
         $dompdf->setPaper('A4', 'portrait');
+        $dompdf->set_option('isHtml5ParserEnabled', true);
+        $dompdf->set_option('isRemoteEnabled', true);
 
         // Render the HTML as PDF
         $dompdf->render();
