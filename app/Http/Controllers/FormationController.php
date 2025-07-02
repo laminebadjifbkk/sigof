@@ -1748,9 +1748,6 @@ class FormationController extends Controller
 
         $listecollectives_notes = array_combine($listecollectives, $notes);
 
-        
-        dd($notes);
-
         foreach ($listecollectives_notes as $key => $value) {
             $listecollective = Listecollective::findOrFail($key);
             if ($value <= 4) {
@@ -1774,6 +1771,8 @@ class FormationController extends Controller
                 "appreciation" => $appreciation,
                 "statut"       => 'formé',
             ]);
+
+            dd($listecollective);
 
             $listecollective->save();
 
@@ -3611,7 +3610,7 @@ class FormationController extends Controller
                 ->where('listecollectives.collectivemodules_id', 'LIKE', "%{$module?->id}%")
                 ->whereBetween(DB::raw('DATE(formations.date_debut)'), [$request->from_date, $request->to_date])
                 ->get();
-                
+
         } else {
             $formes = Listecollective::join('formations', 'formations.id', 'listecollectives.formations_id')
                 ->select('listecollectives.*')
