@@ -1772,11 +1772,11 @@ class FormationController extends Controller
                 "statut"       => 'formé',
             ]);
 
-            dd($listecollective);
-
             $listecollective->save();
 
             $collectivemodule = $listecollective->collectivemodule;
+
+            dd($collectivemodule);
 
             $collectivemodule->update([
                 "statut" => 'formé',
