@@ -16,7 +16,7 @@ class OnfpevaluateurController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(['role:super-admin|admin|DIOF|ADIOF|Ingenieur|Evaluateur']);
+        $this->middleware(['role:super-admin|admin|DIOF|ADIOF|Ingenieur|Evaluateur|DEC|CAR']);
         $this->middleware("permission:onfpevaluateur-view", ["only" => ["index"]]);
         $this->middleware("permission:onfpevaluateur-create", ["only" => ["create", "store"]]);
         $this->middleware("permission:onfpevaluateur-update", ["only" => ["update", "edit"]]);
