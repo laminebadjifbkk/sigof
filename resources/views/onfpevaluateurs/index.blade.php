@@ -66,18 +66,18 @@
                                         <?php $i = 1; ?>
                                         @foreach ($onfpevaluateurs as $onfpevaluateur)
                                             <tr>
-                                                <td>{{ $onfpevaluateur->name }}</td>
-                                                <td>{{ $onfpevaluateur->lastname }}</td>
-                                                <td>{{ $onfpevaluateur->initiale }}</td>
-                                                <td>{{ $onfpevaluateur->fonction }}</td>
+                                                <td>{{ $onfpevaluateur?->name }}</td>
+                                                <td>{{ $onfpevaluateur?->lastname }}</td>
+                                                <td>{{ $onfpevaluateur?->initiale }}</td>
+                                                <td>{{ $onfpevaluateur?->fonction }}</td>
                                                 <td><a
-                                                        href="mailto:{{ $onfpevaluateur->email }}">{{ $onfpevaluateur->email }}</a>
+                                                        href="mailto:{{ $onfpevaluateur?->email }}">{{ $onfpevaluateur?->email }}</a>
                                                 </td>
                                                 <td><a
-                                                        href="tel:+221{{ $onfpevaluateur->telephone }}">{{ $onfpevaluateur->telephone }}</a>
+                                                        href="tel:+221{{ $onfpevaluateur?->telephone }}">{{ $onfpevaluateur?->telephone }}</a>
                                                 </td>
                                                 <td style="text-align: center;">
-                                                    @foreach ($onfpevaluateur->formations as $formation)
+                                                    @foreach ($onfpevaluateur?->formations as $formation)
                                                         @if ($loop->last)
                                                             <a class="text-primary fw-bold"
                                                                 href="#">{!! $loop->count ?? '0' !!}</a>
@@ -88,7 +88,7 @@
                                                 <td style="text-align: center;">
                                                     @can('onfpevaluateur-show')
                                                         <span class="d-flex mt-2 align-items-baseline"><a
-                                                                href="{{ route('onfpevaluateurs.show', $onfpevaluateur->id) }}"
+                                                                href="{{ route('onfpevaluateurs.show', $onfpevaluateur?->id) }}"
                                                                 class="btn btn-warning btn-sm mx-1" title="Voir détails">
                                                                 <i class="bi bi-eye"></i></a>
                                                             <div class="filter">
@@ -99,7 +99,7 @@
                                                                         <li>
                                                                             <button type="button" class="dropdown-item btn btn-sm mx-1"
                                                                                 data-bs-toggle="modal"
-                                                                                data-bs-target="#EditonfpevaluateurModal{{ $onfpevaluateur->id }}">
+                                                                                data-bs-target="#EditonfpevaluateurModal{{ $onfpevaluateur?->id }}">
                                                                                 <i class="bi bi-pencil" title="Modifier"></i> Modifier
                                                                             </button>
                                                                         </li>
@@ -107,7 +107,7 @@
                                                                     @can('onfpevaluateur-delete')
                                                                         <li>
                                                                             <form
-                                                                                action="{{ url('onfpevaluateurs', $onfpevaluateur->id) }}"
+                                                                                action="{{ url('onfpevaluateurs', $onfpevaluateur?->id) }}"
                                                                                 method="post">
                                                                                 @csrf
                                                                                 @method('DELETE')
