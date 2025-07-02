@@ -51,7 +51,7 @@
                                     <tr>
                                         <th width="2%" class="text-center">Code</th>
                                         <th>Type</th>
-                                        <th>Intitulé formation</th>
+                                        <th>Bénéficiaires</th>
                                         <th>Localité</th>
                                         <th>Modules</th>
                                         <th class="text-center">Statut</th>
