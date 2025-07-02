@@ -163,7 +163,7 @@
                             <div class="card-body">
                                 <h5 class="card-title mb-4">
                                     Formations en cours
-                                    <span class="badge bg-light text-dark ms-2">{{ count($formations) }}</span>
+                                    <span class="badge bg-info text-dark ms-2">{{ count($formations) }}</span>
                                 </h5>
                                 @foreach ($formations as $formation)
                                     @php
