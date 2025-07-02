@@ -409,7 +409,7 @@
                     <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
                         <div class="row">
                             <!-- Sales Card -->
-                            <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                            <div class="col-12 col-sm-6 col-lg-3">
                                 <div class="card info-card sales-card">
                                     <div class="filter">
                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -436,7 +436,7 @@
                                     </a>
                                 </div>
                             </div>
-                            {{-- <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                            {{-- <div class="col-12 col-sm-6 col-lg-3">
                             <div class="card info-card sales-card">
                                 <div class="filter">
                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -464,7 +464,7 @@
                         </div> --}}
 
                             {{-- Demandes individuelles --}}
-                            <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                            <div class="col-12 col-sm-6 col-lg-3">
                                 <div class="card info-card sales-card">
                                     <div class="filter">
                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -495,7 +495,7 @@
                             </div>
 
                             {{-- Demandes collectives --}}
-                            <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                            <div class="col-12 col-sm-6 col-lg-3">
                                 <div class="card info-card sales-card">
                                     <div class="filter">
                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -525,7 +525,7 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                            {{-- <div class="col-12 col-sm-6 col-lg-3">
                             <div class="card info-card sales-card">
                                 <div class="filter">
                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -554,7 +554,7 @@
                             </div>
                         </div> --}}
 
-                            {{-- <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                            {{-- <div class="col-12 col-sm-6 col-lg-3">
                             <div class="card info-card sales-card">
                                 <div class="filter">
                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -582,7 +582,7 @@
                                 </a>
                             </div>
                         </div> --}}
-                            <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                            <div class="col-12 col-sm-6 col-lg-3">
                                 <div class="card info-card sales-card">
                                     <div class="filter">
                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -625,7 +625,7 @@
                         <div class="row">
                             <!-- Sales Card -->
                             @if ($user->hasAnyRole('super-admin', 'admin'))
-                                <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                                <div class="col-12 col-sm-6 col-lg-3">
                                     <div class="card info-card sales-card">
                                         <a href="{{ route('user.index') }}">
                                             <div class="card-body">
@@ -651,7 +651,7 @@
                             @endif
 
                             @if ($user->hasAnyRole('super-admin', 'admin', 'courrier'))
-                                <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                                <div class="col-12 col-sm-6 col-lg-3">
                                     <div class="card info-card sales-card">
 
                                         <a href="{{ route('arrives.index') }}">
@@ -676,7 +676,7 @@
 
                                     </div>
                                 </div><!-- End Sales Card -->
-                                <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                                <div class="col-12 col-sm-6 col-lg-3">
                                     <div class="card info-card sales-card">
 
                                         <a href="{{ route('departs.index') }}">
@@ -700,7 +700,7 @@
                                         </a>
                                     </div>
                                 </div><!-- End Sales Card -->
-                                <div class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 col-xxl-3">
+                                <div class="col-12 col-sm-6 col-lg-3">
                                     <div class="card info-card sales-card">
 
                                         <a href="{{ route('internes.index') }}">
