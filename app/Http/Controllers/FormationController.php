@@ -1680,60 +1680,68 @@ class FormationController extends Controller
         /* return redirect()->back()->with("status", "Demande validée"); */
         return redirect()->back();
     }
+
     public function givenotedemandeurs($idformation, Request $request)
     {
-
         $request->validate([
-            'notes' => ['required'],
+            'notes'         => ['required', 'array'],
+            'individuelles' => ['required', 'array'],
         ]);
 
-        $individuelles = $request->individuelles;
-        $notes         = $request->notes;
+        $individuelles = $request->input('individuelles');
+        $notes         = $request->input('notes');
+
+        if (count($individuelles) !== count($notes)) {
+            return back()->withErrors('Le nombre de notes ne correspond pas au nombre de demandeurs.');
+        }
 
         $individuelles_notes = array_combine($individuelles, $notes);
 
         foreach ($individuelles_notes as $key => $value) {
-            $individuelle = Individuelle::findOrFail($key);
+            $individuelle = Individuelle::find($key);
+            if (! $individuelle) {
+                continue;
+            }
+
+            // Calcul de l'appréciation
             if ($value <= 4) {
                 $appreciation = "Médiocre";
             } elseif ($value <= 8) {
-                $appreciation = "Insuffisant ";
+                $appreciation = "Insuffisant";
             } elseif ($value <= 11) {
-                $appreciation = "Passable ";
+                $appreciation = "Passable";
             } elseif ($value <= 13) {
                 $appreciation = "Assez bien";
             } elseif ($value <= 16) {
                 $appreciation = "Bien";
             } elseif ($value <= 19) {
                 $appreciation = "Très bien";
-            } elseif ($value = 20) {
-                $appreciation = "Excellent ";
+            } elseif ($value == 20) {
+                $appreciation = "Excellent";
+            } else {
+                $appreciation = "Non défini";
             }
 
-            if ($individuelle->formation->statut == "Terminée") {
+            // Vérifie que la formation est terminée avant d'attribuer la note
+            if ($individuelle->formation && $individuelle->formation->statut == "Terminée") {
                 $individuelle->update([
                     "note_obtenue" => $value,
                     "appreciation" => $appreciation,
                     "statut"       => 'formé',
                 ]);
+
+                Validationindividuelle::create([
+                    'validated_id'     => Auth::user()->id,
+                    'action'           => 'formé',
+                    'individuelles_id' => $individuelle->id,
+                ]);
             } else {
-                Alert::warning('Désolé !', 'La formation n\'est pas encore achevée.');
+                Alert::warning('Désolé !', 'La formation n\'est pas encore achevée pour l\'un des demandeurs.');
                 return redirect()->back();
             }
-
-            $individuelle->save();
-
-            $validated_by = new Validationindividuelle([
-                'validated_id'     => Auth::user()->id,
-                'action'           => 'formé',
-                'individuelles_id' => $individuelle->id,
-            ]);
-
-            $validated_by->save();
         }
 
         Alert::success('Bravo !', 'L\'évaluation est terminée.');
-
         return redirect()->back();
     }
 
