@@ -2,10 +2,10 @@
 namespace App\Console\Commands;
 
 use App\Models\Formation;
+use App\Models\User;
 use App\Notifications\EvaluationReminderDEC; // Ou le bon modèle qui contient la date de l'évaluation
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Notification;
-use Spatie\Permission\Models\Role;
 
 // À créer
 
@@ -55,18 +55,22 @@ class SendEvaluationReminder extends Command
                 // 📌 Tu peux choisir l’un des deux blocs :
 
                 // Bloc 1 : Utilisateurs avec rôle DEC
-                $usersDEC = \App\Models\User::role('DEC')->get();
+                /* $usersDEC = \App\Models\User::role('DEC')->get(); */
 
                 // Bloc 2 : Emails fixes (décommente si tu préfères)
-                /*
-            $emails = [
-                'dec1@example.com',
-                'dec2@example.com',
-                'responsable@onfp.sn',
-            ];
-            $usersDEC = User::whereIn('email', $emails)->get();
-            */
-                Notification::send($usersDEC, new EvaluationReminderDEC($formation, $label));
+                $emails = array_filter([
+                    'ouly.toure@onfp.sn',
+                    'amsatou.paye@onfp.sn',
+                    'lamine.badji@onfp.sn',
+                    $formation?->ingenieur?->user?->email,
+                    $formation?->onfpevaluateur?->email,
+                ]);
+
+                if (! empty($emails)) {
+                    $usersDEC = User::whereIn('email', $emails)->get();
+
+                    Notification::send($usersDEC, new EvaluationReminderDEC($formation, $label));
+                }
 
             }
 
