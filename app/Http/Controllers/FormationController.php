@@ -1782,7 +1782,7 @@ class FormationController extends Controller
 
             $collectivemodule->save();
 
-            $collective = $collectivemodule?->collective;
+            /* $collective = $collectivemodule?->collective; */
 
             /* $collective->update([
                 "statut_demande" => 'formé',
