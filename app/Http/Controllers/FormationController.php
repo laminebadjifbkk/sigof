@@ -1774,9 +1774,7 @@ class FormationController extends Controller
 
             $listecollective->save();
 
-            $collectivemodule = $listecollective->collectivemodule;
-
-            dd($collectivemodule);
+            $collectivemodule = $listecollective?->collectivemodule;
 
             $collectivemodule->update([
                 "statut" => 'formé',
@@ -1784,7 +1782,7 @@ class FormationController extends Controller
 
             $collectivemodule->save();
 
-            $collective = $collectivemodule->collective;
+            $collective = $collectivemodule?->collective;
 
             $collective->update([
                 "statut_demande" => 'formé',
@@ -1792,6 +1790,8 @@ class FormationController extends Controller
 
             $collective->save();
         }
+
+        dd($collective);
 
         /*  $validated_by = new Validationindividuelle([
         'validated_id'       =>      Auth::user()->id,
