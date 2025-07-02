@@ -147,9 +147,8 @@
                             <td>
                                 <p style="font-weight: bold;">ONFP/DG/DEC/{{ $formation?->onfpevaluateur?->initiale }}
                                 </p>
-                                <p style="text-align: center; font-weight: bold;">Dakar, le</p><br>
-                                <p style="text-align: left; font-weight: bold; font-style: italic">Le Directeur général
-                                </p>
+                                <p style="text-align: center; font-weight: bold;">Dakar, le</p><br><br><br>
+                                <p style="text-align: center; font-weight: bold; font-style: italic">Le Directeur général</p>
                             </td>
                         </tr>
                     </table>
