@@ -116,6 +116,8 @@ class LettrevaluationController extends Controller
             return redirect()->back();
         }
 
+        dd("ok");
+
         $formation = $lettrevaluation->formation;
 
         $lettrevaluations = Lettrevaluation::latest()->get();
