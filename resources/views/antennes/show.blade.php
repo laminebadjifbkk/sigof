@@ -18,7 +18,7 @@
 
                             <div class="row">
                                 <div class="col-sm-12 pt-0">
-                                    <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('/profil') }}"
+                                    <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('antennes.index') }}"
                                             class="btn btn-success btn-sm" title="retour"><i
                                                 class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                         <p> | retour</p>
@@ -37,13 +37,13 @@
                                 </thead>
                                 <tbody>
                                     <?php $i = 1; ?>
-                                    @foreach ($antenne->regions as $region)
+                                    @foreach ($antenne?->regions as $region)
                                         <tr>
                                             <td style="text-align: center;">{{ $i++ }}</td>
                                             <td>{{ $region->nom }}</td>
                                             <td style="text-align: center;">
                                                 <span>
-                                                    {{ count($region->individuelles) }}
+                                                    {{ count($region?->individuelles) }}
                                                 </span>
                                             </td>
                                             <td style="text-align: center;"><span class="d-flex mt-2 align-items-baseline"><a

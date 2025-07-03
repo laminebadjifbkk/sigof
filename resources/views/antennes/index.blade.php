@@ -191,7 +191,7 @@
                                         <option value="">choisir chef antenne</option>
                                         @foreach ($employe as $employes)
                                             <option value="{{ $employes->id }}">
-                                                {{ $employes->matricule . ' ' . $employes->user->firstname . ' ' . $employes->user->name }}
+                                                {{ $employes?->matricule . ' ' . $employes?->user?->firstname . ' ' . $employes?->user?->name }}
                                             </option>
                                         @endforeach
                                     </select>
