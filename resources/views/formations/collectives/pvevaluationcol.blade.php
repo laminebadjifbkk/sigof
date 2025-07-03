@@ -254,11 +254,11 @@
             @endif
             <br>
             <?php $i = 1; ?>
-            {{ $formation?->evaluateur?->name . ' ' . $formation?->evaluateur?->lastname . ', ' . $formation?->evaluateur?->fonction }}<br><br>
-            {{ $formation?->onfpevaluateur?->name . ', ' . $formation?->onfpevaluateur?->fonction }}<br><br>
+            {{ $formation?->evaluateur?->name . ' ' . $formation?->evaluateur?->lastname . ', ' . $formation?->evaluateur?->fonction }}<br>
+            {{ $formation?->onfpevaluateur?->name . ', ' . $formation?->onfpevaluateur?->fonction }}<br>
             @if (!empty($membres_jury))
                 @foreach ($membres_jury as $item)
-                    {{ $item }} <br><br>
+                    {{ $item }} <br>
                     {{-- {{ $i++ . '/' . $count_membres . '. ' . $item }} <br><br> --}}
                 @endforeach
             @endif
