@@ -3,7 +3,7 @@
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-12 col-lg-10">
+            <div class="col-12 col-md-12 col-lg-12">
                 <div class="pagetitle">
                     {{-- <h1>Data Tables</h1> --}}
                     <nav>
@@ -34,28 +34,30 @@
                         <table class="table datatables align-middle justify-content-center" id="table-localites">
                             <thead>
                                 <tr>
+                                    <th width='3%'>N°</th>
                                     <th>Départements</th>
                                     <th>Régions</th>
-                                    <th class="text-center" scope="col">Demandes individuelles</th>
-                                    <th class="text-center" scope="col">#</th>
+                                    {{-- <th class="text-center" scope="col">Demandes individuelles</th> --}}
+                                    <th class="text-center" width='3%'>#</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 1; ?>
                                 @foreach ($localites as $localite)
                                     <tr>
-                                        <td>{{ $localite->nom }}</td>
-                                        <td>{{ $localite->region->nom }}</td>
-                                        <td style="text-align: center;">
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $localite?->nom }}</td>
+                                        <td>{{ $localite?->region?->nom }}</td>
+                                        {{-- <td style="text-align: center;">
                                             @foreach ($localite->individuelles as $individuelle)
                                                 @if ($loop->last)
                                                     <span class="badge bg-info">{{ $loop->count }}</span>
                                                 @endif
                                             @endforeach
-                                        </td>
+                                        </td> --}}
                                         <td style="text-align: center;">
                                             <span class="d-flex mt-2 align-items-baseline">
-                                                <a href="{{ url('localites/' . $localite->region->id) }}"
+                                                <a href="{{ route('localites.show', $localite->region->id) }}"
                                                     class="btn btn-success btn-sm mx-1" title="Voir détails"><i
                                                         class="bi bi-eye"></i></a>
                                             </span>
@@ -77,11 +79,11 @@
         new DataTable('#table-localites', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [
-                [2, 'desc']
+                [0, 'asc']
             ],
             language: {
                 "sProcessing": "Traitement en cours...",

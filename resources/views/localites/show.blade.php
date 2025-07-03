@@ -23,6 +23,7 @@
                                     <th>NOM</th>
                                     <th>Date naissance</th>
                                     <th>Lieu naissance</th>
+                                    <th>Telephone</th>
                                     <th>Module</th>
                                     <th class="text-center">Statut</th>
                                     <th class="text-center">#</th>
@@ -41,6 +42,9 @@
                                             <td>{{ $individuelle?->user?->name }}</td>
                                             <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                             <td>{{ $individuelle?->user?->lieu_naissance }}</td>
+                                            <td><a
+                                                    href="{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a>
+                                            </td>
                                             <td>{{ $individuelle->module?->name }}</td>
                                             <td>
 
