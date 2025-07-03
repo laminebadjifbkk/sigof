@@ -14,7 +14,7 @@
     </div><!-- End Page Title -->
     <section class="section">
         <div class="row justify-content-center">
-            <div class="col-lg-10">
+            <div class="col-12 col-lg-12">
                 @if ($message = Session::get('status'))
                     <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                         role="alert">
