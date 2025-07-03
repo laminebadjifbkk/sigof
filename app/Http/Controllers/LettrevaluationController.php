@@ -117,13 +117,13 @@ class LettrevaluationController extends Controller
         }
 
         $formation = $lettrevaluation->formation;
-        dd("ok");
 
         $lettrevaluations = Lettrevaluation::latest()->get();
         $formations       = Formation::whereNotNull('numero_convention')->latest()->get();
         $onfpevaluateurs  = Onfpevaluateur::latest()->get();
         $evaluateurs      = Evaluateur::latest()->get();
         $referentiels     = Referentiel::latest()->get();
+        dd($referentiels);
         return view('formations.lettrevaluations.update', compact('lettrevaluations', 'formations', 'onfpevaluateurs', 'evaluateurs', 'lettrevaluation', 'formation', 'referentiels'));
     }
 
