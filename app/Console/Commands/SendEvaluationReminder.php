@@ -32,15 +32,15 @@ class SendEvaluationReminder extends Command
 
         // Regrouper les dates cibles
         $dates = [
-            'J-5' => $dateJmoins5,
-            'J-4' => $dateJmoins4,
-            'J-3' => $dateJmoins3,
-            'J-2' => $dateJmoins2,
-            'J-1' => $dateJmoins1,
+            'Jour J-5' => $dateJmoins5,
+            'Jour J-4' => $dateJmoins4,
+            'Jour J-3' => $dateJmoins3,
+            'Jour J-2' => $dateJmoins2,
+            'Jour J-1' => $dateJmoins1,
         ];
 
         if ($isTodayAt8) {
-            $dates['J'] = $dateJ;
+            $dates['Jour J'] = $dateJ;
         }
 
         foreach ($dates as $label => $targetDate) {

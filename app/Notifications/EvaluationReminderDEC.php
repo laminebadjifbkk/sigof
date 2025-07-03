@@ -42,7 +42,7 @@ class EvaluationReminderDEC extends Notification
             ->line("📅 **{$this->rappelNiveau}** : L'évaluation de la formation en \"{$moduleFormation}\" est prévue le " . $this->formation->date_fin->format('d/m/Y') . " à " . $this->formation->lieu . ".")
             ->line("👤 Ingénieur responsable : {$ingenieur}")
             ->line("🏢 Opérateur d’exécution : {$operateur}")
-            ->action('Voir la formation', route('formations.show', $this->formation))
+            ->action('Voir la formation', url(route('formations.show', $this->formation, false)))
             ->line('Merci de prendre les dispositions nécessaires.');
     }
 }
