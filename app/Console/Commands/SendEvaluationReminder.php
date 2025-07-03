@@ -59,11 +59,11 @@ class SendEvaluationReminder extends Command
 
                 // Bloc 2 : Emails fixes (décommente si tu préfères)
                 $emails = array_filter([
-                    'ouly.toure@onfp.sn',
-                    'amsatou.paye@onfp.sn',
+                    /* 'ouly.toure@onfp.sn',
+                    'amsatou.paye@onfp.sn', */
                     'lamine.badji@onfp.sn',
-                    $formation?->ingenieur?->user?->email,
-                    $formation?->onfpevaluateur?->email,
+                    /* $formation?->ingenieur?->user?->email,
+                    $formation?->onfpevaluateur?->email, */
                 ]);
 
                 if (! empty($emails)) {
