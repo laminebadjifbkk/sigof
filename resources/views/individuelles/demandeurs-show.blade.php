@@ -527,86 +527,6 @@
             <div class="row mb-3 pt-5">
                 <h5 class="card-title col-12 col-md-4">
                     FICHIERS JOINTS</h5>
-                {{-- <div class="col-12 col-md-8">
-                    <table class="table table-bordered table-hover datatables" id="table-iles">
-                        <thead>
-                            <tr class="text-center">
-                                <th width="5%">N°</th>
-                                <th>Légende</th>
-                                <th width="10%">File</th>
-                                <th width="10%">Statut</th>
-                                <th width="5%">Supprimer</th>
-                                <th width="5%">Valider</th>
-                                <th width="5%">Invalider</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $i = 1; ?>
-                            @foreach ($files as $file)
-                                <tr class="text-center">
-                                    <td>{{ $i++ }}</td>
-                                    <td>{{ $file?->legende }}</td>
-                                    <td>
-                                        <a class="btn btn-default btn-sm" title="télécharger le fichier joint"
-                                            target="_blank" href="{{ asset($file->getFichier()) }}">
-                                            <i class="bi bi-download"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <span
-                                            class="{{ $file?->statut ?? 'Attente' }}">{{ $file?->statut ?? 'Attente' }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="d-flex align-items-baseline">
-                                            <form action="{{ route('fileDestroy') }}" method="post">
-                                                @csrf
-                                                @method('put')
-                                                <input type="hidden" name="idFile" value="{{ $file->id }}">
-                                                <button type="submit" style="background:none;border:0px;"
-                                                    class="show_confirm" title="retirer">
-                                                    <span class="badge border-danger text-danger">
-                                                        <i class="bi bi-trash"></i>
-                                                    </span>
-                                                </button>
-                                            </form>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="d-flex align-items-baseline">
-                                            <form action="{{ route('fileValidate') }}" method="post">
-                                                @csrf
-                                                @method('put')
-                                                <input type="hidden" name="idFile" value="{{ $file->id }}">
-                                                <button type="submit" style="background:none;border:0px;"
-                                                    class="show_confirm" title="retirer">
-                                                    <span class="badge border-success text-success">
-                                                        <i class="bi bi-trash"></i>
-                                                    </span>
-                                                </button>
-                                            </form>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="d-flex align-items-baseline">
-                                            <form action="{{ route('fileInvalide') }}" method="post">
-                                                @csrf
-                                                @method('put')
-                                                <input type="hidden" name="idFile" value="{{ $file->id }}">
-                                                <button type="submit" style="background:none;border:0px;"
-                                                    class="show_confirm" title="retirer">
-                                                    <span class="badge border-warning text-warning">
-                                                        <i class="bi bi-trash"></i>
-                                                    </span>
-                                                </button>
-                                            </form>
-                                        </span>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div> --}}
                 <div class="col-12 col-lg-8 mx-auto">
                     <div class="card shadow-sm border-0">
                         <div class="card-header bg-default">
@@ -621,7 +541,7 @@
                                         <th style="width: 10%">Fichier</th>
                                         <th style="width: 10%">Statut</th>
                                         <th style="width: 10%">Supprimer</th>
-                                        @hasanyrole('super-admin|admin|DIOF')
+                                        @hasanyrole('super-admin|admin|DIOF|Ingenieur')
                                             <th style="width: 10%">Valider</th>
                                             <th style="width: 10%">Rejeter</th>
                                         @endhasanyrole
@@ -668,7 +588,7 @@
                                                 @endif
                                             </td>
 
-                                            @hasanyrole('super-admin|admin|DIOF')
+                                            @hasanyrole('super-admin|admin|DIOF|Ingenieur')
                                                 {{-- Valider --}}
                                                 <td>
                                                     <form action="{{ route('fileValidate') }}" method="post" class="d-inline">
