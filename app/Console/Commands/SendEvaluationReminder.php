@@ -28,7 +28,7 @@ class SendEvaluationReminder extends Command
         $dateJ       = $now;
 
         // Vérifie si on est aujourd’hui à 08h
-        $isTodayAt8 = now()->format('H:i') === '08:00';
+        $isTodayAt8 = now()->format('H:i') === '09:00';
 
         // Regrouper les dates cibles
         $dates = [
