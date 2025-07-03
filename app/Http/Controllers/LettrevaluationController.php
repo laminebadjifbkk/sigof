@@ -123,7 +123,6 @@ class LettrevaluationController extends Controller
         $onfpevaluateurs  = Onfpevaluateur::latest()->get();
         $evaluateurs      = Evaluateur::latest()->get();
         $referentiels     = Referentiel::latest()->get();
-        dd($referentiels);
         return view('formations.lettrevaluations.update', compact('lettrevaluations', 'formations', 'onfpevaluateurs', 'evaluateurs', 'lettrevaluation', 'formation', 'referentiels'));
     }
 

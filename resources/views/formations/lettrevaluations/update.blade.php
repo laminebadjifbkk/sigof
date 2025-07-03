@@ -74,11 +74,11 @@
                                                 class="form-select form-select-sm @error('onfpevaluateur') is-invalid @enderror"
                                                 aria-label="Select" id="onfpevaluateurSelected" data-placeholder="Choisir">
                                                 <option
-                                                    value="{{ $lettrevaluation?->formation->onfpevaluateur?->id ?? old('onfpevaluateur') }}">
-                                                    {{ $lettrevaluation?->formation->onfpevaluateur->name . ' ' . $lettrevaluation?->formation->onfpevaluateur->lastname ?? old('onfpevaluateur') }}
+                                                    value="{{ $lettrevaluation?->formation?->onfpevaluateur?->id ?? old('onfpevaluateur') }}">
+                                                    {{ $lettrevaluation?->formation?->onfpevaluateur?->name . ' ' . $lettrevaluation?->formation?->onfpevaluateur?->lastname ?? old('onfpevaluateur') }}
                                                 </option>
                                                 @foreach ($onfpevaluateurs as $onfpevaluateur)
-                                                    <option value="{{ $onfpevaluateur->id }}">
+                                                    <option value="{{ $onfpevaluateur?->id }}">
                                                         {{ $onfpevaluateur?->name . ' ' . $onfpevaluateur?->lastname }}
                                                     </option>
                                                 @endforeach
@@ -98,11 +98,11 @@
                                                 aria-label="Select" id="evaluateurSelected" data-placeholder="Choisir">
                                                 <option
                                                     value="{{ $lettrevaluation?->formation->evaluateur->id ?? old('evaluateur') }}">
-                                                    {{ $lettrevaluation?->formation->evaluateur->name . ' ' . $lettrevaluation?->formation->evaluateur->lastname ?? old('evaluateur') }}
+                                                    {{ $lettrevaluation?->formation?->evaluateur?->name . ' ' . $lettrevaluation?->formation?->evaluateur?->lastname ?? old('evaluateur') }}
                                                 </option>
                                                 @foreach ($evaluateurs as $evaluateur)
-                                                    <option value="{{ $evaluateur->id }}">
-                                                        {{ $evaluateur->name . ' ' . $evaluateur->lastname }}
+                                                    <option value="{{ $evaluateur?->id }}">
+                                                        {{ $evaluateur?->name . ' ' . $evaluateur?->lastname }}
                                                     </option>
                                                 @endforeach
                                             </select>
