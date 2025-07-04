@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'modification demande collective')
+@section('title', 'Modification demande ' . $collective?->name)
 @section('space-work')
     <section class="section min-vh-0 d-flex flex-column align-items-center justify-content-center py-0">
         <div class="container-fluid">
@@ -17,8 +17,7 @@
                             role="alert"><strong>{{ $error }}</strong></div>
                     @endforeach
                 @endif
-                <div
-                    class="col-12 d-flex flex-column align-items-center justify-content-center">
+                <div class="col-12 d-flex flex-column align-items-center justify-content-center">
                     <div class="card mb-3">
 
                         <div class="card-body">
@@ -66,7 +65,7 @@
                                     @enderror
                                 </div> --}}
 
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-4 col-lg-4">
                                     <label for="numero" class="form-label">N° courrier<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" placeholder="Rechercher numéro courrier..."
@@ -80,7 +79,8 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-8">
+
+                                <div class="col-12 col-md-8 col-lg-8">
                                     <label for="objet" class="form-label">Nom de la structure<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" placeholder="La raison sociale de l'opérateur"
@@ -94,7 +94,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-4 col-lg-4">
                                     <label for="sigle" class="form-label">Sigle</label>
                                     <input type="text" name="sigle" value="{{ $collective?->sigle ?? old('sigle') }}"
                                         class="form-control form-control-sm @error('sigle') is-invalid @enderror"
@@ -106,7 +106,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-4 col-lg-4">
                                     <label for="email" class="form-label">Email<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="email" name="email" value="{{ $collective?->email ?? old('email') }}"
@@ -119,7 +119,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-4 col-lg-4">
                                     <label for="fixe" class="form-label">Téléphone fixe</label>
                                     <input name="fixe" type="text" maxlength="12"
                                         class="form-control form-control-sm @error('fixe') is-invalid @enderror"
@@ -132,7 +132,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-4 col-lg-4">
                                     <label for="telephone" class="form-label">Téléphone portable<span
                                             class="text-danger mx-1">*</span></label>
                                     <input name="telephone" type="text" maxlength="12"
@@ -146,7 +146,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-4 col-lg-4">
                                     <label for="bp" class="form-label">Boite postal</label>
                                     <input type="text" name="bp" value="{{ $collective?->bp ?? old('bp') }}"
                                         class="form-control form-control-sm @error('bp') is-invalid @enderror"
@@ -158,7 +158,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-4 col-lg-4">
                                     <label for="statut" class="form-label">Statut juridique<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="statut" class="form-select  @error('statut') is-invalid @enderror"
@@ -192,7 +192,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-4 col-lg-4">
                                     <label for="autre_statut" class="form-label">Si autre ?
                                         précisez</label>
                                     <input type="text" name="autre_statut"
@@ -206,7 +206,7 @@
                                     @enderror
                                 </div>
                                 @can('collective-show')
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-4 col-lg-4">
                                         <label for="date_depot" class="form-label">Date dépot<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="date" name="date_depot"
@@ -221,7 +221,7 @@
                                     </div>
                                 @endcan
 
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-4 col-lg-4">
                                     <label for="departement" class="form-label">Département<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="departement"
@@ -315,7 +315,7 @@
 
                                 <hr class="dropdown-divider mt-3">
 
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-4 col-lg-4">
                                     <label for="civilite" class="form-label">Civilité responsable<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="civilite"
@@ -338,7 +338,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-4 col-lg-4">
                                     <label for="prenom" class="form-label">Prénom responsable<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="prenom"
@@ -352,7 +352,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-4 col-lg-4">
                                     <label for="nom" class="form-label">Nom responsable<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="nom"
@@ -366,7 +366,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-4 col-lg-4">
                                     <label for="email_responsable" class="form-label">Adresse e-mail<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="email" name="email_responsable"
@@ -380,7 +380,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-4 col-lg-4">
                                     <label for="telephone_responsable" class="form-label">Téléphone responsable<span
                                             class="text-danger mx-1">*</span></label>
                                     <input name="telephone_responsable" type="text" maxlength="12"
@@ -395,7 +395,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-4 col-lg-4">
                                     <label for="fonction_responsable" class="form-label">Fonction responsable<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="fonction_responsable"
