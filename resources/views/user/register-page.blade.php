@@ -95,7 +95,7 @@
                                     </div> --}}
 
                                     <div class="pt-0 pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Création compte personnel</h5>
+                                        <h5 class="card-title text-center pb-0 fs-4">Inscription</h5>
                                         <p class="text-center small">Entrez vos informations pour créer un compte</p>
                                     </div>
 
@@ -106,8 +106,8 @@
                                                 @csrf
 
                                                 <!-- Username -->
-                                                <input type="hidden" name="role" value="Demandeur">
-                                                <div class="col-12 col-xxl-12">
+                                                {{-- <input type="hidden" name="role" value="Demandeur">
+                                                <div class="col-12">
                                                     <label for="username" class="form-label">Username<span
                                                             class="text-danger mx-1">*</span></label>
                                                     <div class="input-group has-validation">
@@ -123,10 +123,10 @@
                                                             @enderror
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
                                                 <!-- Addresse E-mail -->
-                                                <div class="col-12 col-xxl-12">
+                                                <div class="col-12">
                                                     <label for="email" class="form-label">E-mail<span
                                                             class="text-danger mx-1">*</span></label>
                                                     <div class="input-group has-validation">
@@ -144,14 +144,15 @@
                                                 </div>
 
                                                 <!-- Téléphone -->
-                                                <div class="col-12 col-xxl-12">
+                                                <div class="col-12">
                                                     <label for="votre_telephone" class="form-label">Téléphone<span
                                                             class="text-danger mx-1">*</span></label>
                                                     <div class="input-group has-validation">
                                                         <span class="input-group-text" id="inputGroupPrepend">@</span>
                                                         <input type="text" name="votre_telephone" maxlength="12"
                                                             class="form-control form-control-sm @error('votre_telephone') is-invalid @enderror"
-                                                            id="votre_telephone" required placeholder="Votre téléphone"
+                                                            id="votre_telephone" required
+                                                            placeholder="Votre téléphone"
                                                             value="{{ old('votre_telephone') }}"
                                                             autocomplete="votre_telephone">
                                                         <div class="invalid-feedback">
@@ -163,7 +164,7 @@
                                                 </div>
 
                                                 <!-- Mot de passe -->
-                                                <div class="col-12 col-xxl-12">
+                                                <div class="col-12">
                                                     <label for="password" class="form-label">Mot de passe<span
                                                             class="text-danger mx-1">*</span></label>
                                                     <div class="input-group has-validation">
@@ -187,7 +188,7 @@
                                                 </div>
 
                                                 <!-- Mot de passe de confirmation -->
-                                                <div class="col-12 col-xxl-12">
+                                                <div class="col-12">
                                                     <label for="password_confirmation" class="form-label">Confirmez
                                                         mot de
                                                         passe<span class="text-danger mx-1">*</span></label>
@@ -212,7 +213,37 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12 col-xxl-12">
+                                                <!-- Sélection du rôle -->
+                                                <div class="col-12">
+                                                    <label class="form-label d-block">Choisir votre rôle<span
+                                                            class="text-danger mx-1">*</span></label>
+                                                    <div class="form-check form-check-inline">
+                                                        <input
+                                                            class="form-check-input @error('role') is-invalid @enderror"
+                                                            type="radio" name="role" id="role_demandeur"
+                                                            value="Demandeur"
+                                                            {{ old('role') == 'Demandeur' ? 'checked' : '' }} required>
+                                                        <label class="form-check-label" for="role_demandeur">Demandeur
+                                                            de
+                                                            formation</label>
+                                                    </div>
+                                                    {{-- <div class="form-check form-check-inline">
+                                                        <input
+                                                            class="form-check-input @error('role') is-invalid @enderror"
+                                                            type="radio" name="role" id="role_operateur"
+                                                            value="Operateur"
+                                                            {{ old('role') == 'Operateur' ? 'checked' : '' }} required>
+                                                        <label class="form-check-label" for="role_operateur">Opérateur
+                                                            ou
+                                                            formateur</label>
+                                                    </div> --}}
+                                                    <div class="invalid-feedback d-block">
+                                                        @error('role')
+                                                            {{ $message }}
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
                                                     <div class="form-check">
                                                         <input
                                                             class="form-check-input @error('termes') is-invalid @enderror"
@@ -233,14 +264,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-xxl-12">
+                                                <div class="col-12">
                                                     <button class="btn text-white fw-bold w-100"
                                                         style="background: #FF8000;" type="submit">
                                                         S'inscrire
                                                     </button>
                                                 </div>
-                                                <div
-                                                    class="col-12 col-xxl-12 justify-content-center">
+                                                <div class="col-12 justify-content-center">
                                                     <p class="small">Vous avez déjà un compte ? <a
                                                             href="{{ route('login') }}">Se connecter</a></p>
                                                 </div>
@@ -296,7 +326,7 @@
             }
         });
     </script>
-        <script>
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             var telephoneInput = document.getElementById("votre_telephone");
 

@@ -184,7 +184,7 @@ class OperateurController extends Controller
             'type_demande'    => $request->input("type_demande"),
             'debut_quitus'    => $date_quitus,
             'annee_agrement'  => date('Y-m-d'),
-            'statut_agrement' => 'nouveau',
+            'statut_agrement' => 'Nouveau',
             'departements_id' => $departement?->id,
             'regions_id'      => $departement?->region?->id,
             'users_id'        => $user->id,
@@ -287,7 +287,7 @@ class OperateurController extends Controller
             "type_demande"     => $request->input("type_demande"),
             "debut_quitus"     => $date_quitus,
             "annee_agrement"   => now()->format('Y-m-d'),
-            "statut_agrement"  => 'nouveau',
+            "statut_agrement"  => 'Nouveau',
             "departements_id"  => $departement?->id,
             "regions_id"       => $departement?->region?->id,
             "users_id"         => $user->id,
@@ -318,112 +318,124 @@ class OperateurController extends Controller
 
     public function renewOperateur(Request $request)
     {
+
         $user = Auth::user();
-        foreach ($user->operateurs as $key => $operateur) {
+
+        $operateur = $user->operateurs()->orderByDesc('id')->first();
+
+        // Vérifier s'il existe un opérateur
+        if (! $operateur || ! $operateur->annee_agrement) {
+            Alert::error('Erreur', 'Aucun agrément trouvé. Veuillez d\'abord effectuer une demande.');
+            return back();
         }
+
         $this->validate($request, [
             "quitus"      => ['image', 'required', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
             "date_quitus" => ['required', 'date_format:d/m/Y'],
         ]);
 
-        /* foreach (Auth::user()->roles as $key => $role) {
-            if (! empty($role?->name) && ($role?->name != 'super-admin') && ($role?->name != 'Employe') && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
-                $this->authorize('view', $operateur);
-            }
-        } */
+// Date d'agrément (extrait, peut être Carbon)
+        $annee_agrement = $operateur->annee_agrement; // supposé être une instance Carbon
 
-        /* $rolesAutorises = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
+// Date actuelle
+        $now = Carbon::now();
 
-        $userRoles = Auth::user()->roles->pluck('name')->toArray();
+// Différence en années
+        $diffAnnee = $annee_agrement->diffInYears($now);
 
-        if (! array_intersect($rolesAutorises, $userRoles)) {
+        if ($diffAnnee < 2) {
+            Alert::warning('Désolé !', 'Vous ne pouvez pas renouveler votre agrément pour le moment car il est toujours valable.');
+            return back();
+        } elseif ($diffAnnee >= 4) {
+            Alert::warning('Désolé !', 'Votre agrément a expiré. Veuillez faire une nouvelle demande.');
+            return back();
+        } else {
+
             $this->authorize('view', $operateur);
-        } */
 
-        $this->authorize('view', $operateur);
+            $dateString  = $request->input('date_quitus');
+            $date_quitus = ! empty($dateString) ? Carbon::createFromFormat('d/m/Y', $dateString) : null;
 
-        $dateString  = $request->input('date_quitus');
-        $date_quitus = ! empty($dateString) ? Carbon::createFromFormat('d/m/Y', $dateString) : null;
-
-        $op = Operateur::create([
-            "numero_agrement" => '/ONFP/DG/DEC/' . date('Y'),
-            "categorie"       => $operateur?->categorie,
-            "statut"          => $operateur?->statut,
-            "statut_agrement" => 'nouveau',
-            "autre_statut"    => $operateur?->autre_statut,
-            "type_demande"    => 'Renouvellement',
-            "annee_agrement"  => now()->format('Y-m-d'),
-            "rccm"            => $operateur?->registre_commerce,
-            "ninea"           => $operateur?->ninea,
-            "debut_quitus"    => $date_quitus,
-            "departements_id" => $operateur?->departements_id,
-            "regions_id"      => $operateur?->departement?->region?->id,
-            "users_id"        => $operateur?->users_id,
-        ]);
+            $op = Operateur::create([
+                "numero_agrement" => $operateur?->numero_agrement,
+                "categorie"       => $operateur?->categorie,
+                "statut"          => $operateur?->statut,
+                "statut_agrement" => 'Nouveau',
+                "autre_statut"    => $operateur?->autre_statut,
+                "type_demande"    => 'Renouvellement',
+                "annee_agrement"  => now()->format('Y-m-d'),
+                "rccm"            => $operateur?->registre_commerce,
+                "ninea"           => $operateur?->ninea,
+                "debut_quitus"    => $date_quitus,
+                "departements_id" => $operateur?->departements_id,
+                "regions_id"      => $operateur?->departement?->region?->id,
+                "users_id"        => $operateur?->users_id,
+            ]);
 
 // Gestion du fichier quitus
-        if ($request->hasFile('quitus')) {
-            $quitusPath = $request->file('quitus')->store('quitus', 'public');
-            $op->update(['quitus' => $quitusPath]);
-        }
+            if ($request->hasFile('quitus')) {
+                $quitusPath = $request->file('quitus')->store('quitus', 'public');
+                $op->update(['quitus' => $quitusPath]);
+            }
 
 // Clonage des modules de l'opérateur
-        foreach ($operateur->operateurmodules as $operateurmodule) {
-            Operateurmodule::create([
-                "module"               => $operateurmodule->module,
-                "domaine"              => $operateurmodule->domaine,
-                "categorie"            => $operateurmodule->categorie,
-                "niveau_qualification" => $operateurmodule->niveau_qualification,
-                "statut"               => $operateurmodule->statut,
-                "operateurs_id"        => $op->id,
-            ]);
-        }
+            foreach ($operateur->operateurmodules as $operateurmodule) {
+                Operateurmodule::create([
+                    "module"               => $operateurmodule->module,
+                    "domaine"              => $operateurmodule->domaine,
+                    "categorie"            => $operateurmodule->categorie,
+                    "niveau_qualification" => $operateurmodule->niveau_qualification,
+                    "statut"               => $operateurmodule->statut,
+                    "operateurs_id"        => $op->id,
+                ]);
+            }
 
 // Clonage des références
-        foreach ($operateur->operateureferences as $operateureference) {
-            Operateureference::create([
-                "organisme"     => $operateureference->organisme,
-                "contact"       => $operateureference->contact,
-                "periode"       => $operateureference->periode,
-                "description"   => $operateureference->description,
-                "operateurs_id" => $op->id,
-            ]);
-        }
+            foreach ($operateur->operateureferences as $operateureference) {
+                Operateureference::create([
+                    "organisme"     => $operateureference->organisme,
+                    "contact"       => $operateureference->contact,
+                    "periode"       => $operateureference->periode,
+                    "description"   => $operateureference->description,
+                    "operateurs_id" => $op->id,
+                ]);
+            }
 
 // Clonage des formateurs
-        foreach ($operateur->operateurformateurs as $operateurformateur) {
-            Operateurformateur::create([
-                "name"                   => $operateurformateur->name,
-                "domaine"                => $operateurformateur->domaine,
-                "nbre_annees_experience" => $operateurformateur->nbre_annees_experience,
-                "references"             => $operateurformateur->references,
-                "operateurs_id"          => $op->id,
-            ]);
-        }
+            foreach ($operateur->operateurformateurs as $operateurformateur) {
+                Operateurformateur::create([
+                    "name"                   => $operateurformateur->name,
+                    "domaine"                => $operateurformateur->domaine,
+                    "nbre_annees_experience" => $operateurformateur->nbre_annees_experience,
+                    "references"             => $operateurformateur->references,
+                    "operateurs_id"          => $op->id,
+                ]);
+            }
 
 // Clonage des équipements
-        foreach ($operateur->operateurequipements as $operateurequipement) {
-            Operateurequipement::create([
-                "designation"   => $operateurequipement->designation,
-                "quantite"      => $operateurequipement->quantite,
-                "etat"          => $operateurequipement->etat,
-                "type"          => $operateurequipement->type,
-                "operateurs_id" => $op->id,
-            ]);
-        }
+            foreach ($operateur->operateurequipements as $operateurequipement) {
+                Operateurequipement::create([
+                    "designation"   => $operateurequipement->designation,
+                    "quantite"      => $operateurequipement->quantite,
+                    "etat"          => $operateurequipement->etat,
+                    "type"          => $operateurequipement->type,
+                    "operateurs_id" => $op->id,
+                ]);
+            }
 
 // Clonage des localités
-        foreach ($operateur->operateurlocalites as $operateurlocalite) {
-            Operateurlocalite::create([
-                "name"          => $operateurlocalite->name,
-                "region"        => $operateurlocalite->region,
-                "operateurs_id" => $op->id,
-            ]);
+            foreach ($operateur->operateurlocalites as $operateurlocalite) {
+                Operateurlocalite::create([
+                    "name"          => $operateurlocalite->name,
+                    "region"        => $operateurlocalite->region,
+                    "operateurs_id" => $op->id,
+                ]);
+            }
+
+            Alert::success("Succès !", "Votre renouvellement a été pris en compte");
+
+            return redirect()->back();
         }
-
-        Alert::success("Succès !", "Votre renouvellement a été pris en compte");
-
-        return redirect()->back();
 
     }
 
@@ -462,19 +474,6 @@ class OperateurController extends Controller
         ]);
 
         $departement = Departement::where('nom', $request->input("departement"))->firstOrFail();
-
-        /*      foreach (Auth::user()->roles as $key => $role) {
-            if (! empty($role?->name) && ($role?->name != 'super-admin') && ($role?->name != 'Employe') && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
-                $this->authorize('update', $operateur);
-            }
-            if (! empty($role?->name) && ($operateur->statut_agrement != 'nouveau') && ($role?->name != 'super-admin') && ($role?->name != 'Employe') && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
-                Alert::warning('Attention ! ', 'action impossible');
-                return redirect()->back();
-            }
-        } */
-/*
-        $rolesAutorises = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'ADEC', 'ADIOF', 'Ingenieur'];
-        $userRoles      = Auth::user()->roles->pluck('name')->toArray(); */
 
 // Si aucun rôle autorisé n'est trouvé chez l'utilisateur
         /* if (! array_intersect($rolesAutorises, $userRoles)) { */
@@ -582,7 +581,7 @@ class OperateurController extends Controller
         $this->authorize('update', $operateur);
 
         // Vérifier le statut de l'opérateur et autoriser l'action si nécessaire
-        if ($operateur->statut_agrement !== 'nouveau') {
+        if ($operateur->statut_agrement !== 'Nouveau') {
             Alert::warning('Attention !', 'Action impossible');
             return redirect()->back();
         }
@@ -664,35 +663,26 @@ class OperateurController extends Controller
 
     public function destroy(Operateur $operateur)
     {
-
         $this->authorize('delete', $operateur);
-// Delete quitus file if it exists
+
+        // Vérifier que le statut permet la suppression
+        if ($operateur->statut_agrement !== 'Nouveau') {
+            Alert::warning('Action refusée', 'Seuls les opérateurs avec le statut "Nouveau" peuvent être supprimés.');
+            return redirect()->back();
+        }
+
+        // Supprimer le fichier quitus s’il existe
         if ($operateur->quitus) {
             Storage::disk('public')->delete($operateur->quitus);
         }
 
-// Check if the operator's status is 'nouveau'
-        /* if ($operateur->statut_agrement !== 'nouveau') {
-            Alert::warning('Attention !', 'Action impossible');
-            return redirect()->back();
-        }
- */
-/* // Check if the user has the correct roles to delete the operator
-        $validRoles   = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
-        $hasValidRole = Auth::user()->roles->pluck('name')->intersect($validRoles)->isNotEmpty();
-
-// If the user doesn't have a valid role, check if they are authorized to delete
-        if (! $hasValidRole) {
-            $this->authorize('delete', $operateur);
-        } */
-
-// Delete the operator and show success alert
+        // Supprimer l’opérateur
         $operateur->delete();
-        Alert::success('Succès ! ', $operateur->user->username . ' a été supprimé');
 
-// Redirect back
+        // Message de succès
+        Alert::success('Succès !', $operateur->user->username . ' a été supprimé');
+
         return redirect()->back();
-
     }
 
     public function fetch(Request $request)
@@ -796,7 +786,7 @@ class OperateurController extends Controller
         $moduleoperateur_count = $operateur->operateurmodules->count();
 
         if ($moduleoperateur_count > 0) {
-            if ($operateur->statut_agrement == 'nouveau' || $operateur->statut_agrement == 'non retenu') {
+            if ($operateur->statut_agrement == 'Nouveau' || $operateur->statut_agrement == 'non retenu') {
                 $operateur->update([
                     'statut_agrement' => 'Retenu',
                 ]);
@@ -890,7 +880,7 @@ class OperateurController extends Controller
         $operateur             = Operateur::findOrFail($id);
         $moduleoperateur_count = $operateur->operateurmodules->count();
 
-        $count_nouveau = $operateur->operateurmodules->where('statut', 'nouveau')->count();
+        $count_nouveau = $operateur->operateurmodules->where('statut', 'Nouveau')->count();
 
         if ($count_nouveau > 0) {
             Alert::warning('Désolé ! ', 'il reste de(s) module(s) à traiter');
@@ -944,7 +934,7 @@ class OperateurController extends Controller
     public function retirerOperateur($id)
     {
         $operateur = Operateur::findOrFail($id);
-        if ($operateur->statut_agrement != 'nouveau') {
+        if ($operateur->statut_agrement != 'Nouveau') {
             Alert::warning('Attention ! ', 'action impossible opérateur déjà traité');
             return redirect()->back();
         }
@@ -1340,7 +1330,7 @@ class OperateurController extends Controller
             ->distinct()
             ->get();
 
-        $count = $operateurs->count();
+        $count               = $operateurs->count();
         $commissionagrements = Commissionagrement::orderBy('commission', 'desc')->get();
 
         // Gestion du titre des résultats

@@ -89,7 +89,7 @@
                                                         src="{{ asset($user->getImage()) }}" width="40" height="auto">
                                                 </a>
                                             </th>
-                                            <td>{{ $user->username }}</td>
+                                            <td>{{ $user?->username }}</td>
                                             <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                             <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a></td>
                                             <td>
@@ -187,7 +187,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12 col-md-6 col-lg-4">
+                                {{-- <div class="col-12 col-md-6 col-lg-4">
                                     <label for="username" class="form-label">Username<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="username" value="{{ old('username') }}"
@@ -198,7 +198,7 @@
                                             <div>{{ $message }}</div>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <label for="firstname" class="form-label">Prénom<span
@@ -333,7 +333,7 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
@@ -349,7 +349,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-12">

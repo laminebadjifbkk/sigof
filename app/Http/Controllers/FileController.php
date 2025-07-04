@@ -22,8 +22,10 @@ class FileController extends Controller
 
         return view('files.index', compact('files', 'users'));
     }
+    
     public function update(Request $request, User $user)
     {
+
         $user = User::findOrFail($request->idUser);
 
         $this->validate($request, [
@@ -35,25 +37,6 @@ class FileController extends Controller
             ->where('users_id', $user->id)
             ->firstOrFail();
 
-        /*    // Check if the file is valid
-        if ($request->file('file')->isValid()) {
-            // Store the file in the 'uploads' directory on the 'public' disk
-            $filePath = $request->file('file')->store('uploads', 'public');
-            if (! empty($file->file)) {
-                Storage::disk('public')->delete($file->file);
-            }
-            // Return success response
-            $file->update([
-                'file' => $filePath,
-            ]);
-
-            $file->save();
-
-            Alert::success('réussi !', 'Fichier téléchargé avec succès');
-
-            return redirect()->back();
-        } */
-
         if ($request->hasFile('file')) {
             // Supprimer l'ancien fichier s'il existe
             if (! empty($file->file)) {
@@ -62,7 +45,6 @@ class FileController extends Controller
 
             // Récupérer le fichier uploadé
             $uploadedFile = $request->file('file');
-
                                                                                         // Nettoyage et génération du nom de fichier
             $legende  = preg_replace("/[^A-Za-z0-9]/", '', $request->input('legende')); // Nettoyage de la légende
             $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));

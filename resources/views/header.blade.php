@@ -17,17 +17,19 @@
                 <li><a href="#services">Services</a></li>
                 <li><a href="{{ route('manuels.showDefault') }}" target="_blank">Manuels</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li> <a href="#" data-bs-toggle="modal" data-bs-target="#registerDemandeurModal">S'inscrire</a>
+                </li>
 
-                <li class="dropdown"><a><span>S'inscrire</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                {{-- <li class="dropdown"><a><span>S'inscrire</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>
                         <li> <a href="#" data-bs-toggle="modal" data-bs-target="#registerDemandeurModal">Compte
                                 personnel</a>
                         </li>
-                        {{-- <li><a href="#" data-bs-toggle="modal" data-bs-target="#registerOperateurModal">Compte
+                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#registerOperateurModal">Compte
                                 opérateur</a>
-                        </li> --}}
+                        </li>
                     </ul>
-                </li>
+                </li> --}}
 
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>

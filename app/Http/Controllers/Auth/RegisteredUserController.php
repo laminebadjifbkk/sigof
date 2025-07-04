@@ -33,13 +33,13 @@ class RegisteredUserController extends Controller
     {
         // Vérification incluant les utilisateurs soft deleted
         $request->validate([
-            'username'        => [
+            /* 'username'        => [
                 'required',
                 'string',
                 'min:3',
                 'max:10',
                 Rule::unique('users')->whereNull('deleted_at'), // Ignore les utilisateurs supprimés
-            ],
+            ], */
             'email'           => [
                 'required',
                 'email',
@@ -50,6 +50,7 @@ class RegisteredUserController extends Controller
             'termes'          => ['required', 'accepted'], // 'accepted' est plus approprié pour un champ de type checkbox
             /* 'password' => ['required', 'confirmed', Rules\Password::defaults()], */
             'password'        => 'required|string|min:8|confirmed',
+            'role'            => ['required', 'in:Demandeur,Operateur'],
         ]);
 
         // Vérifier si l'utilisateur existe mais est supprimé
@@ -65,7 +66,7 @@ class RegisteredUserController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
 
-            Alert::success('Bonjour ' . $user->username . ', Heureux de vous retrouver !', 'Votre compte restauré avec succès');
+            Alert::success('Bonjour ' . $user?->name . ', Heureux de vous retrouver !', 'Votre compte restauré avec succès');
 
             return redirect(RouteServiceProvider::LOGIN);
 
@@ -73,7 +74,7 @@ class RegisteredUserController extends Controller
         }
 
         $user = User::create([
-            'username'  => substr(str_replace(' ', '', $request->username), 0, 10),
+            /* 'username'  => substr(str_replace(' ', '', $request->username), 0, 10), */
             'email'     => $request->email,
             'telephone' => $request->votre_telephone,
             'password'  => Hash::make($request->password),
@@ -113,7 +114,7 @@ class RegisteredUserController extends Controller
             'success'
         ); */
 
-       /*  alert()->html(
+        /*  alert()->html(
             '<strong>🎉 Succès !</strong>',
             "Votre inscription a été effectuée avec succès.<br>
     Pour activer votre compte, consultez votre <strong><a href='#'>boîte e-mail</a></strong> et suivez les instructions.<br>

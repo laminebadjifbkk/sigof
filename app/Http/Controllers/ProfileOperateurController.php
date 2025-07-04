@@ -77,24 +77,24 @@ class ProfileOperateurController extends Controller
 
         $this->validate($request, [
             'cin'                  => [
-                'required',
+                'nullable',
                 'string',
                 'min:16',
                 'max:17',
                 Rule::unique(User::class)->ignore($request->idUser ?? null)->whereNull('deleted_at'),
             ],
-            'username'             => [
+            /* 'username'             => [
                 'required',
                 'string',
                 'min:3',
                 'max:25',
                 Rule::unique('users')->ignore($request->idUser ?? null)->whereNull('deleted_at'),
-            ],
+            ], */
             'operateur'            => [
                 'required',
                 'string',
-                'min:3',
-                'max:25',
+                'min:5',
+                'max:50',
                 Rule::unique('users')->ignore($request->idUser ?? null)->whereNull('deleted_at'),
             ],
             'image'                => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],

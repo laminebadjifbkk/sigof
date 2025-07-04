@@ -70,7 +70,7 @@ class OperateurmoduleController extends Controller
                 "domaine"              => $request->input("domaine"),
                 "categorie"            => $request->input("categorie"),
                 'niveau_qualification' => $request->input('niveau_qualification'),
-                'statut'               => 'nouveau',
+                'statut'               => 'Nouveau',
                 'operateurs_id'        => $request->input('operateur'),
             ]);
 
@@ -87,14 +87,14 @@ class OperateurmoduleController extends Controller
                 "domaine"              => $request->input("domaine"),
                 "categorie"            => $request->input("categorie"),
                 'niveau_qualification' => $request->input('niveau_qualification'),
-                'statut'               => 'nouveau',
+                'statut'               => 'Nouveau',
                 'operateurs_id'        => $request->input('operateur'),
             ]);
 
             $operateurmodule->save();
 
             $moduleoperateurstatut = new Moduleoperateurstatut([
-                'statut'              => "nouveau",
+                'statut'              => "Nouveau",
                 'operateurmodules_id' => $operateurmodule->id,
 
             ]);
@@ -120,7 +120,7 @@ class OperateurmoduleController extends Controller
         $restrictedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC', 'ADEC'];
 
         if (! empty(array_diff($roleNames, $restrictedRoles))) {
-            if ($operateurmodule->statut !== 'nouveau') {
+            if ($operateurmodule->statut !== 'Nouveau') {
                 Alert::warning('Attention ! ', 'action impossible module déjà traité');
                 return redirect()->back();
             }
@@ -203,7 +203,7 @@ class OperateurmoduleController extends Controller
                 Alert::success('Succès !', 'Le module a été supprimé avec succès');
                 $operateurmodule->delete();
                 return redirect()->back();
-            } elseif ($operateurmodule->statut != 'nouveau') {
+            } elseif ($operateurmodule->statut != 'Nouveau') {
                 Alert::warning('Attention ! ', 'action impossible module déjà traité');
                 return redirect()->back();
             } else {

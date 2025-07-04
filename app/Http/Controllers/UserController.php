@@ -283,7 +283,7 @@ class UserController extends Controller
             $password = Hash::make($request->email);
         }
         $user = User::create([
-            'username'  => substr(str_replace(' ', '', $request->username), 0, 10),
+            /* 'username'  => substr(str_replace(' ', '', $request->username), 0, 10), */
             'firstname' => format_proper_name($request->firstname),
             'name'      => remove_accents_uppercase($request->name),
             'email'     => $request->email,
@@ -391,12 +391,12 @@ class UserController extends Controller
 
             $this->validate($request, [
                 'civilite'       => ['nullable', 'string', 'max:10'],
-                'username'       => [
+                /* 'username'       => [
                     'required',
                     'string',
                     'max:25',
                     Rule::unique(User::class, 'username')->ignore($user->uuid, 'uuid'),
-                ],
+                ], */
                 'cin'            => [
                     'nullable',
                     'string',
@@ -459,7 +459,7 @@ class UserController extends Controller
 
             $user->update([
                 'civilite'                  => $request->civilite,
-                'username'                  => substr(str_replace(' ', '', $request->username), 0, 10),
+                /* 'username'                  => substr(str_replace(' ', '', $request->username), 0, 10), */
                 'cin'                       => $request->cin,
                 'firstname'                 => format_proper_name($request->firstname),
                 'name'                      => remove_accents_uppercase($request->name),
@@ -876,7 +876,7 @@ class UserController extends Controller
         // Validation basique
         $request->validate([
             'cin'                   => 'nullable|string',
-            'username'              => 'nullable|string',
+            /* 'username'              => 'nullable|string', */
             'name'                  => 'nullable|string',
             'firstname'             => 'nullable|string',
             'telephone_responsable' => 'nullable|string',
@@ -892,7 +892,7 @@ class UserController extends Controller
         if (
             ! $request->filled('cin') &&
             ! $request->filled('firstname') &&
-            ! $request->filled('username') &&
+            /* ! $request->filled('username') && */
             ! $request->filled('name') &&
             ! $request->filled('telephone_responsable') &&
             ! $request->filled('email')
@@ -926,9 +926,9 @@ class UserController extends Controller
         if ($request->filled('firstname')) {
             $query->where('firstname', 'like', "%$request->firstname%");
         }
-        if ($request->filled('username')) {
+        /* if ($request->filled('username')) {
             $query->where('username', 'like', "%$request->username%");
-        }
+        } */
         if ($request->filled('name')) {
             $query->where('name', 'like', "%$request->name%");
         }

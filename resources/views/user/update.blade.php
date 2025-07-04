@@ -67,7 +67,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 mb-0">
+                                {{-- <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="username" class="form-label">Username<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="username" value="{{ $user->username ?? old('username') }}"
@@ -78,7 +78,7 @@
                                             <div>{{ $message }}</div>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="firstname" class="form-label">Prénom<span

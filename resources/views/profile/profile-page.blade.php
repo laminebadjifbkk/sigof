@@ -399,8 +399,7 @@
                                         <input type="hidden" name="idUser" value="{{ $user->id }}">
                                         <!-- Profile Edit Form -->
                                         <div class="row mb-3">
-                                            <label for="profileImage"
-                                                class="col-12 col-md-4 col-form-label">
+                                            <label for="profileImage" class="col-12 col-md-4 col-form-label">
                                                 Image de profil
                                             </label>
                                             {{-- <div class="col-md-8 col-lg-9"> --}}
@@ -441,8 +440,7 @@
 
                                         {{-- CIN --}}
                                         <div class="row mb-3">
-                                            <label for="cin"
-                                                class="col-12 col-md-4 col-form-label">N°
+                                            <label for="cin" class="col-12 col-md-4 col-form-label">N°
                                                 CIN (NIN)<span class="text-danger mx-1">*</span>
                                             </label>
                                             <div class="col-12 col-md-8">
@@ -460,7 +458,7 @@
                                         </div>
 
                                         {{-- Username --}}
-                                        <div class="row mb-3">
+                                        {{-- <div class="row mb-3">
                                             <label for="username"
                                                 class="col-12 col-md-4 col-form-label">Username<span
                                                     class="text-danger mx-1">*</span>
@@ -476,12 +474,11 @@
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         {{-- Civilité --}}
                                         <div class="row mb-3">
-                                            <label for="Civilité"
-                                                class="col-12 col-md-4 col-form-label">Civilité<span
+                                            <label for="Civilité" class="col-12 col-md-4 col-form-label">Civilité<span
                                                     class="text-danger mx-1">*</span>
                                             </label>
                                             <div class="col-12 col-md-8">
@@ -508,8 +505,7 @@
                                         </div>
                                         {{-- Prénom --}}
                                         <div class="row mb-3">
-                                            <label for="firstname"
-                                                class="col-12 col-md-4 col-form-label">Prénom<span
+                                            <label for="firstname" class="col-12 col-md-4 col-form-label">Prénom<span
                                                     class="text-danger mx-1">*</span>
                                             </label>
                                             <div class="col-12 col-md-8">
@@ -526,8 +522,7 @@
                                         </div>
                                         {{-- Nom --}}
                                         <div class="row mb-3">
-                                            <label for="name"
-                                                class="col-12 col-md-4 col-form-label">Nom<span
+                                            <label for="name" class="col-12 col-md-4 col-form-label">Nom<span
                                                     class="text-danger mx-1">*</span></label>
                                             <div class="col-12 col-md-8">
                                                 <input name="name" type="text"
@@ -543,8 +538,7 @@
                                         </div>
                                         {{-- Date de naissance --}}
                                         <div class="row mb-3">
-                                            <label for="date_naissance"
-                                                class="col-12 col-md-4 col-form-label">Date
+                                            <label for="date_naissance" class="col-12 col-md-4 col-form-label">Date
                                                 naissance<span class="text-danger mx-1">*</span></label>
                                             <div class="col-12 col-md-8">
                                                 <input type="text" name="date_naissance"
@@ -560,8 +554,7 @@
                                         </div>
                                         {{-- Lieu naissance --}}
                                         <div class="row mb-3">
-                                            <label for="lieu naissance"
-                                                class="col-12 col-md-4 col-form-label">Lieu
+                                            <label for="lieu naissance" class="col-12 col-md-4 col-form-label">Lieu
                                                 naissance<span class="text-danger mx-1">*</span></label>
                                             <div class="col-12 col-md-8">
                                                 <input name="lieu_naissance" type="text"
@@ -578,8 +571,7 @@
                                         </div>
                                         {{-- Email --}}
                                         <div class="row mb-3">
-                                            <label for="Email"
-                                                class="col-12 col-md-4 col-form-label">Email<span
+                                            <label for="Email" class="col-12 col-md-4 col-form-label">Email<span
                                                     class="text-danger mx-1">*</span></label>
                                             <div class="col-12 col-md-8">
                                                 <input name="email" type="email" readonly
@@ -596,8 +588,7 @@
 
                                         {{-- Telephone --}}
                                         <div class="row mb-3">
-                                            <label for="telephone"
-                                                class="col-12 col-md-4 col-form-label">Téléphone<span
+                                            <label for="telephone" class="col-12 col-md-4 col-form-label">Téléphone<span
                                                     class="text-danger mx-1">*</span></label>
                                             <div class="col-12 col-md-8">
                                                 <input name="telephone" type="text" maxlength="12"
@@ -614,8 +605,7 @@
 
                                         {{-- Adresse --}}
                                         <div class="row mb-3">
-                                            <label for="adresse"
-                                                class="col-12 col-md-4 col-form-label">Adresse<span
+                                            <label for="adresse" class="col-12 col-md-4 col-form-label">Adresse<span
                                                     class="text-danger mx-1">*</span></label>
                                             <div class="col-12 col-md-8">
                                                 <input name="adresse" type="adresse"
@@ -632,8 +622,7 @@
 
                                         {{-- Situation familiale --}}
                                         <div class="row mb-3">
-                                            <label for="adresse"
-                                                class="col-12 col-md-4 col-form-label">Situation
+                                            <label for="adresse" class="col-12 col-md-4 col-form-label">Situation
                                                 familiale<span class="text-danger mx-1">*</span></label>
                                             <div class="col-12 col-md-8">
                                                 <select name="situation_familiale"
@@ -667,8 +656,7 @@
 
                                         {{-- Situation professionnelle --}}
                                         <div class="row mb-3">
-                                            <label for="adresse"
-                                                class="col-12 col-md-4 col-form-label">Situation
+                                            <label for="adresse" class="col-12 col-md-4 col-form-label">Situation
                                                 professionnelle<span class="text-danger mx-1">*</span></label>
                                             <div class="col-12 col-md-8">
                                                 <select name="situation_professionnelle"
@@ -707,8 +695,7 @@
                                         </div>
                                         {{-- facebook --}}
                                         <div class="row mb-3">
-                                            <label for="facebook"
-                                                class="col-12 col-md-4 col-form-label">Facebook
+                                            <label for="facebook" class="col-12 col-md-4 col-form-label">Facebook
                                                 profil</label>
                                             <div class="col-12 col-md-8">
                                                 <input name="facebook" type="facebook"
@@ -725,8 +712,7 @@
                                         </div>
                                         {{-- twitter --}}
                                         <div class="row mb-3">
-                                            <label for="twitter"
-                                                class="col-12 col-md-4 col-form-label">X
+                                            <label for="twitter" class="col-12 col-md-4 col-form-label">X
                                                 profil (ex
                                                 twitter)</label>
                                             <div class="col-12 col-md-8">
@@ -744,8 +730,7 @@
                                         </div>
                                         {{-- instagram --}}
                                         <div class="row mb-3">
-                                            <label for="instagram"
-                                                class="col-12 col-md-4 col-form-label">Instagram
+                                            <label for="instagram" class="col-12 col-md-4 col-form-label">Instagram
                                                 profil</label>
                                             <div class="col-12 col-md-8">
                                                 <input name="instagram" type="instagram"
@@ -762,8 +747,7 @@
                                         </div>
                                         {{-- linkedin --}}
                                         <div class="row mb-3">
-                                            <label for="linkedin"
-                                                class="col-12 col-md-4 col-form-label">Linkedin
+                                            <label for="linkedin" class="col-12 col-md-4 col-form-label">Linkedin
                                                 profil</label>
                                             <div class="col-12 col-md-8">
                                                 <input name="linkedin" type="linkedin"
@@ -1531,7 +1515,7 @@
 
                     <!-- Titre -->
                     <h2 class="fs-3 fw-bold text-dark mb-4 mt-2">
-                        {{ (Auth::user()?->civilite ?? '') . ' ' . (Auth::user()?->firstname ?? '') . ' ' . (Auth::user()?->name ?? (Auth::user()?->username ?? '')) }}
+                        {{ (Auth::user()?->civilite ?? '') . ' ' . (Auth::user()?->firstname ?? '') . ' ' . (Auth::user()?->name ?? '') }}
                     </h2>
 
                     <!-- Image -->

@@ -227,13 +227,13 @@ class ProfileController extends Controller
                 Rule::unique(User::class)->ignore($user->id ?? null)->whereNull('deleted_at'),
             ],
             /* 'username'                  => ['required', 'string'], */
-            'username'                  => [
+            /* 'username'                  => [
                 'required',
                 'string',
                 'min:3',
                 'max:25',
                 Rule::unique('users')->ignore($user->id ?? null)->whereNull('deleted_at'),
-            ],
+            ], */
             'civilite'                  => ['required', 'string', 'max:8'],
             'firstname'                 => ['required', 'string', 'max:150'],
             'name'                      => ['required', 'string', 'max:25'],
@@ -264,7 +264,7 @@ class ProfileController extends Controller
 
         $user->update([
             'cin'                       => $request->input('cin'),
-            'username'                  => substr(str_replace(' ', '', $request->username), 0, 10),
+            /* 'username'                  => substr(str_replace(' ', '', $request->username), 0, 10), */
             'civilite'                  => $request->input('civilite'),
             'firstname'                 => format_proper_name($request->input('firstname')),
             'name'                      => remove_accents_uppercase($request->input('name')),

@@ -717,8 +717,7 @@
         </section>
 
         {{-- Connexion --}}
-        <div
-            class="col-12 d-flex flex-column align-items-center justify-content-center">
+        <div class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="loginModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -801,8 +800,7 @@
         </div>
 
         {{-- Inscription Demandeur --}}
-        <div
-            class="col-12 d-flex flex-column align-items-center justify-content-center">
+        <div class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="registerDemandeurModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -810,17 +808,17 @@
                             action="{{ route('register') }}">
                             @csrf
                             <div class="modal-header">
-                                <h5 class="w-100 text-center">Création compte personnel</h5>
+                                <h5 class="w-100 text-center">Inscription</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Fermer"></button>
                             </div>
 
                             <div class="modal-body">
                                 <div class="row g-3">
-                                    <input type="hidden" name="role" value="Demandeur">
+                                    {{-- <input type="hidden" name="role" value="Demandeur"> --}}
 
                                     <!-- Username -->
-                                    <div class="col-12">
+                                    {{-- <div class="col-12">
                                         <label for="username" class="form-label">Username<span
                                                 class="text-danger mx-1">*</span></label>
                                         <div class="input-group has-validation">
@@ -835,7 +833,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <!-- Email -->
                                     <div class="col-12">
@@ -917,6 +915,30 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- Sélection du rôle -->
+                                    <div class="col-12">
+                                        <label class="form-label d-block">Choisir votre rôle<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input @error('role') is-invalid @enderror"
+                                                type="radio" name="role" id="role_demandeur" value="Demandeur"
+                                                {{ old('role') == 'Demandeur' ? 'checked' : '' }} required>
+                                            <label class="form-check-label" for="role_demandeur">Demandeur de
+                                                formation</label>
+                                        </div>
+                                        {{-- <div class="form-check form-check-inline">
+                                            <input class="form-check-input @error('role') is-invalid @enderror"
+                                                type="radio" name="role" id="role_operateur" value="Operateur"
+                                                {{ old('role') == 'Operateur' ? 'checked' : '' }} required>
+                                            <label class="form-check-label" for="role_operateur">Opérateur ou
+                                                formateur</label>
+                                        </div> --}}
+                                        <div class="invalid-feedback d-block">
+                                            @error('role')
+                                                {{ $message }}
+                                            @enderror
+                                        </div>
+                                    </div>
 
                                     <div class="col-12">
                                         <div class="form-check">
@@ -961,8 +983,7 @@
         </div>
 
         {{-- Inscription opérateur --}}
-        <div
-            class="col-12 d-flex flex-column align-items-center justify-content-center">
+        <div class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="registerOperateurModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -1076,8 +1097,7 @@
                                             opérateur</button>
                                     </div>
 
-                                    <div
-                                        class="col-12 col-xxl-12 justify-content-center">
+                                    <div class="col-12 col-xxl-12 justify-content-center">
                                         <p class="small">Vous avez déjà un compte ? <a href="#"
                                                 data-bs-toggle="modal" data-bs-target="#loginModal">Se connecter</a>
                                         </p>
@@ -1091,8 +1111,7 @@
         </div>
 
         {{-- Mot de passe oublié --}}
-        <div
-            class="col-12 d-flex flex-column align-items-center justify-content-center">
+        <div class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="forgotModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -1259,8 +1278,7 @@
 
         {{-- Antennes modal --}}
         @foreach ($antennes as $antenne)
-            <div
-                class="col-12 d-flex flex-column align-items-center justify-content-center">
+            <div class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="antenneModal{{ $antenne?->id }}" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -1274,8 +1292,7 @@
                                 <div class="container" data-aos="fade-up" data-aos-delay="100">
                                     <div class="row justify-content-center">
                                         <!-- Standard Plan -->
-                                        <div class="col-12"
-                                            data-aos="fade-up" data-aos-delay="200">
+                                        <div class="col-12" data-aos="fade-up" data-aos-delay="200">
                                             <div class="pricing-card popular">
 
                                                 @if (!empty($antenne?->date_ouverture))

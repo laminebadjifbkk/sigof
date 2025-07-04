@@ -27,7 +27,7 @@
                 @endif
                 <div class="card">
                     <div class="card-header text-center bg-gradient-default">
-                        <h1 class="h4 text-black mb-0">NOUVELLE DEMANDE AGREMENT</h1>
+                        <h1 class="h4 text-black mb-0">DEMANDES AGREMENT</h1>
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mt-0">
@@ -52,34 +52,33 @@
                             @endphp
 
                             @if ($hasRequiredFields)
-                                <button type="button" class="btn btn-info btn-sm">
-                                    <span class="badge bg-white text-info">0</span>
-                                </button>
-
                                 @can('agrement-ouvert')
-                                    <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
-                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModal">Ajouter
-                                    </button>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button"
+                                            class="btn btn-outline-primary btn-sm rounded-pill px-4 shadow-sm d-flex align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                            <i class="bi bi-plus-circle me-2"></i> Déposer une demande
+                                        </button>
+                                    </div>
                                 @elsecan('agrement-fermer')
-                                    <span class="text-danger small fw-bold text-uppercase">Fermés</span>
+                                    <div class="alert alert-warning d-flex align-items-center small py-2 px-3 my-2"
+                                        role="alert">
+                                        <i class="bi bi-lock-fill me-2 text-danger fs-5"></i>
+                                        <span class="text-danger fw-semibold text-uppercase">Les dépôts pour les agréments sont
+                                            pour le moment clôturés</span>
+                                    </div>
                                 @endcan
                             @endif
 
                         </div>
 
                         @if ($hasRequiredFields)
-                            <div class="alert alert-info">
-                                Vous n'avez aucune demande d’agrément pour le moment !!
-                            </div>
+                            @can('agrement-ouvert')
+                                <div class="alert alert-info">
+                                    Vous n'avez aucune demande d’agrément pour le moment !!
+                                </div>
+                            @endcan
                         @else
-                            {{-- <h5 class="card-title">Informations personnelles : <a href="{{ route('profil') }}"><span
-                                        class="badge bg-warning text-white">Incomplètes</span></a>, cliquez <a
-                                    href="{{ route('profil') }}">ici</a> pour modifier votre profil</h5> --}}
-
-
-                            {{-- <h5 class="card-title">Informations personnelles : <a href="{{ route('profil') }}"><span
-                                        class="badge bg-warning text-white">Incomplètes</span></a>, cliquez <a
-                                    href="{{ route('profil') }}">ici</a> pour modifier votre profil</h5> --}}
                             <div class="text-center">
                                 <h5 class="card-title pb-0 fs-4">Complétez d'abord votre profil</h5>
                                 <p class="small">Vous devez compléter votre profil avant de pouvoir soumettre une demande
@@ -426,7 +425,7 @@
                                             class="text-danger mx-1">*</span></label>
                                     <input name="telephone_parent" type="text" maxlength="12"
                                         class="form-control form-control-sm @error('telephone_parent') is-invalid @enderror"
-                                        id="telephone_secondaire"
+                                        id="telephone_parent"
                                         value="{{ old('telephone_parent', $user->telephone_parent ?? '') }}"
                                         autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                     @error('telephone_parent')
@@ -479,8 +478,7 @@
         </div>
 
         @can('agrement-ouvert')
-            <div
-                class="col-12 d-flex flex-column align-items-center justify-content-center">
+            <div class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="AddoperateurModal" tabindex="-1">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
