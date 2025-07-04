@@ -52,7 +52,7 @@
                                 @csrf
                                 @method('PUT')
 
-                                {{-- <div class="col-12 col-md-8">
+                                {{-- <div class="col-12 col-md-12">
                                     <label for="name" class="form-label">Nom de la structure<span
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="name" id="name" rows="1"
@@ -92,7 +92,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-8 col-lg-8">
+                                <div class="col-12 col-md-12 col-lg-12">
                                     <label for="objet" class="form-label">Nom de la structure<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" placeholder="La raison sociale de l'opérateur"
