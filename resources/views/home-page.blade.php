@@ -223,23 +223,34 @@
                                                 <strong>Ingénieur :</strong> {{ $formation?->ingenieur?->name ?? 'N/A' }}
                                             </div>
 
-                                            <div class="col-md-6 mb-2">
+                                            {{-- <div class="col-md-3 mb-2">
                                                 <i class="bi bi-calendar-event me-1"></i>
-                                                <strong>Période :</strong>
+                                                <strong>Date début :</strong>
                                                 <span class="{{ is_null($formation?->date_debut) ? 'text-danger' : '' }}">
-                                                    {{ 'Du ' . $formation?->date_debut?->format('d/m/Y') ?? 'Non définie' }}
-                                                </span>
-                                                <span class="{{ is_null($formation?->date_fin) ? 'text-danger' : '' }}">
-                                                    {{ ' au ' . $formation?->date_fin?->format('d/m/Y') ?? 'Non définie' }}
+                                                    {{ $formation?->date_debut?->format('d/m/Y') ?? 'Non définie' }}
                                                 </span>
                                             </div>
-                                            {{-- <div class="col-md-3 mb-2">
+                                            <div class="col-md-3 mb-2">
                                                 <i class="bi bi-calendar-check me-1"></i>
                                                 <strong>Date fin :</strong>
                                                 <span class="{{ is_null($formation?->date_fin) ? 'text-danger' : '' }}">
                                                     {{ $formation?->date_fin?->format('d/m/Y') ?? 'Non définie' }}
                                                 </span>
                                             </div> --}}
+                                            <div class="col-md-6 mb-2">
+                                                <i class="bi bi-calendar-event me-1"></i>
+                                                <strong>Période :</strong>
+                                                @php
+                                                    $dateDebut = $formation?->date_debut?->format('d/m/Y');
+                                                    $dateFin = $formation?->date_fin?->format('d/m/Y');
+                                                @endphp
+                                                <span class="{{ is_null($formation?->date_debut) ? 'text-danger' : '' }}">
+                                                    {{ 'Du ' . ($dateDebut ?? 'Non définie') }}
+                                                </span>
+                                                <span class="{{ is_null($formation?->date_fin) ? 'text-danger' : '' }}">
+                                                    {{ ' au ' . ($dateFin ?? 'Non définie') }}
+                                                </span>
+                                            </div>
                                             <div class="col-md-6 mb-2">
                                                 <i class="bi bi-calendar-check me-1"></i>
                                                 <strong>Date évaluation :</strong>
