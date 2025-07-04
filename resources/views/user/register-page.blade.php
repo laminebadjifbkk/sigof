@@ -215,7 +215,7 @@
 
                                                 <!-- Sélection du rôle -->
                                                 <div class="col-12">
-                                                    <label class="form-label d-block">Choisir votre rôle<span
+                                                    <label class="form-label d-block">Type de compte<span
                                                             class="text-danger mx-1">*</span></label>
                                                     <div class="form-check form-check-inline">
                                                         <input
