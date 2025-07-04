@@ -372,10 +372,10 @@
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="{{ url('home') }}">
                             @if ($formationsEnCours === 1)
-                                <span class="badge bg-warning text-dark">{{ $formationsEnCours }} formation en
+                                <span class="badge bg-warning text-white ms-2">{{ $formationsEnCours }} formation en
                                     cours</span>
                             @elseif ($formationsEnCours > 1)
-                                <span class="badge bg-warning text-dark">{{ $formationsEnCours }} formations en
+                                <span class="badge bg-warning text-white ms-2">{{ $formationsEnCours }} formations en
                                     cours</span>
                             @endif
                         </a>
