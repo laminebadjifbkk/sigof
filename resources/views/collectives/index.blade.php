@@ -77,7 +77,7 @@
         </section>
         <section class="section">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-12 col-lg-12">
                     @if ($message = Session::get('status'))
                         <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                             role="alert">
@@ -107,102 +107,6 @@
                                 </div>
                             @endcan
                             <h5 class="card-title">Liste des demandeurs collectifs</h5>
-                            {{-- 
-                            @foreach ($collectives as $collective)
-                            @endforeach
-                            @if (!empty($collective))
-                                <table class="table datatables align-middle" id="table-collectives">
-                                    <thead>
-                                        <tr>
-                                            <th>N° DEM.</th>
-                                            <th>Nom structure</th>
-                                            <th>E-mail</th>
-                                            <th>Téléphone</th>
-                                            <th>Région</th>
-                                            <th width="15%" class="text-center">Dépôt</th>
-                                            <th class="text-center">Modules</th>
-                                            <th class="text-center">Effectif</th>
-                                            <th class="text-center">Statut</th>
-                                            <th class="text-center">#</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $i = 1; ?>
-                                        @foreach ($collectives as $collective)
-                                            @if (!empty($collective?->numero))
-                                                <tr>
-                                                    <td>{{ $collective?->numero }}
-                                                    </td>
-                                                    <td>{{ $collective?->name }}
-                                                        @if (!empty($collective?->sigle))
-                                                            {{ '(' . $collective?->sigle . ')' }}
-                                                        @endif
-                                                    </td>
-                                                    <td><a
-                                                            href="mailto:{{ $collective?->user?->email }}">{{ $collective?->user?->email }}</a>
-                                                    </td>
-                                                    <td><a
-                                                            href="tel:+221{{ $collective?->telephone }}">{{ $collective?->telephone }}</a>
-                                                    </td>
-                                                    <td>{{ $collective->departement?->region?->nom }}</td>
-                                                    <td class="text-center">
-                                                        @if ($collective?->date_depot)
-                                                            {{ \Carbon\Carbon::parse($collective->date_depot)->diffForHumans() }}
-                                                        @else
-                                                            Aucun
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-center">{{ count($collective->collectivemodules) }}</td>
-                                                    <td class="text-center">{{ count($collective->listecollectives) }}</td>
-                                                    <td>
-                                                        <span
-                                                            class="{{ $collective?->statut_demande }}">{{ $collective?->statut_demande }}</span>
-                                                    </td>
-                                                    <td>
-                                                        @can('collective-show')
-                                                            <span class="d-flex align-items-baseline"><a
-                                                                    href="{{ route('collectives.show', $collective->id) }}"
-                                                                    class="btn btn-primary btn-sm" title="voir détails"><i
-                                                                        class="bi bi-eye"></i></a>
-                                                                <div class="filter">
-                                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                            class="bi bi-three-dots"></i></a>
-                                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                        @can('collective-update')
-                                                                            <li><a class="dropdown-item btn btn-sm"
-                                                                                    href="{{ route('collectives.edit', $collective->id) }}"
-                                                                                    class="mx-1" title="Modifier"><i
-                                                                                        class="bi bi-pencil"></i>Modifier</a>
-                                                                            </li>
-                                                                        @endcan
-                                                                        @can('collective-delete')
-                                                                            <li>
-                                                                                <form
-                                                                                    action="{{ route('collectives.destroy', $collective->id) }}"
-                                                                                    method="post">
-                                                                                    @csrf
-                                                                                    @method('DELETE')
-                                                                                    <button type="submit"
-                                                                                        class="dropdown-item show_confirm"
-                                                                                        title="Supprimer"><i
-                                                                                            class="bi bi-trash"></i>Supprimer</button>
-                                                                                </form>
-                                                                            </li>
-                                                                        @endcan
-                                                                    </ul>
-                                                                </div>
-                                                            </span>
-                                                        @endcan
-                                                    </td>
-                                                </tr>
-                                            @endif
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            @else
-                                <div class="alert alert-info">Aucune demande collective reçue pour l'instant !</div>
-                            @endif --}}
-
                             @if ($collectives->isNotEmpty())
                                 <table class="table datatables align-middle" id="table-collectives">
                                     <thead>
@@ -310,7 +214,7 @@
                                 <div class="modal-body">
                                     <div class="row g-3">
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-4 col-lg-4 col-lg-4">
                                             <label for="numero" class="form-label">N° courrier<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" placeholder="Rechercher numéro courrier..."
@@ -323,7 +227,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        <div class="col-12 col-md-8">
+                                        <div class="col-12 col-md-8 col-lg-8">
                                             <label for="objet" class="form-label">Nom de la structure<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" placeholder="La raison sociale de l'opérateur"
@@ -336,7 +240,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-4">
+                                        <div class="col-12 col-md-4 col-lg-4">
                                             <label for="sigle" class="form-label">Sigle</label>
                                             <input type="text" name="sigle" value="{{ old('sigle') }}"
                                                 class="form-control form-control-sm @error('sigle') is-invalid @enderror"
@@ -348,7 +252,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-4 col-lg-4">
                                             <label for="email" class="form-label">Email<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="email" name="email" value="{{ old('email') }}"
@@ -361,7 +265,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-4 col-lg-4">
                                             <label for="fixe" class="form-label">Téléphone fixe</label>
                                             <input name="fixe" type="text" maxlength="12"
                                                 class="form-control form-control-sm @error('fixe') is-invalid @enderror"
@@ -374,7 +278,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-4 col-lg-4">
                                             <label for="telephone" class="form-label">Téléphone portable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input name="telephone" type="text" maxlength="12"
@@ -388,7 +292,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-4 col-lg-4">
                                             <label for="bp" class="form-label">Boite postal</label>
                                             <input type="text" name="bp" value="{{ old('bp') }}"
                                                 class="form-control form-control-sm @error('bp') is-invalid @enderror"
@@ -400,7 +304,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-4 col-lg-4">
                                             <label for="statut" class="form-label">Statut juridique<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="statut" class="form-select  @error('statut') is-invalid @enderror"
@@ -435,7 +339,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-4 col-lg-4">
                                             <label for="autre_statut" class="form-label">Si autre ?
                                                 précisez</label>
                                             <input type="text" name="autre_statut" value="{{ old('autre_statut') }}"
@@ -448,7 +352,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-12 col-lg-4 col-xxl-4">
                                             <label for="date_depot" class="form-label">Date dépot<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="date" name="date_depot" value="{{ old('date_depot') }}"
@@ -461,7 +365,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-4 col-lg-4">
                                             <label for="departement" class="form-label">Département<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="departement"
@@ -546,7 +450,7 @@
 
                                         <hr class="dropdown-divider mt-3">
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-4 col-lg-4">
                                             <label for="civilite" class="form-label">Civilité responsable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="civilite"
@@ -570,7 +474,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-4 col-lg-4">
                                             <label for="prenom" class="form-label">Prénom responsable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="prenom" value="{{ old('prenom') }}"
@@ -583,7 +487,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-4 col-lg-4">
                                             <label for="nom" class="form-label">Nom responsable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="nom" value="{{ old('nom') }}"
@@ -596,7 +500,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-4 col-lg-4">
                                             <label for="email_responsable" class="form-label">Adresse e-mail<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="email" name="email_responsable"
@@ -610,7 +514,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-4 col-lg-4">
                                             <label for="telephone_responsable" class="form-label">Téléphone responsable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input name="telephone_responsable" type="text" maxlength="12"
@@ -624,7 +528,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-4 col-lg-4">
                                             <label for="fonction_responsable" class="form-label">Fonction responsable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="fonction_responsable"
