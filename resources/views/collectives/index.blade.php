@@ -385,7 +385,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-12 col-md-12 col-lg-6">
                                             <label for="adresse" class="form-label">Adresse<span
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="adresse" id="adresse" rows="1"
