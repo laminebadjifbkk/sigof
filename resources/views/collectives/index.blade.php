@@ -204,7 +204,7 @@
             <div
                 class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="AddCollectiveModal" tabindex="-1">
-                    <div class="modal-dialog modal-xl">
+                    <div class="modal-dialog modal-fullscreen">
                         <div class="modal-content">
                             <form method="post" action="{{ route('addCollective') }}" enctype="multipart/form-data">
                                 @csrf
@@ -213,7 +213,6 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="row g-3">
-
                                         <div class="col-12 col-md-12 col-lg-6">
                                             <label for="numero" class="form-label">N° courrier<span
                                                     class="text-danger mx-1">*</span></label>
