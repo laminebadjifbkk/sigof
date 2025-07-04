@@ -80,6 +80,18 @@
                                     @enderror
                                 </div>
 
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <label for="sigle" class="form-label">Sigle</label>
+                                    <input type="text" name="sigle" value="{{ $collective?->sigle ?? old('sigle') }}"
+                                        class="form-control form-control-sm @error('sigle') is-invalid @enderror"
+                                        id="sigle" placeholder="Sigle ou abréviation">
+                                    @error('sigle')
+                                        <span class="invalid-feedback" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
+                                </div>
+
                                 <div class="col-12 col-md-8 col-lg-8">
                                     <label for="objet" class="form-label">Nom de la structure<span
                                             class="text-danger mx-1">*</span></label>
@@ -88,18 +100,6 @@
                                         name="name" id="objet" value="{{ $collective?->name ?? old('name') }}"
                                         required>
                                     @error('objet')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <label for="sigle" class="form-label">Sigle</label>
-                                    <input type="text" name="sigle" value="{{ $collective?->sigle ?? old('sigle') }}"
-                                        class="form-control form-control-sm @error('sigle') is-invalid @enderror"
-                                        id="sigle" placeholder="Sigle ou abréviation">
-                                    @error('sigle')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
                                         </span>
