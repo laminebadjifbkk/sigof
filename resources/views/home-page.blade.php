@@ -223,14 +223,14 @@
                                                 <strong>Ingénieur :</strong> {{ $formation?->ingenieur?->name ?? 'N/A' }}
                                             </div>
 
-                                            <div class="col-md-2 mb-2">
+                                            <div class="col-md-3 mb-2">
                                                 <i class="bi bi-calendar-event me-1"></i>
                                                 <strong>Date début :</strong>
                                                 <span class="{{ is_null($formation?->date_debut) ? 'text-danger' : '' }}">
                                                     {{ $formation?->date_debut?->format('d/m/Y') ?? 'Non définie' }}
                                                 </span>
                                             </div>
-                                            <div class="col-md-2 mb-2">
+                                            <div class="col-md-3 mb-2">
                                                 <i class="bi bi-calendar-check me-1"></i>
                                                 <strong>Date fin :</strong>
                                                 <span class="{{ is_null($formation?->date_fin) ? 'text-danger' : '' }}">
