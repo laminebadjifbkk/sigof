@@ -204,7 +204,7 @@
             <div
                 class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="AddCollectiveModal" tabindex="-1">
-                    <div class="modal-dialog modal-fullscreen-sm-down">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <form method="post" action="{{ route('addCollective') }}" enctype="multipart/form-data">
                                 @csrf
