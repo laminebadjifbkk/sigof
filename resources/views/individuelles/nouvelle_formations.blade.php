@@ -113,7 +113,7 @@
                                             </div>
 
                                             {{-- Opérateur --}}
-                                            <div class="row">
+                                            {{-- <div class="row">
                                                 <div class="col-lg-3 col-md-4 label">Opérateur</div>
                                                 <div class="col-lg-9 col-md-8">
                                                     @php $operateurUser = $individuelle?->formation?->operateur?->user; @endphp
@@ -126,7 +126,7 @@
                                                         Aucun
                                                     @endif
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
                                             {{-- Date début --}}
                                             <div class="row">
