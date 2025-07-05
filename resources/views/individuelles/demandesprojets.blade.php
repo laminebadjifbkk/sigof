@@ -47,16 +47,17 @@
                                 {{ Auth::user()->civilite . ' ' . Auth::user()->firstname . ' ' . Auth::user()->name }}
                             </h5>
                         </div>
-                        <table class="table datatables table-striped table-bordered table-hover align-middle justify-content-center">
+                        <table
+                            class="table datatables table-striped table-bordered table-hover align-middle justify-content-center">
                             <thead>
                                 <tr class="text-center">
                                     <th width="2%">N°</th>
                                     <th width="8%">Numéro</th>
                                     <th>Module</th>
                                     <th>Niveau étude</th>
-                                    <th>Diplome académique</th>
-                                    <th>Diplome professionnel</th>
-                                    <th>Projets ou Programmes</th>
+                                    <th>Diplome aca.</th>
+                                    <th>Diplome pro.</th>
+                                    <th>Partenaires</th>
                                     <th width="5%">Statut</th>
                                     <th style="width:3%;"><i class="bi bi-gear"></i></th>
                                 </tr>
@@ -71,7 +72,7 @@
                                         <td>{{ $individuelle?->niveau_etude }}</td>
                                         <td>{{ $individuelle?->diplome_academique }}</td>
                                         <td>{{ $individuelle?->diplome_professionnel }}</td>
-                                        <td>{{ $individuelle?->projet?->name . ' (' . $individuelle?->projet?->sigle . ')' }}
+                                        <td>{{ $individuelle?->projet?->sigle }}
                                         </td>
                                         <td>
                                             @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
@@ -80,9 +81,10 @@
                                             @hasrole('Demandeur')
                                                 @if (!empty($individuelle->projets_id))
                                                     @if ($individuelle->projet?->statut === 'ouvert')
-                                                    <span class="btn btn-info btn-sm text-white d-inline-flex align-items-center">
-                                                        <i class="bi bi-check-circle me-1"></i> Enregistrée
-                                                      </span>                                                      
+                                                        <span
+                                                            class="btn btn-info btn-sm text-white d-inline-flex align-items-center">
+                                                            <i class="bi bi-check-circle me-1"></i> Enregistrée
+                                                        </span>
                                                     @else
                                                         <span
                                                             class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
