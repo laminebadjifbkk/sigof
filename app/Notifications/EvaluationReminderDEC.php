@@ -29,7 +29,7 @@ class EvaluationReminderDEC extends Notification
 
         // Vérifie le nom du module
         $moduleFormation = optional($this->formation->module)->name ?? $this->formation->collectivemodule->module ?? 'Nom du module non défini';
-        dd($moduleFormation);
+        
         // Nom de l'ingénieur (associé à la formation)
         $ingenieur = $this->formation?->ingenieur?->name ?? 'Non défini';
 
