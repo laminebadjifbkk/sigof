@@ -28,7 +28,7 @@ class SendEvaluationReminder extends Command
         $dateJ       = $now;
 
         // Vérifie si on est aujourd’hui à 08h
-        $isTodayAt8 = now()->format('H:i') === '08:00';
+        $isTodayAt8 = now()->format('H:i') === '11:12';
 
         // Regrouper les dates cibles
         $dates = [
@@ -59,11 +59,11 @@ class SendEvaluationReminder extends Command
 
                 // Bloc 2 : Emails fixes (décommente si tu préfères)
                 $emails = array_filter([
-                    'ouly.toure@onfp.sn',
-                    'amsatou.paye@onfp.sn',
+                    /* 'ouly.toure@onfp.sn',
+                    'amsatou.paye@onfp.sn', */
                     'lamine.badji@onfp.sn',
-                    $formation?->ingenieur?->user?->email,
-                    $formation?->onfpevaluateur?->email,
+                    /* $formation?->ingenieur?->user?->email,
+                    $formation?->onfpevaluateur?->email, */
                 ]);
 
                 if (! empty($emails)) {
