@@ -922,17 +922,17 @@
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input @error('role') is-invalid @enderror"
                                                 type="radio" name="role" id="role_demandeur" value="Demandeur"
-                                                {{ old('role') == 'Demandeur' ? 'checked' : '' }} required>
+                                                {{ old('role') == 'Demandeur' ? 'checked' : '' }}>
                                             <label class="form-check-label" for="role_demandeur">Demandeur de
                                                 formation</label>
                                         </div>
-                                        {{-- <div class="form-check form-check-inline">
+                                        <div class="form-check form-check-inline">
                                             <input class="form-check-input @error('role') is-invalid @enderror"
                                                 type="radio" name="role" id="role_operateur" value="Operateur"
-                                                {{ old('role') == 'Operateur' ? 'checked' : '' }} required>
-                                            <label class="form-check-label" for="role_operateur">Opérateur ou
-                                                formateur</label>
-                                        </div> --}}
+                                                {{ old('role') == 'Operateur' ? 'checked' : '' }} disabled>
+                                            <label class="form-check-label" for="role_operateur">Opérateur
+                                                (formateur)</label>
+                                        </div>
                                         <div class="invalid-feedback d-block">
                                             @error('role')
                                                 {{ $message }}
