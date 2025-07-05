@@ -47,7 +47,7 @@
                                 {{ Auth::user()->civilite . ' ' . Auth::user()->firstname . ' ' . Auth::user()->name }}
                             </h5>
                         </div>
-                        <table class="table table-bordered table-hover table-borderless">
+                        <table class="table datatables table-striped table-bordered table-hover align-middle justify-content-center">
                             <thead>
                                 <tr class="text-center">
                                     <th width="2%">N°</th>
