@@ -238,7 +238,7 @@
                         <th>Nom</th>
                         <th>Date Naissance</th>
                         <th>Lieu Naissance</th>
-                        <th>Telephone</th>
+                        {{-- <th>Telephone</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -249,7 +249,7 @@
                             <td>{{ $candidat?->nom }}</td>
                             <td>{{ \Carbon\Carbon::parse($candidat?->date_naissance)->format('d/m/Y') }}</td>
                             <td>{{ $candidat?->lieu_naissance }}</td>
-                            <td>{{ $candidat?->telephone }}</td>
+                            {{-- <td>{{ $candidat?->telephone }}</td> --}}
                     @endforeach
                 </tbody>
             </table>
