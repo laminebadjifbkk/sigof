@@ -127,7 +127,8 @@
                     </tr>
                     <tr>
                         <th>Personne responsable</th>
-                        <td colspan="10">{{ $collective?->nom_responsable }}</td>
+                        <td colspan="10">{{ $collective?->prenom_responsable . ' ' . $collective?->nom_responsable }}
+                        </td>
                     </tr>
                     <tr>
                         <th>Adresse de la structure</th>
