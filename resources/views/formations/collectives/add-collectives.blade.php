@@ -28,14 +28,29 @@
                                 </span>
                             </div>
                         </div>
-                        @isset($formation?->collectivemodule?->collective?->name)
-                            <h5><b><u>BENEFICIAIRES</u></b> : {{ $formation?->collectivemodule?->collective?->name }}
-                                @isset($formation?->collectivemodule?->collective?->name)
+                        @if (!empty($formation?->collectivemodule?->collective?->name))
+                            {{-- <h5><b><u>BENEFICIAIRES</u></b> : {{ $formation?->collectivemodule?->collective?->name }}
+                                @if ($formation?->collectivemodule?->collective?->name)
                                     {{ '(' . $formation?->collectivemodule?->collective?->sigle . ')' }}
-                                @endisset
+                                @endif
                             </h5>
-                            <h5><b><u>MODULE</u></b> :{{ $formation?->collectivemodule?->module }}</h5>
-                        @endisset
+                            <h5><b><u>MODULE</u></b> :{{ $formation?->collectivemodule?->module }}</h5> --}}
+
+                            <div class="p-1 mb-4 border rounded bg-light shadow-sm">
+                                <div class="row text-center fw-semibold">
+                                    <div class="col-md-6 mb-2">
+                                        <span class="text-secondary">👥 Bénéficiaires</span><br>
+                                        <span
+                                            class="fs-5 text-dark">{{ $formation?->collectivemodule?->collective?->name . '(' . $formation?->collectivemodule?->collective?->sigle . ')' }}</span>
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <span class="text-secondary">📘 Module</span><br>
+                                        <span
+                                            class="fs-5 text-dark">{{ $formation?->collectivemodule?->module ?? 'Aucun' }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                         {{-- <h5 class="pt-2">Liste des demandes collectives</h5> --}}
                         <form method="post" action="{{ route('formationcollectives', $formation->id) }}"
                             enctype="multipart/form-data" class="row g-3">
@@ -186,7 +201,7 @@
         new DataTable('#table-modules', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             lengthMenu: [

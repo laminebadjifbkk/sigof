@@ -80,6 +80,22 @@
                                     @enderror
                                 </div>
 
+                                @can('collective-show')
+                                    <div class="col-12 col-md-6 col-lg-4">
+                                        <label for="date_depot" class="form-label">Date dépot<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <input type="date" name="date_depot"
+                                            value="{{ date_format(date_create($collective?->date_depot), 'Y-m-d') ?? old('date_depot') }}"
+                                            class="datepicker form-control form-control-sm @error('date_depot') is-invalid @enderror"
+                                            id="date_depot" placeholder="jj/mm/aaaa">
+                                        @error('date_depot')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                @endcan
+
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <label for="sigle" class="form-label">Sigle</label>
                                     <input type="text" name="sigle" value="{{ $collective?->sigle ?? old('sigle') }}"
@@ -205,21 +221,6 @@
                                         </span>
                                     @enderror
                                 </div>
-                                @can('collective-show')
-                                    <div class="col-12 col-md-6 col-lg-4">
-                                        <label for="date_depot" class="form-label">Date dépot<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <input type="date" name="date_depot"
-                                            value="{{ date_format(date_create($collective?->date_depot), 'Y-m-d') ?? old('date_depot') }}"
-                                            class="datepicker form-control form-control-sm @error('date_depot') is-invalid @enderror"
-                                            id="date_depot" placeholder="jj/mm/aaaa">
-                                        @error('date_depot')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                @endcan
 
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <label for="departement" class="form-label">Département<span

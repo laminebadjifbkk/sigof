@@ -37,11 +37,18 @@
                                     <span class="text-secondary">📍 Région</span><br>
                                     <span class="fs-5 text-dark">{{ $localite->nom ?? 'Aucune' }}</span>
                                 </div>
-                                <div class="col-md-8 mb-2">
+                                <div class="col-md-4 mb-2">
                                     <span class="text-secondary">📘 Module</span><br>
                                     <span
                                         class="fs-5 text-dark">{{ $formation?->collectivemodule?->module ?? 'Aucun' }}</span>
                                 </div>
+                                @if (!empty($formation?->collectivemodule?->module))
+                                    <div class="col-md-4 mb-2">
+                                        <span class="text-secondary">👥 Structure</span><br>
+                                        <span
+                                            class="fs-5 text-dark">{{ $formation?->collectivemodule?->collective?->name ?? 'Aucun' }}</span>
+                                    </div>
+                                @endif
                             </div>
                         </div>
 
