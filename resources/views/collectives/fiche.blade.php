@@ -14,14 +14,6 @@
             margin: 2cm 2.5cm;
         }
 
-        @page landscapePage {
-            size: A4 landscape;
-        }
-
-        .landscape {
-            page: landscapePage;
-        }
-
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-size: 14px;

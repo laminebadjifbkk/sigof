@@ -815,7 +815,7 @@ class CollectiveController extends Controller
         ))->render();
 
         $dompdf->loadHtml($html);
-        /* $dompdf->setPaper('A4', 'portrait'); */
+        $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
         $name = 'Fiche_demande_formaion_collective_' . $collective->name . '.pdf';
