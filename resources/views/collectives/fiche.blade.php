@@ -27,7 +27,7 @@
         }
 
         .container {
-            max-width: 700px;
+            max-width: 1000px;
             margin: auto;
             padding: 0;
         }
