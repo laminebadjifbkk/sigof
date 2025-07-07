@@ -313,16 +313,14 @@
                                                             <div class="d-flex justify-content-between align-items-center pb-2">
                                                                 <a href="{{ route('addcollectiveingenieurs', $collective->id) }}"
                                                                     class="btn btn-primary btn-sm">Imputer ingénieur</a>
-
-                                                                &nbsp;
-
-                                                                {{-- Bouton fiche de synthèse visible même sans ingénieur --}}
-                                                                <a href="{{ route('collective.fiche', $collective->id) }}"
-                                                                    target="_blank" class="btn btn-outline-success btn-sm">
-                                                                    <i class="bi bi-file-earmark-text"></i> Fiche de synthèse
-                                                                </a>
                                                             </div>
                                                         @endif
+                                                        &nbsp;
+                                                        {{-- Bouton fiche de synthèse visible même sans ingénieur --}}
+                                                        <a href="{{ route('collective.fiche', $collective->id) }}" target="_blank"
+                                                            class="btn btn-outline-success btn-sm">
+                                                            <i class="bi bi-file-earmark-text"></i> Fiche de synthèse
+                                                        </a>
                                                     @endcan
                                                 </div>
 
