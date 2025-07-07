@@ -14,6 +14,14 @@
             margin: 2cm 2.5cm;
         }
 
+        @page landscapePage {
+            size: A4 landscape;
+        }
+
+        .landscape {
+            page: landscapePage;
+        }
+
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-size: 14px;
@@ -198,6 +206,55 @@
             </table>
         </div>
     </div>
+    @foreach ($collective?->collectivemodules as $index => $collectivemodule)
+        <div style="page-break-after: always;"></div>
+
+        <div class="section landscape">
+            <h4 class="title"><u>LISTE DES CANDIDATS</u></h4>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Nom de la structure</th>
+                        <td colspan="10">{{ $collectivemodule?->collective?->name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Formation sollicitée</th>
+                        <td colspan="10">{{ $collectivemodule?->module }}</td>
+                    </tr>
+                    <tr>
+                        <th>Niveau de qualification demandé</th>
+                        <td colspan="10">{{ $collectivemodule?->niveau_qualification }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section landscape mt-3">
+            <table border="1" cellspacing="0" cellpadding="5" width="100%">
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Prénom(s)</th>
+                        <th>Nom</th>
+                        <th>Date Naissance</th>
+                        <th>Lieu Naissance</th>
+                        <th>Telephone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($collectivemodule?->listecollectives as $i => $candidat)
+                        <tr>
+                            <td>{{ $i + 1 }}</td>
+                            <td>{{ $candidat?->prenom }}</td>
+                            <td>{{ $candidat?->nom }}</td>
+                            <td>{{ \Carbon\Carbon::parse($candidat?->date_naissance)->format('d/m/Y') }}</td>
+                            <td>{{ $candidat?->lieu_naissance }}</td>
+                            <td>{{ $candidat?->telephone }}</td>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endforeach
 </body>
 
 </html>
