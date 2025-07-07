@@ -75,55 +75,13 @@
                                                         @endif
                                                     </td>
                                                     <td>{{ $lettrevaluation?->titre }}</td>
-                                                    <td><span
-                                                            class="{{ $lettrevaluation?->formation?->onfpevaluateur?->name ?? 'Aucun' }}">{{ $lettrevaluation?->formation?->onfpevaluateur?->name ?? 'Aucun' }}</span>
-                                                    </td>
-                                                    {{-- <td>{{ $lettrevaluation?->formation?->name }}</td> --}}
+                                                    <td>{{ $lettrevaluation?->formation?->onfpevaluateur?->name ?? 'Aucun' }}
                                                     <td>
-                                                        <span
-                                                            class="{{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}">
-                                                            {{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}
-                                                        </span>
+                                                        {{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}</span>
                                                     </td>
                                                     <td>{{ $lettrevaluation?->formation?->operateur?->user?->username }}</td>
-                                                    <td><span
-                                                            class="{{ $lettrevaluation?->formation?->evaluateur?->name ?? 'Aucun' }}">{{ $lettrevaluation?->formation?->evaluateur?->name ?? 'Aucun' }}</span>
+                                                    <td>{{ $lettrevaluation?->formation?->evaluateur?->name . ' ' . $lettrevaluation?->formation?->evaluateur?->lastname ?? 'Aucun' }}
                                                     </td>
-                                                    {{-- Actions ABE --}}
-                                                    {{-- <td>
-                                                        @php
-                                                            $formation = $lettrevaluation?->formation;
-                                                            $isIndividuel = $formation?->module?->name;
-                                                            $isCollectif = $formation?->collectivemodule?->module;
-                                                        @endphp
-
-                                                        @if ($isIndividuel || $isCollectif)
-                                                            <div class="btn-group" role="group" aria-label="Actions ABE">
-                                                                <form
-                                                                    action="{{ route($isIndividuel ? 'abeEvaluationlettre' : 'abeEvaluationCollettre', ['idformation' => $formation->id]) }}"
-                                                                    method="POST" target="_blank" style="display:inline;">
-                                                                    @csrf
-                                                                    <button type="submit" class="btn btn-secondary btn-sm"
-                                                                        title="Télécharger l'ABE">
-                                                                        <i class="bi bi-download"></i>
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-                                                        @else
-                                                            <span class="text-danger">Aucun ABE</span>
-                                                        @endif
-                                                    </td> --}}
-
-                                                    {{-- Actions Lettre de mission --}}
-                                                    {{-- <td>
-                                                        <div class="btn-group" role="group" aria-label="Actions Lettre">
-                                                            <a href="{{ route('lettrevaluations.show', $lettrevaluation->id) }}"
-                                                                class="btn btn-success btn-sm"
-                                                                title="Télécharger la lettre de mission">
-                                                                <i class="bi bi-download"></i>
-                                                            </a>
-                                                        </div>
-                                                    </td> --}}
                                                     {{-- Actions --}}
                                                     <td>
                                                         <div class="d-flex align-items-center gap-2">

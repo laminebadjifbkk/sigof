@@ -73,8 +73,9 @@ class CollectivemoduleController extends Controller
         return redirect()->back(); */
 
         $this->validate($request, [
-            "module_name"  => "required|string",
-            "collectiveid" => "required|exists:collectives,id",
+            "module_name"          => "required|string",
+            "niveau_qualification" => "required|string",
+            "collectiveid"         => "required|exists:collectives,id",
         ]);
 
         // Vérifier si le module existe déjà pour cette collective
@@ -100,9 +101,10 @@ class CollectivemoduleController extends Controller
 
         // Ajouter le module à la collective
         $collectivemodule = Collectivemodule::create([
-            'module'         => $module->name,
-            'statut'         => 'Nouveau',
-            'collectives_id' => $request->input('collectiveid'),
+            'module'               => $module->name,
+            'statut'               => 'Nouveau',
+            'niveau_qualification' => $request->input('niveau_qualification'),
+            'collectives_id'       => $request->input('collectiveid'),
         ]);
 
         Alert::success('Succès !', 'Module ajouté avec succès.');
@@ -113,7 +115,8 @@ class CollectivemoduleController extends Controller
     {
         $this->validate($request, [
             /* "module_name"             => "required|string|unique:collectivemodules,module,except,id", */
-            "module_name" => "required|string",
+            "module_name"          => "required|string",
+            "niveau_qualification" => "required|string",
         ]);
 
         /* $collectivemodule = Collectivemodule::find($id); */
@@ -124,8 +127,9 @@ class CollectivemoduleController extends Controller
             return redirect()->back();
         } else {
             $collectivemodule->update([
-                'module'         => $request->input('module_name'),
-                'collectives_id' => $request->input('collective'),
+                'module'               => $request->input('module_name'),
+                'niveau_qualification' => $request->input('niveau_qualification'),
+                'collectives_id'       => $request->input('collective'),
             ]);
 
             $collectivemodule->save();

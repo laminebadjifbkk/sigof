@@ -295,22 +295,32 @@
                                                     @can('diof')
                                                         @if ($ingenieur)
                                                             <div class="d-flex justify-content-between align-items-center">
-                                                                <h5 class="card-title">
+                                                                <h5 class="card-title mb-0">
                                                                     {{ $ingenieur->name }}
+                                                                </h5>
+                                                                <div class="btn-group">
                                                                     @can('ingenieur-check')
                                                                         <a class="btn btn-info btn-sm" title="Voir ingénieur"
                                                                             href="{{ route('ingenieurs.show', $ingenieur->id) }}">
                                                                             <i class="bi bi-eye"></i>
-                                                                        </a>&nbsp;
+                                                                        </a>
                                                                         <a href="{{ route('addcollectiveingenieurs', $collective->id) }}"
-                                                                            class="btn btn-primary float-end btn-sm">Changer ingénieur</a>
+                                                                            class="btn btn-outline-primary btn-sm">Changer ingénieur</a>
                                                                     @endcan
-                                                                </h5>
+                                                                </div>
                                                             </div>
                                                         @else
-                                                            <div class="pb-2">
+                                                            <div class="d-flex justify-content-between align-items-center pb-2">
                                                                 <a href="{{ route('addcollectiveingenieurs', $collective->id) }}"
-                                                                    class="btn btn-primary float-end btn-sm">Imputer ingénieur</a>
+                                                                    class="btn btn-primary btn-sm">Imputer ingénieur</a>
+
+                                                                &nbsp;
+
+                                                                {{-- Bouton fiche de synthèse visible même sans ingénieur --}}
+                                                                <a href="{{ route('collective.fiche', $collective->id) }}"
+                                                                    target="_blank" class="btn btn-outline-success btn-sm">
+                                                                    <i class="bi bi-file-earmark-text"></i> Fiche de synthèse
+                                                                </a>
                                                             </div>
                                                         @endif
                                                     @endcan
@@ -334,6 +344,8 @@
                                                                     <thead>
                                                                         <tr>
                                                                             <th scope="col">Formation</th>
+                                                                            <th scope="col" class="text-center">Niveau
+                                                                                qualification</th>
                                                                             <th scope="col" class="text-center">Effectifs</th>
                                                                             <th scope="col" class="text-center">Statut</th>
                                                                             <th scope="col" class="float-end">Membres
@@ -345,6 +357,10 @@
                                                                             <tr>
                                                                                 <td class="text-primary">
                                                                                     {{ $module_collective->module }}</td>
+                                                                                <td class="text-center">
+                                                                                    <span
+                                                                                        class="{{ $module_collective?->niveau_qualification ?? 'Aucun' }}">{{ $module_collective?->niveau_qualification ?? 'Aucun' }}</span>
+                                                                                </td>
                                                                                 <td class="text-center">
                                                                                     <span>
                                                                                         {{ is_countable($module_collective->listecollectives) && count($module_collective->listecollectives) > 0 ? count($module_collective->listecollectives) : '' }}
@@ -366,26 +382,6 @@
                                                                                                         class="bi bi-three-dots"></i></a>
                                                                                                 <ul
                                                                                                     class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                                                    @can('validate-module-collective')
-                                                                                                        {{-- <form
-                                                                                                            action="{{ route('validerModuleCollective') }}"
-                                                                                                            method="post">
-                                                                                                            @csrf
-                                                                                                            @method('PUT')
-                                                                                                            <input type="hidden"
-                                                                                                                name="id"
-                                                                                                                value="{{ $module_collective->id }}">
-                                                                                                            <button
-                                                                                                                class="show_confirm_valider btn btn-sm mx-1">Accepter</button>
-                                                                                                        </form> --}}
-                                                                                                        <button class="btn btn-sm mx-1"
-                                                                                                            data-bs-toggle="modal"
-                                                                                                            data-bs-target="#RejetModuleDemandeModal{{ $module_collective->id }}">Validation
-                                                                                                            module
-                                                                                                        </button>
-                                                                                                        <br>
-                                                                                                        <br>
-                                                                                                    @endcan
                                                                                                     <button class="btn btn-sm mx-1"
                                                                                                         data-bs-toggle="modal"
                                                                                                         data-bs-target="#EditRegionModal{{ $module_collective->id }}">Modifier
@@ -399,6 +395,15 @@
                                                                                                             class="dropdown-item show_confirm"
                                                                                                             title="Supprimer">Supprimer</button>
                                                                                                     </form>
+                                                                                                    @can('validate-module-collective')
+                                                                                                        <button class="btn btn-sm mx-1"
+                                                                                                            data-bs-toggle="modal"
+                                                                                                            data-bs-target="#RejetModuleDemandeModal{{ $module_collective->id }}">Validation
+                                                                                                            module
+                                                                                                        </button>
+                                                                                                        <br>
+                                                                                                        <br>
+                                                                                                    @endcan
                                                                                                 </ul>
                                                                                             </div>
                                                                                         </span>
@@ -532,7 +537,8 @@
                                                                                                     </div>
                                                                                                     <div class="modal-body">
                                                                                                         <div class="mb-3">
-                                                                                                            <label for="collectivemodules_id"
+                                                                                                            <label
+                                                                                                                for="collectivemodules_id"
                                                                                                                 class="form-label">Sélectionnez
                                                                                                                 un nouveau module
                                                                                                                 :</label>
@@ -1007,6 +1013,26 @@
                                         @enderror
                                         <label for="floatingInput">Module</label>
                                     </div>
+                                    <div class="col-12">
+                                        <label for="niveau_qualification" class="form-label">Niveau qualification<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <select name="niveau_qualification"
+                                            class="form-select  @error('niveau_qualification') is-invalid @enderror"
+                                            aria-label="Select" id="select-field" data-placeholder="Choisir">
+                                            <option value="">Choisir</option>
+                                            <option value="Initiation">Initiation</option>
+                                            <option value="Pré qualification">Pré qualification</option>
+                                            <option value="Qualification">Qualification</option>
+                                            <option value="Qualification">Qualification</option>
+                                            <option value="Perfectionnement">Perfectionnement</option>
+                                            <option value="Aucun">Aucun</option>
+                                        </select>
+                                        @error('niveau_qualification')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <input type="hidden" name="collective" value="{{ $collective->id }}">
                                 <div class="modal-footer">
@@ -1279,6 +1305,44 @@
                                             @enderror
                                             <label for="floatingInput">Module</label>
                                         </div>
+                                        <div class="col-12">
+                                            <label for="niveau_qualification" class="form-label">
+                                                Niveau de qualification <span class="text-danger mx-1">*</span>
+                                            </label>
+                                            <select name="niveau_qualification" id="niveau_qualificationmodal"
+                                                class="form-select @error('niveau_qualification') is-invalid @enderror"
+                                                aria-label="Sélection du niveau de qualification" data-placeholder="Choisir">
+
+                                                <option value="" disabled
+                                                    {{ old('niveau_qualification', $collectivemodule?->niveau_qualification) ? '' : 'selected' }}>
+                                                    Choisir
+                                                </option>
+
+                                                @php
+                                                    $niveauOptions = [
+                                                        'Initiation',
+                                                        'Pré qualification',
+                                                        'Qualification',
+                                                        'Perfectionnement',
+                                                        'Aucun',
+                                                    ];
+                                                @endphp
+
+                                                @foreach ($niveauOptions as $option)
+                                                    <option value="{{ $option }}"
+                                                        {{ old('niveau_qualification', $collectivemodule?->niveau_qualification) === $option ? 'selected' : '' }}>
+                                                        {{ $option }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+
+                                            @error('niveau_qualification')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary btn-sm"

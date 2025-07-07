@@ -11,12 +11,14 @@ use App\Models\Ingenieur;
 use App\Models\Listecollective;
 use App\Models\Module;
 use App\Models\User;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\View;
 use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -794,5 +796,29 @@ class CollectiveController extends Controller
         $collective->restore();
 
         return redirect()->back()->with('success', 'Demande restauré avec succès.');
+    }
+
+    public function fiche(Request $request, $id)
+    {
+        $collective = Collective::findOrFail($id);
+
+        $title = 'Fiche de demande collective ' . $collective->name;
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+        $html = View::make('collectives.fiche', compact(
+            'collective',
+            'title',
+        ))->render();
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        $name = 'Fiche_demande_formaion_collective_' . $collective->name . '.pdf';
+        return $dompdf->stream($name, ['Attachment' => false]);
     }
 }

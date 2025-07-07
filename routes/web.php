@@ -244,6 +244,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::put('formationingenieurs/{idformation}', [FormationController::class, 'giveformationingenieurs']);
 
         Route::get('collectiveingenieurs/{id}', [CollectiveController::class, 'addcollectiveingenieurs'])->name('addcollectiveingenieurs');
+        Route::get('collective/{id}/fiche', [CollectiveController::class, 'fiche'])->name('collective.fiche');
         Route::put('collectiveingenieurs/{id}', [CollectiveController::class, 'givecollectiveingenieurs'])->name('givecollectiveingenieurs');
 
         Route::get('formationcollectives/{idformation}/{idlocalite}', [FormationController::class, 'addformationcollectives']);
