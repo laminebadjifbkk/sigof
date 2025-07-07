@@ -181,6 +181,22 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="section">
+            <p class="subtitle">III. <u>Projet professionnel</u></p>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Description de l'organisation, de ses activités et de ses réalisations</th>
+                        <td colspan="10">{{ $collective?->description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description du projet professionnel et de l'effet attendu de la formation</th>
+                        <td colspan="10">{{ $collective?->projetprofessionnel }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 
