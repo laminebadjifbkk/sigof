@@ -145,9 +145,12 @@ class LettrevaluationController extends Controller
         }
 
         $formation = Formation::findOrFail($request->input('formation'));
+        
         $date_pv   = parseDateOrNull($request->input('date_pv'));
 
-        $referentiel = Referentiel::where('titre', $request->titre)->first();
+        $date_lettre_dec = parseDateOrNull($request->input('date_lettre_dec'));
+
+        $referentiel     = Referentiel::where('titre', $request->titre)->first();
 
 // Détermination du type et du titre
         if (! empty($referentiel) && $request->titre !== 'Renforcement de capacités') {
@@ -169,6 +172,8 @@ class LettrevaluationController extends Controller
             'evaluateurs_id'     => $request->input('evaluateur'),
             'onfpevaluateurs_id' => $request->input('onfpevaluateur'),
             "execution_statut"   => $request->input('execution_statut'),
+            "lettre_mission_dec" => $request->input('lettre_mission_dec'),
+            "date_lettre_dec"    => $date_lettre_dec,
             'contenu'            => $request->input('contenu'),
         ]);
 

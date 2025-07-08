@@ -314,6 +314,7 @@ class Formation extends Model
         'indemnite_restauration',
         'indemnite',
         'lettre_mission_dec',
+        'file_lettre_dec',
     ];
 
     public function getRouteKeyName()

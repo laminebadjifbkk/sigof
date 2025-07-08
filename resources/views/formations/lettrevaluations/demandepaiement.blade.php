@@ -112,14 +112,14 @@
         @endif --}}
         <div class="header">
             <div class="contact-info" style="float:left; width: 75%; text-align: left;">
-                <p><strong>Prénom :</strong> {{ $formation?->evaluateur?->name }}</p>
-                <p><strong>Nom :</strong> {{ $formation?->evaluateur?->lastname }}</p>
-                <p><strong>Titre :</strong> {{ $formation?->evaluateur?->fonction }}</p>
-                <p><strong>Téléphone :</strong> {{ $formation?->evaluateur?->telephone }}</p>
+                <p><strong>Prénom :</strong> {{ $lettrevaluation?->evaluateur?->name }}</p>
+                <p><strong>Nom :</strong> {{ $lettrevaluation?->evaluateur?->lastname }}</p>
+                <p><strong>Titre :</strong> {{ $lettrevaluation?->evaluateur?->fonction }}</p>
+                <p><strong>Téléphone :</strong> {{ $lettrevaluation?->evaluateur?->telephone }}</p>
             </div>
 
             <div class="date" style="width: 25%; float:right; text-align: right;">
-                {{ $formation?->departement?->region?->nom }}, le {{ $formation?->date_pv?->translatedFormat('d F Y') }}
+                {{ $lettrevaluation->formation?->departement?->region?->nom }}, le {{ $lettrevaluation->formation?->date_pv?->translatedFormat('d F Y') }}
             </div>
 
             <div class="clear" style="clear: both;"></div>
@@ -132,7 +132,7 @@
 
         <div class="header" style="float:left; text-align: left;">
             <p><u><b>Réf.</b></u> : lettre de mission N°
-                {{ $formation?->lettre_mission_dec . '/ONFP/DG/DEC/' . $formation?->onfpevaluateur?->initiale . ' du ' . $formation?->date_lettre_dec?->translatedFormat('d F Y') }}
+                {{ $lettrevaluation?->lettre_mission_dec . '/ONFP/DG/DEC/' . $lettrevaluation?->onfpevaluateur?->initiale . ' du ' . $lettrevaluation?->date_lettre_dec?->translatedFormat('d F Y') }}
             </p>
         </div>
         <br>
@@ -142,9 +142,9 @@
 
         <div class="header">
             <p>Indemnités relatives à l’évaluation de la formation en
-                {{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}
-                en date du {{ $formation?->date_pv?->translatedFormat('d F Y') }} exécutée par l’opérateur
-                {{ $formation?->operateur?->user?->operateur ?? ' ' }}
+                {{ $lettrevaluation?->formation?->module->name ?? ($lettrevaluation?->formation?->collectivemodule?->module ?? 'Aucun') }}
+                en date du {{ $lettrevaluation?->formation?->date_pv?->translatedFormat('d F Y') }} exécutée par l’opérateur
+                {{ $lettrevaluation?->formation?->operateur?->user?->operateur ?? ' ' }}
             </p>
         </div>
 
@@ -160,8 +160,8 @@
                 <tr>
                     <td>
                         Indemnités d’évaluation de la formation en
-                        {{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}
-                        en date du {{ $formation?->date_pv?->translatedFormat('d F Y') }}
+                        {{ $lettrevaluation?->formation?->module?->name ?? ($lettrevaluation?->formation?->collectivemodule?->module ?? 'Aucun') }}
+                        en date du {{ $lettrevaluation?->formation?->date_pv?->translatedFormat('d F Y') }}
                         <br><br>
                         <strong>Montant net</strong>
                     </td>
@@ -190,7 +190,7 @@
             <p style="text-align: right; font-style: italic">
                 <span>
                     <b>Prénom, Nom et Signature </b><br><br><br>
-                    {{-- {{ $formation?->evaluateur?->name . ' ' . $formation?->evaluateur?->lastname }} --}}
+                    {{-- {{ $lettrevaluation->formation?->evaluateur?->name . ' ' . $lettrevaluation->formation?->evaluateur?->lastname }} --}}
                 </span>
             </p>
         </div>

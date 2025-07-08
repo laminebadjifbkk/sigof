@@ -67,7 +67,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-6">
                                             <label for="onfpevaluateur" class="form-label">Evaluateur ONFP<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="onfpevaluateur"
@@ -90,7 +90,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-6">
                                             <label for="evaluateur" class="form-label">Evaluateur<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="evaluateur"
@@ -113,7 +113,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-6">
                                             <label for="frais_evaluateur" class="form-label">Montant indemnité de membre</label>
                                             <input type="number" name="frais_evaluateur" min="0" step="0.001"
                                                 value="{{ $lettrevaluation?->formation?->frais_evaluateur ?? old('frais_evaluateur') }}"
@@ -126,7 +126,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-6">
                                             <label for="date_pv" class="form-label">Date évaluation</label>
                                             <input type="date" name="date_pv"
                                                 value="{{ $lettrevaluation?->formation?->date_pv?->format('Y-m-d') ?? old('date_pv') }}"
@@ -139,7 +139,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-6">
                                             <label for="titre" class="form-label">Niveau qualification</label>
                                             <select name="titre" class="form-select  @error('titre') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-titre" data-placeholder="Choisir titre">
@@ -162,7 +162,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-6">
                                             <label for="type_certification" class="form-label">Type certification</label>
                                             <select name="type_certification"
                                                 class="form-select  @error('type_certification') is-invalid @enderror"
@@ -188,9 +188,35 @@
                                             @enderror
                                         </div>
 
+                                        <div class="col-6">
+                                            <label for="lettre_mission_dec" class="form-label">N° lettre de mission</label>
+                                            <input type="text" name="lettre_mission_dec"
+                                                value="{{ $lettrevaluation?->lettre_mission_dec ?? old('lettre_mission_dec') }}"
+                                                class="form-control form-control-sm @error('lettre_mission_dec') is-invalid @enderror"
+                                                id="lettre_mission_dec" placeholder="Ex: 000876">
+                                            @error('lettre_mission_dec')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-6">
+                                            <label for="date_lettre_dec" class="form-label">Date lettre mission</label>
+                                            <input type="date" name="date_lettre_dec"
+                                                value="{{ $lettrevaluation?->date_lettre_dec?->format('Y-m-d') ?? old('date_lettre_dec') }}"
+                                                class="datepicker form-control form-control-sm @error('date_lettre_dec') is-invalid @enderror"
+                                                id="date_lettre_dec" placeholder="jj/mm/aaaa">
+                                            @error('date_lettre_dec')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
                                         <div class="col-12">
                                             <label for="contenu" class="form-label">Commentaires</label>
-                                            <textarea name="contenu" id="contenu" rows="5"
+                                            <textarea name="contenu" id="contenu" rows="3"
                                                 class="form-control form-control-sm @error('contenu') is-invalid @enderror" placeholder="Commentaires">{{ old('contenu') }}</textarea>
                                             @error('contenu')
                                                 <span class="invalid-feedback" role="alert">

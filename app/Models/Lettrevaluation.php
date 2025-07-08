@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,6 +8,14 @@ use Illuminate\Support\Str;
 class Lettrevaluation extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'date_lettre_dec' => 'datetime',
+    ];
+
+    protected $dates = [
+        'date_lettre_dec',
+    ];
 
     protected $fillable = [
         'uuid',
@@ -20,6 +27,9 @@ class Lettrevaluation extends Model
         'onfpevaluateurs_id',
         'evaluateurs_id',
         'execution_statut',
+        'lettre_mission_dec',
+        'file_lettre_dec',
+        'date_lettre_dec',
     ];
 
     protected static function boot()
