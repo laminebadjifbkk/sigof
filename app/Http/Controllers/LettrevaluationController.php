@@ -134,7 +134,7 @@ class LettrevaluationController extends Controller
             'formation'        => 'required|string',
             'onfpevaluateur'   => 'required|string',
             'evaluateur'       => 'required|string',
-            'frais_evaluateur' => 'nullable|string',
+            'frais_evaluateur' => 'required|string',
             'date_pv'          => 'nullable|string',
             'contenu'          => 'nullable|string|max:500',
             'execution_statut' => 'nullable|in:0,1',

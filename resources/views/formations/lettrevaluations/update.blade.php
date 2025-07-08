@@ -140,7 +140,7 @@
                                         </div>
 
                                         <div class="col-12">
-                                            <label for="titre" class="form-label">Titre (convention)</label>
+                                            <label for="titre" class="form-label">Niveau qualification</label>
                                             <select name="titre" class="form-select  @error('titre') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-titre" data-placeholder="Choisir titre">
                                                 <option>
@@ -163,7 +163,7 @@
                                         </div>
 
                                         <div class="col-12">
-                                            <label for="type_certification" class="form-label">Titre (convention)</label>
+                                            <label for="type_certification" class="form-label">Type certification</label>
                                             <select name="type_certification"
                                                 class="form-select  @error('type_certification') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-type_certification_update"
