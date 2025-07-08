@@ -1,10 +1,10 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Operateurformateur extends Model
 {
     use HasFactory;
@@ -24,11 +24,17 @@ class Operateurformateur extends Model
         'references',
         'statut',
         'file',
-        'operateurs_id'
+        'operateurs_id',
     ];
+
     public function operateur()
     {
         return $this->belongsTo(Operateur::class, 'operateurs_id')->latest();
     }
 
+    public function getCVFormateurs()
+    {
+        $cvPath = $this->file;
+        return "/storage/" . $cvPath;
+    }
 }

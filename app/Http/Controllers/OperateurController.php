@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
-use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class OperateurController extends Controller
@@ -190,10 +189,28 @@ class OperateurController extends Controller
             'users_id'        => $user->id,
         ]);
 
-        if ($request->hasFile('quitus')) {
+        /* if ($request->hasFile('quitus')) {
             $quitusPath = $request->file('quitus')->store('quitus', 'public');
             Image::make(public_path("/storage/{$quitusPath}"))->save();
             $operateur->update(['quitus' => $quitusPath]);
+        } */
+
+        if ($request->hasFile('quitus')) {
+
+            // Récupérer le fichier uploadé
+            $uploadedFile = $request->file('quitus');
+
+            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
+
+            // Stocker le fichier
+            $filePath = $uploadedFile->storeAs('quitus', $filename, 'public');
+
+            // Mettre à jour le modèle en base de données
+            $operateur->update([
+                'quitus' => $filePath,
+            ]);
+
         }
 
         Alert::success("Succès ! ", "Demande ajoutée avec succès");
@@ -301,14 +318,50 @@ class OperateurController extends Controller
         $user->assignRole('Operateur');
 
         // Gestion des fichiers
-        if ($request->hasFile('quitus')) {
+        /* if ($request->hasFile('quitus')) {
             $quitusPath = $request->file('quitus')->store('quitus', 'public');
             $operateur->update(['quitus' => $quitusPath]);
+        } */
+
+        if ($request->hasFile('quitus')) {
+
+            // Récupérer le fichier uploadé
+            $uploadedFile = $request->file('quitus');
+
+            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
+
+            // Stocker le fichier
+            $filePath = $uploadedFile->storeAs('quitus', $filename, 'public');
+
+            // Mettre à jour le modèle en base de données
+            $operateur->update([
+                'quitus' => $filePath,
+            ]);
+
         }
 
-        if ($request->hasFile('file_arrete_creation')) {
+        /* if ($request->hasFile('file_arrete_creation')) {
             $file_arrete_creation = $request->file('file_arrete_creation')->store('uploads', 'public');
             $operateur->update(['file_arrete_creation' => $file_arrete_creation]);
+        } */
+
+        if ($request->hasFile('file_arrete_creation')) {
+
+            // Récupérer le fichier uploadé
+            $uploadedFile = $request->file('file_arrete_creation');
+
+            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
+
+            // Stocker le fichier
+            $filePath = $uploadedFile->storeAs('uploads', $filename, 'public');
+
+            // Mettre à jour le modèle en base de données
+            $operateur->update([
+                'file_arrete_creation' => $filePath,
+            ]);
+
         }
 
         Alert::success("Félicitations !", "Opérateur ajouté avec succès");
@@ -373,9 +426,27 @@ class OperateurController extends Controller
             ]);
 
 // Gestion du fichier quitus
-            if ($request->hasFile('quitus')) {
+            /*  if ($request->hasFile('quitus')) {
                 $quitusPath = $request->file('quitus')->store('quitus', 'public');
                 $op->update(['quitus' => $quitusPath]);
+            } */
+
+            if ($request->hasFile('quitus')) {
+
+                // Récupérer le fichier uploadé
+                $uploadedFile = $request->file('quitus');
+
+                $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+                $filename = time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
+
+                // Stocker le fichier
+                $filePath = $uploadedFile->storeAs('quitus', $filename, 'public');
+
+                // Mettre à jour le modèle en base de données
+                $op->update([
+                    'quitus' => $filePath,
+                ]);
+
             }
 
 // Clonage des modules de l'opérateur
@@ -532,17 +603,59 @@ class OperateurController extends Controller
         ]);
 
         // Gestion des fichiers
-        if ($request->hasFile('quitus')) {
+        /* if ($request->hasFile('quitus')) {
             if (! is_null($operateur->quitus)) {
                 Storage::disk('public')->delete($operateur->quitus);
             }
             $quitusPath = $request->file('quitus')->store('quitus', 'public');
             $operateur->update(['quitus' => $quitusPath]);
+        } */
+
+        if ($request->hasFile('quitus')) {
+
+            if (! is_null($operateur->quitus)) {
+                Storage::disk('public')->delete($operateur->quitus);
+            }
+            // Récupérer le fichier uploadé
+            $uploadedFile = $request->file('quitus');
+
+            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
+
+            // Stocker le fichier
+            $filePath = $uploadedFile->storeAs('quitus', $filename, 'public');
+
+            // Mettre à jour le modèle en base de données
+            $operateur->update([
+                'quitus' => $filePath,
+            ]);
+
         }
 
-        if ($request->hasFile('file_arrete_creation')) {
+        /* if ($request->hasFile('file_arrete_creation')) {
             $filePath = $request->file('file_arrete_creation')->store('uploads', 'public');
             $operateur->update(['file_arrete_creation' => $filePath]);
+        } */
+
+        if ($request->hasFile('file_arrete_creation')) {
+
+            if (! is_null($operateur->file_arrete_creation)) {
+                Storage::disk('public')->delete($operateur->file_arrete_creation);
+            }
+            // Récupérer le fichier uploadé
+            $uploadedFile = $request->file('file_arrete_creation');
+
+            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
+
+            // Stocker le fichier
+            $filePath = $uploadedFile->storeAs('uploads', $filename, 'public');
+
+            // Mettre à jour le modèle en base de données
+            $operateur->update([
+                'file_arrete_creation' => $filePath,
+            ]);
+
         }
 
         Alert::success("Succès !", 'Demande modifiée avec succès');
@@ -569,14 +682,6 @@ class OperateurController extends Controller
             ],
         ]);
 
-        /*  $rolesValid       = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'ADEC', 'ADIOF', 'Ingenieur'];
-        $rolesUtilisateur = Auth::user()->roles->pluck('name');
-
-// Vérifier si l'utilisateur possède un des rôles valides
-        $roleValide = $rolesUtilisateur->intersect($rolesValid)->isNotEmpty();
-
-        if (! $roleValide) { */
-
         // Si l'utilisateur n'a pas de rôle valide, on l'autorise à effectuer la mise à jour
         $this->authorize('update', $operateur);
 
@@ -586,8 +691,6 @@ class OperateurController extends Controller
             return redirect()->back();
         }
 
-        /* }
- */
         $dateString  = $request->input('date_quitus');
         $date_quitus = ! empty($dateString) ? Carbon::createFromFormat('d/m/Y', $dateString) : null;
 
@@ -601,7 +704,7 @@ class OperateurController extends Controller
 
         $operateur->save();
 
-        if (request('quitus')) {
+        /*  if (request('quitus')) {
             if (! empty($operateur->quitus)) {
                 Storage::disk('public')->delete($operateur->quitus);
             }
@@ -613,21 +716,37 @@ class OperateurController extends Controller
             $operateur->update([
                 'quitus' => $quitusPath,
             ]);
+        } */
+
+        if ($request->hasFile('quitus')) {
+
+            if (! is_null($operateur->quitus)) {
+                Storage::disk('public')->delete($operateur->quitus);
+            }
+            // Récupérer le fichier uploadé
+            $uploadedFile = $request->file('quitus');
+
+            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
+
+            // Stocker le fichier
+            $filePath = $uploadedFile->storeAs('quitus', $filename, 'public');
+
+            // Mettre à jour le modèle en base de données
+            $operateur->update([
+                'quitus' => $filePath,
+            ]);
+
         }
 
-        Alert::success("Succès ! ", 'demande modifiée avec succès');
+        Alert::success("Succès ! ", 'La demande a été modifiée avec succès');
 
         return redirect()->back();
     }
+
     public function edit(Operateur $operateur)
     {
         $departements = Departement::orderBy("nom", "asc")->get();
-
-        /*  foreach (Auth::user()->roles as $key => $role) {
-            if (! empty($role?->name) && ($role?->name != 'super-admin') && ($role?->name != 'Employe') && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
-                $this->authorize('view', $operateur);
-            }
-        } */
 
         $this->authorize('view', $operateur);
 
@@ -639,14 +758,6 @@ class OperateurController extends Controller
         $operateurs         = Operateur::get();
         $operateureferences = Operateureference::get();
         $user               = $operateur->user;
-
-        /*  $userRoles = Auth::user()->roles->pluck('name')->toArray();
-
-        $excludedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC', 'Operateur', 'Ingenieur'];
-
-        if (! empty(array_diff($userRoles, $excludedRoles))) {
-            $this->authorize('show', $operateur);
-        } */
 
         $this->authorize('show', $operateur);
 
@@ -680,7 +791,7 @@ class OperateurController extends Controller
         $operateur->delete();
 
         // Message de succès
-        Alert::success('Succès !', $operateur->user->username . ' a été supprimé');
+        Alert::success('Succès !', 'L\'opérateur a été supprimé avec succès.');
 
         return redirect()->back();
     }
@@ -786,18 +897,18 @@ class OperateurController extends Controller
         $moduleoperateur_count = $operateur->operateurmodules->count();
 
         if ($moduleoperateur_count > 0) {
-            if ($operateur->statut_agrement == 'Nouveau' || $operateur->statut_agrement == 'non retenu') {
+            if ($operateur->statut_agrement == 'Nouveau' || $operateur->statut_agrement == 'Non conforme') {
                 $operateur->update([
-                    'statut_agrement' => 'Retenu',
+                    'statut_agrement' => 'Conforme',
                 ]);
 
                 $operateur->save();
 
-                Alert::success("Effectué !", "l'opérateur " . $operateur?->user?->username . ' a été retenu');
+                Alert::success("Succès !", "L'opérateur " . $operateur?->user?->username . ' a été retenu');
 
                 return redirect()->back();
             } else {
-                Alert::warning("Imopssible ", "Car l'opérateur " . $operateur?->user?->username . ' a déjà été validé');
+                Alert::warning("Impossible ", "Car l'opérateur " . $operateur?->user?->username . ' a déjà été validé');
 
                 return redirect()->back();
             }

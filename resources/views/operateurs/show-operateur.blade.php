@@ -736,7 +736,7 @@
                             {{-- En-tête --}}
                             <div class="card-header text-center bg-white border-bottom py-3">
                                 <h4 class="text-primary fw-bold mb-0">
-                                    <i class="bi bi-pencil-square me-2 text-dark"></i> Modification Opérateur
+                                    <i class="bi bi-pencil-square me-2 text-dark"></i> Modification opérateur
                                 </h4>
                             </div>
 
@@ -779,7 +779,7 @@
                                     </div>
 
                                     {{-- Quitus --}}
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-5">
                                         <label for="quitus" class="form-label fw-semibold">Quitus fiscal <span
                                                 class="text-danger">*</span></label>
                                         <input type="file" name="quitus" id="quitus"
@@ -800,12 +800,17 @@
                                     </div>
 
                                     {{-- Date visa quitus --}}
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-6">
                                         <label for="date_quitus" class="form-label fw-semibold">Date visa quitus <span
                                                 class="text-danger">*</span></label>
-                                        <input type="date" name="date_quitus" id="date_quitus"
+                                       {{--  <input type="date" name="date_quitus" id="date_quitus"
                                             value="{{ $operateur?->debut_quitus?->format('Y-m-d') ?? old('date_quitus') }}"
-                                            class="form-control form-control-sm @error('date_quitus') is-invalid @enderror">
+                                            class="form-control form-control-sm @error('date_quitus') is-invalid @enderror"> --}}                                            
+                                            <input type="text" name="date_quitus"
+                                                value="{{ old('date_quitus', optional($operateur?->debut_quitus)->format('d/m/Y')) }}"
+                                                class="form-control form-control-sm @error('date_quitus') is-invalid @enderror"
+                                                id="datepicker" placeholder="JJ/MM/AAAA" autocomplete="bday">
+
                                         @error('date_quitus')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

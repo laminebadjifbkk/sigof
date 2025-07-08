@@ -186,6 +186,7 @@ class Operateur extends Model
         $quitusPath = $this->quitus;
         return "/storage/" . $quitusPath;
     }
+    
 
     public function getArreteCreation()
     {

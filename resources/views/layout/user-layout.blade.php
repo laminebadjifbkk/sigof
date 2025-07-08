@@ -1126,6 +1126,9 @@
         .dropdown-item:hover {
             background-color: #e9ecef;
         }
+        .dropdown-menu {
+            z-index: 1050 !important;
+        }
     </style>
 
 </head>

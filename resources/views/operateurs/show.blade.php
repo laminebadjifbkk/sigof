@@ -50,7 +50,7 @@
                                     @endcan
                                     <li class="nav-item">
                                         <button class="nav-link" data-bs-toggle="tab"
-                                            data-bs-target="#profile-overview">Opérateur</button>
+                                            data-bs-target="#profile-overview">Détails</button>
                                     </li>
 
                                     <li class="nav-item">
@@ -362,11 +362,13 @@
                                                 </div>
                                             @endif
 
-                                            <div class="text-center">
-                                                <a href="{{ route('operateurs.edit', $operateur) }}"
-                                                    class="btn btn-outline-primary btn-sm" title="Modifier">Modifier cet
-                                                    opérateur</a>
-                                            </div>
+                                            @can('operateur-update')
+                                                <div class="text-center">
+                                                    <a href="{{ route('operateurs.edit', $operateur) }}"
+                                                        class="btn btn-outline-primary btn-sm" title="Modifier">Modifier cet
+                                                        opérateur</a>
+                                                </div>
+                                            @endcan
                                         </form>
                                     </div>
                                 </div>
@@ -484,34 +486,6 @@
                                                             </td>
                                                             <td style="text-align: center;">{{ $operateurequipement->type }}
                                                             </td>
-                                                            {{-- <td>
-                                                            <span class="d-flex align-items-baseline">
-                                                                <a href="{{ route('operateurequipements.show', $operateurequipement->id) }}"
-                                                                    class="btn btn-primary btn-sm" title="voir détails"><i
-                                                                        class="bi bi-eye"></i></a>
-                                                                <div class="filter">
-                                                                    <a class="icon" href="#"
-                                                                        data-bs-toggle="dropdown"><i
-                                                                            class="bi bi-three-dots"></i></a>
-                                                                    <ul
-                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                        <button class="dropdown-item btn btn-sm mx-1"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#EditoperateurequipementModal{{ $operateurequipement->id }}">Modifier
-                                                                        </button>
-                                                                        <form
-                                                                            action="{{ route('operateurequipements.destroy', $operateurequipement->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit"
-                                                                                class="dropdown-item show_confirm"
-                                                                                title="Supprimer">Supprimer</button>
-                                                                        </form>
-                                                                    </ul>
-                                                                </div>
-                                                            </span>
-                                                        </td> --}}
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
