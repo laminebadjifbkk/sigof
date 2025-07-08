@@ -119,7 +119,7 @@
             </div>
 
             <div class="date" style="width: 25%; float:right; text-align: right;">
-                Diourbel, le {{ $formation?->date_pv?->translatedFormat('d F Y') }}
+                {{ $formation?->departement?->region?->nom }}, le {{ $formation?->date_pv?->translatedFormat('d F Y') }}
             </div>
 
             <div class="clear" style="clear: both;"></div>
