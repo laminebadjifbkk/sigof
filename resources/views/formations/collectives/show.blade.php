@@ -1983,7 +1983,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                {{-- <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <div class="mb-3">
                                         <label for="evaluateur" class="form-label">Evaluateur<span
                                                 class="text-danger mx-1">*</span></label>
@@ -2007,7 +2007,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 {{-- <div class="row">
                                 <div class="col-12 col-md-9 mb-3">
@@ -2036,8 +2036,7 @@
                                 </div>
                             </div> --}}
 
-
-                                <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                {{-- <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <div class="mb-3">
                                         <label for="evaluateur" class="form-label">Evaluateur ONFP<span
                                                 class="text-danger mx-1">*</span></label>
@@ -2062,11 +2061,11 @@
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <div class="mb-3">
-                                        <label class="form-label">Titre (convention)<span
+                                        <label class="form-label">Niveau qualification<span
                                                 class="text-danger mx-1">*</span></label>
                                         {{-- <input type="text" name="type_certificat" min="0" step="0.001"
                                     value="{{ $formation?->type_certificat ?? old('type_certificat') }}"

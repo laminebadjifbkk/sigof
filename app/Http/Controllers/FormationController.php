@@ -390,8 +390,8 @@ class FormationController extends Controller
         $programmes       = Programme::orderBy("created_at", "desc")->get();
         $choixoperateurs  = Choixoperateur::orderBy("created_at", "desc")->get();
         $referentiels     = Referentiel::get();
-        $evaluateurs      = Evaluateur::get();
-        $onfpevaluateurs  = Onfpevaluateur::get();
+       /*  $evaluateurs      = Evaluateur::get();
+        $onfpevaluateurs  = Onfpevaluateur::get(); */
 
         return view(
             "formations.update",
@@ -403,8 +403,8 @@ class FormationController extends Controller
                 'programmes',
                 'referentiels',
                 'choixoperateurs',
-                'evaluateurs',
-                'onfpevaluateurs',
+               /*  'evaluateurs',
+                'onfpevaluateurs', */
             )
         );
     }
@@ -487,7 +487,7 @@ class FormationController extends Controller
         $date_fin        = parseDateOrNull($request->input('date_fin'));
         $date_pv         = parseDateOrNull($request->input('date_pv'));
         $date_lettre     = parseDateOrNull($request->input('date_lettre'));
-        $date_lettre_dec = parseDateOrNull($request->input('date_lettre_dec'));
+        /* $date_lettre_dec = parseDateOrNull($request->input('date_lettre_dec')); */
         $date_convention = parseDateOrNull($request->input('date_convention'));
         $date_etat       = parseDateOrNull($request->input('date_etat'));
 
@@ -496,7 +496,7 @@ class FormationController extends Controller
         $frais_add                = $request->input('frais_add') ?: null;
         $autes_frais              = $request->input('autes_frais') ?: null;
         $frais_evaluateur         = $request->input('frais_evaluateur') ?: null;
-        $onfpevaluateur           = $request->input('onfpevaluateur') ?: null;
+        /* $onfpevaluateur           = $request->input('onfpevaluateur') ?: null; */
         $duree_formation          = $request->input('duree_formation') ?: null;
         $indemnite_transport_jour = $request->input('indemnite_transport_jour') ?: null;
 
@@ -515,7 +515,7 @@ class FormationController extends Controller
             "date_fin"                 => $date_fin,
             "date_convention"          => $date_convention,
             "date_lettre"              => $date_lettre,
-            "date_lettre_dec"          => $date_lettre_dec,
+            /* "date_lettre_dec"          => $date_lettre_dec, */
             "effectif_prevu"           => $effectif_prevu,
             "prevue_h"                 => $prevue_h,
             "prevue_f"                 => $prevue_f,
@@ -524,7 +524,7 @@ class FormationController extends Controller
             "autes_frais"              => $autes_frais,
             "projets_id"               => $projet?->id,
             "lettre_mission"           => $request->input('lettre_mission'),
-            "lettre_mission_dec"       => $request->input('lettre_mission_dec'),
+            /* "lettre_mission_dec"       => $request->input('lettre_mission_dec'), */
             "programmes_id"            => $request->input('programme'),
             "choixoperateurs_id"       => $request->input('choixoperateur'),
             "referentiels_id"          => $referentiel_id,
@@ -534,7 +534,7 @@ class FormationController extends Controller
             "recommandations"          => $request->input('recommandations'),
             "date_pv"                  => $date_pv,
             /* "evaluateurs_id"        =>   $request->input('evaluateur'), */
-            "onfpevaluateurs_id"       => $onfpevaluateur,
+            /* "onfpevaluateurs_id"       => $onfpevaluateur, */
             "attestation"              => $request->statut,
             "duree_formation"          => $duree_formation,
             "date_etat"                => $date_etat,
@@ -615,8 +615,8 @@ class FormationController extends Controller
 
 // Chargement en batch des données secondaires
         $listecollectives = Listecollective::latest()->get();
-        $evaluateurs      = Evaluateur::latest()->get();
-        $onfpevaluateurs  = Onfpevaluateur::latest()->get();
+       /*  $evaluateurs      = Evaluateur::latest()->get();
+        $onfpevaluateurs  = Onfpevaluateur::latest()->get(); */
         $referentiels     = Referentiel::all();
 
 // collectives_id est déjà chargé via $formation
@@ -651,7 +651,8 @@ class FormationController extends Controller
         return view(
             'formations.' . $type_formation . "s.show",
             compact(
-                "evaluateurs",
+                /* "evaluateurs",
+                "onfpevaluateurs", */
                 "formation",
                 "count_demandes",
                 "operateur",
@@ -660,7 +661,6 @@ class FormationController extends Controller
                 "type_formation",
                 "listecollectives",
                 "collectiveFormation",
-                "onfpevaluateurs",
                 "ingenieur",
                 "collectivemodules",
                 "collectiveModule",
@@ -1835,7 +1835,7 @@ class FormationController extends Controller
     {
         $request->validate([
             'membres_jury'      => ['nullable', 'string'],
-            'evaluateur'        => ['required', 'string'],
+            /* 'evaluateur'        => ['required', 'string'], */
             'numero_convention' => ['required', 'string'],
             'frais_evaluateur'  => ['required', 'string'],
             'type_certificat'   => ['nullable', 'string'],
@@ -1875,11 +1875,11 @@ class FormationController extends Controller
             $date_convention = null;
         }
 
-        if (! empty($request->input('onfpevaluateur')) && $request->input('onfpevaluateur') === "Aucun") {
+        /* if (! empty($request->input('onfpevaluateur')) && $request->input('onfpevaluateur') === "Aucun") {
             $onfpevaluateur = null;
         } else {
             $onfpevaluateur = $request->input('onfpevaluateur');
-        }
+        } */
 
         $formation->update([
             "membres_jury"       => $request->input('membres_jury'),
@@ -1891,8 +1891,8 @@ class FormationController extends Controller
             "recommandations"    => $request->input('recommandations'),
             "date_pv"            => $date_pv,
             "date_convention"    => $date_convention,
-            "evaluateurs_id"     => $request->input('evaluateur'),
-            "onfpevaluateurs_id" => $onfpevaluateur,
+           /*  "evaluateurs_id"     => $request->input('evaluateur'),
+            "onfpevaluateurs_id" => $onfpevaluateur, */
             "referentiels_id"    => $referentiel_id,
         ]);
 

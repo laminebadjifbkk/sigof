@@ -476,7 +476,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    {{-- <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="lettre_mission_dec" class="form-label">N° lettre de mission DEC</label>
                                         <input type="text" name="lettre_mission_dec"
                                             value="{{ $formation?->lettre_mission_dec ?? old('lettre_mission_dec') }}"
@@ -500,7 +500,7 @@
                                                 <div>{{ $message }}</div>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <div class="mb-3">
@@ -542,7 +542,7 @@
                                         </div>
                                     </div> --}}
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    {{-- <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <div class="mb-3">
                                             <label for="evaluateur" class="form-label">Evaluateur ONFP</label>
                                             <select name="onfpevaluateur"
@@ -566,7 +566,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <div class="mb-3">
