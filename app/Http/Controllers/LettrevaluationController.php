@@ -57,7 +57,8 @@ class LettrevaluationController extends Controller
         Lettrevaluation::create($validated); */
 
         $request->validate([
-            'formation' => 'required|string|unique:lettrevaluations,formations_id',
+            /* 'formation' => 'required|string|unique:lettrevaluations,formations_id', */
+            'formation' => 'required|string',
             'contenu'   => 'nullable|string|max:500',
         ]);
 
