@@ -378,7 +378,7 @@
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
                                             @csrf
                                             @method('PUT')
-                                            <div class="d-flex justify-content-between align-items-center">
+                                            {{-- <div class="d-flex justify-content-between align-items-center">
                                                 <h5 class="card-title">EXPERIENCES ET REFERENCES PROFESSIONNELLES</h5>
                                                 @can('devenir-operateur-agrement-ouvert')
                                                     @can('agrement-visible-par-op')
@@ -389,6 +389,24 @@
                                                         </h5>
                                                     @endcan
                                                 @endcan
+                                            </div> --}}
+
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h4 class="mb-0 fw-bold text-uppercase text-info">
+                                                    <i class="bi bi-briefcase-fill me-2"></i> Expériences & Références
+                                                    professionnelles
+                                                </h4>
+
+                                                @can('devenir-operateur-agrement-ouvert')
+                                                    @can('agrement-visible-par-op')
+                                                        <a href="{{ route('showReference', ['id' => $operateur?->id]) }}"
+                                                            class="btn btn-sm btn-info rounded-pill shadow-sm d-flex align-items-center gap-2"
+                                                            target="_blank" title="Ajouter, Modifier, Supprimer des références">
+                                                            <i class="bi bi-plus-circle-fill fs-5"></i>
+                                                            Gérer les références
+                                                        </a>
+                                                    @endcan
+                                                @endcan
                                             </div>
 
                                             <table
@@ -396,10 +414,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">ORGANISME</th>
-                                                        {{-- <th scope="col">CONTACTS</th> --}}
                                                         <th scope="col">PERIODE</th>
                                                         <th scope="col">DESCRIPTION DES INTERVENTIONS</th>
-                                                        {{-- <th class="col"><i class="bi bi-gear"></i></th> --}}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -407,34 +423,8 @@
                                                     @foreach ($operateur?->operateureferences as $operateureference)
                                                         <tr>
                                                             <td>{{ $operateureference?->organisme }}</td>
-                                                            {{-- <td>{{ $operateureference?->contact }}</td> --}}
                                                             <td>{{ $operateureference?->periode }}</td>
                                                             <td>{{ $operateureference?->description }}</td>
-                                                            {{-- <td style="text-align: center;">
-                                                            <span class="d-flex mt-2 align-items-baseline"><a
-                                                                    href="#"
-                                                                    class="btn btn-warning btn-sm mx-1"
-                                                                    title="Voir détails">
-                                                                    <i class="bi bi-eye"></i></a>
-                                                                <div class="filter">
-                                                                    <a class="icon" href="#"
-                                                                        data-bs-toggle="dropdown"><i
-                                                                            class="bi bi-three-dots"></i></a>
-                                                                    <ul
-                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                        <li>
-                                                                            <button type="button"
-                                                                                class="dropdown-item btn btn-sm mx-1"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#EditoperateureferenceModal{{ $operateureference->id }}">
-                                                                                <i class="bi bi-pencil"
-                                                                                    title="Modifier"></i> Modifier
-                                                                            </button>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </span>
-                                                        </td> --}}
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -447,23 +437,23 @@
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
                                             @csrf
                                             @method('PUT')
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h5 class="card-title">INFRASTRUCTURES / EQUIPEMENTS</h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h4 class="mb-0 fw-bold text-uppercase text-dark">
+                                                    <i class="bi bi-building-gear me-2"></i> Infrastructures / Équipements
+                                                </h4>
+
                                                 @can('devenir-operateur-agrement-ouvert')
                                                     @can('agrement-visible-par-op')
-                                                        <h5 class="card-title">
-                                                            <a href="{{ route('showEquipement', ['id' => $operateur?->id]) }}"
-                                                                class="btn btn-outline-primary float-end btn-rounded btn-sm"
-                                                                target="_blank">
-                                                                <i class="bi bi-plus" title="Ajouter, Modifier, Supprimer"></i> </a>
-                                                            {{-- <button type="button" class="btn btn-outline-primary btn-sm"
-                                                    data-bs-toggle="modal" data-bs-target="#AddRefModal">
-                                                    <i class="bi bi-plus" title="Ajouter une référence"></i>
-                                                </button> --}}
-                                                        </h5>
+                                                        <a href="{{ route('showEquipement', ['id' => $operateur?->id]) }}"
+                                                            class="btn btn-sm btn-dark rounded-pill shadow-sm d-flex align-items-center gap-2"
+                                                            target="_blank" title="Ajouter, Modifier, Supprimer les équipements">
+                                                            <i class="bi bi-plus-circle-fill fs-5"></i>
+                                                            Gérer les équipements
+                                                        </a>
                                                     @endcan
                                                 @endcan
                                             </div>
+
                                             <table
                                                 class="table table-bordered table-hover datatables align-middle justify-content-center table-borderless">
                                                 <thead>
@@ -498,7 +488,7 @@
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
                                             @csrf
                                             @method('PUT')
-                                            <div class="d-flex justify-content-between align-items-center">
+                                            {{-- <div class="d-flex justify-content-between align-items-center">
                                                 <h5 class="card-title">FORMATEURS</h5>
                                                 @can('devenir-operateur-agrement-ouvert')
                                                     @can('agrement-visible-par-op')
@@ -507,11 +497,22 @@
                                                                 class="btn btn-outline-primary float-end btn-rounded btn-sm"
                                                                 target="_blank">
                                                                 <i class="bi bi-plus" title="Ajouter, Modifier, Supprimer"></i> </a>
-                                                            {{-- <button type="button" class="btn btn-outline-primary btn-sm"
-                                                    data-bs-toggle="modal" data-bs-target="#AddRefModal">
-                                                    <i class="bi bi-plus" title="Ajouter une référence"></i>
-                                                </button> --}}
                                                         </h5>
+                                                    @endcan
+                                                @endcan
+                                            </div> --}}
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h4 class="mb-0 fw-bold text-uppercase text-primary">
+                                                    <i class="bi bi-person-badge-fill me-2"></i> Formateurs
+                                                </h4>
+                                                @can('devenir-operateur-agrement-ouvert')
+                                                    @can('agrement-visible-par-op')
+                                                        <a href="{{ route('showFormateur', ['id' => $operateur?->id]) }}"
+                                                            class="btn btn-sm btn-primary rounded-pill shadow-sm d-flex align-items-center gap-2"
+                                                            target="_blank" title="Ajouter, Modifier, Supprimer un formateur">
+                                                            <i class="bi bi-plus-circle-fill fs-5"></i>
+                                                            Gérer les formateurs
+                                                        </a>
                                                     @endcan
                                                 @endcan
                                             </div>
@@ -575,7 +576,7 @@
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
                                             @csrf
                                             @method('PUT')
-                                            <div class="d-flex justify-content-between align-items-center">
+                                            {{-- <div class="d-flex justify-content-between align-items-center">
                                                 <h5 class="card-title">LOCALITES</h5>
                                                 @can('devenir-operateur-agrement-ouvert')
                                                     @can('agrement-visible-par-op')
@@ -587,7 +588,24 @@
                                                         </h5>
                                                     @endcan
                                                 @endcan
+                                            </div> --}}
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h4 class="mb-0 fw-bold text-uppercase text-success">
+                                                    <i class="bi bi-geo-alt-fill me-2"></i> Localités
+                                                </h4>
+
+                                                @can('devenir-operateur-agrement-ouvert')
+                                                    @can('agrement-visible-par-op')
+                                                        <a href="{{ route('showLocalite', ['id' => $operateur?->id]) }}"
+                                                            class="btn btn-sm btn-success rounded-pill shadow-sm d-flex align-items-center gap-2"
+                                                            target="_blank" title="Ajouter, Modifier, Supprimer des localités">
+                                                            <i class="bi bi-plus-circle-fill fs-5"></i>
+                                                            Gérer les localités
+                                                        </a>
+                                                    @endcan
+                                                @endcan
                                             </div>
+
                                             <table
                                                 class="table table-bordered table-hover datatables align-middle justify-content-center">
                                                 <thead>

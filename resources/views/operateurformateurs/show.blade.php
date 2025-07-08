@@ -74,6 +74,7 @@
                                     <th>Années d'expérience</th>
                                     <th>Références professionnelles</th>
                                     <th>CV</th>
+                                    <th>Statut</th>
                                     <th><i class="bi bi-gear"></i></th>
                                 </tr>
                             </thead>
@@ -103,6 +104,7 @@
                                                 <span class="text-muted small">Aucun fichier</span>
                                             @endif
                                         </td>
+                                        <td>{{ $operateurformateur?->statut }}</td>
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center align-items-center gap-2">
                                                 <a href="#" class="btn btn-outline-info btn-sm" title="Voir détails">
