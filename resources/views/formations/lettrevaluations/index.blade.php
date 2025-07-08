@@ -75,7 +75,7 @@
                                                         @endif
                                                     </td>
                                                     <td>{{ $lettrevaluation?->titre }}</td>
-                                                    <td>{{ $lettrevaluation?->onfpevaluateur?->name ?? 'Aucun' }}
+                                                    <td>{{ $lettrevaluation?->onfpevaluateur?->name . ' ' . $lettrevaluation?->onfpevaluateur?->lastname ?? 'Aucun' }}
                                                     <td>
                                                         {{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}</span>
                                                     </td>
