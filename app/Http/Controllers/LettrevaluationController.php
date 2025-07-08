@@ -165,9 +165,11 @@ class LettrevaluationController extends Controller
         }
 
         $lettrevaluation->update([
-            'formations_id'    => $request->input('formation'),
-            "execution_statut" => $request->input('execution_statut'),
-            'contenu'          => $request->input('contenu'),
+            'formations_id'      => $request->input('formation'),
+            'evaluateurs_id'     => $request->input('evaluateur'),
+            'onfpevaluateurs_id' => $request->input('onfpevaluateur'),
+            "execution_statut"   => $request->input('execution_statut'),
+            'contenu'            => $request->input('contenu'),
         ]);
 
         $formation->update([

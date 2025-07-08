@@ -75,12 +75,12 @@
                                                         @endif
                                                     </td>
                                                     <td>{{ $lettrevaluation?->titre }}</td>
-                                                    <td>{{ $lettrevaluation?->formation?->onfpevaluateur?->name ?? 'Aucun' }}
+                                                    <td>{{ $lettrevaluation?->onfpevaluateur?->name ?? 'Aucun' }}
                                                     <td>
                                                         {{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}</span>
                                                     </td>
                                                     <td>{{ $lettrevaluation?->formation?->operateur?->user?->username }}</td>
-                                                    <td>{{ $lettrevaluation?->formation?->evaluateur?->name . ' ' . $lettrevaluation?->formation?->evaluateur?->lastname ?? 'Aucun' }}
+                                                    <td>{{ $lettrevaluation?->evaluateur?->name . ' ' . $lettrevaluation?->evaluateur?->lastname ?? 'Aucun' }}
                                                     </td>
                                                     {{-- Actions --}}
                                                     <td>
