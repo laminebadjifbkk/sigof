@@ -31,11 +31,15 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <div class="pt-0">
+                        <div class="pt-2 d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0 fw-semibold text-primary">
+                                <i class="bi bi-tags-fill me-1"></i> Catégories
+                            </h5>
                             <a href="{{ route('operateurcategories.create') }}"
-                                class="btn btn-primary btn-sm float-end btn-rounded">Ajouter</a>
+                                class="btn btn-sm btn-primary rounded-pill shadow-sm">
+                                <i class="bi bi-plus-circle me-1"></i> Ajouter
+                            </a>
                         </div>
-                        <h5 class="card-title">Catégories</h5>
                         {{-- <p>Le tableau de toutes les catégories du système.</p> --}}
                         <!-- Table with stripped rows -->
                         <table class="table datatables align-middle" id="table-categories">
@@ -62,7 +66,8 @@
                                                 <a href="{{ route('operateurcategories.show', $categorie->id) }}"
                                                     class="btn btn-warning btn-sm" title="Voir"><i class="bi bi-eye"></i>
                                                 </a>
-                                                <form action="{{ route('operateurcategories.destroy', $categorie->id) }}" method="post">
+                                                <form action="{{ route('operateurcategories.destroy', $categorie->id) }}"
+                                                    method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm show_confirm"
