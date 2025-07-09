@@ -97,6 +97,7 @@ class Operateur extends Model
         'departements_id'        => 'int',
         'regions_id'             => 'int',
         'commissionagrements_id' => 'int',
+        'operateurcategories_id' => 'int',
         'fin_quitus'             => 'datetime',
         'debut_quitus'           => 'datetime',
         'annee_agrement'         => 'datetime',
@@ -163,6 +164,7 @@ class Operateur extends Model
         'file8',
         'file9',
         'file10',
+        'operateurcategories_id',
     ];
 
     public function getRouteKeyName()
@@ -327,7 +329,7 @@ class Operateur extends Model
         return $this->hasMany(File::class, 'users_id')->latest();
     }
 
-    public function categorie()
+    public function operateurcategorie()
     {
         return $this->belongsTo(Operateurcategorie::class, 'operateurcategories_id');
     }

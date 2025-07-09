@@ -300,7 +300,6 @@
                                             @enderror
                                         </div>
 
-
                                         <div class="col-12 col-md-6 col-lg-4">
                                             <label for="type_demande" class="form-label">Type demande<span
                                                     class="text-danger mx-1">*</span></label>
@@ -337,7 +336,30 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-12 col-md-4 col-lg-4">
+                                            <label for="operateurcategorie" class="form-label">Catégorie<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <select name="operateurcategorie"
+                                                class="form-select form-select-sm @error('operateurcategorie') is-invalid @enderror"
+                                                aria-label="Select" id="select-field-operateurcategorie-update"
+                                                data-placeholder="Choisir">
+                                                <option value="{{ old('operateurcategorie', $operateur->operateurcategorie?->name) }}">
+                                                    {{ old('operateurcategorie', $operateur->operateurcategorie?->name) }}
+                                                </option>
+                                                @foreach ($operateurcategories as $operateurcategorie)
+                                                    <option value="{{ $operateurcategorie->name }}">
+                                                        {{ $operateurcategorie->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('operateurcategorie')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-8">
                                             <label for="adresse" class="form-label">Adresse<span
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="adresse" id="adresse" rows="1"

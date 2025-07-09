@@ -6,6 +6,7 @@ use App\Models\Commissionagrement;
 use App\Models\Departement;
 use App\Models\File;
 use App\Models\Operateur;
+use App\Models\Operateurcategorie;
 use App\Models\Operateureference;
 use App\Models\Operateurequipement;
 use App\Models\Operateurformateur;
@@ -531,6 +532,7 @@ class OperateurController extends Controller
             "categorie"            => ['required', 'string'],
             "statut"               => ['required', 'string'],
             "departement"          => ['required', 'string'],
+            "operateurcategorie"   => ['required', 'string'],
             "adresse"              => ['required', 'string'],
             "ninea"                => ['nullable', 'string'],
             "registre_commerce"    => ['nullable', 'string'],
@@ -544,7 +546,8 @@ class OperateurController extends Controller
             "web"                  => ['nullable', 'string'],
         ]);
 
-        $departement = Departement::where('nom', $request->input("departement"))->firstOrFail();
+        $departement        = Departement::where('nom', $request->input("departement"))->firstOrFail();
+        $operateurcategorie = Operateurcategorie::where('name', $request->input("operateurcategorie"))->firstOrFail();
 
 // Si aucun rôle autorisé n'est trouvé chez l'utilisateur
         /* if (! array_intersect($rolesAutorises, $userRoles)) { */
@@ -587,19 +590,20 @@ class OperateurController extends Controller
         $date_quitus = ! empty($dateString) ? Carbon::createFromFormat('d/m/Y', $dateString) : null;
 
         $operateur->update([
-            'numero_arrive'    => $request->input("numero_arrive"),
-            "numero_dossier"   => $request->input("numero_dossier"),
-            "numero_agrement"  => $request->input("numero_agrement"),
-            "type_demande"     => $request->input("type_demande"),
-            "debut_quitus"     => $date_quitus,
-            "departements_id"  => $departement?->id,
-            "regions_id"       => $departement?->region?->id,
-            "users_id"         => $user->id,
-            "arrete_creation"  => $request->input("arrete_creation"),
-            "demande_signe"    => $request->input("demande_signe"),
-            "formulaire_signe" => $request->input("formulaire_signe"),
-            "quitusfiscal"     => $request->input("quitusfiscal"),
-            "cvsigne"          => $request->input("cvsigne"),
+            'numero_arrive'          => $request->input("numero_arrive"),
+            "numero_dossier"         => $request->input("numero_dossier"),
+            "numero_agrement"        => $request->input("numero_agrement"),
+            "type_demande"           => $request->input("type_demande"),
+            "debut_quitus"           => $date_quitus,
+            "departements_id"        => $departement?->id,
+            "operateurcategories_id" => $operateurcategorie?->id,
+            "regions_id"             => $departement?->region?->id,
+            "users_id"               => $user->id,
+            "arrete_creation"        => $request->input("arrete_creation"),
+            "demande_signe"          => $request->input("demande_signe"),
+            "formulaire_signe"       => $request->input("formulaire_signe"),
+            "quitusfiscal"           => $request->input("quitusfiscal"),
+            "cvsigne"                => $request->input("cvsigne"),
         ]);
 
         // Gestion des fichiers
@@ -746,11 +750,12 @@ class OperateurController extends Controller
 
     public function edit(Operateur $operateur)
     {
-        $departements = Departement::orderBy("nom", "asc")->get();
+        $departements        = Departement::orderBy("nom", "asc")->get();
+        $operateurcategories = Operateurcategorie::orderBy("name", "asc")->get();
 
         $this->authorize('view', $operateur);
 
-        return view("operateurs.update", compact("operateur", "departements"));
+        return view("operateurs.update", compact("operateur", "departements", "operateurcategories"));
     }
 
     public function show(Operateur $operateur)
@@ -882,7 +887,7 @@ class OperateurController extends Controller
 
     public function showLocalite($uuid)
     {
-        $operateur           = Operateur::where('uuid', $uuid)->firstOrFail();
+        $operateur          = Operateur::where('uuid', $uuid)->firstOrFail();
         $operateurlocalites = Operateurlocalite::get();
         $regions            = Region::get();
 
