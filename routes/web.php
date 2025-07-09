@@ -317,10 +317,10 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('/showLocalites/{id}', [ProjetlocaliteController::class, 'showLocalites'])->name('showLocalites');
 
-        Route::get('/showReference/{id}', [OperateurController::class, 'showReference'])->name('showReference');
-        Route::get('/showEquipement/{id}', [OperateurController::class, 'showEquipement'])->name('showEquipement');
-        Route::get('/showFormateur/{id}', [OperateurController::class, 'showFormateur'])->name('showFormateur');
-        Route::get('/showLocalite/{id}', [OperateurController::class, 'showLocalite'])->name('showLocalite');
+        Route::get('/showReference/{uuid}', [OperateurController::class, 'showReference'])->name('showReference');
+        Route::get('/showEquipement/{uuid}', [OperateurController::class, 'showEquipement'])->name('showEquipement');
+        Route::get('/showFormateur/{uuid}', [OperateurController::class, 'showFormateur'])->name('showFormateur');
+        Route::get('/showLocalite/{uuid}', [OperateurController::class, 'showLocalite'])->name('showLocalite');
 
         Route::put('/validateOperateur/{id}', [OperateurController::class, 'validateOperateur'])->name('validateOperateur');
         Route::put('/agreerOperateur/{id}', [OperateurController::class, 'agreerOperateur'])->name('agreerOperateur');

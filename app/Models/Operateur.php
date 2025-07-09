@@ -180,13 +180,12 @@ class Operateur extends Model
             }
         });
     }
-    
+
     public function getQuitus()
     {
         $quitusPath = $this->quitus;
         return "/storage/" . $quitusPath;
     }
-    
 
     public function getArreteCreation()
     {
@@ -326,5 +325,10 @@ class Operateur extends Model
     public function files()
     {
         return $this->hasMany(File::class, 'users_id')->latest();
+    }
+
+    public function categorie()
+    {
+        return $this->belongsTo(Operateurcategorie::class, 'operateurcategories_id');
     }
 }

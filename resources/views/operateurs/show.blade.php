@@ -399,7 +399,7 @@
 
                                                 @can('devenir-operateur-agrement-ouvert')
                                                     @can('agrement-visible-par-op')
-                                                        <a href="{{ route('showReference', ['id' => $operateur?->id]) }}"
+                                                        <a href="{{ route('showReference', ['uuid' => $operateur?->uuid]) }}"
                                                             class="btn btn-info btn-sm rounded-pill shadow-sm d-inline-flex align-items-center gap-1 px-3 py-1"
                                                             target="_blank" title="Ajouter, Modifier, Supprimer des références">
                                                             <i class="bi bi-plus-circle-fill"></i>
@@ -445,7 +445,7 @@
 
                                                 @can('devenir-operateur-agrement-ouvert')
                                                     @can('agrement-visible-par-op')
-                                                        <a href="{{ route('showEquipement', ['id' => $operateur?->id]) }}"
+                                                        <a href="{{ route('showEquipement', ['uuid' => $operateur?->uuid]) }}"
                                                             class="btn btn-dark btn-sm rounded-pill shadow-sm d-inline-flex align-items-center gap-1 px-3 py-1"
                                                             target="_blank" title="Ajouter, Modifier, Supprimer les équipements">
                                                             <i class="bi bi-plus-circle-fill"></i>
@@ -508,7 +508,7 @@
                                                 </h5>
                                                 @can('devenir-operateur-agrement-ouvert')
                                                     @can('agrement-visible-par-op')
-                                                        <a href="{{ route('showFormateur', ['id' => $operateur?->id]) }}"
+                                                        <a href="{{ route('showFormateur', ['uuid' => $operateur?->uuid]) }}"
                                                             class="btn btn-primary btn-sm rounded-pill shadow-sm d-inline-flex align-items-center gap-1 px-3 py-1"
                                                             target="_blank" title="Ajouter, Modifier, Supprimer un formateur">
                                                             <i class="bi bi-people-fill"></i>
@@ -597,7 +597,7 @@
 
                                                 @can('devenir-operateur-agrement-ouvert')
                                                     @can('agrement-visible-par-op')
-                                                        <a href="{{ route('showLocalite', ['id' => $operateur?->id]) }}"
+                                                        <a href="{{ route('showLocalite', ['uuid' => $operateur?->uuid]) }}"
                                                             class="btn btn-sm btn-success rounded-pill shadow-sm d-flex align-items-center gap-2"
                                                             target="_blank" title="Ajouter, Modifier, Supprimer des localités">
                                                             <i class="bi bi-plus-circle-fill fs-5"></i>
