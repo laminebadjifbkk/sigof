@@ -60,7 +60,7 @@ class OperateurformateurController extends Controller
         ]);
 
         $operateurformateur = Operateurformateur::findOrFail($id);
-        if ($operateurformateur->operateur->statut_agrement != 'nouveau') {
+        if ($operateurformateur->operateur->statut_agrement != 'Nouveau') {
             Alert::warning('Attention ! ', 'action impossible');
             return redirect()->back();
         }
@@ -109,7 +109,7 @@ class OperateurformateurController extends Controller
     public function destroy($id)
     {
         $operateurformateur = Operateurformateur::find($id);
-        if ($operateurformateur->operateur->statut_agrement != 'nouveau') {
+        if ($operateurformateur->operateur->statut_agrement != 'Nouveau') {
             Alert::warning('Attention ! ', 'action impossible');
             return redirect()->back();
         } else {

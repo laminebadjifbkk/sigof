@@ -38,7 +38,7 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
+                        {{-- <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title">LOCALITES</h5>
                             @can('devenir-operateur-agrement-ouvert')
                                 @can('agrement-visible-par-op')
@@ -49,11 +49,24 @@
                                     </h5>
                                 @endcan
                             @endcan
+                        </div> --}}
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0 text-uppercase fw-bold text-primary">
+                                <i class="bi bi-person-lines-fill me-2"></i> LOCALITES
+                            </h5>
+                            @can('devenir-operateur-agrement-ouvert')
+                                @can('agrement-visible-par-op')
+                                    <button type="button" class="btn btn-primary btn-sm d-flex align-items-center shadow-sm"
+                                        data-bs-toggle="modal" data-bs-target="#AddlocaliteModal">
+                                        <i class="bi bi-plus-circle me-2"></i> Ajouter
+                                    </button>
+                                @endcan
+                            @endcan
                         </div>
                         <!-- Table with stripped rows -->
                         <table
                             class="table table-bordered table-hover datatables align-middle justify-content-center table-borderless">
-                            <thead>
+                            <thead class="table-primary text-center">
                                 <tr>
                                     <th class="text-center" width="2%">N°</th>
                                     <th>LOCALITE</th>
@@ -61,7 +74,7 @@
                                     <th class="text-center" width="2%"><i class="bi bi-gear"></i></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-center">
                                 <?php $i = 1; ?>
                                 @foreach ($operateur->operateurlocalites as $operateurlocalite)
                                     <tr>
@@ -112,7 +125,7 @@
         </div>
 
         <!-- Add Formateur -->
-        <div class="modal fade" id="AddlocaliteModal" tabindex="-1">
+        {{-- <div class="modal fade" id="AddlocaliteModal" tabindex="-1">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <form method="post" action="{{ route('operateurlocalites.store') }}" enctype="multipart/form-data"
@@ -167,7 +180,71 @@
                     </form>
                 </div>
             </div>
+        </div> --}}
+        <div class="modal fade" id="AddlocaliteModal" tabindex="-1" aria-labelledby="AddlocaliteModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content shadow-lg border-0 rounded-4 overflow-hidden">
+                    <form method="POST" action="{{ route('operateurlocalites.store') }}" enctype="multipart/form-data"
+                        class="p-3">
+                        @csrf
+
+                        <div class="bg-info text-white text-center py-3">
+                            <h5 class="mb-0 text-uppercase fw-bold">
+                                <i class="bi bi-geo-alt-fill me-2"></i> Ajouter une localité
+                            </h5>
+                        </div>
+
+                        <input type="hidden" name="operateur" value="{{ $operateur->id }}">
+
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Localité<span class="text-danger">*</span></label>
+                                <input type="text" name="name" value="{{ old('name') }}"
+                                    class="form-control form-control-sm @error('name') is-invalid @enderror"
+                                    placeholder="Région, département, commune...">
+                                <div class="form-text fst-italic">
+                                    NB : Vous pouvez saisir directement une région.
+                                </div>
+                                @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="region" class="form-label">Région<span class="text-danger">*</span></label>
+                                <select name="region" id="select-field-operateur-localite"
+                                    class="form-select form-select-sm @error('region') is-invalid @enderror"
+                                    data-placeholder="Choisir la région">
+                                    <option value="">-- Choisir la région --</option>
+                                    @foreach ($regions as $region)
+                                        <option value="{{ $region->nom }}">{{ $region->nom }}</option>
+                                    @endforeach
+                                </select>
+                                @error('region')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="modal-footer d-flex justify-content-between px-4">
+                            <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill"
+                                data-bs-dismiss="modal">
+                                <i class="bi bi-x-circle me-1"></i> Fermer
+                            </button>
+                            <button type="submit" class="btn btn-info btn-sm rounded-pill text-white">
+                                <i class="bi bi-save2 me-1"></i> Ajouter
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
+
         <!-- End Add Formateur-->
         <!-- Edit Formateur -->
         @foreach ($operateurlocalites as $operateurlocalite)
@@ -238,7 +315,7 @@
         new DataTable('#table-regions', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

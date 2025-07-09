@@ -43,7 +43,7 @@ class OperateurequipementController extends Controller
         ]);
 
         $operateurequipement = Operateurequipement::findOrFail($id);
-        if ($operateurequipement->operateur->statut_agrement != 'nouveau') {
+        if ($operateurequipement->operateur->statut_agrement != 'Nouveau') {
             Alert::warning('Attention ! ', 'action impossible');
             return redirect()->back();
         } 
@@ -71,7 +71,7 @@ class OperateurequipementController extends Controller
     public function destroy($id)
     {
         $operateurequipement = Operateurequipement::find($id);
-        if ($operateurequipement->operateur->statut_agrement != 'nouveau') {
+        if ($operateurequipement->operateur->statut_agrement != 'Nouveau') {
             Alert::warning('Attention ! ', 'action impossible');
             return redirect()->back();
         } else {

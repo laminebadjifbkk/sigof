@@ -35,7 +35,7 @@ class OperateurlocaliteController extends Controller
         ]);
 
         $operateurlocalite = Operateurlocalite::findOrFail($id);
-        if ($operateurlocalite->operateur->statut_agrement != 'nouveau') {
+        if ($operateurlocalite->operateur->statut_agrement != 'Nouveau') {
             Alert::warning('Attention ! ', 'action impossible');
             return redirect()->back();
         } 
@@ -55,7 +55,7 @@ class OperateurlocaliteController extends Controller
     public function destroy($id)
     {
         $operateurlocalite = Operateurlocalite::find($id);
-        if ($operateurlocalite->operateur->statut_agrement != 'nouveau') {
+        if ($operateurlocalite->operateur->statut_agrement != 'Nouveau') {
             Alert::warning('Attention ! ', 'action impossible');
             return redirect()->back();
         } else {

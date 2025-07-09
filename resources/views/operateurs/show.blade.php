@@ -392,22 +392,23 @@
                                             </div> --}}
 
                                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                                <h4 class="mb-0 fw-bold text-uppercase text-info">
+                                                <h5 class="mb-0 fw-semibold text-uppercase text-info">
                                                     <i class="bi bi-briefcase-fill me-2"></i> Expériences & Références
                                                     professionnelles
-                                                </h4>
+                                                </h5>
 
                                                 @can('devenir-operateur-agrement-ouvert')
                                                     @can('agrement-visible-par-op')
                                                         <a href="{{ route('showReference', ['id' => $operateur?->id]) }}"
-                                                            class="btn btn-sm btn-info rounded-pill shadow-sm d-flex align-items-center gap-2"
+                                                            class="btn btn-info btn-sm rounded-pill shadow-sm d-inline-flex align-items-center gap-1 px-3 py-1"
                                                             target="_blank" title="Ajouter, Modifier, Supprimer des références">
-                                                            <i class="bi bi-plus-circle-fill fs-5"></i>
-                                                            Gérer les références
+                                                            <i class="bi bi-plus-circle-fill"></i>
+                                                            Gérer références
                                                         </a>
                                                     @endcan
                                                 @endcan
                                             </div>
+
 
                                             <table
                                                 class="table table-bordered table-hover datatables align-middle justify-content-center table-borderless">
@@ -438,17 +439,17 @@
                                             @csrf
                                             @method('PUT')
                                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                                <h4 class="mb-0 fw-bold text-uppercase text-dark">
-                                                    <i class="bi bi-building-gear me-2"></i> Infrastructures / Équipements
-                                                </h4>
+                                                <h5 class="mb-0 fw-bold text-uppercase text-dark">
+                                                    <i class="bi bi-building-gear"></i> Infrastructures / Équipements
+                                                </h5>
 
                                                 @can('devenir-operateur-agrement-ouvert')
                                                     @can('agrement-visible-par-op')
                                                         <a href="{{ route('showEquipement', ['id' => $operateur?->id]) }}"
-                                                            class="btn btn-sm btn-dark rounded-pill shadow-sm d-flex align-items-center gap-2"
+                                                            class="btn btn-dark btn-sm rounded-pill shadow-sm d-inline-flex align-items-center gap-1 px-3 py-1"
                                                             target="_blank" title="Ajouter, Modifier, Supprimer les équipements">
-                                                            <i class="bi bi-plus-circle-fill fs-5"></i>
-                                                            Gérer les équipements
+                                                            <i class="bi bi-plus-circle-fill"></i>
+                                                            Gérer
                                                         </a>
                                                     @endcan
                                                 @endcan
@@ -502,16 +503,16 @@
                                                 @endcan
                                             </div> --}}
                                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                                <h4 class="mb-0 fw-bold text-uppercase text-primary">
+                                                <h5 class="mb-0 fw-bold text-uppercase text-primary">
                                                     <i class="bi bi-person-badge-fill me-2"></i> Formateurs
-                                                </h4>
+                                                </h5>
                                                 @can('devenir-operateur-agrement-ouvert')
                                                     @can('agrement-visible-par-op')
                                                         <a href="{{ route('showFormateur', ['id' => $operateur?->id]) }}"
-                                                            class="btn btn-sm btn-primary rounded-pill shadow-sm d-flex align-items-center gap-2"
+                                                            class="btn btn-primary btn-sm rounded-pill shadow-sm d-inline-flex align-items-center gap-1 px-3 py-1"
                                                             target="_blank" title="Ajouter, Modifier, Supprimer un formateur">
-                                                            <i class="bi bi-plus-circle-fill fs-5"></i>
-                                                            Gérer les formateurs
+                                                            <i class="bi bi-people-fill"></i>
+                                                            Gérer formateurs
                                                         </a>
                                                     @endcan
                                                 @endcan
@@ -633,6 +634,11 @@
                                 {{-- class show et active pour l'affichage par défaut --}}
                                 <div class="tab-content pt-2">
                                     <div class="tab-pane fade show active profile-overview pt-3" id="module-overview">
+                                        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+                                            <h5 class="mb-0 text-uppercase fw-bold text-primary">
+                                                <i class="bi bi-briefcase-fill me-2"></i> Modules de formation
+                                            </h5>
+                                        </div>
                                         @can('agrement-visible-par-op')
                                             <form method="post" action="{{ url('operateurmodules') }}"
                                                 enctype="multipart/form-data" class="row g-3">
