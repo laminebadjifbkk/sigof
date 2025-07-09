@@ -320,7 +320,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/showReference/{uuid}', [OperateurController::class, 'showReference'])->name('showReference');
         Route::get('/showEquipement/{uuid}', [OperateurController::class, 'showEquipement'])->name('showEquipement');
         Route::get('/showFormateur/{uuid}', [OperateurController::class, 'showFormateur'])->name('showFormateur');
-        Route::get('/showLocalite/{uuid}', [OperateurController::class, 'showLocalite'])->name('showLocalite');
+        Route::get('/showLocalite/{id}', [OperateurController::class, 'showLocalite'])->name('showLocalite');
 
         Route::put('/validateOperateur/{id}', [OperateurController::class, 'validateOperateur'])->name('validateOperateur');
         Route::put('/agreerOperateur/{id}', [OperateurController::class, 'agreerOperateur'])->name('agreerOperateur');

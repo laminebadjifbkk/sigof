@@ -856,33 +856,33 @@ class OperateurController extends Controller
         }
     }
 
-    public function showReference($id)
+    public function showReference($uuid)
     {
-        $operateur          = Operateur::findOrFail($id);
+        $operateur          = Operateur::where('uuid', $uuid)->firstOrFail();
         $operateureferences = Operateureference::get();
 
         return view('operateureferences.show', compact('operateur', 'operateureferences'));
     }
 
-    public function showEquipement($id)
+    public function showEquipement($uuid)
     {
-        $operateur            = Operateur::findOrFail($id);
+        $operateur            = Operateur::where('uuid', $uuid)->firstOrFail();
         $operateurequipements = Operateurequipement::get();
 
         return view('operateurequipements.show', compact('operateur', 'operateurequipements'));
     }
 
-    public function showFormateur($id)
+    public function showFormateur($uuid)
     {
-        $operateur           = Operateur::findOrFail($id);
+        $operateur           = Operateur::where('uuid', $uuid)->firstOrFail();
         $operateurformateurs = Operateurformateur::get();
 
         return view('operateurformateurs.show', compact('operateur', 'operateurformateurs'));
     }
 
-    public function showLocalite($id)
+    public function showLocalite($uuid)
     {
-        $operateur          = Operateur::findOrFail($id);
+        $operateur          = Operateur::where('uuid', $uuid)->firstOrFail();
         $operateurlocalites = Operateurlocalite::get();
         $regions            = Region::get();
 

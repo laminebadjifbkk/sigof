@@ -310,7 +310,7 @@
                                                 style="transform: translateX(-50%);">{{ count($operateur->operateureferences) }}</span>
                                         </div>
                                         <div>
-                                            <a href="{{ route('showReference', $operateur->id) }}" target="_blank"
+                                            <a href="{{ route('showReference', $operateur->uuid) }}" target="_blank"
                                                 class="btn btn-sm btn-outline-success me-1" title="Ajouter/Modifier">
                                                 <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
                                             </a>
@@ -328,7 +328,7 @@
                                                 style="transform: translateX(-50%);">{{ count($operateur->operateurequipements) }}</span>
                                         </div>
                                         <div>
-                                            <a href="{{ route('showEquipement', $operateur->id) }}" target="_blank"
+                                            <a href="{{ route('showEquipement', $operateur->uuid) }}" target="_blank"
                                                 class="btn btn-sm btn-outline-success me-1" title="Ajouter/Modifier">
                                                 <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
                                             </a>
@@ -345,7 +345,7 @@
                                                 style="transform: translateX(-50%);">{{ count($operateur->operateurformateurs) }}</span>
                                         </div>
                                         <div>
-                                            <a href="{{ route('showFormateur', $operateur->id) }}" target="_blank"
+                                            <a href="{{ route('showFormateur', $operateur->uuid) }}" target="_blank"
                                                 class="btn btn-sm btn-outline-success me-1" title="Ajouter/Modifier">
                                                 <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
                                             </a>
@@ -610,7 +610,7 @@
                                                                 class="{{ $reference_count }}">{{ count($operateur->operateureferences) }}</span>
                                                         </td>
                                                         <td style="text-align: center;"><a
-                                                                href="{{ route('showReference', ['id' => $operateur->id]) }}"
+                                                                href="{{ route('showReference', ['uuid' => $operateur->uuid]) }}"
                                                                 class="btn btn-outline-primary btn-rounded btn-sm"
                                                                 target="_blank">
                                                                 <i class="bi bi-plus"
@@ -622,7 +622,7 @@
                                                                 class="{{ $equipement_count }}">{{ count($operateur->operateurequipements) }}</span>
                                                         </td>
                                                         <td style="text-align: center;"><a
-                                                                href="{{ route('showEquipement', ['id' => $operateur->id]) }}"
+                                                                href="{{ route('showEquipement', ['uuid' => $operateur->uuid]) }}"
                                                                 class="btn btn-outline-primary btn-rounded btn-sm"
                                                                 target="_blank">
                                                                 <i class="bi bi-plus"
@@ -634,7 +634,7 @@
                                                                 class="{{ $formateur_count }}">{{ count($operateur->operateurformateurs) }}</span>
                                                         </td>
                                                         <td style="text-align: center;"><a
-                                                                href="{{ route('showFormateur', ['id' => $operateur->id]) }}"
+                                                                href="{{ route('showFormateur', ['uuid' => $operateur->uuid]) }}"
                                                                 class="btn btn-outline-primary btn-rounded btn-sm"
                                                                 target="_blank">
                                                                 <i class="bi bi-plus"
