@@ -44,7 +44,7 @@
                             <button type="button" class="btn btn-info btn-sm">
                                 <span class="badge bg-white text-info">{{ count($user?->individuelles) }} sur 3</span>
                             </button>
-                            @if (count($user?->individuelles) < 3 && !empty(Auth::user()?->cin))
+                            @if (count($user?->individuelles) < 3 && !empty($user?->cin))
                                 <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
                                     data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal{{ $user?->id }}">
                                     Ajouter
