@@ -362,7 +362,7 @@
                                                 style="transform: translateX(-50%);">{{ count($operateur->operateurlocalites) }}</span>
                                         </div>
                                         <div>
-                                            <a href="{{ route('showLocalite', $operateur->id) }}" target="_blank"
+                                            <a href="{{ route('showLocalite', $operateur->uuid) }}" target="_blank"
                                                 class="btn btn-sm btn-outline-success me-1" title="Ajouter/Modifier">
                                                 <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
                                             </a>
@@ -646,7 +646,7 @@
                                                                 class="{{ $localite_count }}">{{ count($operateur->operateurlocalites) }}</span>
                                                         </td>
                                                         <td style="text-align: center;"><a
-                                                                href="{{ route('showLocalite', ['id' => $operateur->id]) }}"
+                                                                href="{{ route('showLocalite', ['uuid' => $operateur->uuid]) }}"
                                                                 class="btn btn-outline-primary btn-rounded btn-sm"
                                                                 target="_blank">
                                                                 <i class="bi bi-plus"

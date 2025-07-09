@@ -13,23 +13,27 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-12 pt-5">
-                                <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('categories.index') }}"
-                                        class="btn btn-success btn-sm" title="retour"><i
-                                            class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                    <p> | Liste des categories</p>
-                                </span>
+                        <div class="col-sm-12 pt-2">
+                            <div class="d-flex align-items-center gap-2 mt-3">
+                                <a href="{{ route('operateurcategories.index') }}"
+                                    class="btn btn-outline-success btn-sm rounded-pill shadow-sm" title="Retour à la liste">
+                                    <i class="bi bi-arrow-counterclockwise me-1"></i> Retour
+                                </a>
+                                <span class="text-muted small">| Catégorie sélectionnée</span>
                             </div>
                         </div>
-                        <h5 class="card-title">Modification categorie</h5>
+
+                        <h5 class="card-title mt-4 fw-semibold text-warning">
+                            <i class="bi bi-pencil-square me-1"></i> Modification d'une catégorie
+                        </h5>
                         <!-- categorie -->
-                        <form method="post" action="{{ url('categories/' . $categorie->id) }}"
+                        <form method="post" action="{{ route('operateurcategories.update', $categorie->id) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
                             @method('PUT')
                             <div class="row mb-3">
-                                <label for="name" class="form-label">categorie<span class="text-danger mx-1">*</span></label>
+                                <label for="name" class="form-label">categorie<span
+                                        class="text-danger mx-1">*</span></label>
                                 <input type="text" name="name" value="{{ $categorie->name ?? old('name') }}"
                                     class="form-control form-control-sm @error('name') is-invalid @enderror" id="name"
                                     placeholder="Nom categorie">

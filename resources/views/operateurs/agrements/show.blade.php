@@ -531,12 +531,6 @@
                                         @method('PUT')
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h5 class="card-title">LOCALITES</h5>
-                                            {{-- <h5 class="card-title">
-                                                <a href="{{ route('showLocalite', ['id' => $operateur->id]) }}"
-                                                    class="btn btn-outline-primary float-end btn-rounded btn-sm"
-                                                    target="_blank">
-                                                    <i class="bi bi-plus" title="Ajouter, Modifier, Supprimer"></i> </a>
-                                            </h5> --}}
                                         </div>
                                         <table
                                             class="table table-bordered table-hover datatables align-middle justify-content-center">

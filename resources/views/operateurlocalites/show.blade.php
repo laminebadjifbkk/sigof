@@ -183,7 +183,7 @@
         </div> --}}
         <div class="modal fade" id="AddlocaliteModal" tabindex="-1" aria-labelledby="AddlocaliteModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content shadow-lg border-0 rounded-4 overflow-hidden">
                     <form method="POST" action="{{ route('operateurlocalites.store') }}" enctype="multipart/form-data"
                         class="p-3">
@@ -199,7 +199,7 @@
 
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Localité<span class="text-danger">*</span></label>
+                                <label for="name" class="form-label">Zones d'interventions<span class="text-danger">*</span></label>
                                 <input type="text" name="name" value="{{ old('name') }}"
                                     class="form-control form-control-sm @error('name') is-invalid @enderror"
                                     placeholder="Région, département, commune...">
@@ -261,7 +261,7 @@
                             <input type="hidden" name="operateur" value="{{ $operateur->id }}">
                             <div class="modal-body">
                                 <div class="col-12 mb-2">
-                                    <label for="name" class="form-label">Localité<span
+                                    <label for="name" class="form-label">Zone d'intervention<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="name"
                                         value="{{ $operateurlocalite->name ?? old('name') }}"

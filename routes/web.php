@@ -45,6 +45,7 @@ use App\Http\Controllers\LoiController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\NomminationController;
 use App\Http\Controllers\OnfpevaluateurController;
+use App\Http\Controllers\OperateurcategorieController;
 use App\Http\Controllers\OperateurController;
 use App\Http\Controllers\OperateureferenceController;
 use App\Http\Controllers\OperateurequipementController;
@@ -74,6 +75,7 @@ use App\Http\Controllers\ValidationmoduleController;
 use App\Http\Controllers\ValidationoperateurController;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -320,7 +322,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/showReference/{uuid}', [OperateurController::class, 'showReference'])->name('showReference');
         Route::get('/showEquipement/{uuid}', [OperateurController::class, 'showEquipement'])->name('showEquipement');
         Route::get('/showFormateur/{uuid}', [OperateurController::class, 'showFormateur'])->name('showFormateur');
-        Route::get('/showLocalite/{id}', [OperateurController::class, 'showLocalite'])->name('showLocalite');
+        Route::get('/showLocalite/{uuid}', [OperateurController::class, 'showLocalite'])->name('showLocalite');
 
         Route::put('/validateOperateur/{id}', [OperateurController::class, 'validateOperateur'])->name('validateOperateur');
         Route::put('/agreerOperateur/{id}', [OperateurController::class, 'agreerOperateur'])->name('agreerOperateur');
@@ -642,7 +644,8 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('/feuillepresences', FeuillepresenceController::class);
         Route::resource('/feuillepresencecollectives', FeuillepresencecollectiveController::class);
         Route::resource('/commissionmembres', CommissionmembreController::class);
-        Route::resource('/lettrevaluations', LettrevaluationController::class);
+        Route::resource('/lettrevaluations', LettreevaluationController::class);
+        Route::resource('/operateurcategories', OperateurcategorieController::class);
 
         Route::middleware('admin')->group(function () {
             Route::get('/manuels', [BookController::class, 'index'])->name('manuels.index');

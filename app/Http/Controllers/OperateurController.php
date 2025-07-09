@@ -882,7 +882,7 @@ class OperateurController extends Controller
 
     public function showLocalite($uuid)
     {
-        $operateur          = Operateur::where('uuid', $uuid)->firstOrFail();
+        $operateur           = Operateur::where('uuid', $uuid)->firstOrFail();
         $operateurlocalites = Operateurlocalite::get();
         $regions            = Region::get();
 

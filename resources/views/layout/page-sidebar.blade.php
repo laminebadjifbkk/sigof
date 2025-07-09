@@ -342,7 +342,15 @@
                         </li>
                     @endcan
 
-                    
+                    @can('operateurcategorie-view')
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ url('operateurcategories') }}">
+                                <span>Catégories</span>
+                            </a>
+                        </li>
+                    @endcan
+
+
                     @hasrole('super-admin')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('operateurs.corbeille') }}">
