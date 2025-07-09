@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Operateur;
 use App\Models\Operateurcategorie;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -50,8 +51,9 @@ class OperateurcategorieController extends Controller
 
     public function show($id)
     {
-        $categorie = Operateurcategorie::find($id);
-        return view("operateurs.categories.show", compact('categorie'));
+        $categorie  = Operateurcategorie::findOrFail($id);
+        $operateurs = Operateur::where('operateurcategories_id', $id)->get();
+        return view("operateurs.categories.show", compact('categorie', 'operateurs'));
     }
 
     public function update(Request $request, $id)

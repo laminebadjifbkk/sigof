@@ -644,7 +644,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('/feuillepresences', FeuillepresenceController::class);
         Route::resource('/feuillepresencecollectives', FeuillepresencecollectiveController::class);
         Route::resource('/commissionmembres', CommissionmembreController::class);
-        Route::resource('/lettrevaluations', LettreevaluationController::class);
+        Route::resource('/lettrevaluations', LettrevaluationController::class);
         Route::resource('/operateurcategories', OperateurcategorieController::class);
 
         Route::middleware('admin')->group(function () {

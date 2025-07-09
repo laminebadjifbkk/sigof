@@ -51,142 +51,88 @@
                                 <i class="bi bi-list-ul me-1"></i> Liste des opérateurs ayant la catégorie : <span
                                     class="text-dark">{{ $categorie?->name }}</span>
                             </h5>
-                            @if ($categorie->operateurs->isNotEmpty())
+                            @if ($categorie?->operateurs->isNotEmpty())
                                 <table class="table datatables align-middle" id="table-employes">
                                     <thead>
                                         <tr>
-                                        <tr>
-                                            @can('afficher-dossier-operateur')
-                                                <th width="3%" class="text-center">Dossier</th>
-                                            @endcan
-                                            <th width="15%" class="text-center">N° agrément</th>
-                                            @can('afficher-operateur-name')
-                                                <th width="40%">Opérateurs</th>
-                                            @endcan
+                                            <th width="15%">N° agrément</th>
+                                            <th width="40%">Opérateurs</th>
                                             <th>Sigle</th>
-                                            @can('afficher-operateur-email')
-                                                <th>Email</th>
-                                            @endcan
-                                            @can('afficher-operateur-telephone')
-                                                <th>Telephone</th>
-                                            @endcan
+                                            <th>Telephone</th>
                                             <th>Région</th>
-                                            @can('afficher-operateur-adresse')
-                                                <th>Adresse</th>
-                                            @endcan
-                                            @can('afficher-operateur-responsable')
-                                                <th>Responsable</th>
-                                            @endcan
-                                            @can('afficher-operateur-module')
-                                                <th class="text-center">Modules</th>
-                                            @endcan
-                                            @can('afficher-operateur-formation')
-                                                <th class="text-center">Formations</th>
-                                            @endcan
-                                            @can('afficher-operateur-statut')
-                                                <th width="15%" class="text-center">Statut</th>
-                                            @endcan
-                                            @can('operateur-show')
-                                                <th width="2%"><i class="bi bi-gear"></i></th>
-                                            @endcan
-                                        </tr>
+                                            <th>Responsable</th>
+                                            <th class="text-center">Modules</th>
+                                            <th class="text-center">Formations</th>
+                                            <th width="15%" class="text-center">Statut</th>
+                                            <th width="2%"><i class="bi bi-gear"></i></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $i = 1; ?>
                                         @foreach ($operateurs as $operateur)
                                             <tr>
-                                                @can('afficher-dossier-operateur')
-                                                    <td class="text-center">{{ $operateur?->numero_dossier }}</td>
-                                                @endcan
                                                 <td>{{ $operateur?->numero_agrement }}</td>
-                                                @can('afficher-operateur-name')
-                                                    <td>{{ $operateur?->user?->operateur }}</td>
-                                                @endcan
+                                                <td>{{ $operateur?->user?->operateur }}</td>
                                                 <td>{{ $operateur?->user?->username }}</td>
-                                                @can('afficher-operateur-email')
-                                                    <td><a
-                                                            href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
-                                                    </td>
-                                                @endcan
-                                                @can('afficher-operateur-telephone')
-                                                    <td>
-                                                        <a href="tel:+221{{ $operateur?->user?->fixe }}">
-                                                            {{ $operateur?->user?->fixe }}<br>
-                                                            {{ $operateur?->user?->telephone }}
-                                                        </a>
-                                                    </td>
-                                                @endcan
+                                                <td>
+                                                    <a href="tel:+221{{ $operateur?->user?->fixe }}">
+                                                        {{ $operateur?->user?->fixe }}<br>
+                                                        {{ $operateur?->user?->telephone }}
+                                                    </a>
+                                                </td>
                                                 <td>{{ $operateur?->region?->nom }}</td>
-                                                @can('afficher-operateur-adresse')
-                                                    <td>{{ $operateur?->user?->adresse }}</td>
-                                                @endcan
-                                                @can('afficher-operateur-responsable')
-                                                    <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
-                                                    </td>
-                                                @endcan
-                                                @can('afficher-operateur-module')
-                                                    <td style="text-align: center;">
-                                                        @foreach ($operateur->operateurmodules as $operateurmodule)
-                                                            @if ($loop->last)
-                                                                <a href="#"><span
-                                                                        class="badge bg-info">{{ $loop->count }}</span></a>
-                                                            @endif
-                                                        @endforeach
-                                                    </td>
-                                                @endcan
-                                                @can('afficher-operateur-formation')
-                                                    <td class="text-center">
-                                                        @foreach ($operateur->formations as $formation)
-                                                            @if ($loop->last)
-                                                                <a href="#"><span
-                                                                        class="badge bg-info">{{ $loop->count }}</span></a>
-                                                            @endif
-                                                        @endforeach
-                                                    </td>
-                                                @endcan
-                                                @can('afficher-operateur-statut')
-                                                    <td style="text-align: center;"><span
-                                                            class="{{ $operateur?->statut_agrement }}">
-                                                            {{ $operateur?->statut_agrement }}</span></td>
-                                                @endcan
-                                                @can('operateur-show')
-                                                    <td>
-                                                        <span class="d-flex align-items-baseline"><a
-                                                                href="{{ route('operateurs.show', $operateur) }}"
-                                                                class="btn btn-primary btn-sm" title="voir détails"><i
-                                                                    class="bi bi-eye"></i></a>
-                                                            @can('operateur-update')
-                                                                <div class="filter">
-                                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                            class="bi bi-three-dots"></i></a>
-                                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                        <li>
-                                                                            <a class="dropdown-item btn btn-sm"
-                                                                                href="{{ route('operateurs.edit', $operateur) }}"
-                                                                                class="mx-1" title="Modifier"><i
-                                                                                    class="bi bi-pencil"></i>Modifier</a>
-                                                                        </li>
-                                                                        @can('operateur-delete')
-                                                                            <li>
-                                                                                <form
-                                                                                    action="{{ route('operateurs.destroy', $operateur) }}"
-                                                                                    method="post">
-                                                                                    @csrf
-                                                                                    @method('DELETE')
-                                                                                    <button type="submit"
-                                                                                        class="dropdown-item show_confirm"
-                                                                                        title="Supprimer"><i
-                                                                                            class="bi bi-trash"></i>Supprimer</button>
-                                                                                </form>
-                                                                            </li>
-                                                                        @endcan
-                                                                    </ul>
-                                                                </div>
-                                                            @endcan
-                                                        </span>
-                                                    </td>
-                                                @endcan
+                                                <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    @foreach ($operateur->operateurmodules as $operateurmodule)
+                                                        @if ($loop->last)
+                                                            <a href="#"><span
+                                                                    class="badge bg-info">{{ $loop->count }}</span></a>
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                                <td class="text-center">
+                                                    @foreach ($operateur->formations as $formation)
+                                                        @if ($loop->last)
+                                                            <a href="#"><span
+                                                                    class="badge bg-info">{{ $loop->count }}</span></a>
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                                <td style="text-align: center;"><span
+                                                        class="{{ $operateur?->statut_agrement }}">
+                                                        {{ $operateur?->statut_agrement }}</span></td>
+                                                <td>
+                                                    <span class="d-flex align-items-baseline"><a
+                                                            href="{{ route('operateurs.show', $operateur) }}"
+                                                            class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                        <div class="filter">
+                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                    class="bi bi-three-dots"></i></a>
+                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                <li>
+                                                                    <a class="dropdown-item btn btn-sm"
+                                                                        href="{{ route('operateurs.edit', $operateur) }}"
+                                                                        class="mx-1" title="Modifier"><i
+                                                                            class="bi bi-pencil"></i>Modifier</a>
+                                                                </li>
+                                                                <li>
+                                                                    <form
+                                                                        action="{{ route('operateurs.destroy', $operateur) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit"
+                                                                            class="dropdown-item show_confirm"
+                                                                            title="Supprimer"><i
+                                                                                class="bi bi-trash"></i>Supprimer</button>
+                                                                    </form>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </span>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -213,7 +159,6 @@
             "order": [
                 [0, 'asc']
             ],
-            pageLength: 10,
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
