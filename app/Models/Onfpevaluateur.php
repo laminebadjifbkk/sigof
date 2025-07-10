@@ -30,9 +30,14 @@ class Onfpevaluateur extends Model
         'items1',
     ];
 
-    public function formations()
+    /* public function formations()
     {
         return $this->hasMany(Formation::class, 'onfpevaluateurs_id');
+    } */
+
+    public function formations()
+    {
+        return $this->belongsToMany(Formation::class, 'formations_onfpevaluateurs');
     }
 
     public function lettrevaluation()

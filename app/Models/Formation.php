@@ -591,4 +591,14 @@ class Formation extends Model
         return $this->hasOne(Lettrevaluation::class, 'formations_id');
     }
 
+    public function evaluateurs()
+    {
+        return $this->belongsToMany(Evaluateur::class, 'evaluateurs_formations');
+    }
+
+    public function onfpevaluateurs()
+    {
+        return $this->belongsToMany(Onfpevaluateur::class, 'formations_onfpevaluateurs');
+    }
+
 }

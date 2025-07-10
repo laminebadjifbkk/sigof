@@ -61,9 +61,15 @@ class Evaluateur extends Model
     {
         return $this->hasMany(Evaluation::class, 'evaluateurs_id');
     }
-    public function formations()
+
+    /* public function formations()
     {
         return $this->hasMany(Formation::class, 'evaluateurs_id');
+    } */
+
+    public function formations()
+    {
+        return $this->belongsToMany(Formation::class, 'evaluateur_formation');
     }
 
     public function lettrevaluation()
