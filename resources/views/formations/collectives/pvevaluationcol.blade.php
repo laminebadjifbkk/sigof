@@ -250,12 +250,12 @@
             <b><u>SIGNATURE DES MEMBRES DU JURY</u></b> :
             @if (!empty($formation?->date_pv))
                 <span
-                    style="float: right; font-style: italic">{{ remove_accents_uppercase($formation?->lieu ?? '') . ', ' . remove_accents_uppercase($formation?->departement?->nom ?? '') . ', le ' . $formation?->date_pv?->format('d/m/Y') }}</span>
+                    style="float: right; font-style: italic">{{ remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $formation?->date_pv?->format('d/m/Y') }}</span>
             @endif
             <br>
             <?php $i = 1; ?>
             {{ $formation?->evaluateur?->name . ' ' . $formation?->evaluateur?->lastname . ', ' . $formation?->evaluateur?->fonction }}<br>
-            {{ $formation?->onfpevaluateur?->name . ', ' . $formation?->onfpevaluateur?->fonction }}<br>
+            {{ $formation?->onfpevaluateur?->name . ' ' . $formation?->onfpevaluateur?->lastname . ', ' . $formation?->onfpevaluateur?->fonction }}<br>
             @if (!empty($membres_jury))
                 @foreach ($membres_jury as $item)
                     {{ $item }} <br>
