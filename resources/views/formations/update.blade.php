@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'modification formation')
+@section('title', 'Modification formation')
 @section('space-work')
     @can('formation-update')
         <section class="section min-vh-0 d-flex flex-column align-items-center justify-content-center py-0">
@@ -542,6 +542,25 @@
                                         </div>
                                     </div> --}}
 
+                                    <div class="col-12 col-md-12 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                        <label for="evaluateur" class="form-label">Évaluateurs</label>
+                                        <select name="evaluateur[]" id="evaluateurSelected"
+                                            class="form-select form-select-sm @error('evaluateur') is-invalid @enderror"
+                                            multiple aria-label="Select" data-placeholder="Choisir">
+                                            @foreach ($evaluateurs as $evaluateur)
+                                                <option value="{{ $evaluateur->id }}"
+                                                    @if (collect(old('evaluateur', $formation?->evaluateurs?->pluck('id')->toArray()))->contains($evaluateur->id)) selected @endif>
+                                                    {{ $evaluateur->name . ' ' . $evaluateur->lastname }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('evaluateur')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
                                     {{-- <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <div class="mb-3">
                                             <label for="evaluateur" class="form-label">Evaluateur ONFP</label>
@@ -566,6 +585,26 @@
                                                 </span>
                                             @enderror
                                         </div>
+                                    </div> --}}
+
+                                    {{-- <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <label for="onfpevaluateur" class="form-label">Evaluateur ONFP<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <select name="onfpevaluateur[]" id="eonfpevaluateurSelected"
+                                            class="form-select form-select-sm @error('onfpevaluateur') is-invalid @enderror"
+                                            multiple aria-label="Select" data-placeholder="Choisir">
+                                            @foreach ($onfpevaluateurs as $onfpevaluateur)
+                                                <option value="{{ $onfpevaluateur->id }}"
+                                                    @if (collect(old('onfpevaluateur', $formation?->onfpevaluateurs?->pluck('id')->toArray()))->contains($onfpevaluateur->id)) selected @endif>
+                                                    {{ $onfpevaluateur->name . ' ' . $onfpevaluateur->lastname }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('onfpevaluateur')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
                                     </div> --}}
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">

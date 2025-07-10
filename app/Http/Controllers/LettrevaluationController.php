@@ -57,8 +57,7 @@ class LettrevaluationController extends Controller
         Lettrevaluation::create($validated); */
 
         $request->validate([
-            /* 'formation' => 'required|string|unique:lettrevaluations,formations_id', */
-            'formation' => 'required|string',
+            'formation' => 'required|string|unique:lettrevaluations,formations_id',
             'contenu'   => 'nullable|string|max:500',
         ]);
 
@@ -75,10 +74,9 @@ class LettrevaluationController extends Controller
     // Affiche une lettre
     public function show(Lettrevaluation $lettrevaluation, Request $request)
     {
-        $formation = $lettrevaluation->formation;
-        $evaluateur = $lettrevaluation->evaluateur;
+        $formation      = $lettrevaluation->formation;
+        $evaluateur     = $lettrevaluation->evaluateur;
         $onfpevaluateur = $lettrevaluation->onfpevaluateur;
-
 
         return view('formations.lettrevaluations.show', compact(
             'lettrevaluation',
@@ -112,8 +110,8 @@ class LettrevaluationController extends Controller
     {
         $validated = $request->validate([
             'formation'        => 'required|string',
-            'onfpevaluateur'   => 'required|string',
-            'evaluateur'       => 'required|string',
+            'onfpevaluateur.*' => 'exists:onfpevaluateurs,id',
+            'evaluateur.*'     => 'exists:evaluateurs,id',
             'frais_evaluateur' => 'required|string',
             'date_pv'          => 'nullable|string',
             'contenu'          => 'nullable|string|max:500',
@@ -149,8 +147,8 @@ class LettrevaluationController extends Controller
 
         $lettrevaluation->update([
             'formations_id'      => $request->input('formation'),
-            'evaluateurs_id'     => $request->input('evaluateur'),
-            'onfpevaluateurs_id' => $request->input('onfpevaluateur'),
+            /* 'evaluateurs_id'     => $request->input('evaluateur'), */
+            /* 'onfpevaluateurs_id' => $request->input('onfpevaluateur'), */
             "execution_statut"   => $request->input('execution_statut'),
             "lettre_mission_dec" => $request->input('lettre_mission_dec'),
             "date_lettre_dec"    => $date_lettre_dec,
@@ -158,8 +156,8 @@ class LettrevaluationController extends Controller
         ]);
 
         $formation->update([
-            'evaluateurs_id'     => $request->input('evaluateur'),
-            'onfpevaluateurs_id' => $request->input('onfpevaluateur'),
+            /* 'evaluateurs_id'     => $request->input('evaluateur'), */
+            /* 'onfpevaluateurs_id' => $request->input('onfpevaluateur'), */
             'frais_evaluateur'   => $request->input('frais_evaluateur'),
             'date_pv'            => $date_pv,
             "type_certification" => $request->input('type_certification'),

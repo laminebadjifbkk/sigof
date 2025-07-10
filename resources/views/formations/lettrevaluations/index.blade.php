@@ -52,14 +52,14 @@
                                     <table class="table table-hover table-striped align-middle" id="table-jury">
                                         <thead class="table-primary text-center">
                                             <tr>
+                                                <th>Module formation</th>
                                                 <th>Evaluateur</th>
                                                 {{-- <th>Responsable</th> --}}
                                                 <th>Evaluteur ONFP</th>
                                                 {{-- <th>Formation</th> --}}
-                                                <th>Formation</th>
                                                 <th>Lieu</th>
                                                 <th>Date évaluation</th>
-                                                <th>Ingénieur</th>
+                                                {{-- <th>Ingénieur</th> --}}
                                                 <th>Operateur</th>
                                                 {{-- <th>ABE</th>
                                                 <th>Lettre</th> --}}
@@ -70,17 +70,28 @@
                                         <tbody>
                                             @foreach ($lettrevaluations as $lettrevaluation)
                                                 <tr>
-                                                    <td>{{ $lettrevaluation?->evaluateur?->name . ' ' . $lettrevaluation?->evaluateur?->lastname ?? 'Aucun' }}
-                                                    </td>
-                                                    {{--  <td>{{ $lettrevaluation?->titre }}</td> --}}
-                                                    <td>{{ $lettrevaluation?->onfpevaluateur?->name . ' ' . $lettrevaluation?->onfpevaluateur?->lastname ?? 'Aucun' }}
                                                     <td>
                                                         {{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}</span>
+                                                    </td>
+                                                    <td>
+                                                        @foreach ($lettrevaluation?->formation?->evaluateurs as $index => $evaluateur)
+                                                            <li>
+                                                                {{ $evaluateur->name . ' ' . $evaluateur->lastname ?? 'Aucun' }}
+                                                            </li>
+                                                        @endforeach
+                                                    </td>
+                                                    {{--  <td>{{ $lettrevaluation?->titre }}</td> --}}
+                                                    <td>
+                                                        @foreach ($lettrevaluation?->formation?->onfpevaluateurs as $index => $onfpevaluateur)
+                                                            <li>
+                                                                {{ $onfpevaluateur->name . ' ' . $onfpevaluateur->lastname ?? 'Aucun' }}
+                                                            </li>
+                                                        @endforeach
                                                     </td>
                                                     <td>{{ $lettrevaluation?->formation?->lieu ?? 'Aucun' }} </td>
                                                     <td>{{ $lettrevaluation?->formation?->date_pv?->format('d/m/Y') ?? 'Aucun' }}
                                                     </td>
-                                                    <td>{{ $lettrevaluation?->formation?->ingenieur?->name ?? 'Aucun' }} </td>
+                                                    {{-- <td>{{ $lettrevaluation?->formation?->ingenieur?->name ?? 'Aucun' }} </td> --}}
                                                     <td>{{ $lettrevaluation?->formation?->operateur?->user?->username }}</td>
                                                     <td>
                                                         @if ($lettrevaluation?->execution_statut == 1)
