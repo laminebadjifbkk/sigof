@@ -134,7 +134,7 @@
                                                 <div class="col-lg-9 col-md-8">
                                                     {!! $individuelle?->formation?->date_debut
                                                         ? $individuelle?->formation?->date_debut->format('d/m/Y')
-                                                        : '<span class="Non">Non définie</span>' !!}
+                                                        : '<span class="text-danger">Non définie</span>' !!}
                                                 </div>
                                             </div>
 
@@ -146,7 +146,7 @@
                                                         $dateFin = $individuelle?->formation?->date_fin;
                                                     @endphp
 
-                                                    {!! $dateFin ? $dateFin->format('d/m/Y') : '<span class="Non">Non définie</span>' !!}
+                                                    {!! $dateFin ? $dateFin->format('d/m/Y') : '<span class="text-danger">Non définie</span>' !!}
                                                 </div>
                                             </div>
 
@@ -157,14 +157,18 @@
                                                         $duree = $individuelle?->formation?->duree_formation;
                                                     @endphp
 
-                                                    {!! $duree ? $duree . ' jours' : '<span class="Non">Non définie</span>' !!}
+                                                    @if ($duree)
+                                                        {{ $duree }} {{ $duree == 1 ? 'jour' : 'jours' }}
+                                                    @else
+                                                        <span class="text-danger">Non définie</span>
+                                                    @endif
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-4 label">Lieu formation</div>
                                                 <div class="col-lg-9 col-md-8">
-                                                    {{ $individuelle?->formation?->lieu ?? '<span class="Non">Non définie</span>' }}
+                                                    {{ $individuelle?->formation?->lieu ?? '<span class="text-danger">Non définie</span>' }}
                                                 </div>
                                             </div>
 
