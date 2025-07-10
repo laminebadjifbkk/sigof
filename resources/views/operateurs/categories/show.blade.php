@@ -62,7 +62,6 @@
                                             <th>Région</th>
                                             <th>Responsable</th>
                                             <th class="text-center">Modules</th>
-                                            <th class="text-center">Formations</th>
                                             <th width="15%" class="text-center">Statut</th>
                                             <th width="2%"><i class="bi bi-gear"></i></th>
                                         </tr>
@@ -85,14 +84,6 @@
                                                 </td>
                                                 <td style="text-align: center;">
                                                     @foreach ($operateur->operateurmodules as $operateurmodule)
-                                                        @if ($loop->last)
-                                                            <a href="#"><span
-                                                                    class="badge bg-info">{{ $loop->count }}</span></a>
-                                                        @endif
-                                                    @endforeach
-                                                </td>
-                                                <td class="text-center">
-                                                    @foreach ($operateur->formations as $formation)
                                                         @if ($loop->last)
                                                             <a href="#"><span
                                                                     class="badge bg-info">{{ $loop->count }}</span></a>
