@@ -53,10 +53,13 @@
                                         <thead class="table-primary text-center">
                                             <tr>
                                                 <th>Evaluateur</th>
-                                                <th>Responsable</th>
+                                                {{-- <th>Responsable</th> --}}
                                                 <th>Evaluteur ONFP</th>
                                                 {{-- <th>Formation</th> --}}
-                                                <th>Module</th>
+                                                <th>Formation</th>
+                                                <th>Lieu</th>
+                                                <th>Date évaluation</th>
+                                                <th>Ingénieur</th>
                                                 <th>Operateur</th>
                                                 {{-- <th>ABE</th>
                                                 <th>Lettre</th> --}}
@@ -69,11 +72,15 @@
                                                 <tr>
                                                     <td>{{ $lettrevaluation?->evaluateur?->name . ' ' . $lettrevaluation?->evaluateur?->lastname ?? 'Aucun' }}
                                                     </td>
-                                                    <td>{{ $lettrevaluation?->titre }}</td>
+                                                    {{--  <td>{{ $lettrevaluation?->titre }}</td> --}}
                                                     <td>{{ $lettrevaluation?->onfpevaluateur?->name . ' ' . $lettrevaluation?->onfpevaluateur?->lastname ?? 'Aucun' }}
                                                     <td>
                                                         {{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}</span>
                                                     </td>
+                                                    <td>{{ $lettrevaluation?->formation?->lieu ?? 'Aucun' }} </td>
+                                                    <td>{{ $lettrevaluation?->formation?->date_pv?->format('d/m/Y') ?? 'Aucun' }}
+                                                    </td>
+                                                    <td>{{ $lettrevaluation?->formation?->ingenieur?->name ?? 'Aucun' }} </td>
                                                     <td>{{ $lettrevaluation?->formation?->operateur?->user?->username }}</td>
                                                     <td>
                                                         @if ($lettrevaluation?->execution_statut == 1)
@@ -87,16 +94,16 @@
                                                         <div class="d-flex align-items-center gap-2">
 
                                                             <!-- Bouton Voir détails -->
-                                                            <a href="{{ route('formations.show', $lettrevaluation->formation) }}"
+                                                            <a href="{{ route('lettrevaluations.show', $lettrevaluation->id) }}"
                                                                 class="btn btn-warning btn-sm" title="Voir détails">
                                                                 <i class="bi bi-eye"></i>
                                                             </a>
 
                                                             <!-- Dropdown pour les actions supplémentaires -->
                                                             <div class="dropdown">
-                                                                <a class="btn btn-sm btn-light" href="#"
+                                                                <a href="#" class="btn btn-sm btn-light"
                                                                     data-bs-toggle="dropdown" aria-expanded="false"
-                                                                    title="Actions">
+                                                                    title="Plus d'actions">
                                                                     <i class="bi bi-three-dots-vertical"></i>
                                                                 </a>
                                                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -112,10 +119,16 @@
                                                                     @endcan
 
                                                                     <!-- Télécharger la lettre -->
-                                                                    <li>
+                                                                    {{-- <li>
                                                                         <a href="{{ route('lettrevaluations.show', $lettrevaluation->id) }}"
                                                                             class="dropdown-item" target="_blank">
                                                                             <i class="bi bi-download"></i> Télécharger lettre
+                                                                        </a>
+                                                                    </li> --}}
+                                                                    <li>
+                                                                        <a href="{{ route('lettreMission.telecharger', $lettrevaluation->id) }}"
+                                                                            class="dropdown-item" target="_blank">
+                                                                            <i class="bi bi-receipt"></i> Télécharger lettre
                                                                         </a>
                                                                     </li>
 

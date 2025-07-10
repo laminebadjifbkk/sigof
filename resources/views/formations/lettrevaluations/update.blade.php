@@ -67,7 +67,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-6">
+                                        {{-- <div class="col-6">
                                             <label for="onfpevaluateur" class="form-label">Evaluateur ONFP<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="onfpevaluateur"
@@ -88,9 +88,31 @@
                                                     <div>{{ $message }}</div>
                                                 </span>
                                             @enderror
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-6">
+                                            <label for="onfpevaluateur" class="form-label">Évaluateur ONFP
+                                                <span class="text-danger mx-1">*</span>
+                                            </label>
+                                            <select name="onfpevaluateur" id="onfpevaluateurSelected"
+                                                class="form-select form-select-sm @error('onfpevaluateur') is-invalid @enderror"
+                                                aria-label="Select" data-placeholder="Choisir">
+                                                <option value="">-- Sélectionner un évaluateur --</option>
+                                                @foreach ($onfpevaluateurs as $onfpevaluateur)
+                                                    <option value="{{ $onfpevaluateur->id }}"
+                                                        @if (old('onfpevaluateur', $lettrevaluation?->onfpevaluateurs_id) == $onfpevaluateur->id) selected @endif>
+                                                        {{ $onfpevaluateur?->name . ' ' . $onfpevaluateur?->lastname }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('onfpevaluateur')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        {{-- <div class="col-6">
                                             <label for="evaluateur" class="form-label">Evaluateur<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="evaluateur"
@@ -102,6 +124,28 @@
                                                 </option>
                                                 @foreach ($evaluateurs as $evaluateur)
                                                     <option value="{{ $evaluateur?->id }}">
+                                                        {{ $evaluateur?->name . ' ' . $evaluateur?->lastname }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('evaluateur')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div> --}}
+
+                                        <div class="col-6">
+                                            <label for="evaluateur" class="form-label">Évaluateur
+                                                <span class="text-danger mx-1">*</span>
+                                            </label>
+                                            <select name="evaluateur" id="evaluateurSelected"
+                                                class="form-select form-select-sm @error('evaluateur') is-invalid @enderror"
+                                                aria-label="Select" data-placeholder="Choisir">
+                                                <option value="">-- Sélectionner un évaluateur --</option>
+                                                @foreach ($evaluateurs as $evaluateur)
+                                                    <option value="{{ $evaluateur->id }}"
+                                                        @if (old('evaluateur', $lettrevaluation?->evaluateurs_id) == $evaluateur->id) selected @endif>
                                                         {{ $evaluateur?->name . ' ' . $evaluateur?->lastname }}
                                                     </option>
                                                 @endforeach

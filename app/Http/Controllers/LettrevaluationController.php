@@ -75,37 +75,17 @@ class LettrevaluationController extends Controller
     // Affiche une lettre
     public function show(Lettrevaluation $lettrevaluation, Request $request)
     {
-
         $formation = $lettrevaluation->formation;
+        $evaluateur = $lettrevaluation->evaluateur;
+        $onfpevaluateur = $lettrevaluation->onfpevaluateur;
 
-        $title = 'Lettre de mission évaluation formation en ' . $formation->name;
 
-        $membres_jury  = explode(";", $formation->membres_jury);
-        $count_membres = count($membres_jury);
-
-        $dompdf  = new Dompdf();
-        $options = $dompdf->getOptions();
-        $options->setDefaultFont('DejaVu Sans');
-        $dompdf->setOptions($options);
-
-        $dompdf->loadHtml(view('formations.lettrevaluations.show', compact(
+        return view('formations.lettrevaluations.show', compact(
+            'lettrevaluation',
             'formation',
-            'title',
-            'membres_jury',
-            'count_membres',
-        )));
-
-        // (Optional) Setup the paper size and orientation (portrait ou landscape)
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->set_option('isHtml5ParserEnabled', true);
-        $dompdf->set_option('isRemoteEnabled', true);
-
-        // Render the HTML as PDF
-        $dompdf->render();
-
-        $name = 'Lettre_mission_formation_code_' . $formation->code . '.pdf';
-        // Output the generated PDF to Browser
-        return $dompdf->stream($name, ['Attachment' => false]);
+            'evaluateur',
+            'onfpevaluateur'
+        ));
 
     }
 
@@ -145,12 +125,12 @@ class LettrevaluationController extends Controller
         }
 
         $formation = Formation::findOrFail($request->input('formation'));
-        
-        $date_pv   = parseDateOrNull($request->input('date_pv'));
+
+        $date_pv = parseDateOrNull($request->input('date_pv'));
 
         $date_lettre_dec = parseDateOrNull($request->input('date_lettre_dec'));
 
-        $referentiel     = Referentiel::where('titre', $request->titre)->first();
+        $referentiel = Referentiel::where('titre', $request->titre)->first();
 
 // Détermination du type et du titre
         if (! empty($referentiel) && $request->titre !== 'Renforcement de capacités') {
@@ -186,6 +166,9 @@ class LettrevaluationController extends Controller
             "titre"              => $titre,
             "referentiels_id"    => $referentiel_id,
         ]);
+
+        $formation->evaluateurs()->sync($request->evaluateur);
+        $formation->onfpevaluateurs()->sync($request->onfpevaluateur);
 
         Alert::success('Succès !', 'Mise à jour effectuée avec succès.');
         // Envoie un message de succès
@@ -259,6 +242,40 @@ class LettrevaluationController extends Controller
         $dompdf->render();
 
         $name = 'Demande_paiement_' . $formation->code . '.pdf';
+        return $dompdf->stream($name, ['Attachment' => false]);
+    }
+
+    public function telechargerlettreMission(Lettrevaluation $lettrevaluation)
+    {
+        $formation = $lettrevaluation->formation;
+
+        $title = 'Lettre de mission évaluation formation en ' . $formation->name;
+
+        $membres_jury  = explode(";", $formation->membres_jury);
+        $count_membres = count($membres_jury);
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+        $dompdf->loadHtml(view('formations.lettrevaluations.lettremission', compact(
+            'formation',
+            'title',
+            'membres_jury',
+            'count_membres',
+        )));
+
+        // (Optional) Setup the paper size and orientation (portrait ou landscape)
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->set_option('isHtml5ParserEnabled', true);
+        $dompdf->set_option('isRemoteEnabled', true);
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        $name = 'Lettre_mission_formation_code_' . $formation->code . '.pdf';
+        // Output the generated PDF to Browser
         return $dompdf->stream($name, ['Attachment' => false]);
     }
 }

@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP', ' | Liste des employés ayant la categorie ' . $categorie->name)
+@section('title', 'ONFP', ' | Liste des opérateurs ayant la categorie ' . $categorie->name)
 @section('space-work')
     <div class="pagetitle">
         <nav>

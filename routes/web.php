@@ -76,7 +76,6 @@ use App\Http\Controllers\ValidationoperateurController;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -579,6 +578,8 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::put('/collectives/restore/{uuid}', [CollectiveController::class, 'restore'])->name('collectives.restore');
         Route::get('/demande-paiement/{lettrevaluation}/telecharger', [LettrevaluationController::class, 'telechargerDemandePaiement'])
             ->name('demandePaiement.telecharger');
+        Route::get('/lettre-mission/{lettrevaluation}/telecharger', [LettrevaluationController::class, 'telechargerlettreMission'])
+            ->name('lettreMission.telecharger');
 
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
