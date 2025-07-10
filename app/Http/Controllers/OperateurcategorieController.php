@@ -13,7 +13,7 @@ class OperateurcategorieController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(['role:super-admin|admin|DRH|ADRH|DG|SG|DEC']);
+        $this->middleware(['role:super-admin|admin|DRH|ADRH|DG|SG|DEC|DIOF']);
     }
 
     public function index()
