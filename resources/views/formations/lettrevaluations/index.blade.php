@@ -52,27 +52,22 @@
                                     <table class="table table-hover table-striped align-middle" id="table-jury">
                                         <thead class="table-primary text-center">
                                             <tr>
-                                                <th>Exécution</th>
-                                                <th>Création</th>
+                                                <th>Evaluateur</th>
+                                                <th>Responsable</th>
                                                 <th>Evaluteur ONFP</th>
                                                 {{-- <th>Formation</th> --}}
                                                 <th>Module</th>
                                                 <th>Operateur</th>
-                                                <th>Evaluateur</th>
                                                 {{-- <th>ABE</th>
                                                 <th>Lettre</th> --}}
+                                                <th>Statut</th>
                                                 <th width="2%">#</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($lettrevaluations as $lettrevaluation)
                                                 <tr>
-                                                    <td>
-                                                        @if ($lettrevaluation?->execution_statut == 1)
-                                                            <span class="badge bg-success">Oui</span>
-                                                        @else
-                                                            <span class="badge bg-danger">Non</span>
-                                                        @endif
+                                                    <td>{{ $lettrevaluation?->evaluateur?->name . ' ' . $lettrevaluation?->evaluateur?->lastname ?? 'Aucun' }}
                                                     </td>
                                                     <td>{{ $lettrevaluation?->titre }}</td>
                                                     <td>{{ $lettrevaluation?->onfpevaluateur?->name . ' ' . $lettrevaluation?->onfpevaluateur?->lastname ?? 'Aucun' }}
@@ -80,7 +75,12 @@
                                                         {{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}</span>
                                                     </td>
                                                     <td>{{ $lettrevaluation?->formation?->operateur?->user?->username }}</td>
-                                                    <td>{{ $lettrevaluation?->evaluateur?->name . ' ' . $lettrevaluation?->evaluateur?->lastname ?? 'Aucun' }}
+                                                    <td>
+                                                        @if ($lettrevaluation?->execution_statut == 1)
+                                                            <span class="badge bg-success">Oui</span>
+                                                        @else
+                                                            <span class="badge bg-danger">Non</span>
+                                                        @endif
                                                     </td>
                                                     {{-- Actions --}}
                                                     <td>

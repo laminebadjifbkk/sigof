@@ -77,12 +77,13 @@
                                                         href="tel:+221{{ $onfpevaluateur?->telephone }}">{{ $onfpevaluateur?->telephone }}</a>
                                                 </td>
                                                 <td style="text-align: center;">
-                                                    @foreach ($onfpevaluateur?->formations as $formation)
+                                                    {{-- @foreach ($onfpevaluateur?->formations as $formation)
                                                         @if ($loop->last)
                                                             <a class="text-primary fw-bold"
                                                                 href="#">{!! $loop->count ?? '0' !!}</a>
                                                         @endif
-                                                    @endforeach
+                                                    @endforeach --}}
+                                                    {{ $onfpevaluateur?->formations->count() }}
                                                 </td>
 
                                                 <td style="text-align: center;">

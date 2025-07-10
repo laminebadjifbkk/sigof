@@ -427,7 +427,7 @@ class Formation extends Model
         return $this->belongsTo(Ingenieur::class, 'ingenieurs_id');
     }
 
-    public function onfpevaluateur()
+    /* public function onfpevaluateur()
     {
         return $this->belongsTo(Onfpevaluateur::class, 'onfpevaluateurs_id');
     }
@@ -435,7 +435,7 @@ class Formation extends Model
     public function evaluateur()
     {
         return $this->belongsTo(Evaluateur::class, 'evaluateurs_id');
-    }
+    } */
 
     public function localite()
     {
@@ -593,12 +593,16 @@ class Formation extends Model
 
     public function evaluateurs()
     {
-        return $this->belongsToMany(Evaluateur::class, 'evaluateurs_formations');
+        return $this->belongsToMany(Evaluateur::class, 'evaluateurs_formations', 'formations_id', 'evaluateurs_id')
+            ->withPivot('created_at', 'updated_at')
+            ->withTimestamps();
     }
 
     public function onfpevaluateurs()
     {
-        return $this->belongsToMany(Onfpevaluateur::class, 'formations_onfpevaluateurs');
+        return $this->belongsToMany(Onfpevaluateur::class, 'formations_onfpevaluateurs', 'formations_id', 'onfpevaluateurs_id')
+            ->withPivot('created_at', 'updated_at')
+            ->withTimestamps();
     }
 
 }

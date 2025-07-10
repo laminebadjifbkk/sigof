@@ -37,7 +37,9 @@ class Onfpevaluateur extends Model
 
     public function formations()
     {
-        return $this->belongsToMany(Formation::class, 'formations_onfpevaluateurs');
+        return $this->belongsToMany(Formation::class, 'formations_onfpevaluateurs', 'onfpevaluateurs_id', 'formations_id')
+            ->withTimestamps()
+            ->withPivot('id');
     }
 
     public function lettrevaluation()

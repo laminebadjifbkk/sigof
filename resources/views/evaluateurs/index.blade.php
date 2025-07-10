@@ -74,12 +74,13 @@
                                             </td>
                                             <td>{{ $evaluateur->adresse }}</td>
                                             <td style="text-align: center;">
-                                                @foreach ($evaluateur->formations as $formation)
+                                                {{-- @foreach ($evaluateur->formations as $formation)
                                                     @if ($loop->last)
                                                         <a class="text-primary fw-bold"
                                                             href="#">{!! $loop->count ?? '0' !!}</a>
                                                     @endif
-                                                @endforeach
+                                                @endforeach --}}
+                                            {{ $evaluateur?->formations->count() }}
                                             </td>
 
                                             <td style="text-align: center;">
