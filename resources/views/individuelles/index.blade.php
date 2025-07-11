@@ -66,35 +66,33 @@
                             <div class="pt-1">
                                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 
+                                    {{-- Titre à gauche --}}
                                     <div class="d-flex align-items-center gap-2">
-                                        <h6 class="mb-0 text-muted fw-semibold text-uppercase">Liste des demandes individuelles
+                                        <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                                            Liste des demandes individuelles
                                         </h6>
                                     </div>
 
+                                    {{-- Total au centre --}}
                                     <h5 class="mb-0 fw-semibold text-info">
-                                        <i class="bi bi-list-ul me-1"></i> Total demandes : <span
-                                            class="text-dark">{{ $individuelles->count() }}</span>
+                                        <i class="bi bi-list-ul me-1"></i> Total demandes :
+                                        <span class="text-dark">{{ $individuelles->count() }}</span>
                                     </h5>
-                                    @can('individuelle-create')
-                                        <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#AddIndividuelModal">
-                                            Ajouter
-                                        </a>
 
-                                        <div class="dropdown">
-                                            <a class="btn btn-sm btn-light" href="#" role="button" data-bs-toggle="dropdown">
-                                                <i class="bi bi-three-dots"></i>
+                                    {{-- Boutons à droite --}}
+                                    @can('individuelle-create')
+                                        <div class="d-flex align-items-center gap-2">
+                                            <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#AddIndividuelModal">
+                                                Ajouter
                                             </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li>
-                                                    <button class="dropdown-item" type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#generate_rapport">
-                                                        Rechercher plus
-                                                    </button>
-                                                </li>
-                                            </ul>
+                                            <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#generate_rapport">
+                                                Rechercher plus
+                                            </button>
                                         </div>
                                     @endcan
+
                                 </div>
                             </div>
                             @if ($individuelles->isNotEmpty())
