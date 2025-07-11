@@ -54,7 +54,7 @@
                                             <tr>
                                                 <th>Module formation</th>
                                                 <th>Evaluateur</th>
-                                                {{-- <th>Responsable</th> --}}
+                                                <th>Responsable</th>
                                                 <th>Evaluteur ONFP</th>
                                                 {{-- <th>Formation</th> --}}
                                                 <th>Lieu</th>
@@ -80,7 +80,7 @@
                                                             </li>
                                                         @endforeach
                                                     </td>
-                                                    {{--  <td>{{ $lettrevaluation?->titre }}</td> --}}
+                                                     <td>{{ $lettrevaluation?->titre }}</td>
                                                     <td>
                                                         @foreach ($lettrevaluation?->formation?->onfpevaluateurs as $index => $onfpevaluateur)
                                                             <li>
