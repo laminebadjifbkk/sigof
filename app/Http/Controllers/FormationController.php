@@ -3122,7 +3122,7 @@ class FormationController extends Controller
 
         if ($formation->statut == "Terminée") {
 
-            $title = 'Attestation de bonne execution ' . $formation->name;
+            $title = 'Attestation de bonne execution ' . $formation?->operateur?->user?->username . ' - ' . $formation?->code;
 
             $membres_jury  = explode(";", $formation->membres_jury);
             $count_membres = count($membres_jury);
@@ -3157,7 +3157,7 @@ class FormationController extends Controller
             // Render the HTML as PDF
             $dompdf->render();
 
-            $name = 'Attestation de bonne execution ' . $formation->name . ', code ' . $formation->code . '.pdf';
+            $name = 'Attestation de bonne execution ' . $formation?->operateur?->user?->username . ' - ' . $formation?->code . '.pdf';
 
             // Output the generated PDF to Browser
             $dompdf->stream($name, ['Attachment' => false]);
@@ -3200,7 +3200,7 @@ class FormationController extends Controller
 
         if ($formation->statut == "Terminée") {
 
-            $title = 'Attestation de bonne execution ' . $formation->name;
+            $title = 'Attestation de bonne execution ' . $formation?->operateur?->user?->username . ' - ' . $formation?->code;
 
             $membres_jury  = explode(";", $formation->membres_jury);
             $count_membres = count($membres_jury);
@@ -3235,7 +3235,7 @@ class FormationController extends Controller
             // Render the HTML as PDF
             $dompdf->render();
 
-            $name = 'ABE_formation_code_' . $formation->code . '.pdf';
+            $name = 'Attestation de bonne execution ' . $formation?->operateur?->user?->username . ' - ' . $formation?->code . '.pdf';
 
             // Output the generated PDF to Browser
             return $dompdf->stream($name, ['Attachment' => false]);
@@ -3294,7 +3294,7 @@ class FormationController extends Controller
 
         if ($formation->statut == "Terminée") {
 
-            $title = 'Attestation de bonne execution ' . $formation->name;
+            $title = 'Attestation de bonne execution ' . $formation?->operateur?->user?->username . ' - ' . $formation?->code;
 
             $membres_jury  = explode(";", $formation->membres_jury);
             $count_membres = count($membres_jury);
@@ -3329,7 +3329,7 @@ class FormationController extends Controller
             // Render the HTML as PDF
             $dompdf->render();
 
-            $name = 'Attestation de bonne execution ' . $formation->name . ', code ' . $formation->code . '.pdf';
+            $name = 'Attestation de bonne execution ' . $formation?->operateur?->user?->username . ' - ' . $formation?->code . '.pdf';
 
             // Output the generated PDF to Browser
             $dompdf->stream($name, ['Attachment' => false]);
@@ -3387,7 +3387,7 @@ class FormationController extends Controller
 
         if ($formation->statut == "Terminée") {
 
-            $title = 'Attestation de bonne execution ' . $formation->name;
+            $title = 'Attestation de bonne execution ' . $formation?->operateur?->user?->username . ' - ' . $formation?->code;
 
             $membres_jury  = explode(";", $formation->membres_jury);
             $count_membres = count($membres_jury);
@@ -3422,7 +3422,7 @@ class FormationController extends Controller
             // Render the HTML as PDF
             $dompdf->render();
 
-            $name = 'Attestation de bonne execution ' . $formation->name . ', code ' . $formation->code . '.pdf';
+            $name = 'Attestation de bonne execution ' . $formation?->operateur?->user?->username . ' - ' . $formation?->code . '.pdf';
 
             // Output the generated PDF to Browser
             $dompdf->stream($name, ['Attachment' => false]);
