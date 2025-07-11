@@ -576,10 +576,17 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::delete('/collectives/force-delete/{uuid}', [CollectiveController::class, 'forceDelete'])->name('collectives.forceDelete');
         Route::put('/collectives/restore/{uuid}', [CollectiveController::class, 'restore'])->name('collectives.restore');
+
         Route::get('/demande-paiement/{lettrevaluation}/telecharger', [LettrevaluationController::class, 'telechargerDemandePaiement'])
             ->name('demandePaiement.telecharger');
         Route::get('/lettre-mission/{lettrevaluation}/telecharger', [LettrevaluationController::class, 'telechargerlettreMission'])
             ->name('lettreMission.telecharger');
+
+        Route::get('/formations/{formation}/evaluations/edit', [FormationController::class, 'editEvaluationForm'])->name('formations.evaluations.edit');
+        Route::post('/formations/{formation}/evaluations/update', [FormationController::class, 'updateEvaluationForm'])->name('formations.evaluations.update');
+        
+        Route::get('/formations/{formation}/lettres/download', [FormationController::class, 'downloadLettre'])
+            ->name('formations.evaluations.download');
 
         /* Vues ressouces */
         Route::resource('/users', UserController::class);

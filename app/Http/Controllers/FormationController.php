@@ -4143,4 +4143,82 @@ class FormationController extends Controller
         // Output the generated PDF to Browser
         $dompdf->stream($name, ['Attachment' => false]);
     }
+
+    public function editEvaluationForm($formationId)
+    {
+
+        $formation = Formation::with('evaluateurs')->findOrFail($formationId);
+
+        return view('formations.lettrevaluations.edit_evaluation', compact('formation'));
+    }
+
+    public function updateEvaluationForm(Request $request, $formationId)
+    {
+        $request->validate([
+            'evaluations'                 => 'required|array',
+            'evaluations.*.evaluateur_id' => 'required|exists:evaluateurs,id',
+            'evaluations.*.numero_lettre' => 'required|string|max:255',
+            'evaluations.*.date_lettre'   => 'required|date',
+        ]);
+
+        $formation = Formation::findOrFail($formationId);
+
+        $pivotData = [];
+
+        foreach ($request->evaluations as $evaluateurId => $data) {
+            $formation->evaluateurs()->updateExistingPivot($evaluateurId, [
+                'numero_lettre' => $data['numero_lettre'],
+                'date_lettre'   => $data['date_lettre'],
+            ]);
+        }
+
+        $formation->evaluateurs()->syncWithoutDetaching($pivotData); // Met à jour sans supprimer
+
+        /* return redirect()->route('formations.evaluations.edit', $formationId)
+            ->with('success', 'Lettres de mission mises à jour.'); */
+        Alert::success('Mise à jour réussie !', 'Les lettres de mission ont été mises à jour avec succès.');
+        return redirect()->back();
+    }
+
+    public function downloadLettre($formationId)
+    {
+        $formation = Formation::with('evaluateurs')->findOrFail($formationId);
+
+        /* $pdf = Pdf::loadView('pdf.lettres_mission', compact('formation'));
+
+        return $pdf->download('lettres_mission_formation_' . $formation->id . '.pdf'); */
+
+        $title = 'Lettre de mission évaluation formation en ' . $formation->name;
+
+        $membres_jury  = explode(";", $formation->membres_jury);
+        $count_membres = count($membres_jury);
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+        $dompdf->loadHtml(view('formations.lettrevaluations.lettremission', compact(
+            'formation',
+            'title',
+            'membres_jury',
+            'count_membres',
+        )));
+
+        // (Optional) Setup the paper size and orientation (portrait ou landscape)
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->set_option('isHtml5ParserEnabled', true);
+        $dompdf->set_option('isRemoteEnabled', true);
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        $name = 'Lettre_mission_formation_code_' . $formation->code . '.pdf';
+        // Output the generated PDF to Browser
+        return $dompdf->stream($name, ['Attachment' => false]);
+
+
+
+    }
+
 }

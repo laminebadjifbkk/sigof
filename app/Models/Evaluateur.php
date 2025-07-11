@@ -70,7 +70,7 @@ class Evaluateur extends Model
     public function formations()
     {
         return $this->belongsToMany(Formation::class, 'evaluateurs_formations', 'evaluateurs_id', 'formations_id')
-            ->withPivot('created_at', 'updated_at')
+            ->withPivot('numero_lettre', 'date_lettre')
             ->withTimestamps();
     }
 

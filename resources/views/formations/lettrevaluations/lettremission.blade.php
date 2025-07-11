@@ -178,126 +178,130 @@
                 style="width: 100%; max-width: 300px" />
         </b>
     </h6> --}}
-    <div class="invoice-box">
-        <table cellpadding="0" cellspacing="0">
-            <tr class="top">
-                <td colspan="2">
-                    <table>
-                        <tr>
-                            {{-- <td>
+    @foreach ($formation->evaluateurs as $evaluateur)
+        <div class="invoice-box">
+            <table cellpadding="0" cellspacing="0">
+                <tr class="top">
+                    <td colspan="2">
+                        <table>
+                            <tr>
+                                {{-- <td>
                                 <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
                                     style="width: 100%; max-width: 300px" />
                             </td> --}}
-                            <h6 valign="top" style="text-align: center; margin-left: -75px;">
-                                <b>REPUBLIQUE DU SENEGAL<br></b>
-                                Un Peuple - Un But - Une Foi<br>
-                                <b>********<br>
-                                    MINISTERE DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE<br>
-                                    ********<br>
-                                    <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
-                                        style="width: 100%; max-width: 300px" />
-                                </b>
-                            </h6>
+                                <h6 valign="top" style="text-align: center; margin-left: -75px;">
+                                    <b>REPUBLIQUE DU SENEGAL<br></b>
+                                    Un Peuple - Un But - Une Foi<br>
+                                    <b>********<br>
+                                        MINISTERE DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE<br>
+                                        ********<br>
+                                        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
+                                            style="width: 100%; max-width: 300px" />
+                                    </b>
+                                </h6>
 
-                            <td>
-                                <p style="font-weight: bold;">ONFP/DG/DEC/{{ $formation?->onfpevaluateur?->initiale }}
-                                </p>
-                                <p style="text-align: center; font-weight: bold;">Dakar, le</p><br><br><br>
-                                <p style="text-align: center; font-weight: bold; font-style: italic">Le Directeur
-                                    général</p>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <table class="information">
-                        <tr>
-                            <td>
-                                <h2 style="text-align: center; margin-top: -25px;">LETTRE DE MISSION</h2>
+                                <td>
+                                    <p style="font-weight: bold;">
+                                        ONFP/DG/DEC/{{ $formation?->onfpevaluateur?->initiale }}
+                                    </p>
+                                    <p style="text-align: center; font-weight: bold;">Dakar, le</p><br><br><br>
+                                    <p style="text-align: center; font-weight: bold; font-style: italic">Le Directeur
+                                        général</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <table class="information">
+                            <tr>
+                                <td>
+                                    <h2 style="text-align: center; margin-top: -25px;">LETTRE DE MISSION</h2>
 
-                                <p style="text-align : justify;">
-                                    <b>{{ $formation?->evaluateur?->name . ' ' . $formation?->evaluateur?->lastname . ', ' . $formation->evaluateur->fonction }},</b>
-                                    tel n° {{ $formation?->evaluateur?->telephone }}, est sollicité
-                                    pour être membre du jury de certification selon les procédures de l'ONFP pour la
-                                    formation ci-après:
-                                </p>
+                                    <p style="text-align : justify;">
+                                        <b>{{ $evaluateur?->name . ' ' . $evaluateur?->lastname . ', ' . $evaluateur?->fonction }},</b>
+                                        tel n° {{ $evaluateur?->telephone }}, est sollicité
+                                        pour être membre du jury de certification selon les procédures de l'ONFP pour la
+                                        formation ci-après:
+                                    </p>
 
-                                <p><b>Intitulé de la formation </b>:
-                                    @if (!empty($formation?->module?->name))
-                                        {{ $formation?->module?->name }}
-                                    @elseif (!empty($formation?->collectivemodule?->module))
-                                        {{ $formation?->collectivemodule?->module }}
-                                    @else
-                                        {{ $formation?->module?->name }}
-                                    @endif
-                                </p>
-                                <p><b>Niveau de qualification </b>: {{ $formation?->titre }} </p>
-                                <p><b>Nombre de bénéficiaires </b>:
-                                    {{ ' H: ' . str_pad($formation->prevue_h, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    {{ ' F: ' . str_pad($formation->prevue_f, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    {{ ' T: ' . str_pad($formation->effectif_prevu, 2, '0', STR_PAD_LEFT) }}
-                                </p>
-                                <p><b>Opérateur d'exécution </b>:
-                                    {{ $formation?->operateur?->user?->operateur }}
-                                    @if (!empty($formation?->operateur?->user?->username))
-                                        {{ '(' . $formation?->operateur?->user?->username . ')' }}
-                                    @endif
-                                </p>
-                                <p><b>Lieu de formation </b>:
-                                    {{ $formation?->lieu }}
-                                </p>
-                                <p><b>Document attendu </b>:
-                                <ol>
-                                    <span>
-                                        Procès-verbal (PV) de certification<br />
-                                    </span>
-                                </ol>
-                                </p>
-                                <p><b>Documents de référence </b>:
-                                <ol>
-                                    <span>
-                                        Convention d'assistance n°
-                                        {{ $formation?->numero_convention . '/ONFP/DG/DIOF/' . $formation?->ingenieur?->initiale . ' du ' . $formation?->date_convention?->format('d/m/Y') }}<br />
-                                    </span>
-                                    <span>
-                                        DETF<br />
-                                    </span>
-                                    <span>
-                                        Guide d'évaluation<br />
-                                    </span>
-                                </ol>
-                                </p>
-                                <p><b>Date de l'évaluation </b>:
-                                    {{ 'Le ' . $formation?->date_pv?->translatedFormat('l d F Y') }} </p>
-                                <p><b>Montant indemnité de membre </b> :
-                                    {{ number_format($formation?->frais_evaluateur, 0, ',', ' ') }} F CFA de brut versé
-                                    sur
-                                    présentation d'une demande de paiement
-                                    et du PV d'évaluation.
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </div>
-    {{-- <footer>
+                                    <p><b>Intitulé de la formation </b>:
+                                        @if (!empty($formation?->module?->name))
+                                            {{ $formation?->module?->name }}
+                                        @elseif (!empty($formation?->collectivemodule?->module))
+                                            {{ $formation?->collectivemodule?->module }}
+                                        @else
+                                            {{ $formation?->module?->name }}
+                                        @endif
+                                    </p>
+                                    <p><b>Niveau de qualification </b>: {{ $formation?->titre }} </p>
+                                    <p><b>Nombre de bénéficiaires </b>:
+                                        {{ ' H: ' . str_pad($formation->prevue_h, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        {{ ' F: ' . str_pad($formation->prevue_f, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        {{ ' T: ' . str_pad($formation->effectif_prevu, 2, '0', STR_PAD_LEFT) }}
+                                    </p>
+                                    <p><b>Opérateur d'exécution </b>:
+                                        {{ $formation?->operateur?->user?->operateur }}
+                                        @if (!empty($formation?->operateur?->user?->username))
+                                            {{ '(' . $formation?->operateur?->user?->username . ')' }}
+                                        @endif
+                                    </p>
+                                    <p><b>Lieu de formation </b>:
+                                        {{ $formation?->lieu }}
+                                    </p>
+                                    <p><b>Document attendu </b>:
+                                    <ol>
+                                        <span>
+                                            Procès-verbal (PV) de certification<br />
+                                        </span>
+                                    </ol>
+                                    </p>
+                                    <p><b>Documents de référence </b>:
+                                    <ol>
+                                        <span>
+                                            Convention d'assistance n°
+                                            {{ $formation?->numero_convention . '/ONFP/DG/DIOF/' . $formation?->ingenieur?->initiale . ' du ' . $formation?->date_convention?->format('d/m/Y') }}<br />
+                                        </span>
+                                        <span>
+                                            DETF<br />
+                                        </span>
+                                        <span>
+                                            Guide d'évaluation<br />
+                                        </span>
+                                    </ol>
+                                    </p>
+                                    <p><b>Date de l'évaluation </b>:
+                                        {{ 'Le ' . $formation?->date_pv?->translatedFormat('l d F Y') }} </p>
+                                    <p><b>Montant indemnité de membre </b> :
+                                        {{ number_format($formation?->frais_evaluateur, 0, ',', ' ') }} F CFA de brut
+                                        versé
+                                        sur
+                                        présentation d'une demande de paiement
+                                        et du PV d'évaluation.
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        {{-- <footer>
         <div class="page-number" id="footer">
             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/pied.png'))) }}"
                 style="display: block; width: 100%;" />
         </div>
     </footer> --}}
-    <footer>
-        <div class="page-number" id="footer">
-            <div class="footer-line"></div>
-            <p class="footer-text">Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN Tel: (+221) 33 827 92 51 -
-                Fax: (+221) 33 827 92
-                55 <br> BP: 21013 Dakar-Ponty Email: <a href="#">onfp@onfp.sn</a></p>
-        </div>
-    </footer>
+        <footer>
+            <div class="page-number" id="footer">
+                <div class="footer-line"></div>
+                <p class="footer-text">Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN Tel: (+221) 33 827 92 51 -
+                    Fax: (+221) 33 827 92
+                    55 <br> BP: 21013 Dakar-Ponty Email: <a href="#">onfp@onfp.sn</a></p>
+            </div>
+        </footer>
+    @endforeach
 </body>
 
 </html>

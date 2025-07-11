@@ -46,93 +46,47 @@
                                     <span class="text-muted small">Lettres évaluations & ABE</span>
                                 </div>
                             </div>
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mt-4">
+                                <h5 class="card-title mb-0 fw-semibold text-info">
+                                    <i class="bi bi-list-ul me-1"></i> Formation :
+                                    <span class="text-dark">{{ $formation?->name }}</span>
+                                </h5>
 
-                            <h5 class="card-title mt-4 fw-semibold text-info">
-                                <i class="bi bi-list-ul me-1"></i> Liste des formations de : <span
-                                    class="text-dark">{{ $evaluateur?->name . ' ' . $evaluateur?->lastname }}</span>
-                            </h5>
-                            @if ($evaluateur?->formations->isNotEmpty())
+                                <a href="{{ route('formations.evaluations.download', $formation->id) }}"
+                                    class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
+                                    title="Télécharger les lettres de mission">
+                                    <i class="bi bi-download"></i> Télécharger
+                                </a>
+                            </div>
+                            @if ($formation?->evaluateurs->isNotEmpty())
                                 <table class="table datatables align-middle" id="table-employes">
                                     <thead>
                                         <tr>
-                                            <th width='6%' class="text-center">Code</th>
-                                            <th width='8%' class="text-center">N° conv.</th>
-                                            <th width='25%'>Bénéficiaires</th>
-                                            <th width='15%'>Modules</th>
-                                            <th width='15%'>Niveau qualif.</th>
-                                            <th width='10%' class="text-center">Opérateurs</th>
-                                            <th width='5%' class="text-center">Statut</th>
-                                            @can('formation-show')
-                                                <th width='3%'><i class="bi bi-gear"></i></th>
-                                            @endcan
+                                            <th>Evaluateur(s)</th>
+                                            <th class="text-center">N° lettre</th>
+                                            <th class="text-center">Date lettre</th>
+                                            {{-- <th class="text-center" width="25%">Lettre mission</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $i = 1; ?>
-                                        @foreach ($evaluateur?->formations as $formation)
+                                        @foreach ($formation?->evaluateurs as $evaluateur)
                                             <tr>
-                                                <td style="text-align: center">{{ $formation?->code }}</td>
-                                                <td style="text-align: center">{{ $formation?->numero_convention }}</td>
-                                                <td>{{ $formation?->name ?? ' ' }}</td>
-                                                <td>
-                                                    <span
-                                                        class="{{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}">
-                                                        {{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}
-                                                    </span>
-                                                </td>
-                                                <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
-                                                <td class="text-center">
-                                                    {{ $formation?->operateur?->user?->username ?? ' ' }}
+                                                <td>{{ $evaluateur?->name . ' ' . $evaluateur->lastname ?? 'Aucun' }}</td>
+                                                <td class="text-center">{{ $evaluateur?->pivot?->numero_lettre ?? 'Aucun' }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a><span
-                                                            class="{{ $formation->statut }}">{{ $formation->statut }}</span></a>
+                                                    {{ $evaluateur?->pivot?->date_lettre
+                                                        ? \Carbon\Carbon::parse($evaluateur->pivot->date_lettre)->format('d/m/Y')
+                                                        : '-' }}
                                                 </td>
-                                                @can('formation-show')
-                                                    <td>
-                                                        <div class="d-flex align-items-center gap-2">
-                                                            <!-- Bouton Voir détails -->
-                                                            <a href="{{ route('formations.show', $formation) }}"
-                                                                class="btn btn-primary btn-sm" title="Voir les détails">
-                                                                <i class="bi bi-eye"></i>
-                                                            </a>
-
-                                                            <!-- Menu déroulant d'actions -->
-                                                            <div class="dropdown">
-                                                                <a href="#" class="btn btn-sm btn-light"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false"
-                                                                    title="Plus d'actions">
-                                                                    <i class="bi bi-three-dots-vertical"></i>
-                                                                </a>
-                                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                                    @can('formation-update')
-                                                                        <li>
-                                                                            <a href="{{ route('formations.edit', $formation) }}"
-                                                                                class="dropdown-item">
-                                                                                <i class="bi bi-pencil"></i> Modifier
-                                                                            </a>
-                                                                        </li>
-                                                                    @endcan
-                                                                    @can('formation-delete')
-                                                                        <li>
-                                                                            <form
-                                                                                action="{{ route('formations.destroy', $formation) }}"
-                                                                                method="POST"
-                                                                                onsubmit="return confirm('Confirmer la suppression de cette formation ?')">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit"
-                                                                                    class="dropdown-item text-danger">
-                                                                                    <i class="bi bi-trash"></i> Supprimer
-                                                                                </button>
-                                                                            </form>
-                                                                        </li>
-                                                                    @endcan
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                @endcan
+                                                {{-- <td class="text-center">
+                                                    <a href="{{ route('formations.evaluations.download', $formation->id) }}"
+                                                        class="btn btn-sm btn-outline-primary"
+                                                        title="Télécharger les lettres de mission">
+                                                        <i class="bi bi-download"></i> Télécharger lettres de mission
+                                                    </a>
+                                                </td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>

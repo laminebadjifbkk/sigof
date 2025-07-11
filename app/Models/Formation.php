@@ -594,7 +594,7 @@ class Formation extends Model
     public function evaluateurs()
     {
         return $this->belongsToMany(Evaluateur::class, 'evaluateurs_formations', 'formations_id', 'evaluateurs_id')
-            ->withPivot('created_at', 'updated_at')
+            ->withPivot('numero_lettre', 'date_lettre')
             ->withTimestamps();
     }
 

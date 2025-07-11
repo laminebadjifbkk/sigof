@@ -76,7 +76,7 @@
                                                     <td>
                                                         @foreach ($lettrevaluation?->formation?->evaluateurs as $index => $evaluateur)
                                                             <li>
-                                                                {{ $evaluateur->name . ' ' . $evaluateur->lastname ?? 'Aucun' }}
+                                                                {{ $evaluateur?->name . ' ' . $evaluateur->lastname ?? 'Aucun' }}
                                                             </li>
                                                         @endforeach
                                                     </td>
