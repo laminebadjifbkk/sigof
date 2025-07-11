@@ -179,7 +179,7 @@
                                                                     </li> --}}
 
                                                                     <!-- Supprimer -->
-                                                                    @can('formation-delete')
+                                                                    @can('lettrevaluation-delete')
                                                                         <li>
                                                                             <form
                                                                                 action="{{ route('lettrevaluations.destroy', $lettrevaluation->id) }}"
