@@ -85,7 +85,7 @@
                                             <th>Evaluateur(s)</th>
                                             <th class="text-center">N° lettre</th>
                                             <th class="text-center">Date lettre</th>
-                                            {{-- <th class="text-center" width="25%">Lettre mission</th> --}}
+                                            <th class="text-center" width="5%">Formation</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -101,6 +101,17 @@
                                                         ? \Carbon\Carbon::parse($evaluateur->pivot->date_lettre)->format('d/m/Y')
                                                         : '-' }}
                                                 </td>
+                                                @can('formation-show')
+                                                    <td>
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <!-- Bouton Voir détails -->
+                                                            <a href="{{ route('formations.show', $formation) }}"
+                                                                class="btn btn-primary btn-sm" title="Voir les détails">
+                                                                <i class="bi bi-eye"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                @endcan
                                             </tr>
                                         @endforeach
                                     </tbody>
