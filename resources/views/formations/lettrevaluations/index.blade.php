@@ -52,15 +52,15 @@
                                     <table class="table table-hover table-striped align-middle" id="table-jury">
                                         <thead class="table-primary text-center">
                                             <tr>
+                                                <th>Operateur</th>
                                                 <th>Module formation</th>
-                                                <th>Evaluateur</th>
-                                                <th>Responsable</th>
-                                                <th>Evaluteur ONFP</th>
-                                                {{-- <th>Formation</th> --}}
                                                 <th>Lieu</th>
+                                                <th>Evaluateur(s)</th>
+                                                <th>Responsable</th>
+                                                <th>Evaluteur(s) ONFP</th>
+                                                {{-- <th>Formation</th> --}}
                                                 <th>Date évaluation</th>
                                                 {{-- <th>Ingénieur</th> --}}
-                                                <th>Operateur</th>
                                                 {{-- <th>ABE</th>
                                                 <th>Lettre</th> --}}
                                                 <th>Statut</th>
@@ -70,9 +70,11 @@
                                         <tbody>
                                             @foreach ($lettrevaluations as $lettrevaluation)
                                                 <tr>
+                                                    <td>{{ $lettrevaluation?->formation?->operateur?->user?->username }}</td>
                                                     <td>
                                                         {{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}</span>
                                                     </td>
+                                                    <td>{{ $lettrevaluation?->formation?->lieu ?? 'Aucun' }} </td>
                                                     <td>
                                                         @foreach ($lettrevaluation?->formation?->evaluateurs as $index => $evaluateur)
                                                             <li>
@@ -88,11 +90,9 @@
                                                             </li>
                                                         @endforeach
                                                     </td>
-                                                    <td>{{ $lettrevaluation?->formation?->lieu ?? 'Aucun' }} </td>
                                                     <td>{{ $lettrevaluation?->formation?->date_pv?->format('d/m/Y') ?? 'Aucun' }}
                                                     </td>
                                                     {{-- <td>{{ $lettrevaluation?->formation?->ingenieur?->name ?? 'Aucun' }} </td> --}}
-                                                    <td>{{ $lettrevaluation?->formation?->operateur?->user?->username }}</td>
                                                     <td>
                                                         @if ($lettrevaluation?->execution_statut == 1)
                                                             <span class="badge bg-success">Oui</span>
