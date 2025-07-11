@@ -253,19 +253,46 @@
                     style="float: right; font-style: italic">{{ remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $formation?->date_pv?->format('d/m/Y') }}</span>
             @endif
             <br>
-            <?php $i = 1; ?>
-            @foreach ($formation?->evaluateurs as $evaluateur)
-                {{ $evaluateur?->name . ' ' . $evaluateur?->lastname . ', ' . $evaluateur?->fonction }}<br>
-            @endforeach
-            @foreach ($formation?->onfpevaluateurs as $onfpevaluateur)
-                {{ $onfpevaluateur?->name . ' ' . $onfpevaluateur?->lastname . ', ' . $onfpevaluateur?->fonction }}<br>
-            @endforeach
-            @if (!empty($membres_jury))
-                @foreach ($membres_jury as $item)
-                    {{ $item }} <br>
-                    {{-- {{ $i++ . '/' . $count_membres . '. ' . $item }} <br><br> --}}
-                @endforeach
-            @endif
+            <div class="row g-3">
+                <div class="container">
+                    <div class="row g-2">
+                        @foreach (collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs)->chunk(2) as $pair)
+                            <div class="row">
+                                @foreach ($pair as $personne)
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-start">
+                                            <i class="bi bi-person text-primary me-2 mt-1"></i>
+                                            <div>
+                                                <strong>{{ $personne->name }} {{ $personne->lastname }}</strong>
+                                                @if ($personne->fonction)
+                                                    <span class="text-muted"> –
+                                                        <em>{{ $personne->fonction }}</em></span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endforeach
+
+                        {{-- Autres membres du jury --}}
+                        @if (!empty($membres_jury))
+                            @foreach (collect($membres_jury)->chunk(2) as $ligne)
+                                <div class="row">
+                                    @foreach ($ligne as $item)
+                                        <div class="col-md-6">
+                                            <div class="d-flex align-items-start">
+                                                <i class="bi bi-people-fill text-dark me-2 mt-1"></i>
+                                                <div><strong>{{ $item }}</strong></div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+            </div>
         </h4>
     </div>
 </body>
