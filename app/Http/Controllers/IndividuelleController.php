@@ -33,8 +33,8 @@ class IndividuelleController extends Controller
     public function index()
     {
         // Comptage total des individus (sans charger toutes les entrées en mémoire)
-        $count_raw   = Individuelle::count();
-        $total_count = number_format($count_raw, 0, ',', ' ');
+        $totalIndividuelles = Individuelle::count();
+        $total_count        = number_format($totalIndividuelles, 0, ',', ' ');
 
 // Récupération des 200 dernières demandes
         $individuelles       = Individuelle::latest()->limit(250)->get();
@@ -56,7 +56,11 @@ class IndividuelleController extends Controller
 
         return view(
             "individuelles.index",
-            compact('individuelles', 'departements', 'modules', 'title')
+            compact('individuelles',
+                'departements',
+                'totalIndividuelles',
+                'modules',
+                'title')
         );
     }
 

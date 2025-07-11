@@ -74,10 +74,21 @@
                                     </div>
 
                                     {{-- Total au centre --}}
-                                    <h5 class="mb-0 fw-semibold text-info">
-                                        <i class="bi bi-list-ul me-1"></i> Total demandes :
-                                        <span class="text-dark">{{ $individuelles->count() }}</span>
-                                    </h5>
+                                    @php
+                                        $affichees = $individuelles->count(); // à adapter si tu fais une pagination
+                                        $total =
+                                            $totalIndividuelles ?? ($individuelles->total() ?? $individuelles->count()); // en cas de pagination avec ->total()
+                                    @endphp
+
+                                    <div class="d-flex align-items-center gap-2 text-info fw-semibold">
+                                        <i class="bi bi-list-ul me-1"></i>
+                                        <span>
+                                            Affichage :
+                                            <span class="text-dark">{{ $affichees }}</span>
+                                            sur
+                                            <span class="text-dark">{{ $total }}</span> demandes
+                                        </span>
+                                    </div>
 
                                     {{-- Boutons à droite --}}
                                     @can('individuelle-create')
