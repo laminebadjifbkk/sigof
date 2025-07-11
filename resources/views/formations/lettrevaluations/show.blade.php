@@ -36,8 +36,9 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-12 pt-0">
-                                <div class="d-flex align-items-center gap-2 mt-3">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                                {{-- Bouton retour et titre secondaire --}}
+                                <div class="d-flex align-items-center gap-3">
                                     <a href="{{ route('lettrevaluations.index') }}"
                                         class="btn btn-outline-success btn-sm rounded-pill shadow-sm"
                                         title="Retour à la liste">
@@ -45,19 +46,38 @@
                                     </a>
                                     <span class="text-muted small">Lettres évaluations & ABE</span>
                                 </div>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mt-4">
-                                <h5 class="card-title mb-0 fw-semibold text-info">
+
+                                {{-- Titre Formation --}}
+                                <h5 class="mb-0 fw-semibold text-info">
                                     <i class="bi bi-list-ul me-1"></i> Formation :
                                     <span class="text-dark">{{ $formation?->name }}</span>
                                 </h5>
 
-                                <a href="{{ route('formations.evaluations.download', $formation->id) }}"
-                                    class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
-                                    title="Télécharger les lettres de mission">
-                                    <i class="bi bi-download"></i> Télécharger
-                                </a>
+                                {{-- Actions droite --}}
+                                <div class="d-flex flex-wrap gap-2">
+                                    <a href="{{ route('formations.evaluations.edit', $formation->id) }}"
+                                        class="btn btn-sm btn-outline-warning d-flex align-items-center gap-1"
+                                        title="Modifier les lettres">
+                                        <i class="bi bi-pencil"></i> Modifier
+                                    </a>
+
+                                    <a href="{{ route('formations.evaluations.download', $formation->id) }}"
+                                        class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
+                                        title="Télécharger les lettres de mission">
+                                        <i class="bi bi-download"></i> Lettres
+                                    </a>
+
+                                    <a href="{{ route('formations.paiement.download', $formation->id) }}"
+                                        class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"
+                                        title="Télécharger la demande de paiement" target="_blank">
+                                        <i class="bi bi-receipt"></i> Demande de paiement
+                                    </a>
+                                </div>
                             </div>
+
+                            <hr class="my-4">
+
+                            {{-- Tableau des évaluateurs --}}
                             @if ($formation?->evaluateurs->isNotEmpty())
                                 <table class="table datatables align-middle" id="table-employes">
                                     <thead>
@@ -73,27 +93,20 @@
                                         @foreach ($formation?->evaluateurs as $evaluateur)
                                             <tr>
                                                 <td>{{ $evaluateur?->name . ' ' . $evaluateur->lastname ?? 'Aucun' }}</td>
-                                                <td class="text-center">{{ $evaluateur?->pivot?->numero_lettre ?? 'Aucun' }}
+                                                <td class="text-center">
+                                                    {{ $evaluateur?->pivot?->numero_lettre ?? 'Aucun' }}
                                                 </td>
                                                 <td class="text-center">
                                                     {{ $evaluateur?->pivot?->date_lettre
                                                         ? \Carbon\Carbon::parse($evaluateur->pivot->date_lettre)->format('d/m/Y')
                                                         : '-' }}
                                                 </td>
-                                                {{-- <td class="text-center">
-                                                    <a href="{{ route('formations.evaluations.download', $formation->id) }}"
-                                                        class="btn btn-sm btn-outline-primary"
-                                                        title="Télécharger les lettres de mission">
-                                                        <i class="bi bi-download"></i> Télécharger lettres de mission
-                                                    </a>
-                                                </td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <!-- End Table with stripped rows -->
                             @else
-                                <div class="alert alert-info">Aucune formation pour l'instant !</div>
+                                <div class="alert alert-info">Aucune information pour l'instant !</div>
                             @endif
                         </div>
                     </div>

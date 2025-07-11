@@ -102,105 +102,117 @@
     </style>
 </head>
 
-<body>
-    <div class="container">
-        {{-- QR code affiché en haut à droite --}}
-        {{-- @if (isset($qrCodeBase64))
+@foreach ($formation->evaluateurs as $evaluateur)
+
+    <body>
+        <div class="container">
+            {{-- QR code affiché en haut à droite --}}
+            {{-- @if (isset($qrCodeBase64))
             <div style="text-align: right; margin-top: 10px;">
                 <img src="data:image/png;base64,{{ $qrCodeBase64 }}" width="100" alt="QR Code">
             </div>
         @endif --}}
-        <div class="header">
-            <div class="contact-info" style="float:left; width: 75%; text-align: left;">
-                <p><strong>Prénom :</strong> {{ $lettrevaluation?->evaluateur?->name }}</p>
-                <p><strong>Nom :</strong> {{ $lettrevaluation?->evaluateur?->lastname }}</p>
-                <p><strong>Titre :</strong> {{ $lettrevaluation?->evaluateur?->fonction }}</p>
-                <p><strong>Téléphone :</strong> {{ $lettrevaluation?->evaluateur?->telephone }}</p>
+            <div class="header">
+                <div class="contact-info" style="float:left; width: 75%; text-align: left;">
+                    <p><strong>Prénom :</strong> {{ $evaluateur?->name }}</p>
+                    <p><strong>Nom :</strong> {{ $evaluateur?->lastname }}</p>
+                    <p><strong>Titre :</strong> {{ $evaluateur?->fonction }}</p>
+                    <p><strong>Téléphone :</strong> {{ $evaluateur?->telephone }}</p>
+                </div>
+
+                <div class="date" style="width: 25%; float:right; text-align: right;">
+                    {{ $formation?->departement?->region?->nom }}, le
+                    {{ $formation?->date_pv?->translatedFormat('d F Y') }}
+                </div>
+
+                <div class="clear" style="clear: both;"></div>
             </div>
 
-            <div class="date" style="width: 25%; float:right; text-align: right;">
-                {{ $lettrevaluation->formation?->departement?->region?->nom }}, le {{ $lettrevaluation->formation?->date_pv?->translatedFormat('d F Y') }}
+
+            <div class="header" style="margin-top: 40px;">
+                <p><strong>Office National de Formation Professionnelle (ONFP)</strong></p>
             </div>
 
-            <div class="clear" style="clear: both;"></div>
-        </div>
+            <div class="header" style="float: left; text-align: left;">
+                <p>
+                    <u><b>Réf.</b></u> :
+                    lettre de mission N°
+                    {{ $evaluateur?->pivot?->numero_lettre }}/ONFP/DG/DEC/{{ $formation?->onfpevaluateur?->initiale }}
+                    du
+                    {{ $evaluateur?->pivot?->date_lettre
+                        ? \Carbon\Carbon::parse($evaluateur->pivot->date_lettre)->translatedFormat('d F Y')
+                        : '-' }}
+                </p>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="title">Demande de Paiement</div>
 
+            <div class="header">
+                <p>Indemnités relatives à l’évaluation de la formation en
+                    {{ $formation?->module->name ?? ($formation?->collectivemodule?->module ?? 'Aucun') }}
+                    en date du {{ $formation?->date_pv?->translatedFormat('d F Y') }} exécutée par
+                    l’opérateur
+                    {{ $formation?->operateur?->user?->operateur ?? ' ' }}
+                </p>
+            </div>
 
-        <div class="header" style="margin-top: 40px;">
-            <p><strong>Office National de Formation Professionnelle (ONFP)</strong></p>
-        </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Désignation</th>
+                        <th style="width: 25%; border: 1px solid #000; padding: 8px; text-align: center;">Montant (F
+                            CFA)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Indemnités d’évaluation de la formation en
+                            {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? 'Aucun') }}
+                            en date du {{ $formation?->date_pv?->translatedFormat('d F Y') }}
+                            <br><br>
+                            <strong>Montant net</strong>
+                        </td>
+                        <td style="width: 25%; text-align: center;">{{ number_format($montant_net, 0, ',', ' ') }}</td>
+                    </tr>
+                    <tr>
+                        <td>IR 5%</td>
+                        <td style="width: 25%; text-align: center;">{{ number_format($montant_ir, 0, ',', ' ') }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Montant brut</strong></td>
+                        <td style="width: 25%; border: 1px solid #000; padding: 8px; text-align: center;">
+                            <strong>{{ number_format($brut, 0, ',', ' ') }}</strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <div class="header" style="float:left; text-align: left;">
-            <p><u><b>Réf.</b></u> : lettre de mission N°
-                {{ $lettrevaluation?->lettre_mission_dec . '/ONFP/DG/DEC/' . $lettrevaluation?->onfpevaluateur?->initiale . ' du ' . $lettrevaluation?->date_lettre_dec?->translatedFormat('d F Y') }}
+            <p>
+                <strong>Arrêté la présente demande de paiement à la somme de :</strong>
+                {{ $montant_lettres }}
             </p>
-        </div>
-        <br>
-        <br>
-        <br>
-        <div class="title">Demande de Paiement</div>
-
-        <div class="header">
-            <p>Indemnités relatives à l’évaluation de la formation en
-                {{ $lettrevaluation?->formation?->module->name ?? ($lettrevaluation?->formation?->collectivemodule?->module ?? 'Aucun') }}
-                en date du {{ $lettrevaluation?->formation?->date_pv?->translatedFormat('d F Y') }} exécutée par l’opérateur
-                {{ $lettrevaluation?->formation?->operateur?->user?->operateur ?? ' ' }}
-            </p>
-        </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Désignation</th>
-                    <th style="width: 25%; border: 1px solid #000; padding: 8px; text-align: center;">Montant (F CFA)
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        Indemnités d’évaluation de la formation en
-                        {{ $lettrevaluation?->formation?->module?->name ?? ($lettrevaluation?->formation?->collectivemodule?->module ?? 'Aucun') }}
-                        en date du {{ $lettrevaluation?->formation?->date_pv?->translatedFormat('d F Y') }}
-                        <br><br>
-                        <strong>Montant net</strong>
-                    </td>
-                    <td style="width: 25%; text-align: center;">{{ number_format($montant_net, 0, ',', ' ') }}</td>
-                </tr>
-                <tr>
-                    <td>IR 5%</td>
-                    <td style="width: 25%; text-align: center;">{{ number_format($montant_ir, 0, ',', ' ') }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Montant brut</strong></td>
-                    <td style="width: 25%; border: 1px solid #000; padding: 8px; text-align: center;">
-                        <strong>{{ number_format($brut, 0, ',', ' ') }}</strong>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <p>
-            <strong>Arrêté la présente demande de paiement à la somme de :</strong>
-            {{ $montant_lettres }}
-        </p>
 
 
-        <div class="signature" style="width: 35%; float:right; text-align: right;">
-            <p style="text-align: right; font-style: italic">
-                <span>
-                    <b>Prénom, Nom et Signature </b><br><br><br>
-                    {{-- {{ $lettrevaluation->formation?->evaluateur?->name . ' ' . $lettrevaluation->formation?->evaluateur?->lastname }} --}}
-                </span>
-            </p>
-        </div>
+            <div class="signature" style="width: 35%; float:right; text-align: right;">
+                <p style="text-align: right; font-style: italic">
+                    <span>
+                        <b>Prénom, Nom et Signature </b><br><br><br>
+                        {{-- {{ $formation?->evaluateur?->name . ' ' . $formation?->evaluateur?->lastname }} --}}
+                    </span>
+                </p>
+            </div>
 
-        {{-- @if (isset($qrCodeBase64))
+            {{-- @if (isset($qrCodeBase64))
             <div style="width: 35%; float: left; text-align: left;">
                 <img src="data:image/png;base64,{{ $qrCodeBase64 }}" width="100" alt="QR Code">
             </div>
         @endif --}}
-    </div>
-</body>
+        </div>
+    </body>
+@endforeach
 
 </html>

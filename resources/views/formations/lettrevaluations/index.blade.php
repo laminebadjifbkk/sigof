@@ -136,12 +136,12 @@
                                                                             <i class="bi bi-download"></i> Télécharger lettre
                                                                         </a>
                                                                     </li> --}}
-                                                                    <li>
+                                                                    {{-- <li>
                                                                         <a href="{{ route('lettreMission.telecharger', $lettrevaluation->id) }}"
                                                                             class="dropdown-item" target="_blank">
                                                                             <i class="bi bi-receipt"></i> Télécharger lettre
                                                                         </a>
-                                                                    </li>
+                                                                    </li> --}}
 
                                                                     <!-- Télécharger l'ABE -->
                                                                     @php
@@ -171,12 +171,12 @@
                                                                     </li>
 
                                                                     <!-- Télécharger demande de paiement -->
-                                                                    <li>
+                                                                    {{-- <li>
                                                                         <a href="{{ route('demandePaiement.telecharger', $lettrevaluation->id) }}"
                                                                             class="dropdown-item" target="_blank">
                                                                             <i class="bi bi-receipt"></i> Télécharger DP
                                                                         </a>
-                                                                    </li>
+                                                                    </li> --}}
 
                                                                     <!-- Supprimer -->
                                                                     @can('formation-delete')

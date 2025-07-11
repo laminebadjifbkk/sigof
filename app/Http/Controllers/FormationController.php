@@ -29,13 +29,16 @@ use App\Models\Validationformation;
 use App\Models\Validationindividuelle;
 use Artisan;
 use Dompdf\Dompdf;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
+use NumberToWords\NumberToWords;
 use RealRashid\SweetAlert\Facades\Alert;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class FormationController extends Controller
 {
@@ -4217,7 +4220,65 @@ class FormationController extends Controller
         // Output the generated PDF to Browser
         return $dompdf->stream($name, ['Attachment' => false]);
 
+    }
 
+    public function downloadDemandePaiement($formationId)
+    {
+        $formation = Formation::with('evaluateurs')->findOrFail($formationId);
+
+        $title         = 'Demande de paiement évaluation formation en ' . $formation->name;
+        $membres_jury  = explode(";", $formation->membres_jury);
+        $count_membres = count($membres_jury);
+// ✅ Génération QR PNG sans imagick avec endroid/qr-code
+        if ($formation?->module && $formation?->module?->name) {
+            $moduleName = $formation->module->name;
+        } elseif ($formation?->collectivemodule && $formation?->collectivemodule?->module) {
+            $moduleName = $formation?->collectivemodule?->module;
+        }
+
+        $qrContent = "Formation : {$formation?->name}\n" .
+        "Code : {$formation?->code}\n" .
+        "Module : {$moduleName}\n" .
+        "Date : " . $formation?->date_debut?->format('d/m/Y') . " au " . $formation?->date_fin?->format('d/m/Y');
+
+        $qrCode       = QrCode::create($qrContent)->setSize(150);
+        $writer       = new PngWriter();
+        $result       = $writer->write($qrCode);
+        $qrCodeBase64 = base64_encode($result->getString());
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+        // 🔢 Calculs
+        $brut        = $formation?->frais_evaluateur ?? 0;
+        $montant_ir  = round($brut * 0.05);
+        $montant_net = $brut - $montant_ir;
+
+        // 🔤 Conversion en lettres (via number-to-words)
+        $numberToWords     = new NumberToWords();
+        $numberTransformer = $numberToWords->getNumberTransformer('fr');
+        $montant_lettres   = ucfirst($numberTransformer->toWords($brut)) . ' francs CFA';
+
+        $html = View::make('formations.lettrevaluations.demandepaiement', compact(
+            'formation',
+            'title',
+            'membres_jury',
+            'count_membres',
+            'brut',
+            'montant_ir',
+            'montant_net',
+            'montant_lettres',
+            'qrCodeBase64'
+        ))->render();
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        $name = 'Demande_paiement_' . $formation->code . '.pdf';
+        return $dompdf->stream($name, ['Attachment' => false]);
 
     }
 

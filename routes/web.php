@@ -584,9 +584,12 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('/formations/{formation}/evaluations/edit', [FormationController::class, 'editEvaluationForm'])->name('formations.evaluations.edit');
         Route::post('/formations/{formation}/evaluations/update', [FormationController::class, 'updateEvaluationForm'])->name('formations.evaluations.update');
-        
+
         Route::get('/formations/{formation}/lettres/download', [FormationController::class, 'downloadLettre'])
             ->name('formations.evaluations.download');
+
+        Route::get('/formations/{formation}/paiement/download', [FormationController::class, 'downloadDemandePaiement'])
+            ->name('formations.paiement.download');
 
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
