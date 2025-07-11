@@ -102,11 +102,11 @@
                                                         : '-' }}
                                                 </td>
                                                 @can('formation-show')
-                                                    <td>
+                                                    <td class="text-center">
                                                         <div class="d-flex align-items-center gap-2">
                                                             <!-- Bouton Voir détails -->
                                                             <a href="{{ route('formations.show', $formation) }}"
-                                                                class="btn btn-primary btn-sm" title="Voir les détails">
+                                                                class="btn btn-primary btn-sm" title="Voir les détails" target="_blank">
                                                                 <i class="bi bi-eye"></i>
                                                             </a>
                                                         </div>
