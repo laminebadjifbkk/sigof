@@ -1133,7 +1133,7 @@ class UserController extends Controller
                 $query->select('id', 'users_id', 'created_at'); // Sélectionne seulement les colonnes utiles
             }])                                             // Ne prend que les utilisateurs ayant au moins une demande individuelle
             ->orderBy('created_at', 'desc')
-            ->limit(1000)
+            ->limit(500)
             ->get();
 
         $count_demandeur_raw = $demandeurs->count();
