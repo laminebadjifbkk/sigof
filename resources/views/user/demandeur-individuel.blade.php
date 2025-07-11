@@ -56,8 +56,7 @@
                                     {{-- Total au centre --}}
                                     @php
                                         $affichees = $demandeurs->count(); // à adapter si tu fais une pagination
-                                        $total =
-                                            $totalIndividuelles ?? ($demandeurs->total() ?? $demandeurs->count()); // en cas de pagination avec ->total()
+                                        $total = $totalIndividuelles ?? ($demandeurs->total() ?? $demandeurs->count()); // en cas de pagination avec ->total()
                                     @endphp
 
                                     <div class="d-flex align-items-center gap-2 text-info fw-semibold">
@@ -92,7 +91,8 @@
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Prenom et NOM</th>
+                                        <th>Prenom</th>
+                                        <th>NOM</th>
                                         <th>E-mail</th>
                                         <th>Téléphone</th>
                                         <th class="text-center">Demandes</th>
@@ -111,7 +111,8 @@
                                                             height="auto">
                                                     </a>
                                                 </th>
-                                                <td>{{ $user?->firstname . ' ' . $user?->name }}</td>
+                                                <td>{{ $user?->firstname }}</td>
+                                                <td>{{ $user?->name }}</td>
                                                 <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                                 <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a>
                                                 </td>
