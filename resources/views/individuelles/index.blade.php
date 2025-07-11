@@ -67,11 +67,6 @@
                                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 
                                     <div class="d-flex align-items-center gap-2">
-                                        <a href="{{ route('lettrevaluations.show', $formation?->lettrevaluation->id) }}"
-                                            class="btn btn-outline-success btn-sm rounded-pill shadow-sm"
-                                            title="Retour à la liste">
-                                            <i class="bi bi-arrow-counterclockwise"></i>
-                                        </a>
                                         <h6 class="mb-0 text-muted fw-semibold text-uppercase">Liste des demandes individuelles
                                         </h6>
                                     </div>
