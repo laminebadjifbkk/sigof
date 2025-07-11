@@ -1153,7 +1153,8 @@ class UserController extends Controller
         // Retour de la vue avec les données paginées
         return view("user.demandeur-individuel",
             compact("demandeurs",
-                "title"
+                "totalIndividuelles",
+                /* "title" */
             ));
 
     }
