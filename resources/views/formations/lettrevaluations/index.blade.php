@@ -55,7 +55,7 @@
                                                 <th>Operateur</th>
                                                 <th>Module formation</th>
                                                 <th>Lieu</th>
-                                                <th>Responsable</th>
+                                                {{-- <th>Responsable</th> --}}
                                                 <th>Evaluateur(s)</th>
                                                 <th>Evaluteur(s) ONFP</th>
                                                 {{-- <th>Formation</th> --}}
@@ -75,7 +75,7 @@
                                                         {{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}</span>
                                                     </td>
                                                     <td>{{ $lettrevaluation?->formation?->lieu ?? 'Aucun' }} </td>
-                                                    <td>{{ $lettrevaluation?->titre }}</td>
+                                                    {{-- <td>{{ $lettrevaluation?->titre }}</td> --}}
                                                     <td>
                                                         @foreach ($lettrevaluation?->formation?->evaluateurs as $index => $evaluateur)
                                                             <p>
