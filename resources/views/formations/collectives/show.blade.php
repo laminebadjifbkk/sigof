@@ -1899,7 +1899,7 @@
         @endforeach
 
         {{-- Membres du jury --}}
-        <div class="modal fade" id="EditMembresJuryModal{{ $formation->id }}" tabindex="-1" role="dialog"
+        {{-- <div class="modal fade" id="EditMembresJuryModal{{ $formation->id }}" tabindex="-1" role="dialog"
             aria-labelledby="EditMembresJuryModalLabel{{ $formation->id }}" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -1907,12 +1907,6 @@
                         enctype="multipart/form-data" class="row g-3">
                         @csrf
                         @method('patch')
-                        {{-- <div class="modal-header" id="EditMembresJuryModalLabel{{ $formation->id }}">
-                            <h5 class="modal-title text-center">Evaluation formation <br>
-                                {{ $formation?->module?->name }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div> --}}
 
                         <div class="card-header text-center bg-gradient-default">
                             <h1 class="h4 text-black mb-0">Evaluation</h1>
@@ -1982,33 +1976,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
-                                {{-- <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
-                                    <div class="mb-3">
-                                        <label for="evaluateur" class="form-label">Evaluateur<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <select name="evaluateur"
-                                            class="form-select @error('evaluateur') is-invalid @enderror"
-                                            aria-label="Select" id="select-field" data-placeholder="Choisir evaluateur">
-                                            <option value="{{ $formation?->evaluateur?->id }}">
-                                                @if (!empty($formation?->evaluateur?->name))
-                                                    {{ $formation?->evaluateur?->name . ' ' . $formation?->evaluateur?->lastname . ', ' . $formation?->evaluateur?->fonction }}
-                                                @endif
-                                            </option>
-                                            @foreach ($evaluateurs as $evaluateur)
-                                                <option value="{{ $evaluateur->id }}">
-                                                    {{ $evaluateur?->name . ' ' . $evaluateur?->lastname . ', ' . $evaluateur?->fonction ?? old('evaluateur') }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('evaluateur')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div> --}}
-
                                 <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <label for="evaluateur" class="form-label">Evaluateur<span
                                             class="text-danger mx-1">*</span></label>
@@ -2029,88 +1996,10 @@
                                     @enderror
                                 </div>
 
-                                {{-- <div class="row">
-                                <div class="col-12 col-md-9 mb-3">
-                                    <label>Evaluateur ONFP<span class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="nom_evaluateur_onfp"
-                                        value="{{ $formation?->evaluateur_onfp ?? old('nom_evaluateur_onfp') }}"
-                                        class="form-control form-control-sm @error('nom_evaluateur_onfp') is-invalid @enderror"
-                                        id="nom_evaluateur_onfp" placeholder="Nom évaluateur onfp">
-                                    @error('nom_evaluateur_onfp')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-12 col-md-3 mb-3">
-                                    <label>Initiale<span class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="initiale_evaluateur_onfp"
-                                        value="{{ $formation?->initiale_evaluateur_onfp ?? old('initiale_evaluateur_onfp') }}"
-                                        class="form-control form-control-sm @error('initiale_evaluateur_onfp') is-invalid @enderror"
-                                        id="initiale_evaluateur_onfp" placeholder="Initiale évaluateur onfp">
-                                    @error('initiale_evaluateur_onfp')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div> --}}
-
-                                {{-- <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
-                                    <div class="mb-3">
-                                        <label for="evaluateur" class="form-label">Evaluateur ONFP<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <select name="onfpevaluateur"
-                                            class="form-select @error('onfpevaluateur') is-invalid @enderror"
-                                            aria-label="Select" id="select-field-onfp"
-                                            data-placeholder="Choisir evaluateur ONFP">
-                                            <option value="{{ $formation->onfpevaluateur?->id }}">
-                                                @if (!empty($formation?->onfpevaluateur?->name))
-                                                    {{ $formation?->onfpevaluateur?->name . ' ' . $formation?->onfpevaluateur?->lastname . ', ' . $formation?->onfpevaluateur?->fonction }}
-                                                @endif
-                                            </option>
-                                            @foreach ($onfpevaluateurs as $onfpevaluateur)
-                                                <option value="{{ $onfpevaluateur->id }}">
-                                                    {{ $onfpevaluateur?->name . ' ' . $onfpevaluateur?->lastname . ', ' . $onfpevaluateur?->fonction ?? old('onfpevaluateur') }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('onfpevaluateur')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div> --}}
-
-                                {{-- <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
-                                    <label for="onfpevaluateur" class="form-label">Evaluateur ONFP<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <select name="onfpevaluateur[]" id="onfpevaluateurSelected"
-                                        class="form-select form-select-sm @error('onfpevaluateur') is-invalid @enderror"
-                                        multiple aria-label="Select" data-placeholder="Choisir">
-                                        @foreach ($onfpevaluateurs as $onfpevaluateur)
-                                            <option value="{{ $formation?->onfpevaluateur?->id }}"
-                                                @if (collect(old('onfpevaluateur', $formation?->onfpevaluateur?->pluck('id')->toArray()))->contains($formation?->onfpevaluateur?->id)) selected @endif>
-                                                {{ $formation?->onfpevaluateur?->name . ' ' . $formation?->onfpevaluateur?->lastname }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('onfpevaluateur')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                </div> --}}
-
                                 <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <div class="mb-3">
                                         <label class="form-label">Niveau qualification<span
                                                 class="text-danger mx-1">*</span></label>
-                                        {{-- <input type="text" name="type_certificat" min="0" step="0.001"
-                                    value="{{ $formation?->type_certificat ?? old('type_certificat') }}"
-                                    class="form-control form-control-sm @error('type_certificat') is-invalid @enderror"
-                                    id="type_certificat" placeholder="Attestation ou Titre "> --}}
 
                                         <select name="titre" class="form-select  @error('titre') is-invalid @enderror"
                                             aria-label="Select" id="select-field-titre" data-placeholder="Choisir titre">
@@ -2172,10 +2061,6 @@
                                     class="form-control form-control-sm @error('membres_jury') is-invalid @enderror"
                                     placeholder="Membre 1; Membre 2; Membre 3 " autofocus>{{ $formation->membres_jury ?? old('membres_jury') }}</textarea>
 
-                                {{-- <input type="text" name="membres_jury"
-                                    value="{{ $formation?->membres_jury ?? old('membres_jury') }}"
-                                    class="form-control form-control-sm @error('membres_jury') is-invalid @enderror"
-                                    id="membres_jury" placeholder="Ajouter membres du jury" autofocus> --}}
                                 @error('membres_jury')
                                     <span class="invalid-feedback" role="alert">
                                         <div>{{ $message }}</div>
@@ -2205,7 +2090,188 @@
                     </form>
                 </div>
             </div>
+        </div> --}}
+        <div class="modal fade" id="EditMembresJuryModal{{ $formation->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="EditMembresJuryModalLabel{{ $formation->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content shadow-sm rounded-4 border-0">
+                    <form method="post" action="{{ route('formations.updateMembresJury') }}"
+                        enctype="multipart/form-data">
+                        @csrf
+                        @method('patch')
+
+                        <div class="modal-header bg-warning text-white">
+                            <h5 class="modal-title" id="EditMembresJuryModalLabel{{ $formation->id }}">
+                                <i class="bi bi-pencil-square me-1"></i> Évaluation & Jury
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                aria-label="Fermer"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <input type="hidden" name="id" value="{{ $formation->id }}">
+
+                            <div class="row g-3">
+
+                                {{-- N° Convention --}}
+                                <div class="col-md-6">
+                                    <label class="form-label">N° convention <span class="text-danger">*</span></label>
+                                    <input type="text" name="numero_convention"
+                                        value="{{ old('numero_convention', $formation->numero_convention) }}"
+                                        class="form-control form-control-sm @error('numero_convention') is-invalid @enderror"
+                                        placeholder="N° convention">
+                                    @error('numero_convention')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                {{-- Date Convention --}}
+                                <div class="col-md-6">
+                                    <label class="form-label">Date convention <span class="text-danger">*</span></label>
+                                    <input type="date" name="date_convention"
+                                        value="{{ old('date_convention', $formation?->date_convention?->format('Y-m-d')) }}"
+                                        class="form-control form-control-sm @error('date_convention') is-invalid @enderror">
+                                    @error('date_convention')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                {{-- Date évaluation --}}
+                                <div class="col-md-6">
+                                    <label class="form-label">Date évaluation <span class="text-danger">*</span></label>
+                                    <input type="date" name="date_pv"
+                                        value="{{ old('date_pv', $formation?->date_pv?->format('Y-m-d')) }}"
+                                        class="form-control form-control-sm @error('date_pv') is-invalid @enderror">
+                                    @error('date_pv')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                {{-- Montant indemnité --}}
+                                <div class="col-md-6">
+                                    <label class="form-label">Montant indemnité de membre <span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" name="frais_evaluateur" min="0" step="0.001"
+                                        value="{{ old('frais_evaluateur', $formation->frais_evaluateur) }}"
+                                        class="form-control form-control-sm @error('frais_evaluateur') is-invalid @enderror"
+                                        placeholder="Montant indemnité">
+                                    @error('frais_evaluateur')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                {{-- Évaluateurs --}}
+                                <div class="col-md-12">
+                                    <label class="form-label">Évaluateurs <span class="text-danger">*</span></label>
+                                    <select name="evaluateur[]" id="evaluateurSelected"
+                                        class="form-select form-select-sm @error('evaluateur') is-invalid @enderror"
+                                        multiple>
+                                        @foreach ($evaluateurs as $evaluateur)
+                                            <option value="{{ $evaluateur->id }}"
+                                                @if (collect(old('evaluateur', $formation?->evaluateurs?->pluck('id')->toArray()))->contains($evaluateur->id)) selected @endif>
+                                                {{ $evaluateur->name . ' ' . $evaluateur->lastname }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('evaluateur')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                {{-- Évaluateurs ONFP --}}
+                                <div class="col-md-12">
+                                    <label class="form-label">Évaluateurs ONFP <span class="text-danger">*</span></label>
+                                    <select name="onfpevaluateur[]" id="onfpevaluateurSelected"
+                                        class="form-select form-select-sm @error('onfpevaluateur') is-invalid @enderror"
+                                        multiple>
+                                        @foreach ($onfpevaluateurs as $onfpevaluateur)
+                                            <option value="{{ $onfpevaluateur->id }}"
+                                                @if (collect(old('onfpevaluateur', $formation?->onfpevaluateurs?->pluck('id')->toArray()))->contains(
+                                                        $onfpevaluateur->id)) selected @endif>
+                                                {{ $onfpevaluateur->name . ' ' . $onfpevaluateur->lastname }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('onfpevaluateur')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                {{-- Niveau qualification --}}
+                                <div class="col-md-6">
+                                    <label class="form-label">Niveau de qualification <span
+                                            class="text-danger">*</span></label>
+                                    <select name="titre"
+                                        class="form-select form-select-sm @error('titre') is-invalid @enderror">
+                                        <option value="{{ $formation?->titre }}">
+                                            {{ $formation?->titre ?? ($formation?->referentiel?->titre ?? 'Choisir') }}
+                                        </option>
+                                        <option value="">Aucun</option>
+                                        @foreach ($referentiels as $referentiel)
+                                            <option value="{{ $referentiel->titre }}">{{ $referentiel->titre }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('titre')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                {{-- Type certification --}}
+                                <div class="col-md-6">
+                                    <label class="form-label">Type de certification <span
+                                            class="text-danger">*</span></label>
+                                    <select name="type_certification"
+                                        class="form-select form-select-sm @error('type_certification') is-invalid @enderror">
+                                        <option value="{{ $formation->type_certification }}">
+                                            {{ $formation->type_certification ?? 'Choisir' }}
+                                        </option>
+                                        <option value="Titre">Titre</option>
+                                        <option value="Attestation">Attestation</option>
+                                    </select>
+                                    @error('type_certification')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                {{-- Autres membres du jury --}}
+                                <div class="col-md-12">
+                                    <label class="form-label">Autres membres du jury</label>
+                                    <textarea name="membres_jury" rows="2"
+                                        class="form-control form-control-sm @error('membres_jury') is-invalid @enderror"
+                                        placeholder="Ex : Membre 1 ; Membre 2 ; Membre 3">{{ old('membres_jury', $formation->membres_jury) }}</textarea>
+                                    @error('membres_jury')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                {{-- Recommandations --}}
+                                <div class="col-md-12">
+                                    <label class="form-label">Recommandations</label>
+                                    <textarea name="recommandations" rows="2"
+                                        class="form-control form-control-sm @error('recommandations') is-invalid @enderror"
+                                        placeholder="Recommandations">{{ old('recommandations', $formation->recommandations) }}</textarea>
+                                    @error('recommandations')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="modal-footer border-top">
+                            <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">
+                                <i class="bi bi-x-circle me-1"></i> Fermer
+                            </button>
+                            <button type="submit" class="btn btn-warning btn-sm">
+                                <i class="bi bi-check-circle me-1"></i> Valider
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
+
         @foreach ($formation->listecollectives as $listecollective)
             <div class="modal fade" id="indiponibleModal{{ $listecollective->id }}" tabindex="-1">
                 <div class="modal-dialog">

@@ -252,8 +252,12 @@
             @endisset
             <br>
             <?php $i = 1; ?>
-            {{ $formation?->evaluateur?->name . ' ' . $formation?->evaluateur?->lastname . ', ' . $formation?->evaluateur?->fonction }}<br>
-            {{ $formation?->onfpevaluateur?->name . ' ' . $formation?->onfpevaluateur?->lastname . ', ' . $formation?->onfpevaluateur?->fonction }}<br>
+            @foreach ($formation?->evaluateurs as $evaluateur)
+                {{ $evaluateur?->name . ' ' . $evaluateur?->lastname . ', ' . $evaluateur?->fonction }}<br>
+            @endforeach
+            @foreach ($formation?->onfpevaluateurs as $onfpevaluateur)
+                {{ $onfpevaluateur?->name . ' ' . $onfpevaluateur?->lastname . ', ' . $onfpevaluateur?->fonction }}<br>
+            @endforeach
             @isset($membres_jury)
                 @foreach ($membres_jury as $item)
                     {{ $item }} <br>

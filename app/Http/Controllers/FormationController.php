@@ -75,7 +75,7 @@ class FormationController extends Controller
             ->where('statut', '!=', 'supprimer')
             ->count(); */
 
-        $qrcode      = QrCode::size(200)->generate("tel:+221776994173");
+        /* $qrcode      = QrCode::size(200)->generate("tel:+221776994173"); */
         $today       = date('Y-m-d');
         $count_today = Formation::where("created_at", "LIKE", "{$today}%")->count();
 
@@ -166,7 +166,7 @@ class FormationController extends Controller
         return view(
             "formations.index",
             compact(
-                "qrcode",
+                /* "qrcode", */
                 "count_today",
                 /* "collectives_formations_count",
                 "individuelles_formations_count", */
@@ -1911,9 +1911,9 @@ class FormationController extends Controller
         $formation->save();
 
         $formation->evaluateurs()->sync($request->evaluateur);
-        /* $formation->onfpevaluateurs()->sync($request->onfpevaluateur); */
+        $formation->onfpevaluateurs()->sync($request->onfpevaluateur);
 
-        Alert::success('Réussi !', 'Enregistrement effectué avec succès.');
+        Alert::success('Succès !', 'Enregistrement effectué avec succès.');
 
         return redirect()->back();
     }
