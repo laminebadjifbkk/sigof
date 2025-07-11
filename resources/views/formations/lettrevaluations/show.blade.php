@@ -63,7 +63,7 @@
 
                                     <a href="{{ route('formations.evaluations.download', $formation->id) }}"
                                         class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
-                                        title="Télécharger les lettres de mission">
+                                        title="Télécharger les lettres de mission" target="_blank">
                                         <i class="bi bi-download"></i> Lettres
                                     </a>
 
