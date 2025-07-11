@@ -63,39 +63,43 @@
                                     @endcan
                                 </div>
                             </div> --}}
-                            <div class="card-body">
-                                <div class="pt-1">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <h5 class="card-title mb-0">Demandes individuelles</h5>
+                            <div class="pt-1">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 
-                                        <div class="d-flex align-items-center gap-3">
-                                            <span class="badge bg-primary">
-                                                Total : {{ $individuelles->count() }}
-                                            </span>
-
-                                            @can('individuelle-create')
-                                                <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#AddIndividuelModal">
-                                                    Ajouter
-                                                </a>
-
-                                                <div class="dropdown">
-                                                    <a class="btn btn-sm btn-light" href="#" role="button"
-                                                        data-bs-toggle="dropdown">
-                                                        <i class="bi bi-three-dots"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li>
-                                                            <button class="dropdown-item" type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#generate_rapport">
-                                                                Rechercher plus
-                                                            </button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            @endcan
-                                        </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <a href="{{ route('lettrevaluations.show', $formation?->lettrevaluation->id) }}"
+                                            class="btn btn-outline-success btn-sm rounded-pill shadow-sm"
+                                            title="Retour à la liste">
+                                            <i class="bi bi-arrow-counterclockwise"></i>
+                                        </a>
+                                        <h6 class="mb-0 text-muted fw-semibold text-uppercase">Liste des demandes individuelles
+                                        </h6>
                                     </div>
+
+                                    <h5 class="mb-0 fw-semibold text-info">
+                                        <i class="bi bi-list-ul me-1"></i> Total demandes : <span
+                                            class="text-dark">{{ $individuelles->count() }}</span>
+                                    </h5>
+                                    @can('individuelle-create')
+                                        <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#AddIndividuelModal">
+                                            Ajouter
+                                        </a>
+
+                                        <div class="dropdown">
+                                            <a class="btn btn-sm btn-light" href="#" role="button" data-bs-toggle="dropdown">
+                                                <i class="bi bi-three-dots"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li>
+                                                    <button class="dropdown-item" type="button" data-bs-toggle="modal"
+                                                        data-bs-target="#generate_rapport">
+                                                        Rechercher plus
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    @endcan
                                 </div>
                             </div>
                             @if ($individuelles->isNotEmpty())
