@@ -33,8 +33,8 @@ class IndividuelleController extends Controller
     public function index()
     {
         // Comptage total des individus (sans charger toutes les entrées en mémoire)
-        $totalIndividuelles = Individuelle::count();
-        $totalIndividuelles = number_format($totalIndividuelles, 0, ',', ' ');
+        $individuelles      = Individuelle::count();
+        $totalIndividuelles = number_format($individuelles, 0, ',', ' ');
 
 // Récupération des 200 dernières demandes
         $individuelles = Individuelle::latest()->limit(500)->get();
@@ -978,22 +978,25 @@ class IndividuelleController extends Controller
             ->distinct()
             ->get();
 
-        $count = $individuelles?->count();
+        /* $count = $individuelles?->count(); */
 
-        if (isset($count) && $count < "1") {
+        /* if (isset($count) && $count < "1") {
             $title = 'aucune demande trouvée';
         } elseif (isset($count) && $count == "1") {
             $title = $count . ' demande trouvée';
         } else {
             $title = $count . ' demandes trouvées';
-        }
+        } */
+
+        $totalIndividuelles = number_format($individuelles?->count(), 0, ',', ' ');
 
         $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         /* $modules = Module::orderBy("created_at", "desc")->get(); */
         return view('individuelles.index', compact(
             'individuelles',
             'departements',
-            'title'
+            'totalIndividuelles',
+            /* 'title' */
         ));
     }
 
@@ -1874,8 +1877,8 @@ class IndividuelleController extends Controller
         }
 
 // Exécution
-        $user_liste = $query->distinct()->get();
-        $count      = $user_liste->count();
+        $demandeurs = $query->distinct()->get();
+        /* $count      = $demandeurs->count();
 
         // Message titre
         if ($count === 0) {
@@ -1884,11 +1887,14 @@ class IndividuelleController extends Controller
             $title = '1 demandeur trouvé';
         } else {
             $title = $count . ' demandeurs trouvés';
-        }
+        } */
+
+        $totalIndividuelles = number_format($demandeurs?->count(), 0, ',', ' ');
 
         return view('user.demandeur-individuel', compact(
-            'user_liste',
-            'title'
+            'demandeurs',
+            /* 'title', */
+            'totalIndividuelles'
         ));
     }
 

@@ -196,7 +196,14 @@
                                     @endforeach
                                 </div>
                             </div> --}}
-                            <h5 class="card-title">Opérateurs par CAL</h5>
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                                {{-- Titre à gauche --}}
+                                <div class="d-flex align-items-center gap-2">
+                                    <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                                        Opérateurs par CAL
+                                    </h6>
+                                </div>
+                            </div>
                             <table class="table table-bordered table-striped align-middle">
                                 <thead class="table-primary">
                                     <tr class="text-center">
@@ -224,8 +231,66 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title">{{ $title }}</h5>
+
+                            {{-- <div class="col-12 pt-5">
+                                <div class="row">
+                                    @foreach ($commissionagrements as $statut => $items)
+                                        <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
+                                            <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
+                                                <div class="card-body p-2">
+                                                    <h5 class="card-title text-truncate mb-1" title="{{ $items?->statut }}"
+                                                        style="font-size: 1rem;">
+                                                        {{ $items?->statut }}
+                                                    </h5>
+                                                    <div class="d-flex align-items-center mb-2">
+                                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                                            style="width: 32px; height: 32px; font-size: 1.25rem;">
+                                                            <i class="bi bi-people"></i>
+                                                        </div>
+                                                        <div class="ps-2">
+                                                            <h6 class="mb-0" style="font-size: 0.9rem;">
+                                                                {{ number_format($items->operateurs->count(), 0, '', ' ') }}</h6>
+                                                            <span class="text-muted small">opérateurs(s)</span>
+                                                        </div>
+                                                    </div>
+                                                    <a href="{{ route('operateurs.filtrerOperateurParCAL', ['calid' => $items?->id]) }}"
+                                                        target="_blank"
+                                                        class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
+                                                        style="font-size: 0.85rem; gap: 6px;">
+                                                        Voir plus <i class="bi bi-arrow-right-short"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div> --}}
+
+                            <hr class="my-4">
+
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                                {{-- Titre à gauche --}}
+                                <div class="d-flex align-items-center gap-2">
+                                    <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                                        Liste des opérateurs
+                                    </h6>
+                                </div>
+                                {{-- <h5 class="card-title">{{ $title }}</h5> --}}
+                                {{-- Total au centre --}}
+                                @php
+                                    $affichees = $operateurs?->count(); // à adapter si tu fais une pagination
+                                    $total = $totalOperateurs ?? ($operateurs?->total() ?? $operateurs?->count()); // en cas de pagination avec ->total()
+                                @endphp
+
+                                <div class="d-flex align-items-center gap-2 text-info fw-semibold">
+                                    <i class="bi bi-list-ul me-1"></i>
+                                    <span>
+                                        Affichage :
+                                        <span class="text-dark">{{ $affichees }}</span>
+                                        sur
+                                        <span class="text-dark">{{ $total }}</span> demandes
+                                    </span>
+                                </div>
                                 <span class="d-flex align-items-baseline">
                                     <a href="{{ route('operateurs.create') }}"
                                         class="btn btn-primary btn-sm btn-rounded"><i class="bi bi-person-plus"></i>
@@ -362,7 +427,8 @@
                                                                 <div class="filter">
                                                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                             class="bi bi-three-dots"></i></a>
-                                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    <ul
+                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                         <li>
                                                                             <a class="dropdown-item btn btn-sm"
                                                                                 href="{{ route('operateurs.edit', $operateur) }}"

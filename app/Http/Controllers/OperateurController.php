@@ -41,9 +41,9 @@ class OperateurController extends Controller
 
     public function index()
     {
-        $operateurs   = Operateur::count();
-        $total_count  = number_format($operateurs, 0, ',', ' ');
-        $departements = Departement::orderBy("nom", "asc")->get();
+        $operateurs      = Operateur::count();
+        $totalOperateurs = number_format($operateurs, 0, ',', ' ');
+        $departements    = Departement::orderBy("nom", "asc")->get();
 
         /* $statuts = ['agréé', 'rejeté', 'nouveau', 'expirer']; */
 
@@ -66,14 +66,14 @@ class OperateurController extends Controller
         $pourcentage_nouveau = $operateur_total ? ($operateur_nouveau / $operateur_total) * 100 : 0;
         $pourcentage_expirer = $operateur_total ? ($operateur_expirer / $operateur_total) * 100 : 0; */
 
-        $operateurs      = Operateur::latest()->take(250)->get();
+        $operateurs      = Operateur::latest()->take(200)->get();
         $count_operateur = number_format($operateurs->count(), 0, ',', ' ');
 
-        $title = match ($count_operateur) {
+        /* $title = match ($count_operateur) {
             "0" => 'Aucun opérateur',
-            "1" => "$count_operateur opérateur sur un total de $total_count",
-            default => "Liste des $count_operateur derniers opérateurs sur un total de $total_count",
-        };
+            "1" => "$count_operateur opérateur sur un total de $totalOperateurs",
+            default => "Liste des $count_operateur derniers opérateurs sur un total de $totalOperateurs",
+        }; */
 
         /* $operateurs = Operateur::select('*')->get(); */
         // Récupérer les différents statuts
@@ -100,7 +100,8 @@ class OperateurController extends Controller
                 "operateur_expirer",
                 "pourcentage_nouveau",
                 "pourcentage_expirer" */
-                "title",
+                /* "title", */
+                "totalOperateurs",
             ));
 
     }
@@ -1446,15 +1447,18 @@ class OperateurController extends Controller
             ->distinct()
             ->get();
 
-        $count               = $operateurs->count();
+        /* $count               = $operateurs->count(); */
         $commissionagrements = Commissionagrement::orderBy('commission', 'desc')->get();
 
         // Gestion du titre des résultats
-        $title = match ($count) {
+        /* $title = match ($count) {
             0 => 'Aucun opérateur trouvé',
             1 => '1 opérateur trouvé',
             default => "$count opérateurs trouvés"
         };
+ */
+
+        $totalOperateurs = number_format($operateurs?->count(), 0, ',', ' ');
 
         // Regrouper par statut_agrement (y compris les null)
         $groupes = $operateurs->groupBy(function ($item) {
@@ -1465,6 +1469,7 @@ class OperateurController extends Controller
             'operateurs',
             'departements',
             'commissionagrements',
+            'totalOperateurs',
             /* 'statCounts',
             'pourcentage_agreer',
             'pourcentage_rejeter',
@@ -1475,7 +1480,7 @@ class OperateurController extends Controller
             "operateur_nouveau",
             "operateur_expirer", */
             "groupes",
-            'title'
+            /* 'title' */
         ));
     }
 
