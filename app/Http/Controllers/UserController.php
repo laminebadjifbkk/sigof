@@ -1124,8 +1124,6 @@ class UserController extends Controller
         $totalIndividuelles = number_format(User::select('id', 'uuid', 'firstname', 'name', 'telephone', 'email', 'created_at') // Ajoute ici les colonnes dont tu as besoin
                 ->whereHas('individuelles')->count(), 0, ',', ' ');
 
-        $totalIndividuelles = number_format($totalIndividuelles, 0, ',', ' ');
-
         // Récupération uniquement des 1000 derniers utilisateurs
         /* $demandeurs = User::orderBy("created_at", "desc")->take(2000)->get(); */
 
