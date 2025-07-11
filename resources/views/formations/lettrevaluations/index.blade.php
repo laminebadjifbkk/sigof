@@ -86,7 +86,7 @@
                                                     <td>
                                                         @foreach ($lettrevaluation?->formation?->onfpevaluateurs as $index => $onfpevaluateur)
                                                             <p>
-                                                                {{ $onfpevaluateur->name . ' ' . $onfpevaluateur->lastname ?? 'Aucun' }}
+                                                                {{ $onfpevaluateur?->name . ' ' . $onfpevaluateur?->lastname ?? 'Aucun' }}
                                                             </p>
                                                         @endforeach
                                                     </td>
