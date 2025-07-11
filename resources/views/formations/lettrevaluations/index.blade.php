@@ -78,16 +78,16 @@
                                                     <td>{{ $lettrevaluation?->titre }}</td>
                                                     <td>
                                                         @foreach ($lettrevaluation?->formation?->evaluateurs as $index => $evaluateur)
-                                                            <li>
+                                                            <p>
                                                                 {{ $evaluateur?->name . ' ' . $evaluateur->lastname ?? 'Aucun' }}
-                                                            </li>
+                                                            </p>
                                                         @endforeach
                                                     </td>
                                                     <td>
                                                         @foreach ($lettrevaluation?->formation?->onfpevaluateurs as $index => $onfpevaluateur)
-                                                            <li>
+                                                            <p>
                                                                 {{ $onfpevaluateur->name . ' ' . $onfpevaluateur->lastname ?? 'Aucun' }}
-                                                            </li>
+                                                            </p>
                                                         @endforeach
                                                     </td>
                                                     <td>{{ $lettrevaluation?->formation?->date_pv?->format('d/m/Y') ?? 'Aucun' }}
