@@ -169,25 +169,25 @@
                                     @php
                                         // Définir les variables communes
                                         $isIndividuelle =
-                                            !empty($formation->module?->name) &&
-                                            !empty($formation->duree_formation) &&
-                                            $formation->emargements->count() > 0;
+                                            !empty($formation?->module?->name) &&
+                                            !empty($formation?->duree_formation) &&
+                                            $formation?->emargements?->count() > 0;
                                         $isCollective =
-                                            !empty($formation->collectivemodule?->module) &&
-                                            !empty($formation->duree_formation) &&
-                                            $formation->emargementcollectives->count() > 0;
+                                            !empty($formation?->collectivemodule?->module) &&
+                                            !empty($formation?->duree_formation) &&
+                                            $formation?->emargementcollectives?->count() > 0;
 
                                         $progress = null;
                                         $color = '';
 
                                         if ($isIndividuelle) {
                                             $progress = round(
-                                                ($formation->emargements->count() / $formation->duree_formation) * 100,
+                                                ($formation?->emargements->count() / $formation?->duree_formation) * 100,
                                             );
                                         } elseif ($isCollective) {
                                             $progress = round(
-                                                ($formation->emargementcollectives->count() /
-                                                    $formation->duree_formation) *
+                                                ($formation?->emargementcollectives?->count() /
+                                                    $formation?->duree_formation) *
                                                     100,
                                             );
                                         }
