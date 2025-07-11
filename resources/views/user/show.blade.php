@@ -137,12 +137,12 @@
 
                                 <h5 class="card-title">Détails</h5>
 
-                                @if ($user?->username)
+                                {{-- @if ($user?->username)
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Username</div>
                                         <div class="col-lg-9 col-md-8">{{ $user->username }}</div>
                                     </div>
-                                @endif
+                                @endif --}}
 
                                 @if ($user?->firstname)
                                     <div class="row">
@@ -570,7 +570,7 @@
                                             </div>
                                         </div>
                                         {{-- username --}}
-                                        <div class="row mb-3">
+                                        {{-- <div class="row mb-3">
                                             <label for="username" class="col-md-4 col-lg-3 col-form-label">Username<span
                                                     class="text-danger mx-1">*</span>
                                             </label>
@@ -585,7 +585,7 @@
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         {{-- Prénom --}}
                                         <div class="row mb-3">
                                             <label for="firstname" class="col-md-4 col-lg-3 col-form-label">Prénom<span

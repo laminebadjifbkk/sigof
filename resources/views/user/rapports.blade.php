@@ -72,7 +72,7 @@
                                         <tr>
                                             <th></th>
                                             <th class="text-center">CIN</th>
-                                            <th>Username</th>
+                                            {{-- <th>Username</th> --}}
                                             <th>E-mail</th>
                                             <th>Téléphone</th>
                                             <th>Roles</th>
@@ -92,7 +92,7 @@
                                                         </a>
                                                     </th>
                                                     <td>{{ $user->cin }}</td>
-                                                    <td>{{ $user->username }}</td>
+                                                    {{-- <td>{{ $user->username }}</td> --}}
                                                     <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                                     <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a>
                                                     </td>

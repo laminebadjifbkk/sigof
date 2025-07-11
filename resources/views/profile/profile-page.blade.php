@@ -31,7 +31,7 @@
                                 @if (!empty(Auth::user()?->name))
                                     {{ Auth::user()?->civilite . ' ' . Auth::user()?->firstname . ' ' . Auth::user()?->name }}
                                 @else
-                                    {{ Auth::user()?->username }}
+                                    {{ Auth::user()?->email }}
                                 @endif
                                 <br>
                                 @if (Auth::user()?->last_activity && \Carbon\Carbon::parse($user->last_activity)->diffInMinutes(now()) < 5)
@@ -306,7 +306,7 @@
                                         </div>
                                     @endif
 
-                                    @if (Auth::user()?->username)
+                                    {{-- @if (Auth::user()?->username)
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
                                                 Username
@@ -314,7 +314,7 @@
                                             <div class="col-12 col-md-8">
                                                 {{ Auth::user()->username }}</div>
                                         </div>
-                                    @endif
+                                    @endif --}}
 
                                     @if (Auth::user()?->firstname)
                                         <div class="row">

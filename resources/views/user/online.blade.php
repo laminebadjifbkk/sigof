@@ -56,7 +56,7 @@
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Username</th>
+                                        {{-- <th>Username</th> --}}
                                         <th>E-mail</th>
                                         <th>Téléphone</th>
                                         <th>Roles</th>
@@ -74,7 +74,7 @@
                                                         src="{{ asset($user->getImage()) }}" width="40" height="auto">
                                                 </a>
                                             </th>
-                                            <td>{{ $user->username }}</td>
+                                            {{-- <td>{{ $user->username }}</td> --}}
                                             <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                             <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a></td>
                                             <td>
