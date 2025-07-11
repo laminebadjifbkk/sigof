@@ -183,8 +183,7 @@
                                                                         <li>
                                                                             <form
                                                                                 action="{{ route('lettrevaluations.destroy', $lettrevaluation->id) }}"
-                                                                                method="POST"
-                                                                                onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette lettre ?')">
+                                                                                method="POST" class="dropdown-item show_confirm">
                                                                                 @csrf
                                                                                 @method('DELETE')
                                                                                 <button type="submit"

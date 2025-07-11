@@ -322,8 +322,7 @@
                                                                     <li>
                                                                         <form
                                                                             action="{{ route('formations.destroy', $formation) }}"
-                                                                            method="POST"
-                                                                            onsubmit="return confirm('Confirmer la suppression de cette formation ?')">
+                                                                            method="POST" class="dropdown-item show_confirm">
                                                                             @csrf
                                                                             @method('DELETE')
                                                                             <button type="submit"
