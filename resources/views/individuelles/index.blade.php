@@ -37,10 +37,12 @@
                     @endif
                     <div class="card">
                         <div class="card-body">
-                            <div class="pt-1">
+                            {{-- <div class="pt-1">
                                 <div class="d-flex justify-content-between align-items-center">
                                     @can('individuelle-create')
-                                        <h5 class="card-title">{{ $title }}</h5>
+                                        <h5 class="card-title">Demandes individuelles</h5>
+                                        <h5 class="card-title">Demandes individuelles totales :</h5> <span
+                                            class="badge bg-primary">{{ $individuelles->count() }}</span>
                                         @can('individuelle-create')
                                             <span class="d-flex align-items-baseline">
                                                 <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
@@ -59,6 +61,41 @@
                                             </span>
                                         @endcan
                                     @endcan
+                                </div>
+                            </div> --}}
+                            <div class="card-body">
+                                <div class="pt-1">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h5 class="card-title mb-0">Demandes individuelles</h5>
+
+                                        <div class="d-flex align-items-center gap-3">
+                                            <span class="badge bg-primary">
+                                                Total : {{ $individuelles->count() }}
+                                            </span>
+
+                                            @can('individuelle-create')
+                                                <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#AddIndividuelModal">
+                                                    Ajouter
+                                                </a>
+
+                                                <div class="dropdown">
+                                                    <a class="btn btn-sm btn-light" href="#" role="button"
+                                                        data-bs-toggle="dropdown">
+                                                        <i class="bi bi-three-dots"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li>
+                                                            <button class="dropdown-item" type="button" data-bs-toggle="modal"
+                                                                data-bs-target="#generate_rapport">
+                                                                Rechercher plus
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            @endcan
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             @if ($individuelles->isNotEmpty())
@@ -171,8 +208,7 @@
                 </div>
             </div>
 
-            <div
-                class="col-12 d-flex flex-column align-items-center justify-content-center">
+            <div class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="AddIndividuelModal" tabindex="-1">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
