@@ -254,7 +254,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-6">
+                                        {{-- <div class="col-6">
                                             <label for="lettre_mission_dec" class="form-label">N° lettre de mission</label>
                                             <input type="text" name="lettre_mission_dec"
                                                 value="{{ $lettrevaluation?->lettre_mission_dec ?? old('lettre_mission_dec') }}"
@@ -278,7 +278,7 @@
                                                     <div>{{ $message }}</div>
                                                 </span>
                                             @enderror
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-12">
                                             <label for="contenu" class="form-label">Commentaires</label>
