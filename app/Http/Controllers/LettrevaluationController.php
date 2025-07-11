@@ -126,7 +126,7 @@ class LettrevaluationController extends Controller
 
         $date_pv = parseDateOrNull($request->input('date_pv'));
 
-        $date_lettre_dec = parseDateOrNull($request->input('date_lettre_dec'));
+        /* $date_lettre_dec = parseDateOrNull($request->input('date_lettre_dec')); */
 
         $referentiel = Referentiel::where('titre', $request->titre)->first();
 
@@ -150,8 +150,8 @@ class LettrevaluationController extends Controller
             /* 'evaluateurs_id'     => $request->input('evaluateur'), */
             /* 'onfpevaluateurs_id' => $request->input('onfpevaluateur'), */
             "execution_statut"   => $request->input('execution_statut'),
-            "lettre_mission_dec" => $request->input('lettre_mission_dec'),
-            "date_lettre_dec"    => $date_lettre_dec,
+            /* "lettre_mission_dec" => $request->input('lettre_mission_dec'),
+            "date_lettre_dec"    => $date_lettre_dec, */
             'contenu'            => $request->input('contenu'),
         ]);
 
