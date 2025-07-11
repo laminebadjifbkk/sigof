@@ -90,7 +90,7 @@
                                                             </p>
                                                         @endforeach
                                                     </td>
-                                                    <td>{{ $lettrevaluation?->formation?->date_pv?->format('d/m/Y') ?? 'Aucun' }}
+                                                    <td>{{ $lettrevaluation?->formation?->date_pv?->format('d/m/Y') ?? 'Non définie' }}
                                                     </td>
                                                     {{-- <td>{{ $lettrevaluation?->formation?->ingenieur?->name ?? 'Aucun' }} </td> --}}
                                                     <td>
