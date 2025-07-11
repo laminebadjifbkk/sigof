@@ -34,7 +34,7 @@ class IndividuelleController extends Controller
     {
         // Comptage total des individus (sans charger toutes les entrées en mémoire)
         $totalIndividuelles = Individuelle::count();
-        $total_count        = number_format($totalIndividuelles, 0, ',', ' ');
+        $totalIndividuelles = number_format($totalIndividuelles, 0, ',', ' ');
 
 // Récupération des 200 dernières demandes
         $individuelles       = Individuelle::latest()->limit(250)->get();
@@ -45,9 +45,9 @@ class IndividuelleController extends Controller
         if ($count_demandeur_raw < 1) {
             $title = 'Aucune demande individuelle';
         } elseif ($count_demandeur_raw == 1) {
-            $title = '1 demande individuelle sur un total de ' . $total_count;
+            $title = '1 demande individuelle sur un total de ' . $totalIndividuelles;
         } else {
-            $title = 'Liste des ' . $count_demandeur . ' dernières demandes individuelles sur un total de ' . $total_count;
+            $title = 'Liste des ' . $count_demandeur . ' dernières demandes individuelles sur un total de ' . $totalIndividuelles;
         }
 
 // Optimisation des requêtes pour les départements et modules
