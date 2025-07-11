@@ -303,7 +303,18 @@
 
                                 <p>
                                     Je soussigné
-                                    <b>{{ $formation?->onfpevaluateur?->name . ' ' . $formation?->onfpevaluateur?->lastname . ', ' . $formation->onfpevaluateur?->fonction }}</b>
+                                    <b>
+                                        @php
+                                            $firstOnfp = $formation?->onfpevaluateurs?->first();
+                                        @endphp
+
+                                        @if ($firstOnfp)
+                                            <strong>{{ $firstOnfp->name }} {{ $firstOnfp->lastname }}</strong>,
+                                            <em>{{ $firstOnfp->fonction }}</em>
+                                        @else
+                                            <span class="text-muted">Aucun évaluateur ONFP trouvé</span>
+                                        @endif
+                                    </b>
                                     certifie, au nom de
                                     l'ONFP, que l'opérateur a exécuté la formation conformément à la convention
                                     d'assistance sus mentionnée.

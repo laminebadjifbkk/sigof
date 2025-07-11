@@ -304,8 +304,16 @@
                                 <p>
                                     Je soussigné
                                     <b>
-                                        {{ $formation?->onfpevaluateur?->name . ' ' . $formation?->onfpevaluateur?->lastname ?? '...' }},
-                                        {{ $formation?->onfpevaluateur?->fonction ?? '...' }}
+                                        @php
+                                            $firstOnfp = $formation?->onfpevaluateurs?->first();
+                                        @endphp
+
+                                        @if ($firstOnfp)
+                                            <strong>{{ $firstOnfp->name }} {{ $firstOnfp->lastname }}</strong>,
+                                            <em>{{ $firstOnfp->fonction }}</em>
+                                        @else
+                                            <span class="text-muted">Aucun évaluateur ONFP trouvé</span>
+                                        @endif
                                     </b>,
                                     certifie, au nom de l'ONFP, que
                                     @php
