@@ -1120,14 +1120,16 @@ class UserController extends Controller
 
     public function demandeursIndividuel()
     {
-                                                                                                                         // Nombre total d'utilisateurs
-        $total_count = number_format(User::select('id', 'uuid', 'firstname', 'name', 'telephone', 'email', 'created_at') // Ajoute ici les colonnes dont tu as besoin
+                                                                                                                                // Nombre total d'utilisateurs
+        $totalIndividuelles = number_format(User::select('id', 'uuid', 'firstname', 'name', 'telephone', 'email', 'created_at') // Ajoute ici les colonnes dont tu as besoin
                 ->whereHas('individuelles')->count(), 0, ',', ' ');
 
-        // Récupération uniquement des 1000 derniers utilisateurs
-        /* $user_liste = User::orderBy("created_at", "desc")->take(2000)->get(); */
+        $totalIndividuelles = number_format($totalIndividuelles, 0, ',', ' ');
 
-        $user_liste = User::select('id', 'uuid', 'firstname', 'name', 'telephone', 'email', 'created_at') // Ajoute ici les colonnes dont tu as besoin
+        // Récupération uniquement des 1000 derniers utilisateurs
+        /* $demandeurs = User::orderBy("created_at", "desc")->take(2000)->get(); */
+
+        $demandeurs = User::select('id', 'uuid', 'firstname', 'name', 'telephone', 'email', 'created_at') // Ajoute ici les colonnes dont tu as besoin
             ->whereHas('individuelles')
             ->with(['individuelles' => function ($query) {
                 $query->select('id', 'users_id', 'created_at'); // Sélectionne seulement les colonnes utiles
@@ -1136,20 +1138,23 @@ class UserController extends Controller
             ->limit(1000)
             ->get();
 
-        $count_demandeur_raw = $user_liste->count();
+        $count_demandeur_raw = $demandeurs->count();
         $count_demandeur     = number_format($count_demandeur_raw, 0, ',', ' ');
 
         // Définition du titre avec des comparaisons correctes
-        if ($count_demandeur_raw < 1) {
+        /* if ($count_demandeur_raw < 1) {
             $title = 'Aucune demandeur individuel';
         } elseif ($count_demandeur_raw == 1) {
-            $title = '1 demandeur individuel sur un total de ' . $total_count;
+            $title = '1 demandeur individuel sur un total de ' . $totalIndividuelles;
         } else {
-            $title = 'Liste des ' . $count_demandeur . ' derniers demandeurs individuels sur un total de ' . $total_count;
-        }
+            $title = 'Liste des ' . $count_demandeur . ' derniers demandeurs individuels sur un total de ' . $totalIndividuelles;
+        } */
 
         // Retour de la vue avec les données paginées
-        return view("user.demandeur-individuel", compact("user_liste", "title"));
+        return view("user.demandeur-individuel",
+            compact("demandeurs",
+                "title"
+            ));
 
     }
 
@@ -1233,7 +1238,7 @@ class UserController extends Controller
 
         Alert::success('Succès ', 'Utilisateur supprimé définitivement.');
         return redirect()->back();
-        
+
     }
     public function restore($uuid)
     {

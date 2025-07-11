@@ -36,15 +36,58 @@
                 <div class="card">
                     <div class="card-body">
                         @can('individuelle-create')
-                            <div class="d-flex justify-content-between align-items-center mb-3">
+                            {{-- <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h5 class="card-title mb-0">{{ $title }}</h5>
                                 <a href="#" class="btn btn-sm btn-primary d-flex align-items-center gap-1"
                                     data-bs-toggle="modal" data-bs-target="#generate_rapport" title="Ajouter">
                                     <i class="bi bi-search"></i> Rechercher plus
                                 </a>
+                            </div> --}}
+                            <div class="pt-1">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+                                    {{-- Titre à gauche --}}
+                                    <div class="d-flex align-items-center gap-2">
+                                        <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                                            Liste des demandeurs individuelles
+                                        </h6>
+                                    </div>
+
+                                    {{-- Total au centre --}}
+                                    @php
+                                        $affichees = $demandeurs->count(); // à adapter si tu fais une pagination
+                                        $total =
+                                            $totalIndividuelles ?? ($demandeurs->total() ?? $demandeurs->count()); // en cas de pagination avec ->total()
+                                    @endphp
+
+                                    <div class="d-flex align-items-center gap-2 text-info fw-semibold">
+                                        <i class="bi bi-list-ul me-1"></i>
+                                        <span>
+                                            Affichage :
+                                            <span class="text-dark">{{ $affichees }}</span>
+                                            sur
+                                            <span class="text-dark">{{ $total }}</span> demandeurs
+                                        </span>
+                                    </div>
+
+                                    {{-- Boutons à droite --}}
+                                    @can('individuelle-create')
+                                        <div class="d-flex align-items-center gap-2">
+                                            {{-- <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#AddIndividuelModal">
+                                                Ajouter
+                                            </a> --}}
+                                            <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#generate_rapport">
+                                                Rechercher plus
+                                            </button>
+                                        </div>
+                                    @endcan
+
+                                </div>
                             </div>
                         @endcan
-                        @if ($user_liste->isNotEmpty())
+                        @if ($demandeurs->isNotEmpty())
                             <table class="table datatables align-middle" id="table-users">
                                 <thead>
                                     <tr>
@@ -58,7 +101,7 @@
                                 </thead>
                                 <tbody>
                                     <?php $i = 1; ?>
-                                    @foreach ($user_liste as $user)
+                                    @foreach ($demandeurs as $user)
                                         @if ($user->individuelles->isNotEmpty())
                                             <tr>
                                                 <th scope="row">

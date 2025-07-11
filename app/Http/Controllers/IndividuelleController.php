@@ -37,18 +37,18 @@ class IndividuelleController extends Controller
         $totalIndividuelles = number_format($totalIndividuelles, 0, ',', ' ');
 
 // Récupération des 200 dernières demandes
-        $individuelles       = Individuelle::latest()->limit(500)->get();
-        $count_demandeur_raw = $individuelles->count();
-        $count_demandeur     = number_format($count_demandeur_raw, 0, ',', ' ');
+        $individuelles = Individuelle::latest()->limit(500)->get();
+        /* $count_demandeur_raw = $individuelles->count();
+        $count_demandeur     = number_format($count_demandeur_raw, 0, ',', ' '); */
 
 // Définition du titre avec des comparaisons correctes
-        if ($count_demandeur_raw < 1) {
+        /*  if ($count_demandeur_raw < 1) {
             $title = 'Aucune demande individuelle';
         } elseif ($count_demandeur_raw == 1) {
             $title = '1 demande individuelle sur un total de ' . $totalIndividuelles;
         } else {
             $title = 'Liste des ' . $count_demandeur . ' dernières demandes individuelles sur un total de ' . $totalIndividuelles;
-        }
+        } */
 
 // Optimisation des requêtes pour les départements et modules
         $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
@@ -60,7 +60,8 @@ class IndividuelleController extends Controller
                 'departements',
                 'totalIndividuelles',
                 'modules',
-                'title')
+                /* 'title' */
+            )
         );
     }
 
