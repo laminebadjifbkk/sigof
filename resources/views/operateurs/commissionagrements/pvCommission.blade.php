@@ -110,13 +110,20 @@
         </p>
 
         <ul>
-            {{-- <li>{{ $commissionagrement->chef->civilite . ' ' . $commissionagrement->chef->prenom . ' ' . $commissionagrement->chef->nom . ',' . $commissionagrement->chef->fonction }}
-            </li>
-            <li>{{ $commissionagrement->secretaire->civilite . ' ' . $commissionagrement->secretaire->prenom . ' ' . $commissionagrement->secretaire->nom . ',' . $commissionagrement->secretaire->fonction }}
-            </li> --}}
+            {{-- Membres avec statut non vide --}}
             @foreach ($commissionagrement->commissionmembres as $membre)
-                <li>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom . ', ' . $membre->fonction . ' - ' . $membre->structure }}
-                </li>
+                @if (!empty($membre->statut))
+                    <li>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom . ', ' . $membre->fonction . ' - ' . $membre->structure }}
+                    </li>
+                @endif
+            @endforeach
+
+            {{-- Membres avec statut vide --}}
+            @foreach ($commissionagrement->commissionmembres as $membre)
+                @if (empty($membre->statut))
+                    <li>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom . ', ' . $membre->fonction . ' - ' . $membre->structure }}
+                    </li>
+                @endif
             @endforeach
         </ul>
 
