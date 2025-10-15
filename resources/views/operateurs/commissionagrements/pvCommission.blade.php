@@ -114,7 +114,8 @@
             @foreach ($commissionagrement->commissionmembres as $membre)
                 @if (!empty($membre->statut))
                     <li><b>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom }}</b>,
-                        {{ $membre->fonction . ' - ' . $membre->structure . ' (' . strtolower($membre->statut) . ')' }}
+                        {{ $membre->fonction . ' - ' }}
+                        <i>{{ $membre->structure }}</i>
                     </li>
                 @endif
             @endforeach
