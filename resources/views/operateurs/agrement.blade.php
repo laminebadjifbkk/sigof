@@ -41,8 +41,7 @@
                         <div class="card-body">
                             <ul class="nav nav-tabs nav-tabs-bordered">
                                 <li class="nav-item">
-                                    <span class="nav-link"><a
-                                            href="{{ route('operateurs.show', $operateur) }}"
+                                    <span class="nav-link"><a href="{{ route('operateurs.show', $operateur) }}"
                                             class="btn btn-secondary btn-sm" title="retour"><i
                                                 class="bi bi-arrow-counterclockwise"></i></a>
                                     </span>
@@ -523,8 +522,7 @@
                                                 <h5 class="mb-1 text-dark fw-bold d-flex align-items-center">
                                                     <i class="bi bi-building text-primary me-2 fs-5"></i>
                                                     <span>Date agrément :</span>
-                                                    <span
-                                                        class="ms-2 text-primary">
+                                                    <span class="ms-2 text-primary">
                                                         {{-- {{ $operateur?->commissionagrement?->date?->format('d/m/Y') ?? 'Non définie' }} --}}
                                                     </span>
                                                 </h5>
@@ -772,6 +770,16 @@
                                                                     title="Justification"></i>&nbsp;sous réserve
                                                             </button>
                                                         </div> --}}
+                                                        @can('fichesynthese-view')
+                                                            <form
+                                                                action="{{ route('ficheSyntheseOperateur', ['id' => $operateur->id]) }}"
+                                                                method="post" target="_blank" class="m-1">
+                                                                @csrf
+                                                                <button type="submit" class="btn btn-sm mx-1">
+                                                                    <i class="bi bi-file-earmark-text"></i> Fiche synthèse
+                                                                </button>
+                                                            </form>
+                                                        @endcan
                                                         <button class="btn btn-sm mx-1" data-bs-toggle="modal"
                                                             data-bs-target="#RejetAgrementModal{{ $operateur->id }}"><i
                                                                 class="bi bi-check2-circle"
