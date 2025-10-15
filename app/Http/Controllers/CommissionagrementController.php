@@ -481,35 +481,36 @@ class CommissionagrementController extends Controller
             ->get();
 
         $operateurs_renouvellements = $commissionagrement->operateurs()
-            ->where('type_demande', 'Renouvellement')
+            ->where('operateurs.type_demande', 'Renouvellement')
             ->get();
+
         $operateurs_renouvellements_agreer = $commissionagrement->operateurs()
-            ->where('statut_agrement', 'agréé')
-            ->where('type_demande', 'Renouvellement')
+            ->where('operateurs.statut_agrement', 'agréé')
+            ->where('operateurs.type_demande', 'Renouvellement')
             ->get();
 
         $operateurs_renouvellements_sr = $commissionagrement->operateurs()
-            ->where('statut_agrement', 'sous réserve')
-            ->where('type_demande', 'Renouvellement')
+            ->where('operateurs.statut_agrement', 'sous réserve')
+            ->where('operateurs.type_demande', 'Renouvellement')
             ->get();
 
         $operateurs_renouvellements_rejet = $commissionagrement->operateurs()
-            ->where('statut_agrement', 'rejeté')
-            ->where('type_demande', 'Renouvellement')
+            ->where('operateurs.statut_agrement', 'rejeté')
+            ->where('operateurs.type_demande', 'Renouvellement')
             ->get();
 
         $operateurs_nouvelles_agreer = $commissionagrement->operateurs()
-            ->where('statut_agrement', 'agréé')
+            ->where('operateurs.statut_agrement', 'agréé')
             ->whereIn('type_demande', ['Nouvelle', 'Nouveau'])
             ->get();
 
         $operateurs_nouvelles_sr = $commissionagrement->operateurs()
-            ->where('statut_agrement', 'sous réserve')
+            ->where('operateurs.statut_agrement', 'sous réserve')
             ->whereIn('type_demande', ['Nouvelle', 'Nouveau'])
             ->get();
 
         $operateurs_nouvelles_rejet = $commissionagrement->operateurs()
-            ->where('statut_agrement', 'rejeté')
+            ->where('operateurs.statut_agrement', 'rejeté')
             ->whereIn('type_demande', ['Nouvelle', 'Nouveau'])
             ->get();
 
@@ -527,22 +528,6 @@ class CommissionagrementController extends Controller
 
         // Vérifie si le fichier existe et encode en base64
         $logoBase64 = file_exists($logoPath) ? base64_encode(file_get_contents($logoPath)) : null;
-
-        /* $date = $commissionagrement->date ? Carbon::parse($commissionagrement->date) : null;
-
-        if ($date) {
-            // Générer les 5 jours consécutifs
-            $joursCollection = collect(range(0, 4))->map(fn($i) => $date->copy()->addDays($i)->format('d'));
-            // Mettre le "et" avant le dernier jour
-            $lastDay = $joursCollection->pop();
-            $jours   = $joursCollection->implode(', ') . ' et ' . $lastDay;
-
-            // Mois et année
-            $moisAnnee = $date->translatedFormat('F Y');
-        } else {
-            $jours     = '...................';
-            $moisAnnee = '............' . now()->format('Y');
-        } */
 
         if ($commissionagrement?->debut_commission && $commissionagrement?->fin_commission) {
             $start = $commissionagrement->debut_commission->copy();
