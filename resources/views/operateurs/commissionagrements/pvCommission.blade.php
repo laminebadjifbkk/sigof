@@ -115,7 +115,7 @@
             <li>{{ $commissionagrement->secretaire->civilite . ' ' . $commissionagrement->secretaire->prenom . ' ' . $commissionagrement->secretaire->nom . ',' . $commissionagrement->secretaire->fonction }}
             </li> --}}
             @foreach ($commissionagrement->commissionmembres as $membre)
-                <li>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom . ', ' . $membre->fonction }}</li>
+                <li>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom . ', ' . $membre->fonction.' - '.$membre->structure }}</li>
             @endforeach
         </ul>
 
