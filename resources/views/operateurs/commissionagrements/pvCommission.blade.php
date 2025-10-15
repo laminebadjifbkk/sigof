@@ -115,7 +115,8 @@
             <li>{{ $commissionagrement->secretaire->civilite . ' ' . $commissionagrement->secretaire->prenom . ' ' . $commissionagrement->secretaire->nom . ',' . $commissionagrement->secretaire->fonction }}
             </li> --}}
             @foreach ($commissionagrement->commissionmembres as $membre)
-                <li>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom . ', ' . $membre->fonction.' - '.$membre->structure }}</li>
+                <li>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom . ', ' . $membre->fonction . ' - ' . $membre->structure }}
+                </li>
             @endforeach
         </ul>
 
@@ -135,35 +136,53 @@
         <h4>Examen des demandes</h4>
 
         <p>
-            Un total de <strong>{{ $countOperateurs ?? '(...)' }}</strong> demandes ont été soumises à
-            l’examen
-            des membres de la commission, dont
-            <strong>{{ $countRenouvellements ?? '(...)' }}</strong> pour des renouvellements.
+            @if (!empty($countRenouvellements) && $countRenouvellements > 0)
+                Au total <strong>{{ $countOperateurs ?? '(...)' }}</strong> demandes ont été soumises à
+                l’examen des membres de la commission, dont <strong>{{ $countRenouvellements ?? '(...)' }}</strong>
+                pour des renouvellements.
+            @else
+                Au total <strong>{{ $countOperateurs ?? '(...)' }}</strong> demandes ont été soumises à
+                l’examen des membres de la commission.
+            @endif
         </p>
 
         <p>
             À l’issue des travaux, il a été retenu :
         </p>
 
-        @if (!empty($countRenouvellements))
+        @if (!empty($countRenouvellements) && $countRenouvellements > 0)
             <p><strong>Pour les demandes de renouvellement :</strong></p>
             <ul>
-                <li>{{ $countRenouvellements_agreer ?? '(...)' }} structures proposées à l’agrément
-                    définitif ;</li>
-                <li>{{ $countRenouvellements_sr ?? '(...)' }} proposées à l’agrément sous réserve
-                    de
-                    complément ou de mise à jour de pièces du dossier ;</li>
-                <li>{{ $countRenouvellements_rejet ?? '(...)' }} demandes proposées au rejet.</li>
+                @if (!empty($countRenouvellements_agreer) && $countRenouvellements_agreer > 0)
+                    <li>{{ $countRenouvellements_agreer }} structures proposées à l’agrément définitif ;</li>
+                @endif
+
+                @if (!empty($countRenouvellements_sr) && $countRenouvellements_sr > 0)
+                    <li>{{ $countRenouvellements_sr }} proposées à l’agrément sous réserve de complément ou de mise à
+                        jour de pièces du dossier ;</li>
+                @endif
+
+                @if (!empty($countRenouvellements_rejet) && $countRenouvellements_rejet > 0)
+                    <li>{{ $countRenouvellements_rejet }} demandes proposées au rejet.</li>
+                @endif
             </ul>
+
         @endif
 
         <p><strong>Pour les nouvelles demandes :</strong></p>
         <ul>
-            <li>{{ $countNouvelles_agreer ?? '(...)' }} structures proposées à l’agrément
-                définitif ;</li>
-            <li>{{ $countNouvelles_sr ?? '(...)' }} proposées à l’agrément sous réserve de
-                complément ou de mise à jour de pièces du dossier ;</li>
-            <li>{{ $countNouvelles_rejet ?? '(...)' }} demandes proposées au rejet.</li>
+            @if (!empty($countNouvelles_agreer) && $countNouvelles_agreer > 0)
+                <li>{{ $countNouvelles_agreer }} structures proposées à l’agrément définitif ;</li>
+            @endif
+
+            @if (!empty($countNouvelles_sr) && $countNouvelles_sr > 0)
+                <li>{{ $countNouvelles_sr }} proposées à l’agrément sous réserve de complément ou de mise à jour de
+                    pièces du dossier ;</li>
+            @endif
+
+            @if (!empty($countNouvelles_rejet) && $countNouvelles_rejet > 0)
+                <li>{{ $countNouvelles_rejet }} demandes proposées au rejet.</li>
+            @endif
         </ul>
 
         <h4>Recommandations</h4>
@@ -189,7 +208,10 @@
         <h4 class="h4 mt-3">Les autres membres de la commission</h4>
         <table class="signature">
             @foreach ($commissionagrement->commissionmembres as $membre)
-                @if ($membre->id !== $commissionagrement->chef_id && $membre->id !== $commissionagrement->secretaire_id)
+                @if (
+                    $membre->id !== $commissionagrement->chef_id &&
+                        $membre->id !== $commissionagrement->secretaire_id &&
+                        !empty($membre->statut))
                     <tr>
                         <td><strong>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom }}
                             </strong><br><br><br></td>
