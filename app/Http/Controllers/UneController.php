@@ -1,0 +1,190 @@
+<?php
+namespace App\Http\Controllers;
+
+use App\Models\Une;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+use RealRashid\SweetAlert\Facades\Alert;
+
+class UneController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware(['role:super-admin|admin|DIOF|DEC|DPP']);
+        $this->middleware("permission:une-view", ["only" => ["index"]]);
+        $this->middleware("permission:une-create", ["only" => ["create", "store"]]);
+        $this->middleware("permission:une-update", ["only" => ["update", "edit"]]);
+        $this->middleware("permission:une-show", ["only" => ["show"]]);
+        $this->middleware("permission:une-delete", ["only" => ["destroy"]]);
+        $this->middleware("permission:give-role-permissions", ["only" => ["givePermissionsToRole"]]);
+    }
+    public function index()
+    {
+        $unes = Une::orderBy("created_at", "desc")->get();
+        return view('unes.index', compact('unes'));
+    }
+    public function store(Request $request)
+    {
+        $data = request()->validate([
+            'titre1'  => ['required', 'string', 'max:40'],
+            'titre2'  => ['required', 'string', 'max:35'],
+            'message' => ['required', 'string'],
+            'image'   => ['image', 'nullable', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:1024'],
+
+        ]);
+
+        if (request('image')) {
+            $imagePath = request('image')->store('unes', 'public');
+
+            $image = Image::make(public_path("/storage/{$imagePath}"))->fit(2400, 2400);
+
+            $image->save();
+        } else {
+            $imagePath = null;
+        }
+
+        $une = new Une([
+            'titre1'   => $data['titre1'],
+            'titre2'   => $data['titre2'],
+            'message'  => $data['message'],
+            'users_id' => auth()->user()->id,
+            'image'    => $imagePath,
+        ]);
+
+        $une->save();
+
+        Alert::success("Succès !", "Le message a été enregistré avec succès !");
+
+        return redirect()->back();
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = request()->validate([
+            'titre1'  => ['required', 'string', 'max:40'],
+            'titre2'  => ['required', 'string', 'max:35'],
+            'message' => ['required', 'string'],
+            'image'   => ['image', 'nullable', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:1024'],
+            'video'   => ['nullable', 'string'],
+
+        ]);
+
+        $une = Une::findOrFail($id);
+
+        /*     if (request('image')) {
+            Storage::disk('public')->delete($une->image);
+            $imagePath = request('image')->store('unes', 'public');
+
+            $image = Image::make(public_path("/storage/{$imagePath}"))->fit(2400, 2400);
+
+            $image->save();
+        } else {
+            $imagePath = $une->image;
+        }
+
+        $une->update([
+            'titre1'   => $data['titre1'],
+            'titre2'   => $data['titre2'],
+            'message'  => $data['message'],
+            'video'    => $data['video'],
+            'users_id' => auth()->user()->id,
+            'image'    => $imagePath,
+        ]);
+
+        $une->save(); */
+        if (request()->hasFile('image')) {
+            // Supprimer l'ancienne image si elle existe
+            if ($une->image && Storage::disk('public')->exists($une->image)) {
+                Storage::disk('public')->delete($une->image);
+            }
+
+            $imageFile = request()->file('image');
+            $filename  = time() . '.' . $imageFile->getClientOriginalExtension();
+            $imagePath = $imageFile->storeAs('unes', $filename, 'public');
+
+            // Enregistrer l'image sans la redimensionner
+            $image = Image::make(public_path("/storage/{$imagePath}"));
+            $image->save();
+        } else {
+            $imagePath = $une->image;
+        }
+
+        $une->update([
+            'titre1'   => $data['titre1'],
+            'titre2'   => $data['titre2'],
+            'message'  => $data['message'],
+            'video'    => $data['video'],
+            'users_id' => auth()->user()->id,
+            'image'    => $imagePath,
+        ]);
+
+        $une->save();
+
+        Alert::success("Succès !", "Le message a été mis à jour avec succès !");
+
+        return redirect()->back();
+    }
+
+    public function destroy($id)
+    {
+
+        $une = Une::find($id);
+
+        Storage::disk('public')->delete($une->image);
+
+        $une->delete();
+
+        Alert::success('Succès !', 'Le message a été supprimé avec succès !');
+
+        return redirect()->back();
+    }
+
+    public function alaUne(Request $request)
+    {
+
+        $une = Une::findOrFail(request('alaune'));
+
+        $alunes = Une::all();
+
+        if (! empty($une->status)) {
+            Alert::warning('Attention !', 'Enregistrement déjà à la une !');
+
+            return redirect()->back();
+        } else {
+
+            foreach ($alunes as $alune) {
+                $alune->update([
+                    'status' => null,
+                ]);
+
+                $alune->save();
+            }
+            $une->update([
+                'status' => 'Une',
+            ]);
+
+            $une->save();
+
+            Alert::success('Mis à la une !');
+
+            return redirect()->back();
+        }
+    }
+    public function suprimeralaUne(Request $request)
+    {
+
+        $une = Une::findOrFail(request('suprimerdelaune'));
+
+        $une->update([
+            'status' => null,
+        ]);
+
+        $une->save();
+
+        Alert::success('Succès !', 'La publication a été retirée de la une !');
+
+        return redirect()->back();
+    }
+}
