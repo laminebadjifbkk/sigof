@@ -161,12 +161,12 @@
             <p><strong>Pour les demandes de renouvellement :</strong></p>
             <ul>
                 @if (!empty($countRenouvellements_agreer) && $countRenouvellements_agreer > 0)
-                    <li>{{ $countRenouvellements_agreer }} structures proposées à l’agrément définitif ;</li>
+                    <li>{{ $countRenouvellements_agreer }} structures proposées à l’agrément définitif;</li>
                 @endif
 
                 @if (!empty($countRenouvellements_sr) && $countRenouvellements_sr > 0)
                     <li>{{ $countRenouvellements_sr }} proposées à l’agrément sous réserve de complément ou de mise à
-                        jour de pièces du dossier ;</li>
+                        jour de pièces du dossier;</li>
                 @endif
 
                 @if (!empty($countRenouvellements_rejet) && $countRenouvellements_rejet > 0)
