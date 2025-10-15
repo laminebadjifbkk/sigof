@@ -1440,10 +1440,10 @@ class OperateurController extends Controller
             return redirect()->back();
         } */
 
-        /* if ($operateur->statut_agrement != 'Nouveau' && $operateur->statut_agrement != 'Non conforme') {
+        if ($operateur->statut_agrement != 'Nouveau' && $operateur->statut_agrement != 'Non conforme') {
             Alert::warning('Attention !', 'Action impossible : opérateur déjà traité');
             return redirect()->back();
-        } */
+        }
         
         $operateur->update([
             'statut_agrement'        => 'Retiré',
