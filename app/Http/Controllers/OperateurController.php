@@ -2105,34 +2105,29 @@ class OperateurController extends Controller
     {
         $commissionagrement = Commissionagrement::findOrFail($commission);
 
-        /* $operateurs = Operateur::when($statut !== 'Aucun', function ($query) use ($statut) {
-            $query->where('statut_agrement', $statut);
-        }, function ($query) {
-            $query->whereNull('statut_agrement');
-        })
-            ->when(! empty($commission), function ($query) use ($commission) {
-                $query->whereHas('commissionagrements', function ($q) use ($commission) {
-                    $q->where('commissionagrements.id', $commission);
-                });
-            })
-            ->get(); */
-
-        /* $operateurs = Operateur::where('statut_agrement', $statut)
-            ->whereHas('commissionagrements', function ($query) use ($commission) {
-                $query->where('commissionagrements.id', $commission);
-            })
-            ->get(); */
-
         $operateurs = Operateur::where('statut_agrement', $statut)
             ->whereHas('commissionagrements', function ($query) use ($commission) {
                 $query->where('commissionagrement_id', $commission);
             })
             ->get();
 
-        return view('operateurs.commissionagrements.statut',
-            compact('operateurs',
-                'statut', 'commissionagrement')
-        );
+        if ($statut === 'sous réserve') {
+            return view('operateurs.commissionagrements.statutsousreserve',
+                compact('operateurs',
+                    'statut', 'commissionagrement')
+            );
+        } elseif ($statut === 'rejeté') {
+            return view('operateurs.commissionagrements.statutrejete',
+                compact('operateurs',
+                    'statut', 'commissionagrement')
+            );
+        } else {
+            return view('operateurs.commissionagrements.statut',
+                compact('operateurs',
+                    'statut', 'commissionagrement')
+            );
+        }
+
     }
 
     public function exporterOperateursPDF($statut, $commission)
@@ -2175,10 +2170,29 @@ class OperateurController extends Controller
 
             $commissionagrement = Commissionagrement::findOrFail($commission);
 
-            $date     = now()->format('Y-m-d');
+            $date = now()->format('Y-m-d');
+
             $fileName = 'Liste des opérateurs ' . $statut . ' en ' . $commissionagrement?->date?->format('Y') . ' (' . $date . ').xlsx';
 
+            /*  if ($statut === 'sous réserve') {
+            return view('operateurs.commissionagrements.statutsousreserve',
+                compact('operateurs',
+                    'statut', 'commissionagrement')
+            );
+        } elseif ($statut === 'rejeté') {
+            return view('operateurs.commissionagrements.statutrejete',
+                compact('operateurs',
+                    'statut', 'commissionagrement')
+            );
+        } else {
+            return view('operateurs.commissionagrements.statut',
+                compact('operateurs',
+                    'statut', 'commissionagrement')
+            );
+        } */
+       
             return Excel::download(new OperateursAgrementExport($statut, $commissionagrement), $fileName);
+
         } else {
             Alert::error('Attention', 'Impossible de télécharger avec le statut : ' . $statut);
             return redirect()->back();

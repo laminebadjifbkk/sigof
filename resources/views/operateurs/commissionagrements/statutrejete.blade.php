@@ -49,10 +49,10 @@
                                 <div class="float-end mb-3">
                                     <div class="d-flex align-items-baseline gap-2">
                                         {{-- Export PV (Procès-verbal complet) --}}
-                                        <a href="{{ route('commissionagrements.exportPV', ['statut' => $statut, 'commissionagrement' => $commissionagrement->id]) }}"
+                                        {{-- <a href="{{ route('commissionagrements.exportPV', ['statut' => $statut, 'commissionagrement' => $commissionagrement->id]) }}"
                                             class="btn btn-primary btn-sm">
                                             <i class="bi bi-journal-text"></i> Exporter le PV
-                                        </a>
+                                        </a> --}}
 
                                         {{-- Export opérateurs en PDF --}}
                                         {{-- <a href="{{ route('operateurs.parStatutCommission.pdf', ['statut' => $statut, 'commission' => $commissionagrement->id]) }}"
