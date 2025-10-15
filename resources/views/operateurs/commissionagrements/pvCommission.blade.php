@@ -98,7 +98,7 @@
     <div class="content">
         <p>
             L’an deux mille {{ $commissionagrement?->date?->format('Y') ?? now()->format('Y') }},<br>
-            Les {{ $jours }} {{ $moisAnnee }}, s’est tenue au
+            Les <b><i>{{ $jours }} {{ $moisAnnee }}</i></b>, s’est tenue au
             {{ $commissionagrement?->lieu ?? 'Centre de Formation Professionnelle Sénégal-Japon de Dakar' }},
             la session {{ $commissionagrement?->date?->format('Y') ?? now()->format('Y') }} de la Commission d’Agrément
             et de Labélisation
@@ -123,7 +123,9 @@
             {{-- Membres avec statut vide --}}
             @foreach ($commissionagrement->commissionmembres as $membre)
                 @if (empty($membre->statut))
-                    <li>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom . ', ' . $membre->fonction . ' - ' . $membre->structure }}
+                    <li><b>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom }}</b>,
+                        {{ $membre->fonction . ' - ' }}
+                        <i>{{ $membre->structure }}</i>
                     </li>
                 @endif
             @endforeach
