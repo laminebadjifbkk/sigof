@@ -22,7 +22,7 @@ class CommissionmembreController extends Controller
             "nom"       => "required|string",
             "fonction"  => "required|string",
             "structure" => "required|string",
-            "statut"    => "required|nullable",
+            "statut"    => "nullable",
             "email"     => "required|email",
             "telephone" => "required|string|size:12",
         ]);
@@ -51,7 +51,7 @@ class CommissionmembreController extends Controller
             "nom"       => "required|string",
             "fonction"  => "required|string",
             "structure" => "required|string",
-            "statut"    => "required|nullable",
+            "statut"    => "nullable",
             "email"     => "required|email",
             "telephone" => "required|string|size:12",
         ]);
