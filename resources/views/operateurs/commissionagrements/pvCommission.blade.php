@@ -179,12 +179,12 @@
         <p><strong>Pour les nouvelles demandes :</strong></p>
         <ul>
             @if (!empty($countNouvelles_agreer) && $countNouvelles_agreer > 0)
-                <li>{{ $countNouvelles_agreer }} structures proposées à l’agrément définitif ;</li>
+                <li>{{ $countNouvelles_agreer }} structures proposées à l’agrément définitif;</li>
             @endif
 
             @if (!empty($countNouvelles_sr) && $countNouvelles_sr > 0)
                 <li>{{ $countNouvelles_sr }} proposées à l’agrément sous réserve de complément ou de mise à jour de
-                    pièces du dossier ;</li>
+                    pièces du dossier;</li>
             @endif
 
             @if (!empty($countNouvelles_rejet) && $countNouvelles_rejet > 0)
