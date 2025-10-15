@@ -217,13 +217,13 @@
                                                                             </button>
                                                                         </li> --}}
                                                                 <form
-                                                                    action="{{ route('retirerOperateur', ['id' => $operateur->id]) }}"
+                                                                    action="{{ route('retirerOperateurCommission', ['idoperateur' => $operateur->id, 'idcommission' => $commissionagrement->id]) }}"
                                                                     method="post">
                                                                     @csrf
                                                                     @method('PUT')
                                                                     <button class="show_confirm_retirer btn btn-sm mx-1"><i
                                                                             class="bi bi-reply-fill"
-                                                                            title="Retirer"></i>&nbsp;Retirer</button>
+                                                                            title="Retirer"></i>&nbsp;Retirer de la commission</button>
                                                                 </form>
 
                                                             </ul>

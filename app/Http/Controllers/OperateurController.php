@@ -8,6 +8,7 @@ use App\Models\Commissionagrement;
 use App\Models\Courrier;
 use App\Models\Departement;
 use App\Models\File;
+use App\Models\Historiqueagrement;
 use App\Models\Operateur;
 use App\Models\Operateurcategorie;
 use App\Models\Operateureference;
@@ -1444,7 +1445,7 @@ class OperateurController extends Controller
             Alert::warning('Attention !', 'Action impossible : opérateur déjà traité');
             return redirect()->back();
         }
-        
+
         $operateur->update([
             'statut_agrement'        => 'Retiré',
             'commissionagrements_id' => null,
@@ -1463,6 +1464,25 @@ class OperateurController extends Controller
         $validateoperateur->save();
 
         Alert::success("Succès !", "L'opérateur a été retiré");
+
+        return redirect()->back();
+    }
+
+    public function retirerOperateurCommission($idoperateur, $idcommissionagrement)
+    {
+        $operateur = Operateur::findOrFail($idoperateur);
+
+        $operateur->commissionagrements()->detach($idcommissionagrement);
+
+        // Enregistrer historique (facultatif)
+        Historiqueagrement::create([
+            'operateurs_id'          => $operateur->id,
+            'commissionagrements_id' => $idcommissionagrement,
+            'statut'                 => 'Retiré de la commission',
+            'validated_id'           => Auth::id(),
+        ]);
+
+        Alert::success("Succès !", "L'opérateur a été retiré de la commission d'agrément");
 
         return redirect()->back();
     }

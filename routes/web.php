@@ -362,6 +362,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/showReserve/{id}', [CommissionagrementController::class, 'showReserve'])->name('showReserve');
         Route::get('/showRejeter/{id}', [CommissionagrementController::class, 'showRejeter'])->name('showRejeter');
         Route::put('/retirerOperateur/{id}', [OperateurController::class, 'retirerOperateur'])->name('retirerOperateur');
+        Route::put('/retirerOperateur/{idoperateur}/{idcommission}', [OperateurController::class, 'retirerOperateurCommission'])->name('retirerOperateurCommission');
         Route::put('/projets/{id}/terminer', [ProjetController::class, 'terminer'])->name('terminerProjet');
 
         Route::get('/devenirOperateurs', [OperateurController::class, 'devenirOperateur'])->name('devenirOperateur');
