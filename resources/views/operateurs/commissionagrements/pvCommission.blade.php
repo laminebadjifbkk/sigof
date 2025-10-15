@@ -113,7 +113,8 @@
             {{-- Membres avec statut non vide --}}
             @foreach ($commissionagrement->commissionmembres as $membre)
                 @if (!empty($membre->statut))
-                    <li>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom . ', ' . $membre->fonction . ' - ' . $membre->structure }}
+                    <li><b>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom }}</b>,
+                        {{ $membre->fonction . ' - ' . $membre->structure . ' (' . strtolower($membre->statut) . ')' }}
                     </li>
                 @endif
             @endforeach
