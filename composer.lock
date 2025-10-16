@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b97eeae5a2402f0c6f2f60d2671d69b",
+    "content-hash": "25b3cfe138834a5cd9ba9cefb73ed01b",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2162,6 +2162,75 @@
                 }
             ],
             "time": "2022-05-21T17:30:32+00:00"
+        },
+        {
+            "name": "kris/laravel-form-builder",
+            "version": "1.54.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kristijanhusak/laravel-form-builder.git",
+                "reference": "0ad7ffb158282f983fe59bb1ffbafbd4d5748997"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kristijanhusak/laravel-form-builder/zipball/0ad7ffb158282f983fe59bb1ffbafbd4d5748997",
+                "reference": "0ad7ffb158282f983fe59bb1ffbafbd4d5748997",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^10 || ^11 || ^12",
+                "illuminate/validation": "^10 || ^11 || ^12",
+                "php": "^8.0",
+                "rdx/laravelcollective-html": "^6"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^8 || ^9 || ^10",
+                "phpunit/phpunit": "^10.0 || ^11.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "FormBuilder": "Kris\\LaravelFormBuilder\\Facades\\FormBuilder"
+                    },
+                    "providers": [
+                        "Kris\\LaravelFormBuilder\\FormBuilderServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-0": {
+                    "Kris\\LaravelFormBuilder": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kristijan Husak",
+                    "email": "husakkristijan@gmail.com"
+                }
+            ],
+            "description": "Laravel form builder - symfony like",
+            "keywords": [
+                "builder",
+                "form",
+                "laravel",
+                "symfony"
+            ],
+            "support": {
+                "issues": "https://github.com/kristijanhusak/laravel-form-builder/issues",
+                "source": "https://github.com/kristijanhusak/laravel-form-builder/tree/1.54.0"
+            },
+            "time": "2025-04-09T18:08:35+00:00"
         },
         {
             "name": "kwn/number-to-words",
@@ -5473,6 +5542,67 @@
                 }
             ],
             "time": "2024-04-27T21:32:50+00:00"
+        },
+        {
+            "name": "rdx/laravelcollective-html",
+            "version": "6.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rudiedirkx/laravelcollective-html.git",
+                "reference": "3cc4bd1cb86e6296e4f8a824854d11c4dcec6fa6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rudiedirkx/laravelcollective-html/zipball/3cc4bd1cb86e6296e4f8a824854d11c4dcec6fa6",
+                "reference": "3cc4bd1cb86e6296e4f8a824854d11c4dcec6fa6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
+                "illuminate/routing": "^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
+                "illuminate/session": "^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
+                "illuminate/support": "^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
+                "illuminate/view": "^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
+                "php": "^7.2 || ^8.0"
+            },
+            "replace": {
+                "laravelcollective/html": "self.version"
+            },
+            "require-dev": {
+                "illuminate/database": "^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
+                "mockery/mockery": "~1.0",
+                "phpunit/phpunit": "~8.5 || ^9.5.10"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Form": "Collective\\Html\\FormFacade",
+                        "Html": "Collective\\Html\\HtmlFacade"
+                    },
+                    "providers": [
+                        "Collective\\Html\\HtmlServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Collective\\Html\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "HTML and Form Builders for the Laravel Framework",
+            "support": {
+                "issues": "https://github.com/rudiedirkx/laravelcollective-html/issues",
+                "source": "https://github.com/rudiedirkx/laravelcollective-html"
+            },
+            "time": "2024-03-20T15:08:15+00:00"
         },
         {
             "name": "realrashid/sweet-alert",

@@ -211,7 +211,7 @@ class CommissionagrementController extends Controller
         $operateursActuels = $commission->operateurs->pluck('id')->toArray();
 
         // ➤ Détacher ceux qui ne sont plus sélectionnés
-        $operateursADetacher = array_diff($operateursActuels, $operateursSelectionnes);
+        /* $operateursADetacher = array_diff($operateursActuels, $operateursSelectionnes);
         foreach ($operateursADetacher as $operateurId) {
             $operateur = Operateur::find($operateurId);
             if ($operateur) {
@@ -225,7 +225,7 @@ class CommissionagrementController extends Controller
                     'validated_id'           => Auth::id(),
                 ]);
             }
-        }
+        } */
 
         // ➤ Attacher ou mettre à jour ceux qui sont sélectionnés
         foreach ($operateursSelectionnes as $operateurId) {
@@ -323,7 +323,7 @@ class CommissionagrementController extends Controller
         $commissionagrement = Commissionagrement::findOrFail($id);
 
         /* $statutsVoulus = ['Conforme', 'Extension', 'Renouvellement', 'Nouveau', 'À corriger', 'agréé', 'sous réserve', 'Rejeté']; */
-        $statutsVoulus = ['Conforme'];
+        $statutsVoulus = ['Nouveau'];
 
         /* $operateurs = Operateur::whereNull('commissionagrements_id')
             ->whereIn('statut_agrement', $statutsVoulus)
