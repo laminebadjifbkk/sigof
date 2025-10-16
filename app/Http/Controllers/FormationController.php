@@ -2005,6 +2005,86 @@ class FormationController extends Controller
         return redirect()->back();
     }
 
+    public function noteformationindividuellestore(Request $request, $id)
+    {
+        $request->validate([
+            'note' => 'required',
+            'string',
+        ]);
+
+        $individuelle = Individuelle::findOrFail($id);
+
+        if ($request->input('note') <= 4) {
+            $appreciation = "Médiocre";
+        } elseif ($request->input('note') <= 8) {
+            $appreciation = "Insuffisant";
+        } elseif ($request->input('note') <= 11) {
+            $appreciation = "Passable";
+        } elseif ($request->input('note') <= 13) {
+            $appreciation = "Assez bien";
+        } elseif ($request->input('note') <= 16) {
+            $appreciation = "Bien";
+        } elseif ($request->input('note') <= 19) {
+            $appreciation = "Très bien";
+        } elseif ($request->input('note') <= 20) {
+            $appreciation = "Excellent";
+        } else {
+            $appreciation = "Non défini";
+        }
+
+        $individuelle->update([
+            "note_obtenue" => $request->input('note'),
+            "appreciation" => $appreciation,
+            "statut"       => 'formé',
+        ]);
+
+        $individuelle->save();
+
+        Alert::success('Réussi !', 'La note a été ajoutée.');
+
+        return redirect()->back();
+    }
+
+    public function noteformationcollectivestore(Request $request, $id)
+    {
+        $request->validate([
+            'note' => 'required',
+            'string',
+        ]);
+
+        $listecollective = Listecollective::findOrFail($id);
+
+        if ($request->input('note') <= 4) {
+            $appreciation = "Médiocre";
+        } elseif ($request->input('note') <= 8) {
+            $appreciation = "Insuffisant";
+        } elseif ($request->input('note') <= 11) {
+            $appreciation = "Passable";
+        } elseif ($request->input('note') <= 13) {
+            $appreciation = "Assez bien";
+        } elseif ($request->input('note') <= 16) {
+            $appreciation = "Bien";
+        } elseif ($request->input('note') <= 19) {
+            $appreciation = "Très bien";
+        } elseif ($request->input('note') <= 20) {
+            $appreciation = "Excellent";
+        } else {
+            $appreciation = "Non défini";
+        }
+
+        $listecollective->update([
+            "note_obtenue" => $request->input('note'),
+            "appreciation" => $appreciation,
+            "statut"       => 'formé',
+        ]);
+
+        $listecollective->save();
+
+        Alert::success('Réussi !', 'La note a été ajoutée.');
+
+        return redirect()->back();
+    }
+
     public function updateObservationsCollective(Request $request)
     {
         $request->validate([
@@ -4032,13 +4112,12 @@ class FormationController extends Controller
 
     public function showAttestations()
     {
-        $attestations = Formation::where('statut', 'Terminée')->get();
+        $attestations      = Formation::where('statut', 'Terminée')->get();
         $attestationsCount = Formation::count();
-         // Regrouper par statut (y compris les null)
+        // Regrouper par statut (y compris les null)
         $groupes = $attestations->groupBy(function ($item) {
             return $item->attestation ?? 'Aucun statut';
         });
-
 
         $totalAttestations = number_format($attestationsCount, 0, ',', ' ');
 

@@ -327,6 +327,8 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::put('notedemandeurscollectives/{idformation}', [FormationController::class, 'givenotedemandeursCollective']);
 
         Route::patch('/updateObservations', [FormationController::class, 'updateObservations'])->name('individuelles.updateObservations');
+        Route::post('/noteformationindividuellestore/{id}', [FormationController::class, 'noteformationindividuellestore'])->name('noteformationindividuellestore');
+        Route::post('/noteformationcollectivestore/{id}', [FormationController::class, 'noteformationcollectivestore'])->name('noteformationcollectivestore');
         Route::patch('/updateAgentSuivi', [FormationController::class, 'updateAgentSuivi'])->name('formations.updateAgentSuivi');
         Route::patch('/updateMembresJury', [FormationController::class, 'updateMembresJury'])->name('formations.updateMembresJury');
         Route::patch('/ajouterJours', [FormationController::class, 'ajouterJours'])->name('formations.ajouterJours');

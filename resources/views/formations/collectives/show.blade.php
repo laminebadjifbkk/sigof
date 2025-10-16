@@ -1365,6 +1365,15 @@
                                                                                 <i class="bi bi-plus"
                                                                                     title="Observations"></i>
                                                                             </button>
+
+                                                                            <!-- Nouveau bouton : Ajouter les notes manuellement -->
+                                                                            <button type="button"
+                                                                                class="btn btn-outline-success btn-sm mx-1"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#AddNoteModal{{ $listecollective->id }}">
+                                                                                <i class="bi bi-pencil-square"
+                                                                                    title="Ajouter une note manuellement"></i>
+                                                                            </button>
                                                                         @endcan
                                                                     </td>
                                                                 </tr>
@@ -1922,6 +1931,40 @@
                                     data-bs-dismiss="modal">Fermer</button>
                                 <button type="submit" class="btn btn-primary btn-sm"></i>
                                     Modifier</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
+        @foreach ($listecollectives as $listecollective)
+            <div class="modal fade" id="AddNoteModal{{ $listecollective->id }}" tabindex="-1"
+                aria-labelledby="AddNoteLabel{{ $listecollective->id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="{{ route('noteformationcollectivestore', $listecollective->id) }}" method="POST">
+                            @csrf
+                            <div class="modal-header bg-defautlt">
+                                <h5 class="modal-title" id="AddNoteLabel{{ $listecollective->id }}">
+                                    {{ $listecollective->civilite . ' ' . $listecollective->prenom . ' ' . $listecollective->nom }}
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Fermer"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="note" class="form-label">Note obtenue<span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" step="0.01" min="0" max="20" name="note"
+                                        id="note" class="form-control form-control-sm" required placeholder="0"
+                                        value="{{ old('note', $listecollective->note_obtenue) }}">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm"
+                                    data-bs-dismiss="modal">Fermer</button>
+                                <button type="submit" class="btn btn-success btn-sm">Enregistrer</button>
                             </div>
                         </form>
                     </div>
