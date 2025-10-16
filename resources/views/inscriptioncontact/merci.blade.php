@@ -58,7 +58,7 @@
         <h1>Merci !</h1>
         <p>Votre participation à <strong>ONFP - Partnership Engagement Day</strong> a été confirmée avec succès.</p>
         <p>Nous vous contacterons bientôt avec plus d’informations.</p>
-        <a href="{{ route('inscriptioncontact.create') }}" class="btn btn-home btn-sm">Retour au formulaire</a>
+        <a href="{{ route('inscriptioncontact') }}" class="btn btn-home btn-sm">Retour au formulaire</a>
     </div>
 </body>
 </html>

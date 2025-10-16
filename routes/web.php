@@ -791,7 +791,7 @@ Route::group(['middleware' => ['XSS']], function () {
         ]);
     });
 
-    Route::get('/inscriptioncontact/create', [InscriptioncontactController::class, 'create'])->name('inscriptioncontact.create');
+    Route::get('/inscriptioncontact', [InscriptioncontactController::class, 'create'])->name('inscriptioncontact');
     Route::post('/inscriptioncontact/store', [InscriptioncontactController::class, 'store'])->name('inscriptioncontact.store');
     Route::get('/inscriptioncontact/merci', [InscriptioncontactController::class, 'merci'])->name('inscriptioncontact.merci');
 
