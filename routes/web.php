@@ -793,6 +793,8 @@ Route::group(['middleware' => ['XSS']], function () {
 
     Route::get('/inscriptioncontact/create', [InscriptioncontactController::class, 'create'])->name('inscriptioncontact.create');
     Route::post('/inscriptioncontact/store', [InscriptioncontactController::class, 'store'])->name('inscriptioncontact.store');
+    Route::get('/inscriptioncontact/merci', [InscriptioncontactController::class, 'merci'])->name('inscriptioncontact.merci');
+
     Route::get('/Note_d_information_CAL_2025', function () {
         $path = public_path('Note_d_information_CAL_2025.pdf');
 

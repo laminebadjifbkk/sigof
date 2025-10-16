@@ -11,49 +11,29 @@ class InscriptioncontactForm extends Form
         $this
             ->add('structure', 'text', [
                 'label' => 'Nom de la structure invitée',
-                'rules' => 'required|string|min:2',
-                'attr' => [
-                    'placeholder' => 'Ex : Société ABC',
-                    'class' => 'form-control'
-                ]
+                'rules' => 'required',
+                'attr' => ['placeholder' => 'Ex: ONFP, Ministère, Entreprise…', 'class' => 'form-control rounded-3']
             ])
-            ->add('representant', 'text', [
+            ->add('nom', 'text', [
                 'label' => 'Prénom et Nom du représentant',
-                'rules' => 'required|string|min:3',
-                'attr' => [
-                    'placeholder' => 'Ex : Awa Ndiaye',
-                    'class' => 'form-control'
-                ]
+                'rules' => 'required',
+                'attr' => ['placeholder' => 'Ex: Mamadou Diop', 'class' => 'form-control rounded-3']
             ])
             ->add('fonction', 'text', [
                 'label' => 'Fonction',
-                'rules' => 'required|string',
-                'attr' => [
-                    'placeholder' => 'Ex : Responsable RH',
-                    'class' => 'form-control'
-                ]
+                'attr' => ['placeholder' => 'Ex: Directeur Général', 'class' => 'form-control rounded-3']
             ])
             ->add('telephone', 'text', [
                 'label' => 'Téléphone',
-                'rules' => 'required|regex:/^(77|78|76|70|75)[0-9]{7}$/',
-                'attr' => [
-                    'placeholder' => 'Ex : 77 123 45 67',
-                    'class' => 'form-control'
-                ]
+                'attr' => ['placeholder' => 'Ex: 77 123 45 67', 'class' => 'form-control rounded-3']
             ])
             ->add('email', 'email', [
                 'label' => 'Adresse mail',
-                'rules' => 'required|email',
-                'attr' => [
-                    'placeholder' => 'exemple@domaine.com',
-                    'class' => 'form-control'
-                ]
+                'attr' => ['placeholder' => 'exemple@email.com', 'class' => 'form-control rounded-3']
             ])
-            ->add('Confirmer', 'submit', [
-                'attr' => [
-                    'class' => 'btn btn-success w-100 mt-3',
-                    'style' => 'font-weight:bold;'
-                ]
+            ->add('submit', 'submit', [
+                'label' => 'Envoyer ma confirmation',
+                'attr' => ['class' => 'btn btn-primary w-100 mt-3 rounded-3']
             ]);
     }
 }

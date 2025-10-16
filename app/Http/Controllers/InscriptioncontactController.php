@@ -1,41 +1,50 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Mail\ConfirmationInscription;
+use App\Models\Inscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Kris\LaravelFormBuilder\FormBuilder;
-use App\Forms\InscriptioncontactForm;
 
 class InscriptioncontactController extends Controller
 {
     public function create(FormBuilder $formBuilder)
     {
-        $form = $formBuilder->create(InscriptioncontactForm::class, [
+        $form = $formBuilder->create(\App\Forms\InscriptioncontactForm::class, [
             'method' => 'POST',
-            'url' => route('inscriptioncontact.store')
+            'url'    => route('inscriptioncontact.store'),
         ]);
 
         return view('inscriptioncontact.create', compact('form'));
     }
 
-    public function store(Request $request, FormBuilder $formBuilder)
+    public function store(Request $request)
     {
-        $form = $formBuilder->create(InscriptioncontactForm::class);
+        $validated = $request->validate([
+            'structure'   => 'required|string|max:255',
+            'nom'         => 'required|string|max:255',
+            'fonction'    => 'nullable|string|max:255',
+            'telephone'   => 'nullable|string|max:50',
+            'email'       => 'nullable|email|max:255',
+            'commentaire' => 'nullable|email|max:255',
+        ]);
 
-        if (!$form->isValid()) {
-            return redirect()->back()
-                ->withErrors($form->getErrors())
-                ->withInput();
-        }
+        // Enregistrer en base
+        $inscription = Inscription::create($validated);
 
-        $data = $form->getFieldValues();
+        // Envoyer l'email
+        Mail::to($inscription->email)->send(new ConfirmationInscription($inscription));
 
-        // Ici tu peux enregistrer en base de données, envoyer un mail, etc.
-        // Exemple d’enregistrement :
-        // Inscription::create($data);
+        // Si tu ne stockes pas, tu peux par exemple juste afficher un message :
+        /* return back()->with('success', 'Votre confirmation a été enregistrée. Merci !'); */
 
-        return redirect()
-            ->back()
-            ->with('success', 'Merci ! Votre participation a été confirmée avec succès.');
+        // Ici tu peux envoyer un mail ou traiter les données si nécessaire
+        return redirect()->route('inscriptioncontact.merci');
+    }
+
+    public function merci()
+    {
+        return view('inscriptioncontact.merci');
     }
 }
