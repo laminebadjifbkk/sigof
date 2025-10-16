@@ -93,7 +93,13 @@
 <body>
     <div class="form-card">
         <h2 class="text-center mb-3">ONFP <br>PARTNERSHIP ENGAGEMENT DAY</h2>
-        <h5 class="text-center mb-4">Confirmez votre participation</h5>
+        <h5 class="text-center text-secondary mb-2">
+            Confirmez votre participation
+        </h5>
+        <p class="text-center text-muted mb-4">
+            📅 Le 06 novembre à partir de 08h<br>
+            📍 Hôtel AZALAÏ DAKAR
+        </p>
 
         @if (session('success'))
             <div class="alert alert-success text-center rounded-3">
