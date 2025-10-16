@@ -29,10 +29,10 @@ class InscriptioncontactController extends Controller
         $validated = $request->validate([
             'structure'   => 'required|string|max:255',
             'nom'         => 'required|string|max:255',
-            'fonction'    => 'nullable|string|max:255',
-            'telephone'   => 'nullable|string|max:50',
-            'email'       => 'nullable|email|max:255',
-            'commentaire' => 'nullable|email|max:255',
+            'fonction'    => 'required|string|max:255',
+            'telephone'   => 'required|string|max:50',
+            'email'       => 'required|email|max:255',
+            'commentaire' => 'nullable|string|max:255',
         ]);
 
         // Enregistrer en base

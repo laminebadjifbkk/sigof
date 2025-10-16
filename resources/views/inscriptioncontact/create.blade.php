@@ -83,7 +83,18 @@
             height: 50px;
         }
 
+        select.form-control {
+            padding-left: 40px;
+            border-radius: 10px;
+            height: 50px;
+        }
+
         input.form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 5px rgba(13, 110, 253, 0.2);
+        }
+
+        select.form-control:focus {
             border-color: #0d6efd;
             box-shadow: 0 0 5px rgba(13, 110, 253, 0.2);
         }
@@ -119,12 +130,19 @@
 
         <form action="{{ route('inscriptioncontact.store') }}" method="POST">
             @csrf
-
             <div class="form-group">
-                <i class="bi bi-building input-icon"></i>
-                <input type="text" name="structure" class="form-control" placeholder="Nom de la structure invitée"
-                    value="{{ old('structure') }}" required>
+                <select name="structure" class="form-control" required>
+                    <option value="">-- Choisir votre structure --</option>
+                    <option value="Structure A" {{ old('structure') == 'Structure A' ? 'selected' : '' }}>Structure A
+                    </option>
+                    <option value="Structure B" {{ old('structure') == 'Structure B' ? 'selected' : '' }}>Structure B
+                    </option>
+                    <option value="Structure C" {{ old('structure') == 'Structure C' ? 'selected' : '' }}>Structure C
+                    </option>
+                    <!-- ajoute autant d'options que nécessaire -->
+                </select>
             </div>
+
 
             <div class="form-group">
                 <i class="bi bi-person input-icon"></i>
@@ -135,19 +153,19 @@
             <div class="form-group">
                 <i class="bi bi-briefcase input-icon"></i>
                 <input type="text" name="fonction" class="form-control" placeholder="Fonction"
-                    value="{{ old('fonction') }}">
+                    value="{{ old('fonction') }}" required>
             </div>
 
             <div class="form-group">
                 <i class="bi bi-telephone input-icon"></i>
                 <input type="text" name="telephone" class="form-control" placeholder="Téléphone"
-                    value="{{ old('telephone') }}">
+                    value="{{ old('telephone') }}" required>
             </div>
 
             <div class="form-group">
                 <i class="bi bi-envelope input-icon"></i>
                 <input type="email" name="email" class="form-control" placeholder="Adresse mail"
-                    value="{{ old('email') }}">
+                    value="{{ old('email') }}" required>
             </div>
             <!-- Champ Commentaire -->
             <div class="form-group">
