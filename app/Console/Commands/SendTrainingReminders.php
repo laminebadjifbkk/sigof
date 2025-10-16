@@ -63,6 +63,7 @@ class SendTrainingReminders extends Command
         // Récupérer toutes les formations ayant lieu dans 7 jours, 3 jours et 1 jour
         $formations = Formation::whereIn('date_debut', [
             $today->copy()->addDays(7)->toDateString(),
+            $today->copy()->addDays(5)->toDateString(),
             $today->copy()->addDays(3)->toDateString(),
             $today->copy()->addDays(1)->toDateString(),
         ])->get();
@@ -73,6 +74,7 @@ class SendTrainingReminders extends Command
 
             $reminderType = match ($daysRemaining) {
                 7 => 'dans une semaine',
+                5 => 'dans cinq jours',
                 3 => 'dans trois jours',
                 1 => 'demain',
                 default => null,
