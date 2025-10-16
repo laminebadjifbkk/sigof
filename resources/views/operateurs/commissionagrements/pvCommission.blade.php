@@ -161,40 +161,115 @@
             À l’issue des travaux, il a été retenu :
         </p>
 
-        @if (!empty($countRenouvellements) && $countRenouvellements > 0)
+        {{-- @if (!empty($countRenouvellements) && $countRenouvellements > 0)
             <p><strong>Pour les demandes de renouvellement :</strong></p>
             <ul>
                 @if (!empty($countRenouvellements_agreer) && $countRenouvellements_agreer > 0)
+                    <li>{{ $countRenouvellements_agreer }} structure proposée à l’agrément définitif;</li>
+                @elseif (!empty($countRenouvellements_agreer) && $countRenouvellements_agreer >= 2)
                     <li>{{ $countRenouvellements_agreer }} structures proposées à l’agrément définitif;</li>
                 @endif
 
                 @if (!empty($countRenouvellements_sr) && $countRenouvellements_sr > 0)
-                    <li>{{ $countRenouvellements_sr }} proposées à l’agrément sous réserve de complément ou de mise à
+                    <li>{{ $countRenouvellements_sr }} structure proposée à l’agrément sous réserve de complément ou de mise à
+                        jour de pièces du dossier;</li>
+                @elseif (!empty($countRenouvellements_sr) && $countRenouvellements_sr >= 2)
+                    <li>{{ $countRenouvellements_sr }} proposées à l’agrément sous réserve de complément ou de mise
+                        à
                         jour de pièces du dossier;</li>
                 @endif
 
                 @if (!empty($countRenouvellements_rejet) && $countRenouvellements_rejet > 0)
-                    <li>{{ $countRenouvellements_rejet }} demandes proposées au rejet.</li>
+                    <li>{{ $countRenouvellements_rejet }} structure proposée au rejet.</li>
+
+                @elseif (!empty($countRenouvellements_rejet) && $countRenouvellements_rejet >= 2)
+                    <li>{{ $countRenouvellements_rejet }} structures proposées au rejet.</li>
                 @endif
             </ul>
 
+        @endif --}}
+        @if (!empty($countRenouvellements) && $countRenouvellements > 0)
+            <p><strong>Pour les demandes de renouvellement :</strong></p>
+            <ul>
+                @if (!empty($countRenouvellements_agreer) && $countRenouvellements_agreer > 0)
+                    <li>
+                        {{ $countRenouvellements_agreer }}
+                        {{ Str::plural('structure', $countRenouvellements_agreer) }}
+                        proposée{{ $countRenouvellements_agreer > 1 ? 's' : '' }} à l’agrément définitif;
+                    </li>
+                @endif
+
+                @if (!empty($countRenouvellements_sr) && $countRenouvellements_sr > 0)
+                    <li>
+                        {{ $countRenouvellements_sr }}
+                        {{ Str::plural('structure', $countRenouvellements_sr) }}
+                        proposée{{ $countRenouvellements_sr > 1 ? 's' : '' }} à l’agrément sous réserve de complément
+                        ou de mise à jour de pièces du dossier;
+                    </li>
+                @endif
+
+                @if (!empty($countRenouvellements_rejet) && $countRenouvellements_rejet > 0)
+                    <li>
+                        {{ $countRenouvellements_rejet }}
+                        {{ Str::plural('structure', $countRenouvellements_rejet) }}
+                        proposée{{ $countRenouvellements_rejet > 1 ? 's' : '' }} au rejet.
+                    </li>
+                @endif
+            </ul>
         @endif
 
+
         <p><strong>Pour les nouvelles demandes :</strong></p>
-        <ul>
+        {{-- <ul>
             @if (!empty($countNouvelles_agreer) && $countNouvelles_agreer > 0)
+                <li>{{ $countNouvelles_agreer }} structure proposée à l’agrément définitif;</li>
+            @elseif (!empty($countNouvelles_agreer) && $countNouvelles_agreer >= 2)
                 <li>{{ $countNouvelles_agreer }} structures proposées à l’agrément définitif;</li>
             @endif
 
             @if (!empty($countNouvelles_sr) && $countNouvelles_sr > 0)
-                <li>{{ $countNouvelles_sr }} proposées à l’agrément sous réserve de complément ou de mise à jour de
+                <li>{{ $countNouvelles_sr }} structure proposée à l’agrément sous réserve de complément ou de mise à
+                    jour de
+                    pièces du dossier;</li>
+            @elseif (!empty($countNouvelles_sr) && $countNouvelles_sr >= 2)
+                <li>{{ $countNouvelles_sr }} structures proposées à l’agrément sous réserve de complément ou de mise à
+                    jour de
                     pièces du dossier;</li>
             @endif
 
             @if (!empty($countNouvelles_rejet) && $countNouvelles_rejet > 0)
-                <li>{{ $countNouvelles_rejet }} demandes proposées au rejet.</li>
+                <li>{{ $countNouvelles_rejet }} structure proposée au rejet.</li>
+            @elseif (!empty($countNouvelles_rejet) && $countNouvelles_rejet >= 2)
+                <li>{{ $countNouvelles_rejet }} structures proposées au rejet.</li>
+            @endif
+        </ul> --}}
+        <ul>
+            @if (!empty($countNouvelles_agreer) && $countNouvelles_agreer > 0)
+                <li>
+                    {{ $countNouvelles_agreer }}
+                    {{ Str::plural('structure', $countNouvelles_agreer) }}
+                    proposée{{ $countNouvelles_agreer > 1 ? 's' : '' }} à l’agrément définitif;
+                </li>
+            @endif
+
+            @if (!empty($countNouvelles_sr) && $countNouvelles_sr > 0)
+                <li>
+                    {{ $countNouvelles_sr }}
+                    {{ Str::plural('structure', $countNouvelles_sr) }}
+                    proposée{{ $countNouvelles_sr > 1 ? 's' : '' }} à l’agrément sous réserve de complément ou de mise
+                    à jour de pièces du dossier;
+                </li>
+            @endif
+
+            @if (!empty($countNouvelles_rejet) && $countNouvelles_rejet > 0)
+                <li>
+                    {{ $countNouvelles_rejet }}
+                    {{ Str::plural('structure', $countNouvelles_rejet) }}
+                    proposée{{ $countNouvelles_rejet > 1 ? 's' : '' }} au rejet.
+                </li>
             @endif
         </ul>
+
 
         <h4>Recommandations</h4>
         <p>
