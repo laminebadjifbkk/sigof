@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +19,7 @@
             padding: 40px;
             border-radius: 16px;
             text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
 
@@ -53,12 +54,14 @@
         }
     </style>
 </head>
+
 <body>
     <div class="thank-you-card">
         <h1>Merci !</h1>
         <p>Votre participation à <strong>ONFP - Partnership Engagement Day</strong> a été confirmée avec succès.</p>
-        <p>Nous vous contacterons bientôt avec plus d’informations.</p>
+        <p>Veuillez vérifier votre email pour télécharger les termes de référence (TDR).</p>
         <a href="{{ route('inscriptioncontact') }}" class="btn btn-home btn-sm">Retour au formulaire</a>
     </div>
 </body>
+
 </html>
