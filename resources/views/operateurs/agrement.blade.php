@@ -455,7 +455,7 @@
                                                 <tr>
                                                     <th>PRENOM(S) ET NOM</th>
                                                     <th>CHAMPS PROFESSIONNELS</th>
-                                                    <th class="text-center">NOMBRE D'ANNEES D'EXPERIENCE</th>
+                                                    <th class="text-center">ANNEES EXPERIENCE</th>
                                                     <th>REFERENCES</th>
                                                     <th class="text-center">CV</th>
                                                     <th class="text-center">STATUT</th>
