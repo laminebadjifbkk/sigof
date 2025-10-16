@@ -583,8 +583,8 @@
                                                                     </form>
                                                                 @endcan
 
-                                                                
-                                                                @can('annuler-formation')
+
+                                                                {{--  @can('annuler-formation')
                                                                     <button class="btn btn-sm mx-1" data-bs-toggle="modal"
                                                                         data-bs-target="#SuspendreDemandeModal">Suspendre
                                                                     </button>
@@ -593,6 +593,11 @@
                                                                 @can('annuler-formation')
                                                                     <button class="btn btn-sm mx-1" data-bs-toggle="modal"
                                                                         data-bs-target="#RejetDemandeModal">Annuler
+                                                                    </button>
+                                                                @endcan --}}
+                                                                @can('annuler-formation')
+                                                                    <button class="btn btn-sm mx-1" data-bs-toggle="modal"
+                                                                        data-bs-target="#SuspendreDemandeModal">Traitement
                                                                     </button>
                                                                 @endcan
                                                                 <hr>
@@ -1762,7 +1767,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="RejetDemandeModal" tabindex="-1">
+        {{-- <div class="modal fade" id="RejetDemandeModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form method="post" action="{{ route('validation-formations.destroy', $formation->id) }}"
@@ -1778,8 +1783,7 @@
                         <div class="modal-body">
                             <label for="motif" class="form-label">Motifs du rejet</label>
                             <textarea name="motif" id="motif" rows="5"
-                                class="form-control form-control-sm @error('motif') is-invalid @enderror"
-                                placeholder="Motifs">{{ old('motif') }}</textarea>
+                                class="form-control form-control-sm @error('motif') is-invalid @enderror" placeholder="Motifs">{{ old('motif') }}</textarea>
                             @error('motif')
                                 <span class="invalid-feedback" role="alert">
                                     <div>{{ $message }}</div>
@@ -1795,8 +1799,8 @@
                     </form>
                 </div>
             </div>
-        </div>
-        <div class="modal fade" id="SuspendreDemandeModal" tabindex="-1">
+        </div> --}}
+        {{-- <div class="modal fade" id="SuspendreDemandeModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form method="post" action="{{ route('validation-formations.destroy', $formation->id) }}"
@@ -1822,6 +1826,64 @@
                             <button type="button" class="btn btn-secondary btn-sm"
                                 data-bs-dismiss="modal">Fermer</button>
                             <button type="submit" class="btn btn-danger btn-sm">Suspendre</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> --}}
+        <div class="modal fade" id="SuspendreDemandeModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" action="{{ route('validation-formations.destroy', $formation->id) }}"
+                        enctype="multipart/form-data" class="row">
+                        @csrf
+                        @method('DELETE')
+                        <div class="card-header text-center bg-gradient-default">
+                            <h1 class="h4 text-black mb-0">Suspendre demande</h1>
+                        </div>
+
+                        <input type="hidden" name="arretete_formation" value="Suspendue">
+
+                        <div class="modal-body">
+                            <!-- Sélecteur du statut -->
+                            <div class="mb-3">
+                                <label for="statut" class="form-label">Statut<span
+                                        class="text-danger mx-1">*</span></label>
+                                <select name="statut" id="statut"
+                                    class="form-select form-select-sm @error('statut') is-invalid @enderror">
+                                    <option value="">Sélectionner</option>
+                                    <option value="En cours" {{ old('statut') == 'En cours' ? 'selected' : '' }}>En
+                                        cours</option>
+                                    <option value="Suspendue" {{ old('statut') == 'Suspendue' ? 'selected' : '' }}>
+                                        Suspendre</option>
+                                    <option value="Annulée" {{ old('statut') == 'Annulée' ? 'selected' : '' }}>Annulée
+                                    </option>
+                                    <option value="Nouvelle" {{ old('statut') == 'Nouvelle' ? 'selected' : '' }}>Nouvelle
+                                    </option>
+                                </select>
+                                @error('statut')
+                                    <span class="invalid-feedback" role="alert">
+                                        <div>{{ $message }}</div>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <!-- Champ des motifs -->
+                            <label for="motif" class="form-label">Motifs<span
+                                    class="text-danger mx-1">*</span></label>
+                            <textarea name="motif" id="motif" rows="5"
+                                class="form-control form-control-sm @error('motif') is-invalid @enderror" placeholder="Motifs">{{ old('motif') }}</textarea>
+                            @error('motif')
+                                <span class="invalid-feedback" role="alert">
+                                    <div>{{ $message }}</div>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-sm"
+                                data-bs-dismiss="modal">Fermer</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Valider</button>
                         </div>
                     </form>
                 </div>
