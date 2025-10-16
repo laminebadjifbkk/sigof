@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,18 +14,18 @@
         }
 
         .form-card {
-            max-width: 600px;
+            max-width: 700px;
             margin: 80px auto;
             background: #fff;
             padding: 40px;
             border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .form-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
         h2 {
@@ -38,7 +39,7 @@
             margin-bottom: 30px;
         }
 
-        .form-floating > input {
+        .form-floating>input {
             padding: 1.5rem 1rem 0.5rem 1rem;
         }
 
@@ -84,13 +85,14 @@
 
         input.form-control:focus {
             border-color: #0d6efd;
-            box-shadow: 0 0 5px rgba(13,110,253,0.2);
+            box-shadow: 0 0 5px rgba(13, 110, 253, 0.2);
         }
     </style>
 </head>
+
 <body>
     <div class="form-card">
-        <h2 class="text-center mb-3">ONFP - PARTNERSHIP ENGAGEMENT DAY</h2>
+        <h2 class="text-center mb-3">ONFP <br>PARTNERSHIP ENGAGEMENT DAY</h2>
         <h5 class="text-center mb-4">Confirmez votre participation</h5>
 
         @if (session('success'))
@@ -114,33 +116,44 @@
 
             <div class="form-group">
                 <i class="bi bi-building input-icon"></i>
-                <input type="text" name="structure" class="form-control" placeholder="Nom de la structure invitée" value="{{ old('structure') }}" required>
+                <input type="text" name="structure" class="form-control" placeholder="Nom de la structure invitée"
+                    value="{{ old('structure') }}" required>
             </div>
 
             <div class="form-group">
                 <i class="bi bi-person input-icon"></i>
-                <input type="text" name="nom" class="form-control" placeholder="Prénom et Nom du représentant" value="{{ old('nom') }}" required>
+                <input type="text" name="nom" class="form-control" placeholder="Prénom et Nom du représentant"
+                    value="{{ old('nom') }}" required>
             </div>
 
             <div class="form-group">
                 <i class="bi bi-briefcase input-icon"></i>
-                <input type="text" name="fonction" class="form-control" placeholder="Fonction" value="{{ old('fonction') }}">
+                <input type="text" name="fonction" class="form-control" placeholder="Fonction"
+                    value="{{ old('fonction') }}">
             </div>
 
             <div class="form-group">
                 <i class="bi bi-telephone input-icon"></i>
-                <input type="text" name="telephone" class="form-control" placeholder="Téléphone" value="{{ old('telephone') }}">
+                <input type="text" name="telephone" class="form-control" placeholder="Téléphone"
+                    value="{{ old('telephone') }}">
             </div>
 
             <div class="form-group">
                 <i class="bi bi-envelope input-icon"></i>
-                <input type="email" name="email" class="form-control" placeholder="Adresse mail" value="{{ old('email') }}">
+                <input type="email" name="email" class="form-control" placeholder="Adresse mail"
+                    value="{{ old('email') }}">
+            </div>
+            <!-- Champ Commentaire -->
+            <div class="form-group">
+                {{-- <i class="bi bi-chat-left-text input-icon"></i> --}}
+                <textarea name="commentaire" class="form-control" rows="4" placeholder="Votre commentaire (facultatif)">{{ old('commentaire') }}</textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary mt-3">Envoyer ma confirmation</button>
+            <button type="submit" class="btn btn-primary btn-sm mt-3">Envoyer ma confirmation</button>
         </form>
 
         <p class="footer-text">© {{ date('Y') }} ONFP — Tous droits réservés</p>
     </div>
 </body>
+
 </html>
