@@ -27,7 +27,7 @@
         }
 
         h1 {
-            color: #0d6efd;
+            color: #F28500;
             margin-bottom: 20px;
         }
 
@@ -40,7 +40,7 @@
             margin-top: 25px;
             padding: 12px 25px;
             border-radius: 8px;
-            background: #0d6efd;
+            background: #F28500;
             color: #fff;
             font-weight: 500;
             border: none;

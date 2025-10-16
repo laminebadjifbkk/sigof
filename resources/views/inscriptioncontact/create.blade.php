@@ -29,7 +29,7 @@
         }
 
         h2 {
-            color: #0d6efd;
+            color: #F28500;
             font-weight: 700;
         }
 
@@ -44,7 +44,7 @@
         }
 
         .btn-primary {
-            background: #0d6efd;
+            background: #F28500;
             border: none;
             font-weight: 600;
             padding: 14px;
@@ -90,12 +90,12 @@
         }
 
         input.form-control:focus {
-            border-color: #0d6efd;
+            border-color: #F28500;
             box-shadow: 0 0 5px rgba(13, 110, 253, 0.2);
         }
 
         select.form-control:focus {
-            border-color: #0d6efd;
+            border-color: #F28500;
             box-shadow: 0 0 5px rgba(13, 110, 253, 0.2);
         }
     </style>
