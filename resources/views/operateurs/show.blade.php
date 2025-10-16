@@ -97,6 +97,12 @@
                                         </li>
                                     @endif
 
+                                    @can('show-observations')
+                                        <li class="nav-item">
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#observations-overview">Observations</button>
+                                        </li>
+                                    @endcan
                                 </ul>
                                 <div class="d-flex justify-content-between align-items-center">
                                 </div>
@@ -891,6 +897,24 @@
                                     </div>
                                 </div>
 
+
+                                {{-- Détail Observations --}}
+                                <div class="tab-content">
+                                    <div class="tab-pane fade profile-overview pt-0" id="observations-overview">
+                                        <div class="d-flex justify-content-between align-items-center mt-0">
+                                            <h5 class="card-title">Observations</h5>
+                                            <span>Visite conformité : <span
+                                                    class="{{ $operateur?->visite_conformite }}">{{ $operateur?->visite_conformite }}</span></span>
+                                            <a href="#" class="btn btn-success btn-sm float-end" data-bs-toggle="modal"
+                                                data-bs-target="#addobservations" title="Ajouter">Conformité</a>
+                                        </div>
+                                        @if (!empty($operateur?->observations))
+                                            <textarea name="observation" id="observation" rows="10" @readonly(true)
+                                                class="form-control form-control-sm @error('date_reponse') is-invalid @enderror" placeholder="Observations">{{ $operateur?->observations ?? old('observation') }}</textarea>
+                                        @endif
+                                    </div>
+                                </div>
+
                                 <div class="tab-content pt-2">
                                     <div class="tab-pane fade profile-overview pt-3" id="localites-overview">
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
@@ -1369,6 +1393,71 @@
                     </div>
                 </div>
             @endforeach
+
+            <div class="modal fade" id="addobservations" tabindex="-1" role="dialog"
+                aria-labelledby="addobservationsLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Observations</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="post" action="{{ route('observations', ['id' => $operateur->id]) }}"
+                            enctype="multipart/form-data" class="row g-3">
+                            @csrf
+                            @method('PUT')
+                            <div class="modal-body">
+                                <div class="row g-3">
+
+                                    <div class="col-12">
+                                        <label for="visite_conformite" class="form-label">Visite conformité<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <select name="visite_conformite"
+                                            class="form-select form-select-sm @error('visite_conformite') is-invalid @enderror"
+                                            aria-label="Select" id="select-field-visite_conformite"
+                                            data-placeholder="Choisir">
+                                            <option value="{{ $operateur?->visite_conformite ?? old('visite_conformite') }}">
+                                                {{ $operateur?->visite_conformite ?? old('visite_conformite') }}
+                                            </option>
+                                            <option value="Oui">
+                                                Oui
+                                            </option>
+                                            <option value="Non">
+                                                Non
+                                            </option>
+                                        </select>
+                                        @error('visite_conformite')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="observation" class="form-label">Observations<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <textarea name="observation" id="observation" rows="10"
+                                            class="form-control form-control-sm @error('date_reponse') is-invalid @enderror" placeholder="Observations">{{ $operateur?->observations ?? old('observation') }}</textarea>
+                                        @error('observation')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary btn-sm"
+                                            data-bs-dismiss="modal">Fermer</button>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary btn-sm">Enregistrer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
     @endcan
 @endsection

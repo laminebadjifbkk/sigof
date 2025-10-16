@@ -457,6 +457,7 @@
                                                     <th>CHAMPS PROFESSIONNELS</th>
                                                     <th class="text-center">NOMBRE D'ANNEES D'EXPERIENCE</th>
                                                     <th>REFERENCES</th>
+                                                    <th class="text-center">CV</th>
                                                     <th class="text-center">STATUT</th>
                                                 </tr>
                                             </thead>
@@ -469,6 +470,17 @@
                                                         <td style="text-align: center;">
                                                             {{ $operateurformateur->nbre_annees_experience }}</td>
                                                         <td>{{ $operateurformateur->references }}</td>
+                                                        <td class="text-center">
+                                                            @if ($operateurformateur?->file)
+                                                                <a class="btn btn-outline-secondary btn-sm"
+                                                                    title="Convention" target="_blank"
+                                                                    href="{{ asset($operateurformateur?->getCVFormateurs()) }}">
+                                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                                </a>
+                                                            @else
+                                                                <span class="text-muted small">Aucun</span>
+                                                            @endif
+                                                        </td>
                                                         <td style="text-align: center;">
                                                             <span
                                                                 class="{{ $operateurformateur?->statut }}">{{ $operateurformateur?->statut }}</span>
@@ -746,6 +758,20 @@
                                                     <i class="bi bi-briefcase-fill me-2"></i> Modules de formation
                                                 </h5>
                                             </div>
+                                            <span>
+                                                @can('fichesynthese-view')
+                                                    <form
+                                                        action="{{ route('ficheSyntheseOperateur', ['id' => $operateur->id]) }}"
+                                                        method="post" target="_blank" class="d-inline">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="btn btn-secondary btn-sm rounded-pill px-3 py-1 shadow-sm hover-shadow">
+                                                            <i class="bi bi-file-earmark-text me-1"></i> Fiche synthèse
+                                                        </button>
+                                                    </form>
+                                                @endcan
+                                            </span>
+
                                             <span class="card-title d-flex align-items-baseline">Statut
                                                 :&nbsp;
                                                 <span class="{{ $operateur->statut_agrement }} text-white">
@@ -770,16 +796,6 @@
                                                                     title="Justification"></i>&nbsp;sous réserve
                                                             </button>
                                                         </div> --}}
-                                                        @can('fichesynthese-view')
-                                                            <form
-                                                                action="{{ route('ficheSyntheseOperateur', ['id' => $operateur->id]) }}"
-                                                                method="post" target="_blank" class="m-1">
-                                                                @csrf
-                                                                <button type="submit" class="btn btn-sm mx-1">
-                                                                    <i class="bi bi-file-earmark-text"></i> Fiche synthèse
-                                                                </button>
-                                                            </form>
-                                                        @endcan
                                                         <button class="btn btn-sm mx-1" data-bs-toggle="modal"
                                                             data-bs-target="#RejetAgrementModal{{ $operateur->id }}"><i
                                                                 class="bi bi-check2-circle"

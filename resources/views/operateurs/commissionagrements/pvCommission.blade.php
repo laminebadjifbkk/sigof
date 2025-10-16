@@ -198,7 +198,13 @@
 
         <h4>Recommandations</h4>
         <p>
-            {!! nl2br(e($commissionagrement?->recommandations ?? 'Aucune recommandation particulière n’a été formulée.')) !!}
+            @if (!empty($commissionagrement?->recommandations))
+                La commission a formulé les recommandations suivantes :
+                <br>
+                {!! nl2br(e('- ' . str_replace("\n", "\n- ", $commissionagrement->recommandations))) !!}
+            @else
+                Aucune recommandation n’a été formulée.
+            @endif
         </p>
 
         <div class="footer">
