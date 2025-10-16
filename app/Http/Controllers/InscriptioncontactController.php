@@ -5,11 +5,10 @@ use App\Mail\ConfirmationInscription;
 use App\Models\Inscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Kris\LaravelFormBuilder\FormBuilder;
 
 class InscriptioncontactController extends Controller
 {
-    public function create(FormBuilder $formBuilder)
+    /* public function create(FormBuilder $formBuilder)
     {
         $form = $formBuilder->create(\App\Forms\InscriptioncontactForm::class, [
             'method' => 'POST',
@@ -17,6 +16,12 @@ class InscriptioncontactController extends Controller
         ]);
 
         return view('inscriptioncontact.create', compact('form'));
+    } */
+
+    public function create()
+    {
+        // Pas besoin de FormBuilder, on affiche directement la vue
+        return view('inscriptioncontact.create');
     }
 
     public function store(Request $request)
