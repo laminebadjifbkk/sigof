@@ -2007,6 +2007,12 @@ class FormationController extends Controller
 
     public function noteformationindividuellestore(Request $request, $id)
     {
+        if (! auth()->user()->hasRole(['super-admin', 'DEC'])) {
+            Alert::error('Erreur !', 'Accès non autorisé');
+
+            return redirect()->back();
+        }
+
         $request->validate([
             'note' => 'required',
             'string',
@@ -2047,6 +2053,12 @@ class FormationController extends Controller
 
     public function noteformationcollectivestore(Request $request, $id)
     {
+        if (! auth()->user()->hasRole(['super-admin', 'DEC'])) {
+            Alert::error('Erreur !', 'Accès non autorisé');
+
+            return redirect()->back();
+        }
+
         $request->validate([
             'note' => 'required',
             'string',
