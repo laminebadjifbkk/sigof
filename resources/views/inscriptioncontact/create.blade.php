@@ -176,7 +176,8 @@
             <button type="submit" class="btn btn-primary btn-sm mt-3">Envoyer ma confirmation</button>
         </form>
 
-        <p class="footer-text">© {{ date('Y') }} ONFP — Tous droits réservés</p>
+        <p class="footer-text">© {{ date('Y') }} ONFP</p>
+        {{-- <p class="footer-text">© {{ date('Y') }} ONFP — Tous droits réservés</p> --}}
     </div>
 </body>
 
