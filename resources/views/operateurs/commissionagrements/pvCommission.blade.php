@@ -47,7 +47,7 @@
         }
 
         .signature {
-            margin-top: 40px;
+            margin-top: 30px;
             /* réduit l’espace avant les signatures */
             width: 100%;
         }
@@ -297,7 +297,7 @@
             </tr>
         </table>
 
-        <h4 class="h4 mt-1"><br>Les autres membres de la commission</h4>
+        <h4 class="h4 mt-0"><br>Les autres membres de la commission</h4>
         <table class="signature">
             @foreach ($commissionagrement->commissionmembres as $membre)
                 @if (
