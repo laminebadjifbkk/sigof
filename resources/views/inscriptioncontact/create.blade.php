@@ -7,6 +7,23 @@
     <title>ONFP - Partnership Engagement Day</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Select2 JS + jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#structure').select2({
+                placeholder: "Choisir votre structure",
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             background: linear-gradient(135deg, #e9f4ff, #f8f9fa);
@@ -131,23 +148,149 @@
         <form action="{{ route('inscriptioncontact.store') }}" method="POST">
             @csrf
             <div class="form-group">
-                <select name="structure" class="form-control" required>
+                <select name="structure" id="structure" class="form-control select2" required>
                     <option value="">-- Choisir votre structure --</option>
-                    <option value="Structure A" {{ old('structure') == 'Structure A' ? 'selected' : '' }}>Structure A
+                    <option value="Ministère de l’Emploi et de la Formation professionnelle et Technique (MEFPT)">
+                        Ministère de l’Emploi et de la Formation professionnelle et Technique (MEFPT)</option>
+                    <option value="Ministère de l’Agriculture, de la Souveraineté Alimentaire et de l’Elevage (MASAE)">
+                        Ministère de l’Agriculture, de la Souveraineté Alimentaire et de l’Elevage (MASAE)</option>
+                    <option value="Ministère de l’Urbanisme, du Logement et de l’Hygiène Publique (MULHP)">Ministère de
+                        l’Urbanisme, du Logement et de l’Hygiène Publique (MULHP)</option>
+                    <option value="Ministère de l’Economie du Plan et de la Coopération (MEPC)">Ministère de l’Economie
+                        du Plan et de la Coopération (MEPC)</option>
+                    <option value="Ministère de l’Energie, du Pétrole et des Mines (MEPM)">Ministère de l’Energie, du
+                        Pétrole et des Mines (MEPM)</option>
+                    <option value="Délégation à l’Union Européenne au Sénégal (EEAS)">Délégation à l’Union Européenne au
+                        Sénégal (EEAS)</option>
+                    <option value="Ambassade du Canada">Ambassade du Canada</option>
+                    <option value="Agence Française de Développement (AFD)">Agence Française de Développement (AFD)
                     </option>
-                    <option value="Structure B" {{ old('structure') == 'Structure B' ? 'selected' : '' }}>Structure B
+                    <option value="Ambassade du Maroc">Ambassade du Maroc</option>
+                    <option value="Délégation générale des Îles Canaries">Délégation générale des Îles Canaries</option>
+                    <option value="Chambre officielle de Commerce d’Espagne à Dakar">Chambre officielle de Commerce
+                        d’Espagne à Dakar</option>
+                    <option value="Délégation générale de la Wallonie Bruxelles">Délégation générale de la Wallonie
+                        Bruxelles</option>
+                    <option value="Agence de coopération Belge (ENABEL)">Agence de coopération Belge (ENABEL)</option>
+                    <option value="Agence de coopération Allemande (KFW)">Agence de coopération Allemande (KFW)</option>
+                    <option value="Agence de coopération Allemande (GIZ)">Agence de coopération Allemande (GIZ)</option>
+                    <option value="Agence de coopération Luxembourgeoise (Luxdév)">Agence de coopération Luxembourgeoise
+                        (Luxdév)</option>
+                    <option value="Agence Andalouse de Coopération Internationale pour le Développement (AACID)">Agence
+                        Andalouse de Coopération Internationale pour le Développement (AACID)</option>
+                    <option value="Agence de coopération Turque (TIKA)">Agence de coopération Turque (TIKA)</option>
+                    <option value="Agence Italienne pour la Coopération au Développement (AICS)">Agence Italienne pour
+                        la Coopération au Développement (AICS)</option>
+                    <option value="Agence japonaise de coopération Internationale (JICA)">Agence japonaise de
+                        coopération Internationale (JICA)</option>
+                    <option value="Centre d'études et de recherches sur les qualifications (CEREQ)">Centre d'études et
+                        de recherches sur les qualifications (CEREQ)</option>
+                    <option value="Centre canadien de Coopération Internationale (CECI)">Centre canadien de Coopération
+                        Internationale (CECI)</option>
+                    <option value="Direction générale de la Formation professionnelle et technique (DGFPT)">Direction
+                        générale de la Formation professionnelle et technique (DGFPT)</option>
+                    <option value="Agence de Promotion et de l’Investissement et des Grands Travaux (APIX-SA)">Agence de
+                        Promotion et de l’Investissement et des Grands Travaux (APIX-SA)</option>
+                    <option value="Caisse des Dépôts et de Consignations (CDC)">Caisse des Dépôts et de Consignations
+                        (CDC)</option>
+                    <option value="Agence Sénégalaise d’Electrification Rurale (ASER)">Agence Sénégalaise
+                        d’Electrification Rurale (ASER)</option>
+                    <option value="Agence pour l’Economie et la Maitrise de l’Energie (AEME)">Agence pour l’Economie et
+                        la Maitrise de l’Energie (AEME)</option>
+                    <option value="Fonds de Développement des Transports Terrestres (FDTT)">Fonds de Développement des
+                        Transports Terrestres (FDTT)</option>
+                    <option value="Fonds d'entretien routier autonome (FERA)">Fonds d'entretien routier autonome (FERA)
                     </option>
-                    <option value="Structure C" {{ old('structure') == 'Structure C' ? 'selected' : '' }}>Structure C
+                    <option value="Fonds de promotion de l’industrie cinématographique et audiovisuelle (FOPICA)">Fonds
+                        de promotion de l’industrie cinématographique et audiovisuelle (FOPICA)</option>
+                    <option value="Délégation Générale à l'Entreprenariat Rapide des Femmes et des Jeunes (DER/FJ)">
+                        Délégation Générale à l'Entreprenariat Rapide des Femmes et des Jeunes (DER/FJ)</option>
+                    <option value="Port Autonome de Dakar (PAD)">Port Autonome de Dakar (PAD)</option>
+                    <option value="Dubai Port (Dp World) Sénégal">Dubai Port (Dp World) Sénégal</option>
+                    <option value="Conseil sénégalais des Chargeurs (COSEC)">Conseil sénégalais des Chargeurs (COSEC)
                     </option>
-                    <!-- ajoute autant d'options que nécessaire -->
+                    <option value="Société Africaine de Raffinage (SAR)">Société Africaine de Raffinage (SAR)</option>
+                    <option value="Groupe SONATEL Orange">Groupe SONATEL Orange</option>
+                    <option value="Société Nationale des Eaux du Sénégal (SONES)">Société Nationale des Eaux du Sénégal
+                        (SONES)</option>
+                    <option value="Sénégal Numérique (SENUM-SA)">Sénégal Numérique (SENUM-SA)</option>
+                    <option value="Conseil exécutif des Transports urbains durables (CETUD)">Conseil exécutif des
+                        Transports urbains durables (CETUD)</option>
+                    <option value="Office des Forages Ruraux (OFOR)">Office des Forages Ruraux (OFOR)</option>
+                    <option value="Société Nationale de Gestion Intégrée des Déchets (SONAGED)">Société Nationale de
+                        Gestion Intégrée des Déchets (SONAGED)</option>
+                    <option value="Télédiffusion Sénégal (TDS)">Télédiffusion Sénégal (TDS)</option>
+                    <option value="Ecole Supérieure d’Economie Appliquée (ESEA)">Ecole Supérieure d’Economie Appliquée
+                        (ESEA)</option>
+                    <option value="Agence d'Exécution des Travaux Routiers (AGEROUTE)">Agence d'Exécution des Travaux
+                        Routiers (AGEROUTE)</option>
+                    <option value="Agence Sénégalaise de Promotion Touristique (ASPT)">Agence Sénégalaise de Promotion
+                        Touristique (ASPT)</option>
+                    <option value="Office national de l’Assainissement du Sénégal (ONAS)">Office national de
+                        l’Assainissement du Sénégal (ONAS)</option>
+                    <option
+                        value="Projet d’Appui à l’Insertion des Jeunes Ruraux Agri-preneurs (Agri-Jeunes Tekki Ndawñi)">
+                        Projet d’Appui à l’Insertion des Jeunes Ruraux Agri-preneurs (Agri-Jeunes Tekki Ndawñi)</option>
+                    <option value="Projet Formation, dignité, inclusion et innovation (VIS)">Projet Formation, dignité,
+                        inclusion et innovation (VIS)</option>
+                    <option value="Projet Emplois Verts DELTA, Saloum">Projet Emplois Verts DELTA, Saloum</option>
+                    <option value="Comité d’organisation des Jeux Olympiques de la Jeunesse (JOJ 2026)">Comité
+                        d’organisation des Jeux Olympiques de la Jeunesse (JOJ 2026)</option>
+                    <option value="Programme des Domaines Agricoles Communautaires (PRODAC)">Programme des Domaines
+                        Agricoles Communautaires (PRODAC)</option>
+                    <option value="Fonds d’appui à la Stabilisation (FONSTAB)">Fonds d’appui à la Stabilisation
+                        (FONSTAB)</option>
+                    <option value="Projet PAPSEN/PAIS">Projet PAPSEN/PAIS</option>
+                    <option value="Sénégal Gold Opération (SGO)">Sénégal Gold Opération (SGO)</option>
+                    <option value="SEN BOTO SA">SEN BOTO SA</option>
+                    <option value="SOCOCIM">SOCOCIM</option>
+                    <option value="Ciments de l’Afrique (CIMAF)">Ciments de l’Afrique (CIMAF)</option>
+                    <option value="Compagnie Sucrière Sénégalaise (CSS)">Compagnie Sucrière Sénégalaise (CSS)</option>
+                    <option value="Ciments du sahel">Ciments du sahel</option>
+                    <option value="Dangote Cement">Dangote Cement</option>
+                    <option value="Axa Assurances Sénégal">Axa Assurances Sénégal</option>
+                    <option value="Ville de Dakar">Ville de Dakar</option>
+                    <option value="Commune de Khombole">Commune de Khombole</option>
+                    <option value="Commune de Sandiara">Commune de Sandiara</option>
+                    <option value="Confédération nationale des Employeurs du Sénégal (CNES)">Confédération nationale des
+                        Employeurs du Sénégal (CNES)</option>
+                    <option value="Conseil national du Patronat (CNP)">Conseil national du Patronat (CNP)</option>
+                    <option
+                        value="Union nationale des Chambres de Commerce d’Industrie et d’Agriculture au Sénégal (UNCCIAS)">
+                        Union nationale des Chambres de Commerce d’Industrie et d’Agriculture au Sénégal (UNCCIAS)
+                    </option>
+                    <option value="Union nationale des Chambres de Métiers du Sénégal (UNCM)">Union nationale des
+                        Chambres de Métiers du Sénégal (UNCM)</option>
+                    <option value="Union des Elus locaux du Sénégal">Union des Elus locaux du Sénégal</option>
+                    <option value="Cadre des opérateurs de formation ONFP">Cadre des opérateurs de formation ONFP
+                    </option>
+                    <option value="Diaspora/bonnes volontés">Diaspora/bonnes volontés</option>
+                    <option value="Club des Investisseurs Sénégalais">Club des Investisseurs Sénégalais</option>
+                    <option value="Complexe Cheikh Ahmadoul Khadim pour l'Education et la Formation">Complexe Cheikh
+                        Ahmadoul Khadim pour l'Education et la Formation</option>
+                    <option value="Fondation Lonase">Fondation Lonase</option>
+                    <option value="Table ronde des Etablissements de Formation Professionnelle et Technique">Table
+                        ronde
+                        des Etablissements de Formation Professionnelle et Technique</option>
+                    <option value="ONG Pratical Action">ONG Pratical Action</option>
+                    <option value="Nouvelles Editions Numériques Africaines (NENA)">Nouvelles Editions Numériques
+                        Africaines (NENA)</option>
+                    <option value="Institut Supérieur de formation à Distance (ISFAD)">Institut Supérieur de formation
+                        à
+                        Distance (ISFAD)</option>
+                    <option value="Bureau International du Travail (BIT)">Bureau International du Travail (BIT)
+                    </option>
+                    <option value="Associates in Research And Education For Developement (ARED)">Associates in Research
+                        And Education For Developement (ARED)</option>
                 </select>
+
             </div>
 
 
             <div class="form-group">
                 <i class="bi bi-person input-icon"></i>
-                <input type="text" name="nom" class="form-control" placeholder="Prénom et Nom du représentant"
-                    value="{{ old('nom') }}" required>
+                <input type="text" name="nom" class="form-control"
+                    placeholder="Prénom et Nom du représentant" value="{{ old('nom') }}" required>
             </div>
 
             <div class="form-group">
