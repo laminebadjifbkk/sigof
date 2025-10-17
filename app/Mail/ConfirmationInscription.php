@@ -25,7 +25,7 @@ class ConfirmationInscription extends Mailable
     {
         return $this->subject('Confirmation de votre participation ONFP')
             ->view('emails.confirmation_inscription')
-            ->attach(public_path('Termes_de_reference_protected.pdf'), [
+            ->attach(public_path('Termes_de_reference.pdf'), [
                 'as'   => 'TDR.pdf', // nom du fichier tel qu'il apparaîtra dans le mail
                 'mime' => 'application/pdf',
             ]);
