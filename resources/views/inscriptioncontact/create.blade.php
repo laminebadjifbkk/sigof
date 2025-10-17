@@ -54,7 +54,7 @@
         }
 
         .btn-primary:hover {
-            background: #0b5ed7;
+            background: #F28500;
         }
 
         .footer-text {
@@ -172,6 +172,8 @@
                 {{-- <i class="bi bi-chat-left-text input-icon"></i> --}}
                 <textarea name="commentaire" class="form-control" rows="4" placeholder="Votre commentaire (facultatif)">{{ old('commentaire') }}</textarea>
             </div>
+
+            <input type="hidden" name="autre" value="PARTNERSHIP ENGAGEMENT DAY">
 
             <button type="submit" class="btn btn-primary btn-sm mt-3">Envoyer ma confirmation</button>
         </form>
