@@ -305,8 +305,8 @@
                         $membre->id !== $commissionagrement->secretaire_id &&
                         !empty($membre->statut))
                     <tr>
-                        <td><strong>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom }}
-                            </strong><br></td>
+                        <td><b>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom }}
+                            </b><br><br></td>
                     </tr>
                 @endif
             @endforeach
