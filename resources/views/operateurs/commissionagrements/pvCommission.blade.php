@@ -306,7 +306,7 @@
                         !empty($membre->statut))
                     <tr>
                         <td><strong>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom }}
-                            </strong><br><br></td>
+                            </strong><br></td>
                     </tr>
                 @endif
             @endforeach
