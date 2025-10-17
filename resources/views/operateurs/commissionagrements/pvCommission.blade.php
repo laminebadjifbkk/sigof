@@ -47,7 +47,7 @@
         }
 
         .signature {
-            margin-top: 60px;
+            margin-top: 40px;
             /* réduit l’espace avant les signatures */
             width: 100%;
         }
