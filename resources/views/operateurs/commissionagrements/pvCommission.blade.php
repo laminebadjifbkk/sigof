@@ -297,7 +297,7 @@
             </tr>
         </table>
 
-        <h4 class="h4 mt-3"><br>Les autres membres de la commission</h4>
+        <h4 class="h4 mt-1"><br>Les autres membres de la commission</h4>
         <table class="signature">
             @foreach ($commissionagrement->commissionmembres as $membre)
                 @if (
@@ -306,7 +306,7 @@
                         !empty($membre->statut))
                     <tr>
                         <td><strong>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom }}
-                            </strong><br><br><br></td>
+                            </strong><br><br></td>
                     </tr>
                 @endif
             @endforeach
