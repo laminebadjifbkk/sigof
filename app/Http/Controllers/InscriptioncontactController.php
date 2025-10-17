@@ -5,6 +5,7 @@ use App\Mail\ConfirmationInscription;
 use App\Models\Inscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class InscriptioncontactController extends Controller
 {
@@ -85,4 +86,15 @@ class InscriptioncontactController extends Controller
         }
     }
 
+    public function destroy($id)
+    {
+
+        $inscription = Inscription::findOrFail($id);
+
+        $inscription->delete();
+
+        Alert::success('Succès', 'Inscription supprimée avec succès.');
+
+        return redirect()->route('inscriptioncontacts.index');
+    }
 }
