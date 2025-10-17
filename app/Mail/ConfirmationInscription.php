@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -17,9 +16,18 @@ class ConfirmationInscription extends Mailable
         $this->inscription = $inscription;
     }
 
-    public function build()
+    /* public function build()
     {
         return $this->subject('Confirmation de votre participation ONFP')
                     ->view('emails.confirmation_inscription');
+    } */
+    public function build()
+    {
+        return $this->subject('Confirmation de votre participation ONFP')
+            ->view('emails.confirmation_inscription')
+            ->attach(public_path('Termes_de_reference_protected.pdf'), [
+                'as'   => 'TDR.pdf', // nom du fichier tel qu'il apparaîtra dans le mail
+                'mime' => 'application/pdf',
+            ]);
     }
 }

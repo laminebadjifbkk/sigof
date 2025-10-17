@@ -23,6 +23,7 @@
             </li>
         @endif
     </ul>
+    <p>Votre mot de passe TDR : <strong>PARTNERSHIP@ENGAGEMENT1DAy</strong></p>
     <p>À bientôt !</p>
 </body>
 

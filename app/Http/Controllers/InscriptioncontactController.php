@@ -32,7 +32,7 @@ class InscriptioncontactController extends Controller
             'fonction'    => 'required|string|max:255',
             'telephone'   => 'required|string|max:50',
             'email'       => 'required|email|max:255',
-            'commentaire' => 'nullable|string|max:500',
+            'commentaire' => 'nullable|string|max:255',
         ]);
 
         // Enregistrer en base
