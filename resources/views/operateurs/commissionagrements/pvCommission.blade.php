@@ -91,7 +91,7 @@
     </div>
 
     {{-- === TITRE DU DOCUMENT === --}}
-    <h3><strong>PROCÈS-VERBAL</strong></h3>
+    <h3><strong>PROCÈS-VERBAL DE LA COMMISSION D'AGRÉMENT ET DE LABELLISATION DES OPERATEURS DE L'ONFP</strong></h3>
     <br>
 
     {{-- === CONTENU PRINCIPAL === --}}
