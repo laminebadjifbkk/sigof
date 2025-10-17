@@ -675,6 +675,15 @@
             </li>
         @endhasrole
 
+        @hasrole(['CCP', 'super-admin'])
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ url('inscriptioncontacts') }}">
+                    <i class="bi bi-layers-half"></i>
+                    <span>Inscription partenaires</span>
+                </a>
+            </li>
+        @endhasrole
+
         @can('contact-view')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ url('contacts') }}">

@@ -52,4 +52,37 @@ class InscriptioncontactController extends Controller
     {
         return view('inscriptioncontact.merci');
     }
+
+    public function index()
+    {
+        $inscriptions = Inscription::all();
+        return view('inscriptioncontact.index', compact('inscriptions'));
+    }
+
+    public function show(Inscription $inscription)
+    {
+        return view('inscriptioncontact.show', compact('inscription'));
+    }
+
+    public function showAjax($id)
+    {
+        try {
+            $inscription = Inscription::find($id);
+
+            if (! $inscription) {
+                return response()->json(['error' => 'Inscription non trouvée'], 404);
+            }
+
+            return response()->json([
+                'structure'   => $inscription->structure ?? '',
+                'nom'         => $inscription->nom ?? '',
+                'telephone'   => $inscription->telephone ?? '',
+                'email'       => $inscription->email ?? '',
+                'commentaire' => $inscription->commentaire ?? '',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Erreur serveur : ' . $e->getMessage()], 500);
+        }
+    }
+
 }

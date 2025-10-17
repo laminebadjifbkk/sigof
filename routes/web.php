@@ -674,6 +674,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::post('/formations/{formation}/notify-start', [FormationStartController::class, 'send'])
             ->name('formations.notifyStart');
 
+        Route::get('/inscriptioncontacts/{id}/details', [InscriptionContactController::class, 'showAjax'])
+            ->name('inscriptioncontacts.details');
+
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
         Route::resource('/permissions', PermissionController::class);
@@ -740,6 +743,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('/commissionmembres', CommissionmembreController::class);
         Route::resource('/lettrevaluations', LettrevaluationController::class);
         Route::resource('/operateurcategories', OperateurcategorieController::class);
+        Route::resource('/inscriptioncontacts', InscriptioncontactController::class);
 
         Route::middleware('admin')->group(function () {
             Route::get('/manuels', [BookController::class, 'index'])->name('manuels.index');
