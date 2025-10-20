@@ -97,13 +97,13 @@
         input.form-control {
             padding-left: 40px;
             border-radius: 10px;
-            height: 50px;
+            height: 40px;
         }
 
         select.form-control {
-            padding-left: 40px;
+            padding-left: 30px;
             border-radius: 10px;
-            height: 50px;
+            height: 40px;
         }
 
         input.form-control:focus {
