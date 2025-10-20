@@ -18,7 +18,8 @@
         $label = "Il y a $diff jours"; // ou juste afficher la date
     } else {
         // pour le futur (optionnel, tu peux juste mettre une date brute)
-        $label = $dateDebut->format('d/m/Y');
+        $label = 'le ';
+        /* $label = $dateDebut->format('d/m/Y'); */
     }
 @endphp
 
@@ -60,17 +61,25 @@
         <li><strong>Type formation :</strong> {{ $formation?->types_formation?->name ?? 'Non disponible' }}</li>
         <li><strong>Bénéficiaires :</strong> {{ $formation?->name }}</li>
         <li><strong>Lieu :</strong> {{ $formation?->lieu }}</li>
-        <li><strong>Période :</strong>
-            @if ($formation?->date_debut)
-                du {{ \Carbon\Carbon::parse($formation->date_debut)->format('d/m/Y') }}
+        {{-- <li><strong>Période :</strong>
+            @php
+                $dateDebut = $formation?->date_debut;
+                $dateFin = $formation?->date_fin;
+            @endphp
+
+            @if ($dateDebut && $dateFin)
+                Du {{ \Carbon\Carbon::parse($dateDebut)->format('d/m/Y') }}
+                au {{ \Carbon\Carbon::parse($dateFin)->format('d/m/Y') }}
+            @elseif ($dateDebut && !$dateFin)
+                À partir du {{ \Carbon\Carbon::parse($dateDebut)->format('d/m/Y') }}
+            @elseif (!$dateDebut && $dateFin)
+                Jusqu’au {{ \Carbon\Carbon::parse($dateFin)->format('d/m/Y') }}
             @else
                 Non définie
             @endif
+        </li> --}}
+        <li><strong>Période :</strong> {{ $periode }}</li>
 
-            @if ($formation?->date_fin)
-                au {{ \Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y') }}
-            @endif
-        </li>
         <li><strong>Durée :</strong> {{ $formation?->duree_formation }}
             @if ($formation?->duree_formation === 1)
                 jour
@@ -83,6 +92,13 @@
         <li><strong>Opérateur :</strong>
             @if ($formation?->operateur?->user?->username)
                 {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
+            @else
+                Non disponible
+            @endif
+        </li>
+        <li><strong>Lieu formation :</strong>
+            @if ($formation?->operateur?->user?->adresse)
+                {{ $formation?->lieu . ' - ' . $formation?->operateur?->user?->adresse }}
             @else
                 Non disponible
             @endif

@@ -1197,7 +1197,7 @@
                                 <div class="col-12 col-md-12">
                                     <label for="niveau_qualification" class="form-label">Niveau de qualification <span
                                             class="text-danger">*</span></label>
-                                    <select name="niveau_qualification" id="niveau_qualification"
+                                    <select name="niveau_qualification"
                                         class="form-select form-select-sm @error('niveau_qualification') is-invalid @enderror"
                                         aria-label="Choisir niveau qualification" data-live-search="true"
                                         data-placeholder="Choisir niveau qualification">
