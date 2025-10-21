@@ -94,7 +94,7 @@ class TrainingReminderNotification extends Notification implements ShouldQueue
         App::setLocale('fr'); // S'assurer que l'email est en français
 
         return (new MailMessage)
-            ->subject("📢 Rappel : Votre formation commence {$this->reminderType} !")
+            ->subject("Rappel : Votre formation commence {$this->reminderType} !")
             ->view('emails.training-reminder', [
                 'formation' => $this->formation,
                 'notifiable' => $notifiable,

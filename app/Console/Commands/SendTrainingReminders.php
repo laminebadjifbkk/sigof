@@ -66,6 +66,7 @@ class SendTrainingReminders extends Command
             $today->copy()->addDays(5)->toDateString(),
             $today->copy()->addDays(3)->toDateString(),
             $today->copy()->addDays(1)->toDateString(),
+            $today->copy()->addDays(0)->toDateString(),
         ])->get();
 
         foreach ($formations as $formation) {
@@ -77,6 +78,7 @@ class SendTrainingReminders extends Command
                 5 => 'dans cinq jours',
                 3 => 'dans trois jours',
                 1 => 'demain',
+                0 => 'aujourd\'hui',
                 default => null,
             };
 

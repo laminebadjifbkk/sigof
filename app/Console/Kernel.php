@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
         /* $schedule->command('email:send-birthday')->dailyAt('00:00'); */
         /* $schedule->command('email:send-finagrement')->dailyAt('08:00'); */
         $schedule->command('email:notify-end-agreements')->dailyAt('08:10');
-        $schedule->command('email:send-training-reminders')->dailyAt('08:15');
+        $schedule->command('email:send-training-reminders')->dailyAt('08:15'); // Informer les collègues du Démarre les formations prévues pour aujourd'hui à 08h35
         $schedule->command('projets:fermer-modules')->dailyAt('17:00');
         /* $schedule->command('individuelles:mark-non-conformes')->dailyAt('18:00'); */ // Exécute chaque jour à 01h du matin
         foreach ([1, 5] as $day) {
