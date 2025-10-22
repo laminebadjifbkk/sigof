@@ -1,10 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Mail\ConfirmationInscriptionPchare;
 use App\Models\Formulaire;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class FormulaireController extends Controller
@@ -46,6 +44,10 @@ class FormulaireController extends Controller
 
         // Convertir les champs numériques vides en null
         $validated['montant_unique'] = $validated['montant_unique'] === '' ? null : $validated['montant_unique'];
+
+        Alert::error('Désolé', 'Les inscriptions n\'ont pas encore démarré.');
+
+        return redirect()->back();
 
         $formulaire = Formulaire::create($validated);
 

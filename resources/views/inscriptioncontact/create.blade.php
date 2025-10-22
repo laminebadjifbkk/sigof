@@ -482,6 +482,11 @@
         <p class="footer-text">© {{ date('Y') }} ONFP</p>
         {{-- <p class="footer-text">© {{ date('Y') }} ONFP — Tous droits réservés</p> --}}
     </div>
+    <!-- SweetAlert CSS/JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @include('sweetalert::alert')
 </body>
 
 </html>
