@@ -1,8 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Mail\ConfirmationInscriptionPchare;
 use App\Models\Formulaire;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class FormulaireController extends Controller
@@ -51,7 +53,7 @@ class FormulaireController extends Controller
 
         $formulaire = Formulaire::create($validated);
 
-        /* Mail::to($validated['email'])->send(new ConfirmationInscriptionPchare($formulaire)); */
+        Mail::to($validated['email'])->send(new ConfirmationInscriptionPchare($formulaire));
 
         Alert::success('Succès', 'Inscription effectuée avec succès.');
 

@@ -37,10 +37,10 @@
 
     <h3>Bonjour {{ $notifiable?->firstname }} {{ $notifiable?->name }} !</h3>
 
-    <p>📢 Nous vous rappelons que votre formation en <strong>{{ $formation?->module?->name }}</strong> débutera
+    <p>Nous vous rappelons que votre formation en <strong>{{ $formation?->module?->name }}</strong> débutera
         <strong>{{ $reminderType }}</strong>.
     </p>
-    <h3>📌 Détails de la formation :</h3>
+    <h3>Détails de la formation :</h3>
     <ul>
         <li><strong>Intitulé :</strong>
             {{ $formation?->intitule ?? 'Non disponible' }}</li>
@@ -70,6 +70,13 @@
         <li><strong>Opérateur :</strong>
             @if ($formation?->operateur?->user?->username)
                 {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
+            @else
+                Non disponible
+            @endif
+        </li>
+        <li><strong>Lieu :</strong>
+            @if ($formation?->lieu)
+                {{ $formation?->lieu }}
             @else
                 Non disponible
             @endif
