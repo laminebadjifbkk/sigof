@@ -95,7 +95,7 @@
     <div class="form-card">
         <h2 class="text-center mb-3">ONFP</h2>
         <h5 class="text-center text-secondary mb-5">
-            Formulaire de prise en charge
+            Formulaire de demande de prise en charge
         </h5>
         {{-- <h2 class="text-center mb-4 text-uppercase text-dark"></h2> --}}
 
