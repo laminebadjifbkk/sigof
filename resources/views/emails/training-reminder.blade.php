@@ -10,7 +10,7 @@
 <body>
     {{-- <h3>Bonjour {{ $notifiable?->firstname }} {{ $notifiable?->name }} !</h3>
 
-    <p>📢 Nous vous rappelons que votre formation en <strong>{{ $formation?->module?->name }}</strong> débutera
+    <p>Nous vous rappelons que votre formation en <strong>{{ $formation?->module?->name }}</strong> débutera
         <strong>{{ $reminderType }}</strong>.
     </p>
 
@@ -21,16 +21,16 @@
             ({{ $formation?->operateur?->user?->username }})</strong>.
     </p>
 
-    <p>ℹ️ Pour bien vous préparer, nous vous recommandons de consulter <a href="sigof.onfp.sn">votre espace
+    <p>ℹPour bien vous préparer, nous vous recommandons de consulter <a href="sigof.onfp.sn">votre espace
             personnel</a>, où vous trouverez le calendrier détaillé de la formation ainsi que toutes les informations
         essentielles.</p>
 
-    <p>📌 <strong>Important :</strong> Merci de vous connecter et de confirmer votre présence, d’être ponctuel(le) et pleinement disponible
+    <p><strong>Important :</strong> Merci de vous connecter et de confirmer votre présence, d’être ponctuel(le) et pleinement disponible
         tout au long de la formation.</p>
 
     <p>Nous vous souhaitons une excellente formation et une expérience d’apprentissage enrichissante ! 🚀</p>
 
-    <p>💡 <em>Pour toute question ou information complémentaire, n’hésitez pas à nous contacter.</em></p>
+    <p><em>Pour toute question ou information complémentaire, n’hésitez pas à nous contacter.</em></p>
 
 
     @include('emails.footer_mail') --}}
