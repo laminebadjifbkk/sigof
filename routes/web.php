@@ -800,9 +800,9 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::post('/inscriptioncontact/store', [InscriptioncontactController::class, 'store'])->name('inscriptioncontact.store');
     Route::get('/inscriptioncontact/merci', [InscriptioncontactController::class, 'merci'])->name('inscriptioncontact.merci');
 
-    Route::get('/formulaire', [FormulaireController::class, 'create'])->name('formulaire.create');
-    Route::post('/formulaire', [FormulaireController::class, 'store'])->name('formulaire.store');
-    Route::get('/formulaire/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
+    Route::get('/pcharge', [FormulaireController::class, 'create'])->name('formulaire.create');
+    Route::post('/pcharge', [FormulaireController::class, 'store'])->name('formulaire.store');
+    Route::get('/pcharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
 
     Route::get('/Note_d_information_CAL_2025', function () {
         $path = public_path('Note_d_information_CAL_2025.pdf');
