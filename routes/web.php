@@ -34,6 +34,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\FonctionController;
 use App\Http\Controllers\FormationController;
 use App\Http\Controllers\FormationStartController;
+use App\Http\Controllers\FormulaireController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\IndemniteController;
 use App\Http\Controllers\IndividuelleController;
@@ -798,6 +799,10 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::get('/inscriptioncontact', [InscriptioncontactController::class, 'create'])->name('inscriptioncontact');
     Route::post('/inscriptioncontact/store', [InscriptioncontactController::class, 'store'])->name('inscriptioncontact.store');
     Route::get('/inscriptioncontact/merci', [InscriptioncontactController::class, 'merci'])->name('inscriptioncontact.merci');
+
+    Route::get('/formulaire', [FormulaireController::class, 'create'])->name('formulaire.create');
+    Route::post('/formulaire', [FormulaireController::class, 'store'])->name('formulaire.store');
+    Route::get('/formulaire/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
 
     Route::get('/Note_d_information_CAL_2025', function () {
         $path = public_path('Note_d_information_CAL_2025.pdf');

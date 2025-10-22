@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONFP - Formulaire de prise en charge</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    @php
+        $currentStep = session('current_step', 0);
+    @endphp
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #e9f4ff, #f8f9fa);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-card {
+            max-width: 750px;
+            margin: 60px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .step-indicators {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            background: #dee2e6;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            color: #6c757d;
+        }
+
+        .step-circle.active {
+            background: #F28500;
+            color: #fff;
+        }
+
+        .btn-orange {
+            background-color: #F28500;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 5px 15px;
+            transition: 0.3s;
+        }
+
+        .btn-orange:hover {
+            background-color: #d47200;
+        }
+
+        .recap-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .recap-item span {
+            font-weight: 600;
+            color: #F28500;
+        }
+
+        h2 {
+            color: #F28500;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-card">
+        <h2 class="text-center mb-3">ONFP</h2>
+        <h5 class="text-center text-secondary mb-5">
+            Formulaire de prise en charge
+        </h5>
+        {{-- <h2 class="text-center mb-4 text-uppercase text-dark"></h2> --}}
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <div class="step-indicators mb-4">
+            <div class="step-circle">1</div>
+            <div class="step-circle">2</div>
+            <div class="step-circle">3</div>
+            <div class="step-circle">4</div>
+        </div>
+
+        <form id="multiStepForm" action="{{ route('formulaire.store') }}" method="POST">
+            @csrf
+
+            <!-- Étape 1 : Informations personnelles -->
+            <div class="step" id="step1">
+                <h4 class="text-center mb-3 text-secondary">Informations personnelles</h4>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>N° CIN <span class="text-danger">*</span></label>
+                        <input type="text" name="cin" class="form-control form-control-sm"
+                            value="{{ old('cin') }}" required minlength="13" maxlength="14">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Civilité <span class="text-danger">*</span></label>
+                        <select name="civilite" class="form-control form-control-sm select2" required>
+                            <option value="">Choisir</option>
+                            <option value="M." {{ old('civilite') == 'M.' ? 'selected' : '' }}>M.</option>
+                            <option value="Mme" {{ old('civilite') == 'Mme' ? 'selected' : '' }}>Mme</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Prénom <span class="text-danger">*</span></label>
+                        <input type="text" name="prenom" class="form-control form-control-sm"
+                            value="{{ old('prenom') }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Nom <span class="text-danger">*</span></label>
+                        <input type="text" name="nom" class="form-control form-control-sm"
+                            value="{{ old('nom') }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Date de naissance <span class="text-danger">*</span></label>
+                        <input type="date" name="date_naissance" class="form-control form-control-sm"
+                            value="{{ old('date_naissance') }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Lieu de naissance <span class="text-danger">*</span></label>
+                        <input type="text" name="lieu_naissance" class="form-control form-control-sm"
+                            value="{{ old('lieu_naissance') }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Email <span class="text-danger">*</span></label>
+                        <input type="email" name="email" class="form-control form-control-sm"
+                            value="{{ old('email') }}">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Téléphone principal <span class="text-danger">*</span></label>
+                        <input type="text" name="telephone" class="form-control form-control-sm"
+                            value="{{ old('telephone') }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Téléphone secondaire <span class="text-danger">*</span></label>
+                        <input type="text" name="telephone_secondaire" class="form-control form-control-sm"
+                            value="{{ old('telephone_secondaire') }}">
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label>Adresse <span class="text-danger">*</span></label>
+                        <input type="text" name="adresse" class="form-control form-control-sm"
+                            value="{{ old('adresse') }}" required>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label>Dernier diplôme obtenu <span class="text-danger">*</span></label>
+                        <input type="text" name="dernier_diplome" class="form-control form-control-sm"
+                            value="{{ old('dernier_diplome') }}">
+                    </div>
+                </div>
+                <div class="text-end">
+                    <button type="button" class="btn-orange next-step">Suivant</button>
+                </div>
+            </div>
+
+            <!-- Étape 2 : Établissement -->
+            <div class="step" id="step2">
+                <h4 class="text-center mb-3 text-secondary">Établissement</h4>
+                <div class="form-group mb-3">
+                    <label>Etablissement d'accueil <span class="text-danger">*</span></label>
+                    <input type="text" name="nom_etablissement" class="form-control form-control-sm"
+                        value="{{ old('nom_etablissement') }}" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Région <span class="text-danger">*</span></label>
+                    <input type="text" name="region" class="form-control form-control-sm"
+                        value="{{ old('region') }}" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Formation sollicitée <span class="text-danger">*</span></label>
+                    <input type="text" name="formation" class="form-control form-control-sm"
+                        value="{{ old('formation') }}" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Diplôme visé <span class="text-danger">*</span></label>
+                    <select name="diplome_vise" class="form-control form-control-sm" required>
+                        <option value="">Sélectionnez un diplôme</option>
+                        @foreach (['CAP', 'BEP', 'BT', 'BTS', 'CPS', 'Licence professionnelle'] as $diplome)
+                            <option value="{{ $diplome }}"
+                                {{ old('diplome_vise') == $diplome ? 'selected' : '' }}>{{ $diplome }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Montant inscription <span class="text-danger">*</span></label>
+                        <input type="number" name="montant_inscription" class="form-control form-control-sm"
+                            value="{{ old('montant_inscription') }}" required min="0">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Montant mensualité <span class="text-danger">*</span></label>
+                        <input type="number" name="montant_mensualite" class="form-control form-control-sm"
+                            value="{{ old('montant_mensualite') }}" required min="0">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Durée (en années) <span class="text-danger">*</span></label>
+                        <input type="number" name="duree" class="form-control form-control-sm"
+                            value="{{ old('duree') }}" min="1" max="3" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Montant unique</label>
+                        <input type="number" name="montant_unique" class="form-control form-control-sm"
+                            value="{{ old('montant_unique') }}" min="0">
+                    </div>
+                </div>
+                <div class="text-end">
+                    <button type="button" class="btn btn-secondary btn-sm prev-step">Précédent</button>
+                    <button type="button" class="btn-orange next-step">Suivant</button>
+                </div>
+            </div>
+
+            <!-- Étape 3 : Informations complémentaires -->
+            <div class="step" id="step3">
+                <h4 class="text-center mb-3 text-secondary">Informations complémentaires</h4>
+                <div class="form-group mb-3">
+                    <label>Êtes-vous une personne en situation de handicap ? <span class="text-danger">*</span></label>
+                    <select name="handicape" id="handicape" class="form-control form-control-sm" required>
+                        <option value="">Choisir</option>
+                        <option value="non" {{ old('handicape') == 'non' ? 'selected' : '' }}>Non</option>
+                        <option value="oui" {{ old('handicape') == 'oui' ? 'selected' : '' }}>Oui</option>
+                    </select>
+                </div>
+                <div class="form-group mb-3" id="type_handicap_field"
+                    style="display: {{ old('handicape') == 'oui' ? 'block' : 'none' }};">
+                    <input type="text" name="type_handicap" class="form-control form-control-sm"
+                        value="{{ old('type_handicap') }}" placeholder="Précisez le type de handicap">
+                </div>
+                <div class="form-group mb-3">
+                    <label>Êtes-vous orphelin ? <span class="text-danger">*</span></label>
+                    <select name="orphelin" id="orphelin" class="form-control form-control-sm" required>
+                        <option value="">Choisir</option>
+                        <option value="non" {{ old('orphelin') == 'non' ? 'selected' : '' }}>Non</option>
+                        <option value="oui" {{ old('orphelin') == 'oui' ? 'selected' : '' }}>Oui</option>
+                    </select>
+                </div>
+                <div class="form-group mb-3" id="type_orphelin_field"
+                    style="display: {{ old('orphelin') == 'oui' ? 'block' : 'none' }};">
+                    <select name="type_orphelin" class="form-control form-control-sm">
+                        <option value="">Précisez : de père, de mère ou des deux</option>
+                        <option value="père" {{ old('type_orphelin') == 'père' ? 'selected' : '' }}>De père</option>
+                        <option value="mère" {{ old('type_orphelin') == 'mère' ? 'selected' : '' }}>De mère</option>
+                        <option value="les deux" {{ old('type_orphelin') == 'les deux' ? 'selected' : '' }}>Des deux
+                        </option>
+                    </select>
+                </div>
+                <div class="text-end">
+                    <button type="button" class="btn btn-secondary btn-sm prev-step">Précédent</button>
+                    <button type="button" class="btn-orange next-step">Suivant</button>
+                </div>
+            </div>
+
+            <!-- Étape 4 : Récapitulatif -->
+            <div class="step" id="step4">
+                <h4 class="text-center mb-3 text-secondary">Récapitulatif</h4>
+                <div id="recap-container" class="p-3 bg-light rounded"></div>
+                <div class="text-end mt-4">
+                    <button type="button" class="btn btn-secondary btn-sm prev-step">Précédent</button>
+                    <button type="submit" class="btn-orange">Envoyer</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                width: '100%'
+            });
+
+            let currentStep = {{ $currentStep }};
+            const steps = $(".step");
+            const circles = $(".step-circle");
+
+            function showStep(index) {
+                steps.removeClass("active").eq(index).addClass("active");
+                circles.removeClass("active").eq(index).addClass("active");
+            }
+
+            $(".next-step").click(function() {
+                if (currentStep < steps.length - 1) currentStep++;
+                showStep(currentStep);
+
+                if (currentStep === 3) {
+                    const labels = {
+                        cin: "Numéro CIN",
+                        civilite: "Civilité",
+                        prenom: "Prénom",
+                        nom: "Nom",
+                        date_naissance: "Date de naissance",
+                        lieu_naissance: "Lieu de naissance",
+                        email: "Adresse e-mail",
+                        telephone: "Téléphone principal",
+                        telephone_secondaire: "Téléphone secondaire",
+                        adresse: "Adresse",
+                        dernier_diplome: "Dernier diplôme obtenu",
+                        nom_etablissement: "Établissement",
+                        region: "Région",
+                        formation: "Formation sollicitée",
+                        diplome_vise: "Diplôme visé",
+                        montant_inscription: "Montant inscription",
+                        montant_mensualite: "Montant mensualité",
+                        montant_unique: "Montant unique",
+                        duree: "Durée (en années)",
+                        handicape: "Situation de handicap",
+                        type_handicap: "Type de handicap",
+                        orphelin: "Orphelin",
+                        type_orphelin: "Type d’orphelinat"
+                    };
+
+                    let recap = "";
+                    $("#multiStepForm").serializeArray().forEach(field => {
+                        const name = field.name;
+                        const value = field.value.trim();
+                        if (name === "_token" || value === "") return;
+                        if (name === "type_handicap" && $("#handicape").val() !== "oui") return;
+                        if (name === "type_orphelin" && $("#orphelin").val() !== "oui") return;
+                        recap +=
+                            `<div class="recap-item"><span>${labels[name] || name} :</span> ${value}</div>`;
+                    });
+                    $("#recap-container").html(recap);
+                }
+            });
+
+            $(".prev-step").click(function() {
+                if (currentStep > 0) currentStep--;
+                showStep(currentStep);
+            });
+
+            $("#handicape").change(function() {
+                $(this).val() === "oui" ? $("#type_handicap_field").slideDown() : $("#type_handicap_field")
+                    .slideUp().find("input").val('');
+            });
+
+            $("#orphelin").change(function() {
+                $(this).val() === "oui" ? $("#type_orphelin_field").slideDown() : $("#type_orphelin_field")
+                    .slideUp().find("select").val('');
+            });
+
+            showStep(currentStep);
+        });
+    </script>
+</body>
+
+</html>
