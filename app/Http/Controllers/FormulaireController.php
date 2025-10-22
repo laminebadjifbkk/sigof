@@ -45,9 +45,9 @@ class FormulaireController extends Controller
         // Convertir les champs numériques vides en null
         $validated['montant_unique'] = $validated['montant_unique'] === '' ? null : $validated['montant_unique'];
 
-        Alert::error('Désolé', 'Les inscriptions n\'ont pas encore démarré.');
+        /* Alert::error('Désolé', 'Les inscriptions n\'ont pas encore démarré.');
 
-        return redirect()->back();
+        return redirect()->back(); */
 
         $formulaire = Formulaire::create($validated);
 

@@ -474,8 +474,9 @@
                 <textarea name="commentaire" class="form-control" rows="4" placeholder="Votre commentaire (facultatif)">{{ old('commentaire') }}</textarea>
             </div>
 
-            <input type="hidden" name="autre" value="PARTNERSHIP ENGAGEMENT DAY">
+            <input type="hidden" name="recaptcha_token" id="recaptcha_token">
 
+            <input type="hidden" name="autre" value="PARTNERSHIP ENGAGEMENT DAY">
             <button type="submit" class="btn btn-primary btn-sm mt-3">Envoyer ma confirmation</button>
         </form>
 
@@ -485,6 +486,20 @@
     <!-- SweetAlert CSS/JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Script à la fin de la page -->
+    <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            grecaptcha.ready(function() {
+                grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', {
+                        action: 'submit'
+                    })
+                    .then(function(token) {
+                        document.getElementById('recaptcha_token').value = token;
+                    });
+            });
+        });
+    </script>
 
     @include('sweetalert::alert')
 </body>

@@ -118,7 +118,7 @@
 
         <form id="multiStepForm" action="{{ route('formulaire.store') }}" method="POST">
             @csrf
-
+            <input type="hidden" name="recaptcha_token" id="recaptcha_token">
             <!-- Étape 1 : Informations personnelles -->
             <div class="step" id="step1">
                 <h4 class="text-center mb-3 text-secondary">Informations personnelles</h4>
@@ -291,7 +291,7 @@
                 <div id="recap-container" class="p-3 bg-light rounded"></div>
                 <div class="text-end mt-4">
                     <button type="button" class="btn btn-secondary btn-sm prev-step">Précédent</button>
-                    <button type="submit" class="btn-orange">Envoyer</button>
+                    <button type="submit" class="btn-orange" id="submitBtn">Envoyer</button>
                 </div>
             </div>
         </form>
@@ -351,6 +351,12 @@
                     $("#multiStepForm").serializeArray().forEach(field => {
                         const name = field.name;
                         const value = field.value.trim();
+                        // Ignorer certains champs invisibles
+                        if (
+                            name === "_token" ||
+                            name === "recaptcha_token" || // ⬅️ ajoute cette ligne
+                            value === ""
+                        ) return;
                         if (name === "_token" || value === "") return;
                         if (name === "type_handicap" && $("#handicape").val() !== "oui") return;
                         if (name === "type_orphelin" && $("#orphelin").val() !== "oui") return;
@@ -382,6 +388,97 @@
     <!-- SweetAlert CSS/JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            $("#submitBtn").on("click", function(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Certification',
+                    html: `
+                <div style="text-align:left">
+                    <p>Avant d’envoyer votre demande, veuillez certifier que toutes les informations fournies sont exactes et sincères.</p>
+                    <div class="form-check" style="margin-top:10px;">
+                        <input class="form-check-input" type="checkbox" id="confirmCheck">
+                        <label class="form-check-label" for="confirmCheck">
+                            Je certifie l’exactitude des informations renseignées.
+                        </label>
+                    </div>
+                </div>
+            `,
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonText: 'Confirmer l’envoi',
+                    cancelButtonText: 'Annuler',
+                    reverseButtons: true,
+                    focusConfirm: false,
+                    preConfirm: () => {
+                        if (!document.getElementById('confirmCheck').checked) {
+                            Swal.showValidationMessage(
+                                'Veuillez cocher la case pour certifier vos informations.'
+                            );
+                            return false;
+                        }
+                        return true;
+                    },
+                    customClass: {
+                        confirmButton: 'swal2-confirm-small', // classe personnalisée pour le bouton confirmer
+                        cancelButton: 'swal2-cancel-small' // classe personnalisée pour le bouton annuler
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Envoi en cours...',
+                            text: 'Veuillez patienter pendant la vérification.',
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute(
+                                    '{{ config('services.recaptcha.site_key') }}', {
+                                        action: 'submit'
+                                    })
+                                .then(function(token) {
+                                    document.getElementById('recaptcha_token').value =
+                                        token;
+                                    document.getElementById('multiStepForm').submit();
+                                });
+                        });
+                    }
+                });
+            });
+
+        });
+    </script>
+
+    <style>
+        /* Boutons SweetAlert réduits et couleur personnalisée */
+        .swal2-confirm-small {
+            padding: 0.25rem 0.5rem !important;
+            font-size: 0.75rem !important;
+            background-color: #F28500 !important;
+            /* couleur verte pour confirmer */
+            color: #fff !important;
+        }
+
+        .swal2-confirm-small:hover {
+            background-color: #F28500 !important;
+        }
+
+        .swal2-cancel-small {
+            padding: 0.25rem 0.5rem !important;
+            font-size: 0.75rem !important;
+        }
+    </style>
+
 
     @include('sweetalert::alert')
 
