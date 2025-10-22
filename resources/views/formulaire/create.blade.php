@@ -130,8 +130,8 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Civilité <span class="text-danger">*</span></label>
-                        <select name="civilite" class="form-control form-control-sm select2" required>
-                            <option value="">Choisir</option>
+                        <select name="civilite" class="form-control form-control-sm" required>
+                            <option value="" disabled selected>-- Sélectionnez une civilité --</option>
                             <option value="M." {{ old('civilite') == 'M.' ? 'selected' : '' }}>M.</option>
                             <option value="Mme" {{ old('civilite') == 'Mme' ? 'selected' : '' }}>Mme</option>
                         </select>
@@ -189,16 +189,34 @@
 
             <!-- Étape 2 : Établissement -->
             <div class="step" id="step2">
-                <h4 class="text-center mb-3 text-secondary">Établissement</h4>
+                <h4 class="text-center mb-3 text-secondary">Établissement d'accueil</h4>
                 <div class="form-group mb-3">
-                    <label>Etablissement d'accueil <span class="text-danger">*</span></label>
+                    <label>Nom de l'établissement <span class="text-danger">*</span></label>
                     <input type="text" name="nom_etablissement" class="form-control form-control-sm"
                         value="{{ old('nom_etablissement') }}" required>
                 </div>
                 <div class="form-group mb-3">
                     <label>Région <span class="text-danger">*</span></label>
-                    <input type="text" name="region" class="form-control form-control-sm"
-                        value="{{ old('region') }}" required>
+                    <select name="region" class="form-control form-control-sm" required>
+                        <option value="" disabled selected>-- Sélectionnez une région --</option>
+                        <option value="Dakar" {{ old('region') == 'Dakar' ? 'selected' : '' }}>Dakar</option>
+                        <option value="Diourbel" {{ old('region') == 'Diourbel' ? 'selected' : '' }}>Diourbel</option>
+                        <option value="Fatick" {{ old('region') == 'Fatick' ? 'selected' : '' }}>Fatick</option>
+                        <option value="Kaffrine" {{ old('region') == 'Kaffrine' ? 'selected' : '' }}>Kaffrine</option>
+                        <option value="Kaolack" {{ old('region') == 'Kaolack' ? 'selected' : '' }}>Kaolack</option>
+                        <option value="Kédougou" {{ old('region') == 'Kédougou' ? 'selected' : '' }}>Kédougou</option>
+                        <option value="Kolda" {{ old('region') == 'Kolda' ? 'selected' : '' }}>Kolda</option>
+                        <option value="Louga" {{ old('region') == 'Louga' ? 'selected' : '' }}>Louga</option>
+                        <option value="Matam" {{ old('region') == 'Matam' ? 'selected' : '' }}>Matam</option>
+                        <option value="Saint-Louis" {{ old('region') == 'Saint-Louis' ? 'selected' : '' }}>Saint-Louis
+                        </option>
+                        <option value="Sédhiou" {{ old('region') == 'Sédhiou' ? 'selected' : '' }}>Sédhiou</option>
+                        <option value="Tambacounda" {{ old('region') == 'Tambacounda' ? 'selected' : '' }}>Tambacounda
+                        </option>
+                        <option value="Thiès" {{ old('region') == 'Thiès' ? 'selected' : '' }}>Thiès</option>
+                        <option value="Ziguinchor" {{ old('region') == 'Ziguinchor' ? 'selected' : '' }}>Ziguinchor
+                        </option>
+                    </select>
                 </div>
                 <div class="form-group mb-3">
                     <label>Formation sollicitée <span class="text-danger">*</span></label>
@@ -208,7 +226,7 @@
                 <div class="form-group mb-3">
                     <label>Diplôme visé <span class="text-danger">*</span></label>
                     <select name="diplome_vise" class="form-control form-control-sm" required>
-                        <option value="">Sélectionnez un diplôme</option>
+                        <option value="" disabled selected>-- Sélectionnez un diplôme --</option>
                         @foreach (['CAP', 'BEP', 'BT', 'BTS', 'CPS', 'Licence professionnelle'] as $diplome)
                             <option value="{{ $diplome }}"
                                 {{ old('diplome_vise') == $diplome ? 'selected' : '' }}>{{ $diplome }}</option>
@@ -251,7 +269,7 @@
                 <div class="form-group mb-3">
                     <label>Êtes-vous une personne en situation de handicap ? <span class="text-danger">*</span></label>
                     <select name="handicape" id="handicape" class="form-control form-control-sm" required>
-                        <option value="">Choisir</option>
+                        <option value="" disabled selected>-- Sélectionnez une option --</option>
                         <option value="non" {{ old('handicape') == 'non' ? 'selected' : '' }}>Non</option>
                         <option value="oui" {{ old('handicape') == 'oui' ? 'selected' : '' }}>Oui</option>
                     </select>
@@ -264,7 +282,7 @@
                 <div class="form-group mb-3">
                     <label>Êtes-vous orphelin ? <span class="text-danger">*</span></label>
                     <select name="orphelin" id="orphelin" class="form-control form-control-sm" required>
-                        <option value="">Choisir</option>
+                        <option value="" disabled selected>-- Sélectionnez une option --</option>
                         <option value="non" {{ old('orphelin') == 'non' ? 'selected' : '' }}>Non</option>
                         <option value="oui" {{ old('orphelin') == 'oui' ? 'selected' : '' }}>Oui</option>
                     </select>
