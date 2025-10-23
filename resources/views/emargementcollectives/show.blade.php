@@ -87,6 +87,20 @@
                                             </form>
                                         </li>
                                         <li>
+                                            <form action="{{ route('feuillePresenceColJourVierge') }}" method="post"
+                                                target="_blank" class="px-3 py-1">
+                                                @csrf
+                                                <input type="hidden" name="idformation" value="{{ $formation->id }}">
+                                                <input type="hidden" name="idmodule"
+                                                    value="{{ $formation?->module?->id }}">
+                                                <input type="hidden" name="idlocalite"
+                                                    value="{{ $formation?->departement?->region?->id }}">
+                                                <input type="hidden" name="idemargement"
+                                                    value="{{ $emargementcollective?->id }}">
+                                                <button type="submit" class="btn btn-sm w-100">Feuille présence vierge</button>
+                                            </form>
+                                        </li>
+                                        <li>
                                             <form action="{{ route('fichePresenceColJour') }}" method="post"
                                                 target="_blank" class="px-3 py-1">
                                                 @csrf

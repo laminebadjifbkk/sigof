@@ -2380,6 +2380,51 @@ class FormationController extends Controller
         $dompdf->stream($name, ['Attachment' => false]);
     }
 
+    public function feuillePresenceJourVierge(Request $request)
+    {
+
+        $formation = Formation::findOrFail($request->input('idformation'));
+        $emargement = Emargement::findOrFail($request->input('idemargement'));
+
+        $feuillepresenceIndividuelle = DB::table('feuillepresences')
+            ->where('emargements_id', $emargement?->id)
+            ->pluck('emargements_id', 'emargements_id')
+            ->all();
+
+        $title = 'Feuille de présence de la formation en  ' . $formation->name;
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+        $dompdf->loadHtml(view('formations.individuelles.feuillepresencejourvierge', compact(
+            'formation',
+            /* 'individuelles', */
+            'emargement',
+            'feuillepresenceIndividuelle',
+            'title'
+        )));
+
+        // (Optional) Setup the paper size and orientation (portrait ou landscape)
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        /* $anne = date('d');
+        $anne = $anne . ' ' . date('m');
+        $anne = $anne . ' ' . date('Y');
+        $anne = $anne . ' à ' . date('H') . 'h';
+        $anne = $anne . ' ' . date('i') . 'min';
+        $anne = $anne . ' ' . date('s') . 's'; */
+
+        $name = 'Feuille de présence de la formation en  ' . $formation->name . ', code ' . $formation->code . '.pdf';
+
+        // Output the generated PDF to Browser
+        $dompdf->stream($name, ['Attachment' => false]);
+    }
+
     public function feuillePresenceColJour(Request $request)
     {
 
@@ -2401,6 +2446,46 @@ class FormationController extends Controller
         $dompdf->setOptions($options);
 
         $dompdf->loadHtml(view('formations.collectives.feuillepresencecoljour', compact(
+            'formation',
+            'emargementcollective',
+            'feuillepresenceListecollective',
+            'feuillepresencecollectives',
+            'title'
+        )));
+
+        // (Optional) Setup the paper size and orientation (portrait ou landscape)
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        $name = 'Feuille de présence de la formation en  ' . $formation->name . ', code ' . $formation->code . '.pdf';
+
+        // Output the generated PDF to Browser
+        $dompdf->stream($name, ['Attachment' => false]);
+    }
+
+    public function feuillePresenceColJourVierge(Request $request)
+    {
+
+        $formation            = Formation::findOrFail($request->input('idformation'));
+        $emargementcollective = Emargementcollective::findOrFail($request->input('idemargement'));
+
+        $feuillepresenceListecollective = DB::table('feuillepresencecollectives')
+            ->where('emargementcollectives_id', $emargementcollective?->id)
+            ->pluck('emargementcollectives_id', 'emargementcollectives_id')
+            ->all();
+
+        $feuillepresencecollectives = Feuillepresencecollective::where('emargementcollectives_id', $emargementcollective?->id)->get();
+
+        $title = 'Feuille de présence de la formation en  ' . $formation->name;
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+        $dompdf->loadHtml(view('formations.collectives.feuillepresencecoljourvierge', compact(
             'formation',
             'emargementcollective',
             'feuillepresenceListecollective',

@@ -162,11 +162,14 @@
                         @endif
                     </td>
                     <td colspan="2"><b>{{ __('Date : ') }}</b>
-                        @if (!empty($emargement?->date))
+                        {{-- @if (!empty($emargement?->date))
                             {{ $emargement?->date?->format('d/m/Y') }}
-                        @endif
+                        @endif --}}
                     </td>
-                    <td colspan="1"><b>{{ $emargement?->jour }}</b>
+                    <td colspan="1">
+                        <b>
+                            {{ __('Jour N° : ') }}
+                        </b>
                     </td>
                 </tr>
                 <tr class="heading">
@@ -213,9 +216,9 @@
                     <td><b>Prénom</b></td>
                     <td><b>NOM</b></td>
                     <td><b>Date naissance</b></td>
-                    <td><b>Lieu de naissance</b></td>
+                    <td colspan="2"><b>Lieu de naissance</b></td>
                     <td width="8%"><b>Téléphone</b></td>
-                    <td width="8%"><b>Présence</b></td>
+                    {{-- <td width="8%"><b>Présence</b></td> --}}
                     <td><b>Emargement</b></td>
                 </tr>
             </thead>
@@ -229,7 +232,7 @@
                         <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
                         <td>{{ remove_accents_uppercase($individuelle?->user?->name) }}</td>
                         <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
+                        <td colspan="2">{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
                         <td>
                             {{-- {{ substr($individuelle?->user?->telephone, 0, 2) .
                                 ' ' .
@@ -241,13 +244,11 @@
 
                             {{ $individuelle?->user?->telephone }}
                         </td>
-                        <td>
-                            {{-- {{ ucwords($individuelle?->feuillepresence) }} --}}
-
+                        {{-- <td>
                             @foreach ($individuelle?->feuillepresences as $feuillepresence)
                                 {{ ucwords(in_array($feuillepresence?->emargements_id, $feuillepresenceIndividuelle) ? $feuillepresence?->presence : '') }}
                             @endforeach
-                        </td>
+                        </td> --}}
                         <td></td>
                     </tr>
                 @endforeach

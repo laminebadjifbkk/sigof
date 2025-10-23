@@ -154,7 +154,9 @@
                 </tr>
                 <tr class="heading">
                     <td colspan="4">{{ __('Code : ') }}
-                        {{ $formation?->code }}
+                        @if (!empty($formation?->code))
+                            {{ $formation?->code . 'C' }}
+                        @endif
                     </td>
                     <td colspan="2"><b>{{ __('Responsable suivi : ') }}</b>
                         @if (!empty($formation?->date_suivi))
@@ -162,16 +164,21 @@
                         @endif
                     </td>
                     <td colspan="2"><b>{{ __('Date : ') }}</b>
-                        @if (!empty($emargement?->date))
-                            {{ $emargement?->date?->format('d/m/Y') }}
-                        @endif
+                        {{-- @if (!empty($emargementcollective?->date))
+                            {{ $emargementcollective?->date?->format('d/m/Y') }}
+                        @endif --}}
                     </td>
-                    <td colspan="1"><b>{{ $emargement?->jour }}</b>
+                    <td colspan="1">
+                        <b>
+                            {{-- {{ $emargementcollective?->jour }} --}}
+                            {{ __('Jour N° : ') }}
+
+                        </b>
                     </td>
                 </tr>
                 <tr class="heading">
                     <td colspan="4">{{ __('Intitulé : ') }}
-                        {{-- {{ $formation?->module?->name }} --}}
+                        {{-- {{ $formation?->collectivemodule?->module }} --}}
                         {{ $formation?->intitule }}
                     </td>
                     <td colspan="5"><b>{{ __('Opérateur : ') }}</b>
@@ -212,59 +219,38 @@
                     {{-- <td><b>Civilité</b></td> --}}
                     <td><b>Prénom</b></td>
                     <td><b>NOM</b></td>
-                    <td><b>Date naissance</b></td>
-                    <td><b>Lieu de naissance</b></td>
+                    <td width="8%"><b>Date naissance</b></td>
+                    <td colspan="2"><b>Lieu de naissance</b></td>
                     <td width="8%"><b>Téléphone</b></td>
-                    <td width="8%"><b>Présence</b></td>
+                    {{-- <td width="8%"><b>Présence</b></td> --}}
                     <td><b>Emargement</b></td>
                 </tr>
             </thead>
             <tbody>
                 <?php $i = 1; ?>
-                @foreach ($formation?->individuelles as $individuelle)
+                @foreach ($feuillepresencecollectives as $feuillepresencecollective)
                     <tr class="item" style="text-align: center;">
                         <td>{{ $i++ }}</td>
-                        <td>{{ $individuelle->user->cin }}</td>
+                        <td>{{ $feuillepresencecollective?->listecollective?->cin }}</td>
                         {{-- <td>{{ $individuelle?->user?->civilite }}</td> --}}
-                        <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->user?->name) }}</td>
-                        <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
-                        <td>
-                            {{-- {{ substr($individuelle?->user?->telephone, 0, 2) .
-                                ' ' .
-                                substr($individuelle?->user?->telephone, 2, 3) .
-                                ' ' .
-                                substr($individuelle?->user?->telephone, 5, 2) .
-                                ' ' .
-                                substr($individuelle?->user?->telephone, 7, 2) }} --}}
-
-                            {{ $individuelle?->user?->telephone }}
+                        <td>{{ format_proper_name($feuillepresencecollective?->listecollective?->prenom) }}</td>
+                        <td>{{ remove_accents_uppercase($feuillepresencecollective?->listecollective?->nom) }}</td>
+                        <td>{{ $feuillepresencecollective?->listecollective?->date_naissance?->format('d/m/Y') }}</td>
+                        <td colspan="2">{{ remove_accents_uppercase($feuillepresencecollective?->listecollective?->lieu_naissance) }}
                         </td>
                         <td>
-                            {{-- {{ ucwords($individuelle?->feuillepresence) }} --}}
-
-                            @foreach ($individuelle?->feuillepresences as $feuillepresence)
-                                {{ ucwords(in_array($feuillepresence?->emargements_id, $feuillepresenceIndividuelle) ? $feuillepresence?->presence : '') }}
-                            @endforeach
+                            {{ $feuillepresencecollective?->listecollective?->telephone }}
                         </td>
+                        {{-- <td>
+                            {{ ucwords(in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective) ? $feuillepresencecollective?->presence : '') }}
+                        </td> --}}
                         <td></td>
                     </tr>
                 @endforeach
 
             </tbody>
         </table>
-        {{--  <h4 valign="top">
-            <b><u>AGENT DE SUIVI</u>:</b>
-            @isset($formation?->date_suivi)
-                {{ $formation?->suivi_dossier . ', le ' . $formation?->date_suivi?->format('d/m/Y') }}
-            @endisset
-        </h4> --}}
     </div>
-    {{-- <footer>
-        {{ __("Cité SIPRES 1 lot 2 - 2 voies liberté 6 extension VDN  Tél. : 33 827 92 51- Fax : 33 827 92 55
-                B.P. 21013 Dakar-Ponty  E-mail : onfp@onfp.sn - site web www.onfp.sn") }}
-    </footer> --}}
     {{-- <footer>
         <div class="page-number" id="footer">
             <div class="footer-line"></div>
