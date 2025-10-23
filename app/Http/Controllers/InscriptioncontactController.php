@@ -56,7 +56,7 @@ class InscriptioncontactController extends Controller
 
     public function index()
     {
-        $inscriptions = Inscription::orderBy('created_at', 'desc')->get();
+        $inscriptions = Inscription::orderBy('created_at', 'desc')->paginate(10);
         return view('inscriptioncontact.index', compact('inscriptions'));
     }
 
