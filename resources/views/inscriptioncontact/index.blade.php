@@ -52,6 +52,7 @@
                                             <th>Structure</th>
                                             <th>Email</th>
                                             <th>Téléphone</th>
+                                            <th>Commentaires</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -74,6 +75,7 @@
                                                         {{ $inscription?->telephone }}
                                                     </a>
                                                 </td>
+                                                <td>{{ $inscription?->commentaire }}</td>
                                                 {{-- <td class="text-center">
                                                     <div class="btn-group">
                                                         <a href="{{ route('inscriptioncontacts.show', $inscription) }}"
