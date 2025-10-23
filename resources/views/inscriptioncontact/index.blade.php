@@ -41,8 +41,8 @@
                                 <h5 class="card-title mb-0">PARTENAIRES</h5>
                             </div>
                             <div class="table-responsive">
-                                <table class="table datatables table-bordered table-hover align-middle justify-content-center"
-                                    id="table-jury">
+                                <table class="table datatabl table-bordered table-hover align-middle justify-content-center"
+                                    id="table-jur">
                                     <thead class="table-primary text-center">
                                         <tr>
                                             {{-- <th width="8%">Civilité</th>
