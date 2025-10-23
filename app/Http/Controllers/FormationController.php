@@ -1865,7 +1865,6 @@ class FormationController extends Controller
                 "statut"       => 'formé',
             ]);
 
-
             $individuelle->formation->update([
                 "statut"      => 'Terminée',
                 "attestation" => 'Nouveau',
@@ -1881,7 +1880,7 @@ class FormationController extends Controller
         Alert::success('Bravo !', 'L\'évaluation est terminée.');
         return redirect()->back();
     }
-
+/*
     public function givenotedemandeursCollective($idformation, Request $request)
     {
         $request->validate([
@@ -1957,6 +1956,87 @@ class FormationController extends Controller
 
         Alert::success('Bravo !', 'L\'évaluation est terminée.');
 
+        return redirect()->back();
+    } */
+
+    public function givenotedemandeursCollective($idformation, Request $request)
+    {
+        $request->validate([
+            'notes'            => ['required', 'array'],
+            'listecollectives' => ['required', 'array'],
+            'appreciations'    => ['nullable', 'array'],
+        ]);
+
+        $formation = Formation::findOrFail($idformation);
+
+        $listecollectives = $request->input('listecollectives');
+        $notes            = $request->input('notes');
+        $appreciations    = $request->input('appreciations');
+
+        if (count($listecollectives) !== count($notes)) {
+            return back()->withErrors('Le nombre de notes ne correspond pas au nombre de demandeurs.');
+        }
+
+        foreach ($listecollectives as $index => $id) {
+            $note               = $notes[$index];
+            $appreciation_input = $appreciations[$index] ?? null;
+            $listecollective    = Listecollective::find($id);
+
+            if (! $listecollective) {
+                continue;
+            }
+
+            // Vérifie si la note est numérique et entre 0 et 20
+            if (is_numeric($note) && $note >= 0 && $note <= 20) {
+                $note_float = (float) $note;
+
+                if ($note_float <= 4) {
+                    $appreciation = "Médiocre";
+                } elseif ($note_float <= 8) {
+                    $appreciation = "Insuffisant";
+                } elseif ($note_float <= 11) {
+                    $appreciation = "Passable";
+                } elseif ($note_float <= 13) {
+                    $appreciation = "Assez bien";
+                } elseif ($note_float <= 16) {
+                    $appreciation = "Bien";
+                } elseif ($note_float <= 19) {
+                    $appreciation = "Très bien";
+                } else {
+                    $appreciation = "Excellent";
+                }
+            } else {
+                                                     // Si ce n'est pas une note numérique (ex: "Admis", "Attesté")
+                $appreciation = $appreciation_input; // Prend la valeur saisie manuellement
+            }
+
+            // Mise à jour du bénéficiaire collectif
+            $listecollective->update([
+                "note_obtenue" => $note,
+                "appreciation" => $appreciation,
+                "statut"       => 'formé',
+            ]);
+
+            // Mise à jour du module collectif
+            $collectivemodule = $listecollective->collectivemodule;
+            if ($collectivemodule) {
+                $collectivemodule->update(["statut" => 'formé']);
+
+                // Mise à jour de la formation associée
+                $formation->update([
+                    "statut"      => 'Terminée',
+                    "attestation" => 'Nouveau',
+                ]);
+
+                // Mise à jour de la demande collective
+                $collective = $collectivemodule->collective;
+                if ($collective) {
+                    $collective->update(["statut_demande" => 'formé']);
+                }
+            }
+        }
+
+        Alert::success('Bravo !', 'L\'évaluation est terminée.');
         return redirect()->back();
     }
 

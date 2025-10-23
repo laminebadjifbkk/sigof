@@ -1333,6 +1333,7 @@
                                                                 <th class="text-center">Lieu de naissance</th>
                                                                 <th class="text-center">Note<span
                                                                         class="text-danger mx-1">*</span></th>
+                                                                <th class="text-center">Appréciation</th>
                                                                 <th class="text-center">Observations</th>
                                                             </tr>
                                                         </thead>
@@ -1348,12 +1349,33 @@
                                                                     <td>{{ $listecollective?->date_naissance?->format('d/m/Y') }}
                                                                     </td>
                                                                     <td>{{ $listecollective?->lieu_naissance }}</td>
-                                                                    <td><input type="number"
+                                                                    {{-- <td><input type="number"
                                                                             value="{{ $listecollective?->note_obtenue }}"
                                                                             name="notes[]" placeholder="note"
                                                                             step="0.01" min="0" max="20">
                                                                         <input type="hidden" name="listecollectives[]"
                                                                             value="{{ $listecollective?->id }}">
+                                                                    </td> --}}
+                                                                    {{-- Champ note --}}
+                                                                    <td width="10%" class="text-center">
+                                                                        <input type="text"
+                                                                            class="form-control note-input"
+                                                                            value="{{ $listecollective?->note_obtenue }}"
+                                                                            name="notes[]"
+                                                                            placeholder="note (0-20 ou texte)"
+                                                                            step="0.01" min="0" max="20">
+
+                                                                        <input type="hidden" name="listecollectives[]"
+                                                                            value="{{ $listecollective?->id }}">
+                                                                    </td>
+
+                                                                    {{-- Champ appréciation --}}
+                                                                    <td width="10%" class="text-center">
+                                                                        <input type="text"
+                                                                            class="form-control appreciation-input"
+                                                                            value="{{ $listecollective?->appreciation }}"
+                                                                            name="appreciations[]"
+                                                                            placeholder="appréciation">
                                                                     </td>
                                                                     <td
                                                                         style="text-align: center; vertical-align: middle;">
@@ -2475,7 +2497,8 @@
 
                                 {{-- Évaluateurs ONFP --}}
                                 <div class="col-md-12">
-                                    <label class="form-label">Évaluateurs ONFP <span class="text-danger">*</span></label>
+                                    <label class="form-label">Évaluateurs ONFP <span
+                                            class="text-danger">*</span></label>
                                     <select name="onfpevaluateur[]" id="onfpevaluateurSelected"
                                         class="form-select form-select-sm @error('onfpevaluateur') is-invalid @enderror"
                                         multiple>
@@ -2843,6 +2866,32 @@
                     }
                 }
             }
+        });
+    </script>
+    {{-- Script de gestion dynamique des champs appréciation --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const noteInputs = document.querySelectorAll('.note-input');
+
+            noteInputs.forEach(noteInput => {
+                const appreciationInput = noteInput.closest('tr').querySelector('.appreciation-input');
+
+                function toggleAppreciation() {
+                    const value = noteInput.value.trim();
+
+                    // Si c’est une note numérique valide entre 0 et 20 → cacher appréciation
+                    if (value !== '' && !isNaN(value) && value >= 0 && value <= 20) {
+                        appreciationInput.style.display = 'none';
+                        appreciationInput.value = ''; // efface pour ne pas envoyer de valeur inutile
+                    } else {
+                        appreciationInput.style.display = ''; // sinon on l'affiche
+                    }
+                }
+
+                // Initialisation et écoute des changements
+                toggleAppreciation();
+                noteInput.addEventListener('input', toggleAppreciation);
+            });
         });
     </script>
 @endpush

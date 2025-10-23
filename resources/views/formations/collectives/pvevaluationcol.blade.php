@@ -157,7 +157,7 @@
                     </td>
                 </tr>
                 <tr class="item" style="text-align: center;">
-                    <td style="text-align: center; width: 4%;"><b>Note</b></td>
+                    <td style="text-align: center;"><b>Note</b></td>
                     <td><b>Niveau maitrise</b></td>
                     <td><b>Observations</b></td>
                 </tr>
@@ -184,9 +184,13 @@
         <div class="no-page-break">
             <h4 style="margin-top: 2mm;">
                 <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>
-                @if($formation?->date_pv)
+                @if ($formation?->date_pv)
                     <span style="float: right; font-style: italic">
-                        {{ 'Fait à ' . remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $formation?->date_pv_finale?->translatedFormat('d F Y') ?? $formation?->date_pv?->format('d/m/Y') }}
+                        @if ($formation?->date_pv_finale)
+                            {{ 'Fait à ' . remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $formation?->date_pv_finale?->translatedFormat('d F Y') }}
+                        @else
+                            {{ 'Fait à ' . remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $formation?->date_pv?->translatedFormat('d F Y') }}
+                        @endif
                     </span>
                 @endif
             </h4>
