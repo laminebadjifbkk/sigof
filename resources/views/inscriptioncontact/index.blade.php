@@ -85,7 +85,7 @@
                                                                 : null;
                                                         @endphp
                                                         <i class="bi bi-calendar-event text-success me-1"></i>
-                                                        Créée :
+                                                        {{ $inscription?->created_at?->format('H:i:s') }}
 
                                                         @if ($date)
                                                             @if ($date->isToday())
