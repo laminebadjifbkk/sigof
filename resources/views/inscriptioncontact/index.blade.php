@@ -41,8 +41,8 @@
                                 <h5 class="card-title mb-0">PARTENAIRES</h5>
                             </div>
                             <div class="table-responsive">
-                                <table class="table datatabl table-bordered table-hover align-middle justify-content-center"
-                                    id="table-jur">
+                                <table class="table datatables table-bordered table-hover align-middle justify-content-center"
+                                    id="table-jury">
                                     <thead class="table-primary text-center">
                                         <tr>
                                             {{-- <th width="8%">Civilité</th>
@@ -169,10 +169,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                {{-- Pagination --}}
-                                <div class="mt-3">
-                                    {{ $inscriptions->links() }}
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -205,6 +201,7 @@
 @push('scripts')
     <script>
         new DataTable('#table-jury', {
+            ordering: false, // désactive le tri automatique
             layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],
