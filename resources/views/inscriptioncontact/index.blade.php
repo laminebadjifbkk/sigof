@@ -151,9 +151,6 @@
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
-            "order": [
-                [6, 'desc']
-            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
