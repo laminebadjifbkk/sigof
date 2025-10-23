@@ -77,7 +77,8 @@
                                                     </a>
                                                 </td>
                                                 <td>{{ $inscription?->commentaire }}</td>
-                                                <td>{{ $inscription?->created_at?->format('d/m/Y H:i:s') }}</td>
+                                                <td>{{ $inscription?->created_at?->diffForHumans() }}
+                                                    ({{ $inscription?->created_at?->format('H:i:s') }})</td>
                                                 {{-- <td class="text-center">
                                                     <div class="btn-group">
                                                         <a href="{{ route('inscriptioncontacts.show', $inscription) }}"
