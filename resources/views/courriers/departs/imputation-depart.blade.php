@@ -179,6 +179,12 @@
                                                 <option value="Classement">
                                                     Classement
                                                 </option>
+                                                <option value="Pour rappel">
+                                                    Pour rappel
+                                                </option>
+                                                <option value="Circularisation">
+                                                    Circularisation
+                                                </option>
                                             </select>
                                             <small id="emailHelp" class="form-text text-muted">
                                                 @if ($errors->has('description'))

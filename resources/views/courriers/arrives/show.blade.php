@@ -733,6 +733,9 @@
                                                                         <option value="Pour rappel">
                                                                             Pour rappel
                                                                         </option>
+                                                                        <option value="Circularisation">
+                                                                            Circularisation
+                                                                        </option>
                                                                     </select>
                                                                     @error('description')
                                                                         <span class="invalid-feedback" role="alert">
