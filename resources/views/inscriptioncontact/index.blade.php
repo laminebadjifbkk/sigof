@@ -1,7 +1,7 @@
 @extends('layout.user-layout')
 @section('title', 'ONFP | INSCRIPTION PARTENAIRES')
 @section('space-work')
-    @can('ingenieur-view')
+    @can('inscriptioncontact-view')
         <section class="section register">
             <div class="row justify-content-center">
                 <div class="col-12">
