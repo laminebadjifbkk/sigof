@@ -151,7 +151,7 @@
                 }
             },
             "order": [
-                [0, 'asc']
+                [6, 'asc']
             ],
             language: {
                 "sProcessing": "Traitement en cours...",
