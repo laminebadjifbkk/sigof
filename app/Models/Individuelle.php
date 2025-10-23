@@ -130,7 +130,7 @@ class Individuelle extends Model
         'nbre_enfant'                  => 'int',
         'nbre_pieces'                  => 'int',
         'nbre_enfants'                 => 'int',
-        'note_obtenue'                 => 'float',
+        /* 'note_obtenue'                 => 'float', */
         'demandeurs_id'                => 'int',
         'etudes_id'                    => 'int',
         'antennes_id'                  => 'int',

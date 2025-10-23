@@ -1155,11 +1155,12 @@
                                                                 <th>Lieu de naissance</th>
                                                                 <th class="text-center">Note<span
                                                                         class="text-danger mx-1">*</span></th>
+                                                                <th class="text-center">Appréciation</th>
                                                                 <th class="text-center">Observations</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <?php $i = 1; ?>
+                                                            @php $i = 1; @endphp
                                                             @foreach ($formation->individuelles as $individuelle)
                                                                 <tr valign="middle" class="text-center">
                                                                     <td>{{ $i++ }}</td>
@@ -1170,29 +1171,34 @@
                                                                     <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}
                                                                     </td>
                                                                     <td>{{ $individuelle?->user?->lieu_naissance }}</td>
-                                                                    <td class="text-center"><input type="number"
+
+                                                                    {{-- Champ note --}}
+                                                                    <td width="10%" class="text-center">
+                                                                        <input type="text"
+                                                                            class="form-control note-input"
                                                                             value="{{ $individuelle?->note_obtenue }}"
-                                                                            name="notes[]" placeholder="note"
+                                                                            name="notes[]"
+                                                                            placeholder="note (0-20 ou texte)"
                                                                             step="0.01" min="0" max="20">
+
                                                                         <input type="hidden" name="individuelles[]"
                                                                             value="{{ $individuelle?->id }}">
                                                                     </td>
-                                                                    {{-- <td
-                                                                        style="text-align: center; vertical-align: middle;">
-                                                                        @can('evaluer-formation')
-                                                                            <button type="button"
-                                                                                class="btn btn-outline-primary btn-sm"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#EditDemandeurModal{{ $individuelle->id }}">
-                                                                                <i class="bi bi-plus"
-                                                                                    title="Observations"></i>
-                                                                            </button>
-                                                                        @endcan
-                                                                    </td> --}}
+
+                                                                    {{-- Champ appréciation --}}
+                                                                    <td width="10%" class="text-center">
+                                                                        <input type="text"
+                                                                            class="form-control appreciation-input"
+                                                                            value="{{ $individuelle?->appreciation }}"
+                                                                            name="appreciations[]"
+                                                                            placeholder="appréciation">
+                                                                    </td>
+
+                                                                    {{-- Observations --}}
                                                                     <td
                                                                         style="text-align: center; vertical-align: middle;">
                                                                         @can('evaluer-formation')
-                                                                            <!-- Bouton existant : Observations -->
+                                                                            <!-- Bouton : Observations -->
                                                                             <button type="button"
                                                                                 class="btn btn-outline-primary btn-sm mx-1"
                                                                                 data-bs-toggle="modal"
@@ -1201,7 +1207,7 @@
                                                                                     title="Observations"></i>
                                                                             </button>
 
-                                                                            <!-- Nouveau bouton : Ajouter les notes manuellement -->
+                                                                            <!-- Bouton : Ajouter note manuellement -->
                                                                             <button type="button"
                                                                                 class="btn btn-outline-success btn-sm mx-1"
                                                                                 data-bs-toggle="modal"
@@ -1211,33 +1217,9 @@
                                                                             </button>
                                                                         @endcan
                                                                     </td>
-                                                                    {{-- <td>
-                                                                    <span class="d-flex align-items-baseline"><a
-                                                                            href="{{ route('individuelles.show', $individuelle->id) }}"
-                                                                            class="btn btn-primary btn-sm"
-                                                                            title="voir détails"><i class="bi bi-eye"></i></a>
-                                                                        <div class="filter">
-                                                                            <a class="icon" href="#"
-                                                                                data-bs-toggle="dropdown"><i
-                                                                                    class="bi bi-three-dots"></i></a>
-                                                                            <ul
-                                                                                class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                                <li>
-                                                                                    <a class="btn btn-danger btn-sm"
-                                                                                        data-bs-toggle="modal"
-                                                                                        data-bs-target="#indiponibleModal{{ $individuelle->id }}"
-                                                                                        title="retirer">Retirer de cette
-                                                                                        formation
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </span>
-                                                                </td> --}}
                                                                 </tr>
                                                             @endforeach
                                                         </tbody>
-                                                    </table>
                                                     </table>
                                                 </div>
                                                 @can('evaluation-formation')
@@ -1534,7 +1516,8 @@
                                                             <th>Date naissance</th>
                                                             <th>Lieu de naissance</th>
                                                             <th class="text-center">Note<span
-                                                                    class="text-danger mx-1">*</span></th>
+                                                                    class="text-danger mx-1">*</span>
+                                                            </th>
                                                             <th class="text-center">Diplôme</th>
                                                             <th class="text-center"><i class="bi bi-gear"></i></th>
                                                         </tr>
@@ -2641,6 +2624,32 @@
                     }
                 }
             }
+        });
+    </script>
+    {{-- Script de gestion dynamique des champs appréciation --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const noteInputs = document.querySelectorAll('.note-input');
+
+            noteInputs.forEach(noteInput => {
+                const appreciationInput = noteInput.closest('tr').querySelector('.appreciation-input');
+
+                function toggleAppreciation() {
+                    const value = noteInput.value.trim();
+
+                    // Si c’est une note numérique valide entre 0 et 20 → cacher appréciation
+                    if (value !== '' && !isNaN(value) && value >= 0 && value <= 20) {
+                        appreciationInput.style.display = 'none';
+                        appreciationInput.value = ''; // efface pour ne pas envoyer de valeur inutile
+                    } else {
+                        appreciationInput.style.display = ''; // sinon on l'affiche
+                    }
+                }
+
+                // Initialisation et écoute des changements
+                toggleAppreciation();
+                noteInput.addEventListener('input', toggleAppreciation);
+            });
         });
     </script>
 @endpush

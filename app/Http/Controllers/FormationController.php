@@ -1742,15 +1742,17 @@ class FormationController extends Controller
         return redirect()->back();
     }
 
-    public function givenotedemandeurs($idformation, Request $request)
+    /* public function givenotedemandeurs($idformation, Request $request)
     {
         $request->validate([
             'notes'         => ['required', 'array'],
             'individuelles' => ['required', 'array'],
+            'appreciations' => ['nullable', 'array'],
         ]);
 
         $individuelles = $request->input('individuelles');
         $notes         = $request->input('notes');
+        $appreciations = $request->input('appreciations');
 
         if (count($individuelles) !== count($notes)) {
             return back()->withErrors('Le nombre de notes ne correspond pas au nombre de demandeurs.');
@@ -1784,7 +1786,7 @@ class FormationController extends Controller
             }
 
             // Vérifie que la formation est terminée avant d'attribuer la note
-            /* if ($individuelle->formation && $individuelle->formation->statut == "Terminée") { */
+            // if ($individuelle->formation && $individuelle->formation->statut == "Terminée") {
             $individuelle->update([
                 "note_obtenue" => $value,
                 "appreciation" => $appreciation,
@@ -1801,10 +1803,79 @@ class FormationController extends Controller
                 'action'           => 'formé',
                 'individuelles_id' => $individuelle->id,
             ]);
-            /* } else {
-                Alert::warning('Désolé !', 'La formation n\'est pas encore achevée pour l\'un des demandeurs.');
-                return redirect()->back();
-            } */
+        }
+
+        Alert::success('Bravo !', 'L\'évaluation est terminée.');
+        return redirect()->back();
+    } */
+
+    public function givenotedemandeurs($idformation, Request $request)
+    {
+        $request->validate([
+            'notes'         => ['required', 'array'],
+            'individuelles' => ['required', 'array'],
+            'appreciations' => ['nullable', 'array'],
+        ]);
+
+        $individuelles = $request->input('individuelles');
+        $notes         = $request->input('notes');
+        $appreciations = $request->input('appreciations');
+
+        if (count($individuelles) !== count($notes)) {
+            return back()->withErrors('Le nombre de notes ne correspond pas au nombre de demandeurs.');
+        }
+
+        foreach ($individuelles as $index => $id) {
+            $note               = $notes[$index];
+            $appreciation_input = $appreciations[$index] ?? null;
+            $individuelle       = Individuelle::find($id);
+
+            if (! $individuelle) {
+                continue;
+            }
+
+            // Vérifie si la note est numérique et entre 0 et 20
+            if (is_numeric($note) && $note >= 0 && $note <= 20) {
+                $note_float = $note;
+
+                if ($note_float <= 4) {
+                    $appreciation = "Médiocre";
+                } elseif ($note_float <= 8) {
+                    $appreciation = "Insuffisant";
+                } elseif ($note_float <= 11) {
+                    $appreciation = "Passable";
+                } elseif ($note_float <= 13) {
+                    $appreciation = "Assez bien";
+                } elseif ($note_float <= 16) {
+                    $appreciation = "Bien";
+                } elseif ($note_float <= 19) {
+                    $appreciation = "Très bien";
+                } else {
+                    $appreciation = "Excellent";
+                }
+            } else {
+                                                     // Si ce n'est pas une note numérique (ex: "Admis", "Attesté")
+                $appreciation = $appreciation_input; // Prend la valeur entrée manuellement
+
+            }
+
+            $individuelle->update([
+                "note_obtenue" => $note,
+                "appreciation" => $appreciation,
+                "statut"       => 'formé',
+            ]);
+
+
+            $individuelle->formation->update([
+                "statut"      => 'Terminée',
+                "attestation" => 'Nouveau',
+            ]);
+
+            Validationindividuelle::create([
+                'validated_id'     => Auth::user()->id,
+                'action'           => 'formé',
+                'individuelles_id' => $individuelle->id,
+            ]);
         }
 
         Alert::success('Bravo !', 'L\'évaluation est terminée.');
@@ -2383,7 +2454,7 @@ class FormationController extends Controller
     public function feuillePresenceJourVierge(Request $request)
     {
 
-        $formation = Formation::findOrFail($request->input('idformation'));
+        $formation  = Formation::findOrFail($request->input('idformation'));
         $emargement = Emargement::findOrFail($request->input('idemargement'));
 
         $feuillepresenceIndividuelle = DB::table('feuillepresences')
