@@ -77,8 +77,63 @@
                                                     </a>
                                                 </td>
                                                 <td>{{ $inscription?->commentaire }}</td>
-                                                <td>{{ $inscription?->created_at?->diffForHumans() }}
-                                                    ({{ $inscription?->created_at?->format('H:i:s') }})</td>
+                                                <td>
+                                                    <span>
+                                                        @php
+                                                            $date = $inscription?->created_at
+                                                                ? \Carbon\Carbon::parse($inscription?->created_at)
+                                                                : null;
+                                                        @endphp
+                                                        <i class="bi bi-calendar-event text-success me-1"></i>
+                                                        Créée :
+
+                                                        @if ($date)
+                                                            @if ($date->isToday())
+                                                                <span class="badge bg-success">Aujourd'hui</span>
+                                                            @elseif ($date->isYesterday())
+                                                                <span class="badge bg-warning">Hier</span>
+                                                            @elseif ($date->diffInDays(\Carbon\Carbon::today()) < 7)
+                                                                <span class="badge bg-primary">
+                                                                    Il y a {{ $date->diffInDays(\Carbon\Carbon::today()) }}
+                                                                    jours
+                                                                </span>
+                                                            @else
+                                                                @php
+                                                                    $diff = $date->diff(\Carbon\Carbon::today());
+                                                                    $ans = $diff->y;
+                                                                    $mois = $diff->m;
+                                                                    $jours = $diff->d;
+
+                                                                    $parts = [];
+                                                                    if ($ans > 0) {
+                                                                        $parts[] =
+                                                                            $ans .
+                                                                            ' ' .
+                                                                            \Illuminate\Support\Str::plural('an', $ans);
+                                                                    }
+                                                                    if ($mois > 0) {
+                                                                        $parts[] = $mois . ' mois';
+                                                                    } // "mois" invariable
+                                                                    if ($jours > 0) {
+                                                                        $parts[] =
+                                                                            $jours .
+                                                                            ' ' .
+                                                                            \Illuminate\Support\Str::plural(
+                                                                                'jour',
+                                                                                $jours,
+                                                                            );
+                                                                    }
+                                                                @endphp
+
+                                                                <span class="badge bg-secondary">
+                                                                    Il y a {{ implode(' ', $parts) }}
+                                                                </span>
+                                                            @endif
+                                                        @else
+                                                            <span class="badge bg-danger">Date non disponible</span>
+                                                        @endif
+                                                    </span>
+                                                </td>
                                                 {{-- <td class="text-center">
                                                     <div class="btn-group">
                                                         <a href="{{ route('inscriptioncontacts.show', $inscription) }}"
