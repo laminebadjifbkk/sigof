@@ -47,12 +47,12 @@
                                         <tr>
                                             {{-- <th width="8%">Civilité</th>
                                             <th>Prénom</th> --}}
+                                            <th width="30%">Structure</th>
                                             <th>Nom</th>
                                             <th>Fonction</th>
-                                            <th>Structure</th>
                                             <th>Email</th>
                                             <th>Téléphone</th>
-                                            <th>Commentaires</th>
+                                            {{-- <th>Commentaires</th> --}}
                                             <th>Date</th>
                                             <th>Actions</th>
                                         </tr>
@@ -62,9 +62,9 @@
                                             <tr>
                                                 {{-- <td class="text-center">{{ $inscription?->civilite }}</td>
                                                 <td>{{ $inscription?->prenom }}</td> --}}
+                                                <td>{{ $inscription?->structure }}</td>
                                                 <td>{{ $inscription?->nom }}</td>
                                                 <td>{{ $inscription?->fonction }}</td>
-                                                <td>{{ $inscription?->structure }}</td>
                                                 <td>
                                                     <a href="mailto:{{ $inscription?->email }}" class="text-decoration-none">
                                                         {{ $inscription?->email }}
@@ -76,7 +76,7 @@
                                                         {{ $inscription?->telephone }}
                                                     </a>
                                                 </td>
-                                                <td>{{ $inscription?->commentaire }}</td>
+                                                {{-- <td>{{ $inscription?->commentaire }}</td> --}}
                                                 <td>
                                                     <span>
                                                         @php
