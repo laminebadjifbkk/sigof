@@ -247,8 +247,7 @@
                                         <label class="form-label">Structure</label>
                                         {{-- <input type="text" name="structure" class="form-control" required> --}}
                                         <select name="structure" id="structure" class="form-control select2" required>
-                                            <option value="">-- Choisir votre structure --</option>
-
+                                            <option value="">-- Sélectionnez une structure --</option>
                                             <!-- Ministères et Directions -->
                                             <optgroup label="Ministères et Directions">
                                                 <option
@@ -607,7 +606,7 @@
                 // Charger les données dans le formulaire
                 $.get("{{ url('/inscriptioncontacts') }}/" + id + "/details", function(data) {
                     form.attr('action', "{{ url('/inscriptioncontacts') }}/" + id);
-                    form.find('select[name="structure"]').val(data.structure);
+                    form.find('select[name="structure"]').val(data.structure).trigger('change');
                     form.find('input[name="nom"]').val(data.nom);
                     form.find('input[name="fonction"]').val(data.fonction);
                     form.find('input[name="telephone"]').val(data.telephone);

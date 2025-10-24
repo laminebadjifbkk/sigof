@@ -249,6 +249,7 @@
             /* légère ombre */
             display: inline-block;
         }
+
         .Injoignable {
             background-color: #DC3545;
             /* couleur cyan Bootstrap (info) */
@@ -263,6 +264,7 @@
             /* légère ombre */
             display: inline-block;
         }
+
         .Abandon {
             background-color: #DC3545;
             /* couleur cyan Bootstrap (info) */
@@ -2896,6 +2898,17 @@
             dropdownParent: $('#AddCollectiveModal'),
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#structure').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                placeholder: '-- Sélectionnez une structure --',
+                closeOnSelect: true,
+                dropdownParent: $('#editInscriptionModal')
+            });
         });
     </script>
 
