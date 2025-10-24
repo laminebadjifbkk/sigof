@@ -2900,15 +2900,14 @@
             dropdownCssClass: "select2--small",
         });
     </script>
+    
     <script>
-        $(document).ready(function() {
-            $('#structure').select2({
-                theme: 'bootstrap-5',
-                width: '100%',
-                placeholder: '-- Sélectionnez une structure --',
-                closeOnSelect: true,
-                dropdownParent: $('#editInscriptionModal')
-            });
+        $('#structure').select2({
+            theme: 'bootstrap-5',
+            width: '100%',
+            closeOnSelect: true,
+            dropdownParent: $('#editInscriptionModal'),
+            minimumResultsForSearch: 0 // force la recherche
         });
     </script>
 
