@@ -679,6 +679,9 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('/inscriptioncontacts/{id}/details', [InscriptionContactController::class, 'showAjax'])
             ->name('inscriptioncontacts.details');
+            
+        Route::put('/inscriptioncontacts/{id}', [InscriptionContactController::class, 'update'])
+            ->name('inscriptioncontacts.update');
 
         /* Vues ressouces */
         Route::resource('/users', UserController::class);

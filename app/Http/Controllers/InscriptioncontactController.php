@@ -28,10 +28,10 @@ class InscriptioncontactController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'structure'   => 'required|string|max:255|unique:inscriptions,structure',
+            'structure'   => 'required|string|max:255',
             'nom'         => 'required|string|max:255',
             'fonction'    => 'required|string|max:255',
-            'telephone'   => 'required|string|max:50',
+            'telephone'   => 'required|string|max:50|unique:inscriptions,telephone',
             'email'       => 'required|email|max:255|unique:inscriptions,email',
             'commentaire' => 'nullable|string|max:255',
         ]);
@@ -79,11 +79,31 @@ class InscriptioncontactController extends Controller
                 'nom'         => $inscription->nom ?? '',
                 'telephone'   => $inscription->telephone ?? '',
                 'email'       => $inscription->email ?? '',
+                'fonction'    => $inscription->fonction ?? '',
                 'commentaire' => $inscription->commentaire ?? '',
             ]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Erreur serveur : ' . $e->getMessage()], 500);
         }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $inscription = Inscription::findOrFail($id);
+
+        $request->validate([
+            'structure'   => 'required|string|max:255',
+            'nom'         => 'required|string|max:255',
+            'fonction'    => 'required|string|max:255',
+            'telephone'   => 'required|string|max:50',
+            'email'       => 'required|email|max:255',
+            'commentaire' => 'nullable|string',
+        ]);
+
+        $inscription->update($request->all());
+
+        Alert::success('Succès', 'Les informations ont été mises à jour avec succès.');
+        return redirect()->back();
     }
 
     public function destroy($id)
