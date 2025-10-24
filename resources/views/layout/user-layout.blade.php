@@ -2900,16 +2900,6 @@
             dropdownCssClass: "select2--small",
         });
     </script>
-    
-    <script>
-        $('#structure').select2({
-            theme: 'bootstrap-5',
-            width: '100%',
-            closeOnSelect: true,
-            dropdownParent: $('#editInscriptionModal'),
-            minimumResultsForSearch: 0 // force la recherche
-        });
-    </script>
 
     <script>
         $('#select-field-statut-col').select2({

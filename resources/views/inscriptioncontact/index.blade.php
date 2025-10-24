@@ -245,15 +245,12 @@
                                 <div class="row g-3">
                                     <div class="col-md-12">
                                         <label class="form-label">Structure {{ $inscription->structure }}</label>
-                                        <select name="structure" id="structure" class="form-control select2" required>
+                                        <select name="structure" id="editStructure" class="form-control select2" required>
                                             <option value="">-- Sélectionnez une structure --</option>
                                             @foreach ($structures as $group => $options)
                                                 <optgroup label="{{ $group }}">
                                                     @foreach ($options as $option)
-                                                        <option value="{{ $option }}"
-                                                            {{ old('structure', $inscription->structure ?? '') == $option ? 'selected' : '' }}>
-                                                            {{ $option }}
-                                                        </option>
+                                                        <option value="{{ $option }}">{{ $option }}</option>
                                                     @endforeach
                                                 </optgroup>
                                             @endforeach
