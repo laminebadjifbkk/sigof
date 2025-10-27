@@ -135,7 +135,7 @@ class InscriptioncontactController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'structure'   => 'required|string|max:255',
+            'structure'   => 'required|string|max:255|unique:inscriptions,structure',
             'nom'         => 'required|string|max:255',
             'fonction'    => 'required|string|max:255',
             'telephone'   => 'required|string|max:50|unique:inscriptions,telephone',
