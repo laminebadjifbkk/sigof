@@ -301,7 +301,7 @@
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
-            pageLength: 100,
+            pageLength: 10,
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
@@ -333,7 +333,7 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
+        /* document.addEventListener('DOMContentLoaded', function() {
             $('.viewInscriptionBtn').on('click', function() {
                 const id = $(this).data('id');
                 const modal = $('#viewInscriptionModal');
@@ -358,15 +358,15 @@
                         }
 
                         let html = `
-                    <table class="table table-bordered">
-                        <tr><th>Structure</th><td>${data.structure ?? ''}</td></tr>
-                        <tr><th>Nom</th><td>${data.nom ?? ''}</td></tr>
-                        <tr><th>Fonction</th><td>${data.fonction ?? ''}</td></tr>
-                        <tr><th>Téléphone</th><td>${data.telephone ?? ''}</td></tr>
-                        <tr><th>Email</th><td>${data.email ?? ''}</td></tr>
-                        <tr><th>Commentaire</th><td>${data.commentaire ?? ''}</td></tr>
-                    </table>
-                `;
+                <table class="table table-bordered">
+                    <tr><th>Structure</th><td>${data.structure ?? ''}</td></tr>
+                    <tr><th>Nom</th><td>${data.nom ?? ''}</td></tr>
+                    <tr><th>Fonction</th><td>${data.fonction ?? ''}</td></tr>
+                    <tr><th>Téléphone</th><td>${data.telephone ?? ''}</td></tr>
+                    <tr><th>Email</th><td>${data.email ?? ''}</td></tr>
+                    <tr><th>Commentaire</th><td>${data.commentaire ?? ''}</td></tr>
+                </table>
+            `;
                         detailsContainer.html(html);
                     },
                     error: function(xhr) {
@@ -387,6 +387,68 @@
                 const form = $('#editInscriptionForm');
 
                 // Charger les données dans le formulaire
+                $.get("{{ url('/inscriptioncontacts') }}/" + id + "/details", function(data) {
+                    form.attr('action', "{{ url('/inscriptioncontacts') }}/" + id);
+                    form.find('select[name="structure"]').val(data.structure).trigger('change');
+                    form.find('input[name="nom"]').val(data.nom);
+                    form.find('input[name="fonction"]').val(data.fonction);
+                    form.find('input[name="telephone"]').val(data.telephone);
+                    form.find('input[name="email"]').val(data.email);
+                    form.find('textarea[name="commentaire"]').val(data.commentaire);
+                    modal.modal('show');
+                });
+            });
+        }); */
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Bouton Voir (délégation d’événement)
+            $('#table-jury').on('click', '.viewInscriptionBtn', function() {
+                const id = $(this).data('id');
+                const modal = $('#viewInscriptionModal');
+                const detailsContainer = $('#inscriptionDetails');
+
+                modal.modal('show');
+                detailsContainer.html(
+                    '<div class="spinner-border text-warning" role="status"><span class="visually-hidden">Chargement...</span></div>'
+                );
+
+                $.ajax({
+                    url: "{{ url('/inscriptioncontacts') }}/" + id + "/details",
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.error) {
+                            detailsContainer.html('<div class="alert alert-danger">' + data
+                                .error + '</div>');
+                            return;
+                        }
+
+                        let html = `
+                    <table class="table table-bordered">
+                        <tr><th>Structure</th><td>${data.structure ?? ''}</td></tr>
+                        <tr><th>Nom</th><td>${data.nom ?? ''}</td></tr>
+                        <tr><th>Fonction</th><td>${data.fonction ?? ''}</td></tr>
+                        <tr><th>Téléphone</th><td>${data.telephone ?? ''}</td></tr>
+                        <tr><th>Email</th><td>${data.email ?? ''}</td></tr>
+                        <tr><th>Commentaire</th><td>${data.commentaire ?? ''}</td></tr>
+                    </table>`;
+                        detailsContainer.html(html);
+                    },
+                    error: function(xhr) {
+                        detailsContainer.html(
+                            '<div class="alert alert-danger">Erreur lors du chargement des données.</div>'
+                            );
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+
+            // Bouton Modifier (délégation d’événement)
+            $('#table-jury').on('click', '.editInscriptionBtn', function() {
+                const id = $(this).data('id');
+                const modal = $('#editInscriptionModal');
+                const form = $('#editInscriptionForm');
+
                 $.get("{{ url('/inscriptioncontacts') }}/" + id + "/details", function(data) {
                     form.attr('action', "{{ url('/inscriptioncontacts') }}/" + id);
                     form.find('select[name="structure"]').val(data.structure).trigger('change');
