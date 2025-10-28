@@ -181,7 +181,7 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <a href="{{ route('formations.show', $formation) }}"
-                                                        class="btn btn-outline-primary btn-sm" title="Voir détails">
+                                                        class="btn btn-outline-primary btn-sm" title="Voir détails" target="_blank">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
                                                 </td>
