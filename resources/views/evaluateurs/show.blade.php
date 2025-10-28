@@ -180,7 +180,7 @@
                                                     </span>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('evaluateurs.show', $evaluateur->id) }}"
+                                                    <a href="{{ route('formations.show', $formation) }}"
                                                         class="btn btn-outline-primary btn-sm" title="Voir détails">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
