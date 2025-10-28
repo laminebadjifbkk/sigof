@@ -244,7 +244,7 @@
                             <div class="modal-body">
                                 <div class="row g-3">
                                     <div class="col-md-12">
-                                        <label class="form-label">Structure {{ $inscription->structure }}</label>
+                                        <label class="form-label">Structure</label>
                                         <select name="structure" id="editStructure" class="form-control select2" required>
                                             <option value="">-- Sélectionnez une structure --</option>
                                             @foreach ($structures as $group => $options)
