@@ -213,11 +213,10 @@
                                     </div>
                                 @endforeach --}}
 
-                                @foreach ($fields as $name => $data)
+                                {{-- @foreach ($fields as $name => $data)
                                     <div class="col-md-12">
                                         <label for="{{ $name }}" class="form-label">
                                             {{ $data['label'] }}
-                                            {{-- On affiche * seulement si ce n’est pas le CV --}}
                                             @if ($name !== 'scan_cv')
                                                 <span class="text-danger">*</span>
                                             @endif
@@ -227,14 +226,38 @@
                                             id="{{ $name }}" value="{{ old($name) }}"
                                             class="form-control form-control-sm @error($name) is-invalid @enderror"
                                             placeholder="{{ $data['placeholder'] }}"
-                                            {{ $data['type'] === 'number' ? 'min=0' : '' }} {{-- Si ce n’est pas le CV, on rend le champ obligatoire --}}
+                                            {{ $data['type'] === 'number' ? 'min=0' : '' }} 
                                             @if ($name !== 'scan_cv') required @endif>
 
                                         @error($name)
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                @endforeach --}}
+
+                                @foreach ($fields as $name => $data)
+                                    <div class="col-md-12">
+                                        <label for="{{ $name }}" class="form-label">
+                                            {{ $data['label'] }}
+                                            {{-- Affiche * uniquement si le champ n'est pas "email" ni "scan_cv" --}}
+                                            @if (!in_array($name, ['email', 'scan_cv']))
+                                                <span class="text-danger">*</span>
+                                            @endif
+                                        </label>
+
+                                        <input type="{{ $data['type'] }}" name="{{ $name }}"
+                                            id="{{ $name }}" value="{{ old($name) }}"
+                                            class="form-control form-control-sm @error($name) is-invalid @enderror"
+                                            placeholder="{{ $data['placeholder'] }}"
+                                            {{ $data['type'] === 'number' ? 'min=0' : '' }} {{-- Rend obligatoire sauf pour "email" et "scan_cv" --}}
+                                            @unless (in_array($name, ['email', 'scan_cv'])) required @endunless>
+
+                                        @error($name)
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 @endforeach
+
 
                             </div>
 
