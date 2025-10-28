@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-md-6">
-                                        <strong>Email :</strong> <a href="mailto:{{ $evaluateur->email }}">{{ $evaluateur->email }}</a>
+                                        <strong>Email :</strong> <a href="mailto:{{ $evaluateur?->email }}">{{ $evaluateur?->email }}</a>
                                     </div>
                                     <div class="col-md-6">
                                         <strong>Téléphone :</strong> {{ $evaluateur->telephone ?? '—' }}
@@ -116,7 +116,7 @@
                             </div>
                             <div class="col-md-6">
                                 <strong>Email :</strong>
-                                <a href="mailto:{{ $evaluateur->email }}">{{ $evaluateur->email ?? '—' }}</a>
+                                <a href="mailto:{{ $evaluateur?->email }}">{{ $evaluateur?->email ?? '—' }}</a>
                             </div>
                         </div>
                         <div class="row mb-2">
