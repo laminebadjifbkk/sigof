@@ -111,7 +111,7 @@
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <strong>Fonction / Spécialité :</strong> {{ $evaluateur->fonction ?? '—' }}
                             </div>
                             <div class="col-md-6">
@@ -124,7 +124,7 @@
                                 <strong>Téléphone :</strong> <a
                                     href="tel:+221{{ $evaluateur->telephone ?? '—' }}">{{ $evaluateur->telephone ?? '—' }}</a>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <strong>Adresse :</strong> {{ $evaluateur->adresse ?? '—' }}
                             </div>
                         </div>
