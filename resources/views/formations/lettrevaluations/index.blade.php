@@ -59,7 +59,7 @@
                                                 <th>Evaluateur(s)</th>
                                                 <th>ONFP</th>
                                                 {{-- <th>Formation</th> --}}
-                                                <th>Date évaluation</th>
+                                                <th>Evaluation</th>
                                                 {{-- <th>Ingénieur</th> --}}
                                                 {{-- <th>ABE</th>
                                                 <th>Lettre</th> --}}
