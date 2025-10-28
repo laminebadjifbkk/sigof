@@ -121,7 +121,8 @@
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-6">
-                                <strong>Téléphone :</strong> <a href="tel:+221{{ $evaluateur->telephone ?? '—' }}">{{ $evaluateur->telephone ?? '—' }}</a>
+                                <strong>Téléphone :</strong> <a
+                                    href="tel:+221{{ $evaluateur->telephone ?? '—' }}">{{ $evaluateur->telephone ?? '—' }}</a>
                             </div>
                             <div class="col-md-6">
                                 <strong>Adresse :</strong> {{ $evaluateur->adresse ?? '—' }}
@@ -133,6 +134,10 @@
                                     class="btn btn-outline-primary btn-sm">
                                     <i class="bi bi-file-earmark-text"></i> Voir le CV
                                 </a>
+                            </div>
+                        @else
+                            <div class="alert alert-info mt-2 mb-0">
+                                <i class="bi bi-info-circle me-2"></i> Aucun CV disponible pour le moment.
                             </div>
                         @endif
                     </div>
