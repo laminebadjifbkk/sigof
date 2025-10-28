@@ -324,14 +324,15 @@
 @push('scripts')
     <script>
         new DataTable('#table-evaluateurs', {
+            ordering: false, // désactive le tri automatique
             layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
-            "order": [
+            /* "order": [
                 [0, 'asc']
-            ],
+            ], */
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
