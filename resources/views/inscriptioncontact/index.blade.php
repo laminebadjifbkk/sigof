@@ -301,7 +301,7 @@
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
-            pageLength: 10,
+            /* pageLength: 10, */
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
