@@ -18,7 +18,7 @@
 
                 {{-- Messages flash --}}
                 @if ($message = Session::get('status'))
-                    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+                    <div class="alert alert-warning alert-dismissible fade show shadow-sm" role="alert">
                         <i class="bi bi-check-circle me-2"></i><strong>{{ $message }}</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
@@ -141,7 +141,8 @@
                 {{-- Liste des formations --}}
                 <div class="card border-0 shadow-sm rounded-4">
                     <div class="card-header bg-secondary text-white rounded-top-4">
-                        <h5 class="mb-0"><i class="bi bi-mortarboard me-2"></i>Formations de {{ $evaluateur->name }}</h5>
+                        <h5 class="mb-0"><i class="bi bi-mortarboard me-2"></i>Formations de
+                            {{ $evaluateur->name . ' ' . $evaluateur->lastname }}</h5>
                     </div>
                     <div class="card-body">
                         @if ($evaluateur->formations->isNotEmpty())
@@ -169,8 +170,7 @@
                                                     {{ $formation->module?->name ?? ($formation->collectivemodule?->module ?? '—') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <span
-                                                        class="badge bg-{{ $formation->statut === 'validée' ? 'success' : ($formation->statut === 'en cours' ? 'warning text-dark' : 'secondary') }}">
+                                                    <span class="{{ $formation->statut }}">
                                                         {{ ucfirst($formation->statut) }}
                                                     </span>
                                                 </td>
