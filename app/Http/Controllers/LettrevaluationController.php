@@ -28,7 +28,7 @@ class LettrevaluationController extends Controller
             return redirect()->back();
         }
 
-        $lettrevaluations = Lettrevaluation::latest()->get();
+        $lettrevaluations = Lettrevaluation::orderBy('created_at', 'desc')->get();
 
         $formations      = Formation::whereNotNull('numero_convention')->where('statut', 'En cours')->latest()->get();
         $onfpevaluateurs = Onfpevaluateur::latest()->get();
