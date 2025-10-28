@@ -287,7 +287,7 @@
                                         ];
                                     @endphp
 
-                                    @foreach ($fields as $name => $data)
+                                    {{-- @foreach ($fields as $name => $data)
                                         <div class="col-md-12">
                                             <label for="{{ $name }}" class="form-label">{{ $data['label'] }}
                                                 <span class="text-danger">*</span></label>
@@ -300,7 +300,48 @@
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
+                                    @endforeach --}}
+
+                                    @foreach ($fields as $name => $data)
+                                        <div class="col-md-12">
+                                            <label for="{{ $name }}" class="form-label">{{ $data['label'] }}
+                                                @if ($name !== 'scan_cv')
+                                                    <span class="text-danger">*</span>
+                                                @endif
+                                            </label>
+
+                                            @if ($name === 'scan_cv')
+                                                @if ($evaluateur->scan_cv)
+                                                    <p>
+                                                        CV actuel :
+                                                        <a href="{{ asset($evaluateur->getCVEvaluateurs()) }}"
+                                                            target="_blank" class="btn btn-outline-secondary btn-sm">
+                                                            <i class="bi bi-file-earmark-pdf"></i> Voir le CV
+                                                        </a>
+                                                    </p>
+                                                @else
+                                                    <p class="text-muted small">Aucun CV enregistré</p>
+                                                @endif
+
+                                                <input type="file" name="scan_cv" id="scan_cv"
+                                                    class="form-control form-control-sm @error('scan_cv') is-invalid @enderror"
+                                                    placeholder="{{ $data['placeholder'] }}">
+                                                <small class="text-muted">Laissez vide si vous ne souhaitez pas le
+                                                    changer.</small>
+                                            @else
+                                                <input type="{{ $data['type'] }}" name="{{ $name }}"
+                                                    id="{{ $name }}"
+                                                    value="{{ old($name, $evaluateur->$name) }}"
+                                                    class="form-control form-control-sm @error($name) is-invalid @enderror"
+                                                    placeholder="{{ $data['placeholder'] }}" required>
+                                            @endif
+
+                                            @error($name)
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     @endforeach
+
                                 </div>
 
                                 <div class="card-footer d-flex justify-content-end gap-2 p-3 bg-light border-top">
