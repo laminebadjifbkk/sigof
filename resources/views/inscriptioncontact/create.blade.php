@@ -199,12 +199,82 @@
 
         <p class="footer-text">© {{ date('Y') }} ONFP</p>
         {{-- <p class="footer-text">© {{ date('Y') }} ONFP — Tous droits réservés</p> --}}
+
+        <!-- Bouton "Déjà inscrit ?" -->
+        <div class="text-center mt-3">
+            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal"
+                data-bs-target="#checkModal">
+                <i class="bi bi-search"></i> Déjà inscrit ?
+            </button>
+        </div>
+
     </div>
+
+    <!-- Modal Vérification -->
+    <div class="modal fade" id="checkModal" tabindex="-1" aria-labelledby="checkModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title text-dark" id="checkModalLabel">
+                        Vérifier votre inscription
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form action="{{ route('inscriptioncontact.check') }}" method="POST">
+                        @csrf
+
+                        <div class="alert alert-info small mb-3">
+                            <i class="bi bi-info-circle"></i>
+                            Sélectionnez d’abord votre structure, puis entrez votre adresse mail et votre téléphone.
+                        </div>
+
+                        <!-- Structure -->
+                        <div class="form-group mb-3">
+                            <i class="bi bi-building input-icon"></i>
+                            <select name="structure" class="form-control select2" required>
+                                <option value="">-- Sélectionnez une structure --</option>
+                                @foreach ($structures as $group => $options)
+                                    <optgroup label="{{ $group }}">
+                                        @foreach ($options as $option)
+                                            <option value="{{ $option }}">{{ $option }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group mb-3 position-relative">
+                            <i class="bi bi-envelope input-icon"></i>
+                            <input type="email" name="email" class="form-control" placeholder="Adresse mail"
+                                required>
+                        </div>
+
+                        <!-- Téléphone -->
+                        <div class="form-group mb-3 position-relative">
+                            <i class="bi bi-telephone input-icon"></i>
+                            <input type="text" name="telephone" class="form-control" placeholder="Téléphone"
+                                required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-search"></i> Vérifier mon inscription
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- SweetAlert CSS/JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Script à la fin de la page -->
     <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             grecaptcha.ready(function() {
@@ -219,6 +289,30 @@
     </script>
 
     @include('sweetalert::alert')
+    <!-- Bootstrap Bundle JS (avec Popper inclus, obligatoire pour les modales) -->
+
+    <script>
+        $(document).ready(function() {
+            // Initialisation principale (pour le formulaire principal)
+            $('#structure').select2({
+                placeholder: "Choisir votre structure",
+                allowClear: true,
+                width: '100%'
+            });
+
+            // Initialisation spécifique pour le modal "Déjà inscrit ?"
+            $('#checkModal').on('shown.bs.modal', function() {
+                $(this).find('.select2').select2({
+                    dropdownParent: $('#checkModal'),
+                    placeholder: "Choisir votre structure",
+                    allowClear: true,
+                    width: '100%'
+                });
+            });
+        });
+    </script>
+
+
 </body>
 
 </html>

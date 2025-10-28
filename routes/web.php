@@ -679,7 +679,7 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('/inscriptioncontacts/{id}/details', [InscriptionContactController::class, 'showAjax'])
             ->name('inscriptioncontacts.details');
-            
+
         Route::put('/inscriptioncontacts/{id}', [InscriptionContactController::class, 'update'])
             ->name('inscriptioncontacts.update');
 
@@ -804,6 +804,15 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::get('/inscriptioncontact', [InscriptioncontactController::class, 'create'])->name('inscriptioncontact');
     Route::post('/inscriptioncontact/store', [InscriptioncontactController::class, 'store'])->name('inscriptioncontact.store');
     Route::get('/inscriptioncontact/merci', [InscriptioncontactController::class, 'merci'])->name('inscriptioncontact.merci');
+
+    Route::post('/inscription/verifier', [InscriptioncontactController::class, 'check'])
+        ->name('inscriptioncontact.check');
+
+    Route::get('/inscription/{id}/confirmation', [InscriptioncontactController::class, 'confirmation'])
+        ->name('inscription.confirmation');
+
+    Route::get('/inscription/{id}/questions', [InscriptionController::class, 'questions'])
+        ->name('inscription.questions');
 
     Route::get('/pcharge', [FormulaireController::class, 'create'])->name('formulaire.create');
     Route::post('/pcharge', [FormulaireController::class, 'store'])->name('formulaire.store');

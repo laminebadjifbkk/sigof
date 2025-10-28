@@ -331,4 +331,35 @@ class InscriptioncontactController extends Controller
 
         return redirect()->route('inscriptioncontacts.index');
     }
+
+    public function check(Request $request)
+    {
+        $request->validate([
+            'structure' => 'required|string',
+            'email'     => 'required|email',
+            'telephone' => 'required|string',
+        ]);
+
+        $email = $request->email;
+
+        $exists = Inscription::where('structure', $request->structure)
+            ->where('email', $request->email)
+            ->where('telephone', $request->telephone)
+            ->first();
+
+        if ($exists) {
+            Alert::success('Succès', 'Vous avez déjà confirmé votre participation.');
+            return redirect()->route('inscription.confirmation', $exists->id);
+        } else {
+            Alert::error('Erreur', 'Aucune inscription trouvée pour ces informations.');
+            return redirect()->back();
+        }
+    }
+
+    public function confirmation($id)
+    {
+        $inscription = Inscription::findOrFail($id);
+
+        return view('inscriptioncontact.confirmation', compact('inscription'));
+    }
 }
