@@ -57,7 +57,7 @@
                                                 <th>Lieu</th>
                                                 {{-- <th>Responsable</th> --}}
                                                 <th>Evaluateur(s)</th>
-                                                <th>Evaluteur(s) ONFP</th>
+                                                <th>ONFP</th>
                                                 {{-- <th>Formation</th> --}}
                                                 <th>Date évaluation</th>
                                                 {{-- <th>Ingénieur</th> --}}
