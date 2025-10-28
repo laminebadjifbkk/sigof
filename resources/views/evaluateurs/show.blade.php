@@ -18,7 +18,7 @@
 
                 {{-- Messages flash --}}
                 @if ($message = Session::get('status'))
-                    <div class="alert alert-warning alert-dismissible fade show shadow-sm" role="alert">
+                    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
                         <i class="bi bi-check-circle me-2"></i><strong>{{ $message }}</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
@@ -94,7 +94,7 @@
 
                 <div class="card shadow-sm mb-4 border-0 rounded-4">
                     <div
-                        class="card-header bg-primary text-white d-flex justify-content-between align-items-center rounded-top-4">
+                        class="card-header bg-warning text-white d-flex justify-content-between align-items-center rounded-top-4">
                         <h5 class="mb-0"><i class="bi bi-person-badge me-2"></i>Informations de l’évaluateur</h5>
                         <a href="{{ route('evaluateurs.index') }}" class="btn btn-light btn-sm">
                             <i class="bi bi-arrow-left-circle"></i> Retour
