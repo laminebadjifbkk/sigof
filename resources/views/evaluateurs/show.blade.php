@@ -41,7 +41,7 @@
                 @endif
 
                 {{-- Informations de l’évaluateur --}}
-                <div class="card shadow-sm mb-4 border-0 rounded-4">
+                {{-- <div class="card shadow-sm mb-4 border-0 rounded-4">
                     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center rounded-top-4">
                         <h5 class="mb-0"><i class="bi bi-person-badge me-2"></i>Informations de l’évaluateur</h5>
                         <a href="{{ route('evaluateurs.index') }}" class="btn btn-light btn-sm">
@@ -90,6 +90,52 @@
                             </div>
                         </div>
                     </div>
+                </div> --}}
+
+                <div class="card shadow-sm mb-4 border-0 rounded-4">
+                    <div
+                        class="card-header bg-primary text-white d-flex justify-content-between align-items-center rounded-top-4">
+                        <h5 class="mb-0"><i class="bi bi-person-badge me-2"></i>Informations de l’évaluateur</h5>
+                        <a href="{{ route('evaluateurs.index') }}" class="btn btn-light btn-sm">
+                            <i class="bi bi-arrow-left-circle"></i> Retour
+                        </a>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <strong>Prénom :</strong> {{ $evaluateur->name ?? '—' }}
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Nom :</strong> {{ $evaluateur->lastname ?? '—' }}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <strong>Fonction / Spécialité :</strong> {{ $evaluateur->fonction ?? '—' }}
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Email :</strong>
+                                <a href="mailto:{{ $evaluateur->email }}">{{ $evaluateur->email ?? '—' }}</a>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <strong>Téléphone :</strong> {{ $evaluateur->telephone ?? '—' }}
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Adresse :</strong> {{ $evaluateur->adresse ?? '—' }}
+                            </div>
+                        </div>
+                        @if ($evaluateur->scan_cv)
+                            <div class="mt-2">
+                                <a href="{{ asset('storage/' . $evaluateur->scan_cv) }}" target="_blank"
+                                    class="btn btn-outline-primary btn-sm">
+                                    <i class="bi bi-file-earmark-text"></i> Voir le CV
+                                </a>
+                            </div>
+                        @endif
+                    </div>
                 </div>
 
                 {{-- Liste des formations --}}
@@ -120,10 +166,11 @@
                                                 <td>{{ $formation->name }}</td>
                                                 <td>{{ $formation->departement?->region?->nom }}</td>
                                                 <td>
-                                                    {{ $formation->module?->name ?? $formation->collectivemodule?->module ?? '—' }}
+                                                    {{ $formation->module?->name ?? ($formation->collectivemodule?->module ?? '—') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <span class="badge bg-{{ $formation->statut === 'validée' ? 'success' : ($formation->statut === 'en cours' ? 'warning text-dark' : 'secondary') }}">
+                                                    <span
+                                                        class="badge bg-{{ $formation->statut === 'validée' ? 'success' : ($formation->statut === 'en cours' ? 'warning text-dark' : 'secondary') }}">
                                                         {{ ucfirst($formation->statut) }}
                                                     </span>
                                                 </td>
