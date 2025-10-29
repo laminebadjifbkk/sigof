@@ -108,8 +108,9 @@
                                         {{-- <th>Username</th> --}}
                                         <th>E-mail</th>
                                         <th>Téléphone</th>
-                                        <th>Roles</th>
-                                        <th class="text-center">Statut</th>
+                                        <th width="20%">Roles</th>
+                                        <th width="5%" class="text-center">Formations</th>
+                                        <th width="5%" class="text-center">Statut</th>
                                         <th width="2%"></th>
                                     </tr>
                                 </thead>
@@ -133,6 +134,9 @@
                                                             class="badge bg-primary mx-1">{{ $roleName }}</label>
                                                     @endforeach
                                                 @endif
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="badge bg-info text-white">{{ $user->individuelles->count() }}</span>
                                             </td>
                                             <td style="text-align: center;">
                                                 @isset($user?->email_verified_at)
@@ -476,7 +480,8 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="lieu_naissance" class="form-label">Lieu de naissance</label>
-                                                <input type="text" name="lieu_naissance" value="{{ old('lieu_naissance') }}"
+                                                <input type="text" name="lieu_naissance"
+                                                    value="{{ old('lieu_naissance') }}"
                                                     class="form-control form-control-sm @error('lieu_naissance') is-invalid @enderror"
                                                     id="lieu_naissance" placeholder="Lieu de naissance">
                                                 @error('lieu_naissance')
