@@ -256,9 +256,28 @@ class CollectiveController extends Controller
             "sigle"                 => ["nullable", "string", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "email"                 => ["required", "string", Rule::unique('collectives')->where(function ($query) {
+            /* "email"                 => ["required", "string", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
-            })],
+            })], */
+            'email'                 => [
+                'required',
+                'string',
+                function ($attribute, $value, $fail) {
+                    $existsInCollectives = DB::table('collectives')
+                        ->where('email', $value)
+                        ->whereNull('deleted_at')
+                        ->exists();
+
+                    $existsInUsers = DB::table('users')
+                        ->where('email', $value)
+                        ->whereNull('deleted_at')
+                        ->exists();
+
+                    if ($existsInCollectives || $existsInUsers) {
+                        $fail('Cet email existe déjà dans le système.');
+                    }
+                },
+            ],
             "fixe"                  => ["nullable", "string", "size:12", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
