@@ -147,12 +147,12 @@ class UserController extends Controller
         $rejeter  = $statuts['Rejetée'] ?? 0;
 
         $pourcentage_hommes = $individuelles->count() > 0
-        ? ($masculin / $individuelles->count()) * 100
-        : 0;
+            ? ($masculin / $individuelles->count()) * 100
+            : 0;
 
         $pourcentage_femmes = $individuelles->count() > 0
-        ? ($feminin / $individuelles->count()) * 100
-        : 0;
+            ? ($feminin / $individuelles->count()) * 100
+            : 0;
 
         $feminin_collective = Listecollective::where('civilite', "Mme")
             ->count();
@@ -161,12 +161,12 @@ class UserController extends Controller
             ->count();
 
         $pourcentage_femmes_collective = $listecollectives->count() > 0
-        ? ($feminin_collective / $listecollectives->count()) * 100
-        : 0;
+            ? ($feminin_collective / $listecollectives->count()) * 100
+            : 0;
 
         $pourcentage_hommes_collective = $listecollectives->count() > 0
-        ? ($masculin_collective / $listecollectives->count()) * 100
-        : 0;
+            ? ($masculin_collective / $listecollectives->count()) * 100
+            : 0;
 
         /* $count_demandes = ($individuelles ? $individuelles->count() : 0) +
             ($listecollectives ? $listecollectives->count() : 0); */
@@ -890,6 +890,7 @@ class UserController extends Controller
             'name'                  => 'nullable|string',
             'firstname'             => 'nullable|string',
             'telephone_responsable' => 'nullable|string',
+            'lieu_naissance'        => 'nullable|string',
             'email'                 => 'nullable|email',
         ]);
 
@@ -902,9 +903,9 @@ class UserController extends Controller
         if (
             ! $request->filled('cin') &&
             ! $request->filled('firstname') &&
-            /* ! $request->filled('username') && */
             ! $request->filled('name') &&
             ! $request->filled('telephone_responsable') &&
+            ! $request->filled('lieu_naissance') &&
             ! $request->filled('email')
         ) {
             Alert::warning('Recherche impossible', 'Veuillez remplir au moins un champ avant de continuer.');
@@ -936,9 +937,9 @@ class UserController extends Controller
         if ($request->filled('firstname')) {
             $query->where('firstname', 'like', "%$request->firstname%");
         }
-        /* if ($request->filled('username')) {
-            $query->where('username', 'like', "%$request->username%");
-        } */
+        if ($request->filled('lieu_naissance')) {
+            $query->where('lieu_naissance', 'like', "%$request->lieu_naissance%");
+        }
         if ($request->filled('name')) {
             $query->where('name', 'like', "%$request->name%");
         }
@@ -1235,7 +1236,6 @@ class UserController extends Controller
             ->get()
             ->unique('sigle') // Évite les doublons sur le champ "sigle"
             ->values();       // Réindexe proprement la collection (0, 1, 2, ...)
-            
 
         if (! $user) {
             return abort(404, 'Utilisateur non trouvé');

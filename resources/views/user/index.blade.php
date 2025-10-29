@@ -471,6 +471,23 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="lieu_naissance" class="form-label">Lieu de naissance</label>
+                                                <input type="text" name="lieu_naissance" value="{{ old('lieu_naissance') }}"
+                                                    class="form-control form-control-sm @error('lieu_naissance') is-invalid @enderror"
+                                                    id="lieu_naissance" placeholder="Lieu de naissance">
+                                                @error('lieu_naissance')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary btn-sm"
                                         data-bs-dismiss="modal">Fermer</button>
