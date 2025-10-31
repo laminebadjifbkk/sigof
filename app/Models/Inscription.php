@@ -16,11 +16,11 @@ class Inscription extends Model
         'autre',
     ];
 
-    protected static function booted()
+   /*  protected static function booted()
     {
         static::creating(function ($inscription) {
             $inscription->uuid = (string) Str::uuid();
         });
-    }
+    } */
 
 }
