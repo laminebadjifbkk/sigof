@@ -172,6 +172,7 @@ class InscriptioncontactController extends Controller
                 "DGCFEDSP / Ministère de l’Economie du Plan et de la Coopération (MEPC)",
                 "Direction de la Planification, des Etudes et du Suivi-Evaluation (MEPM)",
                 "Direction générale de la Formation professionnelle et technique (DGFPT)",
+                "Office national de Formation professionnelle (ONFP)",
             ],
             "Ambassades et Représentations étrangères"  => [
                 "Ambassade des Émirats arabes unis à Dakar",
