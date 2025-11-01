@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Mail\ConfirmationInscription;
@@ -34,7 +35,7 @@ class InscriptioncontactController extends Controller
             "Ambassades et Représentations étrangères"  => [
                 "Ambassade des Émirats arabes unis à Dakar",
                 "Ambassade du Qatar à Dakar",
-                "Ambassade du Qatar à Koweït à Dakar",
+                "Ambassade du Koweït à Dakar",
                 "Délégation à l’Union Européenne au Sénégal (EEAS)",
                 "Ambassade du Canada",
                 "Ambassade du Maroc",
@@ -55,6 +56,8 @@ class InscriptioncontactController extends Controller
             ],
             "Agences et Fonds nationaux"                => [
                 "Fonds de Financement de la Formation professionnelle et Technique (3FPT)",
+                "Expertise Sénégal pour les Systèmes de Formation professionnelle",
+                "Agence régionale de Développement (ARD) Dakar",
                 "Agence nationale pour la Promotion de l’Emploi des Jeunes (ANPEJ)",
                 "Centre National des Qualifications Professionnelles (CNQP)",
                 "Programme de Formation Ecole-Entreprise (PF2E)",
@@ -178,7 +181,7 @@ class InscriptioncontactController extends Controller
             "Ambassades et Représentations étrangères"  => [
                 "Ambassade des Émirats arabes unis à Dakar",
                 "Ambassade du Qatar à Dakar",
-                "Ambassade du Qatar à Koweït à Dakar",
+                "Ambassade du Koweït à Dakar",
                 "Délégation à l’Union Européenne au Sénégal (EEAS)",
                 "Ambassade du Canada",
                 "Ambassade du Maroc",
@@ -199,6 +202,8 @@ class InscriptioncontactController extends Controller
             ],
             "Agences et Fonds nationaux"                => [
                 "Fonds de Financement de la Formation professionnelle et Technique (3FPT)",
+                "Expertise Sénégal pour les Systèmes de Formation professionnelle",
+                "Agence régionale de Développement (ARD) Dakar",
                 "Agence nationale pour la Promotion de l’Emploi des Jeunes (ANPEJ)",
                 "Centre National des Qualifications Professionnelles (CNQP)",
                 "Programme de Formation Ecole-Entreprise (PF2E)",
