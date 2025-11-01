@@ -295,7 +295,7 @@
         $(document).ready(function() {
             // Initialisation principale (pour le formulaire principal)
             $('#structure').select2({
-                placeholder: "Choisir votre structure",
+                placeholder: "Choisir la structure que vous représentez",
                 allowClear: true,
                 width: '100%'
             });
