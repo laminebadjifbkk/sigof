@@ -16,7 +16,7 @@
     <script>
         $(document).ready(function() {
             $('#structure').select2({
-                placeholder: "Choisir votre structure",
+                placeholder: "Choisir la structure que vous représentez",
                 allowClear: true,
                 width: '100%'
             });
