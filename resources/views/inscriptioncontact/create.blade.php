@@ -304,7 +304,7 @@
             $('#checkModal').on('shown.bs.modal', function() {
                 $(this).find('.select2').select2({
                     dropdownParent: $('#checkModal'),
-                    placeholder: "Choisir votre structure",
+                    placeholder: "Choisir la structure que vous représentez",
                     allowClear: true,
                     width: '100%'
                 });
