@@ -360,7 +360,7 @@
                 <span style="color:red;">NB : </span>Pièces requises<br>
                 <ul>
                     <li>Une copie de la carte nationale d’identité (obligatoire);</li>
-                    {{-- <li>Un certificat de résidence;</li> --}}
+                    <li>Un certificat de résidence de la commune (obligatoire);</li>
                     <li>Un CV (optionnel);</li>
                     <li>Copie des diplômes ou attestations (si disponibles);</li>
                 </ul>
