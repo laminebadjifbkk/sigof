@@ -116,7 +116,7 @@
             <div class="step-circle">4</div>
         </div>
 
-        <form id="multiStepForm" action="{{ route('formulaire.store') }}" method="POST">
+        <form id="multiStepForm" action="{{ route('formulaire.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="recaptcha_token" id="recaptcha_token">
             <!-- Étape 1 : Informations personnelles -->
@@ -297,6 +297,20 @@
                         </option>
                     </select>
                 </div>
+
+                <!-- 🧾 Nouveaux champs de fichiers -->
+                <div class="form-group mb-3">
+                    <label>Copie du N° CIN (format PDF ou image) <span class="text-danger">*</span></label>
+                    <input type="file" name="cin_file" class="form-control form-control-sm"
+                        accept=".pdf,.jpg,.jpeg,.png" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label>Facture proforma ONFP (format PDF ou image) <span class="text-danger">*</span></label>
+                    <input type="file" name="facture_file" class="form-control form-control-sm"
+                        accept=".pdf,.jpg,.jpeg,.png" required>
+                </div>
+
                 <div class="text-end">
                     <button type="button" class="btn btn-secondary btn-sm prev-step">Précédent</button>
                     <button type="button" class="btn-orange next-step">Suivant</button>
@@ -362,25 +376,45 @@
                         handicape: "Situation de handicap",
                         type_handicap: "Type de handicap",
                         orphelin: "Orphelin",
-                        type_orphelin: "Type d’orphelinat"
+                        type_orphelin: "Type d’orphelinat",
+                        cin_file: "Copie du N° CIN",
+                        facture_file: "Facture proforma ONFP"
                     };
 
                     let recap = "";
+
+                    // 🔸 Récupère les champs texte classiques
                     $("#multiStepForm").serializeArray().forEach(field => {
                         const name = field.name;
                         const value = field.value.trim();
-                        // Ignorer certains champs invisibles
+
                         if (
                             name === "_token" ||
-                            name === "recaptcha_token" || // ⬅️ ajoute cette ligne
+                            name === "recaptcha_token" ||
                             value === ""
                         ) return;
-                        if (name === "_token" || value === "") return;
+
                         if (name === "type_handicap" && $("#handicape").val() !== "oui") return;
                         if (name === "type_orphelin" && $("#orphelin").val() !== "oui") return;
+
                         recap +=
                             `<div class="recap-item"><span>${labels[name] || name} :</span> ${value}</div>`;
                     });
+
+                    // 🔹 Récupère les fichiers
+                    const cinFile = $('input[name="cin_file"]')[0].files[0];
+                    const factureFile = $('input[name="facture_file"]')[0].files[0];
+
+                    if (cinFile) {
+                        recap +=
+                            `<div class="recap-item"><span>${labels.cin_file} :</span> ${cinFile.name}</div>`;
+                    }
+
+                    if (factureFile) {
+                        recap +=
+                            `<div class="recap-item"><span>${labels.facture_file} :</span> ${factureFile.name}</div>`;
+                    }
+
                     $("#recap-container").html(recap);
                 }
             });

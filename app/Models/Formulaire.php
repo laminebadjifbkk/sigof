@@ -34,6 +34,8 @@ class Formulaire extends Model
         'type_handicap',
         'orphelin',
         'type_orphelin',
+        'facture_file',
+        'cin_file',
     ];
 
     protected $casts = [
