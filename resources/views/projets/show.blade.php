@@ -157,7 +157,8 @@
                                                             </div>
                                                             <div class="ps-2">
                                                                 <h6 class="mb-0" style="font-size: 0.9rem;">
-                                                                    {{ number_format(count($individuelles), 0, '', ' ') }}</h6>
+                                                                    {{ number_format(count($individuelles), 0, '', ' ') }}
+                                                                </h6>
                                                                 <span class="text-muted small">demandeurs</span>
                                                             </div>
                                                         </div>
@@ -188,11 +189,13 @@
                                                                 </div>
                                                                 <div class="ps-2">
                                                                     <h6 class="mb-0" style="font-size: 0.9rem;">
-                                                                        {{ number_format($items->count(), 0, '', ' ') }}</h6>
+                                                                        {{ number_format($items->count(), 0, '', ' ') }}
+                                                                    </h6>
                                                                     <span class="text-muted small">demandeur(s)</span>
                                                                 </div>
                                                             </div>
-                                                            <a href="{{ route('projets.parStatut', ['statut' => $statut, 'projetid' => $projet->id]) }}" target="_blank"
+                                                            <a href="{{ route('projets.parStatut', ['statut' => $statut, 'projetid' => $projet->id]) }}"
+                                                                target="_blank"
                                                                 class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
                                                                 style="font-size: 0.85rem; gap: 6px;">
                                                                 Voir plus <i class="bi bi-arrow-right-short"></i>
@@ -266,7 +269,7 @@
                                                         <td>{{ $projetmodule?->module }}</td>
                                                         <td>{{ $projetmodule?->domaine }}</td>
                                                         <td>
-                                                            @if ($projetmodule?->statut == 'ouvert')
+                                                            {{-- @if ($projetmodule?->statut == 'ouvert')
                                                                 <span class="badge bg-success rounded-pill">
                                                                     {{ $projetmodule?->statut }}
                                                                 </span>
@@ -282,7 +285,10 @@
                                                                 <span class="badge bg-default rounded-pill">
                                                                     {{ $projetmodule?->statut }}
                                                                 </span>
-                                                            @endif
+                                                            @endif --}}
+                                                            <span class="{{ $projetmodule?->statut }} badge rounded-pill">
+                                                                {{ $projetmodule?->statut }}
+                                                            </span>
                                                         </td>
                                                         @php
                                                             $count = $projet
