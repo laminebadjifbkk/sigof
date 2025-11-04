@@ -802,7 +802,22 @@
         .exécutée {
             background-color: #6c9d78;
             /* vert doux/grisé */
-            color: #ffffff;
+            color: #fff;
+            border-color: #6c9d78;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .Exécutée {
+            background-color: #6c9d78;
+            /* vert doux/grisé */
+            color: #fff;
+            border-color: #6c9d78;
             padding: 6px 12px;
             text-align: center;
             border-radius: 12px;
