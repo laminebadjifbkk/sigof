@@ -59,6 +59,9 @@
                                                 <option value="{{ old('statut', $projetmodule?->statut) }}">
                                                     {{ old('statut', $projetmodule?->statut) }}
                                                 </option>
+                                                <option value="attente">
+                                                    attente
+                                                </option>
                                                 <option value="ouvert">
                                                     ouvert
                                                 </option>
