@@ -139,6 +139,7 @@ class InscriptioncontactController extends Controller
                 "Fond International de Développement Agricole (FIDA)",
                 "City Banque",
                 "Commune Golf Sud",
+                "Député",
                 "Delphy"
             ],
         ];
@@ -149,7 +150,47 @@ class InscriptioncontactController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'structure'   => 'required|string|max:255|unique:inscriptions,structure',
+            /* 'structure'   => 'required|string|max:255|unique:inscriptions,structure', */
+            /* 'structure' => [
+                'required',
+                'string',
+                'max:255',
+                function ($attribute, $value, $fail) {
+                    $count = Inscription::where('structure', $value)->count();
+                    if ($count >= 3) {
+                        $fail("La structure « $value » a déjà atteint la limite maximale de 3 inscriptions.");
+                    }
+                },
+            ], */
+            'structure' => [
+                'required',
+                'string',
+                'max:255',
+                function ($attribute, $value, $fail) {
+                    // Normalisation pour éviter les erreurs de casse
+                    $structure = trim(mb_strtolower($value));
+
+                    // Structures autorisées à avoir jusqu'à 3 inscriptions
+                    $multiAllowed = [
+                        mb_strtolower("Ministère de l'Emploi et de la Formation professionnelle et Technique (MEFPT)"),
+                        mb_strtolower("Député"),
+                    ];
+
+                    $count = Inscription::whereRaw('LOWER(structure) = ?', [$structure])->count();
+
+                    if (in_array($structure, $multiAllowed)) {
+                        // Ces structures peuvent avoir jusqu'à 3 inscriptions
+                        if ($count >= 3) {
+                            $fail("La structure « $value » a déjà atteint la limite maximale de 3 inscriptions.");
+                        }
+                    } else {
+                        // Toutes les autres : uniquement une inscription autorisée
+                        if ($count >= 1) {
+                            $fail("La structure « $value » ne peut avoir qu’une seule inscription.");
+                        }
+                    }
+                },
+            ],
             'nom'         => 'required|string|max:255',
             'fonction'    => 'required|string|max:255',
             'telephone'   => 'required|string|max:50|unique:inscriptions,telephone',
@@ -295,6 +336,7 @@ class InscriptioncontactController extends Controller
                 "Fond International de Développement Agricole (FIDA)",
                 "City Banque",
                 "Commune Golf Sud",
+                "Député",
                 "Delphy"
             ],
         ];
