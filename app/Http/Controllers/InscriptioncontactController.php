@@ -142,7 +142,7 @@ class InscriptioncontactController extends Controller
                 "Député",
                 "Delphy",
                 "Institut de Formation pratique aux Métiers (IFPM)",
-                "SONES"
+                "Dynamic conseils"
             ],
         ];
         // Pas besoin de FormBuilder, on affiche directement la vue
@@ -176,7 +176,7 @@ class InscriptioncontactController extends Controller
                     $multiAllowed = [
                         mb_strtolower("Ministère de l'Emploi et de la Formation professionnelle et Technique (MEFPT)"),
                         mb_strtolower("Député"),
-                        mb_strtolower("SONES"),
+                        mb_strtolower("Société Nationale des Eaux du Sénégal (SONES)"),
                     ];
 
                     $count = Inscription::whereRaw('LOWER(structure) = ?', [$structure])->count();
@@ -342,7 +342,7 @@ class InscriptioncontactController extends Controller
                 "Député",
                 "Delphy",
                 "Institut de Formation pratique aux Métiers (IFPM)",
-                "SONES"
+                "Dynamic conseils"
             ],
         ];
         return view('inscriptioncontact.index', compact('inscriptions', 'structures'));
