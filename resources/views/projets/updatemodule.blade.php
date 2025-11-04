@@ -60,19 +60,19 @@
                                                     {{ old('statut', $projetmodule?->statut) }}
                                                 </option>
                                                 <option value="attente">
-                                                    attente
+                                                    Attente
                                                 </option>
                                                 <option value="ouvert">
-                                                    ouvert
+                                                    Ouvert
                                                 </option>
                                                 <option value="fermé">
-                                                    fermé
+                                                    Fermé
                                                 </option>
                                                 <option value="terminé">
-                                                    terminé
+                                                    Terminé
                                                 </option>
-                                                <option value="déjà exécutée">
-                                                    déjà exécutée
+                                                <option value="déjà-exécutée">
+                                                    Déjà exécutée
                                                 </option>
                                             </select>
                                             @error('statut')
