@@ -142,6 +142,7 @@ class InscriptioncontactController extends Controller
                 "Député",
                 "Delphy",
                 "Institut de Formation pratique aux Métiers (IFPM)",
+                "Projet de Formation professionnelle et d’Insertion (PFPI)",
                 "Dynamic conseils"
             ],
         ];
@@ -342,6 +343,7 @@ class InscriptioncontactController extends Controller
                 "Député",
                 "Delphy",
                 "Institut de Formation pratique aux Métiers (IFPM)",
+                "Projet de Formation professionnelle et d’Insertion (PFPI)",
                 "Dynamic conseils"
             ],
         ];
