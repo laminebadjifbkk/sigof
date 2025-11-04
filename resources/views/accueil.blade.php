@@ -50,7 +50,7 @@
                             Merci pour l'intérêt que vous portez à nos formations. À très bientôt pour
                             d'autres opportunités.
                         </strong> --}}
-                        
+
                         {{-- <strong style="color: green; font-weight: bold; animation: blink 1s linear infinite;">
                             ✅ Le délai de dépôt des demandes d’agrément des opérateurs est prolongé
                             jusqu’au mardi 26 août 2025 à 23h59.
@@ -1441,33 +1441,38 @@
         function updateCountdown() {
             const now = new Date();
 
-            // Date locale explicite : 30 juillet 2025 à 11h00 (mois 6 = juillet)
-            const closingTime = new Date(2025, 11, 10, 23, 59, 0);
+            // 🔹 Date limite = maintenant + 10 jours
+            const closingTime = new Date();
+            closingTime.setDate(closingTime.getDate() + 10);
+            closingTime.setHours(23, 59, 0, 0); // se termine à 23h59 du 10e jour
 
-            if (now >= closingTime) {
+            // Calcul de la différence
+            const diff = closingTime - now;
+
+            if (diff <= 0) {
                 document.getElementById('countdownContainer').style.display = 'none';
                 document.getElementById('postulerBtn').style.display = 'none';
                 document.getElementById('closedMessage').style.display = 'block';
-            } else {
-                const diff = closingTime - now;
-
-                const totalSeconds = Math.floor(diff / 1000);
-                const days = Math.floor(totalSeconds / (60 * 60 * 24));
-                const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / 3600);
-                const minutes = Math.floor((totalSeconds % 3600) / 60);
-                const seconds = totalSeconds % 60;
-
-                let display = '';
-                if (days > 0) display += `${days} jour${days > 1 ? 's' : ''} `;
-                display += `${hours}h ${minutes}min ${seconds}s`;
-
-                document.getElementById('countdown').textContent = display;
+                return;
             }
+
+            const totalSeconds = Math.floor(diff / 1000);
+            const days = Math.floor(totalSeconds / (60 * 60 * 24));
+            const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+
+            let display = '';
+            if (days > 0) display += `${days} jour${days > 1 ? 's' : ''} `;
+            display += `${hours}h ${minutes}min ${seconds}s`;
+
+            document.getElementById('countdown').textContent = display;
         }
 
         updateCountdown();
         setInterval(updateCountdown, 1000);
     </script>
+
     <style>
         @keyframes fadeBlink {
 
