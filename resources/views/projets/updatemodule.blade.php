@@ -71,7 +71,7 @@
                                                 <option value="terminé">
                                                     Terminé
                                                 </option>
-                                                <option value="deja-executee">
+                                                <option value="déjà exécutée">
                                                     Déjà exécutée
                                                 </option>
                                             </select>
