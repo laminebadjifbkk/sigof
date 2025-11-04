@@ -125,8 +125,18 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label>N° CIN <span class="text-danger">*</span></label>
-                        <input type="text" name="cin" class="form-control form-control-sm"
-                            value="{{ old('cin') }}" required minlength="13" maxlength="14">
+                        {{-- <input type="text" name="cin" class="form-control form-control-sm"
+                            value="{{ old('cin') }}" required minlength="13" maxlength="14"> --}}
+
+                        <input name="cin" type="text"
+                            class="form-control form-control-sm @error('cin') is-invalid @enderror" id="cin"
+                            value="{{ old('cin') }}" autocomplete="off" placeholder="Ex: 1 099 2005 00012"
+                            minlength="16" maxlength="17" required>
+                        @error('cin')
+                            <span class="invalid-feedback" role="alert">
+                                <div>{{ $message }}</div>
+                            </span>
+                        @enderror
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Civilité <span class="text-danger">*</span></label>
@@ -163,13 +173,30 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Téléphone principal <span class="text-danger">*</span></label>
-                        <input type="text" name="telephone" class="form-control form-control-sm"
-                            value="{{ old('telephone') }}" required>
+                        {{-- <input type="text" name="telephone" class="form-control form-control-sm"
+                            value="{{ old('telephone') }}" required> --}}
+
+                        <input name="telephone" type="text" maxlength="12"
+                            class="form-control form-control-sm @error('telephone') is-invalid @enderror" id="phone"
+                            value="{{ old('telephone') }}" autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                        <div class="invalid-feedback">
+                            @error('telephone')
+                                {{ $message }}
+                            @enderror
+                        </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Téléphone secondaire <span class="text-danger">*</span></label>
-                        <input type="text" name="telephone_secondaire" class="form-control form-control-sm"
-                            value="{{ old('telephone_secondaire') }}">
+                        {{-- <input type="text" name="telephone_secondaire" class="form-control form-control-sm"
+                            value="{{ old('telephone_secondaire') }}"> --}}
+                            <input name="telephone_secondaire" type="text" maxlength="12"
+                            class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror" id="phonesecondaire"
+                            value="{{ old('telephone_secondaire') }}" autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                        <div class="invalid-feedback">
+                            @error('telephone_secondaire')
+                                {{ $message }}
+                            @enderror
+                        </div>
                     </div>
                     <div class="col-md-12 mb-3">
                         <label>Adresse <span class="text-danger">*</span></label>
@@ -227,7 +254,7 @@
                     <label>Diplôme visé <span class="text-danger">*</span></label>
                     <select name="diplome_vise" class="form-control form-control-sm" required>
                         <option value="" disabled selected>-- Sélectionnez un diplôme --</option>
-                        @foreach (['CAP', 'BEP', 'BT', 'BTS', 'CPS', 'Licence professionnelle'] as $diplome)
+                        @foreach (['CPS', 'CAP', 'BEP', 'BT', 'BTS', 'Licence 3', 'Licence professionnelle', 'Autres certifications'] as $diplome)
                             <option value="{{ $diplome }}"
                                 {{ old('diplome_vise') == $diplome ? 'selected' : '' }}>{{ $diplome }}</option>
                         @endforeach
@@ -532,6 +559,59 @@
     </style>
 
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var telephoneInput = document.getElementById("phone");
+
+            telephoneInput.addEventListener("input", function(e) {
+                var value = e.target.value.replace(/\D/g, ""); // Supprime tout sauf les chiffres
+
+                // Appliquer le format XX:XXX:XX:XX
+                if (value.length > 2) value = value.slice(0, 2) + " " + value.slice(2);
+                if (value.length > 6) value = value.slice(0, 6) + " " + value.slice(6);
+                if (value.length > 9) value = value.slice(0, 9) + " " + value.slice(9, 11);
+
+                e.target.value = value.slice(0, 12); // Limite à 12 caractères (avec les ":")
+            });
+        });
+        document.addEventListener("DOMContentLoaded", function() {
+            var telephoneInput = document.getElementById("phonesecondaire");
+
+            telephoneInput.addEventListener("input", function(e) {
+                var value = e.target.value.replace(/\D/g, ""); // Supprime tout sauf les chiffres
+
+                // Appliquer le format XX:XXX:XX:XX
+                if (value.length > 2) value = value.slice(0, 2) + " " + value.slice(2);
+                if (value.length > 6) value = value.slice(0, 6) + " " + value.slice(6);
+                if (value.length > 9) value = value.slice(0, 9) + " " + value.slice(9, 11);
+
+                e.target.value = value.slice(0, 12); // Limite à 12 caractères (avec les ":")
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var cinInput = document.getElementById("cin");
+
+            cinInput.addEventListener("input", function(e) {
+                var value = e.target.value.replace(/[^A-Za-z0-9]/g,
+                    ""); // Supprimer tout sauf lettres et chiffres
+
+                // Convertir toutes les lettres en majuscule si elles existent
+                value = value.toUpperCase();
+
+                // Appliquer le format: 1 chiffre - espace - 3 chiffres - espace - 4 chiffres - espace - 5 ou 6 chiffres
+                if (value.length > 1) value = value.slice(0, 1) + " " + value.slice(
+                    1); // 1er chiffre + espace
+                if (value.length > 5) value = value.slice(0, 5) + " " + value.slice(
+                    5); // 3 chiffres + espace
+                if (value.length > 10) value = value.slice(0, 10) + " " + value.slice(
+                    10); // 4 chiffres + espace
+
+                // Limiter à 16 ou 17 caractères (espaces inclus)
+                e.target.value = value.slice(0, 17); // 16 ou 17 caractères au total
+            });
+        });
+    </script>
     @include('sweetalert::alert')
 
 </body>
