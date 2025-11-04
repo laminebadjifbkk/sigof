@@ -71,8 +71,8 @@
                                                 <option value="terminé">
                                                     Terminé
                                                 </option>
-                                                <option value="Exécutée">
-                                                    Exécutée
+                                                <option value="déjà exécutée">
+                                                    Déjà exécutée
                                                 </option>
                                             </select>
                                             @error('statut')
