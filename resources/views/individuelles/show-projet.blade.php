@@ -218,10 +218,10 @@
                                             'ouvert' => 'btn-outline-success',
                                             'fermé' => 'btn-outline-danger',
                                             'terminé' => 'btn-outline-secondary',
-                                            'déjà exécutée' => 'btn-outline-info',
-                                            'Déjà exécutée' => 'btn-outline-info',
-                                            'déjà' => 'btn-outline-info',
-                                            'exécutée' => 'btn-outline-info',
+                                            'déjà exécutée' => 'btn-outline-success',
+                                            'Déjà exécutée' => 'btn-outline-success',
+                                            'déjà' => 'btn-outline-success',
+                                            'exécutée' => 'btn-outline-success',
                                             default => 'btn-outline-light text-dark',
                                         };
                                     @endphp
