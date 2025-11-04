@@ -1442,7 +1442,7 @@
             const now = new Date();
 
             // Date locale explicite : 30 juillet 2025 à 11h00 (mois 6 = juillet)
-            const closingTime = new Date(2025, 8, 24, 23, 59, 0);
+            const closingTime = new Date(2025, 11, 10, 23, 59, 0);
 
             if (now >= closingTime) {
                 document.getElementById('countdownContainer').style.display = 'none';
