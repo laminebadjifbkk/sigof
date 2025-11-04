@@ -1441,21 +1441,32 @@
         function updateCountdown() {
             const now = new Date();
 
-            // 🔹 Date limite = maintenant + 10 jours
-            const closingTime = new Date();
-            closingTime.setDate(closingTime.getDate() + 10);
-            closingTime.setHours(23, 59, 0, 0); // se termine à 23h59 du 10e jour
+            // 🔹 Date de démarrage fixe (année, mois, jour, heure, minute, seconde)
+            // ⚠️ Les mois commencent à 0 en JavaScript : 10 = novembre
+            const startDate = new Date(2025, 10, 4, 0, 0, 0); // 4 novembre 2025 à 00h00
 
-            // Calcul de la différence
-            const diff = closingTime - now;
+            // 🔹 Date de clôture = date de démarrage + 10 jours
+            const closingTime = new Date(startDate);
+            closingTime.setDate(startDate.getDate() + 5);
+            closingTime.setHours(23, 59, 0, 0); // clôture à 23h59 le 10e jour
 
-            if (diff <= 0) {
+            if (now < startDate) {
+                // Avant le démarrage
+                document.getElementById('countdownContainer').textContent = "Le compte à rebours commencera le " + startDate
+                    .toLocaleString();
+                return;
+            }
+
+            if (now >= closingTime) {
+                // Après la fin
                 document.getElementById('countdownContainer').style.display = 'none';
                 document.getElementById('postulerBtn').style.display = 'none';
                 document.getElementById('closedMessage').style.display = 'block';
                 return;
             }
 
+            // 🔹 Calcul du temps restant
+            const diff = closingTime - now;
             const totalSeconds = Math.floor(diff / 1000);
             const days = Math.floor(totalSeconds / (60 * 60 * 24));
             const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / 3600);
