@@ -140,7 +140,9 @@ class InscriptioncontactController extends Controller
                 "City Banque",
                 "Commune Golf Sud",
                 "Député",
-                "Delphy"
+                "Delphy",
+                "Institut de Formation pratique aux Métiers (IFPM)",
+                "SONES"
             ],
         ];
         // Pas besoin de FormBuilder, on affiche directement la vue
@@ -174,6 +176,7 @@ class InscriptioncontactController extends Controller
                     $multiAllowed = [
                         mb_strtolower("Ministère de l'Emploi et de la Formation professionnelle et Technique (MEFPT)"),
                         mb_strtolower("Député"),
+                        mb_strtolower("SONES"),
                     ];
 
                     $count = Inscription::whereRaw('LOWER(structure) = ?', [$structure])->count();
@@ -337,7 +340,9 @@ class InscriptioncontactController extends Controller
                 "City Banque",
                 "Commune Golf Sud",
                 "Député",
-                "Delphy"
+                "Delphy",
+                "Institut de Formation pratique aux Métiers (IFPM)",
+                "SONES"
             ],
         ];
         return view('inscriptioncontact.index', compact('inscriptions', 'structures'));
