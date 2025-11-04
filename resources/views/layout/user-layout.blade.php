@@ -787,7 +787,7 @@
         }
 
         .déjà {
-            background-color: #198754;
+            background-color: #6c9d78;
             /* couleur cyan Bootstrap (info) */
             color: #ffffff;
             padding: 6px 12px;
@@ -801,7 +801,7 @@
             display: inline-block;
         }
         .exécutée {
-            background-color: #198754;
+            background-color: #6c9d78;
             /* couleur cyan Bootstrap (info) */
             color: #ffffff;
             padding: 6px 12px;
