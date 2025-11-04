@@ -395,7 +395,7 @@
         }
 
         .cours {
-            background-color: #28a745;
+            background-color: #198754;
             /* vert vif classique pour succès */
             /* couleur cyan Bootstrap (info) */
             color: #ffffff;
@@ -411,7 +411,7 @@
         }
 
         .Disponible {
-            background-color: #28a745;
+            background-color: #198754;
             /* vert vif classique pour succès */
             /* couleur cyan Bootstrap (info) */
             color: #ffffff;
@@ -697,7 +697,7 @@
         }
 
         .ouvert {
-            background-color: #28a745;
+            background-color: #198754;
             /* couleur cyan Bootstrap (info) */
             color: #ffffff;
             padding: 6px 12px;
@@ -712,7 +712,7 @@
         }
 
         .Ouvert {
-            background-color: #28a745;
+            background-color: #198754;
             /* couleur cyan Bootstrap (info) */
             color: #ffffff;
             padding: 6px 12px;
