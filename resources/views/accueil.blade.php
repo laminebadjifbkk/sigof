@@ -1407,7 +1407,7 @@
     </main>
 
     @include('footer-accueil')
-    <script>
+    {{-- <script>
         function updateCountdown() {
             const now = new Date();
             const closingTime = new Date();
@@ -1436,7 +1436,7 @@
         // Démarrage et mise à jour chaque seconde
         updateCountdown();
         setInterval(updateCountdown, 1000);
-    </script>
+    </script> --}}
     <script>
         function updateCountdown() {
             const now = new Date();
