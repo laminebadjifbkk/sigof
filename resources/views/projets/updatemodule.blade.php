@@ -68,6 +68,9 @@
                                                 <option value="terminé">
                                                     terminé
                                                 </option>
+                                                <option value="déjà exécutée">
+                                                    déjà exécutée
+                                                </option>
                                             </select>
                                             @error('statut')
                                                 <span class="invalid-feedback" role="alert">
