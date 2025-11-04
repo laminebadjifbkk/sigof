@@ -786,7 +786,7 @@
             display: inline-block;
         }
 
-        .déjà-exécutée {
+        .deja-executee {
             background-color: #198754;
             /* couleur cyan Bootstrap (info) */
             color: #ffffff;
