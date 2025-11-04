@@ -131,7 +131,7 @@ class InscriptioncontactController extends Controller
                 "Centre canadien de Coopération Internationale (CECI)",
                 "Ecole Supérieure d’Economie Appliquée (ESEA)",
             ],
-            "AUTRES STRUCTURES"        => [
+            "AUTRES"        => [
                 "Association des Commerçants et Industriels du Sénégal(ACIS)",
                 "Fédération nationale des Professionnels de l’Habillement (FENAPH)",
                 "Le représentant du contrôle financier de la présidence de la République, Membre du Conseil d’Administration de l’ONFP",
@@ -328,7 +328,7 @@ class InscriptioncontactController extends Controller
                 "Centre canadien de Coopération Internationale (CECI)",
                 "Ecole Supérieure d’Economie Appliquée (ESEA)",
             ],
-            "AUTRES STRUCTURES"        => [
+            "AUTRES"        => [
                 "Association des Commerçants et Industriels du Sénégal(ACIS)",
                 "Fédération nationale des Professionnels de l’Habillement (FENAPH)",
                 "Le représentant du contrôle financier de la présidence de la République, Membre du Conseil d’Administration de l’ONFP",
