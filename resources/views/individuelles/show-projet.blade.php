@@ -216,9 +216,10 @@
                                         $statut = $projetmodule->statut;
                                         $badgeClass = match ($statut) {
                                             'ouvert' => 'btn-outline-success',
-                                            'fermé' => 'btn-outline-dange',
+                                            'fermé' => 'btn-outline-danger',
                                             'terminé' => 'btn-outline-secondary',
-                                            'Exécutée' => 'btn-outline-info',
+                                            'Exécutée' => 'btn-outline-secondary',
+                                            'exécutée' => 'btn-outline-secondary',
                                             default => 'btn-outline-light text-dark',
                                         };
                                     @endphp
