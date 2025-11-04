@@ -218,8 +218,8 @@
                                             'ouvert' => 'btn-outline-success',
                                             'fermé' => 'btn-outline-danger',
                                             'terminé' => 'btn-outline-secondary',
-                                            'Exécutée' => 'btn-outline-secondary',
-                                            'exécutée' => 'btn-outline-secondary',
+                                            'Exécutée' => 'btn-outline-warning',
+                                            'exécutée' => 'btn-outline-warning',
                                             default => 'btn-outline-light text-dark',
                                         };
                                     @endphp
