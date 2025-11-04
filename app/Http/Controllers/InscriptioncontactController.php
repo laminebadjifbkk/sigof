@@ -131,6 +131,16 @@ class InscriptioncontactController extends Controller
                 "Centre canadien de Coopération Internationale (CECI)",
                 "Ecole Supérieure d’Economie Appliquée (ESEA)",
             ],
+            "AUTRES STRUCTURES"        => [
+                "Association des Commerçants et Industriels du Sénégal(ACIS)",
+                "Fédération nationale des Professionnels de l’Habillement (FENAPH)",
+                "Le représentant du contrôle financier de la présidence de la République, Membre du Conseil d’Administration de l’ONFP",
+                "Le représentant du Ministère des Finances et du Budget au Conseil d’Administration de l’ONFP",
+                "Fond International de Développement Agricole (FIDA)",
+                "City Banque",
+                "Commune Golf Sud",
+                "Delphy"
+            ],
         ];
         // Pas besoin de FormBuilder, on affiche directement la vue
         return view('inscriptioncontact.create', compact('structures'));
@@ -276,6 +286,16 @@ class InscriptioncontactController extends Controller
                 "Centre d'études et de recherches sur les qualifications (CEREQ)",
                 "Centre canadien de Coopération Internationale (CECI)",
                 "Ecole Supérieure d’Economie Appliquée (ESEA)",
+            ],
+            "AUTRES STRUCTURES"        => [
+                "Association des Commerçants et Industriels du Sénégal(ACIS)",
+                "Fédération nationale des Professionnels de l’Habillement (FENAPH)",
+                "Le représentant du contrôle financier de la présidence de la République, Membre du Conseil d’Administration de l’ONFP",
+                "Le représentant du Ministère des Finances et du Budget au Conseil d’Administration de l’ONFP",
+                "Fond International de Développement Agricole (FIDA)",
+                "City Banque",
+                "Commune Golf Sud",
+                "Delphy"
             ],
         ];
         return view('inscriptioncontact.index', compact('inscriptions', 'structures'));
