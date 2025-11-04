@@ -393,6 +393,8 @@
                                                 'ouvert' => 'btn-outline-success',
                                                 'fermé' => 'btn-outline-danger',
                                                 'terminé' => 'btn-outline-secondary',
+                                                'Exécutée' => 'btn-outline-primary',
+                                                'déjà exécutée' => 'btn-outline-primary',
                                                 default => 'btn-outline-light text-dark',
                                             };
 
@@ -436,8 +438,7 @@
                 </div>
                 {{-- @foreach (Auth::user()?->individuelles as $individuelle) --}}
                 @foreach ($projet->projetmodules as $index => $projetmodule)
-                    <div
-                        class="col-12 d-flex flex-column align-items-center justify-content-center">
+                    <div class="col-12 d-flex flex-column align-items-center justify-content-center">
                         <div class="modal fade" id="AddIndividuelleModal{{ $projetmodule->id }}" tabindex="-1">
                             <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
@@ -765,8 +766,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div
-                                                    class="col-12 mb-0">
+                                                <div class="col-12 mb-0">
                                                     <label for="qualification" class="form-label">Qualification et autres
                                                         diplômes</label>
                                                     <textarea name="qualification" id="qualification" rows="1"
@@ -779,8 +779,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div
-                                                    class="col-12 mb-0">
+                                                <div class="col-12 mb-0">
                                                     <label for="experience" class="form-label">Expériences et
                                                         stages</label>
                                                     <textarea name="experience" id="experience" rows="1"
@@ -793,8 +792,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div
-                                                    class="col-12 mb-0">
+                                                <div class="col-12 mb-0">
                                                     <label for="projetprofessionnel" class="form-label">Informations
                                                         complémentaires
                                                         sur
