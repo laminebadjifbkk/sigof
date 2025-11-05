@@ -149,6 +149,8 @@ class InscriptioncontactController extends Controller
                 "Rencontre Insertion Orientation sur la Formation Professionnelle et Technique (RIO FPT)",
                 "Ministère de l’Energie du Pétrole et des Mines (MEPM)",
                 "Groupe IAM",
+                "WINZ SÉNÉGAL",
+                "ONG TOSTAN",
                 "Dynamic conseils"
             ],
         ];
@@ -357,6 +359,8 @@ class InscriptioncontactController extends Controller
                 "Rencontre Insertion Orientation sur la Formation Professionnelle et Technique (RIO FPT)",
                 "Ministère de l’Energie du Pétrole et des Mines (MEPM)",
                 "Groupe IAM",
+                "WINZ SÉNÉGAL",
+                "ONG TOSTAN",
                 "Dynamic conseils"
             ],
         ];
