@@ -151,6 +151,8 @@ class InscriptioncontactController extends Controller
                 "Groupe IAM",
                 "WINZ SÉNÉGAL",
                 "ONG TOSTAN",
+                "TNT Groupe",
+                "SMD Équipements",
                 "Dynamic conseils"
             ],
         ];
@@ -361,6 +363,8 @@ class InscriptioncontactController extends Controller
                 "Groupe IAM",
                 "WINZ SÉNÉGAL",
                 "ONG TOSTAN",
+                "TNT Groupe",
+                "SMD Équipements",
                 "Dynamic conseils"
             ],
         ];
