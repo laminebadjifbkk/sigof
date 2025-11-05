@@ -142,7 +142,13 @@ class InscriptioncontactController extends Controller
                 "Député",
                 "Delphy",
                 "Institut de Formation pratique aux Métiers (IFPM)",
-                "Projet de Formation professionnelle et d’Insertion (PFPI)",
+                "Projet de Formation professionnelle et d’Insertion (PFPI)",
+                "Centre national de formation de la fonction publique locale (CNFPL)",
+                "PAMECAS",
+                "Ministère de l'Education nationale (MEN)",
+                "Rencontre Insertion Orientation sur la Formation Professionnelle et Technique (RIO FPT)",
+                "Ministère de l’Energie du Pétrole et des Mines (MEPM)",
+                "Groupe IAM",
                 "Dynamic conseils"
             ],
         ];
@@ -178,6 +184,7 @@ class InscriptioncontactController extends Controller
                         mb_strtolower("Ministère de l'Emploi et de la Formation professionnelle et Technique (MEFPT)"),
                         mb_strtolower("Député"),
                         mb_strtolower("Société Nationale des Eaux du Sénégal (SONES)"),
+                        mb_strtolower("PAMECAS"),
                     ];
 
                     $count = Inscription::whereRaw('LOWER(structure) = ?', [$structure])->count();
@@ -343,7 +350,13 @@ class InscriptioncontactController extends Controller
                 "Député",
                 "Delphy",
                 "Institut de Formation pratique aux Métiers (IFPM)",
-                "Projet de Formation professionnelle et d’Insertion (PFPI)",
+                "Projet de Formation professionnelle et d’Insertion (PFPI)",
+                "Centre national de formation de la fonction publique locale (CNFPL)",
+                "PAMECAS",
+                "Ministère de l'Education nationale (MEN)",
+                "Rencontre Insertion Orientation sur la Formation Professionnelle et Technique (RIO FPT)",
+                "Ministère de l’Energie du Pétrole et des Mines (MEPM)",
+                "Groupe IAM",
                 "Dynamic conseils"
             ],
         ];
