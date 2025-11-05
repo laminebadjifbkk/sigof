@@ -78,6 +78,7 @@ use App\Http\Controllers\ValidationmoduleController;
 use App\Http\Controllers\ValidationoperateurController;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
 
 /*
 |--------------------------------------------------------------------------
@@ -750,6 +751,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('/lettrevaluations', LettrevaluationController::class);
         Route::resource('/operateurcategories', OperateurcategorieController::class);
         Route::resource('/inscriptioncontacts', InscriptioncontactController::class);
+        Route::resource('/formulaires', FormulaireController::class);
 
         Route::middleware('admin')->group(function () {
             Route::get('/manuels', [BookController::class, 'index'])->name('manuels.index');

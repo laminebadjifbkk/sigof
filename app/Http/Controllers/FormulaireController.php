@@ -141,7 +141,7 @@ class FormulaireController extends Controller
     public function store(Request $request)
     {
 
-         // Définir la période d'ouverture des inscriptions
+        // Définir la période d'ouverture des inscriptions
         $debut = Carbon::create(2025, 11, 10, 8, 0, 0);   // 10 novembre 2025 à 08h00
         $fin   = Carbon::create(2025, 11, 12, 17, 0, 0);  // 12 novembre 2025 à 17h00
 
@@ -324,5 +324,42 @@ class FormulaireController extends Controller
     public function merci()
     {
         return view('formulaire.merci');
+    }
+
+
+    public function index()
+    {
+        $formulaires = Formulaire::orderBy('created_at', 'desc')->get();
+        $labels = [
+            'cin' => 'Numéro CIN',
+            'civilite' => 'Civilité',
+            'prenom' => 'Prénom',
+            'nom' => 'Nom',
+            'date_naissance' => 'Date de naissance',
+            'lieu_naissance' => 'Lieu de naissance',
+            'email' => 'Adresse e-mail',
+            'telephone' => 'Téléphone principal',
+            'telephone_secondaire' => 'Téléphone secondaire',
+            'adresse' => 'Adresse',
+            'dernier_diplome' => 'Dernier diplôme obtenu',
+            'nom_etablissement' => 'Établissement',
+            'region' => 'Région',
+            'formation' => 'Formation sollicitée',
+            'diplome_vise' => 'Diplôme visé',
+            'montant_inscription' => 'Montant inscription',
+            'montant_mensualite' => 'Montant mensualité',
+            'montant_unique' => 'Montant unique',
+            'duree' => 'Durée (en années)',
+            'handicape' => 'Situation de handicap',
+            'type_handicap' => 'Type de handicap',
+            'orphelin' => 'Orphelin',
+            'type_orphelin' => 'Type d’orphelinat',
+            'cin_file' => 'Copie du N° CIN',
+            'facture_file' => 'Facture proforma ONFP',
+            'cv' => 'CV',
+            'diplome' => 'Diplôme'
+        ];
+
+        return view('formulaire.index', compact('formulaires', 'labels'));
     }
 }

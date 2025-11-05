@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,4 +48,14 @@ class Formulaire extends Model
         'montant_unique'      => 'decimal:2',
         'date_naissance'      => 'date',
     ];
+
+    // Dans app/Models/Formulaire.php
+    public function getFileUrl($field)
+    {
+        $filePath = $this->$field ?? null;
+        if ($filePath) {
+            return "/storage/" . $filePath;
+        }
+        return null; // ou un fichier par défaut si tu veux
+    }
 }
