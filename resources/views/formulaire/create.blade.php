@@ -338,6 +338,18 @@
                         accept=".pdf,.jpg,.jpeg,.png" required>
                 </div>
 
+                <div class="form-group mb-3">
+                    <label>Diplôme (format PDF ou image) <span class="text-danger">*</span></label>
+                    <input type="file" name="diplome" class="form-control form-control-sm"
+                        accept=".pdf,.jpg,.jpeg,.png" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label>CV (format PDF ou image) <span class="text-danger">*</span></label>
+                    <input type="file" name="cv" class="form-control form-control-sm"
+                        accept=".pdf,.jpg,.jpeg,.png" required>
+                </div>
+
                 <div class="text-end">
                     <button type="button" class="btn btn-secondary btn-sm prev-step">Précédent</button>
                     <button type="button" class="btn-orange next-step">Suivant</button>
@@ -405,7 +417,9 @@
                         orphelin: "Orphelin",
                         type_orphelin: "Type d’orphelinat",
                         cin_file: "Copie du N° CIN",
-                        facture_file: "Facture proforma ONFP"
+                        facture_file: "Facture proforma ONFP",
+                        cv: "CV",
+                        diplome: "Diplôme"
                     };
 
                     let recap = "";
@@ -431,6 +445,8 @@
                     // 🔹 Récupère les fichiers
                     const cinFile = $('input[name="cin_file"]')[0].files[0];
                     const factureFile = $('input[name="facture_file"]')[0].files[0];
+                    const diplomeFile = $('input[name="diplome"]')[0].files[0];
+                    const cvFile = $('input[name="cv"]')[0].files[0];
 
                     if (cinFile) {
                         recap +=
@@ -440,6 +456,14 @@
                     if (factureFile) {
                         recap +=
                             `<div class="recap-item"><span>${labels.facture_file} :</span> ${factureFile.name}</div>`;
+                    }
+                    if (diplomeFile) {
+                        recap +=
+                            `<div class="recap-item"><span>${labels.diplome} :</span> ${diplomeFile.name}</div>`;
+                    }
+                    if (cvFile) {
+                        recap +=
+                            `<div class="recap-item"><span>${labels.cv} :</span> ${cvFile.name}</div>`;
                     }
 
                     $("#recap-container").html(recap);

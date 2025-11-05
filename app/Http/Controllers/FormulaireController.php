@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class FormulaireController extends Controller
 {
@@ -140,7 +141,7 @@ class FormulaireController extends Controller
     public function store(Request $request)
     {
 
-        // Définir la période d'ouverture des inscriptions
+         // Définir la période d'ouverture des inscriptions
         $debut = Carbon::create(2025, 11, 10, 8, 0, 0);   // 10 novembre 2025 à 08h00
         $fin   = Carbon::create(2025, 11, 12, 17, 0, 0);  // 12 novembre 2025 à 17h00
 
@@ -153,7 +154,7 @@ class FormulaireController extends Controller
         }
 
         $validated = $request->validate([
-            'cin'                  => 'required|string|max:14|unique:formulaires,cin',
+            'cin'                  => 'required|string|max:17|unique:formulaires,cin',
             'civilite'             => 'required|string|max:5',
             'prenom'               => 'required|string',
             'nom'                  => 'required|string',
@@ -173,11 +174,13 @@ class FormulaireController extends Controller
             'montant_unique'       => 'nullable|numeric|min:0',
             'duree'                => 'required|integer|min:1|max:3',
             'handicape'            => 'required|string',
-            'type_handicap'        => 'required|string',
+            'type_handicap'        => 'nullable|string',
             'orphelin'             => 'required|string',
-            'type_orphelin'        => 'required|string',
-            'facture'              => 'required|file|mimes:pdf,jpg,jpeg,png|max:512',
-            'cin_file'             => 'required|file|mimes:pdf,jpg,jpeg,png|max:512',
+            'type_orphelin'        => 'nullable|string',
+            'facture_file'         => 'required|file|mimes:pdf,jpg,jpeg,png|max:256',
+            'cin_file'             => 'required|file|mimes:pdf,jpg,jpeg,png|max:256',
+            'diplome'              => 'required|file|mimes:pdf,jpg,jpeg,png|max:256',
+            'cv'                   => 'required|file|mimes:pdf,jpg,jpeg,png|max:256',
         ]);
 
         // Convertir les champs numériques vides en null
@@ -187,7 +190,7 @@ class FormulaireController extends Controller
         $formulaire = Formulaire::create($validated);
 
         // 📂 Upload du fichier facture
-        if ($request->hasFile('facture_file')) {
+        /*   if ($request->hasFile('facture_file')) {
             $uploadedFile = $request->file('facture_file');
             $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
             $filename = time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
@@ -197,10 +200,33 @@ class FormulaireController extends Controller
             $formulaire->update([
                 'facture_file' => $filePath,
             ]);
+        } */
+        if ($request->hasFile('facture_file')) {
+            $uploadedFile = $request->file('facture_file');
+
+            // Nettoyer le nom du fichier
+            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = 'Facture_' . time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
+
+            // Dossier cible dans le disque public
+            $folder = 'factures'; // Change le nom du dossier si nécessaire
+
+            // Créer le dossier s'il n'existe pas
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+
+            // Stocker le fichier
+            $filePath = $uploadedFile->storeAs($folder, $filename, 'public');
+
+            // Mettre à jour le modèle
+            $formulaire->update([
+                'facture_file' => $filePath,
+            ]);
         }
 
         // 📑 Upload du fichier CIN
-        if ($request->hasFile('cin_file')) {
+        /*   if ($request->hasFile('cin_file')) {
             $uploadedFile = $request->file('cin_file');
             $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
             $filename = time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
@@ -210,13 +236,86 @@ class FormulaireController extends Controller
             $formulaire->update([
                 'cin_file' => $filePath,
             ]);
+        } */
+
+        if ($request->hasFile('cin_file')) {
+            $uploadedFile = $request->file('cin_file');
+
+            // Nettoyer le nom du fichier
+            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = 'CIN_' . time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
+
+            // Dossier cible dans le disque public
+            $folder = 'cins'; // tu peux changer 'cins' par 'pvs' ou 'diplome' etc.
+
+            // Créer le dossier s'il n'existe pas
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+
+            // Stocker le fichier
+            $filePath = $uploadedFile->storeAs($folder, $filename, 'public');
+
+            // Mettre à jour le modèle
+            $formulaire->update([
+                'cin_file' => $filePath,
+            ]);
         }
+
+        if ($request->hasFile('diplome')) {
+            $uploadedFile = $request->file('diplome');
+
+            // Nettoyer le nom du fichier
+            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = 'DIPLOME_' . time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
+
+            // Dossier cible dans le disque public
+            $folder = 'diplomes'; // tu peux changer 'cins' par 'pvs' ou 'diplome' etc.
+
+            // Créer le dossier s'il n'existe pas
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+
+            // Stocker le fichier
+            $filePath = $uploadedFile->storeAs($folder, $filename, 'public');
+
+            // Mettre à jour le modèle
+            $formulaire->update([
+                'diplome' => $filePath,
+            ]);
+        }
+
+        if ($request->hasFile('cv')) {
+            $uploadedFile = $request->file('cv');
+
+            // Nettoyer le nom du fichier
+            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = 'CV_' . time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
+
+            // Dossier cible dans le disque public
+            $folder = 'cvs'; // tu peux changer 'cins' par 'pvs' ou 'diplome' etc.
+
+            // Créer le dossier s'il n'existe pas
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+
+            // Stocker le fichier
+            $filePath = $uploadedFile->storeAs($folder, $filename, 'public');
+
+            // Mettre à jour le modèle
+            $formulaire->update([
+                'cv' => $filePath,
+            ]);
+        }
+
 
         // 📧 Envoi du mail de confirmation (si email fourni)
-        if (!empty($validated['email'])) {
+        /*  if (!empty($validated['email'])) {
             Mail::to($validated['email'])->send(new ConfirmationInscriptionPchare($formulaire));
         }
-
+ */
         Alert::success('Succès', 'Inscription effectuée avec succès.');
         return redirect()->route('formulaire.merci');
     }
