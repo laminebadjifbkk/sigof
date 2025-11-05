@@ -221,14 +221,14 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('formationdemandeurs/{idformation}/{idmodule}/{idlocalite}', [FormationController::class, 'addformationdemandeurs']);
         Route::put('formationdemandeurs/{idformation}/{idmodule}/{idlocalite}', [FormationController::class, 'giveformationdemandeurs']);
-/*
+        /*
         Route::get('formationemargement', [EmargementController::class, 'formationemargement'])->name('formationemargement');
         Route::post('/formation/{idformation}/emargements', [EmargementController::class, 'giveformationemargements'])->name('formationemargement'); */
         // Route GET pour afficher le formulaire
         Route::get('/formationemargement', [EmargementController::class, 'formationemargement'])->name('formation.emargement.form');
         Route::get('/formationemargementcollective', [EmargementcollectiveController::class, 'formationemargementcollective'])->name('formation.emargementcollective.form');
 
-// Route POST pour enregistrer les émargements
+        // Route POST pour enregistrer les émargements
         Route::post('/formation/{idformation}/emargements', [EmargementController::class, 'giveformationemargements'])->name('formation.emargement.submit');
 
         /* Route::get('formationemargementcollective', [EmargementcollectiveController::class, 'formationemargementcollective'])->name('formationemargementcollective'); */
@@ -545,8 +545,10 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/operateurscommission/{statut}/{commission}', [OperateurController::class, 'filtrerOperateurParStatutCommission'])
             ->name('operateurs.parStatutCommission');
 
-        Route::get('/operateurscommission/{statut}/{commission}/pdf',
-            [OperateurController::class, 'exporterOperateursPDF'])
+        Route::get(
+            '/operateurscommission/{statut}/{commission}/pdf',
+            [OperateurController::class, 'exporterOperateursPDF']
+        )
             ->name('operateurs.parStatutCommission.pdf');
 
         Route::get(
@@ -668,7 +670,8 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/export-operateurs-all/{commissionagrement}', [OperateurController::class, 'exportAvecScansAll'])
             ->name('export.operateurs.all');
 
-        Route::delete('/operateurs/{operateur}/commissions/{commission}',
+        Route::delete(
+            '/operateurs/{operateur}/commissions/{commission}',
             [OperateurController::class, 'detachCommission']
         )->name('operateurs.detachCommission');
 
@@ -758,9 +761,13 @@ Route::group(['middleware' => ['XSS']], function () {
             Route::delete('/manuels/{id}', [BookController::class, 'destroy'])->name('manuels.destroy');
             Route::get('manuels/{id}/edit', [BookController::class, 'edit'])->name('manuels.edit');
             Route::put('manuels/{id}', [BookController::class, 'update'])->name('manuels.update');
-
         });
     });
+
+    Route::get('/pcharge', [FormulaireController::class, 'create'])->name('formulaire.create');
+    Route::post('/pcharge', [FormulaireController::class, 'store'])->name('formulaire.store');
+    Route::get('/pcharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
+
     Route::resource('/contacts', ContactController::class);
     Route::get('/services-details', [ContactController::class, 'servicesDetails'])->name('services.details');
     Route::get('nos-modules', [ContactController::class, 'nosModules'])->name('nos-modules');
@@ -814,10 +821,6 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::get('/inscription/{id}/questions', [InscriptionController::class, 'questions'])
         ->name('inscription.questions');
 
-    Route::get('/pcharge', [FormulaireController::class, 'create'])->name('formulaire.create');
-    Route::post('/pcharge', [FormulaireController::class, 'store'])->name('formulaire.store');
-    Route::get('/pcharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
-
     Route::get('/Note_d_information_CAL_2025', function () {
         $path = public_path('Note_d_information_CAL_2025.pdf');
 
@@ -829,7 +832,6 @@ Route::group(['middleware' => ['XSS']], function () {
             'Content-Type' => 'application/pdf',
         ]);
     });
-
 });
 
 /* Route::get('/book/view/{filename}', [BookController::class, 'show'])->name('book.view'); */

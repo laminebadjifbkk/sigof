@@ -7,12 +7,26 @@ use App\Models\Formulaire;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
+use Carbon\Carbon;
 
 class FormulaireController extends Controller
 {
     // Affichage du formulaire
     public function create()
     {
+        // Définir la période d'ouverture des inscriptions
+        $debut = Carbon::create(2025, 11, 10, 8, 0, 0);   // 10 novembre 2025 à 08h00
+        $fin   = Carbon::create(2025, 11, 12, 17, 0, 0);  // 12 novembre 2025 à 17h00
+
+        $now = Carbon::now();
+
+        // Vérifier si on est hors période
+        if ($now->lt($debut) || $now->gt($fin)) {
+            Alert::error('Désolé', 'Les inscriptions ne sont ouvertes que du 10 novembre à 08h00 au 12 novembre à 17h00.');
+            return redirect()->route('home'); // ou une autre route sûre
+        }
+
+        // Sinon afficher le formulaire
         return view('formulaire.create');
     }
 
