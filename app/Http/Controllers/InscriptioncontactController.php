@@ -153,7 +153,9 @@ class InscriptioncontactController extends Controller
                 "ONG TOSTAN",
                 "TNT Groupe",
                 "SMD Équipements",
-                "Dynamic conseils"
+                "Dynamic conseils",
+                "Conseil d’Administration de l’ONFP",
+                "Couture excellence"
             ],
         ];
         // Pas besoin de FormBuilder, on affiche directement la vue
@@ -365,7 +367,9 @@ class InscriptioncontactController extends Controller
                 "ONG TOSTAN",
                 "TNT Groupe",
                 "SMD Équipements",
-                "Dynamic conseils"
+                "Dynamic conseils",
+                "Conseil d’Administration de l’ONFP",
+                "Couture excellence"
             ],
         ];
         return view('inscriptioncontact.index', compact('inscriptions', 'structures'));
