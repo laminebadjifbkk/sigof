@@ -144,9 +144,19 @@
 @foreach ($operateurs as $operateur)
 
     <body>
-        <div style="text-align: center;">
+        {{-- <div style="text-align: center;">
             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete.png'))) }}"
                 style="width: 100%; max-width: 370px" />
+        </div> --}}
+        <div style="text-align: center;">
+            <b>REPUBLIQUE DU SENEGAL<br></b>
+            <em class="text-muted">Un Peuple - Un But - Une Foi</em><br>
+            <b>********<br>
+                MINISTERE DE L'EMPLOI ET DE LA FORMATION <br> PROFESSIONNELLE ET TECHNIQUE<br>
+                <br>
+                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
+                    style="width: 100%; max-width: 300px" />
+            </b>
         </div>
         {{-- <div class="invoice-box">
             <table>

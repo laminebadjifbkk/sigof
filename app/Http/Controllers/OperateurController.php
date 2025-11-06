@@ -2237,7 +2237,7 @@ class OperateurController extends Controller
             );
 
             // Pour forcer le téléchargement
-            $dompdf->stream($name, ['Attachment' => true]);
+            /* $dompdf->stream($name, ['Attachment' => true]); */
 
             // Output the generated PDF to Browser
             $dompdf->stream($name, ['Attachment' => false]);
