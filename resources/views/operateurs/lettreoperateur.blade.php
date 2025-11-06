@@ -252,13 +252,14 @@
                 la propriété de l'Office.</li>
 
             <span class="no-page-break">
-                <h4 style="margin-top: 2mm; font-style: italic">
+                <h4 style="margin-top: 2mm; font-style: italic;">
                     <strong>L'Opérateur</strong><br>
-                    <em class="text-muted">(Lu et approuvé - Signature)</em>
-                    <strong style="float: right;">
-                        <b>Le Directeur Général</b>
-                    </strong>
-
+                    <em class="text-muted" style="font-style: italic; font-weight: normal;">
+                        (Lu et approuvé - Signature)
+                    </em>
+                    <span style="float: right; font-style: normal; font-style: italic;">
+                        <strong>Le Directeur Général</strong>
+                    </span>
                 </h4>
             </span>
         </ul>
