@@ -55,10 +55,11 @@
                                         </a>
 
                                         {{-- Export opérateurs en PDF --}}
-                                        {{-- <a href="{{ route('operateurs.parStatutCommission.pdf', ['statut' => $statut, 'commission' => $commissionagrement->id]) }}"
-                                            class="btn btn-danger btn-sm" title="Exporter la liste des opérateurs en PDF">
-                                            <i class="bi bi-file-earmark-pdf"></i> Exporter opérateurs (PDF)
-                                        </a> --}}
+                                        <a href="{{ route('operateurs.lettreagrement.pdf', ['statut' => $statut, 'commission' => $commissionagrement->id]) }}"
+                                            class="btn btn-danger btn-sm"
+                                            title="Exporter les lettres d'agrément des opérateurs en PDF" target="_blank">
+                                            <i class="bi bi-file-earmark-pdf"></i> Exporter lettres agrément (PDF)
+                                        </a>
 
                                         {{-- Export opérateurs en Excel --}}
                                         <a href="{{ route('operateurs.parStatutCommission.excel', ['statut' => $statut, 'commission' => $commissionagrement->id]) }}"

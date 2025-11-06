@@ -550,6 +550,10 @@ Route::group(['middleware' => ['XSS']], function () {
             [OperateurController::class, 'exporterOperateursPDF'])
             ->name('operateurs.parStatutCommission.pdf');
 
+        Route::get('/lettreagrement/{statut}/{commission}/pdf',
+            [OperateurController::class, 'exporterlettreagrementPDF'])
+            ->name('operateurs.lettreagrement.pdf');
+
         Route::get(
             '/operateurs/{statut}/{commission}/export-excel',
             [OperateurController::class, 'exporterOperateursExcel']

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Exports\OperateursAgrementExport;
@@ -96,10 +97,11 @@ class OperateurController extends Controller
 
         $affichees = $operateurs?->count();
         $total     = $totalOperateurs ?? ($operateurs instanceof \Illuminate\Pagination\LengthAwarePaginator
-                ? $operateurs->total()
-                : $operateurs?->count());
+            ? $operateurs->total()
+            : $operateurs?->count());
 
-        return view("operateurs.index",
+        return view(
+            "operateurs.index",
             compact(
                 "operateurs",
                 "groupesStatutAgrement",
@@ -117,8 +119,8 @@ class OperateurController extends Controller
                 "pourcentage_expirer" */
                 /* "title", */
                 "totalOperateurs",
-            ));
-
+            )
+        );
     }
 
     public function create()
@@ -193,8 +195,10 @@ class OperateurController extends Controller
             }
         }
 
-        return view("operateurs.agrement",
-            compact("operateurs",
+        return view(
+            "operateurs.agrement",
+            compact(
+                "operateurs",
                 "operateur",
                 "statut_demande",
                 "formateur_count",
@@ -202,7 +206,8 @@ class OperateurController extends Controller
                 'dateQuitus',
                 'diff',
                 'diffText',
-            ));
+            )
+        );
     }
 
     public function store(Request $request)
@@ -284,7 +289,6 @@ class OperateurController extends Controller
 
         Alert::success("Succès ! ", "Demande enregistrée avec succès");
         return redirect()->back();
-
     }
     public function addOperateur(Request $request)
     {
@@ -407,7 +411,6 @@ class OperateurController extends Controller
             $operateur->update([
                 'quitus' => $filePath,
             ]);
-
         }
 
         /* if ($request->hasFile('file_arrete_creation')) {
@@ -430,7 +433,6 @@ class OperateurController extends Controller
             $operateur->update([
                 'file_arrete_creation' => $filePath,
             ]);
-
         }
 
         Alert::success("Félicitations !", "Opérateur ajouté avec succès");
@@ -468,8 +470,8 @@ class OperateurController extends Controller
             "type_demande" => "required|in:Nouvelle,Renouvellement,Extension",
         ]);
 
-// Date d'agrément (extrait, peut être Carbon)
-        /* $annee_agrement = $operateur->annee_agrement; */// supposé être une instance Carbon
+        // Date d'agrément (extrait, peut être Carbon)
+        /* $annee_agrement = $operateur->annee_agrement; */ // supposé être une instance Carbon
 
         /* $annee_agrement = $operateur?->commissionagrement?->date
         ? Carbon::parse($operateur->commissionagrement?->date)
@@ -482,7 +484,7 @@ class OperateurController extends Controller
         /* $dateExpiration = $annee_agrement?->copy()->addYears(2);
         $estExpire      = $dateExpiration?->isPast(); */
 
-// Date actuelle
+        // Date actuelle
         $now = Carbon::now();
 
         // Vérifie que $annee_agrement est bien un objet et qu’il a une date
@@ -600,7 +602,6 @@ class OperateurController extends Controller
             Alert::success('Succès !', 'Votre nouvelle agrément a été créé avec succès.');
 
             return back();
-
         } else {
 
             $this->authorize('view', $operateur);
@@ -636,7 +637,7 @@ class OperateurController extends Controller
                 "users_id"        => $operateur?->users_id,
             ]); */
 
-// Gestion du fichier quitus
+            // Gestion du fichier quitus
             /*  if ($request->hasFile('quitus')) {
                 $quitusPath = $request->file('quitus')->store('quitus', 'public');
                 $op->update(['quitus' => $quitusPath]);
@@ -718,7 +719,6 @@ class OperateurController extends Controller
 
             return redirect()->back();
         }
-
     }
 
     public function update(Request $request, Operateur $operateur)
@@ -764,7 +764,7 @@ class OperateurController extends Controller
             $operateurcategorie_id = null;
         }
 
-// Si aucun rôle autorisé n'est trouvé chez l'utilisateur
+        // Si aucun rôle autorisé n'est trouvé chez l'utilisateur
         /* if (! array_intersect($rolesAutorises, $userRoles)) { */
         // Vérifie la permission "update"
         $this->authorize('update', $operateur);
@@ -867,12 +867,10 @@ class OperateurController extends Controller
             $operateur->update([
                 'file_arrete_creation' => $filePath,
             ]);
-
         }
 
         Alert::success("Succès !", 'Demande modifiée avec succès');
         return redirect()->back();
-
     }
 
     public function updated(Request $request, $uuid)
@@ -1033,7 +1031,7 @@ class OperateurController extends Controller
             }
         }
 
-// Utilisation
+        // Utilisation
         $fichier_count = getStatutFichiers($operateur?->user?->categorie, $fichiers_total);
 
         // Statut global
@@ -1097,8 +1095,10 @@ class OperateurController extends Controller
             }
         }
 
-        return view("operateurs.agrements.show",
-            compact("operateur",
+        return view(
+            "operateurs.agrements.show",
+            compact(
+                "operateur",
                 "operateureferences",
                 "operateurs",
                 'statut_demande',
@@ -1116,7 +1116,8 @@ class OperateurController extends Controller
                 'dateQuitus',
                 'diff',
                 'diffText',
-            ));
+            )
+        );
     }
 
     public function destroy(Operateur $operateur)
@@ -1268,7 +1269,6 @@ class OperateurController extends Controller
             Alert::warning('Désolé ! ', 'assurez-vous d\'avoir ajouté au moins un module');
             return redirect()->back();
         }
-
     }
 
     public function nonRetenu(Request $request, $id)
@@ -1545,7 +1545,7 @@ class OperateurController extends Controller
                 }
             }
 
-// Utilisation
+            // Utilisation
             $fichier_count = getStatutFichiers($operateur?->user?->categorie, $fichiers_total);
 
             // Statut global
@@ -1613,7 +1613,8 @@ class OperateurController extends Controller
             }
 
             // Retourner la vue avec les données
-            return view('operateurs.show-operateur',
+            return view(
+                'operateurs.show-operateur',
                 compact(
                     'operateur_total',
                     'user_files',
@@ -1636,18 +1637,20 @@ class OperateurController extends Controller
                     'dateQuitus',
                     'diff',
                     'diffText',
-                ));
+                )
+            );
         } else {
             // Si aucun opérateur n'est trouvé, afficher une vue différente
-            return view('operateurs.show-operateur-aucun',
+            return view(
+                'operateurs.show-operateur-aucun',
                 compact(
                     'departements',
                     'operateur',
                     'operateurs',
                     'user'
-                ));
+                )
+            );
         }
-
     }
 
     public function rapports(Request $request)
@@ -1696,7 +1699,6 @@ class OperateurController extends Controller
             $statut = $request->statut;
 
             $title = $count . ' opérateur(s) ' . $statut . '(s) à ' . $region->nom;
-
         } elseif ($request->valeur_module == "1") {
             $this->validate($request, [
                 'module' => 'required|string',
@@ -1720,7 +1722,6 @@ class OperateurController extends Controller
             $statut = $request->statut;
 
             $title = $count . ' opérateur(s) ' . $statut . '(s) en ' . $request->module;
-
         } else {
             $this->validate($request, [
                 'region' => 'required|string',
@@ -1748,7 +1749,6 @@ class OperateurController extends Controller
             $statut = $request->statut;
 
             $title = $count . ' opérateur(s) ' . $statut . '(s) dans la région de  ' . $region->nom . ' en ' . $request->module;
-
         }
 
         $regions        = Region::orderBy("created_at", "desc")->get();
@@ -1797,12 +1797,14 @@ class OperateurController extends Controller
         $options = $dompdf->getOptions();
         $dompdf->setOptions($options);
 
-        $dompdf->loadHtml(view('operateurs.fichesynthese',
+        $dompdf->loadHtml(view(
+            'operateurs.fichesynthese',
             compact(
                 'commission',
                 'operateurs',
                 'title'
-            )));
+            )
+        ));
 
         // (Optional) Setup the paper size and orientation (portrait ou landscape)
         $dompdf->setPaper('Letter', 'portrait');
@@ -1826,11 +1828,13 @@ class OperateurController extends Controller
         $options = $dompdf->getOptions();
         $dompdf->setOptions($options);
 
-        $dompdf->loadHtml(view('operateurs.fichesyntheseoperateur',
+        $dompdf->loadHtml(view(
+            'operateurs.fichesyntheseoperateur',
             compact(
                 'operateur',
                 'title'
-            )));
+            )
+        ));
 
         // (Optional) Setup the paper size and orientation (portrait ou landscape)
         $dompdf->setPaper('Letter', 'portrait');
@@ -1866,11 +1870,13 @@ class OperateurController extends Controller
         $options = $dompdf->getOptions();
         $dompdf->setOptions($options);
 
-        $dompdf->loadHtml(view('operateurs.lettreagrement',
+        $dompdf->loadHtml(view(
+            'operateurs.lettreagrement',
             compact(
                 'operateurs',
                 'title'
-            )));
+            )
+        ));
 
         // (Optional) Setup the paper size and orientation (portrait ou landscape)
         $dompdf->setPaper('Letter', 'portrait');
@@ -1981,8 +1987,8 @@ class OperateurController extends Controller
 
         $affichees = $operateurs?->count();
         $total     = $totalOperateurs ?? ($operateurs instanceof \Illuminate\Pagination\LengthAwarePaginator
-                ? $operateurs->total()
-                : $operateurs?->count());
+            ? $operateurs->total()
+            : $operateurs?->count());
 
         return view('operateurs.index', compact(
             'operateurs',
@@ -2089,16 +2095,20 @@ class OperateurController extends Controller
 
         $affichees = $operateurs?->count();
         $total     = $totalOperateurs ?? ($operateurs instanceof \Illuminate\Pagination\LengthAwarePaginator
-                ? $operateurs->total()
-                : $operateurs?->count());
+            ? $operateurs->total()
+            : $operateurs?->count());
 
-        return view('operateurs.filtrageoperateur-statut',
-            compact('operateurs',
+        return view(
+            'operateurs.filtrageoperateur-statut',
+            compact(
+                'operateurs',
                 'statut',
                 'groupes',
                 'totalOperateurs',
                 'affichees',
-                'total'));
+                'total'
+            )
+        );
     }
 
     public function filtrerOperateurParStatutCommission($statut, $commission)
@@ -2112,22 +2122,33 @@ class OperateurController extends Controller
             ->get();
 
         if ($statut === 'sous réserve') {
-            return view('operateurs.commissionagrements.statutsousreserve',
-                compact('operateurs',
-                    'statut', 'commissionagrement')
+            return view(
+                'operateurs.commissionagrements.statutsousreserve',
+                compact(
+                    'operateurs',
+                    'statut',
+                    'commissionagrement'
+                )
             );
         } elseif ($statut === 'rejeté') {
-            return view('operateurs.commissionagrements.statutrejete',
-                compact('operateurs',
-                    'statut', 'commissionagrement')
+            return view(
+                'operateurs.commissionagrements.statutrejete',
+                compact(
+                    'operateurs',
+                    'statut',
+                    'commissionagrement'
+                )
             );
         } else {
-            return view('operateurs.commissionagrements.statut',
-                compact('operateurs',
-                    'statut', 'commissionagrement')
+            return view(
+                'operateurs.commissionagrements.statut',
+                compact(
+                    'operateurs',
+                    'statut',
+                    'commissionagrement'
+                )
             );
         }
-
     }
 
     public function exporterOperateursPDF($statut, $commission)
@@ -2146,7 +2167,7 @@ class OperateurController extends Controller
                         $q->where('commissionagrements.id', $commission);
                     });
                 })
-            /* ->with(['operateurmodules.domaine', 'operateurmodules.niveau_qualification']) */
+                /* ->with(['operateurmodules.domaine', 'operateurmodules.niveau_qualification']) */
                 ->get();
 
             //landscape ou portrait
@@ -2162,6 +2183,68 @@ class OperateurController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function exporterlettreagrementPDF($statut, $commission)
+    {
+        try {
+            if ($statut !== 'agréé') {
+                Alert::error('Attention', 'Impossible de télécharger les lettres : statut invalide.');
+                return redirect()->back();
+            }
+
+            // Récupération de la commission
+            $commissionagrement = Commissionagrement::findOrFail($commission);
+
+            // Récupération des opérateurs agréés associés à la commission
+            $operateurs = Operateur::query()
+                ->where('statut_agrement', $statut)
+                ->when(!empty($commission), function ($query) use ($commission) {
+                    $query->whereHas('commissionagrements', function ($q) use ($commission) {
+                        $q->where('commissionagrements.id', $commission);
+                    });
+                })
+                ->get();
+
+            $dompdf  = new Dompdf();
+            $options = $dompdf->getOptions();
+            $dompdf->setOptions($options);
+
+            $dompdf->loadHtml(view(
+                'operateurs.leslettreoperateur',
+                compact(
+                    'operateurs',
+                    'statut',
+                    'commissionagrement'
+                )
+            ));
+
+
+            // (Optional) Setup the paper size and orientation (portrait ou landscape)
+            $dompdf->setPaper('Letter', 'portrait');
+
+            // Render the HTML as PDF
+            $dompdf->render();
+
+            /* $name = 'Lettres agrément opérateurs, ' . $commissionagrement->commission . '.pdf'; */
+            $name = 'Lettres_agrement_operateurs_' . $commissionagrement->commission . '.pdf';
+
+            // Optionnel : remplacer les caractères accentués
+            $name = str_replace(
+                [' ', 'é', 'è', 'ê', 'à', 'ç', ','],
+                ['_', 'e', 'e', 'e', 'a', 'c', ''],
+                $name
+            );
+
+            // Pour forcer le téléchargement
+            $dompdf->stream($name, ['Attachment' => true]);
+
+            // Output the generated PDF to Browser
+            $dompdf->stream($name, ['Attachment' => false]);
+        } catch (\Exception $e) {
+            Alert::error('Erreur', 'Une erreur est survenue lors de la génération du PDF.');
+            return redirect()->back();
+        }
     }
 
     public function exporterOperateursExcel($statut, $commission)
@@ -2190,9 +2273,8 @@ class OperateurController extends Controller
                     'statut', 'commissionagrement')
             );
         } */
-       
-            return Excel::download(new OperateursAgrementExport($statut, $commissionagrement), $fileName);
 
+            return Excel::download(new OperateursAgrementExport($statut, $commissionagrement), $fileName);
         } else {
             Alert::error('Attention', 'Impossible de télécharger avec le statut : ' . $statut);
             return redirect()->back();
@@ -2252,16 +2334,20 @@ class OperateurController extends Controller
         }; */
         $affichees = $operateurs?->count();
         $total     = $totalOperateurs ?? ($operateurs instanceof \Illuminate\Pagination\LengthAwarePaginator
-                ? $operateurs->total()
-                : $operateurs?->count());
+            ? $operateurs->total()
+            : $operateurs?->count());
 
-        return view('operateurs.filtrageoperateur-statut-categorie',
-            compact('operateurs',
+        return view(
+            'operateurs.filtrageoperateur-statut-categorie',
+            compact(
+                'operateurs',
                 'statut',
                 'groupes',
                 'categorie',
                 'affichees',
-                'total'));
+                'total'
+            )
+        );
     }
 
     public function validationsRejetMessageOP(Request $request)
@@ -2326,7 +2412,8 @@ class OperateurController extends Controller
             return $item->region->nom ?? 'Aucune région';
         });
 
-        return view("operateurs.cal",
+        return view(
+            "operateurs.cal",
             compact(
                 /* "operateurs", */
                 "groupesStatutAgrement",
@@ -2338,8 +2425,8 @@ class OperateurController extends Controller
                 "taille",
                 "coupes",
                 "groupes",
-            ));
-
+            )
+        );
     }
 
     public function filtrerOperateurParCALRegion($calid, $region)
@@ -2371,7 +2458,7 @@ class OperateurController extends Controller
             ->groupBy(function ($item) {
                 return $item->statut_agrement ?? 'Aucun statut agrement';
             });
-/*
+        /*
         // On récupère la commission
         $commissionagrement = Commissionagrement::with('operateurs')->findOrFail($calid);
 
@@ -2381,7 +2468,7 @@ class OperateurController extends Controller
         // On récupère la commission
         $commissionagrement = Commissionagrement::findOrFail($calid);
 
-// Récupérer uniquement les opérateurs de la région demandée
+        // Récupérer uniquement les opérateurs de la région demandée
         $operateurs = $commissionagrement->operateurs()
             ->where('regions_id', $region?->id)
             ->get();
@@ -2403,7 +2490,8 @@ class OperateurController extends Controller
             return $item->region->nom ?? 'Aucune région';
         });
 
-        return view("operateurs.calregion",
+        return view(
+            "operateurs.calregion",
             compact(
                 "operateurs",
                 "groupesStatutAgrement",
@@ -2416,8 +2504,8 @@ class OperateurController extends Controller
                 "taille",
                 "coupes",
                 "groupes",
-            ));
-
+            )
+        );
     }
 
     public function corbeille()
@@ -2441,7 +2529,6 @@ class OperateurController extends Controller
         }
 
         return view("operateurs.corbeille", compact("operateurs", "title"));
-
     }
 
     public function forceDelete($uuid)
@@ -2452,12 +2539,11 @@ class OperateurController extends Controller
         if ($operateur->quitus && Storage::exists($operateur->quitus)) {
             Storage::delete($operateur->quitus);
         }
-// Supprimer l'operateur
+        // Supprimer l'operateur
         $operateur->forceDelete();
 
         Alert::success('Succès ', 'Opérateur supprimé définitivement.');
         return redirect()->back();
-
     }
     public function restore($uuid)
     {
@@ -2972,8 +3058,8 @@ class OperateurController extends Controller
 
         // 🔹 Nom lisible pour affichage dans le navigateur (avec underscores pour éviter les problèmes de caractères)
         $displayName = 'Fiche de synthese ' . $commission?->commission . ' ' .
-        $commission?->date_ouverture?->format('d-m-Y') . ' au ' .
-        $commission?->date_fermeture?->format('d-m-Y') . '.pdf';
+            $commission?->date_ouverture?->format('d-m-Y') . ' au ' .
+            $commission?->date_fermeture?->format('d-m-Y') . '.pdf';
 
         // 🔹 Nom safe pour l’en-tête HTTP
         $safeName = rawurlencode($displayName);
@@ -3018,9 +3104,9 @@ class OperateurController extends Controller
 
         // 🔹 Nom lisible pour affichage dans le navigateur (avec underscores pour éviter les problèmes de caractères)
         $displayName = 'Fiche de synthese région de ' . $region?->nom . ', ' .
-        $commission?->commission . ' ' .
-        $commission?->date_ouverture?->format('d-m-Y') . ' au ' .
-        $commission?->date_fermeture?->format('d-m-Y') . '.pdf';
+            $commission?->commission . ' ' .
+            $commission?->date_ouverture?->format('d-m-Y') . ' au ' .
+            $commission?->date_fermeture?->format('d-m-Y') . '.pdf';
 
         // 🔹 Nom safe pour l’en-tête HTTP
         $safeName = rawurlencode($displayName);
@@ -3054,12 +3140,14 @@ class OperateurController extends Controller
         $options = $dompdf->getOptions();
         $dompdf->setOptions($options);
 
-        $dompdf->loadHtml(view('operateurs.fichesynthese',
+        $dompdf->loadHtml(view(
+            'operateurs.fichesynthese',
             compact(
                 'commission',
                 'operateurs',
                 'title'
-            )));
+            )
+        ));
 
         // (Optional) Setup the paper size and orientation (portrait ou landscape)
         $dompdf->setPaper('Letter', 'portrait');
@@ -3101,13 +3189,15 @@ class OperateurController extends Controller
         $options = $dompdf->getOptions();
         $dompdf->setOptions($options);
 
-        $dompdf->loadHtml(view('operateurs.fichesyntheseregion',
+        $dompdf->loadHtml(view(
+            'operateurs.fichesyntheseregion',
             compact(
                 'commission',
                 'operateurs',
                 'region',
                 'title'
-            )));
+            )
+        ));
 
         // (Optional) Setup the paper size and orientation (portrait ou landscape)
         $dompdf->setPaper('Letter', 'portrait');
@@ -3130,5 +3220,4 @@ class OperateurController extends Controller
 
         return redirect()->back();
     }
-
 }
