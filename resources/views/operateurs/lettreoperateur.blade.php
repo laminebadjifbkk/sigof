@@ -148,8 +148,14 @@
 
 <body>
     <div style="text-align: center;">
-        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete.png'))) }}"
-            style="width: 100%; max-width: 370px" />
+        <b>REPUBLIQUE DU SENEGAL<br></b>
+        <em class="text-muted">Un Peuple - Un But - Une Foi</em><br>
+        <b>********<br>
+            MINISTERE DE L'EMPLOI ET DE LA FORMATION <br> PROFESSIONNELLE ET TECHNIQUE<br>
+            <br>
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
+                style="width: 100%; max-width: 300px" />
+        </b>
     </div>
     {{--  <div class="invoice-box">
         <table>
@@ -211,8 +217,8 @@
                 </tr>
                 <tr class="item" style="text-align: center;">
                     <td colspan="2" style="width:5cm"><b>{{ __('DOMAINES') }}</b></td>
-                    <td colspan="2" style="width:8cm"><b>{{ __('MODULES / SPECIALITE') }}</b></td>
-                    <td colspan="5" style="width:8cm">
+                    <td colspan="3" style="width:8cm"><b>{{ __('MODULES / SPECIALITE') }}</b></td>
+                    <td colspan="4" style="width:8cm">
                         <b>{{ __('TITRE OU NIVEAU DE QUALIFICATION CORRESPONDANT') }}</b>
                     </td>
                 </tr>
@@ -230,8 +236,8 @@
                 @foreach ($operateurmodules as $operateurmodule)
                     <tr class="item" style="text-align: center;">
                         <td colspan="2">{{ $operateurmodule->domaine ?? '-' }}</td>
-                        <td colspan="2">{{ $operateurmodule->module ?? '-' }}</td>
-                        <td colspan="5">{{ $operateurmodule->categorie ?? '-' }}</td>
+                        <td colspan="3">{{ $operateurmodule->module ?? '-' }}</td>
+                        <td colspan="4">{{ $operateurmodule->categorie ?? '-' }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -250,7 +256,6 @@
                 l'ONFP vis-à-vis d'un tiers ou de l'administration,</li>
             <li>reconnait que toute production faite dans le cadre des actions de formation qui lui sont confiées, est
                 la propriété de l'Office.</li>
-
             <span class="no-page-break">
                 <h4 style="margin-top: 2mm; font-style: italic;">
                     <strong>L'Opérateur</strong><br>
