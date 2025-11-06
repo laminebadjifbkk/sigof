@@ -141,6 +141,24 @@
         .page-break {
             page-break-after: always;
         }
+
+        table.fixed {
+            table-layout: fixed;
+            /* Largeurs fixes pour les colonnes */
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table.fixed th,
+        table.fixed td {
+            overflow-wrap: break-word;
+            /* Texte long va à la ligne */
+            word-wrap: break-word;
+            /* Compatibilité anciens moteurs */
+            hyphens: auto;
+            /* Coupe les mots si nécessaire */
+            text-align: center;
+        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//db.onlinewebfonts.com/c/dd79278a2e4c4a2090b763931f2ada53?family=ArialW02-Regular" rel="stylesheet"
@@ -210,15 +228,15 @@
             <br>
             Est agréé par l'ONFP sous le N°: <span
                 style="color: #DC3545; font-weight: bold">{{ $operateur?->numero_agrement }}</span> <br><br>
-            <table class="table table-responsive">
+            <table class="table table-responsive fixed">
                 <tbody>
                     <tr class="item" style="text-align: center;">
                         <td colspan="9"><b>{{ __('FORMATIONS AGRÉÉES') }}</b></td>
                     </tr>
                     <tr class="item" style="text-align: center;">
-                        <td colspan="2" style="width:5cm"><b>{{ __('DOMAINES') }}</b></td>
-                        <td colspan="2" style="width:8cm"><b>{{ __('MODULES / SPECIALITE') }}</b></td>
-                        <td colspan="5" style="width:8cm">
+                        <td colspan="2" style="width: 20%;"><b>{{ __('DOMAINES') }}</b></td>
+                        <td colspan="3" style="width: 40%;"><b>{{ __('MODULES / SPECIALITE') }}</b></td>
+                        <td colspan="4" style="width: 40%;">
                             <b>{{ __('TITRE OU NIVEAU DE QUALIFICATION CORRESPONDANT') }}</b>
                         </td>
                     </tr>
@@ -235,9 +253,9 @@
 
                     @foreach ($operateurmodules as $operateurmodule)
                         <tr class="item" style="text-align: center;">
-                            <td colspan="2">{{ $operateurmodule->domaine ?? '-' }}</td>
-                            <td colspan="2">{{ $operateurmodule->module ?? '-' }}</td>
-                            <td colspan="5">{{ $operateurmodule->categorie ?? '-' }}</td>
+                            <td colspan="2" style="width: 20%;">{{ $operateurmodule->domaine ?? '-' }}</td>
+                            <td colspan="3" style="width: 20%;">{{ $operateurmodule->module ?? '-' }}</td>
+                            <td colspan="4" style="width: 40%;">{{ $operateurmodule->categorie ?? '-' }}</td>
                         </tr>
                     @endforeach
                 </tbody>
