@@ -46,6 +46,11 @@
             font-weight: bold;
         }
 
+        body {
+            margin: 0;
+            padding-bottom: 30px;
+            /* hauteur approximative du footer */
+        }
 
         .invoice-box table tr.total td {
             /* border-top: 2px solid #eee;
@@ -92,19 +97,21 @@
 
         footer {
             position: fixed;
-            bottom: 0cm;
-            left: 0cm;
-            right: 0cm;
-            height: 0.5cm;
-
+            bottom: 0;
+            left: 0;
+            right: 0;
             background-color: #ffffff;
             color: #000;
             font-size: 12px;
             font-family: Arial, sans-serif;
             text-align: center;
-
+            padding: 6px 0;
+            /* <-- Donne de la hauteur au footer */
+            border-top: 2px solid #5D4037;
+            /* ligne visible */
             z-index: 1000;
         }
+
 
         .page-number {
             position: relative;
@@ -116,21 +123,18 @@
             padding-bottom: 0.2cm;
         }
 
-        /* La ligne est élargie pour coller au format paysage */
-        .footer-line {
-            width: 25cm;
-            /* adapté au format paysage (29,7 cm - marges) */
-            height: 2px;
-            background-color: #5D4037;
-            margin: 0 auto 2mm auto;
-        }
-
         /* Nettoyage et espacement */
         .footer-text {
             margin: 0;
             padding: 1mm 0 0 0;
             line-height: 1.4;
             max-width: 27cm;
+        }
+
+        .no-page-break {
+            page-break-inside: avoid;
+            break-inside: avoid;
+            /* pour compatibilité avec certains moteurs */
         }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -209,7 +213,7 @@
                     <td colspan="2" style="width:5cm"><b>{{ __('DOMAINES') }}</b></td>
                     <td colspan="2" style="width:8cm"><b>{{ __('MODULES / SPECIALITE') }}</b></td>
                     <td colspan="5" style="width:8cm">
-                        <b>{{ __('TITRE OU NIVEAU DE QUALIFICATION CORRESPONDANT ') }}</b>
+                        <b>{{ __('TITRE OU NIVEAU DE QUALIFICATION CORRESPONDANT') }}</b>
                     </td>
                 </tr>
                 {{-- @foreach ($operateur?->operateurmodules?->where('statut', 'agréé') as $operateurmodule)
@@ -225,9 +229,9 @@
 
                 @foreach ($operateurmodules as $operateurmodule)
                     <tr class="item" style="text-align: center;">
-                        <td colspan="2">{{ $operateurmodule->domaine ?? 'Domaine non défini' }}</td>
-                        <td colspan="2">{{ $operateurmodule->module ?? 'Module non défini' }}</td>
-                        <td colspan="5">{{ $operateurmodule->categorie ?? 'Catégorie non définie' }}</td>
+                        <td colspan="2">{{ $operateurmodule->domaine ?? '-' }}</td>
+                        <td colspan="2">{{ $operateurmodule->module ?? '-' }}</td>
+                        <td colspan="5">{{ $operateurmodule->categorie ?? '-' }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -246,25 +250,27 @@
                 l'ONFP vis-à-vis d'un tiers ou de l'administration,</li>
             <li>reconnait que toute production faite dans le cadre des actions de formation qui lui sont confiées, est
                 la propriété de l'Office.</li>
-        </ul>
-        <h3 style="text-align: right;">
-            {{-- {{ 'Fait à ' . $operateur?->commissionagrement?->description . ', le ' . $operateur?->commissionagrement?->date?->format('d/m/Y') }} --}}
-            <br>
-            <div class="page-number" id="footer">
-                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/signature_op_dg.png'))) }}"
-                    style="display: block; width: 100%;" />
-            </div>
-        </h3>
-    </div>
 
+            <span class="no-page-break">
+                <h4 style="margin-top: 2mm;">
+                    <strong>L'Opérateur</strong><br>
+                    <em class="text-muted">(Lu et approuvé - Signature)</em>
+                    <strong style="float: right; font-style: italic">
+                        <b>Le Directeur Général</b>
+                    </strong>
+
+                </h4>
+            </span>
+        </ul>
+    </div>
     <footer>
-        <div class="page-number" id="footer">
-            <div class="footer-line"></div>
-            <p class="footer-text">Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN Tel: (+221) 33 827 92 51 -
-                Fax: (+221) 33 827 92
-                55 BP: 21013 Dakar-Ponty Email: <a href="#">onfp@onfp.sn</a></p>
-        </div>
+        <p class="footer-text">
+            Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN
+            Tél: (+221) 33 827 92 51 - Fax: (+221) 33 827 92 55<br>
+            BP: 21013 Dakar-Ponty - Email: <a href="mailto:onfp@onfp.sn">onfp@onfp.sn</a>
+        </p>
     </footer>
+
 </body>
 
 </html>
