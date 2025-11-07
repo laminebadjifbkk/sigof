@@ -404,7 +404,7 @@ class FormulaireController extends Controller
             'statut' => 'required|string|max:50',
             'cin_file' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
             'facture_file' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
-            'cv' => 'nullable|file|mimes:pdf,doc,docx|max:1024',
+            'cv' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
             'diplome' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
         ]); */
 
@@ -437,7 +437,7 @@ class FormulaireController extends Controller
             // fichiers
             'cin_file' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
             'facture_file' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
-            'cv' => 'nullable|file|mimes:pdf,doc,docx|max:1024',
+            'cv' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
             'diplome' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
         ]);
 
