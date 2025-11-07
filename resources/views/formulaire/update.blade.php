@@ -147,7 +147,7 @@
                                 <div class="mt-4 d-flex justify-content-between">
                                     <a href="{{ route('formulaires.show', $formulaire->id) }}"
                                         class="btn btn-secondary btn-sm">
-                                        Annuler
+                                        Retour à la liste
                                     </a>
                                     <button type="submit" class="btn btn-primary btn-sm">
                                         <i class="bi bi-save"></i> Enregistrer les modifications
