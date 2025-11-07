@@ -44,6 +44,7 @@
                                 <thead>
                                     <tr>
                                         <th>Demandeurs</th>
+                                        <th>Localités</th>
                                         <th>Modules</th>
                                         <th class="text-center" scope="col">#</th>
                                     </tr>
@@ -53,6 +54,7 @@
                                     @foreach ($collectivemodules as $collectivemodule)
                                         <tr>
                                             <td>{{ $collectivemodule?->collective?->name }}</td>
+                                            <td>{{ $collectivemodule?->collective?->departement?->region?->nom }}</td>
                                             <td>{{ $collectivemodule?->module }}</td>
                                             <td style="text-align: center;">
                                                 @can('module-show')
