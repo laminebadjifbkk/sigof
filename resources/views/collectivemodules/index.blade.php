@@ -37,25 +37,14 @@
                     @endif
                     <div class="card">
                         <div class="card-body">
-                            {{-- @can('role-create') --}}
-                            {{-- <div class="pt-1">
-                            <a href="{{ route('modules.create') }}" class="btn btn-primary float-end btn-rounded"><i
-                                    class="fas fa-plus"></i>
-                                <i class="bi bi-person-plus" title="Ajouter"></i> </a>
-                        </div> --}}
-                            {{-- @endcan --}}
-                            {{-- <button type="button" class="btn btn-primary float-end btn-rounded" data-bs-toggle="modal"
-                            data-bs-target="#AddIndividuelModal">
-                            <i class="bi bi-plus" title="Ajouter"></i>
-                        </button> --}}
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">MODULES DEMANDES COLLECTIVES</h5>
                             </div>
                             <table class="table datatables align-middle justify-content-center" id="table-modules">
                                 <thead>
                                     <tr>
-                                        <th>Modules</th>
                                         <th>Demandeurs</th>
+                                        <th>Modules</th>
                                         <th class="text-center" scope="col">#</th>
                                     </tr>
                                 </thead>
@@ -63,8 +52,8 @@
                                     <?php $i = 1; ?>
                                     @foreach ($collectivemodules as $collectivemodule)
                                         <tr>
-                                            <td>{{ $collectivemodule?->module }}</td>
                                             <td>{{ $collectivemodule?->collective?->name }}</td>
+                                            <td>{{ $collectivemodule?->module }}</td>
                                             <td style="text-align: center;">
                                                 @can('module-show')
                                                     <span class="d-flex mt-2 align-items-baseline"><a href="#"

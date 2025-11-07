@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Collectivemodule;
@@ -25,7 +26,12 @@ class CollectivemoduleController extends Controller
 
     public function index()
     {
-        $collectivemodules = Collectivemodule::get();
+        /* $collectivemodules = Collectivemodule::get(); */
+
+        $collectivemodules = Collectivemodule::whereHas('collective', function ($query) {
+            $query->where('statut_demande', 'Nouvelle');
+        })->get();
+
         return view('collectivemodules.index', compact('collectivemodules'));
     }
 
@@ -109,7 +115,6 @@ class CollectivemoduleController extends Controller
 
         Alert::success('Succès !', 'Module ajouté avec succès.');
         return redirect()->back();
-
     }
     public function update(Request $request, Collectivemodule $collectivemodule)
     {
