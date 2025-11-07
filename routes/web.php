@@ -222,14 +222,14 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('formationdemandeurs/{idformation}/{idmodule}/{idlocalite}', [FormationController::class, 'addformationdemandeurs']);
         Route::put('formationdemandeurs/{idformation}/{idmodule}/{idlocalite}', [FormationController::class, 'giveformationdemandeurs']);
-/*
+        /*
         Route::get('formationemargement', [EmargementController::class, 'formationemargement'])->name('formationemargement');
         Route::post('/formation/{idformation}/emargements', [EmargementController::class, 'giveformationemargements'])->name('formationemargement'); */
         // Route GET pour afficher le formulaire
         Route::get('/formationemargement', [EmargementController::class, 'formationemargement'])->name('formation.emargement.form');
         Route::get('/formationemargementcollective', [EmargementcollectiveController::class, 'formationemargementcollective'])->name('formation.emargementcollective.form');
 
-// Route POST pour enregistrer les émargements
+        // Route POST pour enregistrer les émargements
         Route::post('/formation/{idformation}/emargements', [EmargementController::class, 'giveformationemargements'])->name('formation.emargement.submit');
 
         /* Route::get('formationemargementcollective', [EmargementcollectiveController::class, 'formationemargementcollective'])->name('formationemargementcollective'); */
@@ -546,12 +546,16 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/operateurscommission/{statut}/{commission}', [OperateurController::class, 'filtrerOperateurParStatutCommission'])
             ->name('operateurs.parStatutCommission');
 
-        Route::get('/operateurscommission/{statut}/{commission}/pdf',
-            [OperateurController::class, 'exporterOperateursPDF'])
+        Route::get(
+            '/operateurscommission/{statut}/{commission}/pdf',
+            [OperateurController::class, 'exporterOperateursPDF']
+        )
             ->name('operateurs.parStatutCommission.pdf');
 
-        Route::get('/lettreagrement/{statut}/{commission}/pdf',
-            [OperateurController::class, 'exporterlettreagrementPDF'])
+        Route::get(
+            '/lettreagrement/{statut}/{commission}/pdf',
+            [OperateurController::class, 'exporterlettreagrementPDF']
+        )
             ->name('operateurs.lettreagrement.pdf');
 
         Route::get(
@@ -673,7 +677,8 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/export-operateurs-all/{commissionagrement}', [OperateurController::class, 'exportAvecScansAll'])
             ->name('export.operateurs.all');
 
-        Route::delete('/operateurs/{operateur}/commissions/{commission}',
+        Route::delete(
+            '/operateurs/{operateur}/commissions/{commission}',
             [OperateurController::class, 'detachCommission']
         )->name('operateurs.detachCommission');
 
@@ -687,6 +692,10 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::put('/inscriptioncontacts/{id}', [InscriptionContactController::class, 'update'])
             ->name('inscriptioncontacts.update');
+
+        Route::get('/formulaires/{id}', [FormulaireController::class, 'show'])
+            ->name('formulaires.show')
+            ->middleware('can:formulaire-view');
 
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
@@ -764,7 +773,6 @@ Route::group(['middleware' => ['XSS']], function () {
             Route::delete('/manuels/{id}', [BookController::class, 'destroy'])->name('manuels.destroy');
             Route::get('manuels/{id}/edit', [BookController::class, 'edit'])->name('manuels.edit');
             Route::put('manuels/{id}', [BookController::class, 'update'])->name('manuels.update');
-
         });
     });
     Route::resource('/contacts', ContactController::class);
@@ -835,7 +843,6 @@ Route::group(['middleware' => ['XSS']], function () {
             'Content-Type' => 'application/pdf',
         ]);
     });
-
 });
 
 /* Route::get('/book/view/{filename}', [BookController::class, 'show'])->name('book.view'); */

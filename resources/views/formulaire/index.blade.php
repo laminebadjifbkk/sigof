@@ -96,20 +96,28 @@
                                                 @endforeach
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button class="btn btn-warning btn-sm viewInscriptionBtn"
+                                                        {{-- <button class="btn btn-warning btn-sm viewInscriptionBtn"
                                                             data-id="{{ $inscription->id }}">
                                                             <i class="bi bi-eye"></i>
-                                                        </button>
-                                                        <button class="btn btn-info btn-sm editInscriptionBtn"
+                                                        </button> --}}
+                                                        <a href="{{ route('formulaires.show', $inscription->id) }}"
+                                                            class="btn btn-warning btn-sm" title="Voir les détails">
+                                                            <i class="bi bi-eye"></i>
+                                                        </a>
+                                                        {{-- <button class="btn btn-info btn-sm editInscriptionBtn"
                                                             data-id="{{ $inscription->id }}">
                                                             <i class="bi bi-pencil-square"></i>
-                                                        </button>
+                                                        </button> --}}
                                                         <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                            <a class="icon" href="" data-bs-toggle="dropdown"><i
                                                                     class="bi bi-three-dots"></i></a>
                                                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                <a href="{{ route('formulaires.edit', $inscription->id) }}"
+                                                                    class="dropdown-item" title="Modifier les détails">
+                                                                    Modifier
+                                                                </a>
                                                                 <form
-                                                                    action="{{ route('inscriptioncontacts.destroy', $inscription->id) }}"
+                                                                    action="{{ route('formulaires.destroy', $inscription->id) }}"
                                                                     method="post">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -251,7 +259,7 @@
                         if (['cin_file', 'facture_file', 'cv', 'diplome'].includes(key) && data[key]) {
                             html +=
                                 '<a href="{{ url('
-                                                                                                                                                                                    ') }}/storage/' +
+                                                                                                                                                                                                                                                                                                                                                    ') }}/storage/' +
                                 data[
                                     key] +
                                 '" target="_blank" class="btn btn-sm btn-outline-primary">Télécharger</a>';

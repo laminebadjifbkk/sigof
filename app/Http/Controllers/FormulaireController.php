@@ -354,12 +354,70 @@ class FormulaireController extends Controller
             'type_handicap' => 'Type de handicap', */
             /* 'orphelin' => 'Orphelin',
             'type_orphelin' => 'Type d’orphelinat', */
-            'cin_file' => 'Copie CIN',
+            /* 'cin_file' => 'Copie CIN',
             'facture_file' => 'Facture',
             'cv' => 'CV',
-            'diplome' => 'Diplôme'
+            'diplome' => 'Diplôme' */
         ];
 
         return view('formulaire.index', compact('formulaires', 'labels'));
+    }
+
+    public function show($id)
+    {
+        // Récupérer l'inscription par ID
+        $formulaire = Formulaire::findOrFail($id);
+
+        // Vérifier les permissions (facultatif si tu utilises @can dans la vue)
+        $this->authorize('formulaire-view');
+
+        // Retourner la vue show avec les données
+        return view('formulaire.show', compact('formulaire'));
+    }
+
+    public function edit($id)
+    {
+        // Récupérer l'inscription par ID
+        $formulaire = Formulaire::findOrFail($id);
+
+        // Vérifier les permissions (facultatif si tu utilises @can dans la vue)
+        $this->authorize('formulaire-edit');
+
+        // Retourner la vue show avec les données
+        return view('formulaire.update', compact('formulaire'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $formulaire = Formulaire::findOrFail($id);
+
+        $data = $request->validate([
+            'cin' => 'required|string|max:20',
+            'civilite' => 'required|string|max:10',
+            'prenom' => 'required|string|max:100',
+            'nom' => 'required|string|max:100',
+            'date_naissance' => 'required|date',
+            'lieu_naissance' => 'required|string|max:100',
+            'telephone' => 'required|string|max:20',
+            'region' => 'required|string|max:100',
+            'formation' => 'required|string|max:255',
+            'cin_file' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
+            'facture_file' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
+            'cv' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'diplome' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
+        ]);
+
+        // Gestion des fichiers uploadés
+        foreach (['cin_file', 'facture_file', 'cv', 'diplome'] as $fileField) {
+            if ($request->hasFile($fileField)) {
+                $path = $request->file($fileField)->store('uploads/inscriptions', 'public');
+                $data[$fileField] = $path;
+            }
+        }
+
+        $formulaire->update($data);
+
+        return redirect()->route('formulaires.show', $formulaire->id)
+            ->with('status', 'Les informations ont été mises à jour avec succès.');
     }
 }
