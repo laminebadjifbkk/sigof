@@ -149,12 +149,12 @@
                     <div class="col-md-6 mb-3">
                         <label>Prénom <span class="text-danger">*</span></label>
                         <input type="text" name="prenom" class="form-control form-control-sm"
-                            value="{{ old('prenom') }}" required>
+                            value="{{ old('prenom') }}" required placeholder="Ex: Mouhamadou">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Nom <span class="text-danger">*</span></label>
                         <input type="text" name="nom" class="form-control form-control-sm"
-                            value="{{ old('nom') }}" required>
+                            value="{{ old('nom') }}" required placeholder="Ex: Ndiaye">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Date de naissance <span class="text-danger">*</span></label>
@@ -164,12 +164,12 @@
                     <div class="col-md-6 mb-3">
                         <label>Lieu de naissance <span class="text-danger">*</span></label>
                         <input type="text" name="lieu_naissance" class="form-control form-control-sm"
-                            value="{{ old('lieu_naissance') }}" required>
+                            value="{{ old('lieu_naissance') }}" required placeholder="Ex: Dakar">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Email <span class="text-danger">*</span></label>
                         <input type="email" name="email" class="form-control form-control-sm"
-                            value="{{ old('email') }}">
+                            value="{{ old('email') }}" required placeholder="Ex: email@email.com">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Téléphone principal <span class="text-danger">*</span></label>
@@ -201,12 +201,12 @@
                     <div class="col-md-12 mb-3">
                         <label>Adresse <span class="text-danger">*</span></label>
                         <input type="text" name="adresse" class="form-control form-control-sm"
-                            value="{{ old('adresse') }}" required>
+                            value="{{ old('adresse') }}" required placeholder="Ex: Grand Dakar">
                     </div>
                     <div class="col-md-12 mb-3">
                         <label>Dernier diplôme obtenu <span class="text-danger">*</span></label>
                         <input type="text" name="dernier_diplome" class="form-control form-control-sm"
-                            value="{{ old('dernier_diplome') }}">
+                            value="{{ old('dernier_diplome') }}" required placeholder="Ex: BAC">
                     </div>
                 </div>
                 <div class="text-end">
@@ -220,7 +220,7 @@
                 <div class="form-group mb-3">
                     <label>Nom de l'établissement <span class="text-danger">*</span></label>
                     <input type="text" name="nom_etablissement" class="form-control form-control-sm"
-                        value="{{ old('nom_etablissement') }}" required>
+                        value="{{ old('nom_etablissement') }}" required placeholder="Ex: CNQP">
                 </div>
                 <div class="form-group mb-3">
                     <label>Région <span class="text-danger">*</span></label>
@@ -248,7 +248,7 @@
                 <div class="form-group mb-3">
                     <label>Formation sollicitée <span class="text-danger">*</span></label>
                     <input type="text" name="formation" class="form-control form-control-sm"
-                        value="{{ old('formation') }}" required>
+                        value="{{ old('formation') }}" required placeholder="Ex: Electromécanique">
                 </div>
                 <div class="form-group mb-3">
                     <label>Diplôme visé <span class="text-danger">*</span></label>
@@ -264,24 +264,24 @@
                     <div class="col-md-6 mb-3">
                         <label>Montant inscription <span class="text-danger">*</span></label>
                         <input type="number" name="montant_inscription" class="form-control form-control-sm"
-                            value="{{ old('montant_inscription') }}" required min="0">
+                            value="{{ old('montant_inscription') }}" required min="0" placeholder="500 000">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Montant mensualité <span class="text-danger">*</span></label>
                         <input type="number" name="montant_mensualite" class="form-control form-control-sm"
-                            value="{{ old('montant_mensualite') }}" required min="0">
+                            value="{{ old('montant_mensualite') }}" required min="0" placeholder="70 000">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label>Durée (en années) <span class="text-danger">*</span></label>
                         <input type="number" name="duree" class="form-control form-control-sm"
-                            value="{{ old('duree') }}" min="1" max="3" required>
+                            value="{{ old('duree') }}" min="1" max="3" required placeholder="Ex: 2">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Montant unique</label>
                         <input type="number" name="montant_unique" class="form-control form-control-sm"
-                            value="{{ old('montant_unique') }}" min="0">
+                            value="{{ old('montant_unique') }}" min="0" placeholder="Ex: 750 000">
                     </div>
                 </div>
                 <div class="text-end">

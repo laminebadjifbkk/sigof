@@ -33,9 +33,51 @@
                     {{-- Tableau inscriptions --}}
                     <div class="card shadow-sm">
                         <div class="card-body">
-                            <h5 class="card-title mb-3">INSCRIPTIONS DÉTAILLÉES</h5>
+                            {{-- <h5 class="card-title mb-3">INSCRIPTIONS DÉTAILLÉES</h5> --}}
+                            <div class="pt-1">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+                                    {{-- Titre à gauche --}}
+                                    <div class="d-flex align-items-center gap-2">
+                                        <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                                            Liste des demandes prises en charge
+                                        </h6>
+                                    </div>
+
+                                    {{-- Total au centre --}}
+                                    @php
+                                        $affichees = $formulaires?->count(); // à adapter si tu fais une pagination
+                                        $total =
+                                            $totalFormulaires ?? ($formulaires?->total() ?? $formulaires?->count()); // en cas de pagination avec ->total()
+                                    @endphp
+
+                                    <div class="d-flex align-items-center gap-2 text-info fw-semibold">
+                                        <i class="bi bi-list-ul me-1"></i>
+                                        <span>
+                                            Affichage :
+                                            <span class="text-dark">{{ $affichees }}</span>
+                                            sur
+                                            <span class="text-dark">{{ $total }}</span> demandes
+                                        </span>
+                                    </div>
+
+                                    {{-- Boutons à droite --}}
+                                    @can('formulaire-create')
+                                        <div class="d-flex align-items-center gap-2">
+                                            <a href="{{ route('formulaire.create') }}" class="btn btn-sm btn-primary">
+                                                Ajouter
+                                            </a>
+                                            <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#generate_rapport">
+                                                Rechercher plus
+                                            </button>
+                                        </div>
+                                    @endcan
+
+                                </div>
+                            </div>
                             <div class="table-responsive">
-                                <table  class="table datatables align-middle" id="table-inscriptions">
+                                <table class="table datatables align-middle" id="table-inscriptions">
                                     <thead class="table-primary">
                                         <tr>
                                             @foreach ($labels as $key => $label)
@@ -47,26 +89,6 @@
                                     <tbody>
                                         @foreach ($formulaires as $inscription)
                                             <tr>
-                                                {{-- @foreach (array_keys($labels) as $field)
-                                                    <td>
-                                                        @if (in_array($field, ['cin_file', 'facture_file', 'cv', 'diplome']))
-                                                            @php
-                                                                $fileUrl = $inscription->getFileUrl($field);
-                                                            @endphp
-                                                            @if ($fileUrl)
-                                                                <a href="{{ $fileUrl }}" target="_blank"
-                                                                    class="btn btn-outline-secondary btn-sm"
-                                                                    title="Télécharger">
-                                                                    <i class="bi bi-download"></i>
-                                                                </a>
-                                                            @else
-                                                                -
-                                                            @endif
-                                                        @else
-                                                            {{ $inscription->$field ?? '-' }}
-                                                        @endif
-                                                    </td>
-                                                @endforeach --}}
                                                 @foreach (array_keys($labels) as $field)
                                                     <td>
                                                         @if (in_array($field, ['cin_file', 'facture_file', 'cv', 'diplome']))
@@ -141,7 +163,136 @@
                             </div>
                         </div>
                     </div>
-
+                </div>
+            </div>
+            <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog" aria-labelledby="generate_rapportLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Générer une recherche<span class="text-danger mx-1">*</span></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="post" action="{{ route('formulaires.report') }}">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="prenom" class="form-label">Prénom</label>
+                                                    <input type="text" name="prenom" value="{{ old('prenom') }}"
+                                                        class="form-control form-control-sm @error('prenom') is-invalid @enderror"
+                                                        id="prenom" placeholder="Prénom">
+                                                    @error('prenom')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="nom" class="form-label">Nom</label>
+                                                    <input type="text" name="nom" value="{{ old('nom') }}"
+                                                        class="form-control form-control-sm @error('nom') is-invalid @enderror"
+                                                        id="nom" placeholder="Nom">
+                                                    @error('nom')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="cin" class="form-label">N° CIN</label>
+                                                    <input name="cin" type="text"
+                                                        class="form-control form-control-sm @error('cin') is-invalid @enderror"
+                                                        id="cin2" value="{{ old('cin') }}" autocomplete="off"
+                                                        placeholder="Ex: 1 099 2005 00012" minlength="16" maxlength="17">
+                                                    @error('cin')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="telephone" class="form-label">Téléphone</label>
+                                                    <input name="telephone" type="text" maxlength="12"
+                                                        class="form-control form-control-sm @error('telephone') is-invalid @enderror"
+                                                        id="telephone_responsable" value="{{ old('telephone') }}"
+                                                        autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                                    @error('telephone')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="email" class="form-label">Email</label>
+                                                    <input type="email" name="email" value="{{ old('email') }}"
+                                                        class="form-control form-control-sm @error('email') is-invalid @enderror"
+                                                        id="email" placeholder="email@email.com">
+                                                    @error('email')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="lieu_naissance" class="form-label">Lieu naissance</label>
+                                                    <input type="text" name="lieu_naissance" value="{{ old('lieu_naissance') }}"
+                                                        class="form-control form-control-sm @error('lieu_naissance') is-invalid @enderror"
+                                                        id="lieu_naissance" placeholder="Lieu de naissance">
+                                                    @error('lieu_naissance')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary btn-sm"
+                                            data-bs-dismiss="modal">Fermer</button>
+                                        <div class="text-center">
+                                            <button type="submit"
+                                                class="btn btn-primary btn-block submit_rapport btn-sm">Rechercher</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
@@ -152,14 +303,12 @@
 @push('scripts')
     <script>
         new DataTable('#table-inscriptions', {
+            ordering: false, // désactive le tri automatique
             layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
-            "order": [
-                [0, 'desc']
-            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",

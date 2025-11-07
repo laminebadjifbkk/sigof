@@ -32,112 +32,6 @@ class FormulaireController extends Controller
     }
 
     // Enregistrement du formulaire
-    /* public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'cin'                  => 'required|string|max:14|unique:formulaires,cin',
-            'civilite'             => 'required|string|max:5',
-            'prenom'               => 'required|string',
-            'nom'                  => 'required|string',
-            'date_naissance'       => 'required|date',
-            'lieu_naissance'       => 'required|string',
-            'email'                => 'nullable|email|unique:formulaires,email',
-            'telephone'            => 'required|string',
-            'telephone_secondaire' => 'nullable|string',
-            'adresse'              => 'required|string',
-            'dernier_diplome'      => 'nullable|string',
-            'nom_etablissement'    => 'required|string',
-            'region'               => 'required|string',
-            'formation'            => 'required|string',
-            'diplome_vise'         => 'required|string',
-            'montant_inscription'  => 'required|numeric|min:0',
-            'montant_mensualite'   => 'required|numeric|min:0',
-            'montant_unique'       => 'nullable|numeric|min:0',
-            'duree'                => 'required|integer|min:1|max:3',
-            'handicape'            => 'required|string',
-            'type_handicap'        => 'nullable|string',
-            'orphelin'             => 'required|string',
-            'type_orphelin'        => 'nullable|string',
-        ]);
-
-        // Convertir les champs numériques vides en null
-        $validated['montant_unique'] = $validated['montant_unique'] === '' ? null : $validated['montant_unique'];
-
-        Alert::error('Désolé', 'Les inscriptions n\'ont pas encore démarré.');
-
-        return redirect()->back();
-
-        $formulaire = Formulaire::create($validated);
-
-        Mail::to($validated['email'])->send(new ConfirmationInscriptionPchare($formulaire));
-
-        Alert::success('Succès', 'Inscription effectuée avec succès.');
-
-        return redirect()->route('formulaire.merci');
-    } */
-
-    /* public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'cin'                  => 'required|string|max:14|unique:formulaires,cin',
-            'civilite'             => 'required|string|max:5',
-            'prenom'               => 'required|string',
-            'nom'                  => 'required|string',
-            'date_naissance'       => 'required|date',
-            'lieu_naissance'       => 'required|string',
-            'email'                => 'nullable|email|unique:formulaires,email',
-            'telephone'            => 'required|string',
-            'telephone_secondaire' => 'nullable|string',
-            'adresse'              => 'required|string',
-            'dernier_diplome'      => 'nullable|string',
-            'nom_etablissement'    => 'required|string',
-            'region'               => 'required|string',
-            'formation'            => 'required|string',
-            'diplome_vise'         => 'required|string',
-            'montant_inscription'  => 'required|numeric|min:0',
-            'montant_mensualite'   => 'required|numeric|min:0',
-            'montant_unique'       => 'nullable|numeric|min:0',
-            'duree'                => 'required|integer|min:1|max:3',
-            'handicape'            => 'required|string',
-            'type_handicap'        => 'nullable|string',
-            'orphelin'             => 'required|string',
-            'type_orphelin'        => 'nullable|string',
-
-            // 🆕 Validation des fichiers
-            'facture'              => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:1024',
-            'cin_file'             => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:1024',
-        ]);
-
-        // Convertir les champs numériques vides en null
-        $validated['montant_unique'] = $validated['montant_unique'] === '' ? null : $validated['montant_unique'];
-
-        // 🧾 Sauvegarde des fichiers
-        if ($request->hasFile('facture_file')) {
-            $validated['facture_file'] = $request->file('facture_file')->store('factures', 'public');
-        }
-
-        if ($request->hasFile('cin_file')) {
-            $validated['cin_file'] = $request->file('cin_file')->store('cins', 'public');
-        }
-
-        // Vérification si les inscriptions sont fermées
-        Alert::error('Désolé', 'Les inscriptions n\'ont pas encore démarré.');
-        return redirect()->back();
-
-        // ✅ Enregistrement en base
-        $formulaire = Formulaire::create($validated);
-
-        // Envoi d’un mail de confirmation (si email renseigné)
-        if (!empty($validated['email'])) {
-            Mail::to($validated['email'])->send(new ConfirmationInscriptionPchare($formulaire));
-        }
-
-        Alert::success('Succès', 'Inscription effectuée avec succès.');
-
-        return redirect()->route('formulaire.merci');
-    } */
-
-
     public function store(Request $request)
     {
 
@@ -190,17 +84,6 @@ class FormulaireController extends Controller
         $formulaire = Formulaire::create($validated);
 
         // 📂 Upload du fichier facture
-        /*   if ($request->hasFile('facture_file')) {
-            $uploadedFile = $request->file('facture_file');
-            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
-            $filename = time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
-
-            $filePath = $uploadedFile->storeAs('pvs', $filename, 'public');
-
-            $formulaire->update([
-                'facture_file' => $filePath,
-            ]);
-        } */
         if ($request->hasFile('facture_file')) {
             $uploadedFile = $request->file('facture_file');
 
@@ -226,18 +109,6 @@ class FormulaireController extends Controller
         }
 
         // 📑 Upload du fichier CIN
-        /*   if ($request->hasFile('cin_file')) {
-            $uploadedFile = $request->file('cin_file');
-            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
-            $filename = time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
-
-            $filePath = $uploadedFile->storeAs('pvs', $filename, 'public');
-
-            $formulaire->update([
-                'cin_file' => $filePath,
-            ]);
-        } */
-
         if ($request->hasFile('cin_file')) {
             $uploadedFile = $request->file('cin_file');
 
@@ -314,8 +185,7 @@ class FormulaireController extends Controller
         // 📧 Envoi du mail de confirmation (si email fourni)
         /*  if (!empty($validated['email'])) {
             Mail::to($validated['email'])->send(new ConfirmationInscriptionPchare($formulaire));
-        }
- */
+        }*/
         Alert::success('Succès', 'Inscription effectuée avec succès.');
         return redirect()->route('formulaire.merci');
     }
@@ -329,7 +199,14 @@ class FormulaireController extends Controller
 
     public function index()
     {
-        $formulaires = Formulaire::orderBy('created_at', 'desc')->get();
+
+        $formulaires      = Formulaire::count();
+        $totalFormulaires = number_format($formulaires, 0, ',', ' ');
+
+        // Récupération des 500 dernières demandes
+        $formulaires = Formulaire::latest()->limit(500)->get();
+
+        /* $formulaires = Formulaire::orderBy('created_at', 'desc')->get(); */
         $labels = [
             'cin' => 'Numéro CIN',
             'civilite' => 'Civilité',
@@ -360,7 +237,7 @@ class FormulaireController extends Controller
             'diplome' => 'Diplôme' */
         ];
 
-        return view('formulaire.index', compact('formulaires', 'labels'));
+        return view('formulaire.index', compact('formulaires', 'labels', 'totalFormulaires'));
     }
 
     public function show($id)
@@ -390,23 +267,6 @@ class FormulaireController extends Controller
     public function update(Request $request, $id)
     {
         $formulaire = Formulaire::findOrFail($id);
-
-        /* $data = $request->validate([
-            'cin' => 'required|string|max:20',
-            'civilite' => 'required|string|max:10',
-            'prenom' => 'required|string|max:100',
-            'nom' => 'required|string|max:100',
-            'date_naissance' => 'required|date',
-            'lieu_naissance' => 'required|string|max:100',
-            'telephone' => 'required|string|max:20',
-            'region' => 'required|string|max:100',
-            'formation' => 'required|string|max:255',
-            'statut' => 'required|string|max:50',
-            'cin_file' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
-            'facture_file' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
-            'cv' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
-            'diplome' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
-        ]); */
 
         $data = $request->validate([
             'cin' => 'required|string|max:20',
@@ -492,5 +352,70 @@ class FormulaireController extends Controller
         Alert::success('Succès', 'L’inscription a été supprimée avec succès.');
 
         return redirect()->route('formulaires.index');
+    }
+
+
+    public function generateReport(Request $request)
+    {
+        $this->validate($request, [
+            'cin'       => 'nullable|string',
+            'nom'      => 'nullable|string',
+            'prenom' => 'nullable|string',
+            'telephone' => 'nullable|string',
+            'email'     => 'nullable|email',
+            'lieu_naissance'     => 'nullable|string',
+        ]);
+
+        if ($request?->cin == null && $request->prenom == null && $request->telephone == null && $request->nom == null && $request->email == null && $request->lieu_naissance == null) {
+            Alert::warning('Attention', 'Veuillez renseigner au moins un champ pour effectuer une recherche.');
+            return redirect()->back();
+        }
+
+        $formulaires = Formulaire::where('prenom', 'LIKE', "%{$request?->prenom}%")
+            ->where('nom', 'LIKE', "%{$request?->nom}%")
+            ->where('cin', 'LIKE', "%{$request?->cin}%")
+            ->where('telephone', 'LIKE', "%{$request?->telephone}%")
+            ->where('email', 'LIKE', "%{$request?->email}%")
+            ->where('lieu_naissance', 'LIKE', "%{$request?->lieu_naissance}%")
+            ->distinct()
+            ->get();
+
+        $totalFormulaires = number_format($formulaires?->count(), 0, ',', ' ');
+
+        $labels = [
+            'cin' => 'Numéro CIN',
+            'civilite' => 'Civilité',
+            'prenom' => 'Prénom',
+            'nom' => 'Nom',
+            'date_naissance' => 'Date naissance',
+            'lieu_naissance' => 'Lieu naissance',
+            /* 'email' => 'Adresse e-mail', */
+            'telephone' => 'Téléphone',
+            /* 'telephone_secondaire' => 'Téléphone secondaire',
+            'adresse' => 'Adresse',
+            'dernier_diplome' => 'Dernier diplôme obtenu',
+            'nom_etablissement' => 'Établissement', */
+            'region' => 'Région',
+            'formation' => 'Formation sollicitée',
+            /* 'diplome_vise' => 'Diplôme visé',
+            'montant_inscription' => 'Montant inscription',
+            'montant_mensualite' => 'Montant mensualité',
+            'montant_unique' => 'Montant unique', */
+            /* 'duree' => 'Durée (en années)',
+            'handicape' => 'Situation de handicap',
+            'type_handicap' => 'Type de handicap', */
+            /* 'orphelin' => 'Orphelin',
+            'type_orphelin' => 'Type d’orphelinat', */
+            /* 'cin_file' => 'Copie CIN',
+            'facture_file' => 'Facture',
+            'cv' => 'CV',
+            'diplome' => 'Diplôme' */
+        ];
+
+        return view('formulaire.index', compact(
+            'formulaires',
+            'totalFormulaires',
+            'labels'
+        ));
     }
 }
