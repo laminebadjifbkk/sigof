@@ -35,8 +35,7 @@
                         <div class="card-body">
                             <h5 class="card-title mb-3">INSCRIPTIONS DÉTAILLÉES</h5>
                             <div class="table-responsive">
-                                <table class="table datatables table-bordered table-hover align-middle text-center"
-                                    id="table-inscriptions">
+                                <table  class="table datatables align-middle" id="table-inscriptions">
                                     <thead class="table-primary">
                                         <tr>
                                             @foreach ($labels as $key => $label)
@@ -123,11 +122,11 @@
                                                             <li>
                                                                 <form
                                                                     action="{{ route('formulaires.destroy', $inscription->id) }}"
-                                                                    method="POST"
-                                                                    onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette inscription ?')">
+                                                                    method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item text-danger">
+                                                                    <button type="submit"
+                                                                        class="dropdown-item text-danger show_confirm">
                                                                         <i class="bi bi-trash me-2"></i> Supprimer
                                                                     </button>
                                                                 </form>
@@ -143,177 +142,53 @@
                         </div>
                     </div>
 
-                    {{-- Modal Visualisation --}}
-                    <div class="modal fade" id="viewInscriptionModal" tabindex="-1" aria-labelledby="viewInscriptionLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header bg-warning text-white">
-                                    <h5 class="modal-title" id="viewInscriptionLabel">Détails de l’inscription</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Fermer"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div id="inscriptionDetails" class="p-3 text-center">
-                                        <div class="spinner-border text-warning" role="status">
-                                            <span class="visually-hidden">Chargement...</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- Modal Modification --}}
-                    <div class="modal fade" id="editInscriptionModal" tabindex="-1" aria-labelledby="editInscriptionLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header bg-warning text-white">
-                                    <h5 class="modal-title" id="editInscriptionLabel">Modifier l’inscription</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Fermer"></button>
-                                </div>
-                                <form method="POST" id="editInscriptionForm" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="modal-body">
-                                        <div class="row g-3">
-                                            @foreach ($labels as $field => $label)
-                                                @if (in_array($field, ['cin_file', 'facture_file', 'cv', 'diplome']))
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">{{ $label }}</label>
-                                                        <input type="file" name="{{ $field }}" class="form-control">
-                                                    </div>
-                                                @elseif($field === 'email')
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">{{ $label }}</label>
-                                                        <input type="email" name="{{ $field }}" class="form-control"
-                                                            required>
-                                                    </div>
-                                                @else
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">{{ $label }}</label>
-                                                        <input type="text" name="{{ $field }}"
-                                                            class="form-control"
-                                                            {{ in_array($field, ['telephone', 'telephone_secondaire', 'montant_inscription', 'montant_mensualite', 'montant_unique', 'duree']) ? '' : 'required' }}>
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary btn-sm"
-                                            data-bs-dismiss="modal">Fermer</button>
-                                        <button type="submit" class="btn btn-primary btn-sm">Enregistrer</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </section>
 
     @endcan
-@endsection
 
+@endsection
 @push('scripts')
     <script>
-        // DataTable
         new DataTable('#table-inscriptions', {
-            ordering: false,
+            layout: {
+                topStart: {
+                    buttons: ['csv', 'excel', 'print'],
+                }
+            },
+            "order": [
+                [0, 'desc']
+            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
-                "sLengthMenu": "Afficher _MENU_ éléments",
-                "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
-                "sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
-                "sInfoFiltered": "(filtré de _MAX_ éléments au total)",
+                "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix": "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
                 "oPaginate": {
                     "sFirst": "Premier",
-                    "sPrevious": "Précédent",
+                    "sPrevious": "Pr&eacute;c&eacute;dent",
                     "sNext": "Suivant",
                     "sLast": "Dernier"
+                },
+                "oAria": {
+                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                },
+                "select": {
+                    "rows": {
+                        _: "%d lignes sÃ©lÃ©ctionnÃ©es",
+                        0: "Aucune ligne sÃ©lÃ©ctionnÃ©e",
+                        1: "1 ligne sÃ©lÃ©ctionnÃ©e"
+                    }
                 }
             }
-        });
-
-        // Voir détails
-        $('#table-inscriptions').on('click', '.viewInscriptionBtn', function() {
-            const id = $(this).data('id');
-            const modal = $('#viewInscriptionModal');
-            const detailsContainer = $('#inscriptionDetails');
-
-            modal.modal('show');
-            detailsContainer.html(
-                '<div class="spinner-border text-warning" role="status"><span class="visually-hidden">Chargement...</span></div>'
-            );
-
-            $.ajax({
-                url: "{{ url('/inscriptioncontacts') }}/" + id + "/details",
-                type: "GET",
-                dataType: "json",
-                success: function(data) {
-                    if (data.error) {
-                        detailsContainer.html('<div class="alert alert-danger">' + data.error +
-                            '</div>');
-                        return;
-                    }
-                    let html = '<table class="table table-bordered">';
-                    for (const [key, label] of Object.entries(@json($labels))) {
-                        html += '<tr><th>' + label + '</th><td>';
-                        if (['cin_file', 'facture_file', 'cv', 'diplome'].includes(key) && data[key]) {
-                            html +=
-                                '<a href="{{ url('
-                                                                                                                                                                                                                                                                                                                                                                                    ') }}/storage/' +
-                                data[
-                                    key] +
-                                '" target="_blank" class="btn btn-sm btn-outline-primary">Télécharger</a>';
-                        } else {
-                            html += data[key] ?? '-';
-                        }
-                        html += '</td></tr>';
-                    }
-                    html += '</table>';
-                    detailsContainer.html(html);
-                },
-                error: function(xhr) {
-                    detailsContainer.html(
-                        '<div class="alert alert-danger">Erreur lors du chargement des données.</div>'
-                    );
-                }
-            });
-        });
-
-        // Modifier
-        $('#table-inscriptions').on('click', '.editInscriptionBtn', function() {
-            const id = $(this).data('id');
-            const modal = $('#editInscriptionModal');
-            const form = $('#editInscriptionForm');
-
-            // Mettre à jour l'action du formulaire
-            form.attr('action', "{{ url('/inscriptioncontacts') }}/" + id);
-
-            // Afficher la modale
-            modal.modal('show');
-
-            // Charger les données via AJAX
-            $.get("{{ url('/inscriptioncontacts') }}/" + id + "/details", function(data) {
-                // Parcourir tous les champs
-                for (const [key, label] of Object.entries(@json($labels))) {
-                    const input = form.find('[name="' + key + '"]');
-                    if (input.length) {
-                        if (['cin_file', 'facture_file', 'cv', 'diplome'].includes(key)) {
-                            // Les fichiers ne sont pas remplis par JS, on laisse vide pour upload
-                            input.val('');
-                        } else {
-                            input.val(data[key] ?? '');
-                        }
-                    }
-                }
-            });
         });
     </script>
 @endpush

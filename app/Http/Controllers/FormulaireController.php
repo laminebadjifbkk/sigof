@@ -391,7 +391,7 @@ class FormulaireController extends Controller
     {
         $formulaire = Formulaire::findOrFail($id);
 
-        $data = $request->validate([
+        /* $data = $request->validate([
             'cin' => 'required|string|max:20',
             'civilite' => 'required|string|max:10',
             'prenom' => 'required|string|max:100',
@@ -401,23 +401,96 @@ class FormulaireController extends Controller
             'telephone' => 'required|string|max:20',
             'region' => 'required|string|max:100',
             'formation' => 'required|string|max:255',
-            'cin_file' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
-            'facture_file' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
-            'cv' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-            'diplome' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
+            'statut' => 'required|string|max:50',
+            'cin_file' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
+            'facture_file' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
+            'cv' => 'nullable|file|mimes:pdf,doc,docx|max:1024',
+            'diplome' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
+        ]); */
+
+        $data = $request->validate([
+            'cin' => 'required|string|max:20',
+            'civilite' => 'required|string|max:10',
+            'prenom' => 'required|string|max:100',
+            'nom' => 'required|string|max:100',
+            'date_naissance' => 'required|date',
+            'lieu_naissance' => 'required|string|max:100',
+            'email' => 'nullable|email|max:255',
+            'telephone' => 'required|string|max:20',
+            'telephone_secondaire' => 'nullable|string|max:20',
+            'adresse' => 'nullable|string|max:255',
+            'dernier_diplome' => 'nullable|string|max:255',
+            'nom_etablissement' => 'nullable|string|max:255',
+            'region' => 'required|string|max:100',
+            'formation' => 'required|string|max:255',
+            'diplome_vise' => 'nullable|string|max:255',
+            'montant_inscription' => 'nullable|numeric',
+            'montant_mensualite' => 'nullable|numeric',
+            'montant_unique' => 'nullable|numeric',
+            'duree' => 'nullable|string|max:50',
+            'handicape' => 'nullable|string|max:10',
+            'type_handicap' => 'nullable|string|max:255',
+            'orphelin' => 'nullable|string|max:10',
+            'type_orphelin' => 'nullable|string|max:255',
+            'statut' => 'required|string|max:50',
+
+            // fichiers
+            'cin_file' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
+            'facture_file' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
+            'cv' => 'nullable|file|mimes:pdf,doc,docx|max:1024',
+            'diplome' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
         ]);
 
+
         // Gestion des fichiers uploadés
-        foreach (['cin_file', 'facture_file', 'cv', 'diplome'] as $fileField) {
+        $fileDirectories = [
+            'cin_file'      => 'uploads/cins',
+            'facture_file'  => 'uploads/factures',
+            'cv'            => 'uploads/cvs',
+            'diplome'       => 'uploads/diplomes',
+        ];
+
+        foreach ($fileDirectories as $fileField => $directory) {
             if ($request->hasFile($fileField)) {
-                $path = $request->file($fileField)->store('uploads/inscriptions', 'public');
+                // Supprimer l'ancien fichier s'il existe
+                if (!empty($formulaire->$fileField) && Storage::disk('public')->exists($formulaire->$fileField)) {
+                    Storage::disk('public')->delete($formulaire->$fileField);
+                }
+
+                // Sauvegarder le nouveau fichier dans son dossier spécifique
+                $path = $request->file($fileField)->store($directory, 'public');
                 $data[$fileField] = $path;
             }
         }
 
         $formulaire->update($data);
 
-        return redirect()->route('formulaires.show', $formulaire->id)
+        /* Alert::success('Succès', 'Les informations ont été mises à jour avec succès.'); */
+
+        return redirect()
+            ->route('formulaires.edit', $formulaire->id)
             ->with('status', 'Les informations ont été mises à jour avec succès.');
+    }
+
+
+    public function destroy($id)
+    {
+        $formulaire = Formulaire::findOrFail($id);
+        // Vérifier les permissions (facultatif si tu utilises @can dans la vue)
+        $this->authorize('formulaire-delete');
+
+        // Supprimer les fichiers associés si ils existent
+        foreach (['cin_file', 'facture_file', 'cv', 'diplome'] as $fileField) {
+            if (!empty($formulaire->$fileField) && Storage::disk('public')->exists($formulaire->$fileField)) {
+                Storage::disk('public')->delete($formulaire->$fileField);
+            }
+        }
+
+        // Supprimer l'enregistrement
+        $formulaire->delete();
+
+        Alert::success('Succès', 'L’inscription a été supprimée avec succès.');
+
+        return redirect()->route('formulaires.index');
     }
 }
