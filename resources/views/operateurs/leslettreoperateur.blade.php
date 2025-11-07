@@ -103,7 +103,7 @@
             right: 0;
             background-color: #ffffff;
             color: #000;
-            font-size: 12px;
+            font-size: 10px;
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 6px 0;
@@ -159,6 +159,24 @@
             /* Coupe les mots si nécessaire */
             text-align: center;
         }
+
+        .header-text {
+            font-size: 10px;
+            /* réduit la taille du texte, ajuste selon besoin */
+            line-height: 1.2;
+            /* compacité verticale */
+            text-align: center;
+        }
+
+        .header-text b {
+            font-size: 11px;
+            /* tu peux ajuster pour les titres */
+        }
+
+        .header-text em {
+            font-size: 9px;
+            /* texte en italique plus petit */
+        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//db.onlinewebfonts.com/c/dd79278a2e4c4a2090b763931f2ada53?family=ArialW02-Regular" rel="stylesheet"
@@ -175,7 +193,7 @@
             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete.png'))) }}"
                 style="width: 100%; max-width: 370px" />
         </div> --}}
-        <div style="text-align: center;">
+        <div class="header-text">
             <b>REPUBLIQUE DU SENEGAL<br></b>
             <em class="text-muted">Un Peuple - Un But - Une Foi</em><br>
             <b>********<br>
@@ -237,7 +255,7 @@
                 href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
             <br>
             Est agréé par l'ONFP sous le N°: <span
-                style="color: #DC3545; font-weight: bold">{{ $operateur?->numero_agrement }}</span> <br><br>
+                style="color: #DC3545; font-weight: bold">{{ $operateur?->numero_agrement }}</span> <br>
             <table class="table table-responsive fixed">
                 <tbody>
                     <tr class="item" style="text-align: center;">
@@ -247,7 +265,7 @@
                         <td colspan="2" style="width: 20%;"><b>{{ __('DOMAINES') }}</b></td>
                         <td colspan="3" style="width: 40%;"><b>{{ __('MODULES / SPECIALITE') }}</b></td>
                         <td colspan="4" style="width: 40%;">
-                            <b>{{ __('TITRE OU NIVEAU DE QUALIFICATION CORRESPONDANT') }}</b>
+                            <b>{{ __('TITRE OU NIVEAU DE QUALIFICATION') }}</b>
                         </td>
                     </tr>
                     {{-- @foreach ($operateur?->operateurmodules?->where('statut', 'agréé') as $operateurmodule)
@@ -304,7 +322,7 @@
         <footer>
             <p class="footer-text">
                 Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN
-                Tél: (+221) 33 827 92 51 - Fax: (+221) 33 827 92 55<br>
+                Tél: (+221) 33 827 92 51 - Fax: (+221) 33 827 92 55
                 BP: 21013 Dakar-Ponty - Email: <a href="mailto:onfp@onfp.sn">onfp@onfp.sn</a>
             </p>
         </footer>
