@@ -94,38 +94,45 @@
                                                         @endif
                                                     </td>
                                                 @endforeach
-                                                <td>
+                                                <td class="text-center">
                                                     <div class="btn-group">
-                                                        {{-- <button class="btn btn-warning btn-sm viewInscriptionBtn"
-                                                            data-id="{{ $inscription->id }}">
-                                                            <i class="bi bi-eye"></i>
-                                                        </button> --}}
+                                                        {{-- Bouton Voir --}}
                                                         <a href="{{ route('formulaires.show', $inscription->id) }}"
                                                             class="btn btn-warning btn-sm" title="Voir les détails">
                                                             <i class="bi bi-eye"></i>
                                                         </a>
-                                                        {{-- <button class="btn btn-info btn-sm editInscriptionBtn"
-                                                            data-id="{{ $inscription->id }}">
-                                                            <i class="bi bi-pencil-square"></i>
-                                                        </button> --}}
-                                                        <div class="filter">
-                                                            <a class="icon" href="" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+
+                                                        {{-- Bouton menu déroulant --}}
+                                                        <button type="button"
+                                                            class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <span class="visually-hidden">Actions</span>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                                            {{-- Lien Modifier --}}
+                                                            <li>
                                                                 <a href="{{ route('formulaires.edit', $inscription->id) }}"
-                                                                    class="dropdown-item" title="Modifier les détails">
-                                                                    Modifier
+                                                                    class="dropdown-item text-primary"
+                                                                    title="Modifier les détails">
+                                                                    <i class="bi bi-pencil-square me-2"></i> Modifier
                                                                 </a>
+                                                            </li>
+
+                                                            {{-- Formulaire Supprimer --}}
+                                                            <li>
                                                                 <form
                                                                     action="{{ route('formulaires.destroy', $inscription->id) }}"
-                                                                    method="post">
+                                                                    method="POST"
+                                                                    onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette inscription ?')">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="dropdown-item show_confirm">Supprimer</button>
+                                                                    <button type="submit" class="dropdown-item text-danger">
+                                                                        <i class="bi bi-trash me-2"></i> Supprimer
+                                                                    </button>
                                                                 </form>
-                                                            </ul>
-                                                        </div>
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -187,7 +194,8 @@
                                                 @else
                                                     <div class="col-md-6">
                                                         <label class="form-label">{{ $label }}</label>
-                                                        <input type="text" name="{{ $field }}" class="form-control"
+                                                        <input type="text" name="{{ $field }}"
+                                                            class="form-control"
                                                             {{ in_array($field, ['telephone', 'telephone_secondaire', 'montant_inscription', 'montant_mensualite', 'montant_unique', 'duree']) ? '' : 'required' }}>
                                                     </div>
                                                 @endif
@@ -259,7 +267,7 @@
                         if (['cin_file', 'facture_file', 'cv', 'diplome'].includes(key) && data[key]) {
                             html +=
                                 '<a href="{{ url('
-                                                                                                                                                                                                                                                                                                                                                    ') }}/storage/' +
+                                                                                                                                                                                                                                                                                                                                                                                    ') }}/storage/' +
                                 data[
                                     key] +
                                 '" target="_blank" class="btn btn-sm btn-outline-primary">Télécharger</a>';
