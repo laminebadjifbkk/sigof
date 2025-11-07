@@ -54,8 +54,8 @@ class Formulaire extends Model
     {
         $filePath = $this->$field ?? null;
         if ($filePath) {
-            return "/storage/" . $filePath;
+            return asset('storage/' . $filePath);
         }
-        return null; // ou un fichier par défaut si tu veux
+        return null;
     }
 }
