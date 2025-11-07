@@ -79,7 +79,7 @@
                                             {{-- Champs fichiers --}}
                                             <div class="col-lg-4 col-md-4">
                                                 <label class="form-label fw-semibold">{{ $label }}</label>
-                                                <input type="file" name="{{ $field }}" class="form-control">
+                                                <input type="file" name="{{ $field }}" class="form-control form-control-sm">
 
                                                 {{-- Fichier existant --}}
                                                 @if ($formulaire->$field)
@@ -94,13 +94,13 @@
                                         @elseif ($field === 'date_naissance')
                                             <div class="col-lg-4 col-md-4">
                                                 <label class="form-label fw-semibold">{{ $label }}</label>
-                                                <input type="date" name="{{ $field }}" class="form-control"
+                                                <input type="date" name="{{ $field }}" class="form-control form-control-sm"
                                                     value="{{ old($field, $formulaire->$field) }}" required>
                                             </div>
                                         @elseif ($field === 'civilite')
                                             <div class="col-lg-4 col-md-4">
                                                 <label class="form-label fw-semibold">{{ $label }}</label>
-                                                <select name="{{ $field }}" class="form-select" required>
+                                                <select name="{{ $field }}" class="form-select form-select-sm" required>
                                                     <option value="">-- Sélectionnez --</option>
                                                     <option value="M."
                                                         {{ old($field, $formulaire->$field) == 'M.' ? 'selected' : '' }}>
@@ -113,7 +113,7 @@
                                         @elseif ($field === 'Statut')
                                             <div class="col-lg-4 col-md-4">
                                                 <label class="form-label fw-semibold">{{ $label }}</label>
-                                                <select name="{{ $field }}" class="form-select" required>
+                                                <select name="{{ $field }}" class="form-select form-select-sm" required>
                                                     <option value="">-- Sélectionnez --</option>
                                                     <option value="Nouvelle"
                                                         {{ old($field, $formulaire->$field) == 'Nouvelle' ? 'selected' : '' }}>
@@ -136,7 +136,7 @@
                                             {{-- Champs texte --}}
                                             <div class="col-lg-4 col-md-4">
                                                 <label class="form-label fw-semibold">{{ $label }}</label>
-                                                <input type="text" name="{{ $field }}" class="form-control"
+                                                <input type="text" name="{{ $field }}" class="form-control form-control-sm"
                                                     value="{{ old($field, $formulaire->$field) }}" required>
                                             </div>
                                         @endif
