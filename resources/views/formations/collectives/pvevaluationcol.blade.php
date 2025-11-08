@@ -42,16 +42,19 @@
 
         footer {
             position: fixed;
-            bottom: 0cm;
-            left: 0cm;
-            right: 0cm;
-            height: 1cm;
-
-            /** Extra personal styles **/
+            bottom: 0;
+            left: 0;
+            right: 0;
             background-color: #ffffff;
-            color: rgb(0, 0, 0);
+            color: #000;
+            font-size: 10px;
+            font-family: Arial, sans-serif;
             text-align: center;
-            line-height: 1.5cm;
+            padding: 6px 0;
+            /* <-- Donne de la hauteur au footer */
+            border-top: 2px solid #5D4037;
+            /* ligne visible */
+            z-index: 1000;
         }
 
         .table-noborder,
@@ -71,6 +74,25 @@
             break-inside: avoid;
             /* pour compatibilité avec certains moteurs */
         }
+
+
+        .header-text {
+            font-size: 10px;
+            /* réduit la taille du texte, ajuste selon besoin */
+            line-height: 1.2;
+            /* compacité verticale */
+            text-align: center;
+        }
+
+        .header-text b {
+            font-size: 11px;
+            /* tu peux ajuster pour les titres */
+        }
+
+        .header-text em {
+            font-size: 9px;
+            /* texte en italique plus petit */
+        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//db.onlinewebfonts.com/c/dd79278a2e4c4a2090b763931f2ada53?family=ArialW02-Regular" rel="stylesheet"
@@ -82,11 +104,11 @@
 </head>
 
 <body>
-    <div style="text-align: center;">
+    <div class="header-text">
         <b>REPUBLIQUE DU SENEGAL<br></b>
         <em class="text-muted">Un Peuple - Un But - Une Foi</em><br>
         <b>********<br>
-            MINISTERE DE L'EMPLOI ET DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE<br>
+            MINISTERE DE L'EMPLOI ET DE LA FORMATION <br> PROFESSIONNELLE ET TECHNIQUE<br>
             <br>
             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
                 style="width: 100%; max-width: 300px" />
