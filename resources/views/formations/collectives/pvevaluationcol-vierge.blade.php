@@ -70,7 +70,7 @@
             max-width: 1000px;
             margin: auto;
             /* padding: 30px; */
-            font-size: 12px;
+            font-size: 11px;
             line-height: 15px;
             color: rgb(0, 0, 0);
             ;
@@ -122,17 +122,18 @@
 
         footer {
             position: fixed;
-            bottom: 0cm;
-            left: 0cm;
-            right: 0cm;
-            height: 1cm;
-
+            bottom: 0;
+            left: 0;
+            right: 0;
             background-color: #ffffff;
             color: #000;
-            font-size: 12px;
+            font-size: 10px;
             font-family: Arial, sans-serif;
             text-align: center;
-
+            padding: 6px 0;
+            /* <-- Donne de la hauteur au footer */
+            border-top: 2px solid #5D4037;
+            /* ligne visible */
             z-index: 1000;
         }
 
@@ -264,15 +265,15 @@
                     <td rowspan="2" class="item" style="text-align: center; width: 5%;"><b>Civilité</b></td>
                     <td rowspan="2" class="item" style="text-align: center;"><b>Prénom</b></td>
                     <td rowspan="2" class="item" style="text-align: center;"><b>NOM</b></td>
-                    <td rowspan="2" class="item" style="text-align: center; width: 10%;"><b>Date naissance</b></td>
-                    <td rowspan="2" class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
+                    <td rowspan="2" class="item" style="text-align: center; width: 10%;"><b>Date nais.</b></td>
+                    <td rowspan="2" class="item" style="text-align: center;"><b>Lieu naissance</b></td>
                     <td rowspan="2" class="item" style="text-align: center; width: 10%;"><b>Téléphone</b></td>
                     <td colspan="3" style="text-align: center;"><b>{{ __('DECISION DU JURY') }}</b>
                     </td>
                 </tr>
                 <tr class="item" style="text-align: center;">
                     <td style="text-align: center; width: 5%;"><b>Note</b></td>
-                    <td><b>Niveau maitrise</b></td>
+                    <td style="width: 12%;"><b>Niveau maitrise</b></td>
                     <td><b>Observations</b></td>
                 </tr>
             </thead>
