@@ -10,9 +10,6 @@
     <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="icon">
     <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
     <style>
-        /* @page {
-            margin: 0cm 0cm;
-        } */
 
         @page {
             size: 21cm 29.7cm;
@@ -32,7 +29,6 @@
             font-size: 13px;
             line-height: 22px;
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-            /* color: #555; */
         }
 
         /** RTL **/
@@ -50,29 +46,9 @@
         body {
             margin: 0;
             padding-bottom: 30px;
-            /* hauteur approximative du footer */
         }
-
-        .invoice-box table tr.total td {
-            /* border-top: 2px solid #eee;
-            border-bottom: 1px solid #eee;
-            border-left: 1px solid #eee;
-            border-right: 1px solid #eee; */
-            /* background: #eee;
-            font-weight: normal; */
-        }
-
-        /* .invoice-box table tr.item td {
-            border: 1px solid #000000;
-        } */
-
         table {
-            /* border-left: 0px solid rgb(0, 0, 0);
-            border-right: 0;
-            border-top: 0px solid rgb(0, 0, 0);
-            border-bottom: 0; */
             width: 100%;
-            /* border-spacing: 0px; */
             border-collapse: collapse;
         }
 
@@ -107,13 +83,9 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 6px 0;
-            /* <-- Donne de la hauteur au footer */
             border-top: 2px solid #5D4037;
-            /* ligne visible */
             z-index: 1000;
         }
-
-
         .page-number {
             position: relative;
             height: 100%;
@@ -123,8 +95,6 @@
             align-items: center;
             padding-bottom: 0.2cm;
         }
-
-        /* Nettoyage et espacement */
         .footer-text {
             margin: 0;
             padding: 1mm 0 0 0;
@@ -135,7 +105,6 @@
         .no-page-break {
             page-break-inside: avoid;
             break-inside: avoid;
-            /* pour compatibilité avec certains moteurs */
         }
 
         .page-break {
@@ -144,7 +113,6 @@
 
         table.fixed {
             table-layout: fixed;
-            /* Largeurs fixes pour les colonnes */
             width: 100%;
             border-collapse: collapse;
         }
@@ -152,30 +120,23 @@
         table.fixed th,
         table.fixed td {
             overflow-wrap: break-word;
-            /* Texte long va à la ligne */
             word-wrap: break-word;
-            /* Compatibilité anciens moteurs */
             hyphens: auto;
-            /* Coupe les mots si nécessaire */
             text-align: center;
         }
 
         .header-text {
             font-size: 10px;
-            /* réduit la taille du texte, ajuste selon besoin */
             line-height: 1.2;
-            /* compacité verticale */
             text-align: center;
         }
 
         .header-text b {
             font-size: 11px;
-            /* tu peux ajuster pour les titres */
         }
 
         .header-text em {
             font-size: 9px;
-            /* texte en italique plus petit */
         }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">

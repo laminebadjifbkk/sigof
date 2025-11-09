@@ -6,7 +6,9 @@
     <title>{{ $title }}</title>
     <style>
         @page {
-            margin: 0cm 0cm;
+            size: 21cm 29.7cm;
+            margin-top: 1cm;
+            margin-bottom: 0cm;
         }
 
         .invoice-box {
@@ -57,6 +59,14 @@
             z-index: 1000;
         }
 
+
+        .footer-text {
+            margin: 0;
+            padding: 1mm 0 0 0;
+            line-height: 1.4;
+            max-width: 27cm;
+        }
+
         .table-noborder,
         .table-noborder td,
         .table-noborder tr {
@@ -92,6 +102,12 @@
         .header-text em {
             font-size: 9px;
             /* texte en italique plus petit */
+        }
+
+        body {
+            margin: 0;
+            padding-bottom: 30px;
+            /* hauteur approximative du footer */
         }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -276,14 +292,14 @@
             </div>
         </div>
     </div>
-    {{-- <footer>
-        <div class="page-number" id="footer">
-            <div class="footer-line"></div>
-            <p class="footer-text">Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN Tel: (+221) 33 827 92 51 -
-                Fax: (+221) 33 827 92
-                55 BP: 21013 Dakar-Ponty Email: <a href="#">onfp@onfp.sn</a></p>
-        </div>
-    </footer> --}}
+
+    <footer>
+        <p class="footer-text">
+            Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN
+            Tél: (+221) 33 827 92 51 - Fax: (+221) 33 827 92 55
+            BP: 21013 Dakar-Ponty - Email: <a href="mailto:onfp@onfp.sn">onfp@onfp.sn</a>
+        </p>
+    </footer>
 </body>
 
 </html>

@@ -61,7 +61,9 @@
     </style> --}}
     <style>
         @page {
-            margin: 0cm 0cm;
+            size: 21cm 29.7cm;
+            margin-top: 1cm;
+            margin-bottom: 0cm;
         }
 
         .invoice-box {
@@ -120,18 +122,17 @@
 
         footer {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0cm;
+            left: 0cm;
+            right: 0cm;
+            height: 1cm;
+
             background-color: #ffffff;
             color: #000;
-            font-size: 10px;
+            font-size: 12px;
             font-family: Arial, sans-serif;
             text-align: center;
-            padding: 6px 0;
-            /* <-- Donne de la hauteur au footer */
-            border-top: 2px solid #5D4037;
-            /* ligne visible */
+
             z-index: 1000;
         }
 
@@ -179,25 +180,6 @@
             break-inside: avoid;
             /* pour compatibilité avec certains moteurs */
         }
-
-
-        .header-text {
-            font-size: 10px;
-            /* réduit la taille du texte, ajuste selon besoin */
-            line-height: 1.2;
-            /* compacité verticale */
-            text-align: center;
-        }
-
-        .header-text b {
-            font-size: 11px;
-            /* tu peux ajuster pour les titres */
-        }
-
-        .header-text em {
-            font-size: 9px;
-            /* texte en italique plus petit */
-        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//db.onlinewebfonts.com/c/dd79278a2e4c4a2090b763931f2ada53?family=ArialW02-Regular" rel="stylesheet"
@@ -213,13 +195,12 @@
         <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
             style="width: 100%; max-width: 300px" />
     </h6> --}}
-
-    <div class="header-text">
+    <div style="text-align: center;">
         <b>REPUBLIQUE DU SENEGAL<br></b>
-        <em class="text-muted">Un Peuple - Un But - Une Foi</em><br>
+        Un Peuple - Un But - Une Foi<br>
         <b>********<br>
-            MINISTERE DE L'EMPLOI ET DE LA FORMATION <br> PROFESSIONNELLE ET TECHNIQUE<br>
-            <br>
+            MINISTERE DE L'EMPLOI ET DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE<br>
+            ********<br><br>
             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
                 style="width: 100%; max-width: 300px" />
         </b>
@@ -325,13 +306,13 @@
             </h4>
         </div>
     </div>
+
     <footer>
-        <div class="page-number" id="footer">
-            <div class="footer-line"></div>
-            <p class="footer-text">Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN Tel: (+221) 33 827 92 51 -
-                Fax: (+221) 33 827 92
-                55 BP: 21013 Dakar-Ponty Email: <a href="#">onfp@onfp.sn</a></p>
-        </div>
+        <p class="footer-text">
+            Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN
+            Tél: (+221) 33 827 92 51 - Fax: (+221) 33 827 92 55
+            BP: 21013 Dakar-Ponty - Email: <a href="mailto:onfp@onfp.sn">onfp@onfp.sn</a>
+        </p>
     </footer>
 </body>
 

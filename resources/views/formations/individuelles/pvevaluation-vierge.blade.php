@@ -4,64 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <title>{{ $title }}</title>
-    {{-- <style>
-        @page {
-            margin: 0cm 0cm;
-        }
-
-        .invoice-box {
-            max-width: 1000px;
-            margin: auto;
-            padding: 30px;
-            font-size: 12px;
-            line-height: 20px;
-            color:rgb(0, 0, 0);
-            ;
-        }
-
-        .rtl {
-            imputation: rtl;
-        }
-
-        .invoice-box table tr.heading td {
-            background: rgb(255, 255, 255);
-            border: 1px solid #000000;
-            font-weight: bold;
-        }
-
-        .invoice-box table tr.total td {
-            border-top: 2px solid #eee;
-            border-bottom: 1px solid #eee;
-            border-left: 1px solid #eee;
-            border-right: 1px solid #eee;
-            background: #eee;
-            font-weight: bold;
-        }
-
-        .invoice-box table tr.item td {
-            border: 1px solid #000000;
-        }
-
-        table {
-            border-left: 0px solid rgb(0, 0, 0);
-            border-right: 0;
-            border-top: 0px solid rgb(0, 0, 0);
-            border-bottom: 0;
-            width: 100%;
-            border-spacing: 0px;
-        }
-
-        table td,
-        table th {
-            border-left: 0;
-            border-right: 0px solid rgb(0, 0, 0);
-            border-top: 0;
-            border-bottom: 0px solid rgb(0, 0, 0);
-        }
-    </style> --}}
     <style>
         @page {
-            margin: 0cm 0cm;
+            size: 21cm 29.7cm;
+            margin-top: 1cm;
+            margin-bottom: 0cm;
         }
 
         .invoice-box {
@@ -135,6 +82,25 @@
             z-index: 1000;
         }
 
+
+        .page-number {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 0.2cm;
+        }
+
+        /* Nettoyage et espacement */
+        .footer-text {
+            margin: 0;
+            padding: 1mm 0 0 0;
+            line-height: 1.4;
+            max-width: 27cm;
+        }
+
         .page-number {
             position: relative;
             height: 100%;
@@ -152,14 +118,6 @@
             height: 2px;
             background-color: #5D4037;
             margin: 0 auto 2mm auto;
-        }
-
-        /* Nettoyage et espacement */
-        .footer-text {
-            margin: 0;
-            padding: 1mm 0 0 0;
-            line-height: 1.4;
-            max-width: 27cm;
         }
 
         .table-noborder,
@@ -198,6 +156,12 @@
             font-size: 9px;
             /* texte en italique plus petit */
         }
+
+        body {
+            margin: 0;
+            padding-bottom: 30px;
+            /* hauteur approximative du footer */
+        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//db.onlinewebfonts.com/c/dd79278a2e4c4a2090b763931f2ada53?family=ArialW02-Regular" rel="stylesheet"
@@ -209,10 +173,6 @@
 </head>
 
 <body>
-    {{-- <h6 valign="top" style="text-align: center;">
-        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
-            style="width: 100%; max-width: 300px" />
-    </h6> --}}
     <div class="header-text">
         <b>REPUBLIQUE DU SENEGAL<br></b>
         <em class="text-muted">Un Peuple - Un But - Une Foi</em><br>
@@ -321,13 +281,14 @@
             </h4>
         </div>
     </div>
+
+
     <footer>
-        <div class="page-number" id="footer">
-            <div class="footer-line"></div>
-            <p class="footer-text">Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN Tel: (+221) 33 827 92 51 -
-                Fax: (+221) 33 827 92
-                55 BP: 21013 Dakar-Ponty Email: <a href="#">onfp@onfp.sn</a></p>
-        </div>
+        <p class="footer-text">
+            Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN
+            Tél: (+221) 33 827 92 51 - Fax: (+221) 33 827 92 55
+            BP: 21013 Dakar-Ponty - Email: <a href="mailto:onfp@onfp.sn">onfp@onfp.sn</a>
+        </p>
     </footer>
 </body>
 

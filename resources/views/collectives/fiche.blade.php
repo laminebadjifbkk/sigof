@@ -99,6 +99,14 @@
             /* ligne visible */
             z-index: 1000;
         }
+
+        .footer-text {
+            margin: 0;
+            padding: 1mm 0 0 0;
+            line-height: 1.4;
+            max-width: 27cm;
+        }
+
         .header-text {
             font-size: 10px;
             /* réduit la taille du texte, ajuste selon besoin */
@@ -115,6 +123,12 @@
         .header-text em {
             font-size: 9px;
             /* texte en italique plus petit */
+        }
+
+        body {
+            margin: 0;
+            padding-bottom: 30px;
+            /* hauteur approximative du footer */
         }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
