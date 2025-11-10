@@ -108,10 +108,18 @@
                                         ⏳ Il vous reste <span id="countdown"></span> pour déposer votre demande.
                                     </div>
 
-                                    <a id="postulerBtn" href="#" data-bs-toggle="modal"
+                                    {{-- Ici pour les autres appel à candidature --}}
+                                    {{-- <a id="postulerBtn" href="#" data-bs-toggle="modal"
                                         data-bs-target="#enSavoirPlusModal"
                                         class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
-                                        🚀 Postuler maintenant
+                                        Postuler maintenant
+                                    </a> --}}
+
+                                    {{-- Ici pour les prises en charge --}}
+                                    <a id="postulerBtnPcharge" href="#" data-bs-toggle="modal"
+                                        data-bs-target="#enSavoirPlusModalPcharge"
+                                        class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
+                                        Postuler maintenant
                                     </a>
 
                                     {{-- <div id="closedMessage" class="alert alert-danger text-center fw-bold"
@@ -1254,6 +1262,7 @@
             </div>
         </div> --}}
 
+        {{-- Ici pour les autres appel à candidature --}}
         <div class="modal fade" id="enSavoirPlusModal" tabindex="-1" aria-labelledby="enSavoirPlusModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -1286,6 +1295,47 @@
                             style="background-color: #F28500; color: #FFFFFF"
                             data-bs-target="#registerDemandeurModal">
                             👤 S'inscrire d'abord
+                        </a>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
+                            ✖ Fermer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Ici pour les prises en charge --}}
+        <div class="modal fade" id="enSavoirPlusModalPcharge" tabindex="-1"
+            aria-labelledby="enSavoirPlusModalPchargeLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content border-0 shadow-lg rounded-4">
+                    <div class="modal-header bg-warning bg-gradient text-white rounded-top-4">
+                        <h5 class="modal-title fw-bold" id="enSavoirPlusModalPchargeLabel">
+                            {{ $une?->titre1 }} <span class="text-light">|</span> {{ $une?->titre2 }}
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Fermer"></button>
+                    </div>
+
+                    <div class="modal-body px-4 py-3">
+                        @if (!empty($une?->image))
+                            <div class="text-center mb-4">
+                                <img src="{{ asset($une->getUne()) }}" class="img-fluid rounded-4 shadow-sm"
+                                    alt="{{ $une->titre1 }}">
+                            </div>
+                        @endif
+
+                        @if (!empty($une?->message))
+                            <div class="text-muted fs-6" style="white-space: pre-line;">
+                                {!! nl2br(e($une->message)) !!}
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="modal-footer bg-light rounded-bottom-4 d-flex justify-content-between">
+                        <a href="{{ route('formulaire.create') }}" class="btn btn-sm fw-bold"
+                            style="background-color: #F28500; color: #FFFFFF">
+                            Cliquer ici pour postuler
                         </a>
                         <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
                             ✖ Fermer
@@ -1461,6 +1511,52 @@
                 // Après la fin
                 document.getElementById('countdownContainer').style.display = 'none';
                 document.getElementById('postulerBtn').style.display = 'none';
+                document.getElementById('closedMessage').style.display = 'block';
+                return;
+            }
+
+            // 🔹 Calcul du temps restant
+            const diff = closingTime - now;
+            const totalSeconds = Math.floor(diff / 1000);
+            const days = Math.floor(totalSeconds / (60 * 60 * 24));
+            const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+
+            let display = '';
+            if (days > 0) display += `${days} jour${days > 1 ? 's' : ''} `;
+            display += `${hours}h ${minutes}min ${seconds}s`;
+
+            document.getElementById('countdown').textContent = display;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+
+            // 🔹 Date de démarrage fixe (année, mois, jour, heure, minute, seconde)
+            // ⚠️ Les mois commencent à 0 en JavaScript : 10 = novembre
+            const startDate = new Date(2025, 10, 12, 17, 0, 0); // 12 novembre 2025 à 17h00
+
+            // 🔹 Date de clôture = date de démarrage + 10 jours
+            const closingTime = new Date(startDate);
+            closingTime.setDate(startDate.getDate() + 5);
+            closingTime.setHours(23, 59, 0, 0); // clôture à 23h59 le 10e jour
+
+            if (now < startDate) {
+                // Avant le démarrage
+                document.getElementById('countdownContainer').textContent = "Le compte à rebours commencera le " + startDate
+                    .toLocaleString();
+                return;
+            }
+
+            if (now >= closingTime) {
+                // Après la fin
+                document.getElementById('countdownContainer').style.display = 'none';
+                document.getElementById('postulerBtnPcharge').style.display = 'none';
                 document.getElementById('closedMessage').style.display = 'block';
                 return;
             }
