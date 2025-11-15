@@ -217,7 +217,7 @@ class FormulaireController extends Controller
 
         /* $formulaires = Formulaire::orderBy('created_at', 'desc')->get(); */
         $labels = [
-            'cin' => 'Numéro CIN',
+            'cin' => 'CIN',
             'civilite' => 'Civilité',
             'prenom' => 'Prénom',
             'nom' => 'Nom',
@@ -397,7 +397,7 @@ class FormulaireController extends Controller
         $totalFormulaires = number_format($formulaires?->count(), 0, ',', ' ');
 
         $labels = [
-            'cin' => 'Numéro CIN',
+            'cin' => 'CIN',
             'civilite' => 'Civilité',
             'prenom' => 'Prénom',
             'nom' => 'Nom',
@@ -456,7 +456,7 @@ class FormulaireController extends Controller
         }); */
 
         $labels = [
-            'cin' => 'Numéro CIN',
+            'cin' => 'CIN',
             'civilite' => 'Civilité',
             'prenom' => 'Prénom',
             'nom' => 'Nom',
@@ -501,7 +501,7 @@ class FormulaireController extends Controller
 
         /* $formulaires = Formulaire::orderBy('created_at', 'desc')->get(); */
         $labels = [
-            'cin' => 'Numéro CIN',
+            'cin' => 'CIN',
             'civilite' => 'Civilité',
             'prenom' => 'Prénom',
             'nom' => 'Nom',
