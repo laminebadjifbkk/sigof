@@ -471,7 +471,7 @@ class FormulaireController extends Controller
             'adresse' => 'Adresse',
             'dernier_diplome' => 'Dernier diplôme obtenu',
             'nom_etablissement' => 'Établissement', */
-            /* 'region' => 'Région', */
+            'region' => 'Région',
             'formation' => 'Formation sollicitée',
             /* 'diplome_vise' => 'Diplôme visé',
             'montant_inscription' => 'Montant inscription',
@@ -516,7 +516,7 @@ class FormulaireController extends Controller
             'adresse' => 'Adresse',
             'dernier_diplome' => 'Dernier diplôme obtenu',
             'nom_etablissement' => 'Établissement', */
-            'region' => 'Région',
+            /* 'region' => 'Région', */
             'formation' => 'Formation sollicitée',
             /* 'diplome_vise' => 'Diplôme visé',
             'montant_inscription' => 'Montant inscription',
