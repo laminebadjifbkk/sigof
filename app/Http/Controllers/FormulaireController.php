@@ -396,6 +396,11 @@ class FormulaireController extends Controller
 
         $totalFormulaires = number_format($formulaires?->count(), 0, ',', ' ');
 
+        // Regrouper par statut (y compris les null)
+        $groupes = $formulaires->groupBy(function ($item) {
+            return $item->region ?? 'Aucune région';
+        });
+
         $labels = [
             'cin' => 'CIN',
             'civilite' => 'Civilité',
@@ -429,6 +434,7 @@ class FormulaireController extends Controller
         return view('formulaire.index', compact(
             'formulaires',
             'totalFormulaires',
+            'groupes',
             'labels'
         ));
     }
