@@ -20,7 +20,7 @@
                         <tr>
                             <th style="width: 50px;" class="text-center">N°</th>
                             <th>Région</th>
-                            <th>Effectif</th>
+                            {{-- <th>Effectif</th> --}}
                             <th style="width: 50px;" class="text-center">Actions</th>
                         </tr>
                     </thead>
@@ -29,7 +29,7 @@
                             <tr>
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td>{{ $index }}</td>
-                                <td>{{ number_format($items->count(), 0, '', ' ') }}</td>
+                                {{-- <td>{{ number_format($items->count(), 0, '', ' ') }}</td> --}}
                                 <td class="text-center">
                                     <div class="btn-group">
                                         {{-- Bouton Voir --}}
