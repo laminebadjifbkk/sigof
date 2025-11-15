@@ -435,7 +435,13 @@ class FormulaireController extends Controller
             'diplome' => 'Diplôme' */
         ];
 
-        return view('formulaire.index', compact(
+        /* return view('formulaire.index', compact(
+            'formulaires',
+            'totalFormulaires',
+            'groupes',
+            'labels'
+        )); */
+        return view('formulaire.resultats', compact(
             'formulaires',
             'totalFormulaires',
             'groupes',
