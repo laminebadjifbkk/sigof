@@ -4,17 +4,12 @@
     @can('inscriptioncontact-view')
         <section class="section register">
             <div class="row justify-content-center">
-
-                {{-- <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('/formulaires') }}" class="btn btn-info btn-sm"
-                        title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                    <p> | Retour</p>
-                </span> --}}
-                {{-- <h4 class="card-title">
+                <h4 class="card-title">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
-                        <span>{{ $projet->sigle }}</span>
-                        <span class="{{ $statut }} text-white">{{ $statut }}</span>
+                        <span>Liste des demandes prises en charge</span>
+                        <span>{{ $formulairesAll }}</span>
                     </div>
-                </h4> --}}
+                </h4>
                 <table class="table table-bordered table-striped align-middle">
                     <thead class="table-primary">
                         <tr>
@@ -33,8 +28,8 @@
                                 <td class="text-center">
                                     <div class="btn-group">
                                         {{-- Bouton Voir --}}
-                                        <a href="{{ route('formulaires.showregion', $index) }}"
-                                            class="btn btn-warning btn-sm" title="Voir les détails">
+                                        <a href="{{ route('formulaires.showregion', $index) }}" class="btn btn-warning btn-sm"
+                                            title="Voir les détails">
                                             <i class="bi bi-eye"></i>
                                         </a>
                                     </div>
@@ -44,19 +39,17 @@
                     </tbody>
                 </table>
                 {{-- Tableau inscriptions --}}
-                <div class="card shadow-sm">
+                {{-- <div class="card shadow-sm">
                     <div class="card-body">
                         <div class="pt-1">
                             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 
-                                {{-- Titre à gauche --}}
                                 <div class="d-flex align-items-center gap-2">
                                     <h6 class="mb-0 text-muted fw-semibold text-uppercase">
                                         Liste des demandes prises en charge
                                     </h6>
                                 </div>
 
-                                {{-- Total au centre --}}
                                 @php
                                     $affichees = $formulaires?->count(); // à adapter si tu fais une pagination
                                     $total = $totalFormulaires ?? ($formulaires?->total() ?? $formulaires?->count()); // en cas de pagination avec ->total()
@@ -72,12 +65,11 @@
                                     </span>
                                 </div>
 
-                                {{-- Boutons à droite --}}
                                 @can('formulaire-create')
                                     <div class="d-flex align-items-center gap-2">
-                                        {{-- <a href="{{ route('formulaire.create') }}" class="btn btn-sm btn-primary">
+                                        <a href="{{ route('formulaire.create') }}" class="btn btn-sm btn-primary">
                                             Ajouter
-                                        </a> --}}
+                                        </a>
                                         <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
                                             data-bs-target="#generate_rapport">
                                             Rechercher plus
@@ -87,16 +79,17 @@
 
                             </div>
                         </div>
+                        --}}
 
-                        {{-- Export opérateurs en Excel --}}
-                        {{-- <span class="mb-3 d-inline-block">
+                {{-- Export opérateurs en Excel --}}
+                {{-- <span class="mb-3 d-inline-block">
                             <a href="{{ route('prisencharge.excel') }}" class="btn btn-success btn-sm"
                                 title="Exporter la liste">
                                 <i class="bi bi-file-earmark-excel"></i> Exporter prises en charge (Excel)
                             </a>
                         </span> --}}
 
-                        <div class="table-responsive">
+                {{-- <div class="table-responsive">
                             <table class="table datatables align-middle" id="table-inscriptions">
                                 <thead class="table-primary">
                                     <tr>
@@ -124,11 +117,9 @@
                                                             -
                                                         @endif
 
-                                                        {{-- Cas spécifique pour la date de naissance --}}
                                                     @elseif ($field === 'date_naissance' && $inscription->date_naissance)
                                                         {{ \Carbon\Carbon::parse($inscription->date_naissance)->format('d/m/Y') }}
 
-                                                        {{-- Tous les autres champs normaux --}}
                                                     @else
                                                         {{ $inscription->$field ?? '-' }}
                                                     @endif
@@ -136,13 +127,11 @@
                                             @endforeach
                                             <td class="text-center">
                                                 <div class="btn-group">
-                                                    {{-- Bouton Voir --}}
                                                     <a href="{{ route('formulaires.show', $inscription->id) }}"
                                                         class="btn btn-warning btn-sm" title="Voir les détails">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
 
-                                                    {{-- Bouton menu déroulant --}}
                                                     <button type="button"
                                                         class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split"
                                                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -150,7 +139,6 @@
                                                     </button>
 
                                                     <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                                                        {{-- Lien Modifier --}}
                                                         <li>
                                                             <a href="{{ route('formulaires.edit', $inscription->id) }}"
                                                                 class="dropdown-item text-primary" title="Modifier les détails">
@@ -158,7 +146,6 @@
                                                             </a>
                                                         </li>
 
-                                                        {{-- Formulaire Supprimer --}}
                                                         <li>
                                                             <form action="{{ route('formulaires.destroy', $inscription->id) }}"
                                                                 method="POST">
@@ -179,10 +166,10 @@
                             </table>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div> --}}
             </div>
 
+           {{-- Modal générer un rapport --}}
             <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog" aria-labelledby="generate_rapportLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
