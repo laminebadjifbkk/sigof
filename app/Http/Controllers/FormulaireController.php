@@ -494,7 +494,10 @@ class FormulaireController extends Controller
         $this->authorize('formulaire-view');
 
         // Récupérer les formulaires de la région
-        $formulaires = Formulaire::where('region', $region)->get();
+        /* $formulaires = Formulaire::where('region', $region)->get(); */
+        $formulaires = Formulaire::where('region', $region)
+            ->limit(2000) // ou ->take(2000)
+            ->get();
 
         $formulair      = $formulaires->count();
         $totalFormulaires = number_format($formulair, 0, ',', ' ');
