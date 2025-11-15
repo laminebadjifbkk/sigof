@@ -60,7 +60,6 @@
                                                 </div>
                                             </div>
                                             <a href="{{ route('prisencharge.parStatut', ['statut' => $statut, 'region' => $region]) }}"
-                                                target="_blank"
                                                 class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
                                                 style="font-size: 0.85rem; gap: 6px;">
                                                 Voir plus <i class="bi bi-arrow-right-short"></i>
@@ -81,8 +80,13 @@
 
                                 {{-- Titre à gauche --}}
                                 <div class="d-flex align-items-center gap-2">
+
                                     <h6 class="mb-0 text-muted fw-semibold text-uppercase">
-                                        Liste des demandes prises en charge
+                                        <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('formulaires') }}"
+                                                class="btn btn-info btn-sm" title="retour"><i
+                                                    class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                                            <p> | Liste des demandes prises en charge</p>
+                                        </span>
                                     </h6>
                                 </div>
 
@@ -105,7 +109,7 @@
                                 {{-- Boutons à droite --}}
                                 @can('formulaire-create')
                                     <div class="d-flex align-items-center gap-2">
-                                       {{--  <a href="{{ route('formulaire.create') }}" class="btn btn-sm btn-primary">
+                                        {{--  <a href="{{ route('formulaire.create') }}" class="btn btn-sm btn-primary">
                                             Ajouter
                                         </a> --}}
                                         <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
