@@ -209,8 +209,8 @@ class FormulaireController extends Controller
     public function index()
     {
 
-        $formulaires      = Formulaire::count();
-        $totalFormulaires = number_format($formulaires, 0, ',', ' ');
+        $formulairesAll      = Formulaire::count();
+        $totalFormulaires = number_format($formulairesAll, 0, ',', ' ');
 
         // Récupération des 500 dernières demandes
         $formulaires = Formulaire::latest()->limit(1500)->get();
@@ -251,7 +251,7 @@ class FormulaireController extends Controller
             return $item->region ?? 'Aucune région';
         });
 
-        return view('formulaire.index', compact('formulaires', 'labels', 'totalFormulaires', 'groupes'));
+        return view('formulaire.index', compact('formulaires', 'labels', 'totalFormulaires', 'groupes', 'formulairesAll'));
     }
 
     public function show($id)
