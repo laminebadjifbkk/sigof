@@ -1,0 +1,37 @@
+/* statuts.css */
+
+.Valide {
+    background-color: #28A745; /* vert Bootstrap */
+    color: #ffffff;
+    padding: 6px 12px;
+    text-align: center;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+}
+
+.Rejete {
+    background-color: #DC3545; /* rouge Bootstrap */
+    color: #ffffff;
+    padding: 6px 12px;
+    text-align: center;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+}
+
+.Autre {
+    background-color: #17A2B8; /* cyan Bootstrap */
+    color: #ffffff;
+    padding: 6px 12px;
+    text-align: center;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+}

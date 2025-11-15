@@ -1,0 +1,455 @@
+@extends('layout.user-layout')
+@section('title', 'ONFP | EVALUATEURS')
+@section('space-work')
+    <section class="section register">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="pagetitle">
+                    {{-- <h1>Data Tables</h1> --}}
+                    <nav>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+                            <li class="breadcrumb-item">Tables</li>
+                            <li class="breadcrumb-item active">Données</li>
+                        </ol>
+                    </nav>
+                </div><!-- End Page Title -->
+                @if ($message = Session::get('status'))
+                    <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
+                        role="alert">
+                        <strong>{{ $message }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                @if ($message = Session::get('danger'))
+                    <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
+                        role="alert">
+                        <strong>{{ $message }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
+                            role="alert"><strong>{{ $error }}</strong></div>
+                    @endforeach
+                @endif
+                <div class="card">
+                    <div class="card-body">
+                        {{-- @can('role-create') --}}
+                        <div class="pt-0">
+                            @can('evaluateur-create')
+                                <button type="button" class="btn btn-sm btn-primary float-end btn-rounded"
+                                    data-bs-toggle="modal" data-bs-target="#AddevaluateurModal">Ajouter
+                                </button>
+                            @endcan
+                        </div>
+                        {{-- @endcan --}}
+                        <h5 class="card-title">Evaluateurs</h5>
+                        <!-- Table with stripped rows -->
+                        @if ($evaluateurs->isNotEmpty())
+                            <table class="table datatables align-middle justify-content-center" id="table-evaluateurs">
+                                <thead>
+                                    <tr>
+                                        <th>Prénom</th>
+                                        <th>Nom</th>
+                                        <th>Fonction/Spécialité</th>
+                                        <th>Email</th>
+                                        {{-- <th>Téléphone</th>
+                                        <th>Adresse</th> --}}
+                                        <th>Formations</th>
+                                        <th class="text-center">CV</th>
+                                        <th class="text-center" width="2%">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($evaluateurs as $evaluateur)
+                                        <tr>
+                                            <td>{{ $evaluateur->name }}</td>
+                                            <td>{{ $evaluateur->lastname }}</td>
+                                            <td>{{ $evaluateur->fonction }}</td>
+                                            {{-- <td><a href="mailto:{{ $evaluateur->email }}">{{ $evaluateur->email }}</a></td>
+                                            <td><a
+                                                    href="tel:+221{{ $evaluateur->telephone }}">{{ $evaluateur->telephone }}</a>
+                                            </td> --}}
+                                            <td>{{ $evaluateur->adresse }}</td>
+                                            <td style="text-align: center;">
+                                                {{-- @foreach ($evaluateur->formations as $formation)
+                                                    @if ($loop->last)
+                                                        <a class="text-primary fw-bold"
+                                                            href="#">{!! $loop->count ?? '0' !!}</a>
+                                                    @endif
+                                                @endforeach --}}
+                                                {{ $evaluateur?->formations->count() }}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($evaluateur?->scan_cv)
+                                                    <a class="btn btn-outline-secondary btn-sm" title="Convention"
+                                                        target="_blank"
+                                                        href="{{ asset($evaluateur?->getCVEvaluateurs()) }}">
+                                                        <i class="bi bi-file-earmark-pdf"></i>
+                                                    </a>
+                                                @else
+                                                    <span class="text-muted small">Aucun fichier</span>
+                                                @endif
+                                            </td>
+
+                                            <td style="text-align: center;">
+                                                @can('evaluateur-show')
+                                                    <span class="d-flex mt-2 align-items-baseline"><a
+                                                            href="{{ route('evaluateurs.show', $evaluateur->id) }}"
+                                                            class="btn btn-warning btn-sm mx-1" title="Voir détails">
+                                                            <i class="bi bi-eye"></i></a>
+                                                        <div class="filter">
+                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                    class="bi bi-three-dots"></i></a>
+                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                @can('evaluateur-update')
+                                                                    <li>
+                                                                        <button type="button" class="dropdown-item btn btn-sm mx-1"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#EditevaluateurModal{{ $evaluateur->id }}">
+                                                                            <i class="bi bi-pencil" title="Modifier"></i> Modifier
+                                                                        </button>
+                                                                    </li>
+                                                                @endcan
+                                                                @can('evaluateur-delete')
+                                                                    <li>
+                                                                        <form action="{{ url('evaluateurs', $evaluateur->id) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"><i
+                                                                                    class="bi bi-trash"></i>Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                @endcan
+                                                            </ul>
+                                                        </div>
+                                                    </span>
+                                                @endcan
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <div class="alert alert-info">Aucun évaluateur pour le momement !</div>
+                        @endif
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Add evaluateur -->
+        <div class="modal fade" id="AddevaluateurModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <form method="POST" action="{{ url('evaluateurs') }}" enctype="multipart/form-data"
+                        class="needs-validation" novalidate>
+                        @csrf
+
+                        <div class="card shadow-lg border-0">
+                            <div class="card-header bg-default text-center py-2 rounded-top">
+                                <h4 class="mb-0">➕ Ajouter un évaluateur</h4>
+                            </div>
+
+                            <div class="card-body row g-4 px-4">
+                                @php
+                                    $fields = [
+                                        'name' => [
+                                            'label' => 'Prénom',
+                                            'type' => 'text',
+                                            'placeholder' => 'Prénom',
+                                        ],
+                                        'lastname' => [
+                                            'label' => 'Nom',
+                                            'type' => 'text',
+                                            'placeholder' => 'Nom',
+                                        ],
+                                        'fonction' => [
+                                            'label' => 'Fonction/Spécialité',
+                                            'type' => 'text',
+                                            'placeholder' => 'Fonction/Spécialité',
+                                        ],
+                                        'email' => [
+                                            'label' => 'Adresse email',
+                                            'type' => 'email',
+                                            'placeholder' => 'exemple@email.com',
+                                        ],
+                                        'telephone' => [
+                                            'label' => 'Téléphone',
+                                            'type' => 'text',
+                                            'id' => 'telephone',
+                                            'placeholder' => 'XX:XXX:XX:XX',
+                                        ],
+                                        'adresse' => [
+                                            'label' => 'Adresse',
+                                            'type' => 'text',
+                                            'placeholder' => 'Adresse',
+                                        ],
+                                        'scan_cv' => [
+                                            'label' => 'CV',
+                                            'type' => 'file',
+                                            'placeholder' => 'Télécharger le CV',
+                                        ],
+                                    ];
+                                @endphp
+
+                                {{-- @foreach ($fields as $name => $data)
+                                    <div class="col-md-12">
+                                        <label for="{{ $name }}" class="form-label">{{ $data['label'] }} <span
+                                                class="text-danger">*</span></label>
+                                        <input type="{{ $data['type'] }}" name="{{ $name }}"
+                                            id="{{ $name }}" value="{{ old($name) }}"
+                                            class="form-control form-control-sm @error($name) is-invalid @enderror"
+                                            placeholder="{{ $data['placeholder'] }}"
+                                            {{ $data['type'] === 'number' ? 'min=0' : '' }}>
+                                        @error($name)
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                @endforeach --}}
+
+                                {{-- @foreach ($fields as $name => $data)
+                                    <div class="col-md-12">
+                                        <label for="{{ $name }}" class="form-label">
+                                            {{ $data['label'] }}
+                                            @if ($name !== 'scan_cv')
+                                                <span class="text-danger">*</span>
+                                            @endif
+                                        </label>
+
+                                        <input type="{{ $data['type'] }}" name="{{ $name }}"
+                                            id="{{ $name }}" value="{{ old($name) }}"
+                                            class="form-control form-control-sm @error($name) is-invalid @enderror"
+                                            placeholder="{{ $data['placeholder'] }}"
+                                            {{ $data['type'] === 'number' ? 'min=0' : '' }} 
+                                            @if ($name !== 'scan_cv') required @endif>
+
+                                        @error($name)
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                @endforeach --}}
+
+                                @foreach ($fields as $name => $data)
+                                    <div class="col-md-12">
+                                        <label for="{{ $name }}" class="form-label">
+                                            {{ $data['label'] }}
+                                            {{-- Affiche * uniquement si le champ n'est pas "email" ni "scan_cv" --}}
+                                            @if (!in_array($name, ['email', 'scan_cv']))
+                                                <span class="text-danger">*</span>
+                                            @endif
+                                        </label>
+
+                                        <input type="{{ $data['type'] }}" name="{{ $name }}"
+                                            id="{{ $name }}" value="{{ old($name) }}"
+                                            class="form-control form-control-sm @error($name) is-invalid @enderror"
+                                            placeholder="{{ $data['placeholder'] }}"
+                                            {{ $data['type'] === 'number' ? 'min=0' : '' }} {{-- Rend obligatoire sauf pour "email" et "scan_cv" --}}
+                                            @unless (in_array($name, ['email', 'scan_cv'])) required @endunless>
+
+                                        @error($name)
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                @endforeach
+
+
+                            </div>
+
+                            <div class="card-footer d-flex justify-content-end gap-2 p-3 bg-light border-top">
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                                    <i class="bi bi-x-circle"></i> Fermer
+                                </button>
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-save"></i> Enregistrer
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- End Add evaluateur-->
+
+        <!-- Edit evaluateur -->
+        @foreach ($evaluateurs as $evaluateur)
+            <div class="modal fade" id="EditevaluateurModal{{ $evaluateur->id }}" tabindex="-1" role="dialog"
+                aria-labelledby="EditevaluateurModalLabel{{ $evaluateur->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <form method="POST" action="{{ route('evaluateurs.update', $evaluateur->id) }}"
+                            enctype="multipart/form-data" class="needs-validation" novalidate>
+                            @csrf
+                            @method('PATCH')
+
+                            <div class="card shadow-lg border-0">
+                                <div class="card-header bg-default text-center py-2 rounded-top">
+                                    <h4 class="mb-0">✏️ Modifier un évaluateur</h4>
+                                </div>
+
+                                <div class="card-body row g-4 px-4">
+                                    @php
+                                        $fields = [
+                                            'name' => [
+                                                'label' => 'Prénom',
+                                                'type' => 'text',
+                                                'placeholder' => 'Prénom',
+                                            ],
+                                            'lastname' => [
+                                                'label' => 'Nom',
+                                                'type' => 'text',
+                                                'placeholder' => 'Nom',
+                                            ],
+                                            'fonction' => [
+                                                'label' => 'Fonction/Spécialité',
+                                                'type' => 'text',
+                                                'placeholder' => 'Fonction/Spécialité',
+                                            ],
+                                            'email' => [
+                                                'label' => 'Adresse email',
+                                                'type' => 'email',
+                                                'placeholder' => 'exemple@email.com',
+                                            ],
+                                            'telephone' => [
+                                                'label' => 'Téléphone',
+                                                'type' => 'text',
+                                                'id' => 'telephone',
+                                                'placeholder' => 'XX:XXX:XX:XX',
+                                            ],
+                                            'adresse' => [
+                                                'label' => 'Adresse',
+                                                'type' => 'text',
+                                                'placeholder' => 'Adresse',
+                                            ],
+                                            'scan_cv' => [
+                                                'label' => 'CV',
+                                                'type' => 'file',
+                                                'placeholder' => 'Télécharger le CV',
+                                            ],
+                                        ];
+                                    @endphp
+
+                                    {{-- @foreach ($fields as $name => $data)
+                                        <div class="col-md-12">
+                                            <label for="{{ $name }}" class="form-label">{{ $data['label'] }}
+                                                <span class="text-danger">*</span></label>
+                                            <input type="{{ $data['type'] }}" name="{{ $name }}"
+                                                id="{{ $name }}" value="{{ old($name, $evaluateur->$name) }}"
+                                                class="form-control form-control-sm @error($name) is-invalid @enderror"
+                                                placeholder="{{ $data['placeholder'] }}"
+                                                {{ $data['type'] === 'number' ? 'min=0' : '' }} required>
+                                            @error($name)
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    @endforeach --}}
+
+                                    @foreach ($fields as $name => $data)
+                                        <div class="col-md-12">
+                                            <label for="{{ $name }}" class="form-label">{{ $data['label'] }}
+                                                @if ($name !== 'scan_cv')
+                                                    <span class="text-danger">*</span>
+                                                @endif
+                                            </label>
+
+                                            @if ($name === 'scan_cv')
+                                                @if ($evaluateur->scan_cv)
+                                                    <p>
+                                                        CV actuel :
+                                                        <a href="{{ asset($evaluateur->getCVEvaluateurs()) }}"
+                                                            target="_blank" class="btn btn-outline-secondary btn-sm">
+                                                            <i class="bi bi-file-earmark-pdf"></i> Voir le CV
+                                                        </a>
+                                                    </p>
+                                                @else
+                                                    <p class="text-muted small">Aucun CV enregistré</p>
+                                                @endif
+
+                                                <input type="file" name="scan_cv" id="scan_cv"
+                                                    class="form-control form-control-sm @error('scan_cv') is-invalid @enderror"
+                                                    placeholder="{{ $data['placeholder'] }}">
+                                                <small class="text-muted">Laissez vide si vous ne souhaitez pas le
+                                                    changer.</small>
+                                            @else
+                                                <input type="{{ $data['type'] }}" name="{{ $name }}"
+                                                    id="{{ $name }}"
+                                                    value="{{ old($name, $evaluateur->$name) }}"
+                                                    class="form-control form-control-sm @error($name) is-invalid @enderror"
+                                                    placeholder="{{ $data['placeholder'] }}" required>
+                                            @endif
+
+                                            @error($name)
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    @endforeach
+
+                                </div>
+
+                                <div class="card-footer d-flex justify-content-end gap-2 p-3 bg-light border-top">
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                                        <i class="bi bi-x-circle"></i> Fermer
+                                    </button>
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="bi bi-pencil-square"></i> Modifier
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+        <!-- End Edit evaluateur-->
+    </section>
+
+@endsection
+@push('scripts')
+    <script>
+        new DataTable('#table-evaluateurs', {
+            ordering: false, // désactive le tri automatique
+            layout: {
+                topStart: {
+                    buttons: ['csv', 'excel', 'print'],
+                }
+            },
+            /* "order": [
+                [0, 'asc']
+            ], */
+            language: {
+                "sProcessing": "Traitement en cours...",
+                "sSearch": "Rechercher&nbsp;:",
+                "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix": "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst": "Premier",
+                    "sPrevious": "Pr&eacute;c&eacute;dent",
+                    "sNext": "Suivant",
+                    "sLast": "Dernier"
+                },
+                "oAria": {
+                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                },
+                "select": {
+                    "rows": {
+                        _: "%d lignes sÃ©lÃ©ctionnÃ©es",
+                        0: "Aucune ligne sÃ©lÃ©ctionnÃ©e",
+                        1: "1 ligne sÃ©lÃ©ctionnÃ©e"
+                    }
+                }
+            }
+        });
+    </script>
+@endpush
