@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | INSCRIPTION DÉTAILLÉE')
+@section('title', $region . ' | LISTE DES DEMANDES PRISES EN CHARGE')
 @section('space-work')
     @can('inscriptioncontact-view')
 
