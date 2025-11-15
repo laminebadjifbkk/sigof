@@ -7,7 +7,7 @@
                 <h4 class="card-title">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
                         <span>Liste des demandes prises en charge</span>
-                        <span>{{ $formulairesAll }}</span>
+                        <span>{{ $totalFormulaires }}</span>
                     </div>
                 </h4>
                 <table class="table table-bordered table-striped align-middle">
