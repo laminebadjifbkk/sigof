@@ -213,7 +213,7 @@ class FormulaireController extends Controller
         $totalFormulaires = number_format($formulaires, 0, ',', ' ');
 
         // Récupération des 500 dernières demandes
-        $formulaires = Formulaire::latest()->limit(500)->get();
+        $formulaires = Formulaire::latest()->limit(1500)->get();
 
         /* $formulaires = Formulaire::orderBy('created_at', 'desc')->get(); */
         $labels = [
