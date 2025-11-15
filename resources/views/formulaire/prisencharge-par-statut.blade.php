@@ -1,51 +1,31 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | INSCRIPTION DÉTAILLÉE')
+@section('title', 'ONFP | INscriptions prises en charge par statut ' . $statut)
 @section('space-work')
     @can('inscriptioncontact-view')
+
         <section class="section register">
             <div class="row justify-content-center">
+                {{-- Tableau inscriptions --}}
 
-                {{-- <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('/formulaires') }}" class="btn btn-info btn-sm"
-                        title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                    <p> | Retour</p>
-                </span> --}}
-                {{-- <h4 class="card-title">
+                <h4 class="card-title">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
-                        <span>{{ $projet->sigle }}</span>
+                        <span>{{ $region }}</span>
                         <span class="{{ $statut }} text-white">{{ $statut }}</span>
                     </div>
-                </h4> --}}
-                <table class="table table-bordered table-striped align-middle">
-                    <thead class="table-primary">
-                        <tr>
-                            <th style="width: 50px;" class="text-center">N°</th>
-                            <th>Région</th>
-                            <th>Effectif</th>
-                            <th style="width: 50px;" class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($groupes as $index => $items)
-                            <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td>{{ $index }}</td>
-                                <td>{{ number_format($items->count(), 0, '', ' ') }}</td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        {{-- Bouton Voir --}}
-                                        <a href="{{ route('formulaires.showregion', $index) }}"
-                                            class="btn btn-warning btn-sm" title="Voir les détails">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                {{-- Tableau inscriptions --}}
+                </h4>
+
+
+                {{-- Export opérateurs en Excel --}}
+                <span class="mb-5 d-inline-block">
+                    <a href="{{ route('prisencharge.excel', ['statut' => $statut, 'region' => $region]) }}"
+                        class="btn btn-success btn-sm" title="Exporter la liste">
+                        <i class="bi bi-file-earmark-excel"></i> Exporter prises en charge (Excel)
+                    </a>
+                </span>
+
                 <div class="card shadow-sm">
                     <div class="card-body">
+
                         <div class="pt-1">
                             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 
@@ -87,14 +67,6 @@
 
                             </div>
                         </div>
-
-                        {{-- Export opérateurs en Excel --}}
-                        {{-- <span class="mb-3 d-inline-block">
-                            <a href="{{ route('prisencharge.excel') }}" class="btn btn-success btn-sm"
-                                title="Exporter la liste">
-                                <i class="bi bi-file-earmark-excel"></i> Exporter prises en charge (Excel)
-                            </a>
-                        </span> --}}
 
                         <div class="table-responsive">
                             <table class="table datatables align-middle" id="table-inscriptions">
@@ -182,7 +154,6 @@
                 </div>
             </div>
             </div>
-
             <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog" aria-labelledby="generate_rapportLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">

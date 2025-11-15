@@ -530,6 +530,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/projets/statut/{statut}/{projetid}', [ProjetController::class, 'filtrerProjetParStatut'])
             ->name('projets.parStatut');
 
+        Route::get('/prisencharge/{statut}/{region}', [FormulaireController::class, 'filtrerPrisenchargeParStatut'])
+            ->name('prisencharge.parStatut');
+
         Route::get('/projets/{statut}/{module}/{region}/{projetid}/{projetmoduleid}', [ProjetController::class, 'filtrerProjetParStatutEtRegion'])
             ->name('projets.parStatutEtRegion');
 
@@ -566,6 +569,13 @@ Route::group(['middleware' => ['XSS']], function () {
             '/operateurs/{statut}/{commission}/export-excel',
             [OperateurController::class, 'exporterOperateursExcel']
         )->name('operateurs.parStatutCommission.excel');
+
+
+        Route::get(
+            '/prisencharge/export-excel/{statut}/{region}',
+            [FormulaireController::class, 'exporterPrisenchargeExcel']
+        )->name('prisencharge.excel');
+
 
         Route::get('/commissionagrements/{statut}/{commissionagrement}/export-pv', [CommissionagrementController::class, 'exportPV'])
             ->name('commissionagrements.exportPV');
@@ -701,6 +711,12 @@ Route::group(['middleware' => ['XSS']], function () {
             ->name('formulaires.show')
             ->middleware('can:formulaire-view');
 
+
+        Route::get('/formulairesregion/{region}', [FormulaireController::class, 'showregion'])
+            ->name('formulaires.showregion')
+            ->middleware('can:formulaire-view');
+
+
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
         Route::resource('/permissions', PermissionController::class);
@@ -777,6 +793,12 @@ Route::group(['middleware' => ['XSS']], function () {
             Route::delete('/manuels/{id}', [BookController::class, 'destroy'])->name('manuels.destroy');
             Route::get('manuels/{id}/edit', [BookController::class, 'edit'])->name('manuels.edit');
             Route::put('manuels/{id}', [BookController::class, 'update'])->name('manuels.update');
+
+
+            Route::get('/prisencharge', [FormulaireController::class, 'create'])->name('formulaire.create');
+            Route::post('/prisencharge', [FormulaireController::class, 'store'])->name('formulaire.store');
+            Route::get('/prisencharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
+
         });
     });
     Route::resource('/contacts', ContactController::class);
@@ -832,9 +854,10 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::get('/inscription/{id}/questions', [InscriptionController::class, 'questions'])
         ->name('inscription.questions');
 
-    Route::get('/pcharge', [FormulaireController::class, 'create'])->name('formulaire.create');
+    /* Route::get('/pcharge', [FormulaireController::class, 'create'])->name('formulaire.create');
     Route::post('/pcharge', [FormulaireController::class, 'store'])->name('formulaire.store');
-    Route::get('/pcharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
+    Route::get('/pcharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci'); */
+
 
     Route::get('/Note_d_information_CAL_2025', function () {
         $path = public_path('Note_d_information_CAL_2025.pdf');

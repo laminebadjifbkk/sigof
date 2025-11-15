@@ -2,47 +2,77 @@
 @section('title', 'ONFP | INSCRIPTION DÉTAILLÉE')
 @section('space-work')
     @can('inscriptioncontact-view')
+
         <section class="section register">
             <div class="row justify-content-center">
 
-                {{-- <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('/formulaires') }}" class="btn btn-info btn-sm"
-                        title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                    <p> | Retour</p>
-                </span> --}}
-                {{-- <h4 class="card-title">
-                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
-                        <span>{{ $projet->sigle }}</span>
-                        <span class="{{ $statut }} text-white">{{ $statut }}</span>
-                    </div>
-                </h4> --}}
-                <table class="table table-bordered table-striped align-middle">
-                    <thead class="table-primary">
-                        <tr>
-                            <th style="width: 50px;" class="text-center">N°</th>
-                            <th>Région</th>
-                            <th>Effectif</th>
-                            <th style="width: 50px;" class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($groupes as $index => $items)
-                            <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td>{{ $index }}</td>
-                                <td>{{ number_format($items->count(), 0, '', ' ') }}</td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        {{-- Bouton Voir --}}
-                                        <a href="{{ route('formulaires.showregion', $index) }}"
-                                            class="btn btn-warning btn-sm" title="Voir les détails">
-                                            <i class="bi bi-eye"></i>
+                <div class="col-12">
+                    <div class="col-12 pt-5">
+                        <div class="row">
+                            <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
+                                <div class="card info-card revenue-card shadow-sm" style="max-width: 220px;">
+                                    <div class="card-body p-2">
+                                        <h5 class="card-title text-truncate mb-1" title="{{ $region }}"
+                                            style="font-size: 1rem;">
+                                            {{ $region }}
+                                        </h5>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                                style="width: 32px; height: 32px; font-size: 1.25rem;">
+                                                <i class="bi bi-people"></i>
+                                            </div>
+                                            <div class="ps-2">
+                                                <h6 class="mb-0" style="font-size: 0.9rem;">
+                                                    {{ $totalFormulaires }}
+                                                </h6>
+                                                <span class="text-muted small">demandeurs</span>
+                                            </div>
+                                        </div>
+
+                                        <a href="{{ route('formulaires.showregion', $region) }}"
+                                            class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
+                                            style="font-size: 0.85rem; gap: 6px;">
+                                            Voir plus <i class="bi bi-arrow-right-short"></i>
                                         </a>
                                     </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                </div>
+                            </div>
+
+                            <!-- Sales Card -->
+                            @foreach ($groupes as $statut => $items)
+                                <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
+                                    <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
+                                        <div class="card-body p-2">
+                                            <h5 class="card-title text-truncate mb-1" title="{{ $statut }}"
+                                                style="font-size: 1rem;">
+                                                {{ $statut }}
+                                            </h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                                    style="width: 32px; height: 32px; font-size: 1.25rem;">
+                                                    <i class="bi bi-people"></i>
+                                                </div>
+                                                <div class="ps-2">
+                                                    <h6 class="mb-0" style="font-size: 0.9rem;">
+                                                        {{ number_format($items->count(), 0, '', ' ') }}
+                                                    </h6>
+                                                    <span class="text-muted small">demandeur(s)</span>
+                                                </div>
+                                            </div>
+                                            <a href="{{ route('prisencharge.parStatut', ['statut' => $statut, 'region' => $region]) }}"
+                                                target="_blank"
+                                                class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
+                                                style="font-size: 0.85rem; gap: 6px;">
+                                                Voir plus <i class="bi bi-arrow-right-short"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
                 {{-- Tableau inscriptions --}}
                 <div class="card shadow-sm">
                     <div class="card-body">
@@ -182,7 +212,6 @@
                 </div>
             </div>
             </div>
-
             <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog" aria-labelledby="generate_rapportLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">

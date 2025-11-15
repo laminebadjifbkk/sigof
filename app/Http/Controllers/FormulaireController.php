@@ -3,19 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ConfirmationInscriptionPchare;
+use App\Exports\PrisenchargeExport;
 use App\Models\Formulaire;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Kris\LaravelFormBuilder\Form;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FormulaireController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware(['role:super-admin']);
+        $this->middleware("permission:formulaire-view", ["only" => ["index"]]);
+    }
     // Affichage du formulaire
     public function create()
     {
-        // Définir la période d'ouverture des inscriptions
+        /* // Définir la période d'ouverture des inscriptions
         $debut = Carbon::create(2025, 11, 10, 8, 0, 0);   // 10 novembre 2025 à 08h00
         $fin   = Carbon::create(2025, 11, 12, 17, 0, 0);  // 12 novembre 2025 à 17h00
 
@@ -25,7 +34,7 @@ class FormulaireController extends Controller
         if ($now->lt($debut) || $now->gt($fin)) {
             Alert::error('Désolé', 'Les inscriptions ne sont ouvertes que du 10 novembre à 08h00 au 12 novembre à 17h00.');
             return redirect()->back(); // ou une autre route sûre
-        }
+        } */
 
         // Sinon afficher le formulaire
         return view('formulaire.create');
@@ -36,6 +45,8 @@ class FormulaireController extends Controller
     {
 
         // Définir la période d'ouverture des inscriptions
+        /* // Définir la période d'ouverture des inscriptions
+
         $debut = Carbon::create(2025, 11, 10, 8, 0, 0);   // 10 novembre 2025 à 08h00
         $fin   = Carbon::create(2025, 11, 12, 17, 0, 0);  // 12 novembre 2025 à 17h00
 
@@ -45,7 +56,8 @@ class FormulaireController extends Controller
         if ($now->lt($debut) || $now->gt($fin)) {
             Alert::error('Désolé', 'Les inscriptions ne sont ouvertes que du 10 novembre à 08h00 au 12 novembre à 17h00.');
             return redirect()->back(); // ou une autre route sûre
-        }
+        } */
+
 
         $validated = $request->validate([
             'cin'                  => 'required|string|max:17|unique:formulaires,cin',
@@ -237,7 +249,13 @@ class FormulaireController extends Controller
             'diplome' => 'Diplôme' */
         ];
 
-        return view('formulaire.index', compact('formulaires', 'labels', 'totalFormulaires'));
+
+        // Regrouper par statut (y compris les null)
+        $groupes = $formulaires->groupBy(function ($item) {
+            return $item->region ?? 'Aucune région';
+        });
+
+        return view('formulaire.index', compact('formulaires', 'labels', 'totalFormulaires', 'groupes'));
     }
 
     public function show($id)
@@ -417,5 +435,110 @@ class FormulaireController extends Controller
             'totalFormulaires',
             'labels'
         ));
+    }
+
+    public function exporterPrisenchargeExcel($statut, $region)
+    {
+        $fileName = "Prises en charge - {$region} - {$statut}.xlsx";
+
+        return Excel::download(new PrisenchargeExport($statut, $region), $fileName);
+    }
+
+
+    public function filtrerPrisenchargeParStatut($statut, $region)
+    {
+
+        $formulaires = Formulaire::where('statut', $statut)->where('region', $region)->get();
+
+        $formulair      = $formulaires->count();
+        $totalFormulaires = number_format($formulair, 0, ',', ' ');
+
+        /*  // Regrouper par statut (y compris les null)
+        $groupes = $formulaires->groupBy(function ($item) {
+            return $item->statut ?? 'Aucun statut';
+        }); */
+
+        $labels = [
+            'cin' => 'Numéro CIN',
+            'civilite' => 'Civilité',
+            'prenom' => 'Prénom',
+            'nom' => 'Nom',
+            'date_naissance' => 'Date naissance',
+            'lieu_naissance' => 'Lieu naissance',
+            /* 'email' => 'Adresse e-mail', */
+            'telephone' => 'Téléphone',
+            /* 'telephone_secondaire' => 'Téléphone secondaire',
+            'adresse' => 'Adresse',
+            'dernier_diplome' => 'Dernier diplôme obtenu',
+            'nom_etablissement' => 'Établissement', */
+            'region' => 'Région',
+            'formation' => 'Formation sollicitée',
+            /* 'diplome_vise' => 'Diplôme visé',
+            'montant_inscription' => 'Montant inscription',
+            'montant_mensualite' => 'Montant mensualité',
+            'montant_unique' => 'Montant unique', */
+            /* 'duree' => 'Durée (en années)',
+            'handicape' => 'Situation de handicap',
+            'type_handicap' => 'Type de handicap', */
+            /* 'orphelin' => 'Orphelin',
+            'type_orphelin' => 'Type d’orphelinat', */
+            /* 'cin_file' => 'Copie CIN',
+            'facture_file' => 'Facture',
+            'cv' => 'CV',
+            'diplome' => 'Diplôme' */
+        ];
+
+        return view('formulaire.prisencharge-par-statut', compact('formulaires', 'statut', 'totalFormulaires', 'labels', 'region'));
+    }
+
+    public function showregion($region)
+    {
+        // Vérifier les permissions
+        $this->authorize('formulaire-view');
+
+        // Récupérer les formulaires de la région
+        $formulaires = Formulaire::where('region', $region)->get();
+
+        $formulair      = $formulaires->count();
+        $totalFormulaires = number_format($formulair, 0, ',', ' ');
+
+        /* $formulaires = Formulaire::orderBy('created_at', 'desc')->get(); */
+        $labels = [
+            'cin' => 'Numéro CIN',
+            'civilite' => 'Civilité',
+            'prenom' => 'Prénom',
+            'nom' => 'Nom',
+            'date_naissance' => 'Date naissance',
+            'lieu_naissance' => 'Lieu naissance',
+            /* 'email' => 'Adresse e-mail', */
+            'telephone' => 'Téléphone',
+            /* 'telephone_secondaire' => 'Téléphone secondaire',
+            'adresse' => 'Adresse',
+            'dernier_diplome' => 'Dernier diplôme obtenu',
+            'nom_etablissement' => 'Établissement', */
+            'region' => 'Région',
+            'formation' => 'Formation sollicitée',
+            /* 'diplome_vise' => 'Diplôme visé',
+            'montant_inscription' => 'Montant inscription',
+            'montant_mensualite' => 'Montant mensualité',
+            'montant_unique' => 'Montant unique', */
+            /* 'duree' => 'Durée (en années)',
+            'handicape' => 'Situation de handicap',
+            'type_handicap' => 'Type de handicap', */
+            /* 'orphelin' => 'Orphelin',
+            'type_orphelin' => 'Type d’orphelinat', */
+            /* 'cin_file' => 'Copie CIN',
+            'facture_file' => 'Facture',
+            'cv' => 'CV',
+            'diplome' => 'Diplôme' */
+        ];
+
+        // Regrouper par statut (y compris les null)
+        $groupes = $formulaires->groupBy(function ($item) {
+            return $item->statut ?? 'Aucun statut';
+        });
+
+        // Retourner la vue avec les résultats
+        return view('formulaire.showregion', compact('formulaires', 'region', 'labels', 'totalFormulaires', 'groupes'));
     }
 }
