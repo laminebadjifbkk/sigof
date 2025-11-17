@@ -5,8 +5,14 @@
     <meta charset="utf-8" />
     <title>{{ $title }}</title>
     <style>
-        @page {
+        /* @page {
             size: 21cm 29.7cm;
+            margin-top: 1cm;
+            margin-bottom: 0cm;
+        } */
+
+        @page {
+            size: A4 landscape;
             margin-top: 1cm;
             margin-bottom: 0cm;
         }
