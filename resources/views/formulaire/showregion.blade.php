@@ -394,7 +394,7 @@
 @push('scripts')
     <script>
         new DataTable('#table-inscriptions', {
-            ordering: false, // désactive le tri automatique
+            ordering: true, // désactive le tri automatique
             layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],
