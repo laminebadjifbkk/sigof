@@ -149,7 +149,7 @@
                                     @foreach ($formulaires as $inscription)
                                         <tr>
                                             @foreach (array_keys($labels) as $field)
-                                                <td class="text-center">
+                                                <td>
                                                     @if (in_array($field, ['cin_file', 'facture_file', 'cv', 'diplome']))
                                                         @php
                                                             $fileUrl = $inscription->getFileUrl($field);
