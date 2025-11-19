@@ -508,6 +508,10 @@ class FormulaireController extends Controller
         // Vérifier les permissions
         $this->authorize('formulaire-view');
 
+
+        $formulaireCount      = Formulaire::where('region', $region)->count();
+        $formulaireCount = number_format($formulaireCount, 0, ',', ' ');
+
         // Récupérer les formulaires de la région
         /* $formulaires = Formulaire::where('region', $region)->get(); */
         $formulaires = Formulaire::where('region', $region)
@@ -549,11 +553,78 @@ class FormulaireController extends Controller
         ];
 
         // Regrouper par statut (y compris les null)
+        /*  $groupes = $formulaires->groupBy(function ($item) {
+            return $item->statut ?? 'Aucun statut';
+        }); */
+
+        // Regrouper par diplomes (y compris les null)
         $groupes = $formulaires->groupBy(function ($item) {
+            return $item->diplome_vise ?? 'Aucun diplôme visé';
+        });
+
+        // Retourner la vue avec les résultats
+        return view('formulaire.showregion', compact('formulaires', 'region', 'labels', 'totalFormulaires', 'groupes', 'formulaireCount'));
+    }
+
+    public function showregiondiplome($region, $diplome_vise)
+    {
+        // Vérifier les permissions
+        $this->authorize('formulaire-view');
+
+        $formulaireCount = Formulaire::where('region', $region)
+            ->where('diplome_vise', $diplome_vise)
+            ->count();
+
+        $formulaireCount = number_format($formulaireCount, 0, ',', ' ');
+
+
+        // Récupérer les formulaires de la région
+        /* $formulaires = Formulaire::where('region', $region)->get(); */
+        $formulaires = Formulaire::where('region', $region)
+            ->where('diplome_vise', $diplome_vise)
+            ->limit(3000) // ou ->take(2000)
+            ->get();
+
+        $formulair      = $formulaires->count();
+        $totalFormulaires = number_format($formulair, 0, ',', ' ');
+
+        /* $formulaires = Formulaire::orderBy('created_at', 'desc')->get(); */
+        $labels = [
+            'cin' => 'CIN',
+            'civilite' => 'Civilité',
+            'prenom' => 'Prénom',
+            'nom' => 'Nom',
+            'date_naissance' => 'Date naissance',
+            'lieu_naissance' => 'Lieu naissance',
+            /* 'email' => 'Adresse e-mail', */
+            'telephone' => 'Téléphone',
+            /* 'telephone_secondaire' => 'Téléphone secondaire',
+            'adresse' => 'Adresse',
+            'dernier_diplome' => 'Dernier diplôme obtenu',
+            'nom_etablissement' => 'Établissement', */
+            /* 'region' => 'Région', */
+            'formation' => 'Formation sollicitée',
+            /* 'diplome_vise' => 'Diplôme visé',
+            'montant_inscription' => 'Montant inscription',
+            'montant_mensualite' => 'Montant mensualité',
+            'montant_unique' => 'Montant unique', */
+            /* 'duree' => 'Durée (en années)',
+            'handicape' => 'Situation de handicap',
+            'type_handicap' => 'Type de handicap', */
+            /* 'orphelin' => 'Orphelin',
+            'type_orphelin' => 'Type d’orphelinat', */
+            /* 'cin_file' => 'Copie CIN',
+            'facture_file' => 'Facture',
+            'cv' => 'CV',
+            'diplome' => 'Diplôme' */
+        ];
+
+        // Regrouper par statut (y compris les null)
+         $groupes = $formulaires->groupBy(function ($item) {
             return $item->statut ?? 'Aucun statut';
         });
 
         // Retourner la vue avec les résultats
-        return view('formulaire.showregion', compact('formulaires', 'region', 'labels', 'totalFormulaires', 'groupes'));
+        return view('formulaire.showregiondiplome', compact('formulaires', 'region', 'labels', 'totalFormulaires', 'groupes', 'formulaireCount', 'diplome_vise'));
     }
 }

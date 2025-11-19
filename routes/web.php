@@ -716,6 +716,10 @@ Route::group(['middleware' => ['XSS']], function () {
             ->name('formulaires.showregion')
             ->middleware('can:formulaire-view');
 
+        Route::get('/formulairesregiondiplome/{region}/{diplome_vise}', [FormulaireController::class, 'showregiondiplome'])
+            ->name('formulaires.showregiondiplome')
+            ->middleware('can:formulaire-view');
+
 
         /* Vues ressouces */
         Route::resource('/users', UserController::class);

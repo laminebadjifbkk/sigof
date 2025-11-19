@@ -1,24 +1,25 @@
 @extends('layout.user-layout')
-@section('title', $region . ' | liste des demandes prises en charge')
+@section('title', $region . ' | liste des demandes avec le diplôme ' . $diplome_vise)
 @section('space-work')
     @can('inscriptioncontact-view')
         <section class="section register">
             <div class="row justify-content-center">
                 <h4 class="card-title">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
-                        <span>Liste des demandes prises de la région de {{ $region }}</span>
+                        <span>Liste des demandes prises de la région de {{ $region }} qui ont le diplôme
+                            {{ $diplome_vise }}</span>
                         <span>{{ $formulaireCount }}</span>
                     </div>
                 </h4>
-                {{-- <div class="col-12">
+                <div class="col-12">
                     <div class="col-12">
                         <div class="row">
                             <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
                                 <div class="card info-card revenue-card shadow-sm" style="max-width: 220px;">
                                     <div class="card-body p-2">
-                                        <h5 class="card-title text-truncate mb-1" title="{{ $region }}"
+                                        <h5 class="card-title text-truncate mb-1" title="{{ $diplome_vise }}"
                                             style="font-size: 1rem;">
-                                            {{ $region }}
+                                            {{ $diplome_vise }}
                                         </h5>
                                         <div class="d-flex align-items-center mb-2">
                                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
@@ -74,10 +75,10 @@
                             @endforeach
                         </div>
                     </div>
-                </div> --}}
+                </div>
 
                 <!-- Tableau inscriptions -->
-                {{-- <div class="card shadow-sm">
+                <div class="card shadow-sm">
                     <div class="card-body">
                         <div class="pt-1">
                             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
@@ -89,7 +90,7 @@
                                         <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('formulaires') }}"
                                                 class="btn btn-info btn-sm" title="retour"><i
                                                     class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                            <p> | Liste des demandes prises en charge</p>
+                                            <p> | Liste des demandes prises en charge de {{ $region }}</p>
                                         </span>
                                     </h6>
                                 </div>
@@ -114,8 +115,8 @@
                                 @can('formulaire-create')
                                     <div class="d-flex align-items-center gap-2">
                                         <!--  <a href="{{ route('formulaire.create') }}" class="btn btn-sm btn-primary">
-                                            Ajouter
-                                        </a> -->
+                                                                    Ajouter
+                                                                </a> -->
                                         <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
                                             data-bs-target="#generate_rapport">
                                             Rechercher plus
@@ -127,12 +128,12 @@
                         </div>
 
                         <!-- Export opérateurs en Excel -->
-                        <!-- <span class="mb-3 d-inline-block">
-                            <a href="{{ route('prisencharge.excel') }}" class="btn btn-success btn-sm"
-                                title="Exporter la liste">
-                                <i class="bi bi-file-earmark-excel"></i> Exporter prises en charge (Excel)
-                            </a>
-                        </span> -->
+                        {{-- <span class="mb-3 d-inline-block">
+                                    <a href="{{ route('prisencharge.excel') }}" class="btn btn-success btn-sm"
+                                        title="Exporter la liste">
+                                        <i class="bi bi-file-earmark-excel"></i> Exporter prises en charge (Excel)
+                                    </a>
+                                </span> --}}
 
                         <div class="table-responsive">
                             <table class="table datatables align-middle" id="table-inscriptions">
@@ -217,39 +218,10 @@
                             </table>
                         </div>
                     </div>
-                </div> --}}
-
-                <table class="table table-bordered table-striped align-middle">
-                    <thead class="table-primary">
-                        <tr>
-                            <th style="width: 50px;" class="text-center">N°</th>
-                            <th>Diplôme visé</th>
-                            <th style="width: 200px;" class="text-center">Effectif</th>
-                            <th style="width: 100px;" class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($groupes as $diplome_vise => $items)
-                            <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td>{{ $diplome_vise }}</td>
-                                <td class="text-center">{{ number_format($items->count(), 0, '', ' ') }}</td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        {{-- Bouton Voir --}}
-                                        <a href="{{ route('formulaires.showregiondiplome', ['region' => $region, 'diplome_vise' => $diplome_vise]) }}"
-                                            class="btn btn-warning btn-sm" title="Voir les détails">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                </div>
             </div>
-            <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog" aria-labelledby="generate_rapportLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog"
+                aria-labelledby="generate_rapportLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
