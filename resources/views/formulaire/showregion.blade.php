@@ -219,13 +219,13 @@
                     </div>
                 </div> --}}
 
-                <table class="table table-bordered table-striped align-middle">
+                <table class="table table-bordered table-striped align-middle" id="table-inscriptions">
                     <thead class="table-primary">
                         <tr>
                             <th style="width: 50px;" class="text-center">N°</th>
                             <th>Diplôme visé</th>
                             <th style="width: 200px;" class="text-center">Effectif</th>
-                            <th style="width: 100px;" class="text-center">Actions</th>
+                            <th style="width: 50px;" class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
