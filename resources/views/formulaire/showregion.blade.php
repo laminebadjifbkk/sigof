@@ -218,14 +218,21 @@
                         </div>
                     </div>
                 </div> --}}
-
+                <div class="d-flex align-items-center gap-2">
+                    <h6 class="mb-0 text-muted fw-semibold">
+                        <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('formulaires') }}"
+                                class="btn btn-info btn-sm" title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                            <p> | Liste des demandes prises en charge de {{ $region }}
+                        </span>
+                    </h6>
+                </div>
                 <table class="table table-bordered table-striped align-middle" id="table-inscriptions">
                     <thead class="table-primary">
                         <tr>
-                            <th style="width: 50px;" class="text-center">N°</th>
+                            <th width="5%" class="text-center">N°</th>
                             <th>Diplôme visé</th>
-                            <th style="width: 200px;" class="text-center">Effectif</th>
-                            <th style="width: 50px;" class="text-center">Actions</th>
+                            <th width="5%" class="text-center">Effectif</th>
+                            <th width="5%" class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>

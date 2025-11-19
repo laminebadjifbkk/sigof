@@ -86,8 +86,8 @@
                                 <!-- Titre à gauche -->
                                 <div class="d-flex align-items-center gap-2">
 
-                                    <h6 class="mb-0 text-muted fw-semibold text-uppercase">
-                                        <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('formulaires') }}"
+                                    <h6 class="mb-0 text-muted fw-semibold">
+                                        <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('formulaires.showregion', ['region' => $region]) }}"
                                                 class="btn btn-info btn-sm" title="retour"><i
                                                     class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                             <p> | Liste des demandes prises en charge de {{ $region }}</p>
@@ -140,16 +140,16 @@
                                 <thead class="table-primary">
                                     <tr>
                                         @foreach ($labels as $key => $label)
-                                            <th>{{ $label }}</th>
+                                            <th class="text-center">{{ $label }}</th>
                                         @endforeach
-                                        <th>Actions</th>
+                                        <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($formulaires as $inscription)
                                         <tr>
                                             @foreach (array_keys($labels) as $field)
-                                                <td>
+                                                <td class="text-center">
                                                     @if (in_array($field, ['cin_file', 'facture_file', 'cv', 'diplome']))
                                                         @php
                                                             $fileUrl = $inscription->getFileUrl($field);
