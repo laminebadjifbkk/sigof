@@ -58,4 +58,9 @@ class Formulaire extends Model
         }
         return null;
     }
+
+    public function historiques()
+    {
+        return $this->hasMany(HistoriquePriseEnCharge::class);
+    }
 }

@@ -720,6 +720,10 @@ Route::group(['middleware' => ['XSS']], function () {
             ->name('formulaires.showregiondiplome')
             ->middleware('can:formulaire-view');
 
+        Route::put('/validation-prisencharge/{id}', [FormulaireController::class, 'validationPriseEnCharge'])
+            ->name('formulaires.validationPriseEnCharge')
+            ->middleware('can:formulaire-view');
+
 
         /* Vues ressouces */
         Route::resource('/users', UserController::class);

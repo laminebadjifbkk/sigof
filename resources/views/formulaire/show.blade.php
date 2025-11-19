@@ -8,9 +8,34 @@
             <div class="row justify-content-center">
                 <div class="col-lg-12 col-md-12">
 
+                    @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
+                            <strong>{{ $error }}</strong>
+                        </div>
+                    @endforeach
+
                     <div class="card shadow-sm">
-                        <div class="card-header bg-primary text-white">
+                        <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Détails de l’inscription</h5>
+                            <span class="d-flex align-items-baseline float-end">
+                                @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
+                                    <span class="{{ $formulaire?->statut }}">{{ $formulaire?->statut }}</span>
+                                    <div class="filter">
+                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                class="bi bi-three-dots"></i></a>
+                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <li>
+                                                <button class="btn btn-sm mx-1" data-bs-toggle="modal"
+                                                    data-bs-target="#validationDemande">Validation</button>
+                                            </li>
+                                            {{-- <li>
+                                                <button class="btn btn-sm mx-1" data-bs-toggle="modal"
+                                                    data-bs-target="#NoteDemandeModal">Notation</button>
+                                            </li> --}}
+                                        </ul>
+                                    </div>
+                                @endhasanyrole
+                            </span>
                         </div>
                         <div class="card-body">
                             @php
@@ -76,14 +101,83 @@
                                 <a href="{{ route('formulaires.index') }}" class="btn btn-secondary btn-sm">
                                     Retour à la liste
                                 </a>
-                                <a href="{{ route('formulaires.edit', $formulaire->id) }}"
-                                    class="btn btn-warning btn-sm">
+                                <a href="{{ route('formulaires.edit', $formulaire->id) }}" class="btn btn-warning btn-sm">
                                     Modifier
                                 </a>
                             </div>
                         </div>
                     </div>
 
+                </div>
+            </div>
+
+            {{-- Modals --}}
+            <div class="modal fade" id="validationDemande" tabindex="-1" aria-labelledby="validationDemandeLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content shadow-lg rounded-3">
+                        <form method="POST" action="{{ route('formulaires.validationPriseEnCharge', $formulaire?->id) }}"
+                            enctype="multipart/form-data" class="row g-3 p-3">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="modal-header bg-light border-bottom-0">
+                                <h5 class="modal-title fw-bold text-info" id="validationDemandeLabel">Traitement de la
+                                    demande</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                            </div>
+
+                            <div class="modal-body">
+
+                                <div class="mb-3">
+                                    <label for="statut" class="form-label">Statut de la
+                                        demande<span class="text-danger mx-1">*</span></label>
+                                    @php
+                                        $selectedStatut = old('statut', $formulaire->statut);
+                                    @endphp
+
+                                    <select name="statut" id="statut" class="form-select form-select-sm" required>
+                                        <option value="" disabled {{ !$selectedStatut ? 'selected' : '' }}>--
+                                            Sélectionner un statut --</option>
+                                        <option value="Nouvelle" {{ $selectedStatut === 'Nouvelle' ? 'selected' : '' }}>
+                                            Nouvelle</option>
+                                        <option value="Sélectionné" {{ $selectedStatut === 'Sélectionné' ? 'selected' : '' }}>
+                                            Sélectionné</option>
+                                        <option value="Conforme" {{ $selectedStatut === 'Conforme' ? 'selected' : '' }}>
+                                            Conforme</option>
+                                        <option value="Non conforme"
+                                            {{ $selectedStatut === 'Non conforme' ? 'selected' : '' }}>
+                                            Non conforme</option>
+                                        <option value="Validée" {{ $selectedStatut === 'Validée' ? 'selected' : '' }}>
+                                            Validée</option>
+                                        <option value="liste attente"
+                                            {{ $selectedStatut === 'liste attente' ? 'selected' : '' }}>En
+                                            liste attente</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="motif" class="form-label">Explications</label>
+
+                                    <textarea name="motif" id="motif" rows="5"
+                                        class="form-control form-control-sm @error('motif') is-invalid @enderror" placeholder="Indiquez les raisons">{{ old('motif', $formulaire?->motif) }}</textarea>
+
+                                    @error('motif')
+                                        <span class="invalid-feedback d-block" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer border-top-0">
+                                <button type="button" class="btn btn-outline-secondary btn-sm"
+                                    data-bs-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-outline-info btn-sm">Soumettre</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>

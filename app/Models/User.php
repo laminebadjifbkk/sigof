@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use App\Notifications\ResetPasswordNotification;
@@ -136,7 +137,7 @@ class User extends Authenticatable
         });
     }
 
-/*     public function getRouteKeyName()
+    /*     public function getRouteKeyName()
     {
         return 'username';
     } */
@@ -287,10 +288,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(File::class, 'users_id')->latest();
     }
-    
+
     public function formations()
     {
         return $this->belongsToMany(Formation::class, 'individuelles', 'users_id', 'formations_id')
-                    ->withTimestamps();
+            ->withTimestamps();
+    }
+
+    public function historiques_prises_en_charge()
+    {
+        return $this->hasMany(HistoriquePriseEnCharge::class);
     }
 }

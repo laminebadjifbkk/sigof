@@ -87,7 +87,8 @@
                                 <div class="d-flex align-items-center gap-2">
 
                                     <h6 class="mb-0 text-muted fw-semibold">
-                                        <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('formulaires.showregion', ['region' => $region]) }}"
+                                        <span class="d-flex mt-2 align-items-baseline"><a
+                                                href="{{ route('formulaires.showregion', ['region' => $region]) }}"
                                                 class="btn btn-info btn-sm" title="retour"><i
                                                     class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                             <p> | Liste des demandes prises en charge de {{ $region }}</p>
@@ -115,8 +116,8 @@
                                 @can('formulaire-create')
                                     <div class="d-flex align-items-center gap-2">
                                         <!--  <a href="{{ route('formulaire.create') }}" class="btn btn-sm btn-primary">
-                                                                    Ajouter
-                                                                </a> -->
+                                                                                Ajouter
+                                                                            </a> -->
                                         <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
                                             data-bs-target="#generate_rapport">
                                             Rechercher plus
@@ -352,9 +353,7 @@
                 </div>
             </div>
         </section>
-
     @endcan
-
 @endsection
 @push('scripts')
     <script>

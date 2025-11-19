@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ConfirmationInscriptionPchare;
 use App\Exports\PrisenchargeExport;
+use App\Mail\ConfirmationInscriptionPchare;
 use App\Models\Formulaire;
+use App\Models\HistoriquePriseEnCharge;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use RealRashid\SweetAlert\Facades\Alert;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Kris\LaravelFormBuilder\Form;
 use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class FormulaireController extends Controller
 {
@@ -619,11 +620,35 @@ class FormulaireController extends Controller
         ];
 
         // Regrouper par statut (y compris les null)
-         $groupes = $formulaires->groupBy(function ($item) {
+        $groupes = $formulaires->groupBy(function ($item) {
             return $item->statut ?? 'Aucun statut';
         });
 
         // Retourner la vue avec les résultats
         return view('formulaire.showregiondiplome', compact('formulaires', 'region', 'labels', 'totalFormulaires', 'groupes', 'formulaireCount', 'diplome_vise'));
+    }
+
+    public function validationPriseEnCharge(Request $request, $id)
+    {
+        $formulaire = Formulaire::findOrFail($id);
+
+        $data = $request->validate([
+            'statut' => 'required|string|max:50',
+            'motif' => 'required|string|max:500',
+        ]);
+
+        $formulaire->update($data);
+
+        HistoriquePriseEnCharge::create([
+            'formulaire_id' => $formulaire->id,
+            'statut' => $formulaire->statut,
+            'motif' => $request->motif ?? null,
+            'user_id' => auth()->id(),
+        ]);
+
+
+        return redirect()
+            ->back()
+            ->with('status', 'Le statut de la prise en charge a été mis à jour avec succès.');
     }
 }
