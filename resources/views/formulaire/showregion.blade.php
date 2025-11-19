@@ -400,6 +400,9 @@
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
+            "order": [
+                [2, 'desc']
+            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
