@@ -140,7 +140,7 @@
                                 <thead class="table-primary">
                                     <tr>
                                         @foreach ($labels as $key => $label)
-                                            <th class="text-center">{{ $label }}</th>
+                                            <th class="text-left">{{ $label }}</th>
                                         @endforeach
                                         <th class="text-center">Actions</th>
                                     </tr>
