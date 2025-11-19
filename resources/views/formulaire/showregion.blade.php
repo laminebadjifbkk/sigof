@@ -240,7 +240,7 @@
                             <tr>
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td>{{ $diplome_vise }}</td>
-                                <td class="text-center">{{ number_format($items->count(), 0, '', ' ') }}</td>
+                                <td class="text-center">{{ $items->count() }}</td>
                                 <td class="text-center">
                                     <div class="btn-group">
                                         {{-- Bouton Voir --}}
