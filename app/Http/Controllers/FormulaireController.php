@@ -589,8 +589,8 @@ class FormulaireController extends Controller
 
         /* $formulaires = Formulaire::orderBy('created_at', 'desc')->get(); */
         $labels = [
-            'cin' => 'CIN',
-            'civilite' => 'Civilité',
+            /* 'cin' => 'CIN',
+            'civilite' => 'Civilité', */
             'prenom' => 'Prénom',
             'nom' => 'Nom',
             'date_naissance' => 'Date naissance',
