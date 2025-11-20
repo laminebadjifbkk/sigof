@@ -318,7 +318,7 @@ class FormulaireController extends Controller
             'type_handicap' => 'nullable|string|max:255',
             'orphelin' => 'nullable|string|max:10',
             'type_orphelin' => 'nullable|string|max:255',
-            'statut' => 'required|string|max:50',
+            /* 'statut' => 'required|string|max:50', */
 
             // fichiers
             'cin_file' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
@@ -641,7 +641,7 @@ class FormulaireController extends Controller
 
         $data = $request->validate([
             'statut' => 'required|string|max:50',
-            'motif' => 'required|string|max:500',
+            'motif'  => 'required_unless:statut,Conforme,liste attente,Sélectionné|string|max:500',
         ]);
 
         $formulaire->update($data);

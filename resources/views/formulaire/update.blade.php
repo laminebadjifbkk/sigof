@@ -67,7 +67,7 @@
                                         'facture_file' => 'Facture',
                                         'cv' => 'CV',
                                         'diplome' => 'Diplôme',
-                                        'statut' => 'Statut',
+                                        /* 'statut' => 'Statut', */
                                     ];
 
                                     $fileFields = ['cin_file', 'facture_file', 'cv', 'diplome'];
