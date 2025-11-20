@@ -150,7 +150,7 @@
 
                             {{-- Boutons --}}
                             <div class="mt-4 d-flex justify-content-between">
-                                <a href="{{ route('formulaires.index') }}" class="btn btn-secondary btn-sm">
+                                <a href="{{ route('formulaires.showregiondiplome', ['region' => $formulaire?->region, 'diplome_vise' => $formulaire?->diplome_vise]) }}" class="btn btn-secondary btn-sm">
                                     Retour à la liste
                                 </a>
                                 <a href="{{ route('formulaires.edit', $formulaire->id) }}" class="btn btn-warning btn-sm">
