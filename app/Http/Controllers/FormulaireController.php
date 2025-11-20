@@ -568,9 +568,13 @@ class FormulaireController extends Controller
         $groupes = $formulaires->groupBy(function ($item) {
             return $item->diplome_vise ?? 'Aucun diplôme visé';
         });
+        // Regrouper par diplomes (y compris les null)
+        $grouperegions = $formulaires->groupBy(function ($item) {
+            return $item->statut ?? 'Aucun';
+        });
 
         // Retourner la vue avec les résultats
-        return view('formulaire.showregion', compact('formulaires', 'region', 'labels', 'totalFormulaires', 'groupes', 'formulaireCount'));
+        return view('formulaire.showregion', compact('formulaires', 'region', 'labels', 'totalFormulaires', 'groupes', 'formulaireCount', 'grouperegions'));
     }
 
     public function showregiondiplome($region, $diplome_vise)

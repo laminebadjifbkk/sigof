@@ -218,10 +218,48 @@
                         </div>
                     </div>
                 </div> --}}
+
+                <div class="col-12">
+                    <div class="col-12">
+                        <div class="row">
+                            <!-- Sales Card -->
+                            @foreach ($grouperegions as $statut => $items)
+                                <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
+                                    <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
+                                        <div class="card-body p-2">
+                                            <h5 class="card-title text-truncate mb-1" title="{{ $statut }}"
+                                                style="font-size: 1rem;">
+                                                {{ $statut }}
+                                            </h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                                    style="width: 32px; height: 32px; font-size: 1.25rem;">
+                                                    <i class="bi bi-people"></i>
+                                                </div>
+                                                <div class="ps-2">
+                                                    <h6 class="mb-0" style="font-size: 0.9rem;">
+                                                        {{ number_format($items->count(), 0, '', ' ') }}
+                                                    </h6>
+                                                    <span class="text-muted small">demandeur(s)</span>
+                                                </div>
+                                            </div>
+                                            <a href="{{ route('prisencharge.parStatut', ['statut' => $statut, 'region' => $region]) }}"
+                                                class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
+                                                style="font-size: 0.85rem; gap: 6px;">
+                                                Voir plus <i class="bi bi-arrow-right-short"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
                 <div class="d-flex align-items-center gap-2">
                     <h6 class="mb-0 text-muted fw-semibold">
                         <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('formulaires') }}"
-                                class="btn btn-info btn-sm" title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                                class="btn btn-info btn-sm" title="retour"><i
+                                    class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                             <p> | Liste des demandes prises en charge de {{ $region }}
                         </span>
                     </h6>
