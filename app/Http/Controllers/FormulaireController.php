@@ -194,6 +194,13 @@ class FormulaireController extends Controller
             ]);
         }
 
+        // 📝 Enregistrement de l'historique de la prise en charge
+        HistoriquePriseEnCharge::create([
+            'formulaire_id' => $formulaire->id,
+            'statut' => 'Nouvelle',
+            'motif' => null,
+            'user_id' => auth()->id(),
+        ]);
 
         // 📧 Envoi du mail de confirmation (si email fourni)
         /*  if (!empty($validated['email'])) {
