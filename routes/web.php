@@ -212,6 +212,7 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('notifications/', [CourrierController::class, 'notifications'])->name('notifications');
         Route::post('validationmessage', [IndividuelleController::class, 'validationsRejetMessage'])->name('validationmessage');
+        Route::post('validationhistoriquepc', [FormulaireController::class, 'validationsHistotiquepc'])->name('validationhistoriquepc');
         Route::post('validationmessageop', [OperateurController::class, 'validationsRejetMessageOP'])->name('validationmessageop');
 
         Route::get('modulelocalite/{idmodule}/{idlocalite}', [ModuleController::class, 'modulelocalite'])->name('modulelocalite');

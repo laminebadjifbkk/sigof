@@ -658,4 +658,14 @@ class FormulaireController extends Controller
             ->back()
             ->with('status', 'Le statut de la prise en charge a été mis à jour avec succès.');
     }
+
+    
+    public function validationsHistotiquepc(Request $request)
+    {
+        $formulaire = Formulaire::with(['historiques' => function ($query) {
+            $query->orderBy('created_at', 'desc');
+        }])->findOrFail($request->input('id'));
+
+        return view("formulaire.historiquepc", compact('formulaire'));
+    }
 }

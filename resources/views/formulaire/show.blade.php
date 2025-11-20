@@ -1,7 +1,5 @@
 @extends('layout.user-layout')
-
 @section('title', 'ONFP | Détail de l’inscription')
-
 @section('space-work')
     @can('inscriptioncontact-view')
         <section class="section">
@@ -17,8 +15,54 @@
                     <div class="card shadow-sm">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Détails de l’inscription</h5>
-                            <span class="d-flex align-items-baseline float-end">
-                                @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
+                            @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
+                                @if ($formulaire?->historiques->count() > '0')
+                                    <span class="d-flex mt-2 align-items-baseline">
+                                        <nav class="header-nav ms-auto">
+                                            <ul class="d-flex align-items-center">
+                                                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                                                    <i class="bi bi-chat-left-text m-1"></i>
+                                                    <span class="badge bg-success badge-number" title="{{ $formulaire?->statut }}">
+                                                        {{ $formulaire?->historiques->count() }}
+                                                    </span>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+                                                    <li class="dropdown-header">
+                                                        Vous avez
+                                                        {{ $formulaire?->historiques->count() }}
+                                                        validation(s)
+                                                    </li>
+                                                    <li>
+                                                        <hr class="dropdown-divider">
+                                                    </li>
+                                                    @foreach ($formulaire?->historiques->sortByDesc('created_at')->take(2) as $history)
+                                                        <li class="message-item">
+                                                            <div>
+                                                                <p><span
+                                                                        class="{{ $history->statut }}">{{ $history->statut }}</span>
+                                                                </p>
+                                                                <p>{!! $history->created_at->diffForHumans() !!}</p>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <hr class="dropdown-divider">
+                                                        </li>
+                                                    @endforeach
+                                                    <li class="dropdown-footer">
+                                                        <form action="{{ route('validationhistoriquepc') }}" method="post"
+                                                            target="_blank">
+                                                            @csrf
+                                                            <input type="hidden" name="id" value="{{ $formulaire?->id }}">
+                                                            <button class="btn btn-sm mx-1">Voir
+                                                                toutes les validations</button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </ul>
+                                        </nav>
+                                    </span>
+                                @endif
+                                <span class="d-flex align-items-baseline float-end">
                                     <span class="{{ $formulaire?->statut }}">{{ $formulaire?->statut }}</span>
                                     <div class="filter">
                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -34,8 +78,8 @@
                                             </li> --}}
                                         </ul>
                                     </div>
-                                @endhasanyrole
-                            </span>
+                                </span>
+                            @endhasanyrole
                         </div>
                         <div class="card-body">
                             @php
