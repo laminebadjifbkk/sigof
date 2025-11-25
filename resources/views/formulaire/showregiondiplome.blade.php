@@ -116,8 +116,8 @@
                                 @can('formulaire-create')
                                     <div class="d-flex align-items-center gap-2">
                                         <!--  <a href="{{ route('formulaire.create') }}" class="btn btn-sm btn-primary">
-                                                                                Ajouter
-                                                                            </a> -->
+                                                                                            Ajouter
+                                                                                        </a> -->
                                         <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
                                             data-bs-target="#generate_rapport">
                                             Rechercher plus
@@ -143,6 +143,7 @@
                                         @foreach ($labels as $key => $label)
                                             <th class="text-left">{{ $label }}</th>
                                         @endforeach
+                                        <th class="text-center" width="10%">Statut</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -174,6 +175,8 @@
                                                     @endif
                                                 </td>
                                             @endforeach
+                                            <td class="text-center"><span class="{{ $inscription?->statut }}">{{ $inscription?->statut }}</span>
+                                            </td>
                                             <td class="text-center">
                                                 <div class="btn-group">
                                                     <!-- Bouton Voir -->
