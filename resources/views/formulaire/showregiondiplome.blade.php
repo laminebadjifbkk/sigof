@@ -181,7 +181,7 @@
                                                 <div class="btn-group">
                                                     <!-- Bouton Voir -->
                                                     <a href="{{ route('formulaires.show', $inscription->id) }}"
-                                                        class="btn btn-warning btn-sm" title="Voir les détails">
+                                                        class="btn btn-warning btn-sm" title="Voir les détails" target="_blank">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
 
