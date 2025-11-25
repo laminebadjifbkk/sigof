@@ -84,10 +84,10 @@ class FormulaireController extends Controller
             'type_handicap'        => 'nullable|string',
             'orphelin'             => 'required|string',
             'type_orphelin'        => 'nullable|string',
-            'facture_file'         => 'required|file|mimes:pdf,jpg,jpeg,png|max:256',
-            'cin_file'             => 'required|file|mimes:pdf,jpg,jpeg,png|max:256',
-            'diplome'              => 'required|file|mimes:pdf,jpg,jpeg,png|max:256',
-            'cv'                   => 'required|file|mimes:pdf,jpg,jpeg,png|max:256',
+            'facture_file'         => 'required|file|mimes:pdf,jpg,jpeg,png|max:1024',
+            'cin_file'             => 'required|file|mimes:pdf,jpg,jpeg,png|max:1024',
+            'diplome'              => 'required|file|mimes:pdf,jpg,jpeg,png|max:1024',
+            'cv'                   => 'required|file|mimes:pdf,jpg,jpeg,png|max:1024',
         ]);
 
         // Convertir les champs numériques vides en null
