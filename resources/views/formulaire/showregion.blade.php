@@ -283,7 +283,7 @@
                                     <div class="btn-group">
                                         {{-- Bouton Voir --}}
                                         <a href="{{ route('formulaires.showregiondiplome', ['region' => $region, 'diplome_vise' => $diplome_vise]) }}"
-                                            class="btn btn-warning btn-sm" title="Voir les détails">
+                                            class="btn btn-warning btn-sm" title="Voir les détails" target="_blank">
                                             <i class="bi bi-eye"></i>
                                         </a>
                                     </div>
