@@ -267,41 +267,47 @@
                     <i class="bi bi-journal-check"></i><span>Mes demandes</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="demandeurs-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="{{ route('demandesIndividuelle') }}">
-                            <span>Individuelles</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="{{ route('demandesCollective') }}">
-                            <span>Collectives</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#demandeurs-nav-programme" data-bs-toggle="collapse"
-                    href="#">
-                    <i class="bi bi-list-check"></i>
-                    <span>Offres spéciales</span>
-                    @if ($projets->contains('statut', 'ouvert'))
-                        <i class="bi bi-bell-fill text-danger ms-2" title="Projet(s) ouvert(s) disponible(s)"></i>
-                    @else
-                        <span class="ms-2 small text-danger fst-italic">(aucune)</span>
-                    @endif
-                    <i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="demandeurs-nav-programme" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                    @foreach ($projets as $projet)
+                    @can('individuelle-view')
                         <li class="nav-item">
-                            <a class="nav-link collapsed"
-                                href="{{ route('projetsIndividuelle', ['uuid' => $projet->uuid]) }}">
-                                <span>{{ $projet->sigle }}</span>
+                            <a class="nav-link collapsed" href="{{ route('demandesIndividuelle') }}">
+                                <span>Individuelles</span>
                             </a>
                         </li>
-                    @endforeach
+                    @endcan
+                    @can('collective-view')
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('demandesCollective') }}">
+                                <span>Collectives</span>
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
             </li>
+            @can('individuelle-view')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#demandeurs-nav-programme" data-bs-toggle="collapse"
+                        href="#">
+                        <i class="bi bi-list-check"></i>
+                        <span>Offres spéciales</span>
+                        @if ($projets->contains('statut', 'ouvert'))
+                            <i class="bi bi-bell-fill text-danger ms-2" title="Projet(s) ouvert(s) disponible(s)"></i>
+                        @else
+                            <span class="ms-2 small text-danger fst-italic">(aucune)</span>
+                        @endif
+                        <i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="demandeurs-nav-programme" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                        @foreach ($projets as $projet)
+                            <li class="nav-item">
+                                <a class="nav-link collapsed"
+                                    href="{{ route('projetsIndividuelle', ['uuid' => $projet->uuid]) }}">
+                                    <span>{{ $projet->sigle }}</span>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+            @endcan
         @endcan
 
         @can('devenir-operateur-view')
@@ -454,7 +460,7 @@
                     <span>
                         @if ($showAttestations > 0)
                             Attestations
-                            <span class="badge bg-info text-white ms-2">{{ $showAttestations }} 
+                            <span class="badge bg-info text-white ms-2">{{ $showAttestations }}
                                 nouvelle(s)
                             </span>
                         @else
