@@ -36,11 +36,33 @@
                                         class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                 <p> | retour</p>
                             </span>
-                            @if (!empty(Auth::user()->cin))
-                                {{-- <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
-                                    data-bs-toggle="modal" data-bs-target="#AddCollectiveModal"> Ajouter
-                                </button> --}}
+                            {{--  @if (!empty(Auth::user()->cin))
+                                <button type="button"
+                                    class="btn btn-primary btn-sm float-end rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
+                                    data-bs-toggle="modal" data-bs-target="#AddCollectiveModal">
+                                    <i class="bi bi-plus-circle-fill"></i>
+                                    Formuler une demande
+                                </button>
+                            @endif --}}
 
+                            @php
+                                $user = Auth::user();
+                            @endphp
+
+                            {{-- Si l'utilisateur est Demandeur --}}
+                            @if ($user->hasRole('Demandeur'))
+                                @if (!empty($user->cin))
+                                    <button type="button"
+                                        class="btn btn-primary btn-sm float-end rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
+                                        data-bs-toggle="modal" data-bs-target="#AddCollectiveModal">
+                                        <i class="bi bi-plus-circle-fill"></i>
+                                        Formuler une demande
+                                    </button>
+                                @endif
+                            @endif
+
+                            {{-- Si l'utilisateur est Opérateur --}}
+                            @if ($user->hasRole('Operateur'))
                                 <button type="button"
                                     class="btn btn-primary btn-sm float-end rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
                                     data-bs-toggle="modal" data-bs-target="#AddCollectiveModal">
