@@ -16,12 +16,14 @@
 
 
                 {{-- Export opérateurs en Excel --}}
-                <span class="mb-5 d-inline-block">
-                    <a href="{{ route('prisencharge.excel', ['statut' => $statut, 'region' => $region]) }}"
-                        class="btn btn-success btn-sm" title="Exporter la liste">
-                        <i class="bi bi-file-earmark-excel"></i> Exporter prises en charge (Excel)
-                    </a>
-                </span>
+                @can('exporter-view')
+                    <span class="mb-5 d-inline-block">
+                        <a href="{{ route('prisencharge.excel', ['statut' => $statut, 'region' => $region]) }}"
+                            class="btn btn-success btn-sm" title="Exporter la liste">
+                            <i class="bi bi-file-earmark-excel"></i> Exporter prises en charge (Excel)
+                        </a>
+                    </span>
+                @endcan
 
                 <div class="card shadow-sm">
                     <div class="card-body">
