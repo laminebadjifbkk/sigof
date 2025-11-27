@@ -229,7 +229,7 @@
                         @endisset
                     </td>
                     <td colspan="6"><b>{{ __('Intitulé formation : ') }}</b>
-                        {{ $formation?->collectivemodule?->module }}
+                        {{ $formation?->intitule }}
                     </td>
                 </tr>
                 <tr class="heading">

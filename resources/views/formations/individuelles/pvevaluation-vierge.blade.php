@@ -205,7 +205,7 @@
                             {{ ' au ' . $formation?->date_fin?->format('d/m/Y') }}
                         @endisset
                     </td>
-                    <td colspan="6"><b>{{ __('Intitulé formation: ') }}</b> {{ $formation?->module?->name }}
+                    <td colspan="6"><b>{{ __('Intitulé formation: ') }}</b> {{ $formation?->intitule }}
                     </td>
                 </tr>
                 <tr class="heading">
