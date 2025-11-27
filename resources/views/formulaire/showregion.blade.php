@@ -243,15 +243,20 @@
                                                     <span class="text-muted small">demandeur(s)</span>
                                                 </div>
                                             </div>
-                                            {{-- <a href="{{ route('prisencharge.parStatut', ['statut' => $statut, 'region' => $region]) }}"
-                                                class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
-                                                style="font-size: 0.85rem; gap: 6px;">
-                                                Voir plus <i class="bi bi-arrow-right-short"></i>
-                                            </a> --}}
-                                            <a href="{{ route('prisencharge.excel', ['statut' => $statut, 'region' => $region]) }}"
-                                                class="btn btn-outline-success btn-sm w-100 d-flex align-items-center justify-content-center py-1" title="Exporter la liste" style="font-size: 0.85rem; gap: 6px;">
-                                                <i class="bi bi-file-earmark-excel"></i> Exporter Excel
-                                            </a>
+                                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                                <a href="{{ route('prisencharge.parStatut', ['statut' => $statut, 'region' => $region]) }}"
+                                                    class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center py-1"
+                                                    style="font-size: 0.85rem; gap: 6px; flex: 1 1 48%;">
+                                                    Voir plus <i class="bi bi-arrow-right-short"></i>
+                                                </a>
+
+                                                <a href="{{ route('prisencharge.excel', ['statut' => $statut, 'region' => $region]) }}"
+                                                    class="btn btn-outline-success btn-sm d-flex align-items-center justify-content-center py-1"
+                                                    title="Exporter la liste"
+                                                    style="font-size: 0.85rem; gap: 6px; flex: 1 1 48%;">
+                                                    <i class="bi bi-file-earmark-excel"></i> Exporter Excel
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
