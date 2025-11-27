@@ -56,6 +56,9 @@ class Evaluateur extends Model
         'fonction',
         'appreciation',
         'scan_cv',
+        'banque',
+        'numero_compte',
+        'rib',
     ];
 
     public function evaluations()
@@ -68,19 +71,19 @@ class Evaluateur extends Model
         return $this->hasMany(Formation::class, 'evaluateurs_id');
     } */
 
-/*     public function formations()
+    /*     public function formations()
     {
         return $this->belongsToMany(Formation::class, 'evaluateurs_formations', 'evaluateurs_id', 'formations_id')
             ->withPivot('numero_lettre', 'date_lettre')
             ->withTimestamps();
     } */
 
-            public function formations()
-{
-    return $this->belongsToMany(Formation::class, 'evaluateurs_formations', 'evaluateurs_id', 'formations_id')
-        ->withPivot('numero_lettre', 'date_lettre', 'indemnite')
-        ->withTimestamps();
-}
+    public function formations()
+    {
+        return $this->belongsToMany(Formation::class, 'evaluateurs_formations', 'evaluateurs_id', 'formations_id')
+            ->withPivot('numero_lettre', 'date_lettre', 'indemnite')
+            ->withTimestamps();
+    }
 
     public function lettrevaluation()
     {
