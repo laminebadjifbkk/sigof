@@ -99,6 +99,26 @@
             float: right;
             margin-top: -100px;
         }
+
+        .bank-box {
+            border: 1px solid #000;
+            padding: 10px 15px;
+            margin-top: 15px;
+            background: #f9f9f9;
+            width: 95%;
+        }
+
+        .bank-box p {
+            margin: 3px 0;
+        }
+
+        .bank-box-title {
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: left;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
     </style>
 </head>
 
@@ -129,7 +149,7 @@
             </div>
 
 
-            <div class="header" style="margin-top: 40px;">
+            <div class="header" style="margin-top: 30px;">
                 <p><strong>Office National de Formation Professionnelle (ONFP)</strong></p>
             </div>
 
@@ -144,7 +164,6 @@
                         : '..............................' }}
                 </p>
             </div>
-            <br>
             <br>
             <br>
             <div class="title">Demande de Paiement</div>
@@ -213,7 +232,24 @@
                 <strong>Arrêté la présente demande de paiement à la somme de :</strong>
                 {{ $montant_lettres }}
             </p>
+            {{-- Ajout des informations bancaires si disponibles --}}
+            @if ($evaluateur?->banque || $evaluateur?->numero_compte || $evaluateur?->rib)
+                <div class="bank-box">
+                    <div class="bank-box-title">Coordonnées bancaires</div>
 
+                    @if ($evaluateur?->banque)
+                        <p><strong>Banque :</strong> {{ $evaluateur->banque }}</p>
+                    @endif
+
+                    @if ($evaluateur?->numero_compte)
+                        <p><strong>Numéro de compte :</strong> {{ $evaluateur->numero_compte }}</p>
+                    @endif
+
+                    @if ($evaluateur?->rib)
+                        <p><strong>RIB :</strong> {{ $evaluateur->rib }}</p>
+                    @endif
+                </div>
+            @endif
 
             <div class="signature" style="width: 35%; float:right; text-align: right;">
                 <p style="text-align: right; font-style: italic">

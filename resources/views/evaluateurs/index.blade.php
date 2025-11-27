@@ -326,12 +326,28 @@
                                                 'type' => 'text',
                                                 'placeholder' => 'Adresse',
                                             ],
+                                            'banque' => [
+                                                'label' => 'Banque',
+                                                'type' => 'text',
+                                                'placeholder' => 'Nom de la banque',
+                                            ],
+                                            'numero_compte' => [
+                                                'label' => 'Numéro de compte',
+                                                'type' => 'text',
+                                                'placeholder' => 'Numéro de compte bancaire',
+                                            ],
+                                            'rib' => [
+                                                'label' => 'RIB',
+                                                'type' => 'text',
+                                                'placeholder' => 'RIB complet',
+                                            ],
                                             'scan_cv' => [
                                                 'label' => 'CV',
                                                 'type' => 'file',
                                                 'placeholder' => 'Télécharger le CV',
                                             ],
                                         ];
+                                        $notRequired = ['scan_cv', 'banque', 'numero_compte', 'rib'];
                                     @endphp
 
                                     {{-- @foreach ($fields as $name => $data)
@@ -351,8 +367,9 @@
 
                                     @foreach ($fields as $name => $data)
                                         <div class="col-md-12">
-                                            <label for="{{ $name }}" class="form-label">{{ $data['label'] }}
-                                                @if ($name !== 'scan_cv')
+                                            <label for="{{ $name }}" class="form-label">
+                                                {{ $data['label'] }}
+                                                @if (!in_array($name, $notRequired))
                                                     <span class="text-danger">*</span>
                                                 @endif
                                             </label>

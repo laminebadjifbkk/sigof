@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Evaluateur;
@@ -66,7 +67,6 @@ class EvaluateurController extends Controller
             $evaluateur->update([
                 'scan_cv' => $filePath,
             ]);
-
         }
 
         Alert::success('Succès !', 'Enregistrement effectué');
@@ -85,6 +85,10 @@ class EvaluateurController extends Controller
             "email"     => ['nullable', 'string', 'max:250', Rule::unique(Evaluateur::class)->ignore($id)->whereNull('deleted_at')],
             "telephone" => ['required', 'string', "size:12", Rule::unique(Evaluateur::class)->ignore($id)->whereNull('deleted_at')],
             'adresse'   => ['required', 'string', 'max:250'],
+            // --- Nouveaux champs bancaires (facultatifs) ---
+            'banque'        => ['nullable', 'string', 'max:200'],
+            'numero_compte' => ['nullable', 'string', 'max:200'],
+            'rib'           => ['nullable', 'string', 'max:200'],
         ]);
 
         $evaluateur->update([
@@ -94,6 +98,10 @@ class EvaluateurController extends Controller
             "email"     => $request->input("email"),
             "telephone" => $request->input("telephone"),
             "adresse"   => $request->input("adresse"),
+            // --- Nouveaux champs ---
+            "banque"        => $request->input("banque"),
+            "numero_compte" => $request->input("numero_compte"),
+            "rib"           => $request->input("rib"),
         ]);
 
         /* $evaluateur->save(); */
@@ -111,7 +119,6 @@ class EvaluateurController extends Controller
             $evaluateur->update([
                 'scan_cv' => $filePath,
             ]);
-
         }
 
         Alert::success('Succès ! ', 'Modification effectuée');
