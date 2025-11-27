@@ -25,6 +25,7 @@
             <th>Type de handicap</th>
             <th>Orphelin</th>
             <th>Type d’orphelinat</th>
+            <th>Statut</th>
         </tr>
     </thead>
     <tbody>
@@ -61,6 +62,7 @@
 
                 <td>{{ $user?->orphelin }}</td>
                 <td>{{ $user?->type_orphelin }}</td>
+                <td>{{ $user?->statut }}</td>
             </tr>
         @endforeach
     </tbody>
