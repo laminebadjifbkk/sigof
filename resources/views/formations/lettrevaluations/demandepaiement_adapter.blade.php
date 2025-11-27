@@ -185,7 +185,8 @@
                     <tr>
                         <td>
                             Indemnités d’évaluation de la formation en
-                            {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? 'Aucun') }}
+                            {{ $formation?->intitule ?? 'Aucun' }}
+                            {{-- {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? 'Aucun') }} --}}
                             en date du {{ $formation?->date_pv?->translatedFormat('d F Y') }}
                             @if (!empty($formation?->date_pv_finale))
                                 au {{ $formation?->date_pv_finale?->translatedFormat('d F Y') }}
