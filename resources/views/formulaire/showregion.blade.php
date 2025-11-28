@@ -254,7 +254,7 @@
                                                         class="btn btn-outline-success btn-sm d-flex align-items-center justify-content-center py-1"
                                                         title="Exporter la liste"
                                                         style="font-size: 0.85rem; gap: 6px; flex: 1 1 48%;">
-                                                        <i class="bi bi-file-earmark-excel"></i> Exporter Excel
+                                                        <i class="bi bi-file-earmark-excel"></i> Excel
                                                     </a>
                                                 @endcan
                                             </div>
