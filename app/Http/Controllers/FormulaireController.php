@@ -702,7 +702,7 @@ class FormulaireController extends Controller
         $formulaires = Formulaire::select('id', 'cin', 'prenom', 'nom', 'region', 'date_naissance', 'lieu_naissance', 'formation', 'statut')
             ->where('region', $region)
             ->where('diplome_vise', $diplome_vise)
-            ->orderBy('id', 'desc')
+            /* ->orderBy('id', 'desc') */
             ->lazy()
             ->collect();
 
