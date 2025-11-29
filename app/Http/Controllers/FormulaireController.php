@@ -537,6 +537,52 @@ class FormulaireController extends Controller
         return view('formulaire.prisencharge-par-statut', compact('formulaires', 'statut', 'totalFormulaires', 'labels', 'region'));
     }
 
+    public function filtrerPrisenchargeParStatutDiplome($statut, $region, $diplome)
+    {
+
+        $formulaires = Formulaire::where('statut', $statut)->where('region', $region)->where('diplome_vise', $diplome)->get();
+
+        $formulair      = $formulaires->count();
+        $totalFormulaires = number_format($formulair, 0, ',', ' ');
+
+        /*  // Regrouper par statut (y compris les null)
+        $groupes = $formulaires->groupBy(function ($item) {
+            return $item->statut ?? 'Aucun statut';
+        }); */
+
+        $labels = [
+            'cin' => 'CIN',
+            'civilite' => 'Civilité',
+            'prenom' => 'Prénom',
+            'nom' => 'Nom',
+            'date_naissance' => 'Date naissance',
+            'lieu_naissance' => 'Lieu naissance',
+            /* 'email' => 'Adresse e-mail', */
+            'telephone' => 'Téléphone',
+            /* 'telephone_secondaire' => 'Téléphone secondaire',
+            'adresse' => 'Adresse',
+            'dernier_diplome' => 'Dernier diplôme obtenu',
+            'nom_etablissement' => 'Établissement', */
+            'region' => 'Région',
+            'formation' => 'Formation sollicitée',
+            /* 'diplome_vise' => 'Diplôme visé',
+            'montant_inscription' => 'Montant inscription',
+            'montant_mensualite' => 'Montant mensualité',
+            'montant_unique' => 'Montant unique', */
+            /* 'duree' => 'Durée (en années)',
+            'handicape' => 'Situation de handicap',
+            'type_handicap' => 'Type de handicap', */
+            /* 'orphelin' => 'Orphelin',
+            'type_orphelin' => 'Type d’orphelinat', */
+            /* 'cin_file' => 'Copie CIN',
+            'facture_file' => 'Facture',
+            'cv' => 'CV',
+            'diplome' => 'Diplôme' */
+        ];
+
+        return view('formulaire.prisencharge-par-statut', compact('formulaires', 'statut', 'totalFormulaires', 'labels', 'region'));
+    }
+
     public function showregion($region)
     {
         // Vérifier les permissions

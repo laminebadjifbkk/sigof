@@ -534,6 +534,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/prisencharge/{statut}/{region}', [FormulaireController::class, 'filtrerPrisenchargeParStatut'])
             ->name('prisencharge.parStatut');
 
+        Route::get('/prisencharge/{statut}/{region}/{diplome}', [FormulaireController::class, 'filtrerPrisenchargeParStatutDiplome'])
+            ->name('prisencharge.parStatut.diplome');
+
         Route::get('/projets/{statut}/{module}/{region}/{projetid}/{projetmoduleid}', [ProjetController::class, 'filtrerProjetParStatutEtRegion'])
             ->name('projets.parStatutEtRegion');
 
