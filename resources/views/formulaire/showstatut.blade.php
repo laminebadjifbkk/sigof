@@ -34,16 +34,16 @@
                             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 
                                 {{-- Titre à gauche --}}
-                                {{-- <div class="d-flex align-items-center gap-2">
+                                <div class="d-flex align-items-center gap-2">
                                     <h6 class="mb-0 text-muted fw-semibold text-uppercase">
                                         <span class="d-flex mt-2 align-items-baseline"><a
-                                                href="{{ route('formulaires.showregion', $region) }}"
+                                                href="{{ route('formulaires.index') }}"
                                                 class="btn btn-info btn-sm" title="retour"><i
                                                     class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                             <p> | Liste des demandes prises en charge</p>
                                         </span>
                                     </h6>
-                                </div> --}}
+                                </div>
 
                                 {{-- Total au centre --}}
                                 @php
