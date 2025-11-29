@@ -1,107 +1,51 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | INSCRIPTION DÉTAILLÉE')
+@section('title', 'ONFP | Prises en charge par statut ' . $statut)
 @section('space-work')
     @can('inscriptioncontact-view')
+
         <section class="section register">
             <div class="row justify-content-center">
+                {{-- Tableau inscriptions --}}
+
                 <h4 class="card-title">
-                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-1 p-3 bg-light rounded shadow-sm">
-                        <span>Liste des demandes prises en charge</span>
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
                         <span>{{ $totalFormulaires }}</span>
+                        <span class="{{ $statut }} text-white">{{ $statut }}</span>
                     </div>
                 </h4>
-                <div class="col-12">
-                    <div class="col-12">
-                        <div class="row">
 
-                            @foreach ($grouperStatut as $statut => $items)
-                                <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
-                                    <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
-                                        <div class="card-body p-2">
 
-                                            <!-- Titre du statut -->
-                                            <h5 class="card-title text-truncate mb-1" title="{{ $statut }}"
-                                                style="font-size: 1rem;">
-                                                {{ $statut }}
-                                            </h5>
+                {{-- Export opérateurs en Excel --}}
+                @can('exporter-view')
+                    <span class="mb-5 d-inline-block">
+                        {{-- <a href="{{ route('prisencharge.excel', ['statut' => $statut, 'region' => $region]) }}"
+                            class="btn btn-success btn-sm" title="Exporter la liste"> --}}
+                        <a href="#"
+                            class="btn btn-success btn-sm" title="Exporter la liste">
+                            <i class="bi bi-file-earmark-excel"></i> Exporter prises en charge (Excel)
+                        </a>
+                    </span>
+                @endcan
 
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
-                                                    style="width: 32px; height: 32px; font-size: 1.25rem;">
-                                                    <i class="bi bi-people"></i>
-                                                </div>
-
-                                                <div class="ps-2">
-                                                    <!-- Nombre -->
-                                                    <h6 class="mb-0" style="font-size: 0.9rem;">
-                                                        {{ number_format($items->count(), 0, '', ' ') }}
-                                                    </h6>
-
-                                                    <span class="text-muted small">demandeur(s)</span><br>
-
-                                                    <!-- Pourcentage -->
-                                                    <span class="badge bg-light text-dark mt-1" style="font-size: 0.75rem;">
-                                                        {{ $statutPourcentages[$statut]['percent'] }}%
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            <div class="d-flex flex-wrap gap-2 mt-2">
-                                                <a href="{{ route('formulaires.showstatut', $statut) }}"
-                                                    class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center py-1"
-                                                    style="font-size: 0.85rem; gap: 6px; flex: 1 1 48%;">
-                                                    Voir plus <i class="bi bi-arrow-right-short"></i>
-                                                </a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-
-                        </div>
-                    </div>
-                </div>
-                <table class="table table-bordered table-striped align-middle">
-                    <thead class="table-primary">
-                        <tr>
-                            <th style="width: 50px;" class="text-center">N°</th>
-                            <th>Région</th>
-                            {{-- <th>Effectif</th> --}}
-                            <th style="width: 50px;" class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($groupes as $index => $items)
-                            <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td>{{ $index }}</td>
-                                {{-- <td>{{ number_format($items->count(), 0, '', ' ') }}</td> --}}
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        {{-- Bouton Voir --}}
-                                        <a href="{{ route('formulaires.showregion', $index) }}" class="btn btn-warning btn-sm"
-                                            title="Voir les détails">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                {{-- Tableau inscriptions --}}
-                {{-- <div class="card shadow-sm">
+                <div class="card shadow-sm">
                     <div class="card-body">
+
                         <div class="pt-1">
                             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 
-                                <div class="d-flex align-items-center gap-2">
+                                {{-- Titre à gauche --}}
+                                {{-- <div class="d-flex align-items-center gap-2">
                                     <h6 class="mb-0 text-muted fw-semibold text-uppercase">
-                                        Liste des demandes prises en charge
+                                        <span class="d-flex mt-2 align-items-baseline"><a
+                                                href="{{ route('formulaires.showregion', $region) }}"
+                                                class="btn btn-info btn-sm" title="retour"><i
+                                                    class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                                            <p> | Liste des demandes prises en charge</p>
+                                        </span>
                                     </h6>
-                                </div>
+                                </div> --}}
 
+                                {{-- Total au centre --}}
                                 @php
                                     $affichees = $formulaires?->count(); // à adapter si tu fais une pagination
                                     $total = $totalFormulaires ?? ($formulaires?->total() ?? $formulaires?->count()); // en cas de pagination avec ->total()
@@ -117,11 +61,12 @@
                                     </span>
                                 </div>
 
+                                {{-- Boutons à droite --}}
                                 @can('formulaire-create')
                                     <div class="d-flex align-items-center gap-2">
-                                        <a href="{{ route('formulaire.create') }}" class="btn btn-sm btn-primary">
+                                        {{-- <a href="{{ route('formulaire.create') }}" class="btn btn-sm btn-primary">
                                             Ajouter
-                                        </a>
+                                        </a> --}}
                                         <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
                                             data-bs-target="#generate_rapport">
                                             Rechercher plus
@@ -131,17 +76,8 @@
 
                             </div>
                         </div>
-                        --}}
 
-                {{-- Export opérateurs en Excel --}}
-                {{-- <span class="mb-3 d-inline-block">
-                            <a href="{{ route('prisencharge.excel') }}" class="btn btn-success btn-sm"
-                                title="Exporter la liste">
-                                <i class="bi bi-file-earmark-excel"></i> Exporter prises en charge (Excel)
-                            </a>
-                        </span> --}}
-
-                {{-- <div class="table-responsive">
+                        <div class="table-responsive">
                             <table class="table datatables align-middle" id="table-inscriptions">
                                 <thead class="table-primary">
                                     <tr>
@@ -169,9 +105,11 @@
                                                             -
                                                         @endif
 
+                                                        {{-- Cas spécifique pour la date de naissance --}}
                                                     @elseif ($field === 'date_naissance' && $inscription->date_naissance)
                                                         {{ \Carbon\Carbon::parse($inscription->date_naissance)->format('d/m/Y') }}
 
+                                                        {{-- Tous les autres champs normaux --}}
                                                     @else
                                                         {{ $inscription->$field ?? '-' }}
                                                     @endif
@@ -179,11 +117,13 @@
                                             @endforeach
                                             <td class="text-center">
                                                 <div class="btn-group">
+                                                    {{-- Bouton Voir --}}
                                                     <a href="{{ route('formulaires.show', $inscription->id) }}"
                                                         class="btn btn-warning btn-sm" title="Voir les détails">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
 
+                                                    {{-- Bouton menu déroulant --}}
                                                     <button type="button"
                                                         class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split"
                                                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -191,6 +131,7 @@
                                                     </button>
 
                                                     <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                                        {{-- Lien Modifier --}}
                                                         <li>
                                                             <a href="{{ route('formulaires.edit', $inscription->id) }}"
                                                                 class="dropdown-item text-primary" title="Modifier les détails">
@@ -198,6 +139,7 @@
                                                             </a>
                                                         </li>
 
+                                                        {{-- Formulaire Supprimer --}}
                                                         <li>
                                                             <form action="{{ route('formulaires.destroy', $inscription->id) }}"
                                                                 method="POST">
@@ -218,10 +160,9 @@
                             </table>
                         </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
-
-            {{-- Modal générer un rapport --}}
+            </div>
             <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog" aria-labelledby="generate_rapportLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">

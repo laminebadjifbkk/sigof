@@ -725,6 +725,8 @@ Route::group(['middleware' => ['XSS']], function () {
             ->name('formulaires.validationPriseEnCharge')
             ->middleware('can:formulaire-view');
 
+        Route::get('/formulaires/statut/{statut}', [FormulaireController::class, 'showByStatut'])
+            ->name('formulaires.showstatut');
 
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
@@ -807,7 +809,6 @@ Route::group(['middleware' => ['XSS']], function () {
             Route::get('/prisencharge', [FormulaireController::class, 'create'])->name('formulaire.create');
             Route::post('/prisencharge', [FormulaireController::class, 'store'])->name('formulaire.store');
             Route::get('/prisencharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
-
         });
     });
     Route::resource('/contacts', ContactController::class);
