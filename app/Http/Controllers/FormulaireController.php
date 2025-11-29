@@ -224,7 +224,13 @@ class FormulaireController extends Controller
         $totalFormulaires = number_format($formulaires, 0, ',', ' ');
 
         // Récupération des 500 dernières demandes
-        $formulaires = Formulaire::latest()->limit(1500)->get();
+        /* $formulaires = Formulaire::latest()->limit(1500)->get(); */
+
+        $formulaires = collect();
+
+        Formulaire::latest()->chunk(300, function ($batch) use (&$formulaires) {
+            $formulaires = $formulaires->merge($batch);
+        });
 
         /* $formulaires = Formulaire::orderBy('created_at', 'desc')->get(); */
         $labels = [
@@ -580,7 +586,7 @@ class FormulaireController extends Controller
             'diplome' => 'Diplôme' */
         ];
 
-        return view('formulaire.prisencharge-par-statut', compact('formulaires', 'statut', 'totalFormulaires', 'labels', 'region'));
+        return view('formulaire.prisencharge-par-statut-diplome', compact('formulaires', 'statut', 'totalFormulaires', 'labels', 'region', 'diplome'));
     }
 
     public function showregion($region)
@@ -754,7 +760,7 @@ class FormulaireController extends Controller
         $formulaires = Formulaire::where('statut', $statutValue)->get();
         // Nombre
         $total = $formulaires->count();
-        
+
         $totalFormulaires = number_format($total, 0, ',', ' ');
 
         $labels = [
