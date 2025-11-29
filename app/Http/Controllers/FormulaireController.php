@@ -500,7 +500,16 @@ class FormulaireController extends Controller
     public function filtrerPrisenchargeParStatut($statut, $region)
     {
 
-        $formulaires = Formulaire::where('statut', $statut)->where('region', $region)->get();
+        /* $formulaires = Formulaire::where('statut', $statut)->where('region', $region)->get(); */
+
+        $formulaires = collect();
+
+        Formulaire::where('statut', $statut)
+            ->where('region', $region)
+            ->orderBy('id', 'desc')
+            ->chunk(300, function ($batch) use (&$formulaires) {
+                $formulaires = $formulaires->merge($batch);
+            });
 
         $formulair      = $formulaires->count();
         $totalFormulaires = number_format($formulair, 0, ',', ' ');
@@ -546,7 +555,16 @@ class FormulaireController extends Controller
     public function filtrerPrisenchargeParStatutDiplome($statut, $region, $diplome)
     {
 
-        $formulaires = Formulaire::where('statut', $statut)->where('region', $region)->where('diplome_vise', $diplome)->get();
+        /* $formulaires = Formulaire::where('statut', $statut)->where('region', $region)->where('diplome_vise', $diplome)->get(); */
+        $formulaires = collect();
+
+        Formulaire::where('statut', $statut)
+            ->where('region', $region)
+            ->where('diplome_vise', $diplome)
+            ->orderBy('id', 'desc')
+            ->chunk(300, function ($batch) use (&$formulaires) {
+                $formulaires = $formulaires->merge($batch);
+            });
 
         $formulair      = $formulaires->count();
         $totalFormulaires = number_format($formulair, 0, ',', ' ');
@@ -600,8 +618,16 @@ class FormulaireController extends Controller
 
         // Récupérer les formulaires de la région
         /* $formulaires = Formulaire::where('region', $region)->get(); */
-        $formulaires = Formulaire::where('region', $region)
-            ->get();
+        /* $formulaires = Formulaire::where('region', $region)
+            ->get(); */
+
+        $formulaires = collect();
+
+        Formulaire::where('region', $region)
+            ->orderBy('id', 'desc')
+            ->chunk(300, function ($batch) use (&$formulaires) {
+                $formulaires = $formulaires->merge($batch);
+            });
 
         $formulair      = $formulaires->count();
         $totalFormulaires = number_format($formulair, 0, ',', ' ');
@@ -666,13 +692,19 @@ class FormulaireController extends Controller
 
         $formulaireCount = number_format($formulaireCount, 0, ',', ' ');
 
-
         // Récupérer les formulaires de la région
         /* $formulaires = Formulaire::where('region', $region)->get(); */
-        $formulaires = Formulaire::where('region', $region)
+        /* $formulaires = Formulaire::where('region', $region)
             ->where('diplome_vise', $diplome_vise)
             ->limit(3000) // ou ->take(2000)
-            ->get();
+            ->get(); */
+
+        $formulaires = Formulaire::select('id', 'cin', 'prenom', 'nom', 'region', 'date_naissance', 'lieu_naissance', 'formation')
+            ->where('region', $region)
+            ->where('diplome_vise', $diplome_vise)
+            ->orderBy('id', 'desc')
+            ->lazy()
+            ->collect();
 
         $formulair      = $formulaires->count();
         $totalFormulaires = number_format($formulair, 0, ',', ' ');
