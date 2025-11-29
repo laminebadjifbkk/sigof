@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | Prises en charge par statut ' . $statut.' - ' . $region.' - ' . $diplome)
+@section('title', 'ONFP | Prises en charge par statut ' . $statut . ' - ' . $region . ' - ' . $diplome)
 @section('space-work')
     @can('inscriptioncontact-view')
 
@@ -9,7 +9,7 @@
 
                 <h4 class="card-title">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
-                        <span>{{ $region }}</span>
+                        <span>{{ $region . ' | ' . $diplome }}</span>
                         <span class="{{ $statut }} text-white">{{ $statut }}</span>
                     </div>
                 </h4>
@@ -117,7 +117,7 @@
                                                 <div class="btn-group">
                                                     {{-- Bouton Voir --}}
                                                     <a href="{{ route('formulaires.show', $inscription->id) }}"
-                                                        class="btn btn-warning btn-sm" title="Voir les détails">
+                                                        class="btn btn-warning btn-sm" title="Voir les détails" target="_blank">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
 
