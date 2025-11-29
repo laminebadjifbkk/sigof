@@ -587,8 +587,8 @@ class FormulaireController extends Controller
             'adresse' => 'Adresse',
             'dernier_diplome' => 'Dernier diplôme obtenu',
             'nom_etablissement' => 'Établissement', */
-            /* 'region' => 'Région',
-            'formation' => 'Formation sollicitée', */
+            /* 'region' => 'Région', */
+            'formation' => 'Formation sollicitée',
             /* 'diplome_vise' => 'Diplôme visé',
             'montant_inscription' => 'Montant inscription',
             'montant_mensualite' => 'Montant mensualité',
