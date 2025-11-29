@@ -263,7 +263,33 @@ class FormulaireController extends Controller
             return $item->region ?? 'Aucune région';
         });
 
-        return view('formulaire.index', compact('formulaires', 'labels', 'totalFormulaires', 'groupes'));
+        // -----------------------------------------------------------------
+        // 🔵 1. Regrouper par statut
+        // -----------------------------------------------------------------
+        $grouperStatut = $formulaires->groupBy(function ($item) {
+            return $item->statut ?? 'Non défini';
+        });
+
+        // -----------------------------------------------------------------
+        // 🔵 2. Calculer le pourcentage pour chaque statut
+        // -----------------------------------------------------------------
+        $statutPourcentages = [];
+
+        foreach ($grouperStatut as $statut => $items) {
+            $statutPourcentages[$statut] = [
+                'count' => $items->count(),
+                'percent' => round(($items->count() / max(1, $formulaires->count())) * 100, 2)
+            ];
+        }
+
+        return view('formulaire.index', compact(
+            'formulaires',
+            'labels',
+            'totalFormulaires',
+            'groupes',
+            'grouperStatut',
+            'statutPourcentages'
+        ));
     }
 
     public function show($id)
@@ -663,7 +689,7 @@ class FormulaireController extends Controller
             ->with('status', 'Le statut de la prise en charge a été mis à jour avec succès.');
     }
 
-    
+
     public function validationsHistotiquepc(Request $request)
     {
         $formulaire = Formulaire::with(['historiques' => function ($query) {

@@ -5,11 +5,63 @@
         <section class="section register">
             <div class="row justify-content-center">
                 <h4 class="card-title">
-                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-1 p-3 bg-light rounded shadow-sm">
                         <span>Liste des demandes prises en charge</span>
                         <span>{{ $totalFormulaires }}</span>
                     </div>
                 </h4>
+                <div class="col-12">
+                    <div class="col-12">
+                        <div class="row">
+
+                            @foreach ($grouperStatut as $statut => $items)
+                                <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
+                                    <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
+                                        <div class="card-body p-2">
+
+                                            <!-- Titre du statut -->
+                                            <h5 class="card-title text-truncate mb-1" title="{{ $statut }}"
+                                                style="font-size: 1rem;">
+                                                {{ $statut }}
+                                            </h5>
+
+                                            <div class="d-flex align-items-center mb-2">
+                                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                                    style="width: 32px; height: 32px; font-size: 1.25rem;">
+                                                    <i class="bi bi-people"></i>
+                                                </div>
+
+                                                <div class="ps-2">
+                                                    <!-- Nombre -->
+                                                    <h6 class="mb-0" style="font-size: 0.9rem;">
+                                                        {{ number_format($items->count(), 0, '', ' ') }}
+                                                    </h6>
+
+                                                    <span class="text-muted small">demandeur(s)</span><br>
+
+                                                    <!-- Pourcentage -->
+                                                    <span class="badge bg-light text-dark mt-1" style="font-size: 0.75rem;">
+                                                        {{ $statutPourcentages[$statut]['percent'] }}%
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                                <a href="#"
+                                                    class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center py-1"
+                                                    style="font-size: 0.85rem; gap: 6px; flex: 1 1 48%;">
+                                                    Voir plus <i class="bi bi-arrow-right-short"></i>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+
+                        </div>
+                    </div>
+                </div>
                 <table class="table table-bordered table-striped align-middle">
                     <thead class="table-primary">
                         <tr>
@@ -169,7 +221,7 @@
                 </div> --}}
             </div>
 
-           {{-- Modal générer un rapport --}}
+            {{-- Modal générer un rapport --}}
             <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog" aria-labelledby="generate_rapportLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
