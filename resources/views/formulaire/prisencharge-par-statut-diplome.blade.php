@@ -52,7 +52,7 @@
                                 <div class="d-flex align-items-center gap-2 text-info fw-semibold">
                                     <i class="bi bi-list-ul me-1"></i>
                                     <span>
-                                        Effectif :
+                                        Total :
                                         {{-- <span class="text-dark">{{ $affichees }}</span>
                                         sur --}}
                                         <span class="text-dark">{{ $total }}</span> demande(s)
