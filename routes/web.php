@@ -91,23 +91,23 @@ use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
 |
 */
 
-Route::middleware(['can:update,role'])->group(function () {
+/* Route::middleware(['can:update,role'])->group(function () {
     Route::get('/roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
     Route::put('/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
 });
 
 Route::delete('/roles/{role}', [RoleController::class, 'destroy'])
     ->middleware('can:delete,role')
-    ->name('roles.destroy');
+    ->name('roles.destroy'); */
 
-Route::middleware(['can:update,permission'])->group(function () {
+/* Route::middleware(['can:update,permission'])->group(function () {
     Route::get('/permissions/{permission}/edit', [PermissionController::class, 'edit'])->name('permissions.edit');
     Route::put('/permissions/{permission}', [PermissionController::class, 'update'])->name('permissions.update');
 });
 
 Route::delete('/permissions/{permission}', [PermissionController::class, 'destroy'])
     ->middleware('can:delete,permission')
-    ->name('permissions.destroy');
+    ->name('permissions.destroy'); */
 
 Route::group(['middleware' => ['XSS']], function () {
     Route::get('/', [UneController::class, 'unePage'])->name('accueil');
@@ -531,10 +531,10 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/projets/statut/{statut}/{projetid}', [ProjetController::class, 'filtrerProjetParStatut'])
             ->name('projets.parStatut');
 
-        Route::get('/prisencharge/{statut}/{region}', [FormulaireController::class, 'filtrerPrisenchargeParStatut'])
+        Route::get('/prisenchargestatutregion/{statut}/{region}', [FormulaireController::class, 'filtrerPrisenchargeParStatut'])
             ->name('prisencharge.parStatut');
 
-        Route::get('/prisencharge/{statut}/{region}/{diplome}', [FormulaireController::class, 'filtrerPrisenchargeParStatutDiplome'])
+        Route::get('/prisenchargestatutregiondiplome/{statut}/{region}/{diplome}', [FormulaireController::class, 'filtrerPrisenchargeParStatutDiplome'])
             ->name('prisencharge.parStatut.diplome');
 
         Route::get('/projets/{statut}/{module}/{region}/{projetid}/{projetmoduleid}', [ProjetController::class, 'filtrerProjetParStatutEtRegion'])
@@ -620,7 +620,8 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/users/online', [UserController::class, 'showOnlineUsers'])->name('users.online');
         Route::get('/users/demandeurs', [UserController::class, 'demandeursIndividuel'])->name('demandeurs.individuel');
         Route::get('/users/individuelle_collective', [UserController::class, 'individuelleCollective'])->name('users.individuelle_collective');
-        Route::get('/demandeurs/{uuid}', [UserController::class, 'showDemandeur'])->name('demandeurs.show');
+        /* Route::get('/demandeurs/{uuid}', [UserController::class, 'showDemandeur'])->name('demandeurs.show'); */
+        Route::get('/demandeurs/{uuid}', [UserController::class, 'showDemandeur'])->name('demandeursshow');
 
         Route::delete('/profile/image', [ProfileController::class, 'destroyImage'])->name('profile.image.destroy');
 

@@ -554,7 +554,6 @@ class FormulaireController extends Controller
 
     public function filtrerPrisenchargeParStatutDiplome($statut, $region, $diplome)
     {
-
         /* $formulaires = Formulaire::where('statut', $statut)->where('region', $region)->where('diplome_vise', $diplome)->get(); */
         $formulaires = collect();
 
