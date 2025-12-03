@@ -16,15 +16,23 @@
 
 
                 {{-- Export opérateurs en Excel --}}
-                @can('exporter-view')
+                {{-- @can('exporter-view')
                     <span class="mb-5 d-inline-block">
-                        {{-- <a href="{{ route('prisencharge.excel', ['statut' => $statut, 'region' => $region]) }}"
-                            class="btn btn-success btn-sm" title="Exporter la liste"> --}}
-                        <a href="#"
+                        <a href="{{ route('prisencharge.excel', ['statut' => $statut, 'region' => $region]) }}"
                             class="btn btn-success btn-sm" title="Exporter la liste">
                             <i class="bi bi-file-earmark-excel"></i> Exporter prises en charge (Excel)
                         </a>
                     </span>
+                @endcan --}}
+                @can('generer-contrat-lettre-view')
+                    <div class="text-end p-3 mb-4 rounded shadow-sm">
+                        <a href="{{ route('generer-contrat-lettre.pdf', ['statut' => $statut]) }}"
+                            class="btn btn-outline-danger btn-sm shadow-sm px-3 py-2 d-inline-flex align-items-center gap-2"
+                            title="Télécharger les contrats et lettres en PDF" target="_blank">
+                            <i class="bi bi-file-earmark-pdf fs-5"></i>
+                            <strong>PDF Contrats & Lettres</strong>
+                        </a>
+                    </div>
                 @endcan
 
                 <div class="card shadow-sm">
@@ -37,9 +45,8 @@
                                 <div class="d-flex align-items-center gap-2">
                                     <h6 class="mb-0 text-muted fw-semibold text-uppercase">
                                         <span class="d-flex mt-2 align-items-baseline"><a
-                                                href="{{ route('formulaires.index') }}"
-                                                class="btn btn-info btn-sm" title="retour"><i
-                                                    class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                                                href="{{ route('formulaires.index') }}" class="btn btn-info btn-sm"
+                                                title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                             <p> | Liste des demandes prises en charge</p>
                                         </span>
                                     </h6>

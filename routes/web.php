@@ -570,6 +570,12 @@ Route::group(['middleware' => ['XSS']], function () {
             ->name('operateurs.lettreagrement.pdf');
 
         Route::get(
+            '/generer-contrat-lettre/{statut}',
+            [FormulaireController::class, 'exportercontratlettrePDF']
+        )
+            ->name('generer-contrat-lettre.pdf');
+
+        Route::get(
             '/operateurs/{statut}/{commission}/export-excel',
             [OperateurController::class, 'exporterOperateursExcel']
         )->name('operateurs.parStatutCommission.excel');

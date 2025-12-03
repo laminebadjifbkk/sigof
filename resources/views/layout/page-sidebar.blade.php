@@ -222,6 +222,14 @@
                         </li>
                     @endcan
 
+                    @can('pcharge-show')
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('formulaires.index') }}">
+                                <span>Prises en charge</span>
+                            </a>
+                        </li>
+                    @endcan
+
                     @can('demande-show')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('demandeurs.individuel') }}">
@@ -245,6 +253,7 @@
                             </a>
                         </li>
                     @endcan
+
                     @hasrole('super-admin')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('individuelles.corbeille') }}">

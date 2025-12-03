@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Kris\LaravelFormBuilder\Form;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
+use Dompdf\Dompdf;
 
 class FormulaireController extends Controller
 {
@@ -825,5 +826,57 @@ class FormulaireController extends Controller
         ];
 
         return view('formulaire.showstatut', compact('formulaires', 'statut', 'total', 'totalFormulaires', 'labels'));
+    }
+
+
+    public function exportercontratlettrePDF(Request $request, $statut)
+    {
+        try {
+            if ($statut !== 'Conforme' && $statut !== 'Sélectionné') {
+                Alert::error('Attention', 'Impossible de télécharger les lettres : statut invalide.');
+                return redirect()->back();
+            }
+
+            // Récupération
+            $formulaires = Formulaire::where('statut', $statut)->get();
+
+            $dompdf  = new Dompdf();
+            $options = $dompdf->getOptions();
+            $dompdf->setOptions($options);
+
+            $dompdf->loadHtml(view(
+                'formulaire.contrats-lettres-pdf',
+                compact(
+                    'formulaires',
+                    'statut'
+                )
+            ));
+
+
+            // (Optional) Setup the paper size and orientation (portrait ou landscape)
+            $dompdf->setPaper('Letter', 'portrait');
+
+            // Render the HTML as PDF
+            $dompdf->render();
+
+            /* $name = 'Lettres agrément opérateurs, ' . $commissionagrement->commission . '.pdf'; */
+            $name = 'Lettres_agrement_operateurs_' . $statut . '.pdf';
+
+            // Optionnel : remplacer les caractères accentués
+            $name = str_replace(
+                [' ', 'é', 'è', 'ê', 'à', 'ç', ','],
+                ['_', 'e', 'e', 'e', 'a', 'c', ''],
+                $name
+            );
+
+            // Pour forcer le téléchargement
+            /* $dompdf->stream($name, ['Attachment' => true]); */
+
+            // Output the generated PDF to Browser
+            $dompdf->stream($name, ['Attachment' => false]);
+        } catch (\Exception $e) {
+            Alert::error('Erreur', 'Une erreur est survenue lors de la génération du PDF.');
+            return redirect()->back();
+        }
     }
 }
