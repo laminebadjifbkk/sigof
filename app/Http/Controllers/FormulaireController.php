@@ -832,7 +832,7 @@ class FormulaireController extends Controller
     public function exportercontratlettrePDF(Request $request, $statut)
     {
         try {
-            if ($statut !== 'Conforme' && $statut !== 'Sélectionné') {
+            if ($statut !== 'Sélectionné') {
                 Alert::error('Attention', 'Impossible de télécharger les lettres : statut invalide.');
                 return redirect()->back();
             }
