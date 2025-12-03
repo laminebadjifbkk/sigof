@@ -236,11 +236,11 @@
                     <tbody>
                         <tr>
                             <td>{{ $formulaire->prenom . ' ' . $formulaire->nom }}</td>
-                            <td>{{ $formulaire->date_naissance->format('d/m/Y') . ' / ' . $formulaire->lieu_naissance }}
+                            <td>{{ $formulaire->date_naissance->format('d/m/Y') . ' à ' . $formulaire->lieu_naissance }}
                             </td>
-                            <td>{{ $formulaire->specialite }}</td>
-                            <td>{{ $formulaire->niveau }}</td>
-                            <td><b>{{ number_format($formulaire->montant, 0, ',', ' ') }}</b></td>
+                            <td>{{ $formulaire->formation }}</td>
+                            <td>{{ $formulaire->diplome_vise }}</td>
+                            <td><b>{{ number_format($formulaire->montant_unique, 0, ',', ' ') }}</b></td>
                         </tr>
                     </tbody>
 
@@ -325,20 +325,22 @@
                 <br><br>
 
                 <!-- TITRE CONTRAT -->
-                <h3 style="text-align:center; text-decoration:underline;">
-                    CONTRAT N° _____________ ONFP/DG/DIOF/ss
+                <h3 style="text-align:center;">
+                    CONTRAT N°
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ONFP/DG/DIOF/ss
                 </h3>
 
                 <p><b>Entre les soussignés</b></p>
 
                 <p>
-                    <b>Office National de Formation Professionnelle (O.N.F.P.)</b><br>
+                    <b>Office National de Formation Professionnelle (ONFP)</b><br>
                     Cité SIPRES 1, Lot 2, 2 voies Liberté 6 extension VDN - BP 21013 – Dakar Ponty
                 </p>
 
                 <p>
                     <b>Et</b><br>
-                    <b>Ecole Supérieure de Commerce (GROUPE SUP DECO)</b><br>
+                    <b>{{ $formulaire->nom_etablissement }}</b><br>
                     Adresse : Dakar<br>
                     Tél : 33 849 69 19 / 33 821 50 74
                 </p>
@@ -347,7 +349,7 @@
                     Il a été convenu et arrêté ce qui suit :
                 </p>
 
-                <h4><u>Article 1 : Objet du contrat</u></h4>
+                <h4><u>Article 1 </u>: Objet du contrat</h4>
 
                 <p>
                     Pour l’année académique <b>2025-2026</b>, l’ONFP confie à l’Ecole Supérieure de Commerce, qui
@@ -372,11 +374,11 @@
                     <tbody>
                         <tr>
                             <td>{{ $formulaire->prenom . ' ' . $formulaire->nom }}</td>
-                            <td>{{ $formulaire->date_naissance->format('d/m/Y') . ' / ' . $formulaire->lieu_naissance }}
+                            <td>{{ $formulaire->date_naissance->format('d/m/Y') . ' à ' . $formulaire->lieu_naissance }}
                             </td>
-                            <td>{{ $formulaire->specialite }}</td>
-                            <td>{{ $formulaire->niveau }}</td>
-                            <td><b>{{ number_format($formulaire->montant, 0, ',', ' ') }}</b></td>
+                            <td>{{ $formulaire->formation }}</td>
+                            <td>{{ $formulaire->diplome_vise }}</td>
+                            <td><b>{{ number_format($formulaire->montant_unique, 0, ',', ' ') }}</b></td>
                         </tr>
                     </tbody>
 
@@ -384,7 +386,7 @@
 
                 <br>
 
-                <h4><u>Article 2 : Engagement des parties</u></h4>
+                <h4><u>Article 2 </u>: Engagement des parties</h4>
 
                 <p><b>A : Engagement de l’ONFP</b></p>
                 <ul>
@@ -406,7 +408,7 @@
                     <li>Autoriser l’étudiant(e) à poursuivre les cours jusqu’à la fin de l’année scolaire.</li>
                 </ul>
 
-                <h4><u>Article 3 : Modalités de paiement</u></h4>
+                <h4><u>Article 3 </u>: Modalités de paiement</h4>
 
                 <p>Le règlement s’effectue selon les modalités ci-après :</p>
                 <ul>
@@ -416,41 +418,51 @@
                         de la facture reliquat.</li>
                 </ul>
 
-                <h4><u>Article 4 : Modification</u></h4>
+                <h4><u>Article 4 </u>: Modification</h4>
                 <p>
                     Toute modification du contrat fera l’objet d’un avenant signé par les deux parties.
                 </p>
 
-                <h4><u>Article 5 : Résiliation</u></h4>
+                <h4><u>Article 5 </u>: Résiliation</h4>
                 <p>
                     Le contrat peut être résilié à tout moment en cas de manquement grave ou d’arrêt de l’étudiant(e).
                 </p>
 
-                <h4><u>Article 6 : Règlement des litiges</u></h4>
+                <h4><u>Article 6 </u>: Règlement des litiges</h4>
                 <p>
                     Tout litige sera réglé à l’amiable. À défaut, le droit sénégalais sera appliqué.
                 </p>
 
-                <br><br>
+                <br>
 
                 <p>
                     Fait à Dakar en deux exemplaires originaux, le ……………………………
                 </p>
 
-                <br><br>
+                <br>
 
-                <table width="100%" style="margin-top:20px;">
-                    <tr>
-                        <td style="text-align:left; width:50%;">
-                            <b>Pour l’Établissement</b><br><br><br>
-                            Le Directeur
-                        </td>
-                        <td style="text-align:right; width:50%;">
-                            <b>Pour l’O.N.F.P.</b><br><br><br>
-                            Le Directeur Général
-                        </td>
-                    </tr>
-                </table>
+                <span class="no-page-break">
+                    <div style="margin-top: 2mm; font-style: italic; width:100%;">
+
+                        <!-- Partie gauche : Établissement -->
+                        <div style="float:left; width:50%; text-align:left;">
+                            <strong>Pour l’Établissement</strong><br><br><br>
+                            <em style="font-style: italic; font-weight: normal;">
+                                Le Directeur / La Directrice
+                            </em>
+                        </div>
+
+                        <!-- Partie droite : ONFP -->
+                        <div style="float:right; width:50%; text-align:right;">
+                            <strong>Pour l’ONFP</strong><br><br><br>
+                            <em style="font-style: italic; font-weight: normal;">
+                                Le Directeur Général
+                            </em>
+                        </div>
+
+                        <div style="clear: both;"></div>
+                    </div>
+                </span>
 
             </div>
 
