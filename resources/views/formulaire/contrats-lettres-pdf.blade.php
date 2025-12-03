@@ -72,22 +72,6 @@
             text-align: center;
         }
 
-        /* footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: #ffffff;
-            color: #000;
-            font-size: 10px;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 6px 0;
-            border-top: 2px solid #5D4037;
-            z-index: 1000;
-        } */
-
-        
         footer {
             position: fixed;
             bottom: 0cm;
@@ -141,7 +125,7 @@
             font-size: 9px;
         }
 
-        
+
         .page-number {
             position: relative;
             height: 100%;
@@ -180,129 +164,310 @@
 
 <body>
     @foreach ($formulaires as $formulaire)
-        <div style="font-family: 'DejaVu Sans', sans-serif; font-size: 13px; line-height: 1.6;">
+        <!-- ========================= -->
+        <!-- PAGE 1 : LETTRE           -->
+        <!-- ========================= -->
+        <div class="page-lettre">
+            <div style="font-family: 'DejaVu Sans', sans-serif; font-size: 13px; line-height: 1.6;">
+                <div style="width:100%; font-size:14px;">
+                    <div style="float:left; width:60%; text-align:left; line-height:1.1; font-size:12px;">
 
-            {{-- En-tête République --}}
-            {{-- <div style="text-align: center; margin-bottom: 15px;">
-                <b>REPUBLIQUE DU SENEGAL</b><br>
-                <em>Un Peuple - Un But - Une Foi</em><br><br>
+                        <!-- Lignes centrées -->
+                        <div style="text-align:center;">
+                            <!-- Ligne 1 : complètement à gauche -->
+                            <strong style="font-size:13px; display:block;">
+                                REPUBLIQUE DU SENEGAL
+                            </strong>
 
-                <b>MINISTERE DE L'EMPLOI ET DE LA FORMATION<br>
-                    PROFESSIONNELLE ET TECHNIQUE</b><br><br>
+                            <em style="font-size:11px;">UN PEUPLE - UN BUT - UNE FOI</em><br>
+                            <span>---------</span><br>
+                            <strong style="font-size:12px;">
+                                MINISTERE DE L’EMPLOI ET DE LA FORMATION <br>
+                                PROFESSIONNELLE ET TECHNIQUE
+                            </strong>
+                        </div>
 
-                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
-                    style="width: 140px; margin-top: 10px;">
-            </div> --}}
-            <div style="width:100%; font-size:14px;">
-                <div style="float:left; width:60%; text-align:left; line-height:1.1; font-size:12px;">
-
-                    <!-- Lignes centrées -->
-                    <div style="text-align:center;">
-                        <!-- Ligne 1 : complètement à gauche -->
-                        <strong style="font-size:13px; display:block;">
-                            REPUBLIQUE DU SENEGAL
-                        </strong>
-
-                        <em style="font-size:11px;">UN PEUPLE - UN BUT - UNE FOI</em><br>
-                        <span>---------</span><br>
-                        <strong style="font-size:12px;">
-                            MINISTERE DE L’EMPLOI ET DE LA FORMATION <br>
-                            PROFESSIONNELLE ET TECHNIQUE
-                        </strong>
                     </div>
 
+                    <div style="float:right; width:40%; text-align:right;">
+                        ONFP/DG/DIOF/ss<br><br>
+                        <i>Dakar, le ...............................</i>
+                    </div>
+
+                    <div style="clear:both;"></div>
                 </div>
 
-                <div style="float:right; width:40%; text-align:right;">
-                    ONFP/DG/DIOF/ss<br><br>
-                    <i>Dakar, le ...............................</i>
+
+                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
+                    style="width: 340px; margin-top: 10px;">
+
+                <div style="text-align:right;">
+                    <strong><i>Directeur général</i></strong>
                 </div>
 
-                <div style="clear:both;"></div>
+
+                <strong style="text-decoration: underline;">Objet</strong>: Prise en charge de formation
+
+                <p>
+                    Madame, Monsieur,
+                </p>
+
+                <p style="text-align: justify;">
+                    Pour l’année académique <b>2025/2026</b>, l’Office National de Formation Professionnelle
+                    (<b>ONFP</b>)
+                    assure la prise en charge de la formation d’un(e) étudiant(e)/admis(e) dans votre établissement,
+                    selon le tableau ci-après.
+                </p>
+
+                {{-- Tableau récapitulatif --}}
+                <table width="100%" border="1" cellspacing="0" cellpadding="6"
+                    style="border-collapse: collapse; text-align: center; margin-top: 10px;">
+
+                    <thead style="background: #f1f1f1; font-weight: bold;">
+                        <tr>
+                            <td>Prénom et Nom</td>
+                            <td>Date & lieu de naissance</td>
+                            <td>Spécialité</td>
+                            <td>Niveau</td>
+                            <td>Montant (CFA)</td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>{{ $formulaire->prenom . ' ' . $formulaire->nom }}</td>
+                            <td>{{ $formulaire->date_naissance->format('d/m/Y') . ' / ' . $formulaire->lieu_naissance }}
+                            </td>
+                            <td>{{ $formulaire->specialite }}</td>
+                            <td>{{ $formulaire->niveau }}</td>
+                            <td><b>{{ number_format($formulaire->montant, 0, ',', ' ') }}</b></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+                <p style="text-align: justify; margin-top: 20px;">
+                    À cet effet, je vous transmets le contrat ci-joint en deux exemplaires originaux que vous voudrez
+                    bien
+                    signer et me retourner.
+                </p>
+
+                <p style="text-align: justify;">
+                    Je vous prie de croire, Madame, Monsieur, en l’assurance de ma considération distinguée.
+                </p>
+
+                <br><br>
+
+                <p><b>P.J :</b> Contrat</p>
+
+                <br>
+
+                {{-- Signature --}}
+                <div style="margin-top: 40px;">
+                    <b>A</b><br>
+                    Madame / Monsieur le/la Responsable de<br>
+                    {{ $formulaire->nom_etablissement ?? 'Votre établissement' }}<br>
+                    <b>{{ $formulaire->region ?? 'DAKAR' }}</b>
+                </div>
+
             </div>
 
-
-            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
-                style="width: 340px; margin-top: 10px;">
-
-            <div style="text-align:right;">
-                <strong><i>Directeur général</i></strong>
-            </div>
-
-
-            <strong style="text-decoration: underline;">Objet</strong>: Prise en charge de formation
-
-            <p>
-                Madame, Monsieur,
-            </p>
-
-            <p style="text-align: justify;">
-                Pour l’année académique <b>2025/2026</b>, l’Office National de Formation Professionnelle (<b>ONFP</b>)
-                assure la prise en charge de la formation d’un(e) étudiant(e)/admis(e) dans votre établissement,
-                selon le tableau ci-après.
-            </p>
-
-            {{-- Tableau récapitulatif --}}
-            <table width="100%" border="1" cellspacing="0" cellpadding="6"
-                style="border-collapse: collapse; text-align: center; margin-top: 10px;">
-
-                <thead style="background: #f1f1f1; font-weight: bold;">
-                    <tr>
-                        <td>Prénom et Nom</td>
-                        <td>Date & lieu de naissance</td>
-                        <td>Spécialité</td>
-                        <td>Niveau</td>
-                        <td>Montant (CFA)</td>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>{{ $formulaire->prenom . ' ' . $formulaire->nom }}</td>
-                        <td>{{ $formulaire->date_naissance->format('d/m/Y') . ' / ' . $formulaire->lieu_naissance }}</td>
-                        <td>{{ $formulaire->specialite }}</td>
-                        <td>{{ $formulaire->niveau }}</td>
-                        <td><b>{{ number_format($formulaire->montant, 0, ',', ' ') }}</b></td>
-                    </tr>
-                </tbody>
-
-            </table>
-
-            <p style="text-align: justify; margin-top: 20px;">
-                À cet effet, je vous transmets le contrat ci-joint en deux exemplaires originaux que vous voudrez bien
-                signer et me retourner.
-            </p>
-
-            <p style="text-align: justify;">
-                Je vous prie de croire, Madame, Monsieur, en l’assurance de ma considération distinguée.
-            </p>
-
-            <br><br>
-
-            <p><b>P.J :</b> Contrat</p>
-
-            <br>
-
-            {{-- Signature --}}
-            <div style="margin-top: 40px;">
-                <b>A</b><br>
-                Madame / Monsieur le/la Responsable de<br>
-                {{ $formulaire->nom_etablissement ?? 'Votre établissement' }}<br>
-                <b>{{ $formulaire->region ?? 'DAKAR' }}</b>
-            </div>
-
+            <footer>
+                <div class="page-number" id="footer">
+                    <div class="footer-line"></div>
+                    <p class="footer-text">Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN Tel: (+221) 33 827 92
+                        51 -
+                        Fax: (+221) 33 827 92
+                        55 <br> BP: 21013 Dakar-Ponty Email: <a href="#">onfp@onfp.sn</a></p>
+                </div>
+            </footer>
         </div>
-        
-        <footer>
-            <div class="page-number" id="footer">
-                <div class="footer-line"></div>
-                <p class="footer-text">Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN Tel: (+221) 33 827 92 51 -
-                    Fax: (+221) 33 827 92
-                    55 <br> BP: 21013 Dakar-Ponty Email: <a href="#">onfp@onfp.sn</a></p>
-            </div>
-        </footer>
 
-        {{-- Page suivante --}}
+        <!-- Saut de page obligatoire -->
+        <div style="page-break-after: always;"></div>
+        <!-- ========================= -->
+        <!-- PAGE 2 : CONTRAT          -->
+        <!-- ========================= -->
+        <div class="page-contrat">
+
+            <div style="font-family: 'DejaVu Sans', sans-serif; font-size: 13px; line-height: 1.6;">
+
+                <!-- ENTETE IDENTIQUE À LA LETTRE -->
+                <div style="width:100%; font-size:14px;">
+                    <div style="float:left; width:60%; text-align:left; line-height:1.1; font-size:12px;">
+
+                        <div style="text-align:center;">
+                            <strong style="font-size:13px; display:block;">
+                                REPUBLIQUE DU SENEGAL
+                            </strong>
+
+                            <em style="font-size:11px;">UN PEUPLE - UN BUT - UNE FOI</em><br>
+                            <span>---------</span><br>
+                            <strong style="font-size:12px;">
+                                MINISTERE DE L’EMPLOI ET DE LA FORMATION <br>
+                                PROFESSIONNELLE ET TECHNIQUE
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <div style="float:right; width:40%; text-align:right;">
+                        ONFP/DG/DIOF/ss<br><br>
+                        <i>Dakar, le ...............................</i>
+                    </div>
+
+                    <div style="clear:both;"></div>
+                </div>
+
+                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
+                    style="width: 340px; margin-top: 10px;">
+
+                <br><br>
+
+                <!-- TITRE CONTRAT -->
+                <h3 style="text-align:center; text-decoration:underline;">
+                    CONTRAT N° _____________ ONFP/DG/DIOF/ss
+                </h3>
+
+                <p><b>Entre les soussignés</b></p>
+
+                <p>
+                    <b>Office National de Formation Professionnelle (O.N.F.P.)</b><br>
+                    Cité SIPRES 1, Lot 2, 2 voies Liberté 6 extension VDN - BP 21013 – Dakar Ponty
+                </p>
+
+                <p>
+                    <b>Et</b><br>
+                    <b>Ecole Supérieure de Commerce (GROUPE SUP DECO)</b><br>
+                    Adresse : Dakar<br>
+                    Tél : 33 849 69 19 / 33 821 50 74
+                </p>
+
+                <p>
+                    Il a été convenu et arrêté ce qui suit :
+                </p>
+
+                <h4><u>Article 1 : Objet du contrat</u></h4>
+
+                <p>
+                    Pour l’année académique <b>2025-2026</b>, l’ONFP confie à l’Ecole Supérieure de Commerce, qui
+                    accepte,
+                    la formation d’un(e) étudiant(e), conformément aux indications du tableau suivant :
+                </p>
+
+                <!-- TABLEAU -->
+                <table width="100%" border="1" cellspacing="0" cellpadding="6"
+                    style="border-collapse: collapse; text-align: center; margin-top: 10px;">
+
+                    <thead style="background: #f1f1f1; font-weight: bold;">
+                        <tr>
+                            <td>Prénom et Nom</td>
+                            <td>Date & lieu de naissance</td>
+                            <td>Spécialité</td>
+                            <td>Niveau</td>
+                            <td>Montant (CFA)</td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>{{ $formulaire->prenom . ' ' . $formulaire->nom }}</td>
+                            <td>{{ $formulaire->date_naissance->format('d/m/Y') . ' / ' . $formulaire->lieu_naissance }}
+                            </td>
+                            <td>{{ $formulaire->specialite }}</td>
+                            <td>{{ $formulaire->niveau }}</td>
+                            <td><b>{{ number_format($formulaire->montant, 0, ',', ' ') }}</b></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+                <br>
+
+                <h4><u>Article 2 : Engagement des parties</u></h4>
+
+                <p><b>A : Engagement de l’ONFP</b></p>
+                <ul>
+                    <li>A prendre en charge les frais de scolarité annuels (excepté les frais d’inscription), selon les
+                        modalités prévues à l’article 3 ;</li>
+                    <li>A réaliser des visites ponctuelles au niveau de l’établissement pour le suivi de la formation.
+                    </li>
+                </ul>
+
+                <p><b>B : Engagement de l’Etablissement</b></p>
+                <ul>
+                    <li>Assurer à l’étudiant(e) une formation correspondant à la spécialité et au niveau indiqué dans le
+                        contrat ;</li>
+                    <li>Veiller au respect de l’assiduité de l’étudiant(e) ;</li>
+                    <li>Mettre à la disposition de l’ONFP les relevés de notes, factures et rapport d’exécution ;</li>
+                    <li>Signaler tout manquement de l’étudiant(e) (assiduité, résultats, discipline) ;</li>
+                    <li>Faciliter les visites de contrôle de l’ONFP ;</li>
+                    <li>Autoriser l’étudiant(e) à démarrer les cours en absence de l’avance prévue à l’article 3 ;</li>
+                    <li>Autoriser l’étudiant(e) à poursuivre les cours jusqu’à la fin de l’année scolaire.</li>
+                </ul>
+
+                <h4><u>Article 3 : Modalités de paiement</u></h4>
+
+                <p>Le règlement s’effectue selon les modalités ci-après :</p>
+                <ul>
+                    <li>50% dès signature du présent contrat par les deux parties, sous réserve de la disponibilité du
+                        budget de l’ONFP et sur présentation d’une facture d’acompte + certificat d’inscription ;</li>
+                    <li>50% à la fin de la formation, après présentation du rapport d’exécution, des relevés de notes et
+                        de la facture reliquat.</li>
+                </ul>
+
+                <h4><u>Article 4 : Modification</u></h4>
+                <p>
+                    Toute modification du contrat fera l’objet d’un avenant signé par les deux parties.
+                </p>
+
+                <h4><u>Article 5 : Résiliation</u></h4>
+                <p>
+                    Le contrat peut être résilié à tout moment en cas de manquement grave ou d’arrêt de l’étudiant(e).
+                </p>
+
+                <h4><u>Article 6 : Règlement des litiges</u></h4>
+                <p>
+                    Tout litige sera réglé à l’amiable. À défaut, le droit sénégalais sera appliqué.
+                </p>
+
+                <br><br>
+
+                <p>
+                    Fait à Dakar en deux exemplaires originaux, le ……………………………
+                </p>
+
+                <br><br>
+
+                <table width="100%" style="margin-top:20px;">
+                    <tr>
+                        <td style="text-align:left; width:50%;">
+                            <b>Pour l’Établissement</b><br><br><br>
+                            Le Directeur
+                        </td>
+                        <td style="text-align:right; width:50%;">
+                            <b>Pour l’O.N.F.P.</b><br><br><br>
+                            Le Directeur Général
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <footer>
+                <div class="page-number">
+                    <div class="footer-line"></div>
+                    <p class="footer-text">Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN
+                        Tel: (+221) 33 827 92 51 - Fax: (+221) 33 827 92 55 <br>
+                        BP: 21013 Dakar-Ponty - Email: onfp@onfp.sn
+                    </p>
+                </div>
+            </footer>
+        </div>
+
+        <div style="page-break-after: always;"></div>
+
+        <!-- Saut de page pour le prochain formulaire -->
         <div style="page-break-after: always;"></div>
     @endforeach
 </body>
