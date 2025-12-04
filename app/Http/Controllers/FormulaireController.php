@@ -502,8 +502,7 @@ class FormulaireController extends Controller
     {
         $fileName = "Prises en charge - {$statut}.xlsx";
 
-        return Excel::download(new ExportPrisenchargeStatut($statut), 'prises_en_charge.xlsx');
-
+        return Excel::download(new ExportPrisenchargeStatut($statut), $fileName);
     }
 
     public function filtrerPrisenchargeParStatut($statut, $region)
