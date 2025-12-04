@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportPrisenchargeStatut;
 use App\Exports\PrisenchargeExport;
 use App\Mail\ConfirmationInscriptionPchare;
 use App\Models\Formulaire;
 use App\Models\HistoriquePriseEnCharge;
 use Carbon\Carbon;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Kris\LaravelFormBuilder\Form;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
-use Dompdf\Dompdf;
 
 class FormulaireController extends Controller
 {
@@ -497,6 +498,13 @@ class FormulaireController extends Controller
         return Excel::download(new PrisenchargeExport($statut, $region), $fileName);
     }
 
+    public function PrisenchargeExcel($statut)
+    {
+        $fileName = "Prises en charge - {$statut}.xlsx";
+
+        return Excel::download(new ExportPrisenchargeStatut($statut), 'prises_en_charge.xlsx');
+
+    }
 
     public function filtrerPrisenchargeParStatut($statut, $region)
     {

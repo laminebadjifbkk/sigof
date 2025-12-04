@@ -586,6 +586,11 @@ Route::group(['middleware' => ['XSS']], function () {
             [FormulaireController::class, 'exporterPrisenchargeExcel']
         )->name('prisencharge.excel');
 
+        Route::get(
+            '/prisenchargeExcel/export-excel/{statut}',
+            [FormulaireController::class, 'PrisenchargeExcel']
+        )->name('prisenchargeExcel');
+
 
         Route::get('/commissionagrements/{statut}/{commissionagrement}/export-pv', [CommissionagrementController::class, 'exportPV'])
             ->name('commissionagrements.exportPV');

@@ -24,16 +24,25 @@
                         </a>
                     </span>
                 @endcan --}}
-                @can('generer-contrat-lettre-view')
-                    <div class="text-end p-3 mb-4 rounded shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+
+                    @can('exporter-view')
+                        <a href="{{ route('prisenchargeExcel', ['statut' => $statut]) }}"
+                            class="btn btn-outline-success btn-sm d-flex align-items-center gap-2" title="Exporter la liste">
+                            <i class="bi bi-file-earmark-excel"></i> Exporter excel
+                        </a>
+                    @endcan
+
+                    @can('generer-contrat-lettre-view')
                         <a href="{{ route('generer-contrat-lettre.pdf', ['statut' => $statut]) }}"
-                            class="btn btn-outline-danger btn-sm shadow-sm px-3 py-2 d-inline-flex align-items-center gap-2"
+                            class="btn btn-outline-danger btn-sm d-inline-flex align-items-center gap-2"
                             title="Télécharger les contrats et lettres en PDF" target="_blank">
                             <i class="bi bi-file-earmark-pdf fs-5"></i>
                             <strong>PDF Contrats & Lettres</strong>
                         </a>
-                    </div>
-                @endcan
+                    @endcan
+
+                </div>
 
                 <div class="card shadow-sm">
                     <div class="card-body">
