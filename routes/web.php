@@ -883,6 +883,8 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::post('/pcharge', [FormulaireController::class, 'store'])->name('formulaire.store');
     Route::get('/pcharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci'); */
 
+    Route::get('/resultastspcharges', [ContactController::class, 'resultastsPcharge'])->name('resultastspcharges.show');
+
 
     Route::get('/Note_d_information_CAL_2025', function () {
         $path = public_path('Note_d_information_CAL_2025.pdf');
