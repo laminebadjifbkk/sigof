@@ -75,7 +75,7 @@
                                         <th>Fonction</th>
                                         <th>Email</th>
                                         <th>Téléphone</th>
-                                        <th class="text-center">Nettoyer</th>
+                                        {{-- <th class="text-center">Nettoyer</th> --}}
                                         <th class="text-center">Restaurer</th>
                                     </tr>
                                 </thead>
@@ -91,7 +91,7 @@
                                             <td><a
                                                     href="tel:+221{{ $ingenieur?->user?->telephone }}">{{ $ingenieur?->user?->telephone }}</a>
                                             </td>
-                                            <td class="text-center">
+                                            {{-- <td class="text-center">
                                                 <form action="{{ route('ingenieurs.forceDelete', $ingenieur->id) }}"
                                                     method="POST">
                                                     @csrf
@@ -101,7 +101,7 @@
                                                         <i class="bi bi-trash-fill"></i>
                                                     </button>
                                                 </form>
-                                            </td>
+                                            </td> --}}
                                             <td class="text-center">
                                                 <form action="{{ route('ingenieurs.restored', $ingenieur->id) }}"
                                                     method="POST">

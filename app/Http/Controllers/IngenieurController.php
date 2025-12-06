@@ -190,7 +190,7 @@ class IngenieurController extends Controller
         $ingenieur = Ingenieur::onlyTrashed()->findOrFail($id);
 
         // Supprimer définitivement l’ingénieur
-        $ingenieur->forceDelete();
+        /* $ingenieur->forceDelete(); */
 
         // Message de succès
         return redirect()->route('ingenieurs.corbeille')
