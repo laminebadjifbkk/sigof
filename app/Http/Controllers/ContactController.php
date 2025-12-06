@@ -183,9 +183,4 @@ class ContactController extends Controller
         $dompdf->stream($name, ['Attachment' => false]);
     }
 
-     public function resultastsPcharge()
-    {
-     
-        return view('formulaire.resultastspcharges');
-    }
 }

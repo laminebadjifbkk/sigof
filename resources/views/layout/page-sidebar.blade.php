@@ -490,6 +490,15 @@
             </li>
         @endcan
 
+        @can('ingenieur-corbeille-view')
+            <li class="nav-item {{ request()->routeIs('ingenieurs.corbeille') ? 'active' : 'collapsed' }}">
+                <a class="nav-link collapsed" href="{{ route('ingenieurs.corbeille') }}">
+                    <i class="bi bi-people-fill"></i>
+                    <span>Ingénieurs supprimés</span>
+                </a>
+            </li>
+        @endcan
+
         @can('evaluateur-view')
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('evaluateurs.*') ? 'active' : 'collapsed' }}"

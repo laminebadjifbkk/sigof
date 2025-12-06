@@ -624,6 +624,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/users/inactifs', [UserController::class, 'inactifs'])->name('users.inactifs');
         Route::get('/users/corbeille', [UserController::class, 'corbeille'])->name('users.corbeille');
         Route::get('/individuelles/corbeille', [IndividuelleController::class, 'corbeille'])->name('individuelles.corbeille');
+        Route::get('/ingenieurs/corbeille', [IngenieurController::class, 'corbeille'])->name('ingenieurs.corbeille');
+        Route::put('/ingenieurs/restored/{id}', [IngenieurController::class, 'restored'])
+            ->name('ingenieurs.restored');
         Route::get('/collectives/corbeille', [CollectiveController::class, 'corbeille'])->name('collectives.corbeille');
         Route::get('/modules/corbeille', [ModuleController::class, 'corbeille'])->name('modules.corbeille');
         Route::get('/operateurs/corbeille', [OperateurController::class, 'corbeille'])->name('operateurs.corbeille');
@@ -658,6 +661,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::post('/demandeurformationindividuelle/{id}/changer-formation', [FormationController::class, 'changerFormation'])->name('demandeurformationindividuelle.changerFormation');
         Route::post('/attestations/{id}/check', [FormationController::class, 'checkAttestation'])->name('attestations.check');
         Route::delete('/users/force-delete/{uuid}', [UserController::class, 'forceDelete'])->name('users.forceDelete');
+        Route::delete('/ingenieurs/force-delete/{id}', [IngenieurController::class, 'forceDelete'])->name('ingenieurs.forceDelete');
         Route::put('/users/restore/{uuid}', [UserController::class, 'restore'])->name('users.restore');
 
         Route::delete('/operateurs/force-delete/{uuid}', [OperateurController::class, 'forceDelete'])->name('operateurs.forceDelete');
@@ -882,9 +886,6 @@ Route::group(['middleware' => ['XSS']], function () {
     /* Route::get('/pcharge', [FormulaireController::class, 'create'])->name('formulaire.create');
     Route::post('/pcharge', [FormulaireController::class, 'store'])->name('formulaire.store');
     Route::get('/pcharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci'); */
-
-    Route::get('/resultastspcharges', [ContactController::class, 'resultastsPcharge'])->name('resultastspcharges.show');
-
 
     Route::get('/Note_d_information_CAL_2025', function () {
         $path = public_path('Note_d_information_CAL_2025.pdf');

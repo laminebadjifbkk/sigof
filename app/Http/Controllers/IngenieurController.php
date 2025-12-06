@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Departement;
@@ -71,23 +72,33 @@ class IngenieurController extends Controller
 
         $this->validate($request, [
             'matricule' => [
-                'nullable', 'string', 'max:25',
+                'nullable',
+                'string',
+                'max:25',
                 Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
             ],
             'name'      => [
-                'required', 'string', 'max:50',
+                'required',
+                'string',
+                'max:50',
                 Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
             ],
             'initiale'  => [
-                'required', 'string', 'max:25',
+                'required',
+                'string',
+                'max:25',
                 Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
             ],
             'email'     => [
-                'required', 'string', 'max:50',
+                'required',
+                'string',
+                'max:50',
                 Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
             ],
             'telephone' => [
-                'required', 'string', 'size:12',
+                'required',
+                'string',
+                'size:12',
                 Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
             ],
         ]);
@@ -129,5 +140,60 @@ class IngenieurController extends Controller
         Alert::success('Succès !', 'Suppression effectuée');
 
         return redirect()->back();
+    }
+
+
+    public function corbeille()
+    {
+        $total_count = Ingenieur::onlyTrashed()->count();
+        $total_count = number_format($total_count, 0, ',', ' ');
+
+
+        $ingenieurs = Ingenieur::onlyTrashed()
+            ->latest()
+            ->take(100)
+            ->get();
+
+        $count_ingenieur = number_format($ingenieurs->count(), 0, ',', ' ');
+
+        if ($count_ingenieur < 1) {
+            $title = 'Aucun ingénieur supprimé';
+        } elseif ($count_ingenieur == 1) {
+            $title = "$count_ingenieur ingénieur supprimé sur un total de $total_count";
+        } else {
+            $title = "Liste des $count_ingenieur derniers ingénieurs supprimés sur un total de $total_count";
+        }
+
+        return view("ingenieurs.corbeille", compact("ingenieurs", "title"));
+    }
+
+
+    public function restored($id)
+    {
+        // Récupérer l’ingénieur supprimé
+        $ingenieur = Ingenieur::onlyTrashed()->findOrFail($id);
+
+        // Restaurer l’ingénieur
+        $ingenieur->restore();
+
+        // Restaurer automatiquement son user s'il est soft delete
+        if ($ingenieur->user()->withTrashed()->exists()) {
+            $ingenieur->user()->withTrashed()->restore();
+        }
+
+        // Message de succès
+        return redirect()->route('ingenieurs.corbeille')
+            ->with('status', 'Ingénieur restauré avec succès !');
+    }
+    public function forceDelete($id)
+    {
+        $ingenieur = Ingenieur::onlyTrashed()->findOrFail($id);
+
+        // Supprimer définitivement l’ingénieur
+        $ingenieur->forceDelete();
+
+        // Message de succès
+        return redirect()->route('ingenieurs.corbeille')
+            ->with('status', 'Ingénieur supprimé définitivement avec succès !');
     }
 }
