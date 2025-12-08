@@ -56,7 +56,7 @@ class ProfileController extends Controller
 
 
         // 🔹 Définir les bornes de temps
-        $start = Carbon::create(2025, 12, 8, 8, 30);   // 9 décembre 2025 à 08h30
+        $start = Carbon::create(2025, 12, 8, 12, 30);   // 9 décembre 2025 à 08h30
         $end   = Carbon::create(2025, 12, 15, 17, 0);  // 15 décembre 2025 à 17h00
         $now   = Carbon::now();
         // 🔹 Vérifier si on est dans l'intervalle
