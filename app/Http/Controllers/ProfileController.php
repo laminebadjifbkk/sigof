@@ -54,6 +54,14 @@ class ProfileController extends Controller
             $statusMessage = "Vous n'avez pas de demande de prise en charge à votre nom.";
         }
 
+
+        // 🔹 Définir les bornes de temps
+        $start = Carbon::create(2025, 12, 8, 8, 30);   // 9 décembre 2025 à 08h30
+        $end   = Carbon::create(2025, 12, 15, 17, 0);  // 15 décembre 2025 à 17h00
+        $now   = Carbon::now();
+        // 🔹 Vérifier si on est dans l'intervalle
+        $showButton = $now->between($start, $end);
+
         $projets = Projet::where('statut', 'ouvert')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -193,6 +201,7 @@ class ProfileController extends Controller
                     'statusMessage'           => $statusMessage,
                     'formulaire'           => $formulaire,
                     'showChangeCertificat'           => $showChangeCertificat,
+                    'showButton'           => $showButton,
                 ]);
             } else {
                 return view('profile.profile-page', [
@@ -214,6 +223,7 @@ class ProfileController extends Controller
                     'statusMessage'             => $statusMessage,
                     'formulaire'             => $formulaire,
                     'showChangeCertificat'           => $showChangeCertificat,
+                    'showButton'           => $showButton,
                 ]);
             }
         }
@@ -234,6 +244,7 @@ class ProfileController extends Controller
             'statusMessage'           => $statusMessage,
             'formulaire'           => $formulaire,
             'showChangeCertificat'           => $showChangeCertificat,
+            'showButton'           => $showButton,
         ]);
     }
 
