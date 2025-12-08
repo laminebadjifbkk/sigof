@@ -147,6 +147,87 @@
                                     @endforeach
                                 </div>
 
+                                <hr class="dropdown-divider mt-4">
+                                <h5 class="text-primary">Informations complémentaires</h5>
+
+                                <div class="row g-3">
+                                    {{-- Certificat (fichier) --}}
+                                    <div class="col-lg-4 col-md-4">
+                                        <label class="form-label fw-semibold">Certificat d’inscription</label>
+                                        <input type="file" name="certificat_file" class="form-control form-control-sm">
+                                        @if ($formulaire->certificat_file)
+                                            <div class="mt-2">
+                                                <a href="{{ asset('storage/' . $formulaire->certificat_file) }}"
+                                                    target="_blank" class="btn btn-outline-primary btn-sm">
+                                                    <i class="bi bi-file-earmark-arrow-down"></i> Voir certificat
+                                                </a>
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    {{-- Responsable établissement --}}
+                                    <div class="col-lg-4 col-md-4">
+                                        <label class="form-label fw-semibold">Type responsable établissement</label>
+                                        <input type="text" name="responsable_etablieement"
+                                            class="form-control form-control-sm"
+                                            placeholder="Ex : Monsieur le Directeur, Madame la Directrice, etc."
+                                            value="{{ old('responsable_etablieement', $formulaire->responsable_etablieement) }}">
+                                    </div>
+
+                                    {{-- Adresse établissement --}}
+                                    <div class="col-lg-4 col-md-4">
+                                        <label class="form-label fw-semibold">Adresse établissement</label>
+                                        <input type="text" name="adresse_etablessement" class="form-control form-control-sm" placeholder="Ex:Dakar"
+                                            value="{{ old('adresse_etablessement', $formulaire->adresse_etablessement) }}">
+                                    </div>
+
+                                    {{-- Téléphone établissement --}}
+                                    <div class="col-lg-4 col-md-4">
+                                        <label class="form-label fw-semibold">Téléphone établissement</label>
+                                        <input type="text" name="telephone_etablissement" placeholder="33 800 00 00"
+                                            class="form-control form-control-sm"
+                                            value="{{ old('telephone_etablissement', $formulaire->telephone_etablissement) }}">
+                                    </div>
+
+                                    {{-- Année scolaire --}}
+                                    <div class="col-lg-4 col-md-4">
+                                        <label class="form-label fw-semibold">Année scolaire</label>
+                                        <input type="text" name="annee_scolaire" class="form-control form-control-sm" placeholder="2025-2026"
+                                            value="{{ old('annee_scolaire', $formulaire->annee_scolaire) }}">
+                                    </div>
+
+                                    {{-- Montant ONFP --}}
+                                    <div class="col-lg-4 col-md-4">
+                                        <label class="form-label fw-semibold">Montant pris en charge</label>
+                                        <input type="text" name="montant_onfp" class="form-control form-control-sm" placeholder="Ex : 750000"
+                                            value="{{ old('montant_onfp', $formulaire->montant_onfp) }}">
+                                    </div>
+
+                                    {{-- Statut certificat (affichage simple) --}}
+                                    <div class="col-lg-4 col-md-4">
+                                        <label class="form-label fw-semibold">Statut du certificat</label>
+                                        <select name="statut_certificat" class="form-select form-select-sm" required>
+                                            <option value="">-- Sélectionnez --</option>
+                                            <option value="Nouveau"
+                                                {{ old('statut_certificat', $formulaire->statut_certificat) == 'Nouveau' ? 'selected' : '' }}>
+                                                Nouveau
+                                            </option>
+                                            <option value="Validé"
+                                                {{ old('statut_certificat', $formulaire->statut_certificat) == 'Validé' ? 'selected' : '' }}>
+                                                Validé
+                                            </option>
+                                            <option value="Rejeté"
+                                                {{ old('statut_certificat', $formulaire->statut_certificat) == 'Rejeté' ? 'selected' : '' }}>
+                                                Rejeté
+                                            </option>
+                                            <option value="Attente"
+                                                {{ old('statut_certificat', $formulaire->statut_certificat) == 'Attente' ? 'selected' : '' }}>
+                                                Attente
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 {{-- Boutons --}}
                                 <div class="mt-4 d-flex justify-content-between">
                                     <a href="{{ route('formulaires.show', $formulaire->id) }}"

@@ -23,6 +23,14 @@
                     <div class="card shadow-sm">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Détails de l’inscription</h5>
+                            @can('generer-contrat-lettre-view')
+                                <a href="{{ route('generer-lecontrat-lalettre.pdf', ['id' => $formulaire->id]) }}"
+                                    class="btn btn-outline-danger btn-sm d-inline-flex align-items-center gap-2"
+                                    title="Télécharger les contrats et lettres en PDF" target="_blank">
+                                    <i class="bi bi-file-earmark-pdf fs-5"></i>
+                                    <strong>Contrat & lettre</strong>
+                                </a>
+                            @endcan
                             @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
                                 @if ($formulaire?->historiques->count() > '0')
                                     <span class="d-flex mt-2 align-items-baseline">
@@ -150,7 +158,8 @@
 
                             {{-- Boutons --}}
                             <div class="mt-4 d-flex justify-content-between">
-                                <a href="{{ route('formulaires.showregiondiplome', ['region' => $formulaire?->region, 'diplome_vise' => $formulaire?->diplome_vise]) }}" class="btn btn-secondary btn-sm">
+                                <a href="{{ route('formulaires.showregiondiplome', ['region' => $formulaire?->region, 'diplome_vise' => $formulaire?->diplome_vise]) }}"
+                                    class="btn btn-secondary btn-sm">
                                     Retour à la liste
                                 </a>
                                 <a href="{{ route('formulaires.edit', $formulaire->id) }}" class="btn btn-warning btn-sm">

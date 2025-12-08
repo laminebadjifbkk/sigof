@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
 use Kris\LaravelFormBuilder\Form;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
 
 class FormulaireController extends Controller
 {
@@ -353,13 +354,20 @@ class FormulaireController extends Controller
             'type_handicap' => 'nullable|string|max:255',
             'orphelin' => 'nullable|string|max:10',
             'type_orphelin' => 'nullable|string|max:255',
-            /* 'statut' => 'required|string|max:50', */
+            /* 'statut' => 'required|string|max:50', */ // nouveaux champs
+            'responsable_etablieement' => 'nullable|string|max:255',
+            'adresse_etablessement' => 'nullable|string|max:255',
+            'telephone_etablissement' => 'nullable|string|max:20',
+            'annee_scolaire' => 'nullable|string|max:20',
+            'montant_onfp' => 'nullable|numeric',
+            'statut_certificat' => 'nullable|string|max:50',
 
             // fichiers
             'cin_file' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
             'facture_file' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
             'cv' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
             'diplome' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
+            'certificat_file' => 'nullable|file|mimes:pdf,jpg,png|max:1024',
         ]);
 
 
@@ -369,6 +377,7 @@ class FormulaireController extends Controller
             'facture_file'  => 'uploads/factures',
             'cv'            => 'uploads/cvs',
             'diplome'       => 'uploads/diplomes',
+            'certificat_file'       => 'uploads/certificats',
         ];
 
         foreach ($fileDirectories as $fileField => $directory) {
@@ -882,6 +891,62 @@ class FormulaireController extends Controller
 
             // Output the generated PDF to Browser
             $dompdf->stream($name, ['Attachment' => false]);
+        } catch (\Exception $e) {
+            Alert::error('Erreur', 'Une erreur est survenue lors de la génération du PDF.');
+            return redirect()->back();
+        }
+    }
+
+    public function exporterlecontratlalettrePDF($id)
+    {
+        try {
+            // Récupérer le formulaire par ID
+            $formulaire = Formulaire::findOrFail($id);
+
+            // Logique pour déterminer le titre du responsable
+            $responsable = $formulaire->responsable_etablieement;
+            if (Str::contains($responsable, 'Directeur')) {
+                $titre = 'Le Directeur';
+            } elseif (Str::contains($responsable, 'Directrice')) {
+                $titre = 'La Directrice';
+            } elseif (Str::contains($responsable, 'Doyen')) {
+                $titre = 'Le Doyen';
+            } elseif (Str::contains($responsable, 'Doyenne')) {
+                $titre = 'La Doyenne';
+            } else {
+                $titre = 'Le Responsable';
+            }
+
+            // Vérifier le statut
+            if ($formulaire->statut !== 'Sélectionné') {
+                Alert::error('Attention', 'Impossible de télécharger : statut invalide.');
+                return redirect()->back();
+            }
+
+            // Préparer les données pour la vue PDF
+            $dompdf  = new Dompdf();
+            $options = $dompdf->getOptions();
+            $dompdf->setOptions($options);
+
+            $dompdf->loadHtml(view(
+                'formulaire.contrat-lettre-pdf',
+                compact('formulaire', 'titre')
+            ));
+
+            // Format du PDF
+            $dompdf->setPaper('Letter', 'portrait');
+            $dompdf->render();
+
+            // Nom du fichier
+            $name = 'Contrat_Lettre_' . $formulaire->prenom . '_' . $formulaire->nom . '.pdf';
+            $name = str_replace(
+                [' ', 'é', 'è', 'ê', 'à', 'ç', ','],
+                ['_', 'e', 'e', 'e', 'a', 'c', ''],
+                $name
+            );
+
+            // Stream vers le navigateur
+            return $dompdf->stream($name, ['Attachment' => false]);
         } catch (\Exception $e) {
             Alert::error('Erreur', 'Une erreur est survenue lors de la génération du PDF.');
             return redirect()->back();
