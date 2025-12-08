@@ -31,7 +31,7 @@ class AuthenticatedSessionController extends Controller
     public function accueil(): View
     {
         // 🔹 Définir les bornes de temps
-        $start = Carbon::create(2025, 12, 8, 12, 30);   // 9 décembre 2025 à 08h30
+        $start = Carbon::create(2025, 12, 8, 13, 30);   // 9 décembre 2025 à 08h30
         $end   = Carbon::create(2025, 12, 15, 17, 0);  // 15 décembre 2025 à 17h00
         $now   = Carbon::now();
 
