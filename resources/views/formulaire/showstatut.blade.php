@@ -100,6 +100,7 @@
                                         @foreach ($labels as $key => $label)
                                             <th>{{ $label }}</th>
                                         @endforeach
+                                        <th>Certificat</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -131,6 +132,16 @@
                                                     @endif
                                                 </td>
                                             @endforeach
+                                            <td class="text-center">
+                                                @if ($inscription->certificat_file)
+                                                    <a href="{{ asset('storage/' . $inscription->certificat_file) }}"
+                                                        target="_blank" class="btn btn-outline-primary btn-sm">
+                                                        <i class="bi bi-file-earmark-arrow-down"></i>
+                                                    </a>
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
                                             <td class="text-center">
                                                 <div class="btn-group">
                                                     {{-- Bouton Voir --}}
