@@ -24,12 +24,14 @@
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Détails de l’inscription</h5>
                             @can('generer-contrat-lettre-view')
-                                <a href="{{ route('generer-lecontrat-lalettre.pdf', ['id' => $formulaire->id]) }}"
-                                    class="btn btn-outline-danger btn-sm d-inline-flex align-items-center gap-2"
-                                    title="Télécharger les contrats et lettres en PDF" target="_blank">
-                                    <i class="bi bi-file-earmark-pdf fs-5"></i>
-                                    <strong>Contrat & lettre</strong>
-                                </a>
+                                @if ($formulaire->statut === 'Sélectionné')
+                                    <a href="{{ route('generer-lecontrat-lalettre.pdf', ['id' => $formulaire->id]) }}"
+                                        class="btn btn-outline-danger btn-sm d-inline-flex align-items-center gap-2"
+                                        title="Télécharger les contrats et lettres en PDF" target="_blank">
+                                        <i class="bi bi-file-earmark-pdf fs-5"></i>
+                                        <strong>Contrat & lettre</strong>
+                                    </a>
+                                @endif
                             @endcan
                             @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
                                 @if ($formulaire?->historiques->count() > '0')
