@@ -21,7 +21,7 @@ class FormulaireController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(['role:super-admin|Ingenieur']);
+        $this->middleware(['role:super-admin|Ingenieur|Demandeur']);
         $this->middleware("permission:formulaire-view", ["only" => ["index"]]);
     }
     // Affichage du formulaire
@@ -885,5 +885,53 @@ class FormulaireController extends Controller
             Alert::error('Erreur', 'Une erreur est survenue lors de la génération du PDF.');
             return redirect()->back();
         }
+    }
+
+    public function editCertificat($id)
+    {
+        $formulaire = Formulaire::findOrFail($id);
+        return view('formulaire.certificat', compact('formulaire'));
+    }
+
+    public function updateCertificat(Request $request, $id)
+    {
+        $formulaire = Formulaire::findOrFail($id);
+        // Validation
+        $request->validate([
+            'certificat_file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048', // 📂 Upload du certificat
+        ]);
+
+        if ($request->hasFile('certificat_file')) {
+            $uploadedFile = $request->file('certificat_file');
+
+            // 🔹 Supprimer l'ancien fichier s'il existe
+            if ($formulaire->certificat_file && Storage::disk('public')->exists($formulaire->certificat_file)) {
+                Storage::disk('public')->delete($formulaire->certificat_file);
+            }
+            // Nettoyer le nom du fichier
+            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = 'Certificat_' . time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
+
+            // Dossier cible dans le disque public
+            $folder = 'certificats'; // 👉 dossier spécifique pour les certificats
+
+            // Créer le dossier s'il n'existe pas
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+
+            // Stocker le fichier
+            $filePath = $uploadedFile->storeAs($folder, $filename, 'public');
+
+            // Mettre à jour le modèle
+            $formulaire->update([
+                'certificat_file' => $filePath,
+                'statut_certificat' => 'Nouveau',
+            ]);
+        }
+
+
+        return redirect()->route('formulaires.certificat.edit', $formulaire->id)
+            ->with('status', '✅ Certificat d’inscription téléversé avec succès.');
     }
 }

@@ -1,14 +1,16 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Collective;
 use App\Models\File;
+use App\Models\Formulaire;
 use App\Models\Individuelle;
 use App\Models\Projet;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\RedirectResponse;
 /* use Illuminate\Support\Carbon; */
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +27,33 @@ class ProfileController extends Controller
      */
     public function profilePage(Request $request): View
     {
-        $user    = Auth::user();
+        $user  = Auth::user();
+        $email = $user->email;
+
+        // Récupérer le formulaire lié à l'utilisateur
+        $formulaire = Formulaire::where('email', $email)->first();
+
+        // Préparer les variables pour la vue
+        $statusMessage         = null;
+        $showCard              = false;
+        $showChangeCertificat  = false;
+
+        if ($formulaire) {
+            if ($formulaire->statut === 'Sélectionné') {
+                $showCard      = true;
+                $statusMessage = "Félicitations, votre candidature a été retenue !";
+            } else {
+                $statusMessage = "Votre candidature n'a pas été retenue.";
+            }
+
+            // 🔹 Vérifier si certificat existe et statut_certificat est Nouveau ou Rejeté
+            if ($formulaire->certificat_file && in_array($formulaire->statut_certificat, ['Nouveau', 'Rejeté'])) {
+                $showChangeCertificat = true;
+            }
+        } else {
+            $statusMessage = "Vous n'avez pas de demande de prise en charge à votre nom.";
+        }
+
         $projets = Projet::where('statut', 'ouvert')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -161,6 +189,10 @@ class ProfileController extends Controller
                     'user_cin'                 => $user_cin,
                     'date_ouverture'           => $date_ouverture,
                     'date_fermeture'           => $date_fermeture,
+                    'showCard'           => $showCard,
+                    'statusMessage'           => $statusMessage,
+                    'formulaire'           => $formulaire,
+                    'showChangeCertificat'           => $showChangeCertificat,
                 ]);
             } else {
                 return view('profile.profile-page', [
@@ -178,6 +210,10 @@ class ProfileController extends Controller
                     'count_ingenieur_formations' => $count_ingenieur_formations,
                     'date_ouverture'             => $date_ouverture,
                     'date_fermeture'             => $date_fermeture,
+                    'showCard'             => $showCard,
+                    'statusMessage'             => $statusMessage,
+                    'formulaire'             => $formulaire,
+                    'showChangeCertificat'           => $showChangeCertificat,
                 ]);
             }
         }
@@ -192,6 +228,12 @@ class ProfileController extends Controller
             'user_cin'                 => $user_cin,
             'date_ouverture'           => $date_ouverture,
             'date_fermeture'           => $date_fermeture,
+            'showCard'           => $showCard,
+            'showCard'           => $showCard,
+            'statusMessage'           => $statusMessage,
+            'statusMessage'           => $statusMessage,
+            'formulaire'           => $formulaire,
+            'showChangeCertificat'           => $showChangeCertificat,
         ]);
     }
 
@@ -312,7 +354,7 @@ class ProfileController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
-/*
+        /*
         if (request('image')) {
             if (! empty($user->image)) {
                 Storage::disk('public')->delete($user->image);
@@ -418,5 +460,4 @@ class ProfileController extends Controller
 
         return back(); // Redirige vers la page précédente
     }
-
 }

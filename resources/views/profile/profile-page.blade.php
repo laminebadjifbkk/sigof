@@ -56,6 +56,39 @@
                 </div>
 
                 @role('Demandeur')
+                    {{-- Message statut --}}
+                    <div class="mb-3">
+                        {!! $statusMessage !!}
+                    </div>
+                    {{-- Carte affichée uniquement si sélectionné --}}
+                    @if ($showCard)
+                        <div class="card shadow-lg border-0 rounded-3">
+                            <div class="card-body text-center">
+                                <h5 class="card-title text-success fw-bold mb-3">
+                                    Demande <span class="text-muted">| prise en charge</span>
+                                </h5>
+
+                                <div class="d-flex flex-column align-items-center">
+                                    {{-- <i class="bi bi-upload fs-1 text-primary mb-3"></i> --}}
+
+                                    {{-- Bouton normal --}}
+                                    {{-- <a href="{{ route('formulaires.certificat.edit', $formulaire->id) }}"
+                                        class="btn btn-outline-primary fw-bold">
+                                        Téléverser votre certificat d'inscription
+                                    </a> --}}
+
+                                    {{-- Bouton changer si déjà téléversé et statut_certificat = Nouveau ou Rejeté --}}
+                                    @if ($showChangeCertificat)
+                                        <a href="{{ route('formulaires.certificat.edit', $formulaire->id) }}"
+                                            class="btn btn-warning fw-bold mt-2">
+                                            🔄 Téléverser ou changer votre certificat
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                     {{-- <div class="col-12">
                         <div class="card">
                             <div class="card-body pb-0">

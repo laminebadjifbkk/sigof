@@ -40,6 +40,19 @@ class Formulaire extends Model
         'diplome',
         'cv',
         'statut',
+        'certificat_file',
+        'responsable_etablieement',
+        'adresse_etablessement',
+        'telephone_etablissement',
+        'annee_scolaire',
+        'montant_onfp',
+        'statut_certificat',
+        'users_id',
+        'created_by',
+        'update_by',
+        'autre_1',
+        'autre_2',
+
     ];
 
     protected $casts = [
