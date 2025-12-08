@@ -173,10 +173,33 @@
                         <section class="service-details py-6">
                             <div class="container mx-auto px-4">
                                 <div class="p-6 rounded-lg">
-                                    <h4 class="text-xl font-bold text-blue-600 mb-4 flex items-center">
-                                        <i class="bi bi-link-45deg text-2xl mr-2"></i> Ressources utiles
+                                    {{-- <a href="{{ url('/resultat_prises_en_charge.pdf') }}"
+                                        class="flex items-center text-orange-600 fw-bold blink-me hover:text-orange-800 transition duration-300"
+                                        target="_blank">
+                                        <i class="bi bi-filetype-pdf me-1 fs-5"></i>
+                                        <span>Résultat des prises en charge (PDF)</span>
+                                    </a> --}}
+
+                                    <h4 class="text-xl font-bold text-blue-600 mb-4 flex items-center pt-0">
+                                        <i class="bi bi-link-45deg text-2xl mr-2"></i> Liens utiles
                                     </h4>
                                     <div class="services-list space-y-3">
+                                        <div class="services-list space-y-3">
+                                            {{-- autres liens déjà présents --}}
+
+                                            <a href="{{ url('/resultat_prises_en_charge') }}"
+                                                class="flex items-center text-orange-600 fw-bold blink-me hover:text-orange-800 transition duration-300"
+                                                target="_blank">
+                                                <i class="bi bi-filetype-pdf me-1 fs-5"></i>
+                                                <span>Résultat des prises en charge 2025 (PDF)</span>
+                                            </a>
+                                            <!-- Bouton pour ouvrir le modal -->
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#verifModal">
+                                                Cliquer ici pour vérifier votre résultat
+                                            </button>
+                                        </div>
+
                                         {{-- <a href="{{ url('/programme2025-2.pdf') }}"
                                             class="flex items-center text-orange-600 fw-bold blink-me hover:text-orange-800 transition duration-300"
                                             target="_blank">
@@ -235,6 +258,61 @@
                             </div>
                         </section>
                     </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="verifModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content p-4">
+
+                                <div class="modal-header flex-column align-items-center">
+                                    <h5 class="modal-title mb-2">Vérification de votre sélection</h5>
+
+                                    <!-- Résultat affiché en haut -->
+                                    <div id="resultMessage" class="w-100 text-center"></div>
+
+                                    <button type="button" class="btn-close position-absolute end-0 top-0 m-3"
+                                        data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <!-- Formulaire -->
+                                    <form id="checkFormulaire" method="POST" action="{{ route('formulaires.check') }}">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="prenom" class="form-label">Prénom</label>
+                                            <input type="text" name="prenom" class="form-control"
+                                                placeholder="Ex. : Fatou" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="nom" class="form-label">Nom</label>
+                                            <input type="text" name="nom" class="form-control"
+                                                placeholder="Ex. : Ndiaye" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="date_naissance" class="form-label">Date de naissance</label>
+                                            <input type="date" name="date_naissance" class="form-control"
+                                                required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" name="email" class="form-control"
+                                                placeholder="Ex. : fatou.ndiaye@example.com" required>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-success">Vérifier</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="resultModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content p-4">
+                                <div class="modal-body text-center" id="modalMessage"></div>
+                            </div>
+                        </div>
+                    </div>
 
                     @if ($posts_count)
                         <div class="row stats-row gy-4 mt-5" data-aos="fade-up" data-aos-delay="500">
@@ -245,7 +323,8 @@
                                             data-bs-target="#ShowPostModal{{ $post->id }}">
                                             <div class="stat-item">
                                                 <img class="rounded-circle" alt="{{ $post->titre }}"
-                                                    src="{{ asset($post->getPoste()) }}" width="50" height="auto">
+                                                    src="{{ asset($post->getPoste()) }}" width="50"
+                                                    height="auto">
                                                 <div class="stat-content">
                                                     <p>{{ $post?->titre }}</p>
                                                 </div>
@@ -1579,6 +1658,43 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
     </script>
+
+    <script>
+        document.getElementById('checkFormulaire').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    let resultDiv = document.getElementById('resultMessage');
+
+                    if (data.status === 'success') {
+                        resultDiv.innerHTML = `<div class="alert alert-success fw-bold">
+            ${data.message}<br>${data.action ?? ''}
+        </div>`;
+                    } else if (data.status === 'error') {
+                        resultDiv.innerHTML = `<div class="alert alert-danger fw-bold">
+            ${data.message}
+        </div>`;
+                    } else if (data.status === 'not_found') {
+                        resultDiv.innerHTML = `<div class="alert alert-warning fw-bold">
+            ${data.message}
+        </div>`;
+                    }
+                })
+
+        });
+    </script>
+
+
 
     <style>
         @keyframes fadeBlink {

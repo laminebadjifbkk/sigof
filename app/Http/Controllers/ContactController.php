@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Antenne;
 use App\Models\Contact;
+use App\Models\Formulaire;
 use App\Models\Module;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -156,11 +158,11 @@ class ContactController extends Controller
             $textWidth = $fontMetrics->getTextWidth($text, "Arial", 10);  // Calculer la largeur du texte
             $x = ($canvasWidth - $textWidth) / 2;  // Centrer le texte horizontalement */
 
-                                                                         // Positionnement horizontal : complètement à droite
+            // Positionnement horizontal : complètement à droite
             $textWidth = $fontMetrics->getTextWidth($text, "Arial", 20); // Calculer la largeur du texte
             $x         = $canvasWidth - $textWidth - 20;                 // Positionner à 10 pixels du bord droit
 
-                                                                // Positionnement vertical : juste en dessous du footer
+            // Positionnement vertical : juste en dessous du footer
             $footerHeight = 30;                                 // Hauteur estimée du footer (ajuster si nécessaire)
             $y            = $canvasHeight - $footerHeight + 10; // 10 pixels en dessous du footer
 
@@ -183,4 +185,34 @@ class ContactController extends Controller
         $dompdf->stream($name, ['Attachment' => false]);
     }
 
+    public function check(Request $request)
+    {
+        $formulaire = Formulaire::where('prenom', $request->prenom)
+            ->where('nom', $request->nom)
+            ->where('email', $request->email)
+            ->whereDate('date_naissance', $request->date_naissance)
+            ->first();
+
+        if ($formulaire) {
+            if ($formulaire->statut === 'Sélectionné') {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Félicitations, votre candidature a été retenue !',
+                    'action' => '<a href="' . route('login') . '" class="btn btn-success mt-3">
+                                Se connecter pour téléverser votre certificat d\'inscription
+                             </a>'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Désolé, votre candidature n\'a pas été retenue. Merci et à la prochaine.'
+                ]);
+            }
+        }
+        // Cas où aucun formulaire ne correspond
+        return response()->json([
+            'status' => 'not_found',
+            'message' => 'Aucune demande liée à ces informations. <br>Veuillez saisir exactement les mêmes informations que lors de votre inscription.'
+        ]);
+    }
 }

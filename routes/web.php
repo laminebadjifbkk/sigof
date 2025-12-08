@@ -870,6 +870,21 @@ Route::group(['middleware' => ['XSS']], function () {
         ]);
     });
 
+    Route::get('/resultat_prises_en_charge', function () {
+        $path = public_path('resultat_prises_en_charge.pdf');
+
+        if (! file_exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="resultat_prises_en_charge.pdf"',
+        ]);
+    });
+
+    Route::post('/formulaires/check', [ContactController::class, 'check'])->name('formulaires.check');
+
     Route::get('/inscriptioncontact', [InscriptioncontactController::class, 'create'])->name('inscriptioncontact');
     Route::post('/inscriptioncontact/store', [InscriptioncontactController::class, 'store'])->name('inscriptioncontact.store');
     Route::get('/inscriptioncontact/merci', [InscriptioncontactController::class, 'merci'])->name('inscriptioncontact.merci');
