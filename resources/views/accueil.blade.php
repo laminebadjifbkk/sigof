@@ -184,21 +184,23 @@
                                         <i class="bi bi-link-45deg text-2xl mr-2"></i> Liens utiles
                                     </h4>
                                     <div class="services-list space-y-3">
-                                        <div class="services-list space-y-3">
-                                            {{-- autres liens déjà présents --}}
+                                        @if ($showButton)
+                                            <div class="services-list space-y-3">
+                                                {{-- autres liens déjà présents --}}
 
-                                            <a href="{{ url('/resultat_prises_en_charge') }}"
-                                                class="flex items-center text-orange-600 fw-bold blink-me hover:text-orange-800 transition duration-300"
-                                                target="_blank">
-                                                <i class="bi bi-filetype-pdf me-1 fs-5"></i>
-                                                <span>Résultat des prises en charge 2025 (PDF)</span>
-                                            </a>
-                                            <!-- Bouton pour ouvrir le modal -->
-                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#verifModal">
-                                                Cliquer ici pour vérifier votre résultat
-                                            </button>
-                                        </div>
+                                                <a href="{{ url('/resultat_prises_en_charge') }}"
+                                                    class="flex items-center text-orange-600 fw-bold blink-me hover:text-orange-800 transition duration-300"
+                                                    target="_blank">
+                                                    <i class="bi bi-filetype-pdf me-1 fs-5"></i>
+                                                    <span>Résultat des prises en charge 2025 (PDF)</span>
+                                                </a>
+                                                <!-- Bouton pour ouvrir le modal -->
+                                                <button type="button" class="btn btn-danger btn-sm"
+                                                    data-bs-toggle="modal" data-bs-target="#verifModal">
+                                                    Cliquer ici pour vérifier votre résultat
+                                                </button>
+                                            </div>
+                                        @endif
 
                                         {{-- <a href="{{ url('/programme2025-2.pdf') }}"
                                             class="flex items-center text-orange-600 fw-bold blink-me hover:text-orange-800 transition duration-300"

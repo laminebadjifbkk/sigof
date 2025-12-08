@@ -10,6 +10,7 @@ use App\Models\HistoriquePriseEnCharge;
 use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Kris\LaravelFormBuilder\Form;
@@ -927,11 +928,12 @@ class FormulaireController extends Controller
             $formulaire->update([
                 'certificat_file' => $filePath,
                 'statut_certificat' => 'Nouveau',
+                'users_id' => Auth::user()->id,
             ]);
         }
 
 
         return redirect()->route('formulaires.certificat.edit', $formulaire->id)
-            ->with('status', '✅ Certificat d’inscription téléversé avec succès.');
+            ->with('status', 'Certificat d’inscription téléversé avec succès.');
     }
 }

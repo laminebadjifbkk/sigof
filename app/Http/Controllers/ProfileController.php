@@ -41,9 +41,9 @@ class ProfileController extends Controller
         if ($formulaire) {
             if ($formulaire->statut === 'Sélectionné') {
                 $showCard      = true;
-                $statusMessage = "Félicitations, votre candidature a été retenue !";
+                $statusMessage = "Félicitations, votre demande de prise en charge a été retenue !";
             } else {
-                $statusMessage = "Votre candidature n'a pas été retenue.";
+                $statusMessage = "Votre demande de prise en charge n'a pas été retenue.";
             }
 
             // 🔹 Vérifier si certificat existe et statut_certificat est Nouveau ou Rejeté

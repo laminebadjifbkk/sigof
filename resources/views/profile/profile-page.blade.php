@@ -58,8 +58,24 @@
                 @role('Demandeur')
                     {{-- Message statut --}}
                     <div class="mb-3">
-                        {!! $statusMessage !!}
+                        @if (str_contains($statusMessage, 'Félicitations'))
+                            <div class="alert alert-success d-flex align-items-center" role="alert">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                <div>{!! $statusMessage !!}</div>
+                            </div>
+                        @elseif(str_contains($statusMessage, 'retenue'))
+                            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                <i class="bi bi-x-circle-fill me-2"></i>
+                                <div>{!! $statusMessage !!}</div>
+                            </div>
+                        @else
+                            <div class="alert alert-warning d-flex align-items-center" role="alert">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                <div>{!! $statusMessage !!}</div>
+                            </div>
+                        @endif
                     </div>
+
                     {{-- Carte affichée uniquement si sélectionné --}}
                     @if ($showCard)
                         <div class="card shadow-lg border-0 rounded-3">
