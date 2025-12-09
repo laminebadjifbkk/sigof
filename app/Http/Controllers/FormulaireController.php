@@ -947,6 +947,12 @@ class FormulaireController extends Controller
                 $name
             );
 
+            // Mettre à jour le modèle
+            $formulaire->update([
+                'statut_certificat' => 'Téléchargé',
+                'update_by' => Auth::user()->firstname . ' ' . Auth::user()->name,
+            ]);
+
             // Stream vers le navigateur
             return $dompdf->stream($name, ['Attachment' => false]);
         } catch (\Exception $e) {

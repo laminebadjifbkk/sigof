@@ -102,6 +102,7 @@
                                         @endforeach
                                         <th class="text-center">Certificat</th>
                                         <th class="text-center">Statut</th>
+                                        <th class="text-center">Contat & lettre</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -144,13 +145,14 @@
                                                 @endif
                                             </td>
                                             <td class="text-center">
-                                                @if ($inscription->statut_certificat)
+                                                @if ($inscription?->statut_certificat)
                                                     <span
-                                                        class="{{ $inscription->statut_certificat }}">{{ $inscription->statut_certificat }}</span>
+                                                        class="{{ $inscription?->statut_certificat }}">{{ $inscription?->statut_certificat }}</span>
                                                 @else
                                                     -
                                                 @endif
                                             </td>
+                                            <td>{{ $inscription?->update_by }}</td>
                                             <td class="text-center">
                                                 <div class="btn-group">
                                                     {{-- Bouton Voir --}}
