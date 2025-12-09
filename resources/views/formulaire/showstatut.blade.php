@@ -100,9 +100,9 @@
                                         @foreach ($labels as $key => $label)
                                             <th>{{ $label }}</th>
                                         @endforeach
-                                        <th>Certificat</th>
-                                        <th>Statut</th>
-                                        <th>Actions</th>
+                                        <th class="text-center">Certificat</th>
+                                        <th class="text-center">Statut</th>
+                                        <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
