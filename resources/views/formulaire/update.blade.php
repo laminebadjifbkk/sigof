@@ -216,9 +216,9 @@
                                                 {{ old('statut_certificat', $formulaire->statut_certificat) == 'Validé' ? 'selected' : '' }}>
                                                 Validé
                                             </option>
-                                            <option value="Rejetée"
-                                                {{ old('statut_certificat', $formulaire->statut_certificat) == 'Rejetée' ? 'selected' : '' }}>
-                                                Rejetée
+                                            <option value="Rejeté"
+                                                {{ old('statut_certificat', $formulaire->statut_certificat) == 'Rejeté' ? 'selected' : '' }}>
+                                                Rejeté
                                             </option>
                                             <option value="Attente"
                                                 {{ old('statut_certificat', $formulaire->statut_certificat) == 'Attente' ? 'selected' : '' }}>
