@@ -913,6 +913,8 @@ class FormulaireController extends Controller
                 $titre = 'Le Doyen';
             } elseif (Str::contains($responsable, 'Doyenne')) {
                 $titre = 'La Doyenne';
+            } elseif (Str::contains($responsable, 'Proviseur')) {
+                $titre = 'Le Proviseur';
             } else {
                 $titre = 'Le Responsable';
             }
