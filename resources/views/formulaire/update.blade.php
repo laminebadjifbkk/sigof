@@ -130,9 +130,9 @@
                                                     <option value="Sélectionnée"
                                                         {{ old($field, $formulaire->$field) == 'Sélectionnée' ? 'selected' : '' }}>
                                                         Sélectionnée</option>
-                                                    <option value="Rejet"
-                                                        {{ old($field, $formulaire->$field) == 'Rejet' ? 'selected' : '' }}>
-                                                        Rejet</option>
+                                                    <option value="Rejetée"
+                                                        {{ old($field, $formulaire->$field) == 'Rejetée' ? 'selected' : '' }}>
+                                                        Rejetée</option>
                                                 </select>
                                             </div>
                                         @else
@@ -216,9 +216,9 @@
                                                 {{ old('statut_certificat', $formulaire->statut_certificat) == 'Validé' ? 'selected' : '' }}>
                                                 Validé
                                             </option>
-                                            <option value="Rejeté"
-                                                {{ old('statut_certificat', $formulaire->statut_certificat) == 'Rejeté' ? 'selected' : '' }}>
-                                                Rejeté
+                                            <option value="Rejetée"
+                                                {{ old('statut_certificat', $formulaire->statut_certificat) == 'Rejetée' ? 'selected' : '' }}>
+                                                Rejetée
                                             </option>
                                             <option value="Attente"
                                                 {{ old('statut_certificat', $formulaire->statut_certificat) == 'Attente' ? 'selected' : '' }}>
