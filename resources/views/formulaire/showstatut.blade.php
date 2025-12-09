@@ -338,12 +338,15 @@
 @push('scripts')
     <script>
         new DataTable('#table-inscriptions', {
-            ordering: false, // désactive le tri automatique
+            // ordering: false, // désactive le tri automatique
             layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
+            "order": [
+                [7, 'asc']
+            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
