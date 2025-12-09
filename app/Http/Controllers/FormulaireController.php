@@ -950,7 +950,7 @@ class FormulaireController extends Controller
             // Mettre à jour le modèle
             $formulaire->update([
                 'statut_certificat' => 'Téléchargé',
-                'update_by' => Auth::user()->firstname . ' ' . Auth::user()->name,
+                'update_by' => Auth::user()->id,
             ]);
 
             // Stream vers le navigateur

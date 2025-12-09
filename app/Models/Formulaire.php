@@ -76,4 +76,9 @@ class Formulaire extends Model
     {
         return $this->hasMany(HistoriquePriseEnCharge::class);
     }
+
+    public function updatedByUser()
+    {
+        return $this->belongsTo(User::class, 'update_by');
+    }
 }

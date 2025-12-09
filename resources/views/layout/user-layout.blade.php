@@ -160,8 +160,8 @@
             display: inline-block;
         }
 
-        .nouveau {
-            background-color: #36e0e0;
+        .Téléchargé {
+            background-color: #28a745;
             /* couleur cyan Bootstrap (info) */
             color: #ffffff;
             padding: 6px 12px;

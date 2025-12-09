@@ -102,7 +102,7 @@
                                         @endforeach
                                         <th class="text-center">Certificat</th>
                                         <th class="text-center">Statut</th>
-                                        <th class="text-center">Contat & lettre</th>
+                                        <th class="text-center">Agent</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -152,7 +152,8 @@
                                                     -
                                                 @endif
                                             </td>
-                                            <td>{{ $inscription?->update_by }}</td>
+                                            <td>{{ $inscription?->updatedByUser?->firstname }}
+                                                {{ $inscription?->updatedByUser?->name }}</td>
                                             <td class="text-center">
                                                 <div class="btn-group">
                                                     {{-- Bouton Voir --}}
