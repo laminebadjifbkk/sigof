@@ -817,8 +817,8 @@ class FormulaireController extends Controller
             'civilite' => 'Civilité', */
             'prenom' => 'Prénom',
             'nom' => 'Nom',
-            'date_naissance' => 'Date naissance',
-            'lieu_naissance' => 'Lieu naissance',
+            'date_naissance' => 'Date nais.',
+            'lieu_naissance' => 'Lieu nais.',
             /* 'email' => 'Adresse e-mail', */
             'telephone' => 'Téléphone',
             /* 'telephone_secondaire' => 'Téléphone secondaire',
