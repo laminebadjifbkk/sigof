@@ -130,9 +130,9 @@
                                                     <option value="Sélectionnée"
                                                         {{ old($field, $formulaire->$field) == 'Sélectionnée' ? 'selected' : '' }}>
                                                         Sélectionnée</option>
-                                                    <option value="Rejetée"
-                                                        {{ old($field, $formulaire->$field) == 'Rejetée' ? 'selected' : '' }}>
-                                                        Rejetée</option>
+                                                    <option value="Rejet"
+                                                        {{ old($field, $formulaire->$field) == 'Rejet' ? 'selected' : '' }}>
+                                                        Rejet</option>
                                                 </select>
                                             </div>
                                         @else
