@@ -117,8 +117,10 @@
                                             @endif
                                         @elseif ($field === 'date_naissance' && $formulaire->$field)
                                             {{ \Carbon\Carbon::parse($formulaire->$field)->format('d/m/Y') }}
-                                        {{-- @elseif ($field === 'statut' && $formulaire->$field)
-                                            <span class="{{ $formulaire->statut }}">{{ $formulaire->statut }}</span> --}}
+                                        @elseif ($field === 'email' && $formulaire->$field)
+                                            <a href="mailto:{{ $formulaire->email }}">{{ $formulaire->email }}</a>
+                                        @elseif ($field === 'telephone' && $formulaire->$field)
+                                            <a href="tel:+221{{ $formulaire->telephone }}">{{ $formulaire->telephone }}</a>
                                         @else
                                             {{ $formulaire->$field ?? '-' }}
                                         @endif
