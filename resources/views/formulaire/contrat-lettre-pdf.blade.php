@@ -205,7 +205,7 @@
             </div>
 
 
-            <strong style="text-decoration: underline;">Objet</strong>: Prise en charge de formation
+            <strong style="text-decoration: underline;">Objet </strong>: Prise en charge de formation
 
             <p>
                 <b>{{ $formulaire?->responsable_etablieement }}</b>,
