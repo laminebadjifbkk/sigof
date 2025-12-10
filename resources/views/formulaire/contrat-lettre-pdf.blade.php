@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8" />
     {{-- <title>{{ $title }}</title> --}}
-    <title>Contrats et lettre de prise en charge de {{ format_proper_name($formulaire->prenom) . ' ' . remove_accents_uppercase($formulaire->nom) }} </title>
+    <title>Contrats et lettre de prise en charge de
+        {{ format_proper_name($formulaire->prenom) . ' ' . remove_accents_uppercase($formulaire->nom) }} </title>
 
     <!-- Favicons -->
     <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="icon">
@@ -212,11 +213,11 @@
             </p>
 
             <p style="text-align: justify;">
-                Pour l’année académique <b>{{ $formulaire?->annee_scolaire }}</b>, l’Office National de Formation
-                Professionnelle
-                (<b>ONFP</b>)
-                assure la prise en charge de la formation d’un(e) étudiant(e)/admis(e) dans votre établissement,
-                selon le tableau ci-après.
+                Pour l’année académique <b>{{ $formulaire?->annee_scolaire ?? date('Y') . '-' . (date('Y') + 1) }}</b>,
+                l’Office National de Formation Professionnelle (<b>ONFP</b>)
+                assure la prise en charge de la formation
+                {{ $formulaire?->autre_1 ?? 'd’un(e) étudiant(e) admis(e) ou apprenant(e)' }}
+                dans votre établissement, selon le tableau ci-après.
             </p>
 
             {{-- Tableau récapitulatif --}}
@@ -235,7 +236,8 @@
 
                 <tbody>
                     <tr>
-                        <td>{{ format_proper_name($formulaire->prenom) . ' ' . remove_accents_uppercase($formulaire->nom) }}</td>
+                        <td>{{ format_proper_name($formulaire->prenom) . ' ' . remove_accents_uppercase($formulaire->nom) }}
+                        </td>
                         <td>{{ $formulaire->date_naissance->format('d/m/Y') . ' à ' . remove_accents_uppercase($formulaire->lieu_naissance) }}
                         </td>
                         <td>{{ $formulaire->formation }}</td>
@@ -259,14 +261,14 @@
 
             <br><br>
 
-            <p><b>P.J :</b> Contrat</p>
+            <p><b>P.J : </b>Contrat</p>
 
             <br>
 
             {{-- Signature --}}
             <div style="margin-top: 40px;">
                 <b>A</b><br>
-                {{ $formulaire?->responsable_etablieement }} de<br>
+                {{ $formulaire?->responsable_etablieement }} de/du<br>
                 {{ $formulaire?->nom_etablissement ?? '-' }}<br>
                 <b>{{ $formulaire?->adresse_etablessement ?? '-' }}</b>
             </div>
@@ -374,7 +376,8 @@
 
                 <tbody>
                     <tr>
-                        <td>{{ format_proper_name($formulaire->prenom) . ' ' . remove_accents_uppercase($formulaire->nom) }}</td>
+                        <td>{{ format_proper_name($formulaire->prenom) . ' ' . remove_accents_uppercase($formulaire->nom) }}
+                        </td>
                         <td>{{ $formulaire->date_naissance->format('d/m/Y') . ' à ' . remove_accents_uppercase($formulaire?->lieu_naissance) }}
                         </td>
                         <td>{{ $formulaire->formation }}</td>

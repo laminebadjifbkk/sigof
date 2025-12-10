@@ -394,6 +394,7 @@ class FormulaireController extends Controller
             'annee_scolaire' => 'nullable|string|max:20',
             'montant_onfp' => 'nullable|numeric',
             'statut_certificat' => 'nullable|string|max:50',
+            'autre_1' => 'nullable|string|max:100',
 
             // fichiers
             'cin_file' => 'nullable|file|mimes:pdf,jpg,png|max:1024',

@@ -177,7 +177,8 @@
                                     {{-- Adresse établissement --}}
                                     <div class="col-lg-4 col-md-4">
                                         <label class="form-label fw-semibold">Adresse établissement</label>
-                                        <input type="text" name="adresse_etablessement" class="form-control form-control-sm" placeholder="Ex:Dakar"
+                                        <input type="text" name="adresse_etablessement" class="form-control form-control-sm"
+                                            placeholder="Ex:Dakar"
                                             value="{{ old('adresse_etablessement', $formulaire->adresse_etablessement) }}">
                                     </div>
 
@@ -192,14 +193,24 @@
                                     {{-- Année scolaire --}}
                                     <div class="col-lg-4 col-md-4">
                                         <label class="form-label fw-semibold">Année scolaire</label>
-                                        <input type="text" name="annee_scolaire" class="form-control form-control-sm" placeholder="2025-2026"
-                                            value="{{ old('annee_scolaire', $formulaire->annee_scolaire) }}">
+                                        <input type="text" name="annee_scolaire" class="form-control form-control-sm"
+                                            placeholder="2025-2026"
+                                            value="{{ old('annee_scolaire', $formulaire?->annee_scolaire ?? date('Y') . '-' . (date('Y') + 1)) }}">
+                                    </div>
+
+                                    {{-- Type apprenant --}}
+                                    <div class="col-lg-4 col-md-4">
+                                        <label class="form-label fw-semibold">Type apprenant</label>
+                                        <input type="text" name="autre_1" class="form-control form-control-sm"
+                                            placeholder="d'un étudiant admis, d'une étudiante admise, d'un apprenant, d'une apprenante"
+                                            value="{{ old('autre_1', $formulaire?->autre_1) }}">
                                     </div>
 
                                     {{-- Montant ONFP --}}
                                     <div class="col-lg-4 col-md-4">
                                         <label class="form-label fw-semibold">Montant pris en charge</label>
-                                        <input type="text" name="montant_onfp" class="form-control form-control-sm" placeholder="Ex : 750000"
+                                        <input type="text" name="montant_onfp" class="form-control form-control-sm"
+                                            placeholder="Ex : 750000"
                                             value="{{ old('montant_onfp', $formulaire->montant_onfp) }}">
                                     </div>
 
