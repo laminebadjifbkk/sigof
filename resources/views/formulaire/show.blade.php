@@ -117,8 +117,8 @@
                                             @endif
                                         @elseif ($field === 'date_naissance' && $formulaire->$field)
                                             {{ \Carbon\Carbon::parse($formulaire->$field)->format('d/m/Y') }}
-                                        @elseif ($field === 'statut' && $formulaire->$field)
-                                            <span class="{{ $formulaire->statut }}">{{ $formulaire->statut }}</span>
+                                        {{-- @elseif ($field === 'statut' && $formulaire->$field)
+                                            <span class="{{ $formulaire->statut }}">{{ $formulaire->statut }}</span> --}}
                                         @else
                                             {{ $formulaire->$field ?? '-' }}
                                         @endif
