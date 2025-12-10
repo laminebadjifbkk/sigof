@@ -49,6 +49,8 @@ class FormulaireController extends Controller
     public function store(Request $request)
     {
 
+        Alert::success('Succès', 'Les inscriptions sont clotiurées jusqu\'à nouvelle ordre.');
+        return redirect()->back();
         // Définir la période d'ouverture des inscriptions
         /* // Définir la période d'ouverture des inscriptions
 
