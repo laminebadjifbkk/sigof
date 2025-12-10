@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     {{-- <title>{{ $title }}</title> --}}
-    <title>Contrats et lettre de prise en charge de {{ $formulaire->prenom . ' ' . $formulaire->nom }} </title>
+    <title>Contrats et lettre de prise en charge de {{ format_proper_name($formulaire->prenom) . ' ' . remove_accents_uppercase($formulaire->nom) }} </title>
 
     <!-- Favicons -->
     <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="icon">
@@ -235,8 +235,8 @@
 
                 <tbody>
                     <tr>
-                        <td>{{ $formulaire->prenom . ' ' . $formulaire->nom }}</td>
-                        <td>{{ $formulaire->date_naissance->format('d/m/Y') . ' à ' . $formulaire->lieu_naissance }}
+                        <td>{{ format_proper_name($formulaire->prenom) . ' ' . remove_accents_uppercase($formulaire->nom) }}</td>
+                        <td>{{ $formulaire->date_naissance->format('d/m/Y') . ' à ' . remove_accents_uppercase($formulaire->lieu_naissance) }}
                         </td>
                         <td>{{ $formulaire->formation }}</td>
                         <td>{{ $formulaire->diplome_vise }}</td>
@@ -374,8 +374,8 @@
 
                 <tbody>
                     <tr>
-                        <td>{{ $formulaire->prenom . ' ' . $formulaire->nom }}</td>
-                        <td>{{ $formulaire->date_naissance->format('d/m/Y') . ' à ' . $formulaire->lieu_naissance }}
+                        <td>{{ format_proper_name($formulaire->prenom) . ' ' . remove_accents_uppercase($formulaire->nom) }}</td>
+                        <td>{{ $formulaire->date_naissance->format('d/m/Y') . ' à ' . remove_accents_uppercase($formulaire?->lieu_naissance) }}
                         </td>
                         <td>{{ $formulaire->formation }}</td>
                         <td>{{ $formulaire->diplome_vise }}</td>
