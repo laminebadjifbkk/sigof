@@ -121,6 +121,8 @@
                                             <a href="mailto:{{ $formulaire->email }}">{{ $formulaire->email }}</a>
                                         @elseif ($field === 'telephone' && $formulaire->$field)
                                             <a href="tel:+221{{ $formulaire->telephone }}">{{ $formulaire->telephone }}</a>
+                                        @elseif ($field === 'telephone_secondaire' && $formulaire->$field)
+                                            <a href="tel:+221{{ $formulaire?->telephone_secondaire }}">{{ $formulaire?->telephone_secondaire }}</a>
                                         @else
                                             {{ $formulaire->$field ?? '-' }}
                                         @endif
