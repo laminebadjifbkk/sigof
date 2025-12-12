@@ -552,14 +552,24 @@ class FormulaireController extends Controller
         return Excel::download(new ExportPrisenchargeStatut($statut), $fileName); */
 
         // === 1. Générer l'Excel ===
-        $fileName = "Prises en charge - {$statut}.xlsx";
+        /* $fileName = "Prises en charge - {$statut}.xlsx";
         $excelPath = storage_path("app/temp/{$fileName}");
-        Excel::store(new ExportPrisenchargeStatut($statut), "temp/{$fileName}");
+        Excel::store(new ExportPrisenchargeStatut($statut), "temp/{$fileName}"); */
 
         // === 2. Créer un dossier temporaire pour les fichiers ===
         $tempPath = storage_path('app/temp/prisencharge_' . time());
         if (! is_dir($tempPath)) {
             mkdir($tempPath, 0777, true);
+        }
+
+        $fileName = "Prises en charge - {$statut}.xlsx";
+        Excel::store(new ExportPrisenchargeStatut($statut), "temp/{$fileName}", 'local');
+
+        $excelPath = storage_path("app/temp/{$fileName}");
+        if (file_exists($excelPath)) {
+            copy($excelPath, $tempPath . '/' . $fileName);
+        } else {
+            \Log::error("Excel non trouvé : " . $excelPath);
         }
 
         // Copier l’Excel dans le dossier
