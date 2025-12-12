@@ -581,7 +581,7 @@ class FormulaireController extends Controller
                 foreach ($prises as $prise) {
                     // Nom du dossier par dossier
                     $dossierFolder = $tempPath . '/' . $this->sanitizeFileName(
-                        ($prise?->prenom ?? '') . '_' . $prise?->nom
+                        ($prise?->prenom ?? '') . '_' . $prise?->nom. '_' . $prise?->id
                     );
 
                     if (! is_dir($dossierFolder)) {
