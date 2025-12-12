@@ -567,7 +567,7 @@ class FormulaireController extends Controller
 
         // === 3. Récupérer les dossiers concernés par lots de 100 ===
         Formulaire::where('statut', $statut)
-            ->chunk(100, function ($prises) use ($tempPath) {
+            ->chunk(25, function ($prises) use ($tempPath) {
                 foreach ($prises as $prise) {
                     // Nom du dossier par dossier
                     $dossierFolder = $tempPath . '/' . $this->sanitizeFileName(
