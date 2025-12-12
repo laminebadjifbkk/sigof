@@ -590,10 +590,11 @@ class FormulaireController extends Controller
 
                     // === Fichiers spécifiques ===
                     $attachments = [
-                        'cin_file'     => 'CIN',
-                        'facture_file' => 'Facture',
-                        'cv'           => 'CV',
-                        'diplome'      => 'Diplome',
+                        'cin_file'              => 'CIN',
+                        'facture_file'          => 'Facture',
+                        'cv'                    => 'CV',
+                        'diplome'               => 'Diplome',
+                        'certificat_file'       => 'Certificat',
                     ];
 
                     foreach ($attachments as $field => $prefix) {
