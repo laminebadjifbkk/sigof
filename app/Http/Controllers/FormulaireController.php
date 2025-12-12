@@ -565,42 +565,46 @@ class FormulaireController extends Controller
         // Copier l’Excel dans le dossier
         copy($excelPath, $tempPath . '/' . $fileName);
 
-        // === 3. Récupérer les dossiers concernés ===
-        $prises = Formulaire::where('statut', $statut)->get();
+        // === 3. Récupérer les dossiers concernés par lots de 100 ===
+        Formulaire::where('statut', $statut)
+            ->chunk(100, function ($prises) use ($tempPath) {
+                foreach ($prises as $prise) {
+                    // Nom du dossier par dossier
+                    $dossierFolder = $tempPath . '/' . $this->sanitizeFileName(
+                        ($prise->prenom ?? 'inconnu') . '_' . $prise->id
+                    );
 
-        foreach ($prises as $prise) {
-            $dossierFolder = $tempPath . '/' . $this->sanitizeFileName($prise->prenom . ' ' . $prise->prenom . '_' . $prise->id);
+                    if (! is_dir($dossierFolder)) {
+                        mkdir($dossierFolder, 0777, true);
+                    }
 
-            if (! is_dir($dossierFolder)) {
-                mkdir($dossierFolder, 0777, true);
-            }
+                    // === Fichiers spécifiques ===
+                    $attachments = [
+                        'cin_file'     => 'CIN',
+                        'facture_file' => 'Facture',
+                        'cv'           => 'CV',
+                        'diplome'      => 'Diplome',
+                    ];
 
-            // === Fichiers spécifiques ===
-            $attachments = [
-                'cin_file'     => 'CIN',
-                'facture_file' => 'Facture',
-                'cv'           => 'CV',
-                'diplome'      => 'Diplome',
-            ];
+                    foreach ($attachments as $field => $prefix) {
+                        $file = $prise->$field;
+                        if (! $file || ! is_string($file)) {
+                            continue;
+                        }
 
-            foreach ($attachments as $field => $prefix) {
-                $file = $prise->$field;
-                if (! $file || ! is_string($file)) {
-                    continue;
+                        $sourcePath = storage_path('app/public/' . $file);
+                        if (! file_exists($sourcePath)) {
+                            continue;
+                        }
+
+                        $filename = $this->sanitizeFileName($prefix . '_' . $prise->id)
+                            . '.' . pathinfo($sourcePath, PATHINFO_EXTENSION);
+
+                        $destination = $dossierFolder . '/' . $filename;
+                        @copy($sourcePath, $destination);
+                    }
                 }
-
-                $sourcePath = storage_path('app/public/' . $file);
-                if (! file_exists($sourcePath)) {
-                    continue;
-                }
-
-                $filename = $this->sanitizeFileName($prefix . '_' . $prise->id)
-                    . '.' . pathinfo($sourcePath, PATHINFO_EXTENSION);
-
-                $destination = $dossierFolder . '/' . $filename;
-                @copy($sourcePath, $destination);
-            }
-        }
+            });
 
         // === 4. Créer le ZIP ===
         $zipPath = storage_path("app/temp/Prises_en_charge_{$statut}.zip");
