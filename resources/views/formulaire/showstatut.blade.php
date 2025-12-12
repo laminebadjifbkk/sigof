@@ -14,7 +14,6 @@
                     </div>
                 </h4>
 
-
                 {{-- Export opérateurs en Excel --}}
                 {{-- @can('exporter-view')
                     <span class="mb-5 d-inline-block">
@@ -24,12 +23,13 @@
                         </a>
                     </span>
                 @endcan --}}
+
                 <div class="d-flex justify-content-between align-items-center mb-3">
 
                     @can('exporter-view')
                         <a href="{{ route('prisenchargeExcel', ['statut' => $statut]) }}"
-                            class="btn btn-outline-success btn-sm d-flex align-items-center gap-2" title="Exporter la liste">
-                            <i class="bi bi-file-earmark-excel"></i> Exporter excel
+                            class="btn btn-outline-success btn-sm d-flex align-items-center gap-2" title="Exporter Excel + Dossiers">
+                            <i class="bi bi-file-earmark-zip"></i> Exporter ZIP
                         </a>
                     @endcan
 

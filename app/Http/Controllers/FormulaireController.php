@@ -17,6 +17,7 @@ use Kris\LaravelFormBuilder\Form;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
+use ZipArchive;
 
 class FormulaireController extends Controller
 {
@@ -546,9 +547,103 @@ class FormulaireController extends Controller
 
     public function PrisenchargeExcel($statut)
     {
-        $fileName = "Prises en charge - {$statut}.xlsx";
+        /* $fileName = "Prises en charge - {$statut}.xlsx";
 
-        return Excel::download(new ExportPrisenchargeStatut($statut), $fileName);
+        return Excel::download(new ExportPrisenchargeStatut($statut), $fileName); */
+
+        // === 1. Générer l'Excel ===
+        $fileName = "Prises en charge - {$statut}.xlsx";
+        $excelPath = storage_path("app/temp/{$fileName}");
+        Excel::store(new ExportPrisenchargeStatut($statut), "temp/{$fileName}");
+
+        // === 2. Créer un dossier temporaire pour les fichiers ===
+        $tempPath = storage_path('app/temp/prisencharge_' . time());
+        if (! is_dir($tempPath)) {
+            mkdir($tempPath, 0777, true);
+        }
+
+        // Copier l’Excel dans le dossier
+        copy($excelPath, $tempPath . '/' . $fileName);
+
+        // === 3. Récupérer les dossiers concernés ===
+        $prises = Formulaire::where('statut', $statut)->get();
+
+        foreach ($prises as $prise) {
+            $dossierFolder = $tempPath . '/' . $this->sanitizeFileName($prise->prenom . ' ' . $prise->prenom . '_' . $prise->id);
+
+            if (! is_dir($dossierFolder)) {
+                mkdir($dossierFolder, 0777, true);
+            }
+
+            // === Fichiers spécifiques ===
+            $attachments = [
+                'cin_file'     => 'CIN',
+                'facture_file' => 'Facture',
+                'cv'           => 'CV',
+                'diplome'      => 'Diplome',
+            ];
+
+            foreach ($attachments as $field => $prefix) {
+                $file = $prise->$field;
+                if (! $file || ! is_string($file)) {
+                    continue;
+                }
+
+                $sourcePath = storage_path('app/public/' . $file);
+                if (! file_exists($sourcePath)) {
+                    continue;
+                }
+
+                $filename = $this->sanitizeFileName($prefix . '_' . $prise->id)
+                    . '.' . pathinfo($sourcePath, PATHINFO_EXTENSION);
+
+                $destination = $dossierFolder . '/' . $filename;
+                @copy($sourcePath, $destination);
+            }
+        }
+
+        // === 4. Créer le ZIP ===
+        $zipPath = storage_path("app/temp/Prises_en_charge_{$statut}.zip");
+        $zip = new \ZipArchive;
+        if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === true) {
+            $files = new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($tempPath),
+                \RecursiveIteratorIterator::LEAVES_ONLY
+            );
+
+            foreach ($files as $file) {
+                if (! $file->isDir()) {
+                    $filePath     = $file->getRealPath();
+                    $relativePath = substr($filePath, strlen($tempPath) + 1);
+                    $zip->addFile($filePath, $relativePath);
+                }
+            }
+            $zip->close();
+        }
+
+        // === 5. Télécharger le ZIP ===
+        return response()->download($zipPath)->deleteFileAfterSend(true);
+    }
+
+    protected function sanitizeFileName(string $name, int $maxLength = 150): string
+    {
+        // Remplacer les espaces et ponctuation par des tirets
+        $clean = Str::slug($name, '-');
+
+        // Fallback si le slug est vide (par ex. seulement des caractères non-latin)
+        if ($clean === '' || $clean === null) {
+            $clean = 'fichier';
+        }
+
+        // Limiter la longueur pour éviter les soucis OS/ZIP
+        if (Str::length($clean) > $maxLength) {
+            $clean = Str::limit($clean, $maxLength, '');
+        }
+
+        // Retirer éventuels tirets en double
+        $clean = preg_replace('/-+/', '-', $clean);
+
+        return $clean;
     }
 
     public function filtrerPrisenchargeParStatut($statut, $region)
