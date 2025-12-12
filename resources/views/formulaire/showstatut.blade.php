@@ -28,7 +28,7 @@
 
                     @can('exporter-view')
                         <a href="{{ route('prisenchargeExcel', ['statut' => $statut]) }}"
-                            class="btn btn-outline-success btn-sm d-flex align-items-center gap-2" title="Exporter Excel + Dossiers">
+                            class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2" title="Exporter Excel + Dossiers">
                             <i class="bi bi-file-earmark-zip"></i> Exporter ZIP
                         </a>
                     @endcan
