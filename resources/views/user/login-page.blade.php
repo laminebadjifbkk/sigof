@@ -79,6 +79,14 @@
                                         <p class="text-center small">Entrez vos identifiants pour vous connecter</p>
                                     </div>
 
+                                    <a href="{{ url('auth/google') }}"
+                                        class="btn btn-light w-100 d-flex align-items-center justify-content-center border shadow-sm mb-3"
+                                        style="background-color: #fff; color: #444; font-weight: 500;">
+                                        <img src="https://www.gstatic.com/images/branding/product/1x/gsa_64dp.png"
+                                            alt="Google" style="width:20px; height:20px; margin-right:8px;">
+                                        Se connecter avec Google
+                                    </a>
+
                                     <form class="row g-3 needs-validation" novalidate method="POST"
                                         action="{{ route('login') }}">
                                         @csrf
@@ -133,13 +141,13 @@
                                             <button class="btn btn-primary btn-sm w-100" type="submit">Se
                                                 connecter</button>
                                         </div> --}}
-                                                <div class="col-12 col-xxl-12">
-                                                    <button class="btn text-white fw-bold w-100"
-                                                        style="background: #FF8000;" type="submit">
-                                                        Se connecter
-                                                    </button>
-                                                </div>
-                                 
+                                        <div class="col-12 col-xxl-12">
+                                            <button class="btn text-white fw-bold w-100" style="background: #FF8000;"
+                                                type="submit">
+                                                Se connecter
+                                            </button>
+                                        </div>
+
                                         <div class="col-12">
                                             <p class="small mb-0">Retour à la page d'<a
                                                     href="{{ route('accueil') }}">accueil</a></p>
@@ -149,7 +157,6 @@
                                                     href="{{ route('register') }}">S'inscrire</a></p>
                                         </div>
                                     </form>
-
                                 </div>
                             </div>
 
@@ -166,7 +173,7 @@
 
         </div>
     </main>
-    
+
     <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/chart.js/chart.umd.js') }}"></script>

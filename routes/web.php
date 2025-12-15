@@ -35,6 +35,7 @@ use App\Http\Controllers\FonctionController;
 use App\Http\Controllers\FormationController;
 use App\Http\Controllers\FormationStartController;
 use App\Http\Controllers\FormulaireController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\IndemniteController;
 use App\Http\Controllers\IndividuelleController;
@@ -80,6 +81,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -114,6 +116,9 @@ Route::group(['middleware' => ['XSS']], function () {
 
     Route::get('/login', [ProfileController::class, 'loginPage'])->name('login');
     Route::get('/register-page', [ProfileController::class, 'registerPage'])->name('register-page');
+
+    Route::get('auth/google', [GoogleController::class, 'googlepage']);
+    Route::get('auth/google/callback', [GoogleController::class, 'googlecallback']);
 
     Route::get('/register-operateur', [ProfileController::class, 'registerOperateur'])->name('register-operateur');
 });

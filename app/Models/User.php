@@ -85,6 +85,8 @@ class User extends Authenticatable
 
         'remember_token',
         'restored_at',
+
+        'google_id',
     ];
 
     /**
