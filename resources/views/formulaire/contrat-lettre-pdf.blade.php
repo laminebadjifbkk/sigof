@@ -487,8 +487,6 @@
                 Tout litige sera réglé à l’amiable. À défaut, le droit sénégalais sera appliqué.
             </p>
 
-            <br>
-
             <p style="text-align: center">
                 Fait à Dakar en deux exemplaires originaux, le ……………………………
             </p>
@@ -496,7 +494,7 @@
             <br>
 
             <span class="no-page-break">
-                <div style="margin-top: 2mm; font-style: italic; width:100%;">
+                <div style="margin-top: 0mm; font-style: italic; width:100%;">
 
                     <!-- Partie gauche : Établissement -->
                     <div style="float:left; width:50%; text-align:left;">
