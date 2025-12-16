@@ -226,9 +226,9 @@
                 style="width: 340px; margin-top: 10px;">
 
             <div style="text-align:right;">
-                <strong><i>Directeur général</i></strong><br>
+                <strong><i>Directeur général</i></strong>
             </div>
-
+            <br>
 
             <strong style="text-decoration: underline;">Objet </strong>: Prise en charge de formation
 
