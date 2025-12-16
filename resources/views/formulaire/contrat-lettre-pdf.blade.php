@@ -231,9 +231,12 @@
             <br>
             <br>
 
+
             <strong style="text-decoration: underline;">Objet </strong>: Prise en charge de formation
 
-            <p>
+            <strong style="text-decoration: underline; margin-bottom:5px;">Objet </strong>: Prise en charge de formation
+
+            <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">
                 <b>{{ $formulaire?->responsable_etablieement }}</b>,
             </p>
 
