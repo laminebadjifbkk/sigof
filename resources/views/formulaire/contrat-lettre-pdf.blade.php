@@ -431,12 +431,11 @@
                     du
                     budget de l’ONFP et sur présentation d’une facture d’acompte en trois (3) exemplaires originaux par
                     l’établissement et d’une copie du certificat d’inscription attestant que
-                    {{  'l\'' . $formulaire?->autre_1 ?? '-' }} s’est
+                    {{ 'l\'' . $formulaire?->autre_1 ?? '-' }} s’est
                     acquitté des droits d’inscription ;
                 </li>
-                <li><b>50%</b> à la fin de la formation, après présentation du rapport d’exécution, des relevés de notes
-                    et
-                    de la facture reliquat.</li>
+                <li><b>50%</b> à la fin de la formation, après présentation par l’établissement d’un rapport d’exécution
+                    avec les relevés de notes et de la facture reliquat en trois (3) exemplaires originaux.</li>
             </ul>
 
             <h4><u>Article 4 </u>: Modification</h4>
@@ -447,7 +446,7 @@
             <h4><u>Article 5 </u>: Résiliation</h4>
             <p>
                 Le contrat peut être résilié à tout moment en cas de manquement grave ou d’arrêt de
-                {{  'l\'' . $formulaire?->autre_1 ?? '-' }}.
+                {{ 'l\'' . $formulaire?->autre_1 ?? '-' }}.
             </p>
 
             <h4><u>Article 6 </u>: Règlement des litiges</h4>
