@@ -395,6 +395,7 @@
             <h4><u>Article 2 </u>: Engagement des parties</h4>
 
             <p><b>A : Engagement de l’ONFP</b></p>
+            <p>L’ONFP s’engage :</p>
             <ul>
                 <li>A prendre en charge les frais de scolarité annuels (excepté les frais d’inscription), selon les
                     modalités prévues à l’article 3 ;</li>
@@ -403,6 +404,7 @@
             </ul>
 
             <p><b>B : Engagement de l’Etablissement</b></p>
+            <p>L’Etablissement s’engage à :</p>
             <ul>
                 <li>Assurer à {{ $formulaire?->autre_1 ?? '-' }} une
                     formation correspondant à la spécialité et au niveau indiqué dans le
