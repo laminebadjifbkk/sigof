@@ -279,10 +279,7 @@
             <p style="text-align: justify; margin-top:5px;">
                 À cet effet, je vous transmets le contrat ci-joint en deux exemplaires originaux que vous voudrez
                 bien
-                signer et me retourner.
-            </p>
-
-            <p style="text-align: justify;margin-bottom:5px;margin-top:5px;">
+                signer et me retourner. <br>
                 Je vous prie de croire, {{ $formulaire?->responsable_etablieement }}, en l’assurance de ma
                 considération distinguée.
             </p>
