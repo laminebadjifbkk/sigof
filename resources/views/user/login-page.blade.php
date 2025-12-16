@@ -79,7 +79,8 @@
                                         <p class="text-center small">Entrez vos identifiants pour vous connecter</p>
                                     </div>
 
-                                    <a href="{{ url('auth/google') }}"
+                                    {{-- <a href="{{ url('auth/google') }}" --}}
+                                    <a href="#"
                                         class="btn btn-light w-100 d-flex align-items-center justify-content-center border shadow-sm mb-3"
                                         style="background-color: #fff; color: #444; font-weight: 500;">
                                         <img src="https://www.gstatic.com/images/branding/product/1x/gsa_64dp.png"
