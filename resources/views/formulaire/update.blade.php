@@ -237,9 +237,9 @@
                                                 {{ old('statut_certificat', $formulaire->statut_certificat) == 'Attente' ? 'selected' : '' }}>
                                                 Attente
                                             </option>
-                                            <option value="Attente"
+                                            <option value="Téléchargé"
                                                 {{ old('statut_certificat', $formulaire->statut_certificat) == 'Téléchargé' ? 'selected' : '' }}>
-                                                Attente
+                                                Téléchargé
                                             </option>
                                             <option value=""
                                                 {{ old('statut_certificat', $formulaire->statut_certificat) == 'Aucun' ? 'selected' : '' }}>
