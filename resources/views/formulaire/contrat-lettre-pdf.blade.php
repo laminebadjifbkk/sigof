@@ -17,7 +17,7 @@
             margin-bottom: 0cm;
         }
 
-        .invoice-box {
+        /*      .invoice-box {
             max-width: 800px;
             margin: auto;
             padding-top: 0px;
@@ -29,6 +29,24 @@
             font-size: 12px;
             line-height: 22px;
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        }
+ */
+
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            padding-top: 0px;
+            padding-bottom: 25px;
+            padding-left: 25px;
+            padding-right: 25px;
+            border: 0px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+            font-size: 12px;
+            /* taille de police */
+            line-height: 1.25;
+            /* interligne */
+            font-family: Tahoma, Arial, sans-serif;
+            /* police Tahoma */
         }
 
         /** RTL **/
