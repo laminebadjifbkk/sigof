@@ -52,6 +52,7 @@
                                         'adresse' => 'Adresse',
                                         'dernier_diplome' => 'Dernier diplôme obtenu',
                                         'nom_etablissement' => 'Établissement',
+                                        'autre_2' => 'Sigle',
                                         'region' => 'Région',
                                         'formation' => 'Formation sollicitée',
                                         'diplome_vise' => 'Diplôme visé',
@@ -67,6 +68,7 @@
                                         'facture_file' => 'Facture',
                                         'cv' => 'CV',
                                         'diplome' => 'Diplôme',
+                                        'autre_1' => 'Type apprenant',
                                         /* 'statut' => 'Statut', */
                                     ];
 
