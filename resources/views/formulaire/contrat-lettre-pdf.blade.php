@@ -226,7 +226,7 @@
                 style="width: 340px; margin-top: 10px;">
 
             <div style="text-align:right;">
-                <strong><i>Directeur général</i></strong>
+                <strong><i>Directeur général</i></strong><br>
             </div>
 
 
