@@ -96,10 +96,10 @@
 
                                         {{-- Bouton changer si déjà téléversé et statut_certificat = Nouveau ou Rejeté --}}
                                         {{-- @if ($showChangeCertificat) --}}
-                                            <a href="{{ route('formulaires.certificat.edit', $formulaire->id) }}"
+                                            {{-- <a href="{{ route('formulaires.certificat.edit', $formulaire->id) }}"
                                                 class="btn btn-warning fw-bold mt-2">
                                                 🔄 Téléverser ou changer votre certificat
-                                            </a>
+                                            </a> --}}
                                        {{--  @endif --}}
                                     </div>
                                 </div>
