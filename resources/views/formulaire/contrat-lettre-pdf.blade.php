@@ -229,6 +229,7 @@
                 <strong><i>Directeur général</i></strong>
             </div>
             <br>
+            <br>
 
             <strong style="text-decoration: underline;">Objet </strong>: Prise en charge de formation
 
@@ -251,7 +252,7 @@
                 <thead style="background: #f1f1f1; font-weight: bold;">
                     <tr>
                         <td>Prénom et Nom</td>
-                        <td>Date & lieu de naissance</td>
+                        <td>Date et lieu de naissance</td>
                         <td>Spécialité</td>
                         <td>Niveau</td>
                         <td>Montant (CFA)</td>
@@ -393,7 +394,7 @@
                 <thead style="background: #f1f1f1; font-weight: bold;">
                     <tr>
                         <td>Prénom et Nom</td>
-                        <td>Date & lieu de naissance</td>
+                        <td>Date et lieu de naissance</td>
                         <td>Spécialité</td>
                         <td>Niveau</td>
                         <td>Montant (CFA)</td>
