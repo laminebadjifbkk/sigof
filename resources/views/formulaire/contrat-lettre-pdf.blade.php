@@ -272,7 +272,7 @@
 
             </table>
 
-            <p style="text-align: justify; margin-top:5px;">
+            <p style="text-align: justify; margin-top:8px;">
                 À cet effet, je vous transmets le contrat ci-joint en deux exemplaires originaux que vous voudrez
                 bien
                 signer et me retourner. <br>
