@@ -293,8 +293,20 @@
             {{-- Signature --}}
             <div style="margin-top: 40px;">
                 <b>A</b><br>
-                {{ $formulaire?->responsable_etablieement }} de/du <br>
-                {{ $formulaire?->nom_etablissement . ' (' . $formulaire?->autre_2 . ')' }}<br>
+                {{ $formulaire?->responsable_etablieement }} de/du
+                {!! '' .
+                    implode(
+                        ' ',
+                        array_map(
+                            fn($line) => nl2br(e(wordwrap($line, 90, "\n", true))),
+                            explode(
+                                "\n",
+                                ucfirst(substr($formulaire?->nom_etablissement . ' (' . $formulaire?->autre_2 . ')', 0, 410)),
+                            ),
+                        ),
+                    ) !!}
+                {{-- {{ $formulaire?->nom_etablissement . ' (' . $formulaire?->autre_2 . ')' }} --}}
+                <br>
                 <b>{{ $formulaire?->adresse_etablessement ?? '-' }}</b>
             </div>
 
