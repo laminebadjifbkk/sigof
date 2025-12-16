@@ -107,7 +107,7 @@
             background-color: #ffffff;
             color: #000;
             font-size: 12px;
-            font-family: Arial, sans-serif;
+            font-family: Tahoma, Arial, sans-serif;
             text-align: center;
 
             z-index: 1000;
@@ -192,7 +192,7 @@
     <!-- PAGE 1 : LETTRE           -->
     <!-- ========================= -->
     <div class="page-lettre">
-        <div style="font-family: 'DejaVu Sans', sans-serif; font-size: 13px; line-height: 1.6;">
+        <div style="font-family: Tahoma, Arial, sans-serif; font-size: 13px; line-height: 1.6;">
             <div style="width:100%; font-size:14px;">
                 <div style="float:left; width:60%; text-align:left; line-height:1.1; font-size:12px;">
 
@@ -213,7 +213,7 @@
 
                 </div>
 
-                <div style="float:right; width:40%; text-align:right;">
+                <div style="float:right; width:40%; text-align:right;font-size: 10px;">
                     ONFP/DG/DIOF/ss<br><br>
                     <i>Dakar, le ...............................</i>
                 </div>
