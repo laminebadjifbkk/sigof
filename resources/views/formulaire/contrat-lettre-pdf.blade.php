@@ -240,7 +240,7 @@
                 <b>{{ $formulaire?->responsable_etablieement }}</b>,
             </p>
 
-            <p style="text-align: justify;">
+            <p style="text-align: justify; margin-top:5px;">
                 Pour l’année académique <b>{{ $formulaire?->annee_scolaire ?? date('Y') . '-' . (date('Y') + 1) }}</b>,
                 l’Office National de Formation Professionnelle (<b>ONFP</b>)
                 assure la prise en charge de la formation d'un(e)
