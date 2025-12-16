@@ -393,7 +393,7 @@ class FormulaireController extends Controller
             /* 'statut' => 'required|string|max:50', */ // nouveaux champs
             'responsable_etablieement' => 'nullable|string|max:255',
             'adresse_etablessement' => 'nullable|string|max:255',
-            'telephone_etablissement' => 'nullable|string|max:20',
+            'telephone_etablissement' => 'nullable|string|max:30',
             'annee_scolaire' => 'nullable|string|max:20',
             'montant_onfp' => 'nullable|numeric',
             'statut_certificat' => 'nullable|string|max:50',

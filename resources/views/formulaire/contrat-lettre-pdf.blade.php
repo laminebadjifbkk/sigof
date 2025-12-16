@@ -379,7 +379,7 @@
             <h4><u>Article 1 </u>: Objet du contrat</h4>
 
             <p>
-                Pour l’année académique <b>2025-2026</b>, l’ONFP confie à {{ $formulaire?->nom_etablissement ?? '-' }},
+                Pour l’année académique <b>2025-2026</b>, l’ONFP confie à {{ $formulaire?->autre_2 ?? '-' }},
                 qui
                 accepte,
                 la formation d'un(e) {{ $formulaire?->autre_1 ?? '-' }},
