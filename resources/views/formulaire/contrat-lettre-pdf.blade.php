@@ -43,7 +43,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
             font-size: 12px;
             /* taille de police */
-            line-height: 1.25;
+            line-height: 1.15;
             /* interligne */
             font-family: Tahoma, Arial, sans-serif;
             /* police Tahoma */
