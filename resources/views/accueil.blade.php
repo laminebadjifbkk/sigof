@@ -183,6 +183,7 @@
                                     <h4 class="text-xl font-bold text-blue-600 mb-4 flex items-center pt-0">
                                         <i class="bi bi-link-45deg text-2xl mr-2"></i> Liens utiles
                                     </h4>
+
                                     <div class="services-list space-y-3">
                                         @if ($showButton)
                                             <div class="services-list space-y-3">
@@ -195,10 +196,10 @@
                                                     <span>Résultat des prises en charge 2025 (PDF)</span>
                                                 </a>
                                                 <!-- Bouton pour ouvrir le modal -->
-                                                <button type="button" class="btn btn-danger btn-sm"
+                                                {{-- <button type="button" class="btn btn-danger btn-sm"
                                                     data-bs-toggle="modal" data-bs-target="#verifModal">
                                                     Cliquer ici pour vérifier votre résultat
-                                                </button>
+                                                </button> --}}
                                             </div>
                                         @endif
 
