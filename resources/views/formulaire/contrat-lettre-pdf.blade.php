@@ -369,15 +369,15 @@
             <p>
                 <b>Et</b><br>
                 <b>{{ $formulaire?->nom_etablissement . ' (' . $formulaire?->autre_2 . ')' }}</b><br>
-                Adresse : {{ $formulaire?->adresse_etablessement }}<br>
-                Tél : {{ $formulaire?->telephone_etablissement }}
+                <b>Adresse</b> : {{ $formulaire?->adresse_etablessement }}<br>
+                <b>Tél</b> : {{ $formulaire?->telephone_etablissement }}
             </p>
 
             <p>
                 Il a été convenu et arrêté ce qui suit :
             </p>
 
-            <h4><u>Article 1 </u>: Objet du contrat</h4>
+            <h4><u><b>Article 1 </b></u>: Objet du contrat</h4>
 
             <p>
                 Pour l’année académique <b>2025-2026</b>, l’ONFP confie à {{ $formulaire?->autre_2 ?? '-' }},
@@ -417,7 +417,7 @@
 
             <br>
 
-            <h4><u>Article 2 </u>: Engagement des parties</h4>
+            <h4><u><b>Article 2 </b></u>: Engagement des parties</h4>
 
             <p><b>A : Engagement de l’ONFP</b></p>
             <p>L’ONFP s’engage :</p>
@@ -447,7 +447,7 @@
                     poursuivre les cours jusqu’à la fin de l’année scolaire.</li>
             </ul>
 
-            <h4><u>Article 3 </u>: Modalités de paiement</h4>
+            <h4><u><b>Article 3 </b></u>: Modalités de paiement</h4>
 
             <p>Le règlement s’effectue selon les modalités ci-après :</p>
             <ul>
@@ -463,18 +463,18 @@
                     avec les relevés de notes et de la facture reliquat en trois (3) exemplaires originaux.</li>
             </ul>
 
-            <h4><u>Article 4 </u>: Modification</h4>
+            <h4><u><b>Article 4 </b></u>: Modification</h4>
             <p>
                 Toute modification du contrat fera l’objet d’un avenant signé par les deux parties.
             </p>
 
-            <h4><u>Article 5 </u>: Résiliation</h4>
+            <h4><u><b>Article 5 </b></u>: Résiliation</h4>
             <p>
                 Le contrat peut être résilié à tout moment en cas de manquement grave ou d’arrêt de
                 {{ 'l\'' . $formulaire?->autre_1 ?? '-' }}.
             </p>
 
-            <h4><u>Article 6 </u>: Règlement des litiges</h4>
+            <h4><u><b>Article 6 </b></u>: Règlement des litiges</h4>
             <p>
                 Tout litige sera réglé à l’amiable. À défaut, le droit sénégalais sera appliqué.
             </p>
