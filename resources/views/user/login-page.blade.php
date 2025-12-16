@@ -157,6 +157,14 @@
                                             <p class="small mb-0">Si vous n'avez pas encore de compte, <a
                                                     href="{{ route('register') }}">S'inscrire</a></p>
                                         </div>
+                                        <div class="col-12">
+                                            @if (Route::has('password.request'))
+                                                <p class="small mb-0">
+                                                    Mot de passe oublié ?
+                                                    <a href="{{ route('password.request') }}">Réinitialiser</a>
+                                                </p>
+                                            @endif
+                                        </div>
                                     </form>
                                 </div>
                             </div>
