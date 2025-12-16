@@ -298,7 +298,7 @@
                     implode(
                         ' ',
                         array_map(
-                            fn($line) => nl2br(e(wordwrap($line, 3, "\n", true))),
+                            fn($line) => nl2br(e(wordwrap($line, 15, "\n", true))),
                             explode(
                                 "\n",
                                 ucfirst(substr($formulaire?->nom_etablissement . ' (' . $formulaire?->autre_2 . ')', 0, 410)),
