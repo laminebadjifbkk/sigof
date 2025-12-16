@@ -282,7 +282,7 @@
                 signer et me retourner.
             </p>
 
-            <p style="text-align: justify;margin-top:5px;">
+            <p style="text-align: justify;margin-bottom:5px;margin-top:5px;">
                 Je vous prie de croire, {{ $formulaire?->responsable_etablieement }}, en l’assurance de ma
                 considération distinguée.
             </p>
