@@ -26,7 +26,7 @@
             padding-right: 25px;
             border: 0px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-            font-size: 13px;
+            font-size: 12px;
             line-height: 22px;
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
         }
@@ -216,7 +216,7 @@
                 Pour l’année académique <b>{{ $formulaire?->annee_scolaire ?? date('Y') . '-' . (date('Y') + 1) }}</b>,
                 l’Office National de Formation Professionnelle (<b>ONFP</b>)
                 assure la prise en charge de la formation
-                {{ $formulaire?->autre_1 ?? 'd’un(e) étudiant(e) admis(e) ou apprenant(e)' }}
+                {{ $formulaire?->autre_1 ?? '-' }}
                 dans votre établissement, selon le tableau ci-après.
             </p>
 
@@ -355,9 +355,11 @@
             <h4><u>Article 1 </u>: Objet du contrat</h4>
 
             <p>
-                Pour l’année académique <b>2025-2026</b>, l’ONFP confie à l’Ecole Supérieure de Commerce, qui
+                Pour l’année académique <b>2025-2026</b>, l’ONFP confie à {{ $formulaire?->nom_etablissement ?? '-' }},
+                qui
                 accepte,
-                la formation d’un(e) étudiant(e), conformément aux indications du tableau suivant :
+                la formation {{ $formulaire?->autre_1 ?? '-' }},
+                conformément aux indications du tableau suivant :
             </p>
 
             <!-- TABLEAU -->
@@ -402,14 +404,20 @@
 
             <p><b>B : Engagement de l’Etablissement</b></p>
             <ul>
-                <li>Assurer à l’étudiant(e) une formation correspondant à la spécialité et au niveau indiqué dans le
+                <li>Assurer à {{ $formulaire?->autre_1 ?? '-' }} une
+                    formation correspondant à la spécialité et au niveau indiqué dans le
                     contrat ;</li>
-                <li>Veiller au respect de l’assiduité de l’étudiant(e) ;</li>
+                <li>Veiller au respect de l’assiduité de
+                    {{ $formulaire?->autre_1 ?? '-' }} ;</li>
                 <li>Mettre à la disposition de l’ONFP les relevés de notes, factures et rapport d’exécution ;</li>
-                <li>Signaler tout manquement de l’étudiant(e) (assiduité, résultats, discipline) ;</li>
+                <li>Signaler tout manquement de
+                    {{ $formulaire?->autre_1 ?? '-' }} (assiduité,
+                    résultats, discipline) ;</li>
                 <li>Faciliter les visites de contrôle de l’ONFP ;</li>
-                <li>Autoriser l’étudiant(e) à démarrer les cours en absence de l’avance prévue à l’article 3 ;</li>
-                <li>Autoriser l’étudiant(e) à poursuivre les cours jusqu’à la fin de l’année scolaire.</li>
+                <li>Autoriser {{ $formulaire?->autre_1 ?? '-' }} à démarrer
+                    les cours en absence de l’avance prévue à l’article 3 ;</li>
+                <li>Autoriser {{ $formulaire?->autre_1 ?? '-' }} à
+                    poursuivre les cours jusqu’à la fin de l’année scolaire.</li>
             </ul>
 
             <h4><u>Article 3 </u>: Modalités de paiement</h4>
@@ -429,7 +437,8 @@
 
             <h4><u>Article 5 </u>: Résiliation</h4>
             <p>
-                Le contrat peut être résilié à tout moment en cas de manquement grave ou d’arrêt de l’étudiant(e).
+                Le contrat peut être résilié à tout moment en cas de manquement grave ou d’arrêt de
+                {{ $formulaire?->autre_1 ?? '-' }}.
             </p>
 
             <h4><u>Article 6 </u>: Règlement des litiges</h4>
