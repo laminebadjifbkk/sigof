@@ -61,10 +61,16 @@
             font-weight: bold;
         }
 
-        body {
+        /* body {
             margin: 0;
             padding-bottom: 30px;
+        } */
+
+        body {
+            font-family: Tahoma, Arial, sans-serif;
+            padding-bottom: 30px;
         }
+
 
         table {
             width: 100%;
