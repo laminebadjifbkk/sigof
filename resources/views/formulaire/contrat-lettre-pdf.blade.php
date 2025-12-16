@@ -294,7 +294,7 @@
             <div style="margin-top: 40px;">
                 <b>A</b><br>
                 {{ $formulaire?->responsable_etablieement }} de/du<br>
-                {{ $formulaire?->autre_2 ?? '-' }}<br>
+                {{ $formulaire?->nom_etablissement ?? '-' }}<br>
                 <b>{{ $formulaire?->adresse_etablessement ?? '-' }}</b>
             </div>
 
@@ -368,7 +368,7 @@
 
             <p>
                 <b>Et</b><br>
-                <b>{{ $formulaire?->nom_etablissement }}</b><br>
+                <b>{{ $formulaire?->nom_etablissement . ' (' . $formulaire?->autre_2 . ')' }}</b><br>
                 Adresse : {{ $formulaire?->adresse_etablessement }}<br>
                 Tél : {{ $formulaire?->telephone_etablissement }}
             </p>
