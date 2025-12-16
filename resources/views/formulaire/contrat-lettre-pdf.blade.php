@@ -230,10 +230,6 @@
             </div>
             <br>
             <br>
-
-
-            <strong style="text-decoration: underline;">Objet </strong>: Prise en charge de formation
-
             <strong style="text-decoration: underline; margin-bottom:5px;">Objet </strong>: Prise en charge de formation
 
             <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">
