@@ -238,7 +238,7 @@
 
             <p style="text-align: justify; margin-top:5px;">
                 Pour l’année académique <b>{{ $formulaire?->annee_scolaire ?? date('Y') . '-' . (date('Y') + 1) }}</b>,
-                l’Office National de Formation Professionnelle (<b>ONFP</b>)
+                l’Office national de Formation professionnelle (<b>ONFP</b>)
                 assure la prise en charge de la formation d'un(e)
                 {{ $formulaire?->autre_1 ?? '-' }}
                 dans votre établissement, selon le tableau ci-après.
@@ -370,7 +370,7 @@
             <p><b>Entre les soussignés</b></p>
 
             <p>
-                <b>Office National de Formation Professionnelle (ONFP)</b><br>
+                <b>Office national de Formation professionnelle (ONFP)</b><br>
                 Cité SIPRES 1, Lot 2, 2 voies Liberté 6 extension VDN - BP 21013 – Dakar Ponty
             </p>
 
