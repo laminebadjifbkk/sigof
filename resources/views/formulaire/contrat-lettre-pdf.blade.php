@@ -215,7 +215,7 @@
             <p style="text-align: justify;">
                 Pour l’année académique <b>{{ $formulaire?->annee_scolaire ?? date('Y') . '-' . (date('Y') + 1) }}</b>,
                 l’Office National de Formation Professionnelle (<b>ONFP</b>)
-                assure la prise en charge de la formation
+                assure la prise en charge de la formation d'un(e)
                 {{ $formulaire?->autre_1 ?? '-' }}
                 dans votre établissement, selon le tableau ci-après.
             </p>
@@ -358,7 +358,7 @@
                 Pour l’année académique <b>2025-2026</b>, l’ONFP confie à {{ $formulaire?->nom_etablissement ?? '-' }},
                 qui
                 accepte,
-                la formation {{ $formulaire?->autre_1 ?? '-' }},
+                la formation d'un(e) {{ $formulaire?->autre_1 ?? '-' }},
                 conformément aux indications du tableau suivant :
             </p>
 
@@ -406,19 +406,19 @@
             <p><b>B : Engagement de l’Etablissement</b></p>
             <p>L’Etablissement s’engage à :</p>
             <ul>
-                <li>Assurer à {{ $formulaire?->autre_1 ?? '-' }} une
+                <li>Assurer à {{ 'l\'' . $formulaire?->autre_1 ?? '-' }} une
                     formation correspondant à la spécialité et au niveau indiqué dans le
                     contrat ;</li>
                 <li>Veiller au respect de l’assiduité de
-                    {{ $formulaire?->autre_1 ?? '-' }} ;</li>
+                    {{ 'l\'' . $formulaire?->autre_1 ?? '-' }} ;</li>
                 <li>Mettre à la disposition de l’ONFP les relevés de notes, factures et rapport d’exécution ;</li>
                 <li>Signaler tout manquement de
-                    {{ $formulaire?->autre_1 ?? '-' }} (assiduité,
+                    {{ 'l\'' . $formulaire?->autre_1 ?? '-' }} (assiduité,
                     résultats, discipline) ;</li>
                 <li>Faciliter les visites de contrôle de l’ONFP ;</li>
-                <li>Autoriser {{ $formulaire?->autre_1 ?? '-' }} à démarrer
+                <li>Autoriser {{ 'l\'' . $formulaire?->autre_1 ?? '-' }} à démarrer
                     les cours en absence de l’avance prévue à l’article 3 ;</li>
-                <li>Autoriser {{ $formulaire?->autre_1 ?? '-' }} à
+                <li>Autoriser {{ 'l\'' . $formulaire?->autre_1 ?? '-' }} à
                     poursuivre les cours jusqu’à la fin de l’année scolaire.</li>
             </ul>
 
@@ -426,9 +426,16 @@
 
             <p>Le règlement s’effectue selon les modalités ci-après :</p>
             <ul>
-                <li>50% dès signature du présent contrat par les deux parties, sous réserve de la disponibilité du
-                    budget de l’ONFP et sur présentation d’une facture d’acompte + certificat d’inscription ;</li>
-                <li>50% à la fin de la formation, après présentation du rapport d’exécution, des relevés de notes et
+                <li>
+                    <b>50%</b> dès signature du présent contrat par les deux parties, sous réserve de la disponibilité
+                    du
+                    budget de l’ONFP et sur présentation d’une facture d’acompte en trois (3) exemplaires originaux par
+                    l’établissement et d’une copie du certificat d’inscription attestant que
+                    {{  'l\'' . $formulaire?->autre_1 ?? '-' }} s’est
+                    acquitté des droits d’inscription ;
+                </li>
+                <li><b>50%</b> à la fin de la formation, après présentation du rapport d’exécution, des relevés de notes
+                    et
                     de la facture reliquat.</li>
             </ul>
 
@@ -440,7 +447,7 @@
             <h4><u>Article 5 </u>: Résiliation</h4>
             <p>
                 Le contrat peut être résilié à tout moment en cas de manquement grave ou d’arrêt de
-                {{ $formulaire?->autre_1 ?? '-' }}.
+                {{  'l\'' . $formulaire?->autre_1 ?? '-' }}.
             </p>
 
             <h4><u>Article 6 </u>: Règlement des litiges</h4>
