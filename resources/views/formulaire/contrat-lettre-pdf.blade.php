@@ -489,7 +489,7 @@
 
             <br>
 
-            <p>
+            <p style="text-align: center">
                 Fait à Dakar en deux exemplaires originaux, le ……………………………
             </p>
 
