@@ -370,8 +370,8 @@ class FormulaireController extends Controller
             'telephone_secondaire' => 'Téléphone secondaire',
             'adresse' => 'Adresse',
             'dernier_diplome' => 'Dernier diplôme obtenu',
-            'nom_etablissement' => 'Établissement',
-            'autre_2' => 'Sigle',
+            /* 'nom_etablissement' => 'Établissement',
+            'autre_2' => 'Sigle', */
             'region' => 'Région',
             'formation' => 'Formation sollicitée',
             'diplome_vise' => 'Diplôme visé',

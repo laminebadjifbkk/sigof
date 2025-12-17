@@ -111,6 +111,27 @@
                                         @endif
                                     @endforeach
 
+                                    {{-- Etablissement --}}
+                                    <div class="col-lg-4 col-md-4">
+                                        <label class="form-label fw-semibold">Nom de l’établissement</label>
+                                        <textarea name="nom_etablissement" class="form-control form-control-sm" rows="4">{{ old('nom_etablissement', $formulaire->nom_etablissement) }}</textarea>
+
+                                        @if ($formulaire->nom_etablissement)
+                                            <div class="mt-2">
+                                                <div class="alert alert-secondary p-2">
+                                                    {!! nl2br(e($formulaire->nom_etablissement)) !!}
+                                                </div>
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    {{-- Sigle --}}
+                                    <div class="col-lg-4 col-md-4">
+                                        <label class="form-label fw-semibold">Sigle</label>
+                                        <input type="text" name="autre_2" class="form-control form-control-sm"
+                                            placeholder="Ex : UCAD" value="{{ old('autre_2', $formulaire->autre_2) }}">
+                                    </div>
+
                                     {{-- Certificat (fichier) --}}
                                     <div class="col-lg-4 col-md-4">
                                         <label class="form-label fw-semibold">Certificat d’inscription</label>
@@ -151,8 +172,8 @@
                                     {{-- Adresse établissement --}}
                                     <div class="col-lg-4 col-md-4">
                                         <label class="form-label fw-semibold">Adresse établissement</label>
-                                        <input type="text" name="adresse_etablessement" class="form-control form-control-sm"
-                                            placeholder="Ex:Dakar"
+                                        <input type="text" name="adresse_etablessement"
+                                            class="form-control form-control-sm" placeholder="Ex:Dakar"
                                             value="{{ old('adresse_etablessement', $formulaire->adresse_etablessement) }}">
                                     </div>
 
