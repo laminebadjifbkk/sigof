@@ -364,8 +364,8 @@
             <!-- TITRE CONTRAT -->
             <h3 style="text-align:center;">
                 CONTRAT N°
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <span style=" width:40%;font-size: 10px;">ONFP/DG/DIOF/ss</span>
+               {{--  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span style=" width:40%;font-size: 10px;">ONFP/DG/DIOF/ss</span> --}}
             </h3>
 
             <p style="text-align:center;"><b>Entre les soussignés</b></p>
