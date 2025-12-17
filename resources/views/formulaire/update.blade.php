@@ -110,12 +110,7 @@
                                             </div>
                                         @endif
                                     @endforeach
-                                </div>
 
-                                <hr class="dropdown-divider mt-4">
-                                <h5 class="text-primary">Informations complémentaires</h5>
-
-                                <div class="row g-3">
                                     {{-- Certificat (fichier) --}}
                                     <div class="col-lg-4 col-md-4">
                                         <label class="form-label fw-semibold">Certificat d’inscription</label>
@@ -129,6 +124,20 @@
                                             </div>
                                         @endif
                                     </div>
+
+                                    {{-- Montant ONFP --}}
+                                    <div class="col-lg-4 col-md-4">
+                                        <label class="form-label fw-semibold">Montant pris en charge</label>
+                                        <input type="text" name="montant_onfp" class="form-control form-control-sm"
+                                            placeholder="Ex : 750000"
+                                            value="{{ old('montant_onfp', $formulaire->montant_onfp) }}">
+                                    </div>
+                                </div>
+
+                                <hr class="dropdown-divider mt-4">
+                                <h5 class="text-primary">Informations complémentaires</h5>
+
+                                <div class="row g-3">
 
                                     {{-- Responsable établissement --}}
                                     <div class="col-lg-4 col-md-4">
@@ -169,14 +178,6 @@
                                         <input type="text" name="autre_1" class="form-control form-control-sm"
                                             placeholder="d'un étudiant admis, d'une étudiante admise, d'un apprenant, d'une apprenante"
                                             value="{{ old('autre_1', $formulaire?->autre_1) }}">
-                                    </div>
-
-                                    {{-- Montant ONFP --}}
-                                    <div class="col-lg-4 col-md-4">
-                                        <label class="form-label fw-semibold">Montant pris en charge</label>
-                                        <input type="text" name="montant_onfp" class="form-control form-control-sm"
-                                            placeholder="Ex : 750000"
-                                            value="{{ old('montant_onfp', $formulaire->montant_onfp) }}">
                                     </div>
 
                                     {{-- Statut certificat (affichage simple) --}}
