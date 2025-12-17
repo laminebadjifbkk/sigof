@@ -1008,6 +1008,7 @@ class FormulaireController extends Controller
             'dernier_diplome' => 'Dernier diplôme obtenu',
             'nom_etablissement' => 'Établissement', */
             'region' => 'Région',
+            'autre_2' => 'Etablissement',
             /* 'formation' => 'Formation sollicitée', */
             /* 'diplome_vise' => 'Diplôme visé',
             'montant_inscription' => 'Montant inscription',
