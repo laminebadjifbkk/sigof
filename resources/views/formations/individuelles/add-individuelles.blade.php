@@ -179,7 +179,9 @@
             paging: false, // 🔹 Désactive la pagination
             info: false, // 🔹 Supprime le texte "Affichage de X à Y..."
             pageLength: -1, // 🔹 Affiche toutes les lignes
-
+            "order": [
+                [4, 'desc']
+            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
