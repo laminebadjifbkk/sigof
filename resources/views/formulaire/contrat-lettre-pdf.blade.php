@@ -427,7 +427,7 @@
             <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 2 </b></u>: Engagement des
                 parties</h4>
 
-            <p><b>A : Engagement de l’ONFP</b></p>
+            <p style="text-align: justify; margin-top:5px;margin-bottom:5px;"><b>A : Engagement de l’ONFP</b></p>
             <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">L’ONFP s’engage :</p>
             <ul style="text-align: justify; margin-top:5px;margin-bottom:5px;">
                 <li>A prendre en charge les frais de scolarité annuels (excepté les frais d’inscription), selon les
