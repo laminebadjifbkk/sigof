@@ -386,9 +386,9 @@
                 Il a été convenu et arrêté ce qui suit :
             </p>
 
-            <h4><u><b>Article 1 </b></u>: Objet du contrat</h4>
+            <h4 style="text-align: justify; margin-bottom:5px;"><u><b>Article 1 </b></u>: Objet du contrat</h4>
 
-            <p  style="text-align: justify; margin-top:5px;margin-bottom:5px;">
+            <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">
                 Pour l’année académique <b>2025-2026</b>, l’ONFP confie à {{ $formulaire?->autre_2 ?? '-' }},
                 qui
                 accepte,
