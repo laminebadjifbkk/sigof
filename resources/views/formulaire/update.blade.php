@@ -114,15 +114,15 @@
                                     {{-- Etablissement --}}
                                     <div class="col-lg-4 col-md-4">
                                         <label class="form-label fw-semibold">Nom de l’établissement</label>
-                                        <textarea name="nom_etablissement" class="form-control form-control-sm" rows="4">{{ old('nom_etablissement', $formulaire->nom_etablissement) }}</textarea>
+                                        <textarea name="nom_etablissement" class="form-control form-control-sm" rows="2">{{ old('nom_etablissement', $formulaire->nom_etablissement) }}</textarea>
 
-                                        @if ($formulaire->nom_etablissement)
+                                        {{-- @if ($formulaire->nom_etablissement)
                                             <div class="mt-2">
                                                 <div class="alert alert-secondary p-2">
                                                     {!! nl2br(e($formulaire->nom_etablissement)) !!}
                                                 </div>
                                             </div>
-                                        @endif
+                                        @endif --}}
                                     </div>
 
                                     {{-- Sigle --}}
