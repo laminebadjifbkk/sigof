@@ -348,7 +348,7 @@
 
                 </div>
 
-                <div style="float:right; width:40%; text-align:right;">
+                <div style="float:right; width:40%; text-align:right;font-size: 10px;">
                     ONFP/DG/DIOF/ss<br><br>
                     <i>Dakar, le ...............................</i>
                 </div>
@@ -365,7 +365,7 @@
             <h3 style="text-align:center;">
                 CONTRAT N°
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                ONFP/DG/DIOF/ss
+                <span style=" width:40%;font-size: 10px;">ONFP/DG/DIOF/ss</span>
             </h3>
 
             <p><b>Entre les soussignés</b></p>
