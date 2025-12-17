@@ -388,7 +388,7 @@
 
             <h4><u><b>Article 1 </b></u>: Objet du contrat</h4>
 
-            <p style="text-align: justify; margin-top:5px;">
+            <p  style="text-align: justify; margin-top:5px;margin-bottom:5px;">
                 Pour l’année académique <b>2025-2026</b>, l’ONFP confie à {{ $formulaire?->autre_2 ?? '-' }},
                 qui
                 accepte,
@@ -429,7 +429,7 @@
 
             <p><b>A : Engagement de l’ONFP</b></p>
             <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">L’ONFP s’engage :</p>
-            <ul>
+            <ul style="text-align: justify; margin-top:5px;margin-bottom:5px;">
                 <li>A prendre en charge les frais de scolarité annuels (excepté les frais d’inscription), selon les
                     modalités prévues à l’article 3 ;</li>
                 <li>A réaliser des visites ponctuelles au niveau de l’établissement pour le suivi de la formation.
@@ -440,8 +440,8 @@
             {{-- <div style="page-break-after: always;"></div> --}}
             <p style="text-align: justify; margin-top:5px;margin-bottom:5px;"><b>B : Engagement de l’Etablissement</b>
             </p>
-            <p>L’Etablissement s’engage à :</p>
-            <ul>
+            <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">L’Etablissement s’engage à :</p>
+            <ul style="text-align: justify; margin-top:5px;margin-bottom:5px;">
                 <li>Assurer à {{ 'l\'' . $formulaire?->autre_1 ?? '-' }} une
                     formation correspondant à la spécialité et au niveau indiqué dans le
                     contrat ;</li>
