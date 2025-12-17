@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Departement;
@@ -35,12 +36,8 @@ class OnfpevaluateurController extends Controller
             "matricule" => ["nullable", "string", Rule::unique('onfpevaluateurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "name"      => ["required", "string", Rule::unique('onfpevaluateurs')->where(function ($query) {
-                return $query->whereNull('deleted_at');
-            })],
-            "lastname"  => ["required", "string", Rule::unique('onfpevaluateurs')->where(function ($query) {
-                return $query->whereNull('deleted_at');
-            })],
+            "name"      => ['required', 'string', 'max:50'],
+            "lastname"  => ['required', 'string', 'max:25'],
             "initiale"  => ["required", "string", Rule::unique('onfpevaluateurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
@@ -79,8 +76,8 @@ class OnfpevaluateurController extends Controller
 
         $this->validate($request, [
             'matricule' => ['nullable', 'string', 'max:25', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
-            "name"      => ['required', 'string', 'max:50', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
-            "lastname"  => ['required', 'string', 'max:25', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
+            "name"      => ['required', 'string', 'max:50'],
+            "lastname"  => ['required', 'string', 'max:25'],
             "initiale"  => ['required', 'string', 'max:25', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
             "fonction"  => ['required', 'string', 'max:250', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
             "email"     => ['required', 'string', 'max:250', Rule::unique(Onfpevaluateur::class)->ignore($id)->whereNull('deleted_at')],
