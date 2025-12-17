@@ -290,7 +290,7 @@
             <div style="margin-top: 40px;">
                 <b>A</b><br>
                 {{ $formulaire?->responsable_etablieement }} de/du
-                {!! '' .
+                {{-- {!! '' .
                     implode(
                         ' ',
                         array_map(
@@ -300,7 +300,8 @@
                                 ucfirst(substr($formulaire?->nom_etablissement . ' (' . $formulaire?->autre_2 . ')', 0, 410)),
                             ),
                         ),
-                    ) !!}
+                    ) !!} --}}
+                {!! nl2br(e($formulaire->nom_etablissement . ' (' . $formulaire?->autre_2 . ')')) !!}
                 {{-- {{ $formulaire?->nom_etablissement . ' (' . $formulaire?->autre_2 . ')' }} --}}
                 <br>
                 <b>{{ $formulaire?->adresse_etablessement ?? '-' }}</b>
