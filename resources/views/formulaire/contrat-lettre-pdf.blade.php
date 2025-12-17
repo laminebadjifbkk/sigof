@@ -462,8 +462,8 @@
                 paiement</h4>
 
             <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">Le règlement s’effectue selon les modalités ci-après :</p>
-            <ul>
-                <li style="text-align: justify; margin-top:5px;margin-bottom:5px;">
+            <ul style="text-align: justify; margin-top:5px;margin-bottom:5px;">
+                <li>
                     <b>50%</b> dès signature du présent contrat par les deux parties, sous réserve de la disponibilité
                     du
                     budget de l’ONFP et sur présentation d’une facture d’acompte en trois (3) exemplaires originaux par
@@ -494,7 +494,7 @@
                 Tout litige sera réglé à l’amiable. À défaut, le droit sénégalais sera appliqué.
             </p>
 
-            <p style="text-align: center">
+            <p style="text-align: center; margin-top: 10px">
                 Fait à Dakar en deux exemplaires originaux, le ……………………………
             </p>
 
@@ -505,7 +505,7 @@
 
                     <!-- Partie gauche : Établissement -->
                     <div style="float:left; width:50%; text-align:left;">
-                        <strong>Pour l’Établissement</strong><br><br><br>
+                        <strong>Pour l’Établissement</strong><br><br><br><br><br><br>
                         <em style="font-style: italic; font-weight: normal;">
                             {{ $titre }}
                         </em>
@@ -513,7 +513,7 @@
 
                     <!-- Partie droite : ONFP -->
                     <div style="float:right; width:50%; text-align:right;">
-                        <strong>Pour l’ONFP</strong><br><br><br>
+                        <strong>Pour l’ONFP</strong><br><br><br><br><br><br>
                         <em style="font-style: italic; font-weight: normal;">
                             Le Directeur Général
                         </em>
