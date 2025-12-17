@@ -461,9 +461,9 @@
             <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 3 </b></u>: Modalités de
                 paiement</h4>
 
-            <p>Le règlement s’effectue selon les modalités ci-après :</p>
+            <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">Le règlement s’effectue selon les modalités ci-après :</p>
             <ul>
-                <li>
+                <li style="text-align: justify; margin-top:5px;margin-bottom:5px;">
                     <b>50%</b> dès signature du présent contrat par les deux parties, sous réserve de la disponibilité
                     du
                     budget de l’ONFP et sur présentation d’une facture d’acompte en trois (3) exemplaires originaux par
@@ -471,26 +471,26 @@
                     {{ 'l\'' . $formulaire?->autre_1 ?? '-' }} s’est
                     acquitté des droits d’inscription ;
                 </li>
-                <li><b>50%</b> à la fin de la formation, après présentation par l’établissement d’un rapport d’exécution
+                <li style="text-align: justify; margin-top:5px;margin-bottom:5px;"><b>50%</b> à la fin de la formation, après présentation par l’établissement d’un rapport d’exécution
                     avec les relevés de notes et de la facture reliquat en trois (3) exemplaires originaux.</li>
             </ul>
 
             <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 4 </b></u>: Modification
             </h4>
-            <p>
+            <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">
                 Toute modification du contrat fera l’objet d’un avenant signé par les deux parties.
             </p>
 
             <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 5 </b></u>: Résiliation
             </h4>
-            <p>
+            <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">
                 Le contrat peut être résilié à tout moment en cas de manquement grave ou d’arrêt de
                 {{ 'l\'' . $formulaire?->autre_1 ?? '-' }}.
             </p>
 
             <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 6 </b></u>: Règlement des
                 litiges</h4>
-            <p>
+            <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">
                 Tout litige sera réglé à l’amiable. À défaut, le droit sénégalais sera appliqué.
             </p>
 
@@ -501,7 +501,7 @@
             <br>
 
             <span class="no-page-break">
-                <div style="margin-top: 0mm; font-style: italic; width:100%;">
+                <div style="margin-top: 5mm; font-style: italic; width:100%;">
 
                     <!-- Partie gauche : Établissement -->
                     <div style="float:left; width:50%; text-align:left;">
