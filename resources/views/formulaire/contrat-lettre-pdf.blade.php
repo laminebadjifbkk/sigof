@@ -388,7 +388,7 @@
 
             <h4><u><b>Article 1 </b></u>: Objet du contrat</h4>
 
-            <p>
+            <p style="text-align: justify; margin-top:5px;">
                 Pour l’année académique <b>2025-2026</b>, l’ONFP confie à {{ $formulaire?->autre_2 ?? '-' }},
                 qui
                 accepte,
@@ -424,12 +424,10 @@
 
             </table>
 
-            <br>
-
-            <h4><u><b>Article 2 </b></u>: Engagement des parties</h4>
+            <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 2 </b></u>: Engagement des parties</h4>
 
             <p><b>A : Engagement de l’ONFP</b></p>
-            <p>L’ONFP s’engage :</p>
+            <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">L’ONFP s’engage :</p>
             <ul>
                 <li>A prendre en charge les frais de scolarité annuels (excepté les frais d’inscription), selon les
                     modalités prévues à l’article 3 ;</li>
@@ -437,7 +435,7 @@
                 </li>
             </ul>
 
-            <p><b>B : Engagement de l’Etablissement</b></p>
+            <p style="text-align: justify; margin-top:5px;margin-bottom:5px;"><b>B : Engagement de l’Etablissement</b></p>
             <p>L’Etablissement s’engage à :</p>
             <ul>
                 <li>Assurer à {{ 'l\'' . $formulaire?->autre_1 ?? '-' }} une
@@ -456,7 +454,7 @@
                     poursuivre les cours jusqu’à la fin de l’année scolaire.</li>
             </ul>
 
-            <h4><u><b>Article 3 </b></u>: Modalités de paiement</h4>
+            <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 3 </b></u>: Modalités de paiement</h4>
 
             <p>Le règlement s’effectue selon les modalités ci-après :</p>
             <ul>
@@ -472,18 +470,18 @@
                     avec les relevés de notes et de la facture reliquat en trois (3) exemplaires originaux.</li>
             </ul>
 
-            <h4><u><b>Article 4 </b></u>: Modification</h4>
+            <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 4 </b></u>: Modification</h4>
             <p>
                 Toute modification du contrat fera l’objet d’un avenant signé par les deux parties.
             </p>
 
-            <h4><u><b>Article 5 </b></u>: Résiliation</h4>
+            <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 5 </b></u>: Résiliation</h4>
             <p>
                 Le contrat peut être résilié à tout moment en cas de manquement grave ou d’arrêt de
                 {{ 'l\'' . $formulaire?->autre_1 ?? '-' }}.
             </p>
 
-            <h4><u><b>Article 6 </b></u>: Règlement des litiges</h4>
+            <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 6 </b></u>: Règlement des litiges</h4>
             <p>
                 Tout litige sera réglé à l’amiable. À défaut, le droit sénégalais sera appliqué.
             </p>
