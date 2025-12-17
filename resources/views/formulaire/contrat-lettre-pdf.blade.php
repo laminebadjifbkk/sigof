@@ -461,8 +461,7 @@
             <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 3 </b></u>: Modalités de
                 paiement</h4>
 
-            <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">Le règlement s’effectue selon les
-                modalités ci-après :</p>
+            <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">Le règlement s’effectue selon les modalités ci-après :</p>
             <ul style="text-align: justify; margin-top:5px;margin-bottom:5px;">
                 <li>
                     <b>50%</b> dès signature du présent contrat par les deux parties, sous réserve de la disponibilité
@@ -472,8 +471,7 @@
                     {{ 'l\'' . $formulaire?->autre_1 ?? '-' }} s’est
                     acquitté des droits d’inscription ;
                 </li>
-                <li style="text-align: justify; margin-top:5px;margin-bottom:5px;"><b>50%</b> à la fin de la formation,
-                    après présentation par l’établissement d’un rapport d’exécution
+                <li style="text-align: justify; margin-top:5px;margin-bottom:5px;"><b>50%</b> à la fin de la formation, après présentation par l’établissement d’un rapport d’exécution
                     avec les relevés de notes et de la facture reliquat en trois (3) exemplaires originaux.</li>
             </ul>
 
@@ -515,7 +513,7 @@
 
                     <!-- Partie droite : ONFP -->
                     <div style="float:right; width:50%; text-align:right;">
-                        <strong style="padding-right: 10px;">Pour l’ONFP</strong><br><br><br><br><br><br>
+                        <strong>Pour l’ONFP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong><br><br><br><br><br><br>
                         <em style="font-style: italic; font-weight: normal;">
                             Le Directeur Général
                         </em>
