@@ -368,7 +368,7 @@
                 <span style=" width:40%;font-size: 10px;">ONFP/DG/DIOF/ss</span>
             </h3>
 
-            <p><b>Entre les soussignés</b></p>
+            <p style="text-align:center;"><b>Entre les soussignés</b></p>
 
             <p>
                 <b>Office national de Formation professionnelle (ONFP)</b><br>
@@ -382,7 +382,7 @@
                 <b>Tél</b> : {{ $formulaire?->telephone_etablissement }}
             </p>
 
-            <p>
+            <p style="text-align:center;">
                 Il a été convenu et arrêté ce qui suit :
             </p>
 
