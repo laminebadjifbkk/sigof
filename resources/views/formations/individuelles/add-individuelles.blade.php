@@ -60,10 +60,10 @@
                                         <thead>
                                             <tr>
                                                 <th><input type="checkbox" class="form-check-input" id="checkAll"> N°</th>
-                                                <th>Civilité</th>
-                                                <th>Prénom et NOM</th>
-                                                <th>Date naissance</th>
-                                                <th>Lieu naissance</th>
+                                                {{-- <th>Civilité</th> --}}
+                                                <th>Name</th>
+                                                {{-- <th>Date naissance</th>
+                                                <th>Lieu naissance</th> --}}
                                                 <th>Département</th>
                                                 <th>Module</th>
                                                 <th>Note</th>
@@ -91,12 +91,17 @@
                                                                 role="alert">{{ $message }}</span>
                                                         @enderror
                                                     </td>
-                                                    <td>{{ $individuelle?->user?->civilite }}</td>
-                                                    <td>{{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
+                                                    {{-- <td>{{ $individuelle?->user?->civilite }}</td> --}}
+                                                    <td>
+                                                        {{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
+                                                        - {{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}
+                                                        - {{ $individuelle?->user?->lieu_naissance }}
+                                                    </td>
+                                                    {{-- <td>{{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
                                                     </td>
                                                     <td>{{ $individuelle?->user->date_naissance?->format('d/m/Y') }}
                                                     </td>
-                                                    <td>{{ $individuelle?->user->lieu_naissance }}</td>
+                                                    <td>{{ $individuelle?->user->lieu_naissance }}</td> --}}
                                                     <td>{{ $individuelle?->departement->nom }}</td>
                                                     <td>{{ $individuelle?->module->name }}</td>
                                                     <td>{{ $individuelle?->note }}</td>
@@ -166,11 +171,11 @@
 @push('scripts')
     <script>
         new DataTable('#table-individuelles', {
-            layout: {
+            /* layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],
                 }
-            },
+            }, */
             paging: false, // 🔹 Désactive la pagination
             info: false, // 🔹 Supprime le texte "Affichage de X à Y..."
             pageLength: -1, // 🔹 Affiche toutes les lignes
