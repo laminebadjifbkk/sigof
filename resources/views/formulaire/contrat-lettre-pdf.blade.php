@@ -327,7 +327,7 @@
     <!-- ========================= -->
     <div class="page-contrat">
 
-        <div style="font-family: 'DejaVu Sans', sans-serif; font-size: 13px; line-height: 1.6;">
+        <div style="font-family: Tahoma, Arial, sans-serif; font-size: 13px; line-height: 1.6;">
 
             <!-- ENTETE IDENTIQUE À LA LETTRE -->
             <div style="width:100%; font-size:14px;">
@@ -424,7 +424,8 @@
 
             </table>
 
-            <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 2 </b></u>: Engagement des parties</h4>
+            <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 2 </b></u>: Engagement des
+                parties</h4>
 
             <p><b>A : Engagement de l’ONFP</b></p>
             <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">L’ONFP s’engage :</p>
@@ -435,7 +436,10 @@
                 </li>
             </ul>
 
-            <p style="text-align: justify; margin-top:5px;margin-bottom:5px;"><b>B : Engagement de l’Etablissement</b></p>
+            <!-- Saut de page obligatoire -->
+            <div style="page-break-after: always;"></div>
+            <p style="text-align: justify; margin-top:5px;margin-bottom:5px;"><b>B : Engagement de l’Etablissement</b>
+            </p>
             <p>L’Etablissement s’engage à :</p>
             <ul>
                 <li>Assurer à {{ 'l\'' . $formulaire?->autre_1 ?? '-' }} une
@@ -454,7 +458,8 @@
                     poursuivre les cours jusqu’à la fin de l’année scolaire.</li>
             </ul>
 
-            <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 3 </b></u>: Modalités de paiement</h4>
+            <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 3 </b></u>: Modalités de
+                paiement</h4>
 
             <p>Le règlement s’effectue selon les modalités ci-après :</p>
             <ul>
@@ -470,18 +475,21 @@
                     avec les relevés de notes et de la facture reliquat en trois (3) exemplaires originaux.</li>
             </ul>
 
-            <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 4 </b></u>: Modification</h4>
+            <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 4 </b></u>: Modification
+            </h4>
             <p>
                 Toute modification du contrat fera l’objet d’un avenant signé par les deux parties.
             </p>
 
-            <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 5 </b></u>: Résiliation</h4>
+            <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 5 </b></u>: Résiliation
+            </h4>
             <p>
                 Le contrat peut être résilié à tout moment en cas de manquement grave ou d’arrêt de
                 {{ 'l\'' . $formulaire?->autre_1 ?? '-' }}.
             </p>
 
-            <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 6 </b></u>: Règlement des litiges</h4>
+            <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 6 </b></u>: Règlement des
+                litiges</h4>
             <p>
                 Tout litige sera réglé à l’amiable. À défaut, le droit sénégalais sera appliqué.
             </p>
