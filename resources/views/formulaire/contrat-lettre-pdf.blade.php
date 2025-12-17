@@ -437,7 +437,7 @@
             </ul>
 
             <!-- Saut de page obligatoire -->
-            <div style="page-break-after: always;"></div>
+            {{-- <div style="page-break-after: always;"></div> --}}
             <p style="text-align: justify; margin-top:5px;margin-bottom:5px;"><b>B : Engagement de l’Etablissement</b>
             </p>
             <p>L’Etablissement s’engage à :</p>
