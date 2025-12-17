@@ -494,7 +494,7 @@
                 Tout litige sera réglé à l’amiable. À défaut, le droit sénégalais sera appliqué.
             </p>
 
-            <p style="text-align: center; margin-top: 10px">
+            <p style="text-align: center; margin-top: 10px"> <br><br><br>
                 Fait à Dakar en deux exemplaires originaux, le ……………………………
             </p>
 
