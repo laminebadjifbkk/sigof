@@ -1089,7 +1089,9 @@ class FormulaireController extends Controller
 
             // Logique pour déterminer le titre du responsable
             $responsable = $formulaire->responsable_etablieement;
-            if (Str::contains($responsable, 'Directeur')) {
+            if (Str::contains($responsable, 'Directeur général')) {
+                $titre = 'Le Directeur général';
+            } elseif (Str::contains($responsable, 'Directeur')) {
                 $titre = 'Le Directeur';
             } elseif (Str::contains($responsable, 'Directrice')) {
                 $titre = 'La Directrice';
