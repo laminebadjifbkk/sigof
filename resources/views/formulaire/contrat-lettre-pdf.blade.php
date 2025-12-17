@@ -363,7 +363,7 @@
 
             <!-- TITRE CONTRAT -->
             <h3 style="text-align:center;">
-                CONTRAT N° <span style="display:inline-block; width:200px; border-bottom:0px solid #000;"></span>
+                CONTRAT N° <span style="display:inline-block; width:150px; border-bottom:0px solid #000;"></span>
                 <span style="font-size:10px;">ONFP/DG/DIOF/ss</span>
             </h3>
 
