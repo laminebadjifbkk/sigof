@@ -78,152 +78,28 @@
                                             <?php $i = 1; ?>
                                             @foreach ($individuelles as $individuelle)
                                                 {{-- @if (!empty($individuelle?->numero)) --}}
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" name="individuelles[]"
-                                                                value="{{ $individuelle->id }}"
-                                                                {{ in_array($individuelle->formations_id, $individuelleFormation) ? 'checked' : '' }}
-                                                                {{ in_array($individuelle->formations_id, $individuelleFormationCheck) ? 'disabled' : '' }}
-                                                                class="form-check-input @error('individuelles') is-invalid @enderror">
-                                                            {{ $i++ }}
-                                                            @error('individuelles')
-                                                                <span class="invalid-feedback"
-                                                                    role="alert">{{ $message }}</span>
-                                                            @enderror
-                                                        </td>
-                                                        <td>{{ $individuelle?->user?->civilite }}</td>
-                                                        <td>{{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
-                                                        </td>
-                                                        <td>{{ $individuelle?->user->date_naissance?->format('d/m/Y') }}
-                                                        </td>
-                                                        <td>{{ $individuelle?->user->lieu_naissance }}</td>
-                                                        <td>{{ $individuelle?->departement->nom }}</td>
-                                                        <td>{{ $individuelle?->module->name }}</td>
-                                                        <td>{{ $individuelle?->note }}</td>
-                                                        <td><span
-                                                                class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
-                                                        </td>
-                                                        @if (!empty($formation->projets_id))
-                                                            <td>{{ $individuelle?->projet?->sigle }}</td>
-                                                        @endif
-                                                        <td>
-                                                            <span class="d-flex align-items-baseline">
-                                                                <a href="{{ route('individuelles.show', $individuelle) }}"
-                                                                    class="btn btn-primary btn-sm" title="Voir détails"
-                                                                    target="_blank">
-                                                                    <i class="bi bi-eye"></i>
-                                                                </a>
-                                                                <div class="filter">
-                                                                    <a class="icon" href="#"
-                                                                        data-bs-toggle="dropdown"><i
-                                                                            class="bi bi-three-dots"></i></a>
-                                                                    <ul
-                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                        <li>
-                                                                            <a class="dropdown-item btn btn-sm"
-                                                                                href="{{ route('individuelles.edit', $individuelle) }}"
-                                                                                title="Modifier">
-                                                                                <i class="bi bi-pencil"></i> Modifier
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <form
-                                                                                action="{{ route('individuelles.destroy', $individuelle) }}"
-                                                                                method="post">
-                                                                                @csrf
-                                                                                <button type="submit"
-                                                                                    class="dropdown-item show_confirm"
-                                                                                    title="Supprimer">
-                                                                                    <i class="bi bi-trash"></i> Supprimer
-                                                                                </button>
-                                                                            </form>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                {{-- @endif --}}
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-outline-primary btn-sm"><i
-                                                class="bi bi-check2-circle"></i> Sélectionner</button>
-                                    </div>
-                                </div>
-                            @else
-                                <div class="alert alert-warning mt-5">Aucun demandeur disponible pour le moment !!!</div>
-                            @endif
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- autre --}}
-        {{-- <div class="row justify-content-center">
-            <div class="col-lg-12">
-                @if ($message = Session::get('status'))
-                    <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
-                        role="alert">
-                        <strong>{{ $message }}</strong>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
-                            role="alert">
-                            <strong>{{ $error }}</strong>
-                        </div>
-                    @endforeach
-                @endif
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-12 pt-0">
-                                <span class="d-flex mt-0 align-items-baseline">
-                                    <a href="{{ route('formations.show', $formation) }}" class="btn btn-success btn-sm"
-                                        title="Retour">
-                                        <i class="bi bi-arrow-counterclockwise"></i>
-                                    </a>&nbsp;
-                                    <p> | Liste des candidats éligibles mais retirés</p>
-                                </span>
-                            </div>
-                        </div>
-
-                        @foreach ($retirer_individuelles as $indiv)
-                        @endforeach
-                        @if (!empty($indiv))
-                            <div class="form-check col-md-12">
-                                <table class="table datatables align-middle" id="table-individuelles">
-                                    <thead>
-                                        <tr>
-                                            <th> Civilité</th>
-                                            <th>Prénom</th>
-                                            <th>NOM</th>
-                                            <th>Date naissance</th>
-                                            <th>Lieu naissance</th>
-                                            <th>Département</th>
-                                            <th>Module</th>
-                                            <th>Statut</th>
-                                            @if (!empty($formation->projets_id))
-                                                <th>Projet</th>
-                                            @endif
-                                            <th><i class="bi bi-gear"></i></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($retirer_individuelles as $individuelle)
-                                            @if (!empty($individuelle?->numero))
                                                 <tr>
+                                                    <td>
+                                                        <input type="checkbox" name="individuelles[]"
+                                                            value="{{ $individuelle->id }}"
+                                                            {{ in_array($individuelle->formations_id, $individuelleFormation) ? 'checked' : '' }}
+                                                            {{ in_array($individuelle->formations_id, $individuelleFormationCheck) ? 'disabled' : '' }}
+                                                            class="form-check-input @error('individuelles') is-invalid @enderror">
+                                                        {{ $i++ }}
+                                                        @error('individuelles')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ $message }}</span>
+                                                        @enderror
+                                                    </td>
                                                     <td>{{ $individuelle?->user?->civilite }}</td>
-                                                    <td>{{ $individuelle?->user?->firstname }}</td>
-                                                    <td>{{ $individuelle?->user?->name }}</td>
-                                                    <td>{{ $individuelle?->user->date_naissance?->format('d/m/Y') }}</td>
+                                                    <td>{{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
+                                                    </td>
+                                                    <td>{{ $individuelle?->user->date_naissance?->format('d/m/Y') }}
+                                                    </td>
                                                     <td>{{ $individuelle?->user->lieu_naissance }}</td>
                                                     <td>{{ $individuelle?->departement->nom }}</td>
                                                     <td>{{ $individuelle?->module->name }}</td>
+                                                    <td>{{ $individuelle?->note }}</td>
                                                     <td><span
                                                             class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
                                                     </td>
@@ -243,77 +119,91 @@
                                                                         class="bi bi-three-dots"></i></a>
                                                                 <ul
                                                                     class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                    @can('retirer-demandeur-formation')
-                                                                        <button class="btn btn-sm mx-1" data-bs-toggle="modal"
-                                                                            data-bs-target="#diponibleModal{{ $individuelle->id }}">
-                                                                            <i class="bi bi-arrow-return-right"></i> Remettre
-                                                                        </button>
-                                                                    @endcan
+                                                                    <li>
+                                                                        <a class="dropdown-item btn btn-sm"
+                                                                            href="{{ route('individuelles.edit', $individuelle) }}"
+                                                                            title="Modifier">
+                                                                            <i class="bi bi-pencil"></i> Modifier
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <form
+                                                                            action="{{ route('individuelles.destroy', $individuelle) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"
+                                                                                title="Supprimer">
+                                                                                <i class="bi bi-trash"></i> Supprimer
+                                                                            </button>
+                                                                        </form>
+                                                                    </li>
                                                                 </ul>
                                                             </div>
                                                         </span>
                                                     </td>
                                                 </tr>
-                                            @endif
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        @else
-                            <div class="alert alert-info mt-5">Aucun pour le moment !!!</div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-
-        {{-- @foreach ($retirer_individuelles as $individuelle)
-            <div class="modal fade" id="diponibleModal{{ $individuelle->id }}" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form method="post" action="{{ route('givedisponibles', $individuelle->id) }}"
-                            enctype="multipart/form-data" class="row">
-                            @csrf
-                            @method('PUT')
-                            <div class="card-header bg-gradient-default">
-                                <h1 class="h4 text-black mb-0">Remettre
-                                    {{ $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
-                                </h1>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row g-3">
-                                    @if (!empty($individuelle?->motif_rejet))
-                                        <div class="col-12">
-                                            <span class="form-label">Motif: </span>
-                                            <p class="small fst-italic" style="white-space: pre-line;">
-                                                {{ str_replace(';', ";\n", $individuelle?->motif_rejet) }}
-                                            </p>
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="row g-3">
-                                    <div class="col-12">
-                                        <input type="hidden" name="individuelleid" value="{{ $individuelle->id }}">
-                                        <label for="motif" class="form-label">Justification<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <textarea name="motif" id="motif" rows="5"
-                                            class="form-control form-control-sm @error('motif') is-invalid @enderror" placeholder="Expliquer les raisons">{{ old('motif') }}</textarea>
-                                        @error('motif')
-                                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                                        @enderror
+                                                {{-- @endif --}}
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-outline-primary btn-sm"><i
+                                                class="bi bi-check2-circle"></i> Sélectionner</button>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm"
-                                    data-bs-dismiss="modal">Fermer</button>
-                                <button type="submit" class="btn btn-primary btn-sm"><i
-                                        class="bi bi-arrow-right-circle"></i> Remettre</button>
-                            </div>
+                            @else
+                                <div class="alert alert-warning mt-5">Aucun demandeur disponible pour le moment !!!</div>
+                            @endif
                         </form>
                     </div>
                 </div>
             </div>
-        @endforeach --}}
+        </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        new DataTable('#table-individuelles', {
+            layout: {
+                topStart: {
+                    buttons: ['csv', 'excel', 'print'],
+                }
+            },
+            paging: false, // 🔹 Désactive la pagination
+            info: false, // 🔹 Supprime le texte "Affichage de X à Y..."
+            pageLength: -1, // 🔹 Affiche toutes les lignes
+
+            language: {
+                "sProcessing": "Traitement en cours...",
+                "sSearch": "Rechercher&nbsp;:",
+                "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix": "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst": "Premier",
+                    "sPrevious": "Pr&eacute;c&eacute;dent",
+                    "sNext": "Suivant",
+                    "sLast": "Dernier"
+                },
+                "oAria": {
+                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                },
+                "select": {
+                    "rows": {
+                        _: "%d lignes sÃ©lÃ©ctionnÃ©es",
+                        0: "Aucune ligne sÃ©lÃ©ctionnÃ©e",
+                        1: "1 ligne sÃ©lÃ©ctionnÃ©e"
+                    }
+                }
+            }
+        });
+    </script>
+@endpush
