@@ -436,8 +436,6 @@
                 </li>
             </ul>
 
-            <!-- Saut de page obligatoire -->
-            {{-- <div style="page-break-after: always;"></div> --}}
             <p style="text-align: justify; margin-top:5px;margin-bottom:5px;"><b>B : Engagement de l’Etablissement</b>
             </p>
             <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">L’Etablissement s’engage à :</p>
@@ -458,6 +456,8 @@
                     poursuivre les cours jusqu’à la fin de l’année scolaire.</li>
             </ul>
 
+            <!-- Saut de page obligatoire -->
+            <div style="page-break-after: always;"></div>
             <h4 style="text-align: justify; margin-top:5px;margin-bottom:5px;"><u><b>Article 3 </b></u>: Modalités de
                 paiement</h4>
 
