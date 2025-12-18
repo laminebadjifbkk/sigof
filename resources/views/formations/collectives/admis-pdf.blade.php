@@ -196,7 +196,7 @@
                 <tr class="heading">
                     <td style="text-align: center; width: 3%;"><b>N°</b></td>
                     <td style="text-align: center; width: 12%;"><b>N° CIN</b></td>
-                    <td style="text-align: center;"><b>Name</b></td>
+                    <td style="text-align: center; width: 25%;"><b>Name</b></td>
                     <td style="text-align: center; width: 10%;"><b>Téléphone</b></td>
                     <td style="text-align: center; width: 12%;"><b>Date retrait</b></td>
                     <td style="text-align: center; width: 12%;"><b>Signature bénéficiaire</b></td>
