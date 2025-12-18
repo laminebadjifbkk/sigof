@@ -1652,16 +1652,16 @@
                                     <div class="col-12 mb-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h1 class="card-title">Retrait des attestations</h1>
-                                            {{-- <h5 class="card-title">
-                                            @can('attestation-formation')
-                                                Informer
-                                                <button type="button" class="btn btn-outline-primary btn-sm"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#EditRemiseAttestationsModal{{ $formation->id }}">
-                                                    <i class="bi bi-plus" title="Ajouter les membres du jury"></i>
-                                                </button>
-                                            @endcan
-                                        </h5> --}}
+
+                                            <!-- Bouton Télécharger PDF -->
+                                            <span>
+                                                <a href="{{ route('exporter-liste-admis-col.pdf', $formation->id) }}"
+                                                    class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-1 shadow-sm mx-2"
+                                                    title="Télécharger la liste en PDF" target="_blank">
+                                                    <i class="bi bi-file-earmark-pdf fs-6"></i>
+                                                    <span class="d-none d-sm-inline">Liste Admis</span>
+                                                </a>
+                                            </span>
 
                                             <h5 class="card-title d-flex align-items-center justify-content-between">
                                                 @can('attestation-formation')

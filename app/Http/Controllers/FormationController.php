@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Choixoperateur;
@@ -149,7 +150,7 @@ class FormationController extends Controller
             $numFormation = 'F' . $numFormation;
         }
 
-// Mise en forme du numéro de formation en ajoutant des zéros au début
+        // Mise en forme du numéro de formation en ajoutant des zéros au début
         /* $numFormation = str_pad($numFormation, 7, '0', STR_PAD_LEFT); */
 
         /* dd($numFormation); */
@@ -450,11 +451,11 @@ class FormationController extends Controller
 
         $effectif_prevu = $prevue_h + $prevue_f;
 
-// Chargement projet et référentiel
+        // Chargement projet et référentiel
         $projet      = Projet::where('sigle', $request->input('projet'))->first();
         $referentiel = Referentiel::where('titre', $request->titre)->first();
 
-// Détermination du type et du titre
+        // Détermination du type et du titre
         if (! empty($referentiel) && $request->titre !== 'Renforcement de capacités') {
             $referentiel_id = $referentiel->id;
             $titre          = null;
@@ -469,7 +470,7 @@ class FormationController extends Controller
             $type           = null;
         }
 
-// Fonction pour gérer les fichiers
+        // Fonction pour gérer les fichiers
         function handleFileUpload($requestKey, $storagePath, $formation, $fieldName)
         {
             if (request()->hasFile($requestKey)) {
@@ -483,7 +484,7 @@ class FormationController extends Controller
             }
         }
 
-// Traitement des fichiers
+        // Traitement des fichiers
         handleFileUpload('file_convention', 'conventions', $formation, 'file_convention');
         handleFileUpload('detf_file', 'detfs', $formation, 'detf_file');
         handleFileUpload('file_pv', 'pvs', $formation, 'file_pv');
@@ -496,7 +497,7 @@ class FormationController extends Controller
             return ! empty($value) ? date('Y-m-d H:i:s', strtotime($value)) : null;
         }
 
-// Dates
+        // Dates
         $date_debut     = parseDateOrNull($request->input('date_debut'));
         $date_fin       = parseDateOrNull($request->input('date_fin'));
         $date_pv        = parseDateOrNull($request->input('date_pv'));
@@ -506,7 +507,7 @@ class FormationController extends Controller
         $date_convention = parseDateOrNull($request->input('date_convention'));
         $date_etat       = parseDateOrNull($request->input('date_etat'));
 
-// Champs simples (valeur ou null)
+        // Champs simples (valeur ou null)
         $frais_operateurs = $request->input('frais_operateurs') ?: null;
         $frais_add        = $request->input('frais_add') ?: null;
         $autes_frais      = $request->input('autes_frais') ?: null;
@@ -633,13 +634,13 @@ class FormationController extends Controller
         $emargementcollectives = Emargementcollective::where('formations_id', $formation->id)->get();
         $count_demandes        = $formation->individuelles->count();
 
-// Chargement en batch des données secondaires
+        // Chargement en batch des données secondaires
         $listecollectives = Listecollective::latest()->get();
         $evaluateurs      = Evaluateur::latest()->get();
         $onfpevaluateurs  = Onfpevaluateur::latest()->get();
         $referentiels     = Referentiel::all();
 
-// collectives_id est déjà chargé via $formation
+        // collectives_id est déjà chargé via $formation
         $collectivemodule = Collectivemodule::where('collectives_id', $formation->collectives_id)->get();
 
         $collectiveFormation = Formation::where('collectivemodules_id', $formation->collectivemodules_id)
@@ -861,7 +862,7 @@ class FormationController extends Controller
             $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
                 ->join('regions', 'regions.id', 'individuelles.regions_id')
                 ->select('individuelles.*')
-            /* ->where('individuelles.projets_id', $formation?->projets_id) */
+                /* ->where('individuelles.projets_id', $formation?->projets_id) */
                 ->where('modules.name', 'LIKE', '%' . $module->name . '%')
                 ->where('regions.nom', $region->nom)
                 ->whereIn('individuelles.statut', $statutsVoulus)
@@ -975,10 +976,10 @@ class FormationController extends Controller
                 "formations_id" => null,
                 "statut"        => 'Retiré',
                 "motif_rejet"   => $individuelle->motif_rejet
-                . ' retiré de la formation ' . $formation->name
-                . ', le ' . $date . ' par ' . Auth::user()->firstname
-                . ' pour motif : ' . $request->input('motif')
-                . ' ' . Auth::user()->name . ';',
+                    . ' retiré de la formation ' . $formation->name
+                    . ', le ' . $date . ' par ' . Auth::user()->firstname
+                    . ' pour motif : ' . $request->input('motif')
+                    . ' ' . Auth::user()->name . ';',
             ]);
 
             $individuelle->save();
@@ -1022,8 +1023,8 @@ class FormationController extends Controller
         $individuelle->update([
             "statut"      => 'Attente',
             "motif_rejet" => 'Remis en attente le '
-            . $date . ' par ' . Auth::user()->firstname
-            . ' ' . Auth::user()->name . ';',
+                . $date . ' par ' . Auth::user()->firstname
+                . ' ' . Auth::user()->name . ';',
         ]);
 
         $individuelle->save();
@@ -1065,8 +1066,8 @@ class FormationController extends Controller
                 "formations_id" => null,
                 "statut"        => 'Retiré',
                 "motif_rejet"   => $request->motif . ' '
-                . $date . ' par ' . Auth::user()->firstname
-                . ' ' . Auth::user()->name . ';',
+                    . $date . ' par ' . Auth::user()->firstname
+                    . ' ' . Auth::user()->name . ';',
             ]);
 
             $listecollective->save();
@@ -1113,7 +1114,7 @@ class FormationController extends Controller
         // Convertir en minuscules
         $modulenameLower = strtolower($modulename);
 
-// Supprimer uniquement les parenthèses, mais garder le contenu
+        // Supprimer uniquement les parenthèses, mais garder le contenu
         $modulenameClean = str_replace(['(', ')'], ' ', $modulenameLower);
 
         $articles = ['le', 'la', 'les', 'un', 'une', 'de', 'du', 'des', 'en', 'et', 'à', 'au', 'aux', 'pour', 'par', 'dans', 'sur', 'avec'];
@@ -1221,7 +1222,7 @@ class FormationController extends Controller
         // Convertir en minuscules
         $modulenameLower = strtolower($modulename);
 
-// Supprimer uniquement les parenthèses, mais garder le contenu
+        // Supprimer uniquement les parenthèses, mais garder le contenu
         $modulenameClean = str_replace(['(', ')'], ' ', $modulenameLower);
 
         $articles = ['le', 'la', 'les', 'un', 'une', 'de', 'du', 'des', 'en', 'et', 'à', 'au', 'aux', 'pour', 'par', 'dans', 'sur', 'avec'];
@@ -1352,7 +1353,6 @@ class FormationController extends Controller
         Alert::success('Succès', 'demande sélectionnée avec succès');
 
         return redirect()->back();
-
     }
 
     public function addmoduleformations($idformation, $idlocalite)
@@ -1508,7 +1508,6 @@ class FormationController extends Controller
 
                 return redirect()->back();
             }
-
         } else {
             $collectivemodule->update([
                 "formations_id" => $idformation,
@@ -1521,7 +1520,6 @@ class FormationController extends Controller
 
             return redirect()->back();
         }
-
     }
 
     public function retirermoduleformation(Request $request, $id)
@@ -1854,7 +1852,7 @@ class FormationController extends Controller
                     $appreciation = "Excellent";
                 }
             } else {
-                                                     // Si ce n'est pas une note numérique (ex: "Admis", "Attesté")
+                // Si ce n'est pas une note numérique (ex: "Admis", "Attesté")
                 $appreciation = $appreciation_input; // Prend la valeur entrée manuellement
 
             }
@@ -1880,7 +1878,7 @@ class FormationController extends Controller
         Alert::success('Bravo !', 'L\'évaluation est terminée.');
         return redirect()->back();
     }
-/*
+    /*
     public function givenotedemandeursCollective($idformation, Request $request)
     {
         $request->validate([
@@ -2006,7 +2004,7 @@ class FormationController extends Controller
                     $appreciation = "Excellent";
                 }
             } else {
-                                                     // Si ce n'est pas une note numérique (ex: "Admis", "Attesté")
+                // Si ce n'est pas une note numérique (ex: "Admis", "Attesté")
                 $appreciation = $appreciation_input; // Prend la valeur saisie manuellement
             }
 
@@ -2273,7 +2271,11 @@ class FormationController extends Controller
         $date_retrait = date_format(date_create($request->date_retrait), 'd/m/Y');
 
         $request->validate([
-            'date_retrait' => 'required', 'date', 'min:10', 'max:10', 'date_format:Y-m-d',
+            'date_retrait' => 'required',
+            'date',
+            'min:10',
+            'max:10',
+            'date_format:Y-m-d',
             'personne'     => 'required',
         ]);
 
@@ -2318,7 +2320,11 @@ class FormationController extends Controller
         $date_retrait = date_format(date_create($request->date_retrait), 'd/m/Y');
 
         $request->validate([
-            'date_retrait' => 'required', 'date', 'min:10', 'max:10', 'date_format:Y-m-d',
+            'date_retrait' => 'required',
+            'date',
+            'min:10',
+            'max:10',
+            'date_format:Y-m-d',
             'personne'     => 'required',
         ]);
         if ($request->input('personne') == 'moi') {
@@ -2764,7 +2770,6 @@ class FormationController extends Controller
         Alert::success("Modification réussie", "La modification a été effectuée avec succès.");
 
         return redirect()->back();
-
     }
 
     public function feuillePresenceColTous(Request $request)
@@ -2788,7 +2793,6 @@ class FormationController extends Controller
         Alert::success("Modification réussie", "La modification a été effectuée avec succès.");
 
         return redirect()->back();
-
     }
 
     public function feuillePresenceFinale(Request $request)
@@ -3133,7 +3137,6 @@ class FormationController extends Controller
 
         // Output the generated PDF to Browser
         $dompdf->stream($name, ['Attachment' => false]);
-
     }
 
     public function addformationdemandeurscollectives($idformation, $idcollectivemodule, $idlocalite)
@@ -3148,7 +3151,7 @@ class FormationController extends Controller
             ->select('listecollectives.*')
             ->where('collectives.id', '=', $collectivemodule?->collective?->id)
             ->where('listecollectives.collectivemodules_id', '=', $idcollectivemodule)
-        /* ->whereIn('collectives.statut_demande', $statutsVoulus) */
+            /* ->whereIn('collectives.statut_demande', $statutsVoulus) */
             ->get();
 
         /* dd($listecollectives); */
@@ -3264,14 +3267,18 @@ class FormationController extends Controller
 
         /* dd($listecollectivesIdsDansEmargement, $listecollectiveFormation, $listecollectiveCochees); */
 
-        return view("formations.collectives.add-presencecollective-jour",
-            compact('formation',
+        return view(
+            "formations.collectives.add-presencecollective-jour",
+            compact(
+                'formation',
                 'listecollectives',
                 'collectivemodule',
                 'emargementcollective',
                 'listecollectiveCochees',
                 'localite',
-                'candidatsretenus'));
+                'candidatsretenus'
+            )
+        );
     }
 
     public function giveajouterDemandeursPresenceJourCollectives(Request $request, $idformation, $idcollectivemodule, $idlocalite, $idemargementcollective)
@@ -3359,14 +3366,18 @@ class FormationController extends Controller
             ->pluck('individuelles_id')
             ->toArray();
 
-        return view("formations.individuelles.add-presence-jour",
-            compact('formation',
+        return view(
+            "formations.individuelles.add-presence-jour",
+            compact(
+                'formation',
                 'individuelles',
                 'module',
                 'emargement',
                 'individuelleCochees',
                 'localite',
-                'candidatsretenus'));
+                'candidatsretenus'
+            )
+        );
     }
 
     public function giveajouterDemandeursPresenceJour(Request $request, $idformation, $idmodule, $idlocalite, $idemargement)
@@ -3574,25 +3585,25 @@ class FormationController extends Controller
         $prevus_f_count = $formation?->prevue_f;
         $prevus_total   = $prevus_h_count + $prevus_f_count;
 
-// Toutes les individuelles liées à la formation, avec jointure utilisateur
+        // Toutes les individuelles liées à la formation, avec jointure utilisateur
         $individuelles = Individuelle::with('user')
             ->where('formations_id', $idformation)
             ->get();
 
-// Admis et recalés
+        // Admis et recalés
         $admis   = $individuelles->where('note_obtenue', '>=', 12);
         $recales = $individuelles->where('note_obtenue', '<', 12);
 
-// Comptage par sexe parmi les admis
+        // Comptage par sexe parmi les admis
         $admis_h_count = $admis->filter(fn($i) => $i->user?->civilite === 'M.')->count();
         $admis_f_count = $admis->filter(fn($i) => $i->user?->civilite === 'Mme')->count();
 
-// Comptage total formés par sexe
+        // Comptage total formés par sexe
         $formes_h_count = $individuelles->filter(fn($i) => $i->user?->civilite === 'M.')->count();
         $formes_f_count = $individuelles->filter(fn($i) => $i->user?->civilite === 'Mme')->count();
         $formes_total   = $formes_h_count + $formes_f_count;
 
-// Comptage des retenus (identique à formés dans ton code, à confirmer)
+        // Comptage des retenus (identique à formés dans ton code, à confirmer)
         $retenus_h_count = $formes_h_count;
         $retenus_f_count = $formes_f_count;
         $retenus_total   = $retenus_h_count + $retenus_f_count;
@@ -3644,7 +3655,6 @@ class FormationController extends Controller
 
             // Output the generated PDF to Browser
             return $dompdf->stream($name, ['Attachment' => false]);
-
         } else {
             Alert::warning('Désolé !', "La formation n'est pas encore terminée.");
             return redirect()->back();
@@ -3953,7 +3963,6 @@ class FormationController extends Controller
                 ->where('individuelles.projets_id', $projet?->id)
                 ->whereBetween(DB::raw('DATE(formations.date_debut)'), [$request->from_date, $request->to_date])
                 ->get();
-
         } elseif (! empty($request->region)) {
             $region = Region::where('nom', $request->region)->first();
 
@@ -4048,7 +4057,6 @@ class FormationController extends Controller
                 ->where('listecollectives.collectivemodules_id', 'LIKE', "%{$module?->id}%")
                 ->whereBetween(DB::raw('DATE(formations.date_debut)'), [$request->from_date, $request->to_date])
                 ->get();
-
         } else {
             $formes = Listecollective::join('formations', 'formations.id', 'listecollectives.formations_id')
                 ->select('listecollectives.*')
@@ -4426,11 +4434,9 @@ class FormationController extends Controller
                 }
 
                 Alert::success('Enregistrement réussi !');
-
             } else {
                 Alert::warning('Attention !', 'Vous avez atteint le nombre maximum de feuilles de présence à créer, car elles ne peuvent pas dépasser le nombre de jours de formation.');
             }
-
         } else {
             Alert::warning('Attention !', 'renseignez d\'abord la durée (nombre de jours) de formation');
         }
@@ -4487,7 +4493,6 @@ class FormationController extends Controller
                     }
                 }
                 Alert::success('Enregistrement réussi !');
-
             } else {
                 Alert::warning('Attention !', 'Vous avez atteint le nombre maximum de feuilles de présence à créer, car elles ne peuvent pas dépasser le nombre de jours de formation.');
             }
@@ -4671,7 +4676,6 @@ class FormationController extends Controller
         $name = 'Lettre_mission_formation_code_' . $formation->code . '.pdf';
         // Output the generated PDF to Browser
         return $dompdf->stream($name, ['Attachment' => false]);
-
     }
 
     public function downloadDemandePaiement($formationId)
@@ -4681,7 +4685,7 @@ class FormationController extends Controller
         $title         = 'Demande de paiement évaluation formation en ' . $formation->name;
         $membres_jury  = explode(";", $formation->membres_jury);
         $count_membres = count($membres_jury);
-// ✅ Génération QR PNG sans imagick avec endroid/qr-code
+        // ✅ Génération QR PNG sans imagick avec endroid/qr-code
         if ($formation?->module && $formation?->module?->name) {
             $moduleName = $formation->module->name;
         } elseif ($formation?->collectivemodule && $formation?->collectivemodule?->module) {
@@ -4689,9 +4693,9 @@ class FormationController extends Controller
         }
 
         $qrContent = "Formation : {$formation?->name}\n" .
-        "Code : {$formation?->code}\n" .
-        "Module : {$moduleName}\n" .
-        "Date : " . $formation?->date_debut?->format('d/m/Y') . " au " . $formation?->date_fin?->format('d/m/Y');
+            "Code : {$formation?->code}\n" .
+            "Module : {$moduleName}\n" .
+            "Date : " . $formation?->date_debut?->format('d/m/Y') . " au " . $formation?->date_fin?->format('d/m/Y');
 
         $qrCode       = QrCode::create($qrContent)->setSize(150);
         $writer       = new PngWriter();
@@ -4780,7 +4784,6 @@ class FormationController extends Controller
 
         $name = 'Demande_paiement_' . $formation->code . '.pdf';
         return $dompdf->stream($name, ['Attachment' => false]);
-
     }
 
     public function changerFormation(Request $request, $id)
@@ -4816,5 +4819,89 @@ class FormationController extends Controller
         Alert::success('Succès !', 'Attestation mise à jour avec succès.');
 
         return redirect()->back();
+    }
+
+    public function exporterlisteAdmisPDF($id)
+    {
+        try {
+            // Récupérer la formation par ID
+            $formation = Formation::findOrFail($id);
+
+            // Vérifier le statut
+            if ($formation->statut !== 'Terminée') {
+                Alert::error('Attention', 'Impossible de télécharger : la formation n\'est pas terminée.');
+                return redirect()->back();
+            }
+
+            // Préparer les données pour la vue PDF
+            $dompdf  = new Dompdf();
+            $options = $dompdf->getOptions();
+            $dompdf->setOptions($options);
+
+            $dompdf->loadHtml(view(
+                'formations.individuelles.admis-pdf',
+                compact('formation')
+            ));
+
+            // Format du PDF
+            $dompdf->setPaper('Letter', 'landscape');
+            $dompdf->render();
+
+            // Nom du fichier
+            $name = 'Liste_admis_' . $formation->name . '_' . $formation->code . '.pdf';
+            $name = str_replace(
+                [' ', 'é', 'è', 'ê', 'à', 'ç', ','],
+                ['_', 'e', 'e', 'e', 'a', 'c', ''],
+                $name
+            );
+
+            // Stream vers le navigateur
+            return $dompdf->stream($name, ['Attachment' => false]);
+        } catch (\Exception $e) {
+            Alert::error('Erreur', 'Une erreur est survenue lors de la génération du PDF.');
+            return redirect()->back();
+        }
+    }
+
+    public function exporterlisteAdmisPDFCol($id)
+    {
+        try {
+            // Récupérer la formation par ID
+            $formation = Formation::findOrFail($id);
+
+            // Vérifier le statut
+            if ($formation->statut !== 'Terminée') {
+                Alert::error('Attention', 'Impossible de télécharger : la formation n\'est pas terminée.');
+                return redirect()->back();
+            }
+
+            // Préparer les données pour la vue PDF
+            $dompdf  = new Dompdf();
+            $options = $dompdf->getOptions();
+            $dompdf->setOptions($options);
+
+            $dompdf->loadHtml(view(
+                'formations.collectives.admis-pdf',
+                compact('formation')
+            ));
+
+            // Format du PDF
+            $dompdf->setPaper('Letter', 'landscape');
+            $dompdf->render();
+
+            // Nom du fichier
+            $name = 'Liste_admis_' . $formation->name . '_' . $formation->code . '.pdf';
+            $name = str_replace(
+                [' ', 'é', 'è', 'ê', 'à', 'ç', ','],
+                ['_', 'e', 'e', 'e', 'a', 'c', ''],
+                $name
+            );
+
+            // Stream vers le navigateur
+            return $dompdf->stream($name, ['Attachment' => false]);
+        } catch (\Exception $e) {
+            Alert::error('Erreur', 'Une erreur est survenue lors de la génération du PDF.');
+            return redirect()->back();
+        }
     }
 }

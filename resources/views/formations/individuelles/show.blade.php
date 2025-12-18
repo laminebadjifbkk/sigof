@@ -1467,23 +1467,9 @@
                                 <div class="tab-pane fade attestation-overview pt-1" id="retrait-attestation-overview">
                                     @if (!empty($module))
                                         <div class="col-12 mb-0">
-                                            {{-- <form method="post"
-                                                action="{{ url('notedemandeurs', ['$idformation' => $formation->id]) }}"
-                                                enctype="multipart/form-data" class="row g-3">
-                                                @csrf
-                                                @method('PUT') --}}
-                                            <div class="d-flex justify-content-between align-items-center">
+                                            {{--  <div class="d-flex justify-content-between align-items-center">
                                                 <h1 class="card-title">Retrait des attestations</h1>
-                                                {{-- <h5 class="card-title">
-                                                    @can('attestation-formation')
-                                                        Informer
-                                                        <button type="button" class="btn btn-outline-primary btn-sm"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#EditRemiseAttestationsModal{{ $formation->id }}">
-                                                            <i class="bi bi-plus" title="Ajouter les membres du jury"></i>
-                                                        </button>
-                                                    @endcan
-                                                </h5> --}}
+                                               
                                                 <h5 class="card-title d-flex align-items-center justify-content-between">
                                                     @can('attestation-formation')
                                                         <span class="fw-bold text-dark">
@@ -1500,7 +1486,38 @@
                                                         </button>
                                                     @endcan
                                                 </h5>
+                                            </div> --}}
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h1 class="card-title">Retrait des attestations</h1>
 
+                                                <!-- Bouton Télécharger PDF -->
+                                                <span>
+                                                    <a href="{{ route('exporter-liste-admis.pdf', $formation->id) }}"
+                                                        class="btn btn-sm btn-outline-primary rounded-pill d-flex align-items-center gap-1 shadow-sm mx-2"
+                                                        title="Télécharger la liste en PDF" target="_blank">
+                                                        <i class="bi bi-file-earmark-pdf fs-6"></i>
+                                                        <span class="d-none d-sm-inline">Liste Admis</span>
+                                                    </a>
+                                                </span>
+
+                                                <h5 class="card-title d-flex align-items-center justify-content-between">
+                                                    @can('attestation-formation')
+                                                        <span class="fw-bold text-dark">
+                                                            <i class="bi bi-mortarboard-fill me-2 text-success fs-5"></i>
+                                                            Attestations&nbsp;&nbsp;
+                                                        </span>
+
+                                                        <!-- Bouton Statut -->
+                                                        <button type="button"
+                                                            class="btn btn-sm btn-outline-warning rounded-pill d-flex align-items-center gap-1 shadow-sm"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#EditRemiseAttestationsModal{{ $formation->id }}"
+                                                            title="Informer les bénéficiaires">
+                                                            <i class="bi bi-plus-circle fs-6"></i>
+                                                            <span class="d-none d-sm-inline">Statut</span>
+                                                        </button>
+                                                    @endcan
+                                                </h5>
                                             </div>
                                             <div class="row g-3">
                                                 <table class="table table-bordered table-hover datatables"
