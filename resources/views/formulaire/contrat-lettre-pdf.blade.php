@@ -349,8 +349,8 @@
                 </p>
             </div>
         </footer> --}}
+        @include('formulaire.footer')
     </div>
-    @include('formulaire.footer')
 
     <!-- Saut de page obligatoire -->
     <div style="page-break-after: always;"></div>
@@ -568,21 +568,10 @@
                 </p>
             </div>
         </footer> --}}
+        <!-- FOOTER GLOBAL -->
+        @include('formulaire.footer')
     </div>
-    <!-- FOOTER GLOBAL -->
-    @include('formulaire.footer')
-    <script type="text/php">
-    if (isset($pdf)) {
-        $pdf->page_script(function ($pageNumber, $pageCount, $pdf) {
-            $pdf->text(
-                520, 820,               // position X, Y (à ajuster)
-                "Page $pageNumber / $pageCount",
-                null,
-                9
-            );
-        });
-    }
-</script>
+
 </body>
 
 </html>
