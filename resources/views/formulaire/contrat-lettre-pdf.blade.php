@@ -571,7 +571,18 @@
     </div>
     <!-- FOOTER GLOBAL -->
     @include('formulaire.footer')
-
+    <script type="text/php">
+    if (isset($pdf)) {
+        $pdf->page_script(function ($pageNumber, $pageCount, $pdf) {
+            $pdf->text(
+                520, 820,               // position X, Y (à ajuster)
+                "Page $pageNumber / $pageCount",
+                null,
+                9
+            );
+        });
+    }
+</script>
 </body>
 
 </html>
