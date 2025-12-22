@@ -594,7 +594,7 @@ if (isset($pdf)) {
     $canvas = $pdf->getCanvas();
     $font = $pdf->getFontMetrics()->getFont("Helvetica", "normal");
 
-    $canvas->page_script(function ($pageNumber, 2, $canvas, $font) {
+    $canvas->page_script(function ($pageNumber, $pageCount, $canvas, $font) {
 
         // ❌ masquer la lettre (page 1)
         if ($pageNumber == 1) {
@@ -603,7 +603,7 @@ if (isset($pdf)) {
 
         // 📄 recalcul pour le contrat
         $pageContrat  = $pageNumber - 1;
-        $totalContrat = 2 - 1;
+        $totalContrat = $pageCount - 1;
 
         $text = "Page $pageContrat / $totalContrat";
 
