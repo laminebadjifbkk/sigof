@@ -19,6 +19,6 @@
             BP: 21013 Dakar-Ponty - Email: <a href="mailto:onfp@onfp.sn">onfp@onfp.sn</a>
         </p>
 
-        <p class="footer-text footer-right"></p>
+        Page <span class="page"></span> / 2
     </div>
 </footer>
