@@ -309,7 +309,8 @@
 
         </div>
 
-        <footer>
+        @include('formulaire.footer')
+        {{-- <footer>
             <div class="page-number" id="footer">
                 <div class="footer-line"></div>
                 <p class="footer-text">Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN
@@ -317,7 +318,7 @@
                     BP: 21013 Dakar-Ponty - Email: <a href="mailto:onfp@onfp.sn">onfp@onfp.sn</a>
                 </p>
             </div>
-        </footer>
+        </footer> --}}
     </div>
 
     <!-- Saut de page obligatoire -->
@@ -515,7 +516,8 @@
 
                     <!-- Partie droite : ONFP -->
                     <div style="float:right; width:50%; text-align:right;">
-                        <strong>Pour l’ONFP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong><br><br><br><br><br><br><br>
+                        <strong>Pour
+                            l’ONFP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong><br><br><br><br><br><br><br>
                         <em style="font-style: italic; font-weight: normal;">
                             Le Directeur Général
                         </em>
@@ -527,7 +529,10 @@
 
         </div>
 
-        <footer>
+        @include('formulaire.footer')
+
+
+        {{-- <footer>
             <div class="page-number">
                 <div class="footer-line"></div>
                 <p class="footer-text">Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN
@@ -535,7 +540,7 @@
                     BP: 21013 Dakar-Ponty - Email: <a href="mailto:onfp@onfp.sn">onfp@onfp.sn</a>
                 </p>
             </div>
-        </footer>
+        </footer> --}}
     </div>
 
 </body>
