@@ -571,6 +571,24 @@
     </div>
     <!-- FOOTER GLOBAL -->
     @include('formulaire.footer')
+    <script type="text/php">
+    if (isset($pdf)) {
+        $pdf->page_script(function ($pageNumber, $pageCount, $pdf) {
+
+            // Position EXACTE à droite dans la largeur 18cm
+            $x = 520; // gauche ↔ droite (à ajuster si besoin)
+            $y = 820; // haut ↔ bas
+
+            if ($pageNumber == 1) {
+                $text = "Page 1";
+            } else {
+                $text = "Page $pageNumber / $pageCount";
+            }
+
+            $pdf->text($x, $y, $text, null, 9);
+        });
+    }
+</script>
 
 </body>
 
