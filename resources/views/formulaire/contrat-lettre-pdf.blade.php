@@ -177,6 +177,14 @@
             /* Légère marge haute pour l’espacement */
             line-height: 1.5;
         }
+
+        .page:before {
+            content: counter(page);
+        }
+
+        .total-pages:before {
+            content: counter(pages);
+        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//db.onlinewebfonts.com/c/dd79278a2e4c4a2090b763931f2ada53?family=ArialW02-Regular" rel="stylesheet"
