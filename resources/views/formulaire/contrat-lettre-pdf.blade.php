@@ -110,8 +110,6 @@
             text-align: center;
 
             z-index: 1000;
-
-
         }
 
         .no-page-break {
@@ -209,21 +207,6 @@
 
         .total-pages:before {
             content: counter(pages);
-        }
-
-        /* Ligne */
-        .footer-line {
-            border-top: 1px solid #000;
-            margin-bottom: 3px;
-        }
-
-        /* Texte (derrière) */
-        .footer-text {
-            position: relative;
-            z-index: 1;
-            margin: 0;
-            padding-right: 60px;
-            /* espace pour le numéro */
         }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -587,33 +570,7 @@
     </div>
     <!-- FOOTER GLOBAL -->
     @include('formulaire.footer')
+
 </body>
-<script type="text/php">
-if (isset($pdf)) {
-
-    $canvas = $pdf->getCanvas();
-    $font = $pdf->getFontMetrics()->getFont("Helvetica", "normal");
-
-    $canvas->page_script(function ($pageNumber, $pageCount, $canvas, $font) {
-
-        // ❌ masquer la lettre (page 1)
-        if ($pageNumber == 1) {
-            return;
-        }
-
-        // 📄 recalcul pour le contrat
-        $pageContrat  = $pageNumber - 1;
-        $totalContrat = $pageCount - 1;
-
-        $text = "Page $pageContrat / $totalContrat";
-
-        // 📍 POSITION (ajuste si besoin)
-        $x = 520;   // droite
-        $y = 810;   // sous la footer-line
-
-        $canvas->text($x, $y, $text, $font, 9);
-    });
-}
-</script>
 
 </html>
