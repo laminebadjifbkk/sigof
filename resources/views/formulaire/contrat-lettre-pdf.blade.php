@@ -150,7 +150,6 @@
             font-size: 9px;
         }
 
-
         .page-number {
             position: relative;
             height: 100%;
@@ -161,43 +160,45 @@
             padding-bottom: 0cm;
         }
 
+        /* largeur de référence */
         .footer-line {
             width: 18cm;
             height: 2px;
             background-color: #5D4037;
-            margin-bottom: 0mm;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
         }
 
-        /* Supprime tout espace automatique du paragraphe */
-        .footer-text {
-            margin: 0;
-            padding: 0.5mm 0 0 0;
-            /* Légère marge haute pour l’espacement */
-            line-height: 1.5;
-        }
-
-        .footer-row {
+        /* CONTENEUR limité à la même largeur */
+        .footer-content {
+            width: 18cm;
+            /* EXACTEMENT comme la ligne */
+            margin: 0 auto;
+            /* centré */
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 100%;
-            padding: 0 1cm;
         }
 
+        /* texte principal */
         .footer-left {
-            text-align: center;
             flex: 1;
+            text-align: center;
             font-size: 11px;
+            line-height: 1.4;
+            margin: 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
+        /* pagination */
         .footer-right {
             text-align: right;
             white-space: nowrap;
             font-size: 11px;
+            margin: 0;
         }
 
+        /* DomPDF pagination */
         .page:before {
             content: counter(page);
         }
