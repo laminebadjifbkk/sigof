@@ -178,6 +178,26 @@
             line-height: 1.5;
         }
 
+        .footer-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 1cm;
+        }
+
+        .footer-left {
+            text-align: center;
+            flex: 1;
+            font-size: 11px;
+        }
+
+        .footer-right {
+            text-align: right;
+            white-space: nowrap;
+            font-size: 11px;
+        }
+
         .page:before {
             content: counter(page);
         }
