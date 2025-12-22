@@ -308,8 +308,6 @@
             </div>
 
         </div>
-
-        @include('formulaire.footer')
         {{-- <footer>
             <div class="page-number" id="footer">
                 <div class="footer-line"></div>
@@ -528,10 +526,6 @@
             </span>
 
         </div>
-
-        @include('formulaire.footer')
-
-
         {{-- <footer>
             <div class="page-number">
                 <div class="footer-line"></div>
@@ -542,6 +536,8 @@
             </div>
         </footer> --}}
     </div>
+    <!-- FOOTER GLOBAL -->
+    @include('formulaire.footer')
 
 </body>
 
