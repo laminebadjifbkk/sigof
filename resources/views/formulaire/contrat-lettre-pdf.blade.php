@@ -515,7 +515,7 @@
 
                     <!-- Partie droite : ONFP -->
                     <div style="float:right; width:50%; text-align:right;">
-                        <strong>Pour l’ONFP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong><br><br><br><br><br><br><br>
+                        <strong>Pour l’ONFP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong><br><br><br><br><br><br><br>
                         <em style="font-style: italic; font-weight: normal;">
                             Le Directeur Général
                         </em>
