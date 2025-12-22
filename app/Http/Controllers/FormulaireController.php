@@ -24,7 +24,7 @@ class FormulaireController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(['role:super-admin|Ingenieur|Demandeur']);
+        $this->middleware(['role:super-admin|Ingenieur|Demandeur|DIOF|ADIOF']);
         $this->middleware("permission:formulaire-view", ["only" => ["index"]]);
     }
     // Affichage du formulaire

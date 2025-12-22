@@ -297,12 +297,12 @@
                             fn($line) => nl2br(e(wordwrap($line, 43, "\n", true))),
                             explode(
                                 "\n",
-                                ucfirst(substr($formulaire?->nom_etablissement . ' (' . $formulaire?->autre_2 . ')', 0, 410)),
+                                ucfirst(substr($formulaire?->nom_etablissement . ' (' . str_replace("l'", '', $formulaire?->autre_2) . ')', 0, 410)),
                             ),
                         ),
                     ) !!} --}}
-                {!! nl2br(e($formulaire->nom_etablissement . ' (' . $formulaire?->autre_2 . ')')) !!}
-                {{-- {{ $formulaire?->nom_etablissement . ' (' . $formulaire?->autre_2 . ')' }} --}}
+                {!! nl2br(e($formulaire->nom_etablissement . ' (' . str_replace("l'", '', $formulaire?->autre_2) . ')')) !!}
+                {{-- {{ $formulaire?->nom_etablissement . ' (' . str_replace("l'", '', $formulaire?->autre_2) . ')' }} --}}
                 <br>
                 <b>{{ $formulaire?->adresse_etablessement ?? '-' }}</b>
             </div>
@@ -377,7 +377,7 @@
 
             <p>
                 <b>Et</b><br>
-                <b>{{ $formulaire?->nom_etablissement . ' (' . $formulaire?->autre_2 . ')' }}</b><br>
+                <b>{{ $formulaire?->nom_etablissement . ' (' . str_replace("l'", '', $formulaire?->autre_2) . ')' }}</b><br>
                 <b>Adresse</b> : {{ $formulaire?->adresse_etablessement }}<br>
                 <b>Tél</b> : {{ $formulaire?->telephone_etablissement }}
             </p>
