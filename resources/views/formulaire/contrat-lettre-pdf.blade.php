@@ -573,18 +573,21 @@
     @include('formulaire.footer')
     <script type="text/php">
     if (isset($pdf)) {
+
         $pdf->page_script(function ($pageNumber, $pageCount, $pdf) {
 
-            // Page logique (décalée)
-            if ($pageNumber <= 2) {
-                $logicalPage = 1;
-            } else {
-                $logicalPage = $pageNumber - 2 + 1;
+            // On ignore la page 1 (lettre)
+            if ($pageNumber < 2) {
+                return;
             }
 
-            $text = "Page $logicalPage / $pageCount";
+            // Numérotation du contrat
+            $contractPage = $pageNumber - 1; // page 2 => 1, page 3 => 2
+            $contractTotal = 2;
 
-            // Position à ajuster
+            $text = "Page $contractPage / $contractTotal";
+
+            // Position (à ajuster si besoin)
             $x = 520;
             $y = 820;
 
