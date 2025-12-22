@@ -14,7 +14,7 @@
         @page {
             size: 21cm 29.7cm;
             margin-top: 1cm;
-            margin-bottom: 1cm;
+            margin-bottom: 1.5cm;
             counter-increment: page;
             counter-reset: pages;
         }
@@ -576,20 +576,17 @@
 
         $pdf->page_script(function ($pageNumber, $pageCount, $pdf) {
 
-            // Page 1 = lettre → pas de numéro
             if ($pageNumber < 2) {
                 return;
             }
 
-            // Contrat sur 2 pages
-            $contractPage  = $pageNumber - 1; // 2→1, 3→2
+            $contractPage  = $pageNumber - 1;
             $contractTotal = 2;
 
             $text = "Page $contractPage / $contractTotal";
 
-            // 🔧 POSITION CORRIGÉE
             $x = 520;
-            $y = 790; // ← NE PAS dépasser ~800 en A4
+            $y = 780; // aligné avec footer 1.5cm
 
             $pdf->text($x, $y, $text, null, 9);
         });
