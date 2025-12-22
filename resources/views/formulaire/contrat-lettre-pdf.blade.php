@@ -14,7 +14,7 @@
         @page {
             size: 21cm 29.7cm;
             margin-top: 1cm;
-            margin-bottom: 2cm;
+            margin-bottom: 1cm;
         }
 
         /*      .invoice-box {
@@ -204,6 +204,45 @@
 
         .total-pages:before {
             content: counter(pages);
+        }
+
+        @page {
+            margin-bottom: 2cm;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 9px;
+        }
+
+        .footer-line {
+            border-top: 1px solid #000;
+            margin-bottom: 4px;
+        }
+
+        .footer-content {
+            display: table;
+            width: 100%;
+        }
+
+        .footer-left,
+        .footer-right {
+            display: table-cell;
+            vertical-align: bottom;
+        }
+
+        .footer-left {
+            width: 20%;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .footer-right {
+            width: 80%;
+            text-align: right;
         }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
