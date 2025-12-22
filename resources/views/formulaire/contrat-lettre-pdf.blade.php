@@ -591,24 +591,27 @@
 <script type="text/php">
 if (isset($pdf)) {
 
-    $pdf->page_script(function ($pageNumber, $pageCount, $pdf) {
+    $canvas = $pdf->getCanvas();
+    $font = $pdf->getFontMetrics()->getFont("Helvetica", "normal");
+
+    $canvas->page_script(function ($pageNumber, 2, $canvas, $font) {
 
         // ❌ masquer la lettre (page 1)
         if ($pageNumber == 1) {
             return;
         }
 
-        // 📄 contrat seulement
+        // 📄 recalcul pour le contrat
         $pageContrat  = $pageNumber - 1;
-        $totalContrat = $pageCount - 1;
+        $totalContrat = 2 - 1;
 
         $text = "Page $pageContrat / $totalContrat";
 
-        // 📍 position exacte SOUS la ligne
+        // 📍 POSITION (ajuste si besoin)
         $x = 520;   // droite
-        $y = 815;   // juste sous footer-line (ajuste ±2 si besoin)
+        $y = 810;   // sous la footer-line
 
-        $pdf->text($x, $y, $text, null, 9);
+        $canvas->text($x, $y, $text, $font, 9);
     });
 }
 </script>

@@ -21,7 +21,7 @@
         
         <!-- NUMÉRO PAR-DESSUS -->
         <div class="page-number">
-            Page <span class="page"></span> / <span class="total-pages"></span>
+            Page <span class="page"></span> / 2
         </div>
     </div>
 </footer>
