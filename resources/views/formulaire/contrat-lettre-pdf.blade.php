@@ -105,11 +105,13 @@
 
             background-color: #ffffff;
             color: #000;
-            font-size: 12px;
+            font-size: 9px;
             font-family: Tahoma, Arial, sans-serif;
             text-align: center;
 
             z-index: 1000;
+
+
         }
 
         .no-page-break {
@@ -149,14 +151,17 @@
             font-size: 9px;
         }
 
+        /* Numéro AU-DESSUS du texte */
         .page-number {
-            position: relative;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            padding-bottom: 0cm;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            z-index: 10;
+            background: #fff;
+            /* empêche le masquage */
+            padding-left: 4px;
+            font-weight: bold;
+            white-space: nowrap;
         }
 
         /* largeur de référence */
@@ -206,43 +211,19 @@
             content: counter(pages);
         }
 
-        @page {
-            margin-bottom: 2cm;
-        }
-
-        footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            font-size: 9px;
-        }
-
+        /* Ligne */
         .footer-line {
             border-top: 1px solid #000;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
 
-        .footer-content {
-            display: table;
-            width: 100%;
-        }
-
-        .footer-left,
-        .footer-right {
-            display: table-cell;
-            vertical-align: bottom;
-        }
-
-        .footer-left {
-            width: 20%;
-            text-align: left;
-            white-space: nowrap;
-        }
-
-        .footer-right {
-            width: 80%;
-            text-align: right;
+        /* Texte (derrière) */
+        .footer-text {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            padding-right: 60px;
+            /* espace pour le numéro */
         }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -606,28 +587,6 @@
     </div>
     <!-- FOOTER GLOBAL -->
     @include('formulaire.footer')
-    <script type="text/php">
-    if (isset($pdf)) {
-
-        $pdf->page_script(function ($pageNumber, $pageCount, $pdf) {
-
-            if ($pageNumber < 2) {
-                return;
-            }
-
-            $contractPage  = $pageNumber - 1;
-            $contractTotal = 2;
-
-            $text = "Page $contractPage / $contractTotal";
-
-            $x = 520;
-            $y = 780; // aligné avec footer 1.5cm
-
-            $pdf->text($x, $y, $text, null, 9);
-        });
-    }
-</script>
-
 </body>
 
 </html>
