@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class ParcChauffeur extends Model
+{
+    protected $table = 'parc_chauffeurs';
+    protected $fillable = [
+        'user_id',
+        'employee_id',
+        'matricule',
+        'nom',
+        'prenom',
+        'telephone',
+        'statut',
+        'permis_numero',
+        'permis_categories',
+        'permis_expire_le'
+    ];
+
+    protected $casts = [
+        'permis_expire_le' => 'date',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'employee_id');
+    }
+    public function missions()
+    {
+        return $this->hasMany(ParcMission::class, 'chauffeur_id');
+    }
+    public function affectations()
+    {
+        return $this->hasMany(ParcAffectation::class, 'chauffeur_id');
+    }
+    public function vehicules()
+    {
+        return $this->hasMany(ParcVehicule::class, 'chauffeur_id');
+    }
+}

@@ -56,6 +56,14 @@ use App\Http\Controllers\OperateurequipementController;
 use App\Http\Controllers\OperateurformateurController;
 use App\Http\Controllers\OperateurlocaliteController;
 use App\Http\Controllers\OperateurmoduleController;
+use App\Http\Controllers\ParcAffectationController;
+use App\Http\Controllers\ParcChauffeurController;
+use App\Http\Controllers\ParcDepenseController;
+use App\Http\Controllers\ParcEmployeeMissionController;
+use App\Http\Controllers\ParcMaintenanceController;
+use App\Http\Controllers\ParcMissionController;
+use App\Http\Controllers\ParcPleinController;
+use App\Http\Controllers\ParcVehiculeController;
 use App\Http\Controllers\PchargeController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PosteController;
@@ -80,6 +88,14 @@ use App\Http\Controllers\ValidationoperateurController;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
+
+
+
+
+
+
+
+
 
 
 /*
@@ -602,12 +618,14 @@ Route::group(['middleware' => ['XSS']], function () {
             [FormulaireController::class, 'PrisenchargeExcel']
         )->name('prisenchargeExcel');
 
-        Route::get('/exporter-liste-admis/{id}',
+        Route::get(
+            '/exporter-liste-admis/{id}',
             [FormationController::class, 'exporterlisteAdmisPDF']
         )
             ->name('exporter-liste-admis.pdf');
-        
-        Route::get('/exporter-liste-admis-col/{id}',
+
+        Route::get(
+            '/exporter-liste-admis-col/{id}',
             [FormationController::class, 'exporterlisteAdmisPDFCol']
         )
             ->name('exporter-liste-admis-col.pdf');
@@ -839,6 +857,15 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('/operateurcategories', OperateurcategorieController::class);
         Route::resource('/inscriptioncontacts', InscriptioncontactController::class);
         Route::resource('/formulaires', FormulaireController::class);
+
+        Route::resource('parc-vehicules', ParcVehiculeController::class);
+        Route::resource('parc-chauffeurs', ParcChauffeurController::class);
+        Route::resource('parc-missions', ParcMissionController::class);
+        Route::resource('parc-depenses', ParcDepenseController::class);
+        Route::resource('parc-pleins', ParcPleinController::class);
+        Route::resource('parc-maintenances', ParcMaintenanceController::class);
+        Route::resource('parc-affectations', ParcAffectationController::class);
+        Route::resource('parc-employee-missions', ParcEmployeeMissionController::class);
 
         Route::middleware('admin')->group(function () {
             Route::get('/manuels', [BookController::class, 'index'])->name('manuels.index');

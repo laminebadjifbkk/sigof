@@ -105,6 +105,38 @@
             </li>
         @endcan
 
+      @can('parc-view')
+    <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#parc-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-car-front"></i><span>Parc automobile</span>
+            <i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="parc-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            @can('vehicule-view')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('parc-vehicules.index') }}">
+                        <span>Véhicules</span>
+                    </a>
+                </li>
+            @endcan
+            @can('chauffeur-view')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('parc-chauffeurs.index') }}">
+                        <span>Chauffeurs</span>
+                    </a>
+                </li>
+            @endcan
+            @can('mission-view')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('parc-missions.index') }}">
+                        <span>Missions</span>
+                    </a>
+                </li>
+            @endcan
+        </ul>
+    </li>
+@endcan
+
         @can('une-view')
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#actualite-nav" data-bs-toggle="collapse" href="#">
