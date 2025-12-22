@@ -9,6 +9,7 @@ use App\Models\Formulaire;
 use App\Models\HistoriquePriseEnCharge;
 use Carbon\Carbon;
 use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -1112,9 +1113,10 @@ class FormulaireController extends Controller
             }
 
             // Préparer les données pour la vue PDF
-            $dompdf  = new Dompdf();
-            $options = $dompdf->getOptions();
-            $dompdf->setOptions($options);
+            $options = new Options();
+            $options->set('isPhpEnabled', true);              // ⭐ OBLIGATOIRE
+            $options->set('isHtml5ParserEnabled', true);
+            $dompdf = new Dompdf($options);
 
             $dompdf->loadHtml(view(
                 'formulaire.contrat-lettre-pdf',

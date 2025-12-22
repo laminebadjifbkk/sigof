@@ -576,18 +576,18 @@
 
         $pdf->page_script(function ($pageNumber, $pageCount, $pdf) {
 
-            // On ignore la page 1 (lettre)
+            // Page 1 = lettre → pas de numéro
             if ($pageNumber < 2) {
                 return;
             }
 
-            // Numérotation du contrat
-            $contractPage = $pageNumber - 1; // page 2 => 1, page 3 => 2
+            // Contrat sur 2 pages
+            $contractPage  = $pageNumber - 1; // 2→1, 3→2
             $contractTotal = 2;
 
             $text = "Page $contractPage / $contractTotal";
 
-            // Position (à ajuster si besoin)
+            // Aligné à droite sous la footer-line (18cm)
             $x = 520;
             $y = 820;
 
