@@ -14,7 +14,7 @@
         @page {
             size: 21cm 29.7cm;
             margin-top: 1cm;
-            margin-bottom: 0cm;
+            margin-bottom: 2cm;
         }
 
         /*      .invoice-box {
