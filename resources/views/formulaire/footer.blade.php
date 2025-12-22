@@ -13,10 +13,9 @@
     <div class="footer-line"></div>
 
     <div class="footer-content">
-        <p class="footer-text footer-left">
-            Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN
-            Tel: 33 827 92 51 - Fax: 33 827 92 55
-            BP: 21013 Dakar-Ponty - Email: onfp@onfp.sn
+        <p class="footer-text footer-left">Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN
+            Tel: <a href="tel:+221338279251">33 827 92 51</a> - Fax: 33 827 92 55 <br>
+            BP: 21013 Dakar-Ponty - Email: <a href="mailto:onfp@onfp.sn">onfp@onfp.sn</a>
         </p>
 
         <p class="footer-text footer-right">
