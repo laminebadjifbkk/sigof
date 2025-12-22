@@ -587,9 +587,9 @@
 
             $text = "Page $contractPage / $contractTotal";
 
-            // Aligné à droite sous la footer-line (18cm)
+            // 🔧 POSITION CORRIGÉE
             $x = 520;
-            $y = 820;
+            $y = 790; // ← NE PAS dépasser ~800 en A4
 
             $pdf->text($x, $y, $text, null, 9);
         });
