@@ -14,9 +14,7 @@
         @page {
             size: 21cm 29.7cm;
             margin-top: 1cm;
-            margin-bottom: 1.5cm;
-            counter-increment: page;
-            counter-reset: pages;
+            margin-bottom: 2cm;
         }
 
         /*      .invoice-box {
@@ -70,8 +68,6 @@
 
         body {
             font-family: Tahoma, Arial, sans-serif;
-            padding-bottom: 30px;
-            counter-reset: pages;
         }
 
 
