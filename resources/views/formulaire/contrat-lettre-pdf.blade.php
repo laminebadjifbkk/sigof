@@ -105,7 +105,7 @@
 
             background-color: #ffffff;
             color: #000;
-            font-size: 9px;
+            font-size: 12px;
             font-family: Tahoma, Arial, sans-serif;
             text-align: center;
 
