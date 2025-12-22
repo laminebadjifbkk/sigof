@@ -575,15 +575,18 @@
     if (isset($pdf)) {
         $pdf->page_script(function ($pageNumber, $pageCount, $pdf) {
 
-            // Position EXACTE à droite dans la largeur 18cm
-            $x = 520; // gauche ↔ droite (à ajuster si besoin)
-            $y = 820; // haut ↔ bas
-
-            if ($pageNumber == 1) {
-                $text = "Page 1";
+            // Page logique (décalée)
+            if ($pageNumber <= 2) {
+                $logicalPage = 1;
             } else {
-                $text = "Page $pageNumber / $pageCount";
+                $logicalPage = $pageNumber - 2 + 1;
             }
+
+            $text = "Page $logicalPage / $pageCount";
+
+            // Position à ajuster
+            $x = 520;
+            $y = 820;
 
             $pdf->text($x, $y, $text, null, 9);
         });
