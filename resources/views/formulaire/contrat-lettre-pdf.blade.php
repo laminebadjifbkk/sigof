@@ -318,6 +318,7 @@
             </div>
         </footer> --}}
     </div>
+    @include('formulaire.footer')
 
     <!-- Saut de page obligatoire -->
     <div style="page-break-after: always;"></div>
