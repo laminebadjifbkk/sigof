@@ -14,7 +14,7 @@
         @page {
             size: 21cm 29.7cm;
             margin-top: 1cm;
-            margin-bottom: 2cm;
+            margin-bottom: 1cm;
             counter-increment: page;
             counter-reset: pages;
         }
