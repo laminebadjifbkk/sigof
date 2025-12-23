@@ -1157,7 +1157,7 @@ class FormulaireController extends Controller
 
             $nomEtablissement = $formulaire?->nom_etablissement ?? '';
             // Supprimer l', à , au uniquement en début de chaîne
-            $nomEtablissement = preg_replace("/^(l'|à |au )/i", '', $nomEtablissement);
+            $nomEtablissement = preg_replace("/^(à |au )/i", '', $nomEtablissement);
 
             $autre2 = $formulaire?->autre_2 ?? '';
             $autre2 = str_replace(['à ', 'au '], '', $autre2);
