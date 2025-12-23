@@ -249,7 +249,7 @@
                         <td>Prénom et Nom</td>
                         <td>Date et lieu de naissance</td>
                         <td>Spécialité</td>
-                        <td>Niveau</td>
+                        <td width="12%">Niveau</td>
                         <td>Montant (CFA)</td>
                     </tr>
                 </thead>
