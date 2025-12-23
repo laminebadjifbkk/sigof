@@ -215,10 +215,10 @@
 
                 </div>
 
-                <div style="float:right; width:40%; text-align:right;font-size: 10pt;">
+                {{-- <div style="float:right; width:40%; text-align:right;font-size: 10pt;">
                     ONFP/DG/DIOF/ss<br><br>
                     <i>Dakar, le ...............................</i>
-                </div>
+                </div> --}}
 
                 <div style="clear:both;"></div>
             </div>
@@ -259,7 +259,7 @@
                         ')' }} --}}
 
                     <b>{{ $nomEtablissement . ' (' . $autre2 . ')' }}</b><br>
-                </b><br>
+                </b>
                 <b>Adresse</b> : {{ $formulaire?->adresse_etablessement }}<br>
                 <b>Tél</b> : {{ $formulaire?->telephone_etablissement }}
             </p>

@@ -1156,11 +1156,12 @@ class FormulaireController extends Controller
             $formulaire = Formulaire::findOrFail($id);
 
             $nomEtablissement = $formulaire?->nom_etablissement ?? '';
+            $nomEtablissement = $formulaire?->nom_etablissement ?? '';
             // Supprimer l', à , au uniquement en début de chaîne
-            $nomEtablissement = preg_replace("/^(à |au )/i", '', $nomEtablissement);
+            $nomEtablissement = preg_replace("/^(l'|à |au )/i", '', $nomEtablissement);
 
             $autre2 = $formulaire?->autre_2 ?? '';
-            $autre2 = str_replace(['à ', 'au '], '', $autre2);
+            $autre2 = str_replace(["l'", 'à ', 'au '], '', $autre2);
 
             // Logique pour déterminer le titre du responsable
             $responsable = $formulaire->responsable_etablieement;
