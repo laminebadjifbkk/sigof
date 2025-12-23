@@ -14,22 +14,19 @@
         @page {
             size: 21cm 29.7cm;
             margin-top: 1cm;
-            margin-bottom: 0.5cm;
+            margin-bottom: 0cm;
         }
 
         .invoice-box {
             max-width: 800px;
             margin: auto;
-            padding-top: 0px;
-            padding-bottom: 25px;
-            padding-left: 25px;
-            padding-right: 25px;
+            padding: 0 25px 25px 25px;
             border: 0px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-            font-size: 12px;
-            /* taille de police */
+            font-size: 12pt;
+            /* taille de police Word */
             line-height: 1.15;
-            /* interligne */
+            /* interligne Word */
             font-family: Tahoma, Arial, sans-serif;
             /* police Tahoma */
         }
@@ -105,17 +102,17 @@
         }
 
         .header-text {
-            font-size: 10px;
+            font-size: 10pt;
             line-height: 1.2;
             text-align: center;
         }
 
         .header-text b {
-            font-size: 11px;
+            font-size: 11pt;
         }
 
         .header-text em {
-            font-size: 9px;
+            font-size: 9pt;
         }
 
         .header-fix {
@@ -134,7 +131,7 @@
             right: 0;
             height: 2.3cm;
             font-family: Tahoma, Arial, sans-serif;
-            font-size: 11px;
+            font-size: 11pt;
             background: #fff;
         }
 
@@ -197,20 +194,20 @@
     @include('formulaire.footer')
     <div class="page-contrat">
 
-        <div style="font-family: Tahoma, Arial, sans-serif; font-size: 13px; line-height: 1.6;">
+        <div style="font-family: Tahoma, Arial, sans-serif; font-size: 12pt; line-height: 1.3;">
 
             <!-- ENTETE IDENTIQUE À LA LETTRE -->
-            <div style="width:100%; font-size:14px;">
-                <div style="float:left; width:60%; text-align:left; line-height:1.1; font-size:12px;">
+            <div style="width:100%; font-size:10pt;">
+                <div style="float:left; width:60%; text-align:left; line-height:1.1; font-size:10pt;">
 
                     <div style="text-align:center;">
-                        <strong style="font-size:13px; display:block;">
+                        <strong style="font-size:10pt; display:block;">
                             REPUBLIQUE DU SENEGAL
                         </strong>
 
-                        <em style="font-size:11px;">UN PEUPLE - UN BUT - UNE FOI</em><br>
+                        <em style="font-size:8pt;">UN PEUPLE - UN BUT - UNE FOI</em><br>
                         <span>---------</span><br>
-                        <strong style="font-size:12px;">
+                        <strong style="font-size:10pt;">
                             MINISTERE DE L’EMPLOI ET DE LA FORMATION <br>
                             PROFESSIONNELLE ET TECHNIQUE
                         </strong>
@@ -218,7 +215,7 @@
 
                 </div>
 
-                <div style="float:right; width:40%; text-align:right;font-size: 10px;">
+                <div style="float:right; width:40%; text-align:right;font-size: 10pt;">
                     ONFP/DG/DIOF/ss<br><br>
                     <i>Dakar, le ...............................</i>
                 </div>
@@ -229,40 +226,44 @@
             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
                 style="width: 340px; margin-top: 10px;">
 
-            <br><br>
+            <br>
 
             <!-- TITRE CONTRAT -->
             <h3 style="text-align:center;">
                 CONTRAT N° <span style="display:inline-block; width:100px; border-bottom:0px solid #000;"></span>
-                <span style="font-size:10px;">ONFP/DG/DIOF/ss</span>
+                <span style="font-size:10pt;">ONFP/DG/DIOF/ss</span>
             </h3>
 
+            <p style="text-align:center; margin:0; margin-bottom:10px; line-height:1;">
+                <b>Entre les soussignés</b>
+            </p>
 
-            <p style="text-align:center;"><b>Entre les soussignés</b></p>
-
-            <p>
+            <p style="margin:0;margin-bottom:10px;  line-height:1;">
                 <b>Office national de Formation professionnelle (ONFP)</b><br>
                 Cité SIPRES 1, Lot 2, 2 voies Liberté 6 extension VDN - BP 21013 – Dakar Ponty
             </p>
 
-            <p>
-                <b>Et</b><br>
+            <p style="text-align:center; margin:0;margin-bottom:10px;  line-height:1;">
+                <b>Et</b>
+            </p>
+
+            <p style="margin:0;margin-bottom:10px;  line-height:1;">
                 <b>{{ $formulaire?->nom_etablissement . ' (' . str_replace("l'", '', $formulaire?->autre_2) . ')' }}</b><br>
                 <b>Adresse</b> : {{ $formulaire?->adresse_etablessement }}<br>
                 <b>Tél</b> : {{ $formulaire?->telephone_etablissement }}
             </p>
 
-            <p style="text-align:center;">
+            <p style="text-align:center; margin:0; margin-bottom:10px; line-height:1;">
                 Il a été convenu et arrêté ce qui suit :
             </p>
 
-            <h4 style="text-align: justify; margin-bottom:5px;"><u><b>Article 1 </b></u>: Objet du contrat</h4>
+            <h4 style="text-align: justify; margin:0;margin-bottom:10px; line-height:1;">
+                <u><b>Article 1 </b></u>: Objet du contrat
+            </h4>
 
-            <p style="text-align: justify; margin-top:5px;margin-bottom:5px;">
+            <p style="text-align: justify; margin:0; line-height:1;">
                 Pour l’année académique <b>2025-2026</b>, l’ONFP confie à {{ $formulaire?->autre_2 ?? '-' }},
-                qui
-                accepte,
-                la formation d'un(e) {{ $formulaire?->autre_1 ?? '-' }},
+                qui accepte, la formation d'un(e) {{ $formulaire?->autre_1 ?? '-' }},
                 conformément aux indications du tableau suivant :
             </p>
 

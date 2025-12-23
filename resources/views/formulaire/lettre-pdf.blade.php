@@ -11,7 +11,6 @@
     <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="icon">
     <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
     <style>
-        
         @page {
             size: 21cm 29.7cm;
             margin-top: 1cm;
@@ -21,16 +20,13 @@
         .invoice-box {
             max-width: 800px;
             margin: auto;
-            padding-top: 0px;
-            padding-bottom: 25px;
-            padding-left: 25px;
-            padding-right: 25px;
+            padding: 0 25px 25px 25px;
             border: 0px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-            font-size: 12px;
-            /* taille de police */
+            font-size: 12pt;
+            /* taille de police Word */
             line-height: 1.15;
-            /* interligne */
+            /* interligne Word */
             font-family: Tahoma, Arial, sans-serif;
             /* police Tahoma */
         }
@@ -51,11 +47,14 @@
             margin: 0;
             padding-bottom: 30px;
         } */
-
         body {
             font-family: Tahoma, Arial, sans-serif;
+            font-size: 12pt;
+            /* taille Word */
+            line-height: 1.15;
+            /* interligne Word */
+            margin: 0;
         }
-
 
         table {
             width: 100%;
@@ -106,17 +105,17 @@
         }
 
         .header-text {
-            font-size: 10px;
+            font-size: 10pt;
             line-height: 1.2;
             text-align: center;
         }
 
         .header-text b {
-            font-size: 11px;
+            font-size: 11pt;
         }
 
         .header-text em {
-            font-size: 9px;
+            font-size: 9pt;
         }
 
         /* ===== FOOTER GLOBAL ===== */
@@ -127,7 +126,7 @@
             right: 0;
             height: 2.3cm;
             font-family: Tahoma, Arial, sans-serif;
-            font-size: 11px;
+            font-size: 11pt;
             background: #fff;
         }
 
@@ -189,20 +188,20 @@
     <!-- PAGE 1 : LETTRE           -->
     <!-- ========================= -->
     <div class="page-lettre">
-        <div style="font-family: Tahoma, Arial, sans-serif; font-size: 13px; line-height: 1.6;">
-            <div style="width:100%; font-size:14px;">
-                <div style="float:left; width:60%; text-align:left; line-height:1.1; font-size:12px;">
+        <div style="font-family: Tahoma, Arial, sans-serif; font-size: 12pt; line-height: 1.3;">
+            <div style="width:100%; font-size:10pt;">
+                <div style="float:left; width:60%; text-align:left; line-height:1.1; font-size:10pt;">
 
                     <!-- Lignes centrées -->
                     <div style="text-align:center;">
                         <!-- Ligne 1 : complètement à gauche -->
-                        <strong style="font-size:13px; display:block;">
+                        <strong style="font-size:10pt; display:block;">
                             REPUBLIQUE DU SENEGAL
                         </strong>
 
-                        <em style="font-size:11px;">UN PEUPLE - UN BUT - UNE FOI</em><br>
+                        <em style="font-size:8pt;">UN PEUPLE - UN BUT - UNE FOI</em><br>
                         <span>---------</span><br>
-                        <strong style="font-size:12px;">
+                        <strong style="font-size:10pt;">
                             MINISTERE DE L’EMPLOI ET DE LA FORMATION <br>
                             PROFESSIONNELLE ET TECHNIQUE
                         </strong>
@@ -210,7 +209,7 @@
 
                 </div>
 
-                <div style="float:right; width:40%; text-align:right;font-size: 10px;">
+                <div style="float:right; width:40%; text-align:right;font-size: 10pt;">
                     ONFP/DG/DIOF/ss<br><br>
                     <i>Dakar, le ...............................</i>
                 </div>

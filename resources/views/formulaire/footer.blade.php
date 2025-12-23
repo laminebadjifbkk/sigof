@@ -9,7 +9,7 @@
 </footer>
  --}}
 
-<footer>
+<footer style="font-size:10pt;">
     <div class="footer-line"></div>
 
     <table class="footer-table">
