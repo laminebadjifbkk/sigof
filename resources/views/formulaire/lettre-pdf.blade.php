@@ -11,6 +11,7 @@
     <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="icon">
     <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
     <style>
+        
         @page {
             size: 21cm 29.7cm;
             margin-top: 1cm;
