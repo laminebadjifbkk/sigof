@@ -339,7 +339,7 @@
             </div>
 
         </div>
-        <footer>
+        {{-- <footer>
             <div class="footer-line"></div>
 
             <div class="footer-content">
@@ -348,7 +348,9 @@
                     BP: 21013 Dakar-Ponty - Email: <a href="mailto:onfp@onfp.sn">onfp@onfp.sn</a>
                 </p>
             </div>
-        </footer>
+        </footer> --}}
+
+        @include('formulaire-simple.footer')
     </div>
 
 </body>
