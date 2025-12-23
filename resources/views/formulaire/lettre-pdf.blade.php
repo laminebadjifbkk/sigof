@@ -350,7 +350,7 @@
             </div>
         </footer> --}}
 
-        @include('formulaire-simple.footer')
+        @include('formulaire.footer-simple')
     </div>
 
 </body>
