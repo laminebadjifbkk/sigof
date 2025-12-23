@@ -1155,6 +1155,13 @@ class FormulaireController extends Controller
             // Récupérer le formulaire par ID
             $formulaire = Formulaire::findOrFail($id);
 
+            $nomEtablissement = $formulaire?->nom_etablissement ?? '';
+            // Supprimer l', à , au uniquement en début de chaîne
+            $nomEtablissement = preg_replace("/^(l'|à |au )/i", '', $nomEtablissement);
+
+            $autre2 = $formulaire?->autre_2 ?? '';
+            $autre2 = str_replace(['à ', 'au '], '', $autre2);
+
             // Logique pour déterminer le titre du responsable
             $responsable = $formulaire->responsable_etablieement;
             if (Str::contains($responsable, 'général')) {
@@ -1187,7 +1194,7 @@ class FormulaireController extends Controller
 
             $dompdf->loadHtml(view(
                 'formulaire.contrat-pdf',
-                compact('formulaire', 'titre')
+                compact('formulaire', 'titre', 'nomEtablissement', 'autre2')
             ));
 
             // Format du PDF

@@ -249,14 +249,16 @@
 
             <p style="margin:0;margin-bottom:10px;  line-height:1;">
                 <b>
-                    {{ $formulaire?->nom_etablissement .
+                    {{-- {{ $formulaire?->nom_etablissement .
                         ' (' .
                         str_replace(
                             ["l'", 'à ', 'au '], // valeurs à supprimer
                             '',
                             $formulaire?->autre_2,
                         ) .
-                        ')' }}
+                        ')' }} --}}
+
+                    <b>{{ $nomEtablissement . ' (' . $autre2 . ')' }}</b><br>
                 </b><br>
                 <b>Adresse</b> : {{ $formulaire?->adresse_etablessement }}<br>
                 <b>Tél</b> : {{ $formulaire?->telephone_etablissement }}
