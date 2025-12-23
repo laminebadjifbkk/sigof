@@ -17,21 +17,6 @@
             margin-bottom: 0.5cm;
         }
 
-        /*      .invoice-box {
-            max-width: 800px;
-            margin: auto;
-            padding-top: 0px;
-            padding-bottom: 25px;
-            padding-left: 25px;
-            padding-right: 25px;
-            border: 0px solid #eee;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-            font-size: 12px;
-            line-height: 22px;
-            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-        }
- */
-
         .invoice-box {
             max-width: 800px;
             margin: auto;
@@ -96,22 +81,6 @@
             text-align: center;
         }
 
-        footer {
-            position: fixed;
-            bottom: 0cm;
-            left: 0cm;
-            right: 0cm;
-            height: 1.5cm;
-
-            background-color: #ffffff;
-            color: #000;
-            font-size: 12px;
-            font-family: Tahoma, Arial, sans-serif;
-            text-align: center;
-
-            z-index: 1000;
-        }
-
         .no-page-break {
             page-break-inside: avoid;
             break-inside: avoid;
@@ -149,64 +118,60 @@
             font-size: 9px;
         }
 
-        /* Numéro AU-DESSUS du texte */
-        .page-number {
-            position: absolute;
-            right: 0;
+        /* ===== FOOTER GLOBAL ===== */
+        footer {
+            position: fixed;
             bottom: 0;
-            z-index: 10;
+            left: 0;
+            right: 0;
+            height: 2.3cm;
+            font-family: Tahoma, Arial, sans-serif;
+            font-size: 11px;
             background: #fff;
-            /* empêche le masquage */
-            padding-left: 4px;
-            font-weight: bold;
-            white-space: nowrap;
         }
 
-        /* largeur de référence */
+        /* ligne */
         .footer-line {
             width: 18cm;
             height: 2px;
             background-color: #5D4037;
-            margin: 0 auto;
+            margin: 0 auto 4px auto;
         }
 
-        /* CONTENEUR limité à la même largeur */
-        .footer-content {
+        /* table footer */
+        .footer-table {
             width: 18cm;
-            /* EXACTEMENT comme la ligne */
             margin: 0 auto;
-            /* centré */
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            border-collapse: collapse;
         }
 
-        /* texte principal */
-        .footer-left {
-            flex: 1;
+        /* texte */
+        .footer-text {
             text-align: center;
-            font-size: 11px;
             line-height: 1.4;
-            margin: 0;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
         }
 
         /* pagination */
-        .footer-right {
+        .footer-page {
             text-align: right;
             white-space: nowrap;
-            font-size: 11px;
-            margin: 0;
+            font-weight: bold;
         }
 
-        /* DomPDF pagination */
+        /* DomPDF counters */
         .page:before {
             content: counter(page);
         }
 
         .total-pages:before {
             content: counter(pages);
+        }
+
+        /* === SUPPRIMER TOUT CONTOUR DU FOOTER === */
+        .footer-table,
+        .footer-table tr,
+        .footer-table td {
+            border: none !important;
         }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
