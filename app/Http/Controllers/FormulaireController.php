@@ -1082,7 +1082,7 @@ class FormulaireController extends Controller
         }
     }
 
-    public function exporterlecontratlalettrePDF($id)
+    public function exporterlalettrePDF($id)
     {
         try {
             // Récupérer le formulaire par ID
@@ -1119,7 +1119,7 @@ class FormulaireController extends Controller
             $dompdf = new Dompdf($options);
 
             $dompdf->loadHtml(view(
-                'formulaire.contrat-lettre-pdf',
+                'formulaire.lettre-pdf',
                 compact('formulaire', 'titre')
             ));
 
@@ -1128,7 +1128,74 @@ class FormulaireController extends Controller
             $dompdf->render();
 
             // Nom du fichier
-            $name = 'Contrat_Lettre_' . $formulaire->prenom . '_' . $formulaire->nom . '.pdf';
+            $name = 'Lettre_' . $formulaire->prenom . '_' . $formulaire->nom . '.pdf';
+            $name = str_replace(
+                [' ', 'é', 'è', 'ê', 'à', 'ç', ','],
+                ['_', 'e', 'e', 'e', 'a', 'c', ''],
+                $name
+            );
+
+            // Mettre à jour le modèle
+            $formulaire->update([
+                'statut_certificat' => 'Téléchargé',
+                'update_by' => Auth::user()->id,
+            ]);
+
+            // Stream vers le navigateur
+            return $dompdf->stream($name, ['Attachment' => false]);
+        } catch (\Exception $e) {
+            Alert::error('Erreur', 'Une erreur est survenue lors de la génération du PDF.');
+            return redirect()->back();
+        }
+    }
+
+    public function exporterlecontratPDF($id)
+    {
+        try {
+            // Récupérer le formulaire par ID
+            $formulaire = Formulaire::findOrFail($id);
+
+            // Logique pour déterminer le titre du responsable
+            $responsable = $formulaire->responsable_etablieement;
+            if (Str::contains($responsable, 'général')) {
+                $titre = 'Le Directeur général';
+            } elseif (Str::contains($responsable, 'Directeur')) {
+                $titre = 'Le Directeur';
+            } elseif (Str::contains($responsable, 'Directrice')) {
+                $titre = 'La Directrice';
+            } elseif (Str::contains($responsable, 'Doyen')) {
+                $titre = 'Le Doyen';
+            } elseif (Str::contains($responsable, 'Doyenne')) {
+                $titre = 'La Doyenne';
+            } elseif (Str::contains($responsable, 'Proviseur')) {
+                $titre = 'Le Proviseur';
+            } else {
+                $titre = 'Le Responsable';
+            }
+
+            // Vérifier le statut
+            if ($formulaire->statut !== 'Sélectionné') {
+                Alert::error('Attention', 'Impossible de télécharger : statut invalide.');
+                return redirect()->back();
+            }
+
+            // Préparer les données pour la vue PDF
+            $options = new Options();
+            $options->set('isPhpEnabled', true);              // ⭐ OBLIGATOIRE
+            $options->set('isHtml5ParserEnabled', true);
+            $dompdf = new Dompdf($options);
+
+            $dompdf->loadHtml(view(
+                'formulaire.contrat-pdf',
+                compact('formulaire', 'titre')
+            ));
+
+            // Format du PDF
+            $dompdf->setPaper('Letter', 'portrait');
+            $dompdf->render();
+
+            // Nom du fichier
+            $name = 'Contrat_' . $formulaire->prenom . '_' . $formulaire->nom . '.pdf';
             $name = str_replace(
                 [' ', 'é', 'è', 'ê', 'à', 'ç', ','],
                 ['_', 'e', 'e', 'e', 'a', 'c', ''],

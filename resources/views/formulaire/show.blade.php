@@ -25,11 +25,17 @@
                             <h5 class="mb-0">Détails de l’inscription</h5>
                             @can('generer-contrat-lettre-view')
                                 @if ($formulaire->statut === 'Sélectionné')
-                                    <a href="{{ route('generer-lecontrat-lalettre.pdf', ['id' => $formulaire->id]) }}"
+                                    <a href="{{ route('generer-lalettre.pdf', ['id' => $formulaire->id]) }}"
                                         class="btn btn-outline-danger btn-sm d-inline-flex align-items-center gap-2"
                                         title="Télécharger les contrats et lettres en PDF" target="_blank">
                                         <i class="bi bi-file-earmark-pdf fs-5"></i>
-                                        <strong>Contrat & lettre</strong>
+                                        <strong>Lettre</strong>
+                                    </a>
+                                    <a href="{{ route('generer-lecontrat.pdf', ['id' => $formulaire->id]) }}"
+                                        class="btn btn-outline-danger btn-sm d-inline-flex align-items-center gap-2"
+                                        title="Télécharger les contrats et lettres en PDF" target="_blank">
+                                        <i class="bi bi-file-earmark-pdf fs-5"></i>
+                                        <strong>Contrat</strong>
                                     </a>
                                 @endif
                             @endcan
@@ -122,7 +128,8 @@
                                         @elseif ($field === 'telephone' && $formulaire->$field)
                                             <a href="tel:+221{{ $formulaire->telephone }}">{{ $formulaire->telephone }}</a>
                                         @elseif ($field === 'telephone_secondaire' && $formulaire->$field)
-                                            <a href="tel:+221{{ $formulaire?->telephone_secondaire }}">{{ $formulaire?->telephone_secondaire }}</a>
+                                            <a
+                                                href="tel:+221{{ $formulaire?->telephone_secondaire }}">{{ $formulaire?->telephone_secondaire }}</a>
                                         @else
                                             {{ $formulaire->$field ?? '-' }}
                                         @endif
