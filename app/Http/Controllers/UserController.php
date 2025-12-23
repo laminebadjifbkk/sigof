@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
@@ -62,9 +63,17 @@ class UserController extends Controller
         $total_depart  = Depart::count();
         $total_interne = Interne::count();
 
-        $formations = Formation::where('statut', "En cours")
+        /* $formations = Formation::where('statut', "En cours")
             ->orderBy('date_debut', 'desc')
-            ->get();
+            ->get(); */
+
+        $formations = collect();
+
+        Formation::where('statut', "En cours")
+            ->orderBy('date_debut', 'desc')
+            ->chunk(300, function ($batch) use (&$formations) {
+                $formations = $formations->merge($batch);
+            });
 
         /* $count_formations = Formation::where('statut', "En cours")->count(); */
 
@@ -75,20 +84,54 @@ class UserController extends Controller
         $pourcentage_interne = $total_courrier != 0 ? ($total_interne / $total_courrier) * 100 : 0;
 
         $total_individuelle = Individuelle::count();
-        $roles              = Role::orderBy('created_at', 'desc')->get();
-        /*  $individuelles      = Individuelle::get(); */
+
+        /* $roles              = Role::orderBy('created_at', 'desc')->get();
 
         $individuelles = Individuelle::select('id')->get();
 
-        /* $collectives = Collective::get(); */
         $collectives = Collective::select('id')->get();
 
-        /* $listecollectives = Listecollective::get(); */
         $listecollectives = Listecollective::select('id')->get();
 
         $departements = Departement::orderBy("created_at", "desc")->get();
 
-        $modules = Module::orderBy("created_at", "desc")->get();
+        $modules = Module::orderBy("created_at", "desc")->get(); */
+
+        // Rôles
+        $roles = collect();
+        Role::orderBy('created_at', 'desc')->chunk(300, function ($batch) use (&$roles) {
+            $roles = $roles->merge($batch);
+        });
+
+        // Individuelles
+        $individuelles = collect();
+        Individuelle::select('id')->chunk(300, function ($batch) use (&$individuelles) {
+            $individuelles = $individuelles->merge($batch);
+        });
+
+        // Collectives
+        $collectives = collect();
+        Collective::select('id')->chunk(300, function ($batch) use (&$collectives) {
+            $collectives = $collectives->merge($batch);
+        });
+
+        // Listecollectives
+        $listecollectives = collect();
+        Listecollective::select('id')->chunk(300, function ($batch) use (&$listecollectives) {
+            $listecollectives = $listecollectives->merge($batch);
+        });
+
+        // Départements
+        $departements = collect();
+        Departement::orderBy("created_at", "desc")->chunk(300, function ($batch) use (&$departements) {
+            $departements = $departements->merge($batch);
+        });
+
+        // Modules
+        $modules = collect();
+        Module::orderBy("created_at", "desc")->chunk(300, function ($batch) use (&$modules) {
+            $modules = $modules->merge($batch);
+        });
 
         $today = date('Y-m-d');
 
@@ -258,15 +301,15 @@ class UserController extends Controller
         $utilisateurs      = User::count();
         $totalUtilisateurs = number_format($utilisateurs, 0, ',', ' ');
 
-// Récupération de la liste des rôles sous forme de tableau clé-valeur
+        // Récupération de la liste des rôles sous forme de tableau clé-valeur
         $roles = Role::pluck('name', 'name')->all();
 
-// Récupération des 500 derniers utilisateurs
+        // Récupération des 500 derniers utilisateurs
         $utilisateurs = User::latest()->limit(500)->get();
         /* $count_demandeur_raw = $utilisateurs->count();
         $count_demandeur     = number_format($count_demandeur_raw, 0, ',', ' '); */
 
-// Définition du titre avec des comparaisons correctes
+        // Définition du titre avec des comparaisons correctes
         /* if ($count_demandeur_raw < 1) {
             $title = 'Aucun utilisateur';
         } elseif ($count_demandeur_raw == 1) {
@@ -275,14 +318,15 @@ class UserController extends Controller
             $title = 'Liste des ' . $count_demandeur . ' derniers utilisateurs sur un total de ' . $total_count;
         } */
 
-// Retour de la vue avec les données optimisées
-        return view("user.index",
+        // Retour de la vue avec les données optimisées
+        return view(
+            "user.index",
             compact(
                 "roles",
                 "utilisateurs",
                 "totalUtilisateurs"
-            ));
-
+            )
+        );
     }
 
     public function store(StoreUserRequest $request): RedirectResponse
@@ -373,7 +417,6 @@ class UserController extends Controller
             /* $user->assignRole('Employe'); */
 
             return Redirect::back();
-
         } elseif ($request->input('ingenieur') == "1") {
             $this->validate($request, [
                 "initiale" => ['required', 'string', 'min:2', 'max:5', "unique:ingenieurs,initiale,Null,{$user?->ingenieur?->id},deleted_at,NULL"],
@@ -396,7 +439,6 @@ class UserController extends Controller
             /* $user->assignRole('Ingenieur'); */
 
             return Redirect::back();
-
         } else {
 
             $this->validate($request, [
@@ -437,7 +479,6 @@ class UserController extends Controller
             if (! empty($request->date_naissance)) {
                 $dateString     = $request->input('date_naissance');
                 $date_naissance = Carbon::createFromFormat('d/m/Y', $dateString);
-
             } else {
                 $date_naissance = null;
             }
@@ -540,15 +581,19 @@ class UserController extends Controller
         $directions = Direction::latest()->get();
         $fonctions  = Fonction::latest()->get();
 
-        return view("user.show",
-            compact("user",
+        return view(
+            "user.show",
+            compact(
+                "user",
                 "user_create_name",
                 "user_update_name",
                 "roles",
                 /* "users", */
                 "userRoles",
                 "directions",
-                "fonctions"));
+                "fonctions"
+            )
+        );
     }
 
     /* public function destroy($userId)
@@ -995,7 +1040,6 @@ class UserController extends Controller
         Alert::success('Succès !', 'Votre mot de passe a été réinitialisé avec succès.');
 
         return Redirect::back();
-
     }
 
     public function backup(Request $request)
@@ -1093,7 +1137,6 @@ class UserController extends Controller
         }
 
         return view("user.corbeille", compact("user_liste", "title", "roles"));
-
     }
 
     public function restored()
@@ -1134,9 +1177,9 @@ class UserController extends Controller
 
     public function demandeursIndividuel()
     {
-                                                                                                                                // Nombre total d'utilisateurs
+        // Nombre total d'utilisateurs
         $totalIndividuelles = number_format(User::select('id', 'uuid', 'firstname', 'name', 'telephone', 'email', 'created_at') // Ajoute ici les colonnes dont tu as besoin
-                ->whereHas('individuelles')->count(), 0, ',', ' ');
+            ->whereHas('individuelles')->count(), 0, ',', ' ');
 
         // Récupération uniquement des 1000 derniers utilisateurs
         /* $demandeurs = User::orderBy("created_at", "desc")->take(2000)->get(); */
@@ -1163,12 +1206,14 @@ class UserController extends Controller
         } */
 
         // Retour de la vue avec les données paginées
-        return view("user.demandeur-individuel",
-            compact("demandeurs",
+        return view(
+            "user.demandeur-individuel",
+            compact(
+                "demandeurs",
                 "totalIndividuelles",
                 /* "title" */
-            ));
-
+            )
+        );
     }
 
     public function individuelleCollective()
@@ -1177,10 +1222,10 @@ class UserController extends Controller
         $count_raw   = User::count();
         $total_count = number_format($count_raw, 0, ',', ' ');
 
-// Récupération de la liste des rôles sous forme de tableau clé-valeur
+        // Récupération de la liste des rôles sous forme de tableau clé-valeur
         /* $roles = Role::pluck('name', 'name')->all(); */
 
-// Récupération des 100 derniers utilisateurs
+        // Récupération des 100 derniers utilisateurs
         /* $user_liste = User::orderBy("created_at", "desc")->get(); */
 
         $user_liste = User::select('id', 'uuid', 'firstname', 'name', 'date_naissance', 'lieu_naissance', 'adresse', 'telephone', 'email', 'created_at')
@@ -1208,7 +1253,6 @@ class UserController extends Controller
 
         // Retour de la vue avec les données optimisées
         return view("user.individuelle-collective", compact("user_liste"));
-
     }
 
     public function showDemandeur(Request $request, $uuid)
@@ -1217,12 +1261,12 @@ class UserController extends Controller
 
         $departements = Departement::orderBy("created_at", "desc")->get();
 
-// Récupérer les fichiers associés à l'utilisateur
+        // Récupérer les fichiers associés à l'utilisateur
         $files = File::where('users_id', $user->id)
             ->whereNotNull('file')
             ->distinct()
             ->get();
-/*
+        /*
         $user_files = File::where('users_id', $user?->id)
             ->whereNull('file')
         ->whereNotIn('sigle', ['AC', 'Arrêté', 'Ninea/RC'])
@@ -1252,13 +1296,12 @@ class UserController extends Controller
         if ($user->image && Storage::exists($user->image)) {
             Storage::delete($user->image);
         }
-// Avant de supprimer l'utilisateur
+        // Avant de supprimer l'utilisateur
         $user->operateurs()->delete(); // ou detach() si relation many-to-many
         $user->forceDelete();
 
         Alert::success('Succès ', 'Utilisateur supprimé définitivement.');
         return redirect()->back();
-
     }
     public function restore($uuid)
     {
