@@ -28,7 +28,13 @@ class ParcChauffeurController extends Controller
     public function show($id)
     {
         $chauffeur = ParcChauffeur::findOrFail($id);
-        return view('parc.chauffeurs.show', compact('chauffeur'));
+
+        // Compter les missions du chauffeur dans l'année en cours
+        $chauffeurMissionsCount = $chauffeur->missions()
+            ->whereYear('date_depart', now()->year)
+            ->count();
+
+        return view('parc.chauffeurs.show', compact('chauffeur', 'chauffeurMissionsCount'));
     }
 
     public function edit($id)
