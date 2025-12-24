@@ -71,9 +71,11 @@ class UserController extends Controller
 
         Formation::where('statut', "En cours")
             ->orderBy('date_debut', 'desc')
-            ->chunk(300, function ($batch) use (&$formations) {
+            ->chunk(100, function ($batch) use (&$formations) {
                 $formations = $formations->merge($batch);
             });
+
+
 
         /* $count_formations = Formation::where('statut', "En cours")->count(); */
 
@@ -99,7 +101,7 @@ class UserController extends Controller
 
         // Rôles
         $roles = collect();
-        Role::orderBy('created_at', 'desc')->chunk(300, function ($batch) use (&$roles) {
+        Role::orderBy('created_at', 'desc')->chunk(30, function ($batch) use (&$roles) {
             $roles = $roles->merge($batch);
         });
 
@@ -210,9 +212,6 @@ class UserController extends Controller
         $pourcentage_hommes_collective = $listecollectives->count() > 0
             ? ($masculin_collective / $listecollectives->count()) * 100
             : 0;
-
-        /* $count_demandes = ($individuelles ? $individuelles->count() : 0) +
-            ($listecollectives ? $listecollectives->count() : 0); */
 
         return view(
             "home-page",

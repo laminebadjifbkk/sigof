@@ -167,15 +167,6 @@
                                 </h5>
                                 @foreach ($formations as $formation)
                                     @php
-                                        // Définir les variables communes
-                                        /* $isIndividuelle =
-                                            !empty($formation?->module?->name) &&
-                                            !empty($formation?->duree_formation) &&
-                                            $formation?->emargements?->count() > 0;
-                                        $isCollective =
-                                            !empty($formation?->collectivemodule?->module) &&
-                                            !empty($formation?->duree_formation) &&
-                                            $formation?->emargementcollectives?->count() > 0; */
                                         $isIndividuelle =
                                             !empty($formation?->module?->name) && !empty($formation?->duree_formation);
                                         $isCollective =
