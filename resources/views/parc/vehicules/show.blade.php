@@ -19,6 +19,13 @@
                     <table class="table table-striped table-hover align-middle">
                         <tbody>
                             <tr>
+                                <th>Nombre de missions en {{ now()->year }}</th>
+                                <td>
+                                    <span class="badge bg-primary">{{ $vehiculeMissionsCount }}</span>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <th style="width: 30%">Immatriculation</th>
                                 <td>{{ $vehicule?->immatriculation }}</td>
                             </tr>

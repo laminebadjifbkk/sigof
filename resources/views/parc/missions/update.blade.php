@@ -157,34 +157,7 @@
                             <small class="text-muted">Maintenez CTRL (ou CMD sur Mac) pour sélectionner plusieurs
                                 employés.</small>
                         </div> --}}
-                        @foreach ($employees as $employee)
-                            <div class="row mb-2">
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input type="checkbox" name="employees[{{ $employee->id }}][id]"
-                                            value="{{ $employee->id }}"
-                                            {{ $mission->employees->contains($employee->id) ? 'checked' : '' }}>
-                                        <label class="form-check-label">
-                                            {{ $employee?->user?->matricule }} - {{ $employee?->user?->firstname }} {{ $employee?->user?->name }}
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <select name="employees[{{ $employee->id }}][role]"
-                                        class="form-select form-select-sm">
-                                        <option value="participant"
-                                            {{ $mission->employees->find($employee->id)?->pivot->role == 'participant' ? 'selected' : '' }}>
-                                            Participant</option>
-                                        <option value="responsable"
-                                            {{ $mission->employees->find($employee->id)?->pivot->role == 'responsable' ? 'selected' : '' }}>
-                                            Responsable</option>
-                                        <option value="observateur"
-                                            {{ $mission->employees->find($employee->id)?->pivot->role == 'observateur' ? 'selected' : '' }}>
-                                            Observateur</option>
-                                    </select>
-                                </div>
-                            </div>
-                        @endforeach
+
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-success btn-sm">
                                 <i class="bi bi-check-circle"></i> Enregistrer les modifications
