@@ -12,6 +12,18 @@
             </div>
 
             <div class="card shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <strong>Statistiques</strong>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Nombre de missions réalisées en {{ now()->year }} :
+                        <span class="badge bg-primary">{{ $missionsCount }}</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mb-4">
                 <div class="card-header bg-dark text-white">
                     @if ($mission->vehicule)
                         <strong>{{ $mission->vehicule->immatriculation }}</strong> -
@@ -60,11 +72,87 @@
                     </table>
                 </div>
             </div>
+            <!-- ✅ Nouvelle section pour les employés -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-info text-white">
+                    <strong>Employés affectés</strong>
+                </div>
+                <div class="card-body">
+                    @if ($mission->employees->isEmpty())
+                        <p class="text-muted">Aucun employé affecté à cette mission.</p>
+                    @else
+                        <table class="table table-bordered table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Matricule</th>
+                                    <th>Name</th>
+                                    <th>Direction</th>
+                                    <th>Fonction</th>
+                                    <th class="text-center" width="12%">NB Missions</th>
+                                    <th class="text-center" width="12%">Rôle</th>
+                                    <th class="text-center" width="3%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($mission->employees as $employee)
+                                    <tr>
+                                        <td>{{ $employee?->matricule }}</td>
+                                        <td>{{ $employee?->user?->name }} {{ $employee?->user?->firstname }}</td>
+                                        <td>{{ $employee?->direction?->name }}</td>
+                                        <td>{{ $employee?->fonction?->name }}</td>
+                                        <td class="text-center">
+                                            <span class="badge bg-primary">
+                                                {{ $employee->parcmissions->where('date_depart', '>=', now()->startOfYear())->count() }}
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span
+                                                class="badge 
+                                            @switch($employee->pivot->role)
+                                                @case('responsable') bg-primary @break
+                                                @case('participant') bg-success @break
+                                                @case('observateur') bg-secondary @break
+                                                @default bg-dark
+                                            @endswitch">
+                                                {{ ucfirst($employee->pivot->role) }}
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="d-flex mt-2 align-items-baseline"><a
+                                                    href="{{ route('employes.show', $employee) }}"
+                                                    class="btn btn-info btn-sm mx-1" title="voir détails" target="_blank"><i
+                                                        class="bi bi-eye"></i></a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+                </div>
+            </div>
+
+            {{-- <div class="d-flex gap-2">
+                <a href="{{ route('parc-missions.edit', $mission->id) }}" class="btn btn-warning btn-sm">
+                    <i class="bi bi-pencil-square"></i> Modifier
+                </a>
+                <form action="{{ route('parc-missions.destroy', $mission->id) }}" method="POST" class="d-inline">
+                    @csrf @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm show_confirm">
+                        <i class="bi bi-trash"></i> Supprimer
+                    </button>
+                </form>
+            </div> --}}
 
             <div class="d-flex gap-2">
                 <a href="{{ route('parc-missions.edit', $mission->id) }}" class="btn btn-warning btn-sm">
                     <i class="bi bi-pencil-square"></i> Modifier
                 </a>
+
+                <a href="{{ route('parc-missions.employees.edit', $mission->id) }}" class="btn btn-info btn-sm">
+                    <i class="bi bi-people"></i> Employés
+                </a>
+
                 <form action="{{ route('parc-missions.destroy', $mission->id) }}" method="POST" class="d-inline">
                     @csrf @method('DELETE')
                     <button type="submit" class="btn btn-danger btn-sm show_confirm">

@@ -33,8 +33,8 @@
                         <th>Immatriculation</th>
                         <th>Marque</th>
                         <th>Modèle</th>
-                        <th>Année</th>
-                        <th>État</th>
+                        <th class="text-center" width="8%">Année</th>
+                        <th class="text-center" width="12%">État</th>
                         <th class="text-center" width="12%">Actions</th>
                     </tr>
                 </thead>
@@ -44,8 +44,8 @@
                             <td>{{ $vehicule->immatriculation }}</td>
                             <td>{{ $vehicule->marque }}</td>
                             <td>{{ $vehicule->modele }}</td>
-                            <td>{{ $vehicule->annee }}</td>
-                            <td>
+                            <td class="text-center">{{ $vehicule->annee }}</td>
+                            <td class="text-center">
                                 <span
                                     class="badge 
                                 @if ($vehicule->etat == 'operationnel') bg-success 

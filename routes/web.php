@@ -794,6 +794,8 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/formulaires/{id}/certificat', [FormulaireController::class, 'editCertificat'])->name('formulaires.certificat.edit');
         Route::put('/formulaires/{id}/certificat', [FormulaireController::class, 'updateCertificat'])->name('formulaires.certificat.update');
 
+        Route::get('parc-missions/{mission}/employees/edit', [ParcMissionController::class, 'editEmployees'])->name('parc-missions.employees.edit');
+        Route::put('parc-missions/{mission}/employees', [ParcMissionController::class, 'updateEmployees'])->name('parc-missions.employees.update');
 
         /* Vues ressouces */
         Route::resource('/users', UserController::class);

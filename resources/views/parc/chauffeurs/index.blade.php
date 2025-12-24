@@ -35,8 +35,8 @@
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Téléphone</th>
-                        <th>Statut</th>
-                        <th class="text-center">Actions</th>
+                        <th class="text-center" width="12%">Statut</th>
+                        <th class="text-center" width="12%">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,7 +46,7 @@
                             <td>{{ $chauffeur->nom }}</td>
                             <td>{{ $chauffeur->prenom }}</td>
                             <td>{{ $chauffeur->telephone }}</td>
-                            <td>
+                            <td class="text-center">
                                 <span class="badge {{ $chauffeur->statut == 'actif' ? 'bg-success' : 'bg-danger' }}">
                                     {{ ucfirst($chauffeur->statut) }}
                                 </span>

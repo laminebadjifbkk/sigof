@@ -269,4 +269,11 @@ class Employee extends Model
     {
         return $this->belongsTo(Direction::class, 'chef_id');
     }
+
+    public function parcmissions()
+    {
+        return $this->belongsToMany(ParcMission::class, 'parc_employee_mission', 'employee_id', 'mission_id')
+            ->withPivot('role')
+            ->withTimestamps();
+    }
 }

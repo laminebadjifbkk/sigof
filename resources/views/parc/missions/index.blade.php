@@ -37,8 +37,8 @@
                         <th>Dates</th>
                         <th>Véhicule</th>
                         <th>Chauffeur</th>
-                        <th>Statut</th>
-                        <th class="text-center">Actions</th>
+                        <th class="text-center" width="12%">Statut</th>
+                        <th class="text-center" width="12%">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,7 +55,7 @@
                             </td>
                             <td>{{ $mission->vehicule?->immatriculation ?? 'N/A' }}</td>
                             <td>{{ ($mission->chauffeur?->nom .' '.$mission->chauffeur?->prenom) ?? 'N/A' }}</td>
-                            <td>
+                            <td class="text-center">
                                 <span
                                     class="badge 
                                 @switch($mission->statut)

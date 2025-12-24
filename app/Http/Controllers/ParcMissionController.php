@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreParcMissionRequest;
 use App\Http\Requests\UpdateParcMissionRequest;
+use App\Models\Employee;
 use App\Models\ParcChauffeur;
 use App\Models\ParcMission;
 use App\Models\ParcVehicule;
@@ -46,7 +47,9 @@ class ParcMissionController extends Controller
     public function show(string $id)
     {
         $mission = ParcMission::findOrFail($id);
-        return view('parc.missions.show', compact('mission'));
+        // Compter les missions de l'année en cours
+        $missionsCount = ParcMission::whereYear('date_depart', now()->year)->count();
+        return view('parc.missions.show', compact('mission', 'missionsCount'));
     }
 
     /**
@@ -57,7 +60,8 @@ class ParcMissionController extends Controller
         $mission = ParcMission::findOrFail($id);
         $vehicules = ParcVehicule::latest()->get();
         $chauffeurs = ParcChauffeur::latest()->get();
-        return view('parc.missions.update', compact('mission', 'vehicules', 'chauffeurs'));
+        $employees = Employee::latest()->get();
+        return view('parc.missions.update', compact('mission', 'vehicules', 'chauffeurs', 'employees'));
     }
 
     /**
@@ -78,5 +82,27 @@ class ParcMissionController extends Controller
     {
         ParcMission::destroy($id);
         return redirect()->route('parc-missions.index')->with('status', 'Mission supprimée avec succès');
+    }
+
+    public function editEmployees(ParcMission $mission)
+    {
+        $employees = Employee::with('user')->get();
+        return view('parc.missions.edit-employe', compact('mission', 'employees'));
+    }
+
+    public function updateEmployees(Request $request, ParcMission $mission)
+    {
+        $employeesData = [];
+        if ($request->has('employees')) {
+            foreach ($request->input('employees') as $employee) {
+                if (isset($employee['id'])) {
+                    $employeesData[$employee['id']] = ['role' => $employee['role'] ?? 'participant'];
+                }
+            }
+        }
+
+        $mission->employees()->sync($employeesData);
+
+        return redirect()->back()->with('status', 'Employés de la mission mis à jour avec succès');
     }
 }
