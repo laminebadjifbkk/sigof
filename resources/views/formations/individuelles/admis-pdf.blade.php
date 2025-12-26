@@ -206,7 +206,7 @@
             </thead>
             <tbody>
                 @php $i = 1; @endphp
-                @foreach ($formation->individuelles as $individuelle)
+                @foreach ($individuelles as $individuelle)
                     <tr style="text-align: center;">
                         <td>{{ $i++ }}</td>
                         <td>{{ $individuelle->user->cin }}</td>

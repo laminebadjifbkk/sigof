@@ -4827,6 +4827,11 @@ class FormationController extends Controller
             // Récupérer la formation par ID
             $formation = Formation::findOrFail($id);
 
+            $individuelles = $formation->individuelles()
+                ->where('note_obtenue', '>=', 60) // 60% écrit comme 60
+                ->orWhere('note_obtenue', '>=', 12) // barème sur 20
+                ->get();
+
             // Vérifier le statut
             if ($formation->statut !== 'Terminée') {
                 Alert::error('Attention', 'Impossible de télécharger : la formation n\'est pas terminée.');
@@ -4840,7 +4845,7 @@ class FormationController extends Controller
 
             $dompdf->loadHtml(view(
                 'formations.individuelles.admis-pdf',
-                compact('formation')
+                compact('formation', 'individuelles')
             ));
 
             // Format du PDF
