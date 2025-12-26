@@ -4872,6 +4872,9 @@ class FormationController extends Controller
             // Récupérer la formation par ID
             $formation = Formation::findOrFail($id);
 
+            $listecollectives = $formation->listecollectives()
+                ->get();
+
             // Vérifier le statut
             if ($formation->statut !== 'Terminée') {
                 Alert::error('Attention', 'Impossible de télécharger : la formation n\'est pas terminée.');
@@ -4885,7 +4888,7 @@ class FormationController extends Controller
 
             $dompdf->loadHtml(view(
                 'formations.collectives.admis-pdf',
-                compact('formation')
+                compact('formation', 'listecollectives')
             ));
 
             // Format du PDF

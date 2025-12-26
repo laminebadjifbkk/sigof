@@ -198,15 +198,15 @@
                     <td style="text-align: center; width: 12%;"><b>N° CIN</b></td>
                     <td style="text-align: center; width: 25%;"><b>Name</b></td>
                     <td style="text-align: center; width: 10%;"><b>Téléphone</b></td>
+                    <td style="text-align: center; width: 10%;"><b>Appréciation</b></td>
                     <td style="text-align: center; width: 12%;"><b>Date retrait</b></td>
                     <td style="text-align: center; width: 12%;"><b>Signature bénéficiaire</b></td>
-                    <td style="text-align: center; width: 10%;"><b>Signature agent</b></td>
                     <td style="text-align: center;"><b>Commentaires</b></td>
                 </tr>
             </thead>
             <tbody>
                 @php $i = 1; @endphp
-                @foreach ($formation->listecollectives as $listecollective)
+                @foreach ($listecollectives as $listecollective)
                     <tr style="text-align: center;">
                         <td>{{ $i++ }}</td>
                         <td>{{ $listecollective?->cin }}</td>
@@ -222,9 +222,9 @@
                                 remove_accents_uppercase($listecollective?->lieu_naissance) }}
                         </td>
                         <td>{{ $listecollective?->telephone }}</td>
+                        <td>{{ $listecollective?->appreciation }}</td> <!-- Signature agent -->
                         <td></td> <!-- date retrait -->
                         <td></td> <!-- Signature bénéficiaire -->
-                        <td></td> <!-- Signature agent -->
                         <td></td> <!-- Commentaires -->
                     </tr>
                 @endforeach
