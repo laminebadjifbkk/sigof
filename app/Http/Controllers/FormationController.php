@@ -4828,8 +4828,6 @@ class FormationController extends Controller
             $formation = Formation::findOrFail($id);
 
             $individuelles = $formation->individuelles()
-                ->where('note_obtenue', '>=', 60) // 60% écrit comme 60
-                ->orWhere('note_obtenue', '>=', 12) // barème sur 20
                 ->get();
 
             // Vérifier le statut
