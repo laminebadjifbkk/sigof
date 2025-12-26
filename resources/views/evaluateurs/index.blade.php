@@ -54,9 +54,9 @@
                                         <th>Prénom</th>
                                         <th>Nom</th>
                                         <th>Fonction/Spécialité</th>
+                                        <th>Adresse</th>
                                         <th>Email</th>
-                                        {{-- <th>Téléphone</th>
-                                        <th>Adresse</th> --}}
+                                        <th>Téléphone</th>
                                         <th>Formations</th>
                                         <th class="text-center">CV</th>
                                         <th class="text-center" width="2%">#</th>
@@ -69,10 +69,10 @@
                                             <td>{{ $evaluateur->name }}</td>
                                             <td>{{ $evaluateur->lastname }}</td>
                                             <td>{{ $evaluateur->fonction }}</td>
-                                            {{-- <td><a href="mailto:{{ $evaluateur->email }}">{{ $evaluateur->email }}</a></td>
+                                            <td><a href="mailto:{{ $evaluateur->email }}">{{ $evaluateur->email }}</a></td>
                                             <td><a
                                                     href="tel:+221{{ $evaluateur->telephone }}">{{ $evaluateur->telephone }}</a>
-                                            </td> --}}
+                                            </td>
                                             <td>{{ $evaluateur->adresse }}</td>
                                             <td style="text-align: center;">
                                                 {{-- @foreach ($evaluateur->formations as $formation)
