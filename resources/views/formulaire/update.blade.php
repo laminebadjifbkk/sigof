@@ -197,7 +197,7 @@
                                     <div class="col-lg-4 col-md-4">
                                         <label class="form-label fw-semibold">Type apprenant</label>
                                         <input type="text" name="autre_1" class="form-control form-control-sm"
-                                            placeholder="d'un étudiant admis, d'une étudiante admise, d'un apprenant, d'une apprenante"
+                                            placeholder="étudiant(e), apprenant(e)"
                                             value="{{ old('autre_1', $formulaire?->autre_1) }}">
                                     </div>
 
