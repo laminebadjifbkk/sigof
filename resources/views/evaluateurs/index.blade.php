@@ -51,8 +51,8 @@
                             <table class="table datatables align-middle justify-content-center" id="table-evaluateurs">
                                 <thead>
                                     <tr>
-                                        <th>Prénom</th>
-                                        <th>Nom</th>
+                                        <th>Name</th>
+                                        {{-- <th>Nom</th> --}}
                                         <th>Fonction/Spécialité</th>
                                         <th>Adresse</th>
                                         <th>Email</th>
@@ -66,8 +66,8 @@
                                     <?php $i = 1; ?>
                                     @foreach ($evaluateurs as $evaluateur)
                                         <tr>
-                                            <td>{{ $evaluateur->name }}</td>
-                                            <td>{{ $evaluateur->lastname }}</td>
+                                            <td>{{ $evaluateur->name }} {{ $evaluateur->lastname }}</td>
+                                            {{-- <td>{{ $evaluateur->lastname }}</td> --}}
                                             <td>{{ $evaluateur->fonction }}</td>
                                             <td><a href="mailto:{{ $evaluateur->email }}">{{ $evaluateur->email }}</a></td>
                                             <td><a
