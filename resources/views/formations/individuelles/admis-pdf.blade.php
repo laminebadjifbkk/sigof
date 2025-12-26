@@ -198,9 +198,9 @@
                     <td style="text-align: center; width: 12%;"><b>N° CIN</b></td>
                     <td style="text-align: center; width: 25%;"><b>Name</b></td>
                     <td style="text-align: center; width: 10%;"><b>Téléphone</b></td>
+                    <td style="text-align: center; width: 10%;"><b>Appréciation</b></td>
                     <td style="text-align: center; width: 12%;"><b>Date retrait</b></td>
                     <td style="text-align: center; width: 12%;"><b>Signature bénéficiaire</b></td>
-                    <td style="text-align: center; width: 10%;"><b>Signature agent</b></td>
                     <td style="text-align: center;"><b>Commentaires</b></td>
                 </tr>
             </thead>
@@ -213,9 +213,9 @@
                         <td>{{ $individuelle->user->civilite . ' - ' . format_proper_name($individuelle->user->firstname) . ' - ' . remove_accents_uppercase($individuelle->user->name) . ' - ' . remove_accents_uppercase($individuelle->user->date_naissance?->format('d/m/Y')) . ' - ' . remove_accents_uppercase($individuelle->user->lieu_naissance) }}
                         </td>
                         <td>{{ $individuelle->user->telephone }}</td>
+                        <td>{{ $individuelle?->appreciation }}</td>
                         <td></td> <!-- date retrait -->
                         <td></td> <!-- Signature bénéficiaire -->
-                        <td></td> <!-- Signature agent -->
                         <td></td> <!-- Commentaires -->
                     </tr>
                 @endforeach
