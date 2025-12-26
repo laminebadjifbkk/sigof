@@ -347,7 +347,7 @@
                                                 'placeholder' => 'Télécharger le CV',
                                             ],
                                         ];
-                                        $notRequired = ['scan_cv', 'banque', 'numero_compte', 'rib'];
+                                        $notRequired = ['email', 'scan_cv', 'banque', 'numero_compte', 'rib'];
                                     @endphp
 
                                     {{-- @foreach ($fields as $name => $data)
@@ -397,7 +397,7 @@
                                                     id="{{ $name }}"
                                                     value="{{ old($name, $evaluateur->$name) }}"
                                                     class="form-control form-control-sm @error($name) is-invalid @enderror"
-                                                    placeholder="{{ $data['placeholder'] }}" required>
+                                                    placeholder="{{ $data['placeholder'] }}">
                                             @endif
 
                                             @error($name)
