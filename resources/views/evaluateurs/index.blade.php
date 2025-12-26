@@ -54,9 +54,9 @@
                                         <th>Name</th>
                                         {{-- <th>Nom</th> --}}
                                         <th>Fonction/Spécialité</th>
-                                        <th>Adresse</th>
                                         <th>Email</th>
                                         <th>Téléphone</th>
+                                        <th>Adresse</th>
                                         <th>Formations</th>
                                         <th class="text-center">CV</th>
                                         <th class="text-center" width="2%">#</th>
