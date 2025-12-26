@@ -283,7 +283,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <form method="POST" action="{{ route('evaluateurs.update', $evaluateur->id) }}"
-                            enctype="multipart/form-data" class="needs-validation" novalidate>
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PATCH')
 
