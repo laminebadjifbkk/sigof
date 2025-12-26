@@ -54,7 +54,7 @@
                                         <th>Name</th>
                                         {{-- <th>Nom</th> --}}
                                         <th>Fonction/Spécialité</th>
-                                        <th>Email</th>
+                                        {{-- <th>Email</th> --}}
                                         <th>Téléphone</th>
                                         <th>Adresse</th>
                                         <th>Formations</th>
@@ -69,7 +69,7 @@
                                             <td>{{ $evaluateur->name }} {{ $evaluateur->lastname }}</td>
                                             {{-- <td>{{ $evaluateur->lastname }}</td> --}}
                                             <td>{{ $evaluateur->fonction }}</td>
-                                            <td><a href="mailto:{{ $evaluateur->email }}">{{ $evaluateur->email }}</a></td>
+                                            {{-- <td><a href="mailto:{{ $evaluateur->email }}">{{ $evaluateur->email }}</a></td> --}}
                                             <td><a
                                                     href="tel:+221{{ $evaluateur->telephone }}">{{ $evaluateur->telephone }}</a>
                                             </td>
