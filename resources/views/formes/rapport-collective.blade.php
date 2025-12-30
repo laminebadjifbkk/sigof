@@ -48,8 +48,8 @@
                                             <th scope="col">Date naissance</th>
                                             <th scope="col">Lieu naissance</th>
                                             <th scope="col">Téléphone</th>
-                                            <th scope="col">Niveau étude</th>
-                                            {{-- <th scope="col">Module</th> --}}
+                                            <th scope="col">Module</th>
+                                            <th scope="col">Région</th>
                                             <th scope="col" class="text-center">Statut</th>
                                             <th scope="col" class="text-center">Appréciation</th>
                                             <th class="text-center">Date</th>
@@ -73,8 +73,9 @@
                                                 <td><a
                                                         href="{{ $listecollective?->telephone }}">{{ $listecollective?->telephone }}</a>
                                                 </td>
-                                                <td>{{ $listecollective?->niveau_etude }}</td>
-                                                {{-- <td>{{ $listecollective?->collectivemodule?->module }}</td> --}}
+                                                {{-- <td>{{ $listecollective?->niveau_etude }}</td> --}}
+                                                <td>{{ $listecollective?->collectivemodule?->module }}</td>
+                                                <td>{{ optional(optional($listecollective?->collective?->departement)?->region)?->nom }}</td>
                                                 <td class="text-center">
                                                     <span
                                                         class="{{ $listecollective?->statut }}">{{ $listecollective?->statut }}</span>
