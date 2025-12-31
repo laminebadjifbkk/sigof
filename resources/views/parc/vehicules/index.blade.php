@@ -48,7 +48,7 @@
                             <td>{{ $vehicule->marque }}</td>
                             <td>{{ $vehicule->modele }}</td>
                             <td class="text-center">{{ $vehicule->annee }}</td>
-                            <td class="text-center">{{ $vehicule?->kilometrage_actuel }}</td>
+                            <td class="text-center">{{ number_format($vehicule?->kilometrage_actuel, 0, ',', ' ') }}</td>
                             <td class="text-center">{{ $vehicule?->assurance_expire_le->format('d/m/Y') }}</td>
                             <td class="text-center">{{ $vehicule?->visite_technique_expire_le->format('d/m/Y') }}</td>
                             <td class="text-center">
