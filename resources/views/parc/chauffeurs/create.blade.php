@@ -63,7 +63,7 @@
                             <div class="col-md-6">
                                 <label for="telephone" class="form-label">Téléphone</label>
                                 <input type="text" name="telephone" class="form-control form-control-sm" value="{{ old('telephone') }}"
-                                    placeholder="+221 77 123 45 67">
+                                    placeholder="77 123 45 67">
                             </div>
                         </div>
 
