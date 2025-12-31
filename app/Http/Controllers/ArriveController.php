@@ -939,7 +939,7 @@ class ArriveController extends Controller
         $user = Auth::user();
         $this->authorize('update', $user);
         $employee = $user?->employee;
-        $arrives  = $employee?->arrives()->orderBy('created_at', 'asc')->get();
+        $arrives  = $employee?->arrives()->orderBy('created_at', 'desc')->get();
         return view("profile.mescourriers", compact("user", "employee", "arrives"));
     }
 }
