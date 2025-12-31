@@ -31,7 +31,7 @@
             <table class="table table-hover table-striped shadow-sm" id="table-parc-chauffeur">
                 <thead class="table-dark">
                     <tr>
-                        <th class="text-center" width="12%">Matricule</th>
+                        <th class="text-center" width="8%">Matricule</th>
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Téléphone</th>
