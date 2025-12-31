@@ -33,7 +33,7 @@
                             @if ($user?->employee)
                                 @if ($employee?->arrives?->isNotEmpty())
                                     <div class="table-responsive">
-                                        <table class="table table-hover align-middle" id="table-courriers-emp">
+                                        <table class="table table-bordered" id="table-courriers-emp">
                                             <thead class="table-default">
                                                 <tr>
                                                     <th style="width:40%;">Imputations</th>
