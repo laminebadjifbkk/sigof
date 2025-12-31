@@ -4,6 +4,24 @@
 @section('space-work')
     <section class="section register">
         <div class="container">
+
+            @if (session('status'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('status') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h1 class="mb-0">Détails de la mission</h1>
                 <a href="{{ route('parc-missions.index') }}" class="btn btn-outline-secondary btn-sm">
@@ -75,7 +93,7 @@
             <!-- ✅ Nouvelle section pour les employés -->
             <div class="card shadow-sm mb-4">
                 <div class="card-header bg-info text-white">
-                    <strong>Employés affectés</strong>
+                    <strong>Employés</strong>
                 </div>
                 <div class="card-body">
                     @if ($mission->employees->isEmpty())
@@ -151,6 +169,10 @@
 
                 <a href="{{ route('parc-missions.employees.edit', $mission->id) }}" class="btn btn-info btn-sm">
                     <i class="bi bi-people"></i> Employés
+                </a>
+
+                <a href="{{ route('parc-missions.pdf', $mission->id) }}" class="btn btn-success btn-sm" target="_blank">
+                    <i class="bi bi-file-earmark-pdf"></i> Ordres de mission
                 </a>
 
                 <form action="{{ route('parc-missions.destroy', $mission->id) }}" method="POST" class="d-inline">

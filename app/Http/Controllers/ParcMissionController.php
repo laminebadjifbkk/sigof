@@ -9,6 +9,8 @@ use App\Models\ParcChauffeur;
 use App\Models\ParcMission;
 use App\Models\ParcVehicule;
 use Illuminate\Http\Request;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class ParcMissionController extends Controller
 {
@@ -104,5 +106,43 @@ class ParcMissionController extends Controller
         $mission->employees()->sync($employeesData);
 
         return redirect()->back()->with('status', 'Employés de la mission mis à jour avec succès');
+    }
+
+
+    public function ordreMission($id)
+    {
+        try {
+            // Récupérer le mission par ID
+            $mission = ParcMission::findOrFail($id);
+
+            // Préparer les données pour la vue PDF
+            $options = new Options();
+            $options->set('isPhpEnabled', true);              // ⭐ OBLIGATOIRE
+            $options->set('isHtml5ParserEnabled', true);
+            $dompdf = new Dompdf($options);
+
+            $dompdf->loadHtml(view(
+                'parc.missions.ordre-mission',
+                compact('mission')
+            ));
+
+            // Format du PDF
+            $dompdf->setPaper('Letter', 'portrait');
+            $dompdf->render();
+
+            // Nom du fichier
+            $name = 'Ordre_mission' . $mission->reference . '.pdf';
+            $name = str_replace(
+                [' ', 'é', 'è', 'ê', 'à', 'ç', ','],
+                ['_', 'e', 'e', 'e', 'a', 'c', ''],
+                $name
+            );
+
+            // Stream vers le navigateur
+            return $dompdf->stream($name, ['Attachment' => false]);
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('status', 'Une erreur est survenue lors de la génération du P');
+        }
     }
 }

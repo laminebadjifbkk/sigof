@@ -797,6 +797,10 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('parc-missions/{mission}/employees/edit', [ParcMissionController::class, 'editEmployees'])->name('parc-missions.employees.edit');
         Route::put('parc-missions/{mission}/employees', [ParcMissionController::class, 'updateEmployees'])->name('parc-missions.employees.update');
 
+        // Génération du PDF pour une mission
+        Route::get('parc-missions/{mission}/pdf', [ParcMissionController::class, 'ordreMission'])
+            ->name('parc-missions.pdf');
+
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
         Route::resource('/permissions', PermissionController::class);
