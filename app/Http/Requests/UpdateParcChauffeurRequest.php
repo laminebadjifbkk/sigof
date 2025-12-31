@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateParcChauffeurRequest extends FormRequest
 {
@@ -24,7 +25,12 @@ class UpdateParcChauffeurRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'matricule' => 'required|string|max:20|unique:parc_chauffeurs,matricule,' . $this->route('parc_chauffeur'),
+            'matricule' => [
+                'required',
+                'string',
+                'max:20',
+                Rule::unique('parc_chauffeurs', 'matricule')->ignore($this->route('parc_chauffeur'))
+            ],
             'nom' => 'required|string|max:50',
             'prenom' => 'nullable|string|max:50',
             'telephone' => 'nullable|string|max:20',
