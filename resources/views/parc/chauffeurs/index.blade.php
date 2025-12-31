@@ -31,7 +31,7 @@
             <table class="table table-hover table-striped shadow-sm" id="table-parc-chauffeur">
                 <thead class="table-dark">
                     <tr>
-                        <th>Matricule</th>
+                        <th class="text-center">Matricule</th>
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Téléphone</th>
@@ -42,7 +42,7 @@
                 <tbody>
                     @foreach ($chauffeurs as $chauffeur)
                         <tr>
-                            <td>{{ $chauffeur->matricule }}</td>
+                            <td class="text-center">{{ $chauffeur->matricule }}</td>
                             <td>{{ $chauffeur->nom }}</td>
                             <td>{{ $chauffeur->prenom }}</td>
                             <td>{{ $chauffeur->telephone }}</td>
