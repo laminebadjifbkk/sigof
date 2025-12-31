@@ -151,13 +151,6 @@
                                         Électrique</option>
                                 </select>
                             </div>
-                            <div class="col-md-6">
-                                <label for="capacite_reservoir" class="form-label">Capacité réservoir (en litre)</label>
-                                <input type="number" name="capacite_reservoir" class="form-control form-control-sm"
-                                    value="{{ old('capacite_reservoir', $vehicule?->capacite_reservoir) }}"
-                                    placeholder="Ex: 200" min="0" step="1">
-
-                            </div>
                         </div>
 
                         <div class="row mb-3">
@@ -181,6 +174,13 @@
                                 <input type="date" name="visite_technique_expire_le"
                                     class="form-control form-control-sm"
                                     value="{{ old('visite_technique_expire_le', $vehicule->visite_technique_expire_le_formatted) }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="capacite_reservoir" class="form-label">Capacité réservoir (en litre)</label>
+                                <input type="number" name="capacite_reservoir" class="form-control form-control-sm"
+                                    value="{{ old('capacite_reservoir', $vehicule?->capacite_reservoir) }}"
+                                    placeholder="Ex: 200" min="0" step="1">
+
                             </div>
                         </div>
 
