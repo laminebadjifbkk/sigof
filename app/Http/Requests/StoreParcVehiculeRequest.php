@@ -24,8 +24,8 @@ class StoreParcVehiculeRequest extends FormRequest
             'capacite_reservoir' => 'nullable|numeric|min:0',
             'kilometrage_actuel' => 'nullable|integer|min:0',
             'etat' => 'required|in:operationnel,maintenance,hors_service',
-            'assurance_expire_le' => 'nullable|date|after_or_equal:today',
-            'visite_technique_expire_le' => 'nullable|date|after_or_equal:today',
+            'assurance_expire_le' => 'required|date|after_or_equal:today',
+            'visite_technique_expire_le' => 'required|date|after_or_equal:today',
             'chauffeur_id' => 'nullable|exists:parc_chauffeurs,id',
         ];
     }
