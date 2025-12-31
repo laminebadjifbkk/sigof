@@ -163,7 +163,7 @@
                             <div class="col-md-6">
                                 <label for="assurance_expire_le" class="form-label">Assurance expire le</label>
                                 <input type="date" name="assurance_expire_le" class="form-control form-control-sm"
-                                    value="{{ old('assurance_expire_le', $vehicule->assurance_expire_le ?? '') }}">
+                                    value="{{ old('assurance_expire_le', $chauffeur->assurance_expire_le ? $chauffeur->assurance_expire_le->format('Y-m-d') : '') }}">
                             </div>
                         </div>
 
@@ -173,7 +173,7 @@
                                     le</label>
                                 <input type="date" name="visite_technique_expire_le"
                                     class="form-control form-control-sm"
-                                    value="{{ old('visite_technique_expire_le', $vehicule->visite_technique_expire_le ?? '') }}">
+                                    value="{{ old('visite_technique_expire_le', $chauffeur->visite_technique_expire_le ? $chauffeur->visite_technique_expire_le->format('Y-m-d') : '') }}">
                             </div>
                         </div>
 
