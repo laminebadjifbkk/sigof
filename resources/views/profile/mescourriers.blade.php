@@ -171,7 +171,7 @@
                                                                         : 'Date inconnue' !!}
                                                                 </small>
                                                                 <span
-                                                                    class="badge badge-info">{!! $arrive?->courrier?->user?->firstname !!}&nbsp;{!! $arrive?->courrier?->user?->name !!}</span>
+                                                                    class="badge bg-info">{!! $arrive?->courrier?->user?->firstname !!}&nbsp;{!! $arrive?->courrier?->user?->name !!}</span>
                                                             </div>
                                                         </td>
                                                         <td class="vertical-align-middle text-center">
