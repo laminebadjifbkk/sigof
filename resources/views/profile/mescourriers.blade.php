@@ -6,6 +6,17 @@
             <div class="row">
                 <div class="card">
                     <div class="card-body">
+                        {{-- <div class="d-flex justify-content-between align-items-center mt-0">
+                            <span class="d-flex align-items-baseline"><a href="{{ url('/profil') }}" class="btn btn-success btn-sm"
+                                    title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                                <p> | retour</p>
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="d-flex align-items-baseline">
+                                <h5 class="card-title">Mes courriers</h5>
+                            </span>
+                        </div> --}}
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <div class="d-flex align-items-center gap-2">
                                 <a href="{{ url('/profil') }}" class="btn btn-outline-success btn-sm">
@@ -23,10 +34,11 @@
                                 @if ($employee?->arrives?->isNotEmpty())
                                     <div class="table-responsive">
                                         <table class="table table-hover align-middle" id="table-courriers-emp">
-                                            <thead class="table-light">
+                                            <thead class="table-default">
                                                 <tr>
                                                     <th style="width:40%;">Imputations</th>
                                                     <th style="width:15%;" class="text-center">Instructions DG</th>
+                                                    {{-- <th style="width:10%;">Suivi dossier</th> --}}
                                                     <th class="text-center">
                                                         @unless (auth()->user()->unReadNotifications->isEmpty())
                                                             <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
@@ -165,6 +177,13 @@
                                                         <td class="vertical-align-middle text-center">
                                                             <p>{!! remove_accents_uppercase($arrive?->courrier->description) ?? '' !!}</p>
                                                         </td>
+                                                        {{-- <td>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        @foreach ($arrive?->employees->unique('id') as $employee)
+                                                            {{ $employee->user->firstname . ' ' . $employee->user->name }}<br>
+                                                        @endforeach
+                                                    </div>
+                                                </td> --}}
                                                         <td>
                                                             <h5 class="card-title">Commentaires
                                                                 ({{ count($arrive->courrier->comments) }})
