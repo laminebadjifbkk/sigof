@@ -31,10 +31,13 @@
             <table class="table table-hover table-striped shadow-sm" id="table-parc-chauffeur">
                 <thead class="table-dark">
                     <tr>
-                        <th class="text-center">Matricule</th>
+                        <th class="text-center" width="12%">Matricule</th>
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Téléphone</th>
+                        <th class="text-center" width="12%">N° permis</th>
+                        <th class="text-center" width="12%">Catégorie</th>
+                        <th>Permis expire le</th>
                         <th class="text-center" width="12%">Statut</th>
                         <th class="text-center" width="12%">Actions</th>
                     </tr>
@@ -46,6 +49,9 @@
                             <td>{{ $chauffeur->nom }}</td>
                             <td>{{ $chauffeur->prenom }}</td>
                             <td>{{ $chauffeur->telephone }}</td>
+                            <td class="text-center">{{ $chauffeur->permis_numero }}</td>
+                            <td class="text-center">{{ $chauffeur->permis_categories }}</td>
+                            <td>{{ $chauffeur->permis_expire_le->format('d/m/Y') }}</td>
                             <td class="text-center">
                                 <span class="badge {{ $chauffeur->statut == 'actif' ? 'bg-success' : 'bg-danger' }}">
                                     {{ ucfirst($chauffeur->statut) }}
