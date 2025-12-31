@@ -53,4 +53,14 @@ class ParcVehicule extends Model
     {
         return $this->belongsTo(ParcChauffeur::class, 'chauffeur_id');
     }
+
+    public function getAssuranceExpireLeFormattedAttribute()
+    {
+        return $this->assurance_expire_le ? $this->assurance_expire_le->format('Y-m-d') : '';
+    }
+
+    public function getVisiteTechniqueExpireLeFormattedAttribute()
+    {
+        return $this->visite_technique_expire_le ? $this->visite_technique_expire_le->format('Y-m-d') : '';
+    }
 }

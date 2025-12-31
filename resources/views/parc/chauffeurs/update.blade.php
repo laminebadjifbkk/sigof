@@ -86,7 +86,7 @@
                             <div class="col-md-6">
                                 <label for="permis_expire_le" class="form-label">Expiration du permis</label>
                                 <input type="date" name="permis_expire_le" class="form-control form-control-sm"
-                                    value="{{ old('permis_expire_le', $chauffeur->permis_expire_le ? $chauffeur->permis_expire_le->format('Y-m-d') : '') }}">
+                                    value="{{ old('permis_expire_le', $chauffeur->permis_expire_le_formatted) }}">
                             </div>
                             <div class="col-md-6">
                                 <label for="statut" class="form-label">Statut <span class="text-danger">*</span></label>

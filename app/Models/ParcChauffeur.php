@@ -45,4 +45,9 @@ class ParcChauffeur extends Model
     {
         return $this->hasMany(ParcVehicule::class, 'chauffeur_id');
     }
+
+    public function getPermisExpireLeFormattedAttribute()
+    {
+        return $this->permis_expire_le ? $this->permis_expire_le->format('Y-m-d') : '';
+    }
 }
