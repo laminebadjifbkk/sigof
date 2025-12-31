@@ -40,7 +40,7 @@
                                         class="text-danger">*</span></label>
                                 <input type="text" name="matricule"
                                     class="form-control form-control-sm @error('matricule') is-invalid @enderror"
-                                    value="{{ old('matricule', $chauffeur->matricule) }}" placeholder="CH-001">
+                                    value="{{ old('matricule', $chauffeur->matricule) }}" placeholder="matricule">
                                 @error('matricule')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
