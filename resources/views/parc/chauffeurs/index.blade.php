@@ -38,7 +38,7 @@
                         <th class="text-center" width="12%">N° permis</th>
                         <th class="text-center" width="12%">Catégorie</th>
                         <th>Permis expire le</th>
-                        <th class="text-center" width="12%">Statut</th>
+                        <th class="text-center" width="5%">Statut</th>
                         <th class="text-center" width="12%">Actions</th>
                     </tr>
                 </thead>
