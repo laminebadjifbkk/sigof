@@ -225,7 +225,7 @@
 
                     <div style="float:right; width:40%; font-size:10pt;">
 
-                        <div style="text-align:center;">
+                        <div style="text-align:right;">
                             ONFP/DG/DRH/DIVagp/mn
                         </div>
 
@@ -368,7 +368,7 @@
 
                 <div style="float:right; width:40%; font-size:10pt;">
 
-                    <div style="text-align:center;">
+                    <div style="text-align:right;">
                         ONFP/DG/DRH/DIVagp/mn
                     </div>
 
@@ -395,22 +395,24 @@
                 FEUILLE DE DEPLACEMENT
             </h2>
 
-            <table class="table-no-border" cellpadding="6" style="font-size:12pt;">
+            <table class="table-no-border" cellpadding="0" cellspacing="0"
+                style="font-size:12pt; border-collapse: collapse;">
                 <tr>
-                    <td width="30%"><b>Ordre de mission :</b></td>
-                    <td width="70%">{{ $mission->reference }}</td>
+                    <td width="30%" style="padding:2px 0;"><b>Ordre de mission :</b></td>
+                    <td width="70%" style="padding:2px 0;">{{ $mission->reference }}</td>
                 </tr>
                 <tr>
-                    <td><b>Prénom(s) – Nom :</b></td>
-                    <td>{{ $employee?->user?->firstname }} {{ $employee?->user?->name }}</td>
+                    <td style="padding:2px 0;"><b>Prénom(s) - Nom :</b></td>
+                    <td style="padding:2px 0;">{{ $employee?->user?->firstname }} {{ $employee?->user?->name }}</td>
                 </tr>
                 <tr>
-                    <td><b>Fonction :</b></td>
-                    <td>{{ $employee?->fonction?->name }}</td>
+                    <td style="padding:2px 0;"><b>Fonction :</b></td>
+                    <td style="padding:2px 0;">{{ $employee?->fonction?->name }}</td>
                 </tr>
                 <tr>
-                    <td><b>Itinéraire :</b></td>
-                    <td>{{ $mission->lieu_depart ?? 'Dakar' }} – {{ $mission->lieu_arrivee }}</td>
+                    <td style="padding:2px 0;"><b>Itinéraire :</b></td>
+                    <td style="padding:2px 0;">{{ $mission->lieu_depart ?? 'Dakar' }} – {{ $mission->lieu_arrivee }}
+                    </td>
                 </tr>
             </table>
 
@@ -430,7 +432,11 @@
                     <!-- LIGNE SIGNATURES -->
                     <tr style="height:120px;">
                         <td>
-                            Date : {{ $mission->date_depart->format('d/m/Y') }}<br><br><br><br><br><br>
+                            @if ($i === 1)
+                                Date : {{ $mission->date_depart->format('d/m/Y') }}<br><br><br><br><br><br>
+                            @else
+                                Date : <br><br><br><br><br><br>
+                            @endif
                             Signature
                         </td>
                         <td>
