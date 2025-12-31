@@ -69,7 +69,9 @@
                                                                     @php
 
                                                                         $date = $arrive?->jour_imputation
-                                                                            ? \Carbon\Carbon::parse($arrive->jour_imputation)
+                                                                            ? \Carbon\Carbon::parse(
+                                                                                $arrive->jour_imputation,
+                                                                            )
                                                                             : null;
                                                                     @endphp
 
@@ -84,7 +86,9 @@
                                                                                 jours</span>
                                                                         @else
                                                                             @php
-                                                                                $diff = $date->diff(\Carbon\Carbon::today());
+                                                                                $diff = $date->diff(
+                                                                                    \Carbon\Carbon::today(),
+                                                                                );
                                                                                 $ans = $diff->y;
                                                                                 $mois = $diff->m;
                                                                                 $jours = $diff->d;
@@ -94,7 +98,10 @@
                                                                                     $parts[] =
                                                                                         $ans .
                                                                                         ' ' .
-                                                                                        \Illuminate\Support\Str::plural('an', $ans);
+                                                                                        \Illuminate\Support\Str::plural(
+                                                                                            'an',
+                                                                                            $ans,
+                                                                                        );
                                                                                 }
                                                                                 if ($mois > 0) {
                                                                                     $parts[] = $mois . ' mois';
@@ -103,7 +110,10 @@
                                                                                     $parts[] =
                                                                                         $jours .
                                                                                         ' ' .
-                                                                                        \Illuminate\Support\Str::plural('jour', $jours);
+                                                                                        \Illuminate\Support\Str::plural(
+                                                                                            'jour',
+                                                                                            $jours,
+                                                                                        );
                                                                                 }
                                                                             @endphp
 
@@ -321,6 +331,7 @@
 @push('scripts')
     <script>
         new DataTable('#table-courriers-emp', {
+            ordering: false, // désactive le tri automatique
             /* layout: {
                 topStart: {
                     buttons: [ 'csv', 'excel', 'print'],
