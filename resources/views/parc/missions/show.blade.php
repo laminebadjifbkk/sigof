@@ -112,7 +112,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($mission->employees as $employee)
+                                @foreach ($employees as $employee)
                                     <tr>
                                         <td>{{ $employee?->matricule }}</td>
                                         <td>{{ $employee?->user?->name }} {{ $employee?->user?->firstname }}</td>

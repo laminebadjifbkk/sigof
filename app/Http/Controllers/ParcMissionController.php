@@ -51,7 +51,8 @@ class ParcMissionController extends Controller
         $mission = ParcMission::findOrFail($id);
         // Compter les missions de l'année en cours
         $missionsCount = ParcMission::whereYear('date_depart', now()->year)->count();
-        return view('parc.missions.show', compact('mission', 'missionsCount'));
+        $employees = $mission->employees;
+        return view('parc.missions.show', compact('mission', 'missionsCount', 'employees'));
     }
 
     /**
@@ -114,6 +115,10 @@ class ParcMissionController extends Controller
         try {
             // Récupérer le mission par ID
             $mission = ParcMission::findOrFail($id);
+            $employees = $mission->employees;
+            $jours = $mission->date_retour
+            ? $mission->date_depart->diffInDays($mission->date_retour) + 1
+            : 1;
 
             // Préparer les données pour la vue PDF
             $options = new Options();
@@ -123,7 +128,7 @@ class ParcMissionController extends Controller
 
             $dompdf->loadHtml(view(
                 'parc.missions.ordre-mission',
-                compact('mission')
+                compact('mission', 'employees', 'jours')
             ));
 
             // Format du PDF
@@ -131,7 +136,7 @@ class ParcMissionController extends Controller
             $dompdf->render();
 
             // Nom du fichier
-            $name = 'Ordre_mission' . $mission->reference . '.pdf';
+            $name = 'Ordre_mission_' . $mission->reference . '.pdf';
             $name = str_replace(
                 [' ', 'é', 'è', 'ê', 'à', 'ç', ','],
                 ['_', 'e', 'e', 'e', 'a', 'c', ''],
