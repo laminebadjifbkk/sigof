@@ -36,7 +36,7 @@
                         <th class="text-center" width="5%">Année</th>
                         <th class="text-center" width="8%">Kilométrage</th>
                         <th class="text-center" width="8%">Assurance</th>
-                        <th class="text-center" width="10%">Visite technique</th>
+                        <th class="text-center" width="12%">Visite technique</th>
                         <th class="text-center" width="12%">État</th>
                         <th class="text-center" width="12%">Actions</th>
                     </tr>
