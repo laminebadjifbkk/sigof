@@ -6,31 +6,27 @@
             <div class="row">
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mt-0">
-                            <span class="d-flex align-items-baseline"><a href="{{ url('/profil') }}" class="btn btn-success btn-sm"
-                                    title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                <p> | retour</p>
-                            </span>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="d-flex align-items-baseline">
-                                <h5 class="card-title">Mes courriers</h5>
-                            </span>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="d-flex align-items-center gap-2">
+                                <a href="{{ url('/profil') }}" class="btn btn-outline-success btn-sm">
+                                    <i class="bi bi-arrow-left"></i>
+                                </a>
+                                <span class="text-muted">Retour</span>
+                            </div>
+
+                            <h5 class="mb-0 fw-bold text-primary">
+                                <i class="bi bi-envelope-paper"></i> Mes courriers
+                            </h5>
                         </div>
                         <div class="col-12">
-                            {{-- @php
-                                $user = Auth::user();
-                                $employee = $user?->employee;
-                            @endphp --}}
                             @if ($user?->employee)
                                 @if ($employee?->arrives?->isNotEmpty())
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="table-courriers-emp">
-                                            <thead class="table-default">
+                                        <table class="table table-hover align-middle" id="table-courriers-emp">
+                                            <thead class="table-light">
                                                 <tr>
                                                     <th style="width:40%;">Imputations</th>
                                                     <th style="width:15%;" class="text-center">Instructions DG</th>
-                                                    {{-- <th style="width:10%;">Suivi dossier</th> --}}
                                                     <th class="text-center">
                                                         @unless (auth()->user()->unReadNotifications->isEmpty())
                                                             <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
@@ -169,13 +165,6 @@
                                                         <td class="vertical-align-middle text-center">
                                                             <p>{!! remove_accents_uppercase($arrive?->courrier->description) ?? '' !!}</p>
                                                         </td>
-                                                        {{-- <td>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        @foreach ($arrive?->employees->unique('id') as $employee)
-                                                            {{ $employee->user->firstname . ' ' . $employee->user->name }}<br>
-                                                        @endforeach
-                                                    </div>
-                                                </td> --}}
                                                         <td>
                                                             <h5 class="card-title">Commentaires
                                                                 ({{ count($arrive->courrier->comments) }})
@@ -332,15 +321,6 @@
     <script>
         new DataTable('#table-courriers-emp', {
             ordering: false, // désactive le tri automatique
-            /* layout: {
-                topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
-                }
-            }, 
-            "order": [
-                [0, 'desc']
-            ],*/
-
             "lengthMenu": [
                 [5, 10, 25, 50, 100, -1],
                 [5, 10, 25, 50, 100, "Tout"]
