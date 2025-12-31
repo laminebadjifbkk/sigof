@@ -33,7 +33,10 @@
                         <th>Immatriculation</th>
                         <th>Marque</th>
                         <th>Modèle</th>
-                        <th class="text-center" width="8%">Année</th>
+                        <th class="text-center" width="5%">Année</th>
+                        <th class="text-center" width="8%">Kilométrage</th>
+                        <th class="text-center" width="8%">Assurance</th>
+                        <th class="text-center" width="8%">Visite technique</th>
                         <th class="text-center" width="12%">État</th>
                         <th class="text-center" width="12%">Actions</th>
                     </tr>
@@ -45,6 +48,9 @@
                             <td>{{ $vehicule->marque }}</td>
                             <td>{{ $vehicule->modele }}</td>
                             <td class="text-center">{{ $vehicule->annee }}</td>
+                            <td class="text-center">{{ $vehicule?->kilometrage_actuel }}</td>
+                            <td class="text-center">{{ $vehicule?->assurance_expire_le->format('d/m/Y') }}</td>
+                            <td class="text-center">{{ $vehicule?->visite_technique_expire_le->format('d/m/Y') }}</td>
                             <td class="text-center">
                                 <span
                                     class="badge 
