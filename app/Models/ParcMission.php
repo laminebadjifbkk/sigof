@@ -19,12 +19,31 @@ class ParcMission extends Model
         'date_retour',
         'distance_km',
         'indemnites_total',
-        'statut'
+        'statut',
+        'departement',
+        'region',
+        'itineraire',
+        'taux_journalier',
+        'indemnite_mission',
+        'frais_deplacement',
+        'avance',
+        'reliquat',
+        'commentaires',
+        'autres',
+        'type_mission_id',
+
     ];
 
     protected $casts = [
         'date_depart' => 'date',
         'date_retour' => 'date',
+        'distance_km' => 'integer',
+        'indemnites_total' => 'decimal:2',
+        'taux_journalier' => 'decimal:2',
+        'indemnite_mission' => 'decimal:2',
+        'frais_deplacement' => 'decimal:2',
+        'avance' => 'decimal:2',
+        'reliquat' => 'decimal:2',
     ];
 
     public function vehicule()
@@ -51,5 +70,15 @@ class ParcMission extends Model
     {
         $fin = $this->date_retour ?? now();
         return $this->date_depart->diffInDays($fin) + 1;
+    }
+
+    public function typeMission()
+    {
+        return $this->belongsTo(ParcTypeMission::class, 'type_mission_id');
+    }
+
+    public function getTypeMissionLibelleAttribute()
+    {
+        return $this->typeMission?->libelle ?? 'Non défini';
     }
 }

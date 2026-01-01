@@ -7,10 +7,11 @@ use App\Http\Requests\UpdateParcMissionRequest;
 use App\Models\Employee;
 use App\Models\ParcChauffeur;
 use App\Models\ParcMission;
+use App\Models\ParcTypeMission;
 use App\Models\ParcVehicule;
-use Illuminate\Http\Request;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Illuminate\Http\Request;
 
 class ParcMissionController extends Controller
 {
@@ -30,7 +31,27 @@ class ParcMissionController extends Controller
     {
         $vehicules = ParcVehicule::latest()->get();
         $chauffeurs = ParcChauffeur::latest()->get();
-        return view('parc.missions.create', compact('vehicules', 'chauffeurs'));
+        $typesMissions = ParcTypeMission::all();
+        // Génération automatique de la référence
+        $year = now()->year;
+
+        // On récupère la dernière mission de l'année courante
+        $lastMission = ParcMission::whereYear('created_at', $year)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        if ($lastMission) {
+            // Extraire le numéro après le tiret
+            $lastNumber = (int) substr($lastMission->reference, 5);
+            $newNumber = str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
+        } else {
+            // Première mission de l'année
+            $newNumber = '001';
+        }
+
+        $reference = $year . '-' . $newNumber;
+
+        return view('parc.missions.create', compact('vehicules', 'chauffeurs', 'reference', 'typesMissions'));
     }
 
     /**
@@ -117,8 +138,8 @@ class ParcMissionController extends Controller
             $mission = ParcMission::findOrFail($id);
             $employees = $mission->employees;
             $jours = $mission->date_retour
-            ? $mission->date_depart->diffInDays($mission->date_retour) + 1
-            : 1;
+                ? $mission->date_depart->diffInDays($mission->date_retour) + 1
+                : 1;
 
             // Préparer les données pour la vue PDF
             $options = new Options();
