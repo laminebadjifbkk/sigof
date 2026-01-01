@@ -43,20 +43,11 @@
 
             <div class="card shadow-sm mb-4">
                 <div class="card-header bg-dark text-white">
-                    @if ($mission->vehicule)
-                        <strong>{{ $mission->vehicule->immatriculation }}</strong> -
-                        {{ $mission->vehicule->marque }} {{ $mission->vehicule->modele }}
-                    @else
-                        <strong>Véhicule non affecté</strong>
-                    @endif
+                    <strong>Référence : {{ $mission->reference }}</strong>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped table-hover align-middle">
                         <tbody>
-                            <tr>
-                                <th>Référence</th>
-                                <td>{{ $mission->reference }}</td>
-                            </tr>
                             <tr>
                                 <th>Objet</th>
                                 <td>{{ $mission->objet }}</td>
@@ -64,6 +55,16 @@
                             <tr>
                                 <th>Lieu</th>
                                 <td>{{ $mission->lieu_depart }} → {{ $mission->lieu_arrivee }}</td>
+                            </tr>
+                            @if (!empty($mission?->region))
+                                <tr>
+                                    <th>Région(s)</th>
+                                    <td>{{ $mission?->region }}</td>
+                                </tr>
+                            @endif
+                            <tr>
+                                <th>Itinéraire</th>
+                                <td>{{ $mission->itineraire }}</td>
                             </tr>
                             <tr>
                                 <th>Dates</th>
@@ -74,13 +75,36 @@
                                 <th>Durée</th>
                                 <td>{{ $mission->nombre_jours }} jours</td>
                             </tr>
+
+                            <tr>
+                                <th>Taux journalier</th>
+                                <td>{{ number_format($mission->taux_journalier, 0, ',', ' ') }} F CFA</td>
+                            </tr>
+
+                            <tr>
+                                <th>Indemnité totale</th>
+                                <td>{{ number_format($mission->indemnites_total, 0, ',', ' ') }} F CFA</td>
+                            </tr>
+                            <tr>
+                                <th>Avance</th>
+                                <td>{{ number_format($mission->avance ?? 0, 0, ',', ' ') }} F CFA</td>
+                            </tr>
+                            <tr>
+                                <th>Reliquat</th>
+                                <td>{{ number_format($mission->reliquat, 0, ',', ' ') }} F CFA</td>
+                            </tr>
+                            <tr>
+                                <th>Type de mission</th>
+                                <td>{{ $mission->typeMission?->name ?? '-' }}</td>
+                            </tr>
+
                             <tr>
                                 <th>Véhicule</th>
-                                <td>{{ $mission->vehicule?->immatriculation ?? 'Non affecté' }}</td>
+                                <td>{{ $mission->vehicule?->immatriculation ?? '-' }}</td>
                             </tr>
                             <tr>
                                 <th>Chauffeur</th>
-                                <td>{{ $mission->chauffeur?->nom ?? 'Non affecté' }}</td>
+                                <td>{{ $mission->chauffeur?->nom ?? '-' }}</td>
                             </tr>
                             <tr>
                                 <th>Statut</th>

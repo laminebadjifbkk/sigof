@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Carbon\Carbon;
 
 class StoreParcMissionRequest extends FormRequest
 {
@@ -43,10 +44,30 @@ class StoreParcMissionRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
+        $dateDepart = $this->date_depart;
+        $dateRetour = $this->date_retour;
+        $taux       = (float) $this->taux_journalier;
+        $avance     = (float) $this->avance; // null ou vide sera casté à 0
+
+        $jours = 1;
+
+        if ($dateDepart && $dateRetour) {
+            $jours = Carbon::parse($dateDepart)
+                ->diffInDays(Carbon::parse($dateRetour)) + 1;
+        }
+
+        // 2️⃣ Calcul indemnité totale
+        $indemnitesTotal = $jours * $taux;
+
+        // 3️⃣ Calcul reliquat
+        $reliquat = max($indemnitesTotal - $avance, 0);
+
         $this->merge([
             /* 'vehicule_id'  => $this->vehicule_id ?: null,
             'chauffeur_id' => $this->chauffeur_id ?: null, */
             'type_mission_id' => $this->type_mission_id ?: null,
+            'indemnites_total' => $jours * $taux,
+            'reliquat'         => $reliquat,
         ]);
     }
 }

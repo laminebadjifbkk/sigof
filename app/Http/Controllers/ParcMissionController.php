@@ -69,10 +69,21 @@ class ParcMissionController extends Controller
      */
     public function show(string $id)
     {
-        $mission = ParcMission::findOrFail($id);
+        // Récupérer la mission avec ses relations pour éviter les requêtes N+1
+        $mission = ParcMission::with(['vehicule', 'chauffeur', 'typeMission', 'employees.user', 'employees.direction', 'employees.fonction'])
+            ->findOrFail($id);
+
         // Compter les missions de l'année en cours
         $missionsCount = ParcMission::whereYear('date_depart', now()->year)->count();
+
+        // Nombre de jours (calcul automatique si non stocké en base)
+        $mission->nombre_jours = $mission->date_depart && $mission->date_retour
+            ? $mission->date_depart->diffInDays($mission->date_retour) + 1
+            : 1;
+
+        // Les employés affectés à la mission
         $employees = $mission->employees;
+
         return view('parc.missions.show', compact('mission', 'missionsCount', 'employees'));
     }
 
