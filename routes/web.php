@@ -63,6 +63,7 @@ use App\Http\Controllers\ParcEmployeeMissionController;
 use App\Http\Controllers\ParcMaintenanceController;
 use App\Http\Controllers\ParcMissionController;
 use App\Http\Controllers\ParcPleinController;
+use App\Http\Controllers\ParcTypeMissionController;
 use App\Http\Controllers\ParcVehiculeController;
 use App\Http\Controllers\PchargeController;
 use App\Http\Controllers\PermissionController;
@@ -88,6 +89,7 @@ use App\Http\Controllers\ValidationoperateurController;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
+
 
 
 
@@ -878,6 +880,8 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('parc-maintenances', ParcMaintenanceController::class);
         Route::resource('parc-affectations', ParcAffectationController::class);
         Route::resource('parc-employee-missions', ParcEmployeeMissionController::class);
+        Route::resource('parc-type-missions', ParcTypeMissionController::class)
+            ->except(['show']);
 
         Route::middleware('admin')->group(function () {
             Route::get('/manuels', [BookController::class, 'index'])->name('manuels.index');

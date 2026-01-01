@@ -96,7 +96,8 @@ class ParcMissionController extends Controller
         $vehicules = ParcVehicule::latest()->get();
         $chauffeurs = ParcChauffeur::latest()->get();
         $employees = Employee::latest()->get();
-        return view('parc.missions.update', compact('mission', 'vehicules', 'chauffeurs', 'employees'));
+        $typesMissions = ParcTypeMission::all();
+        return view('parc.missions.update', compact('mission', 'vehicules', 'chauffeurs', 'employees', 'typesMissions'));
     }
 
     /**

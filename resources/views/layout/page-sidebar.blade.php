@@ -133,6 +133,13 @@
                     </a>
                 </li>
             @endcan
+            @can('mission-view')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('parc-type-missions.index') }}">
+                        <span>Missions</span>
+                    </a>
+                </li>
+            @endcan
         </ul>
     </li>
 @endcan

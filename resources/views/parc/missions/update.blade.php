@@ -2,173 +2,177 @@
 @section('title', 'ONFP - Modifier une mission')
 
 @section('space-work')
-    <section class="section register">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h1 class="mb-0">Modifier la mission : {{ $mission->reference }}</h1>
-                <a href="{{ route('parc-missions.index') }}" class="btn btn-outline-secondary btn-sm">
-                    <i class="bi bi-arrow-left-circle"></i> Retour à la liste
-                </a>
+<section class="section register">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="mb-0">Modifier la mission : {{ $mission->reference }}</h1>
+            <a href="{{ route('parc-missions.index') }}" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left-circle"></i> Retour à la liste
+            </a>
+        </div>
+
+        @if (session('status'))
+            <div class="alert alert-success alert-dismissible fade show">
+                {{ session('status') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
+        @endif
 
-            @if (session('status'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('status') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
-                </div>
-            @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form action="{{ route('parc-missions.update', $mission) }}" method="POST">
+                    @csrf
+                    @method('PUT')
 
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <form action="{{ route('parc-missions.update', $mission) }}" method="POST">
-                        @csrf
-                        @method('PUT')
+                    {{-- Référence --}}
+                    <div class="mb-3">
+                        <label class="form-label">Référence</label>
+                        <input type="text" class="form-control form-control-sm"
+                               value="{{ $mission->reference }}" readonly>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="reference" class="form-label">Référence</label>
-                            <input type="text" name="reference" class="form-control form-control-sm"
-                                value="{{ old('reference', $mission->reference) }}" readonly>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="objet" class="form-label">Objet</label>
-                            <input type="text" name="objet" class="form-control form-control-sm"
-                                value="{{ old('objet', $mission->objet) }}" required>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="lieu_depart" class="form-label">Lieu de départ</label>
-                                <input type="text" name="lieu_depart" class="form-control form-control-sm"
-                                    value="{{ old('lieu_depart', $mission->lieu_depart) }}" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="lieu_arrivee" class="form-label">Lieu d’arrivée</label>
-                                <input type="text" name="lieu_arrivee" class="form-control form-control-sm"
-                                    value="{{ old('lieu_arrivee', $mission->lieu_arrivee) }}" required>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="date_depart" class="form-label">Date de départ</label>
-                                <input type="date" name="date_depart" class="form-control form-control-sm"
-                                    value="{{ old('date_depart', $mission->date_depart?->format('Y-m-d')) }}" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="date_retour" class="form-label">Date de retour</label>
-                                <input type="date" name="date_retour" class="form-control form-control-sm"
-                                    value="{{ old('date_retour', $mission->date_retour?->format('Y-m-d')) }}">
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="vehicule_id" class="form-label">Véhicule</label>
-                            <select name="vehicule_id" class="form-select form-select-sm">
-                                <option value="">-- Aucun véhicule --</option>
-                                @foreach ($vehicules as $vehicule)
-                                    <option value="{{ $vehicule->id }}"
-                                        {{ old('vehicule_id', $mission->vehicule_id) == $vehicule->id ? 'selected' : '' }}>
-                                        {{ $vehicule->immatriculation }} - {{ $vehicule->marque }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="chauffeur_id" class="form-label">Chauffeur</label>
-                            <select name="chauffeur_id" class="form-select form-select-sm">
-                                <option value="">-- Aucun chauffeur --</option>
-                                @foreach ($chauffeurs as $chauffeur)
-                                    <option value="{{ $chauffeur->id }}"
-                                        {{ old('chauffeur_id', $mission->chauffeur_id) == $chauffeur->id ? 'selected' : '' }}>
-                                        {{ $chauffeur->nom }} {{ $chauffeur->prenom }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="statut" class="form-label">Statut</label>
-                            <select name="statut" id="statut" class="form-select form-select-sm" required>
-                                <option value="">-- Choisir un statut --</option>
-                                <option value="planifiee"
-                                    {{ old('statut', $mission->statut) == 'planifiee' ? 'selected' : '' }}>Planifiée
+                    {{-- Type mission --}}
+                    <div class="mb-3">
+                        <label class="form-label">Type de mission</label>
+                        <select name="type_mission_id" class="form-select form-select-sm">
+                            <option value="">-- Choisir --</option>
+                            @foreach ($typesMissions as $type)
+                                <option value="{{ $type->id }}"
+                                    {{ old('type_mission_id', $mission->type_mission_id) == $type->id ? 'selected' : '' }}>
+                                    {{ $type->libelle }}
                                 </option>
-                                <option value="en_cours"
-                                    {{ old('statut', $mission->statut) == 'en_cours' ? 'selected' : '' }}>En cours</option>
-                                <option value="terminee"
-                                    {{ old('statut', $mission->statut) == 'terminee' ? 'selected' : '' }}>Terminée</option>
-                                <option value="annulee"
-                                    {{ old('statut', $mission->statut) == 'annulee' ? 'selected' : '' }}>Annulée</option>
-                            </select>
-                            @error('statut')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="distance_km" class="form-label">Distance (km)</label>
-                            <input type="number" name="distance_km" class="form-control form-control-sm"
-                                value="{{ old('distance_km', $mission->distance_km) }}" min="0">
-                        </div>
+                    {{-- Objet --}}
+                    <div class="mb-3">
+                        <label class="form-label">Objet <span class="text-danger"> *</span></label>
+                        <input type="text" name="objet"
+                               class="form-control form-control-sm @error('objet') is-invalid @enderror"
+                               value="{{ old('objet', $mission->objet) }}">
+                        @error('objet') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="indemnites_total" class="form-label">Indemnités totales</label>
-                            <input type="number" step="0.01" name="indemnites_total"
-                                class="form-control form-control-sm"
-                                value="{{ old('indemnites_total', $mission->indemnites_total) }}" min="0">
+                    {{-- Lieux --}}
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Lieu de départ <span class="text-danger"> *</span></label>
+                            <input type="text" name="lieu_depart" class="form-control form-control-sm"
+                                   value="{{ old('lieu_depart', $mission->lieu_depart) }}">
                         </div>
-                        {{-- <div class="mb-3">
-                            <label for="employees" class="form-label">Employés affectés</label>
-                            <select name="employees[]" id="employees" class="form-select form-select-sm" multiple>
-                                @foreach ($employees as $employee)
-                                    <option value="{{ $employee->id }}"
-                                        {{ in_array($employee->id, old('employees', $mission->employees->pluck('id')->toArray())) ? 'selected' : '' }}>
-                                        {{ $employee->matricule }} - {{ $employee->nom }} {{ $employee->prenom }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <small class="text-muted">Maintenez CTRL (ou CMD sur Mac) pour sélectionner plusieurs
-                                employés.</small>
-                        </div> --}}
-                        {{-- <div class="mb-3">
-                            <label for="employees" class="form-label">Employés affectés</label>
-                            <select name="employees[]" id="multiple-select-field" class="form-select" multiple
-                                data-placeholder="Choisir un ou plusieurs employés">
-                                @foreach ($employees as $employee)
-                                    <option value="{{ $employee->id }}"
-                                        {{ in_array($employee->id, old('employees', $mission->employees->pluck('id')->toArray())) ? 'selected' : '' }}>
-                                        {{ $employee->matricule }} - {{ $employee?->user?->firstname }}
-                                        {{ $employee?->user?->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <small class="text-muted">Maintenez CTRL (ou CMD sur Mac) pour sélectionner plusieurs
-                                employés.</small>
-                        </div> --}}
+                        <div class="col-md-6">
+                            <label class="form-label">Lieu d’arrivée <span class="text-danger"> *</span></label>
+                            <input type="text" name="lieu_arrivee" class="form-control form-control-sm"
+                                   value="{{ old('lieu_arrivee', $mission->lieu_arrivee) }}">
+                        </div>
+                    </div>
 
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-success btn-sm">
-                                <i class="bi bi-check-circle"></i> Enregistrer les modifications
-                            </button>
-                            <a href="{{ route('parc-missions.index') }}" class="btn btn-secondary btn-sm">
-                                <i class="bi bi-x-circle"></i> Annuler
-                            </a>
+                    {{-- Itinéraire --}}
+                    <div class="mb-3">
+                        <label class="form-label">Itinéraire<span class="text-danger"> *</span></label>
+                        <input type="text" name="itineraire" class="form-control form-control-sm"
+                               value="{{ old('itineraire', $mission->itineraire) }}">
+                    </div>
+
+                    {{-- Département / Région --}}
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Département</label>
+                            <input type="text" name="departement" class="form-control form-control-sm"
+                                   value="{{ old('departement', $mission->departement) }}">
                         </div>
-                    </form>
-                </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Région</label>
+                            <input type="text" name="region" class="form-control form-control-sm"
+                                   value="{{ old('region', $mission->region) }}">
+                        </div>
+                    </div>
+
+                    {{-- Dates --}}
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Date départ <span class="text-danger"> *</span></label>
+                            <input type="date" name="date_depart" class="form-control form-control-sm"
+                                   value="{{ old('date_depart', $mission->date_depart?->format('Y-m-d')) }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Date retour <span class="text-danger"> *</span></label>
+                            <input type="date" name="date_retour" class="form-control form-control-sm"
+                                   value="{{ old('date_retour', $mission->date_retour?->format('Y-m-d')) }}">
+                        </div>
+                    </div>
+
+                    {{-- Finances --}}
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Taux journalier</label>
+                            <input type="number" step="0.01" name="taux_journalier"
+                                   class="form-control form-control-sm"
+                                   value="{{ old('taux_journalier', $mission->taux_journalier) }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Frais déplacement</label>
+                            <input type="number" step="0.01" name="frais_deplacement"
+                                   class="form-control form-control-sm"
+                                   value="{{ old('frais_deplacement', $mission->frais_deplacement) }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Avance</label>
+                            <input type="number" step="0.01" name="avance"
+                                   class="form-control form-control-sm"
+                                   value="{{ old('avance', $mission->avance) }}">
+                        </div>
+                    </div>
+
+                    {{-- Indemnités calculées --}}
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Indemnités totales</label>
+                            <input type="number" class="form-control form-control-sm"
+                                   value="{{ $mission->indemnites_total }}" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Reliquat</label>
+                            <input type="number" class="form-control form-control-sm"
+                                   value="{{ $mission->reliquat }}" readonly>
+                        </div>
+                    </div>
+
+                    {{-- Statut --}}
+                    <div class="mb-3">
+                        <label class="form-label">Statut <span class="text-danger"> *</span></label>
+                        <select name="statut" class="form-select form-select-sm">
+                            <option value="planifiee" {{ old('statut',$mission->statut)=='planifiee'?'selected':'' }}>Planifiée</option>
+                            <option value="en_cours" {{ old('statut',$mission->statut)=='en_cours'?'selected':'' }}>En cours</option>
+                            <option value="cloturee" {{ old('statut',$mission->statut)=='cloturee'?'selected':'' }}>Clôturée</option>
+                            <option value="annulee" {{ old('statut',$mission->statut)=='annulee'?'selected':'' }}>Annulée</option>
+                        </select>
+                    </div>
+
+                    {{-- Actions --}}
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-success btn-sm">
+                            <i class="bi bi-check-circle"></i> Mettre à jour
+                        </button>
+                        <a href="{{ route('parc-missions.index') }}" class="btn btn-secondary btn-sm">
+                            Annuler
+                        </a>
+                    </div>
+
+                </form>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 @endsection
