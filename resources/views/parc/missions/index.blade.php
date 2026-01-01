@@ -61,8 +61,8 @@
                                     -{{ $mission->date_retour->format('d/m/Y') }}
                                 @endif
                             </td>
-                            <td>{{ $mission->vehicule?->immatriculation ?? 'N/A' }}</td>
-                            <td>{{ $mission->chauffeur?->nom . ' ' . $mission->chauffeur?->prenom ?? 'N/A' }}</td>
+                            <td>{{ $mission->vehicule?->immatriculation ?? '-' }}</td>
+                            <td>{{ $mission->chauffeur?->nom . ' ' . $mission->chauffeur?->prenom ?? '-' }}</td>
                             <td class="text-center">
                                 <span
                                     class="badge 

@@ -43,8 +43,7 @@
                             </div>
                             <div class="col-md-4 col-sm-12">
                                 <label for="type_mission_id" class="form-label">
-                                    Type de mission <span class="text-danger">*</span>
-                                </label>
+                                    Type de mission</label>
                                 <select name="type_mission_id"
                                     class="form-select form-select-sm @error('type_mission_id') is-invalid @enderror">
                                     <option value="">-- Choisir un type de mission --</option>
@@ -176,7 +175,7 @@
                                 <label for="taux_journalier" class="form-label">Taux journalier</label>
                                 <input type="number" step="0.01" min="0" name="taux_journalier"
                                     class="form-control form-control-sm @error('taux_journalier') is-invalid @enderror"
-                                    value="{{ old('taux_journalier') }}" placeholder="Ex: 15000">
+                                    value="{{ old('taux_journalier') }}" placeholder="Ex: 25000">
                                 @error('taux_journalier')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -224,7 +223,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <div class="col-md-4 col-sm-12">
+                            {{-- <div class="col-md-4 col-sm-12">
                                 <label for="vehicule_id" class="form-label">Véhicule</label>
                                 <select name="vehicule_id" class="form-select form-select-sm">
                                     <option value="">-- Aucun véhicule --</option>
@@ -233,7 +232,7 @@
                                             {{ $vehicule->marque }}</option>
                                     @endforeach
                                 </select>
-                            </div>
+                            </div> --}}
 
                             <!-- Nouveau champ Kilométrage actuel -->
                             <div class="col-md-4 col-sm-12">
@@ -246,7 +245,7 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="col-md-4 col-sm-12">
+                            {{-- <div class="col-md-4 col-sm-12">
                                 <label for="chauffeur_id" class="form-label">Chauffeur affecté</label>
                                 <select name="chauffeur_id" class="form-select form-select-sm">
                                     <option value="">-- Aucun chauffeur --</option>
@@ -256,7 +255,7 @@
                                         </option>
                                     @endforeach
                                 </select>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="d-flex gap-2">

@@ -15,8 +15,8 @@ class StoreParcMissionRequest extends FormRequest
     {
         return [
             'reference' => 'required|string|max:50|unique:parc_missions',
-            'vehicule_id' => 'nullable|exists:parc_vehicules,id',
-            'chauffeur_id' => 'nullable|exists:parc_chauffeurs,id',
+            /* 'vehicule_id' => 'nullable|exists:parc_vehicules,id',
+            'chauffeur_id' => 'nullable|exists:parc_chauffeurs,id', */
             'objet' => 'required|string|max:255',
             'lieu_depart' => 'required|string|max:255',
             'lieu_arrivee' => 'required|string|max:255',
@@ -39,5 +39,14 @@ class StoreParcMissionRequest extends FormRequest
             'autres' => 'nullable|string',
             'type_mission_id' => 'nullable|exists:parc_type_missions,id',
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            /* 'vehicule_id'  => $this->vehicule_id ?: null,
+            'chauffeur_id' => $this->chauffeur_id ?: null, */
+            'type_mission_id' => $this->type_mission_id ?: null,
+        ]);
     }
 }
