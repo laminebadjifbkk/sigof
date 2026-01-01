@@ -44,17 +44,25 @@
                 <tbody>
                     @foreach ($missions as $mission)
                         <tr>
-                           {{--  <td>{{ $mission->reference }}</td> --}}
-                            <td>{{ $mission->objet }}</td>
+                            {{--  <td>{{ $mission->reference }}</td> --}}
+                            <td>
+                                <span class="short-text">{{ Str::limit($mission->objet, 25) }}</span>
+                                <span class="full-text d-none">{{ $mission->objet }}</span>
+
+                                @if (strlen($mission->objet) > 25)
+                                    <a href="#" class="toggle-text">...voir plus</a>
+                                @endif
+                            </td>
+
                             {{-- <td>{{ $mission->lieu_depart }} → {{ $mission->lieu_arrivee }}</td> --}}
                             <td>
                                 {{ $mission->date_depart->format('d/m/Y') }}
                                 @if ($mission->date_retour)
-                                    - {{ $mission->date_retour->format('d/m/Y') }}
+                                    -{{ $mission->date_retour->format('d/m/Y') }}
                                 @endif
                             </td>
                             <td>{{ $mission->vehicule?->immatriculation ?? 'N/A' }}</td>
-                            <td>{{ ($mission->chauffeur?->nom .' '.$mission->chauffeur?->prenom) ?? 'N/A' }}</td>
+                            <td>{{ $mission->chauffeur?->nom . ' ' . $mission->chauffeur?->prenom ?? 'N/A' }}</td>
                             <td class="text-center">
                                 <span
                                     class="badge 
@@ -86,6 +94,20 @@
                                     </form>
                                 </span>
                             </td>
+                            <!-- Modal -->
+                            <div class="modal fade" id="objetModal{{ $mission->id }}" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Objet de la mission</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{ $mission->objet }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </tr>
                     @endforeach
                 </tbody>
@@ -131,6 +153,26 @@
                     }
                 }
             }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.toggle-text').forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const td = this.closest('td');
+                    const shortText = td.querySelector('.short-text');
+                    const fullText = td.querySelector('.full-text');
+
+                    if (fullText.classList.contains('d-none')) {
+                        shortText.classList.add('d-none');
+                        fullText.classList.remove('d-none');
+                        this.textContent = 'voir moins';
+                    } else {
+                        fullText.classList.add('d-none');
+                        shortText.classList.remove('d-none');
+                        this.textContent = '...voir plus';
+                    }
+                });
+            });
         });
     </script>
 @endpush
