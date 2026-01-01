@@ -195,6 +195,14 @@
                     <i class="bi bi-people"></i> Employés
                 </a>
 
+                <a href="{{ route('parc-missions.employees.edit', $mission->id) }}" class="btn btn-info btn-sm">
+                    <i class="bi bi-people"></i> Chauffeur(s)
+                </a>
+
+                <a href="{{ route('parc-missions.employees.edit', $mission->id) }}" class="btn btn-info btn-sm">
+                    <i class="bi bi-people"></i> Véhicule(s)
+                </a>
+
                 <a href="{{ route('parc-missions.pdf', $mission->id) }}" class="btn btn-success btn-sm" target="_blank">
                     <i class="bi bi-file-earmark-pdf"></i> Ordres de mission
                 </a>
