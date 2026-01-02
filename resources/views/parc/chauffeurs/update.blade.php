@@ -47,7 +47,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="nom" class="form-label">Nom <span class="text-danger">*</span></label>
-                                <input type="text" name="nom" class="form-control form-control-sm @error('nom') is-invalid @enderror"
+                                <input type="text" name="nom"
+                                    class="form-control form-control-sm @error('nom') is-invalid @enderror"
                                     value="{{ old('nom', $chauffeur->nom) }}" placeholder="Diallo">
                                 @error('nom')
                                     <span class="text-danger">{{ $message }}</span>
@@ -95,6 +96,9 @@
                                         {{ old('statut', $chauffeur->statut) == 'actif' ? 'selected' : '' }}>Actif</option>
                                     <option value="inactif"
                                         {{ old('statut', $chauffeur->statut) == 'inactif' ? 'selected' : '' }}>Inactif
+                                    </option>
+                                    <option value="en_conges"
+                                        {{ old('statut', $chauffeur->statut) == 'en_conges' ? 'selected' : '' }}>En congés
                                     </option>
                                 </select>
                             </div>

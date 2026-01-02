@@ -93,6 +93,8 @@
                                     <option value="actif" {{ old('statut') == 'actif' ? 'selected' : '' }}>Actif</option>
                                     <option value="inactif" {{ old('statut') == 'inactif' ? 'selected' : '' }}>Inactif
                                     </option>
+                                    <option value="en_conges" {{ old('statut') == 'en_conges' ? 'selected' : '' }}>En congés
+                                    </option>
                                 </select>
                             </div>
                         </div>

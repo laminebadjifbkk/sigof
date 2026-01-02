@@ -49,8 +49,12 @@
                             <td>{{ $vehicule->modele }}</td>
                             <td class="text-center">{{ $vehicule->annee }}</td>
                             <td class="text-center">{{ number_format($vehicule?->kilometrage_actuel, 0, ',', ' ') }}</td>
-                            <td class="text-center">{{ $vehicule?->assurance_expire_le->format('d/m/Y') }}</td>
-                            <td class="text-center">{{ $vehicule?->visite_technique_expire_le->format('d/m/Y') }}</td>
+                            <td class="text-center">
+                                {{ $vehicule?->assurance_expire_le ? $vehicule->assurance_expire_le->format('d/m/Y') : '-' }}
+                            </td>
+                            <td class="text-center">
+                                {{ $vehicule?->visite_technique_expire_le ? $vehicule->visite_technique_expire_le->format('d/m/Y') : '-' }}
+                            </td>
                             <td class="text-center">
                                 <span
                                     class="badge 
@@ -62,7 +66,8 @@
                             </td>
                             <td class="text-center">
                                 <span class="d-flex align-items-baseline justify-content-center gap-1">
-                                    <a href="{{ route('parc-vehicules.show', $vehicule->id) }}" class="btn btn-info btn-sm">
+                                    <a href="{{ route('parc-vehicules.show', $vehicule->id) }}"
+                                        class="btn btn-info btn-sm">
                                         <i class="bi bi-eye"></i>
                                     </a>
                                     <a href="{{ route('parc-vehicules.edit', $vehicule->id) }}"
