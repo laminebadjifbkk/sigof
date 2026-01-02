@@ -37,7 +37,7 @@
                     {{-- Référence --}}
                     <div class="mb-3">
                         <label class="form-label">Référence</label>
-                        <input type="text" class="form-control form-control-sm"
+                        <input type="text" name="reference" class="form-control form-control-sm"
                                value="{{ $mission->reference }}" readonly>
                     </div>
 

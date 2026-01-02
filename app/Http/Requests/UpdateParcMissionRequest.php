@@ -15,8 +15,9 @@ class UpdateParcMissionRequest extends FormRequest
     {
         return [
             'reference' => 'required|string|max:50|unique:parc_missions,reference,' . $this->route('parc_mission'),
-            'vehicule_id' => 'nullable|exists:parc_vehicules,id',
-            'chauffeur_id' => 'nullable|exists:parc_chauffeurs,id',
+            /* 'vehicule_id' => 'nullable|exists:parc_vehicules,id',
+            'chauffeur_id' => 'nullable|exists:parc_chauffeurs,id', */
+            'type_mission_id' => 'nullable|exists:parc_type_missions,id',
             'objet' => 'required|string|max:255',
             'lieu_depart' => 'required|string|max:255',
             'lieu_arrivee' => 'required|string|max:255',

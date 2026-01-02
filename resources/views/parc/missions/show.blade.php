@@ -156,11 +156,13 @@
                                             </span>
                                         </td>
                                         <td class="text-center">
-                                            <span class="d-flex mt-2 align-items-baseline"><a
-                                                    href="{{ route('employes.show', $employee) }}"
-                                                    class="btn btn-info btn-sm mx-1" title="voir détails" target="_blank"><i
-                                                        class="bi bi-eye"></i></a>
-                                            </span>
+                                            @can('employe-show')
+                                                <span class="d-flex mt-2 align-items-baseline"><a
+                                                        href="{{ route('employes.show', $employee) }}"
+                                                        class="btn btn-info btn-sm mx-1" title="voir détails" target="_blank"><i
+                                                            class="bi bi-eye"></i></a>
+                                                </span>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach
@@ -182,29 +184,39 @@
                 </form>
             </div> --}}
 
-            <div class="d-flex gap-2">
-                <a href="{{ route('parc-missions.edit', $mission->id) }}" class="btn btn-warning btn-sm">
-                    <i class="bi bi-pencil-square"></i> Modifier
-                </a>
+            @can('parc-mission-update')
+                <div class="d-flex gap-2">
+                    <a href="{{ route('parc-missions.edit', $mission->id) }}" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-square"></i> Modifier
+                    </a>
+                @endcan
 
-                <a href="{{ route('parc-missions.employees.edit', $mission->id) }}" class="btn btn-info btn-sm">
-                    <i class="bi bi-people"></i> Employé(s)
-                </a>
+                @can('parc-mission-update')
+                    <a href="{{ route('parc-missions.employees.edit', $mission->id) }}" class="btn btn-info btn-sm">
+                        <i class="bi bi-people"></i> Employé(s)
+                    </a>
+                @endcan
 
-                <a href="{{ route('parc-missions.vehicules.edit', $mission->id) }}" class="btn btn-secondary btn-sm">
-                    <i class="bi bi-truck"></i> Véhicule(s)
-                </a>
+                @can('parc-mission-update')
+                    <a href="{{ route('parc-missions.vehicules.edit', $mission->id) }}" class="btn btn-secondary btn-sm">
+                        <i class="bi bi-truck"></i> Véhicule(s)
+                    </a>
+                @endcan
 
-                <a href="{{ route('parc-missions.pdf', $mission->id) }}" class="btn btn-success btn-sm" target="_blank">
-                    <i class="bi bi-file-earmark-pdf"></i> Ordres de mission
-                </a>
+                @can('parc-odre-mission-edit')
+                    <a href="{{ route('parc-missions.pdf', $mission->id) }}" class="btn btn-success btn-sm" target="_blank">
+                        <i class="bi bi-file-earmark-pdf"></i> Ordres de mission
+                    </a>
+                @endcan
 
-                <form action="{{ route('parc-missions.destroy', $mission->id) }}" method="POST" class="d-inline">
-                    @csrf @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm show_confirm">
-                        <i class="bi bi-trash"></i> Supprimer
-                    </button>
-                </form>
+                @can('parc-mission-delete')
+                    <form action="{{ route('parc-missions.destroy', $mission->id) }}" method="POST" class="d-inline">
+                        @csrf @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm show_confirm">
+                            <i class="bi bi-trash"></i> Supprimer
+                        </button>
+                    </form>
+                @endcan
             </div>
         </div>
     </section>

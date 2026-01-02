@@ -113,12 +113,14 @@
                 @endforeach
             </div>
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h1 class="mb-0">Liste des missions</h1>
-                <a href="{{ route('parc-missions.create') }}" class="btn btn-sm btn-primary">
-                    <i class="bi bi-plus-circle"></i> Ajouter une mission
-                </a>
-            </div>
+            @can('parc-mission-create')
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h1 class="mb-0">Liste des missions</h1>
+                    <a href="{{ route('parc-missions.create') }}" class="btn btn-sm btn-primary">
+                        <i class="bi bi-plus-circle"></i> Ajouter une mission
+                    </a>
+                </div>
+            @endcan
 
             @if (session('status'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">

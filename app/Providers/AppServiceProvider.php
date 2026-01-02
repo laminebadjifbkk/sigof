@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Antenne;
+use App\Models\ParcMission;
 use Carbon\Carbon;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -42,6 +43,7 @@ namespace App\Providers;
 use App\Models\Antenne;
 use App\Models\Direction;
 use App\Models\Formation;
+use App\Models\ParcMission;
 use App\Models\Projet;
 use Carbon\Carbon;
 use Illuminate\Auth\Notifications\VerifyEmail;
@@ -80,6 +82,7 @@ class AppServiceProvider extends ServiceProvider
             $directions        = Direction::orderBy('sigle')->get();
             $projets           = Projet::where('statut', 'ouvert')->orderBy('sigle')->get();
             $formationsEnCours = Formation::where('statut', 'En cours')->count();
+            $missionsEnCours = ParcMission::where('statut', 'en_cours')->count();
             $showAttestations  = Formation::where('attestation', 'Nouveau')->count();
 
             $view->with([
@@ -88,6 +91,7 @@ class AppServiceProvider extends ServiceProvider
                 'projets'           => $projets,
                 'formationsEnCours' => $formationsEnCours,
                 'showAttestations'  => $showAttestations,
+                'missionsEnCours'  => $missionsEnCours,
             ]);
         });
 
