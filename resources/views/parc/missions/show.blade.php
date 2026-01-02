@@ -191,7 +191,7 @@
                     <i class="bi bi-people"></i> Employé(s)
                 </a>
 
-                <a href="{{ route('parc-missions.vehicules.edit', $mission->id) }}" class="btn btn-info btn-sm">
+                <a href="{{ route('parc-missions.vehicules.edit', $mission->id) }}" class="btn btn-secondary btn-sm">
                     <i class="bi bi-truck"></i> Véhicule(s)
                 </a>
 
