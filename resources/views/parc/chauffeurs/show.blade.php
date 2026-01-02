@@ -51,7 +51,11 @@
                             </tr>
                             <tr>
                                 <th>Expiration du permis</th>
-                                <td>{{ $chauffeur?->permis_expire_le?->format('d/m/Y') }}</td>
+                                <td>
+                                    <span class="{{ $chauffeur->permis_classe }}">
+                                        {{ $chauffeur->permis_restant }}
+                                    </span>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Statut</th>
