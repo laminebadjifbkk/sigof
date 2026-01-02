@@ -99,9 +99,22 @@
                             </tr>
 
                             <tr>
-                                <th>Véhicule</th>
-                                <td>{{ $mission->vehicule?->immatriculation ?? '-' }}</td>
+                                <th>Véhicules</th>
+                                <td>
+                                    @if ($mission->vehicules->isEmpty())
+                                        -
+                                    @else
+                                        <ul class="mb-0">
+                                            @foreach ($mission->vehicules as $vehicule)
+                                                <li>
+                                                    {{ $vehicule->immatriculation }} - {{ $vehicule->marque }}
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </td>
                             </tr>
+
                             <tr>
                                 <th>Chauffeur</th>
                                 <td>{{ $mission->chauffeur?->nom ?? '-' }}</td>
@@ -192,15 +205,11 @@
                 </a>
 
                 <a href="{{ route('parc-missions.employees.edit', $mission->id) }}" class="btn btn-info btn-sm">
-                    <i class="bi bi-people"></i> Employés
+                    <i class="bi bi-people"></i> Employé(s)
                 </a>
 
-                <a href="{{ route('parc-missions.employees.edit', $mission->id) }}" class="btn btn-info btn-sm">
-                    <i class="bi bi-people"></i> Chauffeur(s)
-                </a>
-
-                <a href="{{ route('parc-missions.employees.edit', $mission->id) }}" class="btn btn-info btn-sm">
-                    <i class="bi bi-people"></i> Véhicule(s)
+                <a href="{{ route('parc-missions.vehicules.edit', $mission->id) }}" class="btn btn-info btn-sm">
+                    <i class="bi bi-truck"></i> Véhicule(s)
                 </a>
 
                 <a href="{{ route('parc-missions.pdf', $mission->id) }}" class="btn btn-success btn-sm" target="_blank">

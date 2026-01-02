@@ -35,8 +35,8 @@
                         <th>Objet</th>
                         {{-- <th>Lieu</th> --}}
                         <th>Dates</th>
-                        <th>Véhicule</th>
-                        <th>Chauffeur</th>
+                        <th class="text-center" width="12%">Véhicules</th>
+                        <th class="text-center" width="12%">Agents</th>
                         <th class="text-center" width="12%">Statut</th>
                         <th class="text-center" width="12%">Actions</th>
                     </tr>
@@ -61,8 +61,8 @@
                                     -{{ $mission->date_retour->format('d/m/Y') }}
                                 @endif
                             </td>
-                            <td>{{ $mission->vehicule?->immatriculation ?? '-' }}</td>
-                            <td>{{ $mission->chauffeur?->nom . ' ' . $mission->chauffeur?->prenom ?? '-' }}</td>
+                            <td class="text-center">{{ $mission?->vehicules?->count() }}</td>
+                            <td class="text-center">{{ $mission->employees->count() }}</td>
                             <td class="text-center">
                                 <span
                                     class="badge 

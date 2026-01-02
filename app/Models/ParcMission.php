@@ -46,24 +46,34 @@ class ParcMission extends Model
         'reliquat' => 'decimal:2',
     ];
 
-    public function vehicule()
+    /* public function vehicule()
     {
         return $this->belongsTo(ParcVehicule::class, 'vehicule_id');
     }
     public function chauffeur()
     {
         return $this->belongsTo(ParcChauffeur::class, 'chauffeur_id');
-    }
+    } */
+
     public function depenses()
     {
         return $this->hasMany(ParcDepense::class, 'mission_id');
     }
-    public function employees()
+
+    /* public function employees()
     {
         return $this->belongsToMany(Employee::class, 'parc_employee_mission', 'mission_id', 'employee_id')
             ->withPivot('role')
             ->withTimestamps();
+    } */
+
+    public function employees()
+    {
+        return $this->belongsToMany(Employee::class, 'parc_employee_mission', 'mission_id', 'employee_id')
+            ->withPivot('role', 'vehicule_id') // ajouter vehicule_id ici
+            ->withTimestamps();
     }
+
 
     // Accessor pour calculer le nombre de jours
     public function getNombreJoursAttribute()
@@ -80,5 +90,19 @@ class ParcMission extends Model
     public function getTypeMissionLibelleAttribute()
     {
         return $this->typeMission?->libelle ?? 'Non défini';
+    }
+
+    public function vehicules()
+    {
+        return $this->belongsToMany(
+            ParcVehicule::class,       // Modèle lié
+            'parc_mission_vehicules',  // Table pivot
+            'mission_id',               // Clé étrangère sur la table pivot pour ce modèle
+            'vehicule_id'               // Clé étrangère sur la table pivot pour le modèle lié
+        )->withPivot([
+            'chauffeur_id',
+            'kilometrage_depart',
+            'kilometrage_retour'
+        ])->withTimestamps();
     }
 }

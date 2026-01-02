@@ -33,10 +33,10 @@ class ParcChauffeur extends Model
     {
         return $this->belongsTo(Employee::class, 'employee_id');
     }
-    public function missions()
+    /* public function missions()
     {
         return $this->hasMany(ParcMission::class, 'chauffeur_id');
-    }
+    } */
     public function affectations()
     {
         return $this->hasMany(ParcAffectation::class, 'chauffeur_id');
@@ -49,5 +49,17 @@ class ParcChauffeur extends Model
     public function getPermisExpireLeFormattedAttribute()
     {
         return $this->permis_expire_le ? $this->permis_expire_le->format('Y-m-d') : '';
+    }
+
+    public function missions()
+    {
+        return $this->hasManyThrough(
+            ParcMission::class,
+            ParcMissionVehicule::class,
+            'chauffeur_id',
+            'id',
+            'id',
+            'mission_id'
+        );
     }
 }

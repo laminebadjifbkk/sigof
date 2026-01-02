@@ -13,7 +13,7 @@ class ParcEmployeeMission extends Model
 {
     protected $table = 'parc_employee_mission';
 
-    protected $fillable = ['mission_id', 'employee_id', 'role'];
+    protected $fillable = ['mission_id', 'employee_id', 'role', 'vehicule_id'];
 
     public function mission()
     {

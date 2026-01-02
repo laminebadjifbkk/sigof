@@ -70,7 +70,7 @@ class ParcMissionController extends Controller
     public function show(string $id)
     {
         // Récupérer la mission avec ses relations pour éviter les requêtes N+1
-        $mission = ParcMission::with(['vehicule', 'chauffeur', 'typeMission', 'employees.user', 'employees.direction', 'employees.fonction'])
+        $mission = ParcMission::with(['typeMission', 'employees.user', 'employees.direction', 'employees.fonction'])
             ->findOrFail($id);
 
         // Compter les missions de l'année en cours
@@ -122,26 +122,59 @@ class ParcMissionController extends Controller
 
     public function editEmployees(ParcMission $mission)
     {
-        $employees = Employee::with('user')->get();
+        $employees = Employee::get();
         return view('parc.missions.edit-employe', compact('mission', 'employees'));
     }
 
     public function updateEmployees(Request $request, ParcMission $mission)
     {
         $employeesData = [];
+
         if ($request->has('employees')) {
             foreach ($request->input('employees') as $employee) {
                 if (isset($employee['id'])) {
-                    $employeesData[$employee['id']] = ['role' => $employee['role'] ?? 'participant'];
+                    $employeesData[$employee['id']] = [
+                        'role' => $employee['role'] ?? 'participant',
+                        'vehicule_id' => $employee['vehicule_id'] ?? null,
+                    ];
                 }
             }
         }
 
+        // Synchroniser les employés avec rôle + véhicule
         $mission->employees()->sync($employeesData);
 
         return redirect()->back()->with('status', 'Employés de la mission mis à jour avec succès');
     }
 
+    public function editVehicules(ParcMission $mission)
+    {
+        // Charger tous les véhicules disponibles avec leurs chauffeurs
+        $vehicules = ParcVehicule::with('chauffeur')->get();
+
+        // Charger les véhicules déjà affectés à cette mission
+        $missionVehicules = $mission->vehicules()->withPivot('chauffeur_id')->get();
+
+        return view('parc.missions.edit-vehicule', compact('mission', 'vehicules', 'missionVehicules'));
+    }
+
+    public function updateVehicules(Request $request, ParcMission $mission)
+    {
+        $data = [];
+
+        if ($request->has('vehicules')) {
+            foreach ($request->input('vehicules') as $vehiculeId => $vehiculeData) {
+                $data[$vehiculeId] = [
+                    'chauffeur_id' => $vehiculeData['chauffeur_id'] ?? null
+                ];
+            }
+        }
+
+        // Synchroniser les véhicules avec la mission
+        $mission->vehicules()->sync($data);
+
+        return redirect()->back()->with('status', 'Véhicules de la mission mis à jour avec succès');
+    }
 
     public function ordreMission($id)
     {

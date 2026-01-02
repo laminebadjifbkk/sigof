@@ -32,10 +32,10 @@ class ParcVehicule extends Model
         'visite_technique_expire_le' => 'date',
     ];
 
-    public function missions()
+    /* public function missions()
     {
         return $this->hasMany(ParcMission::class, 'vehicule_id');
-    }
+    } */
     public function pleins()
     {
         return $this->hasMany(ParcPlein::class, 'vehicule_id');
@@ -62,5 +62,15 @@ class ParcVehicule extends Model
     public function getVisiteTechniqueExpireLeFormattedAttribute()
     {
         return $this->visite_technique_expire_le ? $this->visite_technique_expire_le->format('Y-m-d') : '';
+    }
+
+    public function missions()
+    {
+        return $this->belongsToMany(
+            ParcMission::class,
+            'parc_mission_vehicules',
+            'vehicule_id',
+            'mission_id'
+        )->withPivot('chauffeur_id');
     }
 }
