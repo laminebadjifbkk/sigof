@@ -122,6 +122,8 @@ class UserController extends Controller
         Listecollective::select('id')->chunk(300, function ($batch) use (&$listecollectives) {
             $listecollectives = $listecollectives->merge($batch);
         });
+        
+        dd($listecollectives);
 
         // Départements
         $departements = collect();
@@ -134,8 +136,6 @@ class UserController extends Controller
         Module::orderBy("created_at", "desc")->chunk(300, function ($batch) use (&$modules) {
             $modules = $modules->merge($batch);
         });
-        
-        dd($modules);
 
         $today = date('Y-m-d');
 
