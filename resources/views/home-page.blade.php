@@ -652,9 +652,9 @@
                                                             class="text-primary">{{ number_format(count($collectives), 0, '', ' ') }}</span>
                                                     </h6>
                                                     {{-- <span class="text-muted small pt-2 ps-1">dont</span> --}}
-                                                    <span
+                                                    {{-- <span
                                                         class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_femmes_collective, 2, ',', ' ') . '%' }}</span>
-                                                    <span class="text-muted small pt-2 ps-1">femmes</span>
+                                                    <span class="text-muted small pt-2 ps-1">femmes</span> --}}
                                                 </div>
                                             </div>
                                         </div>
