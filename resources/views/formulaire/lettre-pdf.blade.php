@@ -283,10 +283,9 @@
             <br>
 
             {{-- Signature --}}
-            <div style="margin-top: 40px;">
+            {{-- <div style="margin-top: 40px;">
                 <b>A</b><br>
                 {{ $formulaire?->responsable_etablieement }}
-                {{-- condition pour de/du --}}
                 @php
                     $prefix = $formulaire?->autre_2 ?? '';
                     $article = Str::startsWith($prefix, 'au') ? 'du' : 'de';
@@ -304,6 +303,30 @@
                             ')',
                     ),
                 ) !!}
+                <br>
+                <b>{{ $formulaire?->adresse_etablessement ?? '-' }}</b>
+            </div> --}}
+            <div style="margin-top: 40px;">
+                <b>A</b><br>
+                {{ $formulaire?->responsable_etablieement }}
+
+                @php
+                    $prefix = $formulaire?->autre_2 ?? '';
+                    $article = Str::startsWith($prefix, 'au') ? 'du' : 'de';
+                @endphp
+
+                {{ $article }}
+
+                {!! nl2br(
+                    e(
+                        $formulaire->nom_etablissement .
+                            // ajouter uniquement si autre_2 est différent de nom_etablissement
+                            ($formulaire?->autre_2 && $formulaire?->autre_2 !== $formulaire?->nom_etablissement
+                                ? ' (' . str_replace(["l'", 'à ', 'au '], '', $formulaire?->autre_2) . ')'
+                                : ''),
+                    ),
+                ) !!}
+
                 <br>
                 <b>{{ $formulaire?->adresse_etablessement ?? '-' }}</b>
             </div>

@@ -321,19 +321,7 @@
             <div style="margin-top: 40px;">
                 <b>A</b><br>
                 {{ $formulaire?->responsable_etablieement }} de/du
-                {{-- {!! '' .
-                    implode(
-                        ' ',
-                        array_map(
-                            fn($line) => nl2br(e(wordwrap($line, 43, "\n", true))),
-                            explode(
-                                "\n",
-                                ucfirst(substr($formulaire?->nom_etablissement . ' (' . str_replace("l'", '', $formulaire?->autre_2) . ')', 0, 410)),
-                            ),
-                        ),
-                    ) !!} --}}
                 {!! nl2br(e($formulaire->nom_etablissement . ' (' . str_replace("l'", '', $formulaire?->autre_2) . ')')) !!}
-                {{-- {{ $formulaire?->nom_etablissement . ' (' . str_replace("l'", '', $formulaire?->autre_2) . ')' }} --}}
                 <br>
                 <b>{{ $formulaire?->adresse_etablessement ?? '-' }}</b>
             </div>
