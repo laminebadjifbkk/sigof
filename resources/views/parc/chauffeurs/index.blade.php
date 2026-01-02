@@ -4,6 +4,78 @@
 @section('space-work')
     <section class="section register">
         <div class="container">
+            <div class="row mb-4">
+                <!-- Total chauffeur -->
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                    <div class="card shadow-sm text-center p-2" style="min-height: 140px; border-radius: 10px;">
+                        <h6 class="card-title mb-2 text-truncate" title="Total chauffeur" style="font-size:0.85rem;">
+                            Total
+                        </h6>
+                        <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                            <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
+                                style="width:36px; height:36px; font-size:1rem;">
+                                <i class="bi bi-flag"></i>
+                            </div>
+                            <span class="h6 mb-0" style="font-size:1rem;">{{ $totalChauffeurs }}</span>
+                            <small class="text-muted" style="font-size:0.7rem;">chauffeur(s)</small>
+                        </div>
+
+                        <!-- Barre de pourcentage -->
+                        <div class="mb-2">
+                            <div class="progress" style="height:6px; border-radius:3px;">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%;"></div>
+                            </div>
+                            <small class="text-muted">100%</small>
+                        </div>
+
+                        <!-- Bouton voir plus -->
+                        <a href="{{ route('parc-chauffeurs.index') }}" class="btn btn-outline-primary btn-sm w-100"
+                            style="font-size:0.75rem;">
+                            Voir plus <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                    </div>
+                </div>
+                @foreach ($groupes as $statut => $items)
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+                        <div class="card shadow-sm text-center p-2" style="min-height: 120px; border-radius: 10px;">
+
+                            <!-- Statut -->
+                            <h6 class="card-title mb-2 text-truncate" title="{{ $statut }}"
+                                style="font-size: 0.85rem;">
+                                {{ $statut }}
+                            </h6>
+
+                            <!-- Nombre et icône -->
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
+                                    style="width: 36px; height: 36px; font-size: 1rem;">
+                                    <i class="bi bi-flag"></i>
+                                </div>
+                                <span class="h6 mb-0" style="font-size: 1rem;">
+                                    {{ $items->count() }}
+                                </span>
+                                <small class="text-muted" style="font-size: 0.7rem;">chauffeur(s)</small>
+                            </div>
+
+                            <!-- Pourcentage -->
+                            <div class="mb-2">
+                                <div class="progress" style="height:6px; border-radius:3px;">
+                                    <div class="progress-bar bg-success" role="progressbar"
+                                        style="width: {{ $statutPourcentages[$statut]['percent'] }}%;"></div>
+                                </div>
+                                <small class="text-muted">{{ $statutPourcentages[$statut]['percent'] }}%</small>
+                            </div>
+
+                            <!-- Bouton voir plus -->
+                            <a href="{{ route('parc-chauffeurs.index', ['statut' => $statut]) }}"
+                                class="btn btn-outline-primary btn-sm w-100" style="font-size: 0.75rem;">
+                                Voir plus <i class="bi bi-arrow-right-short"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                @endforeach
+            </div>
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3 class="mb-0">Liste des chauffeurs</h3>
                 <a href="{{ route('parc-chauffeurs.create') }}" class="btn btn-sm btn-primary">
@@ -38,7 +110,7 @@
                         <th class="text-center" width="12%">N° permis</th>
                         <th class="text-center" width="12%">Catégorie</th>
                         <th>Permis expire le</th>
-                        <th class="text-center" width="5%">Statut</th>
+                        {{-- <th class="text-center" width="5%">Statut</th> --}}
                         <th class="text-center" width="12%">Actions</th>
                     </tr>
                 </thead>
@@ -52,11 +124,11 @@
                             <td class="text-center">{{ $chauffeur->permis_numero }}</td>
                             <td class="text-center">{{ $chauffeur->permis_categories }}</td>
                             <td>{{ $chauffeur->permis_expire_le->format('d/m/Y') }}</td>
-                            <td class="text-center">
+                            {{-- <td class="text-center">
                                 <span class="badge {{ $chauffeur->statut == 'actif' ? 'bg-success' : 'bg-danger' }}">
                                     {{ ucfirst($chauffeur->statut) }}
                                 </span>
-                            </td>
+                            </td> --}}
                             <td class="text-center">
                                 <span class="d-flex align-items-baseline justify-content-center gap-1">
                                     <a href="{{ route('parc-chauffeurs.show', $chauffeur->id) }}"

@@ -95,10 +95,8 @@
                                     <option value="actif"
                                         {{ old('statut', $chauffeur->statut) == 'actif' ? 'selected' : '' }}>Actif</option>
                                     <option value="inactif"
-                                        {{ old('statut', $chauffeur->statut) == 'inactif' ? 'selected' : '' }}>Inactif
-                                    </option>
-                                    <option value="en_conges"
-                                        {{ old('statut', $chauffeur->statut) == 'en_conges' ? 'selected' : '' }}>En congés
+                                        {{ old('statut', $chauffeur->statut) == 'indisponible' ? 'selected' : '' }}>
+                                        Indisponible
                                     </option>
                                 </select>
                             </div>

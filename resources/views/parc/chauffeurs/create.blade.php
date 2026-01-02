@@ -46,7 +46,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="nom" class="form-label">Nom <span class="text-danger">*</span></label>
-                                <input type="text" name="nom" class="form-control form-control-sm @error('nom') is-invalid @enderror"
+                                <input type="text" name="nom"
+                                    class="form-control form-control-sm @error('nom') is-invalid @enderror"
                                     value="{{ old('nom') }}" placeholder="Diallo">
                                 @error('nom')
                                     <span class="text-danger">{{ $message }}</span>
@@ -57,13 +58,13 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="prenom" class="form-label">Prénom</label>
-                                <input type="text" name="prenom" class="form-control form-control-sm" value="{{ old('prenom') }}"
-                                    placeholder="Mamadou">
+                                <input type="text" name="prenom" class="form-control form-control-sm"
+                                    value="{{ old('prenom') }}" placeholder="Mamadou">
                             </div>
                             <div class="col-md-6">
                                 <label for="telephone" class="form-label">Téléphone</label>
-                                <input type="text" name="telephone" class="form-control form-control-sm" value="{{ old('telephone') }}"
-                                    placeholder="77 123 45 67">
+                                <input type="text" name="telephone" class="form-control form-control-sm"
+                                    value="{{ old('telephone') }}" placeholder="77 123 45 67">
                             </div>
                         </div>
 
@@ -91,9 +92,8 @@
                                 <label for="statut" class="form-label">Statut <span class="text-danger">*</span></label>
                                 <select name="statut" class="form-select form-select-sm">
                                     <option value="actif" {{ old('statut') == 'actif' ? 'selected' : '' }}>Actif</option>
-                                    <option value="inactif" {{ old('statut') == 'inactif' ? 'selected' : '' }}>Inactif
-                                    </option>
-                                    <option value="en_conges" {{ old('statut') == 'en_conges' ? 'selected' : '' }}>En congés
+                                    <option value="indisponible" {{ old('statut') == 'indisponible' ? 'selected' : '' }}>
+                                        Indisponible
                                     </option>
                                 </select>
                             </div>

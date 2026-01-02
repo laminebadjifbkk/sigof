@@ -5,13 +5,44 @@ namespace App\Http\Controllers;
 use App\Models\ParcChauffeur;
 use App\Http\Requests\StoreParcChauffeurRequest;
 use App\Http\Requests\UpdateParcChauffeurRequest;
+use Illuminate\Http\Request;
 
 class ParcChauffeurController extends Controller
 {
-    public function index()
+    /* public function index()
     {
         $chauffeurs = ParcChauffeur::latest()->get();
         return view('parc.chauffeurs.index', compact('chauffeurs'));
+    } */
+
+    public function index(Request $request)
+    {
+        $chauffeurs = ParcChauffeur::query();
+
+        // Récupérer l'état depuis la query string si présent
+        $statutChauffeur = $request->query('statut');
+
+        if ($statutChauffeur) {
+            $chauffeurs->where('statut', $statutChauffeur);
+        }
+
+        $chauffeurs = $chauffeurs->latest()->get();
+
+        // Regrouper par état pour les cards (non filtré)
+        $groupes = ParcChauffeur::latest()->get()->groupBy(fn($v) => $v->statut ?? 'Inconnu');
+
+        // Calculer les pourcentages
+        $total = ParcChauffeur::count();
+        $statutPourcentages = [];
+        foreach ($groupes as $statutKey => $items) {
+            $statutPourcentages[$statutKey] = [
+                'percent' => $total ? round($items->count() * 100 / $total, 1) : 0
+            ];
+        }
+
+        $totalChauffeurs = $total;
+
+        return view('parc.chauffeurs.index', compact('chauffeurs', 'groupes', 'statutPourcentages', 'totalChauffeurs', 'statutChauffeur'));
     }
 
     public function create()

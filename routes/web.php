@@ -817,6 +817,7 @@ Route::group(['middleware' => ['XSS']], function () {
         // Route unique
         Route::get('/parc-missions', [ParcMissionController::class, 'index'])->name('parc-missions.index');
         Route::get('/parc-vehicules', [ParcVehiculeController::class, 'index'])->name('parc-vehicule.index');
+        Route::get('/parc-chauffeurs', [ParcChauffeurController::class, 'index'])->name('parc-chauffeur.index');
 
 
         /* Vues ressouces */
