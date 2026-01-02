@@ -806,6 +806,18 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('parc-missions/{mission}/pdf', [ParcMissionController::class, 'ordreMission'])
             ->name('parc-missions.pdf');
 
+        /* // Filtrer par statut
+        Route::get('/statut/{statut}', [ParcMissionController::class, 'index'])
+            ->name('parc-missions.statut');
+
+        // Filtrer par année
+        Route::get('/annee/{annee}', [ParcMissionController::class, 'index'])
+            ->name('parc-missions.index'); */
+
+        // Route unique
+        Route::get('/parc-missions', [ParcMissionController::class, 'index'])->name('parc-missions.index');
+
+
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
         Route::resource('/permissions', PermissionController::class);

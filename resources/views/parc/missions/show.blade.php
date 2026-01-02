@@ -30,18 +30,6 @@
             </div>
 
             <div class="card shadow-sm mb-4">
-                <div class="card-header bg-success text-white">
-                    <strong>Statistiques</strong>
-                </div>
-                <div class="card-body">
-                    <p>
-                        Nombre de missions réalisées en {{ now()->year }} :
-                        <span class="badge bg-primary">{{ $missionsCount }}</span>
-                    </p>
-                </div>
-            </div>
-
-            <div class="card shadow-sm mb-4">
                 <div class="card-header bg-dark text-white">
                     <strong>Référence : {{ $mission->reference }}</strong>
                 </div>

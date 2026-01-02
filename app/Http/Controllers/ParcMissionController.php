@@ -18,10 +18,48 @@ class ParcMissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $missions = ParcMission::latest()->get();
-        return view('parc.missions.index', compact('missions'));
+        $missions = ParcMission::query();
+
+        $statut = $request->query('statut');
+        $annee  = $request->query('annee');
+
+        // Appliquer le filtre statut si présent
+        if ($statut) {
+            $missions->where('statut', $statut);
+        }
+
+        // Appliquer le filtre année si présent
+        if ($annee) {
+            $missions->whereYear('date_depart', $annee);
+        }
+
+        // Récupérer les missions filtrées
+        $missions = $missions->latest()->get();
+
+        // Regrouper toutes les missions pour les cards (non filtré)
+        $groupes = ParcMission::latest()->get()->groupBy(fn($item) => $item->statut ?? 'Aucun');
+
+        // Calculer les pourcentages
+        $total = ParcMission::count();
+        $statutPourcentages = [];
+        foreach ($groupes as $statutKey => $items) {
+            $statutPourcentages[$statutKey] = [
+                'percent' => $total ? round($items->count() * 100 / $total, 1) : 0
+            ];
+        }
+
+        $totalMissions = $total;
+        $missionsAnnee = ParcMission::whereYear('date_depart', now()->year)->count();
+
+        return view('parc.missions.index', compact(
+            'missions',
+            'groupes',
+            'statutPourcentages',
+            'totalMissions',
+            'missionsAnnee'
+        ));
     }
 
     /**
@@ -36,7 +74,7 @@ class ParcMissionController extends Controller
         $year = now()->year;
 
         // On récupère la dernière mission de l'année courante
-        $lastMission = ParcMission::whereYear('created_at', $year)
+        $lastMission = ParcMission::whereYear('date_depart', $year)
             ->orderBy('id', 'desc')
             ->first();
 

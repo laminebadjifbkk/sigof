@@ -4,6 +4,115 @@
 @section('space-work')
     <section class="section register">
         <div class="container">
+            <div class="row mb-4">
+                <!-- Total missions -->
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                    <div class="card shadow-sm text-center p-2" style="min-height: 140px; border-radius: 10px;">
+                        <h6 class="card-title mb-2 text-truncate" title="Total missions" style="font-size:0.85rem;">
+                            Total
+                        </h6>
+                        <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                            <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
+                                style="width:36px; height:36px; font-size:1rem;">
+                                <i class="bi bi-flag"></i>
+                            </div>
+                            <span class="h6 mb-0" style="font-size:1rem;">{{ $totalMissions }}</span>
+                            <small class="text-muted" style="font-size:0.7rem;">mission(s)</small>
+                        </div>
+
+                        <!-- Barre de pourcentage -->
+                        <div class="mb-2">
+                            <div class="progress" style="height:6px; border-radius:3px;">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%;"></div>
+                            </div>
+                            <small class="text-muted">100%</small>
+                        </div>
+
+                        <!-- Bouton voir plus -->
+                        <a href="{{ route('parc-missions.index') }}" class="btn btn-outline-primary btn-sm w-100"
+                            style="font-size:0.75rem;">
+                            Voir plus <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Missions de l'année en cours -->
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                    <div class="card shadow-sm text-center p-2" style="min-height: 140px; border-radius: 10px;">
+                        <h6 class="card-title mb-2 text-truncate" title="Missions cette année" style="font-size:0.85rem;">
+                            Cette année
+                        </h6>
+                        <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                            <div class="rounded-circle bg-success text-white d-flex justify-content-center align-items-center mb-1"
+                                style="width:36px; height:36px; font-size:1rem;">
+                                <i class="bi bi-calendar"></i>
+                            </div>
+                            <span class="h6 mb-0" style="font-size:1rem;">{{ $missionsAnnee }}</span>
+                            <small class="text-muted" style="font-size:0.7rem;">mission(s)</small>
+                        </div>
+
+                        <!-- Barre de pourcentage -->
+                        <div class="mb-2">
+                            @php
+                                $percentAnnee = $totalMissions ? round(($missionsAnnee * 100) / $totalMissions, 1) : 0;
+                            @endphp
+                            <div class="progress" style="height:6px; border-radius:3px;">
+                                <div class="progress-bar bg-success" role="progressbar"
+                                    style="width: {{ $percentAnnee }}%;"></div>
+                            </div>
+                            <small class="text-muted">{{ $percentAnnee }}%</small>
+                        </div>
+
+                        <!-- Bouton voir plus -->
+                        <a href="{{ route('parc-missions.index', ['annee' => now()->year]) }}"
+                            class="btn btn-outline-primary btn-sm w-100" style="font-size:0.75rem;">
+                            Voir plus <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                    </div>
+                </div>
+
+                @foreach ($groupes as $statut => $items)
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+                        <div class="card shadow-sm text-center p-2" style="min-height: 120px; border-radius: 10px;">
+
+                            <!-- Statut -->
+                            <h6 class="card-title mb-2 text-truncate" title="{{ $statut }}"
+                                style="font-size: 0.85rem;">
+                                {{ $statut }}
+                            </h6>
+
+                            <!-- Nombre et icône -->
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
+                                    style="width: 36px; height: 36px; font-size: 1rem;">
+                                    <i class="bi bi-flag"></i>
+                                </div>
+                                <span class="h6 mb-0" style="font-size: 1rem;">
+                                    {{ $items->count() }}
+                                </span>
+                                <small class="text-muted" style="font-size: 0.7rem;">mission(s)</small>
+                            </div>
+
+                            <!-- Pourcentage -->
+                            <div class="mb-2">
+                                <div class="progress" style="height:6px; border-radius:3px;">
+                                    <div class="progress-bar bg-success" role="progressbar"
+                                        style="width: {{ $statutPourcentages[$statut]['percent'] }}%;"></div>
+                                </div>
+                                <small class="text-muted">{{ $statutPourcentages[$statut]['percent'] }}%</small>
+                            </div>
+
+                            <!-- Bouton voir plus -->
+                            <a href="{{ route('parc-missions.index', ['statut' => $statut]) }}"
+                                class="btn btn-outline-primary btn-sm w-100" style="font-size: 0.75rem;">
+                                Voir plus <i class="bi bi-arrow-right-short"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h1 class="mb-0">Liste des missions</h1>
                 <a href="{{ route('parc-missions.create') }}" class="btn btn-sm btn-primary">
@@ -78,7 +187,8 @@
                             </td>
                             <td class="text-center">
                                 <span class="d-flex align-items-baseline justify-content-center gap-1">
-                                    <a href="{{ route('parc-missions.show', $mission->id) }}" class="btn btn-sm btn-info">
+                                    <a href="{{ route('parc-missions.show', $mission->id) }}"
+                                        class="btn btn-sm btn-info">
                                         <i class="bi bi-eye"></i>
                                     </a>
                                     <a href="{{ route('parc-missions.edit', $mission->id) }}"
