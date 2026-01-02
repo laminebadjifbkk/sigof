@@ -111,8 +111,6 @@ class UserController extends Controller
             $individuelles = $individuelles->merge($batch);
         });
 
-        dd($individuelles);
-
         // Collectives
         $collectives = collect();
         Collective::select('id')->chunk(300, function ($batch) use (&$collectives) {
@@ -150,6 +148,9 @@ class UserController extends Controller
         $count_operateurs = Operateur::where("statut_agrement", "agréé")->count();
 
         $count_today = $count_today_individuelle + $count_today_collective;
+
+        
+        dd($individuelles);
 
         $counts = DB::table('individuelles')
             ->selectRaw('MONTH(created_at) as month, count(*) as count')
