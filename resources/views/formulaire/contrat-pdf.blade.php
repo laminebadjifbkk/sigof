@@ -257,8 +257,13 @@
                             $formulaire?->autre_2,
                         ) .
                         ')' }} --}}
+                    <b>
+                        {{ $nomEtablissement }}
+                        @if ($autre2 && $autre2 !== 'au')
+                            ({{ $autre2 }})
+                        @endif
+                    </b><br>
 
-                    <b>{{ $nomEtablissement . ' (' . $autre2 . ')' }}</b><br>
                 </b>
                 <b>Adresse</b> : {{ $formulaire?->adresse_etablessement }}<br>
                 <b>Tél</b> : {{ $formulaire?->telephone_etablissement }}
