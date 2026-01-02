@@ -733,6 +733,24 @@
             display: inline-block;
         }
 
+        .permis-expire {
+            color: #dc3545;
+            /* rouge */
+            font-weight: 600;
+        }
+
+        .permis-bientot {
+            color: #fd7e14;
+            /* orange */
+            font-weight: 600;
+        }
+
+        .permis-ok {
+            color: #198754;
+            /* vert */
+            font-weight: 600;
+        }
+
         .Absente {
             background-color: #ffcc00;
             /* couleur cyan Bootstrap (info) */

@@ -124,7 +124,11 @@
                             <td class="text-center">{{ $chauffeur->permis_numero }}</td>
                             {{-- <td class="text-center">{{ $chauffeur->permis_categories }}</td> --}}
                             {{-- <td>{{ $chauffeur->permis_expire_le->format('d/m/Y') }}</td> --}}
-                            <td>{{ $chauffeur->permis_restant }}</td>
+                            <td>
+                                <span class="{{ $chauffeur->permis_classe }}">
+                                    {{ $chauffeur->permis_restant }}
+                                </span>
+                            </td>
                             {{-- <td class="text-center">
                                 <span class="badge {{ $chauffeur->statut == 'actif' ? 'bg-success' : 'bg-danger' }}">
                                     {{ ucfirst($chauffeur->statut) }}

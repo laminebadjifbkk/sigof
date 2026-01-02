@@ -23,7 +23,7 @@ class ParcChauffeur extends Model
     ];
 
     protected $casts = [
-        'permis_expire_le' => 'date',
+        'permis_expire_le' => 'datetime',
     ];
 
     public function user()
@@ -64,7 +64,7 @@ class ParcChauffeur extends Model
         );
     }
 
-    public function getPermisRestantAttribute(): string
+    /* public function getPermisRestantAttribute(): string
     {
         // Permis non renseigné
         if (is_null($this->permis_expire_le)) {
@@ -92,5 +92,48 @@ class ParcChauffeur extends Model
         $parts[] = $diff->d . ' jour' . ($diff->d > 1 ? 's' : '');
 
         return implode(' ', $parts);
+    } */
+
+    public function getPermisRestantAttribute(): string
+    {
+        if (is_null($this->permis_expire_le)) {
+            return '-';
+        }
+
+        if ($this->permis_expire_le->isPast()) {
+            return 'Permis expiré';
+        }
+
+        $diff = now()->diff($this->permis_expire_le);
+
+        $parts = [];
+        if ($diff->y > 0) {
+            $parts[] = $diff->y . ' an' . ($diff->y > 1 ? 's' : '');
+        }
+        if ($diff->m > 0) {
+            $parts[] = $diff->m . ' mois';
+        }
+        $parts[] = $diff->d . ' jour' . ($diff->d > 1 ? 's' : '');
+
+        return implode(' ', $parts);
+    }
+
+    public function getPermisClasseAttribute(): string
+    {
+        if (is_null($this->permis_expire_le)) {
+            return '';
+        }
+
+        if ($this->permis_expire_le->isPast()) {
+            return 'permis-expire';
+        }
+
+        $joursRestants = now()->diffInDays($this->permis_expire_le, false);
+
+        if ($joursRestants < 30) {
+            return 'permis-bientot';
+        }
+
+        return 'permis-ok';
     }
 }
