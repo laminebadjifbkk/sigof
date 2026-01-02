@@ -281,7 +281,7 @@
             <p style="text-align: justify; margin:0; line-height:1;">
                 Pour l’année académique <b>2025-2026</b>, l’ONFP confie
                 {{ $formulaire?->autre_2 && $formulaire?->autre_2 !== 'au'
-                    ? $formulaire?->autre_2
+                    ? $formulaire?->autre_2 . ' au '
                     : $formulaire->nom_etablissement }},
                 qui accepte, la formation d'un(e) {{ $formulaire?->autre_1 ?? '-' }},
                 conformément aux indications du tableau suivant :
