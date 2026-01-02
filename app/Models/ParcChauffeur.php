@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class ParcChauffeur extends Model
 {
@@ -61,5 +62,33 @@ class ParcChauffeur extends Model
             'id',
             'mission_id'
         );
+    }
+
+    public function getPermisRestantAttribute(): string
+    {
+        if (!$this->permis_expire_le) {
+            return '—';
+        }
+
+        if ($this->permis_expire_le->isPast()) {
+            return 'Permis expiré';
+        }
+
+        $diff = now()->diff($this->permis_expire_le);
+
+        $parts = [];
+
+        if ($diff->y > 0) {
+            $parts[] = $diff->y . ' an' . ($diff->y > 1 ? 's' : '');
+        }
+
+        if ($diff->m > 0) {
+            $parts[] = $diff->m . ' mois';
+        }
+
+        // Toujours afficher les jours
+        $parts[] = $diff->d . ' jour' . ($diff->d > 1 ? 's' : '');
+
+        return implode(' ', $parts);
     }
 }
