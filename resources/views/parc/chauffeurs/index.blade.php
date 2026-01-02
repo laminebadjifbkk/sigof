@@ -109,7 +109,7 @@
                         <th>Téléphone</th>
                         <th class="text-center" width="12%">N° permis</th>
                         {{-- <th class="text-center" width="12%">Catégorie</th> --}}
-                        <th>Permis expire le</th>
+                        <th>Permis expire</th>
                         {{-- <th class="text-center" width="5%">Statut</th> --}}
                         <th class="text-center" width="12%">Actions</th>
                     </tr>
