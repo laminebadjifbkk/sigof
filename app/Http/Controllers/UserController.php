@@ -134,6 +134,8 @@ class UserController extends Controller
         Module::orderBy("created_at", "desc")->chunk(300, function ($batch) use (&$modules) {
             $modules = $modules->merge($batch);
         });
+        
+        dd($modules);
 
         $today = date('Y-m-d');
 
@@ -148,9 +150,6 @@ class UserController extends Controller
         $count_operateurs = Operateur::where("statut_agrement", "agréé")->count();
 
         $count_today = $count_today_individuelle + $count_today_collective;
-
-        
-        dd($individuelles);
 
         $counts = DB::table('individuelles')
             ->selectRaw('MONTH(created_at) as month, count(*) as count')
