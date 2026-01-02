@@ -4,8 +4,77 @@
 @section('space-work')
     <section class="section register">
         <div class="container">
+            <div class="row g-3 mb-4">
+
+                <!-- Card total véhicules -->
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                    <div class="card shadow-sm text-center p-2" style="min-height: 140px; border-radius: 10px;">
+                        <h6 class="card-title mb-2 text-truncate" title="Total véhicules" style="font-size:0.85rem;">Total</h6>
+                        <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                            <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
+                                style="width:36px; height:36px; font-size:1rem;">
+                                <i class="bi bi-car-front"></i>
+                            </div>
+                            <span class="h6 mb-0" style="font-size:1rem;">{{ $totalVehicules }}</span>
+                            <small class="text-muted" style="font-size:0.7rem;">véhicule(s)</small>
+                        </div>
+                        <div class="mb-2">
+                            <div class="progress" style="height:6px; border-radius:3px;">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%;"></div>
+                            </div>
+                            <small class="text-muted">100%</small>
+                        </div>
+                        <a href="{{ route('parc-vehicules.index') }}" class="btn btn-outline-primary btn-sm w-100"
+                            style="font-size:0.75rem;">
+                            Voir plus <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cards par état -->
+                @foreach ($groupes as $etat => $items)
+                    @php
+                        $percent = $etatPourcentages[$etat]['percent'];
+                    @endphp
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                        <div class="card shadow-sm text-center p-2" style="min-height: 140px; border-radius: 10px;">
+                            <h6 class="card-title mb-2 text-truncate" title="{{ $etat }}"
+                                style="font-size:0.85rem;">
+                                {{ ucfirst($etat) }}
+                            </h6>
+
+                            <!-- Badge état -->
+                            <span class="{{ $etat }}">
+                                {{ ucfirst($etat) }}
+                            </span>
+
+                            <!-- Nombre de véhicules -->
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2 mt-2">
+                                <span class="h6 mb-0" style="font-size:1rem;">{{ $items->count() }}</span>
+                                <small class="text-muted" style="font-size:0.7rem;">véhicule(s)</small>
+                            </div>
+
+                            <!-- Barre de pourcentage -->
+                            <div class="mb-2">
+                                <div class="progress" style="height:6px; border-radius:3px;">
+                                    <div class="progress-bar bg-success" role="progressbar"
+                                        style="width: {{ $percent }}%;"></div>
+                                </div>
+                                <small class="text-muted">{{ $percent }}%</small>
+                            </div>
+
+                            <!-- Bouton Voir plus -->
+                            <a href="{{ route('parc-vehicules.index', ['etat' => $etat]) }}"
+                                class="btn btn-outline-primary btn-sm w-100" style="font-size:0.75rem;">
+                                Voir plus <i class="bi bi-arrow-right-short"></i>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h1 class="mb-0">Liste des véhicules</h1>
+                <h3 class="mb-0">Liste des véhicules : <span class="{{ $etatVehicule }}">{{ $etatVehicule }}</span></h3>
                 <a href="{{ route('parc-vehicules.create') }}" class="btn btn-primary btn-sm">
                     <i class="bi bi-plus-circle"></i> Ajouter un véhicule
                 </a>
@@ -36,8 +105,8 @@
                         <th class="text-center" width="5%">Année</th>
                         <th class="text-center" width="8%">Kilométrage</th>
                         <th class="text-center" width="8%">Assurance</th>
-                        <th class="text-center" width="12%">Visite technique</th>
-                        <th class="text-center" width="12%">État</th>
+                        <th class="text-center" width="12%">Visite</th>
+                        {{-- <th class="text-center" width="12%">État</th> --}}
                         <th class="text-center" width="12%">Actions</th>
                     </tr>
                 </thead>
@@ -55,7 +124,7 @@
                             <td class="text-center">
                                 {{ $vehicule?->visite_technique_expire_le ? $vehicule->visite_technique_expire_le->format('d/m/Y') : '-' }}
                             </td>
-                            <td class="text-center">
+                            {{-- <td class="text-center">
                                 <span
                                     class="badge 
                                 @if ($vehicule->etat == 'operationnel') bg-success 
@@ -63,7 +132,7 @@
                                 @else bg-danger @endif">
                                     {{ ucfirst($vehicule->etat) }}
                                 </span>
-                            </td>
+                            </td> --}}
                             <td class="text-center">
                                 <span class="d-flex align-items-baseline justify-content-center gap-1">
                                     <a href="{{ route('parc-vehicules.show', $vehicule->id) }}"

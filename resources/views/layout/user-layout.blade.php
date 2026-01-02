@@ -190,6 +190,58 @@
             display: inline-block;
         }
 
+        .operationnel {
+            background-color: #198754;
+            /* vert Bootstrap */
+            color: #ffffff;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .maintenance {
+            background-color: #ffc107;
+            /* jaune Bootstrap */
+            color: #000000;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .en_cours {
+            background-color: #36e0e0;
+            /* cyan */
+            color: #ffffff;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .hors_service {
+            background-color: #dc3545;
+            /* rouge Bootstrap */
+            color: #ffffff;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
         .rejeter {
             background-color: #DC3545;
             /* couleur cyan Bootstrap (info) */
@@ -234,6 +286,7 @@
             /* légère ombre */
             display: inline-block;
         }
+
         .Rejeté {
             background-color: #DC3545;
             /* couleur cyan Bootstrap (info) */

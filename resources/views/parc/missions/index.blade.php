@@ -115,7 +115,7 @@
 
             @can('parc-mission-create')
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h1 class="mb-0">Liste des missions</h1>
+                    <h3 class="mb-0">Liste des missions</h3>
                     <a href="{{ route('parc-missions.create') }}" class="btn btn-sm btn-primary">
                         <i class="bi bi-plus-circle"></i> Ajouter une mission
                     </a>

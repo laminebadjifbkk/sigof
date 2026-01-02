@@ -10,10 +10,34 @@ use Illuminate\Http\Request;
 
 class ParcVehiculeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $vehicules = ParcVehicule::latest()->get();
-        return view('parc.vehicules.index', compact('vehicules'));
+        $vehicules = ParcVehicule::query();
+
+        // Récupérer l'état depuis la query string si présent
+        $etatVehicule = $request->query('etat');
+
+        if ($etatVehicule) {
+            $vehicules->where('etat', $etatVehicule);
+        }
+
+        $vehicules = $vehicules->latest()->get();
+
+        // Regrouper par état pour les cards (non filtré)
+        $groupes = ParcVehicule::latest()->get()->groupBy(fn($v) => $v->etat ?? 'Inconnu');
+
+        // Calculer les pourcentages
+        $total = ParcVehicule::count();
+        $etatPourcentages = [];
+        foreach ($groupes as $etatKey => $items) {
+            $etatPourcentages[$etatKey] = [
+                'percent' => $total ? round($items->count() * 100 / $total, 1) : 0
+            ];
+        }
+
+        $totalVehicules = $total;
+
+        return view('parc.vehicules.index', compact('vehicules', 'groupes', 'etatPourcentages', 'totalVehicules', 'etatVehicule'));
     }
 
     public function create()
