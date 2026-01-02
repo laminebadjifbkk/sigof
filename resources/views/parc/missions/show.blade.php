@@ -114,11 +114,6 @@
                                     @endif
                                 </td>
                             </tr>
-
-                            <tr>
-                                <th>Chauffeur</th>
-                                <td>{{ $mission->chauffeur?->nom ?? '-' }}</td>
-                            </tr>
                             <tr>
                                 <th>Statut</th>
                                 <td>{{ ucfirst($mission->statut) }}</td>

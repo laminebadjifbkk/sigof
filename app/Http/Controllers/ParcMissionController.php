@@ -128,23 +128,39 @@ class ParcMissionController extends Controller
 
     public function updateEmployees(Request $request, ParcMission $mission)
     {
-        $employeesData = [];
+        $employeesInput = $request->input('employees', []);
 
-        if ($request->has('employees')) {
-            foreach ($request->input('employees') as $employee) {
-                if (isset($employee['id'])) {
-                    $employeesData[$employee['id']] = [
-                        'role' => $employee['role'] ?? 'participant',
-                        'vehicule_id' => $employee['vehicule_id'] ?? null,
-                    ];
-                }
+        // Validation dynamique
+        $rules = [];
+        foreach ($employeesInput as $employeeId => $data) {
+            // Si l'employé est coché
+            if (!empty($data['id'])) {
+                $rules["employees.$employeeId.role"] = ['required', 'in:participant,chauffeur,responsable,observateur'];
+                $rules["employees.$employeeId.vehicule_id"] = ['nullable', 'integer', function ($attribute, $value, $fail) use ($mission) {
+                    if ($value && !$mission->vehicules->pluck('id')->contains($value)) {
+                        $fail('Le véhicule sélectionné n\'est pas valide pour cette mission.');
+                    }
+                }];
             }
         }
 
-        // Synchroniser les employés avec rôle + véhicule
-        $mission->employees()->sync($employeesData);
+        $request->validate($rules);
 
-        return redirect()->back()->with('status', 'Employés de la mission mis à jour avec succès');
+        // Préparer les données à synchroniser
+        $syncData = [];
+        foreach ($employeesInput as $employeeId => $data) {
+            if (!empty($data['id'])) {
+                $syncData[$employeeId] = [
+                    'role' => $data['role'] ?? 'participant',
+                    'vehicule_id' => $data['vehicule_id'] ?? null,
+                ];
+            }
+        }
+
+        // Synchroniser
+        $mission->employees()->sync($syncData);
+
+        return redirect()->back()->with('status', 'Employés de la mission mis à jour avec succès.');
     }
 
     public function editVehicules(ParcMission $mission)

@@ -52,9 +52,10 @@
                                         </label>
                                     </div>
                                 </div>
-
                                 <div class="col-md-4">
                                     <select name="employees[{{ $employee->id }}][role]" class="form-select form-select-sm">
+                                        <option value="" {{ !$pivot || !$pivot->role ? 'selected' : '' }}>Aucun
+                                        </option>
                                         <option value="participant"
                                             {{ $pivot && $pivot->role == 'participant' ? 'selected' : '' }}>Participant
                                         </option>

@@ -201,6 +201,10 @@
         <!-- ========================= -->
         <!-- PAGE 1 : LETTRE           -->
         <!-- ========================= -->
+        @php
+            $vehiculeId = $employee->pivot?->vehicule_id;
+            $vehicule = $mission->vehicules->firstWhere('id', $vehiculeId);
+        @endphp
         <div class="page-lettre page-break">
             <div style="font-family: Tahoma, Arial, sans-serif; font-size: 12pt; line-height: 1.3;">
                 <div style="width:100%; font-size:10pt;">
@@ -252,7 +256,7 @@
                 <h2 style="text-decoration: underline; text-align: center;">ORDRE DE MISSION </h2 class="text-center">
 
                 <p style="text-align: justify; margin-top:5px;margin-bottom:5px; text-align: center;">
-                    {{ $mission?->vehicule?->immatriculation }}
+                    {{ $vehicule ? $vehicule->immatriculation : '-' }}
                 </p>
 
                 <br><br>
@@ -399,7 +403,9 @@
                 style="font-size:12pt; border-collapse: collapse;">
                 <tr>
                     <td width="30%" style="padding:2px 0;"><b>Ordre de mission :</b></td>
-                    <td width="70%" style="padding:2px 0;">{{ $mission->reference }}</td>
+                    <td width="70%" style="padding:2px 0;">
+                        {{-- {{ $mission->reference }} --}}
+                    </td>
                 </tr>
                 <tr>
                     <td style="padding:2px 0;"><b>Prénom(s) - Nom :</b></td>
