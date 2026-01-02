@@ -31,7 +31,7 @@
                         <label class="form-label">Libellé <span class="text-danger"> *</span></label>
                         <input type="text" name="libelle"
                                class="form-control form-control-sm @error('libelle') is-invalid @enderror"
-                               value="{{ old('libelle') }}">
+                               value="{{ old('libelle') }}" placeholder="ONFP">
                         @error('libelle') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
 
