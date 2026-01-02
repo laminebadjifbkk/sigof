@@ -66,10 +66,12 @@ class ParcChauffeur extends Model
 
     public function getPermisRestantAttribute(): string
     {
-        if (!$this->permis_expire_le) {
-            return '—';
+        // Permis non renseigné
+        if (is_null($this->permis_expire_le)) {
+            return '-';
         }
 
+        // Permis déjà expiré
         if ($this->permis_expire_le->isPast()) {
             return 'Permis expiré';
         }
