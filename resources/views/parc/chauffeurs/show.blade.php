@@ -13,7 +13,8 @@
 
             <div class="card shadow-sm mb-4">
                 <div class="card-header bg-dark text-white">
-                    <strong>{{ $chauffeur?->matricule }}</strong> - {{ $chauffeur?->nom }} {{ $chauffeur?->prenom }}
+                    <strong>{{ $chauffeur?->employee->matricule }}</strong> - {{ $chauffeur?->employee?->user?->firstname }}
+                    {{ $chauffeur?->employee?->user?->name }}
                 </div>
                 <div class="card-body">
                     <table class="table table-striped table-hover align-middle">
@@ -27,19 +28,16 @@
 
                             <tr>
                                 <th style="width: 30%">Matricule</th>
-                                <td>{{ $chauffeur?->matricule }}</td>
+                                <td>{{ $chauffeur?->employee?->matricule }}</td>
                             </tr>
                             <tr>
                                 <th>Nom</th>
-                                <td>{{ $chauffeur?->nom }}</td>
-                            </tr>
-                            <tr>
-                                <th>Prénom</th>
-                                <td>{{ $chauffeur?->prenom }}</td>
+                                <td>{{ $chauffeur?->employee?->user?->firstname . ' ' . $chauffeur?->employee?->user?->name }}
+                                </td>
                             </tr>
                             <tr>
                                 <th>Téléphone</th>
-                                <td>{{ $chauffeur?->telephone }}</td>
+                                <td>{{ $chauffeur?->employee?->user?->telephone }}</td>
                             </tr>
                             <tr>
                                 <th>Numéro du permis</th>

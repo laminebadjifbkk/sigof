@@ -118,8 +118,8 @@
                 <tbody>
                     @foreach ($chauffeurs as $chauffeur)
                         <tr>
-                            <td class="text-center">{{ $chauffeur->matricule }}</td>
-                            <td>{{ $chauffeur->prenom }} {{ $chauffeur->nom }}</td>
+                            <td class="text-center">{{ $chauffeur?->employee?->matricule }}</td>
+                            <td>{{ $chauffeur?->employee?->user?->firstname . ' ' . $chauffeur?->employee?->user?->name }}</td>
                             <td class="text-center">
                                 <span class="badge bg-secondary">
                                     {{ $chauffeur->missions_annee_count }}

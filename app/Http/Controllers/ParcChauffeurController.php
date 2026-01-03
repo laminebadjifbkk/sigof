@@ -69,7 +69,7 @@ class ParcChauffeurController extends Controller
         $employe = Employee::findOrFail($request->employe_id);
 
         ParcChauffeur::create([
-            'employe_id' => $employe->id,
+            'employee_id' => $employe->id,
             'matricule' => $employe->matricule, // récupérer depuis employee
             'nom' => $employe->user->name,
             'prenom' => $employe->user->firstname,
