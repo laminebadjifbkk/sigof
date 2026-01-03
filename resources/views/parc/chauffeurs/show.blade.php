@@ -61,7 +61,7 @@
                                 <th>Expiration du permis</th>
                                 <td>
                                     <span class="{{ $chauffeur->permis_classe }}">
-                                        {{ $chauffeur->permis_restant }}
+                                        {{ $chauffeur->permis_expire_le }}
                                     </span>
                                 </td>
                             </tr>
