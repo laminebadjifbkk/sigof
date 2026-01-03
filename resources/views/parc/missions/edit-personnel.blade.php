@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Mise à jour des chauffeurs de la mission')
+@section('title', 'ONFP - Mise à jour du personnel de la mission')
 
 @section('space-work')
     <section class="section register">
@@ -7,7 +7,7 @@
 
             {{-- En-tête --}}
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 class="mb-0">Chauffeurs de la mission : {{ $mission->reference }}</h3>
+                <h3 class="mb-0">Personnel de la mission : {{ $mission->reference }}</h3>
                 <a href="{{ route('parc-missions.index') }}" class="btn btn-outline-secondary btn-sm">
                     <i class="bi bi-arrow-left-circle"></i> Retour à la liste
                 </a>
@@ -51,7 +51,7 @@
                         {{-- ================== CHAUFFEURS ================== --}}
                         <h5 class="mt-3">Chauffeurs</h5>
 
-                        <table class="table table-bordered">
+                        {{-- <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>Chauffeur</th>
@@ -70,6 +70,54 @@
                                             {{ $chauffeur->employee->user->firstname }}
                                             {{ $chauffeur->employee->user->name }}
                                         </td>
+                                        <td class="text-center">
+                                            <span class="badge bg-secondary">
+                                                {{ $chauffeur->employee->parcmissions->count() }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table> --}}
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Chauffeur</th>
+                                    <th>Véhicule</th> {{-- Nouvelle colonne --}}
+                                    <th class="text-center">Missions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($chauffeurs as $chauffeur)
+                                    @php
+                                        $pivot = $mission->employees->find($chauffeur->employee_id)?->pivot;
+                                        $isChecked = $missionChauffeurs->pluck('id')->contains($chauffeur->employee_id);
+                                    @endphp
+                                    <tr>
+                                        {{-- Checkbox Chauffeur --}}
+                                        <td>
+                                            <input type="checkbox" class="chauffeur-checkbox"
+                                                name="chauffeurs[{{ $chauffeur->id }}][selected]" value="1"
+                                                {{ $isChecked ? 'checked' : '' }}>
+                                            {{ $chauffeur->employee->user->firstname }}
+                                            {{ $chauffeur->employee->user->name }}
+                                        </td>
+
+                                        {{-- Select Véhicule --}}
+                                        <td>
+                                            <select name="chauffeurs[{{ $chauffeur->id }}][vehicule_id]"
+                                                class="form-select form-select-sm">
+                                                <option value="">-- Aucun véhicule --</option>
+                                                @foreach ($mission->vehicules as $vehicule)
+                                                    <option value="{{ $vehicule->id }}"
+                                                        {{ $pivot?->vehicule_id == $vehicule->id ? 'selected' : '' }}>
+                                                        {{ $vehicule->immatriculation }} - {{ $vehicule->marque }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+
+                                        {{-- Nombre de missions --}}
                                         <td class="text-center">
                                             <span class="badge bg-secondary">
                                                 {{ $chauffeur->employee->parcmissions->count() }}

@@ -12,6 +12,7 @@ use App\Models\ParcVehicule;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateParcMissionPersonnelRequest;
 
 class ParcMissionController extends Controller
 {
@@ -158,7 +159,7 @@ class ParcMissionController extends Controller
         return redirect()->route('parc-missions.index')->with('status', 'Mission supprimée avec succès');
     }
 
-   /*  public function editEmployees(ParcMission $mission)
+    /*  public function editEmployees(ParcMission $mission)
     {
         // Récupérer les IDs des employés qui sont des chauffeurs
         $chauffeurIds = ParcChauffeur::pluck('employee_id')->toArray();
@@ -219,7 +220,7 @@ class ParcMissionController extends Controller
         return redirect()->back()->with('status', 'Véhicules de la mission mis à jour avec succès');
     }
 
-   /*  public function editChauffeurs(ParcMission $mission)
+    /*  public function editChauffeurs(ParcMission $mission)
     {
         // Tous les chauffeurs avec leurs employés liés
         $chauffeurs = ParcChauffeur::with('employee.user')->get();
@@ -284,26 +285,28 @@ class ParcMissionController extends Controller
         ));
     }
 
-    public function updatePersonnel(Request $request, ParcMission $mission)
-    {
+    public function updatePersonnel(
+        UpdateParcMissionPersonnelRequest $request,
+        ParcMission $mission
+    ) {
         $syncData = [];
 
-        // ===== Chauffeurs =====
-        foreach ($request->input('chauffeurs', []) as $chauffeurId => $data) {
-            if (!empty($data['selected'])) {
+        /* ========= Chauffeurs ========= */
+        foreach ($request->validated()['chauffeurs'] ?? [] as $chauffeurId => $data) {
+            if ($data['selected']) {
                 $employeeId = ParcChauffeur::find($chauffeurId)?->employee_id;
                 if ($employeeId) {
                     $syncData[$employeeId] = [
-                        'role' => 'chauffeur',
-                        'vehicule_id' => null
+                        'role' => 'chauffeur',            // rôle fixe
+                        'vehicule_id' => $data['vehicule_id'] ?? null, // véhicule choisi
                     ];
                 }
             }
         }
 
-        // ===== Employés =====
-        foreach ($request->input('employees', []) as $employeeId => $data) {
-            if (!empty($data['selected'])) {
+        /* ========= Employés ========= */
+        foreach ($request->validated()['employees'] ?? [] as $employeeId => $data) {
+            if ($data['selected']) {
                 $syncData[$employeeId] = [
                     'role' => $data['role'] ?? 'participant',
                     'vehicule_id' => $data['vehicule_id'] ?? null,
@@ -311,6 +314,7 @@ class ParcMissionController extends Controller
             }
         }
 
+        // Synchroniser tous les employés et chauffeurs
         $mission->employees()->sync($syncData);
 
         return back()->with('status', 'Personnel de la mission mis à jour avec succès.');
