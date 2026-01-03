@@ -113,4 +113,14 @@ class ParcChauffeurController extends Controller
         $chauffeur->delete();
         return redirect()->route('parc-chauffeurs.index')->with('status', 'Chauffeur supprimé avec succès');
     }
+
+    public function showMissions(ParcChauffeur $chauffeur)
+    {
+        // Missions triées par date de départ décroissante, 5 par page
+        $missions = $chauffeur->employee->parcmissions()
+            ->orderByDesc('date_depart')
+            ->paginate(1); // Pagination Laravel
+
+        return view('parc.chauffeurs.missions', compact('chauffeur', 'missions'));
+    }
 }

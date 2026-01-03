@@ -20,9 +20,19 @@
                     <table class="table table-striped table-hover align-middle">
                         <tbody>
                             <tr>
-                                <th>Nombre de missions en {{ now()->year }}</th>
-                                <td>
-                                    <span class="badge bg-primary">{{ $chauffeurMissionsCount }}</span>
+                                <th>Nombre de missions total</th>
+                                <td class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-primary">
+                                        {{ $chauffeur->employee->parcmissions->count() }}
+                                    </span>
+
+                                    {{-- Bouton Voir les missions, aligné complètement à droite --}}
+                                    @if ($chauffeur->employee->parcmissions->isNotEmpty())
+                                        <a href="{{ route('chauffeurs.missions.show', $chauffeur->id) }}"
+                                            class="btn btn-sm btn-info ms-auto">
+                                            <i class="bi bi-eye"></i> Voir
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
 
