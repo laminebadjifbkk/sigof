@@ -51,40 +51,13 @@
                         {{-- ================== CHAUFFEURS ================== --}}
                         <h5 class="mt-3">Chauffeurs</h5>
 
-                        {{-- <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Chauffeur</th>
-                                    <th class="text-center">Missions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($chauffeurs as $chauffeur)
-                                    @php
-                                        $isChecked = $missionChauffeurs->pluck('id')->contains($chauffeur->employee_id);
-                                    @endphp
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" name="chauffeurs[{{ $chauffeur->id }}][selected]"
-                                                value="1" {{ $isChecked ? 'checked' : '' }}>
-                                            {{ $chauffeur->employee->user->firstname }}
-                                            {{ $chauffeur->employee->user->name }}
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="badge bg-secondary">
-                                                {{ $chauffeur->employee->parcmissions->count() }}
-                                            </span>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table> --}}
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>Chauffeur</th>
                                     <th>Véhicule</th> {{-- Nouvelle colonne --}}
-                                    <th class="text-center">Missions</th>
+                                    <th class="text-center" width="5%">Missions</th>
+                                    <th class="text-center" width="5%">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,6 +65,7 @@
                                     @php
                                         $pivot = $mission->employees->find($chauffeur->employee_id)?->pivot;
                                         $isChecked = $missionChauffeurs->pluck('id')->contains($chauffeur->employee_id);
+                                        $missionsCount = $chauffeur->employee->parcmissions->count();
                                     @endphp
                                     <tr>
                                         {{-- Checkbox Chauffeur --}}
@@ -119,11 +93,98 @@
 
                                         {{-- Nombre de missions --}}
                                         <td class="text-center">
-                                            <span class="badge bg-secondary">
-                                                {{ $chauffeur->employee->parcmissions->count() }}
-                                            </span>
+                                            <span class="badge bg-secondary">{{ $missionsCount }}</span>
+                                        </td>
+                                        {{-- Actions --}}
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
+                                                data-bs-target="#missionsModal{{ $chauffeur->id }}">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
                                         </td>
                                     </tr>
+                                    {{-- Modal des missions --}}
+                                    <div class="modal fade" id="missionsModal{{ $chauffeur->id }}" tabindex="-1"
+                                        aria-labelledby="missionsModalLabel{{ $chauffeur->id }}" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                {{-- Header --}}
+                                                <div class="modal-header bg-info text-white rounded-top-4">
+                                                    <h5 class="modal-title" id="missionsModalLabel{{ $chauffeur->id }}">
+                                                        Missions de {{ $chauffeur->employee->user->firstname }}
+                                                        {{ $chauffeur->employee->user->name }}
+                                                    </h5>
+                                                    <button type="button" class="btn-close btn-close-white"
+                                                        data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                                </div>
+                                                {{-- Body --}}
+                                                <div class="modal-body">
+                                                    @php
+                                                        $lastMissions = $chauffeur->employee->parcmissions
+                                                            ->sortByDesc('date_depart')
+                                                            ->take(5);
+                                                    @endphp
+
+                                                    @if ($lastMissions->count() > 0)
+                                                        <div class="list-group">
+                                                            @foreach ($lastMissions as $cm)
+                                                                <div
+                                                                    class="list-group-item d-flex justify-content-between align-items-center border-bottom">
+                                                                    <div>
+                                                                        <strong>{{ $cm->objet }}</strong><br>
+                                                                        <small class="text-muted">Réf:
+                                                                            {{ $cm->reference }}</small>
+                                                                    </div>
+                                                                    <div class="text-end">
+                                                                        <span class="badge bg-secondary">
+                                                                            Du {{ $cm->date_depart->format('d/m/Y') }} au
+                                                                            {{ $cm->date_retour->format('d/m/Y') }}
+                                                                        </span>
+
+                                                                        @php
+                                                                            $now = now();
+                                                                            if ($cm->date_retour < $now) {
+                                                                                $status = [
+                                                                                    'label' => 'Terminée',
+                                                                                    'class' => 'bg-success',
+                                                                                ];
+                                                                            } elseif ($cm->date_depart > $now) {
+                                                                                $status = [
+                                                                                    'label' => 'À venir',
+                                                                                    'class' => 'bg-warning text-dark',
+                                                                                ];
+                                                                            } else {
+                                                                                $status = [
+                                                                                    'label' => 'En cours',
+                                                                                    'class' => 'bg-primary text-white',
+                                                                                ];
+                                                                            }
+                                                                        @endphp
+
+                                                                        <span class="badge {{ $status['class'] }}">
+                                                                            {{ $status['label'] }}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    @else
+                                                        <div class="alert alert-secondary text-center mb-0">
+                                                            Aucune mission assignée.
+                                                        </div>
+                                                    @endif
+                                                </div>
+
+                                                {{-- Footer --}}
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm"
+                                                        data-bs-dismiss="modal">
+                                                        Fermer
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
                             </tbody>
                         </table>
