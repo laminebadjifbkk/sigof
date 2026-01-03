@@ -42,7 +42,7 @@
                             </tr>
                             <tr>
                                 <th>Nom</th>
-                                <td>{{ $chauffeur?->employee?->user?->firstname . ' ' . $chauffeur?->employee?->user?->name }}
+                                <td>{{ $chauffeur?->prenom . ' ' . $chauffeur?->nom }}
                                 </td>
                             </tr>
                             <tr>
