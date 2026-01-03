@@ -42,7 +42,7 @@
                             </tr>
                             <tr>
                                 <th>Nom</th>
-                                <td>{{ $chauffeur?->prenom . ' ' . $chauffeur?->nom }}
+                                <td>{{ $chauffeur?->employee?->user?->firstname . ' ' . $chauffeur?->employee?->user?->name }}
                                 </td>
                             </tr>
                             <tr>
@@ -61,7 +61,7 @@
                                 <th>Expiration du permis</th>
                                 <td>
                                     <span class="{{ $chauffeur->permis_classe }}">
-                                        {{ $chauffeur->permis_expire_le }}
+                                        {{ $chauffeur->permis_restant }}
                                     </span>
                                 </td>
                             </tr>
