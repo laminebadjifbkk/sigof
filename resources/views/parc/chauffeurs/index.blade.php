@@ -123,7 +123,7 @@
                             </td>
                             <td class="text-center">
                                 <span class="badge bg-secondary">
-                                    {{ $chauffeur->employee->parcmissions->count() }}
+                                    {{ $chauffeur?->employee?->parcmissions?->count() }}
                                 </span>
                                 {{-- <span class="badge bg-secondary">
                                     {{ $chauffeur->missions_annee_count }}
@@ -131,12 +131,12 @@
                             </td>
                             {{-- <td>{{ $chauffeur->prenom }}</td> --}}
                             {{-- <td>{{ $chauffeur->telephone }}</td> --}}
-                            <td class="text-center">{{ $chauffeur->permis_numero }}</td>
+                            <td class="text-center">{{ $chauffeur?->permis_numero }}</td>
                             {{-- <td class="text-center">{{ $chauffeur->permis_categories }}</td> --}}
                             {{-- <td>{{ $chauffeur->permis_expire_le->format('d/m/Y') }}</td> --}}
                             <td>
-                                <span class="{{ $chauffeur->permis_classe }}">
-                                    {{ $chauffeur->permis_restant }}
+                                <span class="{{ $chauffeur?->permis_classe }}">
+                                    {{ $chauffeur?->permis_restant }}
                                 </span>
                             </td>
                             {{-- <td class="text-center">
