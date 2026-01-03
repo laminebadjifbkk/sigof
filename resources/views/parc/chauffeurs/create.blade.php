@@ -189,7 +189,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Téléphone</label>
-                                <input type="text" id="telephone" class="form-control form-control-sm" readonly>
+                                <input type="text" id="telephone" class="form-control form-control-sm">
                             </div>
                         </div>
 
