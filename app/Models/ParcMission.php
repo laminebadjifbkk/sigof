@@ -105,4 +105,16 @@ class ParcMission extends Model
             'kilometrage_retour'
         ])->withTimestamps();
     }
+
+    public function chauffeurs()
+    {
+        return $this->belongsToMany(
+            ParcChauffeur::class,    // modèle cible
+            'parc_employee_mission', // table pivot existante
+            'mission_id',            // clé locale dans la pivot (mission)
+            'employee_id'            // clé étrangère vers ParcChauffeur
+        )
+            ->withPivot('role')          // récupérer le rôle depuis la pivot
+            ->withTimestamps();
+    }
 }

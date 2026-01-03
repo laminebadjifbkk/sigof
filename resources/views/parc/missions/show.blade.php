@@ -186,7 +186,7 @@
                 </form>
             </div> --}}
 
-            @can('parc-mission-update')
+            {{-- @can('parc-mission-update')
                 <div class="d-flex gap-2">
                     <a href="{{ route('parc-missions.edit', $mission->id) }}" class="btn btn-warning btn-sm">
                         <i class="bi bi-pencil-square"></i> Modifier
@@ -218,8 +218,57 @@
                             <i class="bi bi-trash"></i> Supprimer
                         </button>
                     </form>
+                @endcan --}}
+            {{-- Boutons d'actions pour la mission --}}
+            <div class="d-flex flex-wrap gap-2 mb-4">
+
+                {{-- Gestion générale de la mission --}}
+                @can('parc-mission-update')
+                    <a href="{{ route('parc-missions.edit', $mission->id) }}" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-square"></i> Modifier
+                    </a>
                 @endcan
+
+                @can('parc-mission-delete')
+                    <form action="{{ route('parc-missions.destroy', $mission->id) }}" method="POST" class="d-inline">
+                        @csrf @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm show_confirm">
+                            <i class="bi bi-trash"></i> Supprimer
+                        </button>
+                    </form>
+                @endcan
+
+                {{-- Gestion des employés / agents --}}
+                @can('parc-mission-update')
+                    <a href="{{ route('parc-missions.employees.edit', $mission->id) }}" class="btn btn-info btn-sm">
+                        <i class="bi bi-people"></i> Ajouter / Modifier Agents
+                    </a>
+                @endcan
+
+                {{-- Gestion des chauffeurs --}}
+                @can('parc-mission-update')
+                    <a href="{{ route('parc-missions.chauffeurs.edit', $mission->id) }}" class="btn btn-secondary btn-sm">
+                        <i class="bi bi-truck"></i> Ajouter / Modifier Chauffeurs
+                    </a>
+                @endcan
+
+                {{-- Gestion véhicules --}}
+                @can('parc-mission-update')
+                    <a href="{{ route('parc-missions.vehicules.edit', $mission->id) }}" class="btn btn-secondary btn-sm">
+                        <i class="bi bi-truck"></i> Ajouter / Modifier Véhicules
+                    </a>
+                @endcan
+
+                {{-- Ordres de mission --}}
+                @can('parc-odre-mission-edit')
+                    <a href="{{ route('parc-missions.pdf', $mission->id) }}" class="btn btn-success btn-sm" target="_blank">
+                        <i class="bi bi-file-earmark-pdf"></i> Ordres de mission
+                    </a>
+                @endcan
+
             </div>
+
+        </div>
         </div>
     </section>
 @endsection

@@ -160,7 +160,12 @@ class ParcMissionController extends Controller
 
     public function editEmployees(ParcMission $mission)
     {
-        $employees = Employee::get();
+        // Récupérer les IDs des employés qui sont des chauffeurs
+        $chauffeurIds = ParcChauffeur::pluck('employee_id')->toArray();
+
+        // Récupérer tous les employés sauf ceux qui sont des chauffeurs
+        $employees = Employee::whereNotIn('id', $chauffeurIds)->get();
+
         return view('parc.missions.edit-employe', compact('mission', 'employees'));
     }
 
@@ -168,26 +173,10 @@ class ParcMissionController extends Controller
     {
         $employeesInput = $request->input('employees', []);
 
-        // Validation dynamique
-        $rules = [];
-        foreach ($employeesInput as $employeeId => $data) {
-            // Si l'employé est coché
-            if (!empty($data['id'])) {
-                $rules["employees.$employeeId.role"] = ['required', 'in:participant,chauffeur,responsable,observateur'];
-                $rules["employees.$employeeId.vehicule_id"] = ['nullable', 'integer', function ($attribute, $value, $fail) use ($mission) {
-                    if ($value && !$mission->vehicules->pluck('id')->contains($value)) {
-                        $fail('Le véhicule sélectionné n\'est pas valide pour cette mission.');
-                    }
-                }];
-            }
-        }
-
-        $request->validate($rules);
-
         // Préparer les données à synchroniser
         $syncData = [];
         foreach ($employeesInput as $employeeId => $data) {
-            if (!empty($data['id'])) {
+            if (!empty($data['selected'])) {
                 $syncData[$employeeId] = [
                     'role' => $data['role'] ?? 'participant',
                     'vehicule_id' => $data['vehicule_id'] ?? null,
@@ -195,7 +184,7 @@ class ParcMissionController extends Controller
             }
         }
 
-        // Synchroniser
+        // Synchroniser les employés sur la mission
         $mission->employees()->sync($syncData);
 
         return redirect()->back()->with('status', 'Employés de la mission mis à jour avec succès.');
@@ -228,6 +217,49 @@ class ParcMissionController extends Controller
         $mission->vehicules()->sync($data);
 
         return redirect()->back()->with('status', 'Véhicules de la mission mis à jour avec succès');
+    }
+
+    public function editChauffeurs(ParcMission $mission)
+    {
+        // Tous les chauffeurs avec leurs employés liés
+        $chauffeurs = ParcChauffeur::with('employee.user')->get();
+
+        // Récupérer les IDs des employés qui sont des chauffeurs
+        $chauffeurIds = $chauffeurs->pluck('employee_id')->toArray();
+
+        $missionChauffeurs = $mission->employees()
+            ->whereIn('employees.id', $chauffeurIds) // <--- ici on précise la table
+            ->get();
+
+        return view('parc.missions.edit-chauffeur', compact('mission', 'chauffeurs', 'missionChauffeurs'));
+    }
+
+    public function updateChauffeurs(Request $request, ParcMission $mission)
+    {
+        $input = $request->input('chauffeurs', []);
+
+        $syncData = [];
+
+        foreach ($input as $chauffeurId => $data) {
+            if (!empty($data['selected'])) {
+                $employeeId = ParcChauffeur::find($chauffeurId)?->employee_id;
+                if (!$employeeId) continue;
+
+                // On fixe le rôle à 'chauffeur' car pas de sélection dans le formulaire
+                $syncData[$employeeId] = ['role' => 'chauffeur'];
+            }
+        }
+
+        // Ajouter ou mettre à jour sans supprimer les autres
+        foreach ($syncData as $employeeId => $pivotData) {
+            if ($mission->employees()->where('employee_id', $employeeId)->exists()) {
+                $mission->employees()->updateExistingPivot($employeeId, $pivotData);
+            } else {
+                $mission->employees()->attach($employeeId, $pivotData);
+            }
+        }
+
+        return redirect()->back()->with('status', 'Chauffeurs de la mission mis à jour avec succès.');
     }
 
     public function ordreMission($id)

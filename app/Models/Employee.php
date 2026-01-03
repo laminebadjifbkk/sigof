@@ -235,10 +235,10 @@ class Employee extends Model
         return $this->hasMany(Famille::class, 'employees_id');
     }
 
-    public function missions()
+    /* public function missions()
     {
         return $this->hasMany(Mission::class, 'employees_id');
-    }
+    } */
 
     public function ordres_missions()
     {
@@ -280,5 +280,16 @@ class Employee extends Model
     public function chauffeur()
     {
         return $this->hasOne(ParcChauffeur::class, 'employee_id');
+    }
+
+    public function missions()
+    {
+        return $this->belongsToMany(
+            ParcMission::class,
+            'parc_employee_mission', // table pivot
+            'employee_id',
+            'mission_id'
+        )->withPivot('vehicule_id', 'chauffeur_id', 'kilometrage_depart', 'kilometrage_retour')
+            ->withTimestamps();
     }
 }

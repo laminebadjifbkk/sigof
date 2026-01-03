@@ -52,7 +52,7 @@ class ParcChauffeur extends Model
         return $this->permis_expire_le ? $this->permis_expire_le->format('Y-m-d') : '';
     }
 
-    public function missions()
+    /* public function missions()
     {
         return $this->hasManyThrough(
             ParcMission::class,
@@ -62,7 +62,19 @@ class ParcChauffeur extends Model
             'id',
             'mission_id'
         );
-    }
+    } */
+
+/*     public function missions()
+    {
+        return $this->belongsToMany(
+            ParcMission::class,       // Modèle lié
+            'parc_employee_mission',  // Table pivot réelle
+            'employee_id',            // Clé locale dans la table pivot (employé/chauffeur)
+            'mission_id'              // Clé étrangère vers la table ParcMission
+        )->withTimestamps();
+    } */
+
+
 
     /* public function getPermisRestantAttribute(): string
     {
@@ -135,5 +147,27 @@ class ParcChauffeur extends Model
         }
 
         return 'permis-ok';
+    }
+
+    public function chauffeurs()
+    {
+        return $this->belongsToMany(
+            ParcChauffeur::class,       // modèle cible
+            'parc_employee_mission',    // table pivot existante
+            'mission_id',               // clé locale dans la table pivot (mission)
+            'employee_id'               // clé étrangère vers l’employé/chauffeur
+        )->whereHas('employee')         // s'assure que ce sont des chauffeurs
+            ->withPivot('role')
+            ->withTimestamps();
+    }
+
+    public function missions()
+    {
+        return $this->belongsToMany(
+            ParcMission::class,
+            'parc_employee_mission',
+            'employee_id',   // clé locale (chauffeur/employee)
+            'mission_id'     // clé étrangère vers ParcMission
+        )->withPivot('role')->withTimestamps();
     }
 }

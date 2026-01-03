@@ -119,11 +119,15 @@
                     @foreach ($chauffeurs as $chauffeur)
                         <tr>
                             <td class="text-center">{{ $chauffeur?->employee?->matricule }}</td>
-                            <td>{{ $chauffeur?->employee?->user?->firstname . ' ' . $chauffeur?->employee?->user?->name }}</td>
+                            <td>{{ $chauffeur?->employee?->user?->firstname . ' ' . $chauffeur?->employee?->user?->name }}
+                            </td>
                             <td class="text-center">
                                 <span class="badge bg-secondary">
-                                    {{ $chauffeur->missions_annee_count }}
+                                    {{ $chauffeur->employee->parcmissions->count() }}
                                 </span>
+                                {{-- <span class="badge bg-secondary">
+                                    {{ $chauffeur->missions_annee_count }}
+                                </span> --}}
                             </td>
                             {{-- <td>{{ $chauffeur->prenom }}</td> --}}
                             {{-- <td>{{ $chauffeur->telephone }}</td> --}}

@@ -802,6 +802,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('parc-missions/{mission}/vehicules/edit', [ParcMissionController::class, 'editVehicules'])->name('parc-missions.vehicules.edit');
         Route::put('parc-missions/{mission}/vehicules', [ParcMissionController::class, 'updateVehicules'])->name('parc-missions.vehicules.update');
 
+        Route::get('parc-missions/{mission}/chauffeurs/edit', [ParcMissionController::class, 'editChauffeurs'])->name('parc-missions.chauffeurs.edit');
+        Route::put('parc-missions/{mission}/chauffeurs', [ParcMissionController::class, 'updateChauffeurs'])->name('parc-missions.chauffeurs.update');
+
         // Génération du PDF pour une mission
         Route::get('parc-missions/{mission}/pdf', [ParcMissionController::class, 'ordreMission'])
             ->name('parc-missions.pdf');

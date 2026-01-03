@@ -5,7 +5,7 @@
     <section class="section register">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h1 class="mb-0">Employés de la mission : {{ $mission->reference }}</h1>
+                <h3 class="mb-0">Agents de la mission : {{ $mission->reference }}</h3>
                 <a href="{{ route('parc-missions.index') }}" class="btn btn-outline-secondary btn-sm">
                     <i class="bi bi-arrow-left-circle"></i> Retour à la liste
                 </a>
@@ -44,7 +44,7 @@
                                 <div class="col-md-4">
                                     <div class="form-check">
                                         <input type="checkbox" class="employee-checkbox"
-                                            name="employees[{{ $employee->id }}][id]" value="{{ $employee->id }}"
+                                            name="employees[{{ $employee->id }}][selected]" value="{{ $employee->id }}"
                                             {{ $pivot ? 'checked' : '' }}>
                                         <label class="form-check-label">
                                             {{ $employee?->matricule }} - {{ $employee?->user?->firstname }}
@@ -58,9 +58,6 @@
                                         </option>
                                         <option value="participant"
                                             {{ $pivot && $pivot->role == 'participant' ? 'selected' : '' }}>Participant
-                                        </option>
-                                        <option value="chauffeur"
-                                            {{ $pivot && $pivot->role == 'chauffeur' ? 'selected' : '' }}>Chauffeur
                                         </option>
                                         <option value="responsable"
                                             {{ $pivot && $pivot->role == 'responsable' ? 'selected' : '' }}>Responsable
@@ -91,7 +88,7 @@
                             <button type="submit" class="btn btn-success btn-sm">
                                 <i class="bi bi-check-circle"></i> Mettre à jour
                             </button>
-                            <a href="{{ route('parc-missions.index') }}" class="btn btn-secondary btn-sm">
+                            <a href="{{ route('parc-missions.show', $mission->id) }}" class="btn btn-secondary btn-sm">
                                 <i class="bi bi-x-circle"></i> Annuler
                             </a>
                         </div>

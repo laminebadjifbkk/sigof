@@ -18,28 +18,21 @@ class ParcChauffeurController extends Controller
 
     public function index(Request $request)
     {
-        /* $chauffeurs = ParcChauffeur::query(); */
         $annee = now()->year;
 
-        $chauffeurs = ParcChauffeur::query()
-            ->withCount([
-                'missions as missions_annee_count' => function ($query) use ($annee) {
-                    $query->whereYear('date_depart', $annee);
-                }
-            ]);
-        // Récupérer l'état depuis la query string si présent
-        $statutChauffeur = $request->query('statut');
+        $chauffeurs = ParcChauffeur::with(['employee.parcmissions' => function ($query) {
+            $query->where('date_depart', '>=', now()->startOfYear());
+        }])->get();
 
-        if ($statutChauffeur) {
-            $chauffeurs->where('statut', $statutChauffeur);
+        // Filtrer par statut si nécessaire
+        if ($statut = $request->query('statut')) {
+            $chauffeurs->where('statut', $statut);
         }
 
-        $chauffeurs = $chauffeurs->latest()->get();
-
-        // Regrouper par état pour les cards (non filtré)
+        // Groupement par statut pour les cards (non filtré)
         $groupes = ParcChauffeur::latest()->get()->groupBy(fn($v) => $v->statut ?? 'Inconnu');
 
-        // Calculer les pourcentages
+        // Calcul des pourcentages par statut
         $total = ParcChauffeur::count();
         $statutPourcentages = [];
         foreach ($groupes as $statutKey => $items) {
@@ -50,7 +43,13 @@ class ParcChauffeurController extends Controller
 
         $totalChauffeurs = $total;
 
-        return view('parc.chauffeurs.index', compact('chauffeurs', 'groupes', 'statutPourcentages', 'totalChauffeurs', 'statutChauffeur'));
+        return view('parc.chauffeurs.index', compact(
+            'chauffeurs',
+            'groupes',
+            'statutPourcentages',
+            'totalChauffeurs',
+            'statut'
+        ));
     }
 
     public function create()
