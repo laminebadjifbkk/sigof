@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ParcChauffeur;
 use App\Http\Requests\StoreParcChauffeurRequest;
 use App\Http\Requests\UpdateParcChauffeurRequest;
+use App\Models\Employee;
+use App\Models\ParcChauffeur;
 use Illuminate\Http\Request;
 
 class ParcChauffeurController extends Controller
@@ -54,12 +55,31 @@ class ParcChauffeurController extends Controller
 
     public function create()
     {
-        return view('parc.chauffeurs.create');
+        $employes = Employee::whereDoesntHave('chauffeur')
+            ->get();
+
+        return view('parc.chauffeurs.create', compact('employes'));
     }
 
     public function store(StoreParcChauffeurRequest $request)
     {
-        ParcChauffeur::create($request->validated());
+
+        /* ParcChauffeur::create($request->validated()); */
+
+        $employe = Employee::findOrFail($request->employe_id);
+
+        ParcChauffeur::create([
+            'employe_id' => $employe->id,
+            'matricule' => $employe->matricule, // récupérer depuis employee
+            'nom' => $employe->user->name,
+            'prenom' => $employe->user->firstname,
+            'telephone' => $employe->user->telephone,
+            'statut' => $request->statut,
+            'permis_numero' => $request->permis_numero,
+            'permis_categories' => $request->permis_categories,
+            'permis_expire_le' => $request->permis_expire_le,
+        ]);
+
         return redirect()->back()->with('status', 'Chauffeur ajouté avec succès');
     }
 

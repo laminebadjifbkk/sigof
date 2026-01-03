@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Article;
@@ -51,6 +52,10 @@ class EmployeController extends Controller
 
     public function store(Request $request)
     {
+
+        Alert::error('Info ! ', 'Cette opération n\'est plus autorisée');
+        return redirect()->back();
+
         $this->validate($request, [
             "matricule"           => ['nullable', 'string', 'min:8', 'max:8'],
             'firstname'           => ['required', 'string', 'max:50'],

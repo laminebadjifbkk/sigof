@@ -276,4 +276,9 @@ class Employee extends Model
             ->withPivot('role')
             ->withTimestamps();
     }
+
+    public function chauffeur()
+    {
+        return $this->hasOne(ParcChauffeur::class, 'employee_id');
+    }
 }

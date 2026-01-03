@@ -14,12 +14,11 @@ class StoreParcChauffeurRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'nullable|exists:users,id',
-            'employee_id' => 'nullable|exists:employees,id',
-            'matricule' => 'required|string|unique:parc_chauffeurs,matricule|max:20',
+            'employe_id' => 'required|exists:employees,id', // obligatoire pour lier le chauffeur à un employé
+            /* 'matricule' => 'required|string|unique:parc_chauffeurs,matricule|max:20',
             'nom' => 'required|string|max:50',
             'prenom' => 'nullable|string|max:50',
-            'telephone' => 'nullable|string|max:20',
+            'telephone' => 'nullable|string|max:20', */
             'statut' => 'required|in:actif,indisponible,archive',
             'permis_numero' => 'nullable|string|max:50',
             'permis_categories' => 'nullable|string|max:50',
