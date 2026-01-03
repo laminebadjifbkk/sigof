@@ -109,6 +109,11 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#parc-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-car-front"></i><span>Parc automobile</span>
+                    @if ($missionsEnCours > 0)
+                        <span class="badge bg-info text-white ms-2">
+                            {{ $missionsEnCours }}
+                        </span>
+                    @endif
                     <i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="parc-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">

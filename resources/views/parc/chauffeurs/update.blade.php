@@ -5,7 +5,7 @@
     <section class="section register">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h1 class="mb-0">Modifier le chauffeur</h1>
+                <h3 class="mb-0">Modifier le chauffeur</h3>
                 <a href="{{ route('parc-chauffeurs.index') }}" class="btn btn-sm btn-outline-secondary">
                     <i class="bi bi-arrow-left-circle"></i> Retour à la liste
                 </a>
@@ -94,7 +94,7 @@
                                 <select name="statut" class="form-select form-select-sm">
                                     <option value="actif"
                                         {{ old('statut', $chauffeur->statut) == 'actif' ? 'selected' : '' }}>Actif</option>
-                                    <option value="inactif"
+                                    <option value="indisponible"
                                         {{ old('statut', $chauffeur->statut) == 'indisponible' ? 'selected' : '' }}>
                                         Indisponible
                                     </option>

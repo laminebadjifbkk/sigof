@@ -33,17 +33,46 @@
                     <form action="{{ route('parc-missions.store') }}" method="POST">
                         @csrf
 
+                        {{-- Référence --}}
+                        <div class="mb-3">
+                            <label for="reference" class="form-label">Référence<span class="text-danger">
+                                    *</span></label>
+                            <input type="text" name="reference"
+                                class="form-control form-control-sm @error('reference') is-invalid @enderror"
+                                value="{{ old('reference', $reference) }}" placeholder="Ex: 2026-001" readonly>
+                        </div>
+
                         <div class="row mb-3">
                             <div class="col-md-6 col-sm-12">
-                                <label for="reference" class="form-label">Référence<span class="text-danger">
+                                <label for="statut" class="form-label">Statut mission<span class="text-danger">
                                         *</span></label>
-                                <input type="text" name="reference"
-                                    class="form-control form-control-sm @error('kilometrage_actuel') is-invalid @enderror"
-                                    value="{{ old('reference', $reference) }}" placeholder="Ex: 2026-001" readonly>
+                                <select name="statut" id="statut" class="form-select form-select-sm @error('statut') is-invalid @enderror">
+                                    <option value="">-- Choisir un statut --</option>
+                                    <option value="planifiee"
+                                        {{ old('statut', $mission->statut ?? '') == 'planifiee' ? 'selected' : '' }}>
+                                        Planifiée
+                                    </option>
+                                    <option value="en_cours"
+                                        {{ old('statut', $mission->statut ?? '') == 'en_cours' ? 'selected' : '' }}>En
+                                        cours
+                                    </option>
+                                    <option value="terminee"
+                                        {{ old('statut', $mission->statut ?? '') == 'terminee' ? 'selected' : '' }}>
+                                        Terminée
+                                    </option>
+                                    <option value="annulee"
+                                        {{ old('statut', $mission->statut ?? '') == 'annulee' ? 'selected' : '' }}>
+                                        Annulée
+                                    </option>
+                                </select>
+                                @error('statut')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <label for="type_mission_id" class="form-label">
-                                    Type de mission</label>
+                                    Type de mission <span class="text-danger">
+                                        *</span></label>
                                 <select name="type_mission_id"
                                     class="form-select form-select-sm @error('type_mission_id') is-invalid @enderror">
                                     <option value="">-- Choisir un type de mission --</option>
@@ -64,7 +93,7 @@
                             <label for="objet" class="form-label">Objet<span class="text-danger"> *</span></label>
                             <input type="text" name="objet"
                                 class="form-control form-control-sm @error('objet') is-invalid @enderror"
-                                value="{{ old('objet') }}" placeholder="Ex: Mission de livraison">
+                                value="{{ old('objet') }}" placeholder="Ex: Mission de ...">
                             @error('objet')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -212,12 +241,11 @@
 
                             <!-- Nouveau champ Kilométrage actuel -->
                             <div class="col-md-6 col-sm-12">
-                                <label for="kilometrage_actuel" class="form-label">Kilométrage actuel</label>
-                                <input type="number" name="kilometrage_actuel" id="kilometrage_actuel"
-                                    class="form-control form-control-sm @error('kilometrage_actuel') is-invalid @enderror"
-                                    min="0" value="{{ old('kilometrage_actuel', 0) }}"
-                                    placeholder="Ex: 125000 km">
-                                @error('kilometrage_actuel')
+                                <label for="distance_km" class="form-label">Distance (km)</label>
+                                <input type="number" name="distance_km" id="distance_km"
+                                    class="form-control form-control-sm @error('distance_km') is-invalid @enderror"
+                                    min="0" value="{{ old('distance_km', 0) }}" placeholder="Ex: 125000 km">
+                                @error('distance_km')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -233,33 +261,6 @@
                                 </select>
                             </div> --}}
 
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="statut" class="form-label">Statut mission<span class="text-danger">
-                                    *</span></label>
-                            <select name="statut" id="statut" class="form-select form-select-sm">
-                                <option value="">-- Choisir un statut --</option>
-                                <option value="planifiee"
-                                    {{ old('statut', $mission->statut ?? '') == 'planifiee' ? 'selected' : '' }}>
-                                    Planifiée
-                                </option>
-                                <option value="en_cours"
-                                    {{ old('statut', $mission->statut ?? '') == 'en_cours' ? 'selected' : '' }}>En
-                                    cours
-                                </option>
-                                <option value="terminee"
-                                    {{ old('statut', $mission->statut ?? '') == 'terminee' ? 'selected' : '' }}>
-                                    Terminée
-                                </option>
-                                <option value="annulee"
-                                    {{ old('statut', $mission->statut ?? '') == 'annulee' ? 'selected' : '' }}>
-                                    Annulée
-                                </option>
-                            </select>
-                            @error('statut')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
 
                         <div class="d-flex gap-2">

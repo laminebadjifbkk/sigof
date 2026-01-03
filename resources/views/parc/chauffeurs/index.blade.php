@@ -103,10 +103,11 @@
             <table class="table table-hover table-striped shadow-sm" id="table-parc-chauffeur">
                 <thead class="table-dark">
                     <tr>
-                        <th class="text-center" width="8%">Matricule</th>
+                        <th class="text-center" width="10%">Matricule</th>
                         <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Téléphone</th>
+                        {{-- <th>Prénom</th> --}}
+                        {{-- <th>Téléphone</th> --}}
+                        <th class="text-center" width="15%">Missions {{ now()->year }}</th>
                         <th class="text-center" width="12%">N° permis</th>
                         {{-- <th class="text-center" width="12%">Catégorie</th> --}}
                         <th>Permis expire</th>
@@ -118,9 +119,14 @@
                     @foreach ($chauffeurs as $chauffeur)
                         <tr>
                             <td class="text-center">{{ $chauffeur->matricule }}</td>
-                            <td>{{ $chauffeur->nom }}</td>
-                            <td>{{ $chauffeur->prenom }}</td>
-                            <td>{{ $chauffeur->telephone }}</td>
+                            <td>{{ $chauffeur->prenom }} {{ $chauffeur->nom }}</td>
+                            <td class="text-center">
+                                <span class="badge bg-secondary">
+                                    {{ $chauffeur->missions_annee_count }}
+                                </span>
+                            </td>
+                            {{-- <td>{{ $chauffeur->prenom }}</td> --}}
+                            {{-- <td>{{ $chauffeur->telephone }}</td> --}}
                             <td class="text-center">{{ $chauffeur->permis_numero }}</td>
                             {{-- <td class="text-center">{{ $chauffeur->permis_categories }}</td> --}}
                             {{-- <td>{{ $chauffeur->permis_expire_le->format('d/m/Y') }}</td> --}}
@@ -165,12 +171,15 @@
 @push('scripts')
     <script>
         new DataTable('#table-parc-chauffeur', {
-            ordering: false, // désactive le tri automatique
+            ordering: true, // désactive le tri automatique
             layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
+            /* "order": [
+                [2, 'desc']
+            ], */
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",

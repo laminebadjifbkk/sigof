@@ -30,7 +30,7 @@ class StoreParcMissionRequest extends FormRequest
             // Nouveaux champs
             'departement' => 'nullable|string|max:255',
             'region' => 'nullable|string|max:255',
-            'itineraire' => 'nullable|string',
+            'itineraire' => 'required|string',
             'taux_journalier' => 'nullable|numeric|min:0',
             'indemnite_mission' => 'nullable|numeric|min:0',
             'frais_deplacement' => 'nullable|numeric|min:0',
@@ -38,7 +38,7 @@ class StoreParcMissionRequest extends FormRequest
             'reliquat' => 'nullable|numeric|min:0',
             'commentaires' => 'nullable|string',
             'autres' => 'nullable|string',
-            'type_mission_id' => 'nullable|exists:parc_type_missions,id',
+            'type_mission_id' => 'required|exists:parc_type_missions,id',
         ];
     }
 

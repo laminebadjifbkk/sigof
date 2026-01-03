@@ -17,8 +17,15 @@ class ParcChauffeurController extends Controller
 
     public function index(Request $request)
     {
-        $chauffeurs = ParcChauffeur::query();
+        /* $chauffeurs = ParcChauffeur::query(); */
+        $annee = now()->year;
 
+        $chauffeurs = ParcChauffeur::query()
+            ->withCount([
+                'missions as missions_annee_count' => function ($query) use ($annee) {
+                    $query->whereYear('date_depart', $annee);
+                }
+            ]);
         // Récupérer l'état depuis la query string si présent
         $statutChauffeur = $request->query('statut');
 

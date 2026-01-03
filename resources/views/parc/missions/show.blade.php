@@ -37,6 +37,10 @@
                     <table class="table table-striped table-hover align-middle">
                         <tbody>
                             <tr>
+                                <th>Type de mission</th>
+                                <td>{{ $mission->typeMission?->libelle ?? '-' }}</td>
+                            </tr>
+                            <tr>
                                 <th>Objet</th>
                                 <td>{{ $mission->objet }}</td>
                             </tr>
@@ -53,6 +57,10 @@
                             <tr>
                                 <th>Itinéraire</th>
                                 <td>{{ $mission->itineraire }}</td>
+                            </tr>
+                            <tr>
+                                <th>Distance</th>
+                                <td>{{ number_format($mission?->distance_km, 0, ',', ' ') . ' km' }}</td>
                             </tr>
                             <tr>
                                 <th>Dates</th>
@@ -81,27 +89,21 @@
                                 <th>Reliquat</th>
                                 <td>{{ number_format($mission->reliquat, 0, ',', ' ') }} F CFA</td>
                             </tr>
-                            <tr>
-                                <th>Type de mission</th>
-                                <td>{{ $mission->typeMission?->name ?? '-' }}</td>
-                            </tr>
 
                             <tr>
                                 <th>Véhicules</th>
                                 <td>
-                                    @if ($mission->vehicules->isEmpty())
-                                        -
-                                    @else
-                                        <ul class="mb-0">
-                                            @foreach ($mission->vehicules as $vehicule)
-                                                <li>
-                                                    {{ $vehicule->immatriculation }} - {{ $vehicule->marque }}
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
+                                    {{ $mission->vehicules->isEmpty() ? '-' : $mission->vehicules->count() }}
                                 </td>
                             </tr>
+
+                            <tr>
+                                <th>Agents</th>
+                                <td>
+                                    {{ $mission->employees->isEmpty() ? '-' : $mission->employees->count() }}
+                                </td>
+                            </tr>
+
                             <tr>
                                 <th>Statut</th>
                                 <td>{{ ucfirst($mission->statut) }}</td>
