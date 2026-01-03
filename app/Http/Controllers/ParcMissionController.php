@@ -158,7 +158,7 @@ class ParcMissionController extends Controller
         return redirect()->route('parc-missions.index')->with('status', 'Mission supprimée avec succès');
     }
 
-    public function editEmployees(ParcMission $mission)
+   /*  public function editEmployees(ParcMission $mission)
     {
         // Récupérer les IDs des employés qui sont des chauffeurs
         $chauffeurIds = ParcChauffeur::pluck('employee_id')->toArray();
@@ -188,7 +188,7 @@ class ParcMissionController extends Controller
         $mission->employees()->sync($syncData);
 
         return redirect()->back()->with('status', 'Employés de la mission mis à jour avec succès.');
-    }
+    } */
 
     public function editVehicules(ParcMission $mission)
     {
@@ -219,7 +219,7 @@ class ParcMissionController extends Controller
         return redirect()->back()->with('status', 'Véhicules de la mission mis à jour avec succès');
     }
 
-    public function editChauffeurs(ParcMission $mission)
+   /*  public function editChauffeurs(ParcMission $mission)
     {
         // Tous les chauffeurs avec leurs employés liés
         $chauffeurs = ParcChauffeur::with('employee.user')->get();
@@ -260,6 +260,60 @@ class ParcMissionController extends Controller
         }
 
         return redirect()->back()->with('status', 'Chauffeurs de la mission mis à jour avec succès.');
+    }
+ */
+
+    public function editPersonnel(ParcMission $mission)
+    {
+        $chauffeurs = ParcChauffeur::with('employee.user')->get();
+        $chauffeurIds = $chauffeurs->pluck('employee_id')->toArray();
+
+        $missionChauffeurs = $mission->employees()
+            ->whereIn('employees.id', $chauffeurIds)
+            ->get();
+
+        $employees = Employee::whereNotIn('id', $chauffeurIds)
+            ->with('user')
+            ->get();
+
+        return view('parc.missions.edit-personnel', compact(
+            'mission',
+            'chauffeurs',
+            'missionChauffeurs',
+            'employees'
+        ));
+    }
+
+    public function updatePersonnel(Request $request, ParcMission $mission)
+    {
+        $syncData = [];
+
+        // ===== Chauffeurs =====
+        foreach ($request->input('chauffeurs', []) as $chauffeurId => $data) {
+            if (!empty($data['selected'])) {
+                $employeeId = ParcChauffeur::find($chauffeurId)?->employee_id;
+                if ($employeeId) {
+                    $syncData[$employeeId] = [
+                        'role' => 'chauffeur',
+                        'vehicule_id' => null
+                    ];
+                }
+            }
+        }
+
+        // ===== Employés =====
+        foreach ($request->input('employees', []) as $employeeId => $data) {
+            if (!empty($data['selected'])) {
+                $syncData[$employeeId] = [
+                    'role' => $data['role'] ?? 'participant',
+                    'vehicule_id' => $data['vehicule_id'] ?? null,
+                ];
+            }
+        }
+
+        $mission->employees()->sync($syncData);
+
+        return back()->with('status', 'Personnel de la mission mis à jour avec succès.');
     }
 
     public function ordreMission($id)

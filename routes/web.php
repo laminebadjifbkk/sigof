@@ -796,14 +796,21 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/formulaires/{id}/certificat', [FormulaireController::class, 'editCertificat'])->name('formulaires.certificat.edit');
         Route::put('/formulaires/{id}/certificat', [FormulaireController::class, 'updateCertificat'])->name('formulaires.certificat.update');
 
-        Route::get('parc-missions/{mission}/employees/edit', [ParcMissionController::class, 'editEmployees'])->name('parc-missions.employees.edit');
-        Route::put('parc-missions/{mission}/employees', [ParcMissionController::class, 'updateEmployees'])->name('parc-missions.employees.update');
+        /* Route::get('parc-missions/{mission}/employees/edit', [ParcMissionController::class, 'editEmployees'])->name('parc-missions.employees.edit');
+        Route::put('parc-missions/{mission}/employees', [ParcMissionController::class, 'updateEmployees'])->name('parc-missions.employees.update'); */
 
         Route::get('parc-missions/{mission}/vehicules/edit', [ParcMissionController::class, 'editVehicules'])->name('parc-missions.vehicules.edit');
         Route::put('parc-missions/{mission}/vehicules', [ParcMissionController::class, 'updateVehicules'])->name('parc-missions.vehicules.update');
 
-        Route::get('parc-missions/{mission}/chauffeurs/edit', [ParcMissionController::class, 'editChauffeurs'])->name('parc-missions.chauffeurs.edit');
-        Route::put('parc-missions/{mission}/chauffeurs', [ParcMissionController::class, 'updateChauffeurs'])->name('parc-missions.chauffeurs.update');
+        /* Route::get('parc-missions/{mission}/chauffeurs/edit', [ParcMissionController::class, 'editChauffeurs'])->name('parc-missions.chauffeurs.edit');
+        Route::put('parc-missions/{mission}/chauffeurs', [ParcMissionController::class, 'updateChauffeurs'])->name('parc-missions.chauffeurs.update'); */
+
+        Route::get('parc-missions/{mission}/personnel/edit', [ParcMissionController::class, 'editPersonnel'])->name('parc-missions.personnel.edit');
+        Route::put(
+            '/parc-missions/{mission}/personnel',
+            [ParcMissionController::class, 'updatePersonnel']
+        )->name('parc-missions.personnel.update');
+
 
         // Génération du PDF pour une mission
         Route::get('parc-missions/{mission}/pdf', [ParcMissionController::class, 'ordreMission'])

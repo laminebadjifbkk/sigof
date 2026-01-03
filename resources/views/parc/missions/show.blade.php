@@ -239,16 +239,23 @@
                 @endcan
 
                 {{-- Gestion des employés / agents --}}
-                @can('parc-mission-update')
+                {{-- @can('parc-mission-update')
                     <a href="{{ route('parc-missions.employees.edit', $mission->id) }}" class="btn btn-info btn-sm">
                         <i class="bi bi-people"></i> Ajouter / Modifier Agents
                     </a>
-                @endcan
+                @endcan --}}
 
                 {{-- Gestion des chauffeurs --}}
-                @can('parc-mission-update')
+                {{-- @can('parc-mission-update')
                     <a href="{{ route('parc-missions.chauffeurs.edit', $mission->id) }}" class="btn btn-secondary btn-sm">
                         <i class="bi bi-truck"></i> Ajouter / Modifier Chauffeurs
+                    </a>
+                @endcan --}}
+                
+                {{-- Gestion des chauffeurs --}}
+                @can('parc-mission-update')
+                    <a href="{{ route('parc-missions.personnel.edit', $mission->id) }}" class="btn btn-info btn-sm">
+                        <i class="bi bi-truck"></i> Ajouter / Modifier Personnel
                     </a>
                 @endcan
 
