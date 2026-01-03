@@ -13,7 +13,7 @@
 
             <div class="card shadow-sm mb-4">
                 <div class="card-header bg-dark text-white">
-                    <strong>{{ $chauffeur?->employee->matricule }}</strong> - {{ $chauffeur?->employee?->user?->firstname }}
+                    <strong>{{ $chauffeur?->employee?->matricule }}</strong> - {{ $chauffeur?->employee?->user?->firstname }}
                     {{ $chauffeur?->employee?->user?->name }}
                 </div>
                 <div class="card-body">
@@ -23,11 +23,11 @@
                                 <th>Nombre de missions total</th>
                                 <td class="d-flex justify-content-between align-items-center">
                                     <span class="badge bg-primary">
-                                        {{ $chauffeur->employee->parcmissions->count() }}
+                                        {{ $chauffeur?->employee?->parcmissions->count() }}
                                     </span>
 
                                     {{-- Bouton Voir les missions, aligné complètement à droite --}}
-                                    @if ($chauffeur->employee->parcmissions->isNotEmpty())
+                                    @if ($chauffeur?->employee?->parcmissions?->isNotEmpty())
                                         <a href="{{ route('chauffeurs.missions.show', $chauffeur->id) }}"
                                             class="btn btn-sm btn-info ms-auto">
                                             <i class="bi bi-eye"></i> Voir
