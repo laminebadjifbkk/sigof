@@ -54,8 +54,12 @@ class ParcChauffeurController extends Controller
 
     public function create()
     {
+        /* $employes = Employee::whereDoesntHave('chauffeur')
+            ->get(); */
         $employes = Employee::whereDoesntHave('chauffeur')
-            ->get();
+            ->with('user') // pour accéder aux champs du user
+            ->get()
+            ->sortBy(fn($e) => $e->user->name); // tri croissant par nom
 
         return view('parc.chauffeurs.create', compact('employes'));
     }
