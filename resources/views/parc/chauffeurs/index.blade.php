@@ -77,7 +77,7 @@
                 @endforeach
             </div>
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 class="mb-0">Liste des chauffeurs</h3>
+                <h3 class="mb-0">Liste des chauffeurs {{ $statut }}</h3>
                 <a href="{{ route('parc-chauffeurs.create') }}" class="btn btn-sm btn-primary">
                     <i class="bi bi-person-plus"></i> Ajouter un chauffeur
                 </a>
