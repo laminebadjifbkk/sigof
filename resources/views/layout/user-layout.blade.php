@@ -225,6 +225,9 @@
         .annulee {
             background-color: #dc3545;
         }
+        .indisponible {
+            background-color: #dc3545;
+        }
 
         /* rouge (Bootstrap danger) */
         .operationnel {
