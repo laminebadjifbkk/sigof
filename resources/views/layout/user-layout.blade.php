@@ -221,6 +221,11 @@
             /* cyan */
         }
 
+        .en_mission {
+            color: #0aa2c0;
+            /* cyan */
+        }
+
         .terminee,
         .actif,
         .operationnel {

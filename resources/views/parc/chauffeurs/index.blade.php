@@ -13,11 +13,11 @@
                         </h6>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                             <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
-                                style="width:36px; height:36px; font-size:1rem;">
+                                style="width:28px; height:28px; font-size:1rem;">
                                 <i class="bi bi-flag"></i>
                             </div>
                             <span class="h6 mb-0" style="font-size:1rem;">{{ $totalChauffeurs }}</span>
-                            <small class="text-muted" style="font-size:0.7rem;">chauffeur(s)</small>
+                            {{-- <small class="text-muted" style="font-size:0.7rem;">chauffeur(s)</small> --}}
                         </div>
 
                         <!-- Barre de pourcentage -->
@@ -40,21 +40,25 @@
                         <div class="card shadow-sm text-center p-2" style="min-height: 120px; border-radius: 10px;">
 
                             <!-- Statut_s -->
-                            <h6 class="card-title mb-2 text-truncate" title="{{ $statut_s }}"
-                                style="font-size: 0.85rem;">
-                                {{ $statut_s }}
+                            <h6 class="card-title mb-2 text-truncate" title="Chauffeurs" style="font-size: 0.85rem;">
+                                Chauffeurs
                             </h6>
 
+                            <!-- Badge Statut_s -->
+                            <span class="etat-btn {{ $statut_s }}">
+                                {{ ucfirst(str_replace('_', ' ', $statut_s)) }}
+                            </span>
+
                             <!-- Nombre et icône -->
-                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
-                                <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2 mt-2">
+                                {{-- <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
                                     style="width: 36px; height: 36px; font-size: 1rem;">
                                     <i class="bi bi-flag"></i>
-                                </div>
+                                </div> --}}
                                 <span class="h6 mb-0" style="font-size: 1rem;">
                                     {{ $items->count() }}
                                 </span>
-                                <small class="text-muted" style="font-size: 0.7rem;">chauffeur(s)</small>
+                                {{-- <small class="text-muted" style="font-size: 0.7rem;">chauffeur(s)</small> --}}
                             </div>
 
                             <!-- Pourcentage -->
@@ -78,7 +82,7 @@
             </div>
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3 class="mb-0">Liste des chauffeurs <span
-                        class="etat-btn {{ $statut }}">{{ $statut }}</span></h3>
+                        class="etat-btn {{ $statut }}">{{ str_replace('_', ' ', $statut) }}</span></h3>
                 <a href="{{ route('parc-chauffeurs.create') }}" class="btn btn-sm btn-primary">
                     <i class="bi bi-person-plus"></i> Ajouter un chauffeur
                 </a>

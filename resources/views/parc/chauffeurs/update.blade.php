@@ -98,6 +98,10 @@
                                         {{ old('statut', $chauffeur->statut) == 'indisponible' ? 'selected' : '' }}>
                                         Indisponible
                                     </option>
+                                    <option value="en_mission"
+                                        {{ old('statut', $chauffeur->statut) == 'en_mission' ? 'selected' : '' }}>
+                                        En mission
+                                    </option>
                                 </select>
                             </div>
                         </div>

@@ -37,7 +37,7 @@ class UpdateParcChauffeurRequest extends FormRequest
             'permis_numero' => 'nullable|string|max:30',
             'permis_categories' => 'nullable|string|max:50',
             'permis_expire_le' => 'nullable|date|after_or_equal:today',
-            'statut' => 'required|in:actif,indisponible,archive',
+            'statut' => 'required|in:actif,indisponible,archive,en_mission',
         ];
     }
 
@@ -51,7 +51,7 @@ class UpdateParcChauffeurRequest extends FormRequest
             'matricule.unique' => 'Ce matricule est déjà attribué à un autre chauffeur.',
             'nom.required' => 'Le nom est obligatoire.',
             'permis_expire_le.after_or_equal' => 'La date d’expiration du permis doit être aujourd’hui ou une date future.',
-            'statut.in' => 'Le statut doit être soit "actif" soit "indisponible".',
+            'statut.in' => 'Le statut doit être soit "actif" soit "en mission" soit "indisponible".',
         ];
     }
 }
