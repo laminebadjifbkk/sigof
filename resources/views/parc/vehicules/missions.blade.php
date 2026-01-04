@@ -5,7 +5,8 @@
     <section class="section">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3>Missions du véhicule {{ $vehicule?->immatriculation }} - {{ $vehicule?->marque }} {{ $vehicule?->modele }}</h3>
+                <h3>Missions du véhicule {{ $vehicule?->immatriculation }} - {{ $vehicule?->marque }}
+                    {{ $vehicule?->modele }}</h3>
                 <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm">
                     <i class="bi bi-arrow-left-circle"></i> Retour
                 </a>
@@ -29,7 +30,10 @@
 
                         <div class="d-flex justify-content-between align-items-center mb-2 p-3 border rounded shadow-sm">
                             <div>
-                                <strong>{{ $cm->reference }}</strong> - {{ $cm->objet }}
+                                <a href="{{ route('parc-missions.show', $cm->id) }}" class="text-decoration-none">
+                                    <strong>{{ $cm->reference }}</strong>
+                                </a>
+                                - {{ $cm->objet }}
                             </div>
                             <div class="text-end">
                                 <span class="badge bg-secondary">

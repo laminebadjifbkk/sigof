@@ -29,7 +29,10 @@
 
                         <div class="d-flex justify-content-between align-items-center mb-2 p-3 border rounded shadow-sm">
                             <div>
-                                <strong>{{ $cm->reference }}</strong> - {{ $cm->objet }}
+                                <a href="{{ route('parc-missions.show', $cm->id) }}" class="text-decoration-none">
+                                    <strong>{{ $cm->reference }}</strong>
+                                </a>
+                                - {{ $cm->objet }}
                             </div>
                             <div class="text-end">
                                 <span class="badge bg-secondary">
