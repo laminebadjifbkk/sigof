@@ -35,14 +35,14 @@
                         </a>
                     </div>
                 </div>
-                @foreach ($groupes as $statut => $items)
+                @foreach ($groupes as $statut_s => $items)
                     <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
                         <div class="card shadow-sm text-center p-2" style="min-height: 120px; border-radius: 10px;">
 
-                            <!-- Statut -->
-                            <h6 class="card-title mb-2 text-truncate" title="{{ $statut }}"
+                            <!-- Statut_s -->
+                            <h6 class="card-title mb-2 text-truncate" title="{{ $statut_s }}"
                                 style="font-size: 0.85rem;">
-                                {{ $statut }}
+                                {{ $statut_s }}
                             </h6>
 
                             <!-- Nombre et icône -->
@@ -61,13 +61,13 @@
                             <div class="mb-2">
                                 <div class="progress" style="height:6px; border-radius:3px;">
                                     <div class="progress-bar bg-success" role="progressbar"
-                                        style="width: {{ $statutPourcentages[$statut]['percent'] }}%;"></div>
+                                        style="width: {{ $statutPourcentages[$statut_s]['percent'] }}%;"></div>
                                 </div>
-                                <small class="text-muted">{{ $statutPourcentages[$statut]['percent'] }}%</small>
+                                <small class="text-muted">{{ $statutPourcentages[$statut_s]['percent'] }}%</small>
                             </div>
 
                             <!-- Bouton voir plus -->
-                            <a href="{{ route('parc-chauffeurs.index', ['statut' => $statut]) }}"
+                            <a href="{{ route('parc-chauffeurs.index', ['statut' => $statut_s]) }}"
                                 class="btn btn-outline-primary btn-sm w-100" style="font-size: 0.75rem;">
                                 Voir plus <i class="bi bi-arrow-right-short"></i>
                             </a>
