@@ -134,7 +134,7 @@
                                 <label for="kilometrage_actuel" class="form-label">Kilométrage actuel</label>
                                 <input type="number" name="kilometrage_actuel" id="kilometrage_actuel"
                                     class="form-control form-control-sm @error('kilometrage_actuel') is-invalid @enderror"
-                                    min="0" value="{{ old('kilometrage_actuel', 0) }}" min="0">
+                                    min="0" step="1" value="{{ old('kilometrage_actuel', 0) }}">
                                 @error('kilometrage_actuel')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
