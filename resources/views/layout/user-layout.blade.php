@@ -220,6 +220,9 @@
         .terminee {
             background-color: #198754;
         }
+        .actif {
+            background-color: #198754;
+        }
 
         /* vert (Bootstrap success) */
         .annulee {
