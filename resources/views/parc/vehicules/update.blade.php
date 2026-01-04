@@ -69,9 +69,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="annee" class="form-label">
-                                    Année <span class="text-danger mx-1">*</span>
-                                </label>
+                                <label for="annee" class="form-label">Année</label>
                                 <input type="number" name="annee"
                                     class="form-control form-control-sm @error('annee') is-invalid @enderror"
                                     value="{{ old('annee', $vehicule->annee ?? '') }}" placeholder="2020" min="2010"

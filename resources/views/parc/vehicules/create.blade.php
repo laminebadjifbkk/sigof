@@ -5,7 +5,7 @@
     <section class="section register">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h1 class="mb-0">Ajouter un véhicule</h1>
+                <h3 class="mb-0">Ajouter un véhicule</h3>
                 <a href="{{ route('parc-vehicules.index') }}" class="btn btn-outline-secondary btn-sm">
                     <i class="bi bi-arrow-left-circle"></i> Retour à la liste
                 </a>
@@ -67,9 +67,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="annee" class="form-label">
-                                    Année <span class="text-danger mx-1">*</span>
-                                </label>
+                                <label for="annee" class="form-label">Année</label>
                                 <input type="number" name="annee"
                                     class="form-control form-control-sm @error('annee') is-invalid @enderror"
                                     value="{{ old('annee', $vehicule->annee ?? '') }}" placeholder="2020" min="2010"
