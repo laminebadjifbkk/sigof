@@ -30,14 +30,14 @@ class UpdateMissionStatus extends Command
                 foreach ($mission->employees as $employee) {
                     $chauffeur = $employee->chauffeur; // récupérer le chauffeur lié
                     if ($chauffeur) {
-                        $chauffeur->statut = 'indisponible'; // ou 'actif'
+                        $chauffeur->statut = 'en_mission';
                         $chauffeur->save();
                     }
                 }
 
                 // Véhicules hors service
                 foreach ($mission->vehicules as $vehicule) {
-                    $vehicule->etat = 'hors_service';
+                    $vehicule->etat = 'en_mission';
                     $vehicule->save();
                 }
             }
@@ -58,14 +58,14 @@ class UpdateMissionStatus extends Command
                 foreach ($mission->employees as $employee) {
                     $chauffeur = $employee->chauffeur; // récupérer le chauffeur lié
                     if ($chauffeur) {
-                        $chauffeur->statut = 'actif'; // ou 'actif'
+                        $chauffeur->statut = 'disponible'; 
                         $chauffeur->save();
                     }
                 }
 
-                // Véhicules opérationnels
+                // Véhicules disponible
                 foreach ($mission->vehicules as $vehicule) {
-                    $vehicule->etat = 'operationnel';
+                    $vehicule->etat = 'disponible';
                     $vehicule->save();
                 }
             }
