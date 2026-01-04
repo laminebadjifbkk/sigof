@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
@@ -30,6 +31,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('email:send-evaluation-reminders')->dailyAt('08:20');
         $schedule->command('formation:start')->dailyAt('08:30');        // Démarre les formations prévues pour aujourd'hui à 08h30
         $schedule->command('notify:formation-start')->dailyAt('08:35'); // Informer les collègues du Démarre les formations prévues pour aujourd'hui à 08h35
+
+        // Vérifie toutes les 5 minutes
+        $schedule->command('missions:update-status')->everyFiveMinutes();
     }
 
     /**
