@@ -32,8 +32,11 @@ class Kernel extends ConsoleKernel
         $schedule->command('formation:start')->dailyAt('08:30');        // Démarre les formations prévues pour aujourd'hui à 08h30
         $schedule->command('notify:formation-start')->dailyAt('08:35'); // Informer les collègues du Démarre les formations prévues pour aujourd'hui à 08h35
 
-        // Vérifie toutes les 5 minutes
-        $schedule->command('missions:update-status')->everyFiveMinutes();
+        // Lancer la commande tous les jours à 08h00
+        $schedule->command('missions:update-status')->dailyAt('08:00');
+
+        // Lancer la commande tous les jours à 17h00
+        $schedule->command('missions:update-status')->dailyAt('17:00');
     }
 
     /**

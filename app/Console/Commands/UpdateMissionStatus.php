@@ -14,53 +14,63 @@ class UpdateMissionStatus extends Command
     public function handle()
     {
         $now = Carbon::now();
+        $hour = $now->format('H');
 
-        // Missions à démarrer à 08h
-        $missionsStart = ParcMission::where('statut', '!=', 'en_cours')
-            ->whereDate('date_depart', $now->toDateString())
-            ->whereTime('date_depart', '<=', $now->toTimeString())
-            ->get();
+        if ($hour == 8) {
+            // 08h00 -> Démarrer les missions
+            $missions = ParcMission::where('statut', '!=', 'en_cours')
+                ->whereDate('date_depart', $now->toDateString())
+                ->get();
 
-        foreach ($missionsStart as $mission) {
-            $mission->statut = 'en_cours';
-            $mission->save();
+            foreach ($missions as $mission) {
+                $mission->statut = 'en_cours';
+                $mission->save();
 
-            // Mettre les chauffeurs indisponibles
-            foreach ($mission->employees as $chauffeur) {
-                $chauffeur->statut = 'indisponible';
-                $chauffeur->save();
+                // Chauffeurs indisponibles
+                foreach ($mission->employees as $employee) {
+                    $chauffeur = $employee->chauffeur; // récupérer le chauffeur lié
+                    if ($chauffeur) {
+                        $chauffeur->statut = 'indisponible'; // ou 'actif'
+                        $chauffeur->save();
+                    }
+                }
+
+                // Véhicules hors service
+                foreach ($mission->vehicules as $vehicule) {
+                    $vehicule->etat = 'hors_service';
+                    $vehicule->save();
+                }
             }
 
-            // Mettre les véhicules hors service
-            foreach ($mission->vehicules as $vehicule) {
-                $vehicule->etat = 'hors_service';
-                $vehicule->save();
-            }
+            $this->info('Missions démarrées et statuts mis à jour à 08h00.');
         }
 
-        // Missions à clôturer à 17h
-        $missionsEnd = ParcMission::where('statut', 'en_cours')
-            ->whereDate('date_retour', $now->toDateString())
-            ->whereTime('date_retour', '<=', $now->toTimeString())
-            ->get();
+        if ($hour == 17) {
+            // 17h00 -> Clôturer les missions
+            $missions = ParcMission::where('statut', 'en_cours')
+                ->whereDate('date_retour', $now->toDateString())
+                ->get();
 
-        foreach ($missionsEnd as $mission) {
-            $mission->statut = 'cloturee';
-            $mission->save();
+            foreach ($missions as $mission) {
+                $mission->statut = 'cloturee';
+                $mission->save();
 
-            // Revenir les chauffeurs actifs
-            foreach ($mission->employees as $chauffeur) {
-                $chauffeur->statut = 'actif';
-                $chauffeur->save();
+                foreach ($mission->employees as $employee) {
+                    $chauffeur = $employee->chauffeur; // récupérer le chauffeur lié
+                    if ($chauffeur) {
+                        $chauffeur->statut = 'actif'; // ou 'actif'
+                        $chauffeur->save();
+                    }
+                }
+
+                // Véhicules opérationnels
+                foreach ($mission->vehicules as $vehicule) {
+                    $vehicule->etat = 'operationnel';
+                    $vehicule->save();
+                }
             }
 
-            // Remettre les véhicules operationnels
-            foreach ($mission->vehicules as $vehicule) {
-                $vehicule->etat = 'operationnel';
-                $vehicule->save();
-            }
+            $this->info('Missions clôturées et statuts mis à jour à 17h00.');
         }
-
-        $this->info('Missions, chauffeurs et véhicules mis à jour.');
     }
 }
