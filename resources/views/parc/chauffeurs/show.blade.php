@@ -77,8 +77,8 @@
                             <tr>
                                 <th>Statut</th>
                                 <td>
-                                    <span class="badge {{ $chauffeur?->statut == 'actif' ? 'bg-success' : 'bg-danger' }}">
-                                        {{ ucfirst($chauffeur?->statut) }}
+                                    <span class="etat-btn {{ $chauffeur?->statut }}">
+                                        {{ ucfirst(str_replace('_', ' ', $chauffeur?->statut)) }}
                                     </span>
                                 </td>
                             </tr>
