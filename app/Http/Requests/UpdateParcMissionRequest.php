@@ -25,7 +25,7 @@ class UpdateParcMissionRequest extends FormRequest
             'date_retour' => 'nullable|date|after_or_equal:date_depart',
             'distance_km' => 'nullable|integer|min:0',
             'indemnites_total' => 'nullable|numeric|min:0',
-            'statut' => 'required|in:planifiee,en_cours,terminee,annulee',
+            'statut' => 'required|in:planifiee,en_cours,cloturee,annulee',
         ];
     }
 }
