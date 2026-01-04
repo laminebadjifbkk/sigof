@@ -336,7 +336,8 @@ class ParcMissionController extends Controller
 
         $employees = Employee::whereNotIn('id', $chauffeurIds)
             ->with('user')
-            ->get();
+            ->get()
+            ->sortBy(fn($e) => $e->user->name);
 
         return view('parc.missions.edit-personnel', compact(
             'mission',

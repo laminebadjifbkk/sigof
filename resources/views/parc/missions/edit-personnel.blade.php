@@ -202,7 +202,7 @@
                                     <input type="checkbox" name="employees[{{ $employee->id }}][selected]" value="1"
                                         {{ $pivot ? 'checked' : '' }}>
                                     {{ $employee->matricule }} -
-                                    {{ $employee->user->firstname }} {{ $employee->user->name }}
+                                    {{ $employee->user->name }} {{ $employee->user->firstname }}
                                 </div>
 
                                 <div class="col-md-4">

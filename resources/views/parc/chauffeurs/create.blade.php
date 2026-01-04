@@ -160,8 +160,8 @@
                                     <option value="{{ $employe->id }}" data-matricule="{{ $employe->matricule }}"
                                         data-nom="{{ $employe->user->name }}" data-prenom="{{ $employe->user->firstname }}"
                                         data-telephone="{{ $employe->user->telephone }}">
-                                        {{ $employe->matricule }} - {{ $employe->user->firstname }}
-                                        {{ $employe->user->name }}
+                                        {{ $employe->user->name . ' ' . $employe->user->firstname . ' - ' . $employe->matricule }}
+
                                     </option>
                                 @endforeach
                             </select>
