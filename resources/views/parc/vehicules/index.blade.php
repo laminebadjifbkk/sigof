@@ -9,14 +9,14 @@
                 <!-- Card total véhicules -->
                 <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                     <div class="card shadow-sm text-center p-2" style="min-height: 140px; border-radius: 10px;">
-                        <h6 class="card-title mb-2 text-truncate" title="Total véhicules" style="font-size:0.85rem;">Total</h6>
+                        <h6 class="card-title mb-2 text-truncate" title="Total véhicules" style="font-size:0.85rem;">Véhicules total</h6>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                             <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
-                                style="width:36px; height:36px; font-size:1rem;">
+                                style="width:28px; height:28px; font-size:1rem;">
                                 <i class="bi bi-car-front"></i>
                             </div>
                             <span class="h6 mb-0" style="font-size:1rem;">{{ $totalVehicules }}</span>
-                            <small class="text-muted" style="font-size:0.7rem;">véhicule(s)</small>
+                            {{-- <small class="text-muted" style="font-size:0.7rem;">véhicule(s)</small> --}}
                         </div>
                         <div class="mb-2">
                             <div class="progress" style="height:6px; border-radius:3px;">
@@ -51,7 +51,7 @@
                             <!-- Nombre de véhicules -->
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2 mt-2">
                                 <span class="h6 mb-0" style="font-size:1rem;">{{ $items->count() }}</span>
-                                <small class="text-muted" style="font-size:0.7rem;">véhicule(s)</small>
+                                {{-- <small class="text-muted" style="font-size:0.7rem;">véhicule(s)</small> --}}
                             </div>
 
                             <!-- Barre de pourcentage -->

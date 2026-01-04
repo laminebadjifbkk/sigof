@@ -8,8 +8,8 @@
                 <!-- Total missions -->
                 <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                     <div class="card shadow-sm text-center p-2" style="min-height: 140px; border-radius: 10px;">
-                        <h6 class="card-title mb-2 text-truncate" title="Total missions" style="font-size:0.85rem;">
-                            Total
+                        <h6 class="card-title mb-2 text-truncate missions-title" title="Total missions">
+                            Missions total
                         </h6>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                             <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
@@ -17,7 +17,7 @@
                                 <i class="bi bi-flag"></i>
                             </div>
                             <span class="h6 mb-0" style="font-size:1rem;">{{ $totalMissions }}</span>
-                            <small class="text-muted" style="font-size:0.7rem;">mission(s)</small>
+                            {{-- <small class="text-muted" style="font-size:0.7rem;">mission(s)</small> --}}
                         </div>
 
                         <!-- Barre de pourcentage -->
@@ -39,16 +39,20 @@
                 <!-- Missions de l'année en cours -->
                 <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                     <div class="card shadow-sm text-center p-2" style="min-height: 140px; border-radius: 10px;">
-                        <h6 class="card-title mb-2 text-truncate" title="Missions cette année" style="font-size:0.85rem;">
+                        {{-- <h6 class="card-title mb-2 text-truncate" title="Missions cette année" style="font-size:0.85rem;">
                             Cette année
+                        </h6> --}}
+                        <h6 class="card-title mb-2 text-truncate missions-title" title="Missions cette année">
+                            Année {{ now()->year }}
                         </h6>
+
                         <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                             <div class="rounded-circle bg-success text-white d-flex justify-content-center align-items-center mb-1"
                                 style="width:36px; height:36px; font-size:1rem;">
                                 <i class="bi bi-calendar"></i>
                             </div>
                             <span class="h6 mb-0" style="font-size:1rem;">{{ $missionsAnnee }}</span>
-                            <small class="text-muted" style="font-size:0.7rem;">mission(s)</small>
+                            {{-- <small class="text-muted" style="font-size:0.7rem;">mission(s)</small> --}}
                         </div>
 
                         <!-- Barre de pourcentage -->
@@ -71,14 +75,14 @@
                     </div>
                 </div>
 
-                @foreach ($groupes as $statut => $items)
+                @foreach ($groupes as $statut_s => $items)
                     <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
                         <div class="card shadow-sm text-center p-2" style="min-height: 120px; border-radius: 10px;">
 
                             <!-- Statut -->
-                            <h6 class="card-title mb-2 text-truncate" title="{{ $statut }}"
+                            <h6 class="card-title mb-2 text-truncate" title="{{ $statut_s }}"
                                 style="font-size: 0.85rem;">
-                                {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $statut))) }}
+                                {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $statut_s))) }}
                             </h6>
 
                             <!-- Nombre et icône -->
@@ -90,20 +94,20 @@
                                 <span class="h6 mb-0" style="font-size: 1rem;">
                                     {{ $items->count() }}
                                 </span>
-                                <small class="text-muted" style="font-size: 0.7rem;">mission(s)</small>
+                                {{-- <small class="text-muted" style="font-size: 0.7rem;">mission(s)</small> --}}
                             </div>
 
                             <!-- Pourcentage -->
                             <div class="mb-2">
                                 <div class="progress" style="height:6px; border-radius:3px;">
                                     <div class="progress-bar bg-success" role="progressbar"
-                                        style="width: {{ $statutPourcentages[$statut]['percent'] }}%;"></div>
+                                        style="width: {{ $statutPourcentages[$statut_s]['percent'] }}%;"></div>
                                 </div>
-                                <small class="text-muted">{{ $statutPourcentages[$statut]['percent'] }}%</small>
+                                <small class="text-muted">{{ $statutPourcentages[$statut_s]['percent'] }}%</small>
                             </div>
 
                             <!-- Bouton voir plus -->
-                            <a href="{{ route('parc-missions.index', ['statut' => $statut]) }}"
+                            <a href="{{ route('parc-missions.index', ['statut' => $statut_s]) }}"
                                 class="btn btn-outline-primary btn-sm w-100" style="font-size: 0.75rem;">
                                 Voir plus <i class="bi bi-arrow-right-short"></i>
                             </a>
@@ -115,7 +119,28 @@
 
             @can('parc-mission-create')
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h3 class="mb-0">Liste des missions</h3>
+                    <h3 class="mb-0">
+                        Liste des missions
+                        <span class="etat-btn">
+                            @php
+                                // Vérifier si un statut est passé
+                                $labels = [
+                                    'planifiee' => 'Planifiées',
+                                    'en_cours' => 'En cours',
+                                    'terminee' => 'Terminées',
+                                    'annulee' => 'Annulées',
+                                ];
+                            @endphp
+
+                            @if (!empty(request('statut')))
+                                {{-- Si un statut est présent dans l'URL --}}
+                                {{ $labels[request('statut')] ?? ucfirst(str_replace('_', ' ', request('statut'))) }}
+                            @elseif(request('annee'))
+                                {{-- Si une année est présente dans l'URL --}}
+                                de l'année {{ request('annee') }}
+                            @endif
+                        </span>
+                    </h3>
                     <a href="{{ route('parc-missions.create') }}" class="btn btn-sm btn-primary">
                         <i class="bi bi-plus-circle"></i> Ajouter une mission
                     </a>

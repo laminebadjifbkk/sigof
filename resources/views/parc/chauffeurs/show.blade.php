@@ -21,12 +21,12 @@
                     <table class="table table-striped table-hover align-middle">
                         <tbody>
 
-                            <tr>
+                            {{-- <tr>
                                 <th>Missions en {{ now()->year }}</th>
                                 <td>
                                     <span class="badge bg-primary">{{ $chauffeurMissionsCount }}</span>
                                 </td>
-                            </tr>
+                            </tr> --}}
 
                             <tr>
                                 <th>Missions total</th>

@@ -101,7 +101,8 @@ class ParcMissionController extends Controller
             'groupes',
             'statutPourcentages',
             'totalMissions',
-            'missionsAnnee'
+            'missionsAnnee',
+            'statut'
         ));
     }
 

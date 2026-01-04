@@ -190,6 +190,15 @@
             display: inline-block;
         }
 
+        .missions-title {
+            font-size: 0.85rem;
+            /* identique à ton inline */
+            font-weight: 600;
+            /* meilleure lisibilité */
+            color: #495057;
+            /* gris lisible Bootstrap */
+        }
+
         /* Style commun à tous les boutons d'état */
         /* Style commun (si besoin) */
         .etat-btn {
