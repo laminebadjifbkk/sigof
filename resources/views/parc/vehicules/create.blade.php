@@ -134,7 +134,7 @@
                                 <label for="kilometrage_actuel" class="form-label">Kilométrage actuel</label>
                                 <input type="number" name="kilometrage_actuel" id="kilometrage_actuel"
                                     class="form-control form-control-sm @error('kilometrage_actuel') is-invalid @enderror"
-                                    min="0" value="{{ old('kilometrage_actuel', 0) }}">
+                                    min="0" value="{{ old('kilometrage_actuel', 0) }}" min="0">
                                 @error('kilometrage_actuel')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -156,8 +156,8 @@
 
                             <div class="col-md-6">
                                 <label for="capacite_reservoir" class="form-label">Capacité réservoir (en litre)</label>
-                                <input type="text" name="capacite_reservoir" class="form-control form-control-sm"
-                                    value="{{ old('capacite_reservoir') }}" placeholder="Ex: 200" min="0"
+                                <input type="number" name="capacite_reservoir" class="form-control form-control-sm"
+                                    value="{{ old('capacite_reservoir', 0) }}" placeholder="Ex: 200" min="0"
                                     step="1">
                             </div>
                         </div>
