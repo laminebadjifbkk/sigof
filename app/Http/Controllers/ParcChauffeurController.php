@@ -125,7 +125,7 @@ class ParcChauffeurController extends Controller
         return redirect()->back()->with('status', 'Chauffeur ajouté avec succès');
     }
 
-    public function show($id)
+    /*     public function show($id)
     {
         $chauffeur = ParcChauffeur::findOrFail($id);
 
@@ -135,6 +135,24 @@ class ParcChauffeurController extends Controller
             ->count();
 
         return view('parc.chauffeurs.show', compact('chauffeur', 'chauffeurMissionsCount'));
+    } */
+
+    public function show($id)
+    {
+        $chauffeur = ParcChauffeur::findOrFail($id);
+
+        // Missions du chauffeur dans l'année en cours
+        $chauffeurMissionsCount = $chauffeur->employee->missions()
+            ->whereYear('date_depart', now()->year)
+            ->count();
+
+        // Missions totales du chauffeur
+        $chauffeurMissionsTotal = $chauffeur->employee->missions()->count();
+
+        return view(
+            'parc.chauffeurs.show',
+            compact('chauffeur', 'chauffeurMissionsCount', 'chauffeurMissionsTotal')
+        );
     }
 
     public function edit($id)

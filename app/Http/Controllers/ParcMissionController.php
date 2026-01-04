@@ -248,21 +248,33 @@ class ParcMissionController extends Controller
 
     public function editVehicules(ParcMission $mission)
     {
-        // Charger tous les véhicules disponibles avec leurs chauffeurs
-        /* $vehicules = ParcVehicule::with('chauffeur')->get(); */
+        $annee = now()->year;
 
         $vehicules = ParcVehicule::with('chauffeur')
-            ->where('etat', 'Operationnel')
+            ->withCount([
+                // Nombre total de missions du véhicule
+                'missions as missions_total',
+
+                // Nombre de missions de l'année en cours
+                'missions as missions_annee' => function ($query) use ($annee) {
+                    $query->whereYear('date_depart', $annee);
+                }
+            ])
+            ->whereIn('etat', ['operationnel', 'disponible'])
             ->whereDoesntHave('missions', function ($query) {
                 $query->where('statut', 'en_cours');
             })
             ->get();
 
-        // Charger les véhicules déjà affectés à cette mission
+        // Véhicules déjà affectés à la mission (pivot chauffeur)
         $missionVehicules = $mission->vehicules()->withPivot('chauffeur_id')->get();
 
-        return view('parc.missions.edit-vehicule', compact('mission', 'vehicules', 'missionVehicules'));
+        return view(
+            'parc.missions.edit-vehicule',
+            compact('mission', 'vehicules', 'missionVehicules')
+        );
     }
+
 
     public function updateVehicules(Request $request, ParcMission $mission)
     {

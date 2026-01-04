@@ -18,33 +18,33 @@
                     {{ $chauffeur?->employee?->user?->name }}
                 </div>
                 <div class="card-body">
+
+                    <!-- Missions badges style -->
+                    <div class="row mb-4">
+                        <!-- Missions de l'année -->
+                        <div class="col-md-4 text-muted small">
+                            Missions en {{ now()->year }} : <strong>{{ $chauffeurMissionsCount }}</strong>
+                        </div>
+
+                        <!-- Missions totales -->
+                        <div class="col-md-4 text-muted small d-flex align-items-center">
+                            Total missions :&nbsp;<strong> {{ $chauffeurMissionsTotal }}</strong>
+                        </div>
+
+                        <!-- Voir -->
+                        <div class="col-md-4 text-muted small d-flex align-items-end">
+                            @if ($chauffeurMissionsTotal > 0)
+                                <a href="{{ route('chauffeurs.missions.show', $chauffeur->id) }}"
+                                    class="btn btn-outline-info btn-sm ms-auto float-end">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                            @endif
+                        </div>
+                    </div>
+
+                    <!-- Infos personnelles -->
                     <table class="table table-striped table-hover align-middle">
                         <tbody>
-
-                            {{-- <tr>
-                                <th>Missions en {{ now()->year }}</th>
-                                <td>
-                                    <span class="badge bg-primary">{{ $chauffeurMissionsCount }}</span>
-                                </td>
-                            </tr> --}}
-
-                            <tr>
-                                <th>Missions total</th>
-                                <td class="d-flex justify-content-between align-items-center">
-                                    <span class="badge bg-primary">
-                                        {{ $chauffeur?->employee?->parcmissions->count() }}
-                                    </span>
-
-                                    {{-- Bouton Voir les missions, aligné complètement à droite --}}
-                                    @if ($chauffeur?->employee?->parcmissions?->isNotEmpty())
-                                        <a href="{{ route('chauffeurs.missions.show', $chauffeur->id) }}"
-                                            class="btn btn-sm btn-info ms-auto">
-                                            <i class="bi bi-eye"></i> Voir
-                                        </a>
-                                    @endif
-                                </td>
-                            </tr>
-
                             <tr>
                                 <th style="width: 30%">Matricule</th>
                                 <td>{{ $chauffeur?->employee?->matricule }}</td>

@@ -44,7 +44,7 @@
                             </button>
                         </div>
 
-                        @foreach ($vehicules as $vehicule)
+                        {{-- @foreach ($vehicules as $vehicule)
                             <div class="row mb-2 align-items-center">
                                 <div class="col-md-6">
                                     <div class="form-check">
@@ -56,18 +56,31 @@
                                         </label>
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-6">
-                                    <select name="vehicules[{{ $vehicule->id }}][chauffeur_id]"
-                                        class="form-select form-select-sm">
-                                        <option value="">-- Aucun chauffeur --</option>
-                                        @foreach ($chauffeurs as $chauffeur)
-                                            <option value="{{ $chauffeur->id }}"
-                                                {{ optional($mission->vehicules->find($vehicule->id)?->pivot)->chauffeur_id == $chauffeur->id ? 'selected' : '' }}>
-                                                {{ $chauffeur->nom }} {{ $chauffeur->prenom }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div> --}}
+                            </div>
+                        @endforeach --}}
+                        @foreach ($vehicules as $vehicule)
+                            <div class="row mb-2 align-items-center">
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="vehicle-checkbox"
+                                            name="vehicules[{{ $vehicule->id }}][id]" value="{{ $vehicule->id }}"
+                                            {{ $mission->vehicules->contains($vehicule->id) ? 'checked' : '' }}>
+
+                                        <label class="form-check-label">
+                                            {{ $vehicule->immatriculation }} - {{ $vehicule->marque }}
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Nombre total de missions -->
+                                <div class="col-md-3 text-muted small">
+                                    Total missions : <strong>{{ $vehicule->missions_total }}</strong>
+                                </div>
+
+                                <!-- Missions de l'année -->
+                                <div class="col-md-3 text-muted small">
+                                    Missions en {{ now()->year }} : <strong>{{ $vehicule->missions_annee }}</strong>
+                                </div>
                             </div>
                         @endforeach
 
