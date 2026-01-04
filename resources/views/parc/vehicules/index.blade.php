@@ -101,7 +101,7 @@
                     <tr>
                         <th>Immatriculation</th>
                         <th>Marque</th>
-                        <th>Modèle</th>
+                        {{-- <th>Modèle</th> --}}
                         <th class="text-center" width="5%">Année</th>
                         <th class="text-center" width="8%">Kilométrage</th>
                         <th class="text-center" width="8%">Assurance</th>
@@ -115,7 +115,7 @@
                         <tr>
                             <td>{{ $vehicule->immatriculation }}</td>
                             <td>{{ $vehicule->marque }}</td>
-                            <td>{{ $vehicule->modele }}</td>
+                            {{-- <td>{{ $vehicule->modele }}</td> --}}
                             <td class="text-center">{{ $vehicule->annee }}</td>
                             <td class="text-center">{{ number_format($vehicule?->kilometrage_actuel, 0, ',', ' ') }}</td>
                             <td class="text-center">

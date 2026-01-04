@@ -95,4 +95,14 @@ class ParcVehiculeController extends Controller
         ParcVehicule::destroy($id);
         return redirect()->route('parc-vehicules.index')->with('status', 'Véhicule supprimé avec succès');
     }
+
+    public function showMissions(ParcVehicule $vehicule)
+    {
+        // Missions triées par date de départ décroissante, 1 par page
+        $missions = $vehicule->missions()
+            ->orderByDesc('date_depart')
+            ->paginate(1);
+
+        return view('parc.vehicules.missions', compact('vehicule', 'missions'));
+    }
 }

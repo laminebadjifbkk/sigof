@@ -26,6 +26,22 @@
                             </tr>
 
                             <tr>
+                                <th>Nombre de missions total</th>
+                                <td class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-secondary">
+                                        {{ $vehicule?->missions->count() }}
+                                    </span>
+
+                                    {{-- Bouton Voir les missions, aligné complètement à droite --}}
+                                    @if ($vehicule?->missions?->isNotEmpty())
+                                        <a href="{{ route('vehicules.missions.show', $vehicule->id) }}"
+                                            class="btn btn-sm btn-info ms-auto">
+                                            <i class="bi bi-eye"></i> Voir
+                                        </a>
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
                                 <th style="width: 30%">Immatriculation</th>
                                 <td>{{ $vehicule?->immatriculation }}</td>
                             </tr>
