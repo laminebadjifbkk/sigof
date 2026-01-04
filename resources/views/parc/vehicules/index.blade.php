@@ -74,7 +74,7 @@
             </div>
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 class="mb-0">Liste des véhicules <span class="etat-btn {{ $etatVehicule }}">{{ $etatVehicule }}</span>
+                <h3 class="mb-0">Liste des véhicules <span class="etat-btn {{ $etatVehicule }}">{{ ucfirst(str_replace('_', ' ', $etatVehicule)) }}</span>
                 </h3>
                 <a href="{{ route('parc-vehicules.create') }}" class="btn btn-primary btn-sm">
                     <i class="bi bi-plus-circle"></i> Ajouter un véhicule

@@ -191,89 +191,68 @@
         }
 
         /* Style commun à tous les boutons d'état */
+        /* Style commun (si besoin) */
         .etat-btn {
-            padding: 4px 8px;
-            /* réduit par rapport à 6px/12px */
-            text-align: center;
-            border-radius: 8px;
-            /* plus petit que 12px */
-            font-weight: 600;
-            font-size: 0.85rem;
-            /* un peu plus petit */
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            display: inline-block;
-            color: #fff;
-            /* couleur par défaut, on pourra la surcharger si besoin */
+            background: none !important;
+            border: none;
+            padding: 0;
+            box-shadow: none;
+            color: inherit;
+            /* hérite simplement la couleur */
         }
 
         /* Couleurs par état */
         .planifiee {
-            background-color: #6c757d;
+            color: #343a40;
+            /* gris */
         }
 
-        /* gris (Bootstrap secondary) */
         .en_cours {
-            background-color: #36e0e0;
+            color: #0aa2c0;
+            /* cyan */
         }
 
-        /* cyan */
-        .terminee {
-            background-color: #198754;
-        }
-        .actif {
-            background-color: #198754;
-        }
-
-        /* vert (Bootstrap success) */
-        .annulee {
-            background-color: #dc3545;
-        }
-        .indisponible {
-            background-color: #dc3545;
-        }
-
-        /* rouge (Bootstrap danger) */
+        .terminee,
+        .actif,
         .operationnel {
-            background-color: #198754;
+            color: #198754;
+            /* vert */
         }
 
-        /* vert */
-        .maintenance {
-            background-color: #ffc107;
-            color: #000;
-        }
-
-        /* jaune */
+        .annulee,
+        .indisponible,
         .hors_service {
-            background-color: #dc3545;
+            color: #dc3545;
+            /* rouge */
         }
 
-        /* rouge */
+        .maintenance {
+            color: #ffc107;
+            /* jaune */
+        }
 
         /* Couleurs par rôle */
         .responsable {
-            background-color: #0d6efd;
+            color: #0d6efd;
+            /* bleu */
         }
 
-        /* bleu Bootstrap */
-        .participant {
-            background-color: #198754;
-        }
+        .participant,
         .chauffeur {
-            background-color: #198754;
+            color: #198754;
+            /* vert */
         }
 
-        /* vert */
         .observateur {
-            background-color: #6c757d;
+            color: #6c757d;
+            /* gris */
         }
 
-        /* gris */
         .default-role {
-            background-color: #343a40;
+            color: #343a40;
+            /* sombre */
         }
 
-        /* sombre par défaut */
 
         .rejeter {
             background-color: #DC3545;

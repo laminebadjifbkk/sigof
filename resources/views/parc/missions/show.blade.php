@@ -132,7 +132,7 @@
                                     <th>Name</th>
                                     <th>Direction</th>
                                     <th>Fonction</th>
-                                    <th class="text-center" width="12%">NB Missions</th>
+                                    <th class="text-center" width="12%">Missions</th>
                                     <th class="text-center" width="12%">Rôle</th>
                                     <th class="text-center" width="3%">Actions</th>
                                 </tr>

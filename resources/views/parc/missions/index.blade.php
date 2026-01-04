@@ -145,7 +145,7 @@
                         {{-- <th>Référence</th> --}}
                         <th>Objet</th>
                         {{-- <th>Lieu</th> --}}
-                        <th>Dates</th>
+                        <th>Périodes</th>
                         <th class="text-center" width="12%">Véhicules</th>
                         <th class="text-center" width="12%">Agents</th>
                         <th class="text-center" width="12%">Statut</th>
