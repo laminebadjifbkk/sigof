@@ -117,6 +117,10 @@
                 </thead>
                 <tbody>
                     @foreach ($chauffeurs as $chauffeur)
+                        @php
+                            $missionsCount = $chauffeur?->employee?->parcmissions?->count() ?? 0;
+                        @endphp
+
                         <tr>
                             <td class="text-center">{{ $chauffeur?->employee?->matricule }}</td>
                             <td>{{ $chauffeur?->employee?->user?->firstname . ' ' . $chauffeur?->employee?->user?->name }}
@@ -156,11 +160,16 @@
                                     </a>
                                     <form action="{{ route('parc-chauffeurs.destroy', $chauffeur->id) }}" method="POST"
                                         class="d-inline">
-                                        @csrf @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger btn-sm show_confirm">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="btn btn-sm btn-danger show_confirm"
+                                            {{ $missionsCount > 0 ? 'disabled' : '' }}
+                                            title="{{ $missionsCount > 0 ? 'Chauffeur affecté à des missions' : 'Supprimer le chauffeur' }}">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </form>
+
                                 </span>
                             </td>
                         </tr>

@@ -74,7 +74,6 @@ class ParcMission extends Model
             ->withTimestamps();
     }
 
-
     // Accessor pour calculer le nombre de jours
     public function getNombreJoursAttribute()
     {

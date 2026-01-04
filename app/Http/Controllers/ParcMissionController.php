@@ -19,7 +19,7 @@ class ParcMissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    /* public function index(Request $request)
     {
         $missions = ParcMission::query();
 
@@ -51,6 +51,48 @@ class ParcMissionController extends Controller
             ];
         }
 
+        $totalMissions = $total;
+        $missionsAnnee = ParcMission::whereYear('date_depart', now()->year)->count();
+
+        return view('parc.missions.index', compact(
+            'missions',
+            'groupes',
+            'statutPourcentages',
+            'totalMissions',
+            'missionsAnnee'
+        ));
+    } */
+    public function index(Request $request)
+    {
+        $query = ParcMission::query();
+
+        $statut = $request->query('statut');
+        $annee  = $request->query('annee');
+
+        // Filtre statut
+        if ($statut) {
+            $query->where('statut', $statut);
+        }
+
+        // Filtre année
+        if ($annee) {
+            $query->whereYear('date_depart', $annee);
+        }
+
+        // Charger missions filtrées, avec count employés (pour bouton delete)
+        $missions = $query->withCount('employees')->latest()->get();
+
+        // Pour les cards : grouper toutes les missions par statut
+        $allMissions = ParcMission::latest()->get();
+        $groupes = $allMissions->groupBy(fn($item) => $item->statut ?? 'Aucun');
+
+        // Calcul des pourcentages par statut
+        $total = $allMissions->count();
+        $statutPourcentages = $groupes->mapWithKeys(function ($items, $statutKey) use ($total) {
+            return [$statutKey => ['percent' => $total ? round($items->count() * 100 / $total, 1) : 0]];
+        });
+
+        // Totaux
         $totalMissions = $total;
         $missionsAnnee = ParcMission::whereYear('date_depart', now()->year)->count();
 
@@ -123,7 +165,9 @@ class ParcMissionController extends Controller
         // Les employés affectés à la mission
         $employees = $mission->employees;
 
-        return view('parc.missions.show', compact('mission', 'missionsCount', 'employees'));
+        $employeesCount = $mission->employees()->count();
+
+        return view('parc.missions.show', compact('mission', 'missionsCount', 'employees', 'employeesCount'));
     }
 
     /**
@@ -153,10 +197,20 @@ class ParcMissionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    /*    public function destroy(string $id)
     {
         ParcMission::destroy($id);
         return redirect()->route('parc-missions.index')->with('status', 'Mission supprimée avec succès');
+    } */
+    public function destroy(ParcMission $mission)
+    {
+        if ($mission->employees()->exists()) {
+            return back()->with('error', 'Suppression impossible : cette mission est déjà assignée à des employés.');
+        }
+
+        $mission->delete();
+
+        return back()->with('success', 'Mission supprimée avec succès.');
     }
 
     /*  public function editEmployees(ParcMission $mission)

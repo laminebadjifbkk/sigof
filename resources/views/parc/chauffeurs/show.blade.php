@@ -101,13 +101,19 @@
                 </div>
             </div>
 
+            @php
+                $missionsCount = $chauffeur?->employee?->parcmissions?->count() ?? 0;
+            @endphp
+
             <div class="d-flex gap-2">
                 <a href="{{ route('parc-chauffeurs.edit', $chauffeur?->id) }}" class="btn btn-warning btn-sm">
                     <i class="bi bi-pencil-square"></i> Modifier
                 </a>
                 <form action="{{ route('parc-chauffeurs.destroy', $chauffeur?->id) }}" method="POST" class="d-inline">
                     @csrf @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm show_confirm">
+                    <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                        {{ $missionsCount > 0 ? 'disabled' : '' }}
+                        title="{{ $missionsCount > 0 ? 'Chauffeur affecté à des missions' : 'Supprimer le chauffeur' }}">
                         <i class="bi bi-trash"></i> Supprimer
                     </button>
                 </form>

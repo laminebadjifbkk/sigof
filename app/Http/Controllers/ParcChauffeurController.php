@@ -111,11 +111,26 @@ class ParcChauffeurController extends Controller
         return redirect()->back()->with('status', 'Chauffeur mis à jour avec succès');
     }
 
-    public function destroy($id)
+    /*   public function destroy($id)
     {
         $chauffeur = ParcChauffeur::findOrFail($id);
         $chauffeur->delete();
         return redirect()->route('parc-chauffeurs.index')->with('status', 'Chauffeur supprimé avec succès');
+    } */
+    public function destroy(ParcChauffeur $chauffeur)
+    {
+        if (
+            $chauffeur->employee->missions()
+            ->exists()
+        ) {
+            return back()->with(
+                'error',
+                'Suppression impossible : chauffeur affecté à des missions.'
+            );
+        }
+
+        $chauffeur->delete();
+        return back()->with('success', 'Chauffeur supprimé.');
     }
 
     public function showMissions(ParcChauffeur $chauffeur)

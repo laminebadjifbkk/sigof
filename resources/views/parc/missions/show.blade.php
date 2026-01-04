@@ -322,8 +322,13 @@
 
                 @can('parc-mission-delete')
                     <form action="{{ route('parc-missions.destroy', $mission->id) }}" method="POST" class="d-inline">
-                        @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm show_confirm">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                            {{ $employeesCount > 0 ? 'disabled' : '' }}
+                            title="{{ $employeesCount > 0
+                                ? 'Impossible de supprimer : mission déjà assignée à des employés'
+                                : 'Supprimer la mission' }}">
                             <i class="bi bi-trash"></i> Supprimer
                         </button>
                     </form>

@@ -5,7 +5,7 @@
     <section class="section register">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h1 class="mb-0">Détails du véhicule</h1>
+                <h3 class="mb-0">Détails du véhicule</h3>
                 <a href="{{ route('parc-vehicules.index') }}" class="btn btn-outline-secondary btn-sm">
                     <i class="bi bi-arrow-left-circle"></i> Retour à la liste
                 </a>
@@ -104,9 +104,15 @@
                 <a href="{{ route('parc-vehicules.edit', $vehicule?->id) }}" class="btn btn-warning btn-sm">
                     <i class="bi bi-pencil-square"></i> Modifier
                 </a>
+
+                @php
+                    $missionsCount = $vehicule?->missions?->count() ?? 0;
+                @endphp
                 <form action="{{ route('parc-vehicules.destroy', $vehicule?->id) }}" method="POST" class="d-inline">
                     @csrf @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm show_confirm">
+                    <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                        {{ $missionsCount > 0 ? 'disabled' : '' }}
+                        title="{{ $missionsCount > 0 ? 'Véhicule affecté à des missions' : 'Supprimer le chauffeur' }}">
                         <i class="bi bi-trash"></i> Supprimer
                     </button>
                 </form>

@@ -143,10 +143,16 @@
                                         class="btn btn-warning btn-sm">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
+
+                                    @php
+                                        $missionsCount = $vehicule?->missions?->count() ?? 0;
+                                    @endphp
                                     <form action="{{ route('parc-vehicules.destroy', $vehicule->id) }}" method="POST"
                                         class="d-inline">
                                         @csrf @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm show_confirm">
+                                        <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                            {{ $missionsCount > 0 ? 'disabled' : '' }}
+                                            title="{{ $missionsCount > 0 ? 'Véhicule affecté à des missions' : 'Supprimer le chauffeur' }}">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </form>

@@ -90,10 +90,22 @@ class ParcVehiculeController extends Controller
             ->with('status', 'Véhicule modifié avec succès');
     }
 
-    public function destroy($id)
+    /* public function destroy($id)
     {
         ParcVehicule::destroy($id);
         return redirect()->route('parc-vehicules.index')->with('status', 'Véhicule supprimé avec succès');
+    } */
+    public function destroy(ParcVehicule $vehicule)
+    {
+        if ($vehicule->missions()->exists()) {
+            return back()->with(
+                'error',
+                'Suppression impossible : véhicule déjà utilisé dans des missions.'
+            );
+        }
+
+        $vehicule->delete();
+        return back()->with('success', 'Véhicule supprimé.');
     }
 
     public function showMissions(ParcVehicule $vehicule)
