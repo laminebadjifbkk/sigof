@@ -130,7 +130,7 @@
                                     <th>Fonction</th>
                                     <th class="text-center" width="12%">NB Missions</th>
                                     <th class="text-center" width="12%">Rôle</th>
-                                    <th class="text-center" width="3%">Action</th>
+                                    <th class="text-center" width="3%">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -157,7 +157,7 @@
                                                 {{ ucfirst($employee->pivot->role) }}
                                             </span>
                                         </td>
-                                        <td class="text-center">
+                                        {{-- <td class="text-center">
                                             @can('employe-show')
                                                 <span class="d-flex mt-2 align-items-baseline"><a
                                                         href="{{ route('employes.show', $employee) }}"
@@ -165,8 +165,99 @@
                                                             class="bi bi-eye"></i></a>
                                                 </span>
                                             @endcan
+                                        </td> --}}
+
+                                        {{-- Actions --}}
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
+                                                data-bs-target="#missionsModal{{ $employee->id }}">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
                                         </td>
                                     </tr>
+
+                                    {{-- Modal des missions --}}
+                                    <div class="modal fade" id="missionsModal{{ $employee->id }}" tabindex="-1"
+                                        aria-labelledby="missionsModalLabel{{ $employee->id }}" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                {{-- Header --}}
+                                                <div class="modal-header bg-info text-white rounded-top-4">
+                                                    <h5 class="modal-title" id="missionsModalLabel{{ $employee->id }}">
+                                                        Missions de {{ $employee->user->firstname }}
+                                                        {{ $employee->user->name }}
+                                                    </h5>
+                                                    <button type="button" class="btn-close btn-close-white"
+                                                        data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                                </div>
+                                                {{-- Body --}}
+                                                <div class="modal-body">
+                                                    @php
+                                                        $lastMissions = $employee->parcmissions
+                                                            ->sortByDesc('date_depart')
+                                                            ->take(5);
+                                                    @endphp
+
+                                                    @if ($lastMissions->count() > 0)
+                                                        <div class="list-group">
+                                                            @foreach ($lastMissions as $cm)
+                                                                <div
+                                                                    class="list-group-item d-flex justify-content-between align-items-center border-bottom">
+                                                                    <div>
+                                                                        <strong>{{ $cm->objet }}</strong><br>
+                                                                        <small class="text-muted">Réf:
+                                                                            {{ $cm->reference }}</small>
+                                                                    </div>
+                                                                    <div class="text-end">
+                                                                        <span class="badge bg-secondary">
+                                                                            Du {{ $cm->date_depart->format('d/m/Y') }} au
+                                                                            {{ $cm->date_retour->format('d/m/Y') }}
+                                                                        </span>
+
+                                                                        @php
+                                                                            $now = now();
+                                                                            if ($cm->date_retour < $now) {
+                                                                                $status = [
+                                                                                    'label' => 'Terminée',
+                                                                                    'class' => 'bg-success',
+                                                                                ];
+                                                                            } elseif ($cm->date_depart > $now) {
+                                                                                $status = [
+                                                                                    'label' => 'À venir',
+                                                                                    'class' => 'bg-warning text-dark',
+                                                                                ];
+                                                                            } else {
+                                                                                $status = [
+                                                                                    'label' => 'En cours',
+                                                                                    'class' => 'bg-primary text-white',
+                                                                                ];
+                                                                            }
+                                                                        @endphp
+
+                                                                        <span class="badge {{ $status['class'] }}">
+                                                                            {{ $status['label'] }}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    @else
+                                                        <div class="alert alert-secondary text-center mb-0">
+                                                            Aucune mission assignée.
+                                                        </div>
+                                                    @endif
+                                                </div>
+
+                                                {{-- Footer --}}
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm"
+                                                        data-bs-dismiss="modal">
+                                                        Fermer
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
                             </tbody>
                         </table>
@@ -251,11 +342,11 @@
                         <i class="bi bi-truck"></i> Ajouter / Modifier Chauffeurs
                     </a>
                 @endcan --}}
-                
+
                 {{-- Gestion des chauffeurs --}}
                 @can('parc-mission-update')
                     <a href="{{ route('parc-missions.personnel.edit', $mission->id) }}" class="btn btn-info btn-sm">
-                        <i class="bi bi-truck"></i> Ajouter / Modifier Personnel
+                        <i class="bi bi-people-fill"></i> Ajouter / Modifier Personnel
                     </a>
                 @endcan
 
