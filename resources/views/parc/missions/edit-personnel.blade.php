@@ -91,7 +91,7 @@
                                             </select>
                                         </td>
 
-                                        {{-- Nombre de missions --}}
+                                        {{-- Missions --}}
                                         <td class="text-center">
                                             <span class="badge bg-secondary">{{ $missionsCount }}</span>
                                         </td>

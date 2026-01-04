@@ -91,7 +91,7 @@ class ParcChauffeurController extends Controller
         $chauffeur = ParcChauffeur::findOrFail($id);
 
         // Compter les missions du chauffeur dans l'année en cours
-        $chauffeurMissionsCount = $chauffeur->missions()
+        $chauffeurMissionsCount = $chauffeur->employee->missions()
             ->whereYear('date_depart', now()->year)
             ->count();
 

@@ -19,14 +19,14 @@
                     <table class="table table-striped table-hover align-middle">
                         <tbody>
                             <tr>
-                                <th>Nombre de missions en {{ now()->year }}</th>
+                                <th>Missions en {{ now()->year }}</th>
                                 <td>
                                     <span class="badge bg-primary">{{ $vehiculeMissionsCount }}</span>
                                 </td>
                             </tr>
 
                             <tr>
-                                <th>Nombre de missions total</th>
+                                <th>Missions total</th>
                                 <td class="d-flex justify-content-between align-items-center">
                                     <span class="badge bg-secondary">
                                         {{ $vehicule?->missions->count() }}

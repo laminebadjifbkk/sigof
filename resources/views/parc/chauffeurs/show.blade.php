@@ -13,14 +13,23 @@
 
             <div class="card shadow-sm mb-4">
                 <div class="card-header bg-dark text-white">
-                    <strong>{{ $chauffeur?->employee?->matricule }}</strong> - {{ $chauffeur?->employee?->user?->firstname }}
+                    <strong>{{ $chauffeur?->employee?->matricule }}</strong> -
+                    {{ $chauffeur?->employee?->user?->firstname }}
                     {{ $chauffeur?->employee?->user?->name }}
                 </div>
                 <div class="card-body">
                     <table class="table table-striped table-hover align-middle">
                         <tbody>
+
                             <tr>
-                                <th>Nombre de missions total</th>
+                                <th>Missions en {{ now()->year }}</th>
+                                <td>
+                                    <span class="badge bg-primary">{{ $chauffeurMissionsCount }}</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>Missions total</th>
                                 <td class="d-flex justify-content-between align-items-center">
                                     <span class="badge bg-primary">
                                         {{ $chauffeur?->employee?->parcmissions->count() }}
