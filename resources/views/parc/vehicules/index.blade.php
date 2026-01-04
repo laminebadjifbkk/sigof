@@ -38,14 +38,14 @@
                     @endphp
                     <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <div class="card shadow-sm text-center p-2" style="min-height: 140px; border-radius: 10px;">
-                            <h6 class="card-title mb-2 text-truncate" title="{{ $etat }}"
-                                style="font-size:0.85rem;">
-                                {{ ucfirst($etat) }}
+                            <h6 class="card-title mb-2 text-truncate" title="Véhicules" style="font-size:0.85rem;">
+                                {{-- {{ ucfirst($etat) }} --}}
+                                Véhicules
                             </h6>
 
                             <!-- Badge état -->
-                            <span class="{{ $etat }}">
-                                {{ ucfirst($etat) }}
+                            <span class="etat-btn {{ $etat }}">
+                                {{ ucfirst(str_replace('_', ' ', $etat)) }}
                             </span>
 
                             <!-- Nombre de véhicules -->

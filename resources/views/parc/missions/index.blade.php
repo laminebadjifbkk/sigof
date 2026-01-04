@@ -78,7 +78,7 @@
                             <!-- Statut -->
                             <h6 class="card-title mb-2 text-truncate" title="{{ $statut }}"
                                 style="font-size: 0.85rem;">
-                                {{ $statut }}
+                                {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $statut))) }}
                             </h6>
 
                             <!-- Nombre et icône -->
@@ -175,16 +175,8 @@
                             <td class="text-center">{{ $mission?->vehicules?->count() }}</td>
                             <td class="text-center">{{ $mission->employees->count() }}</td>
                             <td class="text-center">
-                                <span
-                                    class="badge 
-                                @switch($mission->statut)
-                                    @case('planifiee') bg-secondary @break
-                                    @case('en_cours') bg-warning @break
-                                    @case('terminee') bg-success @break
-                                    @case('annulee') bg-danger @break
-                                    @default bg-info
-                                @endswitch">
-                                    {{ ucfirst($mission->statut) }}
+                                <span class="etat-btn {{ $mission->statut }}">
+                                    {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $mission->statut))) }}
                                 </span>
                             </td>
                             <td class="text-center">
@@ -203,8 +195,8 @@
                                         @method('DELETE')
 
                                         <button type="submit" class="btn btn-sm btn-danger show_confirm"
-                                            {{ $mission->employees_count  > 0 ? 'disabled' : '' }}
-                                            title="{{ $mission->employees_count  > 0 ? 'Mission déjà assignée à des employés' : 'Supprimer la mission' }}">
+                                            {{ $mission->employees_count > 0 ? 'disabled' : '' }}
+                                            title="{{ $mission->employees_count > 0 ? 'Mission déjà assignée à des employés' : 'Supprimer la mission' }}">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </form>

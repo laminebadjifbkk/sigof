@@ -106,7 +106,11 @@
 
                             <tr>
                                 <th>Statut</th>
-                                <td>{{ ucfirst($mission->statut) }}</td>
+                                <td>
+                                    <span class="etat-btn {{ $mission->statut }}">
+                                        {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $mission->statut))) }}
+                                    </span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -146,15 +150,8 @@
                                             </span>
                                         </td>
                                         <td class="text-center">
-                                            <span
-                                                class="badge 
-                                            @switch($employee->pivot->role)
-                                                @case('responsable') bg-primary @break
-                                                @case('participant') bg-success @break
-                                                @case('observateur') bg-secondary @break
-                                                @default bg-dark
-                                            @endswitch">
-                                                {{ ucfirst($employee->pivot->role) }}
+                                            <span class="etat-btn {{ $employee->pivot->role ?? 'default-role' }}">
+                                                {{ ucfirst(str_replace('_', ' ', $employee->pivot->role ?? '')) }}
                                             </span>
                                         </td>
                                         {{-- <td class="text-center">

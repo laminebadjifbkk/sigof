@@ -190,57 +190,84 @@
             display: inline-block;
         }
 
-        .operationnel {
-            background-color: #198754;
-            /* vert Bootstrap */
-            color: #ffffff;
-            padding: 6px 12px;
+        /* Style commun à tous les boutons d'état */
+        .etat-btn {
+            padding: 4px 8px;
+            /* réduit par rapport à 6px/12px */
             text-align: center;
-            border-radius: 12px;
+            border-radius: 8px;
+            /* plus petit que 12px */
             font-weight: 600;
-            font-size: 0.95rem;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            font-size: 0.85rem;
+            /* un peu plus petit */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             display: inline-block;
+            color: #fff;
+            /* couleur par défaut, on pourra la surcharger si besoin */
         }
 
-        .maintenance {
-            background-color: #ffc107;
-            /* jaune Bootstrap */
-            color: #000000;
-            padding: 6px 12px;
-            text-align: center;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            display: inline-block;
+        /* Couleurs par état */
+        .planifiee {
+            background-color: #6c757d;
         }
 
+        /* gris (Bootstrap secondary) */
         .en_cours {
             background-color: #36e0e0;
-            /* cyan */
-            color: #ffffff;
-            padding: 6px 12px;
-            text-align: center;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            display: inline-block;
         }
 
+        /* cyan */
+        .terminee {
+            background-color: #198754;
+        }
+
+        /* vert (Bootstrap success) */
+        .annulee {
+            background-color: #dc3545;
+        }
+
+        /* rouge (Bootstrap danger) */
+        .operationnel {
+            background-color: #198754;
+        }
+
+        /* vert */
+        .maintenance {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        /* jaune */
         .hors_service {
             background-color: #dc3545;
-            /* rouge Bootstrap */
-            color: #ffffff;
-            padding: 6px 12px;
-            text-align: center;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            display: inline-block;
         }
+
+        /* rouge */
+
+        /* Couleurs par rôle */
+        .responsable {
+            background-color: #0d6efd;
+        }
+
+        /* bleu Bootstrap */
+        .participant {
+            background-color: #198754;
+        }
+        .chauffeur {
+            background-color: #198754;
+        }
+
+        /* vert */
+        .observateur {
+            background-color: #6c757d;
+        }
+
+        /* gris */
+        .default-role {
+            background-color: #343a40;
+        }
+
+        /* sombre par défaut */
 
         .rejeter {
             background-color: #DC3545;

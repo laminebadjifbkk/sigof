@@ -72,12 +72,8 @@
                             <tr>
                                 <th>État</th>
                                 <td>
-                                    <span
-                                        class="badge 
-                                    @if ($vehicule?->etat == 'operationnel') bg-success 
-                                    @elseif($vehicule?->etat == 'maintenance') bg-warning 
-                                    @else bg-danger @endif">
-                                        {{ ucfirst($vehicule?->etat) }}
+                                    <span class="etat-btn {{ $vehicule->etat }}">
+                                        {{ ucfirst(str_replace('_', ' ', $vehicule->etat)) }}
                                     </span>
                                 </td>
                             </tr>
