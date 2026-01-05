@@ -230,7 +230,7 @@
                     <div style="float:right; width:40%; font-size:10pt;">
 
                         <div style="text-align:right;">                            
-                        ONFP/DG/DRH/DIVagp/{{ auth()->user()->username }}
+                        
                         </div>
 
                         <br><br>
@@ -253,7 +253,7 @@
                 </div>
                 <br>
                 <br>
-                <h2 style="text-decoration: underline; text-align: center;">ORDRE DE MISSION </h2 class="text-center">
+                <h2 style="text-decoration: underline; text-align: center;">ORDR DE MISSION </h2 class="text-center">
 
                 <p style="text-align: justify; margin-top:5px;margin-bottom:5px; text-align: center;">
                     {{ $vehicule ? $vehicule->immatriculation : '-' }}
