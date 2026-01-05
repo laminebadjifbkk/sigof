@@ -204,6 +204,7 @@
         @php
             $vehiculeId = $employee->pivot?->vehicule_id;
             $vehicule = $mission->vehicules->firstWhere('id', $vehiculeId);
+            $username = $username;
         @endphp
         <div class="page-lettre page-break">
             <div style="font-family: Tahoma, Arial, sans-serif; font-size: 12pt; line-height: 1.3;">
@@ -229,8 +230,8 @@
 
                     <div style="float:right; width:40%; font-size:10pt;">
 
-                        <div style="text-align:right;">                            
-                        
+                        <div style="text-align:right;">
+                            ONFP/DG/DRH/DIVagp/{{ $username }}
                         </div>
 
                         <br><br>
@@ -253,7 +254,7 @@
                 </div>
                 <br>
                 <br>
-                <h2 style="text-decoration: underline; text-align: center;">ORDR DE MISSION </h2 class="text-center">
+                <h2 style="text-decoration: underline; text-align: center;">ORDRE DE MISSION </h2 class="text-center">
 
                 <p style="text-align: justify; margin-top:5px;margin-bottom:5px; text-align: center;">
                     {{ $vehicule ? $vehicule->immatriculation : '-' }}
@@ -373,7 +374,7 @@
                 <div style="float:right; width:40%; font-size:10pt;">
 
                     <div style="text-align:right;">
-                        ONFP/DG/DRH/DIVagp/{{ auth()->user()->username }}
+                        ONFP/DG/DRH/DIVagp/{{ $username }}
                     </div>
 
                     <br><br>
