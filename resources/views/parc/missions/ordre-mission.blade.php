@@ -314,7 +314,7 @@
 
                     <tr>
                         <td>
-                            <b>Total frais de mission :</b> ......................................
+                            <b>Total frais de mission :</b> ..........................................
                         </td>
                         <td>
                             <b>Région :</b> {{ $mission?->departement?->region?->nom ?? $mission?->lieu_arrivee }}
