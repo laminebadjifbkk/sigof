@@ -63,4 +63,14 @@ class ParcTypeMissionController extends Controller
             ->route('parc-type-missions.index')
             ->with('status', 'Type de mission supprimé.');
     }
+
+    public function show(ParcTypeMission $parc_type_mission)
+    {
+        // Missions triées par date de départ décroissante, 1 par page
+        $parc_type_missions = $parc_type_mission->missions()
+            ->orderByDesc('date_depart')
+            ->paginate(1);
+
+        return view('parc.type-missions.show', compact('parc_type_missions', 'parc_type_mission'));
+    }
 }

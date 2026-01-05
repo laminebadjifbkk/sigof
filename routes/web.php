@@ -812,10 +812,10 @@ Route::group(['middleware' => ['XSS']], function () {
         )->name('parc-missions.personnel.update');
 
         Route::get('/chauffeurs/{chauffeur}/missions', [ParcChauffeurController::class, 'showMissions'])
-    ->name('chauffeurs.missions.show');
+            ->name('chauffeurs.missions.show');
 
         Route::get('/vehicules/{vehicule}/missions', [ParcVehiculeController::class, 'showMissions'])
-    ->name('vehicules.missions.show');
+            ->name('vehicules.missions.show');
 
         // Génération du PDF pour une mission
         Route::get('parc-missions/{mission}/pdf', [ParcMissionController::class, 'ordreMission'])
@@ -912,8 +912,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('parc-maintenances', ParcMaintenanceController::class);
         Route::resource('parc-affectations', ParcAffectationController::class);
         Route::resource('parc-employee-missions', ParcEmployeeMissionController::class);
-        Route::resource('parc-type-missions', ParcTypeMissionController::class)
-            ->except(['show']);
+        Route::resource('parc-type-missions', ParcTypeMissionController::class);
 
         Route::middleware('admin')->group(function () {
             Route::get('/manuels', [BookController::class, 'index'])->name('manuels.index');

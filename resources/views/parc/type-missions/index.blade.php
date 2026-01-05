@@ -55,6 +55,10 @@
 
                         <td class="text-center">
                             <span class="d-flex justify-content-center gap-1">
+                                <a href="{{ route('parc-type-missions.show', $type->id) }}"
+                                        class="btn btn-info btn-sm">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
                                 <a href="{{ route('parc-type-missions.edit', $type) }}"
                                    class="btn btn-sm btn-warning">
                                     <i class="bi bi-pencil-square"></i>

@@ -5,7 +5,7 @@
     <section class="section">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3>Missions du véhicule {{ $vehicule?->immatriculation }} - {{ $vehicule?->marque }}
+                <h3>Véhicule {{ $vehicule?->immatriculation }} - {{ $vehicule?->marque }}
                     {{ $vehicule?->modele }}</h3>
                 <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm">
                     <i class="bi bi-arrow-left-circle"></i> Retour
@@ -28,8 +28,9 @@
                                 <span class="badge bg-secondary">
                                     {{ $cm->date_depart->format('d/m/Y') }} au {{ $cm->date_retour->format('d/m/Y') }}
                                 </span>
-                                <span class="etat-btn {{ $cm->etat }}">
-                                    {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $cm->etat))) }}
+                                <br>
+                                <span class="etat-btn {{ $cm->statut }}">
+                                    {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $cm->statut))) }}
                                 </span>
                             </div>
                         </div>
