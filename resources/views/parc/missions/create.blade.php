@@ -201,7 +201,7 @@
                                 <label for="frais_deplacement" class="form-label">Frais de déplacement</label>
                                 <input type="number" step="0.01" min="0" name="frais_deplacement"
                                     class="form-control form-control-sm @error('frais_deplacement') is-invalid @enderror"
-                                    value="{{ old('frais_deplacement') }}" placeholder="Ex: 20000">
+                                    value="{{ old('frais_deplacement', 0) }}" placeholder="Ex: 20000" min="0" step="1">
                                 @error('frais_deplacement')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -223,7 +223,7 @@
                                 <label for="avance" class="form-label">Avance</label>
                                 <input type="number" step="0.01" min="0" name="avance"
                                     class="form-control form-control-sm @error('avance') is-invalid @enderror"
-                                    value="{{ old('avance') }}" placeholder="Ex: 30000">
+                                    value="{{ old('avance', 0) }}" placeholder="Ex: 30000" min="0" step="1">
                                 @error('avance')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
