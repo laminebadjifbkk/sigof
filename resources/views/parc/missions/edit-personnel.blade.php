@@ -172,27 +172,10 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                                                             Du {{ $cm->date_depart->format('d/m/Y') }} au
                                                                             {{ $cm->date_retour->format('d/m/Y') }}
                                                                         </span>
-                                                                        @php
-                                                                            $now = now();
-                                                                            if ($cm->date_retour < $now) {
-                                                                                $status = [
-                                                                                    'label' => 'Terminée',
-                                                                                    'class' => 'bg-success',
-                                                                                ];
-                                                                            } elseif ($cm->date_depart > $now) {
-                                                                                $status = [
-                                                                                    'label' => 'À venir',
-                                                                                    'class' => 'bg-warning text-dark',
-                                                                                ];
-                                                                            } else {
-                                                                                $status = [
-                                                                                    'label' => 'En cours',
-                                                                                    'class' => 'bg-primary text-white',
-                                                                                ];
-                                                                            }
-                                                                        @endphp
-                                                                        <span
-                                                                            class="badge {{ $status['class'] }}">{{ $status['label'] }}</span>
+                                                                        <br>
+                                                                        <span class="etat-btn {{ $cm->statut }}">
+                                                                            {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $cm->statut))) }}
+                                                                        </span>
                                                                     </div>
                                                                 </div>
                                                             @endforeach

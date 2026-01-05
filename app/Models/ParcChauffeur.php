@@ -64,7 +64,7 @@ class ParcChauffeur extends Model
         );
     } */
 
-/*     public function missions()
+    /*     public function missions()
     {
         return $this->belongsToMany(
             ParcMission::class,       // Modèle lié
@@ -164,10 +164,23 @@ class ParcChauffeur extends Model
     public function missions()
     {
         return $this->belongsToMany(
-            ParcMission::class,
-            'parc_employee_mission',
-            'employee_id',   // clé locale (chauffeur/employee)
-            'mission_id'     // clé étrangère vers ParcMission
+            ParcMission::class,     // modèle lié
+            'parc_employee_mission', // table pivot
+            'employee_id',          // clé sur ParcChauffeur dans pivot
+            'mission_id'            // clé sur ParcMission dans pivot
         )->withPivot('role')->withTimestamps();
     }
+
+    // ParcChauffeur.php
+    /*   public function missions()
+    {
+        return $this->hasManyThrough(
+            ParcMission::class,  // modèle final
+            Employee::class,     // modèle intermédiaire
+            'id',                // clé locale sur Employee
+            'employee_id',       // clé étrangère sur ParcMission
+            'employee_id',       // clé locale sur ParcChauffeur
+            'id'                 // clé locale sur Employee
+        );
+    } */
 }
