@@ -65,12 +65,18 @@
                             <tbody>
                                 @foreach ($chauffeurs as $chauffeur)
                                     @php
-                                        $missions = $chauffeur->employee->parcmissions;
-                                        $lastMission = $missions->first(); // déjà triée
+                                        /* $missions = $chauffeur->employee->parcmissions; */
+                                        /* $lastMission = $missions->first(); // déjà triée */
+                                        $missions = $chauffeur->missions; // ✅ même relation que le tri
+                                        $lastMission = $missions->first(); // déjà triée ASC
                                         $totalMontant = $missions->sum('indemnites_total');
-                                        $pivot = $mission->employees->find($chauffeur->employee_id)?->pivot;
+                                        $missionsCount = $missions->count();
                                         $isChecked = $missionChauffeurs->pluck('id')->contains($chauffeur->employee_id);
-                                        $missionsCount = $chauffeur->employee->parcmissions->count();
+                                        $employeeInMission = $mission->employees->firstWhere(
+                                            'id',
+                                            $chauffeur->employee_id,
+                                        );
+                                        $pivot = $employeeInMission?->pivot;
                                     @endphp
                                     <tr>
                                         {{-- Checkbox Chauffeur --}}
@@ -97,13 +103,23 @@
                                         </td>
 
                                         {{-- Derniere mission --}}
-                                        <td class="text-center">
+                                        {{-- <td class="text-center">
                                             @if ($lastMission)
                                                 <span class="badge bg-info">
                                                     {{ $lastMission->date_retour->format('d/m/Y') }}
                                                 </span>
                                             @else
                                                 <span class="text-muted">—</span>
+                                            @endif
+                                        </td> --}}
+
+                                        <td class="text-center">
+                                            @if ($chauffeur->oldest_retour)
+                                                <span class="badge bg-info">
+                                                    {{ \Carbon\Carbon::parse($chauffeur->oldest_retour)->format('d/m/Y') }}
+                                                </span>
+                                            @else
+                                                <span class="badge bg-success">Disponible</span>
                                             @endif
                                         </td>
 
@@ -143,7 +159,7 @@
                                                 {{-- Body --}}
                                                 <div class="modal-body">
                                                     @php
-                                                        $lastMissions = $chauffeur->employee->parcmissions
+                                                        $lastMissions = $chauffeur->missions
                                                             ->sortByDesc('date_depart')
                                                             ->take(5);
                                                     @endphp

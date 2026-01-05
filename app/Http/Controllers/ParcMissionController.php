@@ -388,8 +388,8 @@ class ParcMissionController extends Controller
                 }],
                 'date_retour'
             )
-            ->orderByRaw('oldest_retour IS NOT NULL') // chauffeurs sans mission d'abord
-            ->orderBy('oldest_retour', 'asc')         // ancien → récent
+            ->orderByRaw('oldest_retour IS NOT NULL')
+            ->orderBy('oldest_retour', 'asc')
             ->get();
 
         // IDs des employés chauffeurs
