@@ -204,7 +204,6 @@
         @php
             $vehiculeId = $employee->pivot?->vehicule_id;
             $vehicule = $mission->vehicules->firstWhere('id', $vehiculeId);
-            $username = $username;
         @endphp
         <div class="page-lettre page-break">
             <div style="font-family: Tahoma, Arial, sans-serif; font-size: 12pt; line-height: 1.3;">
@@ -231,7 +230,7 @@
                     <div style="float:right; width:40%; font-size:10pt;">
 
                         <div style="text-align:right;">
-                            ONFP/DG/DRH/DIVagp/{{ $username }}
+                            ONFP/DG/DRH/DIVagp/mn
                         </div>
 
                         <br><br>
@@ -374,7 +373,7 @@
                 <div style="float:right; width:40%; font-size:10pt;">
 
                     <div style="text-align:right;">
-                        ONFP/DG/DRH/DIVagp/{{ $username }}
+                        ONFP/DG/DRH/DIVagp/
                     </div>
 
                     <br><br>
@@ -418,8 +417,7 @@
                 </tr>
                 <tr>
                     <td style="padding:2px 0;"><b>Itinéraire :</b></td>
-                    <td style="padding:2px 0;">
-                        {{ $mission->itineraire ?? $mission->lieu_depart . ' - ' . $mission->lieu_arrive }}
+                    <td style="padding:2px 0;">{{ $mission->itineraire ?? $mission->lieu_depart .' - '.$mission->lieu_arrive }}
                     </td>
                 </tr>
             </table>
