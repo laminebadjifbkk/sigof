@@ -110,7 +110,7 @@
                                         {{-- Montant annuel --}}
                                         <td class="text-center">
                                             <span class="badge bg-success">
-                                                {{ number_format($totalMontant, 0, ',', ' ') }} FCFA
+                                                {{ number_format($totalMontant, 0, ',', ' ') }}
                                             </span>
                                         </td>
 

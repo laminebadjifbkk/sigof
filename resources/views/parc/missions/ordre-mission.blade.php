@@ -268,10 +268,10 @@
                 <table class="table-no-border" width="100%" cellspacing="0" cellpadding="6"
                     style="border-collapse: collapse; font-size:12pt;">
                     <tr>
-                        <td width="45%">
+                        <td width="40%">
                             <b>Nombre de jours :</b> {{ $jours }} jour{{ $jours > 1 ? 's' : '' }}
                         </td>
-                        <td width="55%">
+                        <td width="60%">
                             <b>Prénom(s) - Nom :</b> {{ $employee?->user?->firstname }} {{ $employee?->user?->name }}
                         </td>
                     </tr>
