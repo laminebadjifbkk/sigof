@@ -230,7 +230,7 @@
                     <div style="float:right; width:40%; font-size:10pt;">
 
                         <div style="text-align:right;">
-                            ONFP/DG/DRH/DIVagp/mn
+                            ONFP/DG/DRH/DIVagp
                         </div>
 
                         <br><br>
