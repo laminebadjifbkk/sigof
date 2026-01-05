@@ -36,17 +36,17 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="immatriculation" class="form-label">Immatriculation<span
-                                        class="text-danger mx-1">*</span></label>
+                                        class="text-danger mx-1"> *</span></label>
                                 <input type="text" name="immatriculation"
                                     class="form-control form-control-sm @error('immatriculation') is-invalid @enderror"
-                                    value="{{ old('immatriculation') }}" placeholder="DK-1987-EP38">
+                                    value="{{ old('immatriculation') }}" placeholder="DK 1987 EP38">
                                 @error('immatriculation')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="marque" class="form-label">Marque<span
-                                        class="text-danger mx-1">*</span></label>
+                                <label for="marque" class="form-label">Marque<span class="text-danger mx-1">
+                                        *</span></label>
                                 <input type="text" name="marque"
                                     class="form-control form-control-sm @error('marque') is-invalid @enderror"
                                     value="{{ old('marque') }}" placeholder="Toyota">
@@ -58,7 +58,8 @@
 
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="modele" class="form-label">Modèle</label>
+                                <label for="modele" class="form-label">Modèle<span class="text-danger mx-1">
+                                        *</span></label>
                                 <input type="text" name="modele"
                                     class="form-control form-control-sm @error('modele') is-invalid @enderror"
                                     value="{{ old('modele') }}" placeholder="RAV4">
@@ -67,7 +68,8 @@
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="annee" class="form-label">Année</label>
+                                <label for="annee" class="form-label">Année<span class="text-danger mx-1">
+                                        *</span></label>
                                 <input type="number" name="annee"
                                     class="form-control form-control-sm @error('annee') is-invalid @enderror"
                                     value="{{ old('annee', $vehicule->annee ?? '') }}" placeholder="2020" min="2010"
@@ -80,7 +82,8 @@
 
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="etat" class="form-label">État<span class="text-danger mx-1">*</span></label>
+                                <label for="etat" class="form-label">État<span class="text-danger mx-1">
+                                        *</span></label>
                                 <select name="etat"
                                     class="form-select form-select-sm @error('etat') is-invalid @enderror">
                                     <option value="operationnel" {{ old('etat') == 'operationnel' ? 'selected' : '' }}>
@@ -90,10 +93,15 @@
                                     <option value="hors_service" {{ old('etat') == 'hors_service' ? 'selected' : '' }}>Hors
                                         service</option>
                                 </select>
+                                @error('etat')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="chauffeur_id" class="form-label">Chauffeur affecté</label>
-                                <select name="chauffeur_id" class="form-select form-select-sm">
+                                <label for="chauffeur_id" class="form-label">Chauffeur affecté<span
+                                        class="text-danger mx-1"> *</span></label>
+                                <select name="chauffeur_id"
+                                    class="form-select form-select-sm @error('chauffeur_id') is-invalid @enderror">
                                     <option value="">-- Aucun chauffeur --</option>
                                     @foreach ($chauffeurs as $chauffeur)
                                         <option value="{{ $chauffeur->id }}"
@@ -102,6 +110,9 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                @error('chauffeur_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
@@ -112,8 +123,10 @@
                                     value="{{ old('categorie') }}" placeholder="Ex: Voiture particulière">
                             </div>
                             <div class="col-md-6">
-                                <label for="energie" class="form-label">Énergie</label>
-                                <select name="energie" class="form-select form-select-sm">
+                                <label for="energie" class="form-label">Énergie<span class="text-danger mx-1">
+                                        *</span></label>
+                                <select name="energie"
+                                    class="form-select form-select-sm @error('annee') is-invalid @enderror">
                                     <option value="">-- Choisir --</option>
                                     <option value="diesel" {{ old('energie') == 'diesel' ? 'selected' : '' }}>Diesel
                                     </option>
@@ -124,6 +137,9 @@
                                     <option value="electrique" {{ old('energie') == 'electrique' ? 'selected' : '' }}>
                                         Électrique</option>
                                 </select>
+                                @error('annee')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
@@ -138,25 +154,38 @@
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="assurance_expire_le" class="form-label">Assurance expire le</label>
-                                <input type="date" name="assurance_expire_le" class="form-control form-control-sm"
+                                <label for="assurance_expire_le" class="form-label">Assurance expire le<span
+                                        class="text-danger mx-1"> *</span></label>
+                                <input type="date" name="assurance_expire_le"
+                                    class="form-control form-control-sm  @error('assurance_expire_le') is-invalid @enderror"
                                     value="{{ old('assurance_expire_le') }}">
+                                @error('assurance_expire_le')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="visite_technique_expire_le" class="form-label">Visite technique expire
-                                    le</label>
+                                    le<span class="text-danger mx-1"> *</span></label>
                                 <input type="date" name="visite_technique_expire_le"
-                                    class="form-control form-control-sm" value="{{ old('visite_technique_expire_le') }}">
+                                    class="form-control form-control-sm  @error('visite_technique_expire_le') is-invalid @enderror"
+                                    value="{{ old('visite_technique_expire_le') }}">
+                                @error('visite_technique_expire_le')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="col-md-6">
                                 <label for="capacite_reservoir" class="form-label">Capacité réservoir (en litre)</label>
-                                <input type="number" name="capacite_reservoir" class="form-control form-control-sm"
+                                <input type="number" name="capacite_reservoir"
+                                    class="form-control form-control-sm @error('capacite_reservoir') is-invalid @enderror"
                                     value="{{ old('capacite_reservoir', 0) }}" placeholder="Ex: 200" min="0"
                                     step="1">
+                                @error('capacite_reservoir')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 

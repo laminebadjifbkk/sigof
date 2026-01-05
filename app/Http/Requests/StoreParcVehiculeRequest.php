@@ -26,7 +26,9 @@ class StoreParcVehiculeRequest extends FormRequest
             'etat' => 'required|in:operationnel,maintenance,hors_service',
             'assurance_expire_le' => 'required|date|after_or_equal:today',
             'visite_technique_expire_le' => 'required|date|after_or_equal:today',
-            'chauffeur_id' => 'nullable|exists:parc_chauffeurs,id',
+            /* 'assurance_expire_le' => 'required|date|after_or_equal:today',
+            'visite_technique_expire_le' => 'required|date|after_or_equal:today', */
+            'chauffeur_id' => 'required|exists:parc_chauffeurs,id',
         ];
     }
 }
