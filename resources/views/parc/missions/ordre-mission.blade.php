@@ -229,8 +229,8 @@
 
                     <div style="float:right; width:40%; font-size:10pt;">
 
-                        <div style="text-align:right;">
-                            ONFP/DG/DRH/DIVagp/mn
+                        <div style="text-align:right;">                            
+                        ONFP/DG/DRH/DIVagp/{{ auth()->user()->username }}
                         </div>
 
                         <br><br>
