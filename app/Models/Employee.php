@@ -273,7 +273,7 @@ class Employee extends Model
     public function parcmissions()
     {
         return $this->belongsToMany(ParcMission::class, 'parc_employee_mission', 'employee_id', 'mission_id')
-            ->withPivot('role')
+            ->withPivot('role', 'vehicule_id')
             ->withTimestamps();
     }
 
@@ -289,7 +289,7 @@ class Employee extends Model
             'parc_employee_mission', // table pivot
             'employee_id',
             'mission_id'
-        )->withPivot('vehicule_id', 'chauffeur_id', 'kilometrage_depart', 'kilometrage_retour')
+        )->withPivot('role', 'vehicule_id')
             ->withTimestamps();
     }
 }

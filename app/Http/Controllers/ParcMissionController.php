@@ -364,10 +364,22 @@ class ParcMissionController extends Controller
     {
         $annee = now()->year;
 
+        // Chauffeurs avec user + missions de l'année en cours
+        /* $chauffeurs = ParcChauffeur::with([
+            'employee.user',
+            'employee.parcmissions' => function ($query) use ($annee) {
+                $query->whereYear('date_depart', $annee)
+                    ->orderByDesc('date_retour');
+            }
+        ])->get();
+
+        dd($chauffeurs); */
+
         $chauffeurs = ParcChauffeur::with([
             'employee.user',
             'missions' => function ($query) use ($annee) {
-                $query->whereYear('date_depart', $annee);
+                $query->whereYear('date_depart', $annee)
+                    ->orderBy('date_retour', 'asc');
             }
         ])
             ->withMin(
@@ -376,10 +388,11 @@ class ParcMissionController extends Controller
                 }],
                 'date_retour'
             )
-            ->orderByRaw('oldest_retour IS NOT NULL') // NULL d'abord
-            ->orderBy('oldest_retour', 'asc')         // puis ancien → récent
+            ->orderByRaw('oldest_retour IS NOT NULL') // chauffeurs sans mission d'abord
+            ->orderBy('oldest_retour', 'asc')         // ancien → récent
             ->get();
 
+        dd($chauffeurs);
         // IDs des employés chauffeurs
         $chauffeurIds = $chauffeurs->pluck('employee_id')->toArray();
 
