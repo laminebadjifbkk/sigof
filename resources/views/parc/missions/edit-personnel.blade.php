@@ -51,13 +51,13 @@
                         {{-- ================== CHAUFFEURS ================== --}}
                         <h5 class="mt-3">Chauffeurs</h5>
 
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="table-parc-mission">
                             <thead>
                                 <tr>
                                     <th>Chauffeur</th>
                                     <th>Véhicule</th>
-                                    <th class="text-center">Dernière mission</th>
-                                    <th class="text-center">Montant {{ now()->year }}</th>
+                                    <th class="text-center">Dernière</th>
+                                    <th class="text-center">En {{ now()->year }}</th>
                                     <th class="text-center" width="5%">Missions</th>
                                     <th class="text-center" width="5%">Actions</th>
                                 </tr>
@@ -109,13 +109,14 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                         </td>
 
                                         {{-- Dernière mission --}}
-                                        <td class="text-center">
+                                        <td class="text-center"
+                                            data-order="{{ $lastMission?->date_retour?->format('Ymd') ?? '' }}">
                                             @if ($lastMission)
                                                 <span class="badge bg-info">
                                                     {{ $lastMission->date_retour->format('d/m/Y') }}
                                                 </span>
                                             @else
-                                                <span class="text-muted">—</span>
+                                                <span class="text-muted"></span>
                                             @endif
                                         </td>
 
@@ -270,6 +271,18 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialiser DataTables sans recherche ni pagination
+            new DataTable('#table-parc-mission', {
+                ordering: true,
+                order: [
+                    [2, 'asc']
+                ], // tri par colonne "Dernière mission"
+                searching: false, // désactive la recherche
+                paging: false, // désactive la pagination
+                info: false // désactive le texte "affichage 1 à x sur y"
+            });
+
+            // Boutons de sélection/désélection
             const selectAllBtn = document.getElementById('select-all');
             const deselectAllBtn = document.getElementById('deselect-all');
 
