@@ -102,10 +102,25 @@
                         </div>
 
                         {{-- Itinéraire --}}
-                        <div class="mb-3">
-                            <label class="form-label">Itinéraire<span class="text-danger"> *</span></label>
-                            <input type="text" name="itineraire" class="form-control form-control-sm"
-                                value="{{ old('itineraire', $mission->itineraire) }}">
+                        <div class="row mb-3">
+                            <div class="col-md-6 col-sm-12">
+                                <label class="form-label">Itinéraire<span class="text-danger"> *</span></label>
+                                <input type="text" name="itineraire" class="form-control form-control-sm"
+                                    value="{{ old('itineraire', $mission->itineraire) }}">
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <label for="autres" class="form-label">Nombre de véhicules prévus<span
+                                        class="text-danger">
+                                        *</span></label>
+                                <input type="number" name="autres"
+                                    class="form-control form-control-sm @error('autres') is-invalid @enderror"
+                                    value="{{ old('autres', $mission->autres ?? '1') }}" placeholder="Ex: 1" min="1"
+                                    step="1">
+                                @error('autres')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
 
                         {{-- Département / Région --}}

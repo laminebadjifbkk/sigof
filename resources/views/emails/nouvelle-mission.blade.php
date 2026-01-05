@@ -10,7 +10,7 @@
     {{-- Logo ONFP (optionnel) --}}
     {{-- <img src="cid:logo.png" alt="ONFP Logo" style="max-width: 150px; margin-bottom: 20px;"> --}}
 
-    <p>Bonjour,</p>
+    <p>Bonjour chers collègues,</p>
 
     <p>
         Une <strong>nouvelle mission</strong> a été créée dans le système de gestion du parc automobile.
@@ -30,7 +30,7 @@
                 Non définie
             @endif
         </li>
-        <li><strong>Nombre de véhicules nécessaires :</strong> {{ $mission->vehicules->count() ?? '—' }}</li>
+        <li><strong>Nombre de véhicules prévus :</strong> {{ $mission->autres ?? '—' }}</li>
     </ul>
 
     <p>

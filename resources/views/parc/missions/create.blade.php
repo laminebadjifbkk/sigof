@@ -46,7 +46,8 @@
                             <div class="col-md-6 col-sm-12">
                                 <label for="statut" class="form-label">Statut mission<span class="text-danger">
                                         *</span></label>
-                                <select name="statut" id="statut" class="form-select form-select-sm @error('statut') is-invalid @enderror">
+                                <select name="statut" id="statut"
+                                    class="form-select form-select-sm @error('statut') is-invalid @enderror">
                                     <option value="">-- Choisir un statut --</option>
                                     <option value="planifiee"
                                         {{ old('statut', $mission->statut ?? '') == 'planifiee' ? 'selected' : '' }}>
@@ -122,15 +123,28 @@
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="itineraire" class="form-label">Itinéraire<span class="text-danger">
-                                    *</span></label>
-                            <input type="text" name="itineraire"
-                                class="form-control form-control-sm @error('itineraire') is-invalid @enderror"
-                                value="{{ old('itineraire') }}" placeholder="Ex: Dakar-Kaolack-Dakar">
-                            @error('itineraire')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                        <div class="row mb-3">
+                            <div class="col-md-6 col-sm-12">
+                                <label for="itineraire" class="form-label">Itinéraire<span class="text-danger">
+                                        *</span></label>
+                                <input type="text" name="itineraire"
+                                    class="form-control form-control-sm @error('itineraire') is-invalid @enderror"
+                                    value="{{ old('itineraire') }}" placeholder="Ex: Dakar-Kaolack-Dakar">
+                                @error('itineraire')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label for="autres" class="form-label">Nombre de véhicules prévus<span
+                                        class="text-danger">
+                                        *</span></label>
+                                <input type="number" name="autres"
+                                    class="form-control form-control-sm @error('autres') is-invalid @enderror"
+                                    value="{{ old('autres', 1) }}" placeholder="Ex: 1" min="1" step="1">
+                                @error('autres')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="row mb-3">
@@ -201,7 +215,8 @@
                                 <label for="frais_deplacement" class="form-label">Frais de déplacement</label>
                                 <input type="number" step="0.01" min="0" name="frais_deplacement"
                                     class="form-control form-control-sm @error('frais_deplacement') is-invalid @enderror"
-                                    value="{{ old('frais_deplacement', 0) }}" placeholder="Ex: 20000" min="0" step="1">
+                                    value="{{ old('frais_deplacement', 0) }}" placeholder="Ex: 20000" min="0"
+                                    step="1">
                                 @error('frais_deplacement')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -223,7 +238,8 @@
                                 <label for="avance" class="form-label">Avance</label>
                                 <input type="number" step="0.01" min="0" name="avance"
                                     class="form-control form-control-sm @error('avance') is-invalid @enderror"
-                                    value="{{ old('avance', 0) }}" placeholder="Ex: 30000" min="0" step="1">
+                                    value="{{ old('avance', 0) }}" placeholder="Ex: 30000" min="0"
+                                    step="1">
                                 @error('avance')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
