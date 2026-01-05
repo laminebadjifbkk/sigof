@@ -417,7 +417,7 @@
                 </tr>
                 <tr>
                     <td style="padding:2px 0;"><b>Itinéraire :</b></td>
-                    <td style="padding:2px 0;">{{ $mission->lieu_depart ?? 'Dakar' }} – {{ $mission->lieu_arrivee }}
+                    <td style="padding:2px 0;">{{ $mission->itiniraire ?? $mission->lieu_depart .' - '.$mission->lieu_arrive }}
                     </td>
                 </tr>
             </table>
