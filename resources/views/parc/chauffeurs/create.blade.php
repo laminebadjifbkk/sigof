@@ -217,6 +217,7 @@
                                 <label class="form-label">Statut <span class="text-danger">*</span></label>
                                 <select name="statut" class="form-select form-select-sm">
                                     <option value="actif">Actif</option>
+                                    <option value="disponible">disponible</option>
                                     <option value="indisponible">Indisponible</option>
                                 </select>
                             </div>

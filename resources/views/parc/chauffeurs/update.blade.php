@@ -94,6 +94,10 @@
                                 <select name="statut" class="form-select form-select-sm">
                                     <option value="actif"
                                         {{ old('statut', $chauffeur->statut) == 'actif' ? 'selected' : '' }}>Actif</option>
+                                    <option value="disponible"
+                                        {{ old('statut', $chauffeur->statut) == 'disponible' ? 'selected' : '' }}>
+                                        Disponible
+                                    </option>
                                     <option value="indisponible"
                                         {{ old('statut', $chauffeur->statut) == 'indisponible' ? 'selected' : '' }}>
                                         Indisponible
