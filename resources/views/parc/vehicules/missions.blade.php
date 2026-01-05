@@ -29,7 +29,7 @@
                                     {{ $cm->date_depart->format('d/m/Y') }} au {{ $cm->date_retour->format('d/m/Y') }}
                                 </span>
                                 <span class="etat-btn {{ $cm->etat }}">
-                                    {{ $cm->etat }}
+                                    {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $cm->etat))) }}
                                 </span>
                             </div>
                         </div>
