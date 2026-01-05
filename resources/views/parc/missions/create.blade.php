@@ -195,7 +195,7 @@
                                 <label for="taux_journalier" class="form-label">Taux journalier</label>
                                 <input type="number" step="0.01" min="0" name="taux_journalier"
                                     class="form-control form-control-sm @error('taux_journalier') is-invalid @enderror"
-                                    value="{{ old('taux_journalier') }}" placeholder="Ex: 25000">
+                                    value="{{ old('taux_journalier', 25000) }}" placeholder="Ex: 25000">
                                 @error('taux_journalier')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
