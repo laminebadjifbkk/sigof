@@ -368,10 +368,14 @@ class ParcMissionController extends Controller
         $chauffeurs = ParcChauffeur::with([
             'employee.user',
             'employee.parcmissions' => function ($query) use ($annee) {
-                $query->whereYear('date_depart', $annee)
-                    ->orderByDesc('date_retour');
+                $query->whereYear('date_depart', $annee);
             }
-        ])->get();
+        ])
+            ->withMin(['employee.parcmissions as oldest_retour' => function ($query) use ($annee) {
+                $query->whereYear('date_depart', $annee);
+            }], 'date_retour')
+            ->orderBy('oldest_retour', 'asc') // plus ancienne d'abord
+            ->get();
 
         // IDs des employés chauffeurs
         $chauffeurIds = $chauffeurs->pluck('employee_id')->toArray();
