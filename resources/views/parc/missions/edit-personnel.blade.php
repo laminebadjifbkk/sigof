@@ -55,7 +55,9 @@
                             <thead>
                                 <tr>
                                     <th>Chauffeur</th>
-                                    <th>Véhicule</th> {{-- Nouvelle colonne --}}
+                                    <th>Véhicule</th>
+                                    <th class="text-center">Dernière mission</th>
+                                    <th class="text-center">Montant {{ now()->year }}</th>
                                     <th class="text-center" width="5%">Missions</th>
                                     <th class="text-center" width="5%">Actions</th>
                                 </tr>
@@ -63,6 +65,9 @@
                             <tbody>
                                 @foreach ($chauffeurs as $chauffeur)
                                     @php
+                                        $missions = $chauffeur->employee->parcmissions;
+                                        $lastMission = $missions->first(); // déjà triée
+                                        $totalMontant = $missions->sum('indemnites_total');
                                         $pivot = $mission->employees->find($chauffeur->employee_id)?->pivot;
                                         $isChecked = $missionChauffeurs->pluck('id')->contains($chauffeur->employee_id);
                                         $missionsCount = $chauffeur->employee->parcmissions->count();
@@ -89,6 +94,24 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                        </td>
+
+                                        {{-- Derniere mission --}}
+                                        <td class="text-center">
+                                            @if ($lastMission)
+                                                <span class="badge bg-info">
+                                                    {{ $lastMission->date_retour->format('d/m/Y') }}
+                                                </span>
+                                            @else
+                                                <span class="text-muted">—</span>
+                                            @endif
+                                        </td>
+
+                                        {{-- Montant annuel --}}
+                                        <td class="text-center">
+                                            <span class="badge bg-success">
+                                                {{ number_format($totalMontant, 0, ',', ' ') }} FCFA
+                                            </span>
                                         </td>
 
                                         {{-- Missions --}}

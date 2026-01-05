@@ -338,7 +338,7 @@ class ParcMissionController extends Controller
     }
  */
 
-    public function editPersonnel(ParcMission $mission)
+    /*     public function editPersonnel(ParcMission $mission)
     {
         $chauffeurs = ParcChauffeur::with('employee.user')->get();
         $chauffeurIds = $chauffeurs->pluck('employee_id')->toArray();
@@ -357,6 +357,42 @@ class ParcMissionController extends Controller
             'chauffeurs',
             'missionChauffeurs',
             'employees'
+        ));
+    } */
+
+    public function editPersonnel(ParcMission $mission)
+    {
+        $annee = now()->year;
+
+        // Chauffeurs avec user + missions de l'année en cours
+        $chauffeurs = ParcChauffeur::with([
+            'employee.user',
+            'employee.parcmissions' => function ($query) use ($annee) {
+                $query->whereYear('date_depart', $annee)
+                    ->orderByDesc('date_retour');
+            }
+        ])->get();
+
+        // IDs des employés chauffeurs
+        $chauffeurIds = $chauffeurs->pluck('employee_id')->toArray();
+
+        // Chauffeurs déjà liés à la mission
+        $missionChauffeurs = $mission->employees()
+            ->whereIn('employees.id', $chauffeurIds)
+            ->get();
+
+        // Employés non chauffeurs
+        $employees = Employee::whereNotIn('id', $chauffeurIds)
+            ->with('user')
+            ->get()
+            ->sortBy(fn($e) => $e->user->name);
+
+        return view('parc.missions.edit-personnel', compact(
+            'mission',
+            'chauffeurs',
+            'missionChauffeurs',
+            'employees',
+            'annee'
         ));
     }
 
