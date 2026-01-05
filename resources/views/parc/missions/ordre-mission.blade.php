@@ -314,7 +314,7 @@
 
                     <tr>
                         <td>
-                            <b>Total frais de mission :</b> ............................................
+                            <b>Total frais de mission :</b> ...........................................
                         </td>
                         <td>
                             <b>Région :</b> {{ $mission?->departement?->region?->nom ?? $mission?->lieu_arrivee }}
@@ -332,7 +332,7 @@
 
                     <tr>
                         <td>
-                            <b>Reste à percevoir :</b> ...................................................
+                            <b>Reste à percevoir :</b> ..................................................
                         </td>
                         <td>
                             <b>Date de retour :</b> {{ $mission->date_retour?->format('d/m/Y') }}
