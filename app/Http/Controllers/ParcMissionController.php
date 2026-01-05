@@ -160,7 +160,7 @@ class ParcMissionController extends Controller
 
         // Nombre de jours (calcul automatique si non stocké en base)
         $mission->nombre_jours = $mission->date_depart && $mission->date_retour
-            ? $mission->date_depart->diffInDays($mission->date_retour) + 1
+            ? $mission->date_depart->diffInDays($mission->date_retour)
             : 1;
 
         // Les employés affectés à la mission
@@ -402,7 +402,7 @@ class ParcMissionController extends Controller
             $mission = ParcMission::findOrFail($id);
             $employees = $mission->employees;
             $jours = $mission->date_retour
-                ? $mission->date_depart->diffInDays($mission->date_retour) + 1
+                ? $mission->date_depart->diffInDays($mission->date_retour)
                 : 1;
 
             // Préparer les données pour la vue PDF
