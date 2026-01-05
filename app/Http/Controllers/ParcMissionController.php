@@ -375,21 +375,21 @@ class ParcMissionController extends Controller
 
         dd($chauffeurs); */
 
+        $annee = now()->year;
+
         $chauffeurs = ParcChauffeur::with([
-            'employee.user',
+            'employee.user', // pour afficher le nom
             'missions' => function ($query) use ($annee) {
-                $query->whereYear('date_depart', $annee)
-                    ->orderBy('date_retour', 'asc');
+                $query->whereYear('date_depart', $annee);
             }
         ])
-            ->withMin(
-                ['missions as oldest_retour' => function ($query) use ($annee) {
+            ->withMax([
+                'missions as last_retour' => function ($query) use ($annee) {
                     $query->whereYear('date_depart', $annee);
-                }],
-                'date_retour'
-            )
-            ->orderByRaw('oldest_retour IS NOT NULL')
-            ->orderBy('oldest_retour', 'asc')
+                }
+            ], 'date_retour')
+            ->orderByRaw('last_retour IS NULL') // ceux sans mission en haut
+            ->orderBy('last_retour', 'asc')     // plus ancienne date de retour → haut
             ->get();
 
         // IDs des employés chauffeurs

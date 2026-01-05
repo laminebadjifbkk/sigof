@@ -65,18 +65,24 @@
                             <tbody>
                                 @foreach ($chauffeurs as $chauffeur)
                                     @php
-                                        /* $missions = $chauffeur->employee->parcmissions; */
-                                        /* $lastMission = $missions->first(); // déjà triée */
-                                        $missions = $chauffeur->missions; // ✅ même relation que le tri
-                                        $lastMission = $missions->first(); // déjà triée ASC
-                                        $totalMontant = $missions->sum('indemnites_total');
-                                        $missionsCount = $missions->count();
-                                        $isChecked = $missionChauffeurs->pluck('id')->contains($chauffeur->employee_id);
-                                        $employeeInMission = $mission->employees->firstWhere(
-                                            'id',
-                                            $chauffeur->employee_id,
-                                        );
-                                        $pivot = $employeeInMission?->pivot;
+                                        // Missions de l'année
+$missions = $chauffeur->employee->parcmissions;
+
+// Date de retour la plus récente pour tri et affichage
+$lastMission = $missions->sortBy('date_retour')->first();
+
+// Montant total des missions
+$totalMontant = $missions->sum('indemnites_total');
+
+// Nombre de missions
+$missionsCount = $missions->count();
+
+// Pour les checkboxes et véhicules
+$pivot = $mission->employees->find($chauffeur->employee_id)?->pivot;
+$isChecked = $missionChauffeurs->pluck('id')->contains($chauffeur->employee_id);
+
+// Pour modal : 5 dernières missions
+$lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                     @endphp
                                     <tr>
                                         {{-- Checkbox Chauffeur --}}
@@ -102,24 +108,14 @@
                                             </select>
                                         </td>
 
-                                        {{-- Derniere mission --}}
-                                        {{-- <td class="text-center">
+                                        {{-- Dernière mission --}}
+                                        <td class="text-center">
                                             @if ($lastMission)
                                                 <span class="badge bg-info">
                                                     {{ $lastMission->date_retour->format('d/m/Y') }}
                                                 </span>
                                             @else
                                                 <span class="text-muted">—</span>
-                                            @endif
-                                        </td> --}}
-
-                                        <td class="text-center">
-                                            @if ($chauffeur->oldest_retour)
-                                                <span class="badge bg-info">
-                                                    {{ \Carbon\Carbon::parse($chauffeur->oldest_retour)->format('d/m/Y') }}
-                                                </span>
-                                            @else
-                                                <span class="badge bg-success">Disponible</span>
                                             @endif
                                         </td>
 
@@ -130,10 +126,11 @@
                                             </span>
                                         </td>
 
-                                        {{-- Missions --}}
+                                        {{-- Nombre de missions --}}
                                         <td class="text-center">
                                             <span class="badge bg-secondary">{{ $missionsCount }}</span>
                                         </td>
+
                                         {{-- Actions --}}
                                         <td class="text-center">
                                             <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
@@ -142,6 +139,7 @@
                                             </button>
                                         </td>
                                     </tr>
+
                                     {{-- Modal des missions --}}
                                     <div class="modal fade" id="missionsModal{{ $chauffeur->id }}" tabindex="-1"
                                         aria-labelledby="missionsModalLabel{{ $chauffeur->id }}" aria-hidden="true">
@@ -156,14 +154,9 @@
                                                     <button type="button" class="btn-close btn-close-white"
                                                         data-bs-dismiss="modal" aria-label="Fermer"></button>
                                                 </div>
+
                                                 {{-- Body --}}
                                                 <div class="modal-body">
-                                                    @php
-                                                        $lastMissions = $chauffeur->missions
-                                                            ->sortByDesc('date_depart')
-                                                            ->take(5);
-                                                    @endphp
-
                                                     @if ($lastMissions->count() > 0)
                                                         <div class="list-group">
                                                             @foreach ($lastMissions as $cm)
@@ -179,7 +172,6 @@
                                                                             Du {{ $cm->date_depart->format('d/m/Y') }} au
                                                                             {{ $cm->date_retour->format('d/m/Y') }}
                                                                         </span>
-
                                                                         @php
                                                                             $now = now();
                                                                             if ($cm->date_retour < $now) {
@@ -199,10 +191,8 @@
                                                                                 ];
                                                                             }
                                                                         @endphp
-
-                                                                        <span class="badge {{ $status['class'] }}">
-                                                                            {{ $status['label'] }}
-                                                                        </span>
+                                                                        <span
+                                                                            class="badge {{ $status['class'] }}">{{ $status['label'] }}</span>
                                                                     </div>
                                                                 </div>
                                                             @endforeach
