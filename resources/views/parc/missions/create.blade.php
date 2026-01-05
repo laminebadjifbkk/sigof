@@ -50,21 +50,10 @@
                                     class="form-select form-select-sm @error('statut') is-invalid @enderror">
                                     <option value="">-- Choisir un statut --</option>
                                     <option value="planifiee"
-                                        {{ old('statut', $mission->statut ?? '') == 'planifiee' ? 'selected' : '' }}>
+                                        {{ old('statut', 'planifiee' ?? '') == 'planifiee' ? 'selected' : '' }}>
                                         Planifiée
                                     </option>
-                                    <option value="en_cours"
-                                        {{ old('statut', $mission->statut ?? '') == 'en_cours' ? 'selected' : '' }}>En
-                                        cours
-                                    </option>
-                                    <option value="terminee"
-                                        {{ old('statut', $mission->statut ?? '') == 'terminee' ? 'selected' : '' }}>
-                                        Terminée
-                                    </option>
-                                    <option value="annulee"
-                                        {{ old('statut', $mission->statut ?? '') == 'annulee' ? 'selected' : '' }}>
-                                        Annulée
-                                    </option>
+
                                 </select>
                                 @error('statut')
                                     <span class="text-danger">{{ $message }}</span>

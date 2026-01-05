@@ -20,12 +20,13 @@
     <h3 style="color: #004080;">Détails de la mission :</h3>
     <ul style="list-style: none; padding-left: 0;">
         <li><strong>Référence :</strong> {{ $mission->reference }}</li>
+        <li><strong>Type :</strong> {{ $mission->typeMission->libelle }}</li>
         <li><strong>Objet :</strong> {{ $mission->objet ?? 'Non défini' }}</li>
         <li><strong>Date départ :</strong> {{ $mission->date_depart?->format('d/m/Y') ?? 'Non définie' }}</li>
         <li><strong>Date retour :</strong> {{ $mission->date_retour?->format('d/m/Y') ?? 'Non définie' }}</li>
         <li><strong>Durée :</strong>
             @if ($mission->date_depart && $mission->date_retour)
-                {{ $mission->date_depart->diffInDays($mission->date_retour) + 1 }} jours
+                {{ $mission->date_depart->diffInDays($mission->date_retour) }} jours
             @else
                 Non définie
             @endif
