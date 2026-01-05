@@ -28,8 +28,8 @@
                                 <h5 class="card-title pb-0 fs-4">Modification</h5>
                                 <p class="small">Saisissez les nouvelles informations pour effectuer la modification.</p>
                             </div>
-                            <form method="post" action="{{ route('users.update', $user) }}"
-                                enctype="multipart/form-data" class="row g-3">
+                            <form method="post" action="{{ route('users.update', $user) }}" enctype="multipart/form-data"
+                                class="row g-3">
                                 @csrf
                                 @method('patch')
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
@@ -243,6 +243,20 @@
                                     @enderror
                                 </div>
 
+                                <div class="col-12 col-md-6 col-lg-4 mb-0">
+                                    <label for="username" class="form-label">Username<span
+                                            class="text-danger mx-1">*</span></label>
+                                    <input type="text" name="username"
+                                        value="{{ $user->username ?? old('username') }}"
+                                        class="form-control form-control-sm @error('username') is-invalid @enderror"
+                                        id="username" placeholder="username">
+                                    @error('username')
+                                        <span class="invalid-feedback" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
+                                </div>
+
                                 {{--  <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="password" class="form-label">Modifier mot de passe</label>
                                     <input type="password" name="password"
@@ -258,7 +272,8 @@
                                 <div class="col-12 col-md-12 col-lg-8 mb-0">
                                     <label for="roles" class="form-label">Roles</label>
                                     <select name="roles[]" class="form-select" aria-label="Select"
-                                        id="multiple-select-field" multiple data-placeholder="Choisir un ou plusieurs roles">
+                                        id="multiple-select-field" multiple
+                                        data-placeholder="Choisir un ou plusieurs roles">
                                         @foreach ($roles as $role)
                                             <option value="{{ $role }}"
                                                 {{ in_array($role, $userRoles) ? 'selected' : '' }}>

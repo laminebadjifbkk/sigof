@@ -444,12 +444,13 @@ class UserController extends Controller
 
             $this->validate($request, [
                 'civilite'       => ['nullable', 'string', 'max:10'],
-                /* 'username'       => [
+                'username'       => [
                     'required',
                     'string',
-                    'max:25',
+                    'min:2',
+                    'max:10',
                     Rule::unique(User::class, 'username')->ignore($user->uuid, 'uuid'),
-                ], */
+                ],
                 'cin'            => [
                     'nullable',
                     'string',
@@ -461,6 +462,7 @@ class UserController extends Controller
                 ],
                 'firstname'      => ['required', 'string', 'max:150'],
                 'name'           => ['required', 'string', 'max:50'],
+                
                 'date_naissance' => ['required', 'date_format:d/m/Y'],
                 'lieu_naissance' => ['nullable', 'string'],
                 'image'          => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
@@ -512,6 +514,7 @@ class UserController extends Controller
             $user->update([
                 'civilite'                  => $request->civilite,
                 /* 'username'                  => substr(str_replace(' ', '', $request->username), 0, 10), */
+                'username'                  => str_replace(' ', '', $request->username),
                 'cin'                       => $request->cin,
                 'firstname'                 => format_proper_name($request->firstname),
                 'name'                      => remove_accents_uppercase($request->name),
