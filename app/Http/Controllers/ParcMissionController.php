@@ -392,7 +392,6 @@ class ParcMissionController extends Controller
             ->orderBy('oldest_retour', 'asc')         // ancien → récent
             ->get();
 
-        dd($chauffeurs);
         // IDs des employés chauffeurs
         $chauffeurIds = $chauffeurs->pluck('employee_id')->toArray();
 
