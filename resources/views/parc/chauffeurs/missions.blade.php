@@ -16,17 +16,6 @@
             @else
                 <div id="missions-container">
                     @foreach ($missions as $cm)
-                        @php
-                            $now = now();
-                            if ($cm->date_retour < $now) {
-                                $status = ['label' => 'Terminée', 'class' => 'bg-success'];
-                            } elseif ($cm->date_depart > $now) {
-                                $status = ['label' => 'À venir', 'class' => 'bg-warning text-dark'];
-                            } else {
-                                $status = ['label' => 'En cours', 'class' => 'bg-primary text-white'];
-                            }
-                        @endphp
-
                         <div class="d-flex justify-content-between align-items-center mb-2 p-3 border rounded shadow-sm">
                             <div>
                                 <a href="{{ route('parc-missions.show', $cm->id) }}" class="text-decoration-none">
@@ -38,8 +27,8 @@
                                 <span class="badge bg-secondary">
                                     {{ $cm->date_depart->format('d/m/Y') }} au {{ $cm->date_retour->format('d/m/Y') }}
                                 </span>
-                                <span class="badge {{ $status['class'] }}">
-                                    {{ $status['label'] }}
+                                <span class="etat-btn {{ $cm->statut }}">
+                                    {{ $cm->statut }}
                                 </span>
                             </div>
                         </div>
