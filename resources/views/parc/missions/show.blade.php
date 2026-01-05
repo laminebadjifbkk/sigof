@@ -46,7 +46,7 @@
                             </tr>
                             <tr>
                                 <th>Lieu</th>
-                                <td>{{ $mission->lieu_depart }} → {{ $mission->lieu_arrivee }}</td>
+                                <td>{{ $mission->lieu_arrivee }}</td>
                             </tr>
                             @if (!empty($mission?->region))
                                 <tr>
