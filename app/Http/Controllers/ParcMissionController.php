@@ -13,6 +13,9 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateParcMissionPersonnelRequest;
+use App\Mail\NouvelleMissionMail;
+use Illuminate\Support\Facades\Mail;
+use App\Models\User; // pour récupérer DAF et logistique
 
 class ParcMissionController extends Controller
 {
@@ -139,11 +142,26 @@ class ParcMissionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreParcMissionRequest $request)
+    /*    public function store(StoreParcMissionRequest $request)
     {
         ParcMission::create($request->validated());
         return redirect()->route('parc-missions.index')
             ->with('status', 'Mission créée avec succès');
+    } */
+
+    public function store(StoreParcMissionRequest $request)
+    {
+
+        $mission = ParcMission::create($request->validated());
+        // Tous les utilisateurs qui ont le rôle 'daf' ou 'logistique'
+        $recipients = User::role(['PARC'])->pluck('email');
+
+        foreach ($recipients as $email) {
+            Mail::to($email)->send(new NouvelleMissionMail($mission));
+        }
+
+        return redirect()->route('parc-missions.index')
+            ->with('status', 'Mission créée avec succès et notifications envoyées aux responsables');
     }
 
     /**
