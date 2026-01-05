@@ -268,10 +268,10 @@
                 <table class="table-no-border" width="100%" cellspacing="0" cellpadding="6"
                     style="border-collapse: collapse; font-size:12pt;">
                     <tr>
-                        <td width="55%">
+                        <td width="45%">
                             <b>Nombre de jours :</b> {{ $jours }} jour{{ $jours > 1 ? 's' : '' }}
                         </td>
-                        <td width="45%">
+                        <td width="55%">
                             <b>Prénom(s) - Nom :</b> {{ $employee?->user?->firstname }} {{ $employee?->user?->name }}
                         </td>
                     </tr>
@@ -401,23 +401,23 @@
 
             <table class="table-no-border" cellpadding="0" cellspacing="0"
                 style="font-size:12pt; border-collapse: collapse;">
-                <tr>
+                {{-- <tr>
                     <td width="30%" style="padding:2px 0;"><b>Ordre de mission :</b></td>
                     <td width="70%" style="padding:2px 0;">
-                        {{-- {{ $mission->reference }} --}}
+                        {{ $mission->reference }}
                     </td>
-                </tr>
+                </tr> --}}
                 <tr>
                     <td style="padding:2px 0;"><b>Prénom(s) - Nom :</b></td>
-                    <td style="padding:2px 0;">{{ $employee?->user?->firstname }} {{ $employee?->user?->name }}</td>
+                    <td>{{ $employee?->user?->firstname }} {{ $employee?->user?->name }}</td>
                 </tr>
                 <tr>
                     <td style="padding:2px 0;"><b>Fonction :</b></td>
-                    <td style="padding:2px 0;">{{ $employee?->fonction?->name }}</td>
+                    <td>{{ $employee?->fonction?->name }}</td>
                 </tr>
                 <tr>
                     <td style="padding:2px 0;"><b>Itinéraire :</b></td>
-                    <td style="padding:2px 0;">{{ $mission->itineraire ?? $mission->lieu_depart .' - '.$mission->lieu_arrive }}
+                    <td>{{ $mission->itineraire ?? $mission->lieu_depart .' - '.$mission->lieu_arrive }}
                     </td>
                 </tr>
             </table>
