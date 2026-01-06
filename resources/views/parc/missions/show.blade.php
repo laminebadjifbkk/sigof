@@ -353,7 +353,7 @@
                 @endcan
 
                 {{-- Gestion véhicules --}}
-                @can('parc-mission-update')
+                @can('parc-vehicule-update')
                     <a href="{{ route('parc-missions.vehicules.edit', $mission->id) }}" class="btn btn-secondary btn-sm">
                         <i class="bi bi-truck"></i> Ajouter / Modifier Véhicules
                     </a>
