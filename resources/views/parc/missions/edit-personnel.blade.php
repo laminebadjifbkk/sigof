@@ -56,7 +56,7 @@
                                 <tr>
                                     <th>Chauffeur</th>
                                     <th>Véhicule</th>
-                                    <th class="text-center">Date retour</th>
+                                    <th class="text-center">Dernière mis.</th>
                                     <th class="text-center">En {{ now()->year }}</th>
                                     <th class="text-center" width="5%">Missions</th>
                                     <th class="text-center" width="5%">Actions</th>
@@ -66,10 +66,7 @@
                                 @foreach ($chauffeurs as $chauffeur)
                                     @php
                                         // Missions de l'année
-/* $missions = $chauffeur->employee->parcmissions; */
-$missions = $chauffeur->employee->missions->filter(function ($mission) {
-    return $mission->date_depart->year == now()->year;
-});
+$missions = $chauffeur->employee->parcmissions;
 
 // Date de retour la plus récente pour tri et affichage
 $lastMission = $missions->sortBy('date_retour')->first();
@@ -126,7 +123,7 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                         {{-- Montant annuel --}}
                                         <td class="text-center">
                                             <span class="badge bg-success">
-                                                {{ number_format($totalMontant ?? 0, 0, ',', ' ') }}
+                                                {{ number_format($totalMontant, 0, ',', ' ') }}
                                             </span>
                                         </td>
 
