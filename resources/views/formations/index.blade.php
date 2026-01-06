@@ -640,14 +640,6 @@
                                             <div>{{ $message }}</div>
                                         </span>
                                     @enderror
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary btn-sm"
-                                            data-bs-dismiss="modal">Fermer</button>
-                                        <div class="text-center">
-                                            <button type="submit"
-                                                class="btn btn-primary btn-block submit_rapport btn-sm">Générer</button>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="col-12">
@@ -678,7 +670,15 @@
                                         </span>
                                     @enderror
                                 </div>
+                            </div>
 
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm"
+                                    data-bs-dismiss="modal">Fermer</button>
+                                <div class="text-center">
+                                    <button type="submit"
+                                        class="btn btn-primary btn-block submit_rapport btn-sm">Générer</button>
+                                </div>
                             </div>
                         </div>
                     </form>
