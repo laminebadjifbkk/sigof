@@ -230,7 +230,10 @@
                     <div style="float:right; width:40%; font-size:10pt;">
 
                         <div style="text-align:right;">
-                            ONFP/DG/DRH/DIVagp/{{ optional(auth()->user())->username }}
+                            ONFP/DG/DRH/DIVagp
+                            @if (optional(auth()->user())->username !== 'fbd')
+                                /{{ auth()->user()->username }}
+                            @endif
                         </div>
 
                         <br><br>
@@ -373,7 +376,10 @@
                 <div style="float:right; width:40%; font-size:10pt;">
 
                     <div style="text-align:right;">
-                        ONFP/DG/DRH/DIVagp/{{ optional(auth()->user())->username }}
+                        ONFP/DG/DRH/DIVagp
+                        @if (optional(auth()->user())->username !== 'fbd')
+                            /{{ auth()->user()->username }}
+                        @endif
                     </div>
 
                     <br><br>
@@ -417,7 +423,7 @@
                 </tr>
                 <tr>
                     <td style="padding:2px 0;"><b>Itinéraire :</b></td>
-                    <td>{{ $mission->itineraire ?? $mission->lieu_depart .' - '.$mission->lieu_arrive }}
+                    <td>{{ $mission->itineraire ?? $mission->lieu_depart . ' - ' . $mission->lieu_arrive }}
                     </td>
                 </tr>
             </table>
