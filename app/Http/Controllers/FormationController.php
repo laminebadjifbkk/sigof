@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Antenne;
 use App\Models\Choixoperateur;
 use App\Models\Collective;
 use App\Models\Collectivemodule;
@@ -59,6 +60,8 @@ class FormationController extends Controller
     {
         /* $formations = Formation::where('statut', '!=', 'supprimer')->orderBy('created_at', 'desc')->get(); */
         $formations = Formation::select('*')->orderBy('created_at', 'desc')->get();
+
+        $poles = Antenne::get();
 
         $groupes = $formations->groupBy(function ($item) {
             return $item->types_formation->name ?? 'Aucun type';

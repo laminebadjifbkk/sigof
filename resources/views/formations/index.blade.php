@@ -649,6 +649,36 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-12">
+                                    <label for="pole" class="form-label">
+                                        Pôle <span class="text-danger mx-1">*</span>
+                                    </label>
+                                    <select name="pole_id"
+                                        class="form-select form-select-sm @error('pole_id') is-invalid @enderror"
+                                        id="select-field-formation-pole-rapport" data-placeholder="Choisir pôle">
+
+                                        <option value="">-- Choisir un pôle --</option>
+
+                                        <option value="Tous" {{ old('pole_id') == 'Tous' ? 'selected' : '' }}>
+                                            Tous
+                                        </option>
+
+                                        @foreach ($poles as $pole)
+                                            <option value="{{ $pole->id }}"
+                                                {{ old('pole_id') == $pole->id ? 'selected' : '' }}>
+                                                {{ $pole->name ?? $pole->code }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('pole_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
+                                </div>
+
                             </div>
                         </div>
                     </form>
