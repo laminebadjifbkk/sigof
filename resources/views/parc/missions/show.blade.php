@@ -346,7 +346,7 @@
                 @endcan --}}
 
                 {{-- Gestion des chauffeurs --}}
-                @can('parc-mission-update')
+                @can('parc-mission-personnel-update')
                     <a href="{{ route('parc-missions.personnel.edit', $mission->id) }}" class="btn btn-info btn-sm">
                         <i class="bi bi-people-fill"></i> Ajouter / Modifier Personnel
                     </a>
