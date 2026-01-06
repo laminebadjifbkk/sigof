@@ -56,7 +56,7 @@
                                 <tr>
                                     <th>Chauffeur</th>
                                     <th>Véhicule</th>
-                                    <th class="text-center">Dernière mis.</th>
+                                    <th class="text-center">Date retour</th>
                                     <th class="text-center">En {{ now()->year }}</th>
                                     <th class="text-center" width="5%">Missions</th>
                                     <th class="text-center" width="5%">Actions</th>
@@ -66,23 +66,23 @@
                                 @foreach ($chauffeurs as $chauffeur)
                                     @php
                                         // Missions de l'année
-$missions = $chauffeur->employee->parcmissions;
+                                        $missions = $chauffeur->employee->parcmissions;
 
-// Date de retour la plus récente pour tri et affichage
-$lastMission = $missions->sortBy('date_retour')->first();
+                                        // Date de retour la plus récente pour tri et affichage
+                                        $lastMission = $missions->sortBy('date_retour')->first();
 
-// Montant total des missions
-$totalMontant = $missions->sum('indemnites_total');
+                                        // Montant total des missions
+                                        $totalMontant = $missions->sum('indemnites_total');
 
-// Nombre de missions
-$missionsCount = $missions->count();
+                                        // Nombre de missions
+                                        $missionsCount = $missions->count();
 
-// Pour les checkboxes et véhicules
-$pivot = $mission->employees->find($chauffeur->employee_id)?->pivot;
-$isChecked = $missionChauffeurs->pluck('id')->contains($chauffeur->employee_id);
+                                        // Pour les checkboxes et véhicules
+                                        $pivot = $mission->employees->find($chauffeur->employee_id)?->pivot;
+                                        $isChecked = $missionChauffeurs->pluck('id')->contains($chauffeur->employee_id);
 
-// Pour modal : 5 dernières missions
-$lastMissions = $missions->sortByDesc('date_depart')->take(5);
+                                        // Pour modal : 5 dernières missions
+                                        $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                     @endphp
                                     <tr>
                                         {{-- Checkbox Chauffeur --}}
