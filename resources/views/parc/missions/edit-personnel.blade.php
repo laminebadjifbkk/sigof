@@ -66,26 +66,26 @@
                                 @foreach ($chauffeurs as $chauffeur)
                                     @php
                                         // Missions de l'année
-                                        /* $missions = $chauffeur->employee->parcmissions; */
-                                        $missions = $chauffeur->employee->parcmissions->filter(function ($mission) {
-                                            return $mission->date_depart->year == now()->year;
-                                        });
+/* $missions = $chauffeur->employee->parcmissions; */
+$missions = $chauffeur->employee->missions->filter(function ($mission) {
+    return $mission->date_depart->year == now()->year;
+});
 
-                                        // Date de retour la plus récente pour tri et affichage
-                                        $lastMission = $missions->sortBy('date_retour')->first();
+// Date de retour la plus récente pour tri et affichage
+$lastMission = $missions->sortBy('date_retour')->first();
 
-                                        // Montant total des missions
-                                        $totalMontant = $missions->sum('indemnites_total');
+// Montant total des missions
+$totalMontant = $missions->sum('indemnites_total');
 
-                                        // Nombre de missions
-                                        $missionsCount = $missions->count();
+// Nombre de missions
+$missionsCount = $missions->count();
 
-                                        // Pour les checkboxes et véhicules
-                                        $pivot = $mission->employees->find($chauffeur->employee_id)?->pivot;
-                                        $isChecked = $missionChauffeurs->pluck('id')->contains($chauffeur->employee_id);
+// Pour les checkboxes et véhicules
+$pivot = $mission->employees->find($chauffeur->employee_id)?->pivot;
+$isChecked = $missionChauffeurs->pluck('id')->contains($chauffeur->employee_id);
 
-                                        // Pour modal : 5 dernières missions
-                                        $lastMissions = $missions->sortByDesc('date_depart')->take(5);
+// Pour modal : 5 dernières missions
+$lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                     @endphp
                                     <tr>
                                         {{-- Checkbox Chauffeur --}}
@@ -126,7 +126,7 @@
                                         {{-- Montant annuel --}}
                                         <td class="text-center">
                                             <span class="badge bg-success">
-                                                {{ number_format($totalMontant, 0, ',', ' ') }}
+                                                {{ number_format($totalMontant ?? 0, 0, ',', ' ') }}
                                             </span>
                                         </td>
 
