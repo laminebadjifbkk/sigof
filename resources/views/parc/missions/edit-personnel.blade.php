@@ -41,6 +41,14 @@
                         <button type="button" id="select-all" class="btn btn-sm btn-info">Tout sélectionner</button>
                         <button type="button" id="deselect-all" class="btn btn-sm btn-outline-secondary">Tout
                             désélectionner</button>
+
+                        {{-- Ordres de mission --}}
+                        @can('parc-odre-mission-edit')
+                            <a href="{{ route('parc-missions.pdf', $mission->id) }}" class="btn btn-success btn-sm"
+                                target="_blank">
+                                <i class="bi bi-file-earmark-pdf"></i> Ordres de mission
+                            </a>
+                        @endcan
                     </div>
 
                     {{-- Formulaire --}}
