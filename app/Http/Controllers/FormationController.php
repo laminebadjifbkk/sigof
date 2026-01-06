@@ -187,6 +187,7 @@ class FormationController extends Controller
                 'title',
                 'formations_annee',
                 'formations_statut',
+                'poles',
                 'groupes',
             )
         );
