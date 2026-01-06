@@ -69,7 +69,7 @@
                             </tr>
                             <tr>
                                 <th>Durée</th>
-                                <td>{{ $mission->nombre_jours - 1 }} jours</td>
+                                <td>{{ $mission->nombre_jours - 1 }} jour(s)</td>
                             </tr>
 
                             <tr>
