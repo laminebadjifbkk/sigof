@@ -56,7 +56,7 @@
                                 <tr>
                                     <th>Chauffeur</th>
                                     <th>Véhicule</th>
-                                    <th class="text-center">Dernière</th>
+                                    <th class="text-center">Dernière mis.</th>
                                     <th class="text-center">En {{ now()->year }}</th>
                                     <th class="text-center" width="5%">Missions</th>
                                     <th class="text-center" width="5%">Actions</th>
@@ -113,7 +113,7 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                             data-order="{{ $lastMission?->date_retour?->format('Ymd') ?? '' }}">
                                             @if ($lastMission)
                                                 <span class="badge bg-info">
-                                                    {{ $lastMission->date_retour->format('d/m/Y') }}
+                                                    {{ $lastMission->date_retour->format('Y-m-d') }}
                                                 </span>
                                             @else
                                                 <span class="text-muted"></span>
