@@ -4342,11 +4342,20 @@ class FormationController extends Controller
             'statut' => 'required|string',
         ]);
 
-        if ($request->statut == 'Tous') {
+        /* if ($request->statut == 'Tous') {
             $formations = Formation::where('annee', $request->annee)
                 ->get();
         } else {
             $formations = Formation::where('annee', $request->annee)
+                ->where('statut', $request->statut)
+                ->get();
+        } */
+
+        if ($request->statut === 'Tous') {
+            $formations = Formation::whereYear('date_convention', $request->annee)
+                ->get();
+        } else {
+            $formations = Formation::whereYear('date_convention', $request->annee)
                 ->where('statut', $request->statut)
                 ->get();
         }
