@@ -66,7 +66,10 @@
                                 @foreach ($chauffeurs as $chauffeur)
                                     @php
                                         // Missions de l'année
-                                        $missions = $chauffeur->employee->parcmissions;
+                                        /* $missions = $chauffeur->employee->parcmissions; */
+                                        $missions = $chauffeur->employee->parcmissions->filter(function ($mission) {
+                                            return $mission->date_depart->year == now()->year;
+                                        });
 
                                         // Date de retour la plus récente pour tri et affichage
                                         $lastMission = $missions->sortBy('date_retour')->first();
