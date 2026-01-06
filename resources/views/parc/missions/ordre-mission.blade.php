@@ -311,7 +311,7 @@
                             ....................................................................................
                         </td>
                         <td>
-                            <b>Département :</b> {{ $mission?->departement?->nom ?? $mission?->lieu_arrivee }}
+                            <b>Département :</b> {{ $mission?->departement ?? $mission?->lieu_arrivee }}
                         </td>
                     </tr>
 
@@ -320,7 +320,7 @@
                             <b>Total frais de mission :</b> ...........................................
                         </td>
                         <td>
-                            <b>Région :</b> {{ $mission?->departement?->region?->nom ?? $mission?->lieu_arrivee }}
+                            <b>Région :</b> {{ $mission?->region ?? $mission?->lieu_arrivee }}
                         </td>
                     </tr>
 
