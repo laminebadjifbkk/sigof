@@ -414,16 +414,17 @@
                     </td>
                 </tr> --}}
                 <tr>
-                    <td style="padding:2px 0;"><b>Prénom(s) - Nom :</b></td>
-                    <td>{{ $employee?->user?->firstname }} {{ $employee?->user?->name }}</td>
+                    <td width="30%" style="padding:2px 0;"><b>Prénom(s) - Nom :</b></td>
+                    <td width="70%">{{ $employee?->user?->firstname }} {{ $employee?->user?->name }}</td>
                 </tr>
                 <tr>
-                    <td style="padding:2px 0;"><b>Fonction :</b></td>
-                    <td>{{ $employee?->fonction?->name }}</td>
+                    <td width="30%" style="padding:2px 0;"><b>Fonction :</b></td>
+                    <td width="70%">{{ $employee?->fonction?->name }}</td>
                 </tr>
                 <tr>
-                    <td style="padding:2px 0;"><b>Itinéraire :</b></td>
-                    <td>{{ $mission->itineraire ?? $mission->lieu_depart . ' - ' . $mission->lieu_arrive }}
+                    <td width="30%" style="padding:2px 0;"><b>Itinéraire :</b></td>
+                    <td width="70%">
+                        {{ $mission->itineraire ?? $mission->lieu_depart . ' - ' . $mission->lieu_arrive }}
                     </td>
                 </tr>
             </table>
