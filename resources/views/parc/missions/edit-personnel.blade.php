@@ -56,7 +56,7 @@
                                 <tr>
                                     <th>Chauffeur</th>
                                     <th>Véhicule</th>
-                                    <th class="text-center">Dernière mis.</th>
+                                    <th class="text-center">Date dernière mission</th>
                                     <th class="text-center">En {{ now()->year }}</th>
                                     <th class="text-center" width="5%">Missions</th>
                                     <th class="text-center" width="5%">Actions</th>
