@@ -231,7 +231,7 @@
 
                         <div style="text-align:right;">
                             ONFP/DG/DRH/DIVagp
-                            @if (optional(auth()->user())->username !== 'lb')
+                            @if (optional(auth()->user())->username !== 'fbd')
                                 /{{ auth()->user()->username }}
                             @endif
                         </div>
