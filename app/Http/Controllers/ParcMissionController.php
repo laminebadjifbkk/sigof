@@ -473,6 +473,11 @@ class ParcMissionController extends Controller
         try {
             // Récupérer le mission par ID
             $mission = ParcMission::findOrFail($id);
+            if ($mission->employees->isEmpty()) {
+                return redirect()
+                    ->back()
+                    ->with('error', 'Impossible de télécharger l’ordre de mission : aucun employé n’est associé à cette mission.');
+            }
             $employees = $mission->employees;
             $jours = $mission->date_retour
                 ? $mission->date_depart->diffInDays($mission->date_retour)
