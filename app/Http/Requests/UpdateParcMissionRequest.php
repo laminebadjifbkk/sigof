@@ -60,7 +60,7 @@ class UpdateParcMissionRequest extends FormRequest
 
         if ($dateDepart && $dateRetour) {
             $jours = Carbon::parse($dateDepart)
-                ->diffInDays(Carbon::parse($dateRetour)) + 1;
+                ->diffInDays(Carbon::parse($dateRetour));
         }
 
         // 🔹 Calcul indemnité totale
