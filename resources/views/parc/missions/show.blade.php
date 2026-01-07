@@ -112,6 +112,12 @@
                                     </span>
                                 </td>
                             </tr>
+                            <tr>
+                                <th>Créée par</th>
+                                <td>
+                                    {{ $mission?->creator?->firstname . ' ' . $mission?->creator?->name }}
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
