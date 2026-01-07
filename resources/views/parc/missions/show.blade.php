@@ -115,7 +115,7 @@
                             <tr>
                                 <th>Créée par</th>
                                 <td>
-                                    {{ $mission?->creator?->firstname . ' ' . $mission?->creator?->name ?? 'Fatou Boro DIOP' }}
+                                    {{ $mission?->creator ? $mission->creator->firstname . ' ' . $mission->creator->name : 'Fatou Boro DIOP' }}
                                 </td>
                             </tr>
                         </tbody>
