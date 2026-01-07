@@ -4399,7 +4399,7 @@ class FormationController extends Controller
 
             $nomPole = $pole->name ?? $pole->libelle ?? $pole->code;
 
-            $title .= ' - PÔLE ' . strtoupper($nomPole);
+            $title .= ' - ' . strtoupper($nomPole);
         }
 
         return view('formations.reports', compact(
