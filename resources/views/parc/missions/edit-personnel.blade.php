@@ -104,7 +104,7 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                         </td>
                                         <td>
                                             <span class="etat-btn {{ $chauffeur?->statut }}">
-                                                {{ $chauffeur?->statut }}
+                                                {{ ucfirst(str_replace('fie', 'fié', str_replace('_', ' ', $chauffeur->statut))) }}
                                             </span>
                                         </td>
 
