@@ -4394,6 +4394,14 @@ class FormationController extends Controller
 
         $title = 'SUIVI CONVENTIONS ' . $request->annee;
 
+        if ($request->pole_id !== 'Tous') {
+            $pole = Antenne::findOrFail($request->pole_id);
+
+            $nomPole = $pole->name ?? $pole->libelle ?? $pole->code;
+
+            $title .= ' - PÔLE ' . strtoupper($nomPole);
+        }
+
         return view('formations.reports', compact(
             'formations',
             'title'
