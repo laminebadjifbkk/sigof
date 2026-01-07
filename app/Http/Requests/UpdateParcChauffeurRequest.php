@@ -37,7 +37,7 @@ class UpdateParcChauffeurRequest extends FormRequest
             'permis_numero' => 'nullable|string|max:30',
             'permis_categories' => 'nullable|string|max:50',
             'permis_expire_le' => 'nullable|date|after_or_equal:today',
-            'statut' => 'required|in:actif,indisponible,archive,en_mission',
+            'statut' => 'required|in:actif,disponible,indisponible,archive,en_mission,planifie',
         ];
     }
 

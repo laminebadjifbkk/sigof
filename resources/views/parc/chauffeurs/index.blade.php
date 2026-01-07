@@ -46,7 +46,7 @@
 
                             <!-- Badge Statut_s -->
                             <span class="etat-btn {{ $statut_s }}">
-                                {{ ucfirst(str_replace('_', ' ', $statut_s)) }}
+                                {{ ucfirst(str_replace('fie', 'fié', str_replace('_', ' ', $statut_s))) . '(s)' }}
                             </span>
 
                             <!-- Nombre et icône -->

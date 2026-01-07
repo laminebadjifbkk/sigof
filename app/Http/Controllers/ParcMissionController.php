@@ -440,12 +440,35 @@ class ParcMissionController extends Controller
         $syncData = [];
 
         /* ========= Chauffeurs ========= */
-        foreach ($request->validated()['chauffeurs'] ?? [] as $chauffeurId => $data) {
+        /* foreach ($request->validated()['chauffeurs'] ?? [] as $chauffeurId => $data) {
             if ($data['selected']) {
                 $employeeId = ParcChauffeur::find($chauffeurId)?->employee_id;
                 if ($employeeId) {
                     $syncData[$employeeId] = [
                         'role' => 'chauffeur',            // rôle fixe
+                        'vehicule_id' => $data['vehicule_id'] ?? null, // véhicule choisi
+                    ];
+                }
+            }
+        } */
+
+        /* ========= Chauffeurs ========= */
+        foreach ($request->validated()['chauffeurs'] ?? [] as $chauffeurId => $data) {
+
+            if (!empty($data['selected'])) {
+
+                $chauffeur = ParcChauffeur::find($chauffeurId);
+
+                if ($chauffeur && $chauffeur->employee_id) {
+
+                    // 🔹 Mise à jour du statut du chauffeur
+                    $chauffeur->update([
+                        'statut' => 'planifie',
+                    ]);
+
+                    // 🔹 Synchronisation avec la mission
+                    $syncData[$chauffeur->employee_id] = [
+                        'role'        => 'chauffeur',              // rôle fixe
                         'vehicule_id' => $data['vehicule_id'] ?? null, // véhicule choisi
                     ];
                 }

@@ -78,7 +78,7 @@
                                 <th>Statut</th>
                                 <td>
                                     <span class="etat-btn {{ $chauffeur?->statut }}">
-                                        {{ ucfirst(str_replace('_', ' ', $chauffeur?->statut)) }}
+                                        {{ ucfirst(str_replace('fie', 'fié', str_replace('_', ' ', $chauffeur?->statut))) }}
                                     </span>
                                 </td>
                             </tr>
