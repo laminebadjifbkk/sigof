@@ -4382,12 +4382,23 @@ class FormationController extends Controller
         // Filtre pôle (antenne) via région → antennes (pivot)
         // ✅ Filtre pôle (Antenne) via Région → table pivot
         if ($request->pole_id !== 'Tous') {
-            $query->whereHas('region.antennes', function ($q) use ($request) {
+            $query->whereHas('departement.region.antennes', function ($q) use ($request) {
                 $q->where('antennes.id', $request->pole_id)
                     ->whereNull('antennesregions.deleted_at');
             });
         }
-        
+
+        // 1️⃣ Récupérer les régions du pôle
+        $regionIds = Region::whereHas('antennes', function ($q) use ($request) {
+            $q->where('antennes.id', $request->pole_id)
+                ->whereNull('antennesregions.deleted_at');
+        })
+            ->pluck('id');
+
+        // DEBUG (à supprimer après test)
+        dd($regionIds);
+
+
         $formations = $query->distinct()->get();
 
         $title = 'SUIVI CONVENTIONS ' . $request->annee;
