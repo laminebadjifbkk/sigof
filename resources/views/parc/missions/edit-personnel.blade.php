@@ -63,8 +63,9 @@
                             <thead>
                                 <tr>
                                     <th>Chauffeur</th>
+                                    <th>Statut</th>
                                     <th>Véhicule</th>
-                                    <th class="text-center">Date dernière mission</th>
+                                    <th class="text-center">Dernière mission</th>
                                     <th class="text-center">En {{ now()->year }}</th>
                                     <th class="text-center" width="5%">Missions</th>
                                     <th class="text-center" width="5%">Actions</th>
@@ -100,6 +101,11 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                                 {{ $isChecked ? 'checked' : '' }}>
                                             {{ $chauffeur->employee->user->firstname }}
                                             {{ $chauffeur->employee->user->name }}
+                                        </td>
+                                        <td>
+                                            <span class="etat-btn {{ $chauffeur?->statut }}">
+                                                {{ $chauffeur?->statut }}
+                                            </span>
                                         </td>
 
                                         {{-- Select Véhicule --}}
@@ -210,6 +216,15 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                             </tbody>
                         </table>
 
+                        <div class="d-flex gap-2 m-3 justify-content-center">
+                            <button class="btn btn-success btn-sm">
+                                <i class="bi bi-check-circle"></i> Enregistrer
+                            </button>
+                            <a href="{{ route('parc-missions.show', $mission->id) }}" class="btn btn-secondary btn-sm">
+                                Annuler
+                            </a>
+                        </div>
+
                         {{-- ================== EMPLOYÉS ================== --}}
                         <h5 class="mt-4">Autres employés</h5>
 
@@ -227,7 +242,8 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                 </div>
 
                                 <div class="col-md-4">
-                                    <select name="employees[{{ $employee->id }}][role]" class="form-select form-select-sm">
+                                    <select name="employees[{{ $employee->id }}][role]"
+                                        class="form-select form-select-sm">
                                         <option value="">Aucun</option>
                                         <option value="participant"
                                             {{ $pivot?->role === 'participant' ? 'selected' : '' }}>Participant</option>
@@ -260,7 +276,7 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                             Annuler
                         </a> --}}
 
-                        <div class="d-flex gap-2">
+                        <div class="d-flex gap-2 m-3 justify-content-center">
                             <button class="btn btn-success btn-sm">
                                 <i class="bi bi-check-circle"></i> Enregistrer
                             </button>
@@ -283,7 +299,7 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
             new DataTable('#table-parc-mission', {
                 ordering: true,
                 order: [
-                    [2, 'asc']
+                    [3, 'asc']
                 ], // tri par colonne "Dernière mission"
                 searching: false, // désactive la recherche
                 paging: false, // désactive la pagination
