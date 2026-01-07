@@ -189,7 +189,7 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                                                         </span>
                                                                         <br>
                                                                         <span class="etat-btn {{ $cm->statut }}">
-                                                                            {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $cm->statut))) }}
+                                                                            {{ ucfirst(str_replace('fie', 'fié', str_replace('_', ' ', $cm->statut))) }}
                                                                         </span>
                                                                     </div>
                                                                 </div>
