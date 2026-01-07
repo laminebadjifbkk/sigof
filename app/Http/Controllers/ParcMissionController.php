@@ -312,87 +312,8 @@ class ParcMissionController extends Controller
         return redirect()->back()->with('status', 'Véhicules de la mission mis à jour avec succès');
     }
 
-    /*  public function editChauffeurs(ParcMission $mission)
-    {
-        // Tous les chauffeurs avec leurs employés liés
-        $chauffeurs = ParcChauffeur::with('employee.user')->get();
-
-        // Récupérer les IDs des employés qui sont des chauffeurs
-        $chauffeurIds = $chauffeurs->pluck('employee_id')->toArray();
-
-        $missionChauffeurs = $mission->employees()
-            ->whereIn('employees.id', $chauffeurIds) // <--- ici on précise la table
-            ->get();
-
-        return view('parc.missions.edit-chauffeur', compact('mission', 'chauffeurs', 'missionChauffeurs'));
-    }
-
-    public function updateChauffeurs(Request $request, ParcMission $mission)
-    {
-        $input = $request->input('chauffeurs', []);
-
-        $syncData = [];
-
-        foreach ($input as $chauffeurId => $data) {
-            if (!empty($data['selected'])) {
-                $employeeId = ParcChauffeur::find($chauffeurId)?->employee_id;
-                if (!$employeeId) continue;
-
-                // On fixe le rôle à 'chauffeur' car pas de sélection dans le formulaire
-                $syncData[$employeeId] = ['role' => 'chauffeur'];
-            }
-        }
-
-        // Ajouter ou mettre à jour sans supprimer les autres
-        foreach ($syncData as $employeeId => $pivotData) {
-            if ($mission->employees()->where('employee_id', $employeeId)->exists()) {
-                $mission->employees()->updateExistingPivot($employeeId, $pivotData);
-            } else {
-                $mission->employees()->attach($employeeId, $pivotData);
-            }
-        }
-
-        return redirect()->back()->with('status', 'Chauffeurs de la mission mis à jour avec succès.');
-    }
- */
-
-    /*     public function editPersonnel(ParcMission $mission)
-    {
-        $chauffeurs = ParcChauffeur::with('employee.user')->get();
-        $chauffeurIds = $chauffeurs->pluck('employee_id')->toArray();
-
-        $missionChauffeurs = $mission->employees()
-            ->whereIn('employees.id', $chauffeurIds)
-            ->get();
-
-        $employees = Employee::whereNotIn('id', $chauffeurIds)
-            ->with('user')
-            ->get()
-            ->sortBy(fn($e) => $e->user->name);
-
-        return view('parc.missions.edit-personnel', compact(
-            'mission',
-            'chauffeurs',
-            'missionChauffeurs',
-            'employees'
-        ));
-    } */
-
     public function editPersonnel(ParcMission $mission)
     {
-        $annee = now()->year;
-
-        // Chauffeurs avec user + missions de l'année en cours
-        /* $chauffeurs = ParcChauffeur::with([
-            'employee.user',
-            'employee.parcmissions' => function ($query) use ($annee) {
-                $query->whereYear('date_depart', $annee)
-                    ->orderByDesc('date_retour');
-            }
-        ])->get();
-
-        dd($chauffeurs); */
-
         $annee = now()->year;
 
         $chauffeurs = ParcChauffeur::with([

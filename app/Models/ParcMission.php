@@ -31,6 +31,7 @@ class ParcMission extends Model
         'commentaires',
         'autres',
         'type_mission_id',
+        'created_by',
 
     ];
 
@@ -115,5 +116,10 @@ class ParcMission extends Model
         )
             ->withPivot('role')          // récupérer le rôle depuis la pivot
             ->withTimestamps();
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

@@ -231,8 +231,8 @@
 
                         <div style="text-align:right;">
                             ONFP/DG/DRH/DIVagp
-                            @if (optional(auth()->user())->username !== 'fbd')
-                                /{{ auth()->user()->username }}
+                            @if (!empty($mission?->creator?->username) && $mission->creator->username !== 'fbd')
+                                /{{ $mission->creator->username }}
                             @endif
                         </div>
 
@@ -377,8 +377,8 @@
 
                     <div style="text-align:right;">
                         ONFP/DG/DRH/DIVagp
-                        @if (optional(auth()->user())->username !== 'fbd')
-                            /{{ auth()->user()->username }}
+                        @if (!empty($mission?->creator?->username) && $mission->creator->username !== 'fbd')
+                            /{{ $mission->creator->username }}
                         @endif
                     </div>
 

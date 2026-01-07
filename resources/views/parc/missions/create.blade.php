@@ -1,6 +1,5 @@
 @extends('layout.user-layout')
 @section('title', 'ONFP - Ajouter une mission')
-
 @section('space-work')
     <section class="section register">
         <div class="container">
@@ -32,6 +31,9 @@
                 <div class="card-body">
                     <form action="{{ route('parc-missions.store') }}" method="POST">
                         @csrf
+
+                        {{-- created_by prend la valeur de user-id --}}
+                        <input type="hidden" name="created_by" value="{{ auth()->id() }}">
 
                         {{-- Référence --}}
                         <div class="mb-3">
@@ -178,16 +180,6 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-
-                            {{-- <div class="col-md-6 col-sm-12">
-                                <label for="indemnite_mission" class="form-label">Indemnité de mission</label>
-                                <input type="number" step="0.01" min="0" name="indemnite_mission"
-                                    class="form-control form-control-sm @error('indemnite_mission') is-invalid @enderror"
-                                    value="{{ old('indemnite_mission') }}" placeholder="Ex: 50000">
-                                @error('indemnite_mission')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div> --}}
                         </div>
 
                         <div class="row mb-3">
@@ -210,15 +202,6 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            {{-- <div class="col-md-6 col-sm-12">
-                                <label for="reliquat" class="form-label">Reliquat</label>
-                                <input type="number" step="0.01" min="0" name="reliquat"
-                                    class="form-control form-control-sm @error('reliquat') is-invalid @enderror"
-                                    value="{{ old('reliquat') }}" placeholder="Ex: 20000">
-                                @error('reliquat')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div> --}}
                         </div>
 
                         <div class="row mb-3">
@@ -233,16 +216,6 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            {{-- <div class="col-md-6 col-sm-12">
-                                <label for="vehicule_id" class="form-label">Véhicule</label>
-                                <select name="vehicule_id" class="form-select form-select-sm">
-                                    <option value="">-- Aucun véhicule --</option>
-                                    @foreach ($vehicules as $vehicule)
-                                        <option value="{{ $vehicule->id }}">{{ $vehicule->immatriculation }} -
-                                            {{ $vehicule->marque }}</option>
-                                    @endforeach
-                                </select>
-                            </div> --}}
 
                             <!-- Nouveau champ Kilométrage actuel -->
                             <div class="col-md-6 col-sm-12">
@@ -254,18 +227,6 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            {{-- <div class="col-md-6 col-sm-12">
-                                <label for="chauffeur_id" class="form-label">Chauffeur affecté</label>
-                                <select name="chauffeur_id" class="form-select form-select-sm">
-                                    <option value="">-- Aucun chauffeur --</option>
-                                    @foreach ($chauffeurs as $chauffeur)
-                                        <option value="{{ $chauffeur->id }}">{{ $chauffeur->nom }}
-                                            {{ $chauffeur->prenom }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div> --}}
-
                         </div>
 
                         <div class="d-flex gap-2">

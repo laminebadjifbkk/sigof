@@ -39,6 +39,7 @@ class StoreParcMissionRequest extends FormRequest
             'commentaires' => 'nullable|string',
             'autres' => 'nullable|string',
             'type_mission_id' => 'required|exists:parc_type_missions,id',
+            'created_by' => 'nullable|exists:users,id',
         ];
     }
 
