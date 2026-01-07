@@ -4380,15 +4380,13 @@ class FormationController extends Controller
 
         $query = Formation::whereYear('date_convention', $request->annee);
 
-        dd($query);
-
         if ($request->statut !== 'Tous') {
             $query->where('statut', $request->statut);
         }
 
         if ($request->pole_id !== 'Tous') {
             $query->whereHas('departement', function ($q) use ($regionIds) {
-                $q->whereIn('region_id', $regionIds);
+                $q->whereIn('regions_id', $regionIds);
             });
         }
 
