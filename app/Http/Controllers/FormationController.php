@@ -4339,21 +4339,12 @@ class FormationController extends Controller
         return redirect()->back();
     }
 
-    public function generateReport(Request $request)
+    /* public function generateReport(Request $request)
     {
         $this->validate($request, [
             'annee'  => 'required|numeric',
             'statut' => 'required|string',
         ]);
-
-        /* if ($request->statut == 'Tous') {
-            $formations = Formation::where('annee', $request->annee)
-                ->get();
-        } else {
-            $formations = Formation::where('annee', $request->annee)
-                ->where('statut', $request->statut)
-                ->get();
-        } */
 
         if ($request->statut === 'Tous') {
             $formations = Formation::whereYear('date_convention', $request->annee)
@@ -4365,6 +4356,39 @@ class FormationController extends Controller
         }
 
         $title = 'SUIVI CONVENTIONS  ' . $request->annee;
+
+        return view('formations.reports', compact(
+            'formations',
+            'title'
+        ));
+    } */
+
+    public function generateReport(Request $request)
+    {
+        $this->validate($request, [
+            'annee'   => 'required|numeric',
+            'statut'  => 'required|string',
+            'pole_id' => 'required'
+        ]);
+
+        // Requête de base : année
+        $query = Formation::whereYear('date_convention', $request->annee);
+
+        // Filtre statut
+        if ($request->statut !== 'Tous') {
+            $query->where('statut', $request->statut);
+        }
+
+        // Filtre pôle (antenne) via région → antennes (pivot)
+        if ($request->pole_id !== 'Tous') {
+            $query->whereHas('region.antennes', function ($q) use ($request) {
+                $q->where('antennes.id', $request->pole_id);
+            });
+        }
+
+        $formations = $query->get();
+
+        $title = 'SUIVI CONVENTIONS ' . $request->annee;
 
         return view('formations.reports', compact(
             'formations',
