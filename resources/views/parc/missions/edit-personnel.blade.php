@@ -237,7 +237,7 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                 <div class="col-md-8">
                                     <input type="checkbox" name="employees[{{ $employee->id }}][selected]" value="1"
                                         {{ $pivot ? 'checked' : '' }}>
-                                    {{ $employee->matricule }} -
+                                    {{-- {{ $employee->matricule }} - --}}
                                     {{ $employee->user->name }} {{ $employee->user->firstname }} -
                                     {{ $employee?->fonction?->name }}
                                 </div>
