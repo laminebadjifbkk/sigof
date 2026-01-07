@@ -4380,6 +4380,8 @@ class FormationController extends Controller
 
         $query = Formation::whereYear('date_convention', $request->annee);
 
+        dd($query);
+
         if ($request->statut !== 'Tous') {
             $query->where('statut', $request->statut);
         }
