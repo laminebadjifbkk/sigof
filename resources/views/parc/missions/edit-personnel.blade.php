@@ -234,14 +234,15 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                             @endphp
 
                             <div class="row mb-2 align-items-center">
-                                <div class="col-md-4">
+                                <div class="col-md-8">
                                     <input type="checkbox" name="employees[{{ $employee->id }}][selected]" value="1"
                                         {{ $pivot ? 'checked' : '' }}>
                                     {{ $employee->matricule }} -
-                                    {{ $employee->user->name }} {{ $employee->user->firstname }}
+                                    {{ $employee->user->name }} {{ $employee->user->firstname }} -
+                                    {{ $employee?->fonction?->name }}
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <select name="employees[{{ $employee->id }}][role]"
                                         class="form-select form-select-sm">
                                         <option value="">Aucun</option>
@@ -254,7 +255,7 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                     </select>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <select name="employees[{{ $employee->id }}][vehicule_id]"
                                         class="form-select form-select-sm">
                                         <option value="">-- Aucun véhicule --</option>
