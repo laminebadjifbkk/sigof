@@ -4381,7 +4381,7 @@ class FormationController extends Controller
 
         // Filtre pôle (antenne) via région → antennes (pivot)
         if ($request->pole_id !== 'Tous') {
-            $query->whereHas('region.antennes', function ($q) use ($request) {
+            $query->whereHas('departement.region.antennes', function ($q) use ($request) {
                 $q->where('antennes.id', $request->pole_id);
             });
         }
