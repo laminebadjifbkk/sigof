@@ -34,7 +34,7 @@ class SendMissionReminders extends Command
 
             if (
                 $now->isSameDay($mission->date_depart)
-                && $now->format('H:i') === '08:00'
+                && $now->format('H:i') === '17:44'
             ) {
                 $this->sendMail($mission, 'Jour J');
             }
@@ -44,8 +44,8 @@ class SendMissionReminders extends Command
     private function sendMail($mission, $type)
     {
         foreach ($mission->employees as $employee) {
-            if ($employee->email) {
-                Mail::to($employee->email)
+            if ($employee->user->email) {
+                Mail::to($employee->user->email)
                     ->send(new MissionReminderMail($mission, $type, $employee));
             }
         }

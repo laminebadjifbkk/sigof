@@ -41,8 +41,12 @@
             @endif
         </li>
         <li>
-            <strong>Lieu :</strong>
-            {{ $mission->lieu ?? '-' }}
+            <strong>Destination :</strong>
+            {{ $mission?->lieu_arrivee ?? '-' }}
+        </li>
+        <li>
+            <strong>Itinéraire :</strong>
+            {{ $mission?->itineraire ?? '-' }}
         </li>
     </ul>
 
