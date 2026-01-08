@@ -24,6 +24,9 @@ class SendMissionReminders extends Command
 
             $diffInHours = $now->diffInHours($mission->date_depart, false);
 
+            if ($diffInHours === 72) {
+                $this->sendMail($mission, 'J-3');
+            }
             if ($diffInHours === 48) {
                 $this->sendMail($mission, 'J-2');
             }
@@ -34,7 +37,7 @@ class SendMissionReminders extends Command
 
             if (
                 $now->isSameDay($mission->date_depart)
-                && $now->format('H:i') === '17:44'
+                && $now->format('H:i') === '07:00'
             ) {
                 $this->sendMail($mission, 'Jour J');
             }
