@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Arrive;
@@ -36,7 +37,7 @@ class CollectiveController extends Controller
         /* $this->middleware(['role_or_permission:super-admin']); */
     }
 
-    public function index()
+    /* public function index()
     {
         $collectives      = Collective::count();
         $totalCollectives = number_format($collectives, 0, ',', ' ');
@@ -57,6 +58,83 @@ class CollectiveController extends Controller
                 'communes',
                 'modules',
                 'count_today'));
+    } */
+
+    public function index(Request $request)
+    {
+        /* =========================
+     * 1️⃣ Requête principale
+     * ========================= */
+        $collectivesQuery = Collective::query();
+
+        // Statut sélectionné (?statut_demande=...)
+        $statutDemande = $request->query('statut_demande');
+
+        if ($statutDemande) {
+            $collectivesQuery->where('statut_demande', $statutDemande);
+        }
+
+        $collectives = $collectivesQuery
+            ->latest()
+            ->limit(500)
+            ->get();
+
+
+        /* =========================
+     * 2️⃣ Totaux
+     * ========================= */
+        $totalDemandesCount = Collective::count();
+        $totalDemandes = number_format($totalDemandesCount, 0, ',', ' ');
+
+        $totalAffichees = $collectives->count();
+
+        $today = now()->toDateString();
+        $demandesDuJourCount = Collective::whereDate('created_at', $today)->count();
+
+
+        /* =========================
+     * 3️⃣ Groupement par statut_demande (cards)
+     * ========================= */
+        $groupes = Collective::latest()
+            ->get()
+            ->groupBy(fn($c) => $c->statut_demande ?? 'Non défini');
+
+
+        /* =========================
+     * 4️⃣ Pourcentages par statut_demande
+     * ========================= */
+        $statutPourcentages = [];
+
+        foreach ($groupes as $statutKey => $items) {
+            $statutPourcentages[$statutKey] = [
+                'count'   => $items->count(),
+                'percent' => $totalDemandesCount
+                    ? round($items->count() * 100 / $totalDemandesCount, 1)
+                    : 0,
+            ];
+        }
+
+
+        /* =========================
+     * 5️⃣ Données annexes
+     * ========================= */
+        $departements = Departement::latest()->get();
+        $communes     = Commune::latest()->get();
+        $modules      = Module::latest()->get();
+
+
+        return view('collectives.index', compact(
+            'collectives',
+            'groupes',
+            'statutPourcentages',
+            'totalDemandes',
+            'totalAffichees',
+            'demandesDuJourCount',
+            'departements',
+            'communes',
+            'modules',
+            'statutDemande'
+        ));
     }
 
     public function store(Request $request)
@@ -347,7 +425,7 @@ class CollectiveController extends Controller
 
         $prefix = 'C' . $an;
 
-// Récupérer le dernier numéro pour l'année en cours
+        // Récupérer le dernier numéro pour l'année en cours
         $lastCollective = Collective::where('numero', 'LIKE', "{$prefix}%")
             ->orderBy('id', 'desc')
             ->first();
@@ -360,7 +438,7 @@ class CollectiveController extends Controller
             $newNumero = 1;
         }
 
-// Générer le numéro formaté
+        // Générer le numéro formaté
         do {
             $numero_collective = $prefix . str_pad($newNumero, 4, '0', STR_PAD_LEFT);
             $exists            = Collective::where('numero', $numero_collective)->exists();
@@ -369,7 +447,7 @@ class CollectiveController extends Controller
             }
         } while ($exists);
 
-// Récupération de l'ID de la région
+        // Récupération de l'ID de la région
         $departement = Departement::where("nom", $request->input("departement"))->first();
         $regionid    = $departement->region->id;
 
@@ -598,7 +676,7 @@ class CollectiveController extends Controller
 
         $user = User::where('id', $collective?->users_id)->first();
 
-// Récupérer les fichiers associés à l'utilisateur
+        // Récupérer les fichiers associés à l'utilisateur
         $files = File::where('users_id', $user->id)
             ->whereNotNull('file')
             ->distinct()
@@ -849,18 +927,16 @@ class CollectiveController extends Controller
         }
 
         return view("collectives.corbeille", compact("collectives", "title"));
-
     }
 
     public function forceDelete($uuid)
     {
         $collective = Collective::withTrashed()->where('uuid', $uuid)->firstOrFail();
-// Supprimer
+        // Supprimer
         $collective->forceDelete();
 
         Alert::success('Succès ', 'Demande supprimé définitivement.');
         return redirect()->back();
-
     }
     public function restore($uuid)
     {
@@ -950,12 +1026,16 @@ class CollectiveController extends Controller
         $today        = date('Y-m-d');
         $count_today  = Collective::where("created_at", "LIKE", "{$today}%")->count();
 
-        return view('collectives.index',
-            compact('collectives',
+        return view(
+            'collectives.index',
+            compact(
+                'collectives',
                 'departements',
                 'totalCollectives',
                 'communes',
                 'modules',
-                'count_today'));
+                'count_today'
+            )
+        );
     }
 }

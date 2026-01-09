@@ -2,8 +2,7 @@
 @section('title', 'ONFP | DEMANDES COLLECTIVES')
 @section('space-work')
     @can('collective-view')
-        <div class="pagetitle">
-            {{-- <h1>Data Tables</h1> --}}
+        {{-- <div class="pagetitle">
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('/home') }}">Accueil</a></li>
@@ -11,72 +10,102 @@
                     <li class="breadcrumb-item active">Demandes collectives</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div><!-- End Page Title --> --}}
         <section class="section dashboard">
-            <div class="row">
-                <!-- Left side columns -->
-                <div class="col-lg-62">
-                    <div class="row">
-                        <!-- Sales Card -->
-                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-3">
-                            <div class="card info-card sales-card">
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                </div>
-                                <a href="#">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Collectives<span> | aujourd'hui</span></h5>
-                                        <div class="d-flex align-items-center">
-                                            <div
-                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                <i class="bi bi-calendar-check-fill"></i>
-                                            </div>
-                                            <div class="ps-3">
-                                                <h6>
-                                                    <span class="text-primary">{{ $count_today ?? '0' }}</span>
-                                                </h6>
-                                                <span class="text-success small pt-1">Aujourd'hui</span>
-                                                {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-3">
-                            <div class="card info-card sales-card">
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                </div>
-                                <a href="#">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Collectives <span>| toutes</span></h5>
-                                        <div class="d-flex align-items-center">
-                                            <div
-                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                <i class="bi bi-file-earmark-text"></i>
-                                            </div>
-                                            <div class="ps-3">
-                                                <h6>
-                                                    <span class="text-primary">{{ count($collectives) ?? '0' }}</span>
-                                                </h6>
-                                                <span class="text-success small pt-1">Toutes</span>
-                                                {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+            <div class="container">
+                <div class="row g-3 mb-4">
+                    <!-- Left side columns -->
+                    <!-- Sales Card -->
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                        <div class="card shadow-sm text-center p-2" style="min-height:140px; border-radius:10px;">
+                            <h6 class="card-title mb-2" style="font-size:0.85rem;">Demandes totales</h6>
 
+                            <div class="d-flex flex-column align-items-center mb-2">
+                                <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
+                                    style="width:28px;height:28px;">
+                                    <i class="bi bi-collection"></i>
+                                </div>
+                                <span class="h6 mb-0">{{ $totalDemandes }}</span>
+                            </div>
+
+                            <div class="mb-2">
+                                <div class="progress" style="height:6px;">
+                                    <div class="progress-bar bg-success" style="width:100%"></div>
+                                </div>
+                                <small class="text-muted">100%</small>
+                            </div>
+
+                            <a href="{{ route('collectives.index') }}" class="btn btn-outline-primary btn-sm w-100">
+                                Voir toutes
+                            </a>
+                        </div>
                     </div>
+
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                        <div class="card shadow-sm text-center p-2 border-success"
+                            style="min-height:140px; border-radius:10px;">
+                            <h6 class="card-title mb-2" style="font-size:0.85rem;">
+                                Aujourd’hui
+                            </h6>
+
+                            <div class="d-flex flex-column align-items-center mb-2">
+                                <div class="rounded-circle bg-success text-white d-flex justify-content-center align-items-center mb-1"
+                                    style="width:28px;height:28px;">
+                                    <i class="bi bi-calendar-check"></i>
+                                </div>
+                                <span class="h6 mb-0">{{ $demandesDuJourCount }}</span>
+                            </div>
+
+                            <div class="mb-2">
+                                <small class="text-muted">
+                                    Reçues aujourd’hui
+                                </small>
+                            </div>
+
+                            <a href="{{ route('collectives.index', ['today' => 1]) }}"
+                                class="btn btn-outline-success btn-sm w-100">
+                                Voir
+                            </a>
+                        </div>
+                    </div>
+
+                    @foreach ($groupes as $statutKey => $items)
+                        @php
+                            $percent = $statutPourcentages[$statutKey]['percent'];
+                        @endphp
+
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                            <div class="card shadow-sm text-center p-2
+                                        {{ $statutDemande === $statutKey ? 'border-primary' : '' }}"
+                                style="min-height:140px; border-radius:10px;">
+
+                                <h6 class="card-title mb-2" style="font-size:0.85rem;">
+                                    Demandes
+                                </h6>
+
+                                <span class="etat-btn {{ Str::slug($statutKey) }}">
+                                    {{ ucfirst(str_replace('_', ' ', $statutKey)) }}
+                                </span>
+
+                                <div class="d-flex flex-column align-items-center mt-2 mb-2">
+                                    <span class="h6 mb-0">{{ $items->count() }}</span>
+                                </div>
+
+                                <div class="mb-2">
+                                    <div class="progress" style="height:6px;">
+                                        <div class="progress-bar bg-success" style="width: {{ $percent }}%;"></div>
+                                    </div>
+                                    <small class="text-muted">{{ $percent }}%</small>
+                                </div>
+
+                                <a href="{{ route('collectives.index', ['statut_demande' => $statutKey]) }}"
+                                    class="btn btn-outline-primary btn-sm w-100">
+                                    Voir plus
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-            </div>
-        </section>
-        <section class="section">
-            <div class="row">
                 <div class="col-12 col-lg-62">
                     @if ($message = Session::get('status'))
                         <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
@@ -119,19 +148,14 @@
                                     </div>
 
                                     {{-- Total au centre --}}
-                                    @php
-                                        $affichees = $collectives?->count(); // à adapter si tu fais une pagination
-                                        $total =
-                                            $totalCollectives ?? ($collectives?->total() ?? $collectives?->count()); // en cas de pagination avec ->total()
-                                    @endphp
-
                                     <div class="d-flex align-items-center gap-2 text-info fw-semibold">
                                         <i class="bi bi-list-ul me-1"></i>
                                         <span>
                                             Affichage :
-                                            <span class="text-dark">{{ $affichees }}</span>
+                                            <span class="text-dark">{{ $totalAffichees }}</span>
                                             sur
-                                            <span class="text-dark">{{ $total }}</span> demandes
+                                            <span class="text-dark">{{ $totalDemandes }}</span>
+                                            demandes
                                         </span>
                                     </div>
 
@@ -189,8 +213,10 @@
                                                     {{-- {{ $collective?->date_depot ? \Carbon\Carbon::parse($collective?->date_depot)?->diffForHumans() : 'Aucun' }} --}}
                                                     {{ $collective?->date_depot ? \Carbon\Carbon::parse($collective->date_depot)->format('d/m/Y') : 'Aucun' }}
                                                 </td>
-                                                <td class="text-center">{{ $collective?->collectivemodules?->count() }}</td>
-                                                <td class="text-center">{{ $collective?->listecollectives?->count() }}</td>
+                                                <td class="text-center">{{ $collective?->collectivemodules?->count() }}
+                                                </td>
+                                                <td class="text-center">{{ $collective?->listecollectives?->count() }}
+                                                </td>
                                                 <td><span
                                                         class="{{ $collective?->statut_demande }}">{{ $collective?->statut_demande }}</span>
                                                 </td>
@@ -283,7 +309,8 @@
                                             @enderror
                                         </div> --}}
                                                     <div class="col-12 col-md-12 col-lg-6">
-                                                        <label for="numero_courrier" class="form-label">N° courrier</label>
+                                                        <label for="numero_courrier" class="form-label">N°
+                                                            courrier</label>
                                                         <input type="text" placeholder="Numéro courrier"
                                                             class="form-control form-control-sm @error('numero_courrier') is-invalid @enderror"
                                                             name="numero_courrier" id="numerocourrier"
@@ -379,7 +406,8 @@
                                                             class="form-select @error('statut') is-invalid @enderror"
                                                             aria-label="Statut juridique" id="select-field-statut-col">
 
-                                                            <option disabled selected hidden value="">Choisir un statut
+                                                            <option disabled selected hidden value="">Choisir un
+                                                                statut
                                                             </option>
 
                                                             @php $statuts = ['GIE', 'Association', 'Entreprise', 'Institution publique', 'Institution privée', 'Autre']; @endphp
@@ -433,7 +461,8 @@
                                                             class="form-select form-select-sm @error('departement') is-invalid @enderror"
                                                             aria-label="Select" id="select-field-departement-col"
                                                             data-placeholder="Choisir">
-                                                            <option value="{{ old('departement') }}">{{ old('departement') }}
+                                                            <option value="{{ old('departement') }}">
+                                                                {{ old('departement') }}
                                                             </option>
                                                             @foreach ($departements as $departement)
                                                                 <option value="{{ $departement->nom }}">
@@ -566,8 +595,8 @@
                                                     </div>
 
                                                     <div class="col-12 col-md-12 col-lg-6">
-                                                        <label for="email_responsable" class="form-label">Adresse e-mail<span
-                                                                class="text-danger mx-1">*</span></label>
+                                                        <label for="email_responsable" class="form-label">Adresse
+                                                            e-mail<span class="text-danger mx-1">*</span></label>
                                                         <input type="email" name="email_responsable"
                                                             value="{{ old('email_responsable') }}"
                                                             class="form-control form-control-sm @error('email_responsable') is-invalid @enderror"
