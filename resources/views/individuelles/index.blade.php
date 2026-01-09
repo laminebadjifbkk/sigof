@@ -499,17 +499,6 @@
                                                 @enderror
                                             </div>
 
-                                            {{-- <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="autre_module" class="form-label">Si autre formation ? précisez</label>
-                                        <input type="text" name="autre_module" value="{{ old('autre_module') }}"
-                                            class="form-control form-control-sm @error('autre_module') is-invalid @enderror"
-                                            id="autre_module" placeholder="autre diplôme académique">
-                                        @error('autre_module')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div> --}}
 
                                             <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                                 <label for="Niveau étude" class="form-label">Niveau étude<span

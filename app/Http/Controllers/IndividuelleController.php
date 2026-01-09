@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Mail\ValidationDemandeIndividuelleNotification;
@@ -30,6 +31,23 @@ class IndividuelleController extends Controller
         $this->middleware(['role:super-admin|admin|Demandeur|Employe|DIOF|ADIOF|Ingenieur|AntKD|AntKL|AntSL|AntKG|AntMT|AntDL|AntZG|AntTH|CAR|DEC|DG']);
         $this->middleware("permission:individuelle-view", ["only" => ["index"]]);
     }
+
+    public function create()
+    {
+
+        // Optimisation des requêtes pour les départements et modules
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
+        $modules      = Module::select('id', 'name')->orderBy('created_at', 'DESC')->get();
+
+        return view(
+            "individuelles.create",
+            compact(
+                'departements',
+                'modules',
+            )
+        );
+    }
+
     public function index()
     {
         // Comptage total des individus (sans charger toutes les entrées en mémoire)
@@ -45,7 +63,8 @@ class IndividuelleController extends Controller
 
         return view(
             "individuelles.index",
-            compact('individuelles',
+            compact(
+                'individuelles',
                 'departements',
                 'totalIndividuelles',
                 'modules',
@@ -99,13 +118,13 @@ class IndividuelleController extends Controller
                 $numero_individuelle = 'I' . $anneeEnCours . "00001"; // Nouveau numéro
             }
 
-// Vérifier l'unicité du numéro
+            // Vérifier l'unicité du numéro
             while (Individuelle::where('numero', $numero_individuelle)->exists()) {
-// Si le numéro existe déjà, incrémenter encore plus (ajouter 1 à la partie numérique)
+                // Si le numéro existe déjà, incrémenter encore plus (ajouter 1 à la partie numérique)
                 $numero_individuelle = 'I' . str_pad((int) substr($numero_individuelle, 1) + 1, 6, '0', STR_PAD_LEFT);
             }
 
-// Normalisation avec des zéros à gauche (6 chiffres minimum après le préfixe)
+            // Normalisation avec des zéros à gauche (6 chiffres minimum après le préfixe)
             $numero_individuelle = strtoupper($numero_individuelle);
 
             $departement = Departement::where('nom', $request->input("departement"))->first();
@@ -179,7 +198,6 @@ class IndividuelleController extends Controller
             ]);
 
             $individuelle->save();
-
         }
 
         $individuelle->save();
@@ -187,7 +205,6 @@ class IndividuelleController extends Controller
         Alert::success("Succès !", "L'enregistrement a été effectué avec succès.");
 
         return Redirect::back();
-
     }
     public function individuellesStore(Request $request)
     {
@@ -235,20 +252,20 @@ class IndividuelleController extends Controller
                 $numero_individuelle = 'I' . $anneeEnCours . "00001"; // Nouveau numéro
             }
 
-// Vérifier l'unicité du numéro
+            // Vérifier l'unicité du numéro
             while (Individuelle::where('numero', $numero_individuelle)->exists()) {
-// Si le numéro existe déjà, incrémenter encore plus (ajouter 1 à la partie numérique)
+                // Si le numéro existe déjà, incrémenter encore plus (ajouter 1 à la partie numérique)
                 $numero_individuelle = 'I' . str_pad((int) substr($numero_individuelle, 1) + 1, 6, '0', STR_PAD_LEFT);
             }
 
-// Normalisation avec des zéros à gauche (6 chiffres minimum après le préfixe)
+            // Normalisation avec des zéros à gauche (6 chiffres minimum après le préfixe)
             $numero_individuelle = strtoupper($numero_individuelle);
 
             // Récupération des données de localisation en une seule condition
             $departement_input = $request->input("departement");
             $localite_type     = $projet?->type_localite;
 
-// Récupérer les IDs des localités selon le type
+            // Récupérer les IDs des localités selon le type
             if (! empty($departement_input)) {
                 if ($localite_type == 'Commune') {
                     $commune          = Commune::where('nom', $departement_input)->first();
@@ -278,11 +295,11 @@ class IndividuelleController extends Controller
                 $arrondissementid = null;
             }
 
-// Recherche du module
+            // Recherche du module
             $module_find   = DB::table('modules')->where('name', $request->input("module"))->first();
             $demandeur_ind = Individuelle::where('users_id', $user->id)->get();
 
-// Vérifier si le module est déjà sélectionné
+            // Vérifier si le module est déjà sélectionné
             if ($module_find) {
                 foreach ($demandeur_ind as $value) {
                     if ($value->module->name == $module_find->name) {
@@ -299,7 +316,7 @@ class IndividuelleController extends Controller
                 $module_find = $module; // Réassigner pour les prochaines étapes
             }
 
-// Création ou mise à jour de l'instance Individuelle
+            // Création ou mise à jour de l'instance Individuelle
             $individuelle = new Individuelle([
                 'date_depot'                       => $date_depot,
                 'numero'                           => $numero_individuelle,
@@ -330,7 +347,6 @@ class IndividuelleController extends Controller
             ]);
 
             $individuelle->save();
-
         }
 
         $individuelle->save();
@@ -409,20 +425,20 @@ class IndividuelleController extends Controller
             $numero_individuelle = 'I' . $anneeEnCours . "00001"; // Nouveau numéro
         }
 
-// Vérifier l'unicité du numéro
+        // Vérifier l'unicité du numéro
         while (Individuelle::where('numero', $numero_individuelle)->exists()) {
-// Si le numéro existe déjà, incrémenter encore plus (ajouter 1 à la partie numérique)
+            // Si le numéro existe déjà, incrémenter encore plus (ajouter 1 à la partie numérique)
             $numero_individuelle = 'I' . str_pad((int) substr($numero_individuelle, 1) + 1, 6, '0', STR_PAD_LEFT);
         }
 
-// Normalisation avec des zéros à gauche (6 chiffres minimum après le préfixe)
+        // Normalisation avec des zéros à gauche (6 chiffres minimum après le préfixe)
         $numero_individuelle = strtoupper($numero_individuelle);
 
-// Récupérer le département et la région
+        // Récupérer le département et la région
         $departement = Departement::where('nom', $request->input("departement"))->first();
         $regionid    = $departement->region->id;
 
-/* // Récupérer le module ou en créer un nouveau
+        /* // Récupérer le module ou en créer un nouveau
         $module = DB::table('modules')->where('name', $request->input("module"))->first();
 
         if (! $module) {
@@ -456,10 +472,10 @@ class IndividuelleController extends Controller
             }
         }
 
-// Formatage de la date de naissance
+        // Formatage de la date de naissance
         $date_naissance = Carbon::createFromFormat('d/m/Y', $request->input('date_naissance'));
 
-// Création de l'utilisateur
+        // Création de l'utilisateur
         $user = User::create([
             'civilite'                  => $request->input('civilite'),
             'cin'                       => $cin,
@@ -476,11 +492,11 @@ class IndividuelleController extends Controller
             'password'                  => Hash::make($request->email),
         ]);
 
-// Mise à jour du nom d'utilisateur et assignation du rôle
+        // Mise à jour du nom d'utilisateur et assignation du rôle
         $user->update(['username' => $request->input('lastname') . '' . $user->id]);
         $user->assignRole('Demandeur');
 
-// Création de l'individuelle
+        // Création de l'individuelle
         $individuelleData = [
             'date_depot'                       => $date_depot,
             'numero'                           => $numero_individuelle,
@@ -509,7 +525,7 @@ class IndividuelleController extends Controller
         $individuelle = new Individuelle($individuelleData);
         $individuelle->save();
 
-// Gestion des fichiers associés à l'utilisateur
+        // Gestion des fichiers associés à l'utilisateur
         File::where('users_id', null)->distinct()->get()->each(function ($file) use ($user) {
             File::create([
                 'legende'  => $file->legende,
@@ -531,16 +547,16 @@ class IndividuelleController extends Controller
         $modules      = Module::latest()->get(); // Même pour les modules
         $projets      = Projet::latest()->get(); // Même pour les projets
 
-// Vérification des rôles de l'utilisateur de manière simplifiée
+        // Vérification des rôles de l'utilisateur de manière simplifiée
         $roleNames       = Auth::user()->roles->pluck('name')->toArray();
         $restrictedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC'];
 
-// Si l'utilisateur a un rôle restreint, on autorise l'action
+        // Si l'utilisateur a un rôle restreint, on autorise l'action
         if (! empty(array_diff($roleNames, $restrictedRoles))) {
             $this->authorize('update', $individuelle);
         }
 
-// Vérification des conditions de modification
+        // Vérification des conditions de modification
         /* if ($individuelle->projet && $individuelle->projet->statut !== 'ouvert') {
             Alert::warning('Avertissement !', 'La modification a échoué.');
             return redirect()->back();
@@ -560,12 +576,10 @@ class IndividuelleController extends Controller
                 Alert::warning('Attention ! ', 'Action impossible, demande déjà traitée.');
                 return redirect()->back();
             }
-
         }
 
-// Retourner la vue si toutes les conditions sont remplies
+        // Retourner la vue si toutes les conditions sont remplies
         return view('individuelles.update', compact('individuelle', 'departements', 'modules', 'projets'));
-
     }
 
     public function update(Request $request, Individuelle $individuelle)
@@ -582,7 +596,7 @@ class IndividuelleController extends Controller
         // Convertir la date de dépôt depuis la requête
         $date_depot = $this->parseDate($request->input('date_depot'));
 
-// Vérifier si la date_depot existe déjà dans la base de données
+        // Vérifier si la date_depot existe déjà dans la base de données
         if ($individuelle->date_depot) {
             // Si la date de dépôt déjà enregistrée est égale à celle de la requête
             if ($individuelle->date_depot->isSameDay($date_depot)) {
@@ -629,12 +643,12 @@ class IndividuelleController extends Controller
             $module_find = $module; // Now $module_find will contain the newly created module
         }
 
-// Get all individual requests from the authenticated user
+        // Get all individual requests from the authenticated user
         $demandeur_ind = Individuelle::where('users_id', Auth::user()->id)
             ->where('id', '!=', $individuelle->id) // Ignore the current record
             ->get();
 
-// Check if the module is already assigned
+        // Check if the module is already assigned
         if ($this->isModuleAlreadyAssigned($demandeur_ind, $module_find)) {
             Alert::warning('Désolé !', 'Le module ' . $module_find->name . ' a déjà été choisi');
             return redirect()->back();
@@ -837,17 +851,17 @@ class IndividuelleController extends Controller
         $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::orderBy('created_at', 'desc')->get();
 
-// Récupérer l'utilisateur actuel
+        // Récupérer l'utilisateur actuel
         $user = Auth::user();
 
-// Récupérer les individuelles pour cet utilisateur, filtrées en une seule requête
+        // Récupérer les individuelles pour cet utilisateur, filtrées en une seule requête
         $individuelles = Individuelle::where('users_id', $user->id)
             ->whereNotNull('numero')  // Remplacé par whereNotNull pour plus de clarté
             ->whereNull('projets_id') // Simplification
             ->orderBy('created_at', 'asc')
             ->get();
 
-// Récupérer les fichiers associés à l'utilisateur
+        // Récupérer les fichiers associés à l'utilisateur
         $files = File::where('users_id', $user->id)
             ->whereNotNull('file')
             ->distinct()
@@ -877,10 +891,10 @@ class IndividuelleController extends Controller
             ->unique('sigle') // Évite les doublons sur le champ "sigle"
             ->values();       // Réindexe proprement la collection (0, 1, 2, ...)
 
-// Calcul du nombre d'individuelles
+        // Calcul du nombre d'individuelles
         $individuelle_total = $individuelles->count();
 
-// Passer directement à la vue sans duplication de code
+        // Passer directement à la vue sans duplication de code
         $viewData = compact(
             'individuelle_total',
             'departements',
@@ -891,13 +905,12 @@ class IndividuelleController extends Controller
             'modules'
         );
 
-// Renvoi de la vue en fonction du nombre d'individuelles
+        // Renvoi de la vue en fonction du nombre d'individuelles
         $view = $individuelle_total == 0
-        ? 'individuelles.show-individuelle-aucune'
-        : 'individuelles.show-individuelle';
+            ? 'individuelles.show-individuelle-aucune'
+            : 'individuelles.show-individuelle';
 
         return view($view, $viewData);
-
     }
 
     public function demandesProjet(Request $request)
@@ -907,14 +920,14 @@ class IndividuelleController extends Controller
 
         // Passer directement à la vue sans duplication de code
         $viewData = compact(
-            'userIndividuellesAvecProjet', 'count'
+            'userIndividuellesAvecProjet',
+            'count'
         );
 
         // Renvoi de la vue en fonction du nombre d'individuelles
         $view = 'individuelles.demandesprojets';
 
         return view($view, $viewData);
-
     }
 
     public function rapports(Request $request)
@@ -1082,13 +1095,13 @@ class IndividuelleController extends Controller
                 $numero_individuelle = 'I' . $anneeEnCours . "00001"; // Nouveau numéro
             }
 
-// Vérifier l'unicité du numéro
+            // Vérifier l'unicité du numéro
             while (Individuelle::where('numero', $numero_individuelle)->exists()) {
-// Si le numéro existe déjà, incrémenter encore plus (ajouter 1 à la partie numérique)
+                // Si le numéro existe déjà, incrémenter encore plus (ajouter 1 à la partie numérique)
                 $numero_individuelle = 'I' . str_pad((int) substr($numero_individuelle, 1) + 1, 6, '0', STR_PAD_LEFT);
             }
 
-// Normalisation avec des zéros à gauche (6 chiffres minimum après le préfixe)
+            // Normalisation avec des zéros à gauche (6 chiffres minimum après le préfixe)
             $numero_individuelle = strtoupper($numero_individuelle);
 
             if (! empty($request->input("departement")) && $projet?->type_localite == 'Commune') {
@@ -1155,7 +1168,7 @@ class IndividuelleController extends Controller
                 'projets_id'                       => $projet->id,
             ];
 
-// Vérifier si le module existe et l'utiliser
+            // Vérifier si le module existe et l'utiliser
             if (isset($module_find)) {
                 // Créer l'Individuelle avec le module trouvé
                 $individuelleData['modules_id'] = $module_find->id;
@@ -1170,7 +1183,6 @@ class IndividuelleController extends Controller
                 $individuelleData['modules_id'] = $module->id;
                 $individuelle                   = new Individuelle($individuelleData);
             }
-
         }
 
         $individuelle->save();
@@ -1723,7 +1735,6 @@ class IndividuelleController extends Controller
         Alert::success('Dommage !', 'Nous espérons vous retrouver bientôt !');
 
         return redirect()->back();
-
     }
 
     public function corbeille()
@@ -1747,7 +1758,6 @@ class IndividuelleController extends Controller
         }
 
         return view("individuelles.corbeille", compact("individuelles", "title"));
-
     }
 
     public function validationIndividuelle(Request $request, Individuelle $individuelle)
@@ -1847,7 +1857,7 @@ class IndividuelleController extends Controller
             Alert::warning('Recherche impossible', 'Veuillez remplir au moins un champ avant de continuer.');
             return redirect()->back();
         }
-/*
+        /*
         // Requête dynamique
         $query = User::query();
 
@@ -1892,7 +1902,7 @@ class IndividuelleController extends Controller
             $query->where('email', 'like', "%{$request->email}%");
         }
 
-// Exécution
+        // Exécution
         $demandeurs = $query->distinct()->get();
         /* $count      = $demandeurs->count();
 
@@ -1917,12 +1927,11 @@ class IndividuelleController extends Controller
     public function forceDelete($uuid)
     {
         $individuelle = Individuelle::withTrashed()->where('uuid', $uuid)->firstOrFail();
-// Supprimer
+        // Supprimer
         $individuelle->forceDelete();
 
         Alert::success('Succès ', 'Demande supprimé définitivement.');
         return redirect()->back();
-
     }
     public function restore($uuid)
     {
