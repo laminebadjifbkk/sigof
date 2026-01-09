@@ -74,12 +74,19 @@ class CollectiveController extends Controller
             $collectivesQuery->where('statut_demande', $statutDemande);
         }
 
-        $collectives = $collectivesQuery
+        /* $collectives = $collectivesQuery
             ->latest()
             ->limit(500)
-            ->get();
+            ->get(); */
 
+        $collectives = collect();
 
+        $collectivesQuery
+            ->latest()
+            ->chunk(300, function ($batch) use (&$collectives) {
+                $collectives = $collectives->merge($batch);
+            });
+            
         /* =========================
      * 2️⃣ Totaux
      * ========================= */
