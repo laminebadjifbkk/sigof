@@ -291,45 +291,55 @@
                                                         @endcan
                                                     </span>
 
-                                                    <div>
-                                                        @if ($ingenieur)
-                                                            @can('diof')
+                                                    <div class="d-flex flex-column gap-2">
+
+                                                        @can('diof')
+                                                            {{-- Bloc ingénieur --}}
+                                                            @if ($ingenieur)
                                                                 <div class="d-flex justify-content-between align-items-center">
                                                                     <h5 class="card-title mb-0">
-                                                                        {{ $ingenieur->name }}
+                                                                        {{ $ingenieur?->user?->firstname . ' ' . $ingenieur?->user?->name }}
                                                                     </h5>
-                                                                    <div class="btn-group">
-                                                                        @can('ingenieur-check')
+
+                                                                    @can('ingenieur-check')
+                                                                        <div class="btn-group">
                                                                             <a class="btn btn-info btn-sm" title="Voir ingénieur"
                                                                                 href="{{ route('ingenieurs.show', $ingenieur->id) }}">
                                                                                 <i class="bi bi-eye"></i>
                                                                             </a>
+
                                                                             <a href="{{ route('addcollectiveingenieurs', $collective->id) }}"
-                                                                                class="btn btn-outline-primary btn-sm">Changer
-                                                                                ingénieur</a>
-                                                                        @endcan
-                                                                    </div>
+                                                                                class="btn btn-outline-primary btn-sm">
+                                                                                Changer ingénieur
+                                                                            </a>
+                                                                        </div>
+                                                                    @endcan
                                                                 </div>
                                                             @else
-                                                                <div class="d-flex justify-content-between align-items-center pb-2">
+                                                                <div>
                                                                     <a href="{{ route('addcollectiveingenieurs', $collective->id) }}"
-                                                                        class="btn btn-primary btn-sm">Imputer ingénieur</a>
+                                                                        class="btn btn-primary btn-sm">
+                                                                        Imputer ingénieur
+                                                                    </a>
                                                                 </div>
                                                             @endif
+
+                                                            {{-- Actions globales (toujours visibles pour diof) --}}
+                                                            <div class="d-flex gap-2">
+                                                                <a href="{{ route('collective.fiche', $collective->id) }}"
+                                                                    target="_blank" class="btn btn-outline-success btn-sm">
+                                                                    <i class="bi bi-file-earmark-text"></i>
+                                                                    Fiche de synthèse
+                                                                </a>
+
+                                                                <a href="{{ route('collective.liste', $collective->id) }}"
+                                                                    target="_blank" class="btn btn-outline-success btn-sm">
+                                                                    <i class="bi bi-file-earmark-text"></i>
+                                                                    Liste
+                                                                </a>
+                                                            </div>
                                                         @endcan
-                                                        &nbsp;
-                                                        @can('diof')
-                                                            {{-- Bouton fiche de synthèse visible même sans ingénieur --}}
-                                                            <a href="{{ route('collective.fiche', $collective->id) }}"
-                                                                target="_blank" class="btn btn-outline-success btn-sm">
-                                                                <i class="bi bi-file-earmark-text"></i> Fiche de synthèse
-                                                            </a>
-                                                            {{-- Bouton fiche de synthèse visible même sans ingénieur --}}
-                                                            <a href="{{ route('collective.liste', $collective->id) }}"
-                                                                target="_blank" class="btn btn-outline-success btn-sm">
-                                                                <i class="bi bi-file-earmark-text"></i> Liste
-                                                            </a>
-                                                        @endcan
+
                                                     </div>
                                                 </div>
 

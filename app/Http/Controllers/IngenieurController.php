@@ -30,6 +30,7 @@ class IngenieurController extends Controller
 
         return view("ingenieurs.index", compact("ingenieurs"));
     }
+
     public function store(Request $request)
     {
         $this->validate($request, [
