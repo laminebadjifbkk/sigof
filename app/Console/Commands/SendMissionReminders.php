@@ -12,6 +12,35 @@ class SendMissionReminders extends Command
     protected $signature = 'missions:send-reminders';
     protected $description = 'Envoi des rappels de mission';
 
+    /* public function handle()
+    {
+        $now = now();
+
+        $missions = ParcMission::with('employees')
+            ->whereDate('date_depart', '>=', $now->toDateString())
+            ->get();
+
+        foreach ($missions as $mission) {
+
+            $diffInHours = $now->diffInHours($mission->date_depart, false);
+
+            if ($diffInHours === 48) {
+                $this->sendMail($mission, 'Dans 2 jours');
+            }
+
+            if ($diffInHours === 24) {
+                $this->sendMail($mission, 'Demain');
+            }
+
+            if (
+                $now->isSameDay($mission->date_depart)
+                && $now->format('H:i') === '07:00'
+            ) {
+                $this->sendMail($mission, 'Aujourd\'hui');
+            }
+        }
+    } */
+   
     public function handle()
     {
         $now = now();
@@ -24,22 +53,14 @@ class SendMissionReminders extends Command
 
             $diffInHours = $now->diffInHours($mission->date_depart, false);
 
-            if ($diffInHours === 72) {
-                $this->sendMail($mission, 'J-3');
-            }
-            if ($diffInHours === 48) {
-                $this->sendMail($mission, 'J-2');
-            }
-
+            // Rappel J-1
             if ($diffInHours === 24) {
-                $this->sendMail($mission, 'J-1');
+                $this->sendMail($mission, 'Demain');
             }
 
-            if (
-                $now->isSameDay($mission->date_depart)
-                && $now->format('H:i') === '07:00'
-            ) {
-                $this->sendMail($mission, 'Jour J');
+            // Rappel Jour J
+            if ($now->isSameDay($mission->date_depart)) {
+                $this->sendMail($mission, 'Aujourd\'hui');
             }
         }
     }

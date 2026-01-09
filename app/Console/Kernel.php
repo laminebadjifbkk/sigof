@@ -34,12 +34,16 @@ class Kernel extends ConsoleKernel
 
         // Lancer la commande tous les jours à 08h00
         $schedule->command('missions:update-status')->dailyAt('08:00');
+        $schedule->command('missions:update-status')->dailyAt('12:00');
 
         // Lancer la commande tous les jours à 17h00
         $schedule->command('missions:update-status')->dailyAt('17:00');
 
-        $schedule->command('missions:send-reminders')
-            ->everyMinute(); // recommandé pour précision
+        /* $schedule->command('missions:send-reminders')
+            ->everyMinute(); // recommandé pour précision */
+
+        $schedule->command('missions:send-reminders')->dailyAt('08:00');
+        $schedule->command('missions:send-reminders')->dailyAt('17:00');
     }
 
     /**
