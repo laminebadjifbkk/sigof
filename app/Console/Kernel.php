@@ -34,7 +34,7 @@ class Kernel extends ConsoleKernel
 
         // Lancer la commande tous les jours à 08h00
         $schedule->command('missions:update-status')->dailyAt('08:00');
-        $schedule->command('missions:update-status')->dailyAt('12:00');
+        $schedule->command('missions:update-status')->dailyAt('13:00');
 
         // Lancer la commande tous les jours à 17h00
         $schedule->command('missions:update-status')->dailyAt('17:00');

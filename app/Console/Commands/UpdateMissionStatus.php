@@ -16,8 +16,9 @@ class UpdateMissionStatus extends Command
         $now = Carbon::now();
         $hour = $now->format('H');
 
-        if ($hour == 8) {
-            // 08h00 -> Démarrer les missions
+        if (in_array($hour, [8, 13])) {
+
+            // 08h00 ou 13h00 -> Démarrer les missions
             $missions = ParcMission::where('statut', '!=', 'en_cours')
                 ->whereDate('date_depart', $now->toDateString())
                 ->get();
@@ -28,21 +29,21 @@ class UpdateMissionStatus extends Command
 
                 // Chauffeurs indisponibles
                 foreach ($mission->employees as $employee) {
-                    $chauffeur = $employee->chauffeur; // récupérer le chauffeur lié
+                    $chauffeur = $employee->chauffeur;
                     if ($chauffeur) {
                         $chauffeur->statut = 'en_mission';
                         $chauffeur->save();
                     }
                 }
 
-                // Véhicules hors service
+                // Véhicules en mission
                 foreach ($mission->vehicules as $vehicule) {
                     $vehicule->etat = 'en_mission';
                     $vehicule->save();
                 }
             }
 
-            $this->info('Missions démarrées et statuts mis à jour à 08h00.');
+            $this->info("Missions démarrées et statuts mis à jour à {$hour}h00.");
         }
 
         if ($hour == 17) {
@@ -58,7 +59,7 @@ class UpdateMissionStatus extends Command
                 foreach ($mission->employees as $employee) {
                     $chauffeur = $employee->chauffeur; // récupérer le chauffeur lié
                     if ($chauffeur) {
-                        $chauffeur->statut = 'disponible'; 
+                        $chauffeur->statut = 'disponible';
                         $chauffeur->save();
                     }
                 }
