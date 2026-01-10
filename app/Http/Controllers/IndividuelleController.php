@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 
 class IndividuelleController extends Controller
 {
@@ -358,7 +359,7 @@ class IndividuelleController extends Controller
 
     public function addIndividuelle(Request $request)
     {
-        $this->validate($request, [
+        /* $this->validate($request, [
             'civilite'                  => ['required', 'string'],
             'date_depot'                => ['required', 'date', 'date_format:Y-m-d\TH:i'],
             'cin'                       => [
@@ -391,7 +392,47 @@ class IndividuelleController extends Controller
             'diplome_professionnel'     => ['required', 'string', 'max:250'],
             'projet_poste_formation'    => ['required', 'string', 'max:250'],
             'qualification'             => ['nullable', 'string', 'max:200'],
+        ]); */
+
+        $validator = Validator::make($request->all(), [
+            'civilite'                  => ['required', 'string'],
+            'date_depot'                => ['required', 'date', 'date_format:Y-m-d\TH:i'],
+            'type_piece'                => ['required', 'string', 'in:cni,extrait,passeport'],
+            'cin'                       => ['required', 'string', Rule::unique('users')->whereNull('deleted_at')],
+            'email'                     => ['required', 'email', 'max:250', Rule::unique('users')->whereNull('deleted_at')],
+            'firstname'                 => ['required', 'string', 'max:50'],
+            'lastname'                  => ['required', 'string', 'max:25'],
+            'telephone'                 => ['required', 'string', 'size:12'],
+            'telephone_secondaire'      => ['nullable', 'string', 'size:12'],
+            'date_naissance'            => ['required', 'date_format:d/m/Y'],
+            'lieu_naissance'            => ['required', 'string'],
+            'adresse'                   => ['required', 'string', 'max:250'],
+            'departement'               => ['required', 'string', 'max:250'],
+            'module'                    => ['required', 'string', 'max:250'],
+            'situation_professionnelle' => ['nullable', 'string', 'max:250'],
+            'situation_familiale'       => ['nullable', 'string', 'max:250'],
+            'niveau_etude'              => ['required', 'string', 'max:250'],
+            'diplome_academique'        => ['required', 'string', 'max:250'],
+            'diplome_professionnel'     => ['required', 'string', 'max:250'],
+            'projet_poste_formation'    => ['required', 'string', 'max:250'],
+            'qualification'             => ['nullable', 'string', 'max:200'],
         ]);
+
+        // Validation conditionnelle de la taille du CIN
+        $validator->sometimes('cin', ['size:5'], function ($input) {
+            return $input->type_piece === 'extrait';
+        });
+
+        $validator->sometimes('cin', ['size:9'], function ($input) {
+            return $input->type_piece === 'passeport';
+        });
+
+        $validator->sometimes('cin', ['min:13', 'max:14'], function ($input) {
+            return $input->type_piece === 'cni';
+        });
+
+        // Gestion des erreurs
+        $validator->validate();
 
         $cin = $request->input('cin');
 
@@ -448,7 +489,7 @@ class IndividuelleController extends Controller
             $module->save();
         } */
 
-        $module = DB::table('modules')
+        /* $module = DB::table('modules')
             ->where('name', $request->input("module"))
             ->whereNull('deleted_at') // ou ->where('is_deleted', false)
             ->first();
@@ -470,7 +511,19 @@ class IndividuelleController extends Controller
                 ]);
                 $module->save(); // Save the new module
             }
+        } */
+
+        $moduleName = $request->input("module");
+
+        $module = Module::withTrashed()->firstOrCreate(
+            ['name' => $moduleName],
+            ['deleted_at' => null] // s’il était supprimé, il sera restauré
+        );
+
+        if ($module->trashed()) {
+            $module->restore(); // restaurer si supprimé
         }
+
 
         // Formatage de la date de naissance
         $date_naissance = Carbon::createFromFormat('d/m/Y', $request->input('date_naissance'));

@@ -29,7 +29,7 @@
 
                 {{-- ================= STEP 1 – FORMATION ================= --}}
                 <div class="step">
-                    <h5 class="mb-3">📘 Formation</h5>
+                    <h5 class="mb-3">Formation</h5>
 
                     <div class="row g-3">
                         <div class="col-md-12">
@@ -84,7 +84,7 @@
 
                 {{-- ================= STEP 2 – IDENTITÉ & PIÈCE ================= --}}
                 <div class="step d-none">
-                    <h5 class="mb-3">🧍 Identité & Pièce</h5>
+                    <h5 class="mb-3">Identité & Pièce</h5>
 
                     <div class="row g-3">
                         <div class="col-md-4">
@@ -199,7 +199,7 @@
 
                 {{-- ================= STEP 3 – COORDONNÉES ================= --}}
                 <div class="step d-none">
-                    <h5 class="mb-3">📞 Coordonnées & Situation</h5>
+                    <h5 class="mb-3">Coordonnées & Situation</h5>
 
                     <div class="row g-3">
                         <div class="col-md-4">
@@ -331,7 +331,7 @@
 
                 {{-- ================= STEP 4 – ÉTUDES ================= --}}
                 <div class="step d-none">
-                    <h5 class="mb-3">🎓 Études & Diplômes</h5>
+                    <h5 class="mb-3">Études & Diplômes</h5>
 
                     <div class="row g-3">
                         <div class="col-md-4">
@@ -552,7 +552,7 @@
 
                 {{-- ================= STEP 5 – PROJET ================= --}}
                 <div class="step d-none">
-                    <h5 class="mb-3">🧾 Projet & Récapitulatif</h5>
+                    <h5 class="mb-3">Projet & Récapitulatif</h5>
 
                     <div class="row g-3">
                         <div class="col-md-6">
@@ -659,6 +659,7 @@
             font-weight: bold;
         }
     </style>
+
     <script>
         let currentStep = 0;
         const steps = document.querySelectorAll('.step');
@@ -696,21 +697,33 @@
         const typePiece = document.getElementById('type_piece');
         const numeroWrapper = document.getElementById('numero_piece_wrapper');
         const numeroLabel = document.getElementById('numero_piece_label');
+        const numeroInput = document.getElementById('cin');
 
         typePiece.addEventListener('change', function() {
             if (!this.value) {
                 numeroWrapper.classList.add('d-none');
+                numeroInput.value = '';
                 return;
             }
 
-            const labels = {
-                cni: 'Numéro de la carte nationale',
-                extrait: 'Numéro de l’extrait de naissance',
-                passeport: 'Numéro du passeport'
-            };
-
-            numeroLabel.innerHTML = labels[this.value] + ' <span class="required">*</span>';
             numeroWrapper.classList.remove('d-none');
+
+            if (this.value === 'extrait') {
+                numeroLabel.innerHTML = 'Numéro de l’extrait de naissance <span class="required">*</span>';
+                numeroInput.placeholder = 'Ex : 12345';
+                numeroInput.minLength = 5;
+                numeroInput.maxLength = 5;
+            } else if (this.value === 'passeport') {
+                numeroLabel.innerHTML = 'Numéro du passeport <span class="required">*</span>';
+                numeroInput.placeholder = 'Ex : A12345678';
+                numeroInput.minLength = 9;
+                numeroInput.maxLength = 9;
+            } else if (this.value === 'cni') {
+                numeroLabel.innerHTML = 'Numéro de la carte nationale <span class="required">*</span>';
+                numeroInput.placeholder = 'Ex : 1 099 2005 00012';
+                numeroInput.minLength = 13;
+                numeroInput.maxLength = 14;
+            }
         });
     </script>
 @endpush
