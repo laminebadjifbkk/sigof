@@ -171,7 +171,7 @@
                                         <tr>
                                             <th>N°</th>
                                             <th width="30%">Structure</th>
-                                            <th>E-mail</th>
+                                            {{-- <th>E-mail</th> --}}
                                             <th>Téléphone</th>
                                             <th>Région</th>
                                             <th class="text-center">Dépôt</th>
@@ -194,11 +194,11 @@
                                                     @endif
                                                 </td>
 
-                                                <td>
+                                                {{-- <td>
                                                     <a href="mailto:{{ optional($collective->user)->email }}">
                                                         {{ optional($collective->user)->email }}
                                                     </a>
-                                                </td>
+                                                </td> --}}
 
                                                 <td>
                                                     <a href="tel:+221{{ $collective->telephone }}">
