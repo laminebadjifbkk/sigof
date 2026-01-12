@@ -70,9 +70,11 @@
                             <label class="form-label">
                                 Date de dépôt <span class="required">*</span>
                             </label>
-                            <input type="datetime-local" name="date_depot" value="{{ old('date_depot') }}"
-                                class="datepicker form-control form-control-sm @error('date_depot') is-invalid @enderror"
-                                id="date_depot" placeholder="yyyy-mm-dd HH:MM">
+
+                            <input type="datetime-local" name="date_depot" id="date_depot"
+                                class="form-control form-control-sm @error('date_depot') is-invalid @enderror"
+                                value="{{ old('date_depot', now()->format('Y-m-d\TH:i')) }}" placeholder="yyyy-mm-dd HH:MM">
+
                             @error('date_depot')
                                 <span class="invalid-feedback" role="alert">
                                     <div>{{ $message }}</div>
@@ -185,9 +187,9 @@
                                 Numéro de la pièce <span class="required">*</span>
                             </label>
                             <input name="cin" type="text"
-                                class="form-control form-control-sm @error('cin') is-invalid @enderror" id="cin"
-                                value="{{ old('cin') }}" autocomplete="off" placeholder="Ex: 1 099 2005 00012"
-                                minlength="16" maxlength="17" required>
+                                class="form-control form-control-sm @error('cin') is-invalid @enderror" id="num_cin"
+                                value="{{ old('cin') }}" autocomplete="off" placeholder="Ex: 1099200500012"
+                                minlength="13" maxlength="14" required>
                             @error('cin')
                                 <span class="invalid-feedback" role="alert">
                                     <div>{{ $message }}</div>
@@ -222,7 +224,7 @@
                             </label>
                             <input name="telephone_secondaire" type="text" maxlength="12"
                                 class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror"
-                                id="telephone_secondaire" value="{{ old('telephone_secondaire') }}" autocomplete="tel"
+                                id="telephone_s" value="{{ old('telephone_secondaire') }}" autocomplete="tel"
                                 placeholder="XX:XXX:XX:XX">
                             @error('telephone_secondaire')
                                 <span class="invalid-feedback" role="alert">
@@ -651,7 +653,6 @@
         </div>
     </section>
 @endsection
-
 @push('scripts')
     <style>
         .required {
@@ -661,69 +662,133 @@
     </style>
 
     <script>
-        let currentStep = 0;
-        const steps = document.querySelectorAll('.step');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const submitBtn = document.getElementById('submitBtn');
-        const progressBar = document.getElementById('progressBar');
+        document.addEventListener('DOMContentLoaded', function() {
 
-        function showStep(step) {
-            steps.forEach((el, i) => el.classList.toggle('d-none', i !== step));
-            prevBtn.style.display = step === 0 ? 'none' : 'inline-block';
-            nextBtn.classList.toggle('d-none', step === steps.length - 1);
-            submitBtn.classList.toggle('d-none', step !== steps.length - 1);
-            progressBar.style.width = ((step + 1) / steps.length) * 100 + '%';
-            if (step === steps.length - 1) generateRecap();
-        }
+            /* ===============================
+             * WIZARD STEPS
+             * =============================== */
+            let currentStep = 0;
 
-        function generateRecap() {
-            const data = new FormData(document.getElementById('wizardForm'));
-            let html = '<ul class="list-group">';
-            data.forEach((value, key) => {
-                if (value && key !== '_token')
-                    html += `<li class="list-group-item"><strong>${key}</strong> : ${value}</li>`;
+            const steps = document.querySelectorAll('.step');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const progressBar = document.getElementById('progressBar');
+
+            function showStep(step) {
+                steps.forEach((el, i) => {
+                    el.classList.toggle('d-none', i !== step);
+                });
+
+                prevBtn.style.display = step === 0 ? 'none' : 'inline-block';
+                nextBtn.classList.toggle('d-none', step === steps.length - 1);
+                submitBtn.classList.toggle('d-none', step !== steps.length - 1);
+                progressBar.style.width = ((step + 1) / steps.length) * 100 + '%';
+
+                if (step === steps.length - 1) {
+                    generateRecap();
+                }
+            }
+
+            function generateRecap() {
+                const form = document.getElementById('wizardForm');
+                const data = new FormData(form);
+
+                let html = '<ul class="list-group">';
+                data.forEach((value, key) => {
+                    if (value && key !== '_token') {
+                        html += `<li class="list-group-item">
+                            <strong>${key}</strong> : ${value}
+                         </li>`;
+                    }
+                });
+                html += '</ul>';
+
+                document.getElementById('recap').innerHTML = html;
+            }
+
+            nextBtn?.addEventListener('click', () => {
+                if (currentStep < steps.length - 1) {
+                    showStep(++currentStep);
+                }
             });
-            html += '</ul>';
-            document.getElementById('recap').innerHTML = html;
-        }
 
-        nextBtn.onclick = () => currentStep < steps.length - 1 && showStep(++currentStep);
-        prevBtn.onclick = () => currentStep > 0 && showStep(--currentStep);
+            prevBtn?.addEventListener('click', () => {
+                if (currentStep > 0) {
+                    showStep(--currentStep);
+                }
+            });
 
-        showStep(currentStep);
+            showStep(currentStep);
 
-        /* ===== Pièce dynamique ===== */
-        const typePiece = document.getElementById('type_piece');
-        const numeroWrapper = document.getElementById('numero_piece_wrapper');
-        const numeroLabel = document.getElementById('numero_piece_label');
-        const numeroInput = document.getElementById('cin');
 
-        typePiece.addEventListener('change', function() {
-            if (!this.value) {
-                numeroWrapper.classList.add('d-none');
+            /* ===============================
+             * PIECE D'IDENTITE DYNAMIQUE
+             * =============================== */
+            const typePiece = document.getElementById('type_piece');
+            const numeroWrapper = document.getElementById('numero_piece_wrapper');
+            const numeroLabel = document.getElementById('numero_piece_label');
+            const numeroInput = document.getElementById('num_cin');
+
+            if (!typePiece || !numeroInput) return;
+
+            typePiece.addEventListener('change', function() {
+
+                if (!this.value) {
+                    numeroWrapper.classList.add('d-none');
+                    resetNumeroInput();
+                    return;
+                }
+
+                numeroWrapper.classList.remove('d-none');
+                resetNumeroInput();
+
+                switch (this.value) {
+
+                    case 'extrait':
+                        numeroLabel.innerHTML =
+                            'Numéro de l’extrait de naissance <span class="required">*</span>';
+                        numeroInput.placeholder = 'Ex : 12345';
+                        numeroInput.setAttribute('minlength', 5);
+                        numeroInput.setAttribute('maxlength', 5);
+                        numeroInput.setAttribute('pattern', '\\d{5}');
+                        break;
+
+                    case 'passeport':
+                        numeroLabel.innerHTML = 'Numéro du passeport <span class="required">*</span>';
+                        numeroInput.placeholder = 'Ex : A12345678';
+                        numeroInput.setAttribute('minlength', 9);
+                        numeroInput.setAttribute('maxlength', 9);
+                        break;
+
+                    case 'cni':
+                        numeroLabel.innerHTML =
+                            'Numéro de la carte nationale <span class="required">*</span>';
+                        numeroInput.placeholder = 'Ex : 1099200500012';
+                        numeroInput.setAttribute('minlength', 13);
+                        numeroInput.setAttribute('maxlength', 14);
+                        numeroInput.setAttribute('pattern', '\\d{13,14}');
+                        break;
+                }
+            });
+
+            function resetNumeroInput() {
                 numeroInput.value = '';
-                return;
+                numeroInput.removeAttribute('minlength');
+                numeroInput.removeAttribute('maxlength');
+                numeroInput.removeAttribute('pattern');
             }
 
-            numeroWrapper.classList.remove('d-none');
+            /* ===============================
+             * SECURITE LONGUEUR EN SAISIE
+             * =============================== */
+            numeroInput.addEventListener('input', function() {
+                const max = this.getAttribute('maxlength');
+                if (max && this.value.length > max) {
+                    this.value = this.value.slice(0, max);
+                }
+            });
 
-            if (this.value === 'extrait') {
-                numeroLabel.innerHTML = 'Numéro de l’extrait de naissance <span class="required">*</span>';
-                numeroInput.placeholder = 'Ex : 12345';
-                numeroInput.minLength = 5;
-                numeroInput.maxLength = 5;
-            } else if (this.value === 'passeport') {
-                numeroLabel.innerHTML = 'Numéro du passeport <span class="required">*</span>';
-                numeroInput.placeholder = 'Ex : A12345678';
-                numeroInput.minLength = 9;
-                numeroInput.maxLength = 9;
-            } else if (this.value === 'cni') {
-                numeroLabel.innerHTML = 'Numéro de la carte nationale <span class="required">*</span>';
-                numeroInput.placeholder = 'Ex : 1 099 2005 00012';
-                numeroInput.minLength = 13;
-                numeroInput.maxLength = 14;
-            }
         });
     </script>
 @endpush

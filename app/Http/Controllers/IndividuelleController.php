@@ -418,25 +418,30 @@ class IndividuelleController extends Controller
             'qualification'             => ['nullable', 'string', 'max:200'],
         ]);
 
-        // Validation conditionnelle de la taille du CIN
-        $validator->sometimes('cin', ['size:5'], function ($input) {
+        // Validation conditionnelle
+        $validator->sometimes('cin', ['digits:5'], function ($input) {
             return $input->type_piece === 'extrait';
         });
 
-        $validator->sometimes('cin', ['size:9'], function ($input) {
+        $validator->sometimes('cin', ['digits:9'], function ($input) {
             return $input->type_piece === 'passeport';
         });
 
-        $validator->sometimes('cin', ['min:13', 'max:14'], function ($input) {
+        $validator->sometimes('cin', ['digits_between:13,14'], function ($input) {
             return $input->type_piece === 'cni';
         });
 
-        // Gestion des erreurs
-        $validator->validate();
+        // Validation finale
+        $data = $validator->validate();
 
-        $cin = $request->input('cin');
+        // Formatage CIN uniquement si nécessaire
+        if ($data['type_piece'] === 'cni') {
+            $data['cin'] = $this->formatCin($data['cin']);
+        }
 
-        $date_input = $request->input('date_depot');
+        // Utilisation des données validées
+        $cin = $data['cin'] ?? null;
+        $date_input = $data['date_depot'] ?? null;
 
         if ($date_input) {
             $date = Carbon::parse($date_input);
@@ -590,6 +595,30 @@ class IndividuelleController extends Controller
         Alert::success("Succès !", "Enregistrement effectué avec succès.");
 
         return redirect()->back();
+    }
+
+    private function formatCin(string $cin): string
+    {
+        // Supprimer tous les espaces
+        $cin = preg_replace('/\s+/', '', $cin);
+
+        if (strlen($cin) === 13) {
+            // 1 099 2002 00085
+            return substr($cin, 0, 1) . ' '
+                . substr($cin, 1, 3) . ' '
+                . substr($cin, 4, 4) . ' '
+                . substr($cin, 8, 5);
+        }
+
+        if (strlen($cin) === 14) {
+            // même logique mais 6 derniers chiffres collés
+            return substr($cin, 0, 1) . ' '
+                . substr($cin, 1, 3) . ' '
+                . substr($cin, 4, 4) . ' '
+                . substr($cin, 8, 6);
+        }
+
+        return $cin; // sécurité
     }
 
     public function edit(Individuelle $individuelle)

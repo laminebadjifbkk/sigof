@@ -2,8 +2,7 @@
 @section('title', 'ONFP | DEMANDEURS INDIVIDUELS')
 @section('space-work')
     @can('individuelle-view')
-        <div class="pagetitle">
-            {{-- <h1>Data Tables</h1> --}}
+        {{-- <div class="pagetitle">
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('/home') }}">Accueil</a></li>
@@ -11,7 +10,7 @@
                     <li class="breadcrumb-item active">Demandes individuelles</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div> --}}
         <section class="section">
             <div class="row">
                 <div class="col-12">
@@ -23,8 +22,7 @@
                         </div>
                     @endif
                     @if ($message = Session::get('danger'))
-                        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
-                            role="alert">
+                        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
                             <strong>{{ $message }}</strong>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
@@ -94,8 +92,11 @@
                                     {{-- Boutons à droite --}}
                                     @can('individuelle-create')
                                         <div class="d-flex align-items-center gap-2">
-                                            <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                            {{-- <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#AddIndividuelModal">
+                                                Ajouter
+                                            </a> --}}
+                                            <a href="{{ route('individuelles.create') }}" class="btn btn-sm btn-primary">
                                                 Ajouter
                                             </a>
                                             <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
