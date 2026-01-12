@@ -69,17 +69,17 @@ class Region extends Model
 		return $this->hasMany(Etablissement::class, 'regions_id');
 	}
 
-	public function formations()
+	/* public function formations()
 	{
 		return $this->hasMany(Formation::class, 'regions_id');
-	}
+	} */
 
 	public function individuelles()
 	{
 		return $this->hasMany(Individuelle::class, 'regions_id');
 	}
 
-/* 	public function operateurs()
+	/* 	public function operateurs()
 	{
 		return $this->belongsToMany(Operateur::class, 'operateursregions', 'regions_id', 'operateurs_id')
 			->withPivot('id', 'deleted_at')
@@ -95,5 +95,15 @@ class Region extends Model
 	public function operateurs()
 	{
 		return $this->hasMany(Operateur::class, 'regions_id');
+	}
+
+	public function formations()
+	{
+		return $this->belongsToMany(
+			Formation::class,
+			'formation_region',
+			'region_id',
+			'formation_id'
+		)->withTimestamps();
 	}
 }

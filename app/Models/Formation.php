@@ -512,7 +512,7 @@ class Formation extends Model
         return $this->belongsTo(Zone::class, 'zones_id');
     }
 
-/* 	public function collectives()
+    /* 	public function collectives()
 	{
 		return $this->hasMany(Collective::class, 'formations_id');
 	}
@@ -566,7 +566,7 @@ class Formation extends Model
         return $this->hasMany(Individuelle::class, 'formations_id');
     }
 
-/* 	public function collectivemodule()
+    /* 	public function collectivemodule()
 	{
 		return $this->hasOne(Collectivemodule::class, 'formations_id');
 	} */
@@ -616,4 +616,19 @@ class Formation extends Model
             ->withTimestamps();
     }
 
+    public function regions()
+    {
+        return $this->belongsToMany(
+            Region::class,
+            'formation_region',
+            'formation_id',
+            'region_id'
+        )->withTimestamps();
+    }
+
+    // Ancienne relation (si utilisée encore)
+    public function regionPrincipale()
+    {
+        return $this->belongsTo(Region::class, 'regions_id');
+    }
 }
