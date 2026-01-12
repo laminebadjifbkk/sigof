@@ -93,7 +93,7 @@
                                             <div>{{ $formation?->module?->name }}</div>
                                         </div> --}}
                                             <div class="col-12 col-md-3 mb-0">
-                                                <div class="label">Région</div>
+                                                <div class="label">Région(s)</div>
                                                 <div>
                                                    {{--  {{ $formation?->departement->region->nom }} --}}
                                                     @if ($formation->regions->isNotEmpty())
