@@ -94,7 +94,16 @@
                                         </div> --}}
                                             <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Région</div>
-                                                <div>{{ $formation?->departement->region->nom }}</div>
+                                                <div>
+                                                   {{--  {{ $formation?->departement->region->nom }} --}}
+                                                    @if ($formation->regions->isNotEmpty())
+                                                        <span class="fs-5 text-dark">
+                                                            {{ $formation->regions->pluck('nom')->join(', ') }}
+                                                        </span>
+                                                    @else
+                                                        <span class="fs-5 text-muted">Aucune</span>
+                                                    @endif
+                                                </div>
                                             </div>
                                             <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Département</div>
@@ -499,7 +508,7 @@
         new DataTable('#table-operateurModules', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [
