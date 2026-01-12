@@ -165,81 +165,92 @@
 
 <body>
     @foreach ($collective?->collectivemodules as $index => $collectivemodule)
-        <table cellpadding="0" cellspacing="0" width="100%" style="border: none;">
-            <tbody>
-                <tr>
-                    {{-- Logo ONFP à gauche --}}
-                    <td valign="top" width="40%" style="text-align: left; border: none;">
-                        <div>
-                            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
-                                style="width: 100%; max-width: 250px;" />
-                        </div>
-                    </td>
-
-                    {{-- Infos à droite --}}
-                    <td class="item" valign="top" width="60%" style="text-align: left; border: none;">
-                        <h4 style="margin-top: 0;"><u>LISTE DES CANDIDATS</u></h4>
-
-                        <p style="margin: 0;"><strong><u>Nom de la structure</u> :</strong>
-                            {{ $collectivemodule?->collective?->name }}</p>
-                        <p style="margin: 0;"><strong><u>Formation sollicitée</u> :</strong>
-                            {{ $collectivemodule?->module }}</p>
-                        <p style="margin: 0;"><strong><u>Niveau de qualification demandé</u> :</strong>
-                            {{ $collectivemodule?->niveau_qualification }}</p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="section landscape mt-0" style="margin-top: 0;">
-            <table cellspacing="0" cellpadding="5" width="100%">
-                <thead>
-                    <tr>
-                        <th>N°</th>
-                        <th>Prénom(s)</th>
-                        <th>Nom</th>
-                        <th>Date Naissance</th>
-                        <th>Lieu Naissance</th>
-                        <th>N° CIN</th>
-                        <th>Téléphone</th>
-                        <th>Niveau d'étude</th>
-                        <th>Expérience dans le domaine</th>
-                        <th>Autres expériences</th>
-                    </tr>
-                </thead>
+        @if ($collectivemodule?->listecollectives->isNotEmpty())
+            {{-- ===== En-tête ===== --}}
+            <table cellpadding="0" cellspacing="0" width="100%" style="border: none;">
                 <tbody>
-                    @foreach ($collectivemodule?->listecollectives as $i => $candidat)
-                        <tr>
-                            <td>{{ $i + 1 }}</td>
-                            <td>{{ $candidat?->prenom }}</td>
-                            <td>{{ $candidat?->nom }}</td>
-                            <td>
-                                {{ $candidat?->date_naissance->format('d/m/Y') }}
-                            </td>
-                            <td>{{ $candidat?->lieu_naissance }}</td>
-                            <td>{{ $candidat?->cin }}</td>
-                            <td>{{ $candidat?->telephone }}</td>
-                            <td>{{ $candidat?->niveau_etude }}</td>
-                            <td>{{ $candidat?->experience }}</td>
-                            <td>{{ $candidat?->autre_experience }}</td>
-                        </tr>
-                    @endforeach
+                    <tr>
+                        {{-- Logo ONFP --}}
+                        <td valign="top" width="40%" style="text-align: left; border: none;">
+                            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
+                                style="width:100%; max-width:250px;" />
+                        </td>
+
+                        {{-- Infos --}}
+                        <td valign="top" width="60%" style="border:none;">
+                            <h4 style="margin-top:0;"><u>LISTE DES CANDIDATS</u></h4>
+
+                            <p style="margin:0;">
+                                <strong><u>Nom de la structure</u> :</strong>
+                                {{ $collectivemodule->collective?->name }}
+                            </p>
+                            <p style="margin:0;">
+                                <strong><u>Formation sollicitée</u> :</strong>
+                                {{ $collectivemodule->module }}
+                            </p>
+                            <p style="margin:0;">
+                                <strong><u>Niveau de qualification demandé</u> :</strong>
+                                {{ $collectivemodule->niveau_qualification }}
+                            </p>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-        </div>
-        <footer>
-            <div class="page-number" id="footer">
-                <div class="footer-line"></div>
-                <p class="footer-text">Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN Tel: (+221) 33 827 92 51 -
-                    Fax: (+221) 33 827 92
-                    55 BP: 21013 Dakar-Ponty Email: <a href="#">onfp@onfp.sn</a></p>
+
+            {{-- ===== Tableau candidats ===== --}}
+            <div class="section landscape mt-0">
+                <table cellspacing="0" cellpadding="5" width="100%">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Prénom(s)</th>
+                            <th>Nom</th>
+                            <th>Date Naissance</th>
+                            <th>Lieu Naissance</th>
+                            <th>N° CIN</th>
+                            <th>Téléphone</th>
+                            <th>Niveau d'étude</th>
+                            <th>Expérience</th>
+                            <th>Autres expériences</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($collectivemodule->listecollectives as $i => $candidat)
+                            <tr>
+                                <td>{{ $i + 1 }}</td>
+                                <td>{{ $candidat->prenom }}</td>
+                                <td>{{ $candidat->nom }}</td>
+                                <td>{{ optional($candidat->date_naissance)->format('d/m/Y') }}</td>
+                                <td>{{ $candidat->lieu_naissance }}</td>
+                                <td>{{ $candidat->cin }}</td>
+                                <td>{{ $candidat->telephone }}</td>
+                                <td>{{ $candidat->niveau_etude }}</td>
+                                <td>{{ $candidat->experience }}</td>
+                                <td>{{ $candidat->autre_experience }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-        </footer>
-        @if (!$loop->last)
-            <div style="page-break-after: always;"></div>
+
+            {{-- ===== Footer ===== --}}
+            <footer>
+                <div class="page-number">
+                    <div class="footer-line"></div>
+                    <p class="footer-text">
+                        Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN
+                        Tel: (+221) 33 827 92 51 - Fax: (+221) 33 827 92 55
+                        BP: 21013 Dakar-Ponty – Email: onfp@onfp.sn
+                    </p>
+                </div>
+            </footer>
+
+            {{-- Saut de page uniquement si ce bloc est affiché --}}
+            @if (!$loop->last)
+                <div style="page-break-after: always;"></div>
+            @endif
         @endif
     @endforeach
-
 </body>
 
 </html>
