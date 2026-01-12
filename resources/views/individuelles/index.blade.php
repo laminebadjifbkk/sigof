@@ -112,7 +112,7 @@
                                 <table class="table datatables align-middle" id="table-individuelles">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">N°</th>
+                                            {{-- <th class="text-center">N°</th> --}}
                                             <th width="15%" class="text-center">N° CIN</th>
                                             <th>Prénom</th>
                                             <th>NOM</th>
@@ -125,36 +125,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                            // Liste de classes Bootstrap ou personnalisées à alterner
-                                            $availableColors = [
-                                                'table-primary',
-                                                'table-success',
-                                                'table-warning',
-                                                'table-info',
-                                                'table-secondary',
-                                            ];
-                                            $sigleColors = []; // Association sigle => couleur
-                                            $colorIndex = 0;
-                                        @endphp
-
                                         @foreach ($individuelles as $individuelle)
-                                            @php
-                                                $sigle = $individuelle->projet?->sigle;
-                                                $rowClass = ''; // par défaut : aucune classe
-
-                                                if (!empty($sigle)) {
-                                                    if (!isset($sigleColors[$sigle])) {
-                                                        $sigleColors[$sigle] =
-                                                            $availableColors[$colorIndex % count($availableColors)];
-                                                        $colorIndex++;
-                                                    }
-                                                    $rowClass = $sigleColors[$sigle];
-                                                }
-                                            @endphp
-
-                                            <tr class="{{ $rowClass }}">
-                                                <td style="text-align: center">{{ $individuelle?->numero }}</td>
+                                            <tr>
+                                                {{-- <td style="text-align: center">{{ $individuelle?->numero }}</td> --}}
                                                 <td style="text-align: center">{{ $individuelle?->user?->cin }}</td>
                                                 <td>{{ $individuelle?->user?->firstname }}</td>
                                                 <td>{{ $individuelle?->user?->name }}</td>
