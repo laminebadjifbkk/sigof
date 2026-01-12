@@ -134,7 +134,7 @@
                                             <div>
                                                    {{--  {{ $formation?->departement->region->nom }} --}}
                                                     @if ($formation->regions->isNotEmpty())
-                                                        <span class="fs-5 text-dark">
+                                                        <span>
                                                             {{ $formation->regions->pluck('nom')->join(', ') }}
                                                         </span>
                                                     @else
