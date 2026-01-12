@@ -861,14 +861,27 @@ class FormationController extends Controller
                 ->orderBy('individuelles.note', 'desc') // tri par note décroissante
                 ->get(); */
 
-            $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
+            /* $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
                 ->where('individuelles.projets_id', $formation?->projets_id)
                 ->where('modules.name', 'LIKE', '%' . $module->name . '%')
                 ->whereIn('individuelles.regions_id', $regionIds)
                 ->whereIn('individuelles.statut', $statutsVoulus)
                 ->select('individuelles.*')
                 ->orderBy('individuelles.note', 'desc')
-                ->get();
+                ->get(); */
+
+            if ($regionIds->isEmpty()) {
+                $individuelles = collect(); // ou fallback
+            } else {
+                $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
+                    ->where('individuelles.projets_id', $formation?->projets_id)
+                    ->where('modules.name', 'LIKE', '%' . $module->name . '%')
+                    ->whereIn('individuelles.regions_id', $regionIds)
+                    ->whereIn('individuelles.statut', $statutsVoulus)
+                    ->select('individuelles.*')
+                    ->orderBy('individuelles.note', 'desc')
+                    ->get();
+            }
 
             /* $retirer_individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
                 ->join('regions', 'regions.id', 'individuelles.regions_id')
@@ -887,14 +900,18 @@ class FormationController extends Controller
                 ->where('individuelles.statut', 'Attente')
                 ->get(); */
 
-            $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
-                /* ->where('individuelles.projets_id', $formation?->projets_id) */
-                ->where('modules.name', 'LIKE', '%' . $module->name . '%')
-                ->whereIn('individuelles.regions_id', $regionIds)
-                ->whereIn('individuelles.statut', $statutsVoulus)
-                ->select('individuelles.*')
-                ->orderBy('individuelles.note', 'desc')
-                ->get();
+            if ($regionIds->isEmpty()) {
+                $individuelles = collect(); // ou fallback
+            } else {
+                $individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
+                    /* ->where('individuelles.projets_id', $formation?->projets_id) */
+                    ->where('modules.name', 'LIKE', '%' . $module->name . '%')
+                    ->whereIn('individuelles.regions_id', $regionIds)
+                    ->whereIn('individuelles.statut', $statutsVoulus)
+                    ->select('individuelles.*')
+                    ->orderBy('individuelles.note', 'desc')
+                    ->get();
+            }
 
             /* $retirer_individuelles = Individuelle::join('modules', 'modules.id', 'individuelles.modules_id')
                 ->join('regions', 'regions.id', 'individuelles.regions_id')
