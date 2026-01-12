@@ -214,11 +214,7 @@
                             <td>{{ $candidat?->prenom }}</td>
                             <td>{{ $candidat?->nom }}</td>
                             <td>
-                                @if ($candidat?->date_naissance)
-                                    {{ \Carbon\Carbon::parse($candidat->date_naissance)->format('d/m/Y') }}
-                                @else
-                                    -
-                                @endif
+                                {{ $candidat?->date_naissance->format('d/m/Y') }}
                             </td>
                             <td>{{ $candidat?->lieu_naissance }}</td>
                             <td>{{ $candidat?->cin }}</td>
