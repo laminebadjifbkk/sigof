@@ -227,11 +227,7 @@
                                                 </td>
 
                                                 <td class="text-center">
-                                                    <span
-                                                        class="badge
-                                    @if ($collective->statut_demande === 'validée') bg-success
-                                    @elseif($collective->statut_demande === 'rejetée') bg-danger
-                                    @else bg-warning text-dark @endif">
+                                                    <span class="{{ $collective->statut_demande }}">
                                                         {{ ucfirst($collective->statut_demande) }}
                                                     </span>
                                                 </td>
