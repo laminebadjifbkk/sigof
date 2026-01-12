@@ -445,7 +445,7 @@ class UserController extends Controller
             $this->validate($request, [
                 'civilite'       => ['nullable', 'string', 'max:10'],
                 'username'       => [
-                    'required',
+                    'nullable',
                     'string',
                     'min:2',
                     'max:10',
