@@ -131,13 +131,22 @@
                                         @endisset
                                         <div class="col-12 col-md-3 mb-1">
                                             <div class="label">Région</div>
-                                            <div>{{ $formation?->departement->region->nom }}</div>
+                                            <div>
+                                                   {{--  {{ $formation?->departement->region->nom }} --}}
+                                                    @if ($formation->regions->isNotEmpty())
+                                                        <span class="fs-5 text-dark">
+                                                            {{ $formation->regions->pluck('nom')->join(', ') }}
+                                                        </span>
+                                                    @else
+                                                        <span class="fs-5 text-muted">Aucune</span>
+                                                    @endif
+                                                </div>
                                         </div>
-                                        <div class="col-12 col-md-3 mb-1">
+                                      {{--   <div class="col-12 col-md-3 mb-1">
                                             <div class="label">Département</div>
                                             <div>{{ $formation->departement->nom }}
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-12 col-md-3 mb-1">
                                             <div class="label">Adresse exacte</div>
                                             <div>{{ $formation?->lieu }}
