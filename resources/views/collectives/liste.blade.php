@@ -162,42 +162,45 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+@php
+    $modulesAvecCandidats = $collective?->collectivemodules
+        ->filter(fn($m) => $m->listecollectives?->isNotEmpty())
+        ->values(); // réindexe
+@endphp
 
 <body>
-    @foreach ($collective?->collectivemodules as $index => $collectivemodule)
-        @if ($collectivemodule?->listecollectives->isNotEmpty())
-            {{-- ===== En-tête ===== --}}
-            <table cellpadding="0" cellspacing="0" width="100%" style="border: none;">
-                <tbody>
-                    <tr>
-                        {{-- Logo ONFP --}}
-                        <td valign="top" width="40%" style="text-align: left; border: none;">
-                            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
-                                style="width:100%; max-width:250px;" />
-                        </td>
+    @foreach ($modulesAvecCandidats as $index => $collectivemodule)
+        {{-- ===== En-tête ===== --}}
+        <table cellpadding="0" cellspacing="0" width="100%" style="border: none;">
+            <tbody>
+                <tr>
+                    <td valign="top" width="40%" style="text-align: left; border: none;">
+                        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
+                            style="width:100%; max-width:250px;" />
+                    </td>
 
-                        {{-- Infos --}}
-                        <td valign="top" width="60%" style="border:none;">
-                            <h4 style="margin-top:0;"><u>LISTE DES CANDIDATS</u></h4>
+                    <td valign="top" width="60%" style="border:none;">
+                        <h4 style="margin-top:0;"><u>LISTE DES CANDIDATS</u></h4>
 
-                            <p style="margin:0;">
-                                <strong><u>Nom de la structure</u> :</strong>
-                                {{ $collectivemodule->collective?->name }}
-                            </p>
-                            <p style="margin:0;">
-                                <strong><u>Formation sollicitée</u> :</strong>
-                                {{ $collectivemodule->module }}
-                            </p>
-                            <p style="margin:0;">
-                                <strong><u>Niveau de qualification demandé</u> :</strong>
-                                {{ $collectivemodule->niveau_qualification }}
-                            </p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                        <p style="margin:0;">
+                            <strong><u>Nom de la structure</u> :</strong>
+                            {{ $collectivemodule->collective?->name }}
+                        </p>
+                        <p style="margin:0;">
+                            <strong><u>Formation sollicitée</u> :</strong>
+                            {{ $collectivemodule->module }}
+                        </p>
+                        <p style="margin:0;">
+                            <strong><u>Niveau de qualification demandé</u> :</strong>
+                            {{ $collectivemodule->niveau_qualification }}
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-            {{-- ===== Tableau candidats ===== --}}
+        {{-- ===== Tableau candidats ===== --}}
+        @if ($collectivemodule->listecollectives->isNotEmpty())
             <div class="section landscape mt-0">
                 <table cellspacing="0" cellpadding="5" width="100%">
                     <thead>
@@ -232,23 +235,23 @@
                     </tbody>
                 </table>
             </div>
+        @endif
 
-            {{-- ===== Footer ===== --}}
-            <footer>
-                <div class="page-number">
-                    <div class="footer-line"></div>
-                    <p class="footer-text">
-                        Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN
-                        Tel: (+221) 33 827 92 51 - Fax: (+221) 33 827 92 55
-                        BP: 21013 Dakar-Ponty – Email: onfp@onfp.sn
-                    </p>
-                </div>
-            </footer>
+        {{-- ===== Footer ===== --}}
+        <footer>
+            <div class="page-number">
+                <div class="footer-line"></div>
+                <p class="footer-text">
+                    Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN
+                    Tel: (+221) 33 827 92 51 - Fax: (+221) 33 827 92 55
+                    BP: 21013 Dakar-Ponty – Email: onfp@onfp.sn
+                </p>
+            </div>
+        </footer>
 
-            {{-- Saut de page uniquement si ce bloc est affiché --}}
-            @if (!$loop->last)
-                <div style="page-break-after: always;"></div>
-            @endif
+        {{-- Saut de page uniquement si ce n’est pas le dernier module --}}
+        @if (!$loop->last)
+            <div style="page-break-after: always;"></div>
         @endif
     @endforeach
 </body>
