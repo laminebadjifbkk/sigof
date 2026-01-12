@@ -433,9 +433,8 @@ class FormationController extends Controller
 
     public function update(Request $request, Formation $formation)
     {
-        $this->validate($request, [
+        /*  $this->validate($request, [
             "code" => "required|string|unique:formations,code,{$formation->id}",
-            /* "name"               => "required|string|unique:formations,name,{$formation->id}", */
             "name"               => "required|string",
             "intitule"           => "required|string",
             "departement"        => "required|string",
@@ -453,6 +452,34 @@ class FormationController extends Controller
             "annee"              => "nullable|numeric",
             "file_convention"    => ['sometimes', 'file', 'mimes:pdf', 'max:1024'],
             "detf_file"          => ['sometimes', 'file', 'mimes:pdf', 'max:1024'],
+        ]); */
+        
+        $this->validate($request, [
+            "code" => "required|string|unique:formations,code,{$formation->id}",
+            "name" => "required|string",
+            "intitule" => "required|string",
+            "departement" => "required|string",
+            "lieu" => "required|string",
+            "type_certification" => "required|string",
+            "titre" => "nullable|string",
+
+            // VALIDATION REGIONS (many-to-many)
+            "regions" => "required|array|min:1",
+            "regions.*" => "required|integer|exists:regions,id",
+
+            "date_debut" => "nullable|date|date_format:Y-m-d",
+            "date_convention" => "nullable|date|date_format:Y-m-d",
+            "date_lettre" => "nullable|date|date_format:Y-m-d",
+            "date_lettre_dec" => "nullable|date|date_format:Y-m-d",
+            "date_fin" => "nullable|date|date_format:Y-m-d",
+            "date_pv" => "nullable|date|date_format:Y-m-d",
+            "date_pv_finale" => "nullable|date|date_format:Y-m-d",
+
+            "lettre_mission" => "nullable|string",
+            "annee" => "nullable|numeric",
+
+            "file_convention" => ['sometimes', 'file', 'mimes:pdf', 'max:1024'],
+            "detf_file" => ['sometimes', 'file', 'mimes:pdf', 'max:1024'],
         ]);
 
         // Simplification des champs simples
