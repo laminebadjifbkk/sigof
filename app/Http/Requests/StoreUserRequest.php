@@ -36,7 +36,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'email'     => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->whereNull('deleted_at')->ignore($this->user()->id)],
-            'username'  => ['required', 'string', 'lowercase', 'max:255', Rule::unique(User::class)->whereNull('deleted_at')->ignore($this->user()->id)],
+            'username'  => ['nullable', 'string', 'lowercase', 'max:255', Rule::unique(User::class)->whereNull('deleted_at')->ignore($this->user()->id)],
             'firstname' => ['required', 'string', 'max:150'],
             'name'      => ['required', 'string', 'max:25'],
             'image'     => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
