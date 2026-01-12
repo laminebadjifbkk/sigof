@@ -1,12 +1,23 @@
 @extends('layout.user-layout')
 
-@section('title', 'Nouvelle demande individuelle')
+@section('title', 'ONFP - Nouvelle demande individuelle')
 
 @section('space-work')
     <section class="section">
         <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <a href="{{ route('individuelles.index') }}" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Retour à la liste
+                </a>
 
-            <h4 class="mb-4 text-center">Nouvelle demande individuelle</h4>
+                <h4 class="mb-0 text-center flex-grow-1">
+                    Ajouter une nouvelle demande individuelle
+                </h4>
+
+                {{-- Spacer pour équilibrer le centrage --}}
+                <div style="width:120px"></div>
+            </div>
+
 
             {{-- Erreurs globales --}}
             @if ($errors->any())
@@ -73,7 +84,8 @@
 
                             <input type="datetime-local" name="date_depot" id="date_depot"
                                 class="form-control form-control-sm @error('date_depot') is-invalid @enderror"
-                                value="{{ old('date_depot', now()->format('Y-m-d\TH:i')) }}" placeholder="yyyy-mm-dd HH:MM">
+                                value="{{ old('date_depot', now()->format('Y-m-d\TH:i')) }}"
+                                placeholder="yyyy-mm-dd HH:MM">
 
                             @error('date_depot')
                                 <span class="invalid-feedback" role="alert">
