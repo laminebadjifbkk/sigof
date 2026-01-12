@@ -129,18 +129,29 @@
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                        <label for="regions" class="form-label">Régions concernées<span
-                                                class="text-danger mx-1"> *</span></label>
-                                        <select name="regions[]" class="form-select" aria-label="Select"
-                                            id="multiple-select-field" multiple
-                                            data-placeholder="Choisir une ou plusieurs regions">
+                                        <label for="regions" class="form-label">
+                                            Régions concernées
+                                            <span class="text-danger mx-1"> *</span>
+                                        </label>
+
+                                        <select name="regions[]"
+                                            class="form-select form-select-sm @error('regions') is-invalid @enderror"
+                                            aria-label="Select" id="multiple-select-field" multiple
+                                            data-placeholder="Choisir une ou plusieurs régions">
+
                                             @foreach ($regions as $region)
-                                            <option value="{{ $region }}"
-                                                {{ in_array($region, $formationregions) ? 'selected' : '' }}>
-                                                {{ $region ?? old('region') }}
-                                            </option>
-                                        @endforeach
+                                                <option value="{{ $region }}"
+                                                    {{ in_array($region, $formationregions ?? []) ? 'selected' : '' }}>
+                                                    {{ $region }}
+                                                </option>
+                                            @endforeach
                                         </select>
+
+                                        @error('regions')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
