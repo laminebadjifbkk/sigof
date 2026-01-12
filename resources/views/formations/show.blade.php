@@ -105,11 +105,11 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-md-3 mb-0">
+                                            {{-- <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Département</div>
                                                 <div>{{ $formation->departement->nom }}
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="col-12 col-md-3 mb-0">
                                                 <div class="label">Adresse exacte</div>
                                                 <div>{{ $formation?->lieu }}
