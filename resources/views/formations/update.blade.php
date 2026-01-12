@@ -128,6 +128,21 @@
                                         @enderror
                                     </div>
 
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <label for="regions" class="form-label">Régions concernées<span
+                                                class="text-danger mx-1"> *</span></label>
+                                        <select name="regions[]" class="form-select" aria-label="Select"
+                                            id="multiple-select-field" multiple
+                                            data-placeholder="Choisir une ou plusieurs regions">
+                                            @foreach ($regions as $region)
+                                            <option value="{{ $region }}"
+                                                {{ in_array($region, $formationregions) ? 'selected' : '' }}>
+                                                {{ $region ?? old('region') }}
+                                            </option>
+                                        @endforeach
+                                        </select>
+                                    </div>
+
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="type_certification" class="form-label">Type certification<span
                                                 class="text-danger mx-1">*</span></label>

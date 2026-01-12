@@ -35,15 +35,22 @@
                         <div class="p-1 mb-4 border rounded bg-light shadow-sm">
                             <div class="row text-center fw-semibold">
                                 <div class="col-md-4 mb-2">
-                                    <span class="text-secondary">📍 Région</span><br>
-                                    <span class="fs-5 text-dark">{{ $region->nom ?? 'Aucune' }}</span>
+                                    <span class="text-secondary">Région(s)</span><br>
+
+                                    @if ($formation->regions->isNotEmpty())
+                                        <span class="fs-5 text-dark">
+                                            {{ $formation->regions->pluck('nom')->join(', ') }}
+                                        </span>
+                                    @else
+                                        <span class="fs-5 text-muted">Aucune</span>
+                                    @endif
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <span class="text-secondary">📘 Module</span><br>
+                                    <span class="text-secondary">Module</span><br>
                                     <span class="fs-5 text-dark">{{ $formation?->module?->name ?? 'Aucun' }}</span>
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <span class="text-secondary">👥 Effectif</span><br>
+                                    <span class="text-secondary">Effectif</span><br>
                                     <span class="fs-5 text-dark">{{ $candidatsretenus?->count() ?? 0 }}</span>
                                 </div>
                             </div>
