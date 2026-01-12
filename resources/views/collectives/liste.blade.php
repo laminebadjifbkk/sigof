@@ -201,6 +201,7 @@
                         <th>Date Naissance</th>
                         <th>Lieu Naissance</th>
                         <th>N° CIN</th>
+                        <th>Téléphone</th>
                         <th>Niveau d'étude</th>
                         <th>Expérience dans le domaine</th>
                         <th>Autres expériences</th>
@@ -221,6 +222,7 @@
                             </td>
                             <td>{{ $candidat?->lieu_naissance }}</td>
                             <td>{{ $candidat?->cin }}</td>
+                            <td>{{ $candidat?->telephone }}</td>
                             <td>{{ $candidat?->niveau_etude }}</td>
                             <td>{{ $candidat?->experience }}</td>
                             <td>{{ $candidat?->autre_experience }}</td>
