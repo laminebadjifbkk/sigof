@@ -78,7 +78,7 @@
 $missions = $chauffeur->employee->parcmissions;
 
 // Date de retour la plus récente pour tri et affichage
-$lastMission = $missions->sortBy('date_retour')->first();
+$lastMission = $missions->sortByDesc('date_retour')->first();
 
 // Montant total des missions
 $totalMontant = $missions->sum('indemnites_total');
