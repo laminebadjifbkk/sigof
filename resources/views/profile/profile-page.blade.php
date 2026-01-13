@@ -161,7 +161,7 @@
                                 <div class="card-body p-3 p-md-4 bg-white rounded-4 shadow-sm border border-primary-subtle">
                                     <h5
                                         class="card-title mb-4 d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-2">
-                                        <span>📋 Demandes <span class="text-muted">| Personnelles</span></span>
+                                        <span>Demandes <span class="text-muted">| Personnelles</span></span>
                                     </h5>
 
                                     <div class="table-responsive">
