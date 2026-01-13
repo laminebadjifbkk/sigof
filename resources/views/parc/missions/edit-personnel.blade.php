@@ -90,8 +90,6 @@ $missionsCount = $missions->count();
 $pivot = $mission->employees->find($chauffeur->employee_id)?->pivot;
 $isChecked = $missionChauffeurs->pluck('id')->contains($chauffeur->employee_id);
 
-// Pour modal : 5 dernières missions
-$lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                     @endphp
                                     <tr>
                                         {{-- Checkbox Chauffeur --}}
