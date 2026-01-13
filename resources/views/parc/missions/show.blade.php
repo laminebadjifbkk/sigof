@@ -207,7 +207,16 @@
                                                                 <div
                                                                     class="list-group-item d-flex justify-content-between align-items-center border-bottom">
                                                                     <div>
-                                                                        <strong>{{ $cm->objet }}</strong><br>
+
+                                                                        <div>
+                                                                            <a href="{{ route('parc-missions.show', $cm->id) }}"
+                                                                                class="text-decoration-none">
+                                                                                <strong>{{ $cm->reference }}</strong>
+                                                                            </a>
+                                                                            - {{ $cm->objet }}
+                                                                        </div>
+
+                                                                        {{-- <strong>{{ $cm->objet }}</strong><br> --}}
                                                                         <small class="text-muted">Réf:
                                                                             {{ $cm->reference }}</small>
                                                                     </div>
@@ -216,8 +225,8 @@
                                                                             Du {{ $cm->date_depart->format('d/m/Y') }} au
                                                                             {{ $cm->date_retour->format('d/m/Y') }}
                                                                         </span>
-
-                                                                        @php
+                                                                        <br>
+                                                                        {{-- @php
                                                                             $now = now();
                                                                             if ($cm->date_retour < $now) {
                                                                                 $status = [
@@ -239,6 +248,9 @@
 
                                                                         <span class="badge {{ $status['class'] }}">
                                                                             {{ $status['label'] }}
+                                                                        </span> --}}
+                                                                        <span class="etat-btn {{ $cm->statut }}">
+                                                                            {{ ucfirst(str_replace(['fie', 'ee', '_'], ['fié', 'ée', ' '], $cm->statut)) }}
                                                                         </span>
                                                                     </div>
                                                                 </div>

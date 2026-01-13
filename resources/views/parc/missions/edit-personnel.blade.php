@@ -177,7 +177,14 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                                                 <div
                                                                     class="list-group-item d-flex justify-content-between align-items-center border-bottom">
                                                                     <div>
-                                                                        <strong>{{ $cm->objet }}</strong><br>
+                                                                        <div>
+                                                                            <a href="{{ route('parc-missions.show', $cm->id) }}"
+                                                                                class="text-decoration-none">
+                                                                                <strong>{{ $cm->reference }}</strong>
+                                                                            </a>
+                                                                            - {{ $cm->objet }}
+                                                                        </div>
+                                                                        {{-- <strong>{{ $cm->objet }}</strong><br> --}}
                                                                         <small class="text-muted">Réf:
                                                                             {{ $cm->reference }}</small>
                                                                     </div>
@@ -188,7 +195,7 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                                                         </span>
                                                                         <br>
                                                                         <span class="etat-btn {{ $cm->statut }}">
-                                                                            {{ ucfirst(str_replace('fie', 'fié', str_replace('_', ' ', $cm->statut))) }}
+                                                                            {{ ucfirst(str_replace(['fie', 'ee', '_'], ['fié', 'ée', ' '], $cm->statut)) }}
                                                                         </span>
                                                                     </div>
                                                                 </div>
