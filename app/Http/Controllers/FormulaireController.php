@@ -51,8 +51,8 @@ class FormulaireController extends Controller
     public function store(Request $request)
     {
 
-        /* Alert::warning('Information', 'Les inscriptions sont clôturées jusqu\'à nouvel ordre.');
-        return redirect()->back(); */
+        Alert::warning('Information', 'Les inscriptions sont clôturées jusqu\'à nouvel ordre.');
+        return redirect()->back();
         // Définir la période d'ouverture des inscriptions
         /* // Définir la période d'ouverture des inscriptions
 
