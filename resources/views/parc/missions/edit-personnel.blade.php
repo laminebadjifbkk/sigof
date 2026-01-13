@@ -90,6 +90,8 @@ $missionsCount = $missions->count();
 $pivot = $mission->employees->find($chauffeur->employee_id)?->pivot;
 $isChecked = $missionChauffeurs->pluck('id')->contains($chauffeur->employee_id);
 
+// Pour modal : 5 dernières missions
+$lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                     @endphp
                                     <tr>
                                         {{-- Checkbox Chauffeur --}}
@@ -121,8 +123,7 @@ $isChecked = $missionChauffeurs->pluck('id')->contains($chauffeur->employee_id);
                                         </td>
 
                                         {{-- Dernière mission --}}
-                                        <td class="text-center"
-                                            data-order="{{ $lastMission?->date_retour?->format('Ymd') ?? '' }}">
+                                        <td class="text-center">
                                             @if ($lastMission)
                                                 <span class="badge bg-info">
                                                     {{ $lastMission->date_retour->format('Y-m-d') }}
