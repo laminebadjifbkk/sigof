@@ -13,6 +13,41 @@
         </nav>
     </div><!-- End Page Title -->
 
+
+    <table class="table table-bordered table-striped align-middle">
+        <thead class="table-primary">
+            <tr>
+                <th scope="col" style="width: 50px;">N°</th>
+                <th scope="col">Année</th>
+                <th scope="col" class="text-center">Formations</th>
+                <th scope="col" style="width: 120px;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($groupes as $index => $items)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $index }}</td>
+                    <td class="text-center">{{ number_format($items->count(), 0, '', ' ') }}</td>
+                    <td>
+                        <a href="{{ route('ingenieurs.formations.parAnnee', [
+                            'ingenieur' => $ingenieur->id,
+                            'annee' => $index,
+                        ]) }}"
+                            class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1"
+                            target="_blank">
+                            Voir plus <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <br>
+    <hr>
+    <br>
+
     @can('ingenieur-show')
         <section class="section">
             <div class="row">
@@ -245,7 +280,8 @@
                                     @csrf
                                     @method('patch')
                                     <div class="modal-header" id="EditingenieurModalLabel{{ $ingenieur->id }}">
-                                        <h5 class="modal-title"><i class="bi bi-pencil" title="Ajouter"></i> Modifier ingénieurs
+                                        <h5 class="modal-title"><i class="bi bi-pencil" title="Ajouter"></i> Modifier
+                                            ingénieurs
                                         </h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>

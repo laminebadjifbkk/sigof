@@ -130,7 +130,39 @@ class IngenieurController extends Controller
         $operateurs       = Operateur::orderBy("created_at", "desc")->get();
         $types_formations = TypesFormation::orderBy("created_at", "desc")->get();
         $ingenieurs       = Ingenieur::orderBy("created_at", "desc")->get();
-        return view('ingenieurs.show', compact('ingenieur', 'departements', 'modules', 'regions', 'operateurs', 'types_formations', 'ingenieurs'));
+
+        /* $groupes = $ingenieur->formations
+            ->flatMap(function ($formation) {
+                // Si aucune région
+                if ($formation->regions->isEmpty()) {
+                    return collect([
+                        'Aucune région' => collect([$formation])
+                    ]);
+                }
+
+                // Sinon, une entrée par région
+                return $formation->regions->mapWithKeys(function ($region) use ($formation) {
+                    return [$region->nom => $formation];
+                });
+            })
+            ->groupBy(fn($formation, $region) => $region); */
+
+        $groupes = $ingenieur->formations
+            ->groupBy(fn($item) => $item->annee ?? 'Aucune');
+
+        return view(
+            'ingenieurs.show',
+            compact(
+                'ingenieur',
+                'departements',
+                'modules',
+                'regions',
+                'operateurs',
+                'types_formations',
+                'ingenieurs',
+                'groupes'
+            )
+        );
     }
 
     public function destroy($id)
@@ -196,5 +228,36 @@ class IngenieurController extends Controller
         // Message de succès
         return redirect()->route('ingenieurs.corbeille')
             ->with('status', 'Ingénieur supprimé définitivement avec succès !');
+    }
+
+    public function formationsParAnnee(Ingenieur $ingenieur, $annee)
+    {
+        $formations = $ingenieur->formations()
+            ->where('annee', $annee) // ou date_fin selon ton modèle
+            ->with(['regions'])
+            ->get();
+
+        $groupes = $formations
+            ->flatMap(function ($formation) {
+                // Si aucune région
+                if ($formation->regions->isEmpty()) {
+                    return collect([
+                        'Aucune région' => collect([$formation])
+                    ]);
+                }
+
+                // Sinon, une entrée par région
+                return $formation->regions->mapWithKeys(function ($region) use ($formation) {
+                    return [$region->nom => $formation];
+                });
+            })
+            ->groupBy(fn($formation, $region) => $region);
+
+        return view('ingenieurs.formations_par_annee', compact(
+            'ingenieur',
+            'annee',
+            'groupes',
+            'formations'
+        ));
     }
 }

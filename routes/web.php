@@ -834,6 +834,11 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/parc-vehicules', [ParcVehiculeController::class, 'index'])->name('parc-vehicule.index');
         Route::get('/parc-chauffeurs', [ParcChauffeurController::class, 'index'])->name('parc-chauffeur.index');
 
+        Route::get(
+            'ingenieurs/{ingenieur}/formations/{annee}',
+            [IngenieurController::class, 'formationsParAnnee']
+        )->name('ingenieurs.formations.parAnnee');
+
 
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
