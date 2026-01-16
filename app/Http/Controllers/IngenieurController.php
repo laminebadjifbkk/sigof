@@ -289,10 +289,13 @@ class IngenieurController extends Controller
             ->filter(fn($f) => $f->types_formation?->name === 'individuelle')
             ->flatMap(fn($f) => $f->individuelles);
 
-        // Formations collectives
+        // Formations collectives : récupérer les bénéficiaires via listecollectives
         $collectives = $formations
             ->filter(fn($f) => $f->types_formation?->name === 'collective')
-            ->flatMap(fn($f) => $f->collectives);
+            ->flatMap(
+                fn($f) =>
+                $f->collectives->flatMap(fn($c) => $c->listecollectives)
+            );
 
         /* dd($individuelles, $collectives); */
 
