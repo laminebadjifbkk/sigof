@@ -297,7 +297,7 @@ class IngenieurController extends Controller
                 $f->collectives->flatMap(fn($c) => $c->listecollectives)
             );
 
-        /* dd($individuelles, $collectives); */
+        dd($individuelles, $collectives);
 
         return view('ingenieurs.liste_formations_par_annee', compact(
             'ingenieur',
