@@ -294,8 +294,6 @@ class IngenieurController extends Controller
             ->filter(fn($f) => $f->types_formation?->name === 'collective')
             ->flatMap(fn($f) => optional($f->collectives)->flatMap(fn($c) => $c->listecollectives ?? collect()));
 
-        dd($individuelles, $collectives);
-
         return view('ingenieurs.liste_formations_par_annee', compact(
             'ingenieur',
             'annee',
