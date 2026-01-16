@@ -242,16 +242,16 @@ class IngenieurController extends Controller
                 // Si aucune région
                 if ($formation->regions->isEmpty()) {
                     return collect([
-                        'Aucune région' => collect([$formation])
+                        ['region' => 'Aucune région', 'formation' => $formation]
                     ]);
                 }
 
                 // Sinon, une entrée par région
-                return $formation->regions->mapWithKeys(function ($region) use ($formation) {
-                    return [$region->nom => $formation];
+                return $formation->regions->map(function ($region) use ($formation) {
+                    return ['region' => $region->nom, 'formation' => $formation];
                 });
             })
-            ->groupBy(fn($formation, $region) => $region);
+            ->groupBy('region'); // maintenant les clés = noms de régions
 
         return view('ingenieurs.formations_par_annee', compact(
             'ingenieur',

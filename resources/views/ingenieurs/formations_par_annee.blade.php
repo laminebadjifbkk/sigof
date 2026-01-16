@@ -23,12 +23,12 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($groupes as $index => $items)
+            @foreach ($groupes as $region => $items)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $index }}</td>
+                    <td>{{ $region }}</td>
                     <td class="text-center">
-                        {{ number_format($items->sum('total'), 0, '', ' ') }}
+                        {{ number_format($items->sum(fn($i) => $i['formation']->total), 0, '', ' ') }}
                     </td>
                     <td>
                         {{-- <a href="{{ route('projets.parStatutEtRegion', ['statut' => $statut, 'module' => $module, 'region' => $index, 'projetid' => $projet->id, 'projetmoduleid' => $projetmodule->id]) }}"
