@@ -31,11 +31,15 @@
                         {{ number_format($items->sum(fn($i) => $i['formation']->total), 0, '', ' ') }}
                     </td>
                     <td>
-                        {{-- <a href="{{ route('projets.parStatutEtRegion', ['statut' => $statut, 'module' => $module, 'region' => $index, 'projetid' => $projet->id, 'projetmoduleid' => $projetmodule->id]) }}"
+                        <a href="{{ route('ingenieurs.formations.listeParAnnee', [
+                            'ingenieur' => $ingenieur->id,
+                            'annee' => $annee,
+                            'region' => $region,
+                        ]) }}"
                             class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1"
                             target="_blank">
                             Voir plus <i class="bi bi-arrow-right-short"></i>
-                        </a> --}}
+                        </a>
                     </td>
                 </tr>
             @endforeach

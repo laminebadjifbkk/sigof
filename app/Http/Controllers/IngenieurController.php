@@ -260,4 +260,48 @@ class IngenieurController extends Controller
             'formations'
         ));
     }
+
+    public function listeFormationsParAnnee(Ingenieur $ingenieur, $annee, $region = null)
+    {
+        // Charger toutes les formations de l'ingénieur pour l'année
+        $formations = $ingenieur->formations()
+            ->where('annee', $annee) // ou whereYear('date_debut', $annee) selon ta colonne
+            ->with([
+                'types_formation',       // pour vérifier si individuelle ou collective
+                'collectivemodule',
+                'listecollectives',
+                'regions'
+            ])
+            ->get();
+
+        // Filtrer par région si demandé
+        if ($region) {
+            $formations = $formations->filter(function ($formation) use ($region) {
+                if ($region === 'Aucune région') {
+                    return $formation->regions->isEmpty();
+                }
+                return $formation->regions->pluck('nom')->contains($region);
+            });
+        }
+
+        // Formations individuelles
+        $individuelles = $formations
+            ->filter(fn($f) => $f->types_formation?->name === 'individuelle')
+            ->flatMap(fn($f) => $f->individuelles);
+
+        // Formations collectives
+        $collectives = $formations
+            ->filter(fn($f) => $f->types_formation?->name === 'collective')
+            ->flatMap(fn($f) => $f->collectives);
+
+        /* dd($individuelles, $collectives); */
+
+        return view('ingenieurs.liste_formations_par_annee', compact(
+            'ingenieur',
+            'annee',
+            'region',
+            'individuelles',
+            'collectives'
+        ));
+    }
 }

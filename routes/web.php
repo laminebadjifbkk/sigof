@@ -839,6 +839,15 @@ Route::group(['middleware' => ['XSS']], function () {
             [IngenieurController::class, 'formationsParAnnee']
         )->name('ingenieurs.formations.parAnnee');
 
+        Route::get(
+            'ingenieurs/{ingenieur}/formations/region/{region}',
+            [IngenieurController::class, 'formationsParRegion']
+        )->name('ingenieurs.formations.parRegion');
+
+        Route::get(
+            'ingenieurs/{ingenieur}/formations/annee/{annee}/{region?}',
+            [IngenieurController::class, 'listeFormationsParAnnee']
+        )->name('ingenieurs.formations.listeParAnnee');
 
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
