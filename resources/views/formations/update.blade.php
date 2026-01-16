@@ -334,6 +334,19 @@
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <label for="effectif_prevu" class="form-label">Effectif révu total</label>
+                                        <input type="number" name="effectif_prevu" min="0" max="50"
+                                            value="{{ $formation?->effectif_prevu ?? old('effectif_prevu') }}"
+                                            class="form-control form-control-sm @error('effectif_prevu') is-invalid @enderror"
+                                            id="effectif_prevu" placeholder="Effectif total">
+                                        @error('effectif_prevu')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="frais_operateurs" class="form-label">Frais opérateur</label>
                                         <input type="number" name="frais_operateurs" min="0" step="0.001"
                                             value="{{ $formation?->frais_operateurs ?? old('frais_operateurs') }}"

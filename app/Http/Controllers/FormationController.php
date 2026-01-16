@@ -212,50 +212,16 @@ class FormationController extends Controller
             "date_fin"           => "nullable|date|size:10|date_format:Y-m-d",
         ]);
 
-        /* $mois = date('m');
-        $rand1 = rand(100, 999);
-        $rand2 = chr(rand(65, 90));
-
-        $rand = $rand1 . '' . $rand2; */
-
         $types_formation = TypesFormation::where('name', $request->input('types_formation'))->get()->first();
         $departement     = Departement::where('nom', $request->input('departement'))->get()->first();
 
-        /* $count_formation = Formation::get()->count();
-
-        $count_formation = ++$count_formation;
-
-        $longueur = strlen($count_formation);
-
-        if ($longueur == 1) {
-        $code_formation   =   strtolower("000" . $count_formation);
-        } elseif ($longueur >= 2 && $longueur < 3) {
-        $code_formation   =   strtolower("00" . $count_formation);
-        } elseif ($longueur >= 3 && $longueur < 4) {
-        $code_formation   =   strtolower("0" . $count_formation);
-        } else {
-        $code_formation   =   strtolower($count_formation);
-        }
-
-        if ($types_formation->name == "individuelle") {
-        $for = "F";
-        $fin = "I";
-        } else {
-        $for = "F";
-        $fin = "C";
-        }
-
-        $code_formation = $for . '' . $annee . '' . $code_formation . '' . $fin; */
-
-        $anneeEnCours = date('Y');
+        /* $anneeEnCours = date('Y');
         $annee        = date('y');
 
         $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
             ->select('formations.*')
             ->where('formations.annee', $anneeEnCours)
             ->get()->last();
-
-        /*->where('types_formations.name', $request->types_formation)*/
 
         if (isset($numFormation)) {
             $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
@@ -264,8 +230,6 @@ class FormationController extends Controller
                 ->get()->last()->code;
 
             $numFormation = ++$numFormation;
-
-            /*  ->where('types_formations.name', $request->types_formation) */
         } else {
             $numFormation = $annee . "0001";
 
@@ -286,24 +250,20 @@ class FormationController extends Controller
             } else {
                 $numFormation = strtoupper($numFormation);
             }
-        }
+        } */
 
-        /* $arrives = Arrive::orderBy('created_at', 'desc')->get(); */
-
+        /* 
         $total_count = Formation::get();
+        $total_count = number_format($total_count->count(), 0, ',', ' '); */
+
+        $total_count = collect();
+
+        Formation::select('id')->chunk(300, function ($batch) use (&$total_count) {
+            $total_count = $total_count->merge($batch);
+        });
+
         $total_count = number_format($total_count->count(), 0, ',', ' ');
 
-        /* $rand = $fic . '' . $mois . $annee . $rand; */
-
-        /*   $this->validate($request, [
-        "name"                  =>   "required|string|unique:formations,name,except,id",
-        "departement"           =>   "required|string",
-        "lieu"                  =>   "required|string",
-        "type_certification"  =>   "required|string",
-        "titre"                 =>   "nullable|string",
-        "date_debut"            =>   "nullable|date",
-        "date_fin"              =>   "nullable|date",
-        ]); */
 
         if (! empty($request->input('prevue_h'))) {
             $prevue_h = $request->input('prevue_h');
@@ -316,7 +276,7 @@ class FormationController extends Controller
             $prevue_f = null;
         }
 
-        $effectif_prevu = $prevue_h + $prevue_f;
+        $effectif_prevu = ($prevue_h + $prevue_f) ?: $request->input('effectif_prevu');
 
         if (! empty($request->input('date_debut'))) {
             $date_debut = $request->input('date_debut');
@@ -374,7 +334,7 @@ class FormationController extends Controller
             "programmes_id"       => $request->input('programme'),
             "choixoperateurs_id"  => $request->input('choixoperateur'),
             "statut"              => "Nouvelle",
-            "annee"               => $anneeEnCours,
+            /* "annee"               => $anneeEnCours, */
 
         ]);
 
@@ -450,7 +410,7 @@ class FormationController extends Controller
             "date_pv"            => "nullable|date|size:10|date_format:Y-m-d",
             "date_pv_finale"     => "nullable|date|size:10|date_format:Y-m-d",
             "lettre_mission"     => "nullable|string",
-            "annee"              => "nullable|numeric",
+            "annee"              => "required|numeric",
             "file_convention"    => ['sometimes', 'file', 'mimes:pdf', 'max:1024'],
             "detf_file"          => ['sometimes', 'file', 'mimes:pdf', 'max:1024'],
 
@@ -461,7 +421,7 @@ class FormationController extends Controller
         $prevue_h = (int) $request->input('prevue_h', 0);
         $prevue_f = (int) $request->input('prevue_f', 0);
 
-        $effectif_prevu = $prevue_h + $prevue_f;
+        $effectif_prevu = ($prevue_h + $prevue_f) ?: $request->input('effectif_prevu');
 
         // Chargement projet et référentiel
         $projet      = Projet::where('sigle', $request->input('projet'))->first();
@@ -2115,8 +2075,8 @@ class FormationController extends Controller
             'type_certificat'   => ['nullable', 'string'],
             'recommandations'   => ['nullable', 'string'],
             'titre'             => ['nullable', 'string'],
-            'date_pv'           => ['required', 'date', 'min:10', 'max:10', 'date_format:Y-m-d'],
-            'date_convention'   => ['required', 'date', 'min:10', 'max:10', 'date_format:Y-m-d'],
+            'date_pv'           => ['required', 'date', 'date_format:Y-m-d'],
+            'date_convention'   => ['required', 'date', 'date_format:Y-m-d'],
         ]);
 
         $formation = Formation::findOrFail($request->input('id'));
@@ -4420,7 +4380,8 @@ class FormationController extends Controller
         })
             ->pluck('id');
 
-        $query = Formation::whereYear('date_convention', $request->annee);
+        /* $query = Formation::whereYear('date_convention', $request->annee); */
+        $query = Formation::where('annee', $request->annee);
 
         if ($request->statut !== 'Tous') {
             $query->where('statut', $request->statut);
