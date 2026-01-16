@@ -292,10 +292,7 @@ class IngenieurController extends Controller
         // Formations collectives : récupérer les bénéficiaires via listecollectives
         $collectives = $formations
             ->filter(fn($f) => $f->types_formation?->name === 'collective')
-            ->flatMap(
-                fn($f) =>
-                $f->collectives->flatMap(fn($c) => $c->listecollectives)
-            );
+            ->flatMap(fn($f) => optional($f->collectives)->flatMap(fn($c) => $c->listecollectives ?? collect()));
 
         dd($individuelles, $collectives);
 
