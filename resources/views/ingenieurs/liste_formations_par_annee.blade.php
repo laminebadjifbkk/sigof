@@ -79,10 +79,10 @@
                                             <tr>
                                                 <th>Structure</th>
                                                 <th>Téléphone</th>
-                                                <th>Région</th>
+                                                {{-- <th>Région</th> --}}
                                                 <th>Dépôt</th>
-                                                <th>Modules</th>
-                                                <th>Effectif</th>
+                                                {{-- <th>Modules</th>
+                                                <th>Effectif</th> --}}
                                                 <th>Statut</th>
                                             </tr>
                                         </thead>
@@ -92,10 +92,10 @@
                                                     <td>{{ $col->name }} {{ $col->sigle ? '(' . $col->sigle . ')' : '' }}
                                                     </td>
                                                     <td>{{ $col->telephone }}</td>
-                                                    <td>{{ optional($col->departement->region)->nom }}</td>
+                                                    {{-- <td>{{ optional($col->departement->region)->nom }}</td> --}}
                                                     <td>{{ $col->date_depot?->format('d/m/Y') ?? '-' }}</td>
-                                                    <td>{{ $col->collectivemodules->count() }}</td>
-                                                    <td>{{ $col->listecollectives->count() }}</td>
+                                                   {{--  <td>{{ $col->collectivemodules->count() }}</td>
+                                                    <td>{{ $col->listecollectives->count() }}</td> --}}
                                                     <td>{{ ucfirst($col->statut_demande) }}</td>
                                                 </tr>
                                             @endforeach

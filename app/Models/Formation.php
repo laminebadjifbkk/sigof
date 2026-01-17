@@ -576,10 +576,23 @@ class Formation extends Model
         return $this->hasOne(Collective::class, 'formations_id');
     }
 
-    public function listecollectives()
+    /*  public function listecollectives()
     {
         return $this->hasMany(Listecollective::class, 'formations_id');
+    } */
+
+    public function listecollectives()
+    {
+        return $this->hasManyThrough(
+            Listecollective::class,
+            Collective::class,
+            'formations_id',    // FK sur collectives
+            'collectives_id',   // FK sur listecollectives
+            'id',               // PK sur formations
+            'id'                // PK sur collectives
+        );
     }
+
 
     public function emargements()
     {

@@ -261,7 +261,7 @@ class IngenieurController extends Controller
         ));
     }
 
-    public function listeFormationsParAnnee(Ingenieur $ingenieur, $annee, $region = null)
+    /* public function listeFormationsParAnnee(Ingenieur $ingenieur, $annee, $region = null)
     {
         // Charger toutes les formations de l'ingénieur pour l'année
         $formations = $ingenieur->formations()
@@ -293,6 +293,53 @@ class IngenieurController extends Controller
         $collectives = $formations
             ->filter(fn($f) => $f->types_formation?->name === 'collective')
             ->flatMap(fn($f) => optional($f->collectives)->flatMap(fn($c) => $c->listecollectives ?? collect()));
+
+        return view('ingenieurs.liste_formations_par_annee', compact(
+            'ingenieur',
+            'annee',
+            'region',
+            'individuelles',
+            'collectives'
+        ));
+    } */
+
+    public function listeFormationsParAnnee(Ingenieur $ingenieur, $annee, $region = null)
+    {
+        // 1. Charger les formations de l'ingénieur pour l'année
+        $formations = $ingenieur->formations()
+            ->where('annee', $annee)
+            ->with([
+                'types_formation',
+                'individuelles',
+                'listecollectives.collective', // on n'a plus besoin de la région ici
+                'regions'
+            ])
+            ->get();
+
+        // 2. Filtrer par région de la formation
+        if ($region) {
+            $formations = $formations->filter(function ($formation) use ($region) {
+
+                if ($region === 'Aucune région') {
+                    return $formation->regions->isEmpty();
+                }
+
+                return $formation->regions->pluck('nom')->contains($region);
+            });
+        }
+
+        // 3. Grouper par type de formation
+        $formationsParType = $formations->groupBy(fn($f) => $f->types_formation?->name);
+
+        // 4. Formations individuelles
+        $individuelles = $formationsParType
+            ->get('individuelle', collect())
+            ->flatMap(fn($f) => $f->individuelles ?? collect());
+
+        // 5. Formations collectives : toutes les listecollectives associées
+        $collectives = $formationsParType
+            ->get('collective', collect())
+            ->flatMap(fn($f) => $f->listecollectives);
 
         return view('ingenieurs.liste_formations_par_annee', compact(
             'ingenieur',
