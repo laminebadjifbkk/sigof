@@ -82,6 +82,7 @@
                             <table class="table table-striped" id="table-individuelles">
                                 <thead>
                                     <tr>
+                                        <th>N°</th>
                                         <th>CIN</th>
                                         <th>Prénom</th>
                                         <th>Nom</th>
@@ -93,8 +94,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php $i = 1; @endphp
                                     @foreach ($individuelles as $ind)
                                         <tr>
+                                            <td class="text-center">{{ $i++ }}</td>
                                             <td>{{ $ind->user->cin }}</td>
                                             <td>{{ $ind->user->firstname }}</td>
                                             <td>{{ $ind->user->name }}</td>
