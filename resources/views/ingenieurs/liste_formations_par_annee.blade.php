@@ -124,13 +124,13 @@
                                 <thead>
                                     <tr>
                                         <th>N°</th>
-                                        <th>N° CIN (NIN)</th>
+                                        <th>CIN</th>
                                         <th>Prénom</th>
                                         <th>NOM</th>
                                         <th>Date nais.</th>
                                         <th>Lieu nais.</th>
                                         <th>Structure</th>
-                                        <th>Dépôt</th>
+                                        {{-- <th>Dépôt</th> --}}
                                         <th>Statut</th>
                                     </tr>
                                 </thead>
@@ -154,7 +154,7 @@
                                                     <span>Aucun</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $col?->created_at?->format('d/m/Y') ?? 'Aucun' }}</td>
+                                            {{-- <td>{{ $col?->created_at?->format('d/m/Y') ?? 'Aucun' }}</td> --}}
                                             <td>
                                                 <span class="{{ $col?->statut }}">{{ $col?->statut }}</span>
                                             </td>
