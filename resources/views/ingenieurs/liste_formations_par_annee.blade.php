@@ -77,26 +77,85 @@
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
+                                                <th class="text-center">N°</th>
+                                                <th class="text-center">N° CIN (NIN)</th>
+                                                <th>Prénom & NOM</th>
+                                                <th>Date nais.</th>
+                                                <th>Lieu nais.</th>
+                                                {{-- <th>Module</th> --}}
                                                 <th>Structure</th>
-                                                <th>Téléphone</th>
-                                                {{-- <th>Région</th> --}}
-                                                <th>Dépôt</th>
-                                                {{-- <th>Modules</th>
-                                                <th>Effectif</th> --}}
-                                                <th>Statut</th>
+                                                <th class="text-center">Dépôt</th>
+                                                <th class="text-center">Statut</th>
+                                                <th width="5%" class="text-center">#</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php $i = 1; ?>
                                             @foreach ($collectives as $col)
                                                 <tr>
-                                                    <td>{{ $col->name }} {{ $col->sigle ? '(' . $col->sigle . ')' : '' }}
+                                                    <td style="text-align: center">{{ $i++ }}</td>
+                                                    <td style="text-align: center">{{ $col?->cin }}</td>
+                                                    <td>{{ $col?->prenom . ' ' . $col?->nom }}
                                                     </td>
-                                                    <td>{{ $col->telephone }}</td>
-                                                    {{-- <td>{{ optional($col->departement->region)->nom }}</td> --}}
-                                                    <td>{{ $col->date_depot?->format('d/m/Y') ?? '-' }}</td>
-                                                   {{--  <td>{{ $col->collectivemodules->count() }}</td>
-                                                    <td>{{ $col->listecollectives->count() }}</td> --}}
-                                                    <td>{{ ucfirst($col->statut_demande) }}</td>
+                                                    <td>{{ $col?->date_naissance?->format('d/m/Y') }}</td>
+                                                    <td>{{ $col?->lieu_naissance }}</td>
+                                                    {{-- <td>{{ $col?->collectivemodule?->module }}</td> --}}
+                                                    <td>
+                                                        @if ($col->collective)
+                                                            <a href="{{ route('collectives.show', $col->collective) }}"
+                                                                title="voir" target="_blank">
+                                                                {{ $col->collective->sigle }}
+                                                            </a>
+                                                        @else
+                                                            <span>Aucun</span>
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if ($col?->created_at)
+                                                            {{ $col?->created_at ? \Carbon\Carbon::parse($col?->created_at)->format('d/m/Y') : 'Aucun' }}
+                                                        @else
+                                                            Aucun
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <span class="{{ $col?->statut }}">
+                                                            {{ $col?->statut }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="d-flex align-items-baseline"><a
+                                                                href="{{ route('listecollectives.show', $col) }}"
+                                                                class="btn btn-warning btn-sm" title="voir détails"><i
+                                                                    class="bi bi-eye"></i></a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    {{-- @can('col-update') --}}
+                                                                    <li><a class="dropdown-item btn btn-sm"
+                                                                            href="{{ route('listecollectives.edit', $col) }}"
+                                                                            class="mx-1" title="Modifier"><i
+                                                                                class="bi bi-pencil"></i>Modifier</a>
+                                                                    </li>
+                                                                    {{-- @endcan
+                                                                @can('col-delete') --}}
+                                                                    <li>
+                                                                        <form
+                                                                            action="{{ route('listecollectives.destroy', $col) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"
+                                                                                title="Supprimer"><i
+                                                                                    class="bi bi-trash"></i>Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                    {{-- @endcan --}}
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
