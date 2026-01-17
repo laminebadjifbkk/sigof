@@ -55,6 +55,31 @@
                     </div>
                 </div>
 
+                @hasanyrole('Ingenieur|DIOF')
+                    @if (Auth::user()->ingenieur)
+                        <div class="col-12">
+                            <a href="{{ route('ingenieurs.show', Auth::user()?->ingenieur?->id) }}">
+                                <div class="card shadow-lg border-0 rounded-lg">
+                                    <div class="card-body d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <h5 class="card-title text-secondary d-flex align-items-center">
+                                                <i class="bi bi-graduation-cap me-0"></i> Mes Formations
+                                                <span class="fw-bold">&nbsp;|
+                                                    {{ Auth::user()->ingenieur?->initiale ?? '' }}</span>
+                                            </h5>
+                                            {{-- <p class="text-muted">Mes formations</p> --}}
+                                        </div>
+                                        <div class="card-icon bg-success text-white rounded-circle d-flex align-items-center justify-content-center"
+                                            style="width: 30px; height: 30px; font-size: 1.2rem;">
+                                            {{ Auth::user()->ingenieur?->formations?->count() ?? 0 }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endif
+                @endhasanyrole
+
                 @role('Demandeur')
                     @if ($showButton)
                         {{-- Message statut --}}
@@ -96,11 +121,11 @@
 
                                         {{-- Bouton changer si déjà téléversé et statut_certificat = Nouveau ou Rejeté --}}
                                         {{-- @if ($showChangeCertificat) --}}
-                                            {{-- <a href="{{ route('formulaires.certificat.edit', $formulaire->id) }}"
+                                        {{-- <a href="{{ route('formulaires.certificat.edit', $formulaire->id) }}"
                                                 class="btn btn-warning fw-bold mt-2">
                                                 🔄 Téléverser ou changer votre certificat
                                             </a> --}}
-                                       {{--  @endif --}}
+                                        {{--  @endif --}}
                                     </div>
                                 </div>
                             </div>
@@ -1423,31 +1448,6 @@
             @endif
         @endrole --}}
 
-        @hasanyrole('Ingenieur|DIOF')
-            @if (Auth::user()->ingenieur)
-                <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                    <a href="{{ route('ingenieurs.show', Auth::user()?->ingenieur?->id) }}">
-                        <div class="card shadow-lg border-0 rounded-lg">
-                            <div class="card-body d-flex align-items-center justify-content-between">
-                                <div>
-                                    <h5 class="card-title text-secondary d-flex align-items-center">
-                                        <i class="bi bi-graduation-cap me-0"></i> Formations
-                                        <span class="fw-bold">&nbsp;| {{ Auth::user()->ingenieur?->initiale ?? '' }}</span>
-                                    </h5>
-                                    <p class="text-muted">Mes formations</p>
-                                </div>
-                                <div class="card-icon bg-success text-white rounded-circle d-flex align-items-center justify-content-center"
-                                    style="width: 30px; height: 30px; font-size: 1.2rem;">
-                                    {{ Auth::user()->ingenieur?->formations?->count() ?? 0 }}
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            @endif
-        @endhasanyrole
-
-        {{-- Formations --}}
 
         {{-- Ingénieurs --}}
         @role('Ingenieur')
