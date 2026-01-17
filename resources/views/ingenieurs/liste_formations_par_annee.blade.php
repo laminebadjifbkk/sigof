@@ -91,6 +91,7 @@
                                         <th>Module</th>
                                         {{-- <th>Dépôt</th> --}}
                                         <th>Statut</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -108,6 +109,15 @@
                                             <td>
                                                 <span class="{{ $ind->statut }}">{{ $ind->statut }}</span>
                                             </td>
+                                            <td>
+                                                <span class="d-flex align-items-baseline">
+                                                    <a href="{{ route('individuelles.show', $ind) }}"
+                                                        class="btn btn-warning btn-sm" title="voir détails"><i
+                                                            class="bi bi-eye"></i></a>
+                                                    <div class="filter">
+                                                    </div>
+                                                </span>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -124,7 +134,7 @@
                                 <thead>
                                     <tr>
                                         <th>N°</th>
-                                        <th>CIN</th>
+                                        <th width='13%'>CIN</th>
                                         <th>Prénom</th>
                                         <th>NOM</th>
                                         <th>Date nais.</th>
@@ -133,6 +143,7 @@
                                         {{-- <th>Structure</th> --}}
                                         {{-- <th>Dépôt</th> --}}
                                         <th>Statut</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -159,6 +170,15 @@
                                             {{-- <td>{{ $col?->created_at?->format('d/m/Y') ?? 'Aucun' }}</td> --}}
                                             <td>
                                                 <span class="{{ $col?->statut }}">{{ $col?->statut }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="d-flex align-items-baseline"><a
+                                                        href="{{ route('listecollectives.show', $col) }}"
+                                                        class="btn btn-warning btn-sm" title="voir détails"><i
+                                                            class="bi bi-eye"></i></a>
+                                                    <div class="filter">
+                                                    </div>
+                                                </span>
                                             </td>
                                         </tr>
                                     @endforeach
