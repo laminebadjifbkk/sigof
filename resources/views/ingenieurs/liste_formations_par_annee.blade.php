@@ -83,7 +83,7 @@
                                 <thead>
                                     <tr>
                                         <th>N°</th>
-                                        <th>CIN</th>
+                                        <th width='12%'>CIN</th>
                                         <th>Prénom</th>
                                         <th>Nom</th>
                                         <th>Date nais.</th>
