@@ -129,7 +129,8 @@
                                         <th>NOM</th>
                                         <th>Date nais.</th>
                                         <th>Lieu nais.</th>
-                                        <th>Structure</th>
+                                        <th>Module</th>
+                                        {{-- <th>Structure</th> --}}
                                         {{-- <th>Dépôt</th> --}}
                                         <th>Statut</th>
                                     </tr>
@@ -144,7 +145,8 @@
                                             <td>{{ $col?->nom }}</td>
                                             <td>{{ $col?->date_naissance?->format('d/m/Y') }}</td>
                                             <td>{{ $col?->lieu_naissance }}</td>
-                                            <td>
+                                            <td>{{ $col?->collectivemodule?->module }}</td>
+                                            {{-- <td>
                                                 @if ($col->collective)
                                                     <a href="{{ route('collectives.show', $col->collective) }}"
                                                         target="_blank">
@@ -153,7 +155,7 @@
                                                 @else
                                                     <span>Aucun</span>
                                                 @endif
-                                            </td>
+                                            </td> --}}
                                             {{-- <td>{{ $col?->created_at?->format('d/m/Y') ?? 'Aucun' }}</td> --}}
                                             <td>
                                                 <span class="{{ $col?->statut }}">{{ $col?->statut }}</span>
