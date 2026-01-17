@@ -77,7 +77,7 @@
             <div class="row">
                 <div class="col-12">
                     <div id="table-individuelles-container" style="display:none;">
-                        <h5>Formations individuelles – Année {{ $annee }}</h5>
+                        <h5>Formations individuelles - année {{ $annee }}</h5>
                         @if (($individuelles ?? collect())->isNotEmpty())
                             <table class="table table-striped" id="table-individuelles">
                                 <thead>
@@ -102,7 +102,9 @@
                                             <td>{{ $ind->user->lieu_naissance }}</td>
                                             <td>{{ $ind->module->name ?? '-' }}</td>
                                             <td>{{ $ind->date_depot?->format('d/m/Y') ?? 'Aucun' }}</td>
-                                            <td>{{ $ind->statut }}</td>
+                                            <td>
+                                                <span class="{{ $ind->statut }}">{{ $ind->statut }}</span>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -113,7 +115,7 @@
                     </div>
 
                     <div id="table-collectives-container" style="display:none;">
-                        <h5>Formations collectives – Année {{ $annee }}</h5>
+                        <h5>Formations collectives - année {{ $annee }}</h5>
                         @if (($collectives ?? collect())->isNotEmpty())
                             <table class="table table-striped" id="table-collectives">
                                 <thead>
@@ -148,7 +150,9 @@
                                                 @endif
                                             </td>
                                             <td>{{ $col?->created_at?->format('d/m/Y') ?? 'Aucun' }}</td>
-                                            <td>{{ $col?->statut }}</td>
+                                            <td>
+                                                <span class="{{ $col?->statut }}">{{ $col?->statut }}</span>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
