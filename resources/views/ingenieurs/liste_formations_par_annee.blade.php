@@ -83,13 +83,13 @@
                                 <thead>
                                     <tr>
                                         <th>N°</th>
-                                        <th width='12%'>CIN</th>
+                                        <th width='13%'>CIN</th>
                                         <th>Prénom</th>
                                         <th>Nom</th>
                                         <th>Date nais.</th>
                                         <th>Lieu nais.</th>
                                         <th>Module</th>
-                                        <th>Dépôt</th>
+                                        {{-- <th>Dépôt</th> --}}
                                         <th>Statut</th>
                                     </tr>
                                 </thead>
@@ -104,7 +104,7 @@
                                             <td>{{ $ind->user->date_naissance?->format('d/m/Y') }}</td>
                                             <td>{{ $ind->user->lieu_naissance }}</td>
                                             <td>{{ $ind->module->name ?? '-' }}</td>
-                                            <td>{{ $ind->date_depot?->format('d/m/Y') ?? 'Aucun' }}</td>
+                                            {{-- <td>{{ $ind->date_depot?->format('d/m/Y') ?? 'Aucun' }}</td> --}}
                                             <td>
                                                 <span class="{{ $ind->statut }}">{{ $ind->statut }}</span>
                                             </td>
