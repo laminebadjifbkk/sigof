@@ -6,7 +6,7 @@
             <div class="row mb-4">
                 {{-- Cases interactives style "card" responsive --}}
                 @if (($individuelles ?? collect())->isNotEmpty())
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                    <div class="col-6 col-sm-4 col-md-4 col-lg-3">
                         <div class="card shadow-sm text-center p-2 hover-pointer" style="min-height:140px; border-radius:10px;"
                             onclick="toggleTable('table-individuelles')">
                             <h6 class="card-title mb-2 text-truncate" title="Formations Individuelles" style="font-size:0.85rem;">
@@ -40,7 +40,7 @@
                 @endif
 
                 @if (($collectives ?? collect())->isNotEmpty())
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                    <div class="col-6 col-sm-4 col-md-4 col-lg-3">
                         <div class="card shadow-sm text-center p-2 hover-pointer" style="min-height:140px; border-radius:10px;"
                             onclick="toggleTable('table-collectives')">
                             <h6 class="card-title mb-2 text-truncate" title="Formations Collectives" style="font-size:0.85rem;">
