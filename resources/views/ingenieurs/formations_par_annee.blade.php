@@ -28,7 +28,8 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $region }}</td>
                     <td class="text-center">
-                        {{ number_format($items->sum(fn($i) => $i['formation']->total), 0, '', ' ') }}
+                        {{-- Somme des totaux pour cette région --}}
+                        {{ number_format($items->sum(fn($i) => $i['total']), 0, '', ' ') }}
                     </td>
                     <td>
                         <a href="{{ route('ingenieurs.formations.listeParAnnee', [
@@ -42,6 +43,7 @@
                     </td>
                 </tr>
             @endforeach
+
         </tbody>
     </table>
 

@@ -233,25 +233,36 @@ class IngenieurController extends Controller
     public function formationsParAnnee(Ingenieur $ingenieur, $annee)
     {
         $formations = $ingenieur->formations()
-            ->where('annee', $annee) // ou date_fin selon ton modèle
-            ->with(['regions'])
+            ->where('annee', $annee)
+            ->with([
+                'regions',
+                'individuelles',
+                'collective.listecollectives'
+            ])
             ->get();
 
         $groupes = $formations
             ->flatMap(function ($formation) {
-                // Si aucune région
+                $totalFormes = $formation->individuelles->count()
+                    + optional(optional($formation->collective)->listecollectives)->count();
+
                 if ($formation->regions->isEmpty()) {
-                    return collect([
-                        ['region' => 'Aucune région', 'formation' => $formation]
-                    ]);
+                    return collect([[
+                        'region' => 'Aucune région',
+                        'formation' => $formation,
+                        'total' => $totalFormes
+                    ]]);
                 }
 
-                // Sinon, une entrée par région
-                return $formation->regions->map(function ($region) use ($formation) {
-                    return ['region' => $region->nom, 'formation' => $formation];
+                return $formation->regions->map(function ($region) use ($formation, $totalFormes) {
+                    return [
+                        'region' => $region->nom,
+                        'formation' => $formation,
+                        'total' => $totalFormes
+                    ];
                 });
             })
-            ->groupBy('region'); // maintenant les clés = noms de régions
+            ->groupBy('region');
 
         return view('ingenieurs.formations_par_annee', compact(
             'ingenieur',
