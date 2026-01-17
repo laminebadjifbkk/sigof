@@ -91,7 +91,7 @@
                                         <th>Module</th>
                                         {{-- <th>Dépôt</th> --}}
                                         <th>Statut</th>
-                                        <th>Actions</th>
+                                        <th>#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -143,7 +143,7 @@
                                         {{-- <th>Structure</th> --}}
                                         {{-- <th>Dépôt</th> --}}
                                         <th>Statut</th>
-                                        <th>Actions</th>
+                                        <th>#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
