@@ -125,7 +125,8 @@
                                     <tr>
                                         <th>N°</th>
                                         <th>N° CIN (NIN)</th>
-                                        <th>Prénom & NOM</th>
+                                        <th>Prénom</th>
+                                        <th>NOM</th>
                                         <th>Date nais.</th>
                                         <th>Lieu nais.</th>
                                         <th>Structure</th>
@@ -139,7 +140,8 @@
                                         <tr>
                                             <td class="text-center">{{ $i++ }}</td>
                                             <td class="text-center">{{ $col?->cin }}</td>
-                                            <td>{{ $col?->prenom . ' ' . $col?->nom }}</td>
+                                            <td>{{ $col?->prenom }}</td>
+                                            <td>{{ $col?->nom }}</td>
                                             <td>{{ $col?->date_naissance?->format('d/m/Y') }}</td>
                                             <td>{{ $col?->lieu_naissance }}</td>
                                             <td>
