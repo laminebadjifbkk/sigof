@@ -43,33 +43,32 @@
                     </div>
                 @endif
 
-                @if (($collectives ?? collect())->isNotEmpty())
+                @if ($collectives->isNotEmpty())
                     <div class="col-6 col-sm-4 col-md-4 col-lg-3">
                         <div class="card shadow-sm text-center p-2 hover-pointer" style="min-height:140px; border-radius:10px;"
                             onclick="toggleTable('table-collectives')">
-                            <h6 class="card-title mb-2 text-truncate" title="Formations Collectives" style="font-size:0.85rem;">
+
+                            <h6 class="card-title mb-2 text-truncate" style="font-size:0.85rem;">
                                 Formations Collectives
                             </h6>
 
-                            <!-- Badge type -->
                             <span class="etat-btn bg-success text-white px-2 py-1 rounded" style="font-size:0.75rem;">
                                 Collective
                             </span>
 
-                            <!-- Nombre de formés -->
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2 mt-2">
-                                <span class="h6 mb-0" style="font-size:1rem;">{{ ($collectives ?? collect())->count() }}</span>
+                                <span class="h6 mb-0" style="font-size:1rem;">
+                                    {{ $collectives->count() }}
+                                </span>
                             </div>
 
-                            <!-- Barre de pourcentage -->
                             <div class="mb-2">
-                                <div class="progress" style="height:6px; border-radius:3px;">
-                                    <div class="progress-bar bg-primary" role="progressbar"
-                                        style="width: {{ $pourcentageCollectives }}%;">
+                                <div class="progress" style="height:6px;">
+                                    <div class="progress-bar bg-primary" style="width: {{ $pourcentageCollectives ?? 0 }}%;">
                                     </div>
                                 </div>
                                 <small class="text-muted">
-                                    {{ $pourcentageCollectives }} %
+                                    {{ $pourcentageCollectives ?? 0 }} %
                                 </small>
                             </div>
 
