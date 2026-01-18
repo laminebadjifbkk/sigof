@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | DEMANDEURS')
+@section('title', 'ONFP | FORMES')
 @section('space-work')
     @can('individuelle-view')
         <section class="section">
@@ -9,27 +9,31 @@
                     <div class="col-6 col-sm-4 col-md-4 col-lg-3">
                         <div class="card shadow-sm text-center p-2 hover-pointer" style="min-height:140px; border-radius:10px;"
                             onclick="toggleTable('table-individuelles')">
+
                             <h6 class="card-title mb-2 text-truncate" title="Formations Individuelles" style="font-size:0.85rem;">
-                                Formations Individuelles
+                                Formations individuelles
                             </h6>
 
-                            <!-- Badge type -->
                             <span class="etat-btn bg-primary text-white px-2 py-1 rounded" style="font-size:0.75rem;">
                                 Individuelle
                             </span>
 
-                            <!-- Nombre de formés -->
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2 mt-2">
-                                <span class="h6 mb-0"
-                                    style="font-size:1rem;">{{ ($individuelles ?? collect())->count() }}</span>
+                                <span class="h6 mb-0" style="font-size:1rem;">
+                                    {{ $individuelles->count() }}
+                                </span>
                             </div>
 
-                            <!-- Barre de pourcentage (optionnelle) -->
+                            <!-- Barre de pourcentage -->
                             <div class="mb-2">
                                 <div class="progress" style="height:6px; border-radius:3px;">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%;"></div>
+                                    <div class="progress-bar bg-primary" role="progressbar"
+                                        style="width: {{ $pourcentageIndividuelles }}%;">
+                                    </div>
                                 </div>
-                                <small class="text-muted">100%</small>
+                                <small class="text-muted">
+                                    {{ $pourcentageIndividuelles }} %
+                                </small>
                             </div>
 
                             <span class="btn btn-outline-primary btn-sm w-100" style="font-size:0.75rem;">
@@ -57,12 +61,16 @@
                                 <span class="h6 mb-0" style="font-size:1rem;">{{ ($collectives ?? collect())->count() }}</span>
                             </div>
 
-                            <!-- Barre de pourcentage (optionnelle) -->
+                            <!-- Barre de pourcentage -->
                             <div class="mb-2">
                                 <div class="progress" style="height:6px; border-radius:3px;">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%;"></div>
+                                    <div class="progress-bar bg-primary" role="progressbar"
+                                        style="width: {{ $pourcentageCollectives }}%;">
+                                    </div>
                                 </div>
-                                <small class="text-muted">100%</small>
+                                <small class="text-muted">
+                                    {{ $pourcentageCollectives }} %
+                                </small>
                             </div>
 
                             <span class="btn btn-outline-success btn-sm w-100" style="font-size:0.75rem;">

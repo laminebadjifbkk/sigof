@@ -13,6 +13,11 @@
         </nav>
     </div><!-- End Page Title -->
 
+    <span class="d-flex align-items-baseline"><a href="{{ route('ingenieurs.show', $ingenieur->id) }}"
+            class="btn btn-success btn-sm" title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+        <p> | retour</p>
+    </span>
+
     <table class="table table-bordered table-striped align-middle">
         <thead class="table-primary">
             <tr>
@@ -47,9 +52,7 @@
         </tbody>
     </table>
 
-    <br>
     <hr>
-    <br>
 
     @can('ingenieur-show')
         <section class="section">
@@ -78,11 +81,6 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-body">
-                                <span class="d-flex align-items-baseline"><a href="{{ route('ingenieurs.index') }}"
-                                        class="btn btn-success btn-sm" title="retour"><i
-                                            class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                    <p> | retour</p>
-                                </span>
                                 {{-- <h5 class="card-title">Ingénieur : {{ $ingenieur->name }}</h5> --}}
                                 <h5 class="card-title">Liste des formations</h5>
                                 {{-- <h5 class="card-title">Liste des formations de {{ $ingenieur->name }}</h5> --}}
@@ -127,27 +125,14 @@
                                                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                         class="bi bi-three-dots"></i></a>
                                                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                    <li>
-                                                                        <button type="button"
-                                                                            class="dropdown-item btn btn-sm mx-1"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#EditingenieurModal{{ $ingenieur->id }}">
-                                                                            <i class="bi bi-pencil" title="Modifier"></i>
-                                                                            Modifier
-                                                                        </button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <form
-                                                                            action="{{ route('ingenieurs.destroy', $ingenieur->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit"
-                                                                                class="dropdown-item show_confirm"
-                                                                                title="Supprimer"><i
-                                                                                    class="bi bi-trash"></i>Supprimer</button>
-                                                                        </form>
-                                                                    </li>
+                                                                    @can('formation-update')
+                                                                        <li>
+                                                                            <a href="{{ route('formations.edit', $formation) }}"
+                                                                                class="dropdown-item">
+                                                                                <i class="bi bi-pencil"></i> Modifier
+                                                                            </a>
+                                                                        </li>
+                                                                    @endcan
                                                                 </ul>
                                                             </div>
                                                         </span>

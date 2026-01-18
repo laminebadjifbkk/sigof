@@ -352,12 +352,27 @@ class IngenieurController extends Controller
             ->get('collective', collect())
             ->flatMap(fn($f) => $f->listecollectives);
 
+        $nbIndividuelles = ($individuelles ?? collect())->count();
+        $nbCollectives  = ($collectives ?? collect())->count();
+
+        $totalFormes = $nbIndividuelles + $nbCollectives;
+
+        $pourcentageIndividuelles = $totalFormes > 0
+            ? round(($nbIndividuelles / $totalFormes) * 100)
+            : 0;
+
+        $pourcentageCollectives = $totalFormes > 0
+            ? round(($nbCollectives / $totalFormes) * 100)
+            : 0;
+
         return view('ingenieurs.liste_formations_par_annee', compact(
             'ingenieur',
             'annee',
             'region',
             'individuelles',
-            'collectives'
+            'collectives',
+            'pourcentageIndividuelles',
+            'pourcentageCollectives'
         ));
     }
 }
