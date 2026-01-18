@@ -13,6 +13,10 @@
         </nav>
     </div><!-- End Page Title -->
 
+    <span class="d-flex align-items-baseline"><a href="{{ route('ingenieurs.index') }}" class="btn btn-success btn-sm"
+            title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+        <p> | retour</p>
+    </span>
 
     <table class="table table-bordered table-striped align-middle">
         <thead class="table-primary">
@@ -43,9 +47,7 @@
         </tbody>
     </table>
 
-    <br>
     <hr>
-    <br>
 
     @can('ingenieur-show')
         <section class="section">
@@ -74,11 +76,6 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-body">
-                                <span class="d-flex align-items-baseline"><a href="{{ route('ingenieurs.index') }}"
-                                        class="btn btn-success btn-sm" title="retour"><i
-                                            class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                    <p> | retour</p>
-                                </span>
                                 {{-- <h5 class="card-title">Ingénieur : {{ $ingenieur->name }}</h5> --}}
                                 <h5 class="card-title">Liste des formations</h5>
                                 {{-- <h5 class="card-title">Liste des formations de {{ $ingenieur->name }}</h5> --}}
