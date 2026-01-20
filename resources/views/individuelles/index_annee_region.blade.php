@@ -115,41 +115,15 @@
                                 <i class="bi bi-file-earmark-excel"></i>
                                 Exporter Excel
                             </a>
-                            &nbsp;
+                            {{-- &nbsp;
                             <a href="{{ request()->fullUrlWithQuery(['all' => 1]) }}" class="btn btn-sm btn-outline-secondary">
                                 Afficher tout
-                            </a>
+                            </a> --}}
                         </div>
                     @endcan
 
                     <div class="card">
                         <div class="card-body">
-                            {{-- <div class="pt-1">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    @can('individuelle-create')
-                                        <h5 class="card-title">Demandes individuelles</h5>
-                                        <h5 class="card-title">Demandes individuelles totales :</h5> <span
-                                            class="badge bg-primary">{{ $individuelles->count() }}</span>
-                                        @can('individuelle-create')
-                                            <span class="d-flex align-items-baseline">
-                                                <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
-                                                    data-bs-target="#AddIndividuelModal" title="Ajouter">Ajouter</a>
-                                                <div class="filter">
-                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                        <li>
-                                                            <button type="button" class="dropdown-item btn btn-sm"
-                                                                data-bs-toggle="modal" data-bs-target="#generate_rapport">Rechercher
-                                                                plus</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </span>
-                                        @endcan
-                                    @endcan
-                                </div>
-                            </div> --}}
                             <div class="pt-1">
                                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 
