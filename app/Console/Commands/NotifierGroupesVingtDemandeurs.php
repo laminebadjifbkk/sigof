@@ -68,7 +68,7 @@ class NotifierGroupesVingtDemandeurs extends Command
 
     public function handle()
     {
-        $seuil = 20;
+        $seuil = 25;
 
         $groupes = Individuelle::where('statut', 'Nouvelle')
             ->selectRaw('regions_id, modules_id, COUNT(*) as total')
