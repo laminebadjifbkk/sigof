@@ -2099,7 +2099,7 @@ class IndividuelleController extends Controller
 
     public function exportExcel(string $statut)
     {
-        $chunkSize = 5000; // nombre de lignes par fichier
+        $chunkSize = 1000; // nombre de lignes par fichier
         $timestamp = now()->format('Ymd_His');
         $tempPath = storage_path('app/temp/individuelles_' . $timestamp);
 
