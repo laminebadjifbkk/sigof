@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportIndividuellesStatut;
+use App\Exports\ExportIndividuellesStatutQuery;
 use App\Mail\ValidationDemandeIndividuelleNotification;
 use App\Models\Arrondissement;
 use App\Models\Commune;
@@ -20,13 +22,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Validation\Rule;
-use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 
-use App\Exports\ExportIndividuellesStatut;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\Excel as ExcelExcel;
+use RealRashid\SweetAlert\Facades\Alert;
+use ZipArchive;
 
 class IndividuelleController extends Controller
 {
@@ -2086,20 +2087,64 @@ class IndividuelleController extends Controller
         return redirect()->back()->with('success', 'Demande restauré avec succès.');
     }
 
-    public function exportExcel(string $statut)
+    /* public function exportExcel(string $statut)
     {
-        /* $fileName = "Demandes_individuelles_{$statut}_" . now()->format('Ymd_His') . ".xlsx"; */
-        $fileName = "Demandes_individuelles_{$statut}_" . now()->format('Ymd_His') . ".csv";
+        $fileName = "Demandes_individuelles_{$statut}_" . now()->format('Ymd_His') . ".xlsx";
 
-        /* return Excel::download(
-            new ExportIndividuellesStatut($statut),
-            $fileName
-        ); */
         return Excel::download(
             new ExportIndividuellesStatut($statut),
-            $fileName,
-            ExcelExcel::CSV,
-            ['use_bom' => true]
+            $fileName
         );
+    } */
+
+    public function exportExcel(string $statut)
+    {
+        $chunkSize = 5000; // nombre de lignes par fichier
+        $timestamp = now()->format('Ymd_His');
+        $tempPath = storage_path('app/temp/individuelles_' . $timestamp);
+
+        // Créer le dossier temporaire
+        if (!is_dir($tempPath)) {
+            mkdir($tempPath, 0777, true);
+        }
+
+        // Compter le total pour ce statut
+        $total = Individuelle::when($statut !== 'all', fn($q) => $q->where('statut', $statut))->count();
+        $chunks = ceil($total / $chunkSize);
+
+        for ($i = 0; $i < $chunks; $i++) {
+            $offset = $i * $chunkSize;
+
+            $query = Individuelle::when($statut !== 'all', fn($q) => $q->where('statut', $statut))
+                ->orderBy('id')
+                ->skip($offset)
+                ->take($chunkSize);
+
+            $fileName = "Individuelles_{$statut}_part_" . ($i + 1) . ".xlsx";
+
+            Excel::store(
+                new ExportIndividuellesStatutQuery($query),
+                "temp/individuelles_{$timestamp}/{$fileName}"
+            );
+        }
+
+        // Créer ZIP
+        $zipPath = storage_path("app/temp/Individuelles_{$statut}_{$timestamp}.zip");
+        $zip = new ZipArchive;
+        if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+            $files = new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($tempPath),
+                \RecursiveIteratorIterator::LEAVES_ONLY
+            );
+
+            foreach ($files as $file) {
+                if (!$file->isDir()) {
+                    $zip->addFile($file->getRealPath(), $file->getFilename());
+                }
+            }
+            $zip->close();
+        }
+
+        return response()->download($zipPath)->deleteFileAfterSend(true);
     }
 }
