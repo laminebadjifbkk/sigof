@@ -921,7 +921,7 @@ class FormationController extends Controller
 
         $formation = Formation::findOrFail($idformation);
 
-        if ($formation->statut == 'Terminée') {
+        if ($formation->statut == 'Terminées') {
             Alert::warning('Désolé !', 'Cette formation a déjà été exécutée.');
         } elseif ($formation->statut == 'Annulée') {
             Alert::warning('Désolé !', 'La formation a été annulée.');
@@ -1720,7 +1720,7 @@ class FormationController extends Controller
         if ($count == '0' || empty($formation->operateur)) {
             Alert::warning('Désolé !', 'action non autorisée');
         } else {
-            if ($formation->statut == "Terminée") {
+            if ($formation->statut == "Terminéee") {
                 Alert::warning('Désolé !', 'Cette formation a déjà été exécutée.');
             } elseif ($formation->statut == "En cours") {
                 Alert::warning('Désolé !', 'formation en cours...');
@@ -3182,7 +3182,7 @@ class FormationController extends Controller
 
         $formation = Formation::findOrFail($idformation);
 
-        if ($formation->statut == "Terminée") {
+        if ($formation->statut == "Terminées") {
             Alert::warning('Désolé !', 'Cette formation a déjà été exécutée.');
         } elseif ($formation->statut == 'Annulée') {
             Alert::warning('Désolé !', 'La formation a été annulée.');
