@@ -828,7 +828,7 @@
 
                                                     <h5 class="mb-0 text-uppercase fw-bold text-primary">
                                                         <i class="bi bi-people-fill me-2"></i> Liste des bénéficiaires :
-                                                        {{ $formation->listecollectives->count() }}
+                                                        {{ $listecollectives->count() }}
                                                     </h5>
                                                     <h5
                                                         class="card-title d-flex align-items-center justify-content-between">
@@ -868,7 +868,7 @@
                                                         </thead>
                                                         <tbody>
                                                             <?php $i = 1; ?>
-                                                            @foreach ($formation->listecollectives as $listecollective)
+                                                            @foreach ($listecollectives as $listecollective)
                                                                 <tr class="text-center">
                                                                     <td>{{ $i++ }}</td>
                                                                     <td>{{ $listecollective->civilite }}</td>
@@ -1219,7 +1219,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php $i = 1; ?>
-                                                    @foreach ($formation->listecollectives as $listecollective)
+                                                    @foreach ($listecollectives as $listecollective)
                                                         <tr class="text-center">
                                                             <td>{{ $i++ }}</td>
                                                             <td>{{ $listecollective?->civilite }}</td>
@@ -1785,7 +1785,7 @@
             </div>
         </div>
 
-        @foreach ($formation->listecollectives as $listecollective)
+        @foreach ($listecollectives as $listecollective)
             <div class="modal fade" id="indiponibleModal{{ $listecollective->id }}" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -1862,7 +1862,7 @@
             </div>
         @endforeach
         {{-- Attestations --}}
-        @foreach ($formation->listecollectives as $listecollective)
+        @foreach ($listecollectives as $listecollective)
             <div class="modal fade" id="EditAttestationsModal{{ $listecollective->id }}" tabindex="-1"
                 role="dialog" aria-labelledby="EditAttestationsModalLabel{{ $listecollective->id }}"
                 aria-hidden="true">
