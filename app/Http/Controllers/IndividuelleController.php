@@ -257,50 +257,74 @@ class IndividuelleController extends Controller
     }
     public function parAnneeRegion(Request $request, $annee, $region)
     {
-        $region = Region::where('nom', $region)->first();
+        // Région depuis le nom
+        $region = Region::where('nom', $region)->firstOrFail();
+
+        // Statut optionnel
+        $statutFiltre = $request->query('statut');
 
         // =======================================
-        // Total pour l'année et la région
+        // Base query (année + région)
         // =======================================
-        $queryTotal = Individuelle::whereYear('date_depot', $annee)
+        $baseQuery = Individuelle::whereYear('date_depot', $annee)
             ->where('regions_id', $region->id);
 
-        $total = $queryTotal->count();
+        // =======================================
+        // Total GLOBAL (sans filtre statut)
+        // =======================================
+        $total = $baseQuery->count();
         $totalIndividuelles = number_format($total, 0, ',', ' ');
 
         // =======================================
-        // Totaux par statut dans cette région pour cette année
+        // Totaux par statut (pour les cartes)
         // =======================================
-        $groupesRegionStatut = Individuelle::with('region')
-            ->select('statut')
+        $groupesRegionStatut = Individuelle::select('statut')
             ->selectRaw('COUNT(*) as total')
             ->whereYear('date_depot', $annee)
             ->where('regions_id', $region->id)
             ->groupBy('statut')
             ->get();
 
-        // Reformater pour Blade
+        // Pourcentages
         $statutPourcentages = [];
         foreach ($groupesRegionStatut as $row) {
             $statut = $row->statut ?? 'Inconnu';
             $statutPourcentages[$statut] = [
-                'count' => $row->total,
-                'percent' => $total ? round($row->total * 100 / $total, 1) : 0
+                'count'   => $row->total,
+                'percent' => $total ? round($row->total * 100 / $total, 1) : 0,
             ];
         }
 
-        // Récupérer les infos de la région pour l’affichage
-        $regionNom = $region?->nom ?? 'Inconnu';
+        // =======================================
+        // Liste des individuelles (FILTRÉE si statut présent)
+        // =======================================
+        $individuellesQuery = clone $baseQuery;
+
+        if (!empty($statutFiltre)) {
+            $individuellesQuery->where('statut', $statutFiltre);
+        }
+
+        $individuelles = $individuellesQuery
+            ->latest()
+            ->limit(500)
+            ->get();
 
         // =======================================
-        // Retour vers la vue
+        // Données annexes
         // =======================================
+        $regionNom = $region->nom;
+        $departements = Departement::select('id', 'nom')->orderBy('nom')->get();
+
         return view('individuelles.index_annee_region', compact(
             'annee',
             'region',
             'regionNom',
             'totalIndividuelles',
-            'statutPourcentages'
+            'statutPourcentages',
+            'groupesRegionStatut',
+            'individuelles',
+            'departements',
+            'statutFiltre'
         ));
     }
 
@@ -2262,40 +2286,55 @@ class IndividuelleController extends Controller
             $fileName
         );
     } */
-
-    public function exportExcel(string $statut)
+    public function exportExcel(int $annee, string $region, string $statut = 'all')
     {
-        $chunkSize = 1000; // nombre de lignes par fichier
+        $regionModel = Region::where('nom', $region)->firstOrFail();
+
+        $chunkSize = 1000;
         $timestamp = now()->format('Ymd_His');
-        $tempPath = storage_path('app/temp/individuelles_' . $timestamp);
+
+        $folderName = "individuelles_{$annee}_{$region}_{$statut}_{$timestamp}";
+        $tempPath = storage_path("app/temp/{$folderName}");
 
         // Créer le dossier temporaire
         if (!is_dir($tempPath)) {
             mkdir($tempPath, 0777, true);
         }
 
-        // Compter le total pour ce statut
-        $total = Individuelle::when($statut !== 'all', fn($q) => $q->where('statut', $statut))->count();
+        // ==============================
+        // Query de base (année + région)
+        // ==============================
+        $baseQuery = Individuelle::whereYear('date_depot', $annee)
+            ->where('regions_id', $regionModel->id)
+            ->when($statut !== 'all', fn($q) => $q->where('statut', $statut));
+
+        $total = $baseQuery->count();
         $chunks = ceil($total / $chunkSize);
 
+        // ==============================
+        // Génération des fichiers Excel
+        // ==============================
         for ($i = 0; $i < $chunks; $i++) {
             $offset = $i * $chunkSize;
 
-            $query = Individuelle::when($statut !== 'all', fn($q) => $q->where('statut', $statut))
+            $query = (clone $baseQuery)
                 ->orderBy('id')
                 ->skip($offset)
                 ->take($chunkSize);
 
-            $fileName = "Individuelles_{$statut}_part_" . ($i + 1) . ".xlsx";
+            $fileName = "Individuelles_{$annee}_{$region}_{$statut}_part_" . ($i + 1) . ".xlsx";
 
             Excel::store(
                 new ExportIndividuellesStatutQuery($query),
-                "temp/individuelles_{$timestamp}/{$fileName}"
+                "temp/{$folderName}/{$fileName}"
             );
         }
 
-        // Créer ZIP
-        $zipPath = storage_path("app/temp/Individuelles_{$statut}_{$timestamp}.zip");
+        // ==============================
+        // Création du ZIP
+        // ==============================
+        $zipPath = storage_path("app/temp/Individuelles_{$annee}_{$region}_{$statut}_{$timestamp}.zip");
+
         $zip = new ZipArchive;
         if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
             $files = new \RecursiveIteratorIterator(

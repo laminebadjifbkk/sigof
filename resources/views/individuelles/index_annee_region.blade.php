@@ -24,85 +24,92 @@
                                 role="alert"><strong>{{ $error }}</strong></div>
                         @endforeach
                     @endif
-
                     <div class="card">
                         <div class="card-body">
                             @can('user-show')
                                 <div class="row mb-4">
 
-                                    {{-- ==================== --}}
                                     {{-- Carte Total --}}
-                                    {{-- ==================== --}}
-                                    {{-- Carte total --}}
-                                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+                                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                                         <div class="card shadow-sm text-center p-2" style="min-height:140px; border-radius:10px;">
-                                            <h6 class="card-title mb-2 text-truncate" title="Total demandes"
-                                                style="font-size:0.85rem;">
-                                                Total
+                                            <h6 class="card-title mb-2 text-truncate" style="font-size:0.85rem;">
+                                                Total – {{ $annee }} / {{ $regionNom }}
                                             </h6>
 
                                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                                 <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
-                                                    style="width:28px; height:28px; font-size:1rem;">
+                                                    style="width:28px; height:28px;">
                                                     <i class="bi bi-people"></i>
                                                 </div>
-                                                <span class="h6 mb-0" style="font-size:1rem;">{{ $totalIndividuelles }}</span>
+                                                <span class="h6 mb-0">{{ $totalIndividuelles }}</span>
                                             </div>
 
-                                            <div class="mb-2">
-                                                <div class="progress" style="height:6px; border-radius:3px;">
-                                                    <div class="progress-bar bg-success" style="width:100%"></div>
-                                                </div>
-                                                <small class="text-muted">100%</small>
+                                            <div class="progress" style="height:6px;">
+                                                <div class="progress-bar bg-success" style="width:100%"></div>
                                             </div>
+                                            <small class="text-muted">100%</small>
                                         </div>
                                     </div>
 
-                                    {{-- ==================== --}}
                                     {{-- Cartes par statut --}}
-                                    {{-- ==================== --}}
-                                    @foreach ($regionPourcentages as $region => $data)
+                                    @foreach ($statutPourcentages as $statut => $data)
                                         <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
                                             <div class="card shadow-sm text-center p-2"
                                                 style="min-height:120px; border-radius:10px;">
-                                                <h6 class="card-title mb-2 text-truncate" style="font-size:0.85rem;">
-                                                    {{ $region }}
-                                                </h6>
 
-                                                <div class="d-flex flex-column align-items-center justify-content-center mb-2 mt-2">
-                                                    <span class="h6 mb-0" style="font-size:1rem;">{{ $data['count'] }}</span>
+                                                {{-- <h6 class="card-title mb-2 text-truncate" style="font-size:0.85rem;">
+                                                    {{ $statut }}
+                                                </h6> --}}
+
+                                                <span class="{{ $statut }}">
+                                                    {{ $statut }}
+                                                </span>
+
+                                                <div class="mb-2 mt-2">
+                                                    <span class="h6 mb-0">{{ number_format($data['count'], 0, '', ' ') }}</span>
                                                 </div>
 
                                                 <div class="mb-2">
-                                                    <div class="progress" style="height:6px; border-radius:3px;">
+                                                    <div class="progress" style="height:6px;">
                                                         <div class="progress-bar bg-success"
-                                                            style="width: {{ $data['percent'] }}%;"></div>
+                                                            style="width: {{ $data['percent'] }}%;">
+                                                        </div>
                                                     </div>
                                                     <small class="text-muted">{{ $data['percent'] }}%</small>
                                                 </div>
 
-                                                {{-- Lien vers les individuelles de cette région et année --}}
-                                                <a href="{{ route('individuelles.parAnnee', ['annee' => $annee, 'region' => $region]) }}"
-                                                    class="btn btn-outline-primary btn-sm w-100" style="font-size:0.75rem;">
+                                                <a href="{{ route('individuelles.parAnneeRegion', [
+                                                    'annee' => $annee,
+                                                    'region' => $region->nom,
+                                                    'statut' => $statut,
+                                                ]) }}"
+                                                    class="btn btn-outline-primary btn-sm w-100">
                                                     Voir plus <i class="bi bi-arrow-right-short"></i>
                                                 </a>
+
                                             </div>
                                         </div>
                                     @endforeach
+
                                 </div>
                             @endcan
                         </div>
                     </div>
 
-                    {{-- @can('exporter-view')
+                    @can('exporter-view')
                         <div class="col-2 pb-3">
-                            <a href="{{ route('individuelles.exportExcel', ['statut' => $statut ?? 'all']) }}"
+                            <a href="{{ route('individuelles.exportExcel', [
+                                'annee' => $annee,
+                                'region' => $region->nom,
+                                'statut' => $statutFiltre ?? 'all',
+                            ]) }}"
                                 class="btn btn-outline-success btn-sm d-flex align-items-center gap-2" title="Exporter Excel">
+
                                 <i class="bi bi-file-earmark-excel"></i>
                                 Exporter Excel
                             </a>
                         </div>
-                    @endcan --}}
+                    @endcan
 
                     <div class="card">
                         <div class="card-body">
