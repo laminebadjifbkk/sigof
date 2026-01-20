@@ -31,7 +31,8 @@
 
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <h5>Année {{ $annee }} / {{ $regionNom }}</h5>
-                                        <a href="{{ route('individuelles.parAnnee', ['annee' => $annee]) }}" class="btn btn-outline-secondary btn-sm">
+                                        <a href="{{ route('individuelles.parAnnee', ['annee' => $annee]) }}"
+                                            class="btn btn-outline-secondary btn-sm">
                                             <i class="bi bi-arrow-left-circle"></i> Retour à la liste
                                         </a>
                                     </div>
@@ -103,7 +104,7 @@
                     </div>
 
                     @can('exporter-view')
-                        <div class="col-2 pb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
                             <a href="{{ route('individuelles.exportExcel', [
                                 'annee' => $annee,
                                 'region' => $region->nom,
@@ -113,6 +114,10 @@
 
                                 <i class="bi bi-file-earmark-excel"></i>
                                 Exporter Excel
+                            </a>
+                            &nbsp;
+                            <a href="{{ request()->fullUrlWithQuery(['all' => 1]) }}" class="btn btn-sm btn-outline-secondary">
+                                Afficher tout
                             </a>
                         </div>
                     @endcan

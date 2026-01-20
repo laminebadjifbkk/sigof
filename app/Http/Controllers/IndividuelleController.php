@@ -255,6 +255,7 @@ class IndividuelleController extends Controller
             'totalIndividuelles'
         ));
     }
+
     public function parAnneeRegion(Request $request, $annee, $region)
     {
         // Région depuis le nom
@@ -308,6 +309,13 @@ class IndividuelleController extends Controller
             ->latest()
             ->limit(500)
             ->get();
+
+        if ($request->boolean('all')) {
+            $individuelles = $individuellesQuery->latest()->get();
+        } else {
+            $individuelles = $individuellesQuery->latest()->paginate(50)->withQueryString();
+        }
+
 
         // =======================================
         // Données annexes
