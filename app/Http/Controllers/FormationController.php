@@ -975,7 +975,7 @@ class FormationController extends Controller
         $date = $date . ' ' . date('i') . 'min';
         $date = $date . ' ' . date('s') . 's';
 
-        if ($formation->statut == "Terminée" && $individuelle->note_obtenue > 0) {
+        if ($formation->statut == "Terminéee" && $individuelle->note_obtenue > 0) {
             Alert::warning('Avertissement !', 'Ce demandeur ne peut pas être retiré.');
         } else {
             $individuelle->update([
@@ -1065,7 +1065,7 @@ class FormationController extends Controller
         $date = $date . ' ' . date('i') . 'min';
         $date = $date . ' ' . date('s') . 's';
 
-        if ($formation->statut == "Terminée" && $listecollective->note_obtenue > 0) {
+        if ($formation->statut == "Terminéee" && $listecollective->note_obtenue > 0) {
             Alert::warning('Avertissement !', 'Ce demandeur ne peut pas être retiré.');
         } else {
             $listecollective->update([
