@@ -563,7 +563,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center" width="2%">N°</th>
-                                                            <th class="text-center">CIN</th>
+                                                            <th class="text-center" width='12%'>CIN</th>
                                                             <th class="text-center">Civilité</th>
                                                             <th class="text-center">Prénom</th>
                                                             <th class="text-center">Nom</th>
@@ -855,7 +855,7 @@
                                                             <tr>
                                                                 <th class="text-center" width="2%">N°</th>
                                                                 <th class="text-center">Civilité</th>
-                                                                <th class="text-center">CIN</th>
+                                                                <th class="text-center" width='12%'>CIN</th>
                                                                 <th class="text-center">Prénom</th>
                                                                 <th class="text-center">NOM</th>
                                                                 <th class="text-center">Date naissance</th>
