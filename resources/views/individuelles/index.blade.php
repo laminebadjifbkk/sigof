@@ -2,15 +2,6 @@
 @section('title', 'ONFP | DEMANDEURS INDIVIDUELS')
 @section('space-work')
     @can('individuelle-view')
-        {{-- <div class="pagetitle">
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url('/home') }}">Accueil</a></li>
-                    <li class="breadcrumb-item">Tables</li>
-                    <li class="breadcrumb-item active">Demandes individuelles</li>
-                </ol>
-            </nav>
-        </div> --}}
         <section class="section">
             <div class="row">
                 <div class="col-12">
@@ -33,6 +24,86 @@
                                 role="alert"><strong>{{ $error }}</strong></div>
                         @endforeach
                     @endif
+
+                    @can('user-show')
+                        <div class="row mb-4">
+                            <div class="row mb-4">
+                                <!-- Total demandes individuelles -->
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                                    <div class="card shadow-sm text-center p-2" style="min-height:140px; border-radius:10px;">
+                                        <h6 class="card-title mb-2 text-truncate" title="Total demandes" style="font-size:0.85rem;">
+                                            Total
+                                        </h6>
+
+                                        <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                            <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
+                                                style="width:28px; height:28px; font-size:1rem;">
+                                                <i class="bi bi-people"></i>
+                                            </div>
+
+                                            <span class="h6 mb-0" style="font-size:1rem;">
+                                                {{ $totalIndividuelles }}
+                                            </span>
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <div class="progress" style="height:6px; border-radius:3px;">
+                                                <div class="progress-bar bg-success" style="width:100%"></div>
+                                            </div>
+                                            <small class="text-muted">100%</small>
+                                        </div>
+
+                                        <a href="{{ route('individuelles.index') }}" class="btn btn-outline-primary btn-sm w-100"
+                                            style="font-size:0.75rem;">
+                                            Voir plus <i class="bi bi-arrow-right-short"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                @foreach ($groupes as $statut_s => $items)
+                                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+                                        <div class="card shadow-sm text-center p-2" style="min-height:120px; border-radius:10px;">
+
+                                            <!-- Titre -->
+                                            <h6 class="card-title mb-2 text-truncate" style="font-size:0.85rem;">
+                                                Demandes
+                                            </h6>
+
+                                            <!-- Badge statut -->
+                                            <span class="{{ $statut_s }}">
+                                                {{ $statut_s }}
+                                            </span>
+
+                                            <!-- Nombre -->
+                                            <div class="d-flex flex-column align-items-center justify-content-center mb-2 mt-2">
+                                                <span class="h6 mb-0" style="font-size:1rem;">
+                                                    {{ $items->count() }}
+                                                </span>
+                                            </div>
+
+                                            <!-- Pourcentage -->
+                                            <div class="mb-2">
+                                                <div class="progress" style="height:6px; border-radius:3px;">
+                                                    <div class="progress-bar bg-success"
+                                                        style="width: {{ $statutPourcentages[$statut_s]['percent'] }}%;">
+                                                    </div>
+                                                </div>
+                                                <small class="text-muted">
+                                                    {{ $statutPourcentages[$statut_s]['percent'] }}%
+                                                </small>
+                                            </div>
+
+                                            <!-- Filtrage -->
+                                            <a href="{{ route('individuelles.index', ['statut' => $statut_s]) }}"
+                                                class="btn btn-outline-primary btn-sm w-100" style="font-size:0.75rem;">
+                                                Voir plus <i class="bi bi-arrow-right-short"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endcan
+
                     <div class="card">
                         <div class="card-body">
                             {{-- <div class="pt-1">
@@ -207,8 +278,8 @@
                                     <div class="card-body row g-4 px-4">
                                         <div class="row g-3">
                                             <div class="col-12 col-md-12 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
-                                                <label for="module" class="form-label">Formation sollicitée (module)<span
-                                                        class="text-danger mx-1">*</span></label>
+                                                <label for="module" class="form-label">Formation sollicitée
+                                                    (module)<span class="text-danger mx-1">*</span></label>
                                                 <input type="text" name="module" value="{{ old('module_name') }}"
                                                     class="form-control form-control-sm @error('module_name') is-invalid @enderror"
                                                     id="module_name" placeholder="Formation sollicitée" autofocus>
@@ -686,7 +757,8 @@
                                             </div>
 
                                             <div class="col-12 col-md-12 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
-                                                <label for="projet_poste_formation" class="form-label">Votre projet après la
+                                                <label for="projet_poste_formation" class="form-label">Votre projet après
+                                                    la
                                                     formation<span class="text-danger mx-1">*</span></label>
                                                 <select name="projet_poste_formation"
                                                     class="form-select form-select-sm @error('projet_poste_formation') is-invalid @enderror"

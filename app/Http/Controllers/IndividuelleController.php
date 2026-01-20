@@ -49,7 +49,7 @@ class IndividuelleController extends Controller
         );
     }
 
-    public function index()
+    /* public function index()
     {
         // Comptage total des individus (sans charger toutes les entrées en mémoire)
         $individuelles      = Individuelle::count();
@@ -69,9 +69,59 @@ class IndividuelleController extends Controller
                 'departements',
                 'totalIndividuelles',
                 'modules',
-                /* 'title' */
             )
         );
+    } */
+
+    public function index(Request $request)
+    {
+        // Total global
+        $total = Individuelle::count();
+        $totalIndividuelles = number_format($total, 0, ',', ' ');
+
+        // Base query
+        $query = Individuelle::query();
+
+        // Filtre par statut (URL ?statut=xxx)
+        if ($statut = $request->query('statut')) {
+            $query->where('statut', $statut);
+        }
+
+        // Données filtrées (tableau)
+        $individuelles = $query
+            ->latest()
+            ->limit(500)
+            ->get();
+
+        // 🔥 GROUPES PAR STATUT (NON FILTRÉ pour les cards)
+        $groupes = Individuelle::latest()
+            ->get()
+            ->groupBy(fn($v) => $v->statut ?? 'inconnu');
+
+        // 🔥 POURCENTAGES
+        $statutPourcentages = [];
+        foreach ($groupes as $statutKey => $items) {
+            $statutPourcentages[$statutKey] = [
+                'count'   => $items->count(),
+                'percent' => $total
+                    ? round($items->count() * 100 / $total, 1)
+                    : 0
+            ];
+        }
+
+        // Données annexes
+        $departements = Departement::select('id', 'nom')->orderBy('nom')->get();
+        $modules = Module::select('id', 'name')->latest()->get();
+
+        return view('individuelles.index', compact(
+            'individuelles',
+            'departements',
+            'modules',
+            'totalIndividuelles',
+            'groupes',
+            'statutPourcentages',
+            'statut'
+        ));
     }
 
     public function store(Request $request)
