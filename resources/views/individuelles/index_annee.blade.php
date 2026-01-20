@@ -25,110 +25,30 @@
                         @endforeach
                     @endif
 
-                    {{-- <div class="card">
-                        <div class="card-body">
-                            @can('user-show')
-                                <div class="row mb-4">
-                                    <div class="row mb-4">
-                                        <!-- Total demandes individuelles -->
-                                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                                            <div class="card shadow-sm text-center p-2"
-                                                style="min-height:140px; border-radius:10px;">
-                                                <h6 class="card-title mb-2 text-truncate" title="Total demandes"
-                                                    style="font-size:0.85rem;">
-                                                    Total
-                                                </h6>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5>Année : {{ $annee }}</h5>
+                        <a href="{{ route('individuelles.index') }}" class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-arrow-left-circle"></i> Retour à la liste
+                        </a>
+                    </div>
 
-                                                <div class="d-flex flex-column align-items-center justify-content-center mb-2">
-                                                    <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
-                                                        style="width:28px; height:28px; font-size:1rem;">
-                                                        <i class="bi bi-people"></i>
-                                                    </div>
-
-                                                    <span class="h6 mb-0" style="font-size:1rem;">
-                                                        {{ $totalIndividuelles }}
-                                                    </span>
-                                                </div>
-
-                                                <div class="mb-2">
-                                                    <div class="progress" style="height:6px; border-radius:3px;">
-                                                        <div class="progress-bar bg-success" style="width:100%"></div>
-                                                    </div>
-                                                    <small class="text-muted">100%</small>
-                                                </div>
-
-                                                <a href="{{ route('individuelles.index') }}"
-                                                    class="btn btn-outline-primary btn-sm w-100" style="font-size:0.75rem;">
-                                                    Voir plus <i class="bi bi-arrow-right-short"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        @foreach ($groupes as $statut_s => $items)
-                                            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-                                                <div class="card shadow-sm text-center p-2"
-                                                    style="min-height:120px; border-radius:10px;">
-
-                                                    <!-- Titre -->
-                                                    <h6 class="card-title mb-2 text-truncate" style="font-size:0.85rem;">
-                                                        Demandes
-                                                    </h6>
-
-                                                    <!-- Badge statut -->
-                                                    <span class="{{ $statut_s }}">
-                                                        {{ $statut_s }}
-                                                    </span>
-
-                                                    <!-- Nombre -->
-                                                    <div
-                                                        class="d-flex flex-column align-items-center justify-content-center mb-2 mt-2">
-                                                        <span class="h6 mb-0" style="font-size:1rem;">
-                                                            {{ $items }}
-                                                        </span>
-                                                    </div>
-
-                                                    <!-- Pourcentage -->
-                                                    <div class="mb-2">
-                                                        <div class="progress" style="height:6px; border-radius:3px;">
-                                                            <div class="progress-bar bg-success"
-                                                                style="width: {{ $statutPourcentages[$statut_s]['percent'] }}%;">
-                                                            </div>
-                                                        </div>
-                                                        <small class="text-muted">
-                                                            {{ $statutPourcentages[$statut_s]['percent'] }}%
-                                                        </small>
-                                                    </div>
-
-                                                    <!-- Filtrage -->
-                                                    <a href="{{ route('individuelles.index', ['statut' => $statut_s]) }}"
-                                                        class="btn btn-outline-primary btn-sm w-100" style="font-size:0.75rem;">
-                                                        Voir plus <i class="bi bi-arrow-right-short"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endcan
-                        </div>
-                    </div> --}}
-
-                    <table class="table table-bordered table-striped align-middle">
-                        <thead class="table-primary">
+                    <table class="table table-striped">
+                        <thead>
                             <tr>
-                                <th scope="col" style="width: 50px;">N°</th>
-                                <th scope="col">Année</th>
-                                <th scope="col" class="text-center">Formations</th>
-                                <th scope="col" style="width: 120px;">Action</th>
+                                <th>#</th>
+                                <th>Région</th>
+                                <th>Total</th>
+                                <th width="10%">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($groupes as $index => $items)
+                            @foreach ($groupes as $row)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $items->annee }}</td>
-                                    <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
+                                    <td>{{ $row->region->nom ?? 'Inconnu' }}</td>
+                                    <td>{{ number_format($row->total, 0, '', ' ') }}</td>
                                     <td>
-                                        <a href="{{ route('individuelles.parAnnee', ['annee' => $items->annee]) }}"
+                                        <a href="{{ route('individuelles.parAnneeRegion', ['annee' => $annee, 'region' => $row->region->nom]) }}"
                                             class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
                                             Voir plus <i class="bi bi-arrow-right-short"></i>
                                         </a>
@@ -137,8 +57,6 @@
                             @endforeach
                         </tbody>
                     </table>
-
-                    <hr>
 
                     {{-- @can('exporter-view')
                         <div class="col-2 pb-3">

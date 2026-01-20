@@ -25,120 +25,74 @@
                         @endforeach
                     @endif
 
-                    {{-- <div class="card">
+                    <div class="card">
                         <div class="card-body">
                             @can('user-show')
                                 <div class="row mb-4">
-                                    <div class="row mb-4">
-                                        <!-- Total demandes individuelles -->
-                                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+
+                                    {{-- ==================== --}}
+                                    {{-- Carte Total --}}
+                                    {{-- ==================== --}}
+                                    {{-- Carte total --}}
+                                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+                                        <div class="card shadow-sm text-center p-2" style="min-height:140px; border-radius:10px;">
+                                            <h6 class="card-title mb-2 text-truncate" title="Total demandes"
+                                                style="font-size:0.85rem;">
+                                                Total
+                                            </h6>
+
+                                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                                <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
+                                                    style="width:28px; height:28px; font-size:1rem;">
+                                                    <i class="bi bi-people"></i>
+                                                </div>
+                                                <span class="h6 mb-0" style="font-size:1rem;">{{ $totalIndividuelles }}</span>
+                                            </div>
+
+                                            <div class="mb-2">
+                                                <div class="progress" style="height:6px; border-radius:3px;">
+                                                    <div class="progress-bar bg-success" style="width:100%"></div>
+                                                </div>
+                                                <small class="text-muted">100%</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- ==================== --}}
+                                    {{-- Cartes par statut --}}
+                                    {{-- ==================== --}}
+                                    @foreach ($regionPourcentages as $region => $data)
+                                        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
                                             <div class="card shadow-sm text-center p-2"
-                                                style="min-height:140px; border-radius:10px;">
-                                                <h6 class="card-title mb-2 text-truncate" title="Total demandes"
-                                                    style="font-size:0.85rem;">
-                                                    Total
+                                                style="min-height:120px; border-radius:10px;">
+                                                <h6 class="card-title mb-2 text-truncate" style="font-size:0.85rem;">
+                                                    {{ $region }}
                                                 </h6>
 
-                                                <div class="d-flex flex-column align-items-center justify-content-center mb-2">
-                                                    <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
-                                                        style="width:28px; height:28px; font-size:1rem;">
-                                                        <i class="bi bi-people"></i>
-                                                    </div>
-
-                                                    <span class="h6 mb-0" style="font-size:1rem;">
-                                                        {{ $totalIndividuelles }}
-                                                    </span>
+                                                <div class="d-flex flex-column align-items-center justify-content-center mb-2 mt-2">
+                                                    <span class="h6 mb-0" style="font-size:1rem;">{{ $data['count'] }}</span>
                                                 </div>
 
                                                 <div class="mb-2">
                                                     <div class="progress" style="height:6px; border-radius:3px;">
-                                                        <div class="progress-bar bg-success" style="width:100%"></div>
+                                                        <div class="progress-bar bg-success"
+                                                            style="width: {{ $data['percent'] }}%;"></div>
                                                     </div>
-                                                    <small class="text-muted">100%</small>
+                                                    <small class="text-muted">{{ $data['percent'] }}%</small>
                                                 </div>
 
-                                                <a href="{{ route('individuelles.index') }}"
+                                                {{-- Lien vers les individuelles de cette région et année --}}
+                                                <a href="{{ route('individuelles.parAnnee', ['annee' => $annee, 'region' => $region]) }}"
                                                     class="btn btn-outline-primary btn-sm w-100" style="font-size:0.75rem;">
                                                     Voir plus <i class="bi bi-arrow-right-short"></i>
                                                 </a>
                                             </div>
                                         </div>
-                                        @foreach ($groupes as $statut_s => $items)
-                                            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-                                                <div class="card shadow-sm text-center p-2"
-                                                    style="min-height:120px; border-radius:10px;">
-
-                                                    <!-- Titre -->
-                                                    <h6 class="card-title mb-2 text-truncate" style="font-size:0.85rem;">
-                                                        Demandes
-                                                    </h6>
-
-                                                    <!-- Badge statut -->
-                                                    <span class="{{ $statut_s }}">
-                                                        {{ $statut_s }}
-                                                    </span>
-
-                                                    <!-- Nombre -->
-                                                    <div
-                                                        class="d-flex flex-column align-items-center justify-content-center mb-2 mt-2">
-                                                        <span class="h6 mb-0" style="font-size:1rem;">
-                                                            {{ $items }}
-                                                        </span>
-                                                    </div>
-
-                                                    <!-- Pourcentage -->
-                                                    <div class="mb-2">
-                                                        <div class="progress" style="height:6px; border-radius:3px;">
-                                                            <div class="progress-bar bg-success"
-                                                                style="width: {{ $statutPourcentages[$statut_s]['percent'] }}%;">
-                                                            </div>
-                                                        </div>
-                                                        <small class="text-muted">
-                                                            {{ $statutPourcentages[$statut_s]['percent'] }}%
-                                                        </small>
-                                                    </div>
-
-                                                    <!-- Filtrage -->
-                                                    <a href="{{ route('individuelles.index', ['statut' => $statut_s]) }}"
-                                                        class="btn btn-outline-primary btn-sm w-100" style="font-size:0.75rem;">
-                                                        Voir plus <i class="bi bi-arrow-right-short"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
+                                    @endforeach
                                 </div>
                             @endcan
                         </div>
-                    </div> --}}
-
-                    <table class="table table-bordered table-striped align-middle">
-                        <thead class="table-primary">
-                            <tr>
-                                <th scope="col" style="width: 50px;">N°</th>
-                                <th scope="col">Année</th>
-                                <th scope="col" class="text-center">Formations</th>
-                                <th scope="col" style="width: 120px;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($groupes as $index => $items)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $items->annee }}</td>
-                                    <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
-                                    <td>
-                                        <a href="{{ route('individuelles.parAnnee', ['annee' => $items->annee]) }}"
-                                            class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
-                                            Voir plus <i class="bi bi-arrow-right-short"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-
-                    <hr>
+                    </div>
 
                     {{-- @can('exporter-view')
                         <div class="col-2 pb-3">

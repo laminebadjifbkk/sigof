@@ -101,13 +101,18 @@ class IndividuelleController extends Controller
         // =========================
         // CARDS (SQL ONLY)
         // =========================
-        $groupesRaw = Individuelle::select('statut')
+        /* $groupesRaw = Individuelle::select('statut')
             ->selectRaw('COUNT(*) as total')
             ->groupBy('statut')
+            ->get(); */
+
+        $groupes = Individuelle::select(DB::raw('YEAR(date_depot) as annee'))
+            ->selectRaw('COUNT(*) as total')
+            ->groupBy('annee')
             ->get();
 
         // Reformatage pour la vue
-        $groupes = [];
+        /* $groupes = [];
         $statutPourcentages = [];
 
         foreach ($groupesRaw as $row) {
@@ -121,7 +126,7 @@ class IndividuelleController extends Controller
                     ? round($row->total * 100 / $total, 1)
                     : 0
             ];
-        }
+        } */
 
         // Données annexes
         $departements = Departement::select('id', 'nom')->orderBy('nom')->get();
@@ -133,8 +138,169 @@ class IndividuelleController extends Controller
             'modules',
             'totalIndividuelles',
             'groupes',
+            /* 'statutPourcentages',
+            'statut' */
+        ));
+    }
+
+    /*  public function parAnnee(Request $request, $annee)
+    {
+        $query = Individuelle::whereYear('date_depot', $annee);
+
+        if ($request->filled('statut')) {
+            $query->where('statut', $request->statut);
+        }
+
+        $individuelles = $query->latest()->limit(500)->get();
+
+        $total = $query->count();
+        $totalIndividuelles = number_format($total, 0, ',', ' ');
+
+        // Cartes par statut pour cette année
+        $groupesRaw = Individuelle::select('statut')
+            ->selectRaw('COUNT(*) as total')
+            ->whereYear('date_depot', $annee)
+            ->groupBy('statut')
+            ->get();
+
+        $statutPourcentages = [];
+        foreach ($groupesRaw as $row) {
+            $key = $row->statut ?? 'inconnu';
+            $statutPourcentages[$key] = [
+                'count' => $row->total,
+                'percent' => $total ? round($row->total * 100 / $total, 1) : 0
+            ];
+        }
+
+        // Tableau des années
+        $groupes = Individuelle::select(DB::raw('YEAR(date_depot) as annee'))
+            ->selectRaw('COUNT(*) as total')
+            ->groupBy('annee')
+            ->get();
+
+        // Données annexes
+        $departements = Departement::select('id', 'nom')->orderBy('nom')->get();
+        $modules = Module::select('id', 'name')->latest()->get();
+
+        return view('individuelles.index_annee', compact(
+            'individuelles',
+            'departements',
+            'modules',
             'statutPourcentages',
-            'statut'
+            'groupes',
+            'annee',
+            'totalIndividuelles'
+        ));
+    } */
+    public function parAnnee(Request $request, $annee)
+    {
+        // =======================================
+        // Construction de la requête de base
+        // =======================================
+        $query = Individuelle::whereYear('date_depot', $annee);
+
+        // Filtre par statut si fourni
+        if ($request->filled('statut')) {
+            $query->where('statut', $request->statut);
+        }
+
+        // Filtre par région si fourni
+        if ($request->filled('region')) {
+            $query->where('regions_id', $request->region);
+        }
+
+        // =======================================
+        // Individuelles détaillées (max 500)
+        // =======================================
+        $individuelles = $query->latest()->limit(500)->get();
+
+        // Total pour l'année après filtres
+        $total = $query->count();
+        $totalIndividuelles = number_format($total, 0, ',', ' ');
+
+        // =======================================
+        // Cartes par région pour cette année
+        // =======================================
+        $groupes = Individuelle::with('region')
+            ->select('regions_id')
+            ->selectRaw('COUNT(*) as total')
+            ->whereYear('date_depot', $annee)
+            ->groupBy('regions_id')
+            ->get();
+
+        // Format pour Blade : nom de région → count + pourcentage
+        $regionPourcentages = [];
+        foreach ($groupes as $row) {
+            $regionNom = $row->region->nom ?? 'Inconnu';
+            $regionPourcentages[$regionNom] = [
+                'count' => $row->total,
+                'percent' => $total ? round($row->total * 100 / $total, 1) : 0
+            ];
+        }
+
+        // =======================================
+        // Données annexes
+        // =======================================
+        $departements = Departement::select('id', 'nom')->orderBy('nom')->get();
+
+        // =======================================
+        // Retour vers la vue
+        // =======================================
+        return view('individuelles.index_annee', compact(
+            'individuelles',
+            'departements',
+            'regionPourcentages', // cartes par région
+            'groupes',           // tableau des années
+            'annee',
+            'totalIndividuelles'
+        ));
+    }
+    public function parAnneeRegion(Request $request, $annee, $region)
+    {
+        $region = Region::where('nom', $region)->first();
+
+        // =======================================
+        // Total pour l'année et la région
+        // =======================================
+        $queryTotal = Individuelle::whereYear('date_depot', $annee)
+            ->where('regions_id', $region->id);
+
+        $total = $queryTotal->count();
+        $totalIndividuelles = number_format($total, 0, ',', ' ');
+
+        // =======================================
+        // Totaux par statut dans cette région pour cette année
+        // =======================================
+        $groupesRegionStatut = Individuelle::with('region')
+            ->select('statut')
+            ->selectRaw('COUNT(*) as total')
+            ->whereYear('date_depot', $annee)
+            ->where('regions_id', $region->id)
+            ->groupBy('statut')
+            ->get();
+
+        // Reformater pour Blade
+        $statutPourcentages = [];
+        foreach ($groupesRegionStatut as $row) {
+            $statut = $row->statut ?? 'Inconnu';
+            $statutPourcentages[$statut] = [
+                'count' => $row->total,
+                'percent' => $total ? round($row->total * 100 / $total, 1) : 0
+            ];
+        }
+
+        // Récupérer les infos de la région pour l’affichage
+        $regionNom = $region?->nom ?? 'Inconnu';
+
+        // =======================================
+        // Retour vers la vue
+        // =======================================
+        return view('individuelles.index_annee_region', compact(
+            'annee',
+            'region',
+            'regionNom',
+            'totalIndividuelles',
+            'statutPourcentages'
         ));
     }
 

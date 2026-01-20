@@ -643,6 +643,12 @@ Route::group(['middleware' => ['XSS']], function () {
         )
             ->name('exporter-liste-admis-col.pdf');
 
+        Route::get('/individuelles/annee/{annee}', [IndividuelleController::class, 'parAnnee'])
+            ->name('individuelles.parAnnee');
+
+        Route::get('/individuelles/{annee}/region/{region}', [IndividuelleController::class, 'parAnneeRegion'])
+            ->name('individuelles.parAnneeRegion');
+
         Route::get('/commissionagrements/{statut}/{commissionagrement}/export-pv', [CommissionagrementController::class, 'exportPV'])
             ->name('commissionagrements.exportPV');
 
