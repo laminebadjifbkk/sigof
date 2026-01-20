@@ -620,6 +620,7 @@ class FormationController extends Controller
         $onfpevaluateurs  = Onfpevaluateur::latest()->get();
         $referentiels     = Referentiel::all();
 
+        dd($type_formation);
         // collectives_id est déjà chargé via $formation
         $collectivemodule = Collectivemodule::where('collectives_id', $formation->collectives_id)->get();
 
