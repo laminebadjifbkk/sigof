@@ -70,7 +70,12 @@ class NotifierGroupesVingtDemandeurs extends Command
     {
         $seuil = 20;
 
-        $groupes = Individuelle::where('statut', 'Nouvelle')
+        /* $groupes = Individuelle::where('statut', 'Nouvelle')
+            ->selectRaw('regions_id, modules_id, COUNT(*) as total')
+            ->groupBy('regions_id', 'modules_id')
+            ->having('total', '>=', $seuil)
+            ->get(); */
+        $groupes = Individuelle::whereIn('statut', ['Nouvelle', 'Conforme'])
             ->selectRaw('regions_id, modules_id, COUNT(*) as total')
             ->groupBy('regions_id', 'modules_id')
             ->having('total', '>=', $seuil)

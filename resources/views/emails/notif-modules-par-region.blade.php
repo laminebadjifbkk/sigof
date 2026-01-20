@@ -26,7 +26,7 @@
 <body>
 
     <h2>Modules ayant atteint {{ $seuil }} demandes</h2>
-    <p>Statut : <strong>Nouvelle</strong></p>
+    <p>Statut : <strong>Nouvelle & Conforme</strong></p>
 
     @foreach ($donnees as $region => $modules)
         <h3>Région : {{ $region }}</h3>
