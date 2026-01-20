@@ -661,6 +661,8 @@ class FormationController extends Controller
             $formations = Formation::select('name', 'intitule', 'code', 'id')->get();
         }
 
+        $listecollectives = Listecollective::where('formations_id', $formation->id)->get();
+
         return view(
             'formations.' . $type_formation . "s.show",
             compact(
