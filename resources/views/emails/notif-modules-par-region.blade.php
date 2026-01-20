@@ -33,13 +33,15 @@
         <table>
             <thead>
                 <tr>
+                    <th>N°</th>
                     <th>Module</th>
                     <th>Nombre de demandes</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($modules as $module)
+                @foreach ($modules as $index => $module)
                     <tr>
+                        <td>{{ $index + 1 }}</td> {{-- Numérotation à partir de 1 --}}
                         <td>{{ $module['module'] }}</td>
                         <td>{{ $module['total'] }}</td>
                     </tr>
