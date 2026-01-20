@@ -305,7 +305,7 @@ class IndividuelleController extends Controller
             ->where('regions_id', $region->id)
             ->when($statutFiltre, fn($q) => $q->where('statut', $statutFiltre))
             ->orderByDesc('id')
-            ->chunk(300, function ($rows) use (&$individuelles) {
+            ->chunk(1000, function ($rows) use (&$individuelles) {
                 $individuelles = $individuelles->merge($rows);
             });
 
