@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Exports\ExportIndividuellesStatut;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class IndividuelleController extends Controller
 {
@@ -2087,11 +2088,18 @@ class IndividuelleController extends Controller
 
     public function exportExcel(string $statut)
     {
-        $fileName = "Demandes_individuelles_{$statut}_" . now()->format('Ymd_His') . ".xlsx";
+        /* $fileName = "Demandes_individuelles_{$statut}_" . now()->format('Ymd_His') . ".xlsx"; */
+        $fileName = "Demandes_individuelles_{$statut}_" . now()->format('Ymd_His') . ".csv";
 
-        return Excel::download(
+        /* return Excel::download(
             new ExportIndividuellesStatut($statut),
             $fileName
+        ); */
+        return Excel::download(
+            new ExportIndividuellesStatut($statut),
+            $fileName,
+            ExcelExcel::CSV,
+            ['use_bom' => true]
         );
     }
 }
