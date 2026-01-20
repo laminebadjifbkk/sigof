@@ -112,6 +112,16 @@
                         </div>
                     </div>
 
+                    @can('exporter-view')
+                        <div class="col-2 pb-3">
+                            <a href="{{ route('individuelles.exportExcel', ['statut' => $statut ?? 'all']) }}"
+                                class="btn btn-outline-success btn-sm d-flex align-items-center gap-2" title="Exporter Excel">
+                                <i class="bi bi-file-earmark-excel"></i>
+                                Exporter Excel
+                            </a>
+                        </div>
+                    @endcan
+
                     <div class="card">
                         <div class="card-body">
                             {{-- <div class="pt-1">

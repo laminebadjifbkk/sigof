@@ -24,6 +24,9 @@ use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 
+use App\Exports\ExportIndividuellesStatut;
+use Maatwebsite\Excel\Facades\Excel;
+
 class IndividuelleController extends Controller
 {
     public function __construct()
@@ -2080,5 +2083,15 @@ class IndividuelleController extends Controller
         $individuelle->restore();
 
         return redirect()->back()->with('success', 'Demande restauré avec succès.');
+    }
+
+    public function exportExcel(string $statut)
+    {
+        $fileName = "Demandes_individuelles_{$statut}_" . now()->format('Ymd_His') . ".xlsx";
+
+        return Excel::download(
+            new ExportIndividuellesStatut($statut),
+            $fileName
+        );
     }
 }
