@@ -59,7 +59,7 @@ class NotificationDemandeursMail extends Mailable
      */
     public function build()
     {
-        return $this->subject("⚠️ Modules ayant atteint {$this->seuil} demandes (Statut : Nouvelle)")
+        return $this->subject("Modules ayant atteint {$this->seuil} demandes (Statut : Nouvelle)")
             ->view('emails.notif-modules-par-region');
     }
 }
