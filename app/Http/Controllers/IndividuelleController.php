@@ -79,32 +79,41 @@ class IndividuelleController extends Controller
         $total = Individuelle::count();
         $totalIndividuelles = number_format($total, 0, ',', ' ');
 
-        // Base query
+        // =========================
+        // TABLE (max 500 lignes)
+        // =========================
         $query = Individuelle::query();
 
-        // Filtre par statut (URL ?statut=xxx)
         if ($statut = $request->query('statut')) {
             $query->where('statut', $statut);
         }
 
-        // Données filtrées (tableau)
         $individuelles = $query
             ->latest()
             ->limit(500)
             ->get();
 
-        // 🔥 GROUPES PAR STATUT (NON FILTRÉ pour les cards)
-        $groupes = Individuelle::latest()
-            ->get()
-            ->groupBy(fn($v) => $v->statut ?? 'inconnu');
+        // =========================
+        // CARDS (SQL ONLY)
+        // =========================
+        $groupesRaw = Individuelle::select('statut')
+            ->selectRaw('COUNT(*) as total')
+            ->groupBy('statut')
+            ->get();
 
-        // 🔥 POURCENTAGES
+        // Reformatage pour la vue
+        $groupes = [];
         $statutPourcentages = [];
-        foreach ($groupes as $statutKey => $items) {
-            $statutPourcentages[$statutKey] = [
-                'count'   => $items->count(),
+
+        foreach ($groupesRaw as $row) {
+            $key = $row->statut ?? 'inconnu';
+
+            $groupes[$key] = $row->total;
+
+            $statutPourcentages[$key] = [
+                'count'   => $row->total,
                 'percent' => $total
-                    ? round($items->count() * 100 / $total, 1)
+                    ? round($row->total * 100 / $total, 1)
                     : 0
             ];
         }

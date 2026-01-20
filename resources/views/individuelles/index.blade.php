@@ -76,7 +76,7 @@
                                             <!-- Nombre -->
                                             <div class="d-flex flex-column align-items-center justify-content-center mb-2 mt-2">
                                                 <span class="h6 mb-0" style="font-size:1rem;">
-                                                    {{ $items->count() }}
+                                                    {{ $items }}
                                                 </span>
                                             </div>
 
