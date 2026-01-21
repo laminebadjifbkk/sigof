@@ -318,6 +318,7 @@ class IngenieurController extends Controller
     {
         $formations = $ingenieur->formations()
             ->where('annee', $annee)
+            ->where('ingenieurs_id', $ingenieur->id) // 🔒 rattachement ingénieur
             ->when($region, function ($q) use ($region) {
 
                 if ($region === 'Aucune région') {
@@ -331,28 +332,28 @@ class IngenieurController extends Controller
             ->with([
                 'types_formation',
                 'regions',
-                'individuelles', // uniquement celles des formations filtrées
-                'listecollectives.collective'
+                'individuelles',
+                'listecollectives.collective',
             ])
             ->get();
 
-        // Grouper par type
+        // 1️⃣ Grouper par type
         $formationsParType = $formations->groupBy(
             fn($f) => $f->types_formation?->name
         );
 
-        // ✅ Individuelles : PLUS BESOIN de filtrer par région ici
+        // 2️⃣ Individuelles (déjà filtrées par région)
         $individuelles = $formationsParType
             ->get('individuelle', collect())
             ->flatMap(fn($f) => $f->individuelles ?? collect())
             ->values();
 
-        // Collectives
+        // 3️⃣ Collectives
         $collectives = $formationsParType
             ->get('collective', collect())
             ->flatMap(fn($f) => $f->listecollectives ?? collect());
 
-        // Stats
+        // 4️⃣ Stats
         $nbIndividuelles = $individuelles->count();
         $nbCollectives  = $collectives->count();
         $totalFormes    = $nbIndividuelles + $nbCollectives;
