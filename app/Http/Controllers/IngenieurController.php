@@ -305,7 +305,7 @@ class IngenieurController extends Controller
             // Collectives
             if ($formation->collective) {
                 foreach ($formation->collective->listecollectives as $collective) {
-                    $regionNom = $collective->region->nom ?? 'Aucune région';
+                    $regionNom = $formation->collective->region->nom ?? 'Aucune région';
                     $resultats->push([
                         'region' => $regionNom,
                         'formation' => $formation,
