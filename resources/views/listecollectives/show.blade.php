@@ -174,11 +174,25 @@
                                     </div>
 
                                     @if ($listecollective->note_obtenue)
+                                        @php
+                                            $rawNote = floatval($listecollective->note_obtenue); // valeur brute
+                                            $noteClass = match (true) {
+                                                $rawNote < 5 => 'text-danger fw-bold', // Rouge pour < 5
+                                                $rawNote < 7 => 'text-warning fw-bold', // Orange pour 5-6.9
+                                                $rawNote < 9 => 'text-primary fw-bold', // Bleu pour 7-8.9
+                                                default => 'text-success fw-bold', // Vert pour 9-10
+                                            };
+                                            $formattedNote =
+                                                fmod($rawNote, 1) == 0.0
+                                                    ? number_format($rawNote, 0, ',', ' ')
+                                                    : number_format($rawNote, 1, ',', ' ');
+                                        @endphp
+
                                         <div class="col-12 col-md-3 mb-2">
                                             <div class="label mb-2">Note évaluation</div>
                                             <div>
-                                                <span class="{{ $listecollective->note_obtenue }} text-white">
-                                                    {{ $listecollective?->statut }}
+                                                <span class="{{ $noteClass }}">
+                                                    {{ $listecollective?->note_obtenue }}
                                                 </span>
                                             </div>
                                         </div>
