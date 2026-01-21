@@ -295,9 +295,12 @@ class IngenieurController extends Controller
             // Individuelles
             foreach ($formation->individuelles as $individuelle) {
                 $regionNom = $individuelle->region->nom ?? 'Aucune région';
+                $totalIndividuelle = count($formation->individuelles);
                 $resultats->push([
                     'region' => $regionNom,
                     'formation' => $formation,
+                    'totalIndividuelle' => $totalIndividuelle,
+                    'totalCollective' => 0, // par défaut
                     'total' => 1,
                 ]);
             }
@@ -306,9 +309,12 @@ class IngenieurController extends Controller
             if ($formation->collective) {
                 foreach ($formation->collective->listecollectives as $collective) {
                     $regionNom = $formation->collective->region->nom ?? 'Aucune région';
+                    $totalCollective = count($formation->collective->listecollectives);
                     $resultats->push([
                         'region' => $regionNom,
                         'formation' => $formation,
+                        'totalIndividuelle' => 0, // par défaut
+                        'totalCollective' => $totalCollective,
                         'total' => 1,
                     ]);
                 }
@@ -317,6 +323,10 @@ class IngenieurController extends Controller
             return $resultats;
         })->groupBy('region');
 
+        $totalIndividuelle = $formations->sum(fn($formation) => $formation->individuelles->count());
+        $totalCollective  = $formations->sum(fn($formation) => $formation->collective ? $formation->collective->listecollectives->count() : 0);
+        $totalGeneral     = $totalIndividuelle + $totalCollective;
+        
         // 🔹 Transformer chaque groupe en collection pour pouvoir utiliser sum()
         $groupes = collect($groupes)->map(fn($items) => collect($items));
 
@@ -325,6 +335,7 @@ class IngenieurController extends Controller
             'ingenieur',
             'annee',
             'groupes',
+            'totalGeneral',
             'formations'
         ));
     }
