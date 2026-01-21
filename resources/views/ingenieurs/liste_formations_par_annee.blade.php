@@ -96,6 +96,7 @@
                                         <th>Date nais.</th>
                                         <th>Lieu nais.</th>
                                         <th>Module</th>
+                                        <th>Département</th>
                                         {{-- <th>Dépôt</th> --}}
                                         <th>Statut</th>
                                         <th>#</th>
@@ -112,6 +113,7 @@
                                             <td>{{ $ind->user->date_naissance?->format('d/m/Y') }}</td>
                                             <td>{{ $ind->user->lieu_naissance }}</td>
                                             <td>{{ $ind->module->name ?? '-' }}</td>
+                                            <td>{{ $ind->departement->nom ?? '-' }}</td>
                                             {{-- <td>{{ $ind->date_depot?->format('d/m/Y') ?? 'Aucun' }}</td> --}}
                                             <td>
                                                 <span class="{{ $ind->statut }}">{{ $ind->statut }}</span>
