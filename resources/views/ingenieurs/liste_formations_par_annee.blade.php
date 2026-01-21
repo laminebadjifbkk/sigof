@@ -4,13 +4,34 @@
     @can('individuelle-view')
         <section class="section">
             <div class="row mb-4">
+
+                <div class="pagetitle">
+                    {{-- <h1>Data Tables</h1> --}}
+                    <nav>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+                            <li class="breadcrumb-item">Tables</li>
+                            <li class="breadcrumb-item active">{{ $ingenieur->name }}</li>
+                        </ol>
+                    </nav>
+                </div><!-- End Page Title -->
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <a href="{{ route('ingenieurs.formations.parAnnee', [
+                            'ingenieur' => $ingenieur->id,
+                            'annee' => $annee,
+                        ]) }}" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-arrow-left-circle"></i> Retour
+                    </a>
+                </div>
                 {{-- Cases interactives style "card" responsive --}}
                 @if (($individuelles ?? collect())->isNotEmpty())
                     <div class="col-6 col-sm-4 col-md-4 col-lg-3">
                         <div class="card shadow-sm text-center p-2 hover-pointer" style="min-height:140px; border-radius:10px;"
                             onclick="toggleTable('table-individuelles')">
 
-                            <h6 class="card-title mb-2 text-truncate" title="Formations Individuelles" style="font-size:0.85rem;">
+                            <h6 class="card-title mb-2 text-truncate" title="Formations Individuelles"
+                                style="font-size:0.85rem;">
                                 Formations individuelles
                             </h6>
 

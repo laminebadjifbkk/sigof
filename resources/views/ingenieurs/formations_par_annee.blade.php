@@ -13,10 +13,11 @@
         </nav>
     </div><!-- End Page Title -->
 
-    <span class="d-flex align-items-baseline"><a href="{{ route('ingenieurs.show', $ingenieur->id) }}"
-            class="btn btn-success btn-sm" title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-        <p> | retour</p>
-    </span>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="{{ route('ingenieurs.show', $ingenieur->id) }}" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-arrow-left-circle"></i> Retour
+        </a>
+    </div>
 
     <table class="table table-bordered table-striped align-middle">
         <thead class="table-primary">
