@@ -316,84 +316,52 @@ class IngenieurController extends Controller
 
     public function listeFormationsParAnnee(Ingenieur $ingenieur, $annee, $region = null)
     {
-        // 1. Charger les formations de l'ingénieur pour l'année
         $formations = $ingenieur->formations()
             ->where('annee', $annee)
+            ->when($region, function ($q) use ($region) {
+
+                if ($region === 'Aucune région') {
+                    $q->whereDoesntHave('regions');
+                } else {
+                    $q->whereHas('regions', function ($qr) use ($region) {
+                        $qr->where('nom', $region);
+                    });
+                }
+            })
             ->with([
                 'types_formation',
-                'individuelles',
-                'listecollectives.collective', // on n'a plus besoin de la région ici
-                'regions'
+                'regions',
+                'individuelles', // uniquement celles des formations filtrées
+                'listecollectives.collective'
             ])
             ->get();
 
+        // Grouper par type
+        $formationsParType = $formations->groupBy(
+            fn($f) => $f->types_formation?->name
+        );
 
-        // 2. Filtrer par région de la formation
-        if ($region) {
-            $formations = $formations->filter(function ($formation) use ($region) {
-
-                if ($region === 'Aucune région') {
-                    return $formation->regions->isEmpty();
-                }
-
-                return $formation->regions->pluck('nom')->contains($region);
-            });
-        }
-
-        // 3. Grouper par type de formation
-        $formationsParType = $formations->groupBy(fn($f) => $f->types_formation?->name);
-
-        // 4. Formations individuelles
-        $dividuelles = $formationsParType
-            ->get('individuelle', collect())
-            ->flatMap(fn($f) => $f->individuelles ?? collect());
-
+        // ✅ Individuelles : PLUS BESOIN de filtrer par région ici
         $individuelles = $formationsParType
             ->get('individuelle', collect())
             ->flatMap(fn($f) => $f->individuelles ?? collect())
-            ->filter(function ($individuelle) use ($region, $ingenieur) {
-
-                // 🔒 Sécurité : rattacher à l’ingénieur
-                if ($individuelle->formation->ingenieurs_id !== $ingenieur->id) {
-                    return false;
-                }
-
-                // 🌍 Pas de filtre région
-                if (!$region) {
-                    return true;
-                }
-
-                // 🌍 Aucune région
-                if ($region === 'Aucune région') {
-                    return $individuelle->formation->regions->isEmpty();
-                }
-
-                // 🌍 Région spécifique
-                return $individuelle
-                    ->formation
-                    ->regions
-                    ->pluck('nom')
-                    ->contains($region);
-            })
             ->values();
 
-        /* dd($dividuelles, $individuelles, $region); */
-
-        // 5. Formations collectives : toutes les listecollectives associées
+        // Collectives
         $collectives = $formationsParType
             ->get('collective', collect())
-            ->flatMap(fn($f) => $f->listecollectives);
+            ->flatMap(fn($f) => $f->listecollectives ?? collect());
 
-        $nbIndividuelles = ($individuelles ?? collect())->count();
-        $nbCollectives  = ($collectives ?? collect())->count();
+        // Stats
+        $nbIndividuelles = $individuelles->count();
+        $nbCollectives  = $collectives->count();
+        $totalFormes    = $nbIndividuelles + $nbCollectives;
 
-        $totalFormes = $nbIndividuelles + $nbCollectives;
-
-        $pourcentageIndividuelles = $totalFormes > 0
+        $pourcentageIndividuelles = $totalFormes
             ? round(($nbIndividuelles / $totalFormes) * 100)
             : 0;
 
-        $pourcentageCollectives = $totalFormes > 0
+        $pourcentageCollectives = $totalFormes
             ? round(($nbCollectives / $totalFormes) * 100)
             : 0;
 
