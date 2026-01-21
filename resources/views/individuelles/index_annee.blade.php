@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | DEMANDEURS INDIVIDUELS')
+@section('title', 'ONFP | DEMANDEURS INDIVIDUELS ' . $annee)
 @section('space-work')
     @can('individuelle-view')
         <section class="section">
@@ -38,8 +38,8 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Région</th>
-                                        <th>Total</th>
+                                        <th>Régions</th>
+                                        <th>Demandes reçues</th>
                                         <th width="10%">Actions</th>
                                     </tr>
                                 </thead>
