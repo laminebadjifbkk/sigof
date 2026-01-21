@@ -192,7 +192,7 @@ class IndividuelleController extends Controller
             'totalIndividuelles'
         ));
     } */
-   
+
     public function parAnnee(Request $request, $annee)
     {
         // =======================================
@@ -1341,6 +1341,11 @@ class IndividuelleController extends Controller
             ->distinct()
             ->get();
 
+        $groupes = Individuelle::select(DB::raw('YEAR(date_depot) as annee'))
+            ->selectRaw('COUNT(*) as total')
+            ->groupBy('annee')
+            ->get();
+
         /* $count = $individuelles?->count(); */
 
         /* if (isset($count) && $count < "1") {
@@ -1359,6 +1364,7 @@ class IndividuelleController extends Controller
             'individuelles',
             'departements',
             'totalIndividuelles',
+            'groupes'
             /* 'title' */
         ));
     }
