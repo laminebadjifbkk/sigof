@@ -404,7 +404,7 @@ class FormationController extends Controller
             "titre"              => "nullable|string",
             "date_debut"         => "nullable|date|size:10|date_format:Y-m-d",
             "date_convention"    => "nullable|date|size:10|date_format:Y-m-d",
-            "date_lettre"        => "nullable|date|size:10|date_format:Y-m-d",
+            /* "date_lettre"        => "nullable|date|size:10|date_format:Y-m-d", */
             "date_lettre_dec"    => "nullable|date|size:10|date_format:Y-m-d",
             "date_fin"           => "nullable|date|size:10|date_format:Y-m-d",
             "date_pv"            => "nullable|date|size:10|date_format:Y-m-d",
@@ -474,7 +474,7 @@ class FormationController extends Controller
         $date_fin       = parseDateOrNull($request->input('date_fin'));
         $date_pv        = parseDateOrNull($request->input('date_pv'));
         $date_pv_finale = parseDateOrNull($request->input('date_pv_finale'));
-        $date_lettre    = parseDateOrNull($request->input('date_lettre'));
+        /* $date_lettre    = parseDateOrNull($request->input('date_lettre')); */
         /* $date_lettre_dec = parseDateOrNull($request->input('date_lettre_dec')); */
         $date_convention = parseDateOrNull($request->input('date_convention'));
         $date_etat       = parseDateOrNull($request->input('date_etat'));
@@ -488,6 +488,17 @@ class FormationController extends Controller
         $duree_formation          = $request->input('duree_formation') ?: null;
         $indemnite_transport_jour = $request->input('indemnite_transport_jour') ?: null;
 
+        $numero_convention = $request->input('numero_convention', '0000'); // reste une string
+
+        // Convertir en entier pour le calcul
+        $numero_int = (int) $numero_convention;
+
+        // Calcul -1 mais minimum 0
+        $numero_lettre_mission_int = max(0, $numero_int - 1);
+
+        // Reformater en gardant les zéros initiaux (même longueur que l'original)
+        $numero_lettre_mission = str_pad($numero_lettre_mission_int, strlen($numero_convention), '0', STR_PAD_LEFT);
+
         $formation->update([
             "code"                     => $request->input('code'),
             "name"                     => $request->input('name'),
@@ -497,13 +508,13 @@ class FormationController extends Controller
             "lieu"                     => $request->input('lieu'),
             "types_formations_id"      => $request->input('types_formation'),
             "type_certification"       => $request->input('type_certification'),
-            "numero_convention"        => $request->input('numero_convention'),
+            "numero_convention"        => $numero_convention,
             "titre"                    => $titre,
             "type_certificat"          => $type,
             "date_debut"               => $date_debut,
             "date_fin"                 => $date_fin,
             "date_convention"          => $date_convention,
-            "date_lettre"              => $date_lettre,
+            "date_lettre"              => $date_convention,
             /* "date_lettre_dec"          => $date_lettre_dec, */
             "effectif_prevu"           => $effectif_prevu,
             "prevue_h"                 => $prevue_h,
@@ -512,7 +523,7 @@ class FormationController extends Controller
             "frais_add"                => $frais_add,
             "autes_frais"              => $autes_frais,
             "projets_id"               => $projet?->id,
-            "lettre_mission"           => $request->input('lettre_mission'),
+            "lettre_mission"           => $numero_lettre_mission,
             /* "lettre_mission_dec"       => $request->input('lettre_mission_dec'), */
             "programmes_id"            => $request->input('programme'),
             "choixoperateurs_id"       => $request->input('choixoperateur'),
