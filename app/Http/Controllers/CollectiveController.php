@@ -184,11 +184,19 @@ class CollectiveController extends Controller
                 $q->where('nom', $region);
             });
 
-        $collectives = $collectivesQuery
+        /* $collectives = $collectivesQuery
             ->when($statutFiltre, fn($q) => $q->where('statut_demande', $statutFiltre))
             ->latest('date_depot')
             ->limit(500)
-            ->get();
+            ->get(); */
+
+        $collectives = $collectivesQuery
+            ->with('collectivemodules')
+            ->when($statutFiltre, fn($q) => $q->where('statut_demande', $statutFiltre))
+            ->latest('date_depot')
+            ->limit(500)
+            ->get()
+            ->flatMap(fn($collective) => $collective->collectivemodules);
 
         // 🔹 Totaux ANNÉE + RÉGION
         $totalDemandesCount = Collective::whereYear('date_depot', $annee)

@@ -144,85 +144,92 @@
                                 <table class="table table-hover align-middle datatables" id="table-collectives">
                                     <thead class="table-light">
                                         <tr>
-                                            <th>N°</th>
+                                            <th class="text-center">N°</th>
+                                            <th width="30%">Modules</th>
                                             <th width="30%">Structure</th>
-                                            {{-- <th>E-mail</th> --}}
+                                            <th>E-mail</th>
                                             <th>Téléphone</th>
                                             <th>Région</th>
+                                            <th>Responsable</th>
                                             <th class="text-center">Dépôt</th>
-                                            <th class="text-center">Modules</th>
                                             <th class="text-center">Effectif</th>
-                                            <th class="text-center">Statut</th>
-                                            <th class="text-center">Actions</th>
+                                            {{-- <th class="text-center">Statut</th> --}}
+                                            <th class="text-center"></th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                        @foreach ($collectives as $collective)
+                                        <?php $i = 1; ?>
+                                        @foreach ($collectives as $collectivemodule)
                                             <tr>
-                                                <td>{{ $collective->numero }}</td>
+                                                <td>{{ $i++ }}</td>
 
                                                 <td>
-                                                    {{ $collective->name }}
-                                                    @if ($collective->sigle)
-                                                        <small class="text-muted">({{ $collective->sigle }})</small>
+                                                    {{ $collectivemodule->module }}
+                                                </td>
+
+                                                <td>
+                                                    {{ $collectivemodule->collective->name }}
+                                                    @if ($collectivemodule->collective->sigle)
+                                                        <small
+                                                            class="text-muted">({{ $collectivemodule->collective->sigle }})</small>
                                                     @endif
                                                 </td>
 
-                                                {{-- <td>
-                                                    <a href="mailto:{{ optional($collective->user)->email }}">
-                                                        {{ optional($collective->user)->email }}
-                                                    </a>
-                                                </td> --}}
-
                                                 <td>
-                                                    <a href="tel:+221{{ $collective->telephone }}">
-                                                        {{ $collective->telephone }}
+                                                    <a
+                                                        href="mailto:{{ optional($collectivemodule->collective->user)->email }}">
+                                                        {{ optional($collectivemodule->collective->user)->email }}
                                                     </a>
                                                 </td>
 
                                                 <td>
-                                                    {{ optional(optional($collective->departement)->region)->nom }}
+                                                    <a href="tel:+221{{ $collectivemodule->collective->telephone }}">
+                                                        {{ $collectivemodule->collective->telephone }} <br>
+                                                        {{ $collectivemodule->collective->telephone_responsable }}
+                                                    </a>
+                                                </td>
+
+                                                <td>
+                                                    {{ optional(optional($collectivemodule->collective->departement)->region)->nom }}
+                                                </td>
+
+                                                <td>
+                                                    {{ $collectivemodule->collective->prenom_responsable . ' ' . $collectivemodule->collective->nom_responsable }}
                                                 </td>
 
                                                 <td class="text-center">
-                                                    {{ $collective->date_depot ? \Carbon\Carbon::parse($collective->date_depot)->format('d/m/Y') : '-' }}
-                                                </td>
-
-                                                <td class="text-center">
-                                                    <span class="badge bg-info">
-                                                        {{ $collective->collectivemodules->count() }}
-                                                    </span>
+                                                    {{ $collectivemodule->collective->date_depot ? \Carbon\Carbon::parse($collectivemodule->collective->date_depot)->format('d/m/Y') : '-' }}
                                                 </td>
 
                                                 <td class="text-center">
                                                     <span class="badge bg-secondary">
-                                                        {{ $collective->listecollectives->count() }}
+                                                        {{ $collectivemodule->collective->listecollectives->count() }}
                                                     </span>
                                                 </td>
 
-                                                <td class="text-center">
-                                                    <span class="{{ $collective->statut_demande }}">
-                                                        {{ ucfirst($collective->statut_demande) }}
+                                                {{-- <td class="text-center">
+                                                    <span class="{{ $collectivemodule->collective->statut_demande }}">
+                                                        {{ ucfirst($collectivemodule->collective->statut_demande) }}
                                                     </span>
-                                                </td>
+                                                </td> --}}
 
                                                 <td class="text-center">
                                                     @can('collective-show')
                                                         <div class="btn-group">
-                                                            <a href="{{ route('collectives.show', $collective) }}"
+                                                            <a href="{{ route('collectives.show', $collectivemodule->collective) }}"
                                                                 class="btn btn-sm btn-primary" title="Voir">
                                                                 <i class="bi bi-eye"></i>
                                                             </a>
 
-                                                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                                                            {{-- <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
                                                                 data-bs-toggle="dropdown"></button>
 
                                                             <ul class="dropdown-menu dropdown-menu-end">
                                                                 @can('collective-update')
                                                                     <li>
                                                                         <a class="dropdown-item"
-                                                                            href="{{ route('collectives.edit', $collective) }}">
+                                                                            href="{{ route('collectives.edit', $collectivemodule->collective) }}">
                                                                             <i class="bi bi-pencil"></i> Modifier
                                                                         </a>
                                                                     </li>
@@ -231,7 +238,7 @@
                                                                 @can('collective-delete')
                                                                     <li>
                                                                         <form method="POST"
-                                                                            action="{{ route('collectives.destroy', $collective) }}">
+                                                                            action="{{ route('collectives.destroy', $collectivemodule->collective) }}">
                                                                             @csrf
                                                                             @method('DELETE')
                                                                             <button class="dropdown-item text-danger show_confirm">
@@ -240,7 +247,7 @@
                                                                         </form>
                                                                     </li>
                                                                 @endcan
-                                                            </ul>
+                                                            </ul> --}}
                                                         </div>
                                                     @endcan
                                                 </td>
@@ -749,9 +756,7 @@
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
-            "order": [
-                [0, 'desc']
-            ],
+
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
