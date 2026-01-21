@@ -233,7 +233,7 @@ class IngenieurController extends Controller
             ->with('status', 'Ingénieur supprimé définitivement avec succès !');
     }
 
-    public function formationsParAnnee(Ingenieur $ingenieur, $annee)
+    /* public function formationsParAnnee(Ingenieur $ingenieur, $annee)
     {
         $formations = $ingenieur->formations()
             ->where('annee', $annee)
@@ -267,6 +267,60 @@ class IngenieurController extends Controller
             })
             ->groupBy('region');
 
+        return view('ingenieurs.formations_par_annee', compact(
+            'ingenieur',
+            'annee',
+            'groupes',
+            'formations'
+        ));
+    } */
+
+    public function formationsParAnnee(Ingenieur $ingenieur, $annee)
+    {
+        // 1️⃣ Charger les formations avec les bénéficiaires et leur région
+        $formations = Formation::query()
+            ->where('ingenieurs_id', $ingenieur->id)
+            ->where('annee', $annee)
+            ->with([
+                'individuelles.region',          // région de chaque bénéficiaire individuel
+                'collective.region' // région de chaque bénéficiaire collectif
+            ])
+            ->get();
+
+        // 2️⃣ Grouper les formations par région à partir des bénéficiaires
+        $groupes = $formations->flatMap(function ($formation) {
+
+            $resultats = collect();
+
+            // Individuelles
+            foreach ($formation->individuelles as $individuelle) {
+                $regionNom = $individuelle->region->nom ?? 'Aucune région';
+                $resultats->push([
+                    'region' => $regionNom,
+                    'formation' => $formation,
+                    'total' => 1,
+                ]);
+            }
+
+            // Collectives
+            if ($formation->collective) {
+                foreach ($formation->collective->listecollectives as $collective) {
+                    $regionNom = $collective->region->nom ?? 'Aucune région';
+                    $resultats->push([
+                        'region' => $regionNom,
+                        'formation' => $formation,
+                        'total' => 1,
+                    ]);
+                }
+            }
+
+            return $resultats;
+        })->groupBy('region');
+
+        // 🔹 Transformer chaque groupe en collection pour pouvoir utiliser sum()
+        $groupes = collect($groupes)->map(fn($items) => collect($items));
+
+        // 3️⃣ Retourner la vue
         return view('ingenieurs.formations_par_annee', compact(
             'ingenieur',
             'annee',

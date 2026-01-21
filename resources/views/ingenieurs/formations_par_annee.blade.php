@@ -33,7 +33,6 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $region }}</td>
                     <td class="text-center">
-                        {{-- Somme des totaux pour cette région --}}
                         {{ number_format($items->sum(fn($i) => $i['total']), 0, '', ' ') }}
                     </td>
                     <td>
@@ -48,11 +47,8 @@
                     </td>
                 </tr>
             @endforeach
-
         </tbody>
     </table>
-
-    <hr>
 
     @can('ingenieur-show')
         <section class="section">
@@ -106,14 +102,14 @@
                                                     <td>{{ $formation?->name }}</td>
                                                     <td>
                                                         @if ($formation->regions->isNotEmpty())
-                                                    <span>
-                                                        {{ $formation->regions->pluck('nom')->join(', ') }}
-                                                    </span>
-                                                @else
-                                                    <span class="fs-5 text-muted">-</span>
-                                                @endif
-                                                {{-- {{ $formation->departement?->region?->nom }} --}}
-                                            </td>
+                                                            <span>
+                                                                {{ $formation->regions->pluck('nom')->join(', ') }}
+                                                            </span>
+                                                        @else
+                                                            <span class="fs-5 text-muted">-</span>
+                                                        @endif
+                                                        {{-- {{ $formation->departement?->region?->nom }} --}}
+                                                    </td>
                                                     <td>
                                                         @isset($formation?->module?->name)
                                                             {{ $formation?->module?->name }}
