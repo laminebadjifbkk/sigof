@@ -6,6 +6,12 @@
             <div class="container">
                 <div class="row g-3 mb-4">
 
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <a href="{{ route('collectives.parAnnee', ['annee' => $annee]) }}"
+                            class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-arrow-left-circle"></i> Retour à la liste
+                        </a>
+                    </div>
                     {{-- 🔹 Carte TOTAL --}}
                     <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <div class="card shadow-sm text-center p-2" style="min-height:140px; border-radius:10px;">
