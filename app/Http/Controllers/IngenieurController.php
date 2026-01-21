@@ -359,6 +359,12 @@ class IngenieurController extends Controller
             ? round(($nbCollectives / $totalFormes) * 100)
             : 0;
 
+        dd(
+            $formations->count(),
+            $individuelles->count(),
+            $collectives->count()
+        );
+
         return view('ingenieurs.liste_formations_par_annee', compact(
             'ingenieur',
             'annee',
