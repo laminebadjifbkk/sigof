@@ -141,240 +141,241 @@
                                                     <span class="fs-5 text-muted">Aucune</span>
                                                 @endif
                                             </div>
-                                            {{--   <div class="col-12 col-md-3 mb-1">
+                                        </div>
+                                        {{--   <div class="col-12 col-md-3 mb-1">
                                             <div class="label">Département</div>
                                             <div>{{ $formation->departement->nom }}
                                             </div>
                                         </div> --}}
-                                            <div class="col-12 col-md-3 mb-1">
-                                                <div class="label">Adresse exacte</div>
-                                                <div>{{ $formation?->lieu }}
-                                                </div>
+                                        <div class="col-12 col-md-3 mb-1">
+                                            <div class="label">Adresse exacte</div>
+                                            <div>{{ $formation?->lieu }}
                                             </div>
+                                        </div>
+                                        <div class="col-12 col-md-3 mb-1">
+                                            <div class="label">Type formation</div>
+                                            <div>{{ $formation?->types_formation?->name }}</div>
+                                        </div>
+
+                                        <div class="col-12 col-md-3 mb-1">
+                                            <div class="label">Niveau qualification</div>
+                                            <div>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</div>
+                                        </div>
+
+                                        @isset($formation?->date_debut)
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Date début</div>
+                                                <div>{{ $formation?->date_debut->format('d/m/Y') }}</div>
+                                            </div>
+                                        @endisset
+                                        @isset($formation?->date_fin)
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Date fin</div>
+                                                <div>{{ $formation?->date_fin->format('d/m/Y') }}</div>
+                                            </div>
+                                        @endisset
+                                        @isset($formation?->effectif_prevu)
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Effectif prévu</div>
+                                                <div>{{ $formation?->effectif_prevu }}</div>
+                                            </div>
+                                        @endisset
+                                        @isset($formation?->prevue_h)
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Prévu hommes</div>
+                                                <div>{{ $formation?->prevue_h }}</div>
+                                            </div>
+                                        @endisset
+                                        @isset($formation?->prevue_f)
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Prévu femmes</div>
+                                                <div>{{ $formation?->prevue_f }}</div>
+                                            </div>
+                                        @endisset
+
+
+                                        @if (!empty($formation?->duree_formation))
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Durée (jours)</div>
+                                                <div>{{ $formation?->duree_formation }}</div>
+                                            </div>
+                                        @endif
+
+                                        @if (!empty($formation?->lieu))
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Lieu</div>
+                                                <div>{{ $formation?->lieu }}</div>
+                                            </div>
+                                        @endif
+
+                                        @if (!empty($formation?->types_formation?->name))
                                             <div class="col-12 col-md-3 mb-1">
                                                 <div class="label">Type formation</div>
                                                 <div>{{ $formation?->types_formation?->name }}</div>
                                             </div>
+                                        @endif
 
+                                        @if (!empty($formation?->type_certification))
                                             <div class="col-12 col-md-3 mb-1">
-                                                <div class="label">Niveau qualification</div>
-                                                <div>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</div>
+                                                <div class="label">Type certification</div>
+                                                <div>{{ $formation?->type_certification }}</div>
                                             </div>
+                                        @endif
 
-                                            @isset($formation?->date_debut)
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Date début</div>
-                                                    <div>{{ $formation?->date_debut->format('d/m/Y') }}</div>
-                                                </div>
-                                            @endisset
-                                            @isset($formation?->date_fin)
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Date fin</div>
-                                                    <div>{{ $formation?->date_fin->format('d/m/Y') }}</div>
-                                                </div>
-                                            @endisset
-                                            @isset($formation?->effectif_prevu)
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Effectif prévu</div>
-                                                    <div>{{ $formation?->effectif_prevu }}</div>
-                                                </div>
-                                            @endisset
-                                            @isset($formation?->prevue_h)
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Prévu hommes</div>
-                                                    <div>{{ $formation?->prevue_h }}</div>
-                                                </div>
-                                            @endisset
-                                            @isset($formation?->prevue_f)
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Prévu femmes</div>
-                                                    <div>{{ $formation?->prevue_f }}</div>
-                                                </div>
-                                            @endisset
-
-
-                                            @if (!empty($formation?->duree_formation))
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Durée (jours)</div>
-                                                    <div>{{ $formation?->duree_formation }}</div>
-                                                </div>
-                                            @endif
-
-                                            @if (!empty($formation?->lieu))
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Lieu</div>
-                                                    <div>{{ $formation?->lieu }}</div>
-                                                </div>
-                                            @endif
-
-                                            @if (!empty($formation?->types_formation?->name))
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Type formation</div>
-                                                    <div>{{ $formation?->types_formation?->name }}</div>
-                                                </div>
-                                            @endif
-
-                                            @if (!empty($formation?->type_certification))
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Type certification</div>
-                                                    <div>{{ $formation?->type_certification }}</div>
-                                                </div>
-                                            @endif
-
-                                            {{-- @if (!empty($formation?->titre ?? $formation?->referentiel?->titre))
+                                        {{-- @if (!empty($formation?->titre ?? $formation?->referentiel?->titre))
                                             <div class="col-12 col-md-3 mb-1">
                                                 <div class="label">Niveau qualification</div>
                                                 <div>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</div>
                                             </div>
                                         @endif --}}
 
-                                            @if (!empty($formation?->lettre_mission))
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">N° lettre mission DIOF</div>
-                                                    <div>{{ $formation?->lettre_mission }}</div>
-                                                </div>
-                                            @endif
-
-                                            @if (!empty($formation?->date_lettre?->format('Y-m-d')))
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Date lettre mission DIOF</div>
-                                                    <div>{{ $formation?->date_lettre?->format('d/m/Y') }}</div>
-                                                </div>
-                                            @endif
-
-                                            @if (!empty($formation?->numero_convention))
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">N° convention</div>
-                                                    <div>{{ $formation?->numero_convention }}</div>
-                                                </div>
-                                            @endif
-
-                                            @if (!empty($formation?->date_convention?->format('Y-m-d')))
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Date convention</div>
-                                                    <div>{{ $formation?->date_convention?->format('d/m/Y') }}</div>
-                                                </div>
-                                            @endif
-
-                                            @if (!empty($formation?->file_convention))
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Scan convention</div>
-                                                    <div>
-                                                        <a class="btn btn-outline-secondary btn-sm" title="Convention"
-                                                            target="_blank"
-                                                            href="{{ asset($formation->getFileConvention()) }}">
-                                                            <i class="bi bi-file-earmark-pdf"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            @endif
-
-                                            @if (!empty($formation?->detf_file))
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Scan DETF</div>
-                                                    <div>
-                                                        <div>
-                                                            <a class="btn btn-outline-secondary btn-sm" title="DETF"
-                                                                target="_blank"
-                                                                href="{{ asset($formation->getFileDetf()) }}">
-                                                                <i class="bi bi-file-earmark-pdf"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endif
-
-                                            @if (!empty($formation?->file_pv))
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Scan PV</div>
-                                                    <div>
-                                                        <a class="btn btn-outline-secondary btn-sm" title="DETF"
-                                                            target="_blank" href="{{ asset($formation->getFilePV()) }}">
-                                                            <i class="bi bi-file-earmark-pdf"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            @endif
-
-                                            @if (!empty($formation?->lettre_mission_file))
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Scan LM</div>
-                                                    <div>
-                                                        <a class="btn btn-outline-secondary btn-sm" title="DETF"
-                                                            target="_blank" href="{{ asset($formation->getFileLM()) }}">
-                                                            <i class="bi bi-file-earmark-pdf"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            @endif
-
-                                            @if (!empty($formation?->date_pv?->format('Y-m-d')))
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Date évaluation</div>
-                                                    <div>{{ $formation?->date_pv?->format('d/m/Y') }}</div>
-                                                </div>
-                                            @endif
-
-                                            @if (!empty($formation?->frais_evaluateur))
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Frais évaluateur</div>
-                                                    <div>{{ $formation?->frais_evaluateur }}</div>
-                                                </div>
-                                            @endif
-
-                                            @if (!empty($formation?->frais_evaluateur))
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Evaluateur(s)</div>
-                                                    <div>{{ $formation?->evaluateurs?->count() }}</div>
-                                                </div>
-                                            @endif
-                                            @isset($formation?->frais_operateurs)
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Frais opérateur</div>
-                                                    <div>{{ number_format($formation?->frais_operateurs, 2, ',', ' ') }}</div>
-                                                </div>
-                                            @endisset
-                                            @isset($formation?->frais_add)
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Frais additionels</div>
-                                                    <div>{{ number_format($formation?->frais_add, 2, ',', ' ') }}</div>
-                                                </div>
-                                            @endisset
-                                            @isset($formation?->autes_frais)
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Autres frais</div>
-                                                    <div>{{ number_format($formation?->autes_frais, 2, ',', ' ') }}</div>
-                                                </div>
-                                            @endisset
-                                            @isset($formation?->projets_id)
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Partenaire</div>
-                                                    <div>{{ $formation?->projet?->name }}</div>
-                                                </div>
-                                            @endisset
-                                            @isset($formation?->programmes_id)
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Programme</div>
-                                                    <div>{{ $formation?->programme?->name }}</div>
-                                                </div>
-                                            @endisset
-                                            @isset($formation?->choixoperateur?->description)
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Choix opérateur</div>
-                                                    <div>{{ $formation?->choixoperateur?->description }}</div>
-                                                </div>
-                                            @endisset
-                                            @if (!empty($formation?->attestation))
-                                                <div class="col-12 col-md-3 mb-1">
-                                                    <div class="label">Titres - Attestations</div>
-                                                    <div>{{ $formation?->attestation }}</div>
-                                                </div>
-                                            @endif
-                                            <div class="col-12 mb-1 text-center pt-5">
-                                                <a class="btn btn-outline-primary btn-sm"
-                                                    href="{{ route('formations.edit', $formation) }}" class="mx-1"
-                                                    title="Modifier">Modifier cette formation</a>
+                                        @if (!empty($formation?->lettre_mission))
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">N° lettre mission DIOF</div>
+                                                <div>{{ $formation?->lettre_mission }}</div>
                                             </div>
+                                        @endif
+
+                                        @if (!empty($formation?->date_lettre?->format('Y-m-d')))
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Date lettre mission DIOF</div>
+                                                <div>{{ $formation?->date_lettre?->format('d/m/Y') }}</div>
+                                            </div>
+                                        @endif
+
+                                        @if (!empty($formation?->numero_convention))
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">N° convention</div>
+                                                <div>{{ $formation?->numero_convention }}</div>
+                                            </div>
+                                        @endif
+
+                                        @if (!empty($formation?->date_convention?->format('Y-m-d')))
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Date convention</div>
+                                                <div>{{ $formation?->date_convention?->format('d/m/Y') }}</div>
+                                            </div>
+                                        @endif
+
+                                        @if (!empty($formation?->file_convention))
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Scan convention</div>
+                                                <div>
+                                                    <a class="btn btn-outline-secondary btn-sm" title="Convention"
+                                                        target="_blank"
+                                                        href="{{ asset($formation->getFileConvention()) }}">
+                                                        <i class="bi bi-file-earmark-pdf"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        @if (!empty($formation?->detf_file))
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Scan DETF</div>
+                                                <div>
+                                                    <div>
+                                                        <a class="btn btn-outline-secondary btn-sm" title="DETF"
+                                                            target="_blank"
+                                                            href="{{ asset($formation->getFileDetf()) }}">
+                                                            <i class="bi bi-file-earmark-pdf"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        @if (!empty($formation?->file_pv))
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Scan PV</div>
+                                                <div>
+                                                    <a class="btn btn-outline-secondary btn-sm" title="DETF"
+                                                        target="_blank" href="{{ asset($formation->getFilePV()) }}">
+                                                        <i class="bi bi-file-earmark-pdf"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        @if (!empty($formation?->lettre_mission_file))
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Scan LM</div>
+                                                <div>
+                                                    <a class="btn btn-outline-secondary btn-sm" title="DETF"
+                                                        target="_blank" href="{{ asset($formation->getFileLM()) }}">
+                                                        <i class="bi bi-file-earmark-pdf"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        @if (!empty($formation?->date_pv?->format('Y-m-d')))
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Date évaluation</div>
+                                                <div>{{ $formation?->date_pv?->format('d/m/Y') }}</div>
+                                            </div>
+                                        @endif
+
+                                        @if (!empty($formation?->frais_evaluateur))
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Frais évaluateur</div>
+                                                <div>{{ $formation?->frais_evaluateur }}</div>
+                                            </div>
+                                        @endif
+
+                                        @if (!empty($formation?->frais_evaluateur))
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Evaluateur(s)</div>
+                                                <div>{{ $formation?->evaluateurs?->count() }}</div>
+                                            </div>
+                                        @endif
+                                        @isset($formation?->frais_operateurs)
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Frais opérateur</div>
+                                                <div>{{ number_format($formation?->frais_operateurs, 2, ',', ' ') }}</div>
+                                            </div>
+                                        @endisset
+                                        @isset($formation?->frais_add)
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Frais additionels</div>
+                                                <div>{{ number_format($formation?->frais_add, 2, ',', ' ') }}</div>
+                                            </div>
+                                        @endisset
+                                        @isset($formation?->autes_frais)
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Autres frais</div>
+                                                <div>{{ number_format($formation?->autes_frais, 2, ',', ' ') }}</div>
+                                            </div>
+                                        @endisset
+                                        @isset($formation?->projets_id)
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Partenaire</div>
+                                                <div>{{ $formation?->projet?->name }}</div>
+                                            </div>
+                                        @endisset
+                                        @isset($formation?->programmes_id)
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Programme</div>
+                                                <div>{{ $formation?->programme?->name }}</div>
+                                            </div>
+                                        @endisset
+                                        @isset($formation?->choixoperateur?->description)
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Choix opérateur</div>
+                                                <div>{{ $formation?->choixoperateur?->description }}</div>
+                                            </div>
+                                        @endisset
+                                        @if (!empty($formation?->attestation))
+                                            <div class="col-12 col-md-3 mb-1">
+                                                <div class="label">Titres - Attestations</div>
+                                                <div>{{ $formation?->attestation }}</div>
+                                            </div>
+                                        @endif
+                                        <div class="col-12 mb-1 text-center pt-5">
+                                            <a class="btn btn-outline-primary btn-sm"
+                                                href="{{ route('formations.edit', $formation) }}" class="mx-1"
+                                                title="Modifier">Modifier cette formation</a>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
