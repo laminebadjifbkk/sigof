@@ -427,11 +427,6 @@ class Formation extends Model
         return $this->belongsTo(Detf::class, 'detfs_id');
     }
 
-    public function ingenieur()
-    {
-        return $this->belongsTo(Ingenieur::class, 'ingenieurs_id');
-    }
-
     /* public function onfpevaluateur()
     {
         return $this->belongsTo(Onfpevaluateur::class, 'onfpevaluateurs_id');
@@ -561,25 +556,26 @@ class Formation extends Model
         return $this->hasMany(Findividuelle::class, 'formations_id');
     }
 
-    public function individuelles()
-    {
-        return $this->hasMany(Individuelle::class, 'formations_id');
-    }
-
     /* 	public function collectivemodule()
 	{
 		return $this->hasOne(Collectivemodule::class, 'formations_id');
 	} */
 
-    public function collective()
-    {
-        return $this->hasOne(Collective::class, 'formations_id');
-    }
 
     /*  public function listecollectives()
     {
         return $this->hasMany(Listecollective::class, 'formations_id');
     } */
+
+    public function individuelles()
+    {
+        return $this->hasMany(Individuelle::class, 'formations_id');
+    }
+
+    public function collective()
+    {
+        return $this->hasOne(Collective::class, 'formations_id');
+    }
 
     public function listecollectives()
     {
@@ -593,6 +589,20 @@ class Formation extends Model
         );
     }
 
+    public function regions()
+    {
+        return $this->belongsToMany(
+            Region::class,
+            'formation_region',
+            'formation_id',
+            'region_id'
+        )->withTimestamps();
+    }
+
+    public function ingenieur()
+    {
+        return $this->belongsTo(Ingenieur::class, 'ingenieurs_id');
+    }
 
     public function emargements()
     {
@@ -627,16 +637,6 @@ class Formation extends Model
     {
         return $this->belongsToMany(User::class, 'individuelles', 'formations_id', 'users_id')
             ->withTimestamps();
-    }
-
-    public function regions()
-    {
-        return $this->belongsToMany(
-            Region::class,
-            'formation_region',
-            'formation_id',
-            'region_id'
-        )->withTimestamps();
     }
 
     // Ancienne relation (si utilisée encore)

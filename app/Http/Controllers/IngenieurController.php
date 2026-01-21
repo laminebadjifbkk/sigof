@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departement;
+use App\Models\Formation;
 use App\Models\Individuelle;
 use App\Models\Ingenieur;
 use App\Models\Listecollective;
@@ -318,42 +319,33 @@ class IngenieurController extends Controller
 
     public function listeFormationsParAnnee(Ingenieur $ingenieur, $annee, $region = null)
     {
-        $individuelles = Individuelle::query()
-            ->whereHas('formation', function ($q) use ($annee, $ingenieur, $region) {
-
-                $q->where('annee', $annee)
-                    ->where('ingenieurs_id', $ingenieur->id);
-
-                if ($region === 'Aucune région') {
-                    $q->whereDoesntHave('regions');
-                } elseif ($region) {
-                    $q->whereHas('regions', fn($r) => $r->where('nom', $region));
-                }
-            })
-            ->with([
-                'formation.types_formation',
-                'formation.regions',
-            ])
-            ->get();
-
-        $collectives = Listecollective::query()
-            ->whereHas('formation', function ($q) use ($annee, $ingenieur, $region) {
-
-                $q->where('annee', $annee)
-                    ->where('ingenieurs_id', $ingenieur->id);
+        $formations = Formation::query()
+            ->where('ingenieurs_id', $ingenieur->id)
+            ->where('annee', $annee)
+            ->when($region, function ($q) use ($region) {
 
                 if ($region === 'Aucune région') {
                     $q->whereDoesntHave('regions');
-                } elseif ($region) {
-                    $q->whereHas('regions', fn($r) => $r->where('nom', $region));
+                } else {
+                    $q->whereHas('regions', function ($r) use ($region) {
+                        $r->where('nom', $region);
+                    });
                 }
             })
             ->with([
-                'formation.types_formation',
-                'formation.regions',
-                'collective',
+                'regions',
+                'individuelles',
+                'listecollectives',
             ])
             ->get();
+
+        $individuelles = $formations
+            ->flatMap(fn($f) => $f->individuelles ?? collect())
+            ->values();
+
+        $collectives = $formations
+            ->flatMap(fn($f) => $f->listecollectives ?? collect())
+            ->values();
 
         $nbIndividuelles = $individuelles->count();
         $nbCollectives  = $collectives->count();
@@ -367,11 +359,6 @@ class IngenieurController extends Controller
             ? round(($nbCollectives / $totalFormes) * 100)
             : 0;
 
-        /*
-    |--------------------------------------------------------------------------
-    | 4. VUE
-    |--------------------------------------------------------------------------
-    */
         return view('ingenieurs.liste_formations_par_annee', compact(
             'ingenieur',
             'annee',
