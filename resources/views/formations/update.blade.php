@@ -310,9 +310,10 @@
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="prevue_h" class="form-label">Effectif homme</label>
                                         <input type="number" name="prevue_h" min="0" max="50"
-                                            value="{{ $formation?->prevue_h ?? old('prevue_h') }}"
+                                            value="{{ old('prevue_h', $formation?->prevue_h ?? 0) }}"
                                             class="form-control form-control-sm @error('prevue_h') is-invalid @enderror"
                                             id="prevue_h" placeholder="Effectif homme">
+
                                         @error('prevue_h')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -323,7 +324,7 @@
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="prevue_f" class="form-label">Effectif femme</label>
                                         <input type="number" name="prevue_f" min="0" max="50"
-                                            value="{{ $formation?->prevue_f ?? old('prevue_f') }}"
+                                            value="{{ old('prevue_f', $formation?->prevue_f ?? 0) }}"
                                             class="form-control form-control-sm @error('prevue_f') is-invalid @enderror"
                                             id="prevue_f" placeholder="Effectif femme">
                                         @error('prevue_f')
@@ -336,7 +337,7 @@
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="effectif_prevu" class="form-label">Effectif révu total</label>
                                         <input type="number" name="effectif_prevu" min="0" max="50"
-                                            value="{{ $formation?->effectif_prevu ?? old('effectif_prevu') }}"
+                                            value="{{ old('effectif_prevu', $formation?->effectif_prevu ?? 0) }}"
                                             class="form-control form-control-sm @error('effectif_prevu') is-invalid @enderror"
                                             id="effectif_prevu" placeholder="Effectif total">
                                         @error('effectif_prevu')
