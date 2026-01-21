@@ -32,31 +32,35 @@
                         </a>
                     </div>
 
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Région</th>
-                                <th>Total</th>
-                                <th width="10%">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($groupes as $row)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $row->region->nom ?? 'Inconnu' }}</td>
-                                    <td>{{ number_format($row->total, 0, '', ' ') }}</td>
-                                    <td>
-                                        <a href="{{ route('individuelles.parAnneeRegion', ['annee' => $annee, 'region' => $row->region->nom]) }}"
-                                            class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
-                                            Voir plus <i class="bi bi-arrow-right-short"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Région</th>
+                                        <th>Total</th>
+                                        <th width="10%">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($groupes as $row)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $row->region->nom ?? 'Inconnu' }}</td>
+                                            <td>{{ number_format($row->total, 0, '', ' ') }}</td>
+                                            <td>
+                                                <a href="{{ route('individuelles.parAnneeRegion', ['annee' => $annee, 'region' => $row->region->nom]) }}"
+                                                    class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
+                                                    Voir plus <i class="bi bi-arrow-right-short"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
                     {{-- @can('exporter-view')
                         <div class="col-2 pb-3">
