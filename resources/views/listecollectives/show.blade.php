@@ -173,7 +173,7 @@
                                         </div>
                                     </div>
 
-                                    @if ($listecollective->note_obtenue)
+                                    @if ($listecollective->collective->formation)
                                         @php
                                             $rawNote = floatval($listecollective->note_obtenue); // valeur brute
                                             $noteClass = match (true) {
@@ -190,11 +190,24 @@
                                         @endphp
 
                                         <div class="col-12 col-md-3 mb-2">
-                                            <div class="label mb-2">Note évaluation</div>
+                                            <div class="label mb-2">Note évaluation formation</div>
                                             <div>
                                                 <span class="{{ $noteClass }}">
                                                     {{ $listecollective?->note_obtenue }}
                                                 </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-3 mb-2">
+                                            <div class="label mb-2">Formation</div>
+                                            <div>
+                                                <span class="{{ $listecollective->collective->formation->statut }}">
+                                                    {{ $listecollective->collective->formation->statut }}
+                                                </span>
+                                                <a href="{{ route('formations.show', $listecollective->collective->formation) }}"
+                                                    class="btn btn-primary btn-sm" title="Voir les détails">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
                                             </div>
                                         </div>
                                     @endif

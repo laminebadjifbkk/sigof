@@ -371,9 +371,10 @@
                                         @php
                                             $rawNote = floatval($individuelle?->note); // valeur brute
                                             $noteClass = match (true) {
-                                                $rawNote < 5 => 'text-danger fw-bold', // Rouge pour < 5
+                                                /* $rawNote < 5 => 'text-danger fw-bold', // Rouge pour < 5
                                                 $rawNote < 7 => 'text-warning fw-bold', // Orange pour 5-6.9
-                                                $rawNote < 9 => 'text-primary fw-bold', // Bleu pour 7-8.9
+                                                $rawNote < 9 => 'text-primary fw-bold', // Bleu pour 7-8.9 */
+                                                $rawNote < 12 => 'text-danger fw-bold', // Bleu pour 7-8.9
                                                 default => 'text-success fw-bold', // Vert pour 9-10
                                             };
                                             $formattedNote =
