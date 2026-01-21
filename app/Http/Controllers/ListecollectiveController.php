@@ -184,7 +184,7 @@ class ListecollectiveController extends Controller
 
         $collective = Collective::findOrFail($listecollective->collectives_id);
 
-        return view("collectives.showlistecollective", compact("listecollective", "collective"));
+        return view("listecollectives.show", compact("listecollective", "collective"));
     }
 
     public function destroy(Listecollective $listecollective)

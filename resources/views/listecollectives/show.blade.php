@@ -173,6 +173,17 @@
                                         </div>
                                     </div>
 
+                                    @if ($listecollective->note_obtenue)
+                                        <div class="col-12 col-md-3 mb-2">
+                                            <div class="label mb-2">Note évaluation</div>
+                                            <div>
+                                                <span class="{{ $listecollective->note_obtenue }} text-white">
+                                                    {{ $listecollective?->statut }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    @endif
+
                                     @if ($listecollective?->details)
                                         <div class="col-12 col-md-3 mb-2">
                                             <div class="label mb-2">Détails</div>
