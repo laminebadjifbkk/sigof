@@ -103,25 +103,6 @@
                         </div>
                     </div>
 
-                    @can('exporter-view')
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <a href="{{ route('individuelles.exportExcel', [
-                                'annee' => $annee,
-                                'region' => $region->nom,
-                                'statut' => $statutFiltre ?? 'all',
-                            ]) }}"
-                                class="btn btn-outline-success btn-sm d-flex align-items-center gap-2" title="Exporter Excel">
-
-                                <i class="bi bi-file-earmark-excel"></i>
-                                Exporter Excel
-                            </a>
-                            {{-- &nbsp;
-                            <a href="{{ request()->fullUrlWithQuery(['all' => 1]) }}" class="btn btn-sm btn-outline-secondary">
-                                Afficher tout
-                            </a> --}}
-                        </div>
-                    @endcan
-
                     <div class="card">
                         <div class="card-body">
                             <div class="pt-1">
