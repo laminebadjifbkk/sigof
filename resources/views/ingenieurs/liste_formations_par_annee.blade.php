@@ -64,7 +64,7 @@
                     </div>
                 @endif
 
-                @if ($collectives->isNotEmpty())
+                @if (($collectives ?? collect())->isNotEmpty())
                     <div class="col-6 col-sm-4 col-md-4 col-lg-3">
                         <div class="card shadow-sm text-center p-2 hover-pointer" style="min-height:140px; border-radius:10px;"
                             onclick="toggleTable('table-collectives')">
