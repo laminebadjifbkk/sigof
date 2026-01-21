@@ -192,6 +192,7 @@ class IndividuelleController extends Controller
             'totalIndividuelles'
         ));
     } */
+   
     public function parAnnee(Request $request, $annee)
     {
         // =======================================

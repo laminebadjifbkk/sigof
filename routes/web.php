@@ -655,6 +655,12 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/individuelles/{annee}/region/{region}', [IndividuelleController::class, 'parAnneeRegion'])
             ->name('individuelles.parAnneeRegion');
 
+        Route::get('/collectives/annee/{annee}', [CollectiveController::class, 'parAnnee'])
+            ->name('collectives.parAnnee');
+
+        Route::get('/collectives/{annee}/region/{region}', [CollectiveController::class, 'parAnneeRegion'])
+            ->name('collectives.parAnneeRegion');
+
         Route::get('/commissionagrements/{statut}/{commissionagrement}/export-pv', [CommissionagrementController::class, 'exportPV'])
             ->name('commissionagrements.exportPV');
 

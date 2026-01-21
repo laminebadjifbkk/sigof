@@ -112,33 +112,36 @@
                         </div>
                     </div> --}}
 
-                    <table class="table table-bordered table-striped align-middle">
-                        <thead class="table-primary">
-                            <tr>
-                                <th scope="col" style="width: 50px;">N°</th>
-                                <th scope="col">Années</th>
-                                <th scope="col" class="text-center">Demandes reçues</th>
-                                <th scope="col" style="width: 120px;">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($groupes as $index => $items)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $items->annee }}</td>
-                                    <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
-                                    <td>
-                                        <a href="{{ route('individuelles.parAnnee', ['annee' => $items->annee]) }}"
-                                            class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
-                                            Voir plus <i class="bi bi-arrow-right-short"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <table class="table table-bordered table-striped align-middle">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th scope="col" style="width: 50px;">N°</th>
+                                        <th scope="col">Années</th>
+                                        <th scope="col" class="text-center">Demandes reçues</th>
+                                        <th scope="col" style="width: 120px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($groupes as $index => $items)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $items->annee }}</td>
+                                            <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
+                                            <td>
+                                                <a href="{{ route('individuelles.parAnnee', ['annee' => $items->annee]) }}"
+                                                    class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
+                                                    Voir plus <i class="bi bi-arrow-right-short"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
 
-                    <hr>
+                        </div>
+                    </div>
 
                     {{-- @can('exporter-view')
                         <div class="col-2 pb-3">

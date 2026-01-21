@@ -2,18 +2,11 @@
 @section('title', 'ONFP | DEMANDES COLLECTIVES')
 @section('space-work')
     @can('collective-view')
-        {{-- <div class="pagetitle">
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url('/home') }}">Accueil</a></li>
-                    <li class="breadcrumb-item">Tables</li>
-                    <li class="breadcrumb-item active">Demandes collectives</li>
-                </ol>
-            </nav>
-        </div><!-- End Page Title --> --}}
         <section class="section dashboard">
             <div class="container">
-                {{-- <div class="row g-3 mb-4">
+                <div class="row g-3 mb-4">
+
+                    {{-- 🔹 Carte TOTAL --}}
                     <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <div class="card shadow-sm text-center p-2" style="min-height:140px; border-radius:10px;">
                             <h6 class="card-title mb-2" style="font-size:0.85rem;">Demandes totales</h6>
@@ -39,54 +32,26 @@
                         </div>
                     </div>
 
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <div class="card shadow-sm text-center p-2 border-success"
-                            style="min-height:140px; border-radius:10px;">
-                            <h6 class="card-title mb-2" style="font-size:0.85rem;">
-                                Aujourd’hui
-                            </h6>
-
-                            <div class="d-flex flex-column align-items-center mb-2">
-                                <div class="rounded-circle bg-success text-white d-flex justify-content-center align-items-center mb-1"
-                                    style="width:28px;height:28px;">
-                                    <i class="bi bi-calendar-check"></i>
-                                </div>
-                                <span class="h6 mb-0">{{ $demandesDuJourCount }}</span>
-                            </div>
-
-                            <div class="mb-2">
-                                <small class="text-muted">
-                                    Reçues aujourd’hui
-                                </small>
-                            </div>
-
-                            <a href="{{ route('collectives.index', ['today' => 1]) }}"
-                                class="btn btn-outline-success btn-sm w-100">
-                                Voir
-                            </a>
-                        </div>
-                    </div>
-
-                    @foreach ($groupes as $statutKey => $items)
+                    {{-- 🔹 Cartes PAR STATUT --}}
+                    @foreach ($groupes as $item)
                         @php
-                            $percent = $statutPourcentages[$statutKey]['percent'];
+                            $statut = $item->statut_demande ?? 'Non défini';
+                            $percent = $statutPourcentages[$statut]['percent'] ?? 0;
                         @endphp
 
                         <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                            <div class="card shadow-sm text-center p-2
-                                        {{ $statutDemande === $statutKey ? 'border-primary' : '' }}"
-                                style="min-height:140px; border-radius:10px;">
+                            <div class="card shadow-sm text-center p-2" style="min-height:140px; border-radius:10px;">
 
                                 <h6 class="card-title mb-2" style="font-size:0.85rem;">
                                     Demandes
                                 </h6>
 
-                                <span class="etat-btn {{ Str::slug($statutKey) }}">
-                                    {{ ucfirst(str_replace('_', ' ', $statutKey)) }}
+                                <span class="etat-btn {{ Str::slug($statut) }}">
+                                    {{ ucfirst(str_replace('_', ' ', $statut)) }}
                                 </span>
 
                                 <div class="d-flex flex-column align-items-center mt-2 mb-2">
-                                    <span class="h6 mb-0">{{ $items->count() }}</span>
+                                    <span class="h6 mb-0">{{ $item->total }}</span>
                                 </div>
 
                                 <div class="mb-2">
@@ -96,43 +61,18 @@
                                     <small class="text-muted">{{ $percent }}%</small>
                                 </div>
 
-                                <a href="{{ route('collectives.index', ['statut_demande' => $statutKey]) }}"
+                                <a href="{{ route('collectives.parAnneeRegion', [
+                                    'annee' => $annee,
+                                    'region' => $region,
+                                    'statut_demande' => $statut,
+                                ]) }}"
                                     class="btn btn-outline-primary btn-sm w-100">
                                     Voir plus
                                 </a>
                             </div>
                         </div>
                     @endforeach
-                </div> --}}
 
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <table class="table table-bordered table-striped align-middle">
-                            <thead class="table-primary">
-                                <tr>
-                                    <th scope="col" style="width: 50px;">N°</th>
-                                    <th scope="col">Années</th>
-                                    <th scope="col" class="text-center">Demandes reçues</th>
-                                    <th scope="col" style="width: 120px;">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($groupes as $items)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $items->annee }}</td>
-                                        <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
-                                        <td>
-                                            <a href="{{ route('collectives.parAnnee', ['annee' => $items->annee]) }}"
-                                                class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
-                                                Voir plus <i class="bi bi-arrow-right-short"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
 
                 <div class="col-12 col-lg-62">

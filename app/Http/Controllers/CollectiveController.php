@@ -62,34 +62,13 @@ class CollectiveController extends Controller
 
     public function index(Request $request)
     {
-        /* =========================
-     * 1️⃣ Requête principale
-     * ========================= */
         $collectivesQuery = Collective::query();
-
-        // Statut sélectionné (?statut_demande=...)
-        $statutDemande = $request->query('statut_demande');
-
-        if ($statutDemande) {
-            $collectivesQuery->where('statut_demande', $statutDemande);
-        }
 
         $collectives = $collectivesQuery
             ->latest()
             ->limit(500)
             ->get();
 
-        /* $collectives = collect();
-
-        $collectivesQuery
-            ->latest()
-            ->chunk(300, function ($batch) use (&$collectives) {
-                $collectives = $collectives->merge($batch);
-            }); */
-            
-        /* =========================
-     * 2️⃣ Totaux
-     * ========================= */
         $totalDemandesCount = Collective::count();
         $totalDemandes = number_format($totalDemandesCount, 0, ',', ' ');
 
@@ -98,18 +77,12 @@ class CollectiveController extends Controller
         $today = now()->toDateString();
         $demandesDuJourCount = Collective::whereDate('created_at', $today)->count();
 
+        $groupes = Collective::query()
+            ->selectRaw('YEAR(date_depot) as annee, COUNT(*) as total')
+            ->groupBy('annee')
+            ->orderBy('annee', 'desc')
+            ->get();
 
-        /* =========================
-     * 3️⃣ Groupement par statut_demande (cards)
-     * ========================= */
-        $groupes = Collective::latest()
-            ->get()
-            ->groupBy(fn($c) => $c->statut_demande ?? 'Non défini');
-
-
-        /* =========================
-     * 4️⃣ Pourcentages par statut_demande
-     * ========================= */
         $statutPourcentages = [];
 
         foreach ($groupes as $statutKey => $items) {
@@ -121,10 +94,6 @@ class CollectiveController extends Controller
             ];
         }
 
-
-        /* =========================
-     * 5️⃣ Données annexes
-     * ========================= */
         $departements = Departement::latest()->get();
         $communes     = Commune::latest()->get();
         $modules      = Module::latest()->get();
@@ -139,8 +108,142 @@ class CollectiveController extends Controller
             'demandesDuJourCount',
             'departements',
             'communes',
-            'modules',
-            'statutDemande'
+            'modules'
+        ));
+    }
+
+    public function parAnnee(Request $request, $annee)
+    {
+        // 🔹 Requête principale filtrée par ANNÉE
+        $collectivesQuery = Collective::with('region')
+            ->whereYear('date_depot', $annee);
+
+        $collectives = $collectivesQuery
+            ->latest('date_depot')
+            ->limit(500)
+            ->get();
+
+        // 🔹 Totaux SUR L’ANNÉE
+        $totalDemandesCount = Collective::whereYear('date_depot', $annee)->count();
+        $totalDemandes = number_format($totalDemandesCount, 0, ',', ' ');
+        $totalAffichees = $collectives->count();
+
+        // 🔹 Demandes du jour (global)
+        $today = now()->toDateString();
+        $demandesDuJourCount = Collective::whereDate('created_at', $today)->count();
+
+        // 🔹 Groupes PAR RÉGION pour l’année
+        $groupes = Collective::query()
+            ->join('regions', 'regions.id', '=', 'collectives.regions_id')
+            ->whereYear('collectives.date_depot', $annee)
+            ->selectRaw('regions.nom as region, COUNT(*) as total')
+            ->groupBy('regions.nom')
+            ->orderBy('regions.nom')
+            ->get();
+
+        // 🔹 Pourcentages par RÉGION
+        $regionPourcentages = [];
+
+        foreach ($groupes as $item) {
+            $regionPourcentages[$item->region] = [
+                'count'   => $item->total,
+                'percent' => $totalDemandesCount
+                    ? round($item->total * 100 / $totalDemandesCount, 1)
+                    : 0,
+            ];
+        }
+
+        $departements = Departement::latest()->get();
+        $communes     = Commune::latest()->get();
+        $modules      = Module::latest()->get();
+
+        return view('collectives.index_annee', compact(
+            'annee',
+            'collectives',
+            'groupes',
+            'regionPourcentages',
+            'totalDemandes',
+            'totalAffichees',
+            'demandesDuJourCount',
+            'departements',
+            'communes',
+            'modules'
+        ));
+    }
+
+    public function parAnneeRegion(Request $request, $annee, $region)
+    {
+
+        // Statut optionnel
+        $statutFiltre = $request->query('statut_demande');
+
+        // 🔹 Requête principale : ANNÉE + RÉGION
+        $collectivesQuery = Collective::with('region')
+            ->whereYear('date_depot', $annee)
+            ->whereHas('region', function ($q) use ($region) {
+                $q->where('nom', $region);
+            });
+
+        $collectives = $collectivesQuery
+            ->when($statutFiltre, fn($q) => $q->where('statut_demande', $statutFiltre))
+            ->latest('date_depot')
+            ->limit(500)
+            ->get();
+
+        // 🔹 Totaux ANNÉE + RÉGION
+        $totalDemandesCount = Collective::whereYear('date_depot', $annee)
+            ->whereHas('region', function ($q) use ($region) {
+                $q->where('nom', $region);
+            })
+            ->count();
+
+        $totalDemandes  = number_format($totalDemandesCount, 0, ',', ' ');
+        $totalAffichees = $collectives->count();
+
+        // 🔹 Demandes du jour (global)
+        $today = now()->toDateString();
+        $demandesDuJourCount = Collective::whereDate('created_at', $today)->count();
+
+        // 🔹 Groupes PAR STATUT pour l’année + région
+        $groupes = Collective::query()
+            ->join('regions', 'regions.id', '=', 'collectives.regions_id')
+            ->whereYear('collectives.date_depot', $annee)
+            ->where('regions.nom', $region)
+            ->selectRaw('collectives.statut_demande, COUNT(*) as total')
+            ->groupBy('collectives.statut_demande')
+            ->orderBy('collectives.statut_demande')
+            ->get();
+
+        // 🔹 Pourcentages PAR STATUT
+        $statutPourcentages = [];
+
+        foreach ($groupes as $item) {
+            $statut = $item->statut_demande ?? 'Non défini';
+
+            $statutPourcentages[$statut] = [
+                'count'   => $item->total,
+                'percent' => $totalDemandesCount
+                    ? round($item->total * 100 / $totalDemandesCount, 1)
+                    : 0,
+            ];
+        }
+
+        $departements = Departement::latest()->get();
+        $communes     = Commune::latest()->get();
+        $modules      = Module::latest()->get();
+
+        return view('collectives.index_annee_region', compact(
+            'annee',
+            'region',
+            'collectives',
+            'groupes',
+            'statutPourcentages',
+            'totalDemandes',
+            'totalAffichees',
+            'demandesDuJourCount',
+            'departements',
+            'communes',
+            'modules'
         ));
     }
 

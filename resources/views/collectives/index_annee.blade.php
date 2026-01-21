@@ -105,25 +105,40 @@
                     @endforeach
                 </div> --}}
 
-                <div class="card shadow-sm">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <a href="{{ route('individuelles.index') }}" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-arrow-left-circle"></i> Retour à la liste
+                    </a>
+                </div>
+
+                <div class="card">
                     <div class="card-body">
+                        <h5 class="mb-3">
+                            {{ $annee }}
+                        </h5>
+
                         <table class="table table-bordered table-striped align-middle">
                             <thead class="table-primary">
                                 <tr>
-                                    <th scope="col" style="width: 50px;">N°</th>
-                                    <th scope="col">Années</th>
-                                    <th scope="col" class="text-center">Demandes reçues</th>
-                                    <th scope="col" style="width: 120px;">Actions</th>
+                                    <th>#</th>
+                                    <th>Région</th>
+                                    <th class="text-center">Total demandes</th>
+                                    <th class="text-center">%</th>
+                                    <th class="text-center" width="10%">#</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($groupes as $items)
+                                @foreach ($groupes as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $items->annee }}</td>
-                                        <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
+                                        <td>{{ $item->region }}</td>
+                                        <td class="text-center">{{ number_format($item->total, 0, '', ' ') }}</td>
+                                        <td class="text-center">
+                                            {{ $regionPourcentages[$item->region]['percent'] }} %
+                                        </td>
                                         <td>
-                                            <a href="{{ route('collectives.parAnnee', ['annee' => $items->annee]) }}"
+                                            <a href="{{ route('collectives.parAnneeRegion', ['annee' => $annee, 'region' => $item->region]) }}"
                                                 class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
                                                 Voir plus <i class="bi bi-arrow-right-short"></i>
                                             </a>
