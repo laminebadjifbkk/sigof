@@ -319,34 +319,68 @@ class IngenieurController extends Controller
 
     public function listeFormationsParAnnee(Ingenieur $ingenieur, $annee, $region = null)
     {
+        /*
+    |--------------------------------------------------------------------------
+    | 1. FORMATIONS (ingénieur + année uniquement)
+    |--------------------------------------------------------------------------
+    */
         $formations = Formation::query()
             ->where('ingenieurs_id', $ingenieur->id)
             ->where('annee', $annee)
-            ->when($region, function ($q) use ($region) {
-
-                if ($region === 'Aucune région') {
-                    $q->whereDoesntHave('regions');
-                } else {
-                    $q->whereHas('regions', function ($r) use ($region) {
-                        $r->where('nom', $region);
-                    });
-                }
-            })
             ->with([
-                'regions',
-                'individuelles',
-                'listecollectives',
+                'individuelles.region',              // 🔥 région du bénéficiaire
+                'collective.region' // 🔥 région du bénéficiaire
             ])
             ->get();
 
+        /*
+    |--------------------------------------------------------------------------
+    | 2. BÉNÉFICIAIRES INDIVIDUELS (filtrés par LEUR région)
+    |--------------------------------------------------------------------------
+    */
         $individuelles = $formations
             ->flatMap(fn($f) => $f->individuelles ?? collect())
+            ->filter(function ($individuelle) use ($region) {
+
+                if (!$region) {
+                    return true;
+                }
+
+                if ($region === 'Aucune région') {
+                    return is_null($individuelle->region);
+                }
+
+                return optional($individuelle->region)->nom === $region;
+            })
             ->values();
 
+        /*
+    |--------------------------------------------------------------------------
+    | 3. BÉNÉFICIAIRES COLLECTIFS (filtrés par LEUR région)
+    |--------------------------------------------------------------------------
+    */
         $collectives = $formations
-            ->flatMap(fn($f) => $f->listecollectives ?? collect())
+            ->filter(fn($f) => $f->collective)
+            ->flatMap(fn($f) => $f->collective->listecollectives ?? collect())
+            ->filter(function ($collective) use ($region) {
+
+                if (!$region) {
+                    return true;
+                }
+
+                if ($region === 'Aucune région') {
+                    return is_null($collective->region);
+                }
+
+                return optional($collective->region)->nom === $region;
+            })
             ->values();
 
+        /*
+    |--------------------------------------------------------------------------
+    | 4. STATISTIQUES
+    |--------------------------------------------------------------------------
+    */
         $nbIndividuelles = $individuelles->count();
         $nbCollectives  = $collectives->count();
         $totalFormes    = $nbIndividuelles + $nbCollectives;
@@ -358,12 +392,6 @@ class IngenieurController extends Controller
         $pourcentageCollectives = $totalFormes
             ? round(($nbCollectives / $totalFormes) * 100)
             : 0;
-
-        dd(
-            $formations->count(),
-            $individuelles->count(),
-            $collectives->count()
-        );
 
         return view('ingenieurs.liste_formations_par_annee', compact(
             'ingenieur',
