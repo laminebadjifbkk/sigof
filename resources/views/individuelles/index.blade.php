@@ -117,7 +117,7 @@
                             <tr>
                                 <th scope="col" style="width: 50px;">N°</th>
                                 <th scope="col">Année</th>
-                                <th scope="col" class="text-center">Formations</th>
+                                <th scope="col" class="text-center">Demandes reçues</th>
                                 <th scope="col" style="width: 120px;">Action</th>
                             </tr>
                         </thead>
