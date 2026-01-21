@@ -326,7 +326,7 @@ class IngenieurController extends Controller
         $totalIndividuelle = $formations->sum(fn($formation) => $formation->individuelles->count());
         $totalCollective  = $formations->sum(fn($formation) => $formation->collective ? $formation->collective->listecollectives->count() : 0);
         $totalGeneral     = $totalIndividuelle + $totalCollective;
-        
+
         // 🔹 Transformer chaque groupe en collection pour pouvoir utiliser sum()
         $groupes = collect($groupes)->map(fn($items) => collect($items));
 
@@ -384,25 +384,16 @@ class IngenieurController extends Controller
 
     public function listeFormationsParAnnee(Ingenieur $ingenieur, $annee, $region = null)
     {
-        /*
-    |--------------------------------------------------------------------------
-    | 1. FORMATIONS (ingénieur + année uniquement)
-    |--------------------------------------------------------------------------
-    */
         $formations = Formation::query()
             ->where('ingenieurs_id', $ingenieur->id)
             ->where('annee', $annee)
             ->with([
                 'individuelles.region',              // 🔥 région du bénéficiaire
-                'collective.region' // 🔥 région du bénéficiaire
+                'collective.region', // 🔥 région du bénéficiaire
+                'collective.listecollectives',
             ])
             ->get();
 
-        /*
-    |--------------------------------------------------------------------------
-    | 2. BÉNÉFICIAIRES INDIVIDUELS (filtrés par LEUR région)
-    |--------------------------------------------------------------------------
-    */
         $individuelles = $formations
             ->flatMap(fn($f) => $f->individuelles ?? collect())
             ->filter(function ($individuelle) use ($region) {
@@ -419,11 +410,6 @@ class IngenieurController extends Controller
             })
             ->values();
 
-        /*
-    |--------------------------------------------------------------------------
-    | 3. BÉNÉFICIAIRES COLLECTIFS (filtrés par LEUR région)
-    |--------------------------------------------------------------------------
-    */
         $collectives = $formations
             ->filter(fn($f) => $f->collective)
             ->flatMap(fn($f) => $f->collective->listecollectives ?? collect())
@@ -441,11 +427,6 @@ class IngenieurController extends Controller
             })
             ->values();
 
-        /*
-    |--------------------------------------------------------------------------
-    | 4. STATISTIQUES
-    |--------------------------------------------------------------------------
-    */
         $nbIndividuelles = $individuelles->count();
         $nbCollectives  = $collectives->count();
         $totalFormes    = $nbIndividuelles + $nbCollectives;

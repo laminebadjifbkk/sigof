@@ -210,6 +210,7 @@ class Collective extends Model
     {
         return $this->hasMany(Listecollective::class, 'collectives_id');
     }
+    
     public function antenne()
     {
         return $this->belongsTo(Antenne::class, 'antennes_id');
