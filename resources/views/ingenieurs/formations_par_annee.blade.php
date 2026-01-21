@@ -91,7 +91,7 @@
                                                 <th class="text-center" width="2%">Code</th>
                                                 <th>Type</th>
                                                 <th>Intitulé formation</th>
-                                                <th>Localité</th>
+                                                <th>Régions concernées</th>
                                                 <th>Modules</th>
                                                 <th class="text-center">Statut</th>
                                                 <th width='3%'>#</th>
@@ -104,7 +104,16 @@
                                                     <td class="text-center">{{ $formation?->code }}</td>
                                                     <td><a href="#">{{ $formation->types_formation?->name }}</a></td>
                                                     <td>{{ $formation?->name }}</td>
-                                                    <td>{{ $formation->departement?->region?->nom }}</td>
+                                                    <td>
+                                                        @if ($formation->regions->isNotEmpty())
+                                                    <span>
+                                                        {{ $formation->regions->pluck('nom')->join(', ') }}
+                                                    </span>
+                                                @else
+                                                    <span class="fs-5 text-muted">-</span>
+                                                @endif
+                                                {{-- {{ $formation->departement?->region?->nom }} --}}
+                                            </td>
                                                     <td>
                                                         @isset($formation?->module?->name)
                                                             {{ $formation?->module?->name }}
