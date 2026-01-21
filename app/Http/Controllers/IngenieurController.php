@@ -327,6 +327,7 @@ class IngenieurController extends Controller
             ])
             ->get();
 
+
         // 2. Filtrer par région de la formation
         if ($region) {
             $formations = $formations->filter(function ($formation) use ($region) {
@@ -343,9 +344,40 @@ class IngenieurController extends Controller
         $formationsParType = $formations->groupBy(fn($f) => $f->types_formation?->name);
 
         // 4. Formations individuelles
-        $individuelles = $formationsParType
+        $dividuelles = $formationsParType
             ->get('individuelle', collect())
             ->flatMap(fn($f) => $f->individuelles ?? collect());
+
+        $individuelles = $formationsParType
+            ->get('individuelle', collect())
+            ->flatMap(fn($f) => $f->individuelles ?? collect())
+            ->filter(function ($individuelle) use ($region, $ingenieur) {
+
+                // 🔒 Sécurité : rattacher à l’ingénieur
+                if ($individuelle->formation->ingenieurs_id !== $ingenieur->id) {
+                    return false;
+                }
+
+                // 🌍 Pas de filtre région
+                if (!$region) {
+                    return true;
+                }
+
+                // 🌍 Aucune région
+                if ($region === 'Aucune région') {
+                    return $individuelle->formation->regions->isEmpty();
+                }
+
+                // 🌍 Région spécifique
+                return $individuelle
+                    ->formation
+                    ->regions
+                    ->pluck('nom')
+                    ->contains($region);
+            })
+            ->values();
+
+        /* dd($dividuelles, $individuelles, $region); */
 
         // 5. Formations collectives : toutes les listecollectives associées
         $collectives = $formationsParType
