@@ -299,15 +299,12 @@ class IndividuelleController extends Controller
         // =======================================
         // Liste des individuelles (FILTRÉE si statut présent)
         // =======================================
-        $individuelles = collect();
-
-        Individuelle::whereYear('date_depot', $annee)
+        $individuelles = Individuelle::whereYear('date_depot', $annee)
             ->where('regions_id', $region->id)
             ->when($statutFiltre, fn($q) => $q->where('statut', $statutFiltre))
             ->orderByDesc('id')
-            ->chunk(1000, function ($rows) use (&$individuelles) {
-                $individuelles = $individuelles->merge($rows);
-            });
+            ->limit(500) // ou ->take(500)
+            ->get();
 
         // =======================================
         // Données annexes
