@@ -76,7 +76,7 @@ class CollectiveController extends Controller
 
         $collectives = $collectivesQuery
             ->latest()
-            ->limit(100)
+            ->limit(500)
             ->get();
 
         /* $collectives = collect();
