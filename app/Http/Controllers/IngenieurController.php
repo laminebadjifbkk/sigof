@@ -381,55 +381,48 @@ class IngenieurController extends Controller
             'collectives'
         ));
     } */
-
     public function listeFormationsParAnnee(Ingenieur $ingenieur, $annee, $region = null)
     {
+        // 1️⃣ Charger les formations avec les relations nécessaires
         $formations = Formation::query()
             ->where('ingenieurs_id', $ingenieur->id)
             ->where('annee', $annee)
             ->with([
-                'individuelles.region',              // 🔥 région du bénéficiaire
-                'collective.region', // 🔥 région du bénéficiaire
-                'collective.listecollectives',
+                'individuelles.region',          // région des bénéficiaires individuels
+                'collective.region',             // région de la collective
+                'collective.listecollectives',   // listes collectives
             ])
             ->get();
 
+        // 2️⃣ Récupérer les formations individuelles et filtrer par région si nécessaire
         $individuelles = $formations
             ->flatMap(fn($f) => $f->individuelles ?? collect())
             ->filter(function ($individuelle) use ($region) {
-
-                if (!$region) {
-                    return true;
-                }
-
-                if ($region === 'Aucune région') {
-                    return is_null($individuelle->region);
-                }
-
+                if (!$region) return true;
+                if ($region === 'Aucune région') return is_null($individuelle->region);
                 return optional($individuelle->region)->nom === $region;
             })
             ->values();
 
+        // 3️⃣ Récupérer les listes collectives et filtrer par région
         $collectives = $formations
-            ->filter(fn($f) => $f->collective)
-            ->flatMap(fn($f) => $f->collective->listecollectives ?? collect())
+            ->flatMap(function ($f) {
+                return $f->collective ? $f->collective->listecollectives ?? collect() : collect();
+            })
             ->filter(function ($collective) use ($region) {
+                // la région est attachée à la collective parente
+                $regionNom = $collective->collective->region->nom ?? null;
 
-                if (!$region) {
-                    return true;
-                }
-
-                if ($region === 'Aucune région') {
-                    return is_null($collective->region);
-                }
-
-                return optional($collective->region)->nom === $region;
+                if (!$region) return true;
+                if ($region === 'Aucune région') return is_null($regionNom);
+                return $regionNom === $region;
             })
             ->values();
 
+        // 4️⃣ Calcul des totaux
         $nbIndividuelles = $individuelles->count();
-        $nbCollectives  = $collectives->count();
-        $totalFormes    = $nbIndividuelles + $nbCollectives;
+        $nbCollectives   = $collectives->count();
+        $totalFormes     = $nbIndividuelles + $nbCollectives;
 
         $pourcentageIndividuelles = $totalFormes
             ? round(($nbIndividuelles / $totalFormes) * 100)
@@ -439,6 +432,7 @@ class IngenieurController extends Controller
             ? round(($nbCollectives / $totalFormes) * 100)
             : 0;
 
+        // 5️⃣ Retourner la vue
         return view('ingenieurs.liste_formations_par_annee', compact(
             'ingenieur',
             'annee',
