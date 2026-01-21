@@ -61,7 +61,7 @@ class IndividuelleController extends Controller
         $totalIndividuelles = number_format($individuelles, 0, ',', ' ');
 
         // Récupération des 500 dernières demandes
-        $individuelles = Individuelle::latest()->limit(500)->get();
+        $individuelles = Individuelle::latest()->limit(100)->get();
 
         // Optimisation des requêtes pour les départements et modules
         $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
@@ -95,7 +95,7 @@ class IndividuelleController extends Controller
 
         $individuelles = $query
             ->latest()
-            ->limit(500)
+            ->limit(100)
             ->get();
 
         // =========================
@@ -151,7 +151,7 @@ class IndividuelleController extends Controller
             $query->where('statut', $request->statut);
         }
 
-        $individuelles = $query->latest()->limit(500)->get();
+        $individuelles = $query->latest()->limit(100)->get();
 
         $total = $query->count();
         $totalIndividuelles = number_format($total, 0, ',', ' ');
@@ -212,7 +212,7 @@ class IndividuelleController extends Controller
         // =======================================
         // Individuelles détaillées (max 500)
         // =======================================
-        $individuelles = $query->latest()->limit(500)->get();
+        $individuelles = $query->latest()->limit(100)->get();
 
         // Total pour l'année après filtres
         $total = $query->count();
@@ -303,7 +303,7 @@ class IndividuelleController extends Controller
             ->where('regions_id', $region->id)
             ->when($statutFiltre, fn($q) => $q->where('statut', $statutFiltre))
             ->orderByDesc('id')
-            ->limit(500) // ou ->take(500)
+            ->limit(100) // ou ->take(500)
             ->get();
 
         // =======================================
