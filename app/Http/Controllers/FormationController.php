@@ -1853,21 +1853,22 @@ class FormationController extends Controller
 
             // Vérifie si la note est numérique et entre 0 et 20
             if (is_numeric($note) && $note >= 0 && $note <= 20) {
-                $note_float = $note;
-
-                if ($note_float <= 4) {
+                $note = (float) str_replace(',', '.', $note); // accepte 12,5 ou 12.5
+                if ($note < 0 || $note > 20) {
+                    $appreciation = "Note invalide";
+                } elseif ($note <= 4.9) {
                     $appreciation = "Médiocre";
-                } elseif ($note_float <= 8) {
+                } elseif ($note <= 9.5) {
                     $appreciation = "Insuffisant";
-                } elseif ($note_float <= 11) {
+                } elseif ($note <= 11.9) {
                     $appreciation = "Passable";
-                } elseif ($note_float <= 13) {
+                } elseif ($note <= 13.9) {
                     $appreciation = "Assez bien";
-                } elseif ($note_float <= 16) {
+                } elseif ($note <= 15.9) {
                     $appreciation = "Bien";
-                } elseif ($note_float <= 19) {
+                } elseif ($note <= 17.9) {
                     $appreciation = "Très bien";
-                } else {
+                } else { // 18.0 à 20.0
                     $appreciation = "Excellent";
                 }
             } else {
@@ -2005,21 +2006,23 @@ class FormationController extends Controller
 
             // Vérifie si la note est numérique et entre 0 et 20
             if (is_numeric($note) && $note >= 0 && $note <= 20) {
-                $note_float = (float) $note;
+                $note = (float) str_replace(',', '.', $note); // accepte 12,5 ou 12.5
 
-                if ($note_float <= 4) {
+                if ($note < 0 || $note > 20) {
+                    $appreciation = "Note invalide";
+                } elseif ($note <= 4.9) {
                     $appreciation = "Médiocre";
-                } elseif ($note_float <= 8) {
+                } elseif ($note <= 9.5) {
                     $appreciation = "Insuffisant";
-                } elseif ($note_float <= 11) {
+                } elseif ($note <= 11.9) {
                     $appreciation = "Passable";
-                } elseif ($note_float <= 13) {
+                } elseif ($note <= 13.9) {
                     $appreciation = "Assez bien";
-                } elseif ($note_float <= 16) {
+                } elseif ($note <= 15.9) {
                     $appreciation = "Bien";
-                } elseif ($note_float <= 19) {
+                } elseif ($note <= 17.9) {
                     $appreciation = "Très bien";
-                } else {
+                } else { // 18.0 à 20.0
                     $appreciation = "Excellent";
                 }
             } else {
