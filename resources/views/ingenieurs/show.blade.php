@@ -89,7 +89,7 @@
                                                 <th>Type</th>
                                                 <th>Intitulé formation</th>
                                                 <th>Modules</th>
-                                                <th>Régions concernées</th>
+                                                <th>Régions</th>
                                                 <th class="text-center">Statut</th>
                                                 <th width='3%'>#</th>
                                             </tr>
