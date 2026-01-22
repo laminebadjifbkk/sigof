@@ -91,9 +91,9 @@
                                                 <th>Intitulé formation</th>
                                                 <th>Modules</th>
                                                 <th>Régions concernées</th>
-                                                <th>Opérateurs</th>
-                                                <th>Montant</th>
-                                                <th>Effectif</th>
+                                                <th class="text-center">Opérateurs</th>
+                                                <th class="text-center">Montant</th>
+                                                <th class="text-center">Effectif</th>
                                                 <th class="text-center">Statut</th>
                                                 <th width='3%'>#</th>
                                             </tr>
@@ -118,17 +118,17 @@
                                                         @endif
                                                         {{-- {{ $formation->departement?->region?->nom }} --}}
                                                     </td>
-                                                    <td>{{ $formation?->operateur?->user?->username }}</td>
-                                                    <td>
+                                                    <td class="text-center">{{ $formation?->operateur?->user?->username }}</td>
+                                                    <td class="text-center">
                                                         {{ number_format($formation?->frais_total ?? 0, 0, ',', ' ') }}
                                                     </td>
-                                                    <td>
+                                                    <td class="text-center">
                                                         {{ number_format($formation?->effectif_prevu ?? 0, 0, ',', ' ') }}
                                                     </td>
                                                     <td class="text-center"><a href="#"><span
                                                                 class="{{ $formation?->statut }}">{{ $formation?->statut }}</span></a>
                                                     </td>
-                                                    <td>
+                                                    <td class="text-center">
                                                         <span class="d-flex align-items-baseline"><a
                                                                 href="{{ route('formations.show', $formation) }}"
                                                                 class="btn btn-primary btn-sm" title="voir détails"><i
