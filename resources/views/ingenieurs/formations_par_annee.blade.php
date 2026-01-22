@@ -92,7 +92,7 @@
                                                 <th>Modules</th>
                                                 <th>Régions</th>
                                                 <th class="text-center">Opérateurs</th>
-                                                <th class="text-center">Montant</th>
+                                                <th class="text-center">Frais total</th>
                                                 <th class="text-center">Effectif</th>
                                                 <th class="text-center">Statut</th>
                                                 <th width='3%'>#</th>
