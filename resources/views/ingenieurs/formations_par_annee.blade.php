@@ -88,7 +88,7 @@
                                             <tr>
                                                 {{-- <th class="text-center" width="2%">Code</th> --}}
                                                 <th>Type</th>
-                                                <th>Intitulé formation</th>
+                                                {{-- <th>Intitulé formation</th> --}}
                                                 <th>Modules</th>
                                                 <th>Régions</th>
                                                 <th class="text-center">Opérateurs</th>
@@ -104,7 +104,7 @@
                                                 <tr>
                                                     {{-- <td class="text-center">{{ $formation?->code }}</td> --}}
                                                     <td><a href="#">{{ $formation->types_formation?->name }}</a></td>
-                                                    <td>{{ $formation?->name }}</td>
+                                                    {{-- <td>{{ $formation?->name }}</td> --}}
                                                     <td>
                                                         {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
                                                     </td>
