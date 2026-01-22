@@ -654,8 +654,12 @@ class Formation extends Model
         return ($this->prevue_h ?? 0) + ($this->prevue_f ?? 0);
     }
 
-    public function getFraisTotalOperateur()
+    public function getFraisTotalAttribute()
     {
+        if (is_null($this->frais_operateurs) || is_null($this->frais_add) || is_null($this->autes_frais)) {
+            return $this->frais_total ?? 0;
+        }
+
         return ($this->frais_operateurs ?? 0) + ($this->frais_add ?? 0) + ($this->autes_frais ?? 0);
     }
 }

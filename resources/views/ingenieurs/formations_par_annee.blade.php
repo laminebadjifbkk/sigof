@@ -120,14 +120,11 @@
                                                     </td>
                                                     <td>{{ $formation?->operateur?->user?->username }}</td>
                                                     <td>
-                                                        {{ number_format(
-                                                            ($formation?->frais_operateurs ?? 0) + ($formation?->frais_add ?? 0) + ($formation?->autes_frais ?? 0),
-                                                            0,
-                                                            ',',
-                                                            ' ',
-                                                        ) }}
+                                                        {{ number_format($formation?->frais_total ?? 0, 0, ',', ' ') }}
                                                     </td>
-                                                    <td>{{ $formation?->effectif_prevu }}</td>
+                                                    <td>
+                                                        {{ number_format($formation?->effectif_prevu ?? 0, 0, ',', ' ') }}
+                                                    </td>
                                                     <td class="text-center"><a href="#"><span
                                                                 class="{{ $formation?->statut }}">{{ $formation?->statut }}</span></a>
                                                     </td>
