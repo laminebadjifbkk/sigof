@@ -90,7 +90,7 @@
                                                 <th>Type</th>
                                                 <th>Intitulé formation</th>
                                                 <th>Modules</th>
-                                                <th>Régions concernées</th>
+                                                <th>Régions</th>
                                                 <th class="text-center">Opérateurs</th>
                                                 <th class="text-center">Montant</th>
                                                 <th class="text-center">Effectif</th>
