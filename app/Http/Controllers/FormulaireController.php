@@ -1034,10 +1034,10 @@ class FormulaireController extends Controller
     public function exportercontratlettrePDF(Request $request, $statut)
     {
         try {
-            if ($statut !== 'Sélectionné' || $statut !== 'liste attente') {
+            /* if ($statut !== 'Sélectionné' || $statut !== 'liste attente') {
                 Alert::error('Attention', 'Impossible de télécharger les lettres : statut invalide.');
                 return redirect()->back();
-            }
+            } */
 
             // Récupération
             $formulaires = Formulaire::where('statut', $statut)->get();
@@ -1107,10 +1107,10 @@ class FormulaireController extends Controller
             }
 
             // Vérifier le statut
-            if ($formulaire->statut !== 'Sélectionné' || $formulaire->statut !== 'liste attente') {
+            /* if ($formulaire->statut !== 'Sélectionné' || $formulaire->statut !== 'liste attente') {
                 Alert::error('Attention', 'Impossible de télécharger : statut invalide.');
                 return redirect()->back();
-            }
+            } */
 
             // Préparer les données pour la vue PDF
             $options = new Options();
@@ -1182,10 +1182,10 @@ class FormulaireController extends Controller
             }
 
             // Vérifier le statut
-            if ($formulaire->statut !== 'Sélectionné' || $formulaire->statut !== 'liste attente') {
+           /*  if ($formulaire->statut !== 'Sélectionné' || $formulaire->statut !== 'liste attente') {
                 Alert::error('Attention', 'Impossible de télécharger : statut invalide.');
                 return redirect()->back();
-            }
+            } */
 
             // Préparer les données pour la vue PDF
             $options = new Options();
