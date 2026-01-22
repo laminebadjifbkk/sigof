@@ -1138,6 +1138,33 @@ class CollectiveController extends Controller
 
         $totalCollectives = number_format($collectives?->count(), 0, ',', ' ');
 
+        $collectivesQuery = Collective::query();
+
+        $totalDemandesCount = Collective::count();
+        $totalDemandes = number_format($totalDemandesCount, 0, ',', ' ');
+
+        $totalAffichees = $collectives->count();
+
+        $today = now()->toDateString();
+        $demandesDuJourCount = Collective::whereDate('created_at', $today)->count();
+
+        $groupes = Collective::query()
+            ->selectRaw('YEAR(date_depot) as annee, COUNT(*) as total')
+            ->groupBy('annee')
+            ->orderBy('annee', 'desc')
+            ->get();
+
+        $statutPourcentages = [];
+
+        foreach ($groupes as $statutKey => $items) {
+            $statutPourcentages[$statutKey] = [
+                'count'   => $items->count(),
+                'percent' => $totalDemandesCount
+                    ? round($items->count() * 100 / $totalDemandesCount, 1)
+                    : 0,
+            ];
+        }
+
         $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $communes     = Commune::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::select('id', 'name')->orderBy('name', 'ASC')->get();
@@ -1152,6 +1179,9 @@ class CollectiveController extends Controller
                 'totalCollectives',
                 'communes',
                 'modules',
+                'groupes',
+                'totalAffichees',
+                'totalDemandes',
                 'count_today'
             )
         );
