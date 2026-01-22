@@ -335,7 +335,7 @@
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="effectif_prevu" class="form-label">Effectif révu total</label>
+                                        <label for="effectif_prevu" class="form-label">Effectif prévu total</label>
                                         <input type="number" name="effectif_prevu" min="0" max="50"
                                             value="{{ old('effectif_prevu', $formation?->effectif_prevu ?? 0) }}"
                                             class="form-control form-control-sm @error('effectif_prevu') is-invalid @enderror"

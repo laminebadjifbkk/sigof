@@ -86,11 +86,14 @@
                                     <table class="table datatables align-middle justify-content-center" id="table-formations">
                                         <thead>
                                             <tr>
-                                                <th class="text-center" width="2%">Code</th>
+                                                {{-- <th class="text-center" width="2%">Code</th> --}}
                                                 <th>Type</th>
                                                 <th>Intitulé formation</th>
-                                                <th>Régions concernées</th>
                                                 <th>Modules</th>
+                                                <th>Régions concernées</th>
+                                                <th>Opérateurs</th>
+                                                <th>Montant</th>
+                                                <th>Effectif</th>
                                                 <th class="text-center">Statut</th>
                                                 <th width='3%'>#</th>
                                             </tr>
@@ -99,9 +102,12 @@
                                             <?php $i = 1; ?>
                                             @foreach ($formations as $formation)
                                                 <tr>
-                                                    <td class="text-center">{{ $formation?->code }}</td>
+                                                    {{-- <td class="text-center">{{ $formation?->code }}</td> --}}
                                                     <td><a href="#">{{ $formation->types_formation?->name }}</a></td>
                                                     <td>{{ $formation?->name }}</td>
+                                                    <td>
+                                                        {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
+                                                    </td>
                                                     <td>
                                                         @if ($formation->regions->isNotEmpty())
                                                             <span>
@@ -112,14 +118,16 @@
                                                         @endif
                                                         {{-- {{ $formation->departement?->region?->nom }} --}}
                                                     </td>
+                                                    <td>{{ $formation?->operateur?->user?->username }}</td>
                                                     <td>
-                                                        @isset($formation?->module?->name)
-                                                            {{ $formation?->module?->name }}
-                                                        @endisset
-                                                        @isset($formation?->collectivemodule?->module)
-                                                            {{ $formation?->collectivemodule?->module }}
-                                                        @endisset
+                                                        {{ number_format(
+                                                            ($formation?->frais_operateurs ?? 0) + ($formation?->frais_add ?? 0) + ($formation?->autes_frais ?? 0),
+                                                            0,
+                                                            ',',
+                                                            ' ',
+                                                        ) }}
                                                     </td>
+                                                    <td>{{ $formation?->effectif_prevu }}</td>
                                                     <td class="text-center"><a href="#"><span
                                                                 class="{{ $formation?->statut }}">{{ $formation?->statut }}</span></a>
                                                     </td>

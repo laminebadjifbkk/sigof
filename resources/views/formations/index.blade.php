@@ -279,11 +279,14 @@
                                             {{-- <td>{{ $formation->types_formation->name ?? 'Non spécifié' }}</td> --}}
                                             {{--  <td>{{ $formation->departement->region->nom ?? 'Non spécifié' }}</td> --}}
                                             <td>{{ $formation?->name ?? ' ' }}</td>
-                                            <td>
+                                            {{-- <td>
                                                 <span
                                                     class="{{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}">
                                                     {{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}
                                                 </span>
+                                            </td> --}}
+                                            <td>
+                                                {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
                                             </td>
                                             {{-- <td>{{ $formation->type_certification }}</td> --}}
                                             <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>

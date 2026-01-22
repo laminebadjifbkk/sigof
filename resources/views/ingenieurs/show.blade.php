@@ -24,9 +24,9 @@
         <thead class="table-primary">
             <tr>
                 <th scope="col" style="width: 50px;">N°</th>
-                <th scope="col">Année</th>
+                <th scope="col">Années</th>
                 <th scope="col" class="text-center">Formations</th>
-                <th scope="col" style="width: 120px;">Action</th>
+                <th scope="col" style="width: 120px;">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -85,11 +85,11 @@
                                     <table class="table datatables align-middle justify-content-center" id="table-formations">
                                         <thead>
                                             <tr>
-                                                <th class="text-center" width="2%">Code</th>
+                                                {{-- <th class="text-center" width="2%">Code</th> --}}
                                                 <th>Type</th>
                                                 <th>Intitulé formation</th>
-                                                <th>Régions concernées</th>
                                                 <th>Modules</th>
+                                                <th>Régions concernées</th>
                                                 <th class="text-center">Statut</th>
                                                 <th width='3%'>#</th>
                                             </tr>
@@ -98,9 +98,12 @@
                                             <?php $i = 1; ?>
                                             @foreach ($ingenieur->formations as $formation)
                                                 <tr>
-                                                    <td class="text-center">{{ $formation?->code }}</td>
+                                                    {{-- <td class="text-center">{{ $formation?->code }}</td> --}}
                                                     <td><a href="#">{{ $formation->types_formation?->name }}</a></td>
                                                     <td>{{ $formation?->name }}</td>
+                                                    <td>
+                                                        {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
+                                                    </td>
                                                     <td>
                                                         {{-- {{ $formation->departement?->region?->nom }} --}}
                                                         @if ($formation->regions->isNotEmpty())
@@ -111,14 +114,14 @@
                                                             <span class="fs-5 text-muted">Aucune</span>
                                                         @endif
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         @isset($formation?->module?->name)
                                                             {{ $formation?->module?->name }}
                                                         @endisset
                                                         @isset($formation?->collectivemodule?->module)
                                                             {{ $formation?->collectivemodule?->module }}
                                                         @endisset
-                                                    </td>
+                                                    </td> --}}
                                                     <td class="text-center"><a href="#"><span
                                                                 class="{{ $formation?->statut }}">{{ $formation?->statut }}</span></a>
                                                     </td>

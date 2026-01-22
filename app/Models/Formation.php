@@ -644,4 +644,18 @@ class Formation extends Model
     {
         return $this->belongsTo(Region::class, 'regions_id');
     }
+
+    public function getEffectifPrevuTotalAttribute()
+    {
+        if (is_null($this->prevue_h) || is_null($this->prevue_f)) {
+            return $this->effectif_prevu ?? 0;
+        }
+
+        return ($this->prevue_h ?? 0) + ($this->prevue_f ?? 0);
+    }
+
+    public function getFraisTotalOperateur()
+    {
+        return ($this->frais_operateurs ?? 0) + ($this->frais_add ?? 0) + ($this->autes_frais ?? 0);
+    }
 }
