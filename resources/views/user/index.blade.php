@@ -118,12 +118,23 @@
                                     <?php $i = 1; ?>
                                     @foreach ($utilisateurs as $user)
                                         <tr>
-                                            <th scope="row">
+                                            {{-- <th scope="row">
                                                 <a href="{{ route('users.show', $user) }}">
                                                     <img class="rounded-circle w-20" alt="Profil"
                                                         src="{{ asset($user->getImage()) }}" width="40" height="auto">
                                                 </a>
+                                            </th> --}}
+                                            <th scope="row">
+                                                <a href="{{ route('users.show', $user) }}"
+                                                    class="table-profile-image-wrapper
+                                                {{ $user?->last_activity && \Carbon\Carbon::parse($user->last_activity)->diffInMinutes(now()) < 5
+                                                    ? 'online'
+                                                    : 'offline' }}">
+                                                    <img src="{{ asset($user->getImage()) }}" class="rounded-circle w-20" alt="Profil"
+                                                        class="table-profile-image"  width="40" height="auto">
+                                                </a>
                                             </th>
+
                                             {{-- <td>{{ $user?->username }}</td> --}}
                                             <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                             <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a></td>
@@ -136,7 +147,8 @@
                                                 @endif
                                             </td>
                                             <td class="text-center">
-                                                <span class="badge bg-info text-white">{{ $user->individuelles->count() }}</span>
+                                                <span
+                                                    class="badge bg-info text-white">{{ $user->individuelles->count() }}</span>
                                             </td>
                                             <td style="text-align: center;">
                                                 @isset($user?->email_verified_at)
