@@ -42,8 +42,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Ingenieur extends Model
 {
-	
-    use HasFactory;
+
+	use HasFactory;
 	use SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	protected $table = 'ingenieurs';
@@ -88,11 +88,16 @@ class Ingenieur extends Model
 	public function projets()
 	{
 		return $this->belongsToMany(Projet::class, 'projetsingenieurs', 'ingenieurs_id', 'projets_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
+			->withPivot('id', 'deleted_at')
+			->withTimestamps();
 	}
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'users_id');
+	}
+
+	public function collectivemodules()
+	{
+		return $this->hasMany(Collectivemodule::class, 'ingenieurs_id');
 	}
 }

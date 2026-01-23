@@ -183,54 +183,55 @@
                             </span>
                             {{-- <h5 class="card-title">Liste des demandes collectives imputées à {{ $ingenieur->name }}</h5> --}}
                             <h5 class="card-title">Liste des demandes collectives</h5>
-                            @if ($ingenieur->collectives->isNotEmpty())
+                            @if ($ingenieur->collectivemodules->isNotEmpty())
                                 <table class="table table-striped table-hover align-middle datatables" id="table-collectives">
                                     <thead>
                                         <tr>
-                                            <th>N° DEM.</th>
+                                            {{-- <th>N° DEM.</th> --}}
+                                            <th>Modules</th>
                                             <th>Nom structure</th>
                                             <th>E-mail</th>
                                             <th>Téléphone</th>
                                             <th>Région</th>
-                                            <th class="text-center">Modules</th>
                                             <th class="text-center">Effectif</th>
                                             <th class="text-center">Statut</th>
                                             <th class="text-center">#</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($ingenieur->collectives as $collective)
+                                        @foreach ($ingenieur->collectivemodules as $collectivemodule)
                                             <tr>
-                                                <td>{{ $collective?->numero }}</td>
+                                                {{-- <td>{{ $collectivemodule->collective?->numero }}</td> --}}
+                                                <td>{{ $collectivemodule->module }}</td>
                                                 <td>
-                                                    {{ $collective?->name }}
-                                                    @if (!empty($collective?->sigle))
-                                                        ({{ $collective?->sigle }})
+                                                    {{ $collectivemodule->collective?->name }}
+                                                    @if (!empty($collectivemodule->collective?->sigle))
+                                                        ({{ $collectivemodule->collective?->sigle }})
                                                     @endif
                                                 </td>
                                                 <td>
                                                     <a
-                                                        href="mailto:{{ $collective->user->email }}">{{ $collective->user->email }}</a>
+                                                        href="mailto:{{ $collectivemodule->collective->user->email }}">{{ $collectivemodule->collective->user->email }}</a>
                                                 </td>
                                                 <td>
                                                     <a
-                                                        href="tel:+221{{ $collective->telephone }}">{{ $collective->telephone }}</a>
+                                                        href="tel:+221{{ $collectivemodule->collective->telephone }}">{{ $collectivemodule->collective->telephone }}</a>
                                                 </td>
-                                                <td>{{ $collective->departement?->region?->nom }}</td>
-                                                <td class="text-center">{{ count($collective->collectivemodules) }}</td>
-                                                <td class="text-center">{{ count($collective->listecollectives) }}</td>
+                                                <td>{{ $collectivemodule->collective->departement?->region?->nom }}</td>
+                                                <td class="text-center">
+                                                    {{ count($collectivemodule->listecollectives) }}</td>
                                                 <td class="text-center">
                                                     <span
-                                                        class="{{ $collective?->statut_demande }}">{{ $collective?->statut_demande }}</span>
+                                                        class="{{ $collectivemodule->statut }}">{{ $collectivemodule->statut }}</span>
                                                 </td>
                                                 <td class="text-center">
                                                     @can('collective-show')
                                                         <div class="d-flex align-items-center">
-                                                            <a href="{{ route('collectives.show', $collective) }}"
+                                                            <a href="{{ route('collectives.show', $collectivemodule->collective) }}"
                                                                 class="btn btn-primary btn-sm me-1" title="Voir détails">
                                                                 <i class="bi bi-eye"></i>
                                                             </a>
-                                                            <div class="dropdown">
+                                                            {{-- <div class="dropdown">
                                                                 <a href="#" class="btn btn-light btn-sm dropdown-toggle"
                                                                     data-bs-toggle="dropdown">
                                                                     <i class="bi bi-three-dots"></i>
@@ -238,7 +239,7 @@
                                                                 <ul class="dropdown-menu dropdown-menu-end">
                                                                     @can('collective-update')
                                                                         <li>
-                                                                            <a href="{{ route('collectives.edit', $collective) }}"
+                                                                            <a href="{{ route('collectives.edit', $collectivemodules->collective) }}"
                                                                                 class="dropdown-item">
                                                                                 <i class="bi bi-pencil"></i> Modifier
                                                                             </a>
@@ -247,7 +248,7 @@
                                                                     @can('collective-delete')
                                                                         <li>
                                                                             <form
-                                                                                action="{{ route('collectives.destroy', $collective) }}"
+                                                                                action="{{ route('collectives.destroy', $collectivemodules->collective) }}"
                                                                                 method="POST">
                                                                                 @csrf
                                                                                 @method('DELETE')
@@ -259,7 +260,7 @@
                                                                         </li>
                                                                     @endcan
                                                                 </ul>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     @endcan
                                                 </td>
