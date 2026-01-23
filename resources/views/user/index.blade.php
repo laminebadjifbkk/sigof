@@ -130,8 +130,9 @@
                                                 {{ $user?->last_activity && \Carbon\Carbon::parse($user->last_activity)->diffInMinutes(now()) < 5
                                                     ? 'online'
                                                     : 'offline' }}">
-                                                    <img src="{{ asset($user->getImage()) }}" class="rounded-circle w-20" alt="Profil"
-                                                        class="table-profile-image"  width="40" height="auto">
+                                                    <img src="{{ asset($user->getImage()) }}"
+                                                        class="rounded-circle w-20 table-profile-image" alt="Profil"
+                                                        width="40" height="auto">
                                                 </a>
                                             </th>
 

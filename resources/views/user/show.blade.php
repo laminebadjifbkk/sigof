@@ -27,10 +27,20 @@
                     </div>
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#ShowProfilImage{{ $user?->id }}">
+                        {{-- <a href="#" data-bs-toggle="modal" data-bs-target="#ShowProfilImage{{ $user?->id }}">
 
                             <img class="rounded-circle w-100" alt="Profil" src="{{ asset($user->getImage()) }}"
                                 width="100" height="auto">
+                        </a> --}}
+
+                        {{-- Photo de profil avec bordure --}}
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#ShowProfilImage{{ $user?->id }}"
+                            class="profile-image-wrapper
+               {{ $user?->last_activity && \Carbon\Carbon::parse($user?->last_activity)->diffInMinutes(now()) < 5
+                   ? 'online'
+                   : 'offline' }}">
+
+                            <img src="{{ asset($user?->getImage()) }}" alt="Profil" class="rounded-circle w-20 table-profile-image">
                         </a>
 
                         <h2 class="pt-1 d-flex flex-column align-items-center text-center">
