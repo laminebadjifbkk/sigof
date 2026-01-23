@@ -1474,81 +1474,106 @@
             @endif
         @endrole
 
-        <div class="modal fade" id="ShowProfilImage{{ Auth::id() }}" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content border-0 rounded-5 shadow-md overflow-hidden"
-                    style="background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px);">
-                    <div class="modal-body text-center p-4">
-                        <!-- Bouton close en haut à droite -->
-                        <button type="button" class="btn-close position-absolute top-0 end-0 m-3"
-                            data-bs-dismiss="modal" aria-label="Close"></button>
+        {{-- Courriers --}}
+        @hasanyrole('Employe|super-admin')
+            @if ($courriers_auj)
+                <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                    <a href="{{ route('mescourriers') }}">
+                        <div class="card shadow-lg border-0 rounded-lg">
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h5 class="card-title text-success d-flex align-items-center">
+                                        <i class="bi bi-graduation-cap me-0"></i> Courriers <span class="fw-bold"></span>
+                                    </h5>
+                                    <p class="text-muted">Aujourd'hui</p>
+                                </div>
+                                <div class="card-icon bg-success text-white rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 30px; height: 30px; font-size: 1.2rem;">
+                                    {{ $courriers_auj }}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            @endif
+        @endhasanyrole
+    </div>
 
-                        <!-- Titre -->
-                        <h2 class="fs-3 fw-bold text-dark mb-4 mt-2">
-                            {{ (Auth::user()?->civilite ?? '') . ' ' . (Auth::user()?->firstname ?? '') . ' ' . (Auth::user()?->name ?? '') }}
-                        </h2>
+    <div class="modal fade" id="ShowProfilImage{{ Auth::id() }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-5 shadow-md overflow-hidden"
+                style="background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px);">
+                <div class="modal-body text-center p-4">
+                    <!-- Bouton close en haut à droite -->
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
 
-                        <!-- Image -->
-                        <img src="{{ asset($user->getImage() ?? 'images/default.png') }}"
-                            class="img-fluid rounded-4 shadow-sm animated-image mb-4"
-                            alt="{{ Auth::user()?->legende ?? 'Photo de profil' }}"
-                            style="max-height: 400px; object-fit: cover; border: 4px solid rgba(255,255,255,0.6);">
+                    <!-- Titre -->
+                    <h2 class="fs-3 fw-bold text-dark mb-4 mt-2">
+                        {{ (Auth::user()?->civilite ?? '') . ' ' . (Auth::user()?->firstname ?? '') . ' ' . (Auth::user()?->name ?? '') }}
+                    </h2>
 
-                        <!-- Bouton Fermer -->
-                        <button type="button" class="btn btn-dark rounded-pill px-5 py-2 mt-2" data-bs-dismiss="modal">
-                            Fermer
-                        </button>
-                    </div>
+                    <!-- Image -->
+                    <img src="{{ asset($user->getImage() ?? 'images/default.png') }}"
+                        class="img-fluid rounded-4 shadow-sm animated-image mb-4"
+                        alt="{{ Auth::user()?->legende ?? 'Photo de profil' }}"
+                        style="max-height: 400px; object-fit: cover; border: 4px solid rgba(255,255,255,0.6);">
+
+                    <!-- Bouton Fermer -->
+                    <button type="button" class="btn btn-dark rounded-pill px-5 py-2 mt-2" data-bs-dismiss="modal">
+                        Fermer
+                    </button>
                 </div>
             </div>
         </div>
+    </div>
 
-    @endsection
+@endsection
 
-    @push('scripts')
-        <style>
-            .hover-shadow:hover {
-                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08) !important;
-                transform: translateY(-2px);
-            }
-        </style>
+@push('scripts')
+    <style>
+        .hover-shadow:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08) !important;
+            transform: translateY(-2px);
+        }
+    </style>
 
-        <style>
-            /* Animation pour l'image */
-            @keyframes zoomFadeIn {
-                0% {
-                    opacity: 0;
-                    transform: scale(0.8);
-                }
-
-                100% {
-                    opacity: 1;
-                    transform: scale(1);
-                }
+    <style>
+        /* Animation pour l'image */
+        @keyframes zoomFadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
             }
 
-            .animated-image {
-                animation: zoomFadeIn 0.6s ease-out forwards;
+            100% {
+                opacity: 1;
+                transform: scale(1);
             }
-        </style>
-        <style>
-            .blinking-icon {
-                animation: blink 1s infinite;
-                color: #dc3545;
-                /* rouge pour attirer l'attention */
-                margin-left: 5px;
+        }
+
+        .animated-image {
+            animation: zoomFadeIn 0.6s ease-out forwards;
+        }
+    </style>
+    <style>
+        .blinking-icon {
+            animation: blink 1s infinite;
+            color: #dc3545;
+            /* rouge pour attirer l'attention */
+            margin-left: 5px;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
             }
 
-            @keyframes blink {
-
-                0%,
-                100% {
-                    opacity: 1;
-                }
-
-                50% {
-                    opacity: 0;
-                }
+            50% {
+                opacity: 0;
             }
-        </style>
-    @endpush
+        }
+    </style>
+@endpush
