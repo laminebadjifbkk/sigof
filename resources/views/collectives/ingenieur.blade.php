@@ -85,7 +85,7 @@
                                                     </td>
                                                     <td style="text-align: center;">
                                                         <span
-                                                            class="badge bg-success">{{ $ingenieur?->collectives->count() }}</span>
+                                                            class="badge bg-success">{{ $ingenieur?->collectivemodules->count() }}</span>
                                                     </td>
                                                     <td style="text-align: center;">
                                                         <span class="d-flex mt-2 align-items-baseline"><a
