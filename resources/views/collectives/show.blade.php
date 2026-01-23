@@ -294,36 +294,6 @@
                                                     <div class="d-flex flex-column gap-2">
 
                                                         @can('diof')
-                                                            {{-- Bloc ingénieur --}}
-                                                            @if ($ingenieur)
-                                                                <div class="d-flex justify-content-between align-items-center">
-                                                                    <h5 class="card-title mb-0">
-                                                                        {{ $ingenieur?->user?->firstname . ' ' . $ingenieur?->user?->name }}
-                                                                    </h5>
-
-                                                                    @can('ingenieur-check')
-                                                                        <div class="btn-group">
-                                                                            <a class="btn btn-info btn-sm" title="Voir ingénieur"
-                                                                                href="{{ route('ingenieurs.show', $ingenieur->id) }}">
-                                                                                <i class="bi bi-eye"></i>
-                                                                            </a>
-
-                                                                            <a href="{{ route('addcollectiveingenieurs', $collective->id) }}"
-                                                                                class="btn btn-outline-primary btn-sm">
-                                                                                Changer ingénieur
-                                                                            </a>
-                                                                        </div>
-                                                                    @endcan
-                                                                </div>
-                                                            @else
-                                                                <div>
-                                                                    <a href="{{ route('addcollectiveingenieurs', $collective->id) }}"
-                                                                        class="btn btn-primary btn-sm">
-                                                                        Imputer ingénieur
-                                                                    </a>
-                                                                </div>
-                                                            @endif
-
                                                             {{-- Actions globales (toujours visibles pour diof) --}}
                                                             <div class="d-flex gap-2">
                                                                 <a href="{{ route('collective.fiche', $collective->id) }}"
@@ -387,43 +357,103 @@
                                                                                     <span
                                                                                         class="{{ $module_collective?->statut }}">{{ $module_collective?->statut }}</span>
                                                                                 </td>
-                                                                                <td class="float-end">
+                                                                                <td class="text-end">
                                                                                     @can('view', $collective)
-                                                                                        <span class="d-flex align-items-baseline"><a
-                                                                                                href="{{ route('collectivemodules.show', $module_collective) }}"
+                                                                                        <div
+                                                                                            class="d-flex justify-content-end align-items-center gap-2">
+
+                                                                                            <a href="{{ route('collectivemodules.show', $module_collective) }}"
                                                                                                 class="btn btn-info btn-sm text-white"
-                                                                                                title="voir détails">ajouter</a>
-                                                                                            <div class="filter">
-                                                                                                <a class="icon" href="#"
-                                                                                                    data-bs-toggle="dropdown"><i
-                                                                                                        class="bi bi-three-dots"></i></a>
+                                                                                                title="Voir détails">
+                                                                                                Ajouter
+                                                                                            </a>
+
+                                                                                            <div class="dropdown">
+                                                                                                <a class="btn btn-light btn-sm"
+                                                                                                    href="#"
+                                                                                                    data-bs-toggle="dropdown"
+                                                                                                    aria-expanded="false">
+                                                                                                    <i class="bi bi-three-dots"></i>
+                                                                                                </a>
+
                                                                                                 <ul
-                                                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                                                    <button class="btn btn-sm mx-1"
-                                                                                                        data-bs-toggle="modal"
-                                                                                                        data-bs-target="#EditRegionModal{{ $module_collective->id }}">Modifier
-                                                                                                    </button>
-                                                                                                    <form
-                                                                                                        action="{{ route('collectivemodules.destroy', $module_collective) }}"
-                                                                                                        method="post">
-                                                                                                        @csrf
-                                                                                                        @method('DELETE')
-                                                                                                        <button type="submit"
-                                                                                                            class="dropdown-item show_confirm"
-                                                                                                            title="Supprimer">Supprimer</button>
-                                                                                                    </form>
-                                                                                                    @can('validate-module-collective')
-                                                                                                        <button class="btn btn-sm mx-1"
+                                                                                                    class="dropdown-menu dropdown-menu-end">
+
+                                                                                                    {{-- Modifier --}}
+                                                                                                    <li>
+                                                                                                        <button class="dropdown-item"
                                                                                                             data-bs-toggle="modal"
-                                                                                                            data-bs-target="#RejetModuleDemandeModal{{ $module_collective->id }}">Validation
-                                                                                                            module
+                                                                                                            data-bs-target="#EditRegionModal{{ $module_collective->id }}">
+                                                                                                            Modifier
                                                                                                         </button>
-                                                                                                        <br>
-                                                                                                        <br>
+                                                                                                    </li>
+
+                                                                                                    {{-- Supprimer --}}
+                                                                                                    <li>
+                                                                                                        <form
+                                                                                                            action="{{ route('collectivemodules.destroy', $module_collective) }}"
+                                                                                                            method="POST">
+                                                                                                            @csrf
+                                                                                                            @method('DELETE')
+                                                                                                            <button type="submit"
+                                                                                                                class="dropdown-item text-danger show_confirm">
+                                                                                                                Supprimer
+                                                                                                            </button>
+                                                                                                        </form>
+                                                                                                    </li>
+
+                                                                                                    {{-- Validation --}}
+                                                                                                    @can('validate-module-collective')
+                                                                                                        <li>
+                                                                                                            <button class="dropdown-item"
+                                                                                                                data-bs-toggle="modal"
+                                                                                                                data-bs-target="#RejetModuleDemandeModal{{ $module_collective->id }}">
+                                                                                                                Validation module
+                                                                                                            </button>
+                                                                                                        </li>
                                                                                                     @endcan
+
+                                                                                                    {{-- Bloc ingénieur --}}
+                                                                                                    @can('diof')
+                                                                                                        <li>
+                                                                                                            <hr class="dropdown-divider">
+                                                                                                        </li>
+
+                                                                                                        @if ($module_collective->ingenieur)
+                                                                                                            <li class="px-3 py-2">
+                                                                                                                <strong>
+                                                                                                                    {{ $module_collective->ingenieur?->user?->firstname . ' ' . $module_collective->ingenieur?->user?->name }}
+                                                                                                                </strong>
+                                                                                                            </li>
+
+                                                                                                            @can('ingenieur-check')
+                                                                                                                <li>
+                                                                                                                    <a class="dropdown-item"
+                                                                                                                        href="{{ route('ingenieurs.show', $module_collective->ingenieur->id) }}">
+                                                                                                                        Voir ingénieur
+                                                                                                                    </a>
+                                                                                                                </li>
+
+                                                                                                                <li>
+                                                                                                                    <a class="dropdown-item"
+                                                                                                                        href="{{ route('addcollectiveingenieurs', $module_collective->id) }}">
+                                                                                                                        Changer ingénieur
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            @endcan
+                                                                                                        @else
+                                                                                                            <li>
+                                                                                                                <a class="dropdown-item text-primary"
+                                                                                                                    href="{{ route('addcollectiveingenieurs', $module_collective->id) }}">
+                                                                                                                    Imputer ingénieur
+                                                                                                                </a>
+                                                                                                            </li>
+                                                                                                        @endif
+                                                                                                    @endcan
+
                                                                                                 </ul>
                                                                                             </div>
-                                                                                        </span>
+                                                                                        </div>
                                                                                     @endcan
                                                                                 </td>
                                                                             </tr>

@@ -22,26 +22,22 @@
                         <div class="row">
                             <div class="col-sm-12 pt-0">
                                 <span class="d-flex mt-0 align-items-baseline"><a
-                                        href="{{ route('collectives.show', $collective) }}"
+                                        href="{{ route('collectives.show', $collectivemodule->collective) }}"
                                         class="btn btn-success btn-sm" title="retour"><i
                                             class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                     <p> | Détails demande collective</p>
                                 </span>
                             </div>
                         </div>
-                        <h5><u><b>BENEFICIAIRE</b>:</u> {{ $collective?->name }}</h5>
+                        <h5><u><b>STRUCTURE</b>:</u> {{ $collectivemodule->collective?->name }}</h5>
                         <h5><u><b>MODULES</b>:</u>
-                            {{ $collective && $collective->collectivemodules ? $collective->collectivemodules->count() : 0 }}
+                            {{ $collectivemodule->module }}
                         </h5>
-                        <form method="post" action="{{ route('givecollectiveingenieurs', $collective?->id) }}"
+                        <form method="post" action="{{ route('givecollectiveingenieurs', $collectivemodule?->id) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
                             @method('PUT')
                             <div class="row mb-3">
-                                {{-- <div class="form-check col-md-2 pt-5">
-                                    <label for="#">Choisir tout</label>
-                                    <input type="checkbox" class="form-check-input" id="checkAll">
-                                </div> --}}
                                 <div class="form-check col-md-12 pt-5">
                                     <table class="table datatables align-middle" id="table-modules">
                                         <thead>
@@ -96,34 +92,6 @@
                                                                 href="{{ route('ingenieurs.show', $ingenieur->id) }}"
                                                                 class="btn btn-warning btn-sm mx-1" title="Voir détails">
                                                                 <i class="bi bi-eye"></i></a>
-                                                            {{-- <div class="filter">
-                                                                <a class="icon" href="#"
-                                                                    data-bs-toggle="dropdown"><i
-                                                                        class="bi bi-three-dots"></i></a>
-                                                                <ul
-                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"> --}}
-                                                            {{--  <li>
-                                                                        <button type="button"
-                                                                            class="dropdown-item btn btn-sm mx-1"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#EditingenieurModal{{ $ingenieur->id }}">
-                                                                            <i class="bi bi-pencil" title="Modifier"></i>
-                                                                            Modifier
-                                                                        </button>
-                                                                    </li>
-                                                                    <li> --}}
-                                                            {{-- <form
-                                                                            action="{{ url('ingenieurs', $ingenieur->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit"
-                                                                                class="dropdown-item show_confirm"><i
-                                                                                    class="bi bi-trash"></i>Supprimer</button>
-                                                                        </form> --}}
-                                                            {{--      </li>
-                                                                </ul>
-                                                            </div> --}}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -147,7 +115,7 @@
         new DataTable('#table-modules', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             lengthMenu: [

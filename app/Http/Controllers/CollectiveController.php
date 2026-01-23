@@ -782,8 +782,6 @@ class CollectiveController extends Controller
 
         /*  $this->authorize('view', $collective); */
 
-        $ingenieur = $collective?->ingenieur;
-
         $listecollective = Listecollective::where('collectives_id', $collective->id)->first();
 
         $listemodulescollective = Collectivemodule::where("collectives_id", $collective->id)->first();
@@ -815,7 +813,6 @@ class CollectiveController extends Controller
         return view(
             'collectives.show',
             compact(
-                'ingenieur',
                 'collective',
                 'collectivemodules',
                 'collectives',
@@ -947,33 +944,33 @@ class CollectiveController extends Controller
 
     public function addcollectiveingenieurs($id)
     {
-        $collective = Collective::findOrFail($id);
-        $ingenieur  = $collective?->ingenieur?->name;
+        $collectivemodule = Collectivemodule::findOrFail($id);
+        $ingenieur  = $collectivemodule?->ingenieur?->name;
 
         $ingenieurs = Ingenieur::get();
 
-        $ingenieurCollective = DB::table('collectives')
-            ->where('ingenieurs_id', $collective->ingenieurs_id)
+        $ingenieurCollective = DB::table('collectivemodules')
+            ->where('ingenieurs_id', $collectivemodule->ingenieurs_id)
             ->pluck('ingenieurs_id', 'ingenieurs_id')
             ->all();
 
-        return view("collectives.ingenieur", compact('collective', 'ingenieurs', 'ingenieur', 'ingenieurCollective'));
+        return view("collectives.ingenieur", compact('collectivemodule', 'ingenieurs', 'ingenieur', 'ingenieurCollective'));
     }
 
-    public function givecollectiveingenieurs($id, Request $request)
+    public function givecollectiveingenieurs(Request $request, $id)
     {
         $request->validate([
             'ingenieur' => ['required'],
         ]);
 
-        $collective = Collective::findOrFail($id);
+        $collectivemodule = Collectivemodule::findOrFail($id);
 
-        $collective->update([
+        $collectivemodule->update([
             "ingenieurs_id"  => $request->input('ingenieur'),
-            "statut_demande" => 'Imputée',
+            "statut" => 'Imputée',
         ]);
 
-        $collective->save();
+        $collectivemodule->save();
 
         Alert::success('Succès !', 'La demande collective a été assignée à l\'ingénieur avec succès.');
 
