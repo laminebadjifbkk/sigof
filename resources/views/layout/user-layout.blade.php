@@ -1461,7 +1461,6 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            /* 🔥 FIX PRINCIPAL */
         }
 
         .nav-profile-image-wrapper.online {
@@ -1479,7 +1478,6 @@
             object-fit: cover;
         }
 
-        /* Badge statut */
         .nav-profile-image-wrapper::after {
             content: '';
             position: absolute;
@@ -1489,7 +1487,6 @@
             height: 8px;
             border-radius: 50%;
             border: 2px solid #fff;
-            /* pour détacher du cercle */
         }
 
         .nav-profile-image-wrapper.online::after {
@@ -1500,7 +1497,8 @@
             background: #dc3545;
         }
 
-        /* Wrapper image tableau */
+        /* TABLE */
+
         .table-profile-image-wrapper {
             width: 40px;
             height: 40px;
@@ -1508,21 +1506,16 @@
             border-radius: 50%;
             display: inline-block;
             position: relative;
-            /* 🔥 indispensable */
         }
 
-        /* Bordure selon statut */
         .table-profile-image-wrapper.online {
             border: 2px solid #198754;
-            /* Vert */
         }
 
         .table-profile-image-wrapper.offline {
             border: 2px solid #dc3545;
-            /* Rouge */
         }
 
-        /* Image */
         .table-profile-image {
             width: 100%;
             height: 100%;
@@ -1530,7 +1523,6 @@
             object-fit: cover;
         }
 
-        /* Badge statut */
         .table-profile-image-wrapper::after {
             content: '';
             position: absolute;
@@ -1550,6 +1542,7 @@
             background: #dc3545;
         }
 
+        /* PROFIL */
 
         .profile-image-wrapper {
             width: 130px;
@@ -1558,19 +1551,15 @@
             border-radius: 50%;
             display: inline-block;
             position: relative;
-            /* 🔥 FIX PRINCIPAL */
             transition: all 0.3s ease;
         }
 
-        /* Bordure statut */
         .profile-image-wrapper.online {
             border: 4px solid #198754;
-            /* Vert */
         }
 
         .profile-image-wrapper.offline {
             border: 4px solid #dc3545;
-            /* Rouge */
         }
 
         .profile-image {
@@ -1580,7 +1569,6 @@
             border-radius: 50%;
         }
 
-        /* Badge statut */
         .profile-image-wrapper::after {
             content: '';
             position: absolute;
@@ -1590,7 +1578,6 @@
             height: 14px;
             border-radius: 50%;
             border: 3px solid #fff;
-            /* séparation propre */
         }
 
         .profile-image-wrapper.online::after {
@@ -1601,13 +1588,11 @@
             background: #dc3545;
         }
 
-        /* Effet hover */
         .profile-image-wrapper:hover {
             transform: scale(1.05);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* Icônes sociales */
         .social-links a {
             font-size: 20px;
             color: #555;
