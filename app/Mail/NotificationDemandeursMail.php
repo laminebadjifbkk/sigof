@@ -74,7 +74,7 @@ class NotificationDemandeursMail extends Mailable
         Excel::store(new ModulesParRegionExport($this->donnees), $chemin, 'local');
 
         // Attacher le fichier depuis storage/app
-        return $this->subject("Modules ayant atteint {$this->seuil} demandes")
+        return $this->subject("Liste des modules ayant atteint {$this->seuil} demandes en attente de formation")
             ->view('emails.notif-modules-par-region')
             ->attach(storage_path('app/' . $chemin), [
                 'as'   => 'modules_par_region.xlsx',
