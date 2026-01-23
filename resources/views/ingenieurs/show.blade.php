@@ -190,8 +190,8 @@
                                             {{-- <th>N° DEM.</th> --}}
                                             <th>Modules</th>
                                             <th>Nom structure</th>
-                                            <th>E-mail</th>
-                                            <th>Téléphone</th>
+                                            {{-- <th>E-mail</th>
+                                            <th>Téléphone</th> --}}
                                             <th>Région</th>
                                             <th class="text-center">Effectif</th>
                                             <th class="text-center">Statut</th>
@@ -209,14 +209,14 @@
                                                         ({{ $collectivemodule->collective?->sigle }})
                                                     @endif
                                                 </td>
-                                                <td>
+                                                {{-- <td>
                                                     <a
                                                         href="mailto:{{ $collectivemodule->collective->user->email }}">{{ $collectivemodule->collective->user->email }}</a>
                                                 </td>
                                                 <td>
                                                     <a
                                                         href="tel:+221{{ $collectivemodule->collective->telephone }}">{{ $collectivemodule->collective->telephone }}</a>
-                                                </td>
+                                                </td> --}}
                                                 <td>{{ $collectivemodule->collective->departement?->region?->nom }}</td>
                                                 <td class="text-center">
                                                     {{ count($collectivemodule->listecollectives) }}</td>
