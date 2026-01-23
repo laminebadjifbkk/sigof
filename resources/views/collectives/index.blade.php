@@ -203,6 +203,7 @@
                                             {{-- <th>E-mail</th> --}}
                                             <th>Téléphone</th>
                                             <th>Région</th>
+                                            <th>Département</th>
                                             <th class="text-center">Dépôt</th>
                                             <th class="text-center">Modules</th>
                                             <th class="text-center">Effectif</th>
@@ -237,6 +238,10 @@
 
                                                 <td>
                                                     {{ optional(optional($collective->departement)->region)->nom }}
+                                                </td>
+
+                                                <td>
+                                                    {{ optional($collective->departement)->nom }}
                                                 </td>
 
                                                 <td class="text-center">
