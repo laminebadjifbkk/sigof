@@ -83,7 +83,7 @@
                 {{-- Courriers --}}
                 @hasanyrole('Employe|super-admin')
                     @if ($courriers_auj)
-                        <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
+                        <div class="col-12">
                             <a href="{{ route('mescourriers') }}">
                                 <div class="card shadow-lg border-0 rounded-lg">
                                     <div class="card-body d-flex align-items-center justify-content-between">
