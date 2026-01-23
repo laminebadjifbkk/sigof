@@ -1499,6 +1499,56 @@
         .nav-profile-image-wrapper.offline::after {
             background: #dc3545;
         }
+
+        /* Wrapper image tableau */
+        .table-profile-image-wrapper {
+            width: 40px;
+            height: 40px;
+            padding: 2px;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            /* 🔥 indispensable */
+        }
+
+        /* Bordure selon statut */
+        .table-profile-image-wrapper.online {
+            border: 2px solid #198754;
+            /* Vert */
+        }
+
+        .table-profile-image-wrapper.offline {
+            border: 2px solid #dc3545;
+            /* Rouge */
+        }
+
+        /* Image */
+        .table-profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Badge statut */
+        .table-profile-image-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+
+        .table-profile-image-wrapper.online::after {
+            background: #198754;
+        }
+
+        .table-profile-image-wrapper.offline::after {
+            background: #dc3545;
+        }
     </style>
 
 </head>
