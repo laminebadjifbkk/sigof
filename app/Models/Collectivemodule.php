@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -67,6 +68,7 @@ class Collectivemodule extends Model
         'formations_id',
         'departements_id',
         'regions_id',
+        'ingenieurs_id',
     ];
 
     public function getRouteKeyName()
@@ -101,5 +103,10 @@ class Collectivemodule extends Model
     public function formations()
     {
         return $this->hasMany(Formation::class, 'collectivemodules_id');
+    }
+
+    public function ingenieur()
+    {
+        return $this->belongsTo(Ingenieur::class, 'ingenieurs_id');
     }
 }
