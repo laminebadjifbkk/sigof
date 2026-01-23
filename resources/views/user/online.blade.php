@@ -69,9 +69,19 @@
                                     @foreach ($users as $user)
                                         <tr>
                                             <th scope="row">
-                                                <a href="{{ route('users.show', $user) }}">
+                                                {{-- <a href="{{ route('users.show', $user) }}">
                                                     <img class="rounded-circle w-20" alt="Profil"
                                                         src="{{ asset($user->getImage()) }}" width="40" height="auto">
+                                                </a> --}}
+
+                                                <a href="{{ route('users.show', $user) }}"
+                                                    class="table-profile-image-wrapper
+                                                {{ $user?->last_activity && \Carbon\Carbon::parse($user->last_activity)->diffInMinutes(now()) < 5
+                                                    ? 'online'
+                                                    : 'offline' }}">
+                                                    <img src="{{ asset($user->getImage()) }}" class="rounded-circle w-20"
+                                                        alt="Profil" class="table-profile-image" width="40"
+                                                        height="auto">
                                                 </a>
                                             </th>
                                             {{-- <td>{{ $user->username }}</td> --}}

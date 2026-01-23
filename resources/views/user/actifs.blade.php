@@ -93,9 +93,19 @@
                                     @foreach ($user_liste as $user)
                                         <tr>
                                             <th scope="row">
-                                                <a href="{{ route('users.show', $user) }}">
+                                                {{-- <a href="{{ route('users.show', $user) }}">
                                                     <img class="rounded-circle w-20" alt="Profil"
                                                         src="{{ asset($user->getImage()) }}" width="40" height="auto">
+                                                </a> --}}
+
+                                                <a href="{{ route('users.show', $user) }}"
+                                                    class="table-profile-image-wrapper
+                                                {{ $user?->last_activity && \Carbon\Carbon::parse($user->last_activity)->diffInMinutes(now()) < 5
+                                                    ? 'online'
+                                                    : 'offline' }}">
+                                                    <img src="{{ asset($user->getImage()) }}" class="rounded-circle w-20"
+                                                        alt="Profil" class="table-profile-image" width="40"
+                                                        height="auto">
                                                 </a>
                                             </th>
                                             {{-- <td>{{ $user->username }}</td> --}}
@@ -383,10 +393,10 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="cin" class="form-label">N° CIN</label>
-                                                    <input name="cin" type="text"
-                                                        class="form-control form-control-sm @error('cin') is-invalid @enderror"
-                                                        id="cin2" value="{{ old('cin') }}" autocomplete="off"
-                                                        placeholder="Ex: 1 099 2005 00012" minlength="16" maxlength="17">
+                                                <input name="cin" type="text"
+                                                    class="form-control form-control-sm @error('cin') is-invalid @enderror"
+                                                    id="cin2" value="{{ old('cin') }}" autocomplete="off"
+                                                    placeholder="Ex: 1 099 2005 00012" minlength="16" maxlength="17">
                                                 @error('cin')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>
@@ -447,8 +457,7 @@
         </div>
 
         @foreach ($user_liste as $user)
-            <div
-                class="col-12 d-flex flex-column align-items-center justify-content-center">
+            <div class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="forgotModal{{ $user->uuid }}" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -541,7 +550,7 @@
         new DataTable('#table-users', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [
