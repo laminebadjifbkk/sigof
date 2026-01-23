@@ -248,17 +248,17 @@
                                     <tr class="item">
                                         @foreach ($chunk as $direction)
                                             @php
-                                                // valeur logique (pour la comparaison)
-                                                $normalizedDirection = $direction === 'DG' ? 'DG' : $direction;
+                                                // clé logique pour comparaison
+                                                $compareDirection = $direction === 'CT-DG' ? 'DG' : $direction;
 
                                                 // valeur affichée
-                                                $displayDirection = $direction === 'DG' ? 'ADG' : $direction;
+                                                $displayDirection = $direction === 'CT-DG' ? 'ADG' : $direction;
                                             @endphp
 
                                             <td>
                                                 {{ $displayDirection }}
                                                 <span style="float:right; color: red; padding-right:5px;">
-                                                    {{ in_array($normalizedDirection, $arriveDirections) ? 'X' : '' }}
+                                                    {{ in_array($compareDirection, $arriveDirections) ? 'X' : '' }}
                                                 </span>
                                             </td>
                                         @endforeach
