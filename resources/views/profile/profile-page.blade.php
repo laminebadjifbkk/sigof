@@ -80,10 +80,10 @@
 
                             {{-- Statut --}}
                             @if (Auth::user()?->last_activity && \Carbon\Carbon::parse(Auth::user()?->last_activity)->diffInMinutes(now()) < 5)
-                                <span class="text-success fw-bold">● En ligne</span>
+                                <span class="text-success fw-bold">En ligne</span>
                             @else
                                 <span class="text-danger fw-bold">
-                                    ● Hors ligne
+                                    Hors ligne
                                     ({{ \Carbon\Carbon::parse(Auth::user()?->last_activity)->diffForHumans() }})
                                 </span>
                             @endif
@@ -1631,9 +1631,12 @@
             padding: 4px;
             border-radius: 50%;
             display: inline-block;
+            position: relative;
+            /* 🔥 FIX PRINCIPAL */
             transition: all 0.3s ease;
         }
 
+        /* Bordure statut */
         .profile-image-wrapper.online {
             border: 4px solid #198754;
             /* Vert */
@@ -1649,6 +1652,27 @@
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
+        }
+
+        /* Badge statut */
+        .profile-image-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            /* séparation propre */
+        }
+
+        .profile-image-wrapper.online::after {
+            background: #198754;
+        }
+
+        .profile-image-wrapper.offline::after {
+            background: #dc3545;
         }
 
         /* Effet hover */

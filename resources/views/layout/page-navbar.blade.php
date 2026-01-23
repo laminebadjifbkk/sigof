@@ -49,12 +49,11 @@
                 </li>
             @endcan
         @endif
-
+        {{-- 
 
         <li class="nav-item dropdown pe-3">
 
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                {{-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> --}}
                 <img class="rounded-circle" alt="Profil" src="{{ asset(Auth::user()->getImage()) }}">
                 <span class="d-none d-md-block dropdown-toggle ps-2">
                     @if (Auth::user()->operateur)
@@ -65,7 +64,7 @@
                         {{ Auth::user()->username }}
                     @endif
                 </span>
-            </a><!-- End Profile Iamge Icon -->
+            </a>
 
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                 <li class="dropdown-header">
@@ -79,9 +78,6 @@
                         @endif
                     </h6>
                     <span><a href="mailto:{{ Auth::user()->email }}">{{ Auth::user()->email }}</a></span>
-                    {{-- @foreach (Auth::user()->roles as $role)
-                        <span>{{ $role->name }}</span>
-                    @endforeach --}}
                 </li>
                 <li>
                     <hr class="dropdown-divider">
@@ -107,8 +103,87 @@
                     </form>
                 </li>
 
-            </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
+            </ul>
+        </li> --}}
+        <li class="nav-item dropdown pe-3">
+
+            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+
+                {{-- Photo profil avec statut --}}
+                <span
+                    class="nav-profile-image-wrapper
+            {{ Auth::user()?->last_activity && \Carbon\Carbon::parse(Auth::user()?->last_activity)->diffInMinutes(now()) < 5
+                ? 'online'
+                : 'offline' }}">
+
+                    <img src="{{ asset(Auth::user()->getImage()) }}" alt="Profil" class="nav-profile-image">
+                </span>
+
+                <span class="d-none d-md-block dropdown-toggle ps-2">
+                    @if (Auth::user()->operateur)
+                        {{ Auth::user()->username }}
+                    @elseif (Auth::user()->name)
+                        {{ Auth::user()->civilite . ' ' . Auth::user()->name }}
+                    @else
+                        {{ Auth::user()->username }}
+                    @endif
+                </span>
+            </a>
+
+            {{-- Dropdown --}}
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+
+                <li class="dropdown-header text-center">
+                    <h6>
+                        @if (Auth::user()->operateur)
+                            {{ Auth::user()->username }}
+                        @elseif (Auth::user()->name)
+                            {{ Auth::user()->civilite . ' ' . Auth::user()->firstname . ' ' . Auth::user()->name }}
+                        @else
+                            {{ Auth::user()->username }}
+                        @endif
+                    </h6>
+
+                    {{-- Statut --}}
+                    @if (Auth::user()?->last_activity && \Carbon\Carbon::parse(Auth::user()?->last_activity)->diffInMinutes(now()) < 5)
+                        <span class="text-success fw-bold">En ligne</span>
+                    @else
+                        <span class="text-danger fw-bold">Hors ligne</span>
+                    @endif
+
+                    <br>
+                    <span>
+                        <a href="mailto:{{ Auth::user()->email }}">{{ Auth::user()->email }}</a>
+                    </span>
+                </li>
+
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+
+                <li>
+                    <a class="dropdown-item d-flex align-items-center" href="{{ url('/profil') }}">
+                        <i class="bi bi-person"></i>
+                        <span>Mon Profil</span>
+                    </a>
+                </li>
+
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+
+                <li>
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button type="submit" class="dropdown-item show_confirm_disconnect">
+                            <i class="bi bi-box-arrow-in-left"></i>
+                            Se déconnecter
+                        </button>
+                    </form>
+                </li>
+
+            </ul>
+        </li>
 
     </ul>
 </nav>

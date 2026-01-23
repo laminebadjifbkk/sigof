@@ -1451,6 +1451,54 @@
         .dropdown-menu {
             z-index: 1050 !important;
         }
+
+        .nav-profile-image-wrapper {
+            width: 36px;
+            height: 36px;
+            padding: 2px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            /* 🔥 FIX PRINCIPAL */
+        }
+
+        .nav-profile-image-wrapper.online {
+            border: 2px solid #198754;
+        }
+
+        .nav-profile-image-wrapper.offline {
+            border: 2px solid #dc3545;
+        }
+
+        .nav-profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Badge statut */
+        .nav-profile-image-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            /* pour détacher du cercle */
+        }
+
+        .nav-profile-image-wrapper.online::after {
+            background: #198754;
+        }
+
+        .nav-profile-image-wrapper.offline::after {
+            background: #dc3545;
+        }
     </style>
 
 </head>
