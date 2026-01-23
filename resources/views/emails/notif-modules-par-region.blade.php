@@ -25,8 +25,9 @@
 
 <body>
 
-    <h2>Modules ayant atteint {{ $seuil }} demandes</h2>
-    <p>Statut : <strong>Nouvelle & Conforme</strong></p>
+    <p>Bonjour chers collègues, merci de recevoir la liste des modules ayant atteint {{$this->seuil}} demandes en attente de formation</p>
+    {{-- <h2>Modules ayant atteint {{ $seuil }} demandes</h2> --}}
+    <h2>Statut : <strong>Nouvelle & Conforme</strong></h2>
 
     @foreach ($donnees as $region => $modules)
         <h3>Région : {{ $region }}</h3>
