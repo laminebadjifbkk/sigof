@@ -24,8 +24,11 @@
 </head>
 
 <body>
-
-    <p>Bonjour chers collègues, merci de recevoir la liste des modules ayant atteint {{$this->seuil}} demandes en attente de formation</p>
+    <p>
+        Bonjour chers collègues,<br>
+        Merci de recevoir la liste des modules ayant atteint {{ $seuil }} demandes
+        en attente de formation, réparties par région.
+    </p>
     {{-- <h2>Modules ayant atteint {{ $seuil }} demandes</h2> --}}
     <h2>Statut : <strong>Nouvelle & Conforme</strong></h2>
 
