@@ -99,7 +99,9 @@ class NotifierGroupesVingtDemandeurs extends Command
         }
 
         // Envoyer un seul email
-        Mail::to(['lamine.badji@onfp.sn'])->send(new NotificationDemandeursMail($donnees, $seuil));
+        Mail::to('lamine.badji@onfp.sn')
+            ->cc('mohamadou.soumare@onfp.sn')
+            ->send(new NotificationDemandeursMail($donnees, $seuil));
 
         $this->info("Email récapitulatif envoyé.");
     }
