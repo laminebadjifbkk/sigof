@@ -59,11 +59,23 @@
                                     @foreach ($employes as $employe)
                                         <tr>
                                             <th scope="row">
-                                                <a href="#" data-bs-toggle="modal"
+                                                {{-- <a href="#" data-bs-toggle="modal"
                                                     data-bs-target="#ShowIMG{{ $employe?->user?->id }}">
                                                     <img class="rounded-circle w-40" alt="Profil"
                                                         src="{{ asset($employe?->user?->getImage()) }}" width="40"
                                                         height="auto">
+                                                </a> --}}
+
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#ShowIMG{{ $employe?->user?->id }}"
+                                                    class="table-profile-image-wrapper
+                                                {{ $employe?->user?->last_activity &&
+                                                \Carbon\Carbon::parse($employe?->user?->last_activity)->diffInMinutes(now()) < 5
+                                                    ? 'online'
+                                                    : 'offline' }}">
+                                                    <img src="{{ asset($employe?->user?->getImage()) }}"
+                                                        class="rounded-circle w-20" alt="Profil"
+                                                        class="table-profile-image" width="40" height="auto">
                                                 </a>
                                             </th>
                                             {{-- <td>{{ $i++ }}</td> --}}
@@ -98,8 +110,7 @@
 
                                                                 @can('employe-delete')
                                                                     <li>
-                                                                        <form
-                                                                            action="{{ route('employes.destroy', $employe) }}"
+                                                                        <form action="{{ route('employes.destroy', $employe) }}"
                                                                             method="post">
                                                                             @csrf
                                                                             @method('DELETE')
