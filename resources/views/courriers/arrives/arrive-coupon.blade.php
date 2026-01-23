@@ -229,7 +229,7 @@
                         <table class="table table-striped">
                             <tbody>
                                 {{-- @foreach (collect($directions)->chunk(6) as $chunk) --}}
-                                @foreach (collect(array_values($directions))->chunk(6) as $chunk)
+                                {{-- @foreach (collect(array_values($directions))->chunk(6) as $chunk)
                                     <tr class="item">
                                         @foreach ($chunk as $direction)
                                             @php
@@ -239,6 +239,26 @@
                                                 {!! $displayDirection !!}
                                                 <span style="float:right; color: red; padding-right:5px;">
                                                     {!! in_array($direction, $arriveDirections) ? 'X' : '' !!}
+                                                </span>
+                                            </td>
+                                        @endforeach
+                                    </tr>
+                                @endforeach --}}
+                                @foreach (collect(array_values($directions))->chunk(6) as $chunk)
+                                    <tr class="item">
+                                        @foreach ($chunk as $direction)
+                                            @php
+                                                // valeur logique (pour la comparaison)
+                                                $normalizedDirection = $direction === 'DG' ? 'DG' : $direction;
+
+                                                // valeur affichée
+                                                $displayDirection = $direction === 'DG' ? 'ADG' : $direction;
+                                            @endphp
+
+                                            <td>
+                                                {{ $displayDirection }}
+                                                <span style="float:right; color: red; padding-right:5px;">
+                                                    {{ in_array($normalizedDirection, $arriveDirections) ? 'X' : '' }}
                                                 </span>
                                             </td>
                                         @endforeach

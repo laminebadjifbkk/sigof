@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ArriveOperateurStoreRequest;
@@ -72,7 +73,7 @@ class ArriveController extends Controller
             $numCourrier = $an . "0001";
         }
 
-// Mise en forme du numéro de courrier en ajoutant des zéros au début
+        // Mise en forme du numéro de courrier en ajoutant des zéros au début
         $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT);
 
         // Récupérer le total des arrivées sans type et les derniers 100 courriers en une seule requête
@@ -87,10 +88,10 @@ class ArriveController extends Controller
 
         /* $count_courrier = number_format($arrives->count(), 0, ',', ' '); */
 
-// Compter les arrivées de type 'operateur'
+        // Compter les arrivées de type 'operateur'
         /* $count_arrives = Arrive::where('type', 'operateur')->count(); */
 
-// Logique de titre
+        // Logique de titre
         /* if ($count_courrier < 1) {
             $title = 'Aucun courrier';
         } elseif ($count_courrier == 1) {
@@ -101,18 +102,19 @@ class ArriveController extends Controller
 
         $today = date('Y-m-d');
 
-// Compter les arrivées du jour
+        // Compter les arrivées du jour
         $count_today = Arrive::where('created_at', 'LIKE', "{$today}%")
             ->count();
 
         $affichees = $arrives?->count();
         $total     = $totalArrives ?? ($arrives instanceof \Illuminate\Pagination\LengthAwarePaginator
-                ? $arrives->total()
-                : $arrives?->count());
+            ? $arrives->total()
+            : $arrives?->count());
 
         return view(
             "courriers.arrives.index",
-            compact("arrives",
+            compact(
+                "arrives",
                 "count_today",
                 "anneeEnCours",
                 "numCourrier",
@@ -124,7 +126,6 @@ class ArriveController extends Controller
                 "total_count" */
             )
         );
-
     }
 
     public function create()
@@ -132,7 +133,7 @@ class ArriveController extends Controller
         $anneeEnCours = date('Y');
         $an           = date('y');
 
-// Récupérer le dernier numéro de courrier pour l'année en cours
+        // Récupérer le dernier numéro de courrier pour l'année en cours
         $numCourrier = Arrive::join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
             ->select('arrives.numero_arrive')
             ->where('courriers.annee', $anneeEnCours)
@@ -147,7 +148,7 @@ class ArriveController extends Controller
             $numCourrier = $an . "0001";
         }
 
-// Mise en forme du numéro de courrier en ajoutant des zéros au début
+        // Mise en forme du numéro de courrier en ajoutant des zéros au début
         $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT);
 
         return view("courriers.arrives.create", compact('anneeEnCours', 'numCourrier'));
@@ -287,7 +288,7 @@ class ArriveController extends Controller
 
         $arrive->save();
 
-// Vérification des rôles autorisés
+        // Vérification des rôles autorisés
         $unauthorizedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'DEC'];
         $roles             = Auth::user()->roles->pluck('name')->toArray();
 
@@ -337,7 +338,6 @@ class ArriveController extends Controller
             Alert::success('Bravo !', 'Le courrier a été imputé avec succès.');
 
             return redirect()->back();
-
         }
 
         $this->validate($request, [
@@ -430,7 +430,6 @@ class ArriveController extends Controller
             ]);
             Alert::success('Bravo !', 'La mise à jour a été effectuée avec succès.');
             return Redirect::route('arrivesop');
-
         } else {
             $data = [
                 'date_recep'      => $request->input('date_arrivee'),
@@ -461,7 +460,6 @@ class ArriveController extends Controller
             Alert::success('Bravo !', 'La mise à jour a été effectuée avec succès.');
             return Redirect::back();
         }
-
     }
     public function show($id)
     {
@@ -475,11 +473,14 @@ class ArriveController extends Controller
         $user_create_name = $user_create->firstname . ' ' . $user_create->name;
         $user_update_name = $user_update->firstname . ' ' . $user_update->name;
 
-        return view("courriers.arrives.show",
-            compact("arrive",
+        return view(
+            "courriers.arrives.show",
+            compact(
+                "arrive",
                 "courrier",
                 "user_create_name",
-                "user_update_name")
+                "user_update_name"
+            )
         );
     }
 
@@ -591,7 +592,13 @@ class ArriveController extends Controller
             ->all();
 
         /* $arriveDirections  = $courrier->directions->pluck('sigle', 'sigle')->all(); */
-        $arriveDirections  = $courrier->directions->pluck('sigle')->values()->toArray();
+        /* $arriveDirections  = $courrier->directions->pluck('sigle')->values()->toArray(); */
+        $arriveDirections = $courrier->directions
+            ->pluck('sigle')
+            ->map(fn($d) => $d === 'DG' ? 'ADG' : $d)
+            ->values()
+            ->toArray();
+            
         $arriveDescription = $courrier->description;
 
         $numero = $courrier->numero_courrier;
@@ -736,8 +743,8 @@ class ArriveController extends Controller
 
         $affichees = $arrives?->count();
         $total     = $totalArrives ?? ($arrives instanceof \Illuminate\Pagination\LengthAwarePaginator
-                ? $arrives->total()
-                : $arrives?->count());
+            ? $arrives->total()
+            : $arrives?->count());
 
         return view('courriers.arrives.index', compact(
             'arrives',
@@ -851,8 +858,8 @@ class ArriveController extends Controller
 
         $affichees = $arrives?->count();
         $total     = $totalArrives ?? ($arrives instanceof \Illuminate\Pagination\LengthAwarePaginator
-                ? $arrives->total()
-                : $arrives?->count());
+            ? $arrives->total()
+            : $arrives?->count());
 
         $today = date('Y-m-d');
 
