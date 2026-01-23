@@ -17,10 +17,9 @@
         <div class="row justify-content-center">
             {{-- Début Photo de profil --}}
             <div class="col-12 col-md-4">
-                <div class="col-12">
+                {{-- <div class="col-12">
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                            {{-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> --}}
                             <a href="#" data-bs-toggle="modal"
                                 data-bs-target="#ShowProfilImage{{ Auth::user()?->id }}">
                                 <img class="rounded-circle w-100" alt="Profil"
@@ -51,6 +50,55 @@
                                     @endif
                                 @endforeach
                             </div>
+                        </div>
+                    </div>
+                </div> --}}
+
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+                            {{-- Photo de profil avec bordure --}}
+                            <a href="#" data-bs-toggle="modal"
+                                data-bs-target="#ShowProfilImage{{ Auth::user()?->id }}"
+                                class="profile-image-wrapper
+               {{ Auth::user()?->last_activity && \Carbon\Carbon::parse(Auth::user()?->last_activity)->diffInMinutes(now()) < 5
+                   ? 'online'
+                   : 'offline' }}">
+
+                                <img src="{{ asset(Auth::user()?->getImage()) }}" alt="Profil" class="profile-image">
+                            </a>
+
+                            {{-- Nom utilisateur --}}
+                            <h2 class="pt-2 text-center">
+                                @if (!empty(Auth::user()?->name))
+                                    {{ Auth::user()?->civilite . ' ' . Auth::user()?->firstname . ' ' . Auth::user()?->name }}
+                                @else
+                                    {{ Auth::user()?->email }}
+                                @endif
+                            </h2>
+
+                            {{-- Statut --}}
+                            @if (Auth::user()?->last_activity && \Carbon\Carbon::parse(Auth::user()?->last_activity)->diffInMinutes(now()) < 5)
+                                <span class="text-success fw-bold">● En ligne</span>
+                            @else
+                                <span class="text-danger fw-bold">
+                                    ● Hors ligne
+                                    ({{ \Carbon\Carbon::parse(Auth::user()?->last_activity)->diffForHumans() }})
+                                </span>
+                            @endif
+
+                            {{-- Réseaux sociaux --}}
+                            <div class="social-links mt-3">
+                                @foreach (['twitter', 'facebook', 'instagram', 'linkedin'] as $platform)
+                                    @if (!empty(Auth::user()?->$platform))
+                                        <a href="{{ Auth::user()->$platform }}" target="_blank" class="mx-2">
+                                            <i class="bi bi-{{ $platform }}"></i>
+                                        </a>
+                                    @endif
+                                @endforeach
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -1575,6 +1623,49 @@
             50% {
                 opacity: 0;
             }
+        }
+
+        .profile-image-wrapper {
+            width: 130px;
+            height: 130px;
+            padding: 4px;
+            border-radius: 50%;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .profile-image-wrapper.online {
+            border: 4px solid #198754;
+            /* Vert */
+        }
+
+        .profile-image-wrapper.offline {
+            border: 4px solid #dc3545;
+            /* Rouge */
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        /* Effet hover */
+        .profile-image-wrapper:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Icônes sociales */
+        .social-links a {
+            font-size: 20px;
+            color: #555;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #0d6efd;
         }
     </style>
 @endpush
