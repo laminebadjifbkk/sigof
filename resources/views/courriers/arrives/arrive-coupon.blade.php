@@ -244,26 +244,26 @@
                                         @endforeach
                                     </tr>
                                 @endforeach --}}
-                                @foreach (collect(array_values($directions))->chunk(6) as $chunk)
+                                @foreach (collect(array_values($directions))->reject(fn($d) => $d === 'DG')->chunk(6) as $chunk)
                                     <tr class="item">
                                         @foreach ($chunk as $direction)
                                             @php
-                                                // clé logique pour comparaison
-                                                $compareDirection = $direction === 'CT-DG' ? 'DG' : $direction;
-
-                                                // valeur affichée
-                                                $displayDirection = $direction === 'CT-DG' ? 'ADG' : $direction;
+                                                // règle d’imputation
+                                                $compareDirection = in_array($direction, ['AD', 'CT-DG'])
+                                                    ? 'DG'
+                                                    : $direction;
                                             @endphp
 
                                             <td>
-                                                {{ $displayDirection }}
-                                                <span style="float:right; color: red; padding-right:5px;">
+                                                {{ $direction }} {{-- affichage réel : AD, CT-DG --}}
+                                                <span style="float:right; color:red; padding-right:5px;">
                                                     {{ in_array($compareDirection, $arriveDirections) ? 'X' : '' }}
                                                 </span>
                                             </td>
                                         @endforeach
                                     </tr>
                                 @endforeach
+
                             </tbody>
                         </table>
                     </td>

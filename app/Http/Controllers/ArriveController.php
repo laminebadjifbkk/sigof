@@ -594,11 +594,10 @@ class ArriveController extends Controller
         /* $arriveDirections  = $courrier->directions->pluck('sigle', 'sigle')->all(); */
         /* $arriveDirections  = $courrier->directions->pluck('sigle')->values()->toArray(); */
         $arriveDirections = $courrier->directions
-            ->pluck('sigle')
-            ->map(fn($d) => $d === 'DG' ? 'ADG' : $d)
+            ->pluck('sigle') // DG, DAF, etc.
             ->values()
             ->toArray();
-            
+
         $arriveDescription = $courrier->description;
 
         $numero = $courrier->numero_courrier;
