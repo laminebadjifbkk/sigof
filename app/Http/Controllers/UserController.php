@@ -110,13 +110,14 @@ class UserController extends Controller
         Individuelle::select('id')->chunk(300, function ($batch) use (&$individuelles) {
             $individuelles = $individuelles->merge($batch);
         });
-        dd("OK");
 
         // Collectives
         $collectives = collect();
         Collective::select('id')->chunk(300, function ($batch) use (&$collectives) {
             $collectives = $collectives->merge($batch);
         });
+        
+        dd("OK");
 
         /* dd($collectives); */
 
