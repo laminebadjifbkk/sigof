@@ -52,10 +52,22 @@
                                     <div class="border rounded p-3 mb-4 shadow-sm bg-white">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h6 class="text-primary mb-3">
-                                                <i class="bi bi-journal-code me-1"></i>
+                                                {{-- <i class="bi bi-journal-code me-1"></i> --}}
                                                 Module :
                                                 <a href="{{ route('formations.show', $formation) }}">
-                                                    {{ $isIndividuelle ? $formation?->module?->name : $formation?->collectivemodule?->module }}
+                                                    @php
+                                                        $libelle = $isIndividuelle
+                                                            ? $formation?->module?->name
+                                                            : $formation?->collectivemodule?->module;
+                                                    @endphp
+
+                                                    @if (!empty($libelle))
+                                                        {{ $libelle }}
+                                                    @else
+                                                        <span class="btn btn-primary btn-sm" title="Voir les détails">
+                                                            <i class="bi bi-eye"></i>
+                                                        </span>
+                                                    @endif
                                                 </a>
                                             </h6>
                                             <span>
