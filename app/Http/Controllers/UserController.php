@@ -172,9 +172,6 @@ class UserController extends Controller
         $novembre  = $counts->get(11, 0);
         $decembre  = $counts->get(12, 0);
 
-        
-        dd("OK");
-
         $masculin = Individuelle::join('users', 'users.id', 'individuelles.users_id')
             ->select('individuelles.*')
             ->where('users.civilite', "M.")
@@ -189,6 +186,8 @@ class UserController extends Controller
             ->whereIn('statut', ['Attente', 'Nouvelle', 'Retenue', 'Terminée', 'Rejetée'])
             ->groupBy('statut')
             ->pluck('count', 'statut');
+        
+        dd("OK");
 
         $attente  = $statuts['Attente'] ?? 0;
         $nouvelle = $statuts['Nouvelle'] ?? 0;
