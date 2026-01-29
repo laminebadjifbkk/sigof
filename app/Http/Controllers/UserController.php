@@ -151,8 +151,6 @@ class UserController extends Controller
 
         $count_today = $count_today_individuelle + $count_today_collective;
 
-        dd("OK");
-        
         $counts = DB::table('individuelles')
             ->selectRaw('MONTH(created_at) as month, count(*) as count')
             ->whereYear('created_at', $annee)
@@ -173,6 +171,9 @@ class UserController extends Controller
         $octobre   = $counts->get(10, 0);
         $novembre  = $counts->get(11, 0);
         $decembre  = $counts->get(12, 0);
+
+        
+        dd("OK");
 
         $masculin = Individuelle::join('users', 'users.id', 'individuelles.users_id')
             ->select('individuelles.*')
