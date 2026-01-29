@@ -105,6 +105,8 @@ class UserController extends Controller
             $roles = $roles->merge($batch);
         });
 
+        dd("OK");
+
         // Individuelles
         $individuelles = collect();
         Individuelle::select('id')->chunk(300, function ($batch) use (&$individuelles) {
