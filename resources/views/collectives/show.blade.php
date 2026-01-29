@@ -1112,10 +1112,7 @@
                                             aria-label="Select" id="select-field" data-placeholder="Choisir">
                                             <option value="">Choisir</option>
                                             <option value="Renforcement de capacités">Renforcement de capacités</option>
-                                            <option value="Pré qualification">Pré qualification</option>
                                             <option value="Qualification">Qualification</option>
-                                            <option value="Qualification">Qualification</option>
-                                            <option value="Perfectionnement">Perfectionnement</option>
                                             <option value="Aucun">Aucun</option>
                                         </select>
                                         @error('niveau_qualification')
@@ -1412,10 +1409,7 @@
                                                 @php
                                                     $niveauOptions = [
                                                         'Renforcement de capacités',
-                                                        'Pré qualification',
                                                         'Qualification',
-                                                        'Perfectionnement',
-                                                        'Aucun',
                                                     ];
                                                 @endphp
 
