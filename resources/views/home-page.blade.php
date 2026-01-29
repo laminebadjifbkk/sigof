@@ -113,15 +113,15 @@
                                         </div>
 
                                         <div class="row fs-sm">
-                                            {{-- <div class="col-md-6 mb-2">
+                                            <div class="col-md-6 mb-2">
                                                 <i class="bi bi-person-circle me-1"></i>
                                                 <strong>Opérateur :</strong>
                                                 {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
-                                            </div> --}}
-                                            <div class="col-md-6 mb-2">
+                                            </div>
+                                            {{-- <div class="col-md-6 mb-2">
                                                 <i class="bi bi-person-workspace me-1"></i>
                                                 <strong>Ingénieur :</strong> {{ $formation?->ingenieur?->name ?? 'N/A' }}
-                                            </div>
+                                            </div> --}}
                                             <div class="col-md-6 mb-2">
                                                 <i class="bi bi-calendar-event me-1"></i>
                                                 <strong>Période :</strong>
