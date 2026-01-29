@@ -118,7 +118,6 @@
 
                     <img src="{{ asset(Auth::user()->getImage()) }}" alt="Profil" class="nav-profile-image">
                 </span>
-
                 <span class="d-none d-md-block dropdown-toggle ps-2">
                     @if (Auth::user()->operateur)
                         {{ Auth::user()->username }}
