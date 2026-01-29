@@ -214,8 +214,6 @@ class UserController extends Controller
         $pourcentage_hommes_collective = $listecollectives->count() > 0
             ? ($masculin_collective / $listecollectives->count()) * 100
             : 0; */
-            
-        dd("OK");
 
         return view(
             "home-page",
