@@ -58,7 +58,7 @@
                                                     {{ $isIndividuelle ? $formation?->module?->name : $formation?->collectivemodule?->module }}
                                                 </a>
                                             </h6>
-                                            {{-- <span>
+                                            <span>
                                                 @php
 
                                                     $date = $formation?->date_debut
@@ -109,10 +109,10 @@
                                                 @else
                                                     <span class="badge bg-danger">Date non disponible</span>
                                                 @endif
-                                            </span> --}}
+                                            </span>
                                         </div>
 
-                                        <div class="row fs-sm">
+                                        {{-- <div class="row fs-sm">
                                             <div class="col-md-6 mb-2">
                                                 <i class="bi bi-person-circle me-1"></i>
                                                 <strong>Opérateur :</strong>
@@ -168,7 +168,7 @@
                                                     {{ $progress === 100 ? 'Terminée' : $progress . '%' }}
                                                 </div>
                                             </div>
-                                        @endif
+                                        @endif --}}
                                     </div>
                                 @endforeach
                             </div>
