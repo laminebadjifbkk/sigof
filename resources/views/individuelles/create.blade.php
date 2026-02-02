@@ -566,7 +566,7 @@
 
                 {{-- ================= STEP 5 – PROJET ================= --}}
                 <div class="step d-none">
-                    <h5 class="mb-3">Projet & Récapitulatif</h5>
+                    <h5 class="mb-3">Projet</h5>
 
                     <div class="row g-3">
                         <div class="col-md-6">

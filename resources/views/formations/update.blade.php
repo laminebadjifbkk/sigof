@@ -422,7 +422,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-lg-3 col-xxl-3">
+                                    {{-- <div class="col-12 col-lg-3 col-xxl-3">
                                         <label for="detf_file" class="form-label">Joindre scan DETF</label>
                                         <input type="file" name="detf_file" id="detf_file"
                                             class="form-control @error('detf_file') is-invalid @enderror btn btn-outline-primary btn-sm">
@@ -444,8 +444,7 @@
                                             <br>
                                             <div class="badge bg-warning">Aucun</div>
                                         @endif
-                                    </div>
-
+                                    </div> --}}
 
                                     <div class="col-12 col-lg-3 col-xxl-3">
                                         <label for="file_pv" class="form-label">Joindre scan PV</label>
@@ -471,7 +470,7 @@
                                     </div>
 
                                     <div class="col-12 col-lg-3 col-xxl-3">
-                                        <label for="lettre_mission_file" class="form-label">Joindre LM</label>
+                                        <label for="lettre_mission_file" class="form-label">Joindre LM Evaluateur</label>
                                         <input type="file" name="lettre_mission_file" id="lettre_mission_file"
                                             class="form-control @error('lettre_mission_file') is-invalid @enderror btn btn-outline-primary btn-sm">
                                         @error('lettre_mission_file')
@@ -483,7 +482,7 @@
                                         <label for="lettre_mission_file" class="form-label">Fichier</label>
                                         @if (!empty($formation?->lettre_mission_file))
                                             <div>
-                                                <a class="btn btn-outline-secondary btn-sm" title="DETF" target="_blank"
+                                                <a class="btn btn-outline-secondary btn-sm" title="LM Evaluateur" target="_blank"
                                                     href="{{ asset($formation->getFileLM()) }}">
                                                     <i class="bi bi-file-earmark-pdf"></i>
                                                 </a>

@@ -411,7 +411,7 @@ class FormationController extends Controller
             "date_pv_finale"     => "nullable|date|size:10|date_format:Y-m-d",
             "lettre_mission"     => "nullable|string",
             "annee"              => "required|numeric",
-            "file_convention"    => ['sometimes', 'file', 'mimes:pdf', 'max:1024'],
+            "file_convention"    => ['sometimes', 'file', 'mimes:pdf', 'max:2048'],
             "detf_file"          => ['sometimes', 'file', 'mimes:pdf', 'max:1024'],
 
             "regions" => "required|array|min:1",
