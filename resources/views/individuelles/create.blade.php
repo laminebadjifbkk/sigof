@@ -432,7 +432,7 @@
 
                         <div class="col-md-4">
                             <label class="form-label">
-                                Etablissement académique <span class="required">*</span>
+                                Etablissement académique
                             </label>
 
                             <input type="text" name="etablissement_academique"
