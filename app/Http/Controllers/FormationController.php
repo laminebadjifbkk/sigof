@@ -3252,11 +3252,11 @@ class FormationController extends Controller
         }
 
         // 1️⃣ Détacher tous les bénéficiaires
-        Listecollective::where('formations_id', $idformation)
+        /* Listecollective::where('formations_id', $idformation)
             ->update([
                 'formations_id' => null,
                 'statut' => 'Conforme',
-            ]);
+            ]); */
 
         // 2️⃣ Rattacher uniquement les sélectionnés
         if (!empty($request->listecollectives)) {
