@@ -145,7 +145,7 @@
                                                                     </li>
                                                                     <li>
                                                                         <form
-                                                                            action="{{ route('ingenieurs.destroy', $ingenieur->id) }}"
+                                                                            action="{{ route('formations.destroy', $formation) }}"
                                                                             method="post">
                                                                             @csrf
                                                                             @method('DELETE')

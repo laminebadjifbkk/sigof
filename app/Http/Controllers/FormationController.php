@@ -701,7 +701,6 @@ class FormationController extends Controller
 
     public function destroy(Formation $formation)
     {
-        dd("ok");
         if (! empty($formation->types_formation->name) && $formation->types_formation->name == "collective") {
             foreach ($formation->listecollectives as $liste) {
             }
@@ -738,9 +737,6 @@ class FormationController extends Controller
                 if (! empty($formation->abe_file)) {
                     Storage::disk('public')->delete($formation->abe_file);
                 }
-
-                $formation->ingenieurs_id = null;
-                $formation->save();
 
                 $formation->delete();
 
@@ -783,9 +779,6 @@ class FormationController extends Controller
                 if (! empty($formation->abe_file)) {
                     Storage::disk('public')->delete($formation->abe_file);
                 }
-
-                $formation->ingenieurs_id = null;
-                $formation->save();
 
                 $formation->delete();
 
