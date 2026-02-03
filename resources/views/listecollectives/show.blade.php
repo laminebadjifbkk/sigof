@@ -201,10 +201,10 @@
                                         <div class="col-12 col-md-3 mb-2">
                                             <div class="label mb-2">Formation</div>
                                             <div>
-                                                <span class="{{ $listecollective->collective->formation->statut }}">
-                                                    {{ $listecollective->collective->formation->statut }}
+                                                <span class="{{ $listecollective?->formation?->statut }}">
+                                                    {{ $listecollective->formation->statut }}
                                                 </span>
-                                                <a href="{{ route('formations.show', $listecollective->collective->formation) }}"
+                                                <a href="{{ route('formations.show', $listecollective?->formation) }}"
                                                     class="btn btn-primary btn-sm" title="Voir les détails">
                                                     <i class="bi bi-eye"></i>
                                                 </a>
