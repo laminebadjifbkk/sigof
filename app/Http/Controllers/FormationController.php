@@ -3251,12 +3251,21 @@ class FormationController extends Controller
             return back();
         }
 
-        Listecollective::whereIn('id', $request->listecollectives)
-            ->whereNull('formations_id')
+        // 1️⃣ Détacher tous les bénéficiaires
+        Listecollective::where('formations_id', $idformation)
             ->update([
-                'formations_id' => $idformation,
-                'statut' => 'Sélectionné',
+                'formations_id' => null,
+                'statut' => 'Conforme',
             ]);
+
+        // 2️⃣ Rattacher uniquement les sélectionnés
+        if (!empty($request->listecollectives)) {
+            Listecollective::whereIn('id', $request->listecollectives)
+                ->update([
+                    'formations_id' => $idformation,
+                    'statut' => 'Sélectionné',
+                ]);
+        }
 
         Alert::success(
             'Opération réussie !',

@@ -71,6 +71,7 @@
                                                 <th scope="col">Date naissance</th>
                                                 <th scope="col">Lieu naissance</th>
                                                 <th scope="col">Niveau étude</th>
+                                                <th scope="col">ID</th>
                                                 {{-- <th scope="col">Module</th> --}}
                                                 <th class="text-center" width="5%">Statut</th>
                                                 <th class="text-center" width="5%"><i class="bi bi-gear"></i></th>
@@ -101,6 +102,7 @@
                                                         </td>
                                                         <td>{{ $listecollective?->lieu_naissance }}</td>
                                                         <td>{{ $listecollective?->niveau_etude }}</td>
+                                                        <td>{{ $listecollective?->formations_id }}</td>
                                                         {{-- <td>{{ $listecollective?->collectivemodule?->module }}</td> --}}
                                                         <td>
                                                             <span
