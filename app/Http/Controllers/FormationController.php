@@ -3203,14 +3203,14 @@ class FormationController extends Controller
         } elseif ($formation->statut == 'Annulée') {
             Alert::warning('Désolé !', 'La formation a été annulée.');
         } else {
-            $listecollectiveformations = Listecollective::where('formations_id', $idformation)->get();
+            /* $listecollectiveformations = Listecollective::where('formations_id', $idformation)->get();
             foreach ($listecollectiveformations as $key => $listecollectiveformation) {
                 $listecollectiveformation->update([
                     "formations_id" => null,
                     "statut"        => 'Conforme',
                 ]);
                 $listecollectiveformation->save();
-            }
+            } */
 
             foreach ($request->listecollectives as $listecollective) {
                 $listecollective = Listecollective::findOrFail($listecollective);
