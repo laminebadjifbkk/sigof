@@ -133,14 +133,14 @@
             </div>
         @endif --}}
             <div class="header">
-                <div class="contact-info" style="float:left; width: 70%; text-align: left;">
+                <div class="contact-info" style="float:left; width: 60%; text-align: left;">
                     <p><strong>Prénom :</strong> {{ $evaluateur?->name }}</p>
                     <p><strong>Nom :</strong> {{ $evaluateur?->lastname }}</p>
                     <p><strong>Titre :</strong> {{ $evaluateur?->fonction }}</p>
                     <p><strong>Téléphone :</strong> {{ $evaluateur?->telephone }}</p>
                 </div>
 
-                <div class="date" style="width: 30%; float:right; text-align: right;">
+                <div class="date" style="width: 40%; float:right; text-align: right;">
                     {{ $formation?->departement?->region?->nom }}, le
                     {{ $formation?->date_pv_finale?->translatedFormat('d F Y') ?? $formation?->date_pv?->translatedFormat('d F Y') }}
                 </div>
