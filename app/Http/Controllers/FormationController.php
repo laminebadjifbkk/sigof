@@ -3092,9 +3092,11 @@ class FormationController extends Controller
 
         $formation = Formation::findOrFail($request->input('id'));
 
+        dd($formation);
+
         if ($formation->statut == "Terminée") {
 
-            $title = 'PV Evaluation de la formation en  ' . $formation?->module?->name;
+            $title = 'PV Evaluation de la formation en  ' . $formation?->collectivemodule?->module;
 
             $membres_jury  = explode(";", $formation->membres_jury);
             $count_membres = count($membres_jury);
@@ -3203,14 +3205,14 @@ class FormationController extends Controller
         } elseif ($formation->statut == 'Annulée') {
             Alert::warning('Désolé !', 'La formation a été annulée.');
         } else {
-            /* $listecollectiveformations = Listecollective::where('formations_id', $idformation)->get();
+            $listecollectiveformations = Listecollective::where('formations_id', $idformation)->get();
             foreach ($listecollectiveformations as $key => $listecollectiveformation) {
                 $listecollectiveformation->update([
                     "formations_id" => null,
                     "statut"        => 'Conforme',
                 ]);
                 $listecollectiveformation->save();
-            } */
+            }
 
             foreach ($request->listecollectives as $listecollective) {
                 $listecollective = Listecollective::findOrFail($listecollective);
