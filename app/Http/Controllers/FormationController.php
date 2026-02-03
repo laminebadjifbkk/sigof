@@ -3092,7 +3092,7 @@ class FormationController extends Controller
 
         $formation = Formation::findOrFail($request->input('id'));
 
-        dd($formation);
+         dd($formation->listecollectives->count());
 
         if ($formation->statut == "Terminée") {
 
