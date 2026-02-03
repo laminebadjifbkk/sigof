@@ -3092,8 +3092,6 @@ class FormationController extends Controller
 
         $formation = Formation::findOrFail($request->input('id'));
 
-         dd($formation->listecollectives->count());
-
         if ($formation->statut == "Terminée") {
 
             $title = 'PV Evaluation de la formation en  ' . $formation?->collectivemodule?->module;
@@ -3192,7 +3190,7 @@ class FormationController extends Controller
         return view("formations.collectives.add-listecollectives", compact('formation', 'listecollectives', 'listecollectiveFormation', 'collectivemodule', 'localite', 'candidatsretenus'));
     }
 
-    public function giveformationdemandeurscollectives($idformation, $idcollectivemodule, $idlocalite, Request $request)
+    /*  public function giveformationdemandeurscollectives($idformation, $idcollectivemodule, $idlocalite, Request $request)
     {
         $request->validate([
             'listecollectives' => ['required'],
@@ -3225,16 +3223,54 @@ class FormationController extends Controller
                 $listecollective->save();
             }
 
-            /*  $validated_by = new Validationcollective([
-            'validated_id'       =>      Auth::user()->id,
-            'action'             =>      'Retenue',
-            'collectives_id'   =>      $listecollective->id
-            ]);
-
-            $validated_by->save(); */
-
             Alert::success('Opération réussie !', 'Le(s) candidat(s) a/ont été ajouté(s) avec succès.');
         }
+
+        return redirect()->back();
+    } */
+
+    public function giveformationdemandeurscollectives(
+        $idformation,
+        $idcollectivemodule,
+        $idlocalite,
+        Request $request
+    ) {
+        $request->validate([
+            'listecollectives' => 'nullable|array',
+        ]);
+
+        $formation = Formation::findOrFail($idformation);
+
+        if ($formation->statut === "Terminée") {
+            Alert::warning('Désolé !', 'Cette formation a déjà été exécutée.');
+            return back();
+        }
+
+        if ($formation->statut === 'Annulée') {
+            Alert::warning('Désolé !', 'La formation a été annulée.');
+            return back();
+        }
+
+        // 1️⃣ Détacher tous les bénéficiaires
+        Listecollective::where('formations_id', $idformation)
+            ->update([
+                'formations_id' => null,
+                'statut' => 'Conforme',
+            ]);
+
+        // 2️⃣ Rattacher uniquement les sélectionnés
+        if (!empty($request->listecollectives)) {
+            Listecollective::whereIn('id', $request->listecollectives)
+                ->update([
+                    'formations_id' => $idformation,
+                    'statut' => 'Sélectionné',
+                ]);
+        }
+
+        Alert::success(
+            'Opération réussie !',
+            'La liste des bénéficiaires a été mise à jour avec succès.'
+        );
 
         return redirect()->back();
     }
