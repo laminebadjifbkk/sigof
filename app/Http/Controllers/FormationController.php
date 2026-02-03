@@ -701,6 +701,7 @@ class FormationController extends Controller
 
     public function destroy(Formation $formation)
     {
+        dd("ok");
         if (! empty($formation->types_formation->name) && $formation->types_formation->name == "collective") {
             foreach ($formation->listecollectives as $liste) {
             }
