@@ -285,7 +285,8 @@
             </thead>
             <tbody>
                 <?php $i = 1; ?>
-                @foreach ($formation->listecollectives->where('statut', 'Sélectionné') as $listecollective)
+                {{-- @foreach ($formation->listecollectives->where('statut', 'Sélectionné') as $listecollective) --}}
+                @foreach ($formation->listecollectivesSelectionnees as $listecollective)
                     <tr class="item" style="text-align: center;">
                         <td>{{ $i++ }}</td>
                         <td>{{ $listecollective?->cin }}</td>

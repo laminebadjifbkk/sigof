@@ -663,4 +663,16 @@ class Formation extends Model
 
         return $total > 0 ? $total : ($this->attributes['frais_total'] ?? 0);
     }
+
+    public function listecollectivesSelectionnees()
+    {
+        return $this->hasMany(Listecollective::class, 'formations_id')
+            ->where('statut', 'Sélectionné');
+    }
+
+    public function listecollectivesFormees()
+    {
+        return $this->hasMany(Listecollective::class, 'formations_id')
+            ->where('statut', 'formé');
+    }
 }
