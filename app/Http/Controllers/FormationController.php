@@ -738,6 +738,9 @@ class FormationController extends Controller
                     Storage::disk('public')->delete($formation->abe_file);
                 }
 
+                $formation->ingenieurs_id = null;
+                $formation->save();
+
                 $formation->delete();
 
                 Alert::success('Opération réussie !', 'La formation a été supprimée avec succès.');
@@ -779,6 +782,9 @@ class FormationController extends Controller
                 if (! empty($formation->abe_file)) {
                     Storage::disk('public')->delete($formation->abe_file);
                 }
+
+                $formation->ingenieurs_id = null;
+                $formation->save();
 
                 $formation->delete();
 
