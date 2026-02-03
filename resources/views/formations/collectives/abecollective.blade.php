@@ -315,9 +315,21 @@
                                             <span class="text-muted">Aucun évaluateur ONFP trouvé</span>
                                         @endif
                                     </b>
-                                    certifie, au nom de
-                                    l'ONFP, que l'opérateur a exécuté la formation conformément à la convention
-                                    d'assistance sus mentionnée.
+                                    certifie, au nom de l'ONFP, que
+                                    @php
+                                        $statut = $formation?->lettrevaluation?->execution_statut;
+                                    @endphp
+
+                                    @if ($statut === 1 || $statut === '1')
+                                        l'opérateur a exécuté la formation conformément à la convention d'assistance
+                                        susmentionnée.
+                                    @elseif ($statut === 0 || $statut === '0')
+                                        l'opérateur n'a pas exécuté la formation conformément à la convention
+                                        d'assistance susmentionnée.
+                                    @else
+                                        l'opérateur a exécuté la formation conformément à la convention d'assistance
+                                        susmentionnée.
+                                    @endif
                                 </p>
 
                                 <p>
