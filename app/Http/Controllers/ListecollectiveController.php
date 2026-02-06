@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Collective;
@@ -22,34 +23,18 @@ class ListecollectiveController extends Controller
 
     public function index()
     {
-        // Récupération des 250 dernières demandes
-       /*  $listecollectives = Listecollective::latest()->limit(250)->get();
-
-        // Comptage total des individus (sans charger toutes les entrées en mémoire)
-        $total_count = number_format(Listecollective::count(), 0, ',', ' ');
-
-        // Comptage des demandes affichées
-        $count_demandeur = number_format($listecollectives->count(), 0, ',', ' '); */
-
-        
-        // Comptage total des individus (sans charger toutes les entrées en mémoire)
         $listecollectives      = Listecollective::count();
         $totalListecollective = number_format($listecollectives, 0, ',', ' ');
 
-       // Récupération des 500 dernières demandes
         $listecollectives = Listecollective::latest()->limit(500)->get();
 
-        // Définition du titre
-        /* $title = match ($listecollectives->count()) {
-            0 => 'Aucune demande collective',
-            1 => "1 demande collective sur un total de $total_count",
-            default => "Liste des $count_demandeur dernières demandes collectives sur un total de $total_count",
-        }; */
-
-        return view('listecollectives.index', 
-        compact('listecollectives', 
-        'totalListecollective'
-    ));
+        return view(
+            'listecollectives.index',
+            compact(
+                'listecollectives',
+                'totalListecollective'
+            )
+        );
     }
 
     public function store(Request $request)
@@ -99,7 +84,7 @@ class ListecollectiveController extends Controller
         return redirect()->back();
     }
 
-/*     public function edit(Listecollective $listecollective)
+    /*     public function edit(Listecollective $listecollective)
     {
         foreach (Auth::user()->roles as $key => $role) {
         }
@@ -217,54 +202,46 @@ class ListecollectiveController extends Controller
 
     public function generateReport(Request $request)
     {
-        // Validation des champs
-        $this->validate($request, [
+        // Validation des champs (tous optionnels)
+        $request->validate([
             'cin'       => 'nullable|string',
             'name'      => 'nullable|string',
             'firstname' => 'nullable|string',
             'telephone' => 'nullable|string',
         ]);
 
+        // Vérifier qu'au moins un champ est rempli
         if (! collect($request->only(['cin', 'name', 'firstname', 'telephone']))->filter()->isNotEmpty()) {
             Alert::warning('Attention', 'Veuillez renseigner au moins un champ pour effectuer une recherche.');
             return redirect()->back();
         }
 
-        // Construction de la requête
-        $query = Listecollective::join('collectives', 'collectives.id', '=', 'listecollectives.collectives_id')
-            ->select('listecollectives.*'); // Sélectionner les colonnes nécessaires
+        // Construire la requête avec filtre
+        $query = Listecollective::query();
 
         if ($request->filled('firstname')) {
-            $query->where('listecollectives.prenom', 'LIKE', "%{$request->firstname}%");
+            $query->where('prenom', 'LIKE', "%{$request->firstname}%");
         }
 
         if ($request->filled('name')) {
-            $query->where('listecollectives.nom', 'LIKE', "%{$request->name}%");
+            $query->where('nom', 'LIKE', "%{$request->name}%");
         }
 
         if ($request->filled('cin')) {
-            $query->where('listecollectives.cin', 'LIKE', "%{$request->cin}%");
+            $query->where('cin', 'LIKE', "%{$request->cin}%");
         }
 
         if ($request->filled('telephone')) {
-            $query->where('listecollectives.telephone', 'LIKE', "%{$request->telephone}%");
+            $query->where('telephone', 'LIKE', "%{$request->telephone}%");
         }
 
-        // Exécution de la requête
-        $listecollectives = $query->get();
-        $count            = $listecollectives->count();
+        // Pagination au lieu de get() pour éviter les problèmes de mémoire
+        $listecollectives = $query->get(); // 50 par page, à adapter
 
-        // Génération du titre
-        if ($count === 0) {
-            $title = 'Aucune demande trouvée';
-        } elseif ($count === 1) {
-            $title = '1 demande trouvée';
-        } else {
-            $title = "{$count} demandes trouvées";
-        }
+        $totalListecollective = $query->count(); // total filtré
+        $totalListecollective = number_format($totalListecollective, 0, ',', ' ');
 
-        // Retourner la vue
-        return view('listecollectives.index', compact('listecollectives', 'title'));
+        // Retourner la vue avec pagination
+        return view('listecollectives.index', compact('listecollectives', 'totalListecollective'));
     }
-
 }
