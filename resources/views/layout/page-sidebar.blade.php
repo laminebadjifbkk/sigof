@@ -808,20 +808,8 @@
                             </a>
                         </li>
                     @endhasrole
-                    {{-- @foreach ($directions as $direction)
-                        @if (!empty($direction->sigle) && is_string($direction->sigle))
-                            @hasrole([$direction->sigle, 'super-admin'])
-                                <li class="nav-item">
-                                    <a class="nav-link collapsed" href="{{ route('directions.show', $direction) }}">
-                                        <span>{{ $direction->sigle }}</span>
-                                    </a>
-                                </li>
-                            @endhasrole
-                        @endif
-                    @endforeach --}}
-                    @foreach ($directions as $direction)
+                    {{--  @foreach ($directions as $direction)
                         @if (!empty($direction->sigle))
-                            {{-- super-admin voit tout --}}
                             @hasrole('super-admin')
                                 <li class="nav-item">
                                     <a class="nav-link collapsed" href="{{ route('directions.show', $direction) }}">
@@ -829,7 +817,6 @@
                                     </a>
                                 </li>
                             @else
-                                {{-- autres utilisateurs : seulement leur direction --}}
                                 @hasrole($direction->sigle)
                                     <li class="nav-item">
                                         <a class="nav-link collapsed" href="{{ route('directions.show', $direction) }}">
@@ -838,6 +825,19 @@
                                     </li>
                                 @endhasrole
                             @endhasrole
+                        @endif
+                    @endforeach --}}
+                    @foreach ($directions as $direction)
+                        @if (
+                            !empty($direction->sigle) &&
+                                (auth()->user()->employee?->direction?->sigle === $direction->sigle ||
+                                    auth()->user()->hasRole('super-admin') ||
+                                    auth()->user()->hasRole('DRH')))
+                            <li class="nav-item">
+                                <a class="nav-link collapsed" href="{{ route('directions.show', $direction) }}">
+                                    <span>{{ $direction->sigle }}</span>
+                                </a>
+                            </li>
                         @endif
                     @endforeach
                 </ul>

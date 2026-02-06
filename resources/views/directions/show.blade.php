@@ -1,8 +1,7 @@
 @extends('layout.user-layout')
 @section('title', 'ONFP | ' . $direction?->sigle)
 @section('space-work')
-    {{-- @hasrole([$direction?->sigle, 'super-admin', 'DRH', 'ADRH', 'SG', 'DG']) --}}
-    @hasrole("{$direction?->sigle}|super-admin|DRH|ADRH|SG|DG")
+    @if ($direction?->sigle && auth()->user()?->employee?->canAccessDirection($direction->sigle))
         @can('direction-show')
             <section
                 class="section profile min-vh-0 d-flex flex-column align-items-center justify-content-center py-0 section profile">
@@ -308,7 +307,7 @@
                 </div>
             </section>
         @endcan
-    @endhasrole
+    @endif
 @endsection
 @push('scripts')
     <script>

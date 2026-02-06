@@ -292,4 +292,14 @@ class Employee extends Model
         )->withPivot('role', 'vehicule_id')
             ->withTimestamps();
     }
+
+    public function canAccessDirection(string $sigle): bool
+    {
+        return
+            // appartient à la direction
+            $this->direction?->sigle === $sigle
+
+            // OU rôle élevé côté user
+            || $this->user?->hasRole(['super-admin', 'DRH', 'ADRH', 'SG', 'DG']);
+    }
 }
