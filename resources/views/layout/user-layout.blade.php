@@ -1602,6 +1602,16 @@
         .social-links a:hover {
             color: #0d6efd;
         }
+
+        /* Réduire la hauteur des boutons */
+        .pagination .page-link {
+            padding: 0.35rem 0.65rem;
+        }
+
+        /* Ajuster les flèches */
+        .pagination .page-link span {
+            line-height: 1;
+        }
     </style>
 
 </head>
