@@ -131,7 +131,7 @@
                                         *</span></label>
                                 <input type="number" name="autres"
                                     class="form-control form-control-sm @error('autres') is-invalid @enderror"
-                                    value="{{ old('autres', 1) }}" placeholder="Ex: 1" min="1" step="1">
+                                    value="{{ old('autres', 1) }}" placeholder="Ex: 1" min="0" step="1">
                                 @error('autres')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
