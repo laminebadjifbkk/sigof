@@ -15,7 +15,7 @@
                                     <span class="badge bg-warning text-white ms-2">{{ count($formations) }}</span>
                                 </h5>
                                 @foreach ($formations as $formation)
-                                    @php
+                                    {{-- @php
                                         $isIndividuelle =
                                             !empty($formation?->module?->name) && !empty($formation?->duree_formation);
                                         $isCollective =
@@ -48,9 +48,9 @@
                                                 default => 'bg-success',
                                             };
                                         }
-                                    @endphp
-                                    <div class="border rounded p-3 mb-4 shadow-sm bg-white">
-                                        {{-- <div class="d-flex justify-content-between align-items-center">
+                                    @endphp --}}
+                                    {{-- <div class="border rounded p-3 mb-4 shadow-sm bg-white">
+                                        <div class="d-flex justify-content-between align-items-center">
                                             <h6 class="text-primary mb-3">
                                                 Module :
                                                 <a href="{{ route('formations.show', $formation) }}">
@@ -121,18 +121,10 @@
                                                     <span class="badge bg-danger">Date non disponible</span>
                                                 @endif
                                             </span>
-                                        </div> --}}
+                                        </div>
 
                                         <div class="row fs-sm">
-                                            {{-- <div class="col-md-6 mb-2">
-                                                <i class="bi bi-person-circle me-1"></i>
-                                                <strong>Opérateur :</strong>
-                                                {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
-                                            </div>
-                                            <div class="col-md-6 mb-2">
-                                                <i class="bi bi-person-workspace me-1"></i>
-                                                <strong>Ingénieur :</strong> {{ $formation?->ingenieur?->name ?? 'N/A' }}
-                                            </div> --}}
+                                            
                                             <div class="col-md-6 mb-2">
                                                 <i class="bi bi-calendar-event me-1"></i>
                                                 <strong>Période :</strong>
@@ -180,7 +172,7 @@
                                                 </div>
                                             </div>
                                         @endif
-                                    </div>
+                                    </div> --}}
                                 @endforeach
                             </div>
                         </div>
