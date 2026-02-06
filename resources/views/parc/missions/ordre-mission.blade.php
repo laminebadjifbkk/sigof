@@ -259,7 +259,7 @@
                 <h2 style="text-decoration: underline; text-align: center;">ORDRE DE MISSION </h2 class="text-center">
 
                 <p style="text-align: justify; margin-top:5px;margin-bottom:5px; text-align: center;">
-                    {{ $vehicule ? $vehicule->immatriculation : '-' }}
+                    {{ $vehicule ? $vehicule->immatriculation : 'Moyens propres' }}
                 </p>
 
                 <br><br>
