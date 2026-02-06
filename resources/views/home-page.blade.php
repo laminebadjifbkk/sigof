@@ -114,6 +114,12 @@
                                                     jours
                                                 @endif
                                             </div>
+                                            <div class="col-md-12 mb-2">
+                                                <strong>Ingénieur : </strong>
+                                                {{ $formation?->ingenieur?->user?->firstname && $formation?->ingenieur?->user?->name
+                                                    ? $formation->ingenieur->user->firstname . ' ' . $formation->ingenieur->user->name
+                                                    : 'Aucun' }}
+                                            </div>
                                         </div>
 
                                         @if (!is_null($progress))
