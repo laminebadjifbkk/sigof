@@ -207,13 +207,6 @@ class UserController extends Controller
         $masculin_collective = Listecollective::where('civilite', "M.")
             ->count();
 
-        /* $pourcentage_femmes_collective = $listecollectives->count() > 0
-            ? ($feminin_collective / $listecollectives->count()) * 100
-            : 0;
-
-        $pourcentage_hommes_collective = $listecollectives->count() > 0
-            ? ($masculin_collective / $listecollectives->count()) * 100
-            : 0; */
 
         return view(
             "home-page",
@@ -225,9 +218,6 @@ class UserController extends Controller
                 'total_individuelle',
                 "pourcentage_hommes",
                 "pourcentage_femmes",
-                /* "pourcentage_femmes_collective",
-                "pourcentage_hommes_collective", */
-                /* "count_demandes", */
                 'rejeter',
                 "terminer",
                 "retenue",
