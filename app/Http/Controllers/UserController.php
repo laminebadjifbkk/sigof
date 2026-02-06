@@ -158,6 +158,7 @@ class UserController extends Controller
             ->groupBy(DB::raw('MONTH(created_at)'))
             ->pluck('count', 'month');
 
+        dd($counts);
         // Initialiser les variables avec 0 au cas où il manque un mois
         $janvier   = $counts->get(1, 0);
         $fevrier   = $counts->get(2, 0);
@@ -452,7 +453,7 @@ class UserController extends Controller
                 ],
                 'firstname'      => ['required', 'string', 'max:150'],
                 'name'           => ['required', 'string', 'max:50'],
-                
+
                 'date_naissance' => ['required', 'date_format:d/m/Y'],
                 'lieu_naissance' => ['nullable', 'string'],
                 'image'          => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
