@@ -208,8 +208,6 @@ class UserController extends Controller
             ->count();
 
 
-        dd($counts);
-
         return view(
             "home-page",
             compact(

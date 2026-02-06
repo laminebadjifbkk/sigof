@@ -50,9 +50,8 @@
                                         }
                                     @endphp
                                     <div class="border rounded p-3 mb-4 shadow-sm bg-white">
-                                        <div class="d-flex justify-content-between align-items-center">
+                                        {{-- <div class="d-flex justify-content-between align-items-center">
                                             <h6 class="text-primary mb-3">
-                                                {{-- <i class="bi bi-journal-code me-1"></i> --}}
                                                 Module :
                                                 <a href="{{ route('formations.show', $formation) }}">
                                                     @php
@@ -122,7 +121,7 @@
                                                     <span class="badge bg-danger">Date non disponible</span>
                                                 @endif
                                             </span>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="row fs-sm">
                                             {{-- <div class="col-md-6 mb-2">
