@@ -657,7 +657,7 @@
                 <div class="d-flex justify-content-between mt-4">
                     <button type="button" class="btn btn-secondary btn-sm" id="prevBtn">Précédent</button>
                     <button type="button" class="btn btn-primary btn-sm" id="nextBtn">Suivant</button>
-                    <button type="submit" class="btn btn-success btn-sm d-none" id="submitBtn">
+                    <button type="submit" class="btn btn-success btn-sm submitBtn d-none" id="submitBtn">
                         <i class="bi bi-check-circle"></i> Enregistrer
                     </button>
                 </div>
@@ -805,6 +805,33 @@
                 }
             });
 
+        });
+
+        $(document).on('click', '.submitBtn', function(event) {
+            event.preventDefault(); // Empêche la soumission automatique
+
+            const form = $(this).closest("form");
+
+            swal({
+                title: "Êtes-vous sûr de vouloir enregistrer cette demande ?",
+                text: "Vous pouvez cliquer sur OK pour confirmer ou sur Annuler pour annuler.",
+                icon: "warning", // "warning" est plus adapté pour une action risquée
+                buttons: {
+                    cancel: "Annuler",
+                    confirm: {
+                        text: "Oui, enregistrer !",
+                        value: true,
+                        visible: true,
+                        className: "",
+                        closeModal: true
+                    }
+                },
+                dangerMode: true
+            }).then((willRestore) => {
+                if (willRestore) {
+                    form.submit(); // Soumet le formulaire si confirmé
+                }
+            });
         });
     </script>
 @endpush
