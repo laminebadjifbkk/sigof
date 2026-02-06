@@ -314,7 +314,7 @@ class UserController extends Controller
         $formations = Formation::with(['module', 'collectivemodule', 'emargements', 'emargementcollectives'])
             ->where('statut', 'En cours')
             ->orderBy('date_debut', 'desc')
-            ->paginate(20) // paginate au lieu de get()
+            ->paginate(10) // paginate au lieu de get()
             ->through(function ($formation) {
                 $isIndividuelle = !empty($formation->module?->name) && !empty($formation->duree_formation);
                 $isCollective = !empty($formation->collectivemodule?->module) && !empty($formation->duree_formation);
