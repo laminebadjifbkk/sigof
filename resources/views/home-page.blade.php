@@ -131,8 +131,9 @@
 
                                 {{-- Pagination --}}
                                 <div class="d-flex justify-content-center mt-4">
-                                    {{ $formations->links() }}
+                                    {{ $formations->links('custom') }}
                                 </div>
+
                             </div>
                         </div>
                     @endif
