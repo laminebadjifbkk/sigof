@@ -49,11 +49,9 @@ class UserController extends Controller
         $this->middleware("permission:give-role-permissions", ["only" => ["givePermissionsToRole"]]);
     }
 
-    public function homePage()
+    /*  public function homePage()
     {
         $total_user = User::count();
-
-        /* $email_verified_at = DB::table(table: 'users')->where('email_verified_at', '!=', null)->count(); */
 
         $email_verified_at = User::whereNotNull('email_verified_at')->count();
         $email_verified_at = ($email_verified_at / $total_user) * 100;
@@ -62,10 +60,6 @@ class UserController extends Controller
         $total_arrive  = Arrive::where('type', null)->count();
         $total_depart  = Depart::count();
         $total_interne = Interne::count();
-
-        /* $formations = Formation::where('statut', "En cours")
-            ->orderBy('date_debut', 'desc')
-            ->get(); */
 
         $formations = collect();
 
@@ -76,9 +70,6 @@ class UserController extends Controller
             });
 
 
-
-        /* $count_formations = Formation::where('statut', "En cours")->count(); */
-
         $total_courrier = $total_arrive + $total_depart + $total_interne;
 
         $pourcentage_arrive  = $total_courrier != 0 ? ($total_arrive / $total_courrier) * 100 : 0;
@@ -86,18 +77,6 @@ class UserController extends Controller
         $pourcentage_interne = $total_courrier != 0 ? ($total_interne / $total_courrier) * 100 : 0;
 
         $total_individuelle = Individuelle::count();
-
-        /* $roles              = Role::orderBy('created_at', 'desc')->get();
-
-        $individuelles = Individuelle::select('id')->get();
-
-        $collectives = Collective::select('id')->get();
-
-        $listecollectives = Listecollective::select('id')->get();
-
-        $departements = Departement::orderBy("created_at", "desc")->get();
-
-        $modules = Module::orderBy("created_at", "desc")->get(); */
 
         // Rôles
         $roles = collect();
@@ -117,13 +96,6 @@ class UserController extends Controller
             $collectives = $collectives->merge($batch);
         });
 
-        /* dd($collectives); */
-
-        // Listecollectives
-        /* $listecollectives = collect();
-        Listecollective::select('id')->chunk(300, function ($batch) use (&$listecollectives) {
-            $listecollectives = $listecollectives->merge($batch);
-        }); */
 
         // Départements
         $departements = collect();
@@ -250,11 +222,177 @@ class UserController extends Controller
                 'pourcentage_arrive',
                 'pourcentage_depart',
                 'pourcentage_interne',
-                /* 'count_formations', */
                 'formations'
             )
         );
+    } */
+
+    public function homePage()
+    {
+        $total_user = User::count();
+
+        $email_verified_at = User::whereNotNull('email_verified_at')->count();
+        $email_verified_at = ($email_verified_at / $total_user) * 100;
+        $email_verified_at = number_format($email_verified_at, 2, ',', ' ');
+
+        $total_arrive  = Arrive::where('type', null)->count();
+        $total_depart  = Depart::count();
+        $total_interne = Interne::count();
+        $total_courrier = $total_arrive + $total_depart + $total_interne;
+
+        $pourcentage_arrive  = $total_courrier != 0 ? ($total_arrive / $total_courrier) * 100 : 0;
+        $pourcentage_depart  = $total_courrier != 0 ? ($total_depart / $total_courrier) * 100 : 0;
+        $pourcentage_interne = $total_courrier != 0 ? ($total_interne / $total_courrier) * 100 : 0;
+
+        $total_individuelle = Individuelle::count();
+
+        // Rôles
+        $roles = Role::orderBy('created_at', 'desc')->get();
+
+        // Individuelles et collectives
+        $individuelles = Individuelle::select('id')->get();
+        $collectives = Collective::select('id')->get();
+
+        // Départements et modules
+        $departements = Departement::orderBy("created_at", "desc")->get();
+        $modules = Module::orderBy("created_at", "desc")->get();
+
+        $today = date('Y-m-d');
+        $annee = date('Y');
+        $annee_lettre = 'Diagramme à barres, année: ' . $annee;
+
+        $count_today_individuelle = Individuelle::whereDate("created_at", $today)->count();
+        $count_today_collective = Collective::whereDate("created_at", $today)->count();
+        $count_operateurs = Operateur::where("statut_agrement", "agréé")->count();
+        $count_today = $count_today_individuelle + $count_today_collective;
+
+        $counts = DB::table('individuelles')
+            ->selectRaw('MONTH(created_at) as month, count(*) as count')
+            ->whereYear('created_at', $annee)
+            ->whereNull('deleted_at')
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->pluck('count', 'month');
+
+        $janvier   = $counts->get(1, 0);
+        $fevrier   = $counts->get(2, 0);
+        $mars      = $counts->get(3, 0);
+        $avril     = $counts->get(4, 0);
+        $mai       = $counts->get(5, 0);
+        $juin      = $counts->get(6, 0);
+        $juillet   = $counts->get(7, 0);
+        $aout      = $counts->get(8, 0);
+        $septembre = $counts->get(9, 0);
+        $octobre   = $counts->get(10, 0);
+        $novembre  = $counts->get(11, 0);
+        $decembre  = $counts->get(12, 0);
+
+        $masculin = Individuelle::join('users', 'users.id', 'individuelles.users_id')
+            ->where('users.civilite', "M.")
+            ->count();
+        $feminin = Individuelle::join('users', 'users.id', 'individuelles.users_id')
+            ->where('users.civilite', "Mme")
+            ->count();
+
+        $statuts = Individuelle::selectRaw('statut, count(*) as count')
+            ->whereIn('statut', ['Attente', 'Nouvelle', 'Retenue', 'Terminée', 'Rejetée'])
+            ->groupBy('statut')
+            ->pluck('count', 'statut');
+
+        $attente  = $statuts['Attente'] ?? 0;
+        $nouvelle = $statuts['Nouvelle'] ?? 0;
+        $retenue  = $statuts['Retenue'] ?? 0;
+        $terminer = $statuts['Terminée'] ?? 0;
+        $rejeter  = $statuts['Rejetée'] ?? 0;
+
+        $pourcentage_hommes = $individuelles->count() > 0 ? ($masculin / $individuelles->count()) * 100 : 0;
+        $pourcentage_femmes = $individuelles->count() > 0 ? ($feminin / $individuelles->count()) * 100 : 0;
+
+        $feminin_collective = Listecollective::where('civilite', "Mme")->count();
+        $masculin_collective = Listecollective::where('civilite', "M.")->count();
+
+        // ✅ Formations en cours avec pré-calcul du progress et couleur
+        $formations = Formation::with(['module', 'collectivemodule', 'emargements', 'emargementcollectives'])
+            ->where('statut', 'En cours')
+            ->orderBy('date_debut', 'desc')
+            ->paginate(20) // paginate au lieu de get()
+            ->through(function ($formation) {
+                $isIndividuelle = !empty($formation->module?->name) && !empty($formation->duree_formation);
+                $isCollective = !empty($formation->collectivemodule?->module) && !empty($formation->duree_formation);
+
+                $progress = null;
+                $color = '';
+                if ($isIndividuelle) {
+                    $progress = $formation->duree_formation ? round(($formation->emargements->count() / $formation->duree_formation) * 100) : null;
+                } elseif ($isCollective) {
+                    $progress = $formation->duree_formation ? round(($formation->emargementcollectives->count() / $formation->duree_formation) * 100) : null;
+                }
+
+                if (!is_null($progress)) {
+                    $color = match (true) {
+                        $progress <= 20 => 'bg-danger',
+                        $progress <= 40 => 'bg-warning',
+                        $progress <= 60 => 'bg-info',
+                        $progress <= 80 => 'bg-primary',
+                        default => 'bg-success',
+                    };
+                }
+
+                $date = $formation->date_debut ? \Carbon\Carbon::parse($formation->date_debut) : null;
+
+                return [
+                    'formation' => $formation,
+                    'progress' => $progress,
+                    'color' => $color,
+                    'date' => $date,
+                    'isIndividuelle' => $isIndividuelle,
+                    'isCollective' => $isCollective,
+                ];
+            });
+
+        return view('home-page', compact(
+            "total_user",
+            'roles',
+            'total_arrive',
+            'total_depart',
+            'total_individuelle',
+            "pourcentage_hommes",
+            "pourcentage_femmes",
+            'rejeter',
+            "terminer",
+            "retenue",
+            "nouvelle",
+            'attente',
+            "individuelles",
+            "collectives",
+            "modules",
+            "departements",
+            "count_today",
+            "count_operateurs",
+            'janvier',
+            'fevrier',
+            'mars',
+            'avril',
+            'mai',
+            'juin',
+            'juillet',
+            'aout',
+            'septembre',
+            'octobre',
+            'novembre',
+            'decembre',
+            'annee',
+            'annee_lettre',
+            'masculin',
+            'feminin',
+            'email_verified_at',
+            'total_interne',
+            'pourcentage_arrive',
+            'pourcentage_depart',
+            'pourcentage_interne',
+            'formations'
+        ));
     }
+
 
     public function create()
     {

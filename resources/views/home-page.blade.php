@@ -12,54 +12,29 @@
                             <div class="card-body">
                                 <h5 class="card-title mb-4">
                                     Formations en cours
-                                    <span class="badge bg-warning text-white ms-2">{{ count($formations) }}</span>
+                                    <span
+                                        class="badge bg-warning text-white ms-2">{{ $formations->total() ?? $formations->count() }}</span>
                                 </h5>
-                                @foreach ($formations as $formation)
-                                    {{-- @php
-                                        $isIndividuelle =
-                                            !empty($formation?->module?->name) && !empty($formation?->duree_formation);
-                                        $isCollective =
-                                            !empty($formation?->collectivemodule?->module) &&
-                                            !empty($formation?->duree_formation);
 
-                                        $progress = null;
-                                        $color = '';
+                                @foreach ($formations as $f)
+                                    @php
+                                        $formation = $f['formation'];
+                                        $progress = $f['progress'];
+                                        $color = $f['color'];
+                                        $date = $f['date'];
+                                        $isIndividuelle = $f['isIndividuelle'];
+                                        $isCollective = $f['isCollective'];
 
-                                        if ($isIndividuelle) {
-                                            $progress = round(
-                                                ($formation?->emargements->count() / $formation?->duree_formation) *
-                                                    100,
-                                            );
-                                        } elseif ($isCollective) {
-                                            $progress = round(
-                                                ($formation?->emargementcollectives?->count() /
-                                                    $formation?->duree_formation) *
-                                                    100,
-                                            );
-                                        }
+                                        $libelle = $isIndividuelle
+                                            ? $formation->module?->name
+                                            : $formation->collectivemodule?->module;
+                                    @endphp
 
-                                        // Déterminer la couleur
-                                        if (!is_null($progress)) {
-                                            $color = match (true) {
-                                                $progress <= 20 => 'bg-danger',
-                                                $progress <= 40 => 'bg-warning',
-                                                $progress <= 60 => 'bg-info',
-                                                $progress <= 80 => 'bg-primary',
-                                                default => 'bg-success',
-                                            };
-                                        }
-                                    @endphp --}}
-                                    {{-- <div class="border rounded p-3 mb-4 shadow-sm bg-white">
+                                    <div class="border rounded p-3 mb-4 shadow-sm bg-white">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h6 class="text-primary mb-3">
                                                 Module :
                                                 <a href="{{ route('formations.show', $formation) }}">
-                                                    @php
-                                                        $libelle = $isIndividuelle
-                                                            ? $formation?->module?->name
-                                                            : $formation?->collectivemodule?->module;
-                                                    @endphp
-
                                                     @if (!empty($libelle))
                                                         {{ $libelle }}
                                                     @else
@@ -69,13 +44,8 @@
                                                     @endif
                                                 </a>
                                             </h6>
-                                            <span>
-                                                @php
 
-                                                    $date = $formation?->date_debut
-                                                        ? \Carbon\Carbon::parse($formation?->date_debut)
-                                                        : null;
-                                                @endphp
+                                            <span>
                                                 <i class="bi bi-play-circle text-success me-1"></i>
                                                 Démarrage :
 
@@ -85,37 +55,26 @@
                                                     @elseif ($date->isYesterday())
                                                         <span class="badge bg-warning">Hier</span>
                                                     @elseif ($date->diffInDays(\Carbon\Carbon::today()) < 7)
-                                                        <span class="badge bg-primary">Il y a
-                                                            {{ $date->diffInDays(\Carbon\Carbon::today()) }}
-                                                            jours</span>
+                                                        <span class="badge bg-primary">
+                                                            Il y a {{ $date->diffInDays(\Carbon\Carbon::today()) }} jours
+                                                        </span>
                                                     @else
                                                         @php
                                                             $diff = $date->diff(\Carbon\Carbon::today());
-                                                            $ans = $diff->y;
-                                                            $mois = $diff->m;
-                                                            $jours = $diff->d;
-
                                                             $parts = [];
-                                                            if ($ans > 0) {
-                                                                $parts[] =
-                                                                    $ans .
-                                                                    ' ' .
-                                                                    \Illuminate\Support\Str::plural('an', $ans);
+                                                            if ($diff->y > 0) {
+                                                                $parts[] = $diff->y . ' ' . Str::plural('an', $diff->y);
                                                             }
-                                                            if ($mois > 0) {
-                                                                $parts[] = $mois . ' mois';
-                                                            } // "mois" invariable
-                                                            if ($jours > 0) {
+                                                            if ($diff->m > 0) {
+                                                                $parts[] = $diff->m . ' mois';
+                                                            }
+                                                            if ($diff->d > 0) {
                                                                 $parts[] =
-                                                                    $jours .
-                                                                    ' ' .
-                                                                    \Illuminate\Support\Str::plural('jour', $jours);
+                                                                    $diff->d . ' ' . Str::plural('jour', $diff->d);
                                                             }
                                                         @endphp
-
-                                                        <span class="badge bg-secondary">
-                                                            Il y a {{ implode(' ', $parts) }}
-                                                        </span>
+                                                        <span class="badge bg-secondary">Il y a
+                                                            {{ implode(' ', $parts) }}</span>
                                                     @endif
                                                 @else
                                                     <span class="badge bg-danger">Date non disponible</span>
@@ -124,39 +83,34 @@
                                         </div>
 
                                         <div class="row fs-sm">
-                                            
                                             <div class="col-md-6 mb-2">
                                                 <i class="bi bi-calendar-event me-1"></i>
                                                 <strong>Période :</strong>
-                                                @php
-                                                    $dateDebut = $formation?->date_debut?->format('d/m/Y');
-                                                    $dateFin = $formation?->date_fin?->format('d/m/Y');
-                                                @endphp
-                                                <span class="{{ is_null($formation?->date_debut) ? 'text-danger' : '' }}">
-                                                    {{ 'Du ' . ($dateDebut ?? 'Non définie') }}
+                                                <span class="{{ is_null($formation->date_debut) ? 'text-danger' : '' }}">
+                                                    {{ 'Du ' . ($formation->date_debut?->format('d/m/Y') ?? 'Non définie') }}
                                                 </span>
-                                                <span class="{{ is_null($formation?->date_fin) ? 'text-danger' : '' }}">
-                                                    {{ ' au ' . ($dateFin ?? 'Non définie') }}
+                                                <span class="{{ is_null($formation->date_fin) ? 'text-danger' : '' }}">
+                                                    {{ ' au ' . ($formation->date_fin?->format('d/m/Y') ?? 'Non définie') }}
                                                 </span>
                                             </div>
                                             <div class="col-md-6 mb-2">
                                                 <i class="bi bi-calendar-check me-1"></i>
                                                 <strong>Date évaluation :</strong>
-                                                <span class="{{ is_null($formation?->date_pv) ? 'text-danger' : '' }}">
-                                                    {{ $formation?->date_pv?->format('d/m/Y') ?? 'Non définie' }}
+                                                <span class="{{ is_null($formation->date_pv) ? 'text-danger' : '' }}">
+                                                    {{ $formation->date_pv?->format('d/m/Y') ?? 'Non définie' }}
                                                 </span>
                                             </div>
 
                                             <div class="col-md-6 mb-2">
                                                 <i class="bi bi-geo-alt-fill me-1"></i>
-                                                <strong>Lieu :</strong> {{ $formation?->lieu ?? 'N/A' }}
+                                                <strong>Lieu :</strong> {{ $formation->lieu ?? 'N/A' }}
                                             </div>
                                             <div class="col-md-6 mb-2">
                                                 <i class="bi bi-clock me-1"></i>
-                                                <strong>Durée :</strong> {{ $formation?->duree_formation ?? '-' }}
-                                                @if ($formation?->duree_formation === 1)
+                                                <strong>Durée :</strong> {{ $formation->duree_formation ?? '-' }}
+                                                @if ($formation->duree_formation === 1)
                                                     jour
-                                                @elseif ($formation?->duree_formation > 1)
+                                                @elseif ($formation->duree_formation > 1)
                                                     jours
                                                 @endif
                                             </div>
@@ -172,8 +126,13 @@
                                                 </div>
                                             </div>
                                         @endif
-                                    </div> --}}
+                                    </div>
                                 @endforeach
+
+                                {{-- Pagination --}}
+                                <div class="d-flex justify-content-center mt-4">
+                                    {{ $formations->links() }}
+                                </div>
                             </div>
                         </div>
                     @endif
