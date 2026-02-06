@@ -692,11 +692,15 @@
                     el.classList.toggle('d-none', i !== step);
                 });
 
-                prevBtn.style.display = step === 0 ? 'none' : 'inline-block';
-                nextBtn.classList.toggle('d-none', step === steps.length - 1);
-                submitBtn.classList.toggle('d-none', step !== steps.length - 1);
-                progressBar.style.width = ((step + 1) / steps.length) * 100 + '%';
+                // Boutons
+                if (prevBtn) prevBtn.style.display = step === 0 ? 'none' : 'inline-block';
+                if (nextBtn) nextBtn.classList.toggle('d-none', step === steps.length - 1);
+                if (submitBtn) submitBtn.classList.toggle('d-none', step !== steps.length - 1);
 
+                // Progress bar
+                if (progressBar) progressBar.style.width = ((step + 1) / steps.length) * 100 + '%';
+
+                // Générer récap uniquement à la dernière étape
                 if (step === steps.length - 1) {
                     generateRecap();
                 }
