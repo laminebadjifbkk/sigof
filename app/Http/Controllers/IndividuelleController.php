@@ -244,6 +244,8 @@ class IndividuelleController extends Controller
         // =======================================
         $departements = Departement::select('id', 'nom')->orderBy('nom')->get();
 
+        dd($departements);
+
         // =======================================
         // Retour vers la vue
         // =======================================
