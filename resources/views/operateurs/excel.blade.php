@@ -9,6 +9,7 @@
             <th>Domaine</th>
             <th>Module</th>
             <th>Catégorie</th>
+            <th>Statut</th>
             <th>N° agrément</th>
         </tr>
     </thead>
@@ -32,6 +33,7 @@
                     <td>{{ $module?->domaine }}</td>
                     <td>{{ $module?->module }}</td>
                     <td>{{ $module?->categorie }}</td>
+                    <td>{{ $module?->statut }}</td>
 
                     @if ($index === 0)
                         <td rowspan="{{ $rowspan }}">{{ $op->numero_agrement }}</td>
