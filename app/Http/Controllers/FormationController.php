@@ -101,7 +101,7 @@ class FormationController extends Controller
             ->get(); */
 
         // Si tu veux le dernier enregistrement selon la colonne id (le plus grand id)
-        $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
+        /*  $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
             ->select('formations.*')
             ->where('formations.annee', $anneeEnCours)
             ->orderBy('formations.id', 'desc')
@@ -112,7 +112,7 @@ class FormationController extends Controller
             ->select('formations.*')
             ->where('formations.annee', $anneeEnCours)
             ->latest('formations.created_at')
-            ->first();
+            ->first(); */
 
         /*  if (isset($numFormation)) {
             $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
@@ -144,14 +144,32 @@ class FormationController extends Controller
             }
         } */
 
-        if ($numFormation) {
+        /* if ($numFormation) {
             // Si un formation existe, incrémenter son numéro
             $numFormation = ++$numFormation->code;
         } else {
             // Si aucun formation n'existe, initialiser avec l'année et le numéro 0001
             $numFormation = $an . "0001";
             $numFormation = 'F' . $numFormation;
-        }
+        } */
+
+        $numFormation = DB::transaction(function () use ($an) {
+
+            $lastFormation = Formation::where('code', 'like', 'F' . $an . '%')
+                ->lockForUpdate()
+                ->orderByDesc('code')
+                ->first();
+
+            if ($lastFormation) {
+                $lastNumber = (int) substr($lastFormation->code, -4);
+                $nextNumber = $lastNumber + 1;
+            } else {
+                $nextNumber = 1;
+            }
+
+            return 'F' . $an . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+        });
+
 
         // Mise en forme du numéro de formation en ajoutant des zéros au début
         /* $numFormation = str_pad($numFormation, 7, '0', STR_PAD_LEFT); */
