@@ -385,24 +385,23 @@ class ArriveController extends Controller
         $date_reponse = $request->input('date_reponse') ?: null;
 
         if ($request->hasFile('scan')) {
-            /* $this->validate($request, [
-                "legende" => ["required", "string"],
-            ]); */
 
-            // Si un fichier existe déjà, le supprimer
-            if (! is_null($courrier->scan)) {
-                Storage::disk('public')->delete($courrier->scan);
+            // Suppression de l'ancien fichier si existant
+            if (!is_null($arrive->courrier->file)) {
+                Storage::disk('public')->delete($arrive->courrier->file);
             }
 
-            // Traitement du fichier
-            $file            = $request->file('scan');
-            $filenameWithExt = $file->getClientOriginalName();
-            $filename        = preg_replace("/[^A-Za-z0-9 ]/", '', pathinfo($filenameWithExt, PATHINFO_FILENAME));
-            $filename        = preg_replace("/\s+/", '-', $filename);
-            /* $extension       = $file->getClientOriginalExtension();   */
-            $filename = time() . '_' . $file->getClientOriginalName();
-            /* $filePath        = $file->storeAs('courriers', $filename . time() . '.' . $extension, 'public'); */
+            // Traitement du nouveau fichier
+            $file = $request->file('scan');
+            $filename = preg_replace("/[^A-Za-z0-9 ]/", '', pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = preg_replace("/\s+/", '-', $filename);
+            $filename = time() . '_' . $filename . '.' . $file->getClientOriginalExtension();
+
+            // Stockage
             $filePath = $file->storeAs('courriers', $filename, 'public');
+
+            // Mise à jour du champ dans la base
+            $arrive->courrier->file = $filePath;
         }
 
         if ($arrive->type == 'operateur') {
