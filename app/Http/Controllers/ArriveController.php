@@ -130,15 +130,15 @@ class ArriveController extends Controller
 
     public function create()
     {
+
         $anneeEnCours = date('Y');
         $an           = date('y');
 
-        // Récupérer le dernier numéro de courrier pour l'année en cours
-        $numCourrier = Arrive::join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
-            ->select('arrives.numero_arrive')
+        // Récupération du dernier numéro de courrier pour l'année en cours
+        $numCourrier = Arrive::join('courriers', 'courriers.id', 'arrives.courriers_id')
+            ->select('arrives.*')
             ->where('courriers.annee', $anneeEnCours)
-            ->latest('arrives.numero_arrive') // Tri par le dernier numéro
-            ->first();                        // Récupérer le premier (dernier courrier)
+            ->get()->last();
 
         if ($numCourrier) {
             // Si un courrier existe, incrémenter son numéro

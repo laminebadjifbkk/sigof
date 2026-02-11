@@ -160,8 +160,11 @@
                                 {{-- Boutons à droite --}}
                                 @can('arrive-create')
                                     <div class="d-flex align-items-center gap-2">
-                                        <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                        {{-- <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#addCourrierArrive">
+                                            Ajouter
+                                        </a> --}}
+                                        <a href="{{ route('arrives.create') }}" class="btn btn-sm btn-primary">
                                             Ajouter
                                         </a>
                                         <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
