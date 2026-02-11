@@ -21,7 +21,7 @@
 
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
+                    {{-- <div class="d-flex align-items-center mb-3">
                         <a href="{{ route('arrives.index') }}" class="btn btn-success btn-sm me-2">
                             <i class="bi bi-arrow-counterclockwise"></i>
                         </a>
@@ -30,6 +30,17 @@
 
                     <div class="text-center mb-4">
                         <h5 class="fw-bold">Modification</h5>
+                    </div> --}}
+
+                    <div
+                        class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
+                        <h4 class="mb-2 mb-md-0 text-primary fw-bold">
+                            <i class="bi bi-pencil-square me-2"></i> Modification Courrier Arrivé
+                        </h4>
+                        <a href="{{ route('arrives.show', $arrive?->id) }}"
+                            class="btn btn-outline-primary btn-sm d-flex align-items-center">
+                            <i class="bi bi-arrow-left-circle me-1"></i> Retour à la liste
+                        </a>
                     </div>
 
                     <form method="post" action="{{ route('arrives.update', $arrive->id) }}" enctype="multipart/form-data"
@@ -40,8 +51,11 @@
                         <div class="row">
                             {{-- === PREVIEW SCAN === --}}
                             <div class="col-lg-6 border-end">
-                                <label class="form-label">Prévisualisation du scan</label>
-                                <div class="border rounded p-2 bg-light" style="height:400px; overflow:auto;">
+                                <label class="form-label fw-bold">
+                                    Prévisualisation du scan <span class="text-danger">*</span>
+                                </label>
+
+                                <div class="border rounded bg-light p-2" style="height:650px; overflow:auto;">
                                     @if ($arrive->courrier->file)
                                         @if (Str::endsWith($arrive->courrier->file, ['.pdf']))
                                             <embed id="pdfPreview" src="{{ asset('storage/' . $arrive->courrier->file) }}"
@@ -84,25 +98,6 @@
                                     @enderror
                                 </div>
 
-                                {{-- Expéditeur --}}
-                                <div class="mb-2">
-                                    <label for="expediteur" class="form-label">Expéditeur<span
-                                            class="text-danger">*</span></label>
-                                    <textarea name="expediteur" rows="2"
-                                        class="form-control form-control-sm @error('expediteur') is-invalid @enderror">{{ old('expediteur', $arrive->courrier->expediteur) }}</textarea>
-                                    @error('expediteur')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                {{-- Objet --}}
-                                <div class="mb-2">
-                                    <label for="objet" class="form-label">Objet<span class="text-danger">*</span></label>
-                                    <textarea name="objet" rows="2" class="form-control form-control-sm @error('objet') is-invalid @enderror">{{ old('objet', $arrive->courrier->objet) }}</textarea>
-                                    @error('objet')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
 
                                 <!-- Date correspondance -->
                                 <div class="mb-2">
@@ -123,17 +118,72 @@
                                         min="2024" required>
                                 </div>
 
-                                {{-- Légende scan --}}
-                                {{-- <div class="mb-2">
-                                    <label for="legende" class="form-label">Légende<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="legende"
-                                        value="{{ old('legende', $arrive->courrier->legende) }}"
-                                        class="form-control form-control-sm @error('legende') is-invalid @enderror">
-                                    @error('legende')
+                                <div class="mb-2">
+                                    <label class="form-label">Numéro de correspondance</label>
+                                    <textarea name="numero_courrier" rows="1" placeholder="Numéro sur le courrier receptionné"
+                                        class="form-control form-control-sm @error('numero_courrier') is-invalid @enderror">{{ old('numero_courrier', $arrive->courrier->numero_courrier) }}</textarea>
+                                    @error('numero_courrier')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                </div> --}}
+                                </div>
+                                {{-- Expéditeur --}}
+                                <div class="mb-2">
+                                    <label for="expediteur" class="form-label">Expéditeur<span
+                                            class="text-danger">*</span></label>
+                                    <textarea name="expediteur" rows="2"
+                                        class="form-control form-control-sm @error('expediteur') is-invalid @enderror">{{ old('expediteur', $arrive->courrier->expediteur) }}</textarea>
+                                    @error('expediteur')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                {{-- Objet --}}
+                                <div class="mb-2">
+                                    <label for="objet" class="form-label">Objet<span class="text-danger">*</span></label>
+                                    <textarea name="objet" rows="2" class="form-control form-control-sm @error('objet') is-invalid @enderror">{{ old('objet', $arrive->courrier->objet) }}</textarea>
+                                    @error('objet')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-2">
+                                    <label class="form-label">Référence</label>
+                                    <input type="text" name="reference"
+                                        value="{{ old('reference', $arrive->courrier->reference) }}"
+                                        class="form-control form-control-sm @error('reference') is-invalid @enderror">
+                                    @error('reference')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-2">
+                                    <label class="form-label">Numéro réponse</label>
+                                    <input type="number" name="numero_reponse"
+                                        value="{{ old('numero_reponse', $arrive->courrier->numero_reponse) }}"
+                                        class="form-control form-control-sm @error('numero_reponse') is-invalid @enderror">
+                                    @error('numero_reponse')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-2">
+                                    <label class="form-label">Date réponse</label>
+                                    <input type="date" name="date_reponse"
+                                        value="{{ old('date_reponse', $arrive?->courrier?->date_reponse?->format('Y-m-d')) }}"
+                                        class="form-control form-control-sm @error('date_reponse') is-invalid @enderror">
+                                    @error('date_reponse')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-2">
+                                    <label class="form-label">Observations</label>
+                                    <textarea name="observation" rows="2"
+                                        class="form-control form-control-sm @error('observation') is-invalid @enderror">{{ old('observation', $arrive?->courrier?->observation) }}</textarea>
+                                    @error('observation')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
                                 {{-- Upload scan --}}
                                 <div class="mb-2">

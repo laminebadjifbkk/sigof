@@ -22,10 +22,10 @@
 
                 @hasrole('super-admin|courrier|a-courrier')
                     <span class="d-flex mt-2 align-items-baseline">
-                        <a href="{{ route('arrives.index') }}" class="btn btn-success btn-sm" title="Retour">
-                            <i class="bi bi-arrow-counterclockwise"></i>
-                        </a>&nbsp;
-                        <p> | Liste des courriers arrivés</p>
+                        <a href="{{ route('arrives.index') }}"
+                            class="btn btn-outline-primary btn-sm d-flex align-items-center mb-4">
+                            <i class="bi bi-arrow-left-circle me-1"></i> Retour à la liste
+                        </a>
                     </span>
                     @elsehasrole('Employe|super-admin')
                     <span class="d-flex mt-2 align-items-baseline">
@@ -163,9 +163,9 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Scan courrier</div>
+                                        <div class="col-lg-3 col-md-4 label">Prévisualisation du scan</div>
                                         <div class="col-lg-9 col-md-8">
-                                            @if (isset($arrive?->courrier?->file))
+                                            {{-- @if (isset($arrive?->courrier?->file))
                                                 <a href="{{ asset($arrive?->courrier?->getFile()) }}" target="_blank"
                                                     class="btn btn-primary btn-sm">
                                                     <i class="bi bi-download"></i> Télécharger le scan
@@ -173,7 +173,24 @@
                                             @else
                                                 <div class="alert alert-info mt-2">Aucun fichier disponible pour ce
                                                     courrier.</div>
-                                            @endif
+                                            @endif --}}
+                                            <div class="border rounded bg-light p-2" style="height:350px; overflow:auto;">
+                                                @if ($arrive->courrier->file)
+                                                    @if (Str::endsWith($arrive->courrier->file, ['.pdf']))
+                                                        <embed id="pdfPreview"
+                                                            src="{{ asset('storage/' . $arrive->courrier->file) }}"
+                                                            type="application/pdf" width="100%" height="100%">
+                                                    @else
+                                                        <img id="imagePreview"
+                                                            src="{{ asset('storage/' . $arrive->courrier->file) }}"
+                                                            style="max-width:100%; max-height:100%;" />
+                                                    @endif
+                                                @else
+                                                    <div id="noPreview" class="text-center text-muted mt-5">Aucun scan
+                                                        disponible
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
 

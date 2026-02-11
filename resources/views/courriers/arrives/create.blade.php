@@ -15,16 +15,27 @@
             <div class="card shadow-sm">
                 <div class="card-body">
 
-                    <div class="d-flex align-items-center mb-3">
+                    {{-- <div class="d-flex align-items-center mb-3">
                         <a href="{{ route('arrives.index') }}" class="btn btn-success btn-sm me-2">
                             <i class="bi bi-arrow-counterclockwise"></i>
                         </a>
                         <span>Liste des courriers arrivés</span>
+                    </div> --}}
+
+                    <div
+                        class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
+                        <h4 class="mb-2 mb-md-0 text-primary fw-bold">
+                            <i class="bi bi-journal-plus me-2"></i> Enregistrement Courrier Arrivé
+                        </h4>
+                        <a href="{{ route('arrives.index') }}"
+                            class="btn btn-outline-primary btn-sm d-flex align-items-center">
+                            <i class="bi bi-arrow-left-circle me-1"></i> Retour à la liste
+                        </a>
                     </div>
 
-                    <div class="text-center mb-4">
+                    {{--  <div class="text-center mb-4">
                         <h5 class="fw-bold">Ajouter un nouveau courrier arrivé</h5>
-                    </div>
+                    </div> --}}
 
                     <form method="POST" action="{{ route('arrives.store') }}" enctype="multipart/form-data">
                         @csrf
@@ -66,7 +77,7 @@
 
                                 <div class="row g-3">
 
-                                    <div class="col-md-6">
+                                    <div class="col-12">
                                         <label class="form-label">Date arrivée <span class="text-danger">*</span></label>
                                         <input type="date" name="date_arrivee" value="{{ old('date_arrivee') }}"
                                             class="form-control form-control-sm @error('date_arrivee') is-invalid @enderror">
@@ -75,7 +86,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-12">
                                         <label class="form-label">Numéro <span class="text-danger">*</span></label>
                                         <input type="number" name="numero_arrive"
                                             value="{{ $numCourrier ?? old('numero_arrive') }}"
@@ -85,7 +96,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-12">
                                         <label class="form-label">Date correspondance <span
                                                 class="text-danger">*</span></label>
                                         <input type="date" name="date_correspondance"
@@ -96,10 +107,11 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-12">
                                         <label class="form-label">Année <span class="text-danger">*</span></label>
                                         <input type="number" name="annee" value="{{ $anneeEnCours ?? old('annee') }}"
-                                            class="form-control form-control-sm @error('annee') is-invalid @enderror">
+                                            class="form-control form-control-sm @error('annee') is-invalid @enderror"
+                                            placeholder="Année" min="2025" step="1">
                                         @error('annee')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -107,7 +119,7 @@
 
                                     <div class="col-12">
                                         <label class="form-label">Numéro de correspondance</label>
-                                        <textarea name="numero_courrier" rows="1"
+                                        <textarea name="numero_courrier" rows="1" placeholder="Numéro sur le courrier receptionné"
                                             class="form-control form-control-sm @error('numero_courrier') is-invalid @enderror">{{ old('numero_courrier') }}</textarea>
                                         @error('numero_courrier')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -116,7 +128,7 @@
 
                                     <div class="col-12">
                                         <label class="form-label">Expéditeur <span class="text-danger">*</span></label>
-                                        <textarea name="expediteur" rows="2"
+                                        <textarea name="expediteur" rows="2" placeholder="Propritaire du courrier"
                                             class="form-control form-control-sm @error('expediteur') is-invalid @enderror">{{ old('expediteur') }}</textarea>
                                         @error('expediteur')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -125,13 +137,14 @@
 
                                     <div class="col-12">
                                         <label class="form-label">Objet <span class="text-danger">*</span></label>
-                                        <textarea name="objet" rows="2" class="form-control form-control-sm @error('objet') is-invalid @enderror">{{ old('objet') }}</textarea>
+                                        <textarea name="objet" rows="2" placeholder="Objet sur le courrier"
+                                            class="form-control form-control-sm @error('objet') is-invalid @enderror">{{ old('objet') }}</textarea>
                                         @error('objet')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-12">
                                         <label class="form-label">Référence</label>
                                         <input type="text" name="reference" value="{{ old('reference') }}"
                                             class="form-control form-control-sm @error('reference') is-invalid @enderror">

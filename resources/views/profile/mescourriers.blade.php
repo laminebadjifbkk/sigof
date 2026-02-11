@@ -140,14 +140,35 @@
                                                             </p>
                                                             <p><b>Expéditeur</b> : {{ $arrive?->courrier?->expediteur }}</p>
                                                             {{-- @if (isset($arrive->courrier->file)) --}}
-                                                            <label for="reference" class="form-label"><b>Scan courrier</b> :
+                                                            {{-- <label for="reference" class="form-label"><b>Scan courrier</b> : --}}
+
+                                                            <div class="border rounded bg-light p-2"
+                                                                style="height:300px; overflow:auto;">
+                                                                @if ($arrive->courrier->file)
+                                                                    @if (Str::endsWith($arrive->courrier->file, ['.pdf']))
+                                                                        <embed id="pdfPreview"
+                                                                            src="{{ asset('storage/' . $arrive->courrier->file) }}"
+                                                                            type="application/pdf" width="100%"
+                                                                            height="100%">
+                                                                    @else
+                                                                        <img id="imagePreview"
+                                                                            src="{{ asset('storage/' . $arrive->courrier->file) }}"
+                                                                            style="max-width:100%; max-height:100%;" />
+                                                                    @endif
+                                                                @else
+                                                                    <div id="noPreview" class="text-center text-muted mt-5">
+                                                                        Aucun scan
+                                                                        disponible
+                                                                    </div>
+                                                                @endif
+                                                            </div>
                                                             </label>
                                                             {{-- <a class="btn btn-outline-secondary btn-sm"
                                                                     title="télécharger le fichier joint" target="_blank"
                                                                     href="{{ asset($arrive->courrier->getFile()) }}">
                                                                     <i class="bi bi-download"></i>
                                                                 </a> --}}
-                                                            @if (isset($arrive?->courrier?->file))
+                                                            {{-- @if (isset($arrive?->courrier?->file))
                                                                 <a href="{{ asset($arrive?->courrier?->getFile()) }}"
                                                                     target="_blank" class="btn btn-info text-white btn-sm">
                                                                     <i class="bi bi-download"></i> Télécharger le scan
@@ -156,7 +177,7 @@
                                                                 <div class="alert alert-info mt-2">Aucun fichier disponible
                                                                     pour ce
                                                                     courrier.</div>
-                                                            @endif
+                                                            @endif --}}
                                                             {{-- @endif --}}
                                                             {{-- @endif --}}
                                                             <p>{!! $arrive?->courrier?->message !!}</p>

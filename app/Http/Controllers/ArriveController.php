@@ -367,7 +367,7 @@ class ArriveController extends Controller
             ],
             "numero_reponse"      => [
                 "string",
-                "min:6",
+                "min:4",
                 "max:9",
                 "nullable",
                 Rule::unique('courriers', 'numero_reponse')
