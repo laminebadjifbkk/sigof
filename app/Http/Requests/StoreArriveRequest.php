@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -43,13 +44,13 @@ class StoreArriveRequest extends FormRequest
             'annee'               => ['required', 'numeric', 'min:2022'],
             'expediteur'          => ['required', 'string', 'max:200'],
             'objet'               => ['required', 'string', 'max:200'],
+            'scan'                => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:10000'],
         ];
     }
 
     public function prepareForValidation()
     {
         $this->merge([
-            /* 'legende' => $this->input('legende') ?: Str::substr($this->input('titre'), 0, 25), */
-        ]);
+            /* 'legende' => $this->input('legende') ?: Str::substr($this->input('titre'), 0, 25), */]);
     }
 }

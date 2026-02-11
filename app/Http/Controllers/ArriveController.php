@@ -156,15 +156,24 @@ class ArriveController extends Controller
 
     public function store(StoreArriveRequest $request): RedirectResponse
     {
-        $data = $request->validated();
-
-        /*  if (! empty($request->input('date_reponse'))) {
-            $date_reponse = $request->input('date_reponse');
-        } else {
-            $date_reponse = null;
-        } */
+        $request->validated();
 
         $date_reponse = $request->input('date_reponse') ?: null;
+
+        $filePath = null; // Initialisation
+
+        // Upload du scan si présent
+        if ($request->hasFile('scan')) {
+            $file = $request->file('scan');
+
+            // Nettoyage du nom
+            $filename = preg_replace("/[^A-Za-z0-9 ]/", '', pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = preg_replace("/\s+/", '-', $filename);
+            $filename = time() . '_' . $filename . '.' . $file->getClientOriginalExtension();
+
+            // Stockage
+            $filePath = $file->storeAs('courriers', $filename, 'public');
+        }
 
         $courrier = Courrier::create([
             'numero_courrier' => $request->input('numero_courrier'),
@@ -177,13 +186,14 @@ class ArriveController extends Controller
             'numero_reponse'  => $request->input('numero_reponse'),
             'date_reponse'    => $date_reponse,
             'observation'     => strtoupper($request->input('observation')),
+            'file'            => $filePath,
             'type'            => 'arrive',
             "user_create_id"  => Auth::user()->id,
             "user_update_id"  => Auth::user()->id,
             'users_id'        => Auth::user()->id,
         ]);
 
-        $arrive = Arrive::create([
+        Arrive::create([
             'numero_arrive' => $request->input('numero_arrive'),
             'courriers_id'  => $courrier->id,
         ]);
@@ -195,13 +205,7 @@ class ArriveController extends Controller
 
     public function addCourrierOperateur(ArriveOperateurStoreRequest $request): RedirectResponse
     {
-        $data = $request->validated();
-
-        /* if (! empty($request->input('date_reponse'))) {
-            $date_reponse = $request->input('date_reponse');
-        } else {
-            $date_reponse = null;
-        } */
+        $request->validated();
 
         $date_reponse = $request->input('date_reponse') ?: null;
 
@@ -236,13 +240,13 @@ class ArriveController extends Controller
             'users_id'        => Auth::user()->id,
         ]);
 
-        $arrive = Arrive::create([
+        Arrive::create([
             'numero_arrive' => $request->input('numero_arrive'),
             'type'          => 'operateur',
             'courriers_id'  => $courrier->id,
         ]);
 
-        $operateur = Operateur::create([
+        Operateur::create([
             "numero_agrement" => $numero_agrement,
             "type_demande"    => $request->input("type_demande"),
             "numero_dossier"  => $request->input("numero_dossier"),
@@ -370,7 +374,7 @@ class ArriveController extends Controller
                     ->ignore($courrier->id)
                     ->whereNull('deleted_at'),
             ],
-            "file"                => ['sometimes', 'file', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:4096'],
+            "scan"                => ['sometimes', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:10000'],
             "annee"               => ["required", "string"],
             "expediteur"          => ["required", "string"],
             "objet"               => ["required", "string"],
@@ -380,18 +384,18 @@ class ArriveController extends Controller
 
         $date_reponse = $request->input('date_reponse') ?: null;
 
-        if ($request->hasFile('file')) {
-            $this->validate($request, [
+        if ($request->hasFile('scan')) {
+            /* $this->validate($request, [
                 "legende" => ["required", "string"],
-            ]);
+            ]); */
 
             // Si un fichier existe déjà, le supprimer
-            if (! is_null($courrier->file)) {
-                Storage::disk('public')->delete($courrier->file);
+            if (! is_null($courrier->scan)) {
+                Storage::disk('public')->delete($courrier->scan);
             }
 
             // Traitement du fichier
-            $file            = $request->file('file');
+            $file            = $request->file('scan');
             $filenameWithExt = $file->getClientOriginalName();
             $filename        = preg_replace("/[^A-Za-z0-9 ]/", '', pathinfo($filenameWithExt, PATHINFO_FILENAME));
             $filename        = preg_replace("/\s+/", '-', $filename);
@@ -414,7 +418,7 @@ class ArriveController extends Controller
                 'date_reponse'    => $date_reponse,
                 'observation'     => strtoupper($request->input('observation')),
                 'file'            => $filePath ?? $courrier->file,
-                'legende'         => $request->input('legende'),
+                'legende'         => $request->input('objet'),
                 'type'            => 'operateur',
                 "user_create_id"  => Auth::user()->id,
                 "user_update_id"  => Auth::user()->id,

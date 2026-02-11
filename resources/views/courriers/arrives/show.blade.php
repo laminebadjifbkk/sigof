@@ -45,12 +45,12 @@
                                         data-bs-target="#profile-overview">Courrier</button>
                                 </li>
 
-                                @can('update', $arrive)
+                                {{-- @can('update', $arrive)
                                     <li class="nav-item">
                                         <button class="nav-link" data-bs-toggle="tab"
                                             data-bs-target="#modifier_courrier">Modifier</button>
                                     </li>
-                                @endcan
+                                @endcan --}}
 
                                 @hasrole('super-admin|courrier|a-courrier')
                                     {{-- @can('imputer', $arrive) --}}
@@ -350,7 +350,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade pt-3" id="modifier_courrier">
+                                {{-- <div class="tab-pane fade pt-3" id="modifier_courrier">
                                     <form method="post" action="{{ route('arrives.update', $arrive?->id) }}"
                                         enctype="multipart/form-data" class="row g-3">
                                         @csrf
@@ -432,10 +432,6 @@
                                         <div class="col-12">
                                             <label for="expediteur" class="form-label">Expéditeur<span
                                                     class="text-danger mx-1">*</span></label>
-                                            {{-- <input type="text" name="expediteur"
-                                                value="{{ $arrive?->courrier?->expediteur ?? old('expediteur') }}"
-                                                class="form-control form-control-sm @error('expediteur') is-invalid @enderror"
-                                                id="expediteur" placeholder="Expéditeur"> --}}
                                             <textarea name="expediteur" id="expediteur" rows="2"
                                                 class="form-control form-control-sm @error('expediteur') is-invalid @enderror" placeholder="Expéditeur">{{ old('expediteur', $arrive?->courrier?->expediteur) }}</textarea>
                                             @error('expediteur')
@@ -448,10 +444,6 @@
                                         <div class="col-12">
                                             <label for="objet" class="form-label">Objet<span
                                                     class="text-danger mx-1">*</span></label>
-                                            {{-- <input type="text" name="objet"
-                                                value="{{ $arrive?->courrier?->objet ?? old('objet') }}"
-                                                class="form-control form-control-sm @error('objet') is-invalid @enderror"
-                                                id="objet" placeholder="Objet"> --}}
                                             <textarea name="objet" id="objet" rows="4"
                                                 class="form-control form-control-sm @error('objet') is-invalid @enderror" placeholder="Objet">{{ old('objet', $arrive?->courrier?->objet) }}</textarea>
                                             @error('objet')
@@ -552,9 +544,6 @@
                                                     <i class="bi bi-download"></i>
                                                 </a>
                                             @endif
-                                            {{-- <img class="w-25" alt="courrier"
-                                        src="{{ asset($arrive?->courrier?->getFile()) }}" width="50"
-                                        height="auto"> --}}
                                         </div>
 
                                         <div class="text-center">
@@ -562,7 +551,7 @@
                                                 class="btn btn-outline-success btn-sm">Modifier</button>
                                         </div>
                                     </form>
-                                </div>
+                                </div> --}}
                                 <div class="tab-pane fade pt-3" id="imputer_courrier">
                                     <div class="col-lg-12">
                                         <div class="col-sm-12 col-md-12 pt-2">
