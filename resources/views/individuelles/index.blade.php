@@ -1015,14 +1015,12 @@
 @push('scripts')
     <script>
         new DataTable('#table-individuelles', {
+            ordering: false, // désactive le tri automatique
             layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
-            "order": [
-                [0, 'desc']
-            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",

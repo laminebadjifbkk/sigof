@@ -98,6 +98,7 @@ class IndividuelleController extends Controller
         $groupes = Individuelle::select(DB::raw('YEAR(date_depot) as annee'))
             ->selectRaw('COUNT(*) as total')
             ->groupBy('annee')
+            ->orderByDesc('annee') // du plus grand au plus petit
             ->get();
 
 
@@ -155,6 +156,7 @@ class IndividuelleController extends Controller
             ->selectRaw('COUNT(*) as total')
             ->whereYear('date_depot', $annee)
             ->groupBy('regions_id')
+            ->orderByDesc('total') // du plus grand au plus petit
             ->get();
 
         // Format pour Blade : nom de région → count + pourcentage
