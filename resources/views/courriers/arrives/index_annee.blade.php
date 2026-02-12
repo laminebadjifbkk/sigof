@@ -11,9 +11,9 @@
                 <li class="breadcrumb-item active">Liste des courriers arrivés</li>
             </ol>
         </nav>
-    </div><!-- End Page Title -->
+    </div>
 
-    {{-- <section class="section dashboard">
+    <section class="section dashboard">
         <div class="row">
             <div class="col-12">
                 @if ($errors->any())
@@ -71,72 +71,13 @@
                 </div>
             </div>
         </div>
-    </section> --}}
+    </section>
 
     <section class="section">
         <div class="row">
             <div class="col-12">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <table class="table table-bordered table-striped align-middle">
-                            <thead class="table-primary">
-                                <tr>
-                                    <th scope="col" style="width: 50px;">N°</th>
-                                    <th scope="col">Années</th>
-                                    <th scope="col" class="text-center">Courriers reçus</th>
-                                    <th scope="col" style="width: 120px;">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($groupes as $index => $items)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $items->annee }}</td>
-                                        <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
-                                        <td>
-                                            <a href="{{ route('arrives.parAnnee', ['annee' => $items->annee]) }}"
-                                                class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
-                                                Voir plus <i class="bi bi-arrow-right-short"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
                 <div class="card">
                     <div class="card-body">
-                        {{-- <div class="d-flex justify-content-between align-items-center mt-0">
-                            <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('courriers.index') }}"
-                                    class="btn btn-success btn-sm" title="retour"><i
-                                        class="bi bi-arrow-counterclockwise"></i></a>&nbsp;Liste des courriers arrivés
-                            </span>
-                            <span class="d-flex align-items-baseline">
-                                <a href="#" class="btn btn-success btn-sm float-end" data-bs-toggle="modal"
-                                    data-bs-target="#addCourrierArrive" title="Ajouter">Ajouter</a>
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li>
-                                            <button type="button" class="dropdown-item btn btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#generate_rapport"></i>Rechercher
-                                                plus</button>
-                                        </li>
-                                        @hasrole('courrier|super-admin')
-                                            <li>
-                                                <form action="{{ route('importA') }}" method="get">
-                                                    <button type="submit" class="dropdown-item btn btn-sm">Importer</button>
-                                                </form>
-                                            </li>
-                                        @endhasrole
-                                    </ul>
-                                </div>
-                            </span>
-                        </div> --}}
-
                         <div class="pt-1">
                             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 

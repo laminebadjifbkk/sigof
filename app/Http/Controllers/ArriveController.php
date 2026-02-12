@@ -33,78 +33,58 @@ class ArriveController extends Controller
         $this->middleware(['role:super-admin|admin|courrier|a-courrier|Employe']);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        /* $anneeEnCours = date('Y');
-        $an           = date('y');
+        $anneeEnCours = date('Y');  // 2026
+        $an           = date('y');  // 26
 
-// Récupération du dernier numéro de courrier pour l'année en cours
-        $numCourrier = Arrive::join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
+        // Récupérer le dernier numéro pour l’année en cours
+        $lastArrive = Arrive::join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
+            ->where('courriers.annee', $anneeEnCours)
+            ->orderByDesc('arrives.numero_arrive')
             ->select('arrives.numero_arrive')
-            ->where('courriers.annee', $anneeEnCours)
-            ->orderByDesc('arrives.numero_arrive') // Tri décroissant pour récupérer le dernier
-            ->first();                             // Récupérer le premier (dernier selon l'ordre)
+            ->first();
 
-        if ($numCourrier) {
-            // Si un courrier existe, incrémenter son numéro
-            $numCourrier = ++$numCourrier->numero_arrive;
+        if ($lastArrive && $lastArrive->numero_arrive) {
+            $numCourrier = $lastArrive->numero_arrive + 1;
         } else {
-            // Si aucun courrier n'existe, initialiser avec l'année et le numéro 0001
+            // Premier numéro de l’année
             $numCourrier = $an . "0001";
         }
 
-// Mise en forme du numéro de courrier en ajoutant des zéros au début
-        $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT); */
-
-        $anneeEnCours = date('Y');
-        $an           = date('y');
-
-        // Récupération du dernier numéro de courrier pour l'année en cours
-        $numCourrier = Arrive::join('courriers', 'courriers.id', 'arrives.courriers_id')
-            ->select('arrives.*')
-            ->where('courriers.annee', $anneeEnCours)
-            ->get()->last();
-
-        if ($numCourrier) {
-            // Si un courrier existe, incrémenter son numéro
-            $numCourrier = ++$numCourrier->numero_arrive;
-        } else {
-            // Si aucun courrier n'existe, initialiser avec l'année et le numéro 0001
-            $numCourrier = $an . "0001";
-        }
-
-        // Mise en forme du numéro de courrier en ajoutant des zéros au début
+        // Toujours formater sur 6 caractères (ex: 260001)
         $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT);
 
-        // Récupérer le total des arrivées sans type et les derniers 100 courriers en une seule requête
-        /* $totalCount  = Arrive::where('type', null);
-        $total_count = number_format($totalCount->count(), 0, ',', ' '); */
-
-        /* $arrives      = Arrive::where('type', null);
+        /* $arrives      = Arrive::latest()->take(500)->get();
         $totalArrives = number_format($arrives->count(), 0, ',', ' ');
-        $arrives      = $arrives->latest()->take(500)->get(); */
-        $arrives      = Arrive::latest()->take(500)->get();
-        $totalArrives = number_format($arrives->count(), 0, ',', ' ');
-
-        /* $count_courrier = number_format($arrives->count(), 0, ',', ' '); */
-
-        // Compter les arrivées de type 'operateur'
-        /* $count_arrives = Arrive::where('type', 'operateur')->count(); */
-
-        // Logique de titre
-        /* if ($count_courrier < 1) {
-            $title = 'Aucun courrier';
-        } elseif ($count_courrier == 1) {
-            $title = "{$count_courrier} courrier sur un total de {$total_count}";
-        } else {
-            $title = "{$count_courrier} derniers courriers sur un total de {$total_count}";
-        } */
 
         $today = date('Y-m-d');
 
         // Compter les arrivées du jour
         $count_today = Arrive::where('created_at', 'LIKE', "{$today}%")
-            ->count();
+            ->count(); */
+
+        // Total global
+        $total = Arrive::count();
+        $totalArrives = number_format($total, 0, ',', ' ');
+
+        $query = Arrive::query();
+
+        if ($statut = $request->query('statut')) {
+            $query->where('statut', $statut);
+        }
+
+        $arrives = $query
+            ->latest()
+            ->limit(100)
+            ->get();
+
+        $groupes = Arrive::join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
+            ->select('courriers.annee')
+            ->selectRaw('COUNT(arrives.id) as total')
+            ->groupBy('courriers.annee')
+            ->orderBy('courriers.annee', 'desc')
+            ->get();
 
         $affichees = $arrives?->count();
         $total     = $totalArrives ?? ($arrives instanceof \Illuminate\Pagination\LengthAwarePaginator
@@ -115,17 +95,67 @@ class ArriveController extends Controller
             "courriers.arrives.index",
             compact(
                 "arrives",
-                "count_today",
                 "anneeEnCours",
                 "numCourrier",
                 "totalArrives",
+                "groupes",
                 "affichees",
                 "total",
-                /* "count_arrives", */
-                /* "title",
-                "total_count" */
             )
         );
+    }
+
+    public function parAnnee(Request $request, $annee)
+    {
+        $query = Arrive::join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
+            ->where('courriers.annee', $annee)
+            ->select('arrives.*'); // important
+
+        $arrives = $query->latest()->limit(100)->get();
+
+        // Total pour l'année après filtres
+        $total = $query->count();
+        $totalArrives = number_format($total, 0, ',', ' ');
+
+        $affichees = $arrives?->count();
+        $total     = $totalArrives ?? ($arrives instanceof \Illuminate\Pagination\LengthAwarePaginator
+            ? $arrives->total()
+            : $arrives?->count());
+
+        $anneeEnCours = date('Y');  // 2026
+        $an           = date('y');  // 26
+        $today = date('Y-m-d');
+
+        // Récupérer le dernier numéro pour l’année en cours
+        $lastArrive = Arrive::join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
+            ->where('courriers.annee', $anneeEnCours)
+            ->orderByDesc('arrives.numero_arrive')
+            ->select('arrives.numero_arrive')
+            ->first();
+
+        if ($lastArrive && $lastArrive->numero_arrive) {
+            $numCourrier = $lastArrive->numero_arrive + 1;
+        } else {
+            // Premier numéro de l’année
+            $numCourrier = $an . "0001";
+        }
+
+        // Toujours formater sur 6 caractères (ex: 260001)
+        $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT);
+
+        // Compter les arrivées du jour
+        $count_today = Arrive::where('created_at', 'LIKE', "{$today}%")
+            ->count();
+
+        return view('courriers.arrives.index_annee', compact(
+            "arrives",
+            "anneeEnCours",
+            "numCourrier",
+            "totalArrives",
+            "affichees",
+            "total",
+            "count_today",
+        ));
     }
 
     public function create()

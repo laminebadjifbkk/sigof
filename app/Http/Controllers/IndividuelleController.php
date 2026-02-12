@@ -84,9 +84,6 @@ class IndividuelleController extends Controller
         $total = Individuelle::count();
         $totalIndividuelles = number_format($total, 0, ',', ' ');
 
-        // =========================
-        // TABLE (max 500 lignes)
-        // =========================
         $query = Individuelle::query();
 
         if ($statut = $request->query('statut')) {
@@ -98,35 +95,16 @@ class IndividuelleController extends Controller
             ->limit(100)
             ->get();
 
-        // =========================
-        // CARDS (SQL ONLY)
-        // =========================
-        /* $groupesRaw = Individuelle::select('statut')
-            ->selectRaw('COUNT(*) as total')
-            ->groupBy('statut')
-            ->get(); */
-
         $groupes = Individuelle::select(DB::raw('YEAR(date_depot) as annee'))
             ->selectRaw('COUNT(*) as total')
             ->groupBy('annee')
             ->get();
 
-        // Reformatage pour la vue
-        /* $groupes = [];
-        $statutPourcentages = [];
 
-        foreach ($groupesRaw as $row) {
-            $key = $row->statut ?? 'inconnu';
-
-            $groupes[$key] = $row->total;
-
-            $statutPourcentages[$key] = [
-                'count'   => $row->total,
-                'percent' => $total
-                    ? round($row->total * 100 / $total, 1)
-                    : 0
-            ];
-        } */
+        $affichees = $individuelles?->count();
+        $total     = $totalIndividuelles ?? ($individuelles instanceof \Illuminate\Pagination\LengthAwarePaginator
+            ? $individuelles->total()
+            : $individuelles?->count());
 
         // Données annexes
         $departements = Departement::select('id', 'nom')->orderBy('nom')->get();
@@ -138,60 +116,10 @@ class IndividuelleController extends Controller
             'modules',
             'totalIndividuelles',
             'groupes',
-            /* 'statutPourcentages',
-            'statut' */
+            "affichees",
+            "total",
         ));
     }
-
-    /*  public function parAnnee(Request $request, $annee)
-    {
-        $query = Individuelle::whereYear('date_depot', $annee);
-
-        if ($request->filled('statut')) {
-            $query->where('statut', $request->statut);
-        }
-
-        $individuelles = $query->latest()->limit(100)->get();
-
-        $total = $query->count();
-        $totalIndividuelles = number_format($total, 0, ',', ' ');
-
-        // Cartes par statut pour cette année
-        $groupesRaw = Individuelle::select('statut')
-            ->selectRaw('COUNT(*) as total')
-            ->whereYear('date_depot', $annee)
-            ->groupBy('statut')
-            ->get();
-
-        $statutPourcentages = [];
-        foreach ($groupesRaw as $row) {
-            $key = $row->statut ?? 'inconnu';
-            $statutPourcentages[$key] = [
-                'count' => $row->total,
-                'percent' => $total ? round($row->total * 100 / $total, 1) : 0
-            ];
-        }
-
-        // Tableau des années
-        $groupes = Individuelle::select(DB::raw('YEAR(date_depot) as annee'))
-            ->selectRaw('COUNT(*) as total')
-            ->groupBy('annee')
-            ->get();
-
-        // Données annexes
-        $departements = Departement::select('id', 'nom')->orderBy('nom')->get();
-        $modules = Module::select('id', 'name')->latest()->get();
-
-        return view('individuelles.index_annee', compact(
-            'individuelles',
-            'departements',
-            'modules',
-            'statutPourcentages',
-            'groupes',
-            'annee',
-            'totalIndividuelles'
-        ));
-    } */
 
     public function parAnnee(Request $request, $annee)
     {
@@ -243,8 +171,6 @@ class IndividuelleController extends Controller
         // Données annexes
         // =======================================
         $departements = Departement::select('id', 'nom')->orderBy('nom')->get();
-
-        dd($departements);
 
         // =======================================
         // Retour vers la vue
