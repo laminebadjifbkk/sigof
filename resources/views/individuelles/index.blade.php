@@ -25,120 +25,48 @@
                         @endforeach
                     @endif
 
-                    {{-- <div class="card">
-                        <div class="card-body">
-                            @can('user-show')
-                                <div class="row mb-4">
-                                    <div class="row mb-4">
-                                        <!-- Total demandes individuelles -->
-                                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                                            <div class="card shadow-sm text-center p-2"
-                                                style="min-height:140px; border-radius:10px;">
-                                                <h6 class="card-title mb-2 text-truncate" title="Total demandes"
-                                                    style="font-size:0.85rem;">
-                                                    Total
-                                                </h6>
-
-                                                <div class="d-flex flex-column align-items-center justify-content-center mb-2">
-                                                    <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
-                                                        style="width:28px; height:28px; font-size:1rem;">
-                                                        <i class="bi bi-people"></i>
-                                                    </div>
-
-                                                    <span class="h6 mb-0" style="font-size:1rem;">
-                                                        {{ $totalIndividuelles }}
-                                                    </span>
-                                                </div>
-
-                                                <div class="mb-2">
-                                                    <div class="progress" style="height:6px; border-radius:3px;">
-                                                        <div class="progress-bar bg-success" style="width:100%"></div>
-                                                    </div>
-                                                    <small class="text-muted">100%</small>
-                                                </div>
-
-                                                <a href="{{ route('individuelles.index') }}"
-                                                    class="btn btn-outline-primary btn-sm w-100" style="font-size:0.75rem;">
-                                                    Voir plus <i class="bi bi-arrow-right-short"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        @foreach ($groupes as $statut_s => $items)
-                                            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-                                                <div class="card shadow-sm text-center p-2"
-                                                    style="min-height:120px; border-radius:10px;">
-
-                                                    <!-- Titre -->
-                                                    <h6 class="card-title mb-2 text-truncate" style="font-size:0.85rem;">
-                                                        Demandes
-                                                    </h6>
-
-                                                    <!-- Badge statut -->
-                                                    <span class="{{ $statut_s }}">
-                                                        {{ $statut_s }}
-                                                    </span>
-
-                                                    <!-- Nombre -->
-                                                    <div
-                                                        class="d-flex flex-column align-items-center justify-content-center mb-2 mt-2">
-                                                        <span class="h6 mb-0" style="font-size:1rem;">
-                                                            {{ $items }}
-                                                        </span>
-                                                    </div>
-
-                                                    <!-- Pourcentage -->
-                                                    <div class="mb-2">
-                                                        <div class="progress" style="height:6px; border-radius:3px;">
-                                                            <div class="progress-bar bg-success"
-                                                                style="width: {{ $statutPourcentages[$statut_s]['percent'] }}%;">
-                                                            </div>
-                                                        </div>
-                                                        <small class="text-muted">
-                                                            {{ $statutPourcentages[$statut_s]['percent'] }}%
-                                                        </small>
-                                                    </div>
-
-                                                    <!-- Filtrage -->
-                                                    <a href="{{ route('individuelles.index', ['statut' => $statut_s]) }}"
-                                                        class="btn btn-outline-primary btn-sm w-100" style="font-size:0.75rem;">
-                                                        Voir plus <i class="bi bi-arrow-right-short"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endcan
-                        </div>
-                    </div> --}}
-
                     <div class="card shadow-sm">
                         <div class="card-body">
+
                             <table class="table table-bordered table-striped align-middle">
                                 <thead class="table-primary">
                                     <tr>
-                                        <th scope="col" style="width: 50px;">N°</th>
-                                        <th scope="col">Années</th>
-                                        <th scope="col" class="text-center">Demandes reçues</th>
-                                        <th scope="col" style="width: 120px;">Actions</th>
+                                        <th style="width: 50px;">N°</th>
+                                        <th>Années</th>
+                                        <th class="text-center">Demandes reçues</th>
+                                        <th style="width: 120px;">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach ($groupes as $index => $items)
+
+                                <tbody id="missions-container">
+                                    @foreach ($groupes as $items)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
+                                            <td>
+                                                {{ ($groupes->currentPage() - 1) * $groupes->perPage() + $loop->iteration }}
+                                            </td>
                                             <td>{{ $items->annee }}</td>
-                                            <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
+                                            <td class="text-center">
+                                                {{ number_format($items->total, 0, '', ' ') }}
+                                            </td>
                                             <td>
                                                 <a href="{{ route('individuelles.parAnnee', ['annee' => $items->annee]) }}"
-                                                    class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
-                                                    Voir plus <i class="bi bi-arrow-right-short"></i>
+                                                    class="btn btn-sm btn-outline-primary">
+                                                    Voir plus
                                                 </a>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+
+                            {{-- Bouton Load More --}}
+                            @if ($groupes->hasMorePages())
+                                <div class="text-center mt-3">
+                                    <a href="{{ $groupes->nextPageUrl() }}" id="loadMoreBtn" class="btn btn-info btn-sm">
+                                        Voir plus
+                                    </a>
+                                </div>
+                            @endif
 
                         </div>
                     </div>
@@ -1050,6 +978,40 @@
                     }
                 }
             }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const missionsContainer = document.getElementById('missions-container');
+
+            if (!loadMoreBtn) return;
+
+            loadMoreBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                fetch(this.href)
+                    .then(res => res.text())
+                    .then(html => {
+
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+
+                        const newRows = doc.querySelectorAll('#missions-container tr');
+
+                        newRows.forEach(row => {
+                            missionsContainer.appendChild(row);
+                        });
+
+                        const newBtn = doc.getElementById('loadMoreBtn');
+
+                        if (newBtn) {
+                            this.href = newBtn.href;
+                        } else {
+                            this.remove();
+                        }
+                    })
+                    .catch(err => console.error('Erreur chargement :', err));
+            });
         });
     </script>
 @endpush

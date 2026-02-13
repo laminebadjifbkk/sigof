@@ -95,11 +95,17 @@ class IndividuelleController extends Controller
             ->limit(100)
             ->get();
 
-        $groupes = Individuelle::select(DB::raw('YEAR(date_depot) as annee'))
+        /* $groupes = Individuelle::select(DB::raw('YEAR(date_depot) as annee'))
             ->selectRaw('COUNT(*) as total')
             ->groupBy('annee')
             ->orderByDesc('annee') // du plus grand au plus petit
-            ->get();
+            ->get(); */
+
+        $groupes = Individuelle::select(DB::raw('YEAR(date_depot) as annee'))
+            ->selectRaw('COUNT(*) as total')
+            ->groupBy('annee')
+            ->orderByDesc('annee')
+            ->paginate(1); // ← une ligne par page
 
 
         $affichees = $individuelles?->count();
