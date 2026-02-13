@@ -79,12 +79,19 @@ class ArriveController extends Controller
             ->limit(100)
             ->get();
 
+        /* $groupes = Arrive::join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
+            ->select('courriers.annee')
+            ->selectRaw('COUNT(arrives.id) as total')
+            ->groupBy('courriers.annee')
+            ->orderBy('courriers.annee', 'desc')
+            ->get(); */
+
         $groupes = Arrive::join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
             ->select('courriers.annee')
             ->selectRaw('COUNT(arrives.id) as total')
             ->groupBy('courriers.annee')
             ->orderBy('courriers.annee', 'desc')
-            ->get();
+            ->paginate(2); // ← deux ligne par page
 
         $affichees = $arrives?->count();
         $total     = $totalArrives ?? ($arrives instanceof \Illuminate\Pagination\LengthAwarePaginator

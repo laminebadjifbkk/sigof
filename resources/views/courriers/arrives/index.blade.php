@@ -11,67 +11,7 @@
                 <li class="breadcrumb-item active">Liste des courriers arrivés</li>
             </ol>
         </nav>
-    </div><!-- End Page Title -->
-
-    {{-- <section class="section dashboard">
-        <div class="row">
-            <div class="col-12">
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
-                            role="alert">
-                            <strong>{{ $error }}</strong>
-                        </div>
-                    @endforeach
-                @endif
-                <div class="row">
-                    <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                        <div class="card info-card sales-card">
-                            <a href="#">
-                                <div class="card-body">
-                                    <h5 class="card-title">Arrivés <span>| {{ date('d/m/Y') }}</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-calendar-check-fill"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                <span class="text-primary">{{ $count_today ?? '0' }}</span>
-                                            </h6>
-                                            <span class="text-success small pt-1 fw-bold">Aujourd'hui</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                        <div class="card info-card sales-card">
-                            <a href="#">
-                                <div class="card-body">
-                                    <h5 class="card-title">Courriers <span>| Arrivés</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-file-earmark-text"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                <span class="text-primary">{{ $totalArrives }}</span>
-                                            </h6>
-                                            <span class="text-success small pt-1 fw-bold">Tous</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
+    </div>
 
     <section class="section">
         <div class="row">
@@ -87,10 +27,12 @@
                                     <th scope="col" style="width: 120px;">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="missions-container">
                                 @foreach ($groupes as $index => $items)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>
+                                            {{ ($groupes->currentPage() - 1) * $groupes->perPage() + $loop->iteration }}
+                                        </td>
                                         <td>{{ $items->annee }}</td>
                                         <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
                                         <td>
@@ -104,6 +46,14 @@
                             </tbody>
                         </table>
 
+                        {{-- Bouton Load More --}}
+                        @if ($groupes->hasMorePages())
+                            <div class="text-center mt-3">
+                                <a href="{{ $groupes->nextPageUrl() }}" id="loadMoreBtn" class="btn btn-info btn-sm">
+                                    Voir plus
+                                </a>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="card">
@@ -841,6 +791,41 @@
                     }
                 }
             }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const missionsContainer = document.getElementById('missions-container');
+
+            if (!loadMoreBtn) return;
+
+            loadMoreBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                fetch(this.href)
+                    .then(res => res.text())
+                    .then(html => {
+
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+
+                        const newRows = doc.querySelectorAll('#missions-container tr');
+
+                        newRows.forEach(row => {
+                            missionsContainer.appendChild(row);
+                        });
+
+                        const newBtn = doc.getElementById('loadMoreBtn');
+
+                        if (newBtn) {
+                            this.href = newBtn.href;
+                        } else {
+                            this.remove();
+                        }
+                    })
+                    .catch(err => console.error('Erreur chargement :', err));
+            });
         });
     </script>
 @endpush
