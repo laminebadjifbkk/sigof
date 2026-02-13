@@ -12,102 +12,6 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
-    {{-- <section class="section dashboard">
-        <div class="row">
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                        <div class="card info-card revenue-card">
-                            <a href="{{ route('operateurs.index') }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">Demandes <span>| opérateurs</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                {{ count($operateurs) }}
-                                            </h6>
-                                            <span class="text-muted small pt-2 ps-1"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                        <div class="card info-card sales-card">
-                            <a href="{{ route('operateurs.agreer') }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">Agréments <span>| en cours</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                {{ $operateur_agreer }}
-                                            </h6>
-                                            <span
-                                                class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_agreer, 2, ',', ' ') . '%' }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                        <div class="card info-card customers-card">
-                            <a href="{{ route('operateurs.expirer') }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">Agréments <span>| expirés</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                {{ $operateur_expirer }}
-                                            </h6>
-                                            <span
-                                                class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_expirer, 2, ',', ' ') . '%' }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                        <div class="card info-card revenue-card">
-                            <a href="#">
-                                <div class="card-body">
-                                    <h5 class="card-title">Nouvelles <span>| demandes</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                {{ $operateur_nouveau }}
-                                            </h6>
-                                            <span
-                                                class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_nouveau, 2, ',', ' ') . '%' }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
 
     <section class="section">
         <div class="row">
@@ -134,7 +38,7 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        @if (auth()->user()->hasRole('super-admin|admin|DEC|DIOF|Ingenieur'))
+                        {{-- @if (auth()->user()->hasRole('super-admin|admin|DEC|DIOF|Ingenieur'))
 
                             @can('commission-show')
                                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
@@ -187,14 +91,11 @@
                                                 </h6>
                                             </div>
                                         </div>
-                                        @foreach ($groupesStatutAgrement as $statut => $items)
+                                        @foreach ($groupes as $statut => $items)
                                             <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
                                                 <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
                                                     <div class="card-body">
-                                                        {{-- <h5 class="card-title text-truncate mb-1" title="{{ $statut }}"
-                                                        style="font-size: 1rem;">
-                                                        {{ $statut }}
-                                                    </h5> --}}
+                                                        
 
                                                         <div class="text-truncate mb-4" style="font-size: 1rem;">
                                                             <span class="{{ $statut }}">
@@ -231,7 +132,7 @@
 
                             @can('operateur-show')
                                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-                                    {{-- Titre à gauche --}}
+                                    
                                     <div class="d-flex align-items-center gap-2">
                                         <h6 class="mb-0 text-muted fw-semibold text-uppercase">
                                             Liste des opérateurs
@@ -248,37 +149,13 @@
                                         </span>
                                     </div>
                                     <span class="d-flex align-items-baseline">
-                                        {{-- <a href="{{ route('operateurs.create') }}"
-                                            class="btn btn-primary btn-sm btn-rounded">Ajouter</a>
-                                        <div class="filter">
-                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                    class="bi bi-three-dots"></i></a>
-                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                <li>
-                                                    <button type="button" class="dropdown-item btn btn-sm"
-                                                        data-bs-toggle="modal" data-bs-target="#generate_rapport"></i>Rechercher
-                                                        plus</button>
-                                                </li>
-                                                @hasrole('admin|super-admin')
-                                                    <li>
-                                                        <form action="{{ route('importO') }}" method="get">
-                                                            <button type="submit"
-                                                                class="dropdown-item btn btn-sm">Importer</button>
-                                                        </form>
-                                                    </li>
-                                                @endhasrole
-                                            </ul>
-                                        </div> --}}
+                                        
                                         <div class="d-flex align-items-center gap-2">
                                             @can('operateur-create')
                                                 <a href="{{ route('operateurs.create') }}"
                                                     class="btn btn-primary btn-sm btn-rounded">Ajouter</a>
                                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                    {{-- <li>
-                                                    <button type="button" class="dropdown-item btn btn-sm"
-                                                        data-bs-toggle="modal" data-bs-target="#generate_rapport"></i>Rechercher
-                                                        plus</button>
-                                                </li> --}}
+                                                    
                                                     @hasrole('admin|super-admin')
                                                         <li>
                                                             <form action="{{ route('importO') }}" method="get">
@@ -299,7 +176,49 @@
                                     </span>
                                 </div>
                             @endcan
-                        @endif
+                        @endif --}}
+
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <table class="table table-bordered table-striped align-middle">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th scope="col" style="width: 50px;">N°</th>
+                                            <th scope="col">Années</th>
+                                            <th scope="col" class="text-center">Opérateurs</th>
+                                            <th scope="col" style="width: 120px;">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="missions-container">
+                                        @foreach ($groupes as $index => $items)
+                                            <tr>
+                                                <td>
+                                                    {{ ($groupes->currentPage() - 1) * $groupes->perPage() + $loop->iteration }}
+                                                </td>
+                                                <td>{{ $items->annee }}</td>
+                                                <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
+                                                <td>
+                                                    <a href="{{ route('operateurs.parAnnee', ['annee' => $items->annee]) }}"
+                                                        class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
+                                                        Voir plus <i class="bi bi-arrow-right-short"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                                {{-- Bouton Load More --}}
+                                @if ($groupes->hasMorePages())
+                                    <div class="text-center mt-3">
+                                        <a href="{{ $groupes->nextPageUrl() }}" id="loadMoreBtn"
+                                            class="btn btn-info btn-sm">
+                                            Voir plus
+                                        </a>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                         @if ($operateurs->isNotEmpty())
                             <div class="table-responsive">
                                 <table
@@ -415,8 +334,7 @@
                                                                 <div class="filter">
                                                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                             class="bi bi-three-dots"></i></a>
-                                                                    <ul
-                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                         <li>
                                                                             <a class="dropdown-item btn btn-sm"
                                                                                 href="{{ route('operateurs.edit', $operateur) }}"
@@ -668,6 +586,41 @@
                     }
                 }
             }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const missionsContainer = document.getElementById('missions-container');
+
+            if (!loadMoreBtn) return;
+
+            loadMoreBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                fetch(this.href)
+                    .then(res => res.text())
+                    .then(html => {
+
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+
+                        const newRows = doc.querySelectorAll('#missions-container tr');
+
+                        newRows.forEach(row => {
+                            missionsContainer.appendChild(row);
+                        });
+
+                        const newBtn = doc.getElementById('loadMoreBtn');
+
+                        if (newBtn) {
+                            this.href = newBtn.href;
+                        } else {
+                            this.remove();
+                        }
+                    })
+                    .catch(err => console.error('Erreur chargement :', err));
+            });
         });
     </script>
 @endpush

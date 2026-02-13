@@ -48,50 +48,43 @@ class OperateurController extends Controller
         $this->middleware('operateur')->only(['create', 'destroy', 'store', 'update']); */
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $operateurs      = Operateur::count();
-        $totalOperateurs = number_format($operateurs, 0, ',', ' ');
-        $departements    = Departement::orderBy("nom", "asc")->get();
+        // Total global
+        $totalOperateurs = number_format(Operateur::count(), 0, ',', ' ');
 
-        /* $statuts = ['agréé', 'rejeté', 'nouveau', 'expirer']; */
+        // Base query
+        $query = Operateur::query();
 
-        // Récupérer les différents statuts
-        /* $statuts = $operateurs->pluck('statut_agrement')->unique()->values()->all();
+        // Filtre dynamique si besoin plus tard
+        if ($statut = $request->query('statut_agrement')) {
+            $query->where('statut_agrement', $statut);
+        } else {
+            $query->whereIn('statut_agrement', [
+                'agréé',
+                'sous réserve',
+                'Extension',
+                'Renouvellement'
+            ]);
+        }
 
-        $counts = Operateur::whereIn('statut_agrement', $statuts)
-            ->selectRaw("statut_agrement, COUNT(*) as count")
-            ->groupBy('statut_agrement')
-            ->pluck('count', 'statut_agrement');
+        // Liste principale
+        $operateurs = $query
+            ->latest()
+            ->limit(200)
+            ->get();
 
-        $operateur_agreer  = $counts['agréé'] ?? 0;
-        $operateur_rejeter = $counts['rejeté'] ?? 0;
-        $operateur_nouveau = $counts['nouveau'] ?? 0;
-        $operateur_expirer = $counts['expirer'] ?? 0;
-        $operateur_total   = $operateur_agreer + $operateur_rejeter + $operateur_nouveau;
+        // Départements
+        $departements = Departement::orderBy('nom')->get(['id', 'nom']);
+        /*  $groupesStatutAgrement = $allOperateurs->groupBy(function ($item) {
+            return $item->statut_agrement ?? 'Aucun';
+        }); */
 
-        $pourcentage_agreer  = $operateur_total ? ($operateur_agreer / $operateur_total) * 100 : 0;
-        $pourcentage_rejeter = $operateur_total ? ($operateur_rejeter / $operateur_total) * 100 : 0;
-        $pourcentage_nouveau = $operateur_total ? ($operateur_nouveau / $operateur_total) * 100 : 0;
-        $pourcentage_expirer = $operateur_total ? ($operateur_expirer / $operateur_total) * 100 : 0; */
-
-        $operateurs      = Operateur::whereIn('statut_agrement', ['agréé', 'sous réserve', 'Extension', 'Renouvellement'])->latest()->take(200)->get();
-        $count_operateur = number_format($operateurs->count(), 0, ',', ' ');
-
-        /* $title = match ($count_operateur) {
-            "0" => 'Aucun opérateur',
-            "1" => "$count_operateur opérateur sur un total de $totalOperateurs",
-            default => "Liste des $count_operateur derniers opérateurs sur un total de $totalOperateurs",
-        }; */
-
-        $allOperateurs = Operateur::select('*')->get();
-        // Récupérer les différents statuts
-        /* $statuts = $operateurs->pluck('statut_agrement')->unique(); */
-
-        // Regrouper par statut_agrement (y compris les null)
-        $groupesStatutAgrement = $allOperateurs->groupBy(function ($item) {
-            return $item->statut_agrement ?? 'Aucun statut agrement';
-        });
+        $groupes = Operateur::select(DB::raw('YEAR(annee_agrement) as annee'))
+            ->selectRaw('COUNT(*) as total')
+            ->groupBy('annee')
+            ->orderByDesc('annee')
+            ->paginate(1); // ← une ligne par page
 
         $commissionagrements = Commissionagrement::select('*')->orderBy('commission', 'desc')->get();
 
@@ -104,7 +97,7 @@ class OperateurController extends Controller
             "operateurs.index",
             compact(
                 "operateurs",
-                "groupesStatutAgrement",
+                "groupes",
                 "departements",
                 "commissionagrements",
                 "affichees",

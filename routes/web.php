@@ -661,6 +661,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/arrives/annee/{annee}', [ArriveController::class, 'parAnnee'])
             ->name('arrives.parAnnee');
 
+        Route::get('/operateurs/annee/{annee}', [OperateurController::class, 'parAnnee'])
+            ->name('operateurs.parAnnee');
+
         Route::get('/collectives/{annee}/region/{region}', [CollectiveController::class, 'parAnneeRegion'])
             ->name('collectives.parAnneeRegion');
 
