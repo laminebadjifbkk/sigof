@@ -77,11 +77,17 @@ class CollectiveController extends Controller
         $today = now()->toDateString();
         $demandesDuJourCount = Collective::whereDate('created_at', $today)->count();
 
-        $groupes = Collective::query()
+        /* $groupes = Collective::query()
             ->selectRaw('YEAR(date_depot) as annee, COUNT(*) as total')
             ->groupBy('annee')
             ->orderBy('annee', 'desc')
-            ->get();
+            ->get(); */
+
+        $groupes = Collective::query()
+            ->selectRaw('YEAR(date_depot) as annee, COUNT(*) as total')
+            ->groupBy('annee')
+            ->orderByDesc('annee')
+            ->paginate(1); // ← une ligne par page
 
         $statutPourcentages = [];
 

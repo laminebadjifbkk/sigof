@@ -105,7 +105,7 @@ class IndividuelleController extends Controller
             ->selectRaw('COUNT(*) as total')
             ->groupBy('annee')
             ->orderByDesc('annee')
-            ->paginate(2); // ← deux ligne par page
+            ->paginate(1); // ← une ligne par page
 
 
         $affichees = $individuelles?->count();

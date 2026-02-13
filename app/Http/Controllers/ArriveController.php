@@ -91,7 +91,7 @@ class ArriveController extends Controller
             ->selectRaw('COUNT(arrives.id) as total')
             ->groupBy('courriers.annee')
             ->orderBy('courriers.annee', 'desc')
-            ->paginate(2); // ← deux ligne par page
+            ->paginate(1); // ← une ligne par page
 
         $affichees = $arrives?->count();
         $total     = $totalArrives ?? ($arrives instanceof \Illuminate\Pagination\LengthAwarePaginator

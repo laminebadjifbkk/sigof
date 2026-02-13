@@ -2,108 +2,17 @@
 @section('title', 'ONFP | DEMANDES COLLECTIVES')
 @section('space-work')
     @can('collective-view')
-        {{-- <div class="pagetitle">
+        <div class="pagetitle">
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url('/home') }}">Accueil</a></li>
+                    {{-- <li class="breadcrumb-item"><a href="{{ url('/home') }}">Accueil</a></li> --}}
                     <li class="breadcrumb-item">Tables</li>
                     <li class="breadcrumb-item active">Demandes collectives</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title --> --}}
+        </div>
         <section class="section dashboard">
             <div class="container">
-                {{-- <div class="row g-3 mb-4">
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <div class="card shadow-sm text-center p-2" style="min-height:140px; border-radius:10px;">
-                            <h6 class="card-title mb-2" style="font-size:0.85rem;">Demandes totales</h6>
-
-                            <div class="d-flex flex-column align-items-center mb-2">
-                                <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
-                                    style="width:28px;height:28px;">
-                                    <i class="bi bi-collection"></i>
-                                </div>
-                                <span class="h6 mb-0">{{ $totalDemandes }}</span>
-                            </div>
-
-                            <div class="mb-2">
-                                <div class="progress" style="height:6px;">
-                                    <div class="progress-bar bg-success" style="width:100%"></div>
-                                </div>
-                                <small class="text-muted">100%</small>
-                            </div>
-
-                            <a href="{{ route('collectives.index') }}" class="btn btn-outline-primary btn-sm w-100">
-                                Voir toutes
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <div class="card shadow-sm text-center p-2 border-success"
-                            style="min-height:140px; border-radius:10px;">
-                            <h6 class="card-title mb-2" style="font-size:0.85rem;">
-                                Aujourd’hui
-                            </h6>
-
-                            <div class="d-flex flex-column align-items-center mb-2">
-                                <div class="rounded-circle bg-success text-white d-flex justify-content-center align-items-center mb-1"
-                                    style="width:28px;height:28px;">
-                                    <i class="bi bi-calendar-check"></i>
-                                </div>
-                                <span class="h6 mb-0">{{ $demandesDuJourCount }}</span>
-                            </div>
-
-                            <div class="mb-2">
-                                <small class="text-muted">
-                                    Reçues aujourd’hui
-                                </small>
-                            </div>
-
-                            <a href="{{ route('collectives.index', ['today' => 1]) }}"
-                                class="btn btn-outline-success btn-sm w-100">
-                                Voir
-                            </a>
-                        </div>
-                    </div>
-
-                    @foreach ($groupes as $statutKey => $items)
-                        @php
-                            $percent = $statutPourcentages[$statutKey]['percent'];
-                        @endphp
-
-                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                            <div class="card shadow-sm text-center p-2
-                                        {{ $statutDemande === $statutKey ? 'border-primary' : '' }}"
-                                style="min-height:140px; border-radius:10px;">
-
-                                <h6 class="card-title mb-2" style="font-size:0.85rem;">
-                                    Demandes
-                                </h6>
-
-                                <span class="etat-btn {{ Str::slug($statutKey) }}">
-                                    {{ ucfirst(str_replace('_', ' ', $statutKey)) }}
-                                </span>
-
-                                <div class="d-flex flex-column align-items-center mt-2 mb-2">
-                                    <span class="h6 mb-0">{{ $items->count() }}</span>
-                                </div>
-
-                                <div class="mb-2">
-                                    <div class="progress" style="height:6px;">
-                                        <div class="progress-bar bg-success" style="width: {{ $percent }}%;"></div>
-                                    </div>
-                                    <small class="text-muted">{{ $percent }}%</small>
-                                </div>
-
-                                <a href="{{ route('collectives.index', ['statut_demande' => $statutKey]) }}"
-                                    class="btn btn-outline-primary btn-sm w-100">
-                                    Voir plus
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
-                </div> --}}
 
                 <div class="card shadow-sm">
                     <div class="card-body">
@@ -116,10 +25,12 @@
                                     <th scope="col" style="width: 120px;">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="missions-container">
                                 @foreach ($groupes as $items)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>
+                                            {{ ($groupes->currentPage() - 1) * $groupes->perPage() + $loop->iteration }}
+                                        </td>
                                         <td>{{ $items->annee }}</td>
                                         <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
                                         <td>
@@ -132,6 +43,15 @@
                                 @endforeach
                             </tbody>
                         </table>
+
+                        {{-- Bouton Load More --}}
+                        @if ($groupes->hasMorePages())
+                            <div class="text-center mt-3">
+                                <a href="{{ $groupes->nextPageUrl() }}" id="loadMoreBtn" class="btn btn-info btn-sm">
+                                    Voir plus
+                                </a>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -801,7 +721,7 @@
     @endcan
 @endsection
 @push('scripts')
-    <script>
+    <script type="text/javascript">
         new DataTable('#table-collectives', {
             layout: {
                 topStart: {
@@ -841,8 +761,7 @@
                 }
             }
         });
-    </script>
-    <script type="text/javascript">
+
         $(document).ready(function() {
             $('#numero').keyup(function() {
                 var query = $(this).val().trim();
@@ -894,6 +813,41 @@
                 });
 
                 $('#productList').fadeOut();
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const missionsContainer = document.getElementById('missions-container');
+
+            if (!loadMoreBtn) return;
+
+            loadMoreBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                fetch(this.href)
+                    .then(res => res.text())
+                    .then(html => {
+
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+
+                        const newRows = doc.querySelectorAll('#missions-container tr');
+
+                        newRows.forEach(row => {
+                            missionsContainer.appendChild(row);
+                        });
+
+                        const newBtn = doc.getElementById('loadMoreBtn');
+
+                        if (newBtn) {
+                            this.href = newBtn.href;
+                        } else {
+                            this.remove();
+                        }
+                    })
+                    .catch(err => console.error('Erreur chargement :', err));
             });
         });
     </script>
