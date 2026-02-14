@@ -116,6 +116,45 @@ class OperateurController extends Controller
         );
     }
 
+    public function parAnnee(Request $request, $annee)
+    {
+        // Base filtrée
+        $baseQuery = Operateur::whereYear('annee_agrement', $annee);
+
+        // ✅ TOTAL (année filtrée)
+        $totalOperateurs = number_format(
+            (clone $baseQuery)->count(),
+            0,
+            ',',
+            ' '
+        );
+
+        // ✅ LISTE (avec tri)
+        $operateurs = (clone $baseQuery)
+            ->orderByDesc('created_at')
+            ->limit(200)
+            ->get();
+
+        // ✅ GROUPES (sans created_at !)
+        $groupes = Operateur::whereYear('annee_agrement', $annee)
+            ->select('statut_agrement', DB::raw('COUNT(*) as total'))
+            ->groupBy('statut_agrement')
+            ->orderByDesc('total')
+            ->get(); // ← get() au lieu de paginate
+
+        $affichees = $operateurs?->count();
+        $total     = $totalOperateurs ?? ($operateurs instanceof \Illuminate\Pagination\LengthAwarePaginator
+            ? $operateurs->total()
+            : $operateurs?->count());
+
+        return view('operateurs.par_annee', compact(
+            'operateurs',
+            'groupes',
+            'total',
+            'annee'
+        ));
+    }
+
     public function create()
     {
         $departements = Departement::orderBy("nom", "asc")->get();

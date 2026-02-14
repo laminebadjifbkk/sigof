@@ -130,9 +130,6 @@ class IndividuelleController extends Controller
 
     public function parAnnee(Request $request, $annee)
     {
-        // =======================================
-        // Construction de la requête de base
-        // =======================================
         $query = Individuelle::whereYear('date_depot', $annee);
 
         // Filtre par statut si fourni
