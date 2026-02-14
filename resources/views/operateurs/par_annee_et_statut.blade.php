@@ -189,7 +189,7 @@
                                 <div class="d-flex align-items-center gap-2">
                                     <a href="{{ route('operateurs.parAnnee', ['annee' => $annee]) }}"
                                         class="btn btn-outline-secondary btn-sm">
-                                        <i class="bi bi-arrow-left-circle"></i> Retour à la liste
+                                        <i class="bi bi-arrow-left-circle"></i> Retour
                                     </a> |
                                     <h6 class="mb-0 text-muted fw-semibold text-uppercase">
                                         Liste des opérateurs {{ $statut }} en {{ $annee }}
