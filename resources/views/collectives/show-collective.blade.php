@@ -135,23 +135,24 @@
                 </div> --}}
                 <div class="card shadow-sm border-0">
 
-                    {{-- HEADER --}}
-                    <div class="card-body bg-light rounded-top">
+                    {{-- HEADER GLOBAL --}}
+                    <div class="card-body bg-light border-bottom">
 
                         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
 
                             <div>
-                                <h4 class="fw-bold mb-1 text-primary">
+                                <h4 class="fw-bold text-primary mb-1">
                                     <i class="bi bi-folder-check me-2"></i>
-                                    {{ $user?->collective?->numero }}
+                                    Dossier N° {{ $collective?->numero ?? '-' }}
                                 </h4>
+
                                 <small class="text-muted">
-                                    Bienvenue {{ $user->civilite . ' ' . $user->firstname . ' ' . $user->name }}
+                                    {{ $user->civilite }} {{ $user->firstname }} {{ $user->name }}
                                 </small>
                             </div>
 
                             <a href="{{ url('/profil') }}" class="btn btn-outline-secondary btn-sm">
-                                <i class="bi bi-arrow-left"></i> Retour au profil
+                                <i class="bi bi-arrow-left"></i> Retour
                             </a>
 
                         </div>
@@ -159,203 +160,278 @@
                     </div>
 
 
-                    {{-- @php
-                        $collective = $user?->collective;
-                        $modules = $collective?->collectivemodules ?? collect();
-
-                        $totalModules = $modules->count();
-                        $totalEffectif = $modules->flatMap(fn($m) => $m->listecollectives)->count();
-                        $totalFormes = $modules->where('statut', 'Formé')->count();
-                    @endphp --}}
-
                     @if ($collective)
 
-                        <div class="card shadow-sm border-0">
+                        {{-- INFORMATIONS DEMANDE --}}
+                        <div class="card-body border-bottom">
 
-                            {{-- HEADER DEMANDE --}}
-                            <div class="card-body border-bottom bg-light">
+                            <div class="row g-4">
 
-                                <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+                                {{-- STRUCTURE --}}
+                                <div class="col-md-6">
 
-                                    <div>
-                                        <h5 class="fw-bold text-primary mb-1">
+                                    <h6 class="fw-bold text-primary mb-3">
+                                        <i class="bi bi-building me-1"></i>
+                                        Structure
+                                    </h6>
+
+                                    <div class="small text-muted">
+
+                                        <div><strong>Nom :</strong>
                                             {{ $collective->name }}
                                             @if ($collective->sigle)
                                                 ({{ $collective->sigle }})
                                             @endif
-                                        </h5>
-
-                                        <div class="small text-muted">
-                                            {{-- <div>N° Demande : <strong>{{ $collective->numero }}</strong></div> --}}
-                                            <div>Email : {{ $collective->email }}</div>
-                                            <div>Téléphone : {{ $collective->telephone }}</div>
-                                            <div>Localité : {{ $collective->departement?->region?->nom ?? '-' }}</div>
                                         </div>
-                                    </div>
 
-                                    <div class="text-end">
-
-                                        <span class="{{ $collective->statut_demande }}">
-                                            {{ $collective->statut_demande }}
-                                        </span>
-
-                                        <div>
-                                            <a href="{{ route('collectives.show', $collective) }}"
-                                                class="btn btn-outline-primary btn-sm mt-5">
-                                                <i class="bi bi-eye"></i> Voir la demande
+                                        <div><strong>Email :</strong>
+                                            <a href="mailto:{{ $collective->email }}">
+                                                {{ $collective->email }}
                                             </a>
                                         </div>
 
+                                        <div><strong>Téléphone :</strong>
+                                            <a href="tel:+221{{ $collective->telephone }}">
+                                                {{ $collective->telephone }}
+                                            </a>
+                                        </div>
+
+                                        <div><strong>Statut juridique :</strong>
+                                            {{ $collective->statut_juridique ?? '-' }}
+                                        </div>
+
+                                        <div><strong>Région :</strong>
+                                            {{ $collective->departement?->region?->nom ?? '-' }}
+                                        </div>
+
+                                        <div><strong>Département :</strong>
+                                            {{ $collective->departement?->nom ?? '-' }}
+                                        </div>
+
+                                        <div><strong>Adresse :</strong>
+                                            {{ $collective->adresse ?? '-' }}
+                                        </div>
+
                                     </div>
 
                                 </div>
 
-                            </div>
 
+                                {{-- RESPONSABLE --}}
+                                <div class="col-md-6">
 
-                            {{-- STATISTIQUES --}}
-                            <div class="card-body border-bottom">
-
-                                <div class="row g-3 text-center">
-
-                                    <div class="col-md-4">
-                                        <div class="p-3 bg-primary-subtle rounded-3">
-                                            <h6 class="text-muted mb-1">Formations sollicitées</h6>
-                                            <h4 class="fw-bold text-primary mb-0">
-                                                {{ $totalModules }}
-                                            </h4>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="p-3 bg-success-subtle rounded-3">
-                                            <h6 class="text-muted mb-1">Effectif total</h6>
-                                            <h4 class="fw-bold text-success mb-0">
-                                                {{ $totalEffectif }}
-                                            </h4>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="p-3 bg-warning-subtle rounded-3">
-                                            <h6 class="text-muted mb-1">Modules formés</h6>
-                                            <h4 class="fw-bold text-warning mb-0">
-                                                {{ $totalFormes }}
-                                            </h4>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            {{-- MODULES --}}
-                            <div class="card-body">
-
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h6 class="fw-bold mb-0">
-                                        <i class="bi bi-mortarboard me-1"></i>
-                                        Formations demandées
+                                    <h6 class="fw-bold text-primary mb-3">
+                                        <i class="bi bi-person-badge me-1"></i>
+                                        Responsable
                                     </h6>
 
-                                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#AddcollectiveModuleModal">
-                                        <i class="bi bi-plus-circle"></i> Ajouter une formation
-                                    </button>
+                                    <div class="small text-muted">
+
+                                        <div><strong>Nom :</strong>
+                                            {{ $collective->civilite_responsable }}
+                                            {{ $collective->prenom_responsable }}
+                                            {{ $collective->nom_responsable }}
+                                        </div>
+
+                                        <div><strong>Email :</strong>
+                                            <a href="mailto:{{ $collective->email_responsable }}">
+                                                {{ $collective->email_responsable }}
+                                            </a>
+                                        </div>
+
+                                        <div><strong>Téléphone :</strong>
+                                            <a href="tel:+221{{ $collective->telephone_responsable }}">
+                                                {{ $collective->telephone_responsable }}
+                                            </a>
+                                        </div>
+
+                                        <div><strong>Fonction :</strong>
+                                            {{ $collective->fonction_responsable ?? '-' }}
+                                        </div>
+
+                                    </div>
+
                                 </div>
 
-                                @if ($modules->isNotEmpty())
-                                    <div class="table-responsive">
-                                        <table class="table align-middle table-hover">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th>Formation</th>
-                                                    <th class="text-center">Niveau</th>
-                                                    <th class="text-center">Effectif</th>
-                                                    <th class="text-center">Statut</th>
-                                                    <th class="text-end">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($modules as $module_collective)
-                                                    <tr>
-                                                        <td class="fw-semibold text-primary">
-                                                            {{ $module_collective->module }}
-                                                        </td>
-
-                                                        <td class="text-center">
-                                                            {{ $module_collective->niveau_qualification ?? 'Aucun' }}
-                                                        </td>
-
-                                                        <td class="text-center">
-                                                            {{ $module_collective->listecollectives?->count() ?? 0 }}
-                                                        </td>
-
-                                                        <td class="text-center">
-                                                            <span class="{{ $module_collective->statut }}">
-                                                                {{ $module_collective->statut }}
-                                                            </span>
-                                                        </td>
-
-                                                        <td class="text-end">
-
-                                                            <div class="d-flex justify-content-end gap-2">
-
-                                                                <a href="{{ route('collectivemodules.show', $module_collective) }}"
-                                                                    class="btn btn-sm btn-outline-primary">
-                                                                    <i class="bi bi-eye"></i>
-                                                                </a>
-
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-light btn-sm"
-                                                                        data-bs-toggle="dropdown">
-                                                                        <i class="bi bi-three-dots"></i>
-                                                                    </button>
-
-                                                                    <ul class="dropdown-menu dropdown-menu-end">
-
-                                                                        <li>
-                                                                            <button class="dropdown-item"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#EditRegionModal{{ $module_collective->id }}">
-                                                                                Modifier
-                                                                            </button>
-                                                                        </li>
-                                                                        <li>
-                                                                            <form
-                                                                                action="{{ route('collectivemodules.destroy', $module_collective) }}"
-                                                                                method="POST">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit"
-                                                                                    class="dropdown-item text-danger show_confirm">
-                                                                                    Supprimer
-                                                                                </button>
-                                                                            </form>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                @else
-                                    <div class="alert alert-warning d-flex align-items-center">
-                                        <i class="bi bi-info-circle me-2"></i>
-                                        Aucune formation enregistrée pour le moment.
-                                    </div>
-                                @endif
                             </div>
+
+                            {{-- STATUT + ACTION --}}
+                            <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-2">
+
+                                <span class="{{ $collective->statut_demande }}">
+                                    {{ $collective->statut_demande }}
+                                </span>
+
+                                <a href="{{ route('collectives.show', $collective) }}"
+                                    class="btn btn-outline-primary btn-sm">
+                                    <i class="bi bi-eye"></i> Voir les détails
+                                </a>
+
+                                <div class="text-center">
+                                    <a href="{{ route('collectives.edit', $collective) }}"
+                                        class="btn btn-outline-success btn-sm" title="Modifier">Modifier</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- STATISTIQUES --}}
+                        <div class="card-body border-bottom">
+
+                            {{-- <div class="row g-3 text-center"> --}}
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                <div>
+                                    <div class="p-3 bg-primary-subtle rounded-3">
+                                        <h6 class="text-muted mb-1">Formations sollicitées</h6>
+                                        <h4 class="fw-bold text-primary text-center mb-0">{{ $totalModules }}</h4>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="p-3 bg-success-subtle rounded-3">
+                                        <h6 class="text-muted mb-1">Effectif total</h6>
+                                        <h4 class="fw-bold text-success text-center mb-0">{{ $totalEffectif }}</h4>
+                                    </div>
+                                </div>
+
+                                {{-- <div>
+                                    <div class="p-3 bg-warning-subtle rounded-3">
+                                        <h6 class="text-muted mb-1">Modules formés</h6>
+                                        <h4 class="fw-bold text-warning text-center mb-0">{{ $totalFormes }}</h4>
+                                    </div>
+                                </div> --}}
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- MODULES --}}
+                        <div class="card-body">
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="fw-bold mb-0">
+                                    <i class="bi bi-mortarboard me-1"></i>
+                                    Formations demandées
+                                </h6>
+
+                                <button class="btn btn-success btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#AddcollectiveModuleModal">
+                                    <i class="bi bi-plus-circle"></i> Ajouter
+                                </button>
+                            </div>
+
+                            @if ($modules->isNotEmpty())
+
+                                <div class="table-responsive">
+                                    <table class="table align-middle table-hover">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Formation</th>
+                                                <th class="text-center">Niveau</th>
+                                                <th class="text-center">Effectif</th>
+                                                <th class="text-center">Statut</th>
+                                                <th class="text-end">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($modules as $module_collective)
+                                                <tr>
+                                                    <td class="fw-semibold text-primary">
+                                                        {{ $module_collective->module }}
+                                                    </td>
+
+                                                    <td class="text-center">
+                                                        {{ $module_collective->niveau_qualification ?? '-' }}
+                                                    </td>
+
+                                                    <td class="text-center">
+                                                        {{ $module_collective->listecollectives?->count() ?? 0 }}
+                                                    </td>
+
+                                                    <td class="text-center">
+                                                        <span class="{{ $module_collective->statut }}">
+                                                            {{ $module_collective->statut }}
+                                                        </span>
+                                                    </td>
+
+                                                    <td class="text-end">
+
+                                                        <div class="d-flex justify-content-end align-items-center gap-2">
+
+                                                            {{-- Bouton Voir --}}
+                                                            <a href="{{ route('collectivemodules.show', $module_collective) }}"
+                                                                class="btn btn-sm btn-outline-primary">
+                                                                <i class="bi bi-eye"></i>
+                                                            </a>
+
+                                                            {{-- Dropdown Actions --}}
+                                                            <div class="dropdown position-static">
+
+                                                                <button class="btn btn-light btn-sm" type="button"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <i class="bi bi-three-dots"></i>
+                                                                </button>
+
+                                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+
+                                                                    {{-- Modifier --}}
+                                                                    <li>
+                                                                        <button class="dropdown-item" data-bs-toggle="modal"
+                                                                            data-bs-target="#EditRegionModal{{ $module_collective->id }}">
+                                                                            <i class="bi bi-pencil me-2"></i> Modifier
+                                                                        </button>
+                                                                    </li>
+
+                                                                    {{-- Supprimer --}}
+                                                                    <li>
+                                                                        <form
+                                                                            action="{{ route('collectivemodules.destroy', $module_collective) }}"
+                                                                            method="POST">
+                                                                            @csrf
+                                                                            @method('DELETE')
+
+                                                                            <button type="submit"
+                                                                                class="dropdown-item text-danger show_confirm">
+                                                                                <i class="bi bi-trash me-2"></i> Supprimer
+                                                                            </button>
+                                                                        </form>
+                                                                    </li>
+
+                                                                </ul>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </td>
+
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @else
+                                <div class="alert alert-warning d-flex align-items-center">
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    Aucune formation enregistrée.
+                                </div>
+
+                            @endif
+
                         </div>
                     @else
-                        <div class="alert alert-warning">
-                            Aucune demande collective enregistrée.
+                        <div class="card-body">
+                            <div class="alert alert-warning">
+                                Aucune demande collective enregistrée.
+                            </div>
                         </div>
 
                     @endif
+
                 </div>
             </div>
             <div class="row mb-3 pt-5">
@@ -479,7 +555,7 @@
                                         <option value="">Choisir</option>
                                         <option value="Renforcement de capacités">Renforcement de capacités</option>
                                         <option value="Qualification">Qualification</option>
-                                        <option value="Aucun">Aucun</option>
+                                        {{-- <option value="Aucun">Aucun</option> --}}
                                     </select>
                                     @error('niveau_qualification')
                                         <span class="invalid-feedback" role="alert">
@@ -498,6 +574,78 @@
                     </div>
                 </div>
             </div>
+
+            @foreach ($collective->collectivemodules as $collectivemodule)
+                <div class="modal fade" id="EditRegionModal{{ $collectivemodule->id }}" tabindex="-1" role="dialog"
+                    aria-labelledby="EditRegionModalLabel{{ $collectivemodule->id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <form method="post" action="{{ route('collectivemodules.update', $collectivemodule) }}"
+                                enctype="multipart/form-data" class="row g-3">
+                                @csrf
+                                @method('patch')
+
+                                <div class="card-header text-center bg-gradient-default">
+                                    <h1 class="h4 text-black mb-0">Modifier module</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="id" value="{{ $collectivemodule->id }}">
+                                    <input type="hidden" name="collective" value="{{ $collective->id }}">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" name="module_name"
+                                            value="{{ $collectivemodule->module ?? old('module_name') }}"
+                                            class="form-control form-control-sm @error('module_name') is-invalid @enderror"
+                                            id="module_name" placeholder="Module" autofocus>
+                                        @error('module_name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                        <label for="floatingInput">Module</label>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="niveau_qualification" class="form-label">
+                                            Niveau de qualification <span class="text-danger mx-1">*</span>
+                                        </label>
+                                        <select name="niveau_qualification" id="niveau_qualificationmodal"
+                                            class="form-select @error('niveau_qualification') is-invalid @enderror"
+                                            aria-label="Sélection du niveau de qualification" data-placeholder="Choisir">
+
+                                            <option value="" disabled
+                                                {{ old('niveau_qualification', $collectivemodule?->niveau_qualification) ? '' : 'selected' }}>
+                                                Choisir
+                                            </option>
+
+                                            @php
+                                                $niveauOptions = ['Renforcement de capacités', 'Qualification'];
+                                            @endphp
+
+                                            @foreach ($niveauOptions as $option)
+                                                <option value="{{ $option }}"
+                                                    {{ old('niveau_qualification', $collectivemodule?->niveau_qualification) === $option ? 'selected' : '' }}>
+                                                    {{ $option }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+
+                                        @error('niveau_qualification')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        data-bs-dismiss="modal">Fermer</button>
+                                    <button type="submit" class="btn btn-primary btn-sm">Modifier</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
 
             <form method="post" action="{{ route('files.update', $user?->uuid) }}" enctype="multipart/form-data">
                 @csrf

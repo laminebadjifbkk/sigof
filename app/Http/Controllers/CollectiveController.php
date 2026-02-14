@@ -869,9 +869,9 @@ class CollectiveController extends Controller
             ->flatMap(fn($m) => $m->listecollectives ?? collect())
             ->count();
 
-        $totalFormes = $modules
+        /* $totalFormes = $modules
             ->where('statut', 'formé')
-            ->count();
+            ->count(); */
 
         $departements     = Departement::latest()->get();
         /* $modules          = Module::latest()->get(); */
@@ -917,7 +917,7 @@ class CollectiveController extends Controller
                     'modules',
                     'totalModules',
                     'totalEffectif',
-                    'totalFormes'
+                    /* 'totalFormes' */
                 )
             );
         }
