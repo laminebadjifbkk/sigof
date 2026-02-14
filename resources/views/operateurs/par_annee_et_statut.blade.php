@@ -178,62 +178,21 @@
                             @endcan
                         @endif --}}
 
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-
-                                {{-- <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h1 class="mb-0">ANNEE : {{ $annee }}</h1>
-                                    <a href="{{ route('operateurs.index') }}" class="btn btn-outline-secondary btn-sm">
-                                        <i class="bi bi-arrow-left-circle"></i> Retour à la liste
-                                    </a>
-                                </div> --}}
-
-                                <table class="table table-bordered table-striped align-middle">
-                                    <thead class="table-primary">
-                                        <tr>
-                                            <th scope="col" style="width: 50px;">N°</th>
-                                            <th scope="col">Années</th>
-                                            <th scope="col" class="text-center">Opérateurs</th>
-                                            <th scope="col" style="width: 120px;">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="missions-container">
-                                        @foreach ($groupes as $index => $items)
-                                            <tr>
-                                                <td>
-                                                    {{ $loop->iteration }}
-                                                </td>
-                                                <td><span
-                                                        class="{{ $items->statut_agrement }}">{{ $items->statut_agrement }}</span>
-                                                </td>
-                                                <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
-                                                <td>
-                                                    <a href="{{ route('operateurs.parAnneeEtStatut', [
-                                                        'annee' => $annee,
-                                                        'statut' => $items->statut_agrement,
-                                                    ]) }}"
-                                                        class="btn btn-sm btn-outline-success">
-                                                        Voir plus
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        {{-- <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h1 class="mb-0">ANNEE : {{ $annee }} / Statut : {{ $statut }}</h1>
+                        </div> --}}
 
                         <div class="pt-1">
                             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 
                                 {{-- Titre à gauche --}}
                                 <div class="d-flex align-items-center gap-2">
-                                    <a href="{{ route('operateurs.index') }}"
+                                    <a href="{{ route('operateurs.parAnnee', ['annee' => $annee]) }}"
                                         class="btn btn-outline-secondary btn-sm">
                                         <i class="bi bi-arrow-left-circle"></i> Retour à la liste
                                     </a> |
                                     <h6 class="mb-0 text-muted fw-semibold text-uppercase">
-                                        Liste des opérateurs {{ $annee }}
+                                        Liste des opérateurs {{ $statut }} en {{ $annee }}
                                     </h6>
                                 </div>
 

@@ -57,7 +57,7 @@ class OperateurController extends Controller
         $query = Operateur::query();
 
         // Filtre dynamique si besoin plus tard
-        if ($statut = $request->query('statut_agrement')) {
+        /* if ($statut = $request->query('statut_agrement')) {
             $query->where('statut_agrement', $statut);
         } else {
             $query->whereIn('statut_agrement', [
@@ -66,7 +66,7 @@ class OperateurController extends Controller
                 'Extension',
                 'Renouvellement'
             ]);
-        }
+        } */
 
         // Liste principale
         $operateurs = $query
@@ -150,8 +150,51 @@ class OperateurController extends Controller
         return view('operateurs.par_annee', compact(
             'operateurs',
             'groupes',
+            'affichees',
             'total',
             'annee'
+        ));
+    }
+
+    public function parAnneeEtStatut(Request $request, $annee, $statut)
+    {
+        // Base query filtrée par année ET statut
+        $query = Operateur::whereYear('annee_agrement', $annee)
+            ->where('statut_agrement', $statut);
+
+        // Total pour cette combinaison
+        $totalOperateurs = number_format($query->count(), 0, ',', ' ');
+
+        // Liste principale (limité à 200 par exemple)
+        $operateurs = $query
+            ->orderByDesc('created_at')
+            ->limit(200)
+            ->get();
+
+        // Départements si nécessaire
+        $departements = Departement::orderBy('nom')->get(['id', 'nom']);
+
+        // Groupement éventuel (par exemple pour afficher d’autres statuts dans la même année)
+        $groupes = Operateur::whereYear('annee_agrement', $annee)
+            ->select('statut_agrement', DB::raw('COUNT(*) as total'))
+            ->groupBy('statut_agrement')
+            ->orderByDesc('total')
+            ->get();
+
+        $affichees = $operateurs->count();
+        $total     = $totalOperateurs ?? ($operateurs instanceof \Illuminate\Pagination\LengthAwarePaginator
+            ? $operateurs->total()
+            : $operateurs?->count());
+
+        return view('operateurs.par_annee_et_statut', compact(
+            'operateurs',
+            'groupes',
+            'totalOperateurs',
+            'total',
+            'affichees',
+            'annee',
+            'statut',
+            'departements'
         ));
     }
 

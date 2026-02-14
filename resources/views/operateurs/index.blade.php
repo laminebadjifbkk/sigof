@@ -219,6 +219,41 @@
                                 @endif
                             </div>
                         </div>
+
+
+                        <div class="pt-1">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+                                {{-- Titre à gauche --}}
+                                <div class="d-flex align-items-center gap-2">
+                                    <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                                        Liste des opérateurs
+                                    </h6>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-2 text-info fw-semibold">
+                                    <i class="bi bi-list-ul me-1"></i>
+                                    <span>
+                                        Affichage :
+                                        <span class="text-dark">{{ $affichees }}</span>
+                                        sur
+                                        <span class="text-dark">{{ $total }}</span> demandes
+                                    </span>
+                                </div>
+
+                                {{-- Boutons à droite --}}
+                                @can('individuelle-create')
+                                    <div class="d-flex align-items-center gap-2">
+                                        <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#generate_rapport">
+                                            Rechercher plus
+                                        </button>
+                                    </div>
+                                @endcan
+
+                            </div>
+                        </div>
+
                         @if ($operateurs->isNotEmpty())
                             <div class="table-responsive">
                                 <table
