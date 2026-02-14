@@ -222,6 +222,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Collective::class, 'users_id')->latest();
     }
+    public function collective()
+    {
+        return $this->hasOne(Collective::class, 'users_id')->latest();
+    }
 
     public function pcharges()
     {

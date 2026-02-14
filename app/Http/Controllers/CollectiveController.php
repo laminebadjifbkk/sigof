@@ -856,11 +856,27 @@ class CollectiveController extends Controller
     }
     public function demandesCollective(Request $request)
     {
+
+        $user = Auth::user();
+
+        $collective = $user?->collective;
+
+        $modules = $collective?->collectivemodules ?? collect();
+
+        $totalModules = $modules->count();
+
+        $totalEffectif = $modules
+            ->flatMap(fn($m) => $m->listecollectives ?? collect())
+            ->count();
+
+        $totalFormes = $modules
+            ->where('statut', 'formé')
+            ->count();
+
         $departements     = Departement::latest()->get();
-        $modules          = Module::latest()->get();
-        $user             = Auth::user();
-        $collective       = $user->collectives()->first(); // Récupère le plus récent grâce à `latest() definie dans le modele User`
-        $collective_total = $user->collectives()->count(); // Compte le nombre total de collectives
+        /* $modules          = Module::latest()->get(); */
+        /* $collective       = $user->collectives()->first(); // Récupère le plus récent grâce à `latest() definie dans le modele User`
+        $collective_total = $user->collectives()->count(); // Compte le nombre total de collectives */
 
         $files = File::where('users_id', $collective?->user?->id)
             ->whereNotNull('file') // Utilisation de whereNotNull pour plus de clarté
@@ -886,10 +902,24 @@ class CollectiveController extends Controller
             ->unique('sigle') // Évite les doublons sur le champ "sigle"
             ->values();       // Réindexe proprement la collection (0, 1, 2, ...)
 
-        if ($collective_total == 0) {
-            return view("collectives.show-collective-aucune", compact("collective_total", "departements", "modules"));
+        if (empty($user->collective)) {
+            return view("collectives.show-collective-aucune", compact("departements", "modules"));
         } else {
-            return view("collectives.show-collective", compact("collective_total", "departements", "modules", "files", "user_files"));
+            return view(
+                "collectives.show-collective",
+                compact(
+                    "user",
+                    "departements",
+                    "modules",
+                    "files",
+                    "user_files",
+                    'collective',
+                    'modules',
+                    'totalModules',
+                    'totalEffectif',
+                    'totalFormes'
+                )
+            );
         }
     }
 
