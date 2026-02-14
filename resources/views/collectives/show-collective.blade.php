@@ -583,8 +583,11 @@
                                 <input type="hidden" name="idUser" value="{{ $user?->id }}">
 
                                 <div class="alert alert-warning py-2 small">
-                                    <strong>NB :</strong> Seul l'acte de création est exigé.
-                                </div>
+    <strong>NB :</strong>
+    L’acte de création, le NINEA ou toute autre pièce justifiant l’existence légale de votre structure 
+    est obligatoire, ainsi que la copie de la CNI du responsable.
+</div>
+
 
                                 {{-- Légende --}}
                                 <div class="mb-3">
