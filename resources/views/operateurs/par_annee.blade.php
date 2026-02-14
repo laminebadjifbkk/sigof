@@ -192,7 +192,7 @@
                                     <thead class="table-primary">
                                         <tr>
                                             <th scope="col" style="width: 50px;">N°</th>
-                                            <th scope="col">Années</th>
+                                            <th scope="col">Statut</th>
                                             <th scope="col" class="text-center">Opérateurs</th>
                                             <th scope="col" style="width: 120px;">Actions</th>
                                         </tr>
