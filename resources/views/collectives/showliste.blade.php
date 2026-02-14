@@ -38,12 +38,19 @@
                     @endforeach
                 @endif
                 <div class="card">
-                    <ul class="nav nav-tabs nav-tabs-bordered">
+                    {{-- <ul class="nav nav-tabs nav-tabs-bordered">
                         <li class="nav-item">
-                            <span class="nav-link"><a href="{{ route('collectives.show', $collectivemodule->collective) }}"
+                            <span class="nav-link"><a href="{{ route('demandesCollective') }}"
                                     class="btn btn-secondary btn-sm" title="retour"><i
                                         class="bi bi-arrow-counterclockwise"></i></a>
                             </span>
+                        </li>
+                    </ul> --}}
+                    <ul class="nav nav-tabs nav-tabs-bordered">
+                        <li class="nav-item">
+                            <a href="{{ route('demandesCollective') }}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-arrow-left"></i> Retour
+                            </a>
                         </li>
                     </ul>
                     <div class="card-body">
