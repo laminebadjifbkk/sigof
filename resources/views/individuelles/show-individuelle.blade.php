@@ -32,11 +32,15 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mt-0">
-                            <span class="d-flex align-items-baseline"><a href="{{ url('/profil') }}"
+                            {{-- <span class="d-flex align-items-baseline"><a href="{{ url('/profil') }}"
                                     class="btn btn-success btn-sm" title="retour"><i
                                         class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                 <p> | retour</p>
-                            </span>
+                            </span> --}}
+
+                            <a href="{{ url('/profil') }}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-arrow-left"></i> Retour
+                            </a>
                             <button type="button" class="btn btn-info btn-sm">
                                 <span class="badge bg-white text-info">{{ $individuelle_total }} sur 3</span>
                             </button>
