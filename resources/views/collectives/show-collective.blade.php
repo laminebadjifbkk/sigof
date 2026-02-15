@@ -659,7 +659,7 @@
                             </h5>
 
                             <div class="table-responsive">
-                                <table class="table table-bordered table-hover align-middle">
+                                <table class="table table-bordered table-sm table-hover align-middle">
 
                                     <thead class="table-light text-center">
                                         <tr>

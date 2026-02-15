@@ -353,7 +353,7 @@
                                                 </h5>
 
                                                 <div class="table-responsive">
-                                                    <table class="table table-bordered table-hover align-middle">
+                                                    <table class="table table-bordered table-sm table-hover align-middle">
 
                                                         <thead class="table-light">
                                                             <tr>
@@ -371,7 +371,7 @@
                                                             @foreach ($files as $file)
                                                                 <tr>
                                                                     <td>{{ $i++ }}</td>
-                                                                    <td class="text-start">{{ $file->sigle }}</td>
+                                                                    <td class="text-start">{{ $file->legende }}</td>
 
                                                                     <td>
                                                                         <a class="btn btn-outline-secondary btn-sm"
