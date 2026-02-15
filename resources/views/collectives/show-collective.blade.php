@@ -1,5 +1,6 @@
 @extends('layout.user-layout')
-@section('title', 'Mon dossier de demandes collectives')
+@section('title',  'DEMANDE COLLECTIVE DE ' . strtoupper($user?->civilite . ' ' . $user?->firstname . ' ' .
+    $user?->name))
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
@@ -143,7 +144,7 @@
                             <div>
                                 <h4 class="fw-bold text-primary mb-1">
                                     <i class="bi bi-folder-check me-2"></i>
-                                    Dossier N° {{ $collective?->numero ?? '-' }}
+                                    Dossier n° {{ $collective?->numero ?? '-' }}
                                 </h4>
 
                                 <small class="text-muted">

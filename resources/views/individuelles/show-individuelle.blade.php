@@ -1,6 +1,6 @@
 @extends('layout.user-layout')
-@section('title', 'DEMANDE INDIVIDUELLE DE ' . strtoupper(Auth::user()->civilite . ' ' . Auth::user()->firstname . ' ' .
-    Auth::user()->name))
+@section('title', 'DEMANDE INDIVIDUELLE DE ' . strtoupper($user?->civilite . ' ' . $user?->firstname . ' ' .
+    $user?->name))
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
@@ -27,102 +27,233 @@
                     @endforeach
                 @endif
                 <div class="card">
-                    <div class="card-header text-center bg-gradient-default">
-                        <h1 class="h4 text-black mb-0">DEMANDES INDIVIDUELLES</h1>
+
+                    {{-- HEADER GLOBAL --}}
+                    <div class="card-body bg-light border-bottom">
+
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+                            <div>
+                                <h4 class="fw-bold text-primary mb-1">
+                                    <i class="bi bi-folder-check me-2"></i>
+                                    Dossier n° {{ $user?->cin ?? '-' }}
+                                </h4>
+
+                                {{-- <small class="text-muted">
+                                    {{ $user->civilite }} {{ $user->firstname }} {{ $user->name }}
+                                </small> --}}
+                            </div>
+
+                            <a href="{{ url('/profil') }}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-arrow-left"></i> Retour
+                            </a>
+
+                        </div>
+
                     </div>
+
+                    {{-- INFORMATIONS DEMANDE --}}
+                    <div class="card-body border-bottom">
+
+                        <div class="row g-4">
+
+                            {{-- STRUCTURE --}}
+                            <div class="col-md-6">
+
+                                <h6 class="fw-bold text-primary mb-3">
+                                    <i class="bi bi-building me-1"></i>
+                                    Informations personnelles
+                                </h6>
+
+                                <div class="small text-muted">
+
+                                    <div><strong>Prénom :</strong>
+                                        {{ $user->firstname }}
+                                    </div>
+
+                                    <div><strong>Nom :</strong>
+                                        {{ $user->name }}
+                                    </div>
+
+                                    <div><strong>Date naissance :</strong>
+                                        {{ $user->date_naissance->format('d/m/Y') }}
+                                    </div>
+
+                                    <div><strong>Lieu naissance :</strong>
+                                        {{ $user->lieu_naissance }}
+                                    </div>
+
+                                    <div><strong>Email :</strong>
+                                        <a href="mailto:{{ $user->email }}">
+                                            {{ $user->email }}
+                                        </a>
+                                    </div>
+
+                                    <div><strong>Téléphone :</strong>
+                                        <a href="tel:+221{{ $user->telephone }}">
+                                            {{ $user->telephone }}
+                                        </a>
+                                    </div>
+
+                                    <div><strong>Adresse :</strong>
+                                        {{ $user->adresse ?? '-' }}
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            {{-- RESPONSABLE --}}
+                            {{-- <div class="col-md-6">
+
+                                <h6 class="fw-bold text-primary mb-3">
+                                    <i class="bi bi-person-badge me-1"></i>
+                                    Responsable
+                                </h6>
+
+                                <div class="small text-muted">
+
+                                    <div><strong>Nom :</strong>
+                                        {{ $collective->civilite_responsable }}
+                                        {{ $collective->prenom_responsable }}
+                                        {{ $collective->nom_responsable }}
+                                    </div>
+
+                                    <div><strong>Email :</strong>
+                                        <a href="mailto:{{ $collective->email_responsable }}">
+                                            {{ $collective->email_responsable }}
+                                        </a>
+                                    </div>
+
+                                    <div><strong>Téléphone :</strong>
+                                        <a href="tel:+221{{ $collective->telephone_responsable }}">
+                                            {{ $collective->telephone_responsable }}
+                                        </a>
+                                    </div>
+
+                                    <div><strong>Fonction :</strong>
+                                        {{ $collective->fonction_responsable ?? '-' }}
+                                    </div>
+
+                                </div>
+
+                            </div> --}}
+
+                        </div>
+
+                        {{-- STATUT + ACTION --}}
+                        {{-- <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-2">
+
+                            <span class="{{ $collective->statut_demande }}">
+                                {{ $collective->statut_demande }}
+                            </span>
+
+                            <a href="{{ route('collectives.show', $collective) }}" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-eye"></i> Voir les détails
+                            </a>
+
+                            <div class="text-center">
+                                <a href="{{ route('collectives.edit', $collective) }}"
+                                    class="btn btn-outline-success btn-sm" title="Modifier">Modifier</a>
+                            </div>
+
+                        </div> --}}
+
+                    </div>
+
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mt-0">
+                        <div class="d-flex justify-content-between align-items-center mb-5">
                             {{-- <span class="d-flex align-items-baseline"><a href="{{ url('/profil') }}"
                                     class="btn btn-success btn-sm" title="retour"><i
                                         class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                 <p> | retour</p>
                             </span> --}}
-
-                            <a href="{{ url('/profil') }}" class="btn btn-outline-secondary btn-sm">
-                                <i class="bi bi-arrow-left"></i> Retour
-                            </a>
                             <button type="button" class="btn btn-info btn-sm">
                                 <span class="badge bg-white text-info">{{ $individuelle_total }} sur 3</span>
                             </button>
-                            @if ($individuelle_total < 3 && !empty(Auth::user()?->cin))
+                            @if ($individuelle_total < 3 && !empty($user?->cin))
                                 <button type="button"
                                     class="btn btn-success btn-sm float-end rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
-                                    data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal{{ Auth::user()?->id }}">
+                                    data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal{{ $user?->id }}">
                                     <i class="bi bi-plus-circle-fill"></i>
                                     Formuler une autre demande
                                 </button>
                             @endif
                         </div>
-                        <h5 class="card-title">
+                        {{-- <h5 class="card-title">
                             Bonjour
-                            {{ Auth::user()?->civilite . ' ' . Auth::user()?->firstname . ' ' . Auth::user()?->name }}
-                        </h5>
-                        <table class="table table-bordered table-hover table-borderless">
-                            <thead>
-                                <tr class="text-center">
-                                    <th width="8%">Choix n°</th>
-                                    {{-- <th width="8%">Numéro</th> --}}
-                                    <th width="8%">Dépôt</th>
-                                    <th width="12%">Département</th>
-                                    <th width="12%">Région</th>
-                                    {{-- <th width="15%">Niveau étude</th>
-                                    <th width="15%">Diplome académique</th> --}}
-                                    {{-- <th width="15%">Diplome professionnel</th> --}}
-                                    <th>Module</th>
-                                    <th width="5%">Statut</th>
-                                    <th style="width:5%;"><i class="bi bi-gear"></i></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php $i = 1; @endphp
-                                @foreach ($individuelles as $individuelle)
-                                    <tr class="text-center">
-                                        <td>{{ $i++ }}</td>
-                                        {{-- <td>{{ $individuelle?->numero }}</td> --}}
-                                        <td>{{ $individuelle?->date_depot?->format('d/m/Y') }}</td>
-                                        <td>{{ $individuelle?->departement?->nom }}</td>
-                                        <td>{{ $individuelle?->departement?->region?->nom }}</td>
-                                        <td>{{ $individuelle?->module?->name }}</td>
-                                        {{-- <td>{{ $individuelle?->niveau_etude }}</td>
-                                            <td>{{ $individuelle?->diplome_academique }}</td> --}}
-                                        {{-- <td>{{ $individuelle?->diplome_professionnel }}</td> --}}
-                                        <td>
-                                            <span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="d-flex align-items-baseline">
-                                                <a href="{{ route('individuelles.show', $individuelle) }}"
-                                                    class="btn btn-success btn-sm" title="voir détails"><i
-                                                        class="bi bi-eye"></i></a>
-                                                <div class="filter">
-                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                        <li><a class="dropdown-item btn btn-sm"
-                                                                href="{{ route('individuelles.edit', $individuelle) }}"
-                                                                class="mx-1" title="Modifier"><i
-                                                                    class="bi bi-pencil"></i>Modifier</a>
-                                                        </li>
-                                                        <li>
-                                                            <form
-                                                                action="{{ route('individuelles.destroy', $individuelle) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="dropdown-item show_confirm"
-                                                                    title="Supprimer"><i
-                                                                        class="bi bi-trash"></i>Supprimer</button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </span>
-                                        </td>
+                            {{ $user?->civilite . ' ' . $user?->firstname . ' ' . $user?->name }}
+                        </h5> --}}
+                        <div class="table-responsive">
+                            <table class="table align-middle table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th width="8%" class="text-center">Choix n°</th>
+                                        <th>Module</th>
+                                        {{-- <th width="8%">Numéro</th> --}}
+                                        <th width="8%">Dépôt</th>
+                                        <th>Département</th>
+                                        <th>Région</th>
+                                        <th width="15%">Niveau étude</th>
+                                    <th width="15%">Diplôme</th>
+                                        {{-- <th width="15%">Diplome professionnel</th> --}}
+                                        <th width="5%">Statut</th>
+                                        <th style="width:5%;"><i class="bi bi-gear"></i></th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @php $i = 1; @endphp
+                                    @foreach ($individuelles as $individuelle)
+                                        <tr>
+                                            <td class="text-center">{{ $i++ }}</td>
+                                            <td class="fw-semibold text-primary">{{ $individuelle?->module?->name }}</td>
+                                            {{-- <td>{{ $individuelle?->numero }}</td> --}}
+                                            <td>{{ $individuelle?->date_depot?->format('d/m/Y') }}</td>
+                                            <td>{{ $individuelle?->departement?->nom }}</td>
+                                            <td>{{ $individuelle?->departement?->region?->nom }}</td>
+                                            <td>{{ $individuelle?->niveau_etude }}</td>
+                                            <td>{{ $individuelle?->diplome_academique }}</td>
+                                            {{-- <td>{{ $individuelle?->diplome_professionnel }}</td> --}}
+                                            <td>
+                                                <span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="d-flex align-items-baseline">
+                                                    <a href="{{ route('individuelles.show', $individuelle) }}"
+                                                        class="btn btn-success btn-sm" title="voir détails"><i
+                                                            class="bi bi-eye"></i></a>
+                                                    <div class="filter">
+                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                class="bi bi-three-dots"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            <li><a class="dropdown-item btn btn-sm"
+                                                                    href="{{ route('individuelles.edit', $individuelle) }}"
+                                                                    class="mx-1" title="Modifier"><i
+                                                                        class="bi bi-pencil"></i>Modifier</a>
+                                                            </li>
+                                                            <li>
+                                                                <form
+                                                                    action="{{ route('individuelles.destroy', $individuelle) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="dropdown-item show_confirm"
+                                                                        title="Supprimer"><i
+                                                                            class="bi bi-trash"></i>Supprimer</button>
+                                                                </form>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                         {{-- </form> --}}
                         @can('upload-file-view')
 
@@ -454,9 +585,9 @@
 
         {{-- Ajouter un autre choix --}}
 
-        @foreach (Auth::user()?->individuelles as $individuelle)
+        @foreach ($user?->individuelles as $individuelle)
             <div class="col-12 d-flex flex-column align-items-center justify-content-center">
-                <div class="modal fade" id="AddIndividuelleModal{{ Auth::user()?->id }}" tabindex="-1">
+                <div class="modal fade" id="AddIndividuelleModal{{ $user?->id }}" tabindex="-1">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
                             <form method="post" action="{{ route('individuelles.store') }}"
