@@ -318,9 +318,9 @@
                                     Formations demandées
                                 </h6>
 
-                                <button class="btn btn-success btn-sm" data-bs-toggle="modal"
+                                <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#AddcollectiveModuleModal">
-                                    <i class="bi bi-plus-circle"></i> Ajouter
+                                    <i class="bi bi-plus-circle"></i> Ajouter formation
                                 </button>
                             </div>
 
@@ -583,11 +583,11 @@
                                 <input type="hidden" name="idUser" value="{{ $user?->id }}">
 
                                 <div class="alert alert-warning py-2 small">
-    <strong>NB :</strong>
-    L’acte de création, le NINEA ou toute autre pièce justifiant l’existence légale de votre structure 
-    est obligatoire, ainsi que la copie de la CNI du responsable.
-</div>
-
+                                    <strong>NB :</strong>
+                                    L’acte de création, le NINEA ou toute autre pièce justifiant l’existence légale de votre
+                                    structure
+                                    est obligatoire, ainsi que la copie de la CNI du responsable.
+                                </div>
 
                                 {{-- Légende --}}
                                 <div class="mb-3">
@@ -595,7 +595,8 @@
                                         Légende <span class="text-danger">*</span>
                                     </label>
 
-                                    <select name="legende" class="form-select form-select-sm @error('legende') is-invalid @enderror">
+                                    <select name="legende"
+                                        class="form-select form-select-sm @error('legende') is-invalid @enderror">
 
                                         <option value="">Choisir...</option>
 
@@ -685,17 +686,9 @@
                                                 </td>
 
                                                 <td>
-                                                    @php
-                                                        $statut = $file->statut ?? 'Attente';
-                                                        $badgeClass = match ($statut) {
-                                                            'Validé' => 'success',
-                                                            'Rejeté', 'Invalide' => 'danger',
-                                                            default => 'secondary',
-                                                        };
-                                                    @endphp
-
-                                                    <span class="badge bg-{{ $badgeClass }}">
-                                                        {{ $statut }}
+                                        
+                                                    <span class="{{ $file?->statut }}">
+                                                        {{ $file?->statut }}
                                                     </span>
                                                 </td>
 
