@@ -896,7 +896,7 @@ class CollectiveController extends Controller
 
         $user_files = File::whereNull('file')
             ->whereNull('users_id')
-            ->whereIn('sigle', ['AC', 'Arrêté', 'Ninea/RC', 'CIN', 'Autres', 'CR'])
+            ->whereIn('sigle', ['AC', 'Arrêté', 'Ninea/RC', 'CIN', 'Autres', 'CR', 'CIN'])
             ->orderBy('sigle', 'asc')
             ->get()
             ->unique('sigle') // Évite les doublons sur le champ "sigle"
