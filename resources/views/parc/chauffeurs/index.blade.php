@@ -1,109 +1,204 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Formations')
+@section('title', 'ONFP - Liste des chauffeurs')
+
 @section('space-work')
+    <section class="section register">
+        <div class="container">
+            <div class="row mb-4">
+                <!-- Total chauffeur -->
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                    <div class="card shadow-sm text-center p-2" style="min-height: 140px; border-radius: 10px;">
+                        <h6 class="card-title mb-2 text-truncate" title="Total chauffeur" style="font-size:0.85rem;">
+                            Total
+                        </h6>
+                        <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                            <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
+                                style="width:28px; height:28px; font-size:1rem;">
+                                <i class="bi bi-flag"></i>
+                            </div>
+                            <span class="h6 mb-0" style="font-size:1rem;">{{ $totalChauffeurs }}</span>
+                            {{-- <small class="text-muted" style="font-size:0.7rem;">chauffeur(s)</small> --}}
+                        </div>
 
-    <div class="pagetitle">
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('/home') }}">Accueil</a></li>
-                <li class="breadcrumb-item">Tables</li>
-                <li class="breadcrumb-item active">Données</li>
-            </ol>
-        </nav>
-    </div>
+                        <!-- Barre de pourcentage -->
+                        <div class="mb-2">
+                            <div class="progress" style="height:6px; border-radius:3px;">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%;"></div>
+                            </div>
+                            <small class="text-muted">100%</small>
+                        </div>
 
-    <section class="section">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">CONVENTIONS & DETF</h4>
-                        <table class="table datatables table-bordered table-hover align-middle justify-content-center"
-                            id="table-formations">
-                            <thead>
-                                <tr>
-                                    <th width='18%' class="text-center">N° Convention.</th>
-                                    {{-- <th width='12%' class="text-center">Date Conv.</th> --}}
-                                    {{-- <th width='15%'>Type formation</th> --}}
-                                    <th>Bénéficiaires</th>
-                                    <th width='10%'>Région</th>
-                                    <th width='15%'>Modules</th>
-                                    <th width='8%'>Conv.</th>
-                                    {{-- <th width='8%'>DETF</th> --}}
-                                    <th width='5%' class="text-center">Statut</th>
-                                    <th width='5%' class="text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($conventions as $formation)
-                                    <tr>
-                                        <td style="text-align: center">{{ $formation?->numero_convention }} <br>
-                                            @if (!empty($formation?->date_convention))
-                                                {{ 'du ' . $formation?->date_convention?->format('d/m/Y') }}
-                                            @endif
-                                        </td>
-                                        {{-- <td style="text-align: center">{{ $formation?->date_convention?->format('d/m/Y') }}
-                                        </td> --}}
-                                        {{--  <td><a>{{ $formation->types_formation?->name }}</a></td> --}}
-                                        <td>{{ $formation?->name }}</td>
-                                        <td>{{ $formation->departement?->region?->nom }}</td>
-                                        <td>
-                                            {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
-                                        </td>
-                                        <td style="text-align: center">
-                                            @if (!empty($formation?->file_convention))
-                                                <a class="btn btn-outline-secondary btn-sm" title="Convention"
-                                                    target="_blank" href="{{ asset($formation->getFileConvention()) }}">
-                                                    <i class="bi bi-file-earmark-pdf"></i>
-                                                </a>
-                                            @else
-                                                <div class="badge bg-warning">Aucun</div>
-                                            @endif
-                                        </td>
-                                        {{-- <td style="text-align: center">
-                                            @if (!empty($formation?->detf_file))
-                                                <a class="btn btn-outline-secondary btn-sm" title="DETF" target="_blank"
-                                                    href="{{ asset($formation->getFileDetf()) }}">
-                                                    <i class="bi bi-file-earmark-pdf"></i>
-                                                </a>
-                                            @else
-                                                <div class="badge bg-warning">Aucun</div>
-                                            @endif
-                                        </td> --}}
-                                        <td class="text-center"><a><span
-                                                    class="{{ $formation?->statut }}">{{ $formation?->statut }}</span></a>
-                                        </td>
-                                        @can('formation-show')
-                                            <td class="text-center">
-                                                <!-- Bouton Voir détails -->
-                                                <a href="{{ route('formations.show', $formation) }}"
-                                                    class="btn btn-primary btn-sm" title="Voir les détails">
-                                                    <i class="bi bi-eye"></i>
-                                                </a>
-                                            </td>
-                                        @endcan
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <!-- Bouton voir plus -->
+                        <a href="{{ route('parc-chauffeurs.index') }}" class="btn btn-outline-primary btn-sm w-100"
+                            style="font-size:0.75rem;">
+                            Voir plus <i class="bi bi-arrow-right-short"></i>
+                        </a>
                     </div>
                 </div>
+                @foreach ($groupes as $statut_s => $items)
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+                        <div class="card shadow-sm text-center p-2" style="min-height: 120px; border-radius: 10px;">
+
+                            <!-- Statut_s -->
+                            <h6 class="card-title mb-2 text-truncate" title="Chauffeurs" style="font-size: 0.85rem;">
+                                Chauffeurs
+                            </h6>
+
+                            <!-- Badge Statut_s -->
+                            <span class="etat-btn {{ $statut_s }}">
+                                {{ ucfirst(str_replace('fie', 'fié', str_replace('_', ' ', $statut_s))) . '(s)' }}
+                            </span>
+
+                            <!-- Nombre et icône -->
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2 mt-2">
+                                {{-- <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
+                                    style="width: 36px; height: 36px; font-size: 1rem;">
+                                    <i class="bi bi-flag"></i>
+                                </div> --}}
+                                <span class="h6 mb-0" style="font-size: 1rem;">
+                                    {{ $items->count() }}
+                                </span>
+                                {{-- <small class="text-muted" style="font-size: 0.7rem;">chauffeur(s)</small> --}}
+                            </div>
+
+                            <!-- Pourcentage -->
+                            <div class="mb-2">
+                                <div class="progress" style="height:6px; border-radius:3px;">
+                                    <div class="progress-bar bg-success" role="progressbar"
+                                        style="width: {{ $statutPourcentages[$statut_s]['percent'] }}%;"></div>
+                                </div>
+                                <small class="text-muted">{{ $statutPourcentages[$statut_s]['percent'] }}%</small>
+                            </div>
+
+                            <!-- Bouton voir plus -->
+                            <a href="{{ route('parc-chauffeurs.index', ['statut' => $statut_s]) }}"
+                                class="btn btn-outline-primary btn-sm w-100" style="font-size: 0.75rem;">
+                                Voir plus <i class="bi bi-arrow-right-short"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                @endforeach
             </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="mb-0">Liste des chauffeurs <span
+                        class="etat-btn {{ $statut }}">{{ str_replace('_', ' ', $statut) }}</span></h3>
+                <a href="{{ route('parc-chauffeurs.create') }}" class="btn btn-sm btn-primary">
+                    <i class="bi bi-person-plus"></i> Ajouter un chauffeur
+                </a>
+            </div>
+
+            @if (session('status'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('status') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <table class="table table-hover table-striped shadow-sm" id="table-parc-chauffeur">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-center" width="10%">Matricule</th>
+                        <th>Nom</th>
+                        <th>Véhicule</th>
+                        {{-- <th>Prénom</th> --}}
+                        {{-- <th>Téléphone</th> --}}
+                        <th class="text-center" width="15%">Missions {{ now()->year }}</th>
+                        <th class="text-center" width="12%">N° permis</th>
+                        {{-- <th class="text-center" width="12%">Catégorie</th> --}}
+                        <th>Permis expire</th>
+                        {{-- <th class="text-center" width="5%">Statut</th> --}}
+                        <th class="text-center" width="12%">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($chauffeurs as $chauffeur)
+                        @php
+                            $missionsCount = $chauffeur?->employee?->parcmissions?->count() ?? 0;
+                        @endphp
+
+                        <tr>
+                            <td class="text-center">{{ $chauffeur?->employee?->matricule }}</td>
+                            <td>{{ $chauffeur?->employee?->user?->firstname . ' ' . $chauffeur?->employee?->user?->name }}
+                            </td>
+                            <td class="text-center">{{ $chauffeur?->vehicule?->immatriculation }}</td>
+                            <td class="text-center">
+                                <span class="badge bg-secondary">
+                                    {{ $chauffeur?->employee?->parcmissions?->count() }}
+                                </span>
+                                {{-- <span class="badge bg-secondary">
+                                    {{ $chauffeur->missions_annee_count }}
+                                </span> --}}
+                            </td>
+                            {{-- <td>{{ $chauffeur->prenom }}</td> --}}
+                            {{-- <td>{{ $chauffeur->telephone }}</td> --}}
+                            <td class="text-center">{{ $chauffeur?->permis_numero }}</td>
+                            {{-- <td class="text-center">{{ $chauffeur->permis_categories }}</td> --}}
+                            {{-- <td>{{ $chauffeur->permis_expire_le->format('d/m/Y') }}</td> --}}
+                            <td>
+                                <span class="{{ $chauffeur?->permis_classe }}">
+                                    {{ $chauffeur?->permis_restant }}
+                                </span>
+                            </td>
+                            {{-- <td class="text-center">
+                                <span class="badge {{ $chauffeur->statut == 'actif' ? 'bg-success' : 'bg-danger' }}">
+                                    {{ ucfirst($chauffeur->statut) }}
+                                </span>
+                            </td> --}}
+                            <td class="text-center">
+                                <span class="d-flex align-items-baseline justify-content-center gap-1">
+                                    <a href="{{ route('parc-chauffeurs.show', $chauffeur->id) }}"
+                                        class="btn btn-sm btn-info btn-sm">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="{{ route('parc-chauffeurs.edit', $chauffeur->id) }}"
+                                        class="btn btn-sm btn-warning btn-sm">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <form action="{{ route('parc-chauffeurs.destroy', $chauffeur->id) }}" method="POST"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="btn btn-sm btn-danger show_confirm"
+                                            {{ $missionsCount > 0 ? 'disabled' : '' }}
+                                            title="{{ $missionsCount > 0 ? 'Chauffeur affecté à des missions' : 'Supprimer le chauffeur' }}">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+
+                                </span>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </section>
-
 @endsection
+
+
 @push('scripts')
     <script>
-        new DataTable('#table-formations', {
+        new DataTable('#table-parc-chauffeur', {
+            ordering: true, // désactive le tri automatique
             layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [
-                [0, 'desc']
+                [2, 'desc']
             ],
             language: {
                 "sProcessing": "Traitement en cours...",
