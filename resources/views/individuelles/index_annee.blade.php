@@ -55,7 +55,7 @@
                                                     Voir plus <i class="bi bi-arrow-right-short"></i>
                                                 </a>
                                             </td> --}}
-                                            <td>
+                                            {{-- <td>
                                                 @if ($row->region)
                                                     <a href="{{ route('individuelles.parAnneeRegion', ['annee' => $annee, 'region' => $row->region->nom]) }}"
                                                         class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
@@ -64,6 +64,15 @@
                                                 @else
                                                     <span class="text-muted">Aucune région</span>
                                                 @endif
+                                            </td> --}}
+                                            <td>
+                                                <a href="{{ route('individuelles.parAnneeRegion', [
+                                                    'annee' => $annee,
+                                                    'region' => $row->region?->nom ?? '',
+                                                ]) }}"
+                                                    class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
+                                                    Voir plus <i class="bi bi-arrow-right-short"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
