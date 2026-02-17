@@ -22,15 +22,16 @@
                             id="table-formations">
                             <thead>
                                 <tr>
-                                    <th width='10%' class="text-center">Conv.</th>
+                                    <th width='18%' class="text-center">N° Convention.</th>
                                     {{-- <th width='12%' class="text-center">Date Conv.</th> --}}
                                     {{-- <th width='15%'>Type formation</th> --}}
                                     <th>Bénéficiaires</th>
                                     <th width='10%'>Région</th>
                                     <th width='15%'>Modules</th>
                                     <th width='8%'>Conv.</th>
-                                    <th width='8%'>DETF</th>
+                                    {{-- <th width='8%'>DETF</th> --}}
                                     <th width='5%' class="text-center">Statut</th>
+                                    <th width='5%' class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,12 +49,7 @@
                                         <td>{{ $formation?->name }}</td>
                                         <td>{{ $formation->departement?->region?->nom }}</td>
                                         <td>
-                                            @isset($formation?->module?->name)
-                                                {{ $formation?->module?->name }}
-                                            @endisset
-                                            @isset($formation?->collectivemodule?->module)
-                                                {{ $formation?->collectivemodule?->module }}
-                                            @endisset
+                                            {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
                                         </td>
                                         <td style="text-align: center">
                                             @if (!empty($formation?->file_convention))
@@ -65,7 +61,7 @@
                                                 <div class="badge bg-warning">Aucun</div>
                                             @endif
                                         </td>
-                                        <td style="text-align: center">
+                                        {{-- <td style="text-align: center">
                                             @if (!empty($formation?->detf_file))
                                                 <a class="btn btn-outline-secondary btn-sm" title="DETF" target="_blank"
                                                     href="{{ asset($formation->getFileDetf()) }}">
@@ -74,10 +70,19 @@
                                             @else
                                                 <div class="badge bg-warning">Aucun</div>
                                             @endif
-                                        </td>
+                                        </td> --}}
                                         <td class="text-center"><a><span
                                                     class="{{ $formation?->statut }}">{{ $formation?->statut }}</span></a>
                                         </td>
+                                        @can('formation-show')
+                                            <td class="text-center">
+                                                <!-- Bouton Voir détails -->
+                                                <a href="{{ route('formations.show', $formation) }}"
+                                                    class="btn btn-primary btn-sm" title="Voir les détails">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </td>
+                                        @endcan
                                     </tr>
                                 @endforeach
                             </tbody>

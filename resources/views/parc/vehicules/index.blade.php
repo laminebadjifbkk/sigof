@@ -102,8 +102,9 @@
             <table class="table table-hover table-striped shadow-sm" id="table-parc-vehicule">
                 <thead class="table-dark">
                     <tr>
-                        <th>Immatriculation</th>
+                        <th>Matricule</th>
                         <th>Marque</th>
+                        <th>Chauffeur</th>
                         {{-- <th>Modèle</th> --}}
                         <th class="text-center" width="5%">Année</th>
                         <th class="text-center" width="8%">Kilométrage</th>
@@ -118,6 +119,7 @@
                         <tr>
                             <td>{{ $vehicule->immatriculation }}</td>
                             <td>{{ $vehicule->marque }}</td>
+                            <td>{{ $vehicule?->chauffeur?->employee?->user?->firstname . ' ' . $vehicule?->chauffeur?->employee?->user?->name }}</td>
                             {{-- <td>{{ $vehicule->modele }}</td> --}}
                             <td class="text-center">{{ $vehicule->annee }}</td>
                             <td class="text-center">{{ number_format($vehicule?->kilometrage_actuel, 0, ',', ' ') }}</td>

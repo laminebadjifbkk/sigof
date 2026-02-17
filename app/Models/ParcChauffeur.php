@@ -42,9 +42,14 @@ class ParcChauffeur extends Model
     {
         return $this->hasMany(ParcAffectation::class, 'chauffeur_id');
     }
-    public function vehicules()
+    /* public function vehicules()
     {
         return $this->hasMany(ParcVehicule::class, 'chauffeur_id');
+    } */
+
+    public function vehicule()
+    {
+        return $this->hasOne(ParcVehicule::class, 'chauffeur_id');
     }
 
     public function getPermisExpireLeFormattedAttribute()
