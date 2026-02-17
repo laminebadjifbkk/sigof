@@ -50,7 +50,7 @@
                                             <td>{{ $row->region->nom ?? 'Inconnu' }}</td>
                                             <td>{{ number_format($row->total, 0, '', ' ') }}</td>
                                             <td>
-                                                <a href="{{ route('individuelles.parAnneeRegion', ['annee' => $annee, 'region' => $row->region->nom]) }}"
+                                                <a href="{{ route('individuelles.parAnneeRegion', ['annee' => $annee, 'region' => $row?->region?->nom]) }}"
                                                     class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
                                                     Voir plus <i class="bi bi-arrow-right-short"></i>
                                                 </a>
