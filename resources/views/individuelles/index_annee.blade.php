@@ -47,13 +47,23 @@
                                     @foreach ($groupes as $row)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $row->region->nom ?? 'Inconnu' }}</td>
+                                            <td>{{ $row?->region?->nom ?? '' }}</td>
                                             <td>{{ number_format($row->total, 0, '', ' ') }}</td>
-                                            <td>
+                                            {{-- <td>
                                                 <a href="{{ route('individuelles.parAnneeRegion', ['annee' => $annee, 'region' => $row?->region?->nom]) }}"
                                                     class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
                                                     Voir plus <i class="bi bi-arrow-right-short"></i>
                                                 </a>
+                                            </td> --}}
+                                            <td>
+                                                @if ($row->region)
+                                                    <a href="{{ route('individuelles.parAnneeRegion', ['annee' => $annee, 'region' => $row->region->nom]) }}"
+                                                        class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
+                                                        Voir plus <i class="bi bi-arrow-right-short"></i>
+                                                    </a>
+                                                @else
+                                                    <span class="text-muted">Aucune région</span>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
