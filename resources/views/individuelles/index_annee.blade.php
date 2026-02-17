@@ -68,7 +68,7 @@
                                             <td>
                                                 <a href="{{ route('individuelles.parAnneeRegion', [
                                                     'annee' => $annee,
-                                                    'region' => $row->region?->nom ?? '',
+                                                    'region' => $row->region?->nom ?? 'sans-region',
                                                 ]) }}"
                                                     class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
                                                     Voir plus <i class="bi bi-arrow-right-short"></i>
