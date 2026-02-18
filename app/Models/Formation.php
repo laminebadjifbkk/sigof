@@ -11,7 +11,10 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 /**
  * Class Formation
@@ -674,5 +677,42 @@ class Formation extends Model
     {
         return $this->hasMany(Listecollective::class, 'formations_id')
             ->where('statut', 'formé');
+    }
+
+    private function forceDeleteFormation(Formation $formation)
+    {
+        DB::transaction(function () use ($formation) {
+
+            // 🔓 Libérer les clés étrangères
+            $formation->update([
+                'individuelles_id'     => null,
+                'collectivemodules_id' => null,
+                'listecollectives_id'  => null,
+                'operateurs_id'  => null,
+                'ingenieurs_id'  => null,
+                "code"                 => $formation->code . '/' . $formation->id,
+            ]);
+
+            // 🗑 Supprimer fichiers
+            $files = [
+                'file_convention',
+                'detf_file',
+                'file_pv',
+                'lettre_mission_file',
+                'file_lettre_dec',
+                'abe_file',
+            ];
+
+            foreach ($files as $file) {
+                if (!empty($formation->$file)) {
+                    Storage::disk('public')->delete($formation->$file);
+                }
+            }
+
+            $formation->delete();
+        });
+
+        Alert::success('Succès !', 'La formation a été supprimée avec succès.');
+        return back();
     }
 }

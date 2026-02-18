@@ -828,8 +828,7 @@ class FormationController extends Controller
     {
         $type = optional($formation->types_formation)->name;
 
-        // Vérifier s’il existe des relations bloquantes
-        /* if ($type === "collective" && $formation->listecollectives()->exists()) {
+        if ($type === "collective" && $formation->listecollectives()->exists()) {
             Alert::warning('Avertissement !', 'La suppression est impossible.');
             return back();
         }
@@ -837,16 +836,24 @@ class FormationController extends Controller
         if ($type === "individuelle" && $formation->individuelles()->exists()) {
             Alert::warning('Avertissement !', 'La suppression est impossible.');
             return back();
-        } */
+        }
 
-        // Si type collective ou individuelle → suppression définitive
-        if (in_array($type, ["collective", "individuelle"])) {
+        return $this->forceDeleteFormation($formation);
+    }
+
+
+    // 👇 AJOUTE CETTE MÉTHODE ICI
+    private function forceDeleteFormation(Formation $formation)
+    {
+        DB::transaction(function () use ($formation) {
 
             $formation->update([
-                "code" => $formation->code . '/' . $formation->id,
+                'individuelles_id'     => null,
+                'collectivemodules_id' => null,
+                'listecollectives_id'  => null,
+                "code"                 => $formation->code . '/' . $formation->id,
             ]);
 
-            // Liste des fichiers à supprimer
             $files = [
                 'file_convention',
                 'detf_file',
@@ -863,25 +870,11 @@ class FormationController extends Controller
             }
 
             $formation->delete();
-
-            Alert::success('Succès !', 'La formation a été supprimée avec succès.');
-            return back();
-        }
-
-        // Sinon → suppression logique
-        $formation->update([
-            "statut" => "supprimer",
-        ]);
-
-        Statut::create([
-            "statut"        => "supprimer",
-            "formations_id" => $formation->id,
-        ]);
+        });
 
         Alert::success('Succès !', 'La formation a été supprimée avec succès.');
         return back();
     }
-
 
     public function addformationdemandeurs($idformation, $idmodule, $idlocalite)
     {
