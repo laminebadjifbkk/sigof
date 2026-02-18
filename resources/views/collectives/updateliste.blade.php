@@ -63,7 +63,7 @@
                                 @method('PUT')
                                 <div class="row g-3">
                                     <input type="hidden" name="collective" value="{{ $listecollective->collective }}">
-                                    <div class="col-12 col-md-4 mb-0">
+                                    {{-- <div class="col-12 col-md-4 mb-0">
                                         <label for="cin" class="form-label">CIN<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input name="cin" type="text"
@@ -71,6 +71,40 @@
                                             id="cin" value="{{ old('cin') ?? $listecollective?->cin }}"
                                             autocomplete="off" placeholder="Ex: 1 099 2005 00012" minlength="16"
                                             maxlength="17" required>
+                                        @error('cin')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div> --}}
+
+                                    <div class="col-12 col-md-4 mb-0">
+                                        <label class="form-label">
+                                            Type de pièce <span class="required">*</span>
+                                        </label>
+                                        <select name="type_piece" id="type_piece" class="form-select form-select-sm">
+                                            <option value="">-- Choisir --</option>
+                                            <option value="cni"
+                                                {{ (old('type_piece') ?? $listecollective?->type_piece) === 'cni' ? 'selected' : '' }}>
+                                                Carte nationale</option>
+                                            <option value="extrait"
+                                                {{ (old('type_piece') ?? $listecollective?->type_piece) === 'extrait' ? 'selected' : '' }}>
+                                                Extrait de naissance</option>
+                                            <option value="passeport"
+                                                {{ (old('type_piece') ?? $listecollective?->type_piece) === 'passeport' ? 'selected' : '' }}>
+                                                Passeport</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-12 col-md-4 mb-0">
+                                        <label for="num_piece" class="form-label" id="numero_piece_label">
+                                            Numéro de la pièce <span class="required">*</span>
+                                        </label>
+                                        <input name="cin" type="text"
+                                            class="form-control form-control-sm @error('cin') is-invalid @enderror"
+                                            id="num_piece" value="{{ old('cin') ?? $listecollective?->cin }}"
+                                            autocomplete="off" placeholder="Ex : 1099200500012" minlength="13"
+                                            maxlength="14" required>
                                         @error('cin')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -278,3 +312,75 @@
     </section>
 
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const typePiece = document.getElementById('type_piece');
+            const numeroInput = document.getElementById('num_piece');
+            const numeroLabel = document.getElementById('numero_piece_label');
+
+            function updateNumeroPiece(type, value = '') {
+                // Si on passe une valeur (édition), on la garde
+                if (value) {
+                    numeroInput.value = value;
+                } else {
+                    numeroInput.value = '';
+                }
+
+                switch (type) {
+                    case 'cni':
+                        numeroLabel.innerHTML = 'Numéro de la carte nationale <span class="required">*</span>';
+                        numeroInput.placeholder = 'Ex : 1099200500012';
+                        numeroInput.setAttribute('minlength', 13);
+                        numeroInput.setAttribute('maxlength', 14);
+                        numeroInput.setAttribute('pattern', '\\d{13,14}');
+                        break;
+
+                    case 'extrait':
+                        numeroLabel.innerHTML = 'Numéro de l’extrait de naissance <span class="required">*</span>';
+                        numeroInput.placeholder = 'Ex : 12345';
+                        numeroInput.setAttribute('minlength', 5);
+                        numeroInput.setAttribute('maxlength', 5);
+                        numeroInput.setAttribute('pattern', '\\d{5}');
+                        break;
+
+                    case 'passeport':
+                        numeroLabel.innerHTML = 'Numéro du passeport <span class="required">*</span>';
+                        numeroInput.placeholder = 'Ex : A12345678';
+                        numeroInput.setAttribute('minlength', 9);
+                        numeroInput.setAttribute('maxlength', 9);
+                        numeroInput.removeAttribute('pattern');
+                        break;
+
+                    default:
+                        numeroLabel.innerHTML = 'Numéro de la pièce <span class="required">*</span>';
+                        numeroInput.placeholder = '';
+                        numeroInput.removeAttribute('minlength');
+                        numeroInput.removeAttribute('maxlength');
+                        numeroInput.removeAttribute('pattern');
+                        break;
+                }
+            }
+
+            // 🔹 Initialisation au chargement
+            // Récupère la valeur du type sélectionné + valeur CIN
+            const typeValue = typePiece.value;
+            const cinValue = numeroInput.value;
+            updateNumeroPiece(typeValue, cinValue);
+
+            // 🔹 Changement dynamique
+            typePiece.addEventListener('change', function() {
+                updateNumeroPiece(this.value);
+            });
+
+            // 🔹 Limiter la saisie côté front selon maxlength
+            numeroInput.addEventListener('input', function() {
+                const max = this.getAttribute('maxlength');
+                if (max && this.value.length > max) {
+                    this.value = this.value.slice(0, max);
+                }
+            });
+        });
+    </script>
+@endpush

@@ -76,7 +76,7 @@ class ArriveController extends Controller
 
         $arrives = $query
             ->latest()
-            ->limit(100)
+            ->limit(500)
             ->get();
 
         /* $groupes = Arrive::join('courriers', 'courriers.id', '=', 'arrives.courriers_id')

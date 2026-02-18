@@ -39,14 +39,8 @@ class ListecollectiveController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'cin'            => [
-                'required',
-                'string',
-                'min:16',
-                'max:17',
-                Rule::unique(Listecollective::class)->whereNull('deleted_at'),
-            ],
+        $rules = [
+            "type_piece"     => "required|in:cni,extrait,passeport",
             "civilite"       => "required|string",
             "firstname"      => "required|string",
             "name"           => "required|string",
@@ -55,13 +49,63 @@ class ListecollectiveController extends Controller
             "module"         => "required|string",
             "niveau_etude"   => "nullable|string",
             "telephone"      => "nullable|string|min:9|max:12",
-        ]);
+        ];
 
-        $dateString     = $request->input('date_naissance');
-        $date_naissance = Carbon::createFromFormat('d/m/Y', $dateString);
+        // Validation dynamique du numéro
+        switch ($request->type_piece) {
+
+            case 'cni':
+                $rules['cin'] = [
+                    'required',
+                    'regex:/^[0-9]{13,14}$/',
+                    Rule::unique('listecollectives', 'cin')->whereNull('deleted_at'),
+                ];
+                break;
+
+            case 'extrait':
+                $rules['cin'] = [
+                    'required',
+                    'regex:/^[0-9]{5}$/',
+                ];
+                break;
+
+            case 'passeport':
+                $rules['cin'] = [
+                    'required',
+                    'regex:/^[A-Za-z0-9]{9}$/',
+                ];
+                break;
+
+            default:
+                $rules['cin'] = ['required'];
+        }
+        $request->validate($rules);
+
+        // Préfixe selon type
+        switch ($request->type_piece) {
+            case 'cni':
+                $cin = $request->input('cin');
+                break;
+            case 'extrait':
+                $cin = 'EXT. ' . $request->input('cin');
+                break;
+            case 'passeport':
+                $cin = 'PPT. ' . $request->input('cin');
+                break;
+            default:
+                $cin = $request->input('cin');
+                break;
+        }
+
+        /* $dateString     = $request->input('date_naissance');
+        $date_naissance = Carbon::createFromFormat('d/m/Y', $dateString); */
+
+        $date_naissance = $request->input('date_naissance')
+            ? Carbon::createFromFormat('d/m/Y', $request->input('date_naissance'))
+            : null;
 
         $membre = Listecollective::create([
-            'cin'                  => $request->input('cin'),
+            'cin'                  => $cin,
             'civilite'             => $request->input('civilite'),
             'prenom'               => format_proper_name($request->input('firstname')),
             'nom'                  => remove_accents_uppercase($request->input('name')),
@@ -117,7 +161,7 @@ class ListecollectiveController extends Controller
 
     public function update(Request $request, Listecollective $listecollective)
     {
-        $this->validate($request, [
+        /* $this->validate($request, [
             'cin'            => [
                 'required',
                 'string',
@@ -133,14 +177,69 @@ class ListecollectiveController extends Controller
             "module"         => "required|string",
             "niveau_etude"   => "nullable|string",
             "telephone"      => "nullable|string|min:9|max:12",
-        ]);
+        ]); */
+
+        $rules = [
+            "type_piece"     => "required|in:cni,extrait,passeport",
+            "civilite"       => "required|string",
+            "firstname"      => "required|string",
+            "name"           => "required|string",
+            'date_naissance' => ['nullable', 'date_format:d/m/Y'],
+            "lieu_naissance" => "required|string",
+            "module"         => "required|string",
+            "niveau_etude"   => "nullable|string",
+            "telephone"      => "nullable|string|min:9|max:12",
+        ];
+
+        // Validation dynamique du numéro selon type_piece
+        switch ($request->type_piece) {
+            case 'cni':
+                $rules['cin'] = [
+                    'required',
+                    'regex:/^[0-9]{13,14}$/',
+                    Rule::unique('listecollectives', 'cin')->ignore($listecollective->id)->whereNull('deleted_at')
+                ];
+                break;
+            case 'extrait':
+                $rules['cin'] = [
+                    'required',
+                    'regex:/^[0-9]{5}$/'
+                ];
+                break;
+            case 'passeport':
+                $rules['cin'] = [
+                    'required',
+                    'regex:/^[A-Za-z0-9]{9}$/'
+                ];
+                break;
+            default:
+                $rules['cin'] = ['required'];
+        }
+
+        $request->validate($rules);
+
+        // Préfixe selon type
+        switch ($request->type_piece) {
+            case 'cni':
+                $cin = $request->input('cin');
+                break;
+            case 'extrait':
+                $cin = 'EXT. ' . $request->input('cin');
+                break;
+            case 'passeport':
+                $cin = 'PPT. ' . $request->input('cin');
+                break;
+            default:
+                $cin = $request->input('cin');
+                break;
+        }
 
         /* $listecollective = Listecollective::find($id); */
         $dateString     = $request->input('date_naissance');
         $date_naissance = Carbon::createFromFormat('d/m/Y', $dateString);
 
         $listecollective->update([
-            'cin'                  => $request->input('cin'),
+            'cin'                  => $cin,
             'civilite'             => $request->input('civilite'),
             'prenom'               => format_proper_name($request->input('firstname')),
             'nom'                  => remove_accents_uppercase($request->input('name')),

@@ -151,13 +151,41 @@
                                 <div class="row g-3">
                                     <input type="hidden" name="collective"
                                         value="{{ $collectivemodule->collective->id }}">
+
                                     <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6">
+                                        <label class="form-label">
+                                            Type de pièce <span class="required">*</span>
+                                        </label>
+                                        <select name="type_piece" id="type_piece" class="form-select form-select-sm">
+                                            <option value="">-- Choisir --</option>
+                                            <option value="cni">Carte nationale</option>
+                                            <option value="extrait">Extrait de naissance</option>
+                                            <option value="passeport">Passeport</option>
+                                        </select>
+                                    </div>
+
+                                    {{-- <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6">
                                         <label for="cin" class="form-label">CIN<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input name="cin" type="text"
                                             class="form-control form-control-sm @error('cin') is-invalid @enderror"
                                             id="cin" value="{{ old('cin') }}" autocomplete="off"
                                             placeholder="Ex: 1 099 2005 00012" minlength="16" maxlength="17" required>
+                                        @error('cin')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div> --}}
+
+                                    <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6" id="numero_piece_wrapper">
+                                        <label class="form-label" id="numero_piece_label">
+                                            Numéro de la pièce <span class="required">*</span>
+                                        </label>
+                                        <input name="cin" type="text"
+                                            class="form-control form-control-sm @error('cin') is-invalid @enderror"
+                                            id="num_cin" value="{{ old('cin') }}" autocomplete="off"
+                                            placeholder="Ex: 1099200500012" minlength="13" maxlength="14" required>
                                         @error('cin')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -539,6 +567,76 @@
                     }
                 }
             }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            /* ===============================
+             * PIECE D'IDENTITE DYNAMIQUE
+             * =============================== */
+            const typePiece = document.getElementById('type_piece');
+            const numeroWrapper = document.getElementById('numero_piece_wrapper');
+            const numeroLabel = document.getElementById('numero_piece_label');
+            const numeroInput = document.getElementById('num_cin');
+
+            if (!typePiece || !numeroInput) return;
+
+            typePiece.addEventListener('change', function() {
+
+                if (!this.value) {
+                    numeroWrapper.classList.add('d-none');
+                    resetNumeroInput();
+                    return;
+                }
+
+                numeroWrapper.classList.remove('d-none');
+                resetNumeroInput();
+
+                switch (this.value) {
+
+                    case 'extrait':
+                        numeroLabel.innerHTML =
+                            'Numéro de l’extrait de naissance <span class="required">*</span>';
+                        numeroInput.placeholder = 'Ex : 12345';
+                        numeroInput.setAttribute('minlength', 5);
+                        numeroInput.setAttribute('maxlength', 5);
+                        numeroInput.setAttribute('pattern', '\\d{5}');
+                        break;
+
+                    case 'passeport':
+                        numeroLabel.innerHTML = 'Numéro du passeport <span class="required">*</span>';
+                        numeroInput.placeholder = 'Ex : A12345678';
+                        numeroInput.setAttribute('minlength', 9);
+                        numeroInput.setAttribute('maxlength', 9);
+                        break;
+
+                    case 'cni':
+                        numeroLabel.innerHTML =
+                            'Numéro de la carte nationale <span class="required">*</span>';
+                        numeroInput.placeholder = 'Ex : 1099200500012';
+                        numeroInput.setAttribute('minlength', 13);
+                        numeroInput.setAttribute('maxlength', 14);
+                        numeroInput.setAttribute('pattern', '\\d{13,14}');
+                        break;
+                }
+            });
+
+            function resetNumeroInput() {
+                numeroInput.value = '';
+                numeroInput.removeAttribute('minlength');
+                numeroInput.removeAttribute('maxlength');
+                numeroInput.removeAttribute('pattern');
+            }
+
+            /* ===============================
+             * SECURITE LONGUEUR EN SAISIE
+             * =============================== */
+            numeroInput.addEventListener('input', function() {
+                const max = this.getAttribute('maxlength');
+                if (max && this.value.length > max) {
+                    this.value = this.value.slice(0, max);
+                }
+            });
+
         });
     </script>
 @endpush
