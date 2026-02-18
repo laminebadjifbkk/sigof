@@ -95,12 +95,6 @@ class IndividuelleController extends Controller
             ->limit(100)
             ->get();
 
-        /* $groupes = Individuelle::select(DB::raw('YEAR(date_depot) as annee'))
-            ->selectRaw('COUNT(*) as total')
-            ->groupBy('annee')
-            ->orderByDesc('annee') // du plus grand au plus petit
-            ->get(); */
-
         $groupes = Individuelle::select(DB::raw('YEAR(date_depot) as annee'))
             ->selectRaw('COUNT(*) as total')
             ->groupBy('annee')
@@ -424,6 +418,7 @@ class IndividuelleController extends Controller
 
         return Redirect::back();
     }
+
     public function individuellesStore(Request $request)
     {
         $this->validate($request, [
@@ -1309,28 +1304,25 @@ class IndividuelleController extends Controller
         $groupes = Individuelle::select(DB::raw('YEAR(date_depot) as annee'))
             ->selectRaw('COUNT(*) as total')
             ->groupBy('annee')
-            ->get();
-
-        /* $count = $individuelles?->count(); */
-
-        /* if (isset($count) && $count < "1") {
-            $title = 'aucune demande trouvée';
-        } elseif (isset($count) && $count == "1") {
-            $title = $count . ' demande trouvée';
-        } else {
-            $title = $count . ' demandes trouvées';
-        } */
+            ->orderByDesc('annee')
+            ->paginate(1); // ← une ligne par page
 
         $totalIndividuelles = number_format($individuelles?->count(), 0, ',', ' ');
 
         $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
-        /* $modules = Module::orderBy("created_at", "desc")->get(); */
+
+        $affichees = $individuelles?->count();
+        $total     = $totalIndividuelles ?? ($individuelles instanceof \Illuminate\Pagination\LengthAwarePaginator
+            ? $individuelles->total()
+            : $individuelles?->count());
+
         return view('individuelles.index', compact(
             'individuelles',
             'departements',
             'totalIndividuelles',
+            'affichees',
+            'total',
             'groupes'
-            /* 'title' */
         ));
     }
 
