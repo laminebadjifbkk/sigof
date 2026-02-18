@@ -805,6 +805,13 @@ class ArriveController extends Controller
 
         $totalArrives = number_format($arrives->count(), 0, ',', ' ');
 
+        $groupes = Arrive::join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
+            ->select('courriers.annee')
+            ->selectRaw('COUNT(arrives.id) as total')
+            ->groupBy('courriers.annee')
+            ->orderBy('courriers.annee', 'desc')
+            ->paginate(1); // ← une ligne par page
+
         $affichees = $arrives?->count();
         $total     = $totalArrives ?? ($arrives instanceof \Illuminate\Pagination\LengthAwarePaginator
             ? $arrives->total()
@@ -816,6 +823,7 @@ class ArriveController extends Controller
             'totalArrives',
             'affichees',
             'total',
+            'groupes',
             /* 'title' */
         ));
     }
