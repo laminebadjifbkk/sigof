@@ -165,7 +165,7 @@
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Prévisualisation du scan</div>
                                         <div class="col-lg-9 col-md-8">
-                                            {{-- @if (isset($arrive?->courrier?->file))
+                                            @if (isset($arrive?->courrier?->file))
                                                 <a href="{{ asset($arrive?->courrier?->getFile()) }}" target="_blank"
                                                     class="btn btn-primary btn-sm">
                                                     <i class="bi bi-download"></i> Télécharger le scan
@@ -173,8 +173,8 @@
                                             @else
                                                 <div class="alert alert-info mt-2">Aucun fichier disponible pour ce
                                                     courrier.</div>
-                                            @endif --}}
-                                            <div class="border rounded bg-light p-2" style="height:350px; overflow:auto;">
+                                            @endif
+                                            {{-- <div class="border rounded bg-light p-2" style="height:350px; overflow:auto;">
                                                 @if ($arrive->courrier->file)
                                                     @if (Str::endsWith($arrive->courrier->file, ['.pdf']))
                                                         <embed id="pdfPreview"
@@ -190,7 +190,7 @@
                                                         disponible
                                                     </div>
                                                 @endif
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
 
