@@ -195,7 +195,7 @@ class IndividuelleController extends Controller
         // Statut optionnel
         $statutFiltre = $request->query('statut');
 
-        if ($region === 'sans-region') {
+        /* if ($region === 'sans-region') {
             // Cas demandes sans région
             $regionNom = 'Sans région';
 
@@ -218,7 +218,7 @@ class IndividuelleController extends Controller
                 ->first();
 
             dd($individuelle->user);
-        }
+        } */
         // Région depuis le nom
         $region = Region::where('nom', $region)->firstOrFail();
 
