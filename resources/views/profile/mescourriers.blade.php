@@ -144,39 +144,23 @@
 
                                                             <div class="border rounded bg-light p-2"
                                                                 style="height:300px; overflow:auto;">
-                                                                {{-- @if ($arrive->courrier->file)
-                                                                    @if (Str::endsWith($arrive->courrier->file, ['.pdf']))
-                                                                        <embed id="pdfPreview"
-                                                                            src="{{ asset('storage/' . $arrive->courrier->file) }}"
-                                                                            type="application/pdf" width="100%"
-                                                                            height="100%">
-                                                                    @else
-                                                                        <img id="imagePreview"
-                                                                            src="{{ asset('storage/' . $arrive->courrier->file) }}"
-                                                                            style="max-width:100%; max-height:100%;" />
-                                                                    @endif
-                                                                @else
-                                                                    <div id="noPreview" class="text-center text-muted mt-5">
-                                                                        Aucun scan
-                                                                        disponible
-                                                                    </div>
-                                                                @endif --}}
+                                                                @php
+                                                                    $fileUrl = asset(
+                                                                        'storage/' . $arrive->courrier->file,
+                                                                    );
+                                                                    $filePath = storage_path(
+                                                                        'app/public/' . $arrive->courrier->file,
+                                                                    );
+                                                                @endphp
+
                                                                 <div class="border rounded bg-light p-2"
                                                                     style="height:300px; overflow:auto;">
-                                                                    @if ($arrive->courrier->file && file_exists(storage_path('app/public/' . $arrive->courrier->file)))
-                                                                        @php
-                                                                            $fileUrl = asset(
-                                                                                'storage/' . $arrive->courrier->file,
-                                                                            );
-                                                                        @endphp
-
+                                                                    @if ($arrive->courrier->file && file_exists($filePath))
                                                                         @if (Str::endsWith($arrive->courrier->file, ['.pdf']))
-                                                                            <!-- Affichage PDF avec preview -->
                                                                             <embed src="{{ $fileUrl }}"
                                                                                 type="application/pdf" width="100%"
                                                                                 height="100%">
                                                                         @else
-                                                                            <!-- Affichage image -->
                                                                             <img src="{{ $fileUrl }}"
                                                                                 style="max-width:100%; max-height:100%;"
                                                                                 alt="Scan du courrier">
