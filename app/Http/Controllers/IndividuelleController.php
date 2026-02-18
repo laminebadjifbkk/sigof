@@ -190,13 +190,39 @@ class IndividuelleController extends Controller
         ));
     }
 
-    /* public function parAnneeRegion(Request $request, $annee, $region)
+    public function parAnneeRegion(Request $request, $annee, $region)
     {
-        // Région depuis le nom
-        $region = Region::where('nom', $region)->firstOrFail();
-
         // Statut optionnel
         $statutFiltre = $request->query('statut');
+
+        if ($region === 'sans-region') {
+            // Cas demandes sans région
+            $regionNom = 'Sans région';
+
+            $baseQuery = Individuelle::whereYear('date_depot', $annee)
+                ->whereNull('regions_id');
+
+            $total = $baseQuery->count();
+            $totalIndividuelles = number_format($total, 0, ',', ' ');
+
+            $groupesRegionStatut = Individuelle::select('statut')
+                ->selectRaw('COUNT(*) as total')
+                ->whereYear('date_depot', $annee)
+                ->whereNull('regions_id')
+                ->groupBy('statut')
+                ->get();
+
+            $individuelles = Individuelle::whereYear('date_depot', $annee)
+                ->whereNull('regions_id')
+                ->when($statutFiltre, fn($q) => $q->where('statut', $statutFiltre))
+                ->orderByDesc('id')
+                ->limit(100)
+                ->get();
+
+            dd($individuelles);
+        }
+        // Région depuis le nom
+        $region = Region::where('nom', $region)->firstOrFail();
 
         // =======================================
         // Base query (année + région)
@@ -249,83 +275,6 @@ class IndividuelleController extends Controller
         return view('individuelles.index_annee_region', compact(
             'annee',
             'region',
-            'regionNom',
-            'totalIndividuelles',
-            'statutPourcentages',
-            'groupesRegionStatut',
-            'individuelles',
-            'departements',
-            'statutFiltre'
-        ));
-    } */
-
-    public function parAnneeRegion(Request $request, $annee, $region)
-    {
-        $statutFiltre = $request->query('statut');
-
-        if ($region === 'sans-region') {
-            // Cas demandes sans région
-            $regionNom = 'Sans région';
-
-            $baseQuery = Individuelle::whereYear('date_depot', $annee)
-                ->whereNull('regions_id');
-
-            $total = $baseQuery->count();
-            $totalIndividuelles = number_format($total, 0, ',', ' ');
-
-            $groupesRegionStatut = Individuelle::select('statut')
-                ->selectRaw('COUNT(*) as total')
-                ->whereYear('date_depot', $annee)
-                ->whereNull('regions_id')
-                ->groupBy('statut')
-                ->get();
-
-            $individuelles = Individuelle::whereYear('date_depot', $annee)
-                ->whereNull('regions_id')
-                ->when($statutFiltre, fn($q) => $q->where('statut', $statutFiltre))
-                ->orderByDesc('id')
-                ->limit(100)
-                ->get();
-        } else {
-            // Cas classique : région existante
-            $regionModel = Region::where('nom', $region)->firstOrFail();
-            $regionNom = $regionModel->nom;
-
-            $baseQuery = Individuelle::whereYear('date_depot', $annee)
-                ->where('regions_id', $regionModel->id);
-
-            $total = $baseQuery->count();
-            $totalIndividuelles = number_format($total, 0, ',', ' ');
-
-            $groupesRegionStatut = Individuelle::select('statut')
-                ->selectRaw('COUNT(*) as total')
-                ->whereYear('date_depot', $annee)
-                ->where('regions_id', $regionModel->id)
-                ->groupBy('statut')
-                ->get();
-
-            $individuelles = Individuelle::whereYear('date_depot', $annee)
-                ->where('regions_id', $regionModel->id)
-                ->when($statutFiltre, fn($q) => $q->where('statut', $statutFiltre))
-                ->orderByDesc('id')
-                ->limit(100)
-                ->get();
-        }
-
-        // Pourcentages par statut
-        $statutPourcentages = [];
-        foreach ($groupesRegionStatut as $row) {
-            $statut = $row->statut ?? 'Inconnu';
-            $statutPourcentages[$statut] = [
-                'count'   => $row->total,
-                'percent' => $total ? round($row->total * 100 / $total, 1) : 0,
-            ];
-        }
-
-        $departements = Departement::select('id', 'nom')->orderBy('nom')->get();
-
-        return view('individuelles.index_annee_region', compact(
-            'annee',
             'regionNom',
             'totalIndividuelles',
             'statutPourcentages',
