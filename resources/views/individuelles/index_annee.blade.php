@@ -40,7 +40,7 @@
                                         <th>#</th>
                                         <th>Régions</th>
                                         <th>Demandes reçues</th>
-                                        <th width="10%">Actions</th>
+                                        <th width="15%">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>

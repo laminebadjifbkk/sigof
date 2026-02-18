@@ -270,6 +270,12 @@ class IndividuelleController extends Controller
         $regionNom = $region->nom;
         $departements = Departement::select('id', 'nom')->orderBy('nom')->get();
 
+
+        $affichees = $individuelles?->count();
+        $total     = $totalIndividuelles ?? ($individuelles instanceof \Illuminate\Pagination\LengthAwarePaginator
+            ? $individuelles->total()
+            : $individuelles?->count());
+
         return view('individuelles.index_annee_region', compact(
             'annee',
             'region',
@@ -279,6 +285,8 @@ class IndividuelleController extends Controller
             'groupesRegionStatut',
             'individuelles',
             'departements',
+            'affichees',
+            'total',
             'statutFiltre'
         ));
     }

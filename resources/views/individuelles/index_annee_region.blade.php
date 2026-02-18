@@ -116,12 +116,12 @@
                                     </div>
 
                                     {{-- Total au centre --}}
-                                    @php
+                                    {{-- @php
                                         $affichees = $individuelles?->count(); // à adapter si tu fais une pagination
                                         $total =
                                             $totalIndividuelles ??
                                             ($individuelles?->total() ?? $individuelles?->count()); // en cas de pagination avec ->total()
-                                    @endphp
+                                    @endphp --}}
 
                                     <div class="d-flex align-items-center gap-2 text-info fw-semibold">
                                         <i class="bi bi-list-ul me-1"></i>
