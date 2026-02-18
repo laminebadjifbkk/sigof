@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Domaine;
@@ -6,6 +7,7 @@ use App\Models\Individuelle;
 use App\Models\Module;
 use App\Models\Region;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -20,7 +22,7 @@ class ModuleController extends Controller
         // or with specific guard
         /* $this->middleware(['role_or_permission:super-admin']); */
     }
-    public function index()
+    public function index(Request $request)
     {
         // Récupérer toutes les données en une seule requête par type
         /* $modules = Module::select('id', 'uuid', 'name', 'niveau_qualification', 'domaines_id', 'created_at') // ajoute ici uniquement les colonnes nécessaires
@@ -31,7 +33,27 @@ class ModuleController extends Controller
             ->latest('created_at')
             ->get(); */
 
-        $modules = Module::withCount('individuelles')->get();
+        // Total global
+        $total = Module::count();
+        $totalModules = number_format($total, 0, ',', ' ');
+
+        $query = Module::query();
+
+        if ($statut = $request->query('statut')) {
+            $query->where('statut', $statut);
+        }
+
+        $modules = $query
+            ->latest()
+            ->limit(100)
+            ->get();
+
+        $affichees = $modules?->count();
+        $total     = $totalModules ?? ($modules instanceof \Illuminate\Pagination\LengthAwarePaginator
+            ? $modules->total()
+            : $modules?->count());
+
+        /* $modules = Module::withCount('individuelles')->get(); */
 
         $domaines = Domaine::select('id', 'uuid', 'name', 'created_at') // ajoute ici uniquement les colonnes nécessaires
             ->latest('created_at')->get();
@@ -39,18 +61,18 @@ class ModuleController extends Controller
         $regions = Region::select('id', 'uuid', 'nom', 'created_at') // ajoute ici uniquement les colonnes nécessaires
             ->latest('created_at')->get();
 
-// Compter directement les modules sans récupérer toute la collection
-        $total_count  = Module::count();
+        // Compter directement les modules sans récupérer toute la collection
+        /* $total_count  = Module::count();
         $count_module = $modules->count();
 
-// Gestion du titre
+        // Gestion du titre
         if ($count_module === 0) {
             $title = 'Aucun module';
         } elseif ($count_module === 1) {
             $title = "$count_module module sur un total de $total_count";
         } else {
             $title = "Liste des $count_module modules sur un total de $total_count";
-        }
+        } */
 
         return view(
             "modules.index",
@@ -58,7 +80,9 @@ class ModuleController extends Controller
                 "modules",
                 "domaines",
                 "regions",
-                "title"
+                "affichees",
+                "total",
+                /* "title" */
             )
         );
     }
@@ -79,8 +103,11 @@ class ModuleController extends Controller
     public function update(Request $request, Module $module)
     {
         $this->validate($request, [
-            "name"                 => ["required", "string",
-                Rule::unique(Module::class)->ignore($module->id)->whereNull('deleted_at')],
+            "name"                 => [
+                "required",
+                "string",
+                Rule::unique(Module::class)->ignore($module->id)->whereNull('deleted_at')
+            ],
             "domaine"              => ["required", "string"],
             "niveau_qualification" => ["required", "string"],
         ]);
@@ -140,11 +167,15 @@ class ModuleController extends Controller
             ->where('modules_id', $idmodule)
             ->where('statut', $statut)->get();
 
-        return view("modules.modulestatutlocalite",
-            compact("module",
+        return view(
+            "modules.modulestatutlocalite",
+            compact(
+                "module",
                 "localite",
                 "individuelles",
-                "statut"));
+                "statut"
+            )
+        );
     }
 
     public function addModule(Request $request)
@@ -169,14 +200,14 @@ class ModuleController extends Controller
     public function destroy(Module $module)
     {
         /* $module = Module::find($id); */
-// Vérifiez si le module est lié à des demandes individuelles
+        // Vérifiez si le module est lié à des demandes individuelles
         if ($module->individuelles()->count() > 0) {
             // Si des demandes individuelles sont liées, empêchez la suppression
             Alert::warning('Attention !', 'Ce module est lié à une ou plusieurs demandes individuelles et ne peut pas être supprimé.');
             return redirect()->back();
         }
 
-// Si aucune demande individuelle n'est liée, procédez à la suppression
+        // Si aucune demande individuelle n'est liée, procédez à la suppression
         $module->delete();
 
         Alert::success('Succès !', 'Le module ' . $module->name . ' a été supprimé avec succès');
@@ -247,7 +278,7 @@ class ModuleController extends Controller
         // Définir l'assignation de $individuelle en fonction de $count
         $individuelle = ($count <= 1) ? 'demandeur' : 'demandeurs';
 
-// Définir le statut en fonction de la valeur de $request->statut
+        // Définir le statut en fonction de la valeur de $request->statut
         $statutMapping = [
             "Nouvelle" => ($count <= 1) ? 'Nouvelle' : 'Nouvelle',
             "Former"   => ($count <= 1) ? 'a terminé la formation' : 'ont terminé leur formation',
@@ -256,7 +287,7 @@ class ModuleController extends Controller
             "Retenue"  => ($count <= 1) ? 'Retenue' : 'Retenus',
         ];
 
-// Utiliser la valeur par défaut du statut si elle n'est pas dans le tableau de mapping
+        // Utiliser la valeur par défaut du statut si elle n'est pas dans le tableau de mapping
         $statut = $statutMapping[$request->statut] ?? $request->statut;
 
         $title = $count . ' ' . $individuelle . ' ' . $statut . ' en ' . $request->module . ' dans la région de  ' . $region->nom;
@@ -381,6 +412,5 @@ class ModuleController extends Controller
         }
 
         return view("modules.corbeille", compact("modules", "title"));
-
     }
 }

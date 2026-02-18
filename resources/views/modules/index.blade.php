@@ -48,24 +48,52 @@
                             data-bs-target="#AddIndividuelModal">
                             <i class="bi bi-plus" title="Ajouter"></i>
                         </button> --}}
-                            <div class="d-flex justify-content-between align-items-center">
+                            {{-- <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">{{ $title }}</h5>
                                 @can('module-create')
                                     <span class="d-flex align-items-baseline">
                                         <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
                                             data-bs-target="#AddIndividuelModal" title="Générer rapports">Ajouter</a>
-                                        {{-- <div class="filter">
-                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                class="bi bi-three-dots"></i></a>
-                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                            <li>
-                                                <button type="button" class="dropdown-item btn btn-sm" data-bs-toggle="modal"
-                                                    data-bs-target="#generate_rapport_module_region"></i>Rechercher</button>
-                                            </li>
-                                        </ul>
-                                    </div> --}}
                                     </span>
                                 @endcan
+                            </div> --}}
+                            <div class="pt-1">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+                                    {{-- Titre à gauche --}}
+                                    <div class="d-flex align-items-center gap-2">
+                                        <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                                            Liste des modules
+                                        </h6>
+                                    </div>
+
+                                    <div class="d-flex align-items-center gap-2 text-info fw-semibold">
+                                        <i class="bi bi-list-ul me-1"></i>
+                                        <span>
+                                            Affichage :
+                                            <span class="text-dark">{{ $affichees }}</span>
+                                            sur
+                                            <span class="text-dark">{{ $total }}</span> modules
+                                        </span>
+                                    </div>
+
+                                    {{-- Boutons à droite --}}
+                                    @can('individuelle-create')
+                                        <div class="d-flex align-items-center gap-2">
+                                            {{-- <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#AddIndividuelModal">
+                                                Ajouter
+                                            </a> --}}
+                                            <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
+                                                data-bs-target="#AddIndividuelModal" title="Générer rapports">Ajouter</a>
+                                            <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#generate_rapport">
+                                                Rechercher plus
+                                            </button>
+                                        </div>
+                                    @endcan
+
+                                </div>
                             </div>
                             <table class="table datatables align-middle justify-content-center" id="table-modules">
                                 <thead>
@@ -287,6 +315,51 @@
                     </div>
                 </div>
             @endforeach
+
+            <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog"
+                aria-labelledby="generate_rapportLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Générer une recherche<span class="text-danger mx-1">*</span></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="post" action="{{ route('individuelles.report') }}">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="module" class="form-label">Module</label>
+                                                    <input type="text" name="module" value="{{ old('module_name') }}"
+                                                        class="form-control form-control-sm @error('module_name') is-invalid @enderror"
+                                                        id="module_name" placeholder="Module" autofocus>
+                                                    <div id="countryList"></div>
+                                                    @error('module')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary btn-sm"
+                                            data-bs-dismiss="modal">Fermer</button>
+                                        <div class="text-center">
+                                            <button type="submit"
+                                                class="btn btn-primary btn-block submit_rapport btn-sm">Rechercher</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
     @endcan
 @endsection
