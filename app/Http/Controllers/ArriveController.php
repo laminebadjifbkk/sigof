@@ -188,7 +188,10 @@ class ArriveController extends Controller
         // Mise en forme du numéro de courrier en ajoutant des zéros au début
         $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT);
 
-        return view("courriers.arrives.create", compact('anneeEnCours', 'numCourrier'));
+        //recupérer le dernier courrier arrivés enregister
+        $arrive = Arrive::orderBy('id', 'desc')->first();
+
+        return view("courriers.arrives.create", compact('anneeEnCours', 'numCourrier', 'arrive'));
     }
 
     public function store(StoreArriveRequest $request): RedirectResponse

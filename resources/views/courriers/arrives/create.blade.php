@@ -27,6 +27,13 @@
                         <h4 class="mb-2 mb-md-0 text-primary fw-bold">
                             <i class="bi bi-journal-plus me-2"></i> Enregistrement Courrier Arrivé
                         </h4>
+                        <form action="{{ route('couponArrive') }}" method="post" target="_blank">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $arrive?->id }}">
+                            <button class="btn btn-outline-success btn-sm"><i class="fa fa-print"
+                                    aria-hidden="true"></i>Télécharger
+                                coupon dernier courrier</button>
+                        </form>
                         <a href="{{ route('arrives.index') }}"
                             class="btn btn-outline-primary btn-sm d-flex align-items-center">
                             <i class="bi bi-arrow-left-circle me-1"></i> Retour à la liste
@@ -42,7 +49,6 @@
 
                         <div class="row">
 
-                            {{-- ===================== LEFT : SCAN ===================== --}}
                             <div class="col-lg-6 border-end">
 
                                 <div class="mb-3">
