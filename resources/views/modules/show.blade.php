@@ -4,40 +4,37 @@
     @can('module-show')
         <section class="section">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            @foreach ($groupes as $statut => $items)
-                                <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
-                                    <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
-                                        <div class="card-body p-2">
-                                            <h5 class="card-title text-truncate mb-1" title="{{ $statut }}"
-                                                style="font-size: 1rem;">
-                                                {{ $statut }}
-                                            </h5>
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
-                                                    style="width: 32px; height: 32px; font-size: 1.25rem;">
-                                                    <i class="bi bi-people"></i>
-                                                </div>
-                                                <div class="ps-2">
-                                                    <h6 class="mb-0" style="font-size: 0.9rem;">
-                                                        {{ number_format($items->count(), 0, '', ' ') }}
-                                                    </h6>
-                                                    <span class="text-muted small">demandeur(s)</span>
-                                                </div>
+                <div class="card-body">
+                    <div class="row g-3"> <!-- AJOUT IMPORTANT -->
+                        @foreach ($groupes as $statut => $items)
+                            <div class="col-12 col-md-4 col-lg-2 col-xxl-2">
+                                <div class="card info-card sales-card shadow-sm h-100">
+                                    <div class="card-body p-2">
+                                        <h5 class="card-title text-truncate mb-1">
+                                            {{ $statut }}
+                                        </h5>
+
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                                style="width: 32px; height: 32px;">
+                                                <i class="bi bi-people"></i>
                                             </div>
-                                            <a href="#"
-                                                target="_blank"
-                                                class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
-                                                style="font-size: 0.85rem; gap: 6px;">
-                                                Voir plus <i class="bi bi-arrow-right-short"></i>
-                                            </a>
+
+                                            <div class="ps-2">
+                                                <h6 class="mb-0">
+                                                    {{ number_format($items->count(), 0, '', ' ') }}
+                                                </h6>
+                                                <span class="text-muted small">demandeur(s)</span>
+                                            </div>
                                         </div>
+
+                                        <a href="#" class="btn btn-outline-primary btn-sm w-100">
+                                            Voir plus
+                                        </a>
                                     </div>
                                 </div>
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-lg-12">
