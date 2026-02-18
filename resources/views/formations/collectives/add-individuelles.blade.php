@@ -34,15 +34,15 @@
                         <div class="p-1 mb-4 border rounded bg-light shadow-sm">
                             <div class="row text-center fw-semibold">
                                 <div class="col-md-4 mb-2">
-                                    <span class="text-secondary">📍 Région</span><br>
+                                    <span class="text-secondary">Région</span><br>
                                     <span class="fs-5 text-dark">{{ $localite->nom ?? 'Aucune' }}</span>
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <span class="text-secondary">📘 Module</span><br>
+                                    <span class="text-secondary">Module</span><br>
                                     <span class="fs-5 text-dark">{{ $module->name ?? 'Aucun' }}</span>
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <span class="text-secondary">👥 Effectif</span><br>
+                                    <span class="text-secondary">Effectif</span><br>
                                     <span class="fs-5 text-dark">{{ $individuelles->count() ?? 0 }}</span>
                                 </div>
                             </div>

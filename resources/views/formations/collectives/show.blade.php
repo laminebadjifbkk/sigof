@@ -373,7 +373,7 @@
                                                     <a class="btn btn-info btn-sm" title=""
                                                         href="{{ route('operateurs.show', $formation?->operateur) }}"><i
                                                             class="bi bi-eye"></i></a>&nbsp;
-                                                    <a href="{{ url('formationcollectiveoperateurs', ['$idformation' => $formation->id, '$idcollectivemodule' => $formation->collectivemodule->id, '$idlocalite' => $formation->departement->region->id]) }}"
+                                                    <a href="{{ url('formationcollectiveoperateurs', ['$idformation' => $formation?->id, '$idcollectivemodule' => $formation?->collectivemodule?->id, '$idlocalite' => $formation?->departement?->region?->id]) }}"
                                                         class="btn btn-primary float-end btn-sm">
                                                         <i class="bi bi-pencil" title="Changer opérateur"></i> </a>
                                                 @endcan

@@ -1349,6 +1349,10 @@ class FormationController extends Controller
         $formation = Formation::findOrFail($idformation);
 
         $formation->update([
+            "collectivemodules_id" => null,
+        ]);
+
+        $formation->update([
             "modules_id" => $request->input('module'),
         ]);
 
@@ -1374,6 +1378,10 @@ class FormationController extends Controller
         ]);
 
         $collectivemodule->save();
+
+        $formation->update([
+            "modules_id" => null,
+        ]);
 
         $formation->update([
             "collectivemodules_id" => $request->input('collectivemodule'),
