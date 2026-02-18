@@ -162,7 +162,7 @@
                                                                     </div>
                                                                 @endif
                                                             </div> --}}
-                                                            @php
+                                                            {{-- @php
                                                                 $fileUrl = $arrive?->courrier?->getFile();
                                                             @endphp
 
@@ -185,14 +185,14 @@
                                                                     <div class="text-center text-muted mt-5">Aucun scan
                                                                         disponible</div>
                                                                 @endif
-                                                            </div>
+                                                            </div> --}}
                                                             </label>
                                                             {{-- <a class="btn btn-outline-secondary btn-sm"
                                                                     title="télécharger le fichier joint" target="_blank"
                                                                     href="{{ asset($arrive->courrier->getFile()) }}">
                                                                     <i class="bi bi-download"></i>
                                                                 </a> --}}
-                                                            {{-- @if (isset($arrive?->courrier?->file))
+                                                            @if (isset($arrive?->courrier?->file))
                                                                 <a href="{{ asset($arrive?->courrier?->getFile()) }}"
                                                                     target="_blank" class="btn btn-info text-white btn-sm">
                                                                     <i class="bi bi-download"></i> Télécharger le scan
@@ -201,7 +201,7 @@
                                                                 <div class="alert alert-info mt-2">Aucun fichier disponible
                                                                     pour ce
                                                                     courrier.</div>
-                                                            @endif --}}
+                                                            @endif
                                                             {{-- @endif --}}
                                                             {{-- @endif --}}
                                                             <p>{!! $arrive?->courrier?->message !!}</p>
