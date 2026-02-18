@@ -63,7 +63,7 @@
 
                             @if ($individuelles->isNotEmpty())
                                 <div class="form-check col-md-12 border rounded bg-light shadow-sm p-3">
-                                    <table class="m-2 table datatables align-middle" id="table-individuelles">
+                                    <table class="m-2 table datatables align-middle" id="table-collectives">
                                         <thead>
                                             <tr>
                                                 <th><input type="checkbox" class="form-check-input" id="checkAll"> N°</th>
@@ -177,7 +177,8 @@
 
 @push('scripts')
     <script>
-        new DataTable('#table-individuelles', {
+        new DataTable('#table-collectives', {
+            ordering: true, // désactive le tri automatique
             /* layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],
@@ -186,9 +187,6 @@
             paging: false, // 🔹 Désactive la pagination
             info: false, // 🔹 Supprime le texte "Affichage de X à Y..."
             pageLength: -1, // 🔹 Affiche toutes les lignes
-            "order": [
-                [4, 'desc']
-            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",

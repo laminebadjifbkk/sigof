@@ -71,7 +71,7 @@
                                                 <th scope="col">Date naissance</th>
                                                 <th scope="col">Lieu naissance</th>
                                                 <th scope="col">Niveau étude</th>
-                                                <th scope="col">ID</th>
+                                                {{-- <th scope="col">ID</th> --}}
                                                 {{-- <th scope="col">Module</th> --}}
                                                 <th class="text-center" width="5%">Statut</th>
                                                 <th class="text-center" width="5%"><i class="bi bi-gear"></i></th>
@@ -91,40 +91,41 @@
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <div>{{ $message }}</div>
                                                                 </span>
-                                                                @enderror{{ $i++ }}
-                                                            </label>
-                                                        </td>
-                                                        <td>{{ $listecollective?->cin }}</td>
-                                                        <td>{{ $listecollective?->civilite }}</td>
-                                                        <td>{{ $listecollective?->prenom }}</td>
-                                                        <td>{{ $listecollective?->nom }}</td>
-                                                        <td>{{ $listecollective?->date_naissance->format('d/m/Y') }}
-                                                        </td>
-                                                        <td>{{ $listecollective?->lieu_naissance }}</td>
-                                                        <td>{{ $listecollective?->niveau_etude }}</td>
-                                                        <td>{{ $listecollective?->formations_id }}</td>
-                                                        {{-- <td>{{ $listecollective?->collectivemodule?->module }}</td> --}}
-                                                        <td>
-                                                            <span
-                                                                class="{{ $listecollective?->statut }}">{{ $listecollective?->statut }}</span>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <span class="d-flex align-items-baseline">
-                                                                <a href="{{ route('listecollectives.show', $listecollective) }}"
-                                                                    class="btn btn-primary btn-sm" title="voir détails"
-                                                                    target="_blank"><i class="bi bi-eye"></i></a>
-                                                                <div class="filter">
-                                                                    <a class="icon" href="#"
-                                                                        data-bs-toggle="dropdown"><i
-                                                                            class="bi bi-three-dots"></i></a>
-                                                                    <ul
-                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                        <li><a class="dropdown-item btn btn-sm"
-                                                                                href="{{ route('listecollectives.edit', $listecollective) }}"
-                                                                                class="mx-1" title="Modifier"><i
-                                                                                    class="bi bi-pencil"></i>Modifier</a>
-                                                                        </li>
-                                                                        {{-- <form
+                                                            @enderror
+                                                            {{ $i++ }}
+                                                        </label>
+                                                    </td>
+                                                    <td>{{ $listecollective?->cin }}</td>
+                                                    <td>{{ $listecollective?->civilite }}</td>
+                                                    <td>{{ $listecollective?->prenom }}</td>
+                                                    <td>{{ $listecollective?->nom }}</td>
+                                                    <td>{{ $listecollective?->date_naissance->format('d/m/Y') }}
+                                                    </td>
+                                                    <td>{{ $listecollective?->lieu_naissance }}</td>
+                                                    <td>{{ $listecollective?->niveau_etude }}</td>
+                                                    {{-- <td>{{ $listecollective?->formations_id }}</td> --}}
+                                                    {{-- <td>{{ $listecollective?->collectivemodule?->module }}</td> --}}
+                                                    <td>
+                                                        <span
+                                                            class="{{ $listecollective?->statut }}">{{ $listecollective?->statut }}</span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span class="d-flex align-items-baseline">
+                                                            <a href="{{ route('listecollectives.show', $listecollective) }}"
+                                                                class="btn btn-primary btn-sm" title="voir détails"
+                                                                target="_blank"><i class="bi bi-eye"></i></a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#"
+                                                                    data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul
+                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    <li><a class="dropdown-item btn btn-sm"
+                                                                            href="{{ route('listecollectives.edit', $listecollective) }}"
+                                                                            class="mx-1" title="Modifier"><i
+                                                                                class="bi bi-pencil"></i>Modifier</a>
+                                                                    </li>
+                                                                    {{-- <form
                                                                                 action="{{ route('listecollectives.destroy', $listecollective->id) }}"
                                                                                 method="post">
                                                                                 @csrf
@@ -134,24 +135,70 @@
                                                                                     title="Supprimer"><i
                                                                                         class="bi bi-trash"></i>Supprimer</button>
                                                                             </form> --}}
-                                                                    </ul>
-                                                                </div>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-outline-primary btn-sm"><i
-                                                    class="bi bi-check2-circle"></i>&nbsp;Sélectionner</button>
-                                        </div>
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-outline-primary btn-sm"><i
+                                                class="bi bi-check2-circle"></i>&nbsp;Sélectionner</button>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </section>
-    @endsection
+        </div>
+    </section>
+@endsection
+
+
+@push('scripts')
+    <script>
+        new DataTable('#table-individuelles', {
+            ordering: true, // désactive le tri automatique
+            /* layout: {
+                topStart: {
+                    buttons: ['csv', 'excel', 'print'],
+                }
+            }, */
+            paging: false, // 🔹 Désactive la pagination
+            info: false, // 🔹 Supprime le texte "Affichage de X à Y..."
+            pageLength: -1, // 🔹 Affiche toutes les lignes
+            language: {
+                "sProcessing": "Traitement en cours...",
+                "sSearch": "Rechercher&nbsp;:",
+                "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix": "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst": "Premier",
+                    "sPrevious": "Pr&eacute;c&eacute;dent",
+                    "sNext": "Suivant",
+                    "sLast": "Dernier"
+                },
+                "oAria": {
+                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                },
+                "select": {
+                    "rows": {
+                        _: "%d lignes sÃ©lÃ©ctionnÃ©es",
+                        0: "Aucune ligne sÃ©lÃ©ctionnÃ©e",
+                        1: "1 ligne sÃ©lÃ©ctionnÃ©e"
+                    }
+                }
+            }
+        });
+    </script>
+@endpush
