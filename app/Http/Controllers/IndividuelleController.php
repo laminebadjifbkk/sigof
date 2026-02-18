@@ -212,14 +212,12 @@ class IndividuelleController extends Controller
                 ->groupBy('statut')
                 ->get();
 
-            $individuelles = Individuelle::whereYear('date_depot', $annee)
+            $individuelle = Individuelle::whereYear('date_depot', $annee)
                 ->whereNull('regions_id')
                 ->when($statutFiltre, fn($q) => $q->where('statut', $statutFiltre))
-                ->orderByDesc('id')
-                ->limit(100)
-                ->get();
+                ->first();
 
-            dd($individuelles);
+            dd($individuelle->user);
         }
         // Région depuis le nom
         $region = Region::where('nom', $region)->firstOrFail();
