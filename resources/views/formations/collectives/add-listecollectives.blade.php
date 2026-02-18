@@ -63,13 +63,14 @@
                                     <table class="m-2 table datatables align-middle" id="table-individuelles">
                                         <thead>
                                             <tr>
-                                                <th scope="col">N°</th>
-                                                <th scope="col">CIN</th>
-                                                <th scope="col">Civilité</th>
-                                                <th scope="col">Prénom</th>
-                                                <th scope="col">Nom</th>
+                                                <th scope="col"></th>
+                                                {{-- <th scope="col">CIN</th> --}}
+                                                {{-- <th scope="col">Civilité</th> --}}
+                                                {{-- <th scope="col">Prénom</th> --}}
+                                                <th scope="col">Name</th>
                                                 <th scope="col">Date naissance</th>
                                                 <th scope="col">Lieu naissance</th>
+                                                <th scope="col">Téléphone</th>
                                                 <th scope="col">Niveau étude</th>
                                                 {{-- <th scope="col">ID</th> --}}
                                                 {{-- <th scope="col">Module</th> --}}
@@ -82,26 +83,28 @@
                                             @foreach ($listecollectives as $listecollective)
                                                 <tr>
                                                     <td>
-                                                        <label for="liste_{{ $listecollective->id }}">
-                                                            <input type="checkbox" name="listecollectives[]"
-                                                                value="{{ $listecollective->id }}"
-                                                                {{ in_array($listecollective->formations_id, $listecollectiveFormation) ? 'checked' : '' }}
-                                                                class="form-check-input @error('listecollectives') is-invalid @enderror">
-                                                            @error('listecollectives')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <div>{{ $message }}</div>
-                                                                </span>
-                                                            @enderror
-                                                            {{ $i++ }}
-                                                        </label>
+                                                        {{--  <label for="liste_{{ $listecollective->id }}"> --}}
+                                                        <input type="checkbox" name="listecollectives[]"
+                                                            value="{{ $listecollective->id }}"
+                                                            {{ in_array($listecollective->formations_id, $listecollectiveFormation) ? 'checked' : '' }}
+                                                            class="form-check-input @error('listecollectives') is-invalid @enderror">
+                                                        {{ $i++ }}
+                                                        @error('listecollectives')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <div>{{ $message }}</div>
+                                                            </span>
+                                                        @enderror
+                                                        {{--  </label> --}}
                                                     </td>
-                                                    <td>{{ $listecollective?->cin }}</td>
-                                                    <td>{{ $listecollective?->civilite }}</td>
-                                                    <td>{{ $listecollective?->prenom }}</td>
-                                                    <td>{{ $listecollective?->nom }}</td>
+                                                    {{-- <td>{{ $listecollective?->cin }}</td>
+                                                    <td>{{ $listecollective?->civilite }}</td> --}}
+                                                    <td>{{ $listecollective?->civilite . ' ' . $listecollective?->prenom . ' ' . $listecollective?->nom }}
+                                                    </td>
+                                                    {{-- <td>{{ $listecollective?->nom }}</td> --}}
                                                     <td>{{ $listecollective?->date_naissance->format('d/m/Y') }}
                                                     </td>
                                                     <td>{{ $listecollective?->lieu_naissance }}</td>
+                                                    <td>{{ $listecollective?->telephone }}</td>
                                                     <td>{{ $listecollective?->niveau_etude }}</td>
                                                     {{-- <td>{{ $listecollective?->formations_id }}</td> --}}
                                                     {{-- <td>{{ $listecollective?->collectivemodule?->module }}</td> --}}
@@ -161,7 +164,7 @@
 @push('scripts')
     <script>
         new DataTable('#table-individuelles', {
-            ordering: true, // désactive le tri automatique
+            ordering: false, // désactive le tri automatique
             /* layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],

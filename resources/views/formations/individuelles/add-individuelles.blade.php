@@ -66,7 +66,7 @@
                                     <table class="m-2 table datatables align-middle" id="table-collectives">
                                         <thead>
                                             <tr>
-                                                <th><input type="checkbox" class="form-check-input" id="checkAll"> N°</th>
+                                                <th><input type="checkbox" class="form-check-input" id="checkAll"> </th>
                                                 {{-- <th>Civilité</th> --}}
                                                 <th>Name</th>
                                                 {{-- <th>Date naissance</th>
