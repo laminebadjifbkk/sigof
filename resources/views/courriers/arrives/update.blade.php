@@ -69,18 +69,18 @@
                                         </div>
                                     @endif
                                 </div> --}}
-                                <div class="border rounded bg-light p-2">
-                                    @if ($arrive->courrier->file)
-                                        @if (isset($arrive?->courrier?->file))
-                                            <a href="{{ asset($arrive?->courrier?->getFile()) }}" target="_blank"
-                                                class="btn btn-info text-white btn-sm">
-                                                <i class="bi bi-download"></i> Télécharger le scan
-                                            </a>
-                                        @else
-                                            <div class="alert alert-info mt-2">Aucun fichier disponible
-                                                pour ce
-                                                courrier.</div>
-                                        @endif
+                                <div>
+                                    @if (isset($arrive?->courrier?->file))
+                                        <a href="{{ asset($arrive?->courrier?->getFile()) }}" target="_blank"
+                                            class="btn btn-info text-white btn-sm">
+                                            <i class="bi bi-download"></i> Télécharger le scan
+                                        </a>
+                                    @else
+                                        <div class="alert alert-info mt-2">Aucun fichier disponible
+                                            pour ce
+                                            courrier.
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 
