@@ -161,7 +161,7 @@
 @endsection
 
 
-@push('scripts')
+{{-- @push('scripts')
     <script>
         new DataTable('#table-individuelles', {
             ordering: false, // désactive le tri automatique
@@ -199,4 +199,4 @@
             }
         });
     </script>
-@endpush
+@endpush --}}
