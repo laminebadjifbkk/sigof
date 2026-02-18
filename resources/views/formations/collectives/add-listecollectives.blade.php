@@ -160,11 +160,11 @@
     </section>
 @endsection
 
-{{-- 
+
 @push('scripts')
     <script>
         new DataTable('#table-individuelles', {
-            ordering: false, 
+            ordering: false, // désactive le tri automatique
             paging: false, // 🔹 Désactive la pagination
             info: false, // 🔹 Supprime le texte "Affichage de X à Y..."
             pageLength: -1, // 🔹 Affiche toutes les lignes
@@ -199,4 +199,4 @@
             }
         });
     </script>
-@endpush --}}
+@endpush
