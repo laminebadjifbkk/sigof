@@ -68,8 +68,10 @@ class ModuleController extends Controller
         return view("modules.update", compact("module", "domaines"));
     }
 
-    public function show(Request $request, Module $module)
+    public function show(Request $request, $module)
     {
+        
+        $module = Module::where('uuid', $request->module)->first();
 
         $total = Module::count();
         $totalModules = number_format($total, 0, ',', ' ');
@@ -90,9 +92,21 @@ class ModuleController extends Controller
             ? $modules->total()
             : $modules?->count());
 
+           // Récupérer les individuelles avec Eloquent et relations pour plus de clarté
+        $individuelles = Individuelle::where('modules_id', $module->id)
+            ->get();
+
+        // Récupérer les différents statuts
+        $statuts = $individuelles->pluck('statut')->unique();
+
+        // Regrouper par statut (y compris les null)
+        $groupes = $individuelles->groupBy(function ($item) {
+            return $item->statut ?? 'Aucun';
+        });
+
         return view(
             "modules.show",
-            compact("module", "affichees", "total")
+            compact("module", "affichees", "total", "groupes")
         );
     }
 
