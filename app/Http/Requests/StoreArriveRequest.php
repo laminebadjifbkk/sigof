@@ -44,7 +44,7 @@ class StoreArriveRequest extends FormRequest
             'annee'               => ['required', 'numeric', 'min:2022'],
             'expediteur'          => ['required', 'string', 'max:200'],
             'objet'               => ['required', 'string', 'max:200'],
-            'scan'                => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:10000'],
+            'scan'                => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:10000'],
         ];
     }
 

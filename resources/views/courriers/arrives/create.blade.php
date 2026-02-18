@@ -47,7 +47,7 @@
 
                                 <div class="mb-3">
                                     <label class="form-label fw-bold">
-                                        Scan du courrier <span class="text-danger">*</span>
+                                        Scan du courrier
                                     </label>
 
                                     <input type="file" name="scan" id="scanInput" accept=".pdf,.jpg,.jpeg,.png"

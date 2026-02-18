@@ -52,7 +52,7 @@
                             {{-- === PREVIEW SCAN === --}}
                             <div class="col-lg-6 border-end">
                                 <label class="form-label fw-bold">
-                                    Prévisualisation du scan <span class="text-danger">*</span>
+                                    Prévisualisation du scan
                                 </label>
 
                                 <div class="border rounded bg-light p-2" style="height:650px; overflow:auto;">
