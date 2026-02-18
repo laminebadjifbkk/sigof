@@ -829,7 +829,7 @@ class FormationController extends Controller
         $type = optional($formation->types_formation)->name;
 
         // Vérifier s’il existe des relations bloquantes
-        if ($type === "collective" && $formation->listecollectives()->exists()) {
+        /* if ($type === "collective" && $formation->listecollectives()->exists()) {
             Alert::warning('Avertissement !', 'La suppression est impossible.');
             return back();
         }
@@ -837,7 +837,7 @@ class FormationController extends Controller
         if ($type === "individuelle" && $formation->individuelles()->exists()) {
             Alert::warning('Avertissement !', 'La suppression est impossible.');
             return back();
-        }
+        } */
 
         // Si type collective ou individuelle → suppression définitive
         if (in_array($type, ["collective", "individuelle"])) {
