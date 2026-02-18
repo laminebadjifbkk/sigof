@@ -626,17 +626,42 @@ class ArriveController extends Controller
             ->pluck('sigle', 'sigle')
             ->all(); */
 
-        $directions = Direction::where('sigle', 'not like', 'Ant%')
-            ->where('sigle', 'not like', 'Pole%')
-            ->pluck('sigle', 'sigle')
-            ->all();
-
-        /* $arriveDirections  = $courrier->directions->pluck('sigle', 'sigle')->all(); */
-        /* $arriveDirections  = $courrier->directions->pluck('sigle')->values()->toArray(); */
         $arriveDirections = $courrier->directions
             ->pluck('sigle') // DG, DAF, etc.
             ->values()
             ->toArray();
+
+        /* $directions = Direction::where('sigle', 'not like', 'Ant%')
+            ->where('sigle', 'not like', 'Pole%')
+            ->pluck('sigle', 'sigle')
+            ->all(); */
+
+        $directions = Direction::where('sigle', 'not like', 'Ant%')
+            ->where('sigle', 'not like', 'Pole%')
+            ->pluck('sigle')
+            ->map(function ($direction) use ($arriveDirections) {
+
+                $clean = trim(strtoupper($direction));
+
+                $display = $clean === 'DG' ? 'ADG' : $clean;
+
+                $compare = in_array($clean, ['AD', 'CT-DG'])
+                    ? 'DG'
+                    : $clean;
+
+                return [
+                    'display' => $display,
+                    'hasX' => in_array($compare, $arriveDirections),
+                ];
+            })
+            ->chunk(6);
+
+        /* $arriveDirections  = $courrier->directions->pluck('sigle', 'sigle')->all(); */
+        /* $arriveDirections  = $courrier->directions->pluck('sigle')->values()->toArray(); */
+        /* $arriveDirections = $courrier->directions
+            ->pluck('sigle') // DG, DAF, etc.
+            ->values()
+            ->toArray(); */
 
         $arriveDescription = $courrier->description;
 

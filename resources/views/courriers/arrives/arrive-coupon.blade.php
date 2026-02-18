@@ -244,20 +244,36 @@
                                         @endforeach
                                     </tr>
                                 @endforeach --}}
-                                @foreach (collect(array_values($directions))->reject(fn($d) => $d === 'DG')->chunk(6) as $chunk)
+                                {{-- @foreach (collect(array_values($directions))->reject(fn($d) => $d === 'DG')->chunk(6) as $chunk) --}}
+                                {{-- @foreach (collect(array_values($directions))->chunk(6) as $chunk)
                                     <tr class="item">
                                         @foreach ($chunk as $direction)
                                             @php
-                                                // règle d’imputation
-                                                $compareDirection = in_array($direction, ['AD', 'CT-DG'])
+                                                $cleanDirection = trim(strtoupper($direction));
+
+                                                $displayDirection = $cleanDirection === 'DG' ? 'ADG' : $direction;
+
+                                                $compareDirection = in_array($cleanDirection, ['AD', 'CT-DG'])
                                                     ? 'DG'
-                                                    : $direction;
+                                                    : $cleanDirection;
                                             @endphp
 
                                             <td>
-                                                {{ $direction }} {{-- affichage réel : AD, CT-DG --}}
+                                                {{ $displayDirection }}
                                                 <span style="float:right; color:red; padding-right:5px;">
                                                     {{ in_array($compareDirection, $arriveDirections) ? 'X' : '' }}
+                                                </span>
+                                            </td>
+                                        @endforeach
+                                    </tr>
+                                @endforeach --}}2
+                                @foreach ($directions as $chunk)
+                                    <tr class="item">
+                                        @foreach ($chunk as $direction)
+                                            <td>
+                                                {{ $direction['display'] }}
+                                                <span style="float:right; color:red; padding-right:5px;">
+                                                    {{ $direction['hasX'] ? 'X' : '' }}
                                                 </span>
                                             </td>
                                         @endforeach
