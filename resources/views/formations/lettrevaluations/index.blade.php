@@ -76,19 +76,39 @@
                                                     </td>
                                                     <td>{{ $lettrevaluation?->formation?->lieu ?? 'Aucun' }} </td>
                                                     {{-- <td>{{ $lettrevaluation?->titre }}</td> --}}
-                                                    <td>
+                                                    {{-- <td>
                                                         @foreach ($lettrevaluation?->formation?->evaluateurs as $index => $evaluateur)
                                                             <p>
                                                                 {{ $evaluateur?->name . ' ' . $evaluateur->lastname ?? 'Aucun' }}
                                                             </p>
                                                         @endforeach
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
+                                                        @if ($lettrevaluation?->formation?->evaluateurs?->count())
+                                                            @foreach ($lettrevaluation->formation->evaluateurs as $evaluateur)
+                                                                <p>
+                                                                    {{ $evaluateur->name }} {{ $evaluateur->lastname }}
+                                                                </p>
+                                                            @endforeach
+                                                        @else
+                                                            <span class="text-muted">Aucun</span>
+                                                        @endif
+                                                    </td>
+                                                    {{-- <td>
                                                         @foreach ($lettrevaluation?->formation?->onfpevaluateurs as $index => $onfpevaluateur)
                                                             <p>
                                                                 {{ $onfpevaluateur?->name . ' ' . $onfpevaluateur?->lastname ?? 'Aucun' }}
                                                             </p>
                                                         @endforeach
+                                                    </td> --}}
+                                                    <td>
+                                                        @forelse ($lettrevaluation?->formation?->onfpevaluateurs ?? [] as $onfpevaluateur)
+                                                            <p>
+                                                                {{ ($onfpevaluateur->name ?? '') . ' ' . ($onfpevaluateur->lastname ?? '') }}
+                                                            </p>
+                                                        @empty
+                                                            <span class="text-muted">Aucun</span>
+                                                        @endforelse
                                                     </td>
                                                     <td>{{ $lettrevaluation?->formation?->date_pv?->format('d/m/Y') ?? 'Non définie' }}
                                                     </td>
