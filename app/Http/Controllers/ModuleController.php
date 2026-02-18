@@ -24,16 +24,6 @@ class ModuleController extends Controller
     }
     public function index(Request $request)
     {
-        // Récupérer toutes les données en une seule requête par type
-        /* $modules = Module::select('id', 'uuid', 'name', 'niveau_qualification', 'domaines_id', 'created_at') // ajoute ici uniquement les colonnes nécessaires
-            ->with([
-                'domaine:id,id,name,secteurs_id', // Domaine lié
-                'domaine.secteur:id,id,name',     // Secteur lié au domaine
-            ])
-            ->latest('created_at')
-            ->get(); */
-
-        // Total global
         $total = Module::count();
         $totalModules = number_format($total, 0, ',', ' ');
 
@@ -53,26 +43,11 @@ class ModuleController extends Controller
             ? $modules->total()
             : $modules?->count());
 
-        /* $modules = Module::withCount('individuelles')->get(); */
-
-        $domaines = Domaine::select('id', 'uuid', 'name', 'created_at') // ajoute ici uniquement les colonnes nécessaires
+        $domaines = Domaine::select('id', 'uuid', 'name', 'created_at')
             ->latest('created_at')->get();
 
-        $regions = Region::select('id', 'uuid', 'nom', 'created_at') // ajoute ici uniquement les colonnes nécessaires
+        $regions = Region::select('id', 'uuid', 'nom', 'created_at')
             ->latest('created_at')->get();
-
-        // Compter directement les modules sans récupérer toute la collection
-        /* $total_count  = Module::count();
-        $count_module = $modules->count();
-
-        // Gestion du titre
-        if ($count_module === 0) {
-            $title = 'Aucun module';
-        } elseif ($count_module === 1) {
-            $title = "$count_module module sur un total de $total_count";
-        } else {
-            $title = "Liste des $count_module modules sur un total de $total_count";
-        } */
 
         return view(
             "modules.index",
@@ -82,7 +57,6 @@ class ModuleController extends Controller
                 "regions",
                 "affichees",
                 "total",
-                /* "title" */
             )
         );
     }
@@ -412,5 +386,52 @@ class ModuleController extends Controller
         }
 
         return view("modules.corbeille", compact("modules", "title"));
+    }
+
+    public function generateReport(Request $request)
+    {
+        $request->validate([
+            'module' => 'required|string',
+        ]);
+
+        $total = Module::count();
+        $totalModules = number_format($total, 0, ',', ' ');
+
+        $query = Module::query();
+
+        // Si tu veux filtrer par statut (POST)
+        if ($request->filled('statut')) {
+            $query->where('statut', $request->statut);
+        }
+
+        // Filtre par nom du module
+        $query->where('name', 'like', '%' . $request->module . '%');
+
+        $modules = $query
+            ->latest()
+            ->limit(100)
+            ->get();
+
+        $affichees = $modules?->count();
+        $total     = $totalModules ?? ($modules instanceof \Illuminate\Pagination\LengthAwarePaginator
+            ? $modules->total()
+            : $modules?->count());
+
+        $domaines = Domaine::select('id', 'uuid', 'name', 'created_at')
+            ->latest('created_at')->get();
+
+        $regions = Region::select('id', 'uuid', 'nom', 'created_at')
+            ->latest('created_at')->get();
+
+        return view(
+            'modules.index',
+            compact(
+                "modules",
+                "domaines",
+                "regions",
+                "affichees",
+                "total",
+            )
+        );
     }
 }

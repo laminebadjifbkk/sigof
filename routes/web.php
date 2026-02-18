@@ -457,6 +457,10 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('individuelles/index', [IndividuelleController::class, 'index'])->name('individuelles.report');
         Route::post('individuelles/index', [IndividuelleController::class, 'generateReport']);
+
+        Route::get('modules/index', [ModuleController::class, 'index'])->name('modules.report');
+        Route::post('modules/index', [ModuleController::class, 'generateReport']);
+
         Route::get('collectives/index', [CollectiveController::class, 'index'])->name('collectives.report');
         Route::post('collectives/index', [CollectiveController::class, 'generateReport']);
         Route::get('listecollectives/index', [ListecollectiveController::class, 'index'])->name('listecollectives.report');

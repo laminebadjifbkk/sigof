@@ -324,7 +324,7 @@
                             <h5 class="modal-title">Générer une recherche<span class="text-danger mx-1">*</span></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="post" action="{{ route('individuelles.report') }}">
+                        <form method="post" action="{{ route('modules.report') }}">
                             @csrf
                             <div class="modal-body">
                                 <div class="row g-3">

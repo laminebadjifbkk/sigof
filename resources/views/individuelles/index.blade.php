@@ -241,7 +241,7 @@
 
                                 <div class="card shadow-lg border-0">
                                     <div class="card-header bg-default text-center py-2 rounded-top">
-                                        <h4 class="mb-0">➕ Ajouter une nouvelle demande</h4>
+                                        <h4 class="mb-0">Ajouter une nouvelle demande</h4>
                                     </div>
 
                                     <div class="card-body row g-4 px-4">
