@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'Détails module')
+@section('title', $module->name)
 @section('space-work')
     @can('module-show')
         <section class="section">
@@ -7,14 +7,42 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="pt-1">
+                            {{-- <div class="pt-1">
                                 <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('modules.index') }}"
                                         class="btn btn-success btn-sm" title="retour"><i
                                             class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                     <p> | Liste des module</p>
                                 </span>
                             </div>
-                            <h5 class="card-title">Module : {{ $module?->name }}</h5>
+                            <h5 class="card-title">Module : {{ $module?->name }}</h5> --}}
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="mb-0">{{ 'Module : ' . $module?->name }}</h4>
+                            </div>
+
+                            <div class="pt-1">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+                                    {{-- Titre à gauche --}}
+                                    <div class="d-flex align-items-center gap-2">
+                                        <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                                            Liste des modules
+                                        </h6>
+                                    </div>
+
+                                    <div class="d-flex align-items-center gap-2 text-info fw-semibold">
+                                        <i class="bi bi-list-ul me-1"></i>
+                                        <span>
+                                            Affichage :
+                                            <span class="text-dark">{{ $affichees }}</span>
+                                            sur
+                                            <span class="text-dark">{{ $total }}</span> modules
+                                        </span>
+                                    </div>
+                                    <a href="{{ route('modules.index') }}" class="btn btn-outline-secondary btn-sm">
+                                        <i class="bi bi-arrow-left-circle"></i> Retour
+                                    </a>
+                                </div>
+                            </div>
                             <table class="table datatables align-middle justify-content-center" id="table-modules">
                                 <thead>
                                     <tr>
@@ -27,7 +55,7 @@
                                         <th>Téléphone</th>
                                         <th>Adresse</th>
                                         <th>Régions</th>
-                                        <th>Statut</th>
+                                        {{-- <th>Statut</th> --}}
                                         <th class="text-center">#</th>
                                     </tr>
                                 </thead>
@@ -71,24 +99,15 @@
                                             <td><a
                                                     href="{{ url('modulelocalite', ['$idlocalite' => $individuelle->departement->region->id, '$idmodule' => $module?->id]) }}">{{ $individuelle->departement->region->nom }}</a>
                                             </td>
-                                            <td>
+                                            {{-- <td>
                                                 <a
                                                     href="{{ url('modulestatut', ['$statut' => $individuelle->statut, '$idmodule' => $module?->id]) }}">
                                                     @isset($individuelle?->statut)
                                                         <span
                                                             class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
-                                                        {{--  @if ($individuelle?->statut == 'Attente')
-                                                            {{ $individuelle?->statut }}
-                                                        @endif
-                                                        @if ($individuelle?->statut == 'Validée')
-                                                            {{ $individuelle?->statut }}
-                                                        @endif
-                                                        @if ($individuelle?->statut == 'Rejetée')
-                                                            {{ $individuelle?->statut }}
-                                                        @endif --}}
                                                     @endisset
                                                 </a>
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 <span class="d-flex align-items-baseline"><a
                                                         href="{{ route('individuelles.show', $individuelle) }}"

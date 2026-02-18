@@ -68,10 +68,32 @@ class ModuleController extends Controller
         return view("modules.update", compact("module", "domaines"));
     }
 
-    public function show(Module $module)
+    public function show(Request $request, Module $module)
     {
-        /* $module = Module::find($id); */
-        return view("modules.show", compact("module"));
+
+        $total = Module::count();
+        $totalModules = number_format($total, 0, ',', ' ');
+
+        $query = Module::query();
+
+        if ($statut = $request->query('statut')) {
+            $query->where('statut', $statut);
+        }
+
+        $modules = $query
+            ->latest()
+            ->limit(100)
+            ->get();
+
+        $affichees = $modules?->count();
+        $total     = $totalModules ?? ($modules instanceof \Illuminate\Pagination\LengthAwarePaginator
+            ? $modules->total()
+            : $modules?->count());
+
+        return view(
+            "modules.show",
+            compact("module", "affichees", "total")
+        );
     }
 
     public function update(Request $request, Module $module)
