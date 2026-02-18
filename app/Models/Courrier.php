@@ -174,11 +174,18 @@ class Courrier extends Model
         'traitementcourriers_id',
     ];
 
-    public function getFile()
+    /*  public function getFile()
     {
         $filePath = $this->file ?? 'courriers/default.jpg';
         return "/storage/" . $filePath;
+    } */
+
+    public function getFile()
+    {
+        $filePath = $this->file ?? 'courriers/default.jpg';
+        return '/storage/' . implode('/', array_map('rawurlencode', explode('/', $filePath)));
     }
+
     // Ajoute cette méthode pour forcer l'utilisation de l'uuid dans les routes
     /* public function getRouteKeyName()
     {
