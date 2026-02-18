@@ -411,7 +411,7 @@
                                             <div class="label">Note évaluation formation</div>
                                             <div>
                                                 <span class="{{ $noteClass }}">
-                                                    {{ $formattedNoteObtenue }}/20
+                                                    {{ $formattedNoteObtenue }}
                                                 </span>
                                             </div>
                                         </div>
