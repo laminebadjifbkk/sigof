@@ -144,18 +144,30 @@
 
                                                             <div class="border rounded bg-light p-2"
                                                                 style="height:300px; overflow:auto;">
+                                                                {{-- @if ($arrive->courrier->file)
+                                                                    @if (Str::endsWith($arrive->courrier->file, ['.pdf']))
+                                                                        <embed id="pdfPreview"
+                                                                            src="{{ asset('storage/' . $arrive->courrier->file) }}"
+                                                                            type="application/pdf" width="100%"
+                                                                            height="100%">
+                                                                    @else
+                                                                        <img id="imagePreview"
+                                                                            src="{{ asset('storage/' . $arrive->courrier->file) }}"
+                                                                            style="max-width:100%; max-height:100%;" />
+                                                                    @endif
+                                                                @else
+                                                                    <div id="noPreview" class="text-center text-muted mt-5">
+                                                                        Aucun scan
+                                                                        disponible
+                                                                    </div>
+                                                                @endif --}}
                                                                 @php
-                                                                    $fileUrl = asset(
-                                                                        'storage/' . $arrive->courrier->file,
-                                                                    );
-                                                                    $filePath = storage_path(
-                                                                        'app/public/' . $arrive->courrier->file,
-                                                                    );
+                                                                    $fileUrl = $arrive?->courrier?->getFile();
                                                                 @endphp
 
                                                                 <div class="border rounded bg-light p-2"
                                                                     style="height:300px; overflow:auto;">
-                                                                    @if ($arrive->courrier->file && file_exists($filePath))
+                                                                    @if ($arrive?->courrier?->file)
                                                                         @if (Str::endsWith($arrive->courrier->file, ['.pdf']))
                                                                             <embed src="{{ $fileUrl }}"
                                                                                 type="application/pdf" width="100%"
@@ -165,10 +177,14 @@
                                                                                 style="max-width:100%; max-height:100%;"
                                                                                 alt="Scan du courrier">
                                                                         @endif
+                                                                        {{-- Bouton téléchargement --}}
+                                                                        <a href="{{ $fileUrl }}" target="_blank"
+                                                                            class="btn btn-info text-white btn-sm mt-2">
+                                                                            <i class="bi bi-download"></i> Télécharger le scan
+                                                                        </a>
                                                                     @else
-                                                                        <div class="text-center text-muted mt-5">
-                                                                            Aucun scan disponible
-                                                                        </div>
+                                                                        <div class="text-center text-muted mt-5">Aucun scan
+                                                                            disponible</div>
                                                                     @endif
                                                                 </div>
                                                             </div>
