@@ -118,8 +118,12 @@
                                                 <td>
                                                     @if ($listecollective->collective)
                                                         <a href="{{ route('collectives.show', $listecollective->collective) }}"
-                                                            title="voir" target="_blank">
-                                                            {{ $listecollective->collective->sigle }}
+                                                            title="Voir" target="_blank">
+
+                                                            {{ $listecollective->collective->sigle
+                                                                ? $listecollective->collective->sigle
+                                                                : $listecollective->collective->name }}
+
                                                         </a>
                                                     @else
                                                         <span>Aucun</span>
