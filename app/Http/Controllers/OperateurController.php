@@ -93,6 +93,8 @@ class OperateurController extends Controller
             ? $operateurs->total()
             : $operateurs?->count());
 
+        $recherche = null;
+
         return view(
             "operateurs.index",
             compact(
@@ -112,6 +114,7 @@ class OperateurController extends Controller
                 "pourcentage_expirer" */
                 /* "title", */
                 "totalOperateurs",
+                "recherche",
             )
         );
     }
@@ -2065,6 +2068,9 @@ class OperateurController extends Controller
             ? $operateurs->total()
             : $operateurs?->count());
 
+
+        $recherche = 1;
+
         return view('operateurs.index', compact(
             'operateurs',
             'departements',
@@ -2073,6 +2079,7 @@ class OperateurController extends Controller
             'groupesStatutAgrement',
             'affichees',
             'total',
+            'recherche',
             /* 'statCounts',
             'pourcentage_agreer',
             'pourcentage_rejeter',
