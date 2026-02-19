@@ -190,11 +190,10 @@ class ListecollectiveController extends Controller
             "module"         => "required|string",
             "niveau_etude"   => "nullable|string",
             "telephone"      => "nullable|string|min:9|max:12",
-
-            // 🔥 UNIQUE AVEC IGNORE
             "cin" => [
                 "required",
                 Rule::unique('listecollectives', 'cin')
+                    ->whereNull('deleted_at')
                     ->ignore($listecollective->id)
             ],
         ]);
