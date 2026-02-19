@@ -84,7 +84,7 @@
                                 <thead>
                                     <tr>
                                         {{-- <th>N°</th> --}}
-                                        <th class="text-center">CIN</th>
+                                        {{-- <th class="text-center">CIN</th> --}}
                                         <th>Prénom</th>
                                         <th>NOM</th>
                                         <th>Date naissance</th>
@@ -97,7 +97,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php
+                                    {{-- @php
                                         // Liste de classes Bootstrap ou personnalisées à alterner
                                         $availableColors = [
                                             'table-primary',
@@ -108,9 +108,9 @@
                                         ];
                                         $sigleColors = []; // Association sigle => couleur
                                         $colorIndex = 0;
-                                    @endphp
+                                    @endphp --}}
                                     @foreach ($module->individuelles as $individuelle)
-                                        @php
+                                        {{-- @php
                                             $sigle = $individuelle->projet?->sigle;
                                             $rowClass = ''; // par défaut : aucune classe
 
@@ -122,11 +122,12 @@
                                                 }
                                                 $rowClass = $sigleColors[$sigle];
                                             }
-                                        @endphp
+                                        @endphp --}}
 
-                                        <tr class="{{ $rowClass }}">
+                                        {{-- <tr class="{{ $rowClass }}"> --}}
+                                        <tr>
                                             {{-- <td>{{ $individuelle?->numero }}</td> --}}
-                                            <td>{{ $individuelle?->user?->cin }}</td>
+                                            {{-- <td>{{ $individuelle?->user?->cin }}</td> --}}
                                             <td>{{ $individuelle?->user?->firstname }}</td>
                                             <td>{{ $individuelle?->user?->name }}</td>
                                             <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
