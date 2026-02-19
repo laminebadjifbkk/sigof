@@ -85,8 +85,8 @@
                                     <tr>
                                         {{-- <th>N°</th> --}}
                                         {{-- <th class="text-center">CIN</th> --}}
-                                        <th>Prénom</th>
-                                        <th>NOM</th>
+                                        {{-- <th>Prénom</th> --}}
+                                        <th>Name</th>
                                         <th>Date naissance</th>
                                         <th>Lieu naissance</th>
                                         <th>Téléphone</th>
@@ -127,8 +127,9 @@
                                         <tr class="{{ $rowClass }}">
                                             {{-- <td>{{ $individuelle?->numero }}</td> --}}
                                             {{-- <td>{{ $individuelle?->user?->cin }}</td> --}}
-                                            <td>{{ $individuelle?->user?->firstname }}</td>
-                                            <td>{{ $individuelle?->user?->name }}</td>
+                                            {{-- <td>{{ $individuelle?->user?->firstname }}</td> --}}
+                                            <td>{{ $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
+                                            </td>
                                             <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                             <td>{{ $individuelle?->user?->lieu_naissance }}</td>
                                             <td>{{ $individuelle?->user?->telephone }}</td>
