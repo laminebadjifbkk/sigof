@@ -80,7 +80,7 @@
 
                                     <div class="col-12 col-md-4 mb-0">
                                         <label class="form-label">
-                                            Type de pièce <span class="required">*</span>
+                                            Type de pièce <span class="text-danger mx-1">*</span>
                                         </label>
                                         <select name="type_piece" id="type_piece" class="form-select form-select-sm">
                                             <option value="">-- Choisir --</option>
@@ -98,11 +98,13 @@
 
                                     <div class="col-12 col-md-4 mb-0">
                                         <label for="num_piece" class="form-label" id="numero_piece_label">
-                                            Numéro de la pièce <span class="required">*</span>
+                                            Numéro de la pièce <span
+                                                class="text-danger mx-1">*</span>
                                         </label>
                                         <input name="cin" type="text"
                                             class="form-control form-control-sm @error('cin') is-invalid @enderror"
-                                            id="num_piece" value="{{ old('cin') ?? $listecollective?->cin }}"
+                                            id="num_piece"
+                                            value="{{ old('cin') ?? str_replace(' ', '', $listecollective?->cin) }}"
                                             autocomplete="off" placeholder="Ex : 1099200500012" minlength="13"
                                             maxlength="14" required>
                                         @error('cin')

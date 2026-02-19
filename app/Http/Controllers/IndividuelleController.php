@@ -653,6 +653,7 @@ class IndividuelleController extends Controller
 
         // Utilisation des données validées
         $cin = $data['cin'] ?? null;
+        
         $date_input = $data['date_depot'] ?? null;
 
         if ($date_input) {

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 
 class ListecollectiveController extends Controller
 {
@@ -39,7 +40,7 @@ class ListecollectiveController extends Controller
 
     public function store(Request $request)
     {
-        $rules = [
+        $validator = Validator::make($request->all(), [
             "type_piece"     => "required|in:cni,extrait,passeport",
             "civilite"       => "required|string",
             "firstname"      => "required|string",
@@ -49,51 +50,49 @@ class ListecollectiveController extends Controller
             "module"         => "required|string",
             "niveau_etude"   => "nullable|string",
             "telephone"      => "nullable|string|min:9|max:12",
-        ];
+            "cin" => [
+                "required",
+                Rule::unique('listecollectives', 'cin')
+            ],
+        ]);
 
-        // Validation dynamique du numéro
-        switch ($request->type_piece) {
+        // Validation conditionnelle
+        $validator->sometimes('cin', ['digits:5'], function ($input) {
+            return $input->type_piece === 'extrait';
+        });
 
-            case 'cni':
-                $rules['cin'] = [
-                    'required',
-                    'regex:/^[0-9]{13,14}$/',
-                    Rule::unique('listecollectives', 'cin')->whereNull('deleted_at'),
-                ];
-                break;
+        $validator->sometimes('cin', ['digits:9'], function ($input) {
+            return $input->type_piece === 'passeport';
+        });
 
-            case 'extrait':
-                $rules['cin'] = [
-                    'required',
-                    'regex:/^[0-9]{5}$/',
-                ];
-                break;
+        $validator->sometimes('cin', ['digits_between:13,14'], function ($input) {
+            return $input->type_piece === 'cni';
+        });
 
-            case 'passeport':
-                $rules['cin'] = [
-                    'required',
-                    'regex:/^[A-Za-z0-9]{9}$/',
-                ];
-                break;
+        // Validation finale
+        $data = $validator->validate();
 
-            default:
-                $rules['cin'] = ['required'];
+        // Formatage CIN uniquement si nécessaire
+        if ($data['type_piece'] === 'cni') {
+            $data['cin'] = $this->formatCin($data['cin']);
         }
-        $request->validate($rules);
+
+        // Utilisation des données validées
+        $cin = $data['cin'] ?? null;
 
         // Préfixe selon type
         switch ($request->type_piece) {
             case 'cni':
-                $cin = $request->input('cin');
+                $cin = $cin;
                 break;
             case 'extrait':
-                $cin = 'EXT. ' . $request->input('cin');
+                $cin = 'EXT. ' . $cin;
                 break;
             case 'passeport':
-                $cin = 'PPT. ' . $request->input('cin');
+                $cin = 'PPT. ' . $cin;
                 break;
             default:
-                $cin = $request->input('cin');
+                $cin = $cin;
                 break;
         }
 
@@ -161,25 +160,27 @@ class ListecollectiveController extends Controller
 
     public function update(Request $request, Listecollective $listecollective)
     {
-        /* $this->validate($request, [
-            'cin'            => [
-                'required',
-                'string',
-                'min:16',
-                'max:17',
-                Rule::unique(Listecollective::class)->ignore($listecollective->id)->whereNull('deleted_at'),
-            ],
-            "civilite"       => "required|string",
-            "firstname"      => "required|string",
-            "name"           => "required|string",
-            'date_naissance' => ['nullable', 'date_format:d/m/Y'],
-            "lieu_naissance" => "required|string",
-            "module"         => "required|string",
-            "niveau_etude"   => "nullable|string",
-            "telephone"      => "nullable|string|min:9|max:12",
-        ]); */
+        // 🔹 Nettoyage espaces
+        $cin = preg_replace('/\s+/', '', $request->cin);
 
-        $rules = [
+        // 🔹 Formatage si CNI
+        if ($request->type_piece === 'cni') {
+            $cin = $this->formatCin($cin);
+        }
+
+        // 🔹 Préfixe
+        if ($request->type_piece === 'extrait') {
+            $cin = 'EXT.' . $cin;
+        }
+
+        if ($request->type_piece === 'passeport') {
+            $cin = 'PPT.' . $cin;
+        }
+
+        // 🔹 Injecter la vraie valeur
+        $request->merge(['cin' => $cin]);
+
+        $validator = Validator::make($request->all(), [
             "type_piece"     => "required|in:cni,extrait,passeport",
             "civilite"       => "required|string",
             "firstname"      => "required|string",
@@ -189,52 +190,55 @@ class ListecollectiveController extends Controller
             "module"         => "required|string",
             "niveau_etude"   => "nullable|string",
             "telephone"      => "nullable|string|min:9|max:12",
-        ];
 
-        // Validation dynamique du numéro selon type_piece
-        switch ($request->type_piece) {
-            case 'cni':
-                $rules['cin'] = [
-                    'required',
-                    'regex:/^[0-9]{13,14}$/',
-                    Rule::unique('listecollectives', 'cin')->ignore($listecollective->id)->whereNull('deleted_at')
-                ];
-                break;
-            case 'extrait':
-                $rules['cin'] = [
-                    'required',
-                    'regex:/^[0-9]{5}$/'
-                ];
-                break;
-            case 'passeport':
-                $rules['cin'] = [
-                    'required',
-                    'regex:/^[A-Za-z0-9]{9}$/'
-                ];
-                break;
-            default:
-                $rules['cin'] = ['required'];
+            // 🔥 UNIQUE AVEC IGNORE
+            "cin" => [
+                "required",
+                Rule::unique('listecollectives', 'cin')
+                    ->ignore($listecollective->id)
+            ],
+        ]);
+
+        // Validation conditionnelle
+        /* $validator->sometimes('cin', ['digits:5'], function ($input) {
+            return $input->type_piece === 'extrait';
+        });
+
+        $validator->sometimes('cin', ['digits:9'], function ($input) {
+            return $input->type_piece === 'passeport';
+        });
+
+        $validator->sometimes('cin', ['digits_between:17,20'], function ($input) {
+            return $input->type_piece === 'cni';
+        }); */
+
+        // Validation finale
+        $data = $validator->validate();
+
+        // Formatage CIN uniquement si nécessaire
+        if ($data['type_piece'] === 'cni') {
+            $data['cin'] = $this->formatCin($data['cin']);
         }
 
-        $request->validate($rules);
+        // Utilisation des données validées
+        $cin = $data['cin'] ?? null;
 
         // Préfixe selon type
         switch ($request->type_piece) {
             case 'cni':
-                $cin = $request->input('cin');
+                $cin = $cin;
                 break;
             case 'extrait':
-                $cin = 'EXT. ' . $request->input('cin');
+                $cin = 'EXT. ' . $cin;
                 break;
             case 'passeport':
-                $cin = 'PPT. ' . $request->input('cin');
+                $cin = 'PPT. ' . $cin;
                 break;
             default:
-                $cin = $request->input('cin');
+                $cin = $cin;
                 break;
         }
 
-        /* $listecollective = Listecollective::find($id); */
         $dateString     = $request->input('date_naissance');
         $date_naissance = Carbon::createFromFormat('d/m/Y', $dateString);
 
@@ -260,6 +264,30 @@ class ListecollectiveController extends Controller
         Alert::success("Succès !", "Modification effectuée avec succès");
 
         return Redirect::back();
+    }
+
+    private function formatCin(string $cin): string
+    {
+        // Supprimer tous les espaces
+        $cin = preg_replace('/\s+/', '', $cin);
+
+        if (strlen($cin) === 13) {
+            // 1 099 2002 00085
+            return substr($cin, 0, 1) . ' '
+                . substr($cin, 1, 3) . ' '
+                . substr($cin, 4, 4) . ' '
+                . substr($cin, 8, 5);
+        }
+
+        if (strlen($cin) === 14) {
+            // même logique mais 6 derniers chiffres collés
+            return substr($cin, 0, 1) . ' '
+                . substr($cin, 1, 3) . ' '
+                . substr($cin, 4, 4) . ' '
+                . substr($cin, 8, 6);
+        }
+
+        return $cin; // sécurité
     }
 
     public function show(Listecollective $listecollective)
