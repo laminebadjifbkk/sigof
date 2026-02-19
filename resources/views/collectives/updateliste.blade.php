@@ -83,7 +83,7 @@
                                             Type de pièce <span class="text-danger mx-1">*</span>
                                         </label>
                                         <select name="type_piece" id="type_piece" class="form-select form-select-sm">
-                                            <option value="">-- Choisir --</option>
+                                            {{-- <option value="">-- Choisir --</option> --}}
                                             <option value="cni"
                                                 {{ (old('type_piece') ?? $listecollective?->type_piece) === 'cni' ? 'selected' : '' }}>
                                                 Carte nationale</option>
