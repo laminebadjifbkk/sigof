@@ -62,7 +62,7 @@
                                     {{-- Titre à gauche --}}
                                     <div class="d-flex align-items-center gap-2">
                                         <h6 class="mb-0 text-muted fw-semibold text-uppercase">
-                                            {{ $module?->name }}
+                                            {{ 'Module : '.$module?->name }}
                                         </h6>
                                     </div>
 
