@@ -7,28 +7,32 @@
                 <div class="card-body">
                     <div class="row g-3"> <!-- AJOUT IMPORTANT -->
                         @foreach ($groupes as $statut => $items)
-                            <div class="col-12 col-md-4 col-lg-2 col-xxl-2">
-                                <div class="card info-card sales-card shadow-sm h-100">
+                            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+                                <div class="card shadow-sm text-center p-2" style="min-height:120px; border-radius:10px;">
                                     <div class="card-body p-2">
-                                        <h5 class="card-title text-truncate mb-1">
+                                        {{-- <h5 class="card-title text-truncate mb-1">
                                             {{ $statut }}
-                                        </h5>
+                                        </h5> --}}
+                                        <span class="{{ $statut }}">
+                                            {{ $statut }}
+                                        </span>
 
                                         <div class="d-flex align-items-center mb-2">
-                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                            {{-- <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
                                                 style="width: 32px; height: 32px;">
                                                 <i class="bi bi-people"></i>
-                                            </div>
+                                            </div> --}}
 
                                             <div class="ps-2">
-                                                <h6 class="mb-0">
+                                                <h6 class="mb-2 mt-2">
                                                     {{ number_format($items->count(), 0, '', ' ') }}
                                                 </h6>
                                                 <span class="text-muted small">demandeur(s)</span>
                                             </div>
                                         </div>
 
-                                        <a href="#" class="btn btn-outline-primary btn-sm w-100">
+                                        <a href="{{ url('modulestatut', ['$statut' => $statut, '$idmodule' => $module?->id]) }}"
+                                            class="btn btn-outline-primary btn-sm w-100">
                                             Voir plus
                                         </a>
                                     </div>
