@@ -52,9 +52,9 @@
                                 </span>
                             </div>
                             <h5 class="card-title">Module : {{ $module?->name }}</h5> --}}
-                            <div class="d-flex justify-content-between align-items-center mb-3">
+                            {{-- <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="mb-0">{{ 'Module : ' . $module?->name }}</h4>
-                            </div>
+                            </div> --}}
 
                             <div class="pt-1">
                                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
@@ -62,7 +62,7 @@
                                     {{-- Titre à gauche --}}
                                     <div class="d-flex align-items-center gap-2">
                                         <h6 class="mb-0 text-muted fw-semibold text-uppercase">
-                                            Liste des modules
+                                            {{ $module?->name }}
                                         </h6>
                                     </div>
 
