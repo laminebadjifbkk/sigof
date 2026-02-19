@@ -97,7 +97,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @php
+                                    @php
                                         // Liste de classes Bootstrap ou personnalisées à alterner
                                         $availableColors = [
                                             'table-primary',
@@ -108,9 +108,9 @@
                                         ];
                                         $sigleColors = []; // Association sigle => couleur
                                         $colorIndex = 0;
-                                    @endphp --}}
+                                    @endphp
                                     @foreach ($module->individuelles as $individuelle)
-                                        {{-- @php
+                                        @php
                                             $sigle = $individuelle->projet?->sigle;
                                             $rowClass = ''; // par défaut : aucune classe
 
@@ -122,10 +122,9 @@
                                                 }
                                                 $rowClass = $sigleColors[$sigle];
                                             }
-                                        @endphp --}}
+                                        @endphp
 
-                                        {{-- <tr class="{{ $rowClass }}"> --}}
-                                        <tr>
+                                        <tr class="{{ $rowClass }}">
                                             {{-- <td>{{ $individuelle?->numero }}</td> --}}
                                             {{-- <td>{{ $individuelle?->user?->cin }}</td> --}}
                                             <td>{{ $individuelle?->user?->firstname }}</td>
