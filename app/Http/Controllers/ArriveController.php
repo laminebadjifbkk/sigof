@@ -341,9 +341,18 @@ class ArriveController extends Controller
             ]);
 
             $courrier = $arrive->courrier;
-            $arrive->employees()->sync($request->id_emp);
+            /* $arrive->employees()->sync($request->id_emp);
             $arrive->users()->sync($request->id_emp);
-            $courrier->directions()->sync($request->id_direction);
+            $courrier->directions()->sync($request->id_direction); */
+
+            // Ajouter les nouveaux employés sans détacher les anciens
+            $arrive->employees()->syncWithoutDetaching($request->id_emp);
+
+            // Ajouter les nouveaux users sans détacher les anciens
+            $arrive->users()->syncWithoutDetaching($request->id_emp);
+
+            // Ajouter les nouvelles directions sans détacher les anciennes
+            $courrier->directions()->syncWithoutDetaching($request->id_direction);
             $courrier->description = strtoupper($request->input('description'));
             $courrier->date_imp    = $request->input('date_imp');
             $courrier->observation = strtoupper($request->input('observation'));
@@ -1047,5 +1056,23 @@ class ArriveController extends Controller
         $employee = $user?->employee;
         $arrives  = $employee?->arrives()->orderBy('created_at', 'desc')->get();
         return view("profile.mescourriers", compact("user", "employee", "arrives"));
+    }
+
+    public function detachEmployee($arriveId, $employeeId)
+    {
+        $arrive = Arrive::findOrFail($arriveId);
+        $employee = Employee::findOrFail($employeeId);
+
+        // Détacher l'employé
+        $arrive->employees()->detach($employee->id);
+
+        // Ajouter les nouveaux users sans détacher les anciens
+        $arrive->users()->detach($employee->user->id);
+
+        // Ajouter les nouvelles directions sans détacher les anciennes
+        $arrive->courrier->directions()->detach($employee->direction->id);
+
+        Alert::success('Succès !', 'Imputation retirée avec succès');
+        return redirect()->back();
     }
 }

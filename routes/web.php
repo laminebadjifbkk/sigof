@@ -886,7 +886,9 @@ Route::group(['middleware' => ['XSS']], function () {
             'ingenieurs/{ingenieur}/formations/annee/{annee}/{region?}',
             [IngenieurController::class, 'listeFormationsParAnnee']
         )->name('ingenieurs.formations.listeParAnnee');
-
+        // routes/web.php
+        Route::delete('/arrives/{arrive}/employees/{employee}/detach', [ArriveController::class, 'detachEmployee'])
+            ->name('arrives.detachEmployee');
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
         Route::resource('/permissions', PermissionController::class);

@@ -150,7 +150,15 @@
                                                                             readonly>
                                                                     </td>
                                                                     <td class="text-center">
-                                                                        <i class="bi bi-lock text-muted"></i>
+                                                                        <form method="POST"
+                                                                            action="{{ route('arrives.detachEmployee', [$arrive->id, $employe->id]) }}">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="btn btn-outline-danger btn-sm show_confirm_detach">
+                                                                                <i class="bi bi-x-circle"></i>
+                                                                            </button>
+                                                                        </form>
                                                                     </td>
                                                                 </tr>
                                                             @empty

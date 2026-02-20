@@ -1837,6 +1837,26 @@
         });
     </script>
 
+    <script type="text/javascript">
+        $('.show_confirm_detach').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                    title: `Êtes-vous sûr de vouloir détacher?`,
+                    text: "Si vous supprimez ceci, il disparaîtra pour toujours.",
+                    icon: "warning",
+                    buttons: ["Annuler", "Oui, Détacher !"],
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        form.submit();
+                    }
+                });
+        });
+    </script>
+
     <script>
         $(document).ready(function() {
             $('.show_confirmDeleteImage').click(function(event) {
