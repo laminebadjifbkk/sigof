@@ -27,84 +27,6 @@
             </li> --}}
         @endhasanyrole
 
-        @hasanyrole('super-admin|admin')
-            @can('user-view')
-                <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
-                        <i class="bi bi-person"></i><span>{{ __('Gestion utilisateurs') }}</span><i
-                            class="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="users-nav" class="nav-content collapse {{ $activeUsers ? 'show' : '' }}"
-                        data-bs-parent="#sidebar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('users.online') ? 'active' : 'collapsed' }}"
-                                href="{{ route('users.online') }}">
-                                <span>En ligne</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('users.actifs') ? 'active' : 'collapsed' }}"
-                                href="{{ route('users.actifs') }}">
-                                <span>Actifs</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('users.inactifs') ? 'active' : 'collapsed' }}"
-                                href="{{ route('users.inactifs') }}">
-                                <span>Inactifs</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('users.corbeille') ? 'active' : 'collapsed' }}"
-                                href="{{ route('users.corbeille') }}">
-                                <span>Corbeille</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('users.restored') ? 'active' : 'collapsed' }}"
-                                href="{{ route('users.restored') }}">
-                                <span>Restaurés</span>
-                            </a>
-                        </li>
-                        @can('rapport-user-view')
-                            <li class="nav-item">
-                                <a class="nav-link {{ request()->routeIs('users.rapport') ? 'active' : 'collapsed' }}"
-                                    href="{{ route('users.rapport') }}">
-                                    <span>Utilisateurs</span>
-                                </a>
-                            </li>
-                        @endcan
-                    </ul>
-                </li>
-            @endcan
-        @endhasanyrole
-
-        @can('role-view')
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#autorisation-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-key"></i><span>{{ __("Contrôle d'accès") }}</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="autorisation-nav" class="nav-content collapse {{ $activeRoles ? 'show' : '' }}"
-                    data-bs-parent="#sidebar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('roles') ? 'active' : 'collapsed' }}"
-                            href="{{ url('roles') }}">
-                            <span>Roles</span>
-                        </a>
-                    </li>
-                    @can('permission-view')
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('permissions') ? 'active' : 'collapsed' }}"
-                                href="{{ url('permissions') }}">
-                                <span>Permissions</span>
-                            </a>
-                        </li>
-                    @endcan
-                </ul>
-            </li>
-        @endcan
-
         @can('parc-view')
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#parc-nav" data-bs-toggle="collapse" href="#">
@@ -148,33 +70,6 @@
                             </a>
                         </li>
                     @endcan
-                </ul>
-            </li>
-        @endcan
-
-        @can('une-view')
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#actualite-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-envelope"></i><span>Page de présentation</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="actualite-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-
-                    @can('post-view')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ url('postes') }}">
-                                <span>Actualité</span>
-                            </a>
-                        </li>
-                    @endcan
-                    @can('une-view')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ url('unes') }}">
-                                <span>A la une</span>
-                            </a>
-                        </li>
-                    @endcan
-
                 </ul>
             </li>
         @endcan
@@ -246,8 +141,7 @@
 
         @can('demande-view')
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#demande--ind-nav" data-bs-toggle="collapse"
-                    href="#">
+                <a class="nav-link collapsed" data-bs-target="#demande--ind-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-folder-plus"></i><span>Gestion des demandes</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
@@ -979,6 +873,114 @@
                     <i class="bi bi-book"></i>
                     <span>Nos publications</span>
                 </a>
+            </li>
+        @endcan
+
+
+
+        @hasanyrole('super-admin|admin')
+            @can('user-view')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-person"></i><span>{{ __('Gestion utilisateurs') }}</span><i
+                            class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="users-nav" class="nav-content collapse {{ $activeUsers ? 'show' : '' }}"
+                        data-bs-parent="#sidebar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('users.online') ? 'active' : 'collapsed' }}"
+                                href="{{ route('users.online') }}">
+                                <span>En ligne</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('users.actifs') ? 'active' : 'collapsed' }}"
+                                href="{{ route('users.actifs') }}">
+                                <span>Actifs</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('users.inactifs') ? 'active' : 'collapsed' }}"
+                                href="{{ route('users.inactifs') }}">
+                                <span>Inactifs</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('users.corbeille') ? 'active' : 'collapsed' }}"
+                                href="{{ route('users.corbeille') }}">
+                                <span>Corbeille</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('users.restored') ? 'active' : 'collapsed' }}"
+                                href="{{ route('users.restored') }}">
+                                <span>Restaurés</span>
+                            </a>
+                        </li>
+                        @can('rapport-user-view')
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('users.rapport') ? 'active' : 'collapsed' }}"
+                                    href="{{ route('users.rapport') }}">
+                                    <span>Utilisateurs</span>
+                                </a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endcan
+        @endhasanyrole
+
+        @can('role-view')
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#autorisation-nav" data-bs-toggle="collapse"
+                    href="#">
+                    <i class="bi bi-key"></i><span>{{ __("Contrôle d'accès") }}</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="autorisation-nav" class="nav-content collapse {{ $activeRoles ? 'show' : '' }}"
+                    data-bs-parent="#sidebar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('roles') ? 'active' : 'collapsed' }}"
+                            href="{{ url('roles') }}">
+                            <span>Roles</span>
+                        </a>
+                    </li>
+                    @can('permission-view')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('permissions') ? 'active' : 'collapsed' }}"
+                                href="{{ url('permissions') }}">
+                                <span>Permissions</span>
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
+
+        @can('une-view')
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#actualite-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-envelope"></i><span>Page de présentation</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="actualite-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+
+                    @can('post-view')
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ url('postes') }}">
+                                <span>Actualité</span>
+                            </a>
+                        </li>
+                    @endcan
+                    @can('une-view')
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ url('unes') }}">
+                                <span>A la une</span>
+                            </a>
+                        </li>
+                    @endcan
+
+                </ul>
             </li>
         @endcan
     </ul>
