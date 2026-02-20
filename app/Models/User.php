@@ -287,6 +287,7 @@ class User extends Authenticatable
     {
         try {
             $this->notify(new ResetPasswordNotification($token));
+            dd('ok');
         } catch (\Symfony\Component\Mailer\Exception\TransportExceptionInterface $e) {
             \Log::error('Échec email : ' . $e->getMessage());
             session()->flash('error', 'Impossible d’envoyer l’email pour le moment.');
