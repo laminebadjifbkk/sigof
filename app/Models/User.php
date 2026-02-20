@@ -313,18 +313,17 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token): void
     {
         try {
-            // Essaie d'envoyer le mail
             $this->notify(new ResetPasswordNotification($token));
 
-            // Si on arrive ici, l'email a été envoyé avec succès
-            session()->flash('success', 'Nous vous avons envoyé par courriel le lien de réinitialisation du mot de passe !');
+            // Success uniquement si l'envoi est OK
+            session()->flash('success', __('password.sent'));
         } catch (\Symfony\Component\Mailer\Exception\TransportExceptionInterface $e) {
-            // Log pour les développeurs
+            // Log détaillé pour les développeurs
             \Log::error('Échec envoi email reset password : ' . $e->getMessage());
 
-            // Arrête la méthode et affiche seulement l'erreur
+            // Affiche seulement l'erreur
             session()->flash('error', 'Impossible d’envoyer l’email pour le moment.');
-            return; // Important : stoppe l'exécution ici
+            return; // Stoppe ici, le message de succès ne sera jamais affiché
         }
     }
 

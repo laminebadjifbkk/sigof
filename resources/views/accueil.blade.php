@@ -11,19 +11,26 @@
             <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                 <div class="row align-items-center">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
                     @if (session('error'))
                         <div class="alert alert-danger">
                             {{ session('error') }}
                         </div>
                     @endif
-                    @if ($message = Session::get('status'))
+
+                    {{-- @if ($message = Session::get('status'))
                         <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                             role="alert">
                             <strong>{{ $message }}</strong>
                             <button type="button" class="btn-close" data-bs-dismiss="alert"
                                 aria-label="Fermer"></button>
                         </div>
-                    @endif
+                    @endif --}}
                     @if ($errors->any())
                         @foreach ($errors->all() as $error)
                             <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
