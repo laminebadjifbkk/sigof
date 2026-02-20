@@ -46,7 +46,7 @@
                                     <li class="nav-item">
                                         <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#imputer_courrier"
                                             type="button">
-                                            Imputer
+                                            Imputations
                                         </button>
                                     </li>
                                     {{-- @endcan --}}
