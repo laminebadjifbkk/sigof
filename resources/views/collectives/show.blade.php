@@ -13,7 +13,12 @@
                                 <li class="breadcrumb-item"><a href="{{ url('/home') }}">Accueil</a></li>
                             @endcan
                             <li class="breadcrumb-item">Tables</li>
-                            <li class="breadcrumb-item active">Collectives</li>
+                            <li class="breadcrumb-item active">
+                                {{ $collective->name }}
+                                @if ($collective->sigle)
+                                    <small class="text-muted">({{ $collective->sigle }})</small>
+                                @endif
+                            </li>
                         </ol>
                     </nav>
                 </div><!-- End Page Title -->
@@ -64,7 +69,7 @@
                                         @endif
                                         <li class="nav-item">
                                             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview">
-                                                {{ !empty($collective?->sigle) ? $collective->sigle : 'Détails' }}
+                                                Détails
                                             </button>
                                         </li>
 
@@ -120,10 +125,12 @@
                                                     <div class="label">Nom structure</div>
                                                     <div>{{ $collective?->name }}</div>
                                                 </div>
-                                                <div class="col-12 col-md-3 mb-0">
-                                                    <div class="label">Sigle</div>
-                                                    <div>{{ $collective?->sigle }}</div>
-                                                </div>
+                                                @if ($collective?->sigle)
+                                                    <div class="col-12 col-md-3 mb-0">
+                                                        <div class="label">Sigle</div>
+                                                        <div>{{ $collective?->sigle }}</div>
+                                                    </div>
+                                                @endif
                                                 <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Numéro dossier</div>
                                                     <div>{{ $collective?->numero }}</div>
