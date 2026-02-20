@@ -283,7 +283,7 @@ class User extends Authenticatable
         $this->notify(new ResetPasswordNotification($token));
     } */
 
-    public function sendPasswordResetNotification($token): void
+    /* public function sendPasswordResetNotification($token): void
     {
         try {
             $this->notify(new ResetPasswordNotification($token));
@@ -291,6 +291,21 @@ class User extends Authenticatable
             \Log::error('Échec email : ' . $e->getMessage());
             session()->flash('error', 'Impossible d’envoyer l’email pour le moment.');
         }
+    } */
+
+    public function sendPasswordResetNotification($token): void
+    {
+        try {
+            $this->notify(new ResetPasswordNotification($token));
+        } catch (\Symfony\Component\Mailer\Exception\TransportExceptionInterface $e) {
+            // Log pour les développeurs
+            \Log::error('Échec envoi email reset password : ' . $e->getMessage());
+
+            // Stoppe la méthode et retourne un message utilisateur
+            return; // Optionnel : tu peux mettre session()->flash ou autre action ici
+        }
+
+        // Le reste du code ici ne sera exécuté que si l'email a réussi
     }
 
     public function arrives()
