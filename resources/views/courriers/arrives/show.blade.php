@@ -40,7 +40,7 @@
                     <div class="card border-info mb-3">
                         <div class="card-body pt-3">
                             <ul class="nav nav-tabs nav-tabs-bordered">
-                                
+
                                 @hasrole('super-admin|courrier|a-courrier')
                                     {{-- @can('imputer', $arrive) --}}
                                     <li class="nav-item active">
@@ -51,8 +51,8 @@
                                 @endhasrole
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
-                                        data-bs-target="#profile-overview">Détails courrier</button>
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview">Détails
+                                        courrier</button>
                                 </li>
 
                                 {{-- @can('update', $arrive)
@@ -66,7 +66,8 @@
                                         data-bs-target="#profile-settings">Commentaires</button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#audit">Historiques</button>
+                                    <button class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#audit">Historiques</button>
                                 </li>
                             </ul>
 
@@ -1075,8 +1076,12 @@
                                                         </div>
 
                                                         <div class="col-12 text-center pt-3">
+                                                            {{-- <button type="submit"
+                                                                class="btn btn-primary px-1">Imputer</button> --}}
                                                             <button type="submit"
-                                                                class="btn btn-primary px-5">Imputer</button>
+                                                                class="btn btn-primary btn-sm px-4 shadow-sm rounded-3">
+                                                                <i class="bi bi-check2-circle me-1"></i> Imputer
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </form>
