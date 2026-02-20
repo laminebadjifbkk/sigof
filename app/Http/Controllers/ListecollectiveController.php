@@ -170,11 +170,11 @@ class ListecollectiveController extends Controller
 
         // 🔹 Préfixe
         if ($request->type_piece === 'extrait') {
-            $cin = 'EXT.' . $cin;
+            $cin = 'EXT. ' . $cin;
         }
 
         if ($request->type_piece === 'passeport') {
-            $cin = 'PPT.' . $cin;
+            $cin = 'PPT. ' . $cin;
         }
 
         // 🔹 Injecter la vraie valeur
