@@ -85,7 +85,11 @@
                             <tr>
                                 <th>Véhicules affectés</th>
                                 <td>
-                                    @if ($chauffeur?->vehicules && $chauffeur?->vehicules?->isNotEmpty())
+                                    <span>
+                                        {{ $chauffeur?->vehicule?->immatriculation ? $chauffeur->vehicule->immatriculation : 'Aucun' }}
+                                        - {{ $chauffeur?->vehicule?->marque }}
+                                    </span>
+                                    {{-- @if ($chauffeur?->vehicules && $chauffeur?->vehicules?->isNotEmpty())
                                         <ul class="mb-0">
                                             @foreach ($chauffeur?->vehicules as $vehicule)
                                                 <li>{{ $vehicule?->immatriculation }} - {{ $vehicule?->marque }}</li>
@@ -93,7 +97,7 @@
                                         </ul>
                                     @else
                                         <span class="text-muted">Aucun véhicule affecté</span>
-                                    @endif
+                                    @endif --}}
                                 </td>
                             </tr>
                         </tbody>

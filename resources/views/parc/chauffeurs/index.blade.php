@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Liste des chauffeurs')
+@section('title', 'Liste des chauffeurs')
 
 @section('space-work')
     <section class="section register">
