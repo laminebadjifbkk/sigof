@@ -64,7 +64,7 @@
                                         @endif
                                         <li class="nav-item">
                                             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview">
-                                                {{ $collective?->sigle ?? 'Détails' }}
+                                                {{ !empty($collective?->sigle) ? $collective->sigle : 'Détails' }}
                                             </button>
                                         </li>
 
