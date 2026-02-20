@@ -43,9 +43,11 @@
 
                                 @hasrole('super-admin|courrier|a-courrier')
                                     {{-- @can('imputer', $arrive) --}}
-                                    <li class="nav-item active">
-                                        <button class="nav-link" data-bs-toggle="tab"
-                                            data-bs-target="#imputer_courrier">Imputer</button>
+                                    <li class="nav-item">
+                                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#imputer_courrier"
+                                            type="button">
+                                            Imputer
+                                        </button>
                                     </li>
                                     {{-- @endcan --}}
                                 @endhasrole
@@ -72,6 +74,211 @@
                             </ul>
 
                             <div class="tab-content pt-0">
+                                <div class="tab-pane fade show active pt-4" id="imputer_courrier">
+                                    <div class="container-fluid">
+
+                                        <div class="card shadow-lg border-0">
+
+                                            <!-- ===== HEADER ===== -->
+                                            <div
+                                                class="card-header bg-white d-flex justify-content-between align-items-center border-bottom">
+                                                <div>
+                                                    <h4 class="fw-bold text-primary mb-0">
+                                                        <i class="bi bi-folder-check me-2"></i>Imputation du courrier
+                                                    </h4>
+                                                    <small class="text-muted">Affectation aux employés</small>
+                                                </div>
+
+                                                <form action="{{ route('couponArrive') }}" method="post" target="_blank">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $arrive?->id }}">
+                                                    <button class="btn btn-outline-primary btn-sm shadow-sm">
+                                                        <i class="bi bi-printer me-1"></i> Télécharger le coupon
+                                                    </button>
+                                                </form>
+                                            </div>
+
+                                            <div class="card-body">
+
+                                                <!-- ===== INFOS COURRIER ===== -->
+                                                <div class="row mb-4">
+                                                    <div class="col-md-6">
+                                                        <label class="text-muted small">Expéditeur</label>
+                                                        <div class="fw-semibold fs-6">
+                                                            {{ $arrive?->courrier?->expediteur }}</div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="text-muted small">Objet</label>
+                                                        <div class="fw-semibold fs-6">{{ $arrive?->courrier?->objet }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+
+                                                <!-- ===== ANCIENNES IMPUTATIONS ===== -->
+                                                <div class="mb-3">
+                                                    <h5 class="fw-bold text-primary">
+                                                        <i class="bi bi-list-check me-1"></i> Anciennes imputations
+                                                    </h5>
+                                                </div>
+
+                                                <div class="table-responsive mb-4">
+                                                    <table class="table table-hover align-middle table-bordered">
+                                                        <thead style="background-color: #cfe2ff; color: #0d6efd;">
+                                                            <!-- bleu clair -->
+                                                            <tr>
+                                                                <th>Employé</th>
+                                                                <th>Direction</th>
+                                                                <th width="5%">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @forelse ($arrive->employees as $employe)
+                                                                <tr class="align-middle">
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            value="{{ $employe->user->firstname }} {{ $employe->user->name }}"
+                                                                            class="form-control form-control-sm border-0 bg-light"
+                                                                            readonly>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            value="{{ $employe->direction->name ?? '' }}"
+                                                                            class="form-control form-control-sm border-0 bg-light"
+                                                                            readonly>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <i class="bi bi-lock text-muted"></i>
+                                                                    </td>
+                                                                </tr>
+                                                            @empty
+                                                                <tr>
+                                                                    <td colspan="3" class="text-center text-muted">
+                                                                        Aucune ancienne imputation</td>
+                                                                </tr>
+                                                            @endforelse
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <!-- ===== AJOUT EMPLOYÉ ===== -->
+                                                <hr>
+                                                <!-- ===== NOUVELLES IMPUTATIONS ===== -->
+                                                <div class="mb-4">
+                                                    <h5 class="fw-bold text-primary mb-3">
+                                                        <i class="bi bi-list-check me-1"></i> Nouvelles imputations
+                                                    </h5>
+
+                                                    <div class="card shadow-sm border-0">
+                                                        <div class="card-body">
+                                                            <div class="row g-3 align-items-end">
+
+                                                                <!-- EMPLOYÉ -->
+                                                                <div class="col-md-6 position-relative">
+                                                                    <label class="form-label fw-semibold">Employé</label>
+                                                                    <input type="text" id="product"
+                                                                        placeholder="Rechercher employé..."
+                                                                        class="form-control form-control-sm shadow-sm">
+                                                                    <div id="productList"
+                                                                        class="list-group position-absolute w-100 shadow"
+                                                                        style="z-index:1000;"></div>
+                                                                    <input type="hidden" id="id_emp">
+                                                                </div>
+
+                                                                <!-- CENTRE DE RESPONSABILITÉ -->
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label fw-semibold">Centre de
+                                                                        responsabilité</label>
+                                                                    <input type="text" id="direction"
+                                                                        class="form-control form-control-sm bg-light"
+                                                                        readonly>
+                                                                    <input type="hidden" id="id_direction">
+                                                                </div>
+
+                                                                <!-- BOUTON AJOUTER -->
+                                                                <div class="col-12 text-center pt-2">
+                                                                    <button id="addMore"
+                                                                        class="btn btn-success btn-sm px-4 shadow-sm rounded-3">
+                                                                        <i class="bi bi-plus-circle me-1"></i> Ajouter
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ===== FORMULAIRE D'IMPUTATION ===== -->
+                                                <form method="post"
+                                                    action="{{ route('arrives.update', $arrive?->id) }}">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="imp" value="1">
+
+                                                    <!-- ===== TABLE IMPUTATION DYNAMIQUE ===== -->
+                                                    <div class="table-responsive mb-4">
+                                                        <table class="table table-hover align-middle table-bordered"
+                                                            id="table-imputation">
+                                                            <thead class="table-light">
+                                                                <tr>
+                                                                    <th>Employé</th>
+                                                                    <th>Direction</th>
+                                                                    <th width="5%">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="addRow"></tbody>
+                                                        </table>
+                                                    </div>
+
+                                                    <!-- ===== PARAMÈTRES ===== -->
+                                                    <div class="row g-3">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Action attendue</label>
+                                                            <select name="description" class="form-select form-select-sm"
+                                                                required>
+                                                                <option value="">Choisir...</option>
+                                                                <option>Urgent</option>
+                                                                <option>Répondre</option>
+                                                                <option>M'en parler</option>
+                                                                <option>Etudes et Avis</option>
+                                                                <option>Suivi</option>
+                                                                <option>Information</option>
+                                                                <option>Diffusion</option>
+                                                                <option>Attribution</option>
+                                                                <option>Classement</option>
+                                                                <option>Pour rappel</option>
+                                                                <option>Circularisation</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Date imputation</label>
+                                                            <input type="date" name="date_imp"
+                                                                class="form-control form-control-sm" required>
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <label class="form-label">Observation</label>
+                                                            <textarea name="observation" class="form-control form-control-sm" rows="2"></textarea>
+                                                        </div>
+
+                                                        <div class="col-12 text-center pt-3">
+                                                            {{-- <button type="submit"
+                                                                class="btn btn-primary px-1">Imputer</button> --}}
+                                                            <button type="submit"
+                                                                class="btn btn-primary btn-sm px-4 shadow-sm rounded-3">
+                                                                <i class="bi bi-check2-circle me-1"></i> Imputer
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="tab-pane fade profile-overview" id="profile-overview">
                                     @hasrole('super-admin|courrier|a-courrier')
                                         <div class="d-flex justify-content-between align-items-center mt-3">
@@ -351,7 +558,7 @@
 
                                     @endforelse
                                 </div>
-                                <div class="tab-pane fade pt-3" id="audit">
+                                {{-- <div class="tab-pane fade pt-3" id="audit">
                                     <div class="border-info mb-3">
                                         <div class="card-header text-center">
                                             AUDIT
@@ -365,6 +572,37 @@
                                                     {{ $courrier?->updated_at?->diffForHumans() }}</p>
                                             @else
                                                 <p> jamais modifié</p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div> --}}
+                                <div class="tab-pane fade pt-3" id="audit">
+                                    <div class="card border-info shadow-sm mb-3">
+                                        <div class="card-header bg-info text-white text-center fw-bold">
+                                            <i class="bi bi-clipboard-data me-1"></i> Historiques
+                                        </div>
+                                        <div class="card-body d-flex flex-column gap-2">
+                                            <h5 class="card-title text-primary fw-semibold">Informations complémentaires
+                                            </h5>
+
+                                            <p class="mb-1">
+                                                <span class="badge bg-success me-1">Créé par</span>
+                                                <b>{{ $user_create_name }}</b> —
+                                                <small
+                                                    class="text-muted">{{ $arrive?->courrier?->created_at?->diffForHumans() }}</small>
+                                            </p>
+
+                                            @if ($arrive?->courrier?->created_at != $courrier?->updated_at)
+                                                <p class="mb-0">
+                                                    <span class="badge bg-warning text-dark me-1">Modifié par</span>
+                                                    <b>{{ $user_update_name }}</b> —
+                                                    <small
+                                                        class="text-muted">{{ $courrier?->updated_at?->diffForHumans() }}</small>
+                                                </p>
+                                            @else
+                                                <p class="mb-0">
+                                                    <span class="badge bg-secondary">Jamais modifié</span>
+                                                </p>
                                             @endif
                                         </div>
                                     </div>
@@ -883,213 +1121,6 @@
                                         </script>
                                     </div>
                                 </div> --}}
-
-                                <div class="tab-pane fade show active pt-4" id="imputer_courrier">
-                                    <div class="container-fluid">
-
-                                        <div class="card shadow-lg border-0">
-
-                                            <!-- ===== HEADER ===== -->
-                                            <div
-                                                class="card-header bg-white d-flex justify-content-between align-items-center border-bottom">
-                                                <div>
-                                                    <h4 class="fw-bold text-primary mb-0">
-                                                        <i class="bi bi-folder-check me-2"></i>Imputation du courrier
-                                                    </h4>
-                                                    <small class="text-muted">Affectation aux employés</small>
-                                                </div>
-
-                                                <form action="{{ route('couponArrive') }}" method="post"
-                                                    target="_blank">
-                                                    @csrf
-                                                    <input type="hidden" name="id" value="{{ $arrive?->id }}">
-                                                    <button class="btn btn-outline-primary btn-sm shadow-sm">
-                                                        <i class="bi bi-printer me-1"></i> Télécharger le coupon
-                                                    </button>
-                                                </form>
-                                            </div>
-
-                                            <div class="card-body">
-
-                                                <!-- ===== INFOS COURRIER ===== -->
-                                                <div class="row mb-4">
-                                                    <div class="col-md-6">
-                                                        <label class="text-muted small">Expéditeur</label>
-                                                        <div class="fw-semibold fs-6">
-                                                            {{ $arrive?->courrier?->expediteur }}</div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label class="text-muted small">Objet</label>
-                                                        <div class="fw-semibold fs-6">{{ $arrive?->courrier?->objet }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <hr>
-
-
-                                                <!-- ===== ANCIENNES IMPUTATIONS ===== -->
-                                                <div class="mb-3">
-                                                    <h5 class="fw-bold text-primary">
-                                                        <i class="bi bi-list-check me-1"></i> Anciennes imputations
-                                                    </h5>
-                                                </div>
-
-                                                <div class="table-responsive mb-4">
-                                                    <table class="table table-hover align-middle table-bordered">
-                                                        <thead style="background-color: #cfe2ff; color: #0d6efd;">
-                                                            <!-- bleu clair -->
-                                                            <tr>
-                                                                <th>Employé</th>
-                                                                <th>Direction</th>
-                                                                <th width="5%">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @forelse ($arrive->employees as $employe)
-                                                                <tr class="align-middle">
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            value="{{ $employe->user->firstname }} {{ $employe->user->name }}"
-                                                                            class="form-control form-control-sm border-0 bg-light"
-                                                                            readonly>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            value="{{ $employe->direction->name ?? '' }}"
-                                                                            class="form-control form-control-sm border-0 bg-light"
-                                                                            readonly>
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <i class="bi bi-lock text-muted"></i>
-                                                                    </td>
-                                                                </tr>
-                                                            @empty
-                                                                <tr>
-                                                                    <td colspan="3" class="text-center text-muted">
-                                                                        Aucune ancienne imputation</td>
-                                                                </tr>
-                                                            @endforelse
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-
-                                                <!-- ===== AJOUT EMPLOYÉ ===== -->
-                                                <hr>
-                                                <!-- ===== NOUVELLES IMPUTATIONS ===== -->
-                                                <div class="mb-4">
-                                                    <h5 class="fw-bold text-primary mb-3">
-                                                        <i class="bi bi-list-check me-1"></i> Nouvelles imputations
-                                                    </h5>
-
-                                                    <div class="card shadow-sm border-0">
-                                                        <div class="card-body">
-                                                            <div class="row g-3 align-items-end">
-
-                                                                <!-- EMPLOYÉ -->
-                                                                <div class="col-md-6 position-relative">
-                                                                    <label class="form-label fw-semibold">Employé</label>
-                                                                    <input type="text" id="product"
-                                                                        placeholder="Rechercher employé..."
-                                                                        class="form-control form-control-sm shadow-sm">
-                                                                    <div id="productList"
-                                                                        class="list-group position-absolute w-100 shadow"
-                                                                        style="z-index:1000;"></div>
-                                                                    <input type="hidden" id="id_emp">
-                                                                </div>
-
-                                                                <!-- CENTRE DE RESPONSABILITÉ -->
-                                                                <div class="col-md-6">
-                                                                    <label class="form-label fw-semibold">Centre de
-                                                                        responsabilité</label>
-                                                                    <input type="text" id="direction"
-                                                                        class="form-control form-control-sm bg-light"
-                                                                        readonly>
-                                                                    <input type="hidden" id="id_direction">
-                                                                </div>
-
-                                                                <!-- BOUTON AJOUTER -->
-                                                                <div class="col-12 text-center pt-2">
-                                                                    <button id="addMore"
-                                                                        class="btn btn-success btn-sm px-4 shadow-sm rounded-3">
-                                                                        <i class="bi bi-plus-circle me-1"></i> Ajouter
-                                                                    </button>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- ===== FORMULAIRE D'IMPUTATION ===== -->
-                                                <form method="post"
-                                                    action="{{ route('arrives.update', $arrive?->id) }}">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <input type="hidden" name="imp" value="1">
-
-                                                    <!-- ===== TABLE IMPUTATION DYNAMIQUE ===== -->
-                                                    <div class="table-responsive mb-4">
-                                                        <table class="table table-hover align-middle table-bordered"
-                                                            id="table-imputation">
-                                                            <thead class="table-light">
-                                                                <tr>
-                                                                    <th>Employé</th>
-                                                                    <th>Direction</th>
-                                                                    <th width="5%">Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="addRow"></tbody>
-                                                        </table>
-                                                    </div>
-
-                                                    <!-- ===== PARAMÈTRES ===== -->
-                                                    <div class="row g-3">
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">Action attendue</label>
-                                                            <select name="description" class="form-select form-select-sm"
-                                                                required>
-                                                                <option value="">Choisir...</option>
-                                                                <option>Urgent</option>
-                                                                <option>Répondre</option>
-                                                                <option>M'en parler</option>
-                                                                <option>Etudes et Avis</option>
-                                                                <option>Suivi</option>
-                                                                <option>Information</option>
-                                                                <option>Diffusion</option>
-                                                                <option>Attribution</option>
-                                                                <option>Classement</option>
-                                                                <option>Pour rappel</option>
-                                                                <option>Circularisation</option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">Date imputation</label>
-                                                            <input type="date" name="date_imp"
-                                                                class="form-control form-control-sm" required>
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <label class="form-label">Observation</label>
-                                                            <textarea name="observation" class="form-control form-control-sm" rows="2"></textarea>
-                                                        </div>
-
-                                                        <div class="col-12 text-center pt-3">
-                                                            {{-- <button type="submit"
-                                                                class="btn btn-primary px-1">Imputer</button> --}}
-                                                            <button type="submit"
-                                                                class="btn btn-primary btn-sm px-4 shadow-sm rounded-3">
-                                                                <i class="bi bi-check2-circle me-1"></i> Imputer
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                         </div>
