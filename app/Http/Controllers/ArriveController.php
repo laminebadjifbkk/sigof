@@ -391,14 +391,15 @@ class ArriveController extends Controller
                     Mail::to($toEmail)->send(new ImputationcourrierMail($message, $subject, $toEmail, $toUserName, $arrive));
                 } catch (\Exception $e) {
                     // Stocke l'erreur avec l'email concerné
-                    $mailErrors[] = "Erreur en envoyant le mail à {$toEmail} : " . $e->getMessage();
+                    /* $mailErrors[] = "Erreur en envoyant le mail à {$toEmail} : " . $e->getMessage(); */
+                    $mailErrors[] = "{$toEmail}";
                 }
             }
 
             // Affichage du message final
             if (count($mailErrors) > 0) {
                 $errorMessage = implode('<br>', $mailErrors);
-                Alert::error('Attention !', "Le courrier a été imputé mais certains mails n'ont pas pu être envoyés :<br>{$errorMessage}");
+                Alert::warning('Erreur !', "Le courrier a été imputé mais les mails n'ont pas pu être envoyés à : {$errorMessage} et autres");
             } else {
                 Alert::success('Bravo !', 'Le courrier a été imputé et tous les mails ont été envoyés avec succès.');
             }
