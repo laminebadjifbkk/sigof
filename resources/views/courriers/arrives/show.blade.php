@@ -40,9 +40,19 @@
                     <div class="card border-info mb-3">
                         <div class="card-body pt-3">
                             <ul class="nav nav-tabs nav-tabs-bordered">
+                                
+                                @hasrole('super-admin|courrier|a-courrier')
+                                    {{-- @can('imputer', $arrive) --}}
+                                    <li class="nav-item active">
+                                        <button class="nav-link" data-bs-toggle="tab"
+                                            data-bs-target="#imputer_courrier">Imputer</button>
+                                    </li>
+                                    {{-- @endcan --}}
+                                @endhasrole
+
                                 <li class="nav-item">
-                                    <button class="nav-link active" data-bs-toggle="tab"
-                                        data-bs-target="#profile-overview">Courrier</button>
+                                    <button class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#profile-overview">Détails courrier</button>
                                 </li>
 
                                 {{-- @can('update', $arrive)
@@ -51,26 +61,17 @@
                                             data-bs-target="#modifier_courrier">Modifier</button>
                                     </li>
                                 @endcan --}}
-
-                                @hasrole('super-admin|courrier|a-courrier')
-                                    {{-- @can('imputer', $arrive) --}}
-                                    <li class="nav-item">
-                                        <button class="nav-link" data-bs-toggle="tab"
-                                            data-bs-target="#imputer_courrier">Imputer</button>
-                                    </li>
-                                    {{-- @endcan --}}
-                                @endhasrole
                                 <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab"
                                         data-bs-target="#profile-settings">Commentaires</button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#audit">Audit</button>
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#audit">Historiques</button>
                                 </li>
                             </ul>
 
                             <div class="tab-content pt-0">
-                                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                                <div class="tab-pane fade profile-overview" id="profile-overview">
                                     @hasrole('super-admin|courrier|a-courrier')
                                         <div class="d-flex justify-content-between align-items-center mt-3">
                                             <h5 class="card-title"></h5>
@@ -569,7 +570,7 @@
                                         </div>
                                     </form>
                                 </div> --}}
-                                <div class="tab-pane fade pt-3" id="imputer_courrier">
+                                {{-- <div class="tab-pane fade pt-3" id="imputer_courrier">
                                     <div class="col-lg-12">
                                         <div class="col-sm-12 col-md-12 pt-2">
 
@@ -638,9 +639,6 @@
                                                             class="fa fa-plus"
                                                             aria-hidden="true"></i>&nbsp;Ajouter</button>
                                                 </div>
-
-                                                {{--   </div>
-                                                </div> --}}
                                             </div>
                                         </div>
                                         <hr>
@@ -649,8 +647,6 @@
                                                 enctype="multipart/form-data" class="row g-3">
                                                 @csrf
                                                 @method('PUT')
-                                                {{-- {!! Form::open(['url' => 'arrives/' . $arrive?->id, 'method' => 'PATCH', 'files' => true]) !!}
-                                        @csrf --}}
                                                 <div class="table-responsive">
                                                     <table class="table table-bordered" style="display: none;">
                                                         <thead>
@@ -666,36 +662,6 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td colspan="1" class="">
-                                                                    {{-- <strong>{!! Form::label('Actions attendues') !!}</strong>
-                                                                {!! Form::select(
-                                                                    'description',
-                                                                    [
-                                                                        'Urgent' => 'Urgent',
-                                                                        'M\'en parler' => 'M\'en parler',
-                                                                        'Etudes et Avis' => 'Etudes et Avis',
-                                                                        'Répondre' => 'Répondre',
-                                                                        'Suivi' => 'Suivi',
-                                                                        'Information' => 'Information',
-                                                                        'Diffusion' => 'Diffusion',
-                                                                        'Attribution' => 'Attribution',
-                                                                        'Classement' => 'Classement',
-                                                                    ],
-                                                                    $arrive?->courrier?->description,
-                                                                    [
-                                                                        'placeholder' => 'Choisir une instruction...',
-                                                                        'class' => 'form-control form-control-sm font-italic',
-                                                                        'required' => 'required',
-                                                                        'id' => 'description',
-                                                                    ],
-                                                                ) !!}
-                    
-                                                                <small id="emailHelp" class="form-text text-muted">
-                                                                    @if ($errors?->has('description'))
-                                                                        @foreach ($errors?->get('description') as $message)
-                                                                            <p class="text-danger">{{ $message }}</p>
-                                                                        @endforeach
-                                                                    @endif
-                                                                </small> --}}
                                                                     <strong><label for="description"
                                                                             class="form-label">Actions
                                                                             attendues<span
@@ -787,7 +753,6 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td colspan="4" class="text-center">
-                                                                    {{-- {!! Form::submit('Imputer', ['class' => 'btn btn-outline-primary pull-right']) !!} --}}
 
                                                                     <div class="text-center">
                                                                         <button type="submit"
@@ -800,10 +765,8 @@
                                                     </table>
                                                 </div>
                                             </form>
-                                            {{-- {!! Form::close() !!} --}}
                                             <div>
                                                 <h5 class="card-title">Imputation employés</h5>
-                                                {{-- <p>Le tableau de tous les employés.</p> --}}
                                                 <table class="table datatables align-middle" id="table-employes">
                                                     <thead>
                                                         <tr>
@@ -814,9 +777,6 @@
                                                             <th>E-mail</th>
                                                             <th>Téléphone</th>
                                                             <th>Direction</th>
-                                                            {{-- @if (auth()?->user()?->hasRole('super-admin'))
-                                                                <th>#</th>
-                                                            @endif --}}
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -828,7 +788,6 @@
                                                                         src="{{ asset($employe?->user?->getImage()) }}"
                                                                         width="40" height="auto">
                                                                 </th>
-                                                                {{-- <td>{{ $i++ }}</td> --}}
                                                                 <td>{{ $employe?->matricule }}</td>
                                                                 <td>{{ $employe?->user?->firstname }}</td>
                                                                 <td>{{ $employe?->user?->name }}</td>
@@ -840,22 +799,6 @@
                                                                 </td>
                                                                 <td>{{ $employe?->direction?->name }}</td>
                                                                 @if (auth()?->user()?->hasRole('super-admin'))
-                                                                    {{-- <td>
-                                                                        <span class="d-flex mt-2 align-items-baseline"><a
-                                                                                href="{{ route('employes.show', $employe?->id) }}"
-                                                                                class="btn btn-success btn-sm mx-1"
-                                                                                title="voir détails"><i
-                                                                                    class="bi bi-eye"></i></a>
-                                                                            <div class="filter">
-                                                                                <a class="icon" href="#"
-                                                                                    data-bs-toggle="dropdown"><i
-                                                                                        class="bi bi-three-dots"></i></a>
-                                                                                <ul
-                                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                                </ul>
-                                                                            </div>
-                                                                        </span>
-                                                                    </td> --}}
                                                                 @endif
                                                             </tr>
                                                         @endforeach
@@ -938,6 +881,209 @@
                                             });
                                         </script>
                                     </div>
+                                </div> --}}
+
+                                <div class="tab-pane fade show active pt-4" id="imputer_courrier">
+                                    <div class="container-fluid">
+
+                                        <div class="card shadow-lg border-0">
+
+                                            <!-- ===== HEADER ===== -->
+                                            <div
+                                                class="card-header bg-white d-flex justify-content-between align-items-center border-bottom">
+                                                <div>
+                                                    <h4 class="fw-bold text-primary mb-0">
+                                                        <i class="bi bi-folder-check me-2"></i>Imputation du courrier
+                                                    </h4>
+                                                    <small class="text-muted">Affectation aux employés</small>
+                                                </div>
+
+                                                <form action="{{ route('couponArrive') }}" method="post"
+                                                    target="_blank">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $arrive?->id }}">
+                                                    <button class="btn btn-outline-primary btn-sm shadow-sm">
+                                                        <i class="bi bi-printer me-1"></i> Télécharger le coupon
+                                                    </button>
+                                                </form>
+                                            </div>
+
+                                            <div class="card-body">
+
+                                                <!-- ===== INFOS COURRIER ===== -->
+                                                <div class="row mb-4">
+                                                    <div class="col-md-6">
+                                                        <label class="text-muted small">Expéditeur</label>
+                                                        <div class="fw-semibold fs-6">
+                                                            {{ $arrive?->courrier?->expediteur }}</div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="text-muted small">Objet</label>
+                                                        <div class="fw-semibold fs-6">{{ $arrive?->courrier?->objet }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+
+                                                <!-- ===== ANCIENNES IMPUTATIONS ===== -->
+                                                <div class="mb-3">
+                                                    <h5 class="fw-bold text-primary">
+                                                        <i class="bi bi-list-check me-1"></i> Anciennes imputations
+                                                    </h5>
+                                                </div>
+
+                                                <div class="table-responsive mb-4">
+                                                    <table class="table table-hover align-middle table-bordered">
+                                                        <thead style="background-color: #cfe2ff; color: #0d6efd;">
+                                                            <!-- bleu clair -->
+                                                            <tr>
+                                                                <th>Employé</th>
+                                                                <th>Direction</th>
+                                                                <th width="5%">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @forelse ($arrive->employees as $employe)
+                                                                <tr class="align-middle">
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            value="{{ $employe->user->firstname }} {{ $employe->user->name }}"
+                                                                            class="form-control form-control-sm border-0 bg-light"
+                                                                            readonly>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            value="{{ $employe->direction->name ?? '' }}"
+                                                                            class="form-control form-control-sm border-0 bg-light"
+                                                                            readonly>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <i class="bi bi-lock text-muted"></i>
+                                                                    </td>
+                                                                </tr>
+                                                            @empty
+                                                                <tr>
+                                                                    <td colspan="3" class="text-center text-muted">
+                                                                        Aucune ancienne imputation</td>
+                                                                </tr>
+                                                            @endforelse
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <!-- ===== AJOUT EMPLOYÉ ===== -->
+                                                <hr>
+                                                <!-- ===== NOUVELLES IMPUTATIONS ===== -->
+                                                <div class="mb-4">
+                                                    <h5 class="fw-bold text-primary mb-3">
+                                                        <i class="bi bi-list-check me-1"></i> Nouvelles imputations
+                                                    </h5>
+
+                                                    <div class="card shadow-sm border-0">
+                                                        <div class="card-body">
+                                                            <div class="row g-3 align-items-end">
+
+                                                                <!-- EMPLOYÉ -->
+                                                                <div class="col-md-6 position-relative">
+                                                                    <label class="form-label fw-semibold">Employé</label>
+                                                                    <input type="text" id="product"
+                                                                        placeholder="Rechercher employé..."
+                                                                        class="form-control form-control-sm shadow-sm">
+                                                                    <div id="productList"
+                                                                        class="list-group position-absolute w-100 shadow"
+                                                                        style="z-index:1000;"></div>
+                                                                    <input type="hidden" id="id_emp">
+                                                                </div>
+
+                                                                <!-- CENTRE DE RESPONSABILITÉ -->
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label fw-semibold">Centre de
+                                                                        responsabilité</label>
+                                                                    <input type="text" id="direction"
+                                                                        class="form-control form-control-sm bg-light"
+                                                                        readonly>
+                                                                    <input type="hidden" id="id_direction">
+                                                                </div>
+
+                                                                <!-- BOUTON AJOUTER -->
+                                                                <div class="col-12 text-center pt-2">
+                                                                    <button id="addMore"
+                                                                        class="btn btn-success btn-sm px-4 shadow-sm rounded-3">
+                                                                        <i class="bi bi-plus-circle me-1"></i> Ajouter
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ===== FORMULAIRE D'IMPUTATION ===== -->
+                                                <form method="post"
+                                                    action="{{ route('arrives.update', $arrive?->id) }}">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="imp" value="1">
+
+                                                    <!-- ===== TABLE IMPUTATION DYNAMIQUE ===== -->
+                                                    <div class="table-responsive mb-4">
+                                                        <table class="table table-hover align-middle table-bordered"
+                                                            id="table-imputation">
+                                                            <thead class="table-light">
+                                                                <tr>
+                                                                    <th>Employé</th>
+                                                                    <th>Direction</th>
+                                                                    <th width="5%">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="addRow"></tbody>
+                                                        </table>
+                                                    </div>
+
+                                                    <!-- ===== PARAMÈTRES ===== -->
+                                                    <div class="row g-3">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Action attendue</label>
+                                                            <select name="description" class="form-select form-select-sm"
+                                                                required>
+                                                                <option value="">Choisir...</option>
+                                                                <option>Urgent</option>
+                                                                <option>Répondre</option>
+                                                                <option>M'en parler</option>
+                                                                <option>Etudes et Avis</option>
+                                                                <option>Suivi</option>
+                                                                <option>Information</option>
+                                                                <option>Diffusion</option>
+                                                                <option>Attribution</option>
+                                                                <option>Classement</option>
+                                                                <option>Pour rappel</option>
+                                                                <option>Circularisation</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Date imputation</label>
+                                                            <input type="date" name="date_imp"
+                                                                class="form-control form-control-sm" required>
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <label class="form-label">Observation</label>
+                                                            <textarea name="observation" class="form-control form-control-sm" rows="2"></textarea>
+                                                        </div>
+
+                                                        <div class="col-12 text-center pt-3">
+                                                            <button type="submit"
+                                                                class="btn btn-primary px-5">Imputer</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -956,5 +1102,106 @@
             let element = document.getElementById('replayComment-' + id);
             element.classList.toggle('d-none');
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            // ================================
+            // AJOUT DYNAMIQUE D'EMPLOYÉ
+            // ================================
+            $('#addMore').on('click', function(e) {
+                e.preventDefault();
+
+                let product = $("#product").val().trim();
+                let id_emp = $("#id_emp").val();
+                let direction = $("#direction").val().trim();
+                let id_direction = $("#id_direction").val();
+
+                if (product === '' || id_emp === '') {
+                    alert("Veuillez sélectionner un employé valide.");
+                    return;
+                }
+
+                let newRow = `
+        <tr class="align-middle">
+            <td>
+                <input type="hidden" name="id_emp[]" value="${id_emp}">
+                <input type="text" name="product[]" value="${product}" 
+                       class="form-control form-control-sm border-0 bg-transparent" readonly>
+            </td>
+            <td>
+                <input type="hidden" name="id_direction[]" value="${id_direction}">
+                <input type="text" name="direction[]" value="${direction}" 
+                       class="form-control form-control-sm border-0 bg-transparent" readonly>
+            </td>
+            <td class="text-center">
+                <button type="button" class="btn btn-sm btn-outline-danger removeRow">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+        </tr>
+        `;
+
+                $('#addRow').append(newRow);
+
+                // Reset champs
+                $("#product").val('');
+                $("#id_emp").val('');
+                $("#direction").val('');
+                $("#id_direction").val('');
+            });
+
+            // ================================
+            // SUPPRESSION LIGNE
+            // ================================
+            $(document).on('click', '.removeRow', function() {
+                $(this).closest('tr').remove();
+            });
+
+            // ================================
+            // RECHERCHE EMPLOYÉ (AJAX)
+            // ================================
+            $('#product').keyup(function() {
+                let query = $(this).val();
+                if (query.length < 2) {
+                    $('#productList').fadeOut();
+                    return;
+                }
+
+                $.ajax({
+                    url: "{{ route('arrive.fetch') }}",
+                    method: "POST",
+                    data: {
+                        query: query,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(data) {
+                        $('#productList').fadeIn().html(data);
+                    }
+                });
+            });
+
+            // ================================
+            // SÉLECTION EMPLOYÉ DANS LISTE
+            // ================================
+            $(document).on('click', '#productList li', function() {
+                $('#product').val($(this).text());
+                $('#id_emp').val($(this).data("id"));
+                $('#direction').val($(this).data("direction"));
+                $('#id_direction').val($(this).data("iddirection"));
+
+                $('#productList').fadeOut();
+            });
+
+            // ================================
+            // CACHER LISTE SI CLICK AILLEURS
+            // ================================
+            $(document).click(function(e) {
+                if (!$(e.target).closest('#product').length) {
+                    $('#productList').fadeOut();
+                }
+            });
+
+        });
     </script>
 @endpush

@@ -312,19 +312,6 @@ class ArriveController extends Controller
 
     public function update(Request $request, $id): RedirectResponse
     {
-        /* $arrive = Arrive::findOrFail($id);
-
-        foreach (Auth::user()->roles as $role) {
-            if (! empty($role?->name) && ($role?->name != 'super-admin') && ($role?->name != 'Employe')
-                && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
-                $this->authorize('update', $arrive);
-            }
-        }
-
-        $courrier = Courrier::findOrFail($arrive->courriers_id);
-
-        $imp = $request->input('imp'); */
-
         $arrive = Arrive::findOrFail($id);
         $arrive->update([
             'jour_imputation' => Carbon::now(),
@@ -341,14 +328,15 @@ class ArriveController extends Controller
         }
 
         $courrier = Courrier::findOrFail($arrive->courriers_id);
-        $imp      = $request->input('imp');
 
-        if (isset($imp) && $imp == "1") {
-
+        if ($request->filled('imp')) {
             $this->validate($request, [
-                "date_imp"    => ["required", "date", "size:10", "date_format:Y-m-d"],
+                "date_imp" => ["required", "date", "date_format:Y-m-d"],
                 "description" => ["required", "string"],
-                "id_emp"      => ["required"],
+                "id_emp" => ["required", "array", "min:1"],
+                "id_emp.*" => ["required", "exists:employees,id"],
+                "id_direction" => ["required", "array"],
+                "id_direction.*" => ["required", "exists:directions,id"],
                 "observation" => ["nullable", "string"],
             ]);
 
@@ -361,7 +349,7 @@ class ArriveController extends Controller
             $courrier->observation = strtoupper($request->input('observation'));
             $courrier->save();
 
-            $objetCourrier = $arrive->courrier->objet ?? 'objet';
+            /* $objetCourrier = $arrive->courrier->objet ?? 'objet';
             $lienApp       = url('https://sigof.onfp.sn/');                                // Remplace ceci par l'URL de ton application
             $lienCourrier  = url("https://sigof.onfp.sn/arrives/{$arrive->courrier->id}"); // Assure-toi que l'ID est bien accessible
 
@@ -380,6 +368,40 @@ class ArriveController extends Controller
             }
 
             Alert::success('Bravo !', 'Le courrier a été imputé avec succès.');
+
+            return redirect()->back(); */
+            $objetCourrier = $arrive->courrier->objet ?? 'objet';
+            $lienApp       = url('https://sigof.onfp.sn/');
+            $lienCourrier  = url("https://sigof.onfp.sn/arrives/{$arrive->courrier->id}");
+
+            $mailErrors = []; // tableau pour stocker les erreurs éventuelles
+
+            foreach ($arrive->employees as $employe) {
+                $toEmail    = $employe?->user->email;
+                $toUserName = trim(($employe?->user->civilite ?? '') . ' ' . ($employe?->user->firstname ?? '') . ' ' . ($employe?->user->name ?? ''));
+
+                $safeMessage = "Le <b>Directeur Général</b> de l'ONFP vous a imputé un nouveau courrier. <br>
+                    Merci de vous connecter à votre compte (<a href='{$lienApp}'>ici</a>) pour voir les détails
+                    ou accéder directement au courrier via <a href='{$lienCourrier}'>ce lien</a>.";
+
+                $subject = "COURRIER ONFP | $objetCourrier";
+                $message = strip_tags($safeMessage, '<b><i><p><a><br>'); // autorise certaines balises
+
+                try {
+                    Mail::to($toEmail)->send(new ImputationcourrierMail($message, $subject, $toEmail, $toUserName, $arrive));
+                } catch (\Exception $e) {
+                    // Stocke l'erreur avec l'email concerné
+                    $mailErrors[] = "Erreur en envoyant le mail à {$toEmail} : " . $e->getMessage();
+                }
+            }
+
+            // Affichage du message final
+            if (count($mailErrors) > 0) {
+                $errorMessage = implode('<br>', $mailErrors);
+                Alert::error('Attention !', "Le courrier a été imputé mais certains mails n'ont pas pu être envoyés :<br>{$errorMessage}");
+            } else {
+                Alert::success('Bravo !', 'Le courrier a été imputé et tous les mails ont été envoyés avec succès.');
+            }
 
             return redirect()->back();
         }
@@ -504,6 +526,7 @@ class ArriveController extends Controller
             return Redirect::back();
         }
     }
+
     public function show($id)
     {
         $arrive = Arrive::findOrFail($id);
