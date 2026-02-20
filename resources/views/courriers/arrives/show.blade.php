@@ -421,7 +421,7 @@
 
                                 </div>
 
-                                <div class="tab-pane fade pt-3" id="profile-settings">
+                                {{-- <div class="tab-pane fade pt-3" id="profile-settings">
                                     <form method="POST" action="{{ route('comments.store', $arrive?->courrier) }}"
                                         class="mt-3">
                                         @csrf
@@ -463,7 +463,6 @@
                                             <div class="card-body">
                                                 <div>{!! $comment?->content !!}
                                                     <div class="d-flex justify-content-between align-items-center mt-2">
-                                                        {{-- <small>Posté le {!! Carbon\Carbon::parse($comment?->created_at)?->format('d/m/Y à H:i:s') !!}</small> --}}
                                                         <small>Posté le {!! Carbon\Carbon::parse($comment?->created_at)?->diffForHumans() !!}</small>
                                                         <span
                                                             class="badge bg-info mx-1">{!! $comment?->user?->firstname ?? '' !!}&nbsp;{!! $comment?->user?->name ?? '' !!}</span>
@@ -474,7 +473,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- Réponse aux commentaires --}}
                                         @foreach ($comment?->comments as $replayComment)
                                             <div class="row mb-3">
                                                 <label for="" class="col-md-1 col-lg-1 col-form-label"></label>
@@ -528,34 +526,101 @@
                                                         </button>
                                                     </div>
                                                 </div>
-
-                                                {{-- <div class="text-center">
-                                        <button type="submit" class="btn btn-primary">Poster</button>
-                                    </div> --}}
-
-
-                                                {{-- <div class="form-group">
-                                                <label for="replayComment"><b>Ma réponse</b></label>
-                                                <textarea class="form-control @error('replayComment') is-invalid @enderror" name="replayComment" id="replayComment"
-                                                    rows="3" placeholder="Répondre à ce commentaire"></textarea>
-                                                <small id="emailHelp" class="form-text text-muted">
-                                                    @if ($errors?->has('replayComment'))
-                                                        @foreach ($errors?->get('replayComment') as $message)
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                        @endforeach
-                                                    @endif
-                                                </small>
-                                            </div>
-                                            <button class="btn btn-primary btn-sm m-2">
-                                                Répondre à ce commentaire
-                                            </button> --}}
                                             </form>
                                         @endauth
-                                        {{-- fin réponse aux commentaires --}}
                                     @empty
 
                                         <div class="alert alert-info">Aucun commentaire pour ce courrier</div>
 
+                                    @endforelse
+                                </div> --}}
+
+                                <div class="tab-pane fade pt-3" id="profile-settings">
+
+                                    <!-- ===== FORMULAIRE NOUVEAU COMMENTAIRE ===== -->
+                                    <div class="mb-4">
+                                        <h5 class="fw-bold text-primary">
+                                            <i class="bi bi-chat-left-text me-1"></i> Ajouter un commentaire
+                                        </h5>
+                                    </div>
+
+                                    <form method="POST" action="{{ route('comments.store', $arrive?->courrier) }}"
+                                        class="mb-4">
+                                        @csrf
+                                        <div class="form-floating mb-3">
+                                            <textarea class="form-control @error('commentaire') is-invalid @enderror" placeholder="Écrire votre commentaire..."
+                                                name="commentaire" id="commentaire" style="height: 100px;"></textarea>
+                                            <label for="commentaire">Écrire votre commentaire...</label>
+                                            @error('commentaire')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-sm px-4 shadow-sm rounded-3">
+                                            <i class="bi bi-send me-1"></i> Poster
+                                        </button>
+                                    </form>
+
+                                    <hr>
+
+                                    <!-- ===== LISTE DES COMMENTAIRES ===== -->
+                                    <h5 class="fw-bold text-secondary mb-3 text-center">
+                                        <i class="bi bi-chat-text me-1"></i> Commentaires
+                                    </h5>
+
+                                    @forelse ($arrive?->courrier?->comments as $comment)
+                                        <div class="card mb-3 shadow-sm">
+                                            <div class="card-body">
+                                                <p class="mb-2">{!! $comment?->content !!}</p>
+                                                <div
+                                                    class="d-flex justify-content-between align-items-center small text-muted">
+                                                    <span>Posté {{ $comment?->created_at?->diffForHumans() }}</span>
+                                                    <span class="badge bg-info">{{ $comment?->user?->firstname ?? '' }}
+                                                        {{ $comment?->user?->name ?? '' }}</span>
+                                                </div>
+
+                                                {{-- Réponses --}}
+                                                @foreach ($comment?->comments as $replayComment)
+                                                    <div class="card mt-2 ms-4 shadow-sm">
+                                                        <div class="card-body">
+                                                            <p class="mb-2">{!! $replayComment?->content !!}</p>
+                                                            <div
+                                                                class="d-flex justify-content-between align-items-center small text-muted">
+                                                                <span>Posté
+                                                                    {{ $replayComment?->created_at?->diffForHumans() }}</span>
+                                                                <span
+                                                                    class="badge bg-primary">{{ $replayComment?->user?->firstname ?? '' }}
+                                                                    {{ $replayComment?->user?->name ?? '' }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+
+                                                @auth
+                                                    <button class="btn btn-outline-info btn-sm mt-2"
+                                                        onclick="toggleReplayComment({{ $comment?->id }})">
+                                                        <i class="bi bi-reply me-1"></i> Répondre
+                                                    </button>
+                                                    <form method="POST"
+                                                        action="{{ route('comments.storeReply', $comment) }}"
+                                                        class="d-none mt-2" id="replayComment-{{ $comment?->id }}">
+                                                        @csrf
+                                                        <div class="form-floating mb-2">
+                                                            <textarea class="form-control @error('replayComment') is-invalid @enderror" placeholder="Répondre à ce commentaire"
+                                                                name="replayComment" style="height: 80px;"></textarea>
+                                                            <label>Répondre à ce commentaire</label>
+                                                            @error('replayComment')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary btn-sm">
+                                                            <i class="bi bi-send me-1"></i> Répondre
+                                                        </button>
+                                                    </form>
+                                                @endauth
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <div class="alert alert-info">Aucun commentaire pour ce courrier.</div>
                                     @endforelse
                                 </div>
                                 {{-- <div class="tab-pane fade pt-3" id="audit">
