@@ -63,14 +63,15 @@
                                         @endcan
                                         @endif
                                         <li class="nav-item">
-                                            <button class="nav-link" data-bs-toggle="tab"
-                                                data-bs-target="#profile-overview">{{ $collective?->sigle }}</button>
+                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview">
+                                                {{ $collective?->sigle ?? 'Détails' }}
+                                            </button>
                                         </li>
 
-                                        <li class="nav-item">
+                                        {{-- <li class="nav-item">
                                             <button class="nav-link" data-bs-toggle="tab"
                                                 data-bs-target="#responsable-overview">Responsable</button>
-                                        </li>
+                                        </li> --}}
 
                                         <li class="nav-item">
                                             <button class="nav-link active" data-bs-toggle="tab"
@@ -218,7 +219,7 @@
                                         </div>
                                     </div>
                                     {{-- Détail responsable --}}
-                                    <div class="tab-content pt-2">
+                                    {{-- <div class="tab-content pt-2">
                                         <div class="tab-pane fade profile-overview pt-3" id="responsable-overview">
                                             <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
                                                 @csrf
@@ -254,7 +255,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="tab-content pt-0">
                                         <div class="tab-pane fade show active profile-overview" id="membres-overview">
@@ -1407,10 +1408,7 @@
                                                 </option>
 
                                                 @php
-                                                    $niveauOptions = [
-                                                        'Renforcement de capacités',
-                                                        'Qualification',
-                                                    ];
+                                                    $niveauOptions = ['Renforcement de capacités', 'Qualification'];
                                                 @endphp
 
                                                 @foreach ($niveauOptions as $option)
