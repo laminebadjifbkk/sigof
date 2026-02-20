@@ -11,7 +11,11 @@
             <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                 <div class="row align-items-center">
-
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     @if ($message = Session::get('status'))
                         <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                             role="alert">
