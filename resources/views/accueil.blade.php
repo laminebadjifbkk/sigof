@@ -22,7 +22,7 @@
                             {{ session('error') }}
                         </div>
                     @endif
-
+                    
                     {{-- @if ($message = Session::get('status'))
                         <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                             role="alert">
@@ -31,6 +31,7 @@
                                 aria-label="Fermer"></button>
                         </div>
                     @endif --}}
+
                     @if ($errors->any())
                         @foreach ($errors->all() as $error)
                             <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"

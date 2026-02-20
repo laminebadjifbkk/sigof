@@ -315,15 +315,12 @@ class User extends Authenticatable
         try {
             $this->notify(new ResetPasswordNotification($token));
 
-            // Success uniquement si l'envoi est OK
+            // Affiche seulement le succès si l'email a été envoyé
             session()->flash('success', __('password.sent'));
         } catch (\Symfony\Component\Mailer\Exception\TransportExceptionInterface $e) {
-            // Log détaillé pour les développeurs
             \Log::error('Échec envoi email reset password : ' . $e->getMessage());
-
-            // Affiche seulement l'erreur
             session()->flash('error', 'Impossible d’envoyer l’email pour le moment.');
-            return; // Stoppe ici, le message de succès ne sera jamais affiché
+            return;
         }
     }
 
