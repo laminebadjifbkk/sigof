@@ -198,19 +198,6 @@ class ListecollectiveController extends Controller
             ],
         ]);
 
-        // Validation conditionnelle
-        /* $validator->sometimes('cin', ['digits:5'], function ($input) {
-            return $input->type_piece === 'extrait';
-        });
-
-        $validator->sometimes('cin', ['digits:9'], function ($input) {
-            return $input->type_piece === 'passeport';
-        });
-
-        $validator->sometimes('cin', ['digits_between:17,20'], function ($input) {
-            return $input->type_piece === 'cni';
-        }); */
-
         // Validation finale
         $data = $validator->validate();
 
@@ -221,22 +208,6 @@ class ListecollectiveController extends Controller
 
         // Utilisation des données validées
         $cin = $data['cin'] ?? null;
-
-        // Préfixe selon type
-        switch ($request->type_piece) {
-            case 'cni':
-                $cin = $cin;
-                break;
-            case 'extrait':
-                $cin = 'EXT. ' . $cin;
-                break;
-            case 'passeport':
-                $cin = 'PPT. ' . $cin;
-                break;
-            default:
-                $cin = $cin;
-                break;
-        }
 
         $dateString     = $request->input('date_naissance');
         $date_naissance = Carbon::createFromFormat('d/m/Y', $dateString);
