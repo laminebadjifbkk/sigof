@@ -150,15 +150,17 @@
                                                                             readonly>
                                                                     </td>
                                                                     <td class="text-center">
-                                                                        <form method="POST"
-                                                                            action="{{ route('arrives.detachEmployee', [$arrive->id, $employe->id]) }}">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit"
-                                                                                class="btn btn-outline-danger btn-sm show_confirm_detach">
-                                                                                <i class="bi bi-x-circle"></i>
-                                                                            </button>
-                                                                        </form>
+                                                                        @hasrole('super-admin|courrier|a-courrier')
+                                                                            <form method="POST"
+                                                                                action="{{ route('arrives.detachEmployee', [$arrive->id, $employe->id]) }}">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="btn btn-outline-danger btn-sm show_confirm_detach">
+                                                                                    <i class="bi bi-x-circle"></i>
+                                                                                </button>
+                                                                            </form>
+                                                                        @endhasrole
                                                                     </td>
                                                                 </tr>
                                                             @empty
