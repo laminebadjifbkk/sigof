@@ -278,9 +278,22 @@ class User extends Authenticatable
         return $this->hasOne(Validationindividuelle::class, 'validated_id');
     }
 
-    public function sendPasswordResetNotification($token): void
+    /* public function sendPasswordResetNotification($token): void
     {
         $this->notify(new ResetPasswordNotification($token));
+    } */
+
+    public function sendPasswordResetNotification($token): void
+    {
+        try {
+            $this->notify(new ResetPasswordNotification($token));
+        } catch (\Symfony\Component\Mailer\Exception\TransportExceptionInterface $e) {
+            // Log l'erreur pour les développeurs
+            \Log::error('Échec envoi email reset password : ' . $e->getMessage());
+
+            // Tu peux lancer une exception personnalisée ou retourner un message utilisateur
+            throw new \Exception('Impossible d’envoyer l’email pour le moment. Veuillez réessayer plus tard.');
+        }
     }
 
     public function arrives()
