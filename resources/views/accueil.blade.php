@@ -22,7 +22,7 @@
                             {{ session('error') }}
                         </div>
                     @endif
-                    
+
                     {{-- @if ($message = Session::get('status'))
                         <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                             role="alert">
@@ -42,38 +42,12 @@
                         @endforeach
                     @endif
                     <marquee behavior="scroll" direction="left">
-                        {{-- <strong style="color: red; font-weight: bold; animation: blink 1s linear infinite;">
-                            ⚠️ IMPORTANT : La fiche de candidature remplie et signée n’est plus requise puisque les
-                            dépôts se
-                            font exclusivement en ligne.
-                            Les candidats en conduite d’engins TP doivent obligatoirement joindre leur permis C en
-                            sélectionnant "Autres" dans la partie légende.
-                            Toute candidature incomplète sera automatiquement rejetée. Veuillez télécharger tous les
-                            documents exigés avant la clôture des dépôts.
-                        </strong> --}}
-                        {{-- <strong style="color: green; font-weight: bold; animation: fadeBlink 2s ease-in-out infinite;">
-                            ✅ Merci à toutes et à tous pour votre intérêt et votre confiance !
-                            Vos candidatures ont bien été prises en compte.
-                            Nous vous souhaitons plein succès pour la suite du processus de sélection.
-                        </strong> --}}
-
-                        {{-- <strong style="color: red; font-weight: bold; animation: blink 1s linear infinite;">
-                            ❌ L'appel à candidature pour la demande de formation est désormais clôturé.
-                            Merci pour l'intérêt que vous portez à nos formations. À très bientôt pour
-                            d'autres opportunités.
-                        </strong> --}}
-
-                        {{-- <strong style="color: green; font-weight: bold; animation: blink 1s linear infinite;">
-                            ✅ Le délai de dépôt des demandes d’agrément des opérateurs est prolongé
-                            jusqu’au mardi 26 août 2025 à 23h59.
-                            Merci de finaliser vos soumissions avant cette date limite.
-                        </strong> --}}
 
                     </marquee>
                     <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                         <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
 
-                            @if (!empty($une?->titre1))
+                            {{-- @if (!empty($une?->titre1))
                                 <div class="company-badge mb-4">
                                     <i class="bi bi-gear-fill me-2"></i>
                                     ONFP - La référence de la formation professionnelle
@@ -102,7 +76,6 @@
 
                             <p class="mb-4 mb-md-5">
                                 @if (!empty($une?->message))
-                                    {{-- {{ substr($une?->message, 0, 350) }}... --}}
                                     {!! '' .
                                         implode(
                                             ' ',
@@ -111,45 +84,82 @@
                                                 explode("\n", ucfirst(substr($une?->message, 0, 410))),
                                             ),
                                         ) !!}
-                                @else
+                                @endif
+                            </p> --}}
+
+                            @if (!empty($partenaire))
+                                <div class="company-badge">
+                                    <i class="bi bi-gear-fill me-2"></i>
+                                    APPEL A CANDIDATURE
+                                </div>
+                                <h1 class="mb-4">
+                                    {{ $partenaire?->sigle }} <br>
+
+                                    @foreach ($modules->take($maxDisplay) as $projetmodule)
+                                        <span class="accent-text">
+                                            {{ Str::limit($projetmodule?->module, 20, '.') }}
+                                        </span><br>
+                                    @endforeach
+                                </h1>
+
+                                <h5 class="mb-4">
+                                    @if ($modules->count() > $maxDisplay)
+                                        <span class="accent-text">… et {{ $modules->count() - $maxDisplay }} module(s)
+                                            de plus</span>
+                                    @endif
+                                </h5>
+                            @else
+                                {{-- <div class="company-badge mb-4">
+                                    <i class="bi bi-gear-fill me-2"></i>
+                                    L'ONFP EST LA REFERENCE DE LA FORMATION PROFESSIONNELLE
+                                </div> --}}
+                                <h2 class="mb-4 text-center">
+                                    L'ONFP EST<br>
+                                    LA REFERENCE<br>
+                                    <span class="accent-text">DE LA FORMATION</span><br>
+                                    <span class="accent-text">PROFESSIONNELLE AU SENEGAL</span>
+                                </h2>
+                            @endif
+
+                            <p class="mb-2 mb-md-5">
+                                @if (!empty($une?->message))
+                                    {!! '' .
+                                        implode(
+                                            ' ',
+                                            array_map(
+                                                fn($line) => nl2br(e(wordwrap($line, 90, "\n", true))),
+                                                explode("\n", ucfirst(substr($une?->message, 0, 410))),
+                                            ),
+                                        ) !!}
                                 @endif
                             </p>
-                            <div class="hero-buttons">
-                                @if (!empty($une?->message))
-                                    <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
-                                        ⏳ Il vous reste <span id="countdown"></span> pour déposer votre demande.
-                                    </div>
 
-                                    {{-- Ici pour les autres appel à candidature --}}
-                                    {{-- <a id="postulerBtn" href="#" data-bs-toggle="modal"
-                                        data-bs-target="#enSavoirPlusModal"
-                                        class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
-                                        Postuler maintenant
-                                    </a> --}}
+                            {{-- <div class="alert alert-warning fw-bold countdown mb-3">
+                                Il vous reste <span id="time-remaining"></span> pour le lancement du
+                                {{ $partenaire?->type_projet . ' ' . $partenaire?->sigle }}
+                            </div> --}}
 
-                                    {{-- Ici pour les prises en charge --}}
-                                    <a id="postulerBtnPcharge" href="#" data-bs-toggle="modal"
-                                        data-bs-target="#enSavoirPlusModalPcharge"
-                                        class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
-                                        Postuler maintenant
-                                    </a>
-
-                                    {{-- <div id="closedMessage" class="alert alert-danger text-center fw-bold"
-                                        style="display: none;">
-                                        ❌ L'appel à candidature pour la demande de formation est désormais clôturé.
-                                        Merci pour l'intérêt que vous portez à nos formations. À très bientôt pour
-                                        d'autres opportunités.
-                                    </div> --}}
-                                    {{-- <div id="closedMessage" class="alert alert-danger text-center fw-bold"
-                                        style="display: none;">
-                                        ❌ L'appel à candidature pour l'agrément des opérateurs est désormais clôturé.
-                                        Merci pour l'intérêt que vous portez à l'ONFP. À très bientôt pour
-                                        d'autres opportunités.
-                                    </div> --}}
-                                @else
+                            @if (!empty($partenaire))
+                                <div id="countdownContainer" class="alert alert-warning fw-bold countdown mb-3">
+                                    Il vous reste <span id="countdown"></span> pour postuler
+                                </div>
+                                <div id="closedMessage" style="display:none; color:red;">
+                                    Les candidatures sont closes !
+                                </div>
+                                {{-- <button id="postulerBtn" class="btn btn-primary">Postuler</button> --}}
+                                <a id="partenaire" href="#" data-bs-toggle="modal"
+                                    data-bs-target="#enSavoirPlusModalPcharge"
+                                    class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
+                                    Postuler maintenant
+                                </a>
+                            @else
+                                <div class=" text-center">
                                     <a href="#apropos" class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">En savoir
                                         plus</a>
-                                @endif
+                                </div>
+                            @endif
+
+                            <div class="hero-buttons">
                                 @if (!empty($une?->video))
                                     <a href="{{ $une?->video }}" class="btn btn-sm btn-link mt-2 mt-sm-0 glightbox">
                                         <i class="bi bi-play-circle me-1"></i>Lire la vidéo</a>
@@ -304,8 +314,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="date_naissance" class="form-label">Date de naissance</label>
-                                            <input type="date" name="date_naissance" class="form-control"
-                                                required>
+                                            <input type="date" name="date_naissance" class="form-control" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
@@ -1551,165 +1560,6 @@
     </main>
 
     @include('footer-accueil')
-    {{-- <script>
-        function updateCountdown() {
-            const now = new Date();
-            const closingTime = new Date();
-            closingTime.setHours(24, 0, 0, 0); // Aujourd'hui à 17h00
-            closingTime.setMinutes(0);
-            closingTime.setSeconds(0);
-            closingTime.setMilliseconds(0);
-
-            if (now >= closingTime) {
-                // À 17h00 ou après : cacher le compte à rebours et le bouton, afficher le message
-                document.getElementById('countdownContainer').style.display = 'none';
-                document.getElementById('postulerBtn').style.display = 'none';
-                document.getElementById('closedMessage').style.display = 'block';
-            } else {
-                // Calcul du temps restant
-                const diff = closingTime - now;
-                const hours = Math.floor(diff / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-                document.getElementById('countdown').textContent =
-                    `${hours}h ${minutes}min ${seconds}s`;
-            }
-        }
-
-        // Démarrage et mise à jour chaque seconde
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-    </script> --}}
-    <script>
-        function updateCountdown() {
-            const now = new Date();
-
-            // 🔹 Date de démarrage fixe (année, mois, jour, heure, minute, seconde)
-            // ⚠️ Les mois commencent à 0 en JavaScript : 10 = novembre
-            const startDate = new Date(2025, 10, 4, 0, 0, 0); // 4 novembre 2025 à 00h00
-
-            // 🔹 Date de clôture = date de démarrage + 10 jours
-            const closingTime = new Date(startDate);
-            closingTime.setDate(startDate.getDate() + 5);
-            closingTime.setHours(23, 59, 0, 0); // clôture à 23h59 le 10e jour
-
-            if (now < startDate) {
-                // Avant le démarrage
-                document.getElementById('countdownContainer').textContent = "Le compte à rebours commencera le " + startDate
-                    .toLocaleString();
-                return;
-            }
-
-            if (now >= closingTime) {
-                // Après la fin
-                document.getElementById('countdownContainer').style.display = 'none';
-                document.getElementById('postulerBtn').style.display = 'none';
-                document.getElementById('closedMessage').style.display = 'block';
-                return;
-            }
-
-            // 🔹 Calcul du temps restant
-            const diff = closingTime - now;
-            const totalSeconds = Math.floor(diff / 1000);
-            const days = Math.floor(totalSeconds / (60 * 60 * 24));
-            const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            const seconds = totalSeconds % 60;
-
-            let display = '';
-            if (days > 0) display += `${days} jour${days > 1 ? 's' : ''} `;
-            display += `${hours}h ${minutes}min ${seconds}s`;
-
-            document.getElementById('countdown').textContent = display;
-        }
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-    </script>
-    <script>
-        function updateCountdown() {
-            const now = new Date();
-
-            // 🔹 Date de démarrage fixe (année, mois, jour, heure, minute, seconde)
-            // ⚠️ Les mois commencent à 0 en JavaScript : 10 = novembre
-            const startDate = new Date(2025, 10, 12, 17, 0, 0); // 12 novembre 2025 à 17h00
-
-            // 🔹 Date de clôture = date de démarrage + 10 jours
-            const closingTime = new Date(startDate);
-            closingTime.setDate(startDate.getDate() + 5);
-            closingTime.setHours(23, 59, 0, 0); // clôture à 23h59 le 10e jour
-
-            if (now < startDate) {
-                // Avant le démarrage
-                document.getElementById('countdownContainer').textContent = "Le compte à rebours commencera le " + startDate
-                    .toLocaleString();
-                return;
-            }
-
-            if (now >= closingTime) {
-                // Après la fin
-                document.getElementById('countdownContainer').style.display = 'none';
-                document.getElementById('postulerBtnPcharge').style.display = 'none';
-                document.getElementById('closedMessage').style.display = 'block';
-                return;
-            }
-
-            // 🔹 Calcul du temps restant
-            const diff = closingTime - now;
-            const totalSeconds = Math.floor(diff / 1000);
-            const days = Math.floor(totalSeconds / (60 * 60 * 24));
-            const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            const seconds = totalSeconds % 60;
-
-            let display = '';
-            if (days > 0) display += `${days} jour${days > 1 ? 's' : ''} `;
-            display += `${hours}h ${minutes}min ${seconds}s`;
-
-            document.getElementById('countdown').textContent = display;
-        }
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-    </script>
-
-    <script>
-        document.getElementById('checkFormulaire').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            let formData = new FormData(this);
-
-            fetch(this.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    }
-                })
-                .then(res => res.json())
-                .then(data => {
-                    let resultDiv = document.getElementById('resultMessage');
-
-                    if (data.status === 'success') {
-                        resultDiv.innerHTML = `<div class="alert alert-success fw-bold">
-            ${data.message}<br>${data.action ?? ''}
-        </div>`;
-                    } else if (data.status === 'error') {
-                        resultDiv.innerHTML = `<div class="alert alert-danger fw-bold">
-            ${data.message}
-        </div>`;
-                    } else if (data.status === 'not_found') {
-                        resultDiv.innerHTML = `<div class="alert alert-warning fw-bold">
-            ${data.message}
-        </div>`;
-                    }
-                })
-
-        });
-    </script>
-
-
 
     <style>
         @keyframes fadeBlink {
@@ -1725,6 +1575,49 @@
         }
     </style>
 
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+
+            // 🔹 Récupération des dates depuis Laravel
+            const startDate = new Date("{{ $partenaire?->date_ouverture->format('Y-m-d H:i:s') }}");
+            const closingTime = new Date("{{ $partenaire?->date_fermeture->format('Y-m-d H:i:s') }}");
+
+            if (now < startDate) {
+                // Avant le démarrage
+                document.getElementById('countdownContainer').textContent =
+                    "Le compte à rebours commencera le " + startDate.toLocaleString();
+                document.getElementById('countdown').textContent = "";
+                return;
+            }
+
+            if (now >= closingTime) {
+                // Après la fin
+                document.getElementById('countdownContainer').style.display = 'none';
+                document.getElementById('postulerBtn').style.display = 'none';
+                document.getElementById('closedMessage').style.display = 'block';
+                return;
+            }
+
+            // 🔹 Calcul du temps restant
+            const diff = closingTime - now;
+            const totalSeconds = Math.floor(diff / 1000);
+            const days = Math.floor(totalSeconds / (60 * 60 * 24));
+            const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+
+            let display = '';
+            if (days > 0) display += `${days} jour${days > 1 ? 's' : ''} `;
+            display += `${hours}h ${minutes}min ${seconds}s`;
+
+            document.getElementById('countdown').textContent = display;
+        }
+
+        // Mise à jour toutes les secondes
+        updateCountdown(); // appel immédiat
+        setInterval(updateCountdown, 1000);
+    </script>
 </body>
 
 </html>

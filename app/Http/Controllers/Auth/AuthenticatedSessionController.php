@@ -83,6 +83,21 @@ class AuthenticatedSessionController extends Controller
         $annee      = date('Y');
         $anciennete = $annee - 1987; */
 
+        /* $projet = Projet::where('statut', 'Ouvert')->first();
+
+        $date_ouverture = $projet->date_ouverture;
+        $date_fermeture = $projet->date_fermeture; */
+
+        /* $partenaires = Projet::where('statut', 'Ouvert')
+            ->get();
+
+        foreach ($partenaires as $partenaire) {
+            $date_ouverture = $partenaire->date_ouverture;
+            $date_fermeture = $partenaire->date_fermeture;
+        }
+
+        dd($date_ouverture, $date_fermeture); */
+
         $creation   = Carbon::create(1986, 8, 11);
         $aujourdHui = Carbon::now();
 
@@ -104,17 +119,28 @@ class AuthenticatedSessionController extends Controller
 
         $title = $count_today <= 0 ? "module de formation" : "modules de formation";
 
-        $projet = Projet::where("statut", "ouvert")->first();
+        /* $projet = Projet::where("statut", "Ouvert")->first();
 
         if ($projet) {
-            /* $date_ouverture = $projet->date_ouverture;
-            $date_fermeture = $projet->date_fermeture; */
             $date_ouverture = Carbon::parse($projet->date_ouverture)->setTime(8, 0, 0);  // 08:00
             $date_fermeture = Carbon::parse($projet->date_fermeture)->setTime(17, 0, 0); // 17:00
         } else {
             $date_ouverture = null;
             $date_fermeture = null;
+        } */
+
+        $partenaire = Projet::where('statut', 'Ouvert')->first();
+
+        if ($partenaire) {
+            $date_ouverture = $partenaire->date_ouverture;
+            $date_fermeture = $partenaire->date_fermeture;
+        } else {
+            $date_ouverture = null;
+            $date_fermeture = null;
         }
+
+        $modules = $partenaire?->projetmodules ?? collect();
+        $maxDisplay = 3;
 
         /* dd($date_ouverture, $date_fermeture); */
 
@@ -140,6 +166,9 @@ class AuthenticatedSessionController extends Controller
                 'date_ouverture',
                 'date_fermeture',
                 'showButton',
+                'partenaire',
+                'modules',
+                'maxDisplay',
             )
         );
     }
