@@ -99,7 +99,7 @@
 
                                     @foreach ($modules->take($maxDisplay) as $projetmodule)
                                         <span class="accent-text">
-                                            - {{ Str::limit($projetmodule?->module, 20, '.') }}
+                                            {{ Str::limit($projetmodule?->module, 20, '.') }}
                                         </span><br>
                                     @endforeach
                                 </h1>

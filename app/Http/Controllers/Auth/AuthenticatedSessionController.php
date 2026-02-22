@@ -129,7 +129,7 @@ class AuthenticatedSessionController extends Controller
             $date_fermeture = null;
         } */
 
-        $partenaire = Projet::where('statut', 'Ouvert')->first();
+        $partenaire = Projet::where('statut', 'ouvert')->first();
 
         if ($partenaire) {
             $date_ouverture = $partenaire->date_ouverture;
