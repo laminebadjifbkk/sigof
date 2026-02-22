@@ -671,16 +671,31 @@
                     <div class="modal fade" id="EditIndividuelleModal{{ $projetmodule->id }}" tabindex="-1">
                         <div class="modal-dialog modal-xl">
                             <div class="modal-content">
-                                <div class="card-header text-center bg-gradient-default">
+                                {{--  <div class="card-header text-center bg-gradient-default">
                                     <span class="text-black mb-0">➖ Modifier la demande pour le module :
                                         {{ $projetmodule->module }}</span>
-                                </div>
+                                </div> --}}
                                 <div class="modal-body">
                                     <div class="row g-3">
                                         <form method="post" action="{{ route('individuelles.update', $individuelle) }}"
                                             enctype="multipart/form-data" class="row g-3">
                                             @csrf
                                             @method('PUT')
+
+                                            <!-- HEADER -->
+                                            <div class="modal-header bg-warning bg-gradient text-white py-4 px-4">
+                                                <div>
+                                                    <h5 class="modal-title fw-bold mb-1">
+                                                        Modifier la demande de formation pour le
+                                                        {{ $projet?->type_projet . ' ' . $projet?->sigle }}
+                                                    </h5>
+                                                    <small class="opacity-80">
+                                                        {{ $projetmodule?->module }}
+                                                    </small>
+                                                </div>
+                                                <button type="button" class="btn-close btn-close-white"
+                                                    data-bs-dismiss="modal"></button>
+                                            </div>
                                             {{-- <div class="col-12">
                                                 <label for="module" class="form-label">Formation sollicitée
                                                     (module)
