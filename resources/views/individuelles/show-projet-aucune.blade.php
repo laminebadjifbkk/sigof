@@ -504,10 +504,25 @@
                                         @csrf
                                         @method('post')
 
-                                        <div class="card-header text-center bg-gradient-default">
-                                            <h1 class="h4 text-black mb-0">➕ Formuler une demande de formation en
+                                        {{-- <div class="card-header text-center bg-gradient-default">
+                                            <h1 class="h4 text-black mb-0">Formuler une demande de formation en
                                                 {{ $projetmodule?->module }}</h1>
+                                        </div> --}}
+
+                                        <!-- HEADER -->
+                                        <div class="modal-header bg-warning bg-gradient text-white py-4 px-4">
+                                            <div>
+                                                <h5 class="modal-title fw-bold mb-1">
+                                                    Formuler une demande de formation pour le {{ $projet?->type_projet . ' ' . $projet?->sigle }}
+                                                </h5>
+                                                <small class="opacity-80">
+                                                    {{ $projetmodule?->module }}
+                                                </small>
+                                            </div>
+                                            <button type="button" class="btn-close btn-close-white"
+                                                data-bs-dismiss="modal"></button>
                                         </div>
+
                                         <div class="modal-body">
                                             <div class="row g-3">
 
@@ -525,8 +540,6 @@
                                                     <select name="departement" id="module_select_{{ $projetmodule->id }}"
                                                         class="form-select form-select-sm @error('departement') is-invalid @enderror"
                                                         aria-label="Select">
-
-                                                        <!-- OPTION PLACEHOLDER -->
                                                         <option value="" disabled selected>Choisir
                                                             {{ strtolower($projetmodule?->projet?->type_localite) }}
                                                         </option>

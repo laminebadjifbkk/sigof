@@ -127,6 +127,18 @@
 
                                 </div>
 
+                                <div class="col-md-6">
+                                    <div class="alert alert-danger fw-bold" role="alert">
+                                        <span class="text-primary">Faites défiler vers le bas</span> pour téléverser les
+                                        fichiers requis avant la date limite.
+                                        <span class="fw-normal">Tous les dossiers incomplets seront systématiquement
+                                            rejetés !</span><br>
+                                        <span class="text-primary">Si vous souhaitez changer de module</span>, veuillez
+                                        d'abord <strong>supprimer la
+                                            demande précédente</strong>.
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
@@ -138,8 +150,7 @@
                                         <th>Module</th>
                                         <th>{{ $projet->type_localite }}</th>
                                         <th>Niveau étude</th>
-                                        <th>Diplome académique</th>
-                                        <th>Diplome professionnel</th>
+                                        <th>Diplômes</th>
                                         <th width="5%">Statut</th>
                                         <th style="width:3%;"><i class="bi bi-gear"></i></th>
                                     </tr>
@@ -150,8 +161,18 @@
                                             <td>{{ $individuelle?->module?->name }}</td>
                                             <td>{{ $individuelle?->{strtolower($projet->type_localite)}?->nom }}</td>
                                             <td>{{ $individuelle?->niveau_etude }}</td>
-                                            <td>{{ $individuelle?->diplome_academique }}</td>
-                                            <td>{{ $individuelle?->diplome_professionnel }}</td>
+                                            <td>
+                                                @php
+                                                    $valeurs = collect([
+                                                        $individuelle?->diplome_academique,
+                                                        $individuelle?->diplome_professionnel,
+                                                    ])
+                                                        ->reject(fn($v) => !$v || in_array($v, ['Aucun', 'Autre']))
+                                                        ->values();
+                                                @endphp
+
+                                                {{ $valeurs->isNotEmpty() ? $valeurs->implode(' et ') : 'Aucun' }}
+                                            </td>
                                             <td>
                                                 @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
                                                     <span
@@ -208,35 +229,6 @@
                 </div>
             </div>
         </div>
-
-        {{-- <div id="countdownContainer" class="alert alert-warning text-center fw-bold">
-            ⏳ Offre de formations gratuites, vous avez <span id="countdown"></span>
-            pour déposer votre demande.
-        </div> --}}
-
-        <div class="alert alert-danger fw-bold mb-4" role="alert">
-            ⚠️ <span class="text-primary">Faites défiler vers le bas</span> pour télécharger et joindre les fichiers requis
-            pour votre candidature avant la date limite.
-            <span class="fw-normal">Tous les dossiers incomplets seront systématiquement rejetés !</span><br>
-            {{-- <span class="fw-normal">Si vous postulez pour la conduite d'engins TP, le permis C est exigé et doit être
-                téléchargé dans la section <strong>"Autres"</strong>.</span> <br><br>
-            <span class="text-success">La fiche de candidature dûment remplie et signée </span> n'est plus nécessaire. --}}
-            <span class="text-primary">Si vous souhaitez changer de module</span>, veuillez d'abord <strong>supprimer la
-                demande précédente</strong>.
-        </div>
-
-        {{-- @php
-
-            $projet_count = $projet->individuelles
-                ->where('projets_id', $projet->id)
-                ->where('users_id', $user->id)
-                ->count();
-
-            $statut_badge = $projet->statut === 'ouvert' ? 'bg-success text-white' : 'bg-secondary text-white';
-
-            $jours_restant = \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($projet?->date_fermeture), false);
-
-        @endphp --}}
 
         <div class="card shadow-sm">
             <div class="card-header">
@@ -488,11 +480,38 @@
 
                                     <input type="hidden" name="idUser" value="{{ $user?->id }}">
 
-                                    <div class="alert alert-warning py-2 small">
-                                        <strong>NB :</strong>
-                                        La carte nationale d'identité (recto/verso) est obligatoire ainsi que
-                                        toutes pièces justificatives de votre niveau d'étude ou d'une
-                                        qualification
+                                    <div class="alert border-0 shadow-sm rounded-4 p-4 mb-4 bg-warning bg-opacity-10">
+
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div class="me-3">
+                                                <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-0 fw-bold text-warning">
+                                                    NB : Documents requis
+                                                </h6>
+                                            </div>
+                                        </div>
+
+                                        <ul class="mb-0 ps-4 small text-dark">
+                                            <li class="mb-2">
+                                                <i class="bi bi-card-text text-secondary me-2"></i>
+                                                La carte nationale d'identité (recto/verso)
+                                            </li>
+                                            <li class="mb-2">
+                                                <i class="bi bi-geo-alt text-secondary me-2"></i>
+                                                Un certificat de résidence
+                                            </li>
+                                            <li class="mb-2">
+                                                <i class="bi bi-file-earmark-person text-secondary me-2"></i>
+                                                Un curriculum vitae (CV)
+                                            </li>
+                                            <li>
+                                                <i class="bi bi-award text-secondary me-2"></i>
+                                                Diplômes ou attestations (si disponibles)
+                                            </li>
+                                        </ul>
+
                                     </div>
 
                                     {{-- Légende --}}
