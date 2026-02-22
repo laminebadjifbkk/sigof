@@ -9,6 +9,7 @@ use App\Models\Projet;
 use App\Models\Projetlocalite;
 use App\Models\Projetmodule;
 use App\Models\Region;
+use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -418,6 +419,18 @@ class ProjetController extends Controller
             ->where('projets_id', $projet->id)
             ->get();
 
+        $user = Auth::user();
+
+        $projet_count = $projet->individuelles
+            ->where('projets_id', $projet->id)
+            ->where('users_id', $user->id)
+            ->count();
+
+        $statut_badge = $projet->statut === 'ouvert' ? 'bg-success text-white' : 'bg-secondary text-white';
+
+        $jours_restant = Carbon::now()->diffInDays(Carbon::parse($projet?->date_fermeture), false);
+
+
         if ($individuelle_total == 0) {
             return view(
                 "individuelles.show-projet-aucune",
@@ -426,7 +439,11 @@ class ProjetController extends Controller
                     "projetlocalites",
                     "projetmodules",
                     "individuelles",
+                    "user",
                     "statut",
+                    "projet_count",
+                    "statut_badge",
+                    "jours_restant",
                     "projet"
                 )
             );
@@ -440,7 +457,11 @@ class ProjetController extends Controller
                     "individuelles",
                     "files",
                     "user_files",
+                    "user",
                     "statut",
+                    "projet_count",
+                    "statut_badge",
+                    "jours_restant",
                     "projet"
                 )
             );

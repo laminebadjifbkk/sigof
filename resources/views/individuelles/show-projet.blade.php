@@ -26,73 +26,127 @@
                     @endforeach
                 @endif
                 <div class="card">
-                    {{-- <div class="card-header text-center bg-gradient-default">
-                        <h1 class="h4 text-black mb-0">{{ strtoupper($projet?->type_projet . ' ' . $projet?->sigle) }}</h1>
-                    </div> --}}
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between align-items-center mt-0">
                         <h5 class="card-title">{{ strtoupper($projet?->type_projet . ' ' . $projet?->sigle) }}</h5>
+                        <a href="{{ url('/profil') }}" class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-arrow-left"></i> Retour
+                        </a>
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mt-0">
-                            <span class="d-flex align-items-baseline"><a href="{{ url('/profil') }}"
+                            {{-- <span class="d-flex align-items-baseline"><a href="{{ url('/profil') }}"
                                     class="btn btn-success btn-sm" title="retour"><i
                                         class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                 <p> | Profil</p>
-                            </span>
+                            </span> --}}
+                            {{-- HEADER GLOBAL --}}
+                            <div class="card-body bg-light border-bottom">
+
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+                                    <div>
+                                        <h4 class="fw-bold text-primary mb-1">
+                                            <i class="bi bi-folder-check me-2"></i>
+                                            Dossier n° {{ $user->cin ?? '-' }}
+                                        </h4>
+
+                                        {{-- <small class="text-muted">
+                                    {{ $user->civilite }} {{ $user->firstname }} {{ $user->name }}
+                                </small> --}}
+                                    </div>
+
+                                </div>
+
+                            </div>
                             <button type="button" class="btn btn-info btn-sm">
                                 <span class="badge bg-white text-info">{{ $individuelle_total }} sur 1</span>
                             </button>
 
-                            @if (!empty(Auth::user()->cin) && !empty($statut))
-                                @if ($individuelle_total < 3 && !empty(Auth::user()?->cin))
-                                    <!-- Conteneur Flex Vertical pour les boutons -->
-                                    {{-- <div class="d-flex flex-column align-items-start gap-2">
-                                        <!-- Bouton Choisir Localité -->
-                                        <button type="button"
-                                            class="btn btn-primary btn-sm rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
-                                            data-bs-toggle="modal" data-bs-target="#ChoisirLocaliteModal">
-                                            <i class="bi bi-map-fill"></i>
-                                            {{ __("Choisir d'abord la localité") }}
-                                        </button>
-
-                                        <!-- Bouton Formuler une autre demande -->
-                                        <button type="button"
-                                            class="btn btn-success btn-sm rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
-                                            data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal">
-                                            <i class="bi bi-plus-circle-fill"></i>
-                                            Formuler une autre demande
-                                        </button>
-                                    </div> --}}
+                            @if (!empty($user->cin) && !empty($statut))
+                                @if ($individuelle_total < 3 && !empty($user?->cin))
                                 @endif
                             @endif
                         </div>
 
-                        <div class="d-flex justify-content-between align-items-center mt-0">
+                        {{-- <div class="d-flex justify-content-between align-items-center mt-0">
                             <h5 class="card-title">
                                 Bonjour
-                                {{ Auth::user()->civilite . ' ' . Auth::user()->firstname . ' ' . Auth::user()->name }}
+                                {{ $user->civilite . ' ' . $user->firstname . ' ' . $user->name }}
                             </h5>
+                        </div> --}}
+
+
+                        {{-- INFORMATIONS DEMANDE --}}
+                        <div class="card-body border-bottom">
+
+                            <div class="row g-4">
+
+                                {{-- STRUCTURE --}}
+                                <div class="col-md-6">
+
+                                    <h6 class="fw-bold text-primary mb-3">
+                                        <i class="bi bi-building me-1"></i>
+                                        Informations personnelles
+                                    </h6>
+
+                                    <div class="small text-muted">
+
+                                        <div><strong>Prénom :</strong>
+                                            {{ $user->firstname }}
+                                        </div>
+
+                                        <div><strong>Nom :</strong>
+                                            {{ $user->name }}
+                                        </div>
+
+                                        <div><strong>Date naissance :</strong>
+                                            {{ $user->date_naissance->format('d/m/Y') }}
+                                        </div>
+
+                                        <div><strong>Lieu naissance :</strong>
+                                            {{ $user->lieu_naissance }}
+                                        </div>
+
+                                        <div><strong>Email :</strong>
+                                            <a href="mailto:{{ $user->email }}">
+                                                {{ $user->email }}
+                                            </a>
+                                        </div>
+
+                                        <div><strong>Téléphone :</strong>
+                                            <a href="tel:+221{{ $user->telephone }}">
+                                                {{ $user->telephone }}
+                                            </a>
+                                        </div>
+
+                                        <div><strong>Adresse :</strong>
+                                            {{ $user->adresse ?? '-' }}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
                         </div>
-                        <table class="table table-bordered table-hover table-borderless">
-                            <thead>
-                                <tr class="text-center">
-                                    <th width="2%">N°</th>
-                                    {{-- <th width="8%">Numéro</th> --}}
-                                    <th>Module</th>
-                                    <th width="12%">{{ $projet->type_localite }}</th>
-                                    <th width="12%">Niveau étude</th>
-                                    <th width="13%">Diplome académique</th>
-                                    <th width="13%">Diplome professionnel</th>
-                                    <th width="5%">Statut</th>
-                                    <th style="width:3%;"><i class="bi bi-gear"></i></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($individuelles as $individuelle)                                    
-                                        <tr class="text-center">
-                                            <td>{{ $i++ }}</td>
-                                            {{-- <td>{{ $individuelle?->numero }}</td> --}}
+
+                        <div class="table-responsive">
+                            <table class="table align-middle table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Module</th>
+                                        <th>{{ $projet->type_localite }}</th>
+                                        <th>Niveau étude</th>
+                                        <th>Diplome académique</th>
+                                        <th>Diplome professionnel</th>
+                                        <th width="5%">Statut</th>
+                                        <th style="width:3%;"><i class="bi bi-gear"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($individuelles as $individuelle)
+                                        <tr>
                                             <td>{{ $individuelle?->module?->name }}</td>
                                             <td>{{ $individuelle?->{strtolower($projet->type_localite)}?->nom }}</td>
                                             <td>{{ $individuelle?->niveau_etude }}</td>
@@ -100,7 +154,8 @@
                                             <td>{{ $individuelle?->diplome_professionnel }}</td>
                                             <td>
                                                 @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
-                                                    <span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
+                                                    <span
+                                                        class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
                                                 @endhasanyrole
                                                 @hasrole('Demandeur')
                                                     @if (!empty($individuelle->projets_id))
@@ -128,18 +183,14 @@
                                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                 class="bi bi-three-dots"></i></a>
                                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            {{-- <li><a class="dropdown-item btn btn-sm"
-                                                                    href="{{ route('individuelles.edit', $individuelle) }}"
-                                                                    class="mx-1" title="Modifier"><i
-                                                                        class="bi bi-pencil"></i>Modifier</a>
-                                                            </li> --}}
                                                             <li>
                                                                 <form
                                                                     action="{{ route('individuelles.destroy', $individuelle) }}"
                                                                     method="post">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item show_confirm"
+                                                                    <button type="submit"
+                                                                        class="dropdown-item show_confirm"
                                                                         title="Supprimer"><i
                                                                             class="bi bi-trash"></i>Supprimer</button>
                                                                 </form>
@@ -149,9 +200,10 @@
                                                 </span>
                                             </td>
                                         </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -173,18 +225,18 @@
                 demande précédente</strong>.
         </div>
 
-        @php
+        {{-- @php
 
             $projet_count = $projet->individuelles
                 ->where('projets_id', $projet->id)
-                ->where('users_id', Auth::user()->id)
+                ->where('users_id', $user->id)
                 ->count();
 
             $statut_badge = $projet->statut === 'ouvert' ? 'bg-success text-white' : 'bg-secondary text-white';
 
-            $jours_restant = \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($projet->fin), false);
+            $jours_restant = \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($projet?->date_fermeture), false);
 
-        @endphp
+        @endphp --}}
 
         <div class="card shadow-sm">
             <div class="card-header">
@@ -264,7 +316,7 @@
             </div>
         </div>
 
-        @can('upload-file-view')
+        {{-- @can('upload-file-view')
             <hr>
             <div class="row mb-3 pt-5">
                 <h5 class="card-title col-12 col-md-4">
@@ -308,118 +360,282 @@
                                         @endphp
                                         <span class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
                                     </td>
-                                    {{-- Supprimer --}}
-                                    <td>
-                                        @if ($file->statut !== 'Validé')
-                                            <form action="{{ route('fileDestroy') }}" method="post" class="d-inline">
-                                                @csrf
-                                                @method('put')
-                                                <input type="hidden" name="idFile" value="{{ $file->id }}">
-                                                <button type="submit" class="btn btn-outline-danger btn-sm show_confirm"
-                                                    title="Supprimer">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
-                                        @endif
-                                    </td>
-                                    @hasanyrole('super-admin|admin|DIOF')
-                                        {{-- Valider --}}
-                                        <td>
-                                            <form action="{{ route('fileValidate') }}" method="post" class="d-inline">
-                                                @csrf
-                                                @method('put')
-                                                <input type="hidden" name="idFile" value="{{ $file->id }}">
-                                                <button type="submit" class="btn btn-outline-success btn-sm show_confirm_valider"
-                                                    title="Valider">
-                                                    <i class="bi bi-check-circle"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                        {{-- Invalider --}}
-                                        <td>
-                                            <form action="{{ route('fileInvalide') }}" method="post" class="d-inline">
-                                                @csrf
-                                                @method('put')
-                                                <input type="hidden" name="idFile" value="{{ $file->id }}">
-                                                <button type="submit" class="btn btn-outline-warning btn-sm show_confirm_rejeter"
-                                                    title="Invalider">
-                                                    <i class="bi bi-x-circle"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    @endhasanyrole
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+        <td>
+            @if ($file->statut !== 'Validé')
+                <form action="{{ route('fileDestroy') }}" method="post" class="d-inline">
+                    @csrf
+                    @method('put')
+                    <input type="hidden" name="idFile" value="{{ $file->id }}">
+                    <button type="submit" class="btn btn-outline-danger btn-sm show_confirm" title="Supprimer">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </form>
+            @endif
+        </td>
+        @hasanyrole('super-admin|admin|DIOF')
+            <td>
+                <form action="{{ route('fileValidate') }}" method="post" class="d-inline">
+                    @csrf
+                    @method('put')
+                    <input type="hidden" name="idFile" value="{{ $file->id }}">
+                    <button type="submit" class="btn btn-outline-success btn-sm show_confirm_valider" title="Valider">
+                        <i class="bi bi-check-circle"></i>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form action="{{ route('fileInvalide') }}" method="post" class="d-inline">
+                    @csrf
+                    @method('put')
+                    <input type="hidden" name="idFile" value="{{ $file->id }}">
+                    <button type="submit" class="btn btn-outline-warning btn-sm show_confirm_rejeter" title="Invalider">
+                        <i class="bi bi-x-circle"></i>
+                    </button>
+                </form>
+            </td>
+        @endhasanyrole
+        </tr>
+        @endforeach
+        </tbody>
+        </table>
+        </div>
+        </div>
+        <form method="post" action="{{ route('files.update', $user?->uuid) }}" enctype="multipart/form-data">
+            @csrf
+            @method('patch')
+            <h5 class="card-title">JOINDRE VOS SCANS DE DOSSIERS</h5>
+            <input type="hidden" name="idUser" value="{{ $user?->id }}">
+            <span style="color:red;">NB : </span>Pièces requises<br>
+            <ul>
+                <li>Une copie de la carte nationale d’identité (obligatoire);</li>
+                <li>Un certificat de résidence de la commune (obligatoire);</li>
+                <li>Un CV (optionnel);</li>
+                <li>Copie des diplômes ou attestations (si disponibles);</li>
+            </ul>
+            <div class="row mb-3 mt-3">
+                <label for="legende" class="col-12 col-md-4 col-form-label">LEGENDE<span
+                        class="text-danger mx-1">*</span></label>
+                <div class="col-12 col-md-8">
+                    <select name="legende" class="form-select  @error('legende') is-invalid @enderror"
+                        aria-label="Select" id="select-field-file" data-placeholder="Choisir">
+                        <option value="{{ old('legende') }}">
+
+                        </option>
+                        @foreach ($user_files as $file)
+                            <option value="{{ $file?->id }}">
+                                {{ $file?->legende }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('legende')
+                        <span class="invalid-feedback" role="alert">
+                            <div>{{ $message }}</div>
+                        </span>
+                    @enderror
                 </div>
             </div>
-            <form method="post" action="{{ route('files.update', Auth::user()?->uuid) }}" enctype="multipart/form-data">
-                @csrf
-                @method('patch')
-                <h5 class="card-title">JOINDRE VOS SCANS DE DOSSIERS</h5>
-                <input type="hidden" name="idUser" value="{{ Auth::user()?->id }}">
-                <span style="color:red;">NB : </span>Pièces requises<br>
-                <ul>
-                    <li>Une copie de la carte nationale d’identité (obligatoire);</li>
-                    <li>Un certificat de résidence de la commune (obligatoire);</li>
-                    <li>Un CV (optionnel);</li>
-                    <li>Copie des diplômes ou attestations (si disponibles);</li>
-                </ul>
-                <!-- Profile Edit Form -->
-                <div class="row mb-3 mt-3">
-                    <label for="legende" class="col-12 col-md-4 col-form-label">LEGENDE<span
-                            class="text-danger mx-1">*</span></label>
-                    <div class="col-12 col-md-8">
-                        <select name="legende" class="form-select  @error('legende') is-invalid @enderror"
-                            aria-label="Select" id="select-field-file" data-placeholder="Choisir">
-                            <option value="{{ old('legende') }}">
 
-                            </option>
-                            @foreach ($user_files as $file)
-                                <option value="{{ $file?->id }}">
-                                    {{ $file?->legende }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('legende')
-                            <span class="invalid-feedback" role="alert">
-                                <div>{{ $message }}</div>
-                            </span>
+            <div class="row mb-3">
+                <label for="file" class="col-12 col-md-4 col-form-label">CHOISIR FICHIER<span
+                        class="text-danger mx-1">*</span></label>
+                <div class="col-12 col-md-8">
+                    <div class="pt-2">
+                        <input type="file" name="file" id="file"
+                            class="form-control @error('file') is-invalid @enderror btn btn-primary btn-sm">
+                        @error('file')
+                            <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
+            </div>
 
-                <div class="row mb-3">
-                    <label for="file" class="col-12 col-md-4 col-form-label">CHOISIR FICHIER<span
-                            class="text-danger mx-1">*</span></label>
-                    <div class="col-12 col-md-8">
-                        <div class="pt-2">
-                            <input type="file" name="file" id="file"
-                                class="form-control @error('file') is-invalid @enderror btn btn-primary btn-sm">
-                            @error('file')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
+            <div class="row mb-3">
+                <label for="file" class="col-12 col-md-4 col-form-label">
+                    Téléverser un fichier <span class="text-danger mx-1">*</span>
+                </label>
+                <div class="col-12 col-md-8">
+                    <div class="pt-2">
+                        <button type="submit" class="btn btn-primary btn-sm text-white">
+                            <i class="bi bi-upload me-1"></i> Téléverser
+                        </button>
                     </div>
                 </div>
+            </div>
+        </form>
+    @endcan --}}
 
-                <div class="row mb-3">
-                    <label for="file" class="col-12 col-md-4 col-form-label">
-                        Téléverser un fichier <span class="text-danger mx-1">*</span>
-                    </label>
-                    <div class="col-12 col-md-8">
-                        <div class="pt-2">
-                            <button type="submit" class="btn btn-primary btn-sm text-white">
-                                <i class="bi bi-upload me-1"></i> Téléverser
-                            </button>
+        @can('upload-file-view')
+
+            <div class="container-fluid pt-4">
+                <div class="row g-4">
+
+                    <div class="col-12 col-lg-5">
+
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+
+                                <h5 class="card-title mb-3">
+                                    <i class="bi bi-upload me-1"></i>
+                                    Joindre un document
+                                </h5>
+
+
+                                <form method="post" action="{{ route('files.update', $user?->uuid) }}"
+                                    enctype="multipart/form-data">
+
+                                    @csrf
+                                    @method('patch')
+
+                                    <input type="hidden" name="idUser" value="{{ $user?->id }}">
+
+                                    <div class="alert alert-warning py-2 small">
+                                        <strong>NB :</strong>
+                                        La carte nationale d'identité (recto/verso) est obligatoire ainsi que
+                                        toutes pièces justificatives de votre niveau d'étude ou d'une
+                                        qualification
+                                    </div>
+
+                                    {{-- Légende --}}
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Légende <span class="text-danger">*</span>
+                                        </label>
+
+                                        <select name="legende"
+                                            class="form-select form-select-sm @error('legende') is-invalid @enderror">
+
+                                            <option value="">Choisir...</option>
+
+                                            @foreach ($user_files as $file)
+                                                <option value="{{ $file?->id }}">
+                                                    {{ $file?->legende }}
+                                                </option>
+                                            @endforeach
+
+                                        </select>
+
+                                        @error('legende')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Fichier --}}
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Fichier <span class="text-danger">*</span>
+                                        </label>
+
+                                        <input type="file" name="file"
+                                            class="form-control form-control-sm @error('file') is-invalid @enderror">
+
+                                        @error('file')
+                                            <div class="text-danger small">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Bouton --}}
+                                    <div class="text-end">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="bi bi-upload me-1"></i>
+                                            Téléverser
+                                        </button>
+                                    </div>
+
+                                </form>
+
+                            </div>
                         </div>
                     </div>
+                    <div class="col-12 col-lg-7">
+
+                        <div class="card shadow-sm h-100">
+
+                            <div class="card-body">
+
+                                <h5 class="card-title mb-3">
+                                    <i class="bi bi-folder2-open me-1"></i>
+                                    Fichiers joints
+                                </h5>
+
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-sm table-hover align-middle">
+
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th style="width:5%">N°</th>
+                                                <th>Légende</th>
+                                                <th style="width:10%">Fichier</th>
+                                                <th style="width:10%" class="text-center">Statut</th>
+                                                <th style="width:10%" class="text-center">Actions</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @php $i = 1; @endphp
+
+                                            @foreach ($files as $file)
+                                                <tr>
+                                                    <td>{{ $i++ }}</td>
+                                                    <td class="text-start">{{ $file->legende }}</td>
+
+                                                    <td>
+                                                        <a class="btn btn-outline-secondary btn-sm" target="_blank"
+                                                            href="{{ asset($file->getFichier()) }}">
+                                                            <i class="bi bi-download"></i>
+                                                        </a>
+                                                    </td>
+
+                                                    <td class="text-center">
+
+                                                        <span class="{{ $file?->statut }}">
+                                                            {{ $file?->statut }}
+                                                        </span>
+                                                    </td>
+
+                                                    {{-- <td>
+                                                                        <button class="btn btn-outline-danger btn-sm">
+                                                                            <i class="bi bi-trash"></i>
+                                                                        </button>
+                                                                    </td> --}}
+                                                    <td class="text-center">
+                                                        @if ($file->statut !== 'Validé')
+                                                            <form action="{{ route('fileDestroy') }}" method="post"
+                                                                class="d-inline">
+                                                                @csrf
+                                                                @method('put')
+                                                                <input type="hidden" name="idFile"
+                                                                    value="{{ $file->id }}">
+                                                                <button type="submit"
+                                                                    class="btn btn-outline-danger btn-sm show_confirm"
+                                                                    title="Supprimer">
+                                                                    <i class="bi bi-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        @endif
+                                                    </td>
+
+                                                </tr>
+                                            @endforeach
+
+                                        </tbody>
+
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
-            </form>
+            </div>
         @endcan
 
-        {{-- @foreach (Auth::user()?->individuelles as $individuelle) --}}
+        {{-- @foreach ($user?->individuelles as $individuelle) --}}
         @foreach ($projet->projetmodules as $projetmodule)
             @php
                 $demandeExistante = $projet

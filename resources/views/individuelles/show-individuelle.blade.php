@@ -1,6 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'DEMANDE INDIVIDUELLE DE ' . strtoupper($user?->civilite . ' ' . $user?->firstname . ' ' .
-    $user?->name))
+@section('title', 'Dossier ' . strtoupper($user?->civilite . ' ' . $user?->firstname . ' ' . $user?->name))
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
@@ -177,7 +176,7 @@
                                     class="btn btn-success btn-sm float-end rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
                                     data-bs-toggle="modal" data-bs-target="#AddIndividuelleModal{{ $user?->id }}">
                                     <i class="bi bi-plus-circle-fill"></i>
-                                    Formuler une autre demande
+                                    Ajouter
                                 </button>
                             @endif
                         </div>
@@ -185,19 +184,18 @@
                             Bonjour
                             {{ $user?->civilite . ' ' . $user?->firstname . ' ' . $user?->name }}
                         </h5> --}}
+
                         <div class="table-responsive">
                             <table class="table align-middle table-hover">
                                 <thead class="table-light">
                                     <tr>
                                         <th width="8%" class="text-center">Choix n°</th>
                                         <th>Module</th>
-                                        {{-- <th width="8%">Numéro</th> --}}
                                         <th width="8%">Dépôt</th>
                                         <th>Département</th>
                                         <th>Région</th>
                                         <th width="15%">Niveau étude</th>
-                                    <th width="15%">Diplôme</th>
-                                        {{-- <th width="15%">Diplome professionnel</th> --}}
+                                        <th width="15%">Diplôme</th>
                                         <th width="5%">Statut</th>
                                         <th style="width:5%;"><i class="bi bi-gear"></i></th>
                                     </tr>
@@ -208,13 +206,11 @@
                                         <tr>
                                             <td class="text-center">{{ $i++ }}</td>
                                             <td class="fw-semibold text-primary">{{ $individuelle?->module?->name }}</td>
-                                            {{-- <td>{{ $individuelle?->numero }}</td> --}}
                                             <td>{{ $individuelle?->date_depot?->format('d/m/Y') }}</td>
                                             <td>{{ $individuelle?->departement?->nom }}</td>
                                             <td>{{ $individuelle?->departement?->region?->nom }}</td>
                                             <td>{{ $individuelle?->niveau_etude }}</td>
                                             <td>{{ $individuelle?->diplome_academique }}</td>
-                                            {{-- <td>{{ $individuelle?->diplome_professionnel }}</td> --}}
                                             <td>
                                                 <span class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}
                                                 </span>
@@ -254,7 +250,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{-- </form> --}}
+
                         @can('upload-file-view')
 
                             <div class="container-fluid pt-4">
