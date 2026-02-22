@@ -87,27 +87,45 @@
                                 @endif
                             </p> --}}
 
-                            @if (!empty($partenaire))
-                                <div class="company-badge">
-                                    <i class="bi bi-gear-fill me-2"></i>
-                                    APPEL A CANDIDATURE
-                                </div>
-                                <h1 class="mb-4">
+                            @if (!empty($partenaire) && $partenaire->date_ouverture && $partenaire->date_fermeture)
+                                <h2 class="company-badge d-flex align-items-center overflow-hidden"
+                                    style="height: 2rem;">
+                                    <div class="scrolling-text">
+                                        APPEL À CANDIDATURE
+                                    </div>
+                                </h2>
+                                <h1 class="mb-2">
                                     {{ $partenaire?->sigle }} <br>
 
                                     @foreach ($modules->take($maxDisplay) as $projetmodule)
                                         <span class="accent-text">
-                                            {{ Str::limit($projetmodule?->module, 20, '.') }}
+                                            - {{ Str::limit($projetmodule?->module, 20, '.') }}
                                         </span><br>
                                     @endforeach
                                 </h1>
 
-                                <h5 class="mb-4">
+                                <h5 class="mb-2">
                                     @if ($modules->count() > $maxDisplay)
                                         <span class="accent-text">… et {{ $modules->count() - $maxDisplay }} module(s)
                                             de plus</span>
                                     @endif
                                 </h5>
+
+                                <div class="col-12 col-md-10 col-lg-10 col-sm-12 col-xs-12 col-xxl-8">
+                                    <div id="countdownContainer" class="alert alert-warning fw-bold countdown mb-3">
+                                        Il vous reste <span id="countdown"></span> pour postuler
+                                    </div>
+                                    <div id="closedMessage" class="alert alert-warning fw-bold countdown mb-3"
+                                        style="display:none; color:red;">
+                                        Les candidatures sont closes !
+                                    </div>
+                                </div>
+                                {{-- <button id="postulerBtn" class="btn btn-primary">Postuler</button> --}}
+                                <a id="partenaire" href="#" data-bs-toggle="modal"
+                                    data-bs-target="#enSavoirPlusModalPcharge"
+                                    class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
+                                    Postuler maintenant
+                                </a>
                             @else
                                 {{-- <div class="company-badge mb-4">
                                     <i class="bi bi-gear-fill me-2"></i>
@@ -119,9 +137,14 @@
                                     <span class="accent-text">DE LA FORMATION</span><br>
                                     <span class="accent-text">PROFESSIONNELLE AU SENEGAL</span>
                                 </h2>
+
+                                <div class=" text-center">
+                                    <a href="#apropos" class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">En savoir
+                                        plus</a>
+                                </div>
                             @endif
 
-                            <p class="mb-2 mb-md-5">
+                            {{-- <p class="mb-2 mb-md-5">
                                 @if (!empty($une?->message))
                                     {!! '' .
                                         implode(
@@ -132,32 +155,12 @@
                                             ),
                                         ) !!}
                                 @endif
-                            </p>
+                            </p> --}}
 
                             {{-- <div class="alert alert-warning fw-bold countdown mb-3">
                                 Il vous reste <span id="time-remaining"></span> pour le lancement du
                                 {{ $partenaire?->type_projet . ' ' . $partenaire?->sigle }}
                             </div> --}}
-
-                            @if (!empty($partenaire))
-                                <div id="countdownContainer" class="alert alert-warning fw-bold countdown mb-3">
-                                    Il vous reste <span id="countdown"></span> pour postuler
-                                </div>
-                                <div id="closedMessage" style="display:none; color:red;">
-                                    Les candidatures sont closes !
-                                </div>
-                                {{-- <button id="postulerBtn" class="btn btn-primary">Postuler</button> --}}
-                                <a id="partenaire" href="#" data-bs-toggle="modal"
-                                    data-bs-target="#enSavoirPlusModalPcharge"
-                                    class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
-                                    Postuler maintenant
-                                </a>
-                            @else
-                                <div class=" text-center">
-                                    <a href="#apropos" class="btn btn-primary btn-sm me-0 me-sm-2 mx-1">En savoir
-                                        plus</a>
-                                </div>
-                            @endif
 
                             <div class="hero-buttons">
                                 @if (!empty($une?->video))
@@ -314,7 +317,8 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="date_naissance" class="form-label">Date de naissance</label>
-                                            <input type="date" name="date_naissance" class="form-control" required>
+                                            <input type="date" name="date_naissance" class="form-control"
+                                                required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
@@ -1571,6 +1575,22 @@
 
             50% {
                 opacity: 0;
+            }
+        }
+
+        .scrolling-text {
+            display: inline-block;
+            white-space: nowrap;
+            animation: scroll-left 10s linear infinite;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
             }
         }
     </style>
