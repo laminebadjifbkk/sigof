@@ -189,10 +189,14 @@
 
                                         <div class="col-12 col-md-4">
                                             <label for="date_ouverture" class="form-label">Date ouverture</label>
-                                            <input type="date" name="date_ouverture"
+                                            {{-- <input type="date" name="date_ouverture"
                                                 value="{{ $projet->date_ouverture?->format('Y-m-d') ?? old('date_ouverture') }}"
                                                 class="datepicker form-control form-control-sm @error('date_ouverture') is-invalid @enderror"
-                                                id="date_ouverture" placeholder="jj/mm/aaaa">
+                                                id="date_ouverture" placeholder="jj/mm/aaaa"> --}}
+                                            <input type="datetime-local" name="date_ouverture"
+                                                value="{{ $projet->date_ouverture?->format('Y-m-d\TH:i') ?? old('date_ouverture') }}"
+                                                class="form-control form-control-sm @error('date_ouverture') is-invalid @enderror"
+                                                id="date_ouverture">
                                             @error('date_ouverture')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
@@ -202,10 +206,14 @@
 
                                         <div class="col-12 col-md-4">
                                             <label for="date_fermeture" class="form-label">Date ferméture</label>
-                                            <input type="date" name="date_fermeture"
+                                            {{-- <input type="date" name="date_fermeture"
                                                 value="{{ $projet?->date_fermeture?->format('Y-m-d') ?? old('date_fermeture') }}"
                                                 class="datepicker form-control form-control-sm @error('date_fermeture') is-invalid @enderror"
-                                                id="date_fermeture" placeholder="jj/mm/aaaa">
+                                                id="date_fermeture" placeholder="jj/mm/aaaa"> --}}
+                                            <input type="datetime-local" name="date_fermeture"
+                                                value="{{ $projet?->date_fermeture?->format('Y-m-d\TH:i') ?? old('date_fermeture') }}"
+                                                class="form-control form-control-sm @error('date_fermeture') is-invalid @enderror"
+                                                id="date_fermeture">
                                             @error('date_fermeture')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
@@ -214,8 +222,7 @@
                                         </div>
 
                                         <div class="col-12 col-md-12 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
-                                            <label for="image" class="form-label">Logo<span
-                                                    class="text-danger mx-1">*</span></label>
+                                            <label for="image" class="form-label">Logo</label>
                                             <input type="file" name="image" value="{{ old('image') }}"
                                                 class="form-control form-control-sm @error('image') is-invalid @enderror"
                                                 id="image" placeholder="Image">

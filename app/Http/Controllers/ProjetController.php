@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\File;
@@ -121,10 +122,9 @@ class ProjetController extends Controller
 
         return view('projets.update', compact('projet'));
     }
-
+    /* 
     public function update(Request $request, Projet $projet)
     {
-        /* $projet = Projet::find($id); */
 
         $this->validate($request, [
             "name"            => ["required", "string", Rule::unique('projets')->where(function ($query) {
@@ -148,43 +148,11 @@ class ProjetController extends Controller
             'convention_file' => ['file', 'nullable', 'mimes:pdf', 'max:2048'],
         ]);
 
-        /* if (!empty($request->input('date_ouverture'))) {
-            $date_ouverture = $request->input('date_ouverture');
-        } else {
-            $date_ouverture = null;
-        }
-        if (!empty($request->input('date_fermeture'))) {
-            $date_fermeture = $request->input('date_fermeture');
-        } else {
-            $date_fermeture = null;
-        }
-        if (!empty($request->input('debut'))) {
-            $debut = $request->input('debut');
-        } else {
-            $debut = null;
-        }
-        if (!empty($request->input('fin'))) {
-            $fin = $request->input('fin');
-        } else {
-            $fin = null;
-        } */
-
         $date_ouverture = $request->input('date_ouverture') ?: null;
         $date_fermeture = $request->input('date_fermeture') ?: null;
         $debut          = $request->input('debut') ?: null;
         $fin            = $request->input('fin') ?: null;
 
-        /*  if (request('image')) {
-
-            $imagePath = request('image')->store('projets', 'public');
-
-            $image = Image::make(public_path("/storage/{$imagePath}"))->fit(2400, 2400);
-
-            $image->save();
-
-        } else {
-            $imagePath = $projet->image;
-        } */
         if (request()->hasFile('image')) {
 
             // Supprimer l'ancien fichier s'il existe
@@ -204,38 +172,6 @@ class ProjetController extends Controller
         } else {
             $imagePath = $projet->image;
         }
-
-        /* if (request('convention_file')) {
-
-            $filePath = request('convention_file')->store('projets', 'public');
-
-            $file            = $request->file('convention_file');
-            $filenameWithExt = $file->getClientOriginalName();
-            $filename        = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Remove unwanted characters
-            $filename = preg_replace("/[^A-Za-z0-9 ]/", '', $filename);
-            $filename = preg_replace("/\s+/", '-', $filename);
-        } else {
-            $filePath = $projet->convention_file;
-        }
-
-        $projet->update([
-            'name'            => $request->input('name'),
-            'sigle'           => $request->input('sigle'),
-            'date_signature'  => $request->input('date_signature'),
-            'description'     => $request->input('description'),
-            'duree'           => $request->input('duree'),
-            'budjet'          => $request->input('budjet'),
-            'debut'           => $debut,
-            'fin'             => $fin,
-            'effectif'        => $request->input('effectif'),
-            'type_localite'   => $request->input('type'),
-            'type_projet'     => $request->input('type_projet'),
-            'date_ouverture'  => $date_ouverture,
-            'date_fermeture'  => $date_fermeture,
-            'image'           => $imagePath,
-            'convention_file' => $filePath,
-        ]); */
 
         if (request()->hasFile('convention_file')) {
             // Supprimer l'ancien fichier s'il existe
@@ -280,7 +216,124 @@ class ProjetController extends Controller
         Alert::success('Succès', 'Modification effectuée avec succès');
 
         return redirect()->back();
+    } */
+
+    public function update(Request $request, Projet $projet)
+    {
+        $request->validate([
+            "name" => [
+                "required",
+                "string",
+                Rule::unique('projets')
+                    ->whereNull('deleted_at')
+                    ->ignore($projet->id)
+            ],
+            "sigle" => [
+                "required",
+                "string",
+                Rule::unique('projets')
+                    ->whereNull('deleted_at')
+                    ->ignore($projet->id)
+            ],
+
+            "date_signature" => ["required", "date_format:Y-m-d"],
+            "description"    => ["required", "string"],
+            "duree"          => ["nullable", "string"],
+            "budjet"         => ["nullable", "numeric"],
+            "effectif"       => ["nullable", "string"],
+            "debut"          => ["nullable", "date_format:Y-m-d"],
+            "fin"            => ["nullable", "date_format:Y-m-d"],
+            "type"           => ["required", "string"],
+            "type_projet"    => ["required", "string"],
+
+            // si champ en datetime-local
+            "date_ouverture" => ["nullable", "date_format:Y-m-d\TH:i"],
+            "date_fermeture" => ["nullable", "date_format:Y-m-d\TH:i"],
+
+            'image'           => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'],
+            'convention_file' => ['nullable', 'file', 'mimes:pdf', 'max:2048'],
+        ]);
+
+        $date_ouverture = $request->date_ouverture ?: null;
+        $date_fermeture = $request->date_fermeture ?: null;
+        $debut          = $request->debut ?: null;
+        $fin            = $request->fin ?: null;
+
+        /*
+    |--------------------------------------------------------------------------
+    | Gestion Image
+    |--------------------------------------------------------------------------
+    */
+        $imagePath = $projet->image;
+
+        if ($request->hasFile('image')) {
+
+            if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+                Storage::disk('public')->delete($imagePath);
+            }
+
+            $file         = $request->file('image');
+            $filename     = time() . '_' . $file->getClientOriginalName();
+            $path         = $file->storeAs('projets', $filename, 'public');
+
+            Image::make(public_path("storage/{$path}"))->save();
+
+            $imagePath = $path;
+        }
+
+        /*
+    |--------------------------------------------------------------------------
+    | Gestion Convention PDF
+    |--------------------------------------------------------------------------
+    */
+        $filePath = $projet->convention_file;
+
+        if ($request->hasFile('convention_file')) {
+
+            if ($filePath && Storage::disk('public')->exists($filePath)) {
+                Storage::disk('public')->delete($filePath);
+            }
+
+            $file      = $request->file('convention_file');
+            $name      = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
+
+            $name = preg_replace("/[^A-Za-z0-9 ]/", '', $name);
+            $name = preg_replace("/\s+/", '-', $name);
+
+            $finalFilename = time() . '_' . $name . '.' . $extension;
+
+            $filePath = $file->storeAs('projets', $finalFilename, 'public');
+        }
+
+        /*
+    |--------------------------------------------------------------------------
+    | Update Projet
+    |--------------------------------------------------------------------------
+    */
+        $projet->update([
+            'name'            => $request->name,
+            'sigle'           => $request->sigle,
+            'date_signature'  => $request->date_signature,
+            'description'     => $request->description,
+            'duree'           => $request->duree,
+            'budjet'          => $request->budjet ? (float) $request->budjet : null,
+            'debut'           => $debut,
+            'fin'             => $fin,
+            'effectif'        => $request->effectif,
+            'type_localite'   => $request->type,
+            'type_projet'     => $request->type_projet,
+            'date_ouverture'  => $date_ouverture,
+            'date_fermeture'  => $date_fermeture,
+            'image'           => $imagePath,
+            'convention_file' => $filePath,
+        ]);
+
+        Alert::success('Succès', 'Modification effectuée avec succès');
+
+        return redirect()->back();
     }
+
     public function destroy(Projet $projet)
     {
         /* $projet = Projet::findOrFail($id); */
@@ -642,7 +695,6 @@ class ProjetController extends Controller
 
         // Output the generated PDF to Browser
         $dompdf->stream($name, ['Attachment' => false]);
-
     }
 
     public function listeSelectionnesregion(Request $request)
@@ -706,7 +758,6 @@ class ProjetController extends Controller
 
         // Output the generated PDF to Browser
         $dompdf->stream($name, ['Attachment' => false]);
-
     }
 
     public function listeAttente(Request $request)
@@ -769,7 +820,6 @@ class ProjetController extends Controller
 
         // Output the generated PDF to Browser
         $dompdf->stream($name, ['Attachment' => false]);
-
     }
 
     public function listeAttenteregion(Request $request)
@@ -830,6 +880,5 @@ class ProjetController extends Controller
 
         // Output the generated PDF to Browser
         $dompdf->stream($name, ['Attachment' => false]);
-
     }
 }
