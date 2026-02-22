@@ -121,8 +121,12 @@
                                     </div>
                                 </div>
                                 {{-- <button id="postulerBtn" class="btn btn-primary">Postuler</button> --}}
-                                <a id="partenaire" href="#" data-bs-toggle="modal"
+                                {{-- <a id="partenaire" href="#" data-bs-toggle="modal"
                                     data-bs-target="#enSavoirPlusModalPcharge"
+                                    class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
+                                    Postuler maintenant
+                                </a> --}}
+                                <a id="partenaire" href="route('login')"
                                     class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
                                     Postuler maintenant
                                 </a>
@@ -317,8 +321,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="date_naissance" class="form-label">Date de naissance</label>
-                                            <input type="date" name="date_naissance" class="form-control"
-                                                required>
+                                            <input type="date" name="date_naissance" class="form-control" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
