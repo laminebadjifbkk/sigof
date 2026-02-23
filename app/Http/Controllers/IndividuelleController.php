@@ -607,15 +607,39 @@ class IndividuelleController extends Controller
         ]); */
 
         // Nettoyer le CIN avant validation
-        $request->merge([
+        /* $request->merge([
             'cin' => preg_replace('/\s+/', '', $request->cin)
-        ]);
+        ]); */
+
+        $cin = preg_replace('/\s+/', '', $request->cin);
+
+        // 🔹 Formatage si CNI
+        if ($request->type_piece === 'cni') {
+            $cin = $this->formatCin($cin);
+        }
+
+        // 🔹 Préfixe
+        if ($request->type_piece === 'extrait') {
+            $cin = 'EXT. ' . $cin;
+        }
+
+        if ($request->type_piece === 'passeport') {
+            $cin = 'PPT. ' . $cin;
+        }
+
+        // 🔹 Injecter la vraie valeur
+        $request->merge(['cin' => $cin]);
 
         $validator = Validator::make($request->all(), [
             'civilite'                  => ['required', 'string'],
             'date_depot'                => ['required', 'date', 'date_format:Y-m-d\TH:i'],
             'type_piece'                => ['required', 'string', 'in:cni,extrait,passeport'],
-            'cin'                       => ['required', 'string', Rule::unique('users')->whereNull('deleted_at')],
+            /* 'cin'                       => ['required', 'string', Rule::unique('users')->whereNull('deleted_at')], */
+            "cin"                       => [
+                "required",
+                "string",
+                Rule::unique('users', 'cin')->whereNull('deleted_at')
+            ],
             'email'                     => ['required', 'email', 'max:250', Rule::unique('users')->whereNull('deleted_at')],
             'firstname'                 => ['required', 'string', 'max:50'],
             'lastname'                  => ['required', 'string', 'max:25'],
@@ -635,7 +659,10 @@ class IndividuelleController extends Controller
             'qualification'             => ['nullable', 'string', 'max:200'],
         ]);
 
-        // Validation conditionnelle
+        // Validation finale
+        $data = $validator->validate();
+
+        /* // Validation conditionnelle
         $validator->sometimes('cin', ['digits:5'], function ($input) {
             return $input->type_piece === 'extrait';
         });
@@ -646,10 +673,8 @@ class IndividuelleController extends Controller
 
         $validator->sometimes('cin', ['digits_between:13,14'], function ($input) {
             return $input->type_piece === 'cni';
-        });
+        }); */
 
-        // Validation finale
-        $data = $validator->validate();
 
         // Formatage CIN uniquement si nécessaire
         if ($data['type_piece'] === 'cni') {
