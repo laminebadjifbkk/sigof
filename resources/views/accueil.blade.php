@@ -95,7 +95,7 @@
                                     </div>
                                 </h2>
                                 <h1 class="mb-2">
-                                    {{ $partenaire?->sigle }} <br>
+                                    {{ $partenaire?->type_projet . ' ' . $partenaire?->sigle }} <br>
 
                                     @foreach ($modules->take($maxDisplay) as $projetmodule)
                                         <span class="accent-text">
@@ -307,7 +307,8 @@
 
                                 <div class="modal-body">
                                     <!-- Formulaire -->
-                                    <form id="checkFormulaire" method="POST" action="{{ route('formulaires.check') }}">
+                                    <form id="checkFormulaire" method="POST"
+                                        action="{{ route('formulaires.check') }}">
                                         @csrf
                                         <div class="mb-3">
                                             <label for="prenom" class="form-label">Prénom</label>
