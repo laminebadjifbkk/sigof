@@ -126,7 +126,7 @@
                                     class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
                                     Postuler maintenant
                                 </a> --}}
-                                <a id="partenaire" href="route('login')"
+                                <a id="partenaire" href="{{ route('login') }}"
                                     class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
                                     Postuler maintenant
                                 </a>
