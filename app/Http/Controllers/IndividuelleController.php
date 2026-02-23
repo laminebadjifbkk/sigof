@@ -606,6 +606,11 @@ class IndividuelleController extends Controller
             'qualification'             => ['nullable', 'string', 'max:200'],
         ]); */
 
+        // Nettoyer le CIN avant validation
+        $request->merge([
+            'cin' => preg_replace('/\s+/', '', $request->cin)
+        ]);
+
         $validator = Validator::make($request->all(), [
             'civilite'                  => ['required', 'string'],
             'date_depot'                => ['required', 'date', 'date_format:Y-m-d\TH:i'],
@@ -653,7 +658,7 @@ class IndividuelleController extends Controller
 
         // Utilisation des données validées
         $cin = $data['cin'] ?? null;
-        
+
         $date_input = $data['date_depot'] ?? null;
 
         if ($date_input) {

@@ -40,6 +40,11 @@ class ListecollectiveController extends Controller
 
     public function store(Request $request)
     {
+        // Nettoyer le CIN avant validation
+        $request->merge([
+            'cin' => preg_replace('/\s+/', '', $request->cin)
+        ]);
+
         $validator = Validator::make($request->all(), [
             "type_piece"     => "required|in:cni,extrait,passeport",
             "civilite"       => "required|string",
