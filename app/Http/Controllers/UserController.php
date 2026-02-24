@@ -257,6 +257,8 @@ class UserController extends Controller
         $departements = Departement::orderBy("created_at", "desc")->get();
         /* $modules = Module::orderBy("created_at", "desc")->get(); */
 
+        dd($departements);
+
         $today = date('Y-m-d');
         $annee = date('Y');
         $annee_lettre = 'Diagramme à barres, année: ' . $annee;
