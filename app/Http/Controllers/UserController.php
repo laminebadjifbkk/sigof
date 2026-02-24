@@ -231,6 +231,8 @@ class UserController extends Controller
     {
         $total_user = User::count();
 
+        dd($total_user);
+
         $email_verified_at = User::whereNotNull('email_verified_at')->count();
         $email_verified_at = ($email_verified_at / $total_user) * 100;
         $email_verified_at = number_format($email_verified_at, 2, ',', ' ');
