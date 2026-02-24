@@ -253,6 +253,8 @@ class UserController extends Controller
         $individuelles = Individuelle::select('id')->get();
         $collectives = Collective::select('id')->get();
 
+        dd($collectives);
+
         // Départements et modules
         $departements = Departement::orderBy("created_at", "desc")->get();
         /* $modules = Module::orderBy("created_at", "desc")->get(); */
