@@ -16,8 +16,8 @@ class FormationStartController extends Controller
      */
     public function send(Formation $formation)
     {
-        Alert::warning('"En raison de soucis techniques auprès de SENUM SA, l’envoi automatique des mails de démarrage est temporairement indisponible. 
-Nous vous prions de bien vouloir les transmettre directement via votre messagerie, le temps que la situation soit rétablie."');
+        Alert::warning("En raison de soucis techniques auprès de SENUM SA, l’envoi automatique des mails de démarrage est temporairement indisponible. 
+Nous vous prions de bien vouloir les transmettre directement via votre messagerie, le temps que la situation soit rétablie.");
 
         return redirect()->back();
 
