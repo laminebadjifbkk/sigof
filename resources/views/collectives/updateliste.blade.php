@@ -106,7 +106,7 @@
                                             id="num_piece"
                                             value="{{ old('cin') ?? str_replace(' ', '', $listecollective?->cin) }}"
                                             autocomplete="off" placeholder="Ex : 1099200500012" minlength="13"
-                                            maxlength="14" required>
+                                            maxlength="14">
                                         @error('cin')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
