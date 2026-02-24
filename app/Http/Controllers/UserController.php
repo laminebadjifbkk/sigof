@@ -231,8 +231,6 @@ class UserController extends Controller
     {
         $total_user = User::count();
 
-        dd($total_user);
-
         $email_verified_at = User::whereNotNull('email_verified_at')->count();
         $email_verified_at = ($email_verified_at / $total_user) * 100;
         $email_verified_at = number_format($email_verified_at, 2, ',', ' ');
@@ -268,6 +266,8 @@ class UserController extends Controller
         $count_operateurs = Operateur::where("statut_agrement", "agréé")->count();
         $count_today = $count_today_individuelle + $count_today_collective;
 
+        dd($total_user);
+        
         $counts = DB::table('individuelles')
             ->selectRaw('MONTH(created_at) as month, count(*) as count')
             ->whereYear('created_at', $annee)
