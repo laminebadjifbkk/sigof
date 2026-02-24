@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Mail\FormationStartNotification;
 use App\Models\Formation;
 use Illuminate\Support\Facades\Mail;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class FormationStartController extends Controller
 {
@@ -15,8 +16,11 @@ class FormationStartController extends Controller
      */
     public function send(Formation $formation)
     {
-        return back()->with('warning', "En raison de soucis techniques auprès de SENUM SA, l’envoi automatique des mails de démarrage est temporairement indisponible. 
-Nous vous prions de bien vouloir les transmettre directement via votre messagerie, le temps que la situation soit rétablie.");
+        dd('ok');
+        Alert::warning('"En raison de soucis techniques auprès de SENUM SA, l’envoi automatique des mails de démarrage est temporairement indisponible. 
+Nous vous prions de bien vouloir les transmettre directement via votre messagerie, le temps que la situation soit rétablie."');
+
+        return redirect()->back();
 
         // Liste des destinataires fixes + l’ingénieur lié
         $emails = array_filter(array_merge([
