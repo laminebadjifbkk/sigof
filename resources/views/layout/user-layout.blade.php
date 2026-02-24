@@ -4324,6 +4324,30 @@
             selectStatut.addEventListener("change", toggleAutreField); // au changement
         });
     </script>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#projetprofessionnel'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    <style>
+        #projetprofessionnel+.ck-editor .ck-editor__editable {
+            min-height: 200px;
+        }
+        #description+.ck-editor .ck-editor__editable {
+            min-height: 200px;
+        }
+    </style>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NGJKZ3DD" height="0" width="0"
             style="display:none;visibility:hidden"></iframe>

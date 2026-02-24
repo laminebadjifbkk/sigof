@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
 use Illuminate\Validation\Rule;
+use Mews\Purifier\Facades\Purifier;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CollectiveController extends Controller
@@ -735,12 +736,14 @@ class CollectiveController extends Controller
             ]);
         } */
 
+        $collective->projetprofessionnel = Purifier::clean($request->projetprofessionnel, 'default');
+
         $data = [
             "numero_courrier"        => $request->input("numero_courrier"),
             "name"                   => $request->input("name"),
             "sigle"                  => $request->input("sigle"),
             "description"            => $request->input("description"),
-            "projetprofessionnel"    => $request->input("projetprofessionnel"),
+            "projetprofessionnel"    => $collective->projetprofessionnel, // <- purifié ici
             "telephone"              => $request->input("telephone"),
             "email"                  => $request->input("email"),
             "email_responsable"      => $request->input("email_responsable"),

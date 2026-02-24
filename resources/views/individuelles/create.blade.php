@@ -634,7 +634,7 @@
                                 sur
                                 le projet
                                 professionnel<span class="required">*</span></label>
-                            <textarea name="projetprofessionnel" id="projetprofessionnel" rows="3"
+                            <textarea name="projetprofessionnel" id="projetprofessionnel" rows="10"
                                 class="form-control form-control-sm @error('projetprofessionnel') is-invalid @enderror"
                                 placeholder="Si vous disposez déjà d'un projet professionnel, merci d'écrire son résumé en quelques lignes">{{ old('projetprofessionnel') }}</textarea>
                             @error('projetprofessionnel')

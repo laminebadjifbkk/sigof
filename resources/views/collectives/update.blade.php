@@ -309,7 +309,7 @@
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="projetprofessionnel" id="projetprofessionnel" rows="6"
                                         class="form-control form-control-sm @error('projetprofessionnel') is-invalid @enderror"
-                                        placeholder="Description détaillée du projet professionnel et de l'effet attendu après la formation">{{ $collective?->projetprofessionnel ?? old('projetprofessionnel') }}
+                                        placeholder="Description détaillée du projet professionnel et de l'effet attendu après la formation">{!! $collective->projetprofessionnel !!}
                                     </textarea>
 
                                     @error('projetprofessionnel')
