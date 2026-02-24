@@ -1,5 +1,6 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Liste membres')
+@section('title', 'Modification ' . $listecollective?->civilite . ' ' . $listecollective?->prenom . ' ' .
+    $listecollective?->nom)
 @section('space-work')
     <section class="section">
 
@@ -98,8 +99,7 @@
 
                                     <div class="col-12 col-md-4 mb-0">
                                         <label for="num_piece" class="form-label" id="numero_piece_label">
-                                            Numéro de la pièce <span
-                                                class="text-danger mx-1">*</span>
+                                            Numéro de la pièce <span class="text-danger mx-1">*</span>
                                         </label>
                                         <input name="cin" type="text"
                                             class="form-control form-control-sm @error('cin') is-invalid @enderror"
