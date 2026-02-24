@@ -510,7 +510,7 @@
                                                                                 <td>{{ $listecollective?->prenom . ' ' . $listecollective?->nom }}
                                                                                 </td>
                                                                                 {{-- <td>{{ $listecollective?->nom }}</td> --}}
-                                                                                <td>{{ $listecollective?->date_naissance->format('d/m/Y') }}
+                                                                                <td>{{ $listecollective?->date_naissance?->format('d/m/Y') }}
                                                                                 </td>
                                                                                 <td>{{ $listecollective?->lieu_naissance }}</td>
                                                                                 <td>{{ $listecollective?->niveau_etude }}</td>
