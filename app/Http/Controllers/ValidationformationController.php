@@ -48,7 +48,7 @@ class ValidationformationController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        if (! auth()->user()->hasRole(['super-admin', 'DEC'])) {
+        if (! auth()->user()->hasRole(['super-admin', 'DEC', 'Ingenieur'])) {
             Alert::warning('Désolé !', 'action non autorisée');
             return redirect()->back();
         }
