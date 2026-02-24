@@ -249,12 +249,12 @@ class UserController extends Controller
         // Rôles
         $roles = Role::orderBy('created_at', 'desc')->get();
 
-        dd($roles);
-
         // Individuelles et collectives
         $individuelles = Individuelle::select('id')->get();
         $collectives = Collective::select('id')->get();
 
+        dd($roles);
+        
         // Départements et modules
         $departements = Departement::orderBy("created_at", "desc")->get();
         /* $modules = Module::orderBy("created_at", "desc")->get(); */
