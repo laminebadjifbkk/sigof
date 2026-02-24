@@ -57,6 +57,7 @@ class ListecollectiveController extends Controller
             "telephone"      => "nullable|string|min:9|max:12",
             "cin" => [
                 "required",
+                "string",
                 Rule::unique('listecollectives', 'cin')
             ],
         ]);
@@ -190,13 +191,14 @@ class ListecollectiveController extends Controller
             "civilite"       => "required|string",
             "firstname"      => "required|string",
             "name"           => "required|string",
-            'date_naissance' => ['nullable', 'date_format:d/m/Y'],
+            'date_naissance' => ['required', 'date_format:d/m/Y'],
             "lieu_naissance" => "required|string",
             "module"         => "required|string",
             "niveau_etude"   => "nullable|string",
             "telephone"      => "nullable|string|min:9|max:12",
             "cin" => [
                 "required",
+                "string",
                 Rule::unique('listecollectives', 'cin')
                     ->whereNull('deleted_at')
                     ->ignore($listecollective->id)
