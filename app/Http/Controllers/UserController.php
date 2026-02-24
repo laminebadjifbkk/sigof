@@ -250,16 +250,12 @@ class UserController extends Controller
         $roles = Role::orderBy('created_at', 'desc')->get();
 
         // Individuelles et collectives
-        $individuelles = Individuelle::select('id')->get();
-        $collectives = Collective::select('id')->get();
+        /* $individuelles = Individuelle::select('id')->get();
+        $collectives = Collective::select('id')->get(); */
 
-        dd($roles);
-        
         // Départements et modules
         $departements = Departement::orderBy("created_at", "desc")->get();
         /* $modules = Module::orderBy("created_at", "desc")->get(); */
-
-        dd($departements);
 
         $today = date('Y-m-d');
         $annee = date('Y');
@@ -308,8 +304,8 @@ class UserController extends Controller
         $terminer = $statuts['Terminée'] ?? 0;
         $rejeter  = $statuts['Rejetée'] ?? 0;
 
-        $pourcentage_hommes = $individuelles->count() > 0 ? ($masculin / $individuelles->count()) * 100 : 0;
-        $pourcentage_femmes = $individuelles->count() > 0 ? ($feminin / $individuelles->count()) * 100 : 0;
+        /* $pourcentage_hommes = $individuelles->count() > 0 ? ($masculin / $individuelles->count()) * 100 : 0;
+        $pourcentage_femmes = $individuelles->count() > 0 ? ($feminin / $individuelles->count()) * 100 : 0; */
 
         $feminin_collective = Listecollective::where('civilite', "Mme")->count();
         $masculin_collective = Listecollective::where('civilite', "M.")->count();
@@ -359,15 +355,15 @@ class UserController extends Controller
             'total_arrive',
             'total_depart',
             'total_individuelle',
-            "pourcentage_hommes",
-            "pourcentage_femmes",
+            /* "pourcentage_hommes",
+            "pourcentage_femmes", */
             'rejeter',
             "terminer",
             "retenue",
             "nouvelle",
             'attente',
-            "individuelles",
-            "collectives",
+            /* "individuelles",
+            "collectives", */
             /* "modules", */
             "departements",
             "count_today",

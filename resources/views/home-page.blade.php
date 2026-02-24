@@ -332,7 +332,7 @@
                         </div> --}}
 
                             {{-- Demandes individuelles --}}
-                            <div class="col-12 col-sm-6 col-lg-3">
+                            {{-- <div class="col-12 col-sm-6 col-lg-3">
                                 <div class="card info-card sales-card">
                                     <a href="{{ route('individuelles.index') }}">
                                         <div class="card-body">
@@ -347,7 +347,6 @@
                                                         <span
                                                             class="text-primary">{{ number_format($total_individuelle, 0, '', ' ') }}</span>
                                                     </h6>
-                                                    {{-- <span class="text-muted small pt-2 ps-1">dont</span> --}}
                                                     <span
                                                         class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_femmes, 2, ',', ' ') . '%' }}</span>
                                                     <span class="text-muted small pt-2 ps-1">femmes</span>
@@ -356,10 +355,10 @@
                                         </div>
                                     </a>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             {{-- Demandes collectives --}}
-                            <div class="col-12 col-sm-6 col-lg-3">
+                            {{-- <div class="col-12 col-sm-6 col-lg-3">
                                 <div class="card info-card sales-card">
                                     <a href="{{ route('collectives.index') }}">
                                         <div class="card-body">
@@ -374,16 +373,16 @@
                                                         <span
                                                             class="text-primary">{{ number_format(count($collectives), 0, '', ' ') }}</span>
                                                     </h6>
-                                                    {{-- <span class="text-muted small pt-2 ps-1">dont</span> --}}
-                                                    {{-- <span
+                                                    <span class="text-muted small pt-2 ps-1">dont</span>
+                                                    <span
                                                         class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_femmes_collective, 2, ',', ' ') . '%' }}</span>
-                                                    <span class="text-muted small pt-2 ps-1">femmes</span> --}}
+                                                    <span class="text-muted small pt-2 ps-1">femmes</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             {{-- <div class="col-12 col-sm-6 col-lg-3">
                             <div class="card info-card sales-card">
