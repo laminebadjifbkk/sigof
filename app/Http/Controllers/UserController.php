@@ -255,8 +255,8 @@ class UserController extends Controller
 
         // Départements et modules
         $departements = Departement::orderBy("created_at", "desc")->get();
-        dd($total_user);
         $modules = Module::orderBy("created_at", "desc")->get();
+        dd($total_user);
 
         $today = date('Y-m-d');
         $annee = date('Y');
