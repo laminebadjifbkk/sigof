@@ -767,7 +767,7 @@
                         numeroInput.placeholder = 'Ex : 12345';
                         numeroInput.setAttribute('minlength', 5);
                         numeroInput.setAttribute('maxlength', 5);
-                        numeroInput.setAttribute('pattern', '\\d{5}');
+                        numeroInput.setAttribute('pattern', '[A-Za-z0-9]{5}');
                         break;
 
                     case 'passeport':
@@ -783,7 +783,7 @@
                         numeroInput.placeholder = 'Ex : 1099200500012';
                         numeroInput.setAttribute('minlength', 13);
                         numeroInput.setAttribute('maxlength', 14);
-                        numeroInput.setAttribute('pattern', '\\d{13,14}');
+                        numeroInput.setAttribute('pattern', '[A-Za-z0-9]{13,14}');
                         break;
                 }
             });
