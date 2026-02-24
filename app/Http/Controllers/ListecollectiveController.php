@@ -50,7 +50,7 @@ class ListecollectiveController extends Controller
             "civilite"       => "required|string",
             "firstname"      => "required|string",
             "name"           => "required|string",
-            'date_naissance' => ['nullable', 'date_format:d/m/Y'],
+            'date_naissance' => ['required', 'date_format:d/m/Y'],
             "lieu_naissance" => "required|string",
             "module"         => "required|string",
             "niveau_etude"   => "nullable|string",
