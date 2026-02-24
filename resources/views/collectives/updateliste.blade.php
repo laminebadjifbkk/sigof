@@ -378,6 +378,14 @@
 
             // 🔹 Limiter la saisie côté front selon maxlength
             numeroInput.addEventListener('input', function() {
+
+                // 🔹 Supprimer tout caractère non alphanumérique
+                this.value = this.value.replace(/[^A-Za-z0-9]/g, '');
+
+                // 🔹 Mettre automatiquement en majuscule
+                this.value = this.value.toUpperCase();
+
+                // 🔹 Respecter maxlength
                 const max = this.getAttribute('maxlength');
                 if (max && this.value.length > max) {
                     this.value = this.value.slice(0, max);
