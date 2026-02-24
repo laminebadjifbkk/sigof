@@ -249,6 +249,8 @@ class UserController extends Controller
         // Rôles
         $roles = Role::orderBy('created_at', 'desc')->get();
 
+        dd($total_user);
+        
         // Individuelles et collectives
         $individuelles = Individuelle::select('id')->get();
         $collectives = Collective::select('id')->get();
@@ -266,8 +268,6 @@ class UserController extends Controller
         $count_operateurs = Operateur::where("statut_agrement", "agréé")->count();
         $count_today = $count_today_individuelle + $count_today_collective;
 
-        dd($total_user);
-        
         $counts = DB::table('individuelles')
             ->selectRaw('MONTH(created_at) as month, count(*) as count')
             ->whereYear('created_at', $annee)
