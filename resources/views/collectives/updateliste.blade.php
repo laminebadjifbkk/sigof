@@ -336,7 +336,7 @@
                         numeroInput.placeholder = 'Ex : 1099200500012';
                         numeroInput.setAttribute('minlength', 13);
                         numeroInput.setAttribute('maxlength', 14);
-                        numeroInput.setAttribute('pattern', '[A-Za-z0-9]d{13,14}');
+                        numeroInput.setAttribute('pattern', '[A-Za-z0-9]{13,14}');
                         break;
 
                     case 'extrait':
@@ -344,7 +344,7 @@
                         numeroInput.placeholder = 'Ex : 12345';
                         numeroInput.setAttribute('minlength', 5);
                         numeroInput.setAttribute('maxlength', 5);
-                        numeroInput.setAttribute('pattern', '[A-Za-z0-9]d{5}');
+                        numeroInput.setAttribute('pattern', '[A-Za-z0-9]{5}');
                         break;
 
                     case 'passeport':
@@ -378,14 +378,6 @@
 
             // 🔹 Limiter la saisie côté front selon maxlength
             numeroInput.addEventListener('input', function() {
-
-                // 🔹 Supprimer tout caractère non alphanumérique
-                this.value = this.value.replace(/[^A-Za-z0-9]/g, '');
-
-                // 🔹 Mettre automatiquement en majuscule
-                this.value = this.value.toUpperCase();
-
-                // 🔹 Respecter maxlength
                 const max = this.getAttribute('maxlength');
                 if (max && this.value.length > max) {
                     this.value = this.value.slice(0, max);
