@@ -253,9 +253,9 @@ class UserController extends Controller
         $individuelles = Individuelle::select('id')->get();
         $collectives = Collective::select('id')->get();
 
-        dd($total_user);
         // Départements et modules
         $departements = Departement::orderBy("created_at", "desc")->get();
+        dd($total_user);
         $modules = Module::orderBy("created_at", "desc")->get();
 
         $today = date('Y-m-d');
