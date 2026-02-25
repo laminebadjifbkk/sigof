@@ -626,6 +626,10 @@ class CollectiveController extends Controller
 
     public function update(Request $request, Collective $collective)
     {
+
+        $projetPurifie = Purifier::clean($request->projetprofessionnel, 'default');
+
+
         /* $collective = Collective::findOrFail($id); */
         $user_id = $collective?->users_id;
 
@@ -736,14 +740,13 @@ class CollectiveController extends Controller
             ]);
         } */
 
-        $collective->projetprofessionnel = Purifier::clean($request->projetprofessionnel, 'default');
 
         $data = [
             "numero_courrier"        => $request->input("numero_courrier"),
             "name"                   => $request->input("name"),
             "sigle"                  => $request->input("sigle"),
             "description"            => $request->input("description"),
-            "projetprofessionnel"    => $collective->projetprofessionnel, // <- purifié ici
+            "projetprofessionnel"    => $projetPurifie, // <- purifié ici
             "telephone"              => $request->input("telephone"),
             "email"                  => $request->input("email"),
             "email_responsable"      => $request->input("email_responsable"),

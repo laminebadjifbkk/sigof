@@ -34,11 +34,11 @@ return [
         'default' => [
             'HTML.Doctype' => 'HTML 4.01 Transitional',
 
-            // 🔐 On limite STRICTEMENT
-            'HTML.Allowed' => 'p,strong,em,ul,ol,li,br',
+            // Balises autorisées
+            'HTML.Allowed' => 'p,br,strong,b,em,i,u,ul,ol,li,span,h1,h2,h3,H4,h5',
 
-            // ❌ On supprime le CSS inline
-            'CSS.AllowedProperties' => '',
+            // Propriétés CSS autorisées (pour span)
+            'CSS.AllowedProperties' => 'font,font-weight,font-style,text-decoration,color',
 
             'AutoFormat.AutoParagraph' => true,
             'AutoFormat.RemoveEmpty'   => true,

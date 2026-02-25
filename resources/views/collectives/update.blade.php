@@ -294,7 +294,7 @@
                                     </textarea> --}}
                                     <textarea name="description" id="description" rows="6"
                                         class="form-control form-control-sm @error('description') is-invalid @enderror"
-                                        placeholder="Description de l'organisation, de ses activités et de ses réalisations">{{ $collective?->description ?? old('description') }}
+                                        placeholder="Description de l'organisation, de ses activités et de ses réalisations">{!! $collective?->description ?? old('description') !!}
                                     </textarea>
 
                                     @error('description')
@@ -309,7 +309,7 @@
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="projetprofessionnel" id="projetprofessionnel" rows="6"
                                         class="form-control form-control-sm @error('projetprofessionnel') is-invalid @enderror"
-                                        placeholder="Description détaillée du projet professionnel et de l'effet attendu après la formation">{!! $collective->projetprofessionnel !!}
+                                        placeholder="Description détaillée du projet professionnel et de l'effet attendu après la formation">{!! $collective?->projetprofessionnel ?? old('projetprofessionnel') !!}
                                     </textarea>
 
                                     @error('projetprofessionnel')
