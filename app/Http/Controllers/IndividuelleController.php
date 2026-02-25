@@ -176,25 +176,33 @@ class IndividuelleController extends Controller
         // =======================================
         // Retour vers la vue
         // =======================================
-
         $user = Auth::user();
         $sigle = $user?->employee?->direction?->sigle;
 
-        if ($sigle) {
-            $antenne = Antenne::where('code', $sigle)->first();
-        } else {
-            $antenne = null;
-        }
+        // Vérifie si l'utilisateur a le rôle correspondant au sigle
+        $hasSigleRole = $sigle ? $user->roles->pluck('name')->contains($sigle) : false;
 
-        if (is_null($antenne)) {
+        if ($hasSigleRole) {
+            // L'utilisateur a le rôle correspondant → récupérer les régions de son antenne
+            $antenne = Antenne::where('code', $sigle)->first();
+
+            $rows = $antenne?->regions->map(fn($region) => [
+                'nom' => $region->nom,
+                'count' => $region->individuelles->count(),
+            ]) ?? collect();
+        } else {
+            // Pas de sigle ou rôle non attribué → tableau global par région
+            $groupes = Individuelle::with('region')
+                ->select('regions_id')
+                ->selectRaw('COUNT(*) as total')
+                ->whereYear('date_depot', $annee)
+                ->groupBy('regions_id')
+                ->orderByDesc('total')
+                ->get();
+
             $rows = $groupes->map(fn($row) => [
                 'nom' => $row->region->nom ?? '',
                 'count' => $row->total,
-            ]);
-        } else {
-            $rows = $antenne->regions->map(fn($region) => [
-                'nom' => $region->nom,
-                'count' => $region->individuelles->count(),
             ]);
         }
 
@@ -205,7 +213,6 @@ class IndividuelleController extends Controller
             'groupes',           // tableau des années
             'annee',
             'user',
-            'antenne',
             'rows',
             'totalIndividuelles'
         ));
