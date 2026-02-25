@@ -27,11 +27,11 @@ class XSS
     {
         $userInput = $request->all();
 
-        /* array_walk_recursive($userInput, function (&$userInput) {
+        array_walk_recursive($userInput, function (&$userInput) {
             $userInput = strip_tags($userInput);
         });
         $request->merge($userInput);
-        return $next($request); */
+        return $next($request);
         
         /*  array_walk_recursive($userInput, function (&$value, $key) {
             // On exclut les champs qui doivent garder du HTML
@@ -41,7 +41,7 @@ class XSS
         }); */
 
         // Champs autorisés à garder du HTML
-        $except = ['projetprofessionnel', 'description'];
+        /* $except = ['projetprofessionnel', 'description'];
 
         array_walk_recursive($userInput, function (&$value, $key) use ($except) {
             if (!in_array($key, $except)) {
@@ -51,6 +51,6 @@ class XSS
 
         $request->merge($userInput);
 
-        return $next($request);
+        return $next($request); */
     }
 }
