@@ -177,6 +177,7 @@ class IndividuelleController extends Controller
         // =======================================
 
         $user = Auth::user();
+        $roles = $user?->roles->pluck('name')->map(fn($r) => strtolower(trim($r)))->toArray();
 
         return view('individuelles.index_annee', compact(
             'individuelles',
@@ -185,6 +186,7 @@ class IndividuelleController extends Controller
             'groupes',           // tableau des années
             'annee',
             'user',
+            'roles',
             'totalIndividuelles'
         ));
     }

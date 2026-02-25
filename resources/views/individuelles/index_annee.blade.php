@@ -2,7 +2,10 @@
 @section('title', 'Demandes individuelles ' . $annee)
 @section('space-work')
     @can('individuelle-view')
-        @hasrole("{$user?->employee?->direction->sigle}|CAR|super-admin|Ingenieur")
+        {{-- @hasrole("{$user?->employee?->direction->sigle}|CAR|super-admin|Ingenieur") --}}
+        @if (in_array('super-admin', $roles) ||
+                in_array('ingenieur', $roles) ||
+                collect($roles)->contains(fn($r) => Str::startsWith($r, 'ant')))
             <section class="section">
                 <div class="row">
                     <div class="col-12">
@@ -14,7 +17,8 @@
                             </div>
                         @endif
                         @if ($message = Session::get('danger'))
-                            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
+                            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
+                                role="alert">
                                 <strong>{{ $message }}</strong>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
@@ -158,8 +162,8 @@
                                                 <a href="{{ route('individuelles.create') }}" class="btn btn-sm btn-primary">
                                                     Ajouter
                                                 </a>
-                                                <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#generate_rapport">
+                                                <button class="btn btn-sm btn-outline-secondary" type="button"
+                                                    data-bs-toggle="modal" data-bs-target="#generate_rapport">
                                                     Rechercher plus
                                                 </button>
                                             </div>
@@ -722,7 +726,8 @@
                                                     <input type="text" name="etablissement_professionnel"
                                                         value="{{ old('etablissement_professionnel') }}"
                                                         class="form-control form-control-sm @error('etablissement_professionnel') is-invalid @enderror"
-                                                        id="etablissement_professionnel" placeholder="Etablissement obtention">
+                                                        id="etablissement_professionnel"
+                                                        placeholder="Etablissement obtention">
                                                     @error('etablissement_professionnel')
                                                         <span class="invalid-feedback" role="alert">
                                                             <div>{{ $message }}</div>
@@ -840,7 +845,8 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">Générer une recherche<span class="text-danger mx-1">*</span></h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <form method="post" action="{{ route('individuelles.report') }}">
                                 @csrf
@@ -851,7 +857,8 @@
                                                 <div class="col-12">
                                                     <div class="form-group">
                                                         <label for="firstname" class="form-label">Prénom</label>
-                                                        <input type="text" name="firstname" value="{{ old('firstname') }}"
+                                                        <input type="text" name="firstname"
+                                                            value="{{ old('firstname') }}"
                                                             class="form-control form-control-sm @error('firstname') is-invalid @enderror"
                                                             id="firstname" placeholder="Prénom">
                                                         @error('firstname')
@@ -948,7 +955,8 @@
                     </div>
                 </div>
             </section>
-        @endhasrole
+        @endif
+        {{-- @endhasrole --}}
     @endcan
 @endsection
 
