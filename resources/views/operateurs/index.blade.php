@@ -183,6 +183,7 @@
 
                             <div class="card shadow-sm">
                                 <div class="card-body">
+                                    <div class="table-responsive">
                                     <table class="table table-bordered table-striped align-middle">
                                         <thead class="table-primary">
                                             <tr>
@@ -211,6 +212,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    </div>
 
                                     {{-- Bouton Load More --}}
                                     @if ($groupes->hasMorePages())
@@ -258,7 +260,7 @@
                             </div>
                         </div>
 
-                        @if ($operateurs->isNotEmpty())
+                        @if ($operateurs->isNotEmpty())*
                             <div class="table-responsive">
                                 <table
                                     class="table datatables table-striped table-bordered table-hover align-middle justify-content-center"

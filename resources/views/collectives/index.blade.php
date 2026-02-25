@@ -115,118 +115,120 @@
 
                             {{-- ===== Table ===== --}}
                             @if ($collectives->isNotEmpty())
-                                <table class="table table-hover align-middle datatables" id="table-collectives">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th>N°</th>
-                                            <th width="30%">Structure</th>
-                                            {{-- <th>E-mail</th> --}}
-                                            <th>Téléphone</th>
-                                            <th>Région</th>
-                                            <th>Département</th>
-                                            <th class="text-center">Dépôt</th>
-                                            <th class="text-center">Modules</th>
-                                            <th class="text-center">Effectif</th>
-                                            <th class="text-center">Statut</th>
-                                            <th class="text-center">Actions</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        @foreach ($collectives as $collective)
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle datatables" id="table-collectives">
+                                        <thead class="table-light">
                                             <tr>
-                                                <td>{{ $collective->numero }}</td>
+                                                <th>N°</th>
+                                                <th width="30%">Structure</th>
+                                                {{-- <th>E-mail</th> --}}
+                                                <th>Téléphone</th>
+                                                <th>Région</th>
+                                                <th>Département</th>
+                                                <th class="text-center">Dépôt</th>
+                                                <th class="text-center">Modules</th>
+                                                <th class="text-center">Effectif</th>
+                                                <th class="text-center">Statut</th>
+                                                <th class="text-center">Actions</th>
+                                            </tr>
+                                        </thead>
 
-                                                <td>
-                                                    {{ $collective->name }}
-                                                    @if ($collective->sigle)
-                                                        <small class="text-muted">({{ $collective->sigle }})</small>
-                                                    @endif
-                                                </td>
+                                        <tbody>
+                                            @foreach ($collectives as $collective)
+                                                <tr>
+                                                    <td>{{ $collective->numero }}</td>
 
-                                                {{-- <td>
+                                                    <td>
+                                                        {{ $collective->name }}
+                                                        @if ($collective->sigle)
+                                                            <small class="text-muted">({{ $collective->sigle }})</small>
+                                                        @endif
+                                                    </td>
+
+                                                    {{-- <td>
                                                     <a href="mailto:{{ optional($collective->user)->email }}">
                                                         {{ optional($collective->user)->email }}
                                                     </a>
                                                 </td> --}}
 
-                                                <td>
-                                                    <a href="tel:+221{{ $collective->telephone }}">
-                                                        {{ $collective->telephone }}
-                                                    </a>
-                                                </td>
+                                                    <td>
+                                                        <a href="tel:+221{{ $collective->telephone }}">
+                                                            {{ $collective->telephone }}
+                                                        </a>
+                                                    </td>
 
-                                                <td>
-                                                    {{ optional(optional($collective->departement)->region)->nom }}
-                                                </td>
+                                                    <td>
+                                                        {{ optional(optional($collective->departement)->region)->nom }}
+                                                    </td>
 
-                                                <td>
-                                                    {{ optional($collective->departement)->nom }}
-                                                </td>
+                                                    <td>
+                                                        {{ optional($collective->departement)->nom }}
+                                                    </td>
 
-                                                <td class="text-center">
-                                                    {{ $collective->date_depot ? \Carbon\Carbon::parse($collective->date_depot)->format('d/m/Y') : '-' }}
-                                                </td>
+                                                    <td class="text-center">
+                                                        {{ $collective->date_depot ? \Carbon\Carbon::parse($collective->date_depot)->format('d/m/Y') : '-' }}
+                                                    </td>
 
-                                                <td class="text-center">
-                                                    <span class="badge bg-info">
-                                                        {{ $collective->collectivemodules->count() }}
-                                                    </span>
-                                                </td>
+                                                    <td class="text-center">
+                                                        <span class="badge bg-info">
+                                                            {{ $collective->collectivemodules->count() }}
+                                                        </span>
+                                                    </td>
 
-                                                <td class="text-center">
-                                                    <span class="badge bg-secondary">
-                                                        {{ $collective->listecollectives->count() }}
-                                                    </span>
-                                                </td>
+                                                    <td class="text-center">
+                                                        <span class="badge bg-secondary">
+                                                            {{ $collective->listecollectives->count() }}
+                                                        </span>
+                                                    </td>
 
-                                                <td class="text-center">
-                                                    <span class="{{ $collective->statut_demande }}">
-                                                        {{ ucfirst($collective->statut_demande) }}
-                                                    </span>
-                                                </td>
+                                                    <td class="text-center">
+                                                        <span class="{{ $collective->statut_demande }}">
+                                                            {{ ucfirst($collective->statut_demande) }}
+                                                        </span>
+                                                    </td>
 
-                                                <td class="text-center">
-                                                    @can('collective-show')
-                                                        <div class="btn-group">
-                                                            <a href="{{ route('collectives.show', $collective) }}"
-                                                                class="btn btn-sm btn-primary" title="Voir">
-                                                                <i class="bi bi-eye"></i>
-                                                            </a>
+                                                    <td class="text-center">
+                                                        @can('collective-show')
+                                                            <div class="btn-group">
+                                                                <a href="{{ route('collectives.show', $collective) }}"
+                                                                    class="btn btn-sm btn-primary" title="Voir">
+                                                                    <i class="bi bi-eye"></i>
+                                                                </a>
 
-                                                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
-                                                                data-bs-toggle="dropdown"></button>
+                                                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                                                                    data-bs-toggle="dropdown"></button>
 
-                                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                                @can('collective-update')
-                                                                    <li>
-                                                                        <a class="dropdown-item"
-                                                                            href="{{ route('collectives.edit', $collective) }}">
-                                                                            <i class="bi bi-pencil"></i> Modifier
-                                                                        </a>
-                                                                    </li>
-                                                                @endcan
+                                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                                    @can('collective-update')
+                                                                        <li>
+                                                                            <a class="dropdown-item"
+                                                                                href="{{ route('collectives.edit', $collective) }}">
+                                                                                <i class="bi bi-pencil"></i> Modifier
+                                                                            </a>
+                                                                        </li>
+                                                                    @endcan
 
-                                                                @can('collective-delete')
-                                                                    <li>
-                                                                        <form method="POST"
-                                                                            action="{{ route('collectives.destroy', $collective) }}">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button class="dropdown-item text-danger show_confirm">
-                                                                                <i class="bi bi-trash"></i> Supprimer
-                                                                            </button>
-                                                                        </form>
-                                                                    </li>
-                                                                @endcan
-                                                            </ul>
-                                                        </div>
-                                                    @endcan
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                                                    @can('collective-delete')
+                                                                        <li>
+                                                                            <form method="POST"
+                                                                                action="{{ route('collectives.destroy', $collective) }}">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button class="dropdown-item text-danger show_confirm">
+                                                                                    <i class="bi bi-trash"></i> Supprimer
+                                                                                </button>
+                                                                            </form>
+                                                                        </li>
+                                                                    @endcan
+                                                                </ul>
+                                                            </div>
+                                                        @endcan
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             @else
                                 <div class="alert alert-info text-center">
                                     <i class="bi bi-info-circle"></i>
