@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\ExportIndividuellesStatut;
 use App\Exports\ExportIndividuellesStatutQuery;
 use App\Mail\ValidationDemandeIndividuelleNotification;
+use App\Models\Antenne;
 use App\Models\Arrondissement;
 use App\Models\Commune;
 use App\Models\Departement;
@@ -22,8 +23,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
@@ -177,7 +178,13 @@ class IndividuelleController extends Controller
         // =======================================
 
         $user = Auth::user();
-        $roles = $user?->roles->pluck('name')->map(fn($r) => strtolower(trim($r)))->toArray();
+        $sigle = $user?->employee?->direction?->sigle;
+
+        if ($sigle) {
+            $antenne = Antenne::where('sigle', $sigle)->first();
+        } else {
+            $antenne = null;
+        }
 
         return view('individuelles.index_annee', compact(
             'individuelles',
@@ -186,7 +193,6 @@ class IndividuelleController extends Controller
             'groupes',           // tableau des années
             'annee',
             'user',
-            'roles',
             'totalIndividuelles'
         ));
     }
