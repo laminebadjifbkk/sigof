@@ -52,7 +52,7 @@
                                     <table class="table table-hover table-striped align-middle" id="table-jury">
                                         <thead class="table-primary text-center">
                                             <tr>
-                                                <th>N° conv.</th>
+                                                <th>Conv.</th>
                                                 <th>Operateur</th>
                                                 <th>Module formation</th>
                                                 <th>Lieu</th>
