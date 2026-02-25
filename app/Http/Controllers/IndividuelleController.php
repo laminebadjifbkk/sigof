@@ -186,6 +186,8 @@ class IndividuelleController extends Controller
             // L'utilisateur a le rôle correspondant → récupérer les régions de son antenne
             $antenne = Antenne::where('code', $sigle)->first();
 
+            dd($antenne);
+
             $rows = $antenne?->regions->map(fn($region) => [
                 'nom' => $region->nom,
                 'count' => $region->individuelles->count(),
