@@ -2849,6 +2849,46 @@ class FormationController extends Controller
         $dompdf->stream($name, ['Attachment' => false]);
     }
 
+    public function ficheSuiviPostFormation(Request $request)
+    {
+
+        $formation            = Formation::findOrFail($request->input('idformation'));
+        $emargementcollective = Emargementcollective::findOrFail($request->input('idemargement'));
+
+        $feuillepresenceListecollective = DB::table('feuillepresencecollectives')
+            ->where('emargementcollectives_id', $emargementcollective?->id)
+            ->pluck('emargementcollectives_id', 'emargementcollectives_id')
+            ->all();
+
+        $feuillepresencecollectives = Feuillepresencecollective::where('emargementcollectives_id', $emargementcollective?->id)->get();
+
+        $title = 'Fiche de suivi post formation de la formation en  ' . $formation->name;
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+        $dompdf->loadHtml(view('formations.collectives.suivipostformation', compact(
+            'formation',
+            'emargementcollective',
+            'feuillepresenceListecollective',
+            'feuillepresencecollectives',
+            'title'
+        )));
+
+        // (Optional) Setup the paper size and orientation (portrait ou landscape)
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        $name = 'Fiche de suivi de la formation en  ' . $formation->name . ', code ' . $formation->code . '.pdf';
+
+        // Output the generated PDF to Browser
+        $dompdf->stream($name, ['Attachment' => false]);
+    }
+
     public function feuillePresenceTous(Request $request)
     {
 

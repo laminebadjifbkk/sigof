@@ -112,7 +112,7 @@
         <table class="table table-responsive">
             <thead>
                 <tr class="heading" style="text-align: center;">
-                    <td colspan="8"><b>{{ __('FICHE DE SUIVI DE FORMATION') }}</b>
+                    <td colspan="8"><b>{{ __('FICHE DE SUIVI POST FORMATION') }}</b>
                     </td>
                 </tr>
                 <tr class="heading">
@@ -128,7 +128,7 @@
                 </tr>
                 <tr class="heading">
                     <td colspan="4">{{ __('Module : ') }}
-                        {{ $formation?->collectivemodule?->module }}
+                        {{ $formation?->module?->name }}
                     </td>
                     <td colspan="4">{{ __('Lieu : ') }}
                         {{ $formation?->lieu }}
@@ -185,11 +185,10 @@
             </tbody>
         </table>
         <h4 valign="top">
-            <b><u>AGENT DE SUIVI</u></b> :
-            @if ($formation?->date_suivi)
+            <b><u>AGENT DE SUIVI</u></b> : @isset($formation?->date_suivi)
                 <span
                     style="float: right; font-style: italic">{{ remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $emargementcollective?->date?->format('d/m/Y') }}</span>
-            @endif
+            @endisset
             <br>
             {{ $formation?->suivi_dossier }}<br>
         </h4>
