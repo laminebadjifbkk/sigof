@@ -154,11 +154,11 @@ class ParcMissionController extends Controller
 
         $mission = ParcMission::create($request->validated());
         // Tous les utilisateurs qui ont le rôle 'daf' ou 'logistique'
-        $recipients = User::role(['PARC'])->pluck('email');
+        /* $recipients = User::role(['PARC'])->pluck('email');
 
         foreach ($recipients as $email) {
             Mail::to($email)->send(new NouvelleMissionMail($mission));
-        }
+        } */
 
         return redirect()->route('parc-missions.index')
             ->with('status', 'Mission créée avec succès et notifications envoyées aux responsables');
