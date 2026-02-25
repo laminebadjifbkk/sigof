@@ -627,7 +627,7 @@ class CollectiveController extends Controller
     public function update(Request $request, Collective $collective)
     {
 
-        $projetPurifie = Purifier::clean($request->projetprofessionnel, 'default');
+        /* $projetPurifie = Purifier::clean($request->projetprofessionnel, 'default'); */
 
 
         /* $collective = Collective::findOrFail($id); */
@@ -746,7 +746,7 @@ class CollectiveController extends Controller
             "name"                   => $request->input("name"),
             "sigle"                  => $request->input("sigle"),
             "description"            => $request->input("description"),
-            "projetprofessionnel"    => $projetPurifie, // <- purifié ici
+            "projetprofessionnel"    => $request->projetprofessionnel, 
             "telephone"              => $request->input("telephone"),
             "email"                  => $request->input("email"),
             "email_responsable"      => $request->input("email_responsable"),
