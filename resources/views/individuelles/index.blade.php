@@ -455,8 +455,8 @@
                                                     <option value="Veuf(ve)">
                                                         Veuf(ve)
                                                     </option>
-                                                    <option value="Divorsé(e)">
-                                                        Divorsé(e)
+                                                    <option value="Divorcé(e)">
+                                                        Divorcé(e)
                                                     </option>
                                                 </select>
                                                 @error('situation_familiale')
@@ -467,8 +467,8 @@
                                             </div>
 
                                             <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                                <label for="situation_profesionnelle" class="form-label">Situation
-                                                    profesionnelle</label>
+                                                <label for="situation_professionnelle" class="form-label">Situation
+                                                    professionnelle</label>
                                                 <select name="situation_professionnelle"
                                                     class="form-select form-select-sm @error('situation_professionnelle') is-invalid @enderror"
                                                     aria-label="Select" id="select-field-professionnelle-indiv"

@@ -999,8 +999,8 @@
                                                     <option value="Veuf(ve)">
                                                         Veuf(ve)
                                                     </option>
-                                                    <option value="Divorsé(e)">
-                                                        Divorsé(e)
+                                                    <option value="Divorcé(e)">
+                                                        Divorcé(e)
                                                     </option>
                                                 </select>
                                                 @error('situation_familiale')
@@ -1032,8 +1032,8 @@
                                                     <option value="Elève ou étudiant">
                                                         Elève ou étudiant
                                                     </option>
-                                                    <option value="chercheur emploi">
-                                                        chercheur emploi
+                                                    <option value="chercheur d'emploi">
+                                                        chercheur d'emploi
                                                     </option>
                                                     <option value="Stage ou période essai">
                                                         Stage ou période essai

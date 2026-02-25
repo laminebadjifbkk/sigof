@@ -55,7 +55,7 @@ class CreateUsersTable extends Migration
             /* $table->enum('situation_professionnelle', ['', 'Employé', 'Sans emploi', 'Informel', 'Etudiant', 'Eleve', 'Autre']); */
             $table->string('situation_professionnelle')->nullable(true);
             /*  1->marié; 2->celibataire; 3->veuf(ve); 4->divorsé */
-            /* $table->enum('situation_familiale', ['', 'Marié(e)', 'Célibataire', 'Veuf(ve)', 'Divorsé(e)']); */
+            /* $table->enum('situation_familiale', ['', 'Marié(e)', 'Célibataire', 'Veuf(ve)', 'Divorcé(e)']); */
             $table->string('situation_familiale')->nullable(true);
             
             $table->string('operateur', 200)->nullable();

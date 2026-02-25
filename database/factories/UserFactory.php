@@ -58,7 +58,7 @@ class UserFactory extends Factory
             'telephone'                         => $this->faker->unique(true)->numberBetween(70, 79) . rand(10, 99) . rand(10, 99) . rand(0, 9) . rand(0, 9) . rand(0, 9),
             'fixe'                              => $this->faker->unique(true)->numberBetween(70, 79) . rand(10, 99) . rand(10, 99) . rand(0, 9) . rand(0, 9) . rand(0, 9),
             'telephone_secondaire'              => $this->faker->unique(true)->numberBetween(70, 79) . rand(10, 99) . rand(10, 99) . rand(0, 9) . rand(0, 9) . rand(0, 9),
-            'situation_familiale'               => $this->faker->randomElement($array = array('Marié(e)', 'Célibataire', 'Veuf(ve)', 'Divorsé(e)')),
+            'situation_familiale'               => $this->faker->randomElement($array = array('Marié(e)', 'Célibataire', 'Veuf(ve)', 'Divorcé(e)')),
             'situation_professionnelle'         => $this->faker->randomElement($array = array('Employé(e)', 'Informel', 'Elève ou étudiant', 'Chercheur emploi', 'Stage ou période essai', 'Entrepreneur ou freelance')),
             'adresse'                           => fake()->address(),
             'lieu_naissance'                    => $departement->nom,

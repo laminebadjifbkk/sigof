@@ -277,8 +277,8 @@
                                         <option value="Veuf(ve)">
                                             Veuf(ve)
                                         </option>
-                                        <option value="Divorsé(e)">
-                                            Divorsé(e)
+                                        <option value="Divorcé(e)">
+                                            Divorcé(e)
                                         </option>
                                     </select>
                                     @error('situation_familiale')
@@ -289,8 +289,8 @@
                                 </div>
 
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
-                                    <label for="situation_profesionnelle" class="form-label">Situation
-                                        profesionnelle<span class="text-danger mx-1">*</span></label>
+                                    <label for="situation_professionnelle" class="form-label">Situation
+                                        professionnelle<span class="text-danger mx-1">*</span></label>
                                     <select name="situation_professionnelle"
                                         class="form-select  @error('situation_professionnelle') is-invalid @enderror"
                                         aria-label="Select" id="select-field-professionnelle"
@@ -308,8 +308,8 @@
                                         <option value="Elève ou étudiant">
                                             Elève ou étudiant
                                         </option>
-                                        <option value="chercheur emploi">
-                                            chercheur emploi
+                                        <option value="chercheur d'emploi">
+                                            chercheur d'emploi
                                         </option>
                                         <option value="Stage ou période essai">
                                             Stage ou période essai

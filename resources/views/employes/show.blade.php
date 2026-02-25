@@ -517,8 +517,8 @@
                                                         <option value="Veuf(ve)">
                                                             Veuf(ve)
                                                         </option>
-                                                        <option value="Divorsé(e)">
-                                                            Divorsé(e)
+                                                        <option value="Divorcé(e)">
+                                                            Divorcé(e)
                                                         </option>
                                                     </select>
                                                     @error('situation_familiale')
