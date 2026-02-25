@@ -95,7 +95,7 @@
                                             </li>
                                         @endcan
 
-                                        @can('user-view')
+                                        @can('collective-view')
                                             <li class="nav-item">
                                                 <button class="nav-link" data-bs-toggle="tab"
                                                     data-bs-target="#foration-overview">Formations</button>
