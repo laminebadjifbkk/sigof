@@ -136,7 +136,7 @@
                 </tr>
                 <tr class="heading">
                     <td colspan="3">{{ __('Effectif prévu : ') }}
-                        {{ $formation?->prevue_h + $formation?->prevue_f }}
+                        {{ $formation?->effectif_prevu }}
                     </td>
                     <td colspan="5"><b>{{ __('Bénéficiaires : ') }}</b>
 
