@@ -128,7 +128,7 @@
                 </tr>
                 <tr class="heading">
                     <td colspan="4">{{ __('Module : ') }}
-                        {{ $formation?->module?->name }}
+                        {{ $formation?->collectivemodule?->module }}
                     </td>
                     <td colspan="4">{{ __('Lieu : ') }}
                         {{ $formation?->lieu }}
