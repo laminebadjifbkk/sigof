@@ -125,7 +125,7 @@
                                                     value="{{ $formation?->departement?->region?->id }}">
                                                 <input type="hidden" name="idemargement"
                                                     value="{{ $emargementcollective?->id }}">
-                                                <button type="submit" class="btn btn-sm w-100">Fiche de suivi</button>
+                                                <button type="submit" class="btn btn-sm w-100">Fiche de suivi post</button>
                                             </form>
                                         </li>
                                     </ul>
