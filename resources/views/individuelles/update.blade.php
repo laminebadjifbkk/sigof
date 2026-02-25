@@ -81,8 +81,8 @@
                                     <label for="cin" class="form-label">CIN</label>
                                     <input name="cin" type="text"
                                         class="form-control form-control-sm @error('cin') is-invalid @enderror"
-                                        id="cin" value="{{ $user?->cin ?? old('cin') }}" autocomplete="off"
-                                        placeholder="Ex: 1 099 2005 00012" minlength="16" maxlength="17" readonly>
+                                        id="cin" value="{{ $individuelle?->user?->cin ?? old('cin') }}" autocomplete="off"
+                                        placeholder="Ex: 1 099 2005 00012" minlength="16" maxlength="17">
                                     @error('cin')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
@@ -175,19 +175,6 @@
                                 </div>
 
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
-                                    <label for="adresse" class="form-label">Adresse<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="adresse" value="{{ $individuelle?->user?->adresse ?? old('adresse') }}"
-                                        class="form-control form-control-sm @error('adresse') is-invalid @enderror"
-                                        id="adresse" placeholder="adresse">
-                                    @error('adresse')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="situation_familiale" class="form-label">Situation familiale</label>
                                     <select name="situation_familiale"
                                         class="form-select  @error('situation_familiale') is-invalid @enderror"
@@ -247,6 +234,19 @@
                                         </option>
                                     </select>
                                     @error('situation_professionnelle')
+                                        <span class="invalid-feedback" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
+                                </div>
+                                
+                                <div class="col-12 col-md-6 col-lg-8 mb-0">
+                                    <label for="adresse" class="form-label">Adresse<span
+                                            class="text-danger mx-1">*</span></label>
+                                    <input type="text" name="adresse" value="{{ $individuelle?->user?->adresse ?? old('adresse') }}"
+                                        class="form-control form-control-sm @error('adresse') is-invalid @enderror"
+                                        id="adresse" placeholder="adresse">
+                                    @error('adresse')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
                                         </span>

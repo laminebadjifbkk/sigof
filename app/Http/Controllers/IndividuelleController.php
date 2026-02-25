@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -864,10 +865,8 @@ class IndividuelleController extends Controller
         return $cin; // sécurité
     }
 
-    public function edit(Individuelle $individuelle)
+    /* public function edit(Individuelle $individuelle)
     {
-        // Récupérer l'individuelle et les données nécessaires
-        /* $individuelle = Individuelle::findOrFail($id); */
         $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
         $modules      = Module::latest()->get(); // Même pour les modules
         $projets      = Projet::latest()->get(); // Même pour les projets
@@ -880,15 +879,6 @@ class IndividuelleController extends Controller
         if (! empty(array_diff($roleNames, $restrictedRoles))) {
             $this->authorize('update', $individuelle);
         }
-
-        // Vérification des conditions de modification
-        /* if ($individuelle->projet && $individuelle->projet->statut !== 'ouvert') {
-            Alert::warning('Avertissement !', 'La modification a échoué.');
-            return redirect()->back();
-        } elseif ($individuelle->statut !== 'Nouvelle' && in_array('Demandeur', $roleNames)) {
-            Alert::warning('Attention ! ', 'Action impossible, demande déjà traitée.');
-            return redirect()->back();
-        } */
 
         if (! empty(array_diff($roleNames, $restrictedRoles))) {
             $this->authorize('update', $individuelle);
@@ -905,18 +895,103 @@ class IndividuelleController extends Controller
 
         // Retourner la vue si toutes les conditions sont remplies
         return view('individuelles.update', compact('individuelle', 'departements', 'modules', 'projets'));
+    } */
+
+    public function edit(Individuelle $individuelle)
+    {
+        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
+        $modules      = Module::latest()->get();
+        $projets      = Projet::latest()->get();
+
+        // Normalisation des rôles : minuscules et trim
+        $roleNames = Auth::user()->roles->pluck('name')
+            ->map(fn($r) => strtolower(trim($r)))
+            ->toArray();
+
+
+        $restrictedRoles = ['super-admin', 'employe', 'admin', 'diof', 'adiof', 'ingenieur', 'dec'];
+
+        // Vérification de l'accès : rôle restreint ou rôle commençant par Ant
+        $hasAccess = false;
+        foreach ($roleNames as $role) {
+            if (in_array($role, $restrictedRoles) || str_starts_with($role, 'ant')) {
+                $hasAccess = true;
+                break;
+            }
+        }
+
+        // ⚠ Vérifications métier : seules certaines conditions peuvent bloquer
+        if ($individuelle->projet && $individuelle->projet->statut !== 'ouvert') {
+            Alert::warning('Avertissement !', 'Action impossible, la modification a échoué.');
+            return redirect()->back();
+        }
+
+        // Bloquer uniquement les utilisateurs **Demandeur** si la demande est déjà traitée
+        if (in_array('demandeur', $roleNames) && $individuelle->statut !== 'Nouvelle') {
+            Alert::warning('Attention !', 'Action impossible, demande déjà traitée.');
+            return redirect()->back();
+        }
+
+        // ✅ Tout est ok → retourner la vue
+        return view('individuelles.update', compact('individuelle', 'departements', 'modules', 'projets'));
     }
 
     public function update(Request $request, Individuelle $individuelle)
     {
         /* $individuelle = Individuelle::findOrFail($id); */
         $user_id = $individuelle?->users_id;
+        $user = User::findOrFail($user_id);
 
         // Role authorization check
         $this->authorizeRoles(Auth::user()->roles, $individuelle);
 
         // Validate the request
-        $this->validateRequest($request);
+        /* $this->validateRequest($request); */
+
+
+        $this->validate($request, [
+            'date_depot'             => ['nullable', 'date_format:d/m/Y'],
+            'telephone_secondaire'   => ['required', 'string', 'size:12'],
+            'adresse'                => ['required', 'string', 'max:250'],
+            'localite'               => ['required', 'string', 'max:250'],
+            'module'                 => ['required', 'string', 'max:250'],
+            'niveau_etude'           => ['required', 'string', 'max:250'],
+            'diplome_academique'     => ['required', 'string', 'max:250'],
+            'diplome_professionnel'  => ['required', 'string', 'max:250'],
+            'projet_poste_formation' => ['required', 'string', 'max:250'],
+            'projetprofessionnel'    => ['required', 'string', 'max:500'],
+            'qualification'          => ['nullable', 'string', 'max:500'],
+
+
+            'civilite'       => ['required', 'string', 'max:10'],
+            'cin'            => [
+                'required',
+                'string',
+                'min:16',
+                'max:17',
+                Rule::unique(User::class, 'cin')
+                    ->ignore($user->uuid, 'uuid')
+                    ->whereNull('deleted_at'),
+            ],
+            'firstname'      => ['required', 'string', 'max:150'],
+            'name'           => ['required', 'string', 'max:50'],
+
+            'date_naissance' => ['required', 'date_format:d/m/Y'],
+            'lieu_naissance' => ['nullable', 'string'],
+            'image'          => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
+            'telephone'      => ['required', 'string', 'min:9', 'max:12'],
+            'adresse'        => ['required', 'string', 'max:255'],
+            'roles.*'        => ['nullable', 'string', 'max:255'],
+            'email'          => [
+                'nullable',
+                'email',
+                'max:255',
+                Rule::unique(User::class, 'email')
+                    ->ignore($user->uuid, 'uuid')
+                    ->whereNull('deleted_at'),
+            ],
+        ]);
+
 
         // Convertir la date de dépôt depuis la requête
         $date_depot = $this->parseDate($request->input('date_depot'));
@@ -983,19 +1058,40 @@ class IndividuelleController extends Controller
         $module = $module_find ?? Module::create(['name' => $request->input('module')]);
 
         // Update Individuelle
-        $this->updateIndividuelle($individuelle, $request, $date_depot, $departementid, $regionid, $communeid, $arrondissementid, $projetid, $module->id, $user_id);
+        $this->updateIndividuelle($individuelle, $request, $date_depot, $departementid, $regionid, $communeid, $arrondissementid, $projetid, $module->id, $user_id, $user);
 
         Alert::success('Succès !', 'La demande a été modifiée avec succès.');
         return Redirect::back();
     }
 
-    private function authorizeRoles($roles, $individuelle)
+    /*  private function authorizeRoles($roles, $individuelle)
     {
         foreach ($roles as $role) {
-            if (! empty($role->name) && ! in_array($role->name, ['super-admin', 'Employe', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC'])) {
+            if (! empty($role->name) && ! in_array($role->name, ['super-admin', 'Employe', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC', 'Ant*'])) {
                 $this->authorize('update', $individuelle);
             }
         }
+    } */
+
+
+    private function authorizeRoles($roles, $individuelle)
+    {
+        foreach ($roles as $role) {
+
+            if (empty($role->name)) {
+                continue;
+            }
+
+            if (
+                in_array($role->name, ['super-admin', 'Employe', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC'])
+                || Str::startsWith($role->name, 'Ant')
+            ) {
+                return; // autorisé → on sort
+            }
+        }
+
+        // Si aucun rôle autorisé trouvé
+        $this->authorize('update', $individuelle);
     }
 
     private function validateRequest($request)
@@ -1056,7 +1152,7 @@ class IndividuelleController extends Controller
         return false;
     }
 
-    private function updateIndividuelle($individuelle, $request, $date_depot, $departementid, $regionid, $communeid, $arrondissementid, $projetid, $module_id, $user_id)
+    private function updateIndividuelle($individuelle, $request, $date_depot, $departementid, $regionid, $communeid, $arrondissementid, $projetid, $module_id, $user_id, $user)
     {
         $individuelle->update([
             'date_depot'                       => $date_depot,
@@ -1083,6 +1179,33 @@ class IndividuelleController extends Controller
             "projets_id"                       => $projetid,
             "modules_id"                       => $module_id,
             'users_id'                         => $user_id,
+        ]);
+
+        if (! empty($request->date_naissance)) {
+            $dateString     = $request->input('date_naissance');
+            $date_naissance = Carbon::createFromFormat('d/m/Y', $dateString);
+        } else {
+            $date_naissance = null;
+        }
+
+        $user->update([
+            'civilite'                  => $request->civilite,
+            'username'                  => str_replace(' ', '', $request->username),
+            'cin'                       => $request->cin,
+            'firstname'                 => format_proper_name($request->firstname),
+            'name'                      => remove_accents_uppercase($request->name),
+            'date_naissance'            => $date_naissance,
+            'lieu_naissance'            => remove_accents_uppercase($request->lieu_naissance),
+            'situation_familiale'       => $request->situation_familiale,
+            'situation_professionnelle' => $request->situation_professionnelle,
+            'email'                     => $request->email,
+            'telephone'                 => $request->telephone,
+            'adresse'                   => $request->adresse,
+            'twitter'                   => $request->twitter,
+            'facebook'                  => $request->facebook,
+            'instagram'                 => $request->instagram,
+            'linkedin'                  => $request->linkedin,
+            'updated_by'                => Auth::user()->id,
         ]);
     }
 
