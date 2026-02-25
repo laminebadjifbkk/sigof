@@ -49,6 +49,10 @@ class MarquerIndividuellesNonConformes extends Command
                 if ($validFilesCount < 2) {
                     return true;
                 }
+                // ✅ Cas 3 & 4 : 1, 2 ou 3 fichiers valides → OK
+                if ($validFilesCount < 3) {
+                    return true;
+                }
 
                 // ❌ Cas 5 : plus de 2 fichiers valides → Exclu
                 return false;
