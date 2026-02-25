@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Evaluateur;
@@ -12,6 +13,7 @@ use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use Illuminate\Validation\Rule;
 use NumberToWords\NumberToWords;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -58,8 +60,13 @@ class LettrevaluationController extends Controller
         Lettrevaluation::create($validated); */
 
         $request->validate([
-            'formation' => 'required|string|unique:lettrevaluations,formations_id',
-            'contenu'   => 'nullable|string|max:500',
+            'formation' => [
+                'required',
+                'string',
+                Rule::unique('lettrevaluations', 'formations_id')
+                    ->whereNull('deleted_at'),
+            ],
+            'contenu' => 'nullable|string|max:500',
         ]);
 
         Lettrevaluation::create([
@@ -90,7 +97,6 @@ class LettrevaluationController extends Controller
             'isCollectif',
             'onfpevaluateur'
         ));
-
     }
 
     // Formulaire d'édition
@@ -140,7 +146,7 @@ class LettrevaluationController extends Controller
 
         $referentiel = Referentiel::where('titre', $request->titre)->first();
 
-// Détermination du type et du titre
+        // Détermination du type et du titre
         if (! empty($referentiel) && $request->titre !== 'Renforcement de capacités') {
             $referentiel_id = $referentiel->id;
             $titre          = null;
@@ -200,7 +206,7 @@ class LettrevaluationController extends Controller
         $title         = 'Demande de paiement évaluation formation en ' . $formation->name;
         $membres_jury  = explode(";", $formation->membres_jury);
         $count_membres = count($membres_jury);
-// ✅ Génération QR PNG sans imagick avec endroid/qr-code
+        // ✅ Génération QR PNG sans imagick avec endroid/qr-code
         if ($formation?->module && $formation?->module?->name) {
             $moduleName = $formation->module->name;
         } elseif ($formation?->collectivemodule && $formation?->collectivemodule?->module) {
@@ -208,9 +214,9 @@ class LettrevaluationController extends Controller
         }
 
         $qrContent = "Formation : {$formation?->name}\n" .
-        "Code : {$formation?->code}\n" .
-        "Module : {$moduleName}\n" .
-        "Date : " . $formation?->date_debut?->format('d/m/Y') . " au " . $formation?->date_fin?->format('d/m/Y');
+            "Code : {$formation?->code}\n" .
+            "Module : {$moduleName}\n" .
+            "Date : " . $formation?->date_debut?->format('d/m/Y') . " au " . $formation?->date_fin?->format('d/m/Y');
 
         $qrCode       = QrCode::create($qrContent)->setSize(150);
         $writer       = new PngWriter();
