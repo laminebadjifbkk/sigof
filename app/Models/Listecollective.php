@@ -127,6 +127,7 @@ class Listecollective extends Model
     {
         return $this->belongsTo(Collectivemodule::class, 'collectivemodules_id');
     }
+    
     public function formation()
     {
         return $this->belongsTo(Formation::class, 'formations_id')->latest();

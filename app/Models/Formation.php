@@ -582,14 +582,16 @@ class Formation extends Model
 
     public function listecollectives()
     {
-        return $this->hasManyThrough(
+        /* return $this->hasManyThrough(
             Listecollective::class,
             Collective::class,
             'formations_id',    // FK sur collectives
             'collectives_id',   // FK sur listecollectives
             'id',               // PK sur formations
             'id'                // PK sur collectives
-        );
+        ); */
+
+        return $this->hasMany(Listecollective::class, 'formations_id');
     }
 
     public function regions()
