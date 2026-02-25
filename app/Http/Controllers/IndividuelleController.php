@@ -175,12 +175,16 @@ class IndividuelleController extends Controller
         // =======================================
         // Retour vers la vue
         // =======================================
+
+        $user = Auth::user();
+
         return view('individuelles.index_annee', compact(
             'individuelles',
             'departements',
             'regionPourcentages', // cartes par région
             'groupes',           // tableau des années
             'annee',
+            'user',
             'totalIndividuelles'
         ));
     }
