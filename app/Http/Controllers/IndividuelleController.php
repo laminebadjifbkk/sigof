@@ -180,7 +180,9 @@ class IndividuelleController extends Controller
         $sigle = $user?->employee?->direction?->sigle;
 
         // Vérifie si l'utilisateur a le rôle correspondant au sigle
-        $hasSigleRole = $sigle ? $user->roles->pluck('name')->contains($sigle) : false;
+        $hasSigleRole = $user->roles->pluck('name')->contains($sigle);
+
+        dd($sigle, $hasSigleRole);
 
         if ($hasSigleRole) {
             // L'utilisateur a le rôle correspondant → récupérer les régions de son antenne
