@@ -1612,6 +1612,34 @@
         .pagination .page-link span {
             line-height: 1;
         }
+
+        /* Empêche tout débordement horizontal */
+        .ck-editor {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        /* Zone d’édition */
+        .ck-editor__editable {
+            min-height: 200px;
+            max-width: 100% !important;
+        }
+
+        /* Toolbar responsive */
+        .ck.ck-toolbar {
+            flex-wrap: wrap !important;
+        }
+
+        /* Empêche scroll horizontal sur mobile */
+        .ck-editor__editable_inline {
+            overflow-x: auto;
+            word-break: break-word;
+        }
+
+        /* Important pour mobile */
+        .card {
+            overflow-x: hidden;
+        }
     </style>
 
 </head>
@@ -4326,16 +4354,47 @@
     </script>
 
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
     <script>
         ClassicEditor
-            .create(document.querySelector('#projetprofessionnel'))
+            .create(document.querySelector('#description'), {
+                toolbar: {
+                    items: [
+                        'heading',
+                        '|',
+                        'bold',
+                        'italic',
+                        '|',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'undo',
+                        'redo'
+                    ],
+                    shouldNotGroupWhenFull: false
+                }
+            })
             .catch(error => {
                 console.error(error);
             });
-    </script>
-    <script>
         ClassicEditor
-            .create(document.querySelector('#description'))
+            .create(document.querySelector('#projetprofessionnel'), {
+                toolbar: {
+                    items: [
+                        'heading',
+                        '|',
+                        'bold',
+                        'italic',
+                        '|',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'undo',
+                        'redo'
+                    ],
+                    shouldNotGroupWhenFull: false
+                }
+            })
             .catch(error => {
                 console.error(error);
             });
@@ -4344,6 +4403,7 @@
         #projetprofessionnel+.ck-editor .ck-editor__editable {
             min-height: 200px;
         }
+
         #description+.ck-editor .ck-editor__editable {
             min-height: 200px;
         }
