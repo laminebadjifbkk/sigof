@@ -181,9 +181,21 @@ class IndividuelleController extends Controller
         $sigle = $user?->employee?->direction?->sigle;
 
         if ($sigle) {
-            $antenne = Antenne::where('sigle', $sigle)->first();
+            $antenne = Antenne::where('code', $sigle)->first();
         } else {
             $antenne = null;
+        }
+
+        if (is_null($antenne)) {
+            $rows = $groupes->map(fn($row) => [
+                'nom' => $row->region->nom ?? '',
+                'count' => $row->total,
+            ]);
+        } else {
+            $rows = $antenne->regions->map(fn($region) => [
+                'nom' => $region->nom,
+                'count' => $region->individuelles->count(),
+            ]);
         }
 
         return view('individuelles.index_annee', compact(
@@ -193,6 +205,8 @@ class IndividuelleController extends Controller
             'groupes',           // tableau des années
             'annee',
             'user',
+            'antenne',
+            'rows',
             'totalIndividuelles'
         ));
     }
