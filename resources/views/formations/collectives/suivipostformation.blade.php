@@ -145,11 +145,11 @@
                     </td>
                 </tr>
                 <tr class="heading">
-                    <td colspan="4">{{ __('Date début: ') }}
-                        {{ $formation?->date_debut?->format('d/m/Y') ?? '............/............/............' }}
+                    <td colspan="4">{{ __('Période: ') }}
+                        {{ 'Du ' . $formation?->date_debut?->format('d/m/Y') . ' au ' . $formation?->date_fin?->format('d/m/Y') }}
                     </td>
-                    <td colspan="4"><b>{{ __('Date fin : ') }}</b>
-                        {{ $formation?->date_fin?->format('d/m/Y') ?? '............/............/............' }}
+                    <td colspan="4"><b>{{ __('Date suivi : ') }}</b>
+                        {{ $formation?->emargementcollective?->date?->format('d/m/Y') }}
                     </td>
                 </tr>
                 <tr class="item" style="text-align: center;">
@@ -185,12 +185,8 @@
             </tbody>
         </table>
         <h4 valign="top">
-            <b><u>AGENT DE SUIVI</u></b> : @isset($formation?->date_suivi)
-                <span
-                    style="float: right; font-style: italic">{{ remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $emargementcollective?->date?->format('d/m/Y') }}</span>
-            @endisset
-            <br>
-            {{ $formation?->suivi_dossier }}<br>
+            <b><u>AGENT(S) DE SUIVI</u></b> :
+
         </h4>
     </div>
 </body>
