@@ -580,6 +580,15 @@ class Formation extends Model
         return $this->hasOne(Collective::class, 'formations_id');
     }
 
+    public function emargementcollective()
+    {
+        return $this->hasOne(Emargementcollective::class, 'formations_id');
+    }
+    public function emargement()
+    {
+        return $this->hasOne(Emargement::class, 'formations_id');
+    }
+
     public function listecollectives()
     {
         /* return $this->hasManyThrough(
