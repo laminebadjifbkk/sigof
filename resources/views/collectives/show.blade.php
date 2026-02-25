@@ -89,7 +89,7 @@
                                             </button>
                                         </li>
 
-                                        @can('user-delete')
+                                        @can('collective-view')
                                             <li class="nav-item">
                                                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#files">Documents</button>
                                             </li>
