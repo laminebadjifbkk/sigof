@@ -185,8 +185,6 @@ class IndividuelleController extends Controller
 
         $hasSigleRole = $sigle ? $roles->contains(strtolower(trim($sigle))) : false;
 
-        dd($sigle, $roles, $hasSigleRole);
-
         if ($hasSigleRole) {
             // L'utilisateur a le rôle correspondant → récupérer les régions de son antenne
             $antenne = Antenne::where('code', $sigle)->first();
