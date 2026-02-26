@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Mews\Purifier\Facades\Purifier;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -746,7 +747,7 @@ class CollectiveController extends Controller
             "name"                   => $request->input("name"),
             "sigle"                  => $request->input("sigle"),
             "description"            => $request->input("description"),
-            "projetprofessionnel"    => $request->projetprofessionnel, 
+            "projetprofessionnel"    => $request->projetprofessionnel,
             "telephone"              => $request->input("telephone"),
             "email"                  => $request->input("email"),
             "email_responsable"      => $request->input("email_responsable"),
@@ -1103,7 +1104,7 @@ class CollectiveController extends Controller
         return redirect()->back()->with('success', 'Demande restauré avec succès.');
     }
 
-    public function fiche(Request $request, $id)
+    /* public function fiche(Request $request, $id)
     {
         $collective = Collective::findOrFail($id);
 
@@ -1125,6 +1126,35 @@ class CollectiveController extends Controller
 
         $name = 'Fiche_demande_formaion_collective_' . $collective->name . '.pdf';
         return $dompdf->stream($name, ['Attachment' => false]);
+    } */
+
+    public function fiche(Request $request, $id)
+    {
+        $collective = Collective::findOrFail($id);
+
+        $title = 'Fiche de demande collective ' . $collective->name;
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+        $html = View::make('collectives.fiche', compact(
+            'collective',
+            'title',
+        ))->render();
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        $cleanName = Str::slug($collective->name);
+
+        $fileName = 'Fiche_demande_formation_collective_' . $cleanName . '.pdf';
+
+        return $dompdf->stream($fileName, [
+            'Attachment' => false
+        ]);
     }
 
     public function liste(Request $request, $id)
