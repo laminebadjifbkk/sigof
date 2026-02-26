@@ -620,7 +620,7 @@
                         <div class="faq-container">
                             <?php $i = 1; ?>
                             @foreach ($contacts as $contact)
-                                @if (!empty($contact?->statut))
+                                @if (!empty($contact?->reponse))
                                     <div class="faq-item">
                                         <h3>{{ $contact?->message }}</h3>
                                         <div class="faq-content">
