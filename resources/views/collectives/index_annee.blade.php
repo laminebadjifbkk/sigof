@@ -23,7 +23,7 @@
                                     <th>Région</th>
                                     <th class="text-center">Effectifs</th>
                                     <th class="text-center">%</th>
-                                    <th class="text-center" width="15%">#</th>
+                                    <th class="text-center" width="15%">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
