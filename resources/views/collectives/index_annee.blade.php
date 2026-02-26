@@ -4,17 +4,17 @@
     @can('collective-view')
         <section class="section dashboard">
             <div class="container">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <a href="{{ route('collectives.index') }}" class="btn btn-outline-secondary btn-sm">
-                        <i class="bi bi-arrow-left-circle"></i> Retour à la liste
-                    </a>
-                </div>
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="mb-3">
-                            {{ $annee }}
-                        </h5>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-3">
+                                {{ $annee }}
+                            </h5>
+                            <a href="{{ route('collectives.index') }}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-arrow-left-circle"></i> Retour à la liste
+                            </a>
+                        </div>
 
                         <table class="table table-bordered table-striped align-middle">
                             <thead class="table-primary">
