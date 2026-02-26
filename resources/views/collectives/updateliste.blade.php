@@ -84,7 +84,7 @@
                                             Type de pièce <span class="text-danger mx-1">*</span>
                                         </label>
                                         <select name="type_piece" id="type_piece" class="form-select form-select-sm">
-                                            {{-- <option value="">-- Choisir --</option> --}}
+                                            <option value="">-- Choisir --</option>
                                             <option value="cni"
                                                 {{ (old('type_piece') ?? $listecollective?->type_piece) === 'cni' ? 'selected' : '' }}>
                                                 Carte nationale</option>
@@ -314,7 +314,6 @@
     </section>
 
 @endsection
-
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -322,12 +321,11 @@
             const numeroInput = document.getElementById('num_piece');
             const numeroLabel = document.getElementById('numero_piece_label');
 
+            // 🔹 Fonction qui met à jour le label, placeholder et contraintes
             function updateNumeroPiece(type, value = '') {
-                // Si on passe une valeur (édition), on la garde
+                // On garde la valeur actuelle si fournie
                 if (value) {
                     numeroInput.value = value;
-                } else {
-                    numeroInput.value = '';
                 }
 
                 switch (type) {
@@ -341,10 +339,10 @@
 
                     case 'extrait':
                         numeroLabel.innerHTML = 'Numéro de l’extrait de naissance <span class="required">*</span>';
-                        numeroInput.placeholder = 'Ex : 12345';
-                        numeroInput.setAttribute('minlength', 5);
-                        numeroInput.setAttribute('maxlength', 5);
-                        numeroInput.setAttribute('pattern', '[A-Za-z0-9]{5}');
+                        numeroInput.placeholder = 'Ex : 00345/2010';
+                        numeroInput.setAttribute('minlength', 10);
+                        numeroInput.setAttribute('maxlength', 10);
+                        numeroInput.setAttribute('pattern', '[A-Za-z0-9/]{10}');
                         break;
 
                     case 'passeport':
@@ -365,19 +363,43 @@
                 }
             }
 
-            // 🔹 Initialisation au chargement
-            // Récupère la valeur du type sélectionné + valeur CIN
-            const typeValue = typePiece.value;
-            const cinValue = numeroInput.value;
-            updateNumeroPiece(typeValue, cinValue);
+            // 🔹 Fonction pour détecter le type de pièce depuis la valeur
+            function detectTypeFromValue(value) {
+                value = value.replace(/\s+/g, '');
+                const length = value.length;
 
-            // 🔹 Changement dynamique
+                if (value.includes('/') && length === 10) return 'extrait';
+                if (length === 9) return 'passeport';
+                if (length === 13 || length === 14) return 'cni';
+
+                return null;
+            }
+
+            // 🔹 Initialisation au chargement
+            const initialValue = numeroInput.value;
+            const detectedType = detectTypeFromValue(initialValue);
+
+            if (detectedType) {
+                typePiece.value = detectedType;
+                updateNumeroPiece(detectedType, initialValue);
+            } else {
+                updateNumeroPiece(typePiece.value, initialValue);
+            }
+
+            // 🔹 Changement dynamique du select
             typePiece.addEventListener('change', function() {
                 updateNumeroPiece(this.value);
             });
 
-            // 🔹 Limiter la saisie côté front selon maxlength
+            // 🔹 Détection automatique pendant la saisie du CIN
             numeroInput.addEventListener('input', function() {
+                const detected = detectTypeFromValue(this.value);
+                if (detected && typePiece.value !== detected) {
+                    typePiece.value = detected;
+                    updateNumeroPiece(detected);
+                }
+
+                // Limiter la saisie côté front selon maxlength
                 const max = this.getAttribute('maxlength');
                 if (max && this.value.length > max) {
                     this.value = this.value.slice(0, max);

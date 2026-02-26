@@ -53,85 +53,88 @@
                                 Ajouter
                             </button>
                         </div>
-                        <table class="table datatables align-middle justify-content-center" id="table-modules">
-                            <thead>
-                                <tr>
-                                    <th scope="col" class="text-center">N°</th>
-                                    <th scope="col" class="text-center">CIN</th>
-                                    <th scope="col">Civilité</th>
-                                    <th scope="col">Prénom</th>
-                                    <th scope="col">Nom</th>
-                                    <th scope="col">Date naissance</th>
-                                    <th scope="col">Lieu naissance</th>
-                                    <th scope="col">Niveau étude</th>
-                                    {{-- <th scope="col">Module</th> --}}
-                                    <th scope="col" class="text-center">Statut</th>
-                                    <th scope="col" class="text-center">Appréciation</th>
-                                    <th class="col"><i class="bi bi-gear"></i></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($collectivemodule->listecollectives as $listecollective)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle justify-content-center" id="table-modules">
+                                <thead>
                                     <tr>
-                                        <td class="text-center">{{ $i++ }}</td>
-                                        <td class="text-center">{{ $listecollective?->cin }}</td>
-                                        <td>{{ $listecollective?->civilite }}</td>
-                                        <td>{{ $listecollective?->prenom }}</td>
-                                        <td>{{ $listecollective?->nom }}</td>
-                                        <td>{{ $listecollective?->date_naissance->format('d/m/Y') }}
-                                        </td>
-                                        <td>{{ $listecollective?->lieu_naissance }}</td>
-                                        <td>{{ $listecollective?->niveau_etude }}</td>
-                                        {{-- <td>{{ $listecollective?->collectivemodule?->module }}</td> --}}
-                                        <td class="text-center">
-                                            <span
-                                                class="{{ $listecollective?->statut }}">{{ $listecollective?->statut }}</span>
-                                        </td>
-                                        <td class="text-center">{{ $listecollective?->appreciation }}</td>
-                                        <td>
-                                            <span class="d-flex align-items-baseline">
-                                                {{-- <a href="{{ route('listecollectives.show', $listecollective?->id) }} "
+                                        <th scope="col" class="text-center">N°</th>
+                                        <th scope="col" class="text-center">CIN</th>
+                                        <th scope="col">Civilité</th>
+                                        <th scope="col">Prénom</th>
+                                        <th scope="col">Nom</th>
+                                        <th scope="col">Date naissance</th>
+                                        <th scope="col">Lieu naissance</th>
+                                        <th scope="col">Niveau étude</th>
+                                        {{-- <th scope="col">Module</th> --}}
+                                        <th scope="col" class="text-center">Statut</th>
+                                        <th scope="col" class="text-center">Appréciation</th>
+                                        <th class="col"><i class="bi bi-gear"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($collectivemodule->listecollectives as $listecollective)
+                                        <tr>
+                                            <td class="text-center">{{ $i++ }}</td>
+                                            <td class="text-center">{{ $listecollective?->cin }}</td>
+                                            <td>{{ $listecollective?->civilite }}</td>
+                                            <td>{{ $listecollective?->prenom }}</td>
+                                            <td>{{ $listecollective?->nom }}</td>
+                                            <td>{{ $listecollective?->date_naissance->format('d/m/Y') }}
+                                            </td>
+                                            <td>{{ $listecollective?->lieu_naissance }}</td>
+                                            <td>{{ $listecollective?->niveau_etude }}</td>
+                                            {{-- <td>{{ $listecollective?->collectivemodule?->module }}</td> --}}
+                                            <td class="text-center">
+                                                <span
+                                                    class="{{ $listecollective?->statut }}">{{ $listecollective?->statut }}</span>
+                                            </td>
+                                            <td class="text-center">{{ $listecollective?->appreciation }}</td>
+                                            <td>
+                                                <span class="d-flex align-items-baseline">
+                                                    {{-- <a href="{{ route('listecollectives.show', $listecollective?->id) }} "
                                                     class="btn btn-primary btn-sm" title="voir détails"><i
                                                         class="bi bi-eye"></i></a> --}}
-                                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                                    data-bs-target="#EditlistecollectiveModal{{ $listecollective->id }}">
-                                                    <i class="bi bi-eye" title="voir détails"></i>
-                                                </button>
-                                                <div class="filter">
-                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                        @can('validate-module-collective')
+                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#EditlistecollectiveModal{{ $listecollective->id }}">
+                                                        <i class="bi bi-eye" title="voir détails"></i>
+                                                    </button>
+                                                    <div class="filter">
+                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                class="bi bi-three-dots"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            @can('validate-module-collective')
+                                                                <form
+                                                                    action="{{ route('Validatelistecollective', ['id' => $listecollective?->id]) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <button
+                                                                        class="show_confirm_valider btn btn-sm mx-1">Valider</button>
+                                                                </form>
+                                                            @endcan
+                                                            <li><a class="dropdown-item btn btn-sm"
+                                                                    href="{{ route('listecollectives.edit', $listecollective) }}"
+                                                                    class="mx-1" title="Modifier">Modifier</a>
+                                                            </li>
                                                             <form
-                                                                action="{{ route('Validatelistecollective', ['id' => $listecollective?->id]) }}"
+                                                                action="{{ route('listecollectives.destroy', $listecollective) }}"
                                                                 method="post">
                                                                 @csrf
-                                                                @method('PUT')
-                                                                <button
-                                                                    class="show_confirm_valider btn btn-sm mx-1">Valider</button>
+                                                                @method('DELETE')
+                                                                <button type="submit" class="dropdown-item show_confirm"
+                                                                    title="Supprimer">Supprimer</button>
                                                             </form>
-                                                        @endcan
-                                                        <li><a class="dropdown-item btn btn-sm"
-                                                                href="{{ route('listecollectives.edit', $listecollective) }}"
-                                                                class="mx-1" title="Modifier">Modifier</a>
-                                                        </li>
-                                                        <form
-                                                            action="{{ route('listecollectives.destroy', $listecollective) }}"
-                                                            method="post">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="dropdown-item show_confirm"
-                                                                title="Supprimer">Supprimer</button>
-                                                        </form>
-                                                    </ul>
-                                                </div>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                                        </ul>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -596,10 +599,10 @@
                     case 'extrait':
                         numeroLabel.innerHTML =
                             'Numéro de l’extrait de naissance <span class="required">*</span>';
-                        numeroInput.placeholder = 'Ex : 12345';
-                        numeroInput.setAttribute('minlength', 5);
-                        numeroInput.setAttribute('maxlength', 5);
-                        numeroInput.setAttribute('pattern', '[A-Za-z0-9]{5}');
+                        numeroInput.placeholder = 'Ex : 00345/2010';
+                        numeroInput.setAttribute('minlength', 10);
+                        numeroInput.setAttribute('maxlength', 10);
+                        numeroInput.setAttribute('pattern', '[A-Za-z0-9/]{10}');
                         break;
 
                     case 'passeport':

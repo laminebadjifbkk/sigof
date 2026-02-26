@@ -63,7 +63,7 @@ class ListecollectiveController extends Controller
         ]);
 
         // Validation conditionnelle
-        $validator->sometimes('cin', ['digits:5'], function ($input) {
+        /*   $validator->sometimes('cin', ['digits:10'], function ($input) {
             return $input->type_piece === 'extrait';
         });
 
@@ -73,7 +73,19 @@ class ListecollectiveController extends Controller
 
         $validator->sometimes('cin', ['digits_between:13,14'], function ($input) {
             return $input->type_piece === 'cni';
-        });
+        }); */
+
+        $validator->sometimes('cin', [
+            'regex:/^[0-9\/]{10}$/'
+        ], fn($input) => $input->type_piece === 'extrait');
+
+        $validator->sometimes('cin', [
+            'digits:9'
+        ], fn($input) => $input->type_piece === 'passeport');
+
+        $validator->sometimes('cin', [
+            'digits_between:13,14'
+        ], fn($input) => $input->type_piece === 'cni');
 
         // Validation finale
         $data = $validator->validate();
@@ -87,7 +99,7 @@ class ListecollectiveController extends Controller
         $cin = $data['cin'] ?? null;
 
         // Préfixe selon type
-        switch ($request->type_piece) {
+        /* switch ($request->type_piece) {
             case 'cni':
                 $cin = $cin;
                 break;
@@ -100,7 +112,7 @@ class ListecollectiveController extends Controller
             default:
                 $cin = $cin;
                 break;
-        }
+        } */
 
         /* $dateString     = $request->input('date_naissance');
         $date_naissance = Carbon::createFromFormat('d/m/Y', $dateString); */
@@ -169,7 +181,7 @@ class ListecollectiveController extends Controller
         // 🔹 Nettoyage espaces
         $cin = preg_replace('/\s+/', '', $request->cin);
 
-        // 🔹 Formatage si CNI
+        /* // 🔹 Formatage si CNI
         if ($request->type_piece === 'cni') {
             $cin = $this->formatCin($cin);
         }
@@ -181,7 +193,7 @@ class ListecollectiveController extends Controller
 
         if ($request->type_piece === 'passeport') {
             $cin = 'PPT. ' . $cin;
-        }
+        } */
 
         // 🔹 Injecter la vraie valeur
         $request->merge(['cin' => $cin]);
@@ -204,6 +216,18 @@ class ListecollectiveController extends Controller
                     ->ignore($listecollective->id)
             ],
         ]);
+
+        $validator->sometimes('cin', [
+            'regex:/^[0-9\/]{10}$/'
+        ], fn($input) => $input->type_piece === 'extrait');
+
+        $validator->sometimes('cin', [
+            'digits:9'
+        ], fn($input) => $input->type_piece === 'passeport');
+
+        $validator->sometimes('cin', [
+            'digits_between:13,14'
+        ], fn($input) => $input->type_piece === 'cni');
 
         // Validation finale
         $data = $validator->validate();
