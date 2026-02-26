@@ -111,7 +111,7 @@
                                 <table class="table table-hover align-middle datatables" id="table-collectives">
                                     <thead class="table-light">
                                         <tr>
-                                            <th>N°</th>
+                                            {{-- <th>N°</th> --}}
                                             <th width="30%">Structure</th>
                                             {{-- <th>E-mail</th> --}}
                                             <th>Téléphone</th>
@@ -127,7 +127,7 @@
                                     <tbody>
                                         @foreach ($collectives as $collective)
                                             <tr>
-                                                <td>{{ $collective->numero }}</td>
+                                                {{-- <td>{{ $collective->numero }}</td> --}}
 
                                                 <td>
                                                     {{ $collective->name }}
