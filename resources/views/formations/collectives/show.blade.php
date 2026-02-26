@@ -408,7 +408,7 @@
                                                     <span class="badge bg-info text-white">
                                                         {{ $formation?->code }}</span>
                                                 </span>
-                                                @can('formation-show')
+                                                @can('formation-delete')
                                                     {{-- @if (auth()->user()->hasRole('super-admin')) --}}
                                                     <span class="card-title d-flex align-items-baseline">Statut:&nbsp;
                                                         <span class="{{ $formation?->statut }} text-white">
