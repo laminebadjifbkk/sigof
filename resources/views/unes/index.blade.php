@@ -85,11 +85,6 @@
                                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                             class="bi bi-three-dots"></i></a>
                                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                        {{-- <button type="button" class="dropdown-item btn btn-sm"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#EditUneModal{{ $une->id }}">
-                                                            Modifier
-                                                        </button> --}}
                                                         <form action="{{ route('alaunes') }}" method="post">
                                                             @csrf
                                                             @method('PUT')

@@ -172,6 +172,7 @@ class UneController extends Controller
             return redirect()->back();
         }
     }
+    
     public function suprimeralaUne(Request $request)
     {
 

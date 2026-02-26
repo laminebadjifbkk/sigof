@@ -215,4 +215,19 @@ class ContactController extends Controller
             'message' => 'Aucune demande liée à ces informations. <br>Veuillez saisir exactement les mêmes informations que lors de votre inscription.'
         ]);
     }
+
+
+    public function foireauxQuestions(Request $request)
+    {
+
+        $contact = Contact::findOrFail($request->question);
+
+        $contact->update([
+            'statut' => null,
+        ]);
+
+        Alert::success('Succès !', 'Opération réussie !');
+
+        return redirect()->back();
+    }
 }
