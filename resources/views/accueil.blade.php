@@ -620,7 +620,7 @@
                         <div class="faq-container">
                             <?php $i = 1; ?>
                             @foreach ($contacts as $contact)
-                                @if (!empty($contact?->reponse))
+                                @if (!empty($contact?->statut))
                                     <div class="faq-item">
                                         <h3>{{ $contact?->message }}</h3>
                                         <div class="faq-content">
@@ -628,7 +628,6 @@
                                         </div>
                                         <i class="faq-toggle bi bi-chevron-right"></i>
                                     </div>
-                                    <!-- End Faq item-->
                                     <?php $i++; ?>
                                 @endif
                             @endforeach
