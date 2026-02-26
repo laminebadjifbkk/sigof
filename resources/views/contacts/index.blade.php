@@ -94,8 +94,8 @@
                                                             <form action="{{ route('foireauxquestions') }}" method="post">
                                                                 @csrf
                                                                 @method('PUT')
-                                                                <input type="hidden" name="question"
-                                                                    id="question" value="{{ $contact->id }}">
+                                                                <input type="hidden" name="question" id="question"
+                                                                    value="{{ $contact->id }}">
                                                                 <button type="submit"
                                                                     class="dropdown-item une_confirmer">Enlever
                                                                     la mise en évidence</button>
@@ -307,14 +307,12 @@
 @push('scripts')
     <script>
         new DataTable('#table-contacts', {
+            ordering: false, // désactive le tri automatique
             layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
-            "order": [
-                [0, 'asc']
-            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
