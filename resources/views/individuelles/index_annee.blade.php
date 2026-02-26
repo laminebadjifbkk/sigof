@@ -37,10 +37,11 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>N°</th>
                                         <th>Régions</th>
-                                        <th>Demandes reçues</th>
-                                        <th width="15%">Actions</th>
+                                        <th class="text-center">Effectifs</th>
+                                        <th class="text-center">%</th>
+                                        <th width="15%" class="text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -49,7 +50,10 @@
                                         <tr>
                                             <td>{{ $i++ }}</td>
                                             <td>{{ $row['nom'] }}</td>
-                                            <td>{{ number_format($row['count'], 0, '', ' ') }}</td>
+                                            <td class="text-center">{{ number_format($row['count'], 0, '', ' ') }}</td>
+                                            <td class="text-center">
+                                                {{ $regionPourcentages[$row['nom']]['percent'] }} %
+                                            </td>
                                             <td>
                                                 <a href="{{ route('individuelles.parAnneeRegion', [
                                                     'annee' => $annee,

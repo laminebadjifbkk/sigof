@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | DEMANDES COLLECTIVES')
+@section('title', 'Demandes collectives ' . $annee)
 @section('space-work')
     @can('collective-view')
         <section class="section dashboard">
@@ -19,11 +19,11 @@
                         <table class="table table-bordered table-striped align-middle">
                             <thead class="table-primary">
                                 <tr>
-                                    <th>#</th>
+                                    <th>N°</th>
                                     <th>Région</th>
-                                    <th class="text-center">Total demandes</th>
+                                    <th class="text-center">Effectifs</th>
                                     <th class="text-center">%</th>
-                                    <th class="text-center" width="10%">#</th>
+                                    <th class="text-center" width="15%">#</th>
                                 </tr>
                             </thead>
                             <tbody>
