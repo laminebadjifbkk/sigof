@@ -424,7 +424,7 @@
                                                     <span class="badge bg-info text-white">
                                                         {{ $formation?->code }}</span>
                                                 </span>
-                                                @can('formation-show')
+                                                @can('formation-delete')
                                                     <span class="card-title d-flex align-items-baseline">Statut:&nbsp;
                                                         <span class="{{ $formation?->statut }} text-white">
                                                             {{ $formation?->statut }}</span>
@@ -603,18 +603,21 @@
                                                         class="btn btn-outline-primary btn-rounded btn-sm">
                                                         <i class="bi bi-plus" title="Ajouter demandeur"></i>Ajouter </a>
                                                 </div> --}}
-                                                <div class="float-end">
-                                                    <a href="{{ url('formationdemandeurs', [
-                                                        'idformation' => $formation->id,
-                                                        'idmodule' => $formation?->module?->id,
-                                                        'idlocalite' => $formation->departement->region->id,
-                                                    ]) }}"
-                                                        class="btn btn-outline-primary btn-sm rounded-pill shadow-sm d-inline-flex align-items-center gap-1 px-3 py-1"
-                                                        style="transition: all 0.3s ease;">
-                                                        <i class="bi bi-box-arrow-in-down"></i>
-                                                        <span>Intégrer bénéficiaires</span>
-                                                    </a>
-                                                </div>
+
+                                                @can('formation-delete')
+                                                    <div class="float-end">
+                                                        <a href="{{ url('formationdemandeurs', [
+                                                            'idformation' => $formation->id,
+                                                            'idmodule' => $formation?->module?->id,
+                                                            'idlocalite' => $formation->departement->region->id,
+                                                        ]) }}"
+                                                            class="btn btn-outline-primary btn-sm rounded-pill shadow-sm d-inline-flex align-items-center gap-1 px-3 py-1"
+                                                            style="transition: all 0.3s ease;">
+                                                            <i class="bi bi-box-arrow-in-down"></i>
+                                                            <span>Intégrer bénéficiaires</span>
+                                                        </a>
+                                                    </div>
+                                                @endcan
                                             </div>
                                             <div class="row g-3 pt-3">
                                                 <h5 class="mb-0 text-uppercase fw-bold text-primary">
