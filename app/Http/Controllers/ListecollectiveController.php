@@ -40,10 +40,16 @@ class ListecollectiveController extends Controller
 
     public function store(Request $request)
     {
-        // Nettoyer le CIN avant validation
-        $request->merge([
-            'cin' => preg_replace('/\s+/', '', $request->cin)
-        ]);
+        // 🔹 Nettoyer (supprimer tous les espaces existants)
+        $cin = preg_replace('/\s+/', '', $request->cin);
+
+        // 🔹 Si CNI → formater immédiatement
+        if ($request->type_piece === 'cni') {
+            $cin = $this->formatCin($cin);
+        }
+
+        // 🔹 Injecter la version formatée AVANT validation
+        $request->merge(['cin' => $cin]);
 
         $validator = Validator::make($request->all(), [
             "type_piece"     => "required|in:cni,extrait,passeport",
@@ -62,18 +68,11 @@ class ListecollectiveController extends Controller
             ],
         ]);
 
-        // Validation conditionnelle
-        /*   $validator->sometimes('cin', ['digits:10'], function ($input) {
-            return $input->type_piece === 'extrait';
-        });
+        // 🔹 Validation adaptée
 
-        $validator->sometimes('cin', ['digits:9'], function ($input) {
-            return $input->type_piece === 'passeport';
-        });
-
-        $validator->sometimes('cin', ['digits_between:13,14'], function ($input) {
-            return $input->type_piece === 'cni';
-        }); */
+        $validator->sometimes('cin', [
+            'regex:/^[0-9] [0-9]{3} [0-9]{4} [0-9]{5}$/'
+        ], fn($input) => $input->type_piece === 'cni');
 
         $validator->sometimes('cin', [
             'regex:/^[0-9\/]{10}$/'
@@ -83,11 +82,6 @@ class ListecollectiveController extends Controller
             'digits:9'
         ], fn($input) => $input->type_piece === 'passeport');
 
-        $validator->sometimes('cin', [
-            'digits_between:13,14'
-        ], fn($input) => $input->type_piece === 'cni');
-
-        // Validation finale
         $data = $validator->validate();
 
         // Formatage CIN uniquement si nécessaire
@@ -97,25 +91,6 @@ class ListecollectiveController extends Controller
 
         // Utilisation des données validées
         $cin = $data['cin'] ?? null;
-
-        // Préfixe selon type
-        /* switch ($request->type_piece) {
-            case 'cni':
-                $cin = $cin;
-                break;
-            case 'extrait':
-                $cin = 'EXT. ' . $cin;
-                break;
-            case 'passeport':
-                $cin = 'PPT. ' . $cin;
-                break;
-            default:
-                $cin = $cin;
-                break;
-        } */
-
-        /* $dateString     = $request->input('date_naissance');
-        $date_naissance = Carbon::createFromFormat('d/m/Y', $dateString); */
 
         $date_naissance = $request->input('date_naissance')
             ? Carbon::createFromFormat('d/m/Y', $request->input('date_naissance'))
