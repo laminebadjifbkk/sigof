@@ -92,7 +92,7 @@
 
 <body>
     <div class="invoice-box">
-        <table class="table table-responsive">
+        <table class="table table-bordered">
             <tbody>
                 <tr>
                     <td colspan="2" align="left" valign="top" style="text-align: center;">
@@ -114,7 +114,7 @@
                 </tr>
             </tbody>
         </table>
-        <table class="table table-responsive">
+        <table class="table table-bordered">
             <tbody>
                 <tr>
                     <td colspan="2" align="left">
@@ -130,11 +130,11 @@
             @endforeach
         </h3>
         <h3 align="right"><i>Le Directeur général</i></h3>
-        <table class="table table-responsive">
+        <table class="table table-bordered">
             <tbody>
                 <tr>
                     <td style="float:right;" colspan="4" valign="top">
-                        <table class="table table-responsive table-striped">
+                        <table class="table table-bordered table-striped">
                             <tbody align="justify">
                                 @foreach ($employe->lois as $loi)
                                     <tr class="item">
@@ -277,11 +277,11 @@
                 <span style="margin-left:10px">{{ __('les nécessités de service') }};<br></span>
             </p> --}}
             <h2 align="center">DECIDE:</h2>
-            <table class="table table-responsive">
+            <table class="table table-bordered">
                 <tbody>
                     <tr>
                         <td style="float:right;" colspan="4" valign="top">
-                            <table class="table table-responsive table-striped">
+                            <table class="table table-bordered table-striped">
                                 <tbody align="justify">
                                     <tr class="item">
                                         {{-- <td valign="top">

@@ -146,7 +146,7 @@
         </b>
     </div>
     <div class="invoice-box">
-        <table class="table table-responsive">
+        <table class="table table-bordered">
             <thead>
                 <tr class="heading" style="text-align: center;">
                     <td colspan="9"><b>{{ __('FEUILLE DE PRÉSENCE QUOTIDIENNE') }}</b>

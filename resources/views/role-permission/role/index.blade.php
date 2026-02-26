@@ -40,21 +40,22 @@
                         <h5 class="card-title">Roles</h5>
                         {{-- <p>Le tableau de tous les roles du système.</p> --}}
                         <!-- Table with stripped rows -->
-                        <table class="table datatables align-middle" id="table-roles">
-                            <thead>
-                                <tr>
-                                    <th width='5%'>N°</th>
-                                    <th>Roles</th>
-                                    <th width='5%'>#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($roles as $role)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle" id="table-roles">
+                                <thead>
                                     <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td>{{ $role->name }}</td>
-                                        {{-- <td>
+                                        <th width='5%'>N°</th>
+                                        <th>Roles</th>
+                                        <th width='5%'>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($roles as $role)
+                                        <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $role->name }}</td>
+                                            {{-- <td>
                                             <span class="d-flex mt-2 align-items-baseline">
                                                 @can('give-role-permissions')
                                                     <a href="{{ url('roles/' . $role->id . '/give-permissions') }}"
@@ -76,37 +77,39 @@
                                                 @endcan
                                             </span>
                                         </td> --}}
-                                        <td>
-                                            <span class="d-flex mt-2 align-items-baseline"><a
-                                                    href="{{ url('roles/' . $role->id . '/give-permissions') }}"
-                                                    class="btn btn-warning btn-sm mx-1" title="Donner permission"><i
-                                                        class="bi bi-file-lock"></i></a>
-                                                <div class="filter">
-                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                        <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                href="{{ url('roles/' . $role->id . '/edit') }}"
-                                                                class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
-                                                        </li>
-                                                        <li>
-                                                            <form action="{{ url('roles', $role->id) }}" method="post">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="dropdown-item show_confirm"><i
-                                                                        class="bi bi-trash"></i>Supprimer</button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </span>
-                                        </td>
+                                            <td>
+                                                <span class="d-flex mt-2 align-items-baseline"><a
+                                                        href="{{ url('roles/' . $role->id . '/give-permissions') }}"
+                                                        class="btn btn-warning btn-sm mx-1" title="Donner permission"><i
+                                                            class="bi bi-file-lock"></i></a>
+                                                    <div class="filter">
+                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                class="bi bi-three-dots"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            <li><a class="dropdown-item btn btn-sm mx-1"
+                                                                    href="{{ url('roles/' . $role->id . '/edit') }}"
+                                                                    class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
+                                                            </li>
+                                                            <li>
+                                                                <form action="{{ url('roles', $role->id) }}" method="post">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="dropdown-item show_confirm"><i
+                                                                            class="bi bi-trash"></i>Supprimer</button>
+                                                                </form>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </span>
+                                            </td>
 
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
                     </div>
                 </div>
 

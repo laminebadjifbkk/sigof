@@ -30,40 +30,43 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="pt-1">
-                            <a href="{{ route('permissions.create') }}" class="btn btn-primary btn-sm float-end btn-rounded">Ajouter </a>
+                            <a href="{{ route('permissions.create') }}"
+                                class="btn btn-primary btn-sm float-end btn-rounded">Ajouter </a>
                         </div>
                         <h5 class="card-title">Permissions</h5>
-                        <table class="table datatables align-middle" id="table-permissions">
-                            <thead>
-                                <tr>
-                                    <th width="5%">N°</th>
-                                    <th>Permissions</th>
-                                    <th width="5%">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($permissions as $permission)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle" id="table-permissions">
+                                <thead>
                                     <tr>
-                                        <td style="text-align: center">{{ $i++ }}</td>
-                                        <td>{{ $permission->name }}</td>
-                                        <td>
-                                            <span class="d-flex mt-2 align-items-baseline"><a
-                                                    href="{{ url('permissions/' . $permission->id . '/edit') }}"
-                                                    class="btn btn-success btn-sm" title="Modifier"><i
-                                                        class="bi bi-pencil-square"></i></a>&nbsp;
-                                                <form action="{{ url('permissions', $permission->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                        title="Supprimer"><i class="bi bi-trash"></i></button>
-                                                </form>
-                                            </span>
-                                        </td>
+                                        <th width="5%">N°</th>
+                                        <th>Permissions</th>
+                                        <th width="5%">#</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($permissions as $permission)
+                                        <tr>
+                                            <td style="text-align: center">{{ $i++ }}</td>
+                                            <td>{{ $permission->name }}</td>
+                                            <td>
+                                                <span class="d-flex mt-2 align-items-baseline"><a
+                                                        href="{{ url('permissions/' . $permission->id . '/edit') }}"
+                                                        class="btn btn-success btn-sm" title="Modifier"><i
+                                                            class="bi bi-pencil-square"></i></a>&nbsp;
+                                                    <form action="{{ url('permissions', $permission->id) }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                                            title="Supprimer"><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -100,7 +100,7 @@
         </b>
     </div>
     <div class="invoice-box">
-        <table class="table table-responsive">
+        <table class="table table-bordered">
             <thead>
                 <tr class="heading" style="text-align: center;">
                     <td colspan="9"><b>{{ __("Direction de l'Ingénierie et des Opérations de Formation") }}</b>
@@ -109,7 +109,7 @@
             </thead>
         </table>
         <br>
-        <table class="table table-responsive">
+        <table class="table table-bordered">
             <thead>
                 <tr class="heading" style="text-align: center;">
                     <td colspan="8"><b>{{ __('FICHE DE SUIVI POST FORMATION') }}</b>

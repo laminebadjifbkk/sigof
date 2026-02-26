@@ -141,7 +141,7 @@
         {{ 'DU ' . $commission?->date?->format('d/m/Y') }}</h4>
     @foreach ($operateurs as $operateur)
         <div class="invoice-box">
-            <table class="table table-responsive">
+            <table class="table table-bordered">
                 <thead>
                     <tr class="heading">
                         <td colspan="5">DOSSIER D'AGREMENT N° : <span
@@ -351,7 +351,7 @@
 
             <div style="page-break-after: always;"></div>
 
-            <table class="table table-responsive pt-10">
+            <table class="table table-bordered pt-10">
                 <tbody>
                     <tr class="item">
                         <td rowspan="{{ count($operateur?->operateurmodules) + 1 }}">
@@ -425,7 +425,7 @@
 
             <div style="page-break-after: always;"></div>
 
-            <table class="table table-responsive pt-10">
+            <table class="table table-bordered pt-10">
                 <tbody>
                     <tr class="item">
                         <td rowspan="{{ count($operateur->operateurequipements) + 1 }}">
@@ -476,7 +476,7 @@
 
             <div style="page-break-after: always;"></div>
 
-            <table class="table table-responsive pt-10">
+            <table class="table table-bordered pt-10">
                 <tbody>
 
                     <tr class="item">

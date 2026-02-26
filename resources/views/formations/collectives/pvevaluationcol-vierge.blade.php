@@ -213,7 +213,7 @@
         </b>
     </div>
     <div class="invoice-box">
-        <table class="table table-responsive">
+        <table class="table table-bordered">
             <thead>
                 <tr class="heading" style="text-align: center;">
                     <td colspan="11"><b>{{ __("PROCES VERBAL D'EVALUATION DE FORMATION") }}</b>

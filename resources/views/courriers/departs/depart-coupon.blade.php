@@ -84,7 +84,7 @@
 
 <body>
     <div class="invoice-box" style="margin-top: -20px;">
-        <table class="table table-responsive" cellpadding="0" cellspacing="0">
+        <table class="table table-bordered" cellpadding="0" cellspacing="0">
             <tbody>
                 <tr>
                     <td>
@@ -132,7 +132,7 @@
                 </tr>
             </tbody>
         </table>
-        {{-- <table class="table table-responsive">
+        {{-- <table class="table table-bordered">
             <tbody>
                 <tr>
                     <td colspan="4" align="left">
@@ -146,7 +146,7 @@
                 </tr>
             </tbody>
         </table> --}}
-        <table class="table table-responsive" style="margin-top: -20px;">
+        <table class="table table-bordered" style="margin-top: -20px;">
             <tbody>
                 <tr>
                     <td colspan="4" align="left" valign="top">
@@ -160,7 +160,7 @@
                             <br>
                             <b>{{ __('Objet') }}</u></b> : {{ ucfirst($courrier->objet) }}<br>
                         </p>
-                        <table class="table table-responsive table-striped">
+                        <table class="table table-bordered table-striped">
                             <tbody>
                                 <tr class="item">
                                     <?php $i = 1; ?>
@@ -183,7 +183,7 @@
 
                     </td>
                     <td style="padding-left:10px; padding-top:20px; float:right;" colspan="4" valign="top">
-                        <table class="table table-responsive table-striped">
+                        <table class="table table-bordered table-striped">
                             <tbody>
                                 <tr class="heading">
                                     <td colspan="4" align="center"><b>{{ __('ACTIONS ATTENDUES') }}</b>
@@ -207,7 +207,7 @@
                 </tr>
             </tbody>
         </table>
-        <table class="table table-responsive">
+        <table class="table table-bordered">
             <tbody>
                 <tr>
                     <td colspan="2" align="left" valign="top">
@@ -223,7 +223,7 @@
                 </tr>
             </tbody>
         </table>
-        {{--  <table class="table table-responsive">
+        {{--  <table class="table table-bordered">
             <tbody>
                 <tr>
                     <td colspan="1" align="left">

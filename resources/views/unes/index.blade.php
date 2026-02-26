@@ -36,96 +36,98 @@
                                 data-bs-toggle="modal" data-bs-target="#AddUneModal">Ajouter</button>
                         </div>
                         <h5 class="card-title">A la une</h5>
-                        <table class="table datatables align-middle" id="table-unes">
-                            <thead>
-                                <tr>
-                                    <th width="5%" class="text-center">Image</th>
-                                    <th width="12%">Titre 1</th>
-                                    <th width="12%">Titre 2</th>
-                                    <th>Message</th>
-                                    <th width="5%" class="text-center">Statut</th>
-                                    <th width="5%" class="text-center">Vidéo</th>
-                                    <th width="5%" class="text-center">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($unes as $une)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle" id="table-unes">
+                                <thead>
                                     <tr>
-                                        <th scope="row" style="text-align: center">
-                                            @if (!empty($une?->image))
-                                                <a href="#">
-                                                    <img class="rounded-circle" alt="Profil"
-                                                        src="{{ asset($une?->getUne()) }}" width="40" height="auto"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#ShowUneModal{{ $une->id }}"></a>
-                                            @else
-                                                <div class="badge bg-warning">Aucun</div>
-                                            @endif
-                                        </th>
-                                        <td>{{ $une?->titre1 }}</td>
-                                        <td>{{ $une?->titre2 }}</td>
-                                        <td>{{ $une?->message }}</td>
-                                        <td>{{ $une?->status }}</td>
-                                        <td>
-                                            @if (!empty($une->video))
-                                                <a href="{{ $une->video }}" class="btn btn-link mt-2 mt-sm-0 glightbox"
-                                                    target="_blank">
-                                                    <i class="bi bi-play-circle me-1"></i>
-                                                </a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <span class="d-flex mt-2 align-items-baseline">
-                                                <a href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#EditUneModal{{ $une->id }}"
-                                                    class="btn btn-warning btn-sm mx-1" title="Modifier"><i
-                                                        class="bi bi-pencil"></i></a>
-                                                <div class="filter">
-                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                        <form action="{{ route('alaunes') }}" method="post">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <input type="hidden" name="alaune" id="alaune"
-                                                                value="{{ $une->id }}">
-                                                            <button type="submit" class="dropdown-item une_confirm">Mettre
-                                                                à la une</button>
-                                                        </form>
-                                                        <form action="{{ route('suprimeralaunes') }}" method="post">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <input type="hidden" name="suprimerdelaune"
-                                                                id="suprimerdelaune" value="{{ $une->id }}">
-                                                            <button type="submit"
-                                                                class="dropdown-item une_confirmer">Enlever
-                                                                de la une</button>
-                                                        </form>
-                                                        <form action="{{ url('unes', $une->id) }}" method="post">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="dropdown-item show_confirm">Supprimer</button>
-                                                        </form>
-                                                    </ul>
-                                                </div>
-                                            </span>
-                                        </td>
-
+                                        <th width="5%" class="text-center">Image</th>
+                                        <th width="12%">Titre 1</th>
+                                        <th width="12%">Titre 2</th>
+                                        <th>Message</th>
+                                        <th width="5%" class="text-center">Statut</th>
+                                        <th width="5%" class="text-center">Vidéo</th>
+                                        <th width="5%" class="text-center">#</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($unes as $une)
+                                        <tr>
+                                            <th scope="row" style="text-align: center">
+                                                @if (!empty($une?->image))
+                                                    <a href="#">
+                                                        <img class="rounded-circle" alt="Profil"
+                                                            src="{{ asset($une?->getUne()) }}" width="40" height="auto"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#ShowUneModal{{ $une->id }}"></a>
+                                                @else
+                                                    <div class="badge bg-warning">Aucun</div>
+                                                @endif
+                                            </th>
+                                            <td>{{ $une?->titre1 }}</td>
+                                            <td>{{ $une?->titre2 }}</td>
+                                            <td>{{ $une?->message }}</td>
+                                            <td>{{ $une?->status }}</td>
+                                            <td>
+                                                @if (!empty($une->video))
+                                                    <a href="{{ $une->video }}"
+                                                        class="btn btn-link mt-2 mt-sm-0 glightbox" target="_blank">
+                                                        <i class="bi bi-play-circle me-1"></i>
+                                                    </a>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <span class="d-flex mt-2 align-items-baseline">
+                                                    <a href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#EditUneModal{{ $une->id }}"
+                                                        class="btn btn-warning btn-sm mx-1" title="Modifier"><i
+                                                            class="bi bi-pencil"></i></a>
+                                                    <div class="filter">
+                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                class="bi bi-three-dots"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            <form action="{{ route('alaunes') }}" method="post">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <input type="hidden" name="alaune" id="alaune"
+                                                                    value="{{ $une->id }}">
+                                                                <button type="submit"
+                                                                    class="dropdown-item une_confirm">Mettre
+                                                                    à la une</button>
+                                                            </form>
+                                                            <form action="{{ route('suprimeralaunes') }}" method="post">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <input type="hidden" name="suprimerdelaune"
+                                                                    id="suprimerdelaune" value="{{ $une->id }}">
+                                                                <button type="submit"
+                                                                    class="dropdown-item une_confirmer">Enlever
+                                                                    de la une</button>
+                                                            </form>
+                                                            <form action="{{ url('unes', $une->id) }}" method="post">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="dropdown-item show_confirm">Supprimer</button>
+                                                            </form>
+                                                        </ul>
+                                                    </div>
+                                                </span>
+                                            </td>
+
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
         @foreach ($unes as $une)
-            <div
-                class="col-12 d-flex flex-column align-items-center justify-content-center">
+            <div class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="ShowUneModal{{ $une->id }}" tabindex="-1">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -157,8 +159,7 @@
             </div>
         @endforeach
     </section>
-    <div
-        class="col-12 d-flex flex-column align-items-center justify-content-center">
+    <div class="col-12 d-flex flex-column align-items-center justify-content-center">
         <div class="modal fade" id="AddUneModal" tabindex="-1">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -232,8 +233,7 @@
         </div>
     </div>
     @foreach ($unes as $une)
-        <div
-            class="col-12 d-flex flex-column align-items-center justify-content-center">
+        <div class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="EditUneModal{{ $une->id }}" tabindex="-1">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">

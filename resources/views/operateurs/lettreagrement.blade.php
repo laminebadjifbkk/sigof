@@ -262,7 +262,7 @@
             <br>
             Est agréé par l'ONFP sous le N°: <span
                 style="color: #DC3545; font-weight: bold">{{ $operateur?->numero_agrement }}</span> <br>
-            <table class="table table-responsive">
+            <table class="table table-bordered">
                 <tbody>
                     <tr class="item" style="text-align: center;">
                         <td colspan="9"><b>{{ __('FORMATIONS AGRÉÉES') }}</b></td>

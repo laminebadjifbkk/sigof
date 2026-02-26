@@ -165,7 +165,7 @@
     <?php $i = 1; ?>
     @foreach ($operateurs as $operateur)
         <div class="invoice-box">
-            <table class="table table-responsive">
+            <table class="table table-bordered">
                 <thead>
                     <tr class="heading">
                         <td colspan="5">{{ $i++ }} / {{ $operateurs->count() }} - DOSSIER D'AGREMENT N° :
@@ -405,7 +405,7 @@
 
             <div style="page-break-after: always;"></div>
 
-            <table class="table table-responsive pt-10" width="100%">
+            <table class="table table-bordered pt-10" width="100%">
                 <tbody>
                     <tr class="item">
                         <td width="20%" style="text-align: center;"
@@ -481,7 +481,7 @@
 
             <div style="page-break-after: always;"></div>
 
-            <table class="table table-responsive pt-10">
+            <table class="table table-bordered pt-10">
                 <tbody>
                     <tr class="item">
                         <td width="20%" style="text-align: center;">
@@ -532,7 +532,7 @@
 
             <div style="page-break-after: always;"></div>
 
-            <table class="table table-responsive pt-10">
+            <table class="table table-bordered pt-10">
                 <tbody>
 
                     <tr class="item">

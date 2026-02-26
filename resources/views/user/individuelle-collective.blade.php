@@ -37,25 +37,26 @@
                     <div class="card-body">
                         <h5 class="card-title">Demandeurs individuels & collectifs</h5>
                         @if ($user_liste->isNotEmpty())
-                            <table class="table datatables align-middle" id="table-users">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Prenom</th>
-                                        <th>NOM</th>
-                                        <th>Date naissance</th>
-                                        <th>Lieu naissance</th>
-                                        <th>Adresse</th>
-                                        <th>E-mail</th>
-                                        <th>Téléphone</th>
-                                        {{-- <th class="text-center">Demandes</th> --}}
-                                        {{-- <th width="5%">#</th> --}}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($user_liste as $user)
-                                        {{-- @if (optional($user->individuelles)->isNotEmpty() && optional($user->collectives)->isNotEmpty()) --}}
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle" id="table-users">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Prenom</th>
+                                            <th>NOM</th>
+                                            <th>Date naissance</th>
+                                            <th>Lieu naissance</th>
+                                            <th>Adresse</th>
+                                            <th>E-mail</th>
+                                            <th>Téléphone</th>
+                                            {{-- <th class="text-center">Demandes</th> --}}
+                                            {{-- <th width="5%">#</th> --}}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($user_liste as $user)
+                                            {{-- @if (optional($user->individuelles)->isNotEmpty() && optional($user->collectives)->isNotEmpty()) --}}
                                             <tr>
                                                 <th scope="row">
                                                     <a href="{{ route('users.show', $user) }}">
@@ -85,17 +86,18 @@
                                                     </span>
                                                 </td> --}}
                                             </tr>
-                                       {{--  @endif --}}
-                                    @endforeach
+                                            {{--  @endif --}}
+                                        @endforeach
 
-                                </tbody>
-                            </table>
-                        @else
-                            <div class="alert alert-info mt-3">Aucun demandeur pour le moment !!!</div>
+                                    </tbody>
+                                </table>
+                            @else
+                                <div class="alert alert-info mt-3">Aucun demandeur pour le moment !!!</div>
                         @endif
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 @endsection

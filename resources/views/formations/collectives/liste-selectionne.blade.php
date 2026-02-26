@@ -91,7 +91,7 @@
         </b>
     </div>
     <div class="invoice-box">
-        <table class="table table-responsive">
+        <table class="table table-bordered">
             <thead>
                 <tr class="heading" style="text-align: center;">
                     <td colspan="9"><b>{{ __('LISTE DES CANDIDATS SELECTIONNES') }}</b></td>
@@ -141,7 +141,7 @@
                     style="width: 100%; max-width: 300px" />
             </b>
         </div> --}}
-        {{-- <table class="second-table table table-responsive">
+        {{-- <table class="second-table table table-bordered">
             <thead>
                 <tr class="heading" style="text-align: center;">
                     <td colspan="10"><b>{{ __('LISTE DES CANDIDATS EN ATTENTE') }}</b></td>
