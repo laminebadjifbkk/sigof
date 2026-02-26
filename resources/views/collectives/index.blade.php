@@ -19,10 +19,10 @@
                         <table class="table table-bordered table-striped align-middle">
                             <thead class="table-primary">
                                 <tr>
-                                    <th scope="col" style="width: 50px;">N°</th>
-                                    <th scope="col">Années</th>
-                                    <th scope="col" class="text-center">Effectifs</th>
-                                    <th scope="col" width="10%" class="text-center">Actions</th>
+                                    <th style="width: 50px;">N°</th>
+                                    <th>Années</th>
+                                    <th class="text-center">Effectifs</th>
+                                    <th width="15%" class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="missions-container">
