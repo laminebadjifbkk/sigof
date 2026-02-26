@@ -33,7 +33,7 @@
                                         <tr>
                                             <th style="width: 50px;">N°</th>
                                             <th>Années</th>
-                                            <th class="text-center">Demandes reçues</th>
+                                            <th class="text-center">Effectifs</th>
                                             <th width="10%" class="text-center">Actions</th>
                                         </tr>
                                     </thead>
