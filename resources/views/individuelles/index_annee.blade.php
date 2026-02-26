@@ -165,8 +165,8 @@
                                 </div>
                             </div>
                             @if ($individuelles->isNotEmpty())
-                                <table class="table datatables align-middle" id="table-individuelles">
-                                    <thead>
+                                <table class="table table-hover align-middle datatables" id="table-individuelles">
+                                    <thead class="table-light">
                                         <tr>
                                             {{-- <th class="text-center">N°</th> --}}
                                             <th width="15%" class="text-center">N° CIN</th>
