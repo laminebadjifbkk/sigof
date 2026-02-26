@@ -119,7 +119,7 @@
                                     </div>
 
                                     {{-- Total au centre --}}
-                                    @php
+                                    {{-- @php
                                         $affichees = $individuelles?->count(); // à adapter si tu fais une pagination
                                         $total =
                                             $totalIndividuelles ??
@@ -134,6 +134,15 @@
                                             sur
                                             <span class="text-dark">{{ $total }}</span> demandes
                                         </span>
+                                    </div> --}}
+
+                                    {{-- Compteur --}}
+                                    <div class="text-info fw-semibold">
+                                        <i class="bi bi-list-check me-1"></i>
+                                        Affichage :
+                                        <span class="text-dark">{{ $totalAffichees }}</span>
+                                        /
+                                        <span class="text-dark">{{ $totalDemandes }}</span>
                                     </div>
 
                                     {{-- Boutons à droite --}}

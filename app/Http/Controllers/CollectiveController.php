@@ -123,16 +123,22 @@ class CollectiveController extends Controller
     public function parAnnee(Request $request, $annee)
     {
         // 🔹 Requête principale filtrée par ANNÉE
-        $collectivesQuery = Collective::with('region')
+        $query = Collective::with('region')
             ->whereYear('date_depot', $annee);
 
-        $collectives = $collectivesQuery
+             // Filtre par région si fourni
+        if ($request->filled('region')) {
+            $query->where('regions_id', $request->region);
+        }
+
+        $collectives = $query
             ->latest('date_depot')
             ->limit(500)
             ->get();
 
         // 🔹 Totaux SUR L’ANNÉE
-        $totalDemandesCount = Collective::whereYear('date_depot', $annee)->count();
+        /* $totalDemandesCount = Collective::whereYear('date_depot', $annee)->count(); */
+        $totalDemandesCount = $query->count();
         $totalDemandes = number_format($totalDemandesCount, 0, ',', ' ');
         $totalAffichees = $collectives->count();
 
@@ -146,7 +152,8 @@ class CollectiveController extends Controller
             ->whereYear('collectives.date_depot', $annee)
             ->selectRaw('regions.nom as region, COUNT(*) as total')
             ->groupBy('regions.nom')
-            ->orderBy('regions.nom')
+            /* ->orderBy('regions.nom') */
+            ->orderByDesc('total') // du plus grand au plus petit
             ->get();
 
         // 🔹 Pourcentages par RÉGION

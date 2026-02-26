@@ -128,24 +128,22 @@ class IndividuelleController extends Controller
     {
         $query = Individuelle::whereYear('date_depot', $annee);
 
-        // Filtre par statut si fourni
-        if ($request->filled('statut')) {
-            $query->where('statut', $request->statut);
-        }
-
         // Filtre par région si fourni
         if ($request->filled('region')) {
             $query->where('regions_id', $request->region);
         }
 
         // =======================================
-        // Individuelles détaillées (max 500)
+        // Individuelles détaillées (max 100)
         // =======================================
         $individuelles = $query->latest()->limit(100)->get();
 
         // Total pour l'année après filtres
         $total = $query->count();
         $totalIndividuelles = number_format($total, 0, ',', ' ');
+        
+        $totalDemandes = number_format($total, 0, ',', ' ');
+        $totalAffichees = $individuelles->count();
 
         // =======================================
         // Cartes par région pour cette année
@@ -217,6 +215,8 @@ class IndividuelleController extends Controller
             'annee',
             'user',
             'rows',
+            'totalDemandes',
+            'totalAffichees',
             'totalIndividuelles'
         ));
     }

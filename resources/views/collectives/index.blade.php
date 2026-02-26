@@ -21,8 +21,8 @@
                                 <tr>
                                     <th scope="col" style="width: 50px;">N°</th>
                                     <th scope="col">Années</th>
-                                    <th scope="col" class="text-center">Demandes reçues</th>
-                                    <th scope="col" style="width: 120px;">Actions</th>
+                                    <th scope="col" class="text-center">Effectifs</th>
+                                    <th scope="col" width="10%" class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="missions-container">
@@ -33,7 +33,7 @@
                                         </td>
                                         <td>{{ $items->annee }}</td>
                                         <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
-                                        <td>
+                                        <td class="text-center">
                                             <a href="{{ route('collectives.parAnnee', ['annee' => $items->annee]) }}"
                                                 class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
                                                 Voir plus <i class="bi bi-arrow-right-short"></i>

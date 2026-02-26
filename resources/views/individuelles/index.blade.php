@@ -34,7 +34,7 @@
                                             <th style="width: 50px;">N°</th>
                                             <th>Années</th>
                                             <th class="text-center">Demandes reçues</th>
-                                            <th width="15%">Actions</th>
+                                            <th width="10%" class="text-center">Actions</th>
                                         </tr>
                                     </thead>
 
@@ -48,7 +48,7 @@
                                                 <td class="text-center">
                                                     {{ number_format($items->total, 0, '', ' ') }}
                                                 </td>
-                                                <td>
+                                                <td class="text-center">
                                                     <a href="{{ route('individuelles.parAnnee', ['annee' => $items->annee]) }}"
                                                         class="btn btn-sm btn-outline-primary">
                                                         Voir plus
