@@ -34,8 +34,8 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-striped">
-                                <thead>
+                            <table class="table table-bordered table-striped align-middle">
+                                <thead class="table-primary">
                                     <tr>
                                         <th>N°</th>
                                         <th>Régions</th>
