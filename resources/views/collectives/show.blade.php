@@ -335,154 +335,163 @@
                                                             </div>
                                                             <h5 class="card-title">Modules <span>| Formation</span></h5>
                                                             @if ($collective?->collectivemodules->isNotEmpty())
-                                                                <table class="table table-borderless">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th scope="col">Formation</th>
-                                                                            <th scope="col" class="text-center">Niveau
-                                                                                qualification</th>
-                                                                            <th scope="col" class="text-center">Effectifs</th>
-                                                                            <th scope="col" class="text-center">Statut</th>
-                                                                            <th scope="col" class="float-end">Membres
-                                                                            </th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        @foreach ($collective?->collectivemodules as $module_collective)
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-borderless">
+                                                                        <thead>
                                                                             <tr>
-                                                                                <td class="text-primary">
-                                                                                    {{ $module_collective->module }}</td>
-                                                                                <td class="text-center">
-                                                                                    <span
-                                                                                        class="{{ $module_collective?->niveau_qualification ?? 'Aucun' }}">{{ $module_collective?->niveau_qualification ?? 'Aucun' }}</span>
-                                                                                </td>
-                                                                                <td class="text-center">
-                                                                                    <span>
-                                                                                        {{ is_countable($module_collective->listecollectives) && count($module_collective->listecollectives) > 0 ? count($module_collective->listecollectives) : '' }}
-                                                                                    </span>
-                                                                                </td>
-                                                                                <td class="text-center">
-                                                                                    <span
-                                                                                        class="{{ $module_collective?->statut }}">{{ $module_collective?->statut }}</span>
-                                                                                </td>
-                                                                                <td class="text-end">
-                                                                                    @can('view', $collective)
-                                                                                        <div
-                                                                                            class="d-flex justify-content-end align-items-center gap-2">
+                                                                                <th scope="col">Formation</th>
+                                                                                <th scope="col" class="text-center">Niveau
+                                                                                    qualification</th>
+                                                                                <th scope="col" class="text-center">Effectifs
+                                                                                </th>
+                                                                                <th scope="col" class="text-center">Statut</th>
+                                                                                <th scope="col" class="float-end">Membres
+                                                                                </th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach ($collective?->collectivemodules as $module_collective)
+                                                                                <tr>
+                                                                                    <td class="text-primary">
+                                                                                        {{ $module_collective->module }}</td>
+                                                                                    <td class="text-center">
+                                                                                        <span
+                                                                                            class="{{ $module_collective?->niveau_qualification ?? 'Aucun' }}">{{ $module_collective?->niveau_qualification ?? 'Aucun' }}</span>
+                                                                                    </td>
+                                                                                    <td class="text-center">
+                                                                                        <span>
+                                                                                            {{ is_countable($module_collective->listecollectives) && count($module_collective->listecollectives) > 0 ? count($module_collective->listecollectives) : '' }}
+                                                                                        </span>
+                                                                                    </td>
+                                                                                    <td class="text-center">
+                                                                                        <span
+                                                                                            class="{{ $module_collective?->statut }}">{{ $module_collective?->statut }}</span>
+                                                                                    </td>
+                                                                                    <td class="text-end">
+                                                                                        @can('view', $collective)
+                                                                                            <div
+                                                                                                class="d-flex justify-content-end align-items-center gap-2">
 
-                                                                                            <a href="{{ route('collectivemodules.show', $module_collective) }}"
-                                                                                                class="btn btn-info btn-sm text-white"
-                                                                                                title="Voir détails">
-                                                                                                Ajouter
-                                                                                            </a>
-
-                                                                                            <div class="dropdown">
-                                                                                                <a class="btn btn-light btn-sm"
-                                                                                                    href="#"
-                                                                                                    data-bs-toggle="dropdown"
-                                                                                                    aria-expanded="false">
-                                                                                                    <i class="bi bi-three-dots"></i>
+                                                                                                <a href="{{ route('collectivemodules.show', $module_collective) }}"
+                                                                                                    class="btn btn-info btn-sm text-white"
+                                                                                                    title="Voir détails">
+                                                                                                    Ajouter
                                                                                                 </a>
 
-                                                                                                <ul
-                                                                                                    class="dropdown-menu dropdown-menu-end">
+                                                                                                <div class="dropdown">
+                                                                                                    <a class="btn btn-light btn-sm"
+                                                                                                        href="#"
+                                                                                                        data-bs-toggle="dropdown"
+                                                                                                        aria-expanded="false">
+                                                                                                        <i
+                                                                                                            class="bi bi-three-dots"></i>
+                                                                                                    </a>
 
-                                                                                                    {{-- Modifier --}}
-                                                                                                    <li>
-                                                                                                        <button class="dropdown-item"
-                                                                                                            data-bs-toggle="modal"
-                                                                                                            data-bs-target="#EditRegionModal{{ $module_collective->id }}">
-                                                                                                            Modifier
-                                                                                                        </button>
-                                                                                                    </li>
+                                                                                                    <ul
+                                                                                                        class="dropdown-menu dropdown-menu-end">
 
-                                                                                                    {{-- Supprimer --}}
-                                                                                                    <li>
-                                                                                                        <form
-                                                                                                            action="{{ route('collectivemodules.destroy', $module_collective) }}"
-                                                                                                            method="POST">
-                                                                                                            @csrf
-                                                                                                            @method('DELETE')
-                                                                                                            <button type="submit"
-                                                                                                                class="dropdown-item text-danger show_confirm">
-                                                                                                                Supprimer
-                                                                                                            </button>
-                                                                                                        </form>
-                                                                                                    </li>
-
-                                                                                                    {{-- Validation --}}
-                                                                                                    @can('validate-module-collective')
+                                                                                                        {{-- Modifier --}}
                                                                                                         <li>
-                                                                                                            <button class="dropdown-item"
+                                                                                                            <button
+                                                                                                                class="dropdown-item"
                                                                                                                 data-bs-toggle="modal"
-                                                                                                                data-bs-target="#RejetModuleDemandeModal{{ $module_collective->id }}">
-                                                                                                                Validation module
+                                                                                                                data-bs-target="#EditRegionModal{{ $module_collective->id }}">
+                                                                                                                Modifier
                                                                                                             </button>
                                                                                                         </li>
-                                                                                                    @endcan
 
-                                                                                                    {{-- Bloc ingénieur --}}
-                                                                                                    @can('diof')
+                                                                                                        {{-- Supprimer --}}
                                                                                                         <li>
-                                                                                                            <hr class="dropdown-divider">
+                                                                                                            <form
+                                                                                                                action="{{ route('collectivemodules.destroy', $module_collective) }}"
+                                                                                                                method="POST">
+                                                                                                                @csrf
+                                                                                                                @method('DELETE')
+                                                                                                                <button type="submit"
+                                                                                                                    class="dropdown-item text-danger show_confirm">
+                                                                                                                    Supprimer
+                                                                                                                </button>
+                                                                                                            </form>
                                                                                                         </li>
 
-                                                                                                        @if ($module_collective->ingenieur)
-                                                                                                            <li class="px-3 py-2">
-                                                                                                                <strong>
-                                                                                                                    {{ $module_collective->ingenieur?->user?->firstname . ' ' . $module_collective->ingenieur?->user?->name }}
-                                                                                                                </strong>
-                                                                                                            </li>
-
-                                                                                                            @can('ingenieur-check')
-                                                                                                                <li>
-                                                                                                                    <a class="dropdown-item"
-                                                                                                                        href="{{ route('ingenieurs.show', $module_collective->ingenieur->id) }}">
-                                                                                                                        Voir ingénieur
-                                                                                                                    </a>
-                                                                                                                </li>
-
-                                                                                                                <li>
-                                                                                                                    <a class="dropdown-item"
-                                                                                                                        href="{{ route('addcollectiveingenieurs', $module_collective->id) }}">
-                                                                                                                        Changer ingénieur
-                                                                                                                    </a>
-                                                                                                                </li>
-                                                                                                            @endcan
-                                                                                                        @else
+                                                                                                        {{-- Validation --}}
+                                                                                                        @can('validate-module-collective')
                                                                                                             <li>
-                                                                                                                <a class="dropdown-item text-primary"
-                                                                                                                    href="{{ route('addcollectiveingenieurs', $module_collective->id) }}">
-                                                                                                                    Imputer ingénieur
-                                                                                                                </a>
+                                                                                                                <button
+                                                                                                                    class="dropdown-item"
+                                                                                                                    data-bs-toggle="modal"
+                                                                                                                    data-bs-target="#RejetModuleDemandeModal{{ $module_collective->id }}">
+                                                                                                                    Validation module
+                                                                                                                </button>
                                                                                                             </li>
-                                                                                                        @endif
-                                                                                                    @endcan
+                                                                                                        @endcan
 
-                                                                                                </ul>
+                                                                                                        {{-- Bloc ingénieur --}}
+                                                                                                        @can('diof')
+                                                                                                            <li>
+                                                                                                                <hr
+                                                                                                                    class="dropdown-divider">
+                                                                                                            </li>
+
+                                                                                                            @if ($module_collective->ingenieur)
+                                                                                                                <li class="px-3 py-2">
+                                                                                                                    <strong>
+                                                                                                                        {{ $module_collective->ingenieur?->user?->firstname . ' ' . $module_collective->ingenieur?->user?->name }}
+                                                                                                                    </strong>
+                                                                                                                </li>
+
+                                                                                                                @can('ingenieur-check')
+                                                                                                                    <li>
+                                                                                                                        <a class="dropdown-item"
+                                                                                                                            href="{{ route('ingenieurs.show', $module_collective->ingenieur->id) }}">
+                                                                                                                            Voir ingénieur
+                                                                                                                        </a>
+                                                                                                                    </li>
+
+                                                                                                                    <li>
+                                                                                                                        <a class="dropdown-item"
+                                                                                                                            href="{{ route('addcollectiveingenieurs', $module_collective->id) }}">
+                                                                                                                            Changer ingénieur
+                                                                                                                        </a>
+                                                                                                                    </li>
+                                                                                                                @endcan
+                                                                                                            @else
+                                                                                                                <li>
+                                                                                                                    <a class="dropdown-item text-primary"
+                                                                                                                        href="{{ route('addcollectiveingenieurs', $module_collective->id) }}">
+                                                                                                                        Imputer ingénieur
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            @endif
+                                                                                                        @endcan
+
+                                                                                                    </ul>
+                                                                                                </div>
                                                                                             </div>
-                                                                                        </div>
-                                                                                    @endcan
-                                                                                </td>
-                                                                            </tr>
-                                                                        @endforeach
-                                                                    </tbody>
-                                                                </table>
-                                                            @else
-                                                                <div class="alert alert-warning">Aucune formation pour le momement
-                                                                    !
-                                                                </div>
+                                                                                        @endcan
+                                                                                    </td>
+                                                                                </tr>
+                                                                            @endforeach
+                                                                        </tbody>
+                                                                    </table>
+                                                                @else
+                                                                    <div class="alert alert-warning">Aucune formation pour le
+                                                                        momement
+                                                                        !
+                                                                    </div>
                                                             @endif
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{-- @endcan --}}
+                                            </div>
+                                            {{-- @endcan --}}
 
-                                                <div class="card">
-                                                    <div class="card-body pb-0">
-                                                        <h5 class="card-title">Liste des membres</h5>
-                                                        @if ($listecollective)
-                                                            <div class="row g-3">
+                                            <div class="card">
+                                                <div class="card-body pb-0">
+                                                    <h5 class="card-title">Liste des membres</h5>
+                                                    @if ($listecollective)
+                                                        <div class="row g-3">
+                                                            <div class="table-responsive">
                                                                 <table
                                                                     class="table datatables align-middle justify-content-center table-borderless"
                                                                     id="table-collectiveMembres">
@@ -633,62 +642,64 @@
                                                         @else
                                                             <div class="alert alert-info">Aucun membre pour l'instant !
                                                             </div>
-                                                        @endif
-                                                        {{-- </form> --}}
-                                                    </div>
+                                                    @endif
+                                                    {{-- </form> --}}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- Détail modules --}}
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade modules-overview pt-1" id="modules-overview">
-                                            <h5 class="card-title">Liste des modules</h5>
-                                            @if (!empty($listemodulescollective))
-                                                <table class="table datatables" id="table-modules">
-                                                    <thead>
+                                </div>
+                            </div>
+                            {{-- Détail modules --}}
+                            <div class="tab-content">
+                                <div class="tab-pane fade modules-overview pt-1" id="modules-overview">
+                                    <h5 class="card-title">Liste des modules</h5>
+                                    @if (!empty($listemodulescollective))
+                                        <div class="table-responsive">
+                                            <table class="table datatables" id="table-modules">
+                                                <thead>
+                                                    <tr>
+                                                        <th>N°</th>
+                                                        <th>Module</th>
+                                                        <th>Demandeurs</th>
+                                                        <th>Statut</th>
+                                                        <th class="float-end"><i class="bi bi-gear"></i></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $i = 1; ?>
+                                                    @foreach ($collective?->collectivemodules as $collectivemodule)
                                                         <tr>
-                                                            <th>N°</th>
-                                                            <th>Module</th>
-                                                            <th>Demandeurs</th>
-                                                            <th>Statut</th>
-                                                            <th class="float-end"><i class="bi bi-gear"></i></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php $i = 1; ?>
-                                                        @foreach ($collective?->collectivemodules as $collectivemodule)
-                                                            <tr>
-                                                                <td>{{ $i++ }}</td>
-                                                                <td>{{ $collectivemodule?->module }}</td>
-                                                                <td>
-                                                                    {{-- @foreach ($collectivemodule->listecollectives as $listecollective)
+                                                            <td>{{ $i++ }}</td>
+                                                            <td>{{ $collectivemodule?->module }}</td>
+                                                            <td>
+                                                                {{-- @foreach ($collectivemodule->listecollectives as $listecollective)
                                                                 @if ($loop->last)
                                                                     <a href="#"><span
                                                                             class="badge bg-info">{{ $loop->count }}</span></a>
                                                                 @endif
                                                             @endforeach --}}
-                                                                    <span
-                                                                        class="badge bg-info">{{ count($collectivemodule->listecollectives) }}</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span class="{{ $collectivemodule?->statut }}">
-                                                                        {{ $collectivemodule?->statut }}
-                                                                    </span>
-                                                                </td>
-                                                                <td>
+                                                                <span
+                                                                    class="badge bg-info">{{ count($collectivemodule->listecollectives) }}</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="{{ $collectivemodule?->statut }}">
+                                                                    {{ $collectivemodule?->statut }}
+                                                                </span>
+                                                            </td>
+                                                            <td>
 
-                                                                    <span class="d-flex align-items-baseline float-end"><a
-                                                                            href="{{ route('collectivemodules.show', $collectivemodule) }}"
-                                                                            class="btn btn-primary btn-sm" title="voir détails"><i
-                                                                                class="bi bi-eye"></i></a>
-                                                                        <div class="filter">
-                                                                            <a class="icon" href="#"
-                                                                                data-bs-toggle="dropdown"><i
-                                                                                    class="bi bi-three-dots"></i></a>
-                                                                            <ul
-                                                                                class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                                {{-- @can('validate-module-collective')
+                                                                <span class="d-flex align-items-baseline float-end"><a
+                                                                        href="{{ route('collectivemodules.show', $collectivemodule) }}"
+                                                                        class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                            class="bi bi-eye"></i></a>
+                                                                    <div class="filter">
+                                                                        <a class="icon" href="#"
+                                                                            data-bs-toggle="dropdown"><i
+                                                                                class="bi bi-three-dots"></i></a>
+                                                                        <ul
+                                                                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                            {{-- @can('validate-module-collective')
                                                                                     <form
                                                                                         action="{{ route('validerModuleCollective') }}"
                                                                                         method="post">
@@ -705,23 +716,22 @@
                                                                                     </button>
                                                                                     <br>
                                                                                 @endcan --}}
-                                                                                <button class="btn btn-sm mx-1"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#EditRegionModal{{ $collectivemodule->id }}">Modifier
-                                                                                </button>
-                                                                                <form
-                                                                                    action="{{ route('collectivemodules.destroy', $collectivemodule) }}"
-                                                                                    method="post">
-                                                                                    @csrf
-                                                                                    @method('DELETE')
-                                                                                    <button type="submit"
-                                                                                        class="dropdown-item show_confirm"
-                                                                                        title="Supprimer">Supprimer</button>
-                                                                                </form>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </span>
-                                                                    {{-- <span class="d-flex align-items-baseline float-end"><a
+                                                                            <button class="btn btn-sm mx-1" data-bs-toggle="modal"
+                                                                                data-bs-target="#EditRegionModal{{ $collectivemodule->id }}">Modifier
+                                                                            </button>
+                                                                            <form
+                                                                                action="{{ route('collectivemodules.destroy', $collectivemodule) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"
+                                                                                    title="Supprimer">Supprimer</button>
+                                                                            </form>
+                                                                        </ul>
+                                                                    </div>
+                                                                </span>
+                                                                {{-- <span class="d-flex align-items-baseline float-end"><a
                                                                     href="{{ route('collectivemodules.show', $collectivemodule->id) }}"
                                                                     class="btn btn-primary btn-sm" title="voir détails"><i
                                                                         class="bi bi-eye"></i></a>
@@ -753,253 +763,251 @@
                                                                     </ul>
                                                                 </div>
                                                             </span> --}}
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
 
-                                                    </tbody>
-                                                </table>
-                                            @else
-                                                <div class="alert alert-info">Aucun module pour l'instat
+                                                </tbody>
+                                            </table>
+                                        @else
+                                            <div class="alert alert-info">Aucun module pour l'instat
+                                            </div>
+                                    @endif
+
+                                    <!-- End Table with stripped rows -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-content pt-2">
+                            <div class="tab-pane fade files" id="files">
+                                @can('upload-file-view')
+                                    <div class="row mb-3 pt-5">
+                                        <h5 class="card-title col-12 col-md-4">
+                                            FICHIERS JOINTS</h5>
+                                        <div class="col-12 col-lg-8 mx-auto">
+                                            <div class="card shadow-sm border-0">
+                                                <div class="card-header bg-default">
+                                                    <h5 class="mb-0">Liste des fichiers déjà téléversés</h5>
                                                 </div>
-                                            @endif
-
-                                            <!-- End Table with stripped rows -->
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-content pt-2">
-                                        <div class="tab-pane fade files" id="files">
-                                            @can('upload-file-view')
-                                                <div class="row mb-3 pt-5">
-                                                    <h5 class="card-title col-12 col-md-4">
-                                                        FICHIERS JOINTS</h5>
-                                                    <div class="col-12 col-lg-8 mx-auto">
-                                                        <div class="card shadow-sm border-0">
-                                                            <div class="card-header bg-default">
-                                                                <h5 class="mb-0">Liste des fichiers déjà téléversés</h5>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <table
-                                                                    class="table table-hover table-striped table-bordered datatables"
-                                                                    id="table-iles">
-                                                                    <thead class="table-light text-center">
-                                                                        <tr>
-                                                                            <th style="width: 5%">N°</th>
-                                                                            <th>Légende</th>
-                                                                            <th style="width: 10%">Fichier</th>
-                                                                            <th style="width: 10%">Statut</th>
-                                                                            <th style="width: 10%">Supprimer</th>
-                                                                            @hasanyrole('super-admin|admin|DIOF|Ingenieur')
-                                                                                <th style="width: 10%">Valider</th>
-                                                                                <th style="width: 10%">Rejeter</th>
-                                                                            @endhasanyrole
-
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        @php $i = 1; @endphp
-                                                                        @foreach ($files as $file)
-                                                                            <tr class="text-center align-middle">
-                                                                                <td>{{ $i++ }}</td>
-                                                                                <td>{{ $file->legende }}</td>
-                                                                                <td>
-                                                                                    <a class="btn btn-outline-secondary btn-sm"
-                                                                                        title="Télécharger" target="_blank"
-                                                                                        href="{{ asset($file->getFichier()) }}">
-                                                                                        <i class="bi bi-download"></i>
-                                                                                    </a>
-                                                                                </td>
-                                                                                <td>
-                                                                                    @php
-                                                                                        $statut =
-                                                                                            $file->statut ?? 'Attente';
-                                                                                        $badgeClass = match ($statut) {
-                                                                                            'Validé' => 'success',
-                                                                                            'Rejeté',
-                                                                                            'Invalide'
-                                                                                                => 'danger',
-                                                                                            default => 'secondary',
-                                                                                        };
-                                                                                    @endphp
-                                                                                    <span
-                                                                                        class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
-                                                                                </td>
-                                                                                <td>
-                                                                                    @if ($file->statut !== 'Validé')
-                                                                                        <form action="{{ route('fileDestroy') }}"
-                                                                                            method="post" class="d-inline">
-                                                                                            @csrf
-                                                                                            @method('put')
-                                                                                            <input type="hidden" name="idFile"
-                                                                                                value="{{ $file->id }}">
-                                                                                            <button type="submit"
-                                                                                                class="btn btn-outline-danger btn-sm show_confirm"
-                                                                                                title="Supprimer">
-                                                                                                <i class="bi bi-trash"></i>
-                                                                                            </button>
-                                                                                        </form>
-                                                                                    @endif
-                                                                                </td>
-
-                                                                                @hasanyrole('super-admin|admin|DIOF|Ingenieur')
-                                                                                    <td>
-                                                                                        <form action="{{ route('fileValidate') }}"
-                                                                                            method="post" class="d-inline">
-                                                                                            @csrf
-                                                                                            @method('put')
-                                                                                            <input type="hidden" name="idFile"
-                                                                                                value="{{ $file->id }}">
-                                                                                            <button type="submit"
-                                                                                                class="btn btn-outline-success btn-sm show_confirm_valider"
-                                                                                                title="Valider">
-                                                                                                <i class="bi bi-check-circle"></i>
-                                                                                            </button>
-                                                                                        </form>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <form action="{{ route('fileInvalide') }}"
-                                                                                            method="post" class="d-inline">
-                                                                                            @csrf
-                                                                                            @method('put')
-                                                                                            <input type="hidden" name="idFile"
-                                                                                                value="{{ $file->id }}">
-                                                                                            <button type="submit"
-                                                                                                class="btn btn-outline-warning btn-sm show_confirm_rejeter"
-                                                                                                title="Invalider">
-                                                                                                <i class="bi bi-x-circle"></i>
-                                                                                            </button>
-                                                                                        </form>
-                                                                                    </td>
-                                                                                @endhasanyrole
-                                                                            </tr>
-                                                                        @endforeach
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <form method="post" action="{{ route('files.update', $user) }}"
-                                                    enctype="multipart/form-data">
-                                                    @csrf
-                                                    @method('patch')
-                                                    <h5 class="card-title">JOINDRE VOS SCANS DE DOSSIERS</h5>
-                                                    <input type="hidden" name="idUser" value="{{ $user->id }}">
-                                                    <span style="color:red;">NB:</span>
-                                                    <span>Seul l'acte de création </span><span style="color:red;"> est
-                                                        exigé</span>.
-                                                    <!-- Profile Edit Form -->
-                                                    <div class="row mb-3 mt-3">
-                                                        <label for="legende" class="col-12 col-md-4 col-form-label">LEGENDE<span
-                                                                class="text-danger mx-1">*</span></label>
-                                                        <div class="col-12 col-md-8">
-                                                            <select name="legende"
-                                                                class="form-select  @error('legende') is-invalid @enderror"
-                                                                aria-label="Select" id="select-field-file"
-                                                                data-placeholder="Choisir">
-                                                                <option value="{{ old('legende') }}">
-
-                                                                </option>
-                                                                @foreach ($user_files as $file)
-                                                                    <option value="{{ $file?->id }}">
-                                                                        {{ $file?->legende }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                            @error('legende')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <div>{{ $message }}</div>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row mb-3">
-                                                        <label for="file" class="col-12 col-md-4 col-form-label">CHOISIR
-                                                            FICHIER<span class="text-danger mx-1">*</span></label>
-                                                        <div class="col-12 col-md-8">
-                                                            <div class="pt-2">
-                                                                <input type="file" name="file" id="file"
-                                                                    class="form-control @error('file') is-invalid @enderror btn btn-info btn-sm">
-                                                                @error('file')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-3">
-                                                        <label for="file" class="col-12 col-md-4 col-form-label">
-                                                            Téléverser un fichier <span class="text-danger mx-1">*</span>
-                                                        </label>
-                                                        <div class="col-12 col-md-8">
-                                                            <div class="pt-2">
-                                                                <button type="submit" class="btn btn-primary btn-sm text-white">
-                                                                    <i class="bi bi-upload me-1"></i> Téléverser
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            @endcan
-                                        </div>
-                                    </div>
-
-                                    {{-- Détail Formations --}}
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade profile-overview pt-1" id="foration-overview">
-                                            <h5 class="card-title">Formations </h5>
-                                            @if ($collective)
-                                                <div class="col-12">
-                                                    <table class="table table-bordered table-hover datatables" id="table-files">
-                                                        <thead>
-                                                            <tr>
-                                                                <th width="5%" class="text-center">N°</th>
-                                                                <th width="15%" class="text-center">Date dépôt</th>
-                                                                <th>Modules</th>
-                                                                <th width="10%" class="text-center">Statut</th>
-                                                                @can('user-show')
-                                                                    <th width="5%" class="text-center"><i class="bi bi-gear"></i>
-                                                                    </th>
-                                                                @endcan
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @php $i = 1; @endphp
-                                                            @foreach ($collective->collectivemodules as $collectivemodule)
+                                                <div class="card-body">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover table-striped table-bordered datatables"
+                                                            id="table-iles">
+                                                            <thead class="table-light text-center">
                                                                 <tr>
-                                                                    <td class="text-center">{{ $i++ }}</td>
-                                                                    <td class="text-center">
-                                                                        {{ $collective->date_depot ? \Carbon\Carbon::parse($collective->date_depot)->diffForHumans() : 'Aucun' }}
-                                                                    </td>
-                                                                    <td>{{ $collectivemodule->module }}</td>
-                                                                    <td class="text-center">
-                                                                        <span class="{{ $collectivemodule?->statut }}">
-                                                                            {{ $collectivemodule?->statut }}
-                                                                        </span>
-                                                                    </td>
-                                                                    @can('user-show')
-                                                                        <td class="text-center">
-                                                                            <a href="{{ route('collectivemodules.show', $collectivemodule) }}"
-                                                                                class="btn btn-primary btn-sm" target="_blank"
-                                                                                title="voir détails"><i class="bi bi-eye"></i></a>
-                                                                        </td>
-                                                                    @endcan
+                                                                    <th style="width: 5%">N°</th>
+                                                                    <th>Légende</th>
+                                                                    <th style="width: 10%">Fichier</th>
+                                                                    <th style="width: 10%">Statut</th>
+                                                                    <th style="width: 10%">Supprimer</th>
+                                                                    @hasanyrole('super-admin|admin|DIOF|Ingenieur')
+                                                                        <th style="width: 10%">Valider</th>
+                                                                        <th style="width: 10%">Rejeter</th>
+                                                                    @endhasanyrole
+
                                                                 </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    </table>
+                                                            </thead>
+                                                            <tbody>
+                                                                @php $i = 1; @endphp
+                                                                @foreach ($files as $file)
+                                                                    <tr class="text-center align-middle">
+                                                                        <td>{{ $i++ }}</td>
+                                                                        <td>{{ $file->legende }}</td>
+                                                                        <td>
+                                                                            <a class="btn btn-outline-secondary btn-sm"
+                                                                                title="Télécharger" target="_blank"
+                                                                                href="{{ asset($file->getFichier()) }}">
+                                                                                <i class="bi bi-download"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                        <td>
+                                                                            @php
+                                                                                $statut = $file->statut ?? 'Attente';
+                                                                                $badgeClass = match ($statut) {
+                                                                                    'Validé' => 'success',
+                                                                                    'Rejeté', 'Invalide' => 'danger',
+                                                                                    default => 'secondary',
+                                                                                };
+                                                                            @endphp
+                                                                            <span
+                                                                                class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            @if ($file->statut !== 'Validé')
+                                                                                <form action="{{ route('fileDestroy') }}"
+                                                                                    method="post" class="d-inline">
+                                                                                    @csrf
+                                                                                    @method('put')
+                                                                                    <input type="hidden" name="idFile"
+                                                                                        value="{{ $file->id }}">
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-outline-danger btn-sm show_confirm"
+                                                                                        title="Supprimer">
+                                                                                        <i class="bi bi-trash"></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            @endif
+                                                                        </td>
+
+                                                                        @hasanyrole('super-admin|admin|DIOF|Ingenieur')
+                                                                            <td>
+                                                                                <form action="{{ route('fileValidate') }}" method="post"
+                                                                                    class="d-inline">
+                                                                                    @csrf
+                                                                                    @method('put')
+                                                                                    <input type="hidden" name="idFile"
+                                                                                        value="{{ $file->id }}">
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-outline-success btn-sm show_confirm_valider"
+                                                                                        title="Valider">
+                                                                                        <i class="bi bi-check-circle"></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            </td>
+                                                                            <td>
+                                                                                <form action="{{ route('fileInvalide') }}" method="post"
+                                                                                    class="d-inline">
+                                                                                    @csrf
+                                                                                    @method('put')
+                                                                                    <input type="hidden" name="idFile"
+                                                                                        value="{{ $file->id }}">
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-outline-warning btn-sm show_confirm_rejeter"
+                                                                                        title="Invalider">
+                                                                                        <i class="bi bi-x-circle"></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            </td>
+                                                                        @endhasanyrole
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            @else
-                                                <div class="alert alert-info">
-                                                    <p class="text-muted">Aucune formation pour l'instant !</p>
-                                                </div>
-                                            @endif
+                                            </div>
                                         </div>
                                     </div>
-                                    {{-- Détail Formations --}}
-                                    {{-- <div class="tab-content">
+
+                                    <form method="post" action="{{ route('files.update', $user) }}" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('patch')
+                                        <h5 class="card-title">JOINDRE VOS SCANS DE DOSSIERS</h5>
+                                        <input type="hidden" name="idUser" value="{{ $user->id }}">
+                                        <span style="color:red;">NB:</span>
+                                        <span>Seul l'acte de création </span><span style="color:red;"> est
+                                            exigé</span>.
+                                        <!-- Profile Edit Form -->
+                                        <div class="row mb-3 mt-3">
+                                            <label for="legende" class="col-12 col-md-4 col-form-label">LEGENDE<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <div class="col-12 col-md-8">
+                                                <select name="legende" class="form-select  @error('legende') is-invalid @enderror"
+                                                    aria-label="Select" id="select-field-file" data-placeholder="Choisir">
+                                                    <option value="{{ old('legende') }}">
+
+                                                    </option>
+                                                    @foreach ($user_files as $file)
+                                                        <option value="{{ $file?->id }}">
+                                                            {{ $file?->legende }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('legende')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="file" class="col-12 col-md-4 col-form-label">CHOISIR
+                                                FICHIER<span class="text-danger mx-1">*</span></label>
+                                            <div class="col-12 col-md-8">
+                                                <div class="pt-2">
+                                                    <input type="file" name="file" id="file"
+                                                        class="form-control @error('file') is-invalid @enderror btn btn-info btn-sm">
+                                                    @error('file')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="file" class="col-12 col-md-4 col-form-label">
+                                                Téléverser un fichier <span class="text-danger mx-1">*</span>
+                                            </label>
+                                            <div class="col-12 col-md-8">
+                                                <div class="pt-2">
+                                                    <button type="submit" class="btn btn-primary btn-sm text-white">
+                                                        <i class="bi bi-upload me-1"></i> Téléverser
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                @endcan
+                            </div>
+                        </div>
+
+                        {{-- Détail Formations --}}
+                        <div class="tab-content">
+                            <div class="tab-pane fade profile-overview pt-1" id="foration-overview">
+                                <h5 class="card-title">Formations </h5>
+                                @if ($collective)
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover datatables" id="table-files">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="5%" class="text-center">N°</th>
+                                                        <th width="15%" class="text-center">Date dépôt</th>
+                                                        <th>Modules</th>
+                                                        <th width="10%" class="text-center">Statut</th>
+                                                        @can('user-show')
+                                                            <th width="5%" class="text-center"><i class="bi bi-gear"></i>
+                                                            </th>
+                                                        @endcan
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @php $i = 1; @endphp
+                                                    @foreach ($collective->collectivemodules as $collectivemodule)
+                                                        <tr>
+                                                            <td class="text-center">{{ $i++ }}</td>
+                                                            <td class="text-center">
+                                                                {{ $collective->date_depot ? \Carbon\Carbon::parse($collective->date_depot)->diffForHumans() : 'Aucun' }}
+                                                            </td>
+                                                            <td>{{ $collectivemodule->module }}</td>
+                                                            <td class="text-center">
+                                                                <span class="{{ $collectivemodule?->statut }}">
+                                                                    {{ $collectivemodule?->statut }}
+                                                                </span>
+                                                            </td>
+                                                            @can('user-show')
+                                                                <td class="text-center">
+                                                                    <a href="{{ route('collectivemodules.show', $collectivemodule) }}"
+                                                                        class="btn btn-primary btn-sm" target="_blank"
+                                                                        title="voir détails"><i class="bi bi-eye"></i></a>
+                                                                </td>
+                                                            @endcan
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="alert alert-info">
+                                        <p class="text-muted">Aucune formation pour l'instant !</p>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        {{-- Détail Formations --}}
+                        {{-- <div class="tab-content">
                                 <div class="tab-pane fade profile-overview pt-1" id="autres-demandes-overview">
 
                                     <h5 class="card-title">Mes demandes collectives</h5>
@@ -1074,10 +1082,10 @@
                                     <!-- End Table with stripped rows -->
                                 </div>
                             </div> --}}
-                                </div>
-                            </div>
-                        </div>
                     </div>
+                </div>
+                </div>
+                </div>
                 </div>
                 </div>
                 {{-- Ajouter module collective --}}

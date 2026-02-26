@@ -141,88 +141,89 @@
 
                             {{-- ===== Table ===== --}}
                             @if ($collectives->isNotEmpty())
-                                <table class="table table-hover align-middle datatables" id="table-collectives">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th class="text-center">N°</th>
-                                            <th width="30%">Modules</th>
-                                            <th width="30%">Structure</th>
-                                            <th>E-mail</th>
-                                            <th>Téléphone</th>
-                                            <th>Région</th>
-                                            <th>Responsable</th>
-                                            <th class="text-center">Dépôt</th>
-                                            <th class="text-center">Effectif</th>
-                                            {{-- <th class="text-center">Statut</th> --}}
-                                            <th class="text-center"></th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        <?php $i = 1; ?>
-                                        @foreach ($collectives as $collectivemodule)
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle datatables" id="table-collectives">
+                                        <thead class="table-light">
                                             <tr>
-                                                <td>{{ $i++ }}</td>
+                                                <th class="text-center">N°</th>
+                                                <th width="30%">Modules</th>
+                                                <th width="30%">Structure</th>
+                                                <th>E-mail</th>
+                                                <th>Téléphone</th>
+                                                <th>Région</th>
+                                                <th>Responsable</th>
+                                                <th class="text-center">Dépôt</th>
+                                                <th class="text-center">Effectif</th>
+                                                {{-- <th class="text-center">Statut</th> --}}
+                                                <th class="text-center"></th>
+                                            </tr>
+                                        </thead>
 
-                                                <td>
-                                                    {{ $collectivemodule->module }}
-                                                </td>
+                                        <tbody>
+                                            <?php $i = 1; ?>
+                                            @foreach ($collectives as $collectivemodule)
+                                                <tr>
+                                                    <td>{{ $i++ }}</td>
 
-                                                <td>
-                                                    {{ $collectivemodule->collective->name }}
-                                                    @if ($collectivemodule->collective->sigle)
-                                                        <small
-                                                            class="text-muted">({{ $collectivemodule->collective->sigle }})</small>
-                                                    @endif
-                                                </td>
+                                                    <td>
+                                                        {{ $collectivemodule->module }}
+                                                    </td>
 
-                                                <td>
-                                                    <a
-                                                        href="mailto:{{ optional($collectivemodule->collective->user)->email }}">
-                                                        {{ optional($collectivemodule->collective->user)->email }}
-                                                    </a>
-                                                </td>
+                                                    <td>
+                                                        {{ $collectivemodule->collective->name }}
+                                                        @if ($collectivemodule->collective->sigle)
+                                                            <small
+                                                                class="text-muted">({{ $collectivemodule->collective->sigle }})</small>
+                                                        @endif
+                                                    </td>
 
-                                                <td>
-                                                    <a href="tel:+221{{ $collectivemodule->collective->telephone }}">
-                                                        {{ $collectivemodule->collective->telephone }} <br>
-                                                        {{ $collectivemodule->collective->telephone_responsable }}
-                                                    </a>
-                                                </td>
+                                                    <td>
+                                                        <a
+                                                            href="mailto:{{ optional($collectivemodule->collective->user)->email }}">
+                                                            {{ optional($collectivemodule->collective->user)->email }}
+                                                        </a>
+                                                    </td>
 
-                                                <td>
-                                                    {{ optional(optional($collectivemodule->collective->departement)->region)->nom }}
-                                                </td>
+                                                    <td>
+                                                        <a href="tel:+221{{ $collectivemodule->collective->telephone }}">
+                                                            {{ $collectivemodule->collective->telephone }} <br>
+                                                            {{ $collectivemodule->collective->telephone_responsable }}
+                                                        </a>
+                                                    </td>
 
-                                                <td>
-                                                    {{ $collectivemodule->collective->prenom_responsable . ' ' . $collectivemodule->collective->nom_responsable }}
-                                                </td>
+                                                    <td>
+                                                        {{ optional(optional($collectivemodule->collective->departement)->region)->nom }}
+                                                    </td>
 
-                                                <td class="text-center">
-                                                    {{ $collectivemodule->collective->date_depot ? \Carbon\Carbon::parse($collectivemodule->collective->date_depot)->format('d/m/Y') : '-' }}
-                                                </td>
+                                                    <td>
+                                                        {{ $collectivemodule->collective->prenom_responsable . ' ' . $collectivemodule->collective->nom_responsable }}
+                                                    </td>
 
-                                                <td class="text-center">
-                                                    <span class="badge bg-secondary">
-                                                        {{ $collectivemodule->collective->listecollectives->count() }}
-                                                    </span>
-                                                </td>
+                                                    <td class="text-center">
+                                                        {{ $collectivemodule->collective->date_depot ? \Carbon\Carbon::parse($collectivemodule->collective->date_depot)->format('d/m/Y') : '-' }}
+                                                    </td>
 
-                                                {{-- <td class="text-center">
+                                                    <td class="text-center">
+                                                        <span class="badge bg-secondary">
+                                                            {{ $collectivemodule->collective->listecollectives->count() }}
+                                                        </span>
+                                                    </td>
+
+                                                    {{-- <td class="text-center">
                                                     <span class="{{ $collectivemodule->collective->statut_demande }}">
                                                         {{ ucfirst($collectivemodule->collective->statut_demande) }}
                                                     </span>
                                                 </td> --}}
 
-                                                <td class="text-center">
-                                                    @can('collective-show')
-                                                        <div class="btn-group">
-                                                            <a href="{{ route('collectives.show', $collectivemodule->collective) }}"
-                                                                class="btn btn-sm btn-primary" title="Voir">
-                                                                <i class="bi bi-eye"></i>
-                                                            </a>
+                                                    <td class="text-center">
+                                                        @can('collective-show')
+                                                            <div class="btn-group">
+                                                                <a href="{{ route('collectives.show', $collectivemodule->collective) }}"
+                                                                    class="btn btn-sm btn-primary" title="Voir">
+                                                                    <i class="bi bi-eye"></i>
+                                                                </a>
 
-                                                            {{-- <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                                                                {{-- <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
                                                                 data-bs-toggle="dropdown"></button>
 
                                                             <ul class="dropdown-menu dropdown-menu-end">
@@ -248,23 +249,24 @@
                                                                     </li>
                                                                 @endcan
                                                             </ul> --}}
-                                                        </div>
-                                                    @endcan
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            @else
-                                <div class="alert alert-info text-center">
-                                    <i class="bi bi-info-circle"></i>
-                                    Aucune demande collective reçue pour l’instant.
-                                </div>
+                                                            </div>
+                                                        @endcan
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <div class="alert alert-info text-center">
+                                        <i class="bi bi-info-circle"></i>
+                                        Aucune demande collective reçue pour l’instant.
+                                    </div>
                             @endif
 
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
             <div class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="AddCollectiveModal" tabindex="-1">

@@ -39,65 +39,69 @@
                             @method('PUT')
                             <div class="row mb-3">
                                 <div class="form-check col-md-12 pt-5">
-                                    <table class="table datatables align-middle" id="table-modules">
-                                        <thead>
-                                            <tr>
-                                                {{-- <th>Matricule</th> --}}
-                                                <th>Ingénieur</th>
-                                                <th>Initiale</th>
-                                                <th>Fonction</th>
-                                                {{-- <th>Spécialité</th> --}}
-                                                <th>Email</th>
-                                                <th>Téléphone</th>
-                                                <th style="text-align: center;">Formations</th>
-                                                <th style="text-align: center;">Imputations</th>
-                                                <th class="text-center" scope="col">#</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                            @foreach ($ingenieurs as $ingenieur)
+                                    <div class="table-responsive">
+                                        <table class="table datatables align-middle" id="table-modules">
+                                            <thead>
                                                 <tr>
-                                                    <td>
-                                                        <input type="radio" name="ingenieur" value="{{ $ingenieur?->id }}"
-                                                            {{ in_array($ingenieur->id, $ingenieurCollective) ? 'checked' : '' }}
-                                                            class="form-check-input @error('ingenieur') is-invalid @enderror">
-                                                        @error('ingenieur')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <div>{{ $message }}</div>
-                                                            </span>
-                                                        @enderror
-                                                        {{ $ingenieur->name }}
-                                                    </td>
-                                                    {{--  <td>{{ $ingenieur->name }}</td> --}}
-                                                    <td>{{ $ingenieur->initiale }}</td>
-                                                    <td>{{ $ingenieur->fonction }}</td>
-                                                    {{-- <td>{{ $ingenieur->specialite }}</td> --}}
-                                                    <td><a
-                                                            href="mailto:{{ $ingenieur?->email }}">{{ $ingenieur?->email }}</a>
-                                                    </td>
-                                                    <td><a
-                                                            href="tel:+221{{ $ingenieur?->telephone }}">{{ $ingenieur?->telephone }}</a>
-                                                    </td>
-                                                    <td style="text-align: center;">
-                                                        <span
-                                                            class="badge bg-info">{{ $ingenieur?->formations->count() }}</span>
-                                                    </td>
-                                                    <td style="text-align: center;">
-                                                        <span
-                                                            class="badge bg-success">{{ $ingenieur?->collectivemodules->count() }}</span>
-                                                    </td>
-                                                    <td style="text-align: center;">
-                                                        <span class="d-flex mt-2 align-items-baseline"><a
-                                                                href="{{ route('ingenieurs.show', $ingenieur->id) }}"
-                                                                class="btn btn-warning btn-sm mx-1" title="Voir détails">
-                                                                <i class="bi bi-eye"></i></a>
-                                                        </span>
-                                                    </td>
+                                                    {{-- <th>Matricule</th> --}}
+                                                    <th>Ingénieur</th>
+                                                    <th>Initiale</th>
+                                                    <th>Fonction</th>
+                                                    {{-- <th>Spécialité</th> --}}
+                                                    <th>Email</th>
+                                                    <th>Téléphone</th>
+                                                    <th style="text-align: center;">Formations</th>
+                                                    <th style="text-align: center;">Imputations</th>
+                                                    <th class="text-center" scope="col">#</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @foreach ($ingenieurs as $ingenieur)
+                                                    <tr>
+                                                        <td>
+                                                            <input type="radio" name="ingenieur"
+                                                                value="{{ $ingenieur?->id }}"
+                                                                {{ in_array($ingenieur->id, $ingenieurCollective) ? 'checked' : '' }}
+                                                                class="form-check-input @error('ingenieur') is-invalid @enderror">
+                                                            @error('ingenieur')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div>{{ $message }}</div>
+                                                                </span>
+                                                            @enderror
+                                                            {{ $ingenieur->name }}
+                                                        </td>
+                                                        {{--  <td>{{ $ingenieur->name }}</td> --}}
+                                                        <td>{{ $ingenieur->initiale }}</td>
+                                                        <td>{{ $ingenieur->fonction }}</td>
+                                                        {{-- <td>{{ $ingenieur->specialite }}</td> --}}
+                                                        <td><a
+                                                                href="mailto:{{ $ingenieur?->email }}">{{ $ingenieur?->email }}</a>
+                                                        </td>
+                                                        <td><a
+                                                                href="tel:+221{{ $ingenieur?->telephone }}">{{ $ingenieur?->telephone }}</a>
+                                                        </td>
+                                                        <td style="text-align: center;">
+                                                            <span
+                                                                class="badge bg-info">{{ $ingenieur?->formations->count() }}</span>
+                                                        </td>
+                                                        <td style="text-align: center;">
+                                                            <span
+                                                                class="badge bg-success">{{ $ingenieur?->collectivemodules->count() }}</span>
+                                                        </td>
+                                                        <td style="text-align: center;">
+                                                            <span class="d-flex mt-2 align-items-baseline"><a
+                                                                    href="{{ route('ingenieurs.show', $ingenieur->id) }}"
+                                                                    class="btn btn-warning btn-sm mx-1"
+                                                                    title="Voir détails">
+                                                                    <i class="bi bi-eye"></i></a>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-outline-primary btn-sm"><i

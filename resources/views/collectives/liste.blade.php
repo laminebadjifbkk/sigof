@@ -171,69 +171,73 @@
 <body>
     @foreach ($modulesAvecCandidats as $index => $collectivemodule)
         {{-- ===== En-tête ===== --}}
-        <table cellpadding="0" cellspacing="0" width="100%" style="border: none;">
-            <tbody>
-                <tr>
-                    <td valign="top" width="40%" style="text-align: left; border: none;">
-                        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
-                            style="width:100%; max-width:250px;" />
-                    </td>
+        <div class="table-responsive">
+            <table cellpadding="0" cellspacing="0" width="100%" style="border: none;">
+                <tbody>
+                    <tr>
+                        <td valign="top" width="40%" style="text-align: left; border: none;">
+                            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
+                                style="width:100%; max-width:250px;" />
+                        </td>
 
-                    <td valign="top" width="60%" style="border:none;">
-                        <h4 style="margin-top:0;"><u>LISTE DES CANDIDATS</u></h4>
+                        <td valign="top" width="60%" style="border:none;">
+                            <h4 style="margin-top:0;"><u>LISTE DES CANDIDATS</u></h4>
 
-                        <p style="margin:0;">
-                            <strong><u>Nom de la structure</u> :</strong>
-                            {{ $collectivemodule->collective?->name }}
-                        </p>
-                        <p style="margin:0;">
-                            <strong><u>Formation sollicitée</u> :</strong>
-                            {{ $collectivemodule->module }}
-                        </p>
-                        <p style="margin:0;">
-                            <strong><u>Niveau de qualification demandé</u> :</strong>
-                            {{ $collectivemodule->niveau_qualification }}
-                        </p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                            <p style="margin:0;">
+                                <strong><u>Nom de la structure</u> :</strong>
+                                {{ $collectivemodule->collective?->name }}
+                            </p>
+                            <p style="margin:0;">
+                                <strong><u>Formation sollicitée</u> :</strong>
+                                {{ $collectivemodule->module }}
+                            </p>
+                            <p style="margin:0;">
+                                <strong><u>Niveau de qualification demandé</u> :</strong>
+                                {{ $collectivemodule->niveau_qualification }}
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         {{-- ===== Tableau candidats ===== --}}
         @if ($collectivemodule->listecollectives->isNotEmpty())
-            <div class="section landscape mt-0">
-                <table cellspacing="0" cellpadding="5" width="100%">
-                    <thead>
-                        <tr>
-                            <th>N°</th>
-                            <th>Prénom(s)</th>
-                            <th>Nom</th>
-                            <th>Date Naissance</th>
-                            <th>Lieu Naissance</th>
-                            <th>N° CIN</th>
-                            <th>Téléphone</th>
-                            <th>Niveau d'étude</th>
-                            <th>Expérience</th>
-                            <th>Autres expériences</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($collectivemodule->listecollectives as $i => $candidat)
+            <div class="table-responsive">
+                <div class="section landscape mt-0">
+                    <table cellspacing="0" cellpadding="5" width="100%">
+                        <thead>
                             <tr>
-                                <td>{{ $i + 1 }}</td>
-                                <td>{{ $candidat->prenom }}</td>
-                                <td>{{ $candidat->nom }}</td>
-                                <td>{{ optional($candidat->date_naissance)->format('d/m/Y') }}</td>
-                                <td>{{ $candidat->lieu_naissance }}</td>
-                                <td>{{ $candidat->cin }}</td>
-                                <td>{{ $candidat->telephone }}</td>
-                                <td>{{ $candidat->niveau_etude }}</td>
-                                <td>{{ $candidat->experience }}</td>
-                                <td>{{ $candidat->autre_experience }}</td>
+                                <th>N°</th>
+                                <th>Prénom(s)</th>
+                                <th>Nom</th>
+                                <th>Date Naissance</th>
+                                <th>Lieu Naissance</th>
+                                <th>N° CIN</th>
+                                <th>Téléphone</th>
+                                <th>Niveau d'étude</th>
+                                <th>Expérience</th>
+                                <th>Autres expériences</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($collectivemodule->listecollectives as $i => $candidat)
+                                <tr>
+                                    <td>{{ $i + 1 }}</td>
+                                    <td>{{ $candidat->prenom }}</td>
+                                    <td>{{ $candidat->nom }}</td>
+                                    <td>{{ optional($candidat->date_naissance)->format('d/m/Y') }}</td>
+                                    <td>{{ $candidat->lieu_naissance }}</td>
+                                    <td>{{ $candidat->cin }}</td>
+                                    <td>{{ $candidat->telephone }}</td>
+                                    <td>{{ $candidat->niveau_etude }}</td>
+                                    <td>{{ $candidat->experience }}</td>
+                                    <td>{{ $candidat->autre_experience }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         @endif
 

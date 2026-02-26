@@ -139,85 +139,89 @@
                         @foreach ($departs as $depart)
                         @endforeach
                         @if (!empty($depart))
-                        <h5 class="card-title">{{ $title }}</h5>
-                            <table class="table datatables align-middle" id="table-departs">
-                                <thead>
-                                    <tr>
-                                        <th>Date et n° départ</th>
-                                        <th>Date et n° correspondance</th>
-                                        <th>Destinataire</th>
-                                        <th>Objet</th>
-                                        <th>Service expéditeur</th>
-                                        <th>#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($departs as $depart)
+                            <h5 class="card-title">{{ $title }}</h5>
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle" id="table-departs">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $depart->courrier->date_depart?->format('d/m/Y') }} <br>
-                                                <span style="color: rgb(255, 0, 0);">{{ ' n° ' . $depart?->numero_depart }}</span>
-                                            </td>
-                                            <td>{{ $depart->courrier->date_cores?->format('d/m/Y') }} <br>
-                                                <span
-                                                    style="color: rgb(255, 0, 0);">{{ ' n° ' . $depart?->courrier?->numero_courrier }}</span>
-                                            </td>
-                                            <td>{{ $depart?->destinataire }}</td>
-                                            <td>{{ $depart->courrier?->objet }}</td>
-                                            <td>{{ $depart->courrier?->reference }}</td>
-                                            <td>
-                                                <span class="d-flex mt-2 align-items-baseline"><a
-                                                        href="{{ route('departs.show', $depart->id) }}"
-                                                        class="btn btn-success btn-sm mx-1" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                    href="{{ route('departs.edit', $depart->id) }}"
-                                                                    class="mx-1"><i class="bi bi-pencil"></i>
-                                                                    Modifier</a>
-                                                            </li>
-                                                            {{-- <li><a class="dropdown-item btn btn-sm mx-1"
+                                            <th>Date et n° départ</th>
+                                            <th>Date et n° correspondance</th>
+                                            <th>Destinataire</th>
+                                            <th>Objet</th>
+                                            <th>Service expéditeur</th>
+                                            <th>#</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($departs as $depart)
+                                            <tr>
+                                                <td>{{ $depart->courrier->date_depart?->format('d/m/Y') }} <br>
+                                                    <span
+                                                        style="color: rgb(255, 0, 0);">{{ ' n° ' . $depart?->numero_depart }}</span>
+                                                </td>
+                                                <td>{{ $depart->courrier->date_cores?->format('d/m/Y') }} <br>
+                                                    <span
+                                                        style="color: rgb(255, 0, 0);">{{ ' n° ' . $depart?->courrier?->numero_courrier }}</span>
+                                                </td>
+                                                <td>{{ $depart?->destinataire }}</td>
+                                                <td>{{ $depart->courrier?->objet }}</td>
+                                                <td>{{ $depart->courrier?->reference }}</td>
+                                                <td>
+                                                    <span class="d-flex mt-2 align-items-baseline"><a
+                                                            href="{{ route('departs.show', $depart->id) }}"
+                                                            class="btn btn-success btn-sm mx-1" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                        <div class="filter">
+                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                    class="bi bi-three-dots"></i></a>
+                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                <li><a class="dropdown-item btn btn-sm mx-1"
+                                                                        href="{{ route('departs.edit', $depart->id) }}"
+                                                                        class="mx-1"><i class="bi bi-pencil"></i>
+                                                                        Modifier</a>
+                                                                </li>
+                                                                {{-- <li><a class="dropdown-item btn btn-sm mx-1"
                                                                 href="{{ url('depart-imputations', ['id' => $depart->id]) }}"
                                                                 class="mx-1"><i class="bi bi-recycle"></i> Imputer</a>
                                                         </li> --}}
-                                                            {{-- <li><a class="dropdown-item btn btn-sm mx-1"
+                                                                {{-- <li><a class="dropdown-item btn btn-sm mx-1"
                                                                 href="{!! url('coupon-depart', ['$id' => $depart->id]) !!}" class="mx-1"
                                                                 target="_blank"><i
                                                                     class="bi bi-file-earmark-arrow-down"></i> Coupon</a>
                                                         </li> --}}
-                                                            @can('depart-delete')
-                                                                <li>
-                                                                    <form action="{{ route('departs.destroy', $depart->id) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit"
-                                                                            class="dropdown-item show_confirm"><i
-                                                                                class="bi bi-trash"></i>Supprimer</button>
-                                                                    </form>
-                                                                </li>
-                                                            @endcan
-                                                        </ul>
-                                                    </div>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                                                @can('depart-delete')
+                                                                    <li>
+                                                                        <form
+                                                                            action="{{ route('departs.destroy', $depart->id) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"><i
+                                                                                    class="bi bi-trash"></i>Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                @endcan
+                                                            </ul>
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
 
-                                </tbody>
-                            </table>
-                        @else
-                            <div class="alert alert-info mt-3">Aucun courrier départ enregistré pour le moment !!!</div>
+                                    </tbody>
+                                </table>
+                            @else
+                                <div class="alert alert-info mt-3">Aucun courrier départ enregistré pour le moment !!!</div>
                         @endif
                         <!-- End Table with stripped rows -->
 
                     </div>
                 </div>
-
             </div>
+
+        </div>
         </div>
         <div class="modal fade" id="addCourrierDepart" tabindex="-1" role="dialog"
             aria-labelledby="addCourrierDepartLabel" aria-hidden="true">
@@ -426,7 +430,8 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="numero_depart" class="form-label">Numéro courrier</label>
-                                                <input type="text" name="numero_depart" value="{{ old('numero_depart') }}"
+                                                <input type="text" name="numero_depart"
+                                                    value="{{ old('numero_depart') }}"
                                                     class="form-control form-control-sm @error('numero_depart') is-invalid @enderror"
                                                     id="numero_depart" placeholder="Numero_depart">
                                                 @error('numero_depart')
@@ -477,7 +482,8 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="destinataire" class="form-label">Destinataire</label>
-                                                <input type="text" name="destinataire" value="{{ old('destinataire') }}"
+                                                <input type="text" name="destinataire"
+                                                    value="{{ old('destinataire') }}"
                                                     class="form-control form-control-sm @error('destinataire') is-invalid @enderror"
                                                     id="destinataire" placeholder="Destinataire">
                                                 @error('destinataire')
@@ -511,7 +517,7 @@
         new DataTable('#table-departs', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

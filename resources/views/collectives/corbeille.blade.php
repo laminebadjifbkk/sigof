@@ -67,80 +67,88 @@
                             @endcan
                         </div>
                         @if ($collectives->isNotEmpty())
-                            <table class="table datatables align-middle" id="table-users">
-                                <thead>
-                                    <tr>
-                                        <th>N°</th>
-                                        <th width="35%">Nom structure</th>
-                                        <th>E-mail</th>
-                                        <th>Téléphone</th>
-                                        <th>Région</th>
-                                        <th width="15%" class="text-center">Dépôt</th>
-                                        <th class="text-center">Modules</th>
-                                        <th class="text-center">Effectif</th>
-                                        <th class="text-center">Statut</th>
-                                        <th class="text-center">Nettoyer</th>
-                                        <th class="text-center">Restaurer</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($collectives as $collective)
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle" id="table-users">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $collective?->numero }}</td>
-                                            <td>
-                                                {{ $collective?->name }}
-                                                @if ($collective?->sigle)
-                                                    ({{ $collective?->sigle }})
-                                                @endif
-                                            </td>
-                                            <td><a
-                                                    href="mailto:{{ optional($collective?->user)?->email }}">{{ optional($collective?->user)?->email }}</a>
-                                            </td>
-                                            <td><a
-                                                    href="tel:+221{{ $collective?->telephone }}">{{ $collective?->telephone }}</a>
-                                            </td>
-                                            <td>{{ optional(optional($collective?->departement)?->region)?->nom }}</td>
-                                            <td class="text-center">
-                                                {{-- {{ $collective?->date_depot ? \Carbon\Carbon::parse($collective?->date_depot)?->diffForHumans() : 'Aucun' }} --}}
-                                                {{ $collective?->date_depot ? \Carbon\Carbon::parse($collective->date_depot)->format('d/m/Y') : 'Aucun' }}
-                                            </td>
-                                            <td class="text-center">{{ $collective?->collectivemodules?->count() }}</td>
-                                            <td class="text-center">{{ $collective?->listecollectives?->count() }}</td>
-                                            <td><span
-                                                    class="{{ $collective?->statut_demande }}">{{ $collective?->statut_demande }}</span>
-                                            </td>
-                                            
-                                            <td class="text-center">
-                                                <form action="{{ route('collectives.forceDelete', $collective->uuid) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm_nettoyer">
-                                                        <i class="bi bi-trash-fill"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td class="text-center">
-                                                <form action="{{ route('collectives.restore', $collective->uuid) }}" method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button type="submit" class="btn btn-success btn-sm show_confirm_restaurer">
-                                                        <i class="bi bi-arrow-counterclockwise"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
+                                            <th>N°</th>
+                                            <th width="35%">Nom structure</th>
+                                            <th>E-mail</th>
+                                            <th>Téléphone</th>
+                                            <th>Région</th>
+                                            <th width="15%" class="text-center">Dépôt</th>
+                                            <th class="text-center">Modules</th>
+                                            <th class="text-center">Effectif</th>
+                                            <th class="text-center">Statut</th>
+                                            <th class="text-center">Nettoyer</th>
+                                            <th class="text-center">Restaurer</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @else
-                            <div class="alert alert-warning">
-                                Aucun utilisateur trouvé.
-                            </div>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($collectives as $collective)
+                                            <tr>
+                                                <td>{{ $collective?->numero }}</td>
+                                                <td>
+                                                    {{ $collective?->name }}
+                                                    @if ($collective?->sigle)
+                                                        ({{ $collective?->sigle }})
+                                                    @endif
+                                                </td>
+                                                <td><a
+                                                        href="mailto:{{ optional($collective?->user)?->email }}">{{ optional($collective?->user)?->email }}</a>
+                                                </td>
+                                                <td><a
+                                                        href="tel:+221{{ $collective?->telephone }}">{{ $collective?->telephone }}</a>
+                                                </td>
+                                                <td>{{ optional(optional($collective?->departement)?->region)?->nom }}</td>
+                                                <td class="text-center">
+                                                    {{-- {{ $collective?->date_depot ? \Carbon\Carbon::parse($collective?->date_depot)?->diffForHumans() : 'Aucun' }} --}}
+                                                    {{ $collective?->date_depot ? \Carbon\Carbon::parse($collective->date_depot)->format('d/m/Y') : 'Aucun' }}
+                                                </td>
+                                                <td class="text-center">{{ $collective?->collectivemodules?->count() }}
+                                                </td>
+                                                <td class="text-center">{{ $collective?->listecollectives?->count() }}</td>
+                                                <td><span
+                                                        class="{{ $collective?->statut_demande }}">{{ $collective?->statut_demande }}</span>
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <form
+                                                        action="{{ route('collectives.forceDelete', $collective->uuid) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="btn btn-danger btn-sm show_confirm_nettoyer">
+                                                            <i class="bi bi-trash-fill"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                                <td class="text-center">
+                                                    <form action="{{ route('collectives.restore', $collective->uuid) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit"
+                                                            class="btn btn-success btn-sm show_confirm_restaurer">
+                                                            <i class="bi bi-arrow-counterclockwise"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <div class="alert alert-warning">
+                                    Aucun utilisateur trouvé.
+                                </div>
                         @endif
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 @endsection

@@ -16,42 +16,44 @@
 
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <table class="table table-bordered table-striped align-middle">
-                            <thead class="table-primary">
-                                <tr>
-                                    <th style="width: 50px;">N°</th>
-                                    <th>Années</th>
-                                    <th class="text-center">Effectifs</th>
-                                    <th width="15%" class="text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="missions-container">
-                                @foreach ($groupes as $items)
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped align-middle">
+                                <thead class="table-primary">
                                     <tr>
-                                        <td>
-                                            {{ ($groupes->currentPage() - 1) * $groupes->perPage() + $loop->iteration }}
-                                        </td>
-                                        <td>{{ $items->annee }}</td>
-                                        <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
-                                        <td class="text-center">
-                                            <a href="{{ route('collectives.parAnnee', ['annee' => $items->annee]) }}"
-                                                class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
-                                                Voir plus <i class="bi bi-arrow-right-short"></i>
-                                            </a>
-                                        </td>
+                                        <th style="width: 50px;">N°</th>
+                                        <th>Années</th>
+                                        <th class="text-center">Effectifs</th>
+                                        <th width="15%" class="text-center">Actions</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody id="missions-container">
+                                    @foreach ($groupes as $items)
+                                        <tr>
+                                            <td>
+                                                {{ ($groupes->currentPage() - 1) * $groupes->perPage() + $loop->iteration }}
+                                            </td>
+                                            <td>{{ $items->annee }}</td>
+                                            <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ route('collectives.parAnnee', ['annee' => $items->annee]) }}"
+                                                    class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
+                                                    Voir plus <i class="bi bi-arrow-right-short"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
 
-                        {{-- Bouton Load More --}}
-                        @if ($groupes->hasMorePages())
-                            <div class="text-center mt-3">
-                                <a href="{{ $groupes->nextPageUrl() }}" id="loadMoreBtn" class="btn btn-info btn-sm">
-                                    Voir plus
-                                </a>
-                            </div>
-                        @endif
+                            {{-- Bouton Load More --}}
+                            @if ($groupes->hasMorePages())
+                                <div class="text-center mt-3">
+                                    <a href="{{ $groupes->nextPageUrl() }}" id="loadMoreBtn" class="btn btn-info btn-sm">
+                                        Voir plus
+                                    </a>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
 

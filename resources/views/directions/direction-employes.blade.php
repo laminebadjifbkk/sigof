@@ -36,63 +36,66 @@
                             @method('PUT')
                             <div class="row mb-3">
                                 <div class="form-check col-md-12">
-                                    <table class="table datatables align-middle" id="table-individuelles">
-                                        <thead>
-                                            <tr>
-                                                <th><input type="checkbox" class="form-check-input" id="checkAll">N°</th>
-                                                <th></th>
-                                                <th>Matricule</th>
-                                                <th>Prénom</th>
-                                                <th>Nom</th>
-                                                <th>E-mail</th>
-                                                <th>Téléphone</th>
-                                                <th><i class="bi bi-gear"></i></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                            @foreach ($employes as $employe)
+                                    <div class="table-responsive">
+                                        <table class="table datatables align-middle" id="table-individuelles">
+                                            <thead>
                                                 <tr>
-                                                    <td>
-                                                        <input type="checkbox" name="employes[]" value="{{ $employe->id }}"
-                                                            {{ in_array($employe->directions_id, $employeDirection) ? 'checked' : '' }}
-                                                            {{ in_array($employe->directions_id, $employeDirectionCheck) ? 'disabled' : '' }}
-                                                            class="form-check-input @error('employes') is-invalid @enderror">
-                                                        @error('employes')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <div>{{ $message }}</div>
-                                                            </span>
-                                                        @enderror
-                                                        {{-- {{ $individuelle?->numero }} --}}
-                                                    </td>
-                                                    <th scope="row"><img class="rounded-circle w-20" alt="Profil"
-                                                            src="{{ asset($employe->user->getImage()) }}" width="40"
-                                                            height="auto">
+                                                    <th><input type="checkbox" class="form-check-input" id="checkAll">N°
                                                     </th>
-                                                    {{-- <td>{{ $i++ }}</td> --}}
-                                                    <td>{{ $employe->matricule }}</td>
-                                                    <td>{{ $employe->user->firstname }}</td>
-                                                    <td>{{ $employe->user->name }}</td>
-                                                    <td>{{ $employe->user->email }}</td>
-                                                    <td>{{ $employe->user->telephone }}</td>
-                                                    <td>
-                                                        <span class="d-flex mt-2 align-items-baseline"><a
-                                                                href="{{ route('employes.show', $employe->id) }}"
-                                                                class="btn btn-success btn-sm mx-1" title="voir détails"><i
-                                                                    class="bi bi-eye"></i></a>
-                                                            <div class="filter">
-                                                                <a class="icon" href="#"
-                                                                    data-bs-toggle="dropdown"><i
-                                                                        class="bi bi-three-dots"></i></a>
-                                                                <ul
-                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                    <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                            href="{{ route('employes.edit', $employe->id) }}"
-                                                                            class="mx-1"><i class="bi bi-pencil"></i>
-                                                                            Modifier</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        {{-- <form
+                                                    <th></th>
+                                                    <th>Matricule</th>
+                                                    <th>Prénom</th>
+                                                    <th>Nom</th>
+                                                    <th>E-mail</th>
+                                                    <th>Téléphone</th>
+                                                    <th><i class="bi bi-gear"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @foreach ($employes as $employe)
+                                                    <tr>
+                                                        <td>
+                                                            <input type="checkbox" name="employes[]"
+                                                                value="{{ $employe->id }}"
+                                                                {{ in_array($employe->directions_id, $employeDirection) ? 'checked' : '' }}
+                                                                {{ in_array($employe->directions_id, $employeDirectionCheck) ? 'disabled' : '' }}
+                                                                class="form-check-input @error('employes') is-invalid @enderror">
+                                                            @error('employes')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div>{{ $message }}</div>
+                                                                </span>
+                                                            @enderror
+                                                            {{-- {{ $individuelle?->numero }} --}}
+                                                        </td>
+                                                        <th scope="row"><img class="rounded-circle w-20" alt="Profil"
+                                                                src="{{ asset($employe->user->getImage()) }}"
+                                                                width="40" height="auto">
+                                                        </th>
+                                                        {{-- <td>{{ $i++ }}</td> --}}
+                                                        <td>{{ $employe->matricule }}</td>
+                                                        <td>{{ $employe->user->firstname }}</td>
+                                                        <td>{{ $employe->user->name }}</td>
+                                                        <td>{{ $employe->user->email }}</td>
+                                                        <td>{{ $employe->user->telephone }}</td>
+                                                        <td>
+                                                            <span class="d-flex mt-2 align-items-baseline"><a
+                                                                    href="{{ route('employes.show', $employe->id) }}"
+                                                                    class="btn btn-success btn-sm mx-1"
+                                                                    title="voir détails"><i class="bi bi-eye"></i></a>
+                                                                <div class="filter">
+                                                                    <a class="icon" href="#"
+                                                                        data-bs-toggle="dropdown"><i
+                                                                            class="bi bi-three-dots"></i></a>
+                                                                    <ul
+                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                        <li><a class="dropdown-item btn btn-sm mx-1"
+                                                                                href="{{ route('employes.edit', $employe->id) }}"
+                                                                                class="mx-1"><i class="bi bi-pencil"></i>
+                                                                                Modifier</a>
+                                                                        </li>
+                                                                        <li>
+                                                                            {{-- <form
                                                                             action="{{ route('employes.destroy', $employe->id) }}"
                                                                             method="post">
                                                                             @csrf
@@ -101,18 +104,20 @@
                                                                                 class="dropdown-item show_confirm"><i
                                                                                     class="bi bi-trash"></i>Supprimer</button>
                                                                         </form> --}}
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
 
-                                        </tbody>
-                                    </table>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-outline-primary btn-sm">Sélectionner</button>
+                                            </tbody>
+                                        </table>
+                                        <div class="text-center">
+                                            <button type="submit"
+                                                class="btn btn-outline-primary btn-sm">Sélectionner</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

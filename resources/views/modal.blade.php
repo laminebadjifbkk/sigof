@@ -28,8 +28,9 @@
             <div class="col-md-12">
                 <h3 class="text-black">Laravel 10 Update Data Using Modal</h3>
                 <br><br>
-                <button type="button" class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#addStudentModal">
-                <i class="fas fa-user-plus"></i>    Add
+                <button type="button" class="btn btn-primary btn-sm mb-3" data-toggle="modal"
+                    data-target="#addStudentModal">
+                    <i class="fas fa-user-plus"></i> Add
                 </button>
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show">
@@ -41,33 +42,36 @@
                 @endif
 
 
-                <table class="table table-bordered">
-                    <thead class="bg-light text-dark">
-                        <tr>
-                            <th><i class="fas fa-user"></i> Name</th>
-                            <th><i class="fas fa-envelope"></i> Email</th>
-                            <th><i class="fas fa-address-card"></i> Address</th>
-                            <th class="align-center" style="text-align: center;"><i class="fas fa-cog"></i> Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($regions as $region)
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="bg-light text-dark">
                             <tr>
-                                <td>{{ $region->nom }}</td>
-                                <td> </td>
-                                <td> </td>
-                                <td class="align-center" style="text-align: center;">
-                                    <button class="btn btn-warning btn-sm" data-toggle="modal"
-                                        data-target="#editStudentModal{{ $region->id }}">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                </td>
-
+                                <th><i class="fas fa-user"></i> Name</th>
+                                <th><i class="fas fa-envelope"></i> Email</th>
+                                <th><i class="fas fa-address-card"></i> Address</th>
+                                <th class="align-center" style="text-align: center;"><i class="fas fa-cog"></i> Action
+                                </th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($regions as $region)
+                                <tr>
+                                    <td>{{ $region->nom }}</td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td class="align-center" style="text-align: center;">
+                                        <button class="btn btn-warning btn-sm" data-toggle="modal"
+                                            data-target="#editStudentModal{{ $region->id }}">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
 
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                </div>
             </div>
         </div>
     </div>
@@ -80,7 +84,8 @@
                 <form method="POST" action="{{ route('addRegion') }}">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addStudentModalLabel"><i class="fas fa-user-plus"></i> Add Student</h5>
+                        <h5 class="modal-title" id="addStudentModalLabel"><i class="fas fa-user-plus"></i> Add Student
+                        </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -128,8 +133,8 @@
                             <input type="hidden" name="id" value="{{ $region->id }}">
                             <div class="form-group">
                                 <label for="name"><i class="fas fa-user"></i> Name</label>
-                                <input type="text" name="name" value="{{ $region->nom }}" class="form-control"
-                                    >
+                                <input type="text" name="name" value="{{ $region->nom }}"
+                                    class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="fas fa-envelope"></i> Email</label>

@@ -136,76 +136,80 @@
                             </span>
                         </div>
                         @if ($arrives?->count() > 0)
-                            <table class="table datatables align-middle" id="table-arrives">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">N° arrivé</th>
-                                        <th class="text-center">Date arrivé</th>
-                                        <th class="text-center">N° correspondance</th>
-                                        <th class="text-center">Date correspondance</th>
-                                        <th>Expéditeur</th>
-                                        <th>Objet</th>
-                                        <th>#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($arrives as $arrive)
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle" id="table-arrives">
+                                    <thead>
                                         <tr>
-                                            <td style="text-align: center;">{{ $arrive?->numero_arrive }}</td>
-                                            {{-- Date reception = date arrivée --}}
-                                            <td style="text-align: center;">
-                                                {{ $arrive?->courrier?->date_recep?->format('d/m/Y') }} </td>
-                                            <td style="text-align: center;">{{ $arrive?->courrier?->numero_courrier }}</td>
-                                            <td style="text-align: center;">
-                                                {{ $arrive?->courrier?->date_cores?->format('d/m/Y') }} </td>
-                                            {{-- <td class="text-center">{{ $arrive->numero }}</td> --}}
-                                            <td>{{ $arrive?->courrier?->expediteur }}</td>
-                                            <td>{{ $arrive?->courrier?->objet }}</td>
-                                            <td>
-                                                <span class="d-flex align-items-baseline"><a
-                                                        href="{{ route('arrives.show', $arrive?->id) }}"
-                                                        class="btn btn-success btn-sm" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            <li><a class="dropdown-item btn btn-sm"
-                                                                    href="{{ route('arrives.edit', $arrive?->id) }}"
-                                                                    class="mx-1"><i class="bi bi-pencil"></i>
-                                                                    Modifier</a>
-                                                            </li>
-                                                            {{-- <li><a class="dropdown-item btn btn-sm"
+                                            <th class="text-center">N° arrivé</th>
+                                            <th class="text-center">Date arrivé</th>
+                                            <th class="text-center">N° correspondance</th>
+                                            <th class="text-center">Date correspondance</th>
+                                            <th>Expéditeur</th>
+                                            <th>Objet</th>
+                                            <th>#</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($arrives as $arrive)
+                                            <tr>
+                                                <td style="text-align: center;">{{ $arrive?->numero_arrive }}</td>
+                                                {{-- Date reception = date arrivée --}}
+                                                <td style="text-align: center;">
+                                                    {{ $arrive?->courrier?->date_recep?->format('d/m/Y') }} </td>
+                                                <td style="text-align: center;">{{ $arrive?->courrier?->numero_courrier }}
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    {{ $arrive?->courrier?->date_cores?->format('d/m/Y') }} </td>
+                                                {{-- <td class="text-center">{{ $arrive->numero }}</td> --}}
+                                                <td>{{ $arrive?->courrier?->expediteur }}</td>
+                                                <td>{{ $arrive?->courrier?->objet }}</td>
+                                                <td>
+                                                    <span class="d-flex align-items-baseline"><a
+                                                            href="{{ route('arrives.show', $arrive?->id) }}"
+                                                            class="btn btn-success btn-sm" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                        <div class="filter">
+                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                    class="bi bi-three-dots"></i></a>
+                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                <li><a class="dropdown-item btn btn-sm"
+                                                                        href="{{ route('arrives.edit', $arrive?->id) }}"
+                                                                        class="mx-1"><i class="bi bi-pencil"></i>
+                                                                        Modifier</a>
+                                                                </li>
+                                                                {{-- <li><a class="dropdown-item btn btn-sm"
                                                                 href="{{ url('arrive-imputations', ['id' => $arrive->id]) }}"
                                                                 class="mx-1">Imputer</a>
                                                         </li> --}}
-                                                            {{--  <li><a class="dropdown-item btn btn-sm"
+                                                                {{--  <li><a class="dropdown-item btn btn-sm"
                                                                 href="{!! url('coupon-arrive', ['$id' => $arrive->id]) !!}" class="mx-1"
                                                                 target="_blank">Imprimer</a>
                                                         </li> --}}
-                                                            @can('arrive-delete')
-                                                                <li>
-                                                                    <form action="{{ route('arrives.destroy', $arrive?->id) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit"
-                                                                            class="dropdown-item show_confirm"><i
-                                                                                class="bi bi-trash"></i>Supprimer</button>
-                                                                    </form>
-                                                                </li>
-                                                            @endcan
-                                                        </ul>
-                                                    </div>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @else
-                            <div class="alert alert-info mt-3">Aucun courrier agrément enregistré pour le moment !!!</div>
+                                                                @can('arrive-delete')
+                                                                    <li>
+                                                                        <form
+                                                                            action="{{ route('arrives.destroy', $arrive?->id) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"><i
+                                                                                    class="bi bi-trash"></i>Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                @endcan
+                                                            </ul>
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <div class="alert alert-info mt-3">Aucun courrier agrément enregistré pour le moment !!!
+                                </div>
                         @endif
                         {{-- <p>Le tableau des courriers arrivés</p> --}}
                         <!-- Table with stripped rows -->
@@ -214,6 +218,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
 
         <div class="modal fade" id="addCourrierOperateur" tabindex="-1" role="dialog"

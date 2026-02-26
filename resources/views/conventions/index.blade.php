@@ -44,62 +44,65 @@
                                 </div>
                             @endcan
                             <h5 class="card-title">Liste des conventions collectives des branches professionnelles</h5>
-                            <table class="table datatables align-middle justify-content-center" id="table-files">
-                                <thead>
-                                    <tr>
-                                        <th width="5%" class="text-center">N°</th>
-                                        <th>Convention</th>
-                                        <th width="5%" class="text-center">Référentiels</th>
-                                        <th width="2%" class="text-center">#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($conventions as $convention)
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle justify-content-center" id="table-files">
+                                    <thead>
                                         <tr>
-                                            <td class="text-center">{{ $i++ }}</td>
-                                            <td>{{ $convention?->name }}</td>
-                                            <td class="text-center">{{ count($convention?->referentiels) }}</td>
-                                            <td style="text-align: center;">
-                                                @can('convention-show')
-                                                    <span class="d-flex align-items-baseline"><a
-                                                            href="{{ url('conventions', $convention->id) }}"
-                                                            class="btn btn-warning btn-sm mx-1" title="Voir détails">
-                                                            <i class="bi bi-eye"></i></a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                @can('convention-update')
-                                                                    <li>
-                                                                        <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#EditFileModal{{ $convention->id }}">
-                                                                            <i class="bi bi-pencil" title="Modifier"></i> Modifier
-                                                                        </button>
-                                                                    </li>
-                                                                @endcan
-
-                                                                @can('convention-delete')
-                                                                    <li>
-                                                                        <form action="{{ url('conventions', $convention->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit" class="dropdown-item show_confirm"><i
-                                                                                    class="bi bi-trash"></i>Supprimer</button>
-                                                                        </form>
-                                                                    </li>
-                                                                @endcan
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                                @endcan
-                                            </td>
+                                            <th width="5%" class="text-center">N°</th>
+                                            <th>Convention</th>
+                                            <th width="5%" class="text-center">Référentiels</th>
+                                            <th width="2%" class="text-center">#</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($conventions as $convention)
+                                            <tr>
+                                                <td class="text-center">{{ $i++ }}</td>
+                                                <td>{{ $convention?->name }}</td>
+                                                <td class="text-center">{{ count($convention?->referentiels) }}</td>
+                                                <td style="text-align: center;">
+                                                    @can('convention-show')
+                                                        <span class="d-flex align-items-baseline"><a
+                                                                href="{{ url('conventions', $convention->id) }}"
+                                                                class="btn btn-warning btn-sm mx-1" title="Voir détails">
+                                                                <i class="bi bi-eye"></i></a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    @can('convention-update')
+                                                                        <li>
+                                                                            <button type="button" class="dropdown-item btn btn-sm mx-1"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#EditFileModal{{ $convention->id }}">
+                                                                                <i class="bi bi-pencil" title="Modifier"></i> Modifier
+                                                                            </button>
+                                                                        </li>
+                                                                    @endcan
+
+                                                                    @can('convention-delete')
+                                                                        <li>
+                                                                            <form action="{{ url('conventions', $convention->id) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"><i
+                                                                                        class="bi bi-trash"></i>Supprimer</button>
+                                                                            </form>
+                                                                        </li>
+                                                                    @endcan
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    @endcan
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 

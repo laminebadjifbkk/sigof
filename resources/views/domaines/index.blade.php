@@ -42,69 +42,73 @@
                                     data-bs-target="#AddIndividuelModal">Ajouter</button>
                             @endcan
                             <h5 class="card-title">Domaines</h5>
-                            <table class="table datatables align-middle justify-content-center" id="table-domaines">
-                                <thead>
-                                    <tr>
-                                        <th>Domaines</th>
-                                        <th>Secteurs</th>
-                                        <th class="text-center">Modules</th>
-                                        <th class="text-center" width="5%">#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($domaines as $domaine)
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle justify-content-center" id="table-domaines">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $domaine->name }}</td>
-                                            <td>{{ $domaine?->secteur?->name }}</td>
-                                            <td style="text-align: center;">
-                                                @foreach ($domaine->modules as $module)
-                                                    @if ($loop->last)
-                                                        <a href="{{ url('domaines/' . $domaine->id) }}"><span
-                                                                class="badge bg-info">{{ $loop->count }}</span></a>
-                                                    @endif
-                                                @endforeach
-                                            </td>
-
-                                            <td style="text-align: center;">
-                                                @can('domaine-create')
-                                                    <span class="d-flex mt-2 align-items-baseline"><a
-                                                            href="{{ route('domaines.show', $domaine->id) }}"
-                                                            class="btn btn-success btn-sm mx-1" title="Voir détails">
-                                                            <i class="bi bi-eye"></i></a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                @can('domaine-create')
-                                                                    <li>
-                                                                        <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#EditRegionModal{{ $domaine->id }}">
-                                                                            <i class="bi bi-pencil" title="Modifier"></i> Modifier
-                                                                        </button>
-                                                                    </li>
-                                                                @endcan
-                                                                @can('domaine-create')
-                                                                    <li>
-                                                                        <form action="{{ route('domaines.destroy', $domaine->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit" class="dropdown-item show_confirm"><i
-                                                                                    class="bi bi-trash"></i>Supprimer</button>
-                                                                        </form>
-                                                                    </li>
-                                                                @endcan
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                                @endcan
-                                            </td>
+                                            <th>Domaines</th>
+                                            <th>Secteurs</th>
+                                            <th class="text-center">Modules</th>
+                                            <th class="text-center" width="5%">#</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($domaines as $domaine)
+                                            <tr>
+                                                <td>{{ $domaine->name }}</td>
+                                                <td>{{ $domaine?->secteur?->name }}</td>
+                                                <td style="text-align: center;">
+                                                    @foreach ($domaine->modules as $module)
+                                                        @if ($loop->last)
+                                                            <a href="{{ url('domaines/' . $domaine->id) }}"><span
+                                                                    class="badge bg-info">{{ $loop->count }}</span></a>
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+
+                                                <td style="text-align: center;">
+                                                    @can('domaine-create')
+                                                        <span class="d-flex mt-2 align-items-baseline"><a
+                                                                href="{{ route('domaines.show', $domaine->id) }}"
+                                                                class="btn btn-success btn-sm mx-1" title="Voir détails">
+                                                                <i class="bi bi-eye"></i></a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    @can('domaine-create')
+                                                                        <li>
+                                                                            <button type="button" class="dropdown-item btn btn-sm mx-1"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#EditRegionModal{{ $domaine->id }}">
+                                                                                <i class="bi bi-pencil" title="Modifier"></i> Modifier
+                                                                            </button>
+                                                                        </li>
+                                                                    @endcan
+                                                                    @can('domaine-create')
+                                                                        <li>
+                                                                            <form
+                                                                                action="{{ route('domaines.destroy', $domaine->id) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"><i
+                                                                                        class="bi bi-trash"></i>Supprimer</button>
+                                                                            </form>
+                                                                        </li>
+                                                                    @endcan
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    @endcan
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -158,7 +162,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+                                <button type="button" class="btn btn-secondary btn-sm"
+                                    data-bs-dismiss="modal">Fermer</button>
                                 <button type="submit" class="btn btn-primary btn-sm">Ajouter</button>
                             </div>
                         </form>
@@ -216,7 +221,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        data-bs-dismiss="modal">Fermer</button>
                                     <button type="submit" class="btn btn-primary btn-sm">Modifier</button>
                                 </div>
                             </form>
@@ -232,7 +238,7 @@
         new DataTable('#table-domaines', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

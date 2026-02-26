@@ -45,56 +45,60 @@
                             </span>
                         </div>
                         @isset($internes)
-                            <table class="table datatables align-middle" id="table-internes">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center" width='8%'>N°</th>
-                                        <th class="text-center" width='12%'>Date arrivé</th>
-                                        <th width='35%'>Objet</th>
-                                        <th>Expéditeur</th>
-                                        <th width='2%'>#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($internes as $interne)
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle" id="table-internes">
+                                    <thead>
                                         <tr>
-                                            <td style="text-align: center;">{{ $interne?->numero_interne }}</td>
-                                            <td style="text-align: center;">
-                                                {{ $interne?->courrier?->date_recep?->format('d/m/Y') }} </td>
-                                            <td>{{ $interne?->courrier?->objet }}</td>
-                                            <td>{{ $interne?->courrier?->expediteur }}</td>
-                                            <td>
-                                                <span class="d-flex align-items-baseline"><a href="#"
-                                                        class="btn btn-success btn-sm" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            <li><a class="dropdown-item btn btn-sm"
-                                                                    href="{{ route('internes.edit', $interne?->id) }}"
-                                                                    class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
-                                                            </li>
-                                                            @can('interne-delete')
-                                                                <li>
-                                                                    <form action="{{ route('internes.destroy', $interne?->id) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit" class="dropdown-item show_confirm"><i
-                                                                                class="bi bi-trash"></i>Supprimer</button>
-                                                                    </form>
-                                                                </li>
-                                                            @endcan
-                                                        </ul>
-                                                    </div>
-                                                </span>
-                                            </td>
+                                            <th class="text-center" width='8%'>N°</th>
+                                            <th class="text-center" width='12%'>Date arrivé</th>
+                                            <th width='35%'>Objet</th>
+                                            <th>Expéditeur</th>
+                                            <th width='2%'>#</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($internes as $interne)
+                                            <tr>
+                                                <td style="text-align: center;">{{ $interne?->numero_interne }}</td>
+                                                <td style="text-align: center;">
+                                                    {{ $interne?->courrier?->date_recep?->format('d/m/Y') }} </td>
+                                                <td>{{ $interne?->courrier?->objet }}</td>
+                                                <td>{{ $interne?->courrier?->expediteur }}</td>
+                                                <td>
+                                                    <span class="d-flex align-items-baseline"><a href="#"
+                                                            class="btn btn-success btn-sm" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                        <div class="filter">
+                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                    class="bi bi-three-dots"></i></a>
+                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                <li><a class="dropdown-item btn btn-sm"
+                                                                        href="{{ route('internes.edit', $interne?->id) }}"
+                                                                        class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
+                                                                </li>
+                                                                @can('interne-delete')
+                                                                    <li>
+                                                                        <form
+                                                                            action="{{ route('internes.destroy', $interne?->id) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"><i
+                                                                                    class="bi bi-trash"></i>Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                @endcan
+                                                            </ul>
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @endisset
                     </div>
                 </div>
@@ -377,7 +381,7 @@
         new DataTable('#table-internes', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

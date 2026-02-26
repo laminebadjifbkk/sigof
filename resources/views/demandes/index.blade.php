@@ -38,50 +38,51 @@
                         <h5 class="card-title">Liste de demandeurs</h5>
                         {{-- <p>Le tableau des demandeurs</p> --}}
                         <!-- Table with stripped rows -->
-                        <table class="table datatables justify-content-center" id="table-demandeurs">
-                            <thead>
-                                <tr>
-                                    <th>N°</th>
-                                    <th>NOM</th>
-                                    <th>Adresse</th>
-                                    <th>Téléphone</th>
-                                    <th>Demandes</th>
-                                    <th class="text-center"><i class="bi bi-gear"></i></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($demandeurs as $demandeur)
-                                    @isset($demandeur?->numero_dossier)
-                                        <tr>
-                                            <td>{{ $demandeur?->numero_dossier }}</td>
-                                            <td>{{ $demandeur->user?->firstname . ' ' . $demandeur->user?->name }} </td>
-                                            <td>{{ $demandeur->user->adresse }}
-                                            <td>{{ $demandeur->user->telephone }}
-                                            </td>
-                                            <td class="text-center">
-                                                @if ($demandeur?->type == 'individuelle')
-                                                    @foreach ($demandeur?->individuelles as $individuelle)
-                                                        @if ($loop->last)
-                                                            <a class="text-primary fw-bold"
-                                                                href="{{ route('demandeurs.show', $individuelle->demandeur->id) }}">{!! $loop->count ?? '0' !!}</a>
-                                                        @endif
-                                                    @endforeach
-                                                @elseif ($demandeur?->type == 'collective')
-                                                    @foreach ($demandeur?->collectives as $collective)
-                                                        @if ($loop->last)
-                                                            <a class="text-primary fw-bold"
-                                                                href="{{ route('demandeurs.show', $collective->demandeur->id) }}">{!! $loop->count ?? '0' !!}</a>
-                                                        @endif
-                                                    @endforeach
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <span class="d-flex align-items-baseline"><a
-                                                        href="{{ route('demandeurs.show', $demandeur->id) }}"
-                                                        class="btn btn-success btn-sm" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                    {{--  <div class="filter">
+                        <div class="table-responsive">
+                            <table class="table datatables justify-content-center" id="table-demandeurs">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>NOM</th>
+                                        <th>Adresse</th>
+                                        <th>Téléphone</th>
+                                        <th>Demandes</th>
+                                        <th class="text-center"><i class="bi bi-gear"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($demandeurs as $demandeur)
+                                        @isset($demandeur?->numero_dossier)
+                                            <tr>
+                                                <td>{{ $demandeur?->numero_dossier }}</td>
+                                                <td>{{ $demandeur->user?->firstname . ' ' . $demandeur->user?->name }} </td>
+                                                <td>{{ $demandeur->user->adresse }}
+                                                <td>{{ $demandeur->user->telephone }}
+                                                </td>
+                                                <td class="text-center">
+                                                    @if ($demandeur?->type == 'individuelle')
+                                                        @foreach ($demandeur?->individuelles as $individuelle)
+                                                            @if ($loop->last)
+                                                                <a class="text-primary fw-bold"
+                                                                    href="{{ route('demandeurs.show', $individuelle->demandeur->id) }}">{!! $loop->count ?? '0' !!}</a>
+                                                            @endif
+                                                        @endforeach
+                                                    @elseif ($demandeur?->type == 'collective')
+                                                        @foreach ($demandeur?->collectives as $collective)
+                                                            @if ($loop->last)
+                                                                <a class="text-primary fw-bold"
+                                                                    href="{{ route('demandeurs.show', $collective->demandeur->id) }}">{!! $loop->count ?? '0' !!}</a>
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <span class="d-flex align-items-baseline"><a
+                                                            href="{{ route('demandeurs.show', $demandeur->id) }}"
+                                                            class="btn btn-success btn-sm" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                        {{--  <div class="filter">
                                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                         class="bi bi-three-dots"></i></a>
                                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -103,14 +104,15 @@
                                                     </li>
                                                 </ul>
                                             </div> --}}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    @endisset
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endisset
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -123,7 +125,7 @@
         new DataTable('#table-demandeurs', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

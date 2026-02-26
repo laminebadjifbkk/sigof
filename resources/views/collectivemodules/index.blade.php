@@ -40,52 +40,55 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">MODULES DEMANDES COLLECTIVES</h5>
                             </div>
-                            <table class="table datatables align-middle justify-content-center" id="table-modules">
-                                <thead>
-                                    <tr>
-                                        <th>Demandeurs</th>
-                                        <th>Localités</th>
-                                        <th>Modules</th>
-                                        <th class="text-center" scope="col">#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($collectivemodules as $collectivemodule)
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle justify-content-center" id="table-modules">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $collectivemodule?->collective?->name }}</td>
-                                            <td>{{ $collectivemodule?->collective?->departement?->region?->nom }}</td>
-                                            <td>{{ $collectivemodule?->module }}</td>
-                                            <td style="text-align: center;">
-                                                @can('module-show')
-                                                    <span class="d-flex mt-2 align-items-baseline"><a href="#"
-                                                            class="btn btn-success btn-sm mx-1" title="Voir détails">
-                                                            <i class="bi bi-eye"></i></a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                @can('module-delete')
-                                                                    <li>
-                                                                        <form
-                                                                            action="{{ route('collectivemodules.destroy', $collectivemodule) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit" class="dropdown-item show_confirm"><i
-                                                                                    class="bi bi-trash"></i>Supprimer</button>
-                                                                        </form>
-                                                                    </li>
-                                                                @endcan
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                                @endcan
-                                            </td>
+                                            <th>Demandeurs</th>
+                                            <th>Localités</th>
+                                            <th>Modules</th>
+                                            <th class="text-center" scope="col">#</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($collectivemodules as $collectivemodule)
+                                            <tr>
+                                                <td>{{ $collectivemodule?->collective?->name }}</td>
+                                                <td>{{ $collectivemodule?->collective?->departement?->region?->nom }}</td>
+                                                <td>{{ $collectivemodule?->module }}</td>
+                                                <td style="text-align: center;">
+                                                    @can('module-show')
+                                                        <span class="d-flex mt-2 align-items-baseline"><a href="#"
+                                                                class="btn btn-success btn-sm mx-1" title="Voir détails">
+                                                                <i class="bi bi-eye"></i></a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    @can('module-delete')
+                                                                        <li>
+                                                                            <form
+                                                                                action="{{ route('collectivemodules.destroy', $collectivemodule) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"><i
+                                                                                        class="bi bi-trash"></i>Supprimer</button>
+                                                                            </form>
+                                                                        </li>
+                                                                    @endcan
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    @endcan
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

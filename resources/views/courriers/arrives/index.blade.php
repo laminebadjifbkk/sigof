@@ -18,33 +18,35 @@
             <div class="col-12">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <table class="table table-bordered table-striped align-middle">
-                            <thead class="table-primary">
-                                <tr>
-                                    <th scope="col" style="width: 50px;">N°</th>
-                                    <th scope="col">Années</th>
-                                    <th scope="col" class="text-center">Courriers reçus</th>
-                                    <th scope="col" style="width: 120px;">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="missions-container">
-                                @foreach ($groupes as $index => $items)
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped align-middle">
+                                <thead class="table-primary">
                                     <tr>
-                                        <td>
-                                            {{ ($groupes->currentPage() - 1) * $groupes->perPage() + $loop->iteration }}
-                                        </td>
-                                        <td>{{ $items->annee }}</td>
-                                        <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
-                                        <td>
-                                            <a href="{{ route('arrives.parAnnee', ['annee' => $items->annee]) }}"
-                                                class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
-                                                Voir plus <i class="bi bi-arrow-right-short"></i>
-                                            </a>
-                                        </td>
+                                        <th scope="col" style="width: 50px;">N°</th>
+                                        <th scope="col">Années</th>
+                                        <th scope="col" class="text-center">Courriers reçus</th>
+                                        <th scope="col" style="width: 120px;">Actions</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody id="missions-container">
+                                    @foreach ($groupes as $index => $items)
+                                        <tr>
+                                            <td>
+                                                {{ ($groupes->currentPage() - 1) * $groupes->perPage() + $loop->iteration }}
+                                            </td>
+                                            <td>{{ $items->annee }}</td>
+                                            <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
+                                            <td>
+                                                <a href="{{ route('arrives.parAnnee', ['annee' => $items->annee]) }}"
+                                                    class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
+                                                    Voir plus <i class="bi bi-arrow-right-short"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
 
                         {{-- Bouton Load More --}}
                         @if ($groupes->hasMorePages())
@@ -131,91 +133,95 @@
                         </div>
                         @if ($arrives->isNotEmpty())
                             {{-- <h5 class="card-title">{{ $title }}</h5> --}}
-                            <table class="table datatables align-middle" id="table-arrives">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center" width='8%'>N° arrivé</th>
-                                        <th class="text-center"width='8%'>Date arrivé</th>
-                                        {{-- <th class="text-center">N° corres.</th> --}}
-                                        {{-- <th class="text-center">Date corres.</th> --}}
-                                        <th>Expéditeur</th>
-                                        <th>Objet</th>
-                                        <th>Imputation</th>
-                                        <th width='2%'>#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($arrives as $arrive)
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle" id="table-arrives">
+                                    <thead>
                                         <tr>
-                                            <td class="text-center">{{ $arrive?->numero_arrive }}</td>
-                                            <td class="text-center">{{ $arrive?->courrier?->date_recep?->format('d/m/Y') }}
-                                            </td>
-                                            {{-- <td class="text-center">{{ $arrive?->courrier?->numero_courrier }}</td> --}}
-                                            {{-- <td class="text-center">{{ $arrive?->courrier?->date_cores?->format('d/m/Y') }}
-                                            </td> --}}
-                                            <td>{{ $arrive?->courrier?->expediteur }}</td>
-                                            <td>{{ $arrive?->courrier?->objet }}</td>
-                                            <td>
-                                                @if ($arrive?->employees && $arrive->employees->isNotEmpty())
-                                                    <ul class="mb-0 ps-3">
-                                                        @foreach ($arrive->employees as $index => $employee)
-                                                            <li>
-                                                                {!! $employee->user->firstname . ' ' . $employee->user->name !!}
-                                                                @if (!empty($employee->fonction?->sigle))
-                                                                    <strong>({!! $employee->fonction?->sigle ?? '' !!})</strong>
-                                                                @endif
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-                                                @else
-                                                    <span class="badge bg-info text-dark">Aucune</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-baseline">
-                                                    <a href="{{ route('arrives.show', $arrive?->id) }}"
-                                                        class="btn btn-success btn-sm" title="voir détails">
-                                                        <i class="bi bi-eye"></i>
-                                                    </a>
-                                                    @can('update', $arrive)
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown">
-                                                                <i class="bi bi-three-dots"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                <li><a class="dropdown-item btn btn-sm"
-                                                                        href="{{ route('arrives.edit', $arrive?->id) }}">
-                                                                        <i class="bi bi-pencil"></i> Modifier</a></li>
-                                                                @can('delete', $arrive)
-                                                                    @can('arrive-delete')
-                                                                        <li>
-                                                                            <form action="{{ route('arrives.destroy', $arrive?->id) }}"
-                                                                                method="post">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit"
-                                                                                    class="dropdown-item show_confirm">
-                                                                                    <i class="bi bi-trash"></i> Supprimer
-                                                                                </button>
-                                                                            </form>
-                                                                        </li>
-                                                                    @endcan
-                                                                @endcan
-                                                            </ul>
-                                                        </div>
-                                                    @endcan
-                                                </div>
-                                            </td>
+                                            <th class="text-center" width='8%'>N° arrivé</th>
+                                            <th class="text-center"width='8%'>Date arrivé</th>
+                                            {{-- <th class="text-center">N° corres.</th> --}}
+                                            {{-- <th class="text-center">Date corres.</th> --}}
+                                            <th>Expéditeur</th>
+                                            <th>Objet</th>
+                                            <th>Imputation</th>
+                                            <th width='2%'>#</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @else
-                            <div class="alert alert-info mt-3">Aucun courrier arrivé enregistré pour le moment !!!</div>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($arrives as $arrive)
+                                            <tr>
+                                                <td class="text-center">{{ $arrive?->numero_arrive }}</td>
+                                                <td class="text-center">
+                                                    {{ $arrive?->courrier?->date_recep?->format('d/m/Y') }}
+                                                </td>
+                                                {{-- <td class="text-center">{{ $arrive?->courrier?->numero_courrier }}</td> --}}
+                                                {{-- <td class="text-center">{{ $arrive?->courrier?->date_cores?->format('d/m/Y') }}
+                                            </td> --}}
+                                                <td>{{ $arrive?->courrier?->expediteur }}</td>
+                                                <td>{{ $arrive?->courrier?->objet }}</td>
+                                                <td>
+                                                    @if ($arrive?->employees && $arrive->employees->isNotEmpty())
+                                                        <ul class="mb-0 ps-3">
+                                                            @foreach ($arrive->employees as $index => $employee)
+                                                                <li>
+                                                                    {!! $employee->user->firstname . ' ' . $employee->user->name !!}
+                                                                    @if (!empty($employee->fonction?->sigle))
+                                                                        <strong>({!! $employee->fonction?->sigle ?? '' !!})</strong>
+                                                                    @endif
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @else
+                                                        <span class="badge bg-info text-dark">Aucune</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-baseline">
+                                                        <a href="{{ route('arrives.show', $arrive?->id) }}"
+                                                            class="btn btn-success btn-sm" title="voir détails">
+                                                            <i class="bi bi-eye"></i>
+                                                        </a>
+                                                        @can('update', $arrive)
+                                                            <div class="filter">
+                                                                <a class="icon" href="#" data-bs-toggle="dropdown">
+                                                                    <i class="bi bi-three-dots"></i>
+                                                                </a>
+                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    <li><a class="dropdown-item btn btn-sm"
+                                                                            href="{{ route('arrives.edit', $arrive?->id) }}">
+                                                                            <i class="bi bi-pencil"></i> Modifier</a></li>
+                                                                    @can('delete', $arrive)
+                                                                        @can('arrive-delete')
+                                                                            <li>
+                                                                                <form
+                                                                                    action="{{ route('arrives.destroy', $arrive?->id) }}"
+                                                                                    method="post">
+                                                                                    @csrf
+                                                                                    @method('DELETE')
+                                                                                    <button type="submit"
+                                                                                        class="dropdown-item show_confirm">
+                                                                                        <i class="bi bi-trash"></i> Supprimer
+                                                                                    </button>
+                                                                                </form>
+                                                                            </li>
+                                                                        @endcan
+                                                                    @endcan
+                                                                </ul>
+                                                            </div>
+                                                        @endcan
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <div class="alert alert-info mt-3">Aucun courrier arrivé enregistré pour le moment !!!</div>
                         @endif
                     </div>
                 </div>
             </div>
+        </div>
         </div>
 
         <div class="modal fade" id="addCourrierArrive" tabindex="-1" role="dialog"

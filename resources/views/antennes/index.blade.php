@@ -36,78 +36,80 @@
                                 data-bs-toggle="modal" data-bs-target="#AddAntenneModal">Ajouter</button>
                         </div>
                         <h5 class="card-title">Antennes</h5>
-                        <table class="table datatables align-middle" id="table-antennes">
-                            <thead>
-                                <tr>
-                                    {{-- <th width="5%" class="text-center">N°</th> --}}
-                                    <th class="text-center" width="5%">Code</th>
-                                    <th>Antenne</th>
-                                    <th class="text-center">Date ouverture</th>
-                                    <th>Contact</th>
-                                    <th width="20%">Adresse</th>
-                                    <th width="15%">Chef d'antenne</th>
-                                    <th>Téléphone chef</th>
-                                    <th>Régions</th>
-                                    <th width="5%" class="text-center">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($antennes as $antenne)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle" id="table-antennes">
+                                <thead>
                                     <tr>
-                                        {{-- <td class="text-center">{{ $i++ }}</td> --}}
-                                        <td class="text-center">{{ $antenne?->code }}</td>
-                                        <td>{{ $antenne?->name }}</td>
-                                        <td class="text-center">{{ $antenne?->date_ouverture?->format('d/m/Y') }}</td>
-                                        <td><a href="tel:+221{{ $antenne?->contact }}">{{ $antenne?->contact }}</a></td>
-                                        <td>{{ $antenne?->adresse }}</td>
-                                        <td>{{ $antenne?->chef?->user?->civilite . ' ' . $antenne->chef?->user?->firstname . ' ' . $antenne->chef?->user?->name }}
-                                        </td>
-                                        <td><a
-                                                href="tel:+221{{ $antenne?->chef?->user?->telephone }}">{{ $antenne?->chef?->user?->telephone }}</a>
-                                        </td>
-                                        <td>
-                                            @foreach ($antenne?->regions as $region)
-                                                <div>{{ $region?->nom }}</div>
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            <span class="d-flex mt-2 align-items-baseline"><a
-                                                    href="{{ route('antennes.show', $antenne->id) }}"
-                                                    class="btn btn-warning btn-sm mx-1" title="Voir"><i
-                                                        class="bi bi-file-lock"></i></a>
-                                                <div class="filter">
-                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                        <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                href="{{ route('antennes.edit', $antenne->id) }}"
-                                                                class="mx-1">Modifier</a>
-                                                        </li>
-                                                        <form action="{{ url('antennes', $antenne->id) }}" method="post">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="dropdown-item show_confirm">Supprimer</button>
-                                                        </form>
-                                                    </ul>
-                                                </div>
-                                            </span>
-                                        </td>
-
+                                        {{-- <th width="5%" class="text-center">N°</th> --}}
+                                        <th class="text-center" width="5%">Code</th>
+                                        <th>Antenne</th>
+                                        <th class="text-center">Date ouverture</th>
+                                        <th>Contact</th>
+                                        <th width="20%">Adresse</th>
+                                        <th width="15%">Chef d'antenne</th>
+                                        <th>Téléphone chef</th>
+                                        <th>Régions</th>
+                                        <th width="5%" class="text-center">#</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($antennes as $antenne)
+                                        <tr>
+                                            {{-- <td class="text-center">{{ $i++ }}</td> --}}
+                                            <td class="text-center">{{ $antenne?->code }}</td>
+                                            <td>{{ $antenne?->name }}</td>
+                                            <td class="text-center">{{ $antenne?->date_ouverture?->format('d/m/Y') }}</td>
+                                            <td><a href="tel:+221{{ $antenne?->contact }}">{{ $antenne?->contact }}</a></td>
+                                            <td>{{ $antenne?->adresse }}</td>
+                                            <td>{{ $antenne?->chef?->user?->civilite . ' ' . $antenne->chef?->user?->firstname . ' ' . $antenne->chef?->user?->name }}
+                                            </td>
+                                            <td><a
+                                                    href="tel:+221{{ $antenne?->chef?->user?->telephone }}">{{ $antenne?->chef?->user?->telephone }}</a>
+                                            </td>
+                                            <td>
+                                                @foreach ($antenne?->regions as $region)
+                                                    <div>{{ $region?->nom }}</div>
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                <span class="d-flex mt-2 align-items-baseline"><a
+                                                        href="{{ route('antennes.show', $antenne->id) }}"
+                                                        class="btn btn-warning btn-sm mx-1" title="Voir"><i
+                                                            class="bi bi-file-lock"></i></a>
+                                                    <div class="filter">
+                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                class="bi bi-three-dots"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            <li><a class="dropdown-item btn btn-sm mx-1"
+                                                                    href="{{ route('antennes.edit', $antenne->id) }}"
+                                                                    class="mx-1">Modifier</a>
+                                                            </li>
+                                                            <form action="{{ url('antennes', $antenne->id) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="dropdown-item show_confirm">Supprimer</button>
+                                                            </form>
+                                                        </ul>
+                                                    </div>
+                                                </span>
+                                            </td>
+
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
     </section>
-    <div
-        class="col-12 d-flex flex-column align-items-center justify-content-center">
+    <div class="col-12 d-flex flex-column align-items-center justify-content-center">
         <div class="modal fade" id="AddAntenneModal" tabindex="-1">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">

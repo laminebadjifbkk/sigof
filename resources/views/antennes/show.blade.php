@@ -26,41 +26,44 @@
                                 </div>
                             </div>
                             <h5 class="card-title">{{ $antenne?->name }}</h5>
-                            <table class="table datatables align-middle justify-content-center" id="table-departements">
-                                <thead>
-                                    <tr>
-                                        <th width="5%" class="text-center">N°</th>
-                                        <th>Régions</th>
-                                        <th>Départements</th>
-                                        <th class="text-center" width="5%">#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($antenne?->regions as $region)
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle justify-content-center" id="table-departements">
+                                    <thead>
                                         <tr>
-                                            <td style="text-align: center;">{{ $i++ }}</td>
-                                            <td>{{ $region?->nom }}</td>
-                                            <td>
-                                                {{--  <span>
+                                            <th width="5%" class="text-center">N°</th>
+                                            <th>Régions</th>
+                                            <th>Départements</th>
+                                            <th class="text-center" width="5%">#</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($antenne?->regions as $region)
+                                            <tr>
+                                                <td style="text-align: center;">{{ $i++ }}</td>
+                                                <td>{{ $region?->nom }}</td>
+                                                <td>
+                                                    {{--  <span>
                                                     {{ count($region?->individuelles) }}
                                                 </span> --}}
-                                                <ul>
-                                                    @foreach ($region?->departements as $departement)
-                                                        <li>{{ $departement?->nom }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            </td>
-                                            <td style="text-align: center;"><span class="d-flex mt-2 align-items-baseline"><a
-                                                        href="{{ route('regiondemandeurs.show', $region->id) }}"
-                                                        class="btn btn-warning btn-sm mx-1" title="Voir détails">
-                                                        <i class="bi bi-eye"></i></a>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                    <ul>
+                                                        @foreach ($region?->departements as $departement)
+                                                            <li>{{ $departement?->nom }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+                                                <td style="text-align: center;"><span
+                                                        class="d-flex mt-2 align-items-baseline"><a
+                                                            href="{{ route('regiondemandeurs.show', $region->id) }}"
+                                                            class="btn btn-warning btn-sm mx-1" title="Voir détails">
+                                                            <i class="bi bi-eye"></i></a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

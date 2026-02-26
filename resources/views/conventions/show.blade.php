@@ -38,58 +38,61 @@
                         <div class="card-body">
                             <div class="card-title">Liste des référentiels</div>
                             <p>{{ $convention->name }}</p>
-                            <table class="table datatables align-middle justify-content-center" id="table-files">
-                                <thead>
-                                    <tr>
-                                        <th width="18%">Intitulé</th>
-                                        <th>Titre</th>
-                                        <th>Catégorie</th>
-                                        {{-- <th>Convention</th> --}}
-                                        <th width="35%">Référence</th>
-                                        <th width="2%" class="text-center">#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($convention->referentiels as $referentiel)
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle justify-content-center" id="table-files">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $referentiel?->intitule }}</td>
-                                            <td>{{ $referentiel?->titre }}</td>
-                                            <td>{{ $referentiel?->categorie }}</td>
-                                            {{-- <td>{{ $referentiel?->convention?->name }}</td> --}}
-                                            <td>{{ $referentiel?->reference }}</td>
-                                            <td style="text-align: center;">
-                                                @can('referentiel-show')
-                                                    <span class="d-flex align-items-baseline">
-                                                        @can('referentiel-update')
-                                                            <a href="{{ route('referentiels.edit', $referentiel->id) }}"
-                                                                class="btn btn-warning btn-sm mx-1 text-white" title="Modifier">
-                                                                <i class="bi bi-pencil"></i></a>
-                                                        @endcan
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                @can('referentiel-delete')
-                                                                    <li>
-                                                                        <form action="{{ url('referentiels', $referentiel->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit" class="dropdown-item show_confirm"><i
-                                                                                    class="bi bi-trash"></i>Supprimer</button>
-                                                                        </form>
-                                                                    </li>
-                                                                @endcan
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                                @endcan
-                                            </td>
+                                            <th width="18%">Intitulé</th>
+                                            <th>Titre</th>
+                                            <th>Catégorie</th>
+                                            {{-- <th>Convention</th> --}}
+                                            <th width="35%">Référence</th>
+                                            <th width="2%" class="text-center">#</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($convention->referentiels as $referentiel)
+                                            <tr>
+                                                <td>{{ $referentiel?->intitule }}</td>
+                                                <td>{{ $referentiel?->titre }}</td>
+                                                <td>{{ $referentiel?->categorie }}</td>
+                                                {{-- <td>{{ $referentiel?->convention?->name }}</td> --}}
+                                                <td>{{ $referentiel?->reference }}</td>
+                                                <td style="text-align: center;">
+                                                    @can('referentiel-show')
+                                                        <span class="d-flex align-items-baseline">
+                                                            @can('referentiel-update')
+                                                                <a href="{{ route('referentiels.edit', $referentiel->id) }}"
+                                                                    class="btn btn-warning btn-sm mx-1 text-white" title="Modifier">
+                                                                    <i class="bi bi-pencil"></i></a>
+                                                            @endcan
+                                                            <div class="filter">
+                                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    @can('referentiel-delete')
+                                                                        <li>
+                                                                            <form action="{{ url('referentiels', $referentiel->id) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"><i
+                                                                                        class="bi bi-trash"></i>Supprimer</button>
+                                                                            </form>
+                                                                        </li>
+                                                                    @endcan
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    @endcan
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

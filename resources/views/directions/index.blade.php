@@ -38,73 +38,77 @@
                         <h5 class="card-title">Liste des directions</h5>
                         {{-- <p>Le tableau de toutes les directions.</p> --}}
                         <!-- Table with stripped rows -->
-                        <table class="table datatables align-middle" id="table-directions">
-                            <thead>
-                                <tr>
-                                    <th style="text-align: center;">N°</th>
-                                    <th>Direction</th>
-                                    <th>Sigle</th>
-                                    <th>Type</th>
-                                    <th>Responsable</th>
-                                    <th>Effectif</th>
-                                    <th>#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($directions as $direction)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle" id="table-directions">
+                                <thead>
                                     <tr>
-                                        <td style="text-align: center;">{{ $i++ }}</td>
-                                        <td>{{ $direction->name }}</td>
-                                        <td>{{ $direction->sigle }}</td>
-                                        <td>{{ $direction->type }}</td>
-                                        <td>{{ $direction->chef?->user?->civilite . ' ' . $direction->chef?->user?->firstname . ' ' . $direction->chef?->user?->name }}
-                                        </td>
-                                        <td style="text-align: center;">
-                                            @foreach ($direction->employees as $employe)
-                                                @if ($loop->last)
-                                                    <span class="badge bg-info">{{ $loop->count }}</span>
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            @can('direction-show')
-                                                <span class="d-flex mt-2 align-items-baseline">
-                                                    <a href="{{ route('directions.show', $direction) }}"
-                                                        class="btn btn-warning btn-sm mx-1" title="Donner permission"><i
-                                                            class="bi bi-eye"></i>
-                                                    </a>
-                                                    <div class="filter">
-                                                        <a class="icon" href="" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            @can('direction-update')
-                                                                <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                        href="{{ route('directions.edit', $direction) }}"
-                                                                        class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
-                                                                </li>
-                                                            @endcan
-                                                            @can('direction-delete')
-                                                                <li>
-                                                                    <form action="{{ route('directions.destroy', $direction) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit" class="dropdown-item show_confirm"><i
-                                                                                class="bi bi-trash"></i>Supprimer</button>
-                                                                    </form>
-                                                                </li>
-                                                            @endcan
-                                                        </ul>
-                                                    </div>
-                                                </span>
-                                            @endcan
-                                        </td>
+                                        <th style="text-align: center;">N°</th>
+                                        <th>Direction</th>
+                                        <th>Sigle</th>
+                                        <th>Type</th>
+                                        <th>Responsable</th>
+                                        <th>Effectif</th>
+                                        <th>#</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($directions as $direction)
+                                        <tr>
+                                            <td style="text-align: center;">{{ $i++ }}</td>
+                                            <td>{{ $direction->name }}</td>
+                                            <td>{{ $direction->sigle }}</td>
+                                            <td>{{ $direction->type }}</td>
+                                            <td>{{ $direction->chef?->user?->civilite . ' ' . $direction->chef?->user?->firstname . ' ' . $direction->chef?->user?->name }}
+                                            </td>
+                                            <td style="text-align: center;">
+                                                @foreach ($direction->employees as $employe)
+                                                    @if ($loop->last)
+                                                        <span class="badge bg-info">{{ $loop->count }}</span>
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                @can('direction-show')
+                                                    <span class="d-flex mt-2 align-items-baseline">
+                                                        <a href="{{ route('directions.show', $direction) }}"
+                                                            class="btn btn-warning btn-sm mx-1" title="Donner permission"><i
+                                                                class="bi bi-eye"></i>
+                                                        </a>
+                                                        <div class="filter">
+                                                            <a class="icon" href="" data-bs-toggle="dropdown"><i
+                                                                    class="bi bi-three-dots"></i></a>
+                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                @can('direction-update')
+                                                                    <li><a class="dropdown-item btn btn-sm mx-1"
+                                                                            href="{{ route('directions.edit', $direction) }}"
+                                                                            class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
+                                                                    </li>
+                                                                @endcan
+                                                                @can('direction-delete')
+                                                                    <li>
+                                                                        <form
+                                                                            action="{{ route('directions.destroy', $direction) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"><i
+                                                                                    class="bi bi-trash"></i>Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                @endcan
+                                                            </ul>
+                                                        </div>
+                                                    </span>
+                                                @endcan
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
                     </div>
                 </div>
 

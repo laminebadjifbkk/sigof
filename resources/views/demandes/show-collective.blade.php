@@ -52,100 +52,104 @@
                                 Bienvenue {{ $demandeur?->user?->name }},
                                 n° dossier : {{ $demandeur?->numero_dossier }}</h5>
                             <!-- demande -->
-                            <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
-                                <table class="table table-borderless">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">N° demande</th>
-                                            <th scope="col">Nom</th>
-                                            <th scope="col">Module</th>
-                                            <th scope="col">Localité</th>
-                                            <th scope="col">Statut</th>
-                                            <th class="col"><i class="bi bi-gear"></i></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {{-- @foreach (Auth::user()->collectives as $collective) --}}
-                                        @foreach ($demandeur->collectives as $collective)
+                            <div class="table-responsive">
+                                <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
+                                    <table class="table table-borderless">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $collective->numero }}</td>
-                                                <td>{{ $collective->demandeur->user?->firstname . ' ' . $collective->demandeur->user?->name }}
-                                                </td>
-                                                <td>{{ $collective?->module?->name }}</td>
-                                                <td>{{ $collective?->region?->nom }}</td>
-                                                <td>
-                                                    @if (isset($collective?->module?->name))
-                                                        @isset($collective?->statut_demande)
-                                                            @if ($collective?->statut_demande == 'Attente')
-                                                                <span
-                                                                    class="badge bg-secondary text-white">{{ $collective?->statut_demande }}
-                                                                </span>
-                                                            @elseif ($collective?->statut_demande == 'accepter')
-                                                                <span
-                                                                    class="badge bg-success text-white">{{ $collective?->statut_demande }}
-                                                                </span>
-                                                            @elseif ($collective?->statut_demande == 'Rejetée')
-                                                                <span
-                                                                    class="badge bg-danger text-white">{{ $collective?->statut_demande }}
-                                                                </span>
-                                                            @else
-                                                                <span
-                                                                    class="badge bg-warning text-white">{{ $collective?->statut_demande }}
-                                                                </span>
-                                                            @endif
-                                                        @endisset
-                                                    @else
-                                                        <span class="badge bg-warning text-white">incomplète
-                                                        </span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <span class="d-flex align-items-baseline">
-                                                        <a href="{{ route('collectives.show', $collective) }}"
-                                                            class="btn btn-success btn-sm" title="voir détails"><i
-                                                                class="bi bi-eye"></i></a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                <li><a class="dropdown-item btn btn-sm"
-                                                                        href="{{ route('collectives.edit', $collective) }}"
-                                                                        class="mx-1" title="Modifier"><i
-                                                                            class="bi bi-pencil"></i>Modifier</a>
-                                                                </li>
-                                                                <li>
-                                                                    <form
-                                                                        action="{{ route('collectives.destroy', $collective) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit"
-                                                                            class="dropdown-item show_confirm"
-                                                                            title="Supprimer"><i
-                                                                                class="bi bi-trash"></i>Supprimer</button>
-                                                                    </form>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                                </td>
+                                                <th scope="col">N° demande</th>
+                                                <th scope="col">Nom</th>
+                                                <th scope="col">Module</th>
+                                                <th scope="col">Localité</th>
+                                                <th scope="col">Statut</th>
+                                                <th class="col"><i class="bi bi-gear"></i></th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </form>
-                        @else
-                            @foreach ($demandeur->collectives as $collective)
-                                <a href="{{ route('collectives.edit', $collective) }}"
-                                    class="btn btn-primary float-end btn-rounded"><i class="fas fa-plus"></i>
-                                    <i class="bi bi-person-plus" title="Ajouter"></i> </a>
-                            @endforeach
-                            <h5 class="card-title">Aucune demande collective pour le moment !!!</h5>
+                                        </thead>
+                                        <tbody>
+                                            {{-- @foreach (Auth::user()->collectives as $collective) --}}
+                                            @foreach ($demandeur->collectives as $collective)
+                                                <tr>
+                                                    <td>{{ $collective->numero }}</td>
+                                                    <td>{{ $collective->demandeur->user?->firstname . ' ' . $collective->demandeur->user?->name }}
+                                                    </td>
+                                                    <td>{{ $collective?->module?->name }}</td>
+                                                    <td>{{ $collective?->region?->nom }}</td>
+                                                    <td>
+                                                        @if (isset($collective?->module?->name))
+                                                            @isset($collective?->statut_demande)
+                                                                @if ($collective?->statut_demande == 'Attente')
+                                                                    <span
+                                                                        class="badge bg-secondary text-white">{{ $collective?->statut_demande }}
+                                                                    </span>
+                                                                @elseif ($collective?->statut_demande == 'accepter')
+                                                                    <span
+                                                                        class="badge bg-success text-white">{{ $collective?->statut_demande }}
+                                                                    </span>
+                                                                @elseif ($collective?->statut_demande == 'Rejetée')
+                                                                    <span
+                                                                        class="badge bg-danger text-white">{{ $collective?->statut_demande }}
+                                                                    </span>
+                                                                @else
+                                                                    <span
+                                                                        class="badge bg-warning text-white">{{ $collective?->statut_demande }}
+                                                                    </span>
+                                                                @endif
+                                                            @endisset
+                                                        @else
+                                                            <span class="badge bg-warning text-white">incomplète
+                                                            </span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <span class="d-flex align-items-baseline">
+                                                            <a href="{{ route('collectives.show', $collective) }}"
+                                                                class="btn btn-success btn-sm" title="voir détails"><i
+                                                                    class="bi bi-eye"></i></a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#"
+                                                                    data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul
+                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    <li><a class="dropdown-item btn btn-sm"
+                                                                            href="{{ route('collectives.edit', $collective) }}"
+                                                                            class="mx-1" title="Modifier"><i
+                                                                                class="bi bi-pencil"></i>Modifier</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <form
+                                                                            action="{{ route('collectives.destroy', $collective) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"
+                                                                                title="Supprimer"><i
+                                                                                    class="bi bi-trash"></i>Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </form>
+                            @else
+                                @foreach ($demandeur->collectives as $collective)
+                                    <a href="{{ route('collectives.edit', $collective) }}"
+                                        class="btn btn-primary float-end btn-rounded"><i class="fas fa-plus"></i>
+                                        <i class="bi bi-person-plus" title="Ajouter"></i> </a>
+                                @endforeach
+                                <h5 class="card-title">Aucune demande collective pour le moment !!!</h5>
                         @endif
                         <!-- End demande -->
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <div class="col-lg-12 col-md-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="AddCollectiveModal" tabindex="-1">
