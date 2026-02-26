@@ -77,7 +77,11 @@ class AuthenticatedSessionController extends Controller
 
         $une      = Une::whereNotNull("status")->first();
         $projets  = Projet::whereNotNull("image")->get();
-        $contacts = Contact::whereNotNull("statut")->latest()->limit(5)->get();
+        $contacts = Contact::whereNotNull('statut')
+            ->where('statut', '!=', '')
+            ->latest()
+            ->take(5)
+            ->get();
         /* $today    = now()->toDateString();
 
         $annee      = date('Y');
