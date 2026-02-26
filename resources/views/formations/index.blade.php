@@ -226,7 +226,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h5 class="card-title mb-0">{{ $title }}</h5>
 
-                            @can('formation-show')
+                            @can('formation-create')
                                 <div class="d-flex align-items-center gap-2">
                                     <!-- Bouton Ajouter -->
                                     <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
@@ -249,6 +249,14 @@
                                             </li>
                                         </ul>
                                     </div>
+                                </div>
+                            @endcan
+                            @can('formation-suivi')
+                                <div class="d-flex align-items-center gap-2">
+                                    <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#generate_rapportFormation">
+                                        <i class="bi bi-file-earmark-text"></i> Générer suivi-convention
+                                    </button>
                                 </div>
                             @endcan
                         </div>
