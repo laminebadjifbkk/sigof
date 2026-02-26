@@ -622,215 +622,223 @@
                                                         <i class="bi bi-people-fill me-2"></i> Liste des bénéficiaires
                                                     </h5>
                                                 </h5>
-                                                <table
-                                                    class="table table-bordered table-hover datatables align-middle justify-content-center table-borderless"
-                                                    id="table-operateurModules">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="text-center" width="2%">N°</th>
-                                                            <th class="text-center" width="12%">CIN</th>
-                                                            <th class="text-center" width="4%">Civilité</th>
-                                                            <th>Prénom</th>
-                                                            <th>NOM</th>
-                                                            <th width="10%">Date naissance</th>
-                                                            <th>Lieu de naissance</th>
-                                                            <th class="text-center">Telephone</th>
-                                                            <th>Niveau étude</th>
-                                                            {{-- Condition pour afficher la note ou la confirmation --}}
-                                                            @if ($formation->statut === 'Terminée')
-                                                                <th class="text-center">Note</th>
-                                                            @else
-                                                                <th>Confirmation</th>
-                                                            @endif
-                                                            {{-- Masquer le suivi si la formation n'est pas encore Terminée --}}
-                                                            @if ($formation->statut === 'Terminée')
-                                                                @can('rapport-suivi-formes-view')
-                                                                    <th width='3%'>Suivi</th>
-                                                                @endcan
-                                                            @endif
-                                                            <th width='2%'></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php $i = 1; ?>
-                                                        @foreach ($formation->individuelles as $individuelle)
-                                                            <tr valign="middle">
-                                                                <td class="text-center">{{ $i++ }}</td>
-                                                                <td class="text-center">{{ $individuelle?->user?->cin }}
-                                                                </td>
-                                                                <td>{{ $individuelle?->user?->civilite }}</td>
-                                                                <td>{{ $individuelle?->user?->firstname }}</td>
-                                                                <td>{{ $individuelle?->user?->name }}</td>
-                                                                <td>
-                                                                    {{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}
-                                                                </td>
-                                                                <td>
-                                                                    {{ $individuelle?->user?->lieu_naissance }}
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    {{ $individuelle?->user?->telephone }}
-                                                                </td>
-                                                                <td>
-                                                                    {{ $individuelle?->niveau_etude }}
-                                                                </td>
+
+                                                <div class="table-responsive">
+                                                    <table
+                                                        class="table table-bordered table-hover datatables align-middle justify-content-center table-borderless"
+                                                        id="table-operateurModules">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center" width="2%">N°</th>
+                                                                <th class="text-center" width="12%">CIN</th>
+                                                                <th class="text-center" width="4%">Civilité</th>
+                                                                <th>Prénom</th>
+                                                                <th>NOM</th>
+                                                                <th width="10%">Date naissance</th>
+                                                                <th>Lieu de naissance</th>
+                                                                <th class="text-center">Telephone</th>
+                                                                <th>Niveau étude</th>
                                                                 {{-- Condition pour afficher la note ou la confirmation --}}
                                                                 @if ($formation->statut === 'Terminée')
-                                                                    <td class="text-center">
-                                                                        {{ $individuelle?->note_obtenue ?? ' ' }}</td>
+                                                                    <th class="text-center">Note</th>
                                                                 @else
-                                                                    <td class="text-center">
-                                                                        <span
-                                                                            class="{{ $individuelle?->confirmation }}">{{ $individuelle?->confirmation ?? ' ' }}</span>
-                                                                        @if (!empty($individuelle?->motif_declinaison))
-                                                                            <!-- Bouton qui ouvre le modal -->
-                                                                            <button class="btn btn-sm mx-1"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#declinaisonModal{{ $individuelle->id }}">
-                                                                                <i class="bi bi-plus"></i> Voir
-                                                                            </button>
-                                                                        @endif
-                                                                    </td>
+                                                                    <th>Confirmation</th>
                                                                 @endif
                                                                 {{-- Masquer le suivi si la formation n'est pas encore Terminée --}}
                                                                 @if ($formation->statut === 'Terminée')
                                                                     @can('rapport-suivi-formes-view')
-                                                                        <td style="text-align: center;">
-                                                                            @if (empty($individuelle?->suivi))
-                                                                                <form
-                                                                                    action="{{ route('SuivreFormes', $individuelle?->id) }}"
-                                                                                    method="post">
-                                                                                    @csrf
-                                                                                    @method('PUT')
-                                                                                    <button
-                                                                                        class="show_confirm_suivi btn btn-dark rounded-pill btn-sm float-center">
-                                                                                        Suivre
-                                                                                    </button>
-                                                                                </form>
-                                                                            @else
-                                                                                <button type="button"
-                                                                                    class="btn btn-success rounded-pill btn-sm float-center">
-                                                                                    {{ $individuelle?->suivi }}
+                                                                        <th width='3%'>Suivi</th>
+                                                                    @endcan
+                                                                @endif
+                                                                <th width='2%'></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php $i = 1; ?>
+                                                            @foreach ($formation->individuelles as $individuelle)
+                                                                <tr valign="middle">
+                                                                    <td class="text-center">{{ $i++ }}</td>
+                                                                    <td class="text-center">
+                                                                        {{ $individuelle?->user?->cin }}
+                                                                    </td>
+                                                                    <td>{{ $individuelle?->user?->civilite }}</td>
+                                                                    <td>{{ $individuelle?->user?->firstname }}</td>
+                                                                    <td>{{ $individuelle?->user?->name }}</td>
+                                                                    <td>
+                                                                        {{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ $individuelle?->user?->lieu_naissance }}
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        {{ $individuelle?->user?->telephone }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ $individuelle?->niveau_etude }}
+                                                                    </td>
+                                                                    {{-- Condition pour afficher la note ou la confirmation --}}
+                                                                    @if ($formation->statut === 'Terminée')
+                                                                        <td class="text-center">
+                                                                            {{ $individuelle?->note_obtenue ?? ' ' }}</td>
+                                                                    @else
+                                                                        <td class="text-center">
+                                                                            <span
+                                                                                class="{{ $individuelle?->confirmation }}">{{ $individuelle?->confirmation ?? ' ' }}</span>
+                                                                            @if (!empty($individuelle?->motif_declinaison))
+                                                                                <!-- Bouton qui ouvre le modal -->
+                                                                                <button class="btn btn-sm mx-1"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#declinaisonModal{{ $individuelle->id }}">
+                                                                                    <i class="bi bi-plus"></i> Voir
                                                                                 </button>
                                                                             @endif
                                                                         </td>
-                                                                    @endcan
-                                                                @endif
-                                                                <td>
-                                                                    <div class="d-flex align-items-center gap-2">
-                                                                        <!-- Bouton voir détails -->
-                                                                        <a href="{{ route('individuelles.show', $individuelle) }}"
-                                                                            class="btn btn-primary btn-sm"
-                                                                            title="Voir détails">
-                                                                            <i class="bi bi-eye"></i>
-                                                                        </a>
-
-                                                                        <!-- Bouton Transférer -->
-                                                                        <button class="btn btn-warning btn-sm mx-1"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#changerModuleModal-{{ $individuelle->id }}"
-                                                                            title="Transférer">
-                                                                            <i class="bi bi-arrow-left-right"></i>
-                                                                        </button>
-
-                                                                        <!-- Menu déroulant -->
-                                                                        <div class="dropdown">
-                                                                            <a href="#" class="btn btn-sm btn-light"
-                                                                                data-bs-toggle="dropdown"
-                                                                                aria-expanded="false" title="Actions">
-                                                                                <i class="bi bi-three-dots-vertical"></i>
-                                                                            </a>
-                                                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                                                @can('retirer-demandeur-formation')
-                                                                                    <li>
-                                                                                        <button type="button"
-                                                                                            class="dropdown-item"
-                                                                                            data-bs-toggle="modal"
-                                                                                            data-bs-target="#indiponibleModal{{ $individuelle->id }}">
-                                                                                            <i class="bi bi-person-x"></i>
-                                                                                            Retirer
+                                                                    @endif
+                                                                    {{-- Masquer le suivi si la formation n'est pas encore Terminée --}}
+                                                                    @if ($formation->statut === 'Terminée')
+                                                                        @can('rapport-suivi-formes-view')
+                                                                            <td style="text-align: center;">
+                                                                                @if (empty($individuelle?->suivi))
+                                                                                    <form
+                                                                                        action="{{ route('SuivreFormes', $individuelle?->id) }}"
+                                                                                        method="post">
+                                                                                        @csrf
+                                                                                        @method('PUT')
+                                                                                        <button
+                                                                                            class="show_confirm_suivi btn btn-dark rounded-pill btn-sm float-center">
+                                                                                            Suivre
                                                                                         </button>
-                                                                                    </li>
-                                                                                @endcan
-
-                                                                                @if (!empty($individuelle?->suivi) && $formation->statut !== 'Nouvelle')
-                                                                                    <li>
-                                                                                        <form
-                                                                                            action="{{ route('nepasSuivre', $individuelle->id) }}"
-                                                                                            method="POST">
-                                                                                            @csrf
-                                                                                            @method('PUT')
-                                                                                            <button type="submit"
-                                                                                                class="dropdown-item text-danger show_confirm_suivi">
-                                                                                                <i
-                                                                                                    class="bi bi-slash-circle"></i>
-                                                                                                Ne plus suivre
-                                                                                            </button>
-                                                                                        </form>
-                                                                                    </li>
+                                                                                    </form>
+                                                                                @else
+                                                                                    <button type="button"
+                                                                                        class="btn btn-success rounded-pill btn-sm float-center">
+                                                                                        {{ $individuelle?->suivi }}
+                                                                                    </button>
                                                                                 @endif
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
+                                                                            </td>
+                                                                        @endcan
+                                                                    @endif
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center gap-2">
+                                                                            <!-- Bouton voir détails -->
+                                                                            <a href="{{ route('individuelles.show', $individuelle) }}"
+                                                                                class="btn btn-primary btn-sm"
+                                                                                title="Voir détails">
+                                                                                <i class="bi bi-eye"></i>
+                                                                            </a>
 
-                                                            </tr>
+                                                                            <!-- Bouton Transférer -->
+                                                                            <button class="btn btn-warning btn-sm mx-1"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#changerModuleModal-{{ $individuelle->id }}"
+                                                                                title="Transférer">
+                                                                                <i class="bi bi-arrow-left-right"></i>
+                                                                            </button>
 
-                                                            <!-- MODAL pour changer de module -->
-                                                            <div class="modal fade"
-                                                                id="changerModuleModal-{{ $individuelle->id }}"
-                                                                tabindex="-1" aria-labelledby="changerModuleLabel"
-                                                                aria-hidden="true">
-                                                                <div class="modal-dialog modal-lg">
-                                                                    <form
-                                                                        action="{{ route('demandeurformationindividuelle.changerFormation', $individuelle->id) }}"
-                                                                        method="POST">
-                                                                        @csrf
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title"
-                                                                                    id="changerModuleLabel">
-                                                                                    Changer de formation pour
-                                                                                    {{ $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
-                                                                                </h5>
-                                                                                <button type="button" class="btn-close"
-                                                                                    data-bs-dismiss="modal"
-                                                                                    aria-label="Fermer"></button>
+                                                                            <!-- Menu déroulant -->
+                                                                            <div class="dropdown">
+                                                                                <a href="#"
+                                                                                    class="btn btn-sm btn-light"
+                                                                                    data-bs-toggle="dropdown"
+                                                                                    aria-expanded="false" title="Actions">
+                                                                                    <i
+                                                                                        class="bi bi-three-dots-vertical"></i>
+                                                                                </a>
+                                                                                <ul
+                                                                                    class="dropdown-menu dropdown-menu-end">
+                                                                                    @can('retirer-demandeur-formation')
+                                                                                        <li>
+                                                                                            <button type="button"
+                                                                                                class="dropdown-item"
+                                                                                                data-bs-toggle="modal"
+                                                                                                data-bs-target="#indiponibleModal{{ $individuelle->id }}">
+                                                                                                <i class="bi bi-person-x"></i>
+                                                                                                Retirer
+                                                                                            </button>
+                                                                                        </li>
+                                                                                    @endcan
+
+                                                                                    @if (!empty($individuelle?->suivi) && $formation->statut !== 'Nouvelle')
+                                                                                        <li>
+                                                                                            <form
+                                                                                                action="{{ route('nepasSuivre', $individuelle->id) }}"
+                                                                                                method="POST">
+                                                                                                @csrf
+                                                                                                @method('PUT')
+                                                                                                <button type="submit"
+                                                                                                    class="dropdown-item text-danger show_confirm_suivi">
+                                                                                                    <i
+                                                                                                        class="bi bi-slash-circle"></i>
+                                                                                                    Ne plus suivre
+                                                                                                </button>
+                                                                                            </form>
+                                                                                        </li>
+                                                                                    @endif
+                                                                                </ul>
                                                                             </div>
-                                                                            <div class="modal-body">
-                                                                                <div class="mb-3">
-                                                                                    <label for="formations_id"
-                                                                                        class="form-label">Sélectionnez
-                                                                                        une autre formation
-                                                                                        :</label>
-                                                                                    <select name="formations_id"
-                                                                                        id="formations_id"
-                                                                                        class="form-select form-select-sm"
-                                                                                        required>
-                                                                                        @foreach ($formations as $formationN)
-                                                                                            <option
-                                                                                                value="{{ $formationN->id }}"
-                                                                                                {{ $formationN?->id == $individuelle?->formations_id ? 'selected' : '' }}>
-                                                                                                {{ $formationN?->name }}
-                                                                                            </option>
-                                                                                        @endforeach
-                                                                                    </select>
+                                                                        </div>
+                                                                    </td>
+
+                                                                </tr>
+
+                                                                <!-- MODAL pour changer de module -->
+                                                                <div class="modal fade"
+                                                                    id="changerModuleModal-{{ $individuelle->id }}"
+                                                                    tabindex="-1" aria-labelledby="changerModuleLabel"
+                                                                    aria-hidden="true">
+                                                                    <div class="modal-dialog modal-lg">
+                                                                        <form
+                                                                            action="{{ route('demandeurformationindividuelle.changerFormation', $individuelle->id) }}"
+                                                                            method="POST">
+                                                                            @csrf
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title"
+                                                                                        id="changerModuleLabel">
+                                                                                        Changer de formation pour
+                                                                                        {{ $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
+                                                                                    </h5>
+                                                                                    <button type="button"
+                                                                                        class="btn-close"
+                                                                                        data-bs-dismiss="modal"
+                                                                                        aria-label="Fermer"></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div class="mb-3">
+                                                                                        <label for="formations_id"
+                                                                                            class="form-label">Sélectionnez
+                                                                                            une autre formation
+                                                                                            :</label>
+                                                                                        <select name="formations_id"
+                                                                                            id="formations_id"
+                                                                                            class="form-select form-select-sm"
+                                                                                            required>
+                                                                                            @foreach ($formations as $formationN)
+                                                                                                <option
+                                                                                                    value="{{ $formationN->id }}"
+                                                                                                    {{ $formationN?->id == $individuelle?->formations_id ? 'selected' : '' }}>
+                                                                                                    {{ $formationN?->name }}
+                                                                                                </option>
+                                                                                            @endforeach
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button"
+                                                                                        class="btn btn-secondary btn-sm"
+                                                                                        data-bs-dismiss="modal">Fermer</button>
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-success btn-sm">Changer</button>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button"
-                                                                                    class="btn btn-secondary btn-sm"
-                                                                                    data-bs-dismiss="modal">Fermer</button>
-                                                                                <button type="submit"
-                                                                                    class="btn btn-success btn-sm">Changer</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
+                                                                        </form>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        @endforeach
+                                                            @endforeach
 
-                                                    </tbody>
-                                                </table>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     @else
@@ -1151,85 +1159,89 @@
 
                                                 </div>
                                                 <div class="row g-3">
-                                                    <table class="table table-bordered table-hover datatables"
-                                                        id="table-evaluation">
-                                                        <thead>
-                                                            <tr>
-                                                                <th class="text-center" width="2%">N°</th>
-                                                                <th class="text-center" width="4%">Civilité</th>
-                                                                <th>CIN</th>
-                                                                <th>Prénom</th>
-                                                                <th>NOM</th>
-                                                                <th>Date naissance</th>
-                                                                <th>Lieu de naissance</th>
-                                                                <th class="text-center">Note<span
-                                                                        class="text-danger mx-1">*</span></th>
-                                                                <th class="text-center">Appréciation</th>
-                                                                <th class="text-center">Observations</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @php $i = 1; @endphp
-                                                            @foreach ($formation->individuelles as $individuelle)
-                                                                <tr valign="middle" class="text-center">
-                                                                    <td>{{ $i++ }}</td>
-                                                                    <td>{{ $individuelle?->user?->civilite }}</td>
-                                                                    <td>{{ $individuelle?->user?->cin }}</td>
-                                                                    <td>{{ $individuelle?->user?->firstname }}</td>
-                                                                    <td>{{ $individuelle?->user?->name }}</td>
-                                                                    <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}
-                                                                    </td>
-                                                                    <td>{{ $individuelle?->user?->lieu_naissance }}</td>
-
-                                                                    {{-- Champ note --}}
-                                                                    <td width="10%" class="text-center">
-                                                                        <input type="text"
-                                                                            class="form-control note-input"
-                                                                            value="{{ $individuelle?->note_obtenue }}"
-                                                                            name="notes[]"
-                                                                            placeholder="note (0-20 ou texte)"
-                                                                            step="0.01" min="0" max="20">
-
-                                                                        <input type="hidden" name="individuelles[]"
-                                                                            value="{{ $individuelle?->id }}">
-                                                                    </td>
-
-                                                                    {{-- Champ appréciation --}}
-                                                                    <td width="10%" class="text-center">
-                                                                        <input type="text"
-                                                                            class="form-control appreciation-input"
-                                                                            value="{{ $individuelle?->appreciation }}"
-                                                                            name="appreciations[]"
-                                                                            placeholder="appréciation">
-                                                                    </td>
-
-                                                                    {{-- Observations --}}
-                                                                    <td
-                                                                        style="text-align: center; vertical-align: middle;">
-                                                                        @can('evaluer-formation')
-                                                                            <!-- Bouton : Observations -->
-                                                                            <button type="button"
-                                                                                class="btn btn-outline-primary btn-sm mx-1"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#EditDemandeurModal{{ $individuelle->id }}">
-                                                                                <i class="bi bi-plus"
-                                                                                    title="Observations"></i>
-                                                                            </button>
-
-                                                                            <!-- Bouton : Ajouter note manuellement -->
-                                                                            <button type="button"
-                                                                                class="btn btn-outline-success btn-sm mx-1"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#AddNoteModal{{ $individuelle->id }}">
-                                                                                <i class="bi bi-pencil-square"
-                                                                                    title="Ajouter une note manuellement"></i>
-                                                                            </button>
-                                                                        @endcan
-                                                                    </td>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered table-hover datatables"
+                                                            id="table-evaluation">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center" width="2%">N°</th>
+                                                                    <th class="text-center" width="4%">Civilité</th>
+                                                                    <th>CIN</th>
+                                                                    <th>Prénom</th>
+                                                                    <th>NOM</th>
+                                                                    <th>Date naissance</th>
+                                                                    <th>Lieu de naissance</th>
+                                                                    <th class="text-center">Note<span
+                                                                            class="text-danger mx-1">*</span></th>
+                                                                    <th class="text-center">Appréciation</th>
+                                                                    <th class="text-center">Observations</th>
                                                                 </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    </table>
+                                                            </thead>
+                                                            <tbody>
+                                                                @php $i = 1; @endphp
+                                                                @foreach ($formation->individuelles as $individuelle)
+                                                                    <tr valign="middle" class="text-center">
+                                                                        <td>{{ $i++ }}</td>
+                                                                        <td>{{ $individuelle?->user?->civilite }}</td>
+                                                                        <td>{{ $individuelle?->user?->cin }}</td>
+                                                                        <td>{{ $individuelle?->user?->firstname }}</td>
+                                                                        <td>{{ $individuelle?->user?->name }}</td>
+                                                                        <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}
+                                                                        </td>
+                                                                        <td>{{ $individuelle?->user?->lieu_naissance }}
+                                                                        </td>
+
+                                                                        {{-- Champ note --}}
+                                                                        <td width="10%" class="text-center">
+                                                                            <input type="text"
+                                                                                class="form-control note-input"
+                                                                                value="{{ $individuelle?->note_obtenue }}"
+                                                                                name="notes[]"
+                                                                                placeholder="note (0-20 ou texte)"
+                                                                                step="0.01" min="0"
+                                                                                max="20">
+
+                                                                            <input type="hidden" name="individuelles[]"
+                                                                                value="{{ $individuelle?->id }}">
+                                                                        </td>
+
+                                                                        {{-- Champ appréciation --}}
+                                                                        <td width="10%" class="text-center">
+                                                                            <input type="text"
+                                                                                class="form-control appreciation-input"
+                                                                                value="{{ $individuelle?->appreciation }}"
+                                                                                name="appreciations[]"
+                                                                                placeholder="appréciation">
+                                                                        </td>
+
+                                                                        {{-- Observations --}}
+                                                                        <td
+                                                                            style="text-align: center; vertical-align: middle;">
+                                                                            @can('evaluer-formation')
+                                                                                <!-- Bouton : Observations -->
+                                                                                <button type="button"
+                                                                                    class="btn btn-outline-primary btn-sm mx-1"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#EditDemandeurModal{{ $individuelle->id }}">
+                                                                                    <i class="bi bi-plus"
+                                                                                        title="Observations"></i>
+                                                                                </button>
+
+                                                                                <!-- Bouton : Ajouter note manuellement -->
+                                                                                <button type="button"
+                                                                                    class="btn btn-outline-success btn-sm mx-1"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#AddNoteModal{{ $individuelle->id }}">
+                                                                                    <i class="bi bi-pencil-square"
+                                                                                        title="Ajouter une note manuellement"></i>
+                                                                                </button>
+                                                                            @endcan
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                                 @can('evaluation-formation')
                                                     <div class="text-center">
@@ -1303,169 +1315,175 @@
 
                                         </div>
                                         <div class="row g-3">
-                                            <table class="table table-bordered table-hover datatables"
-                                                id="table-evaluation">
-                                                <thead>
-                                                    <tr>
-                                                        <th width="5%" class="text-center">N°</th>
-                                                        <th width="10%" class="text-center">Jours</th>
-                                                        <th width="10%" class="text-center">Date</th>
-                                                        <th width="10%" class="text-center">Effectif</th>
-                                                        <th width="10%" class="text-center">SCAN</th>
-                                                        <th>Observations</th>
-                                                        <th width="5%" class="text-center"><i class="bi bi-gear"></i>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php $i = 1; ?>
-                                                    @foreach ($emargements as $emargement)
-                                                        <tr valign="middle">
-                                                            <td class="text-center">{{ $i++ }}</td>
-                                                            <td class="text-center">{{ $emargement?->jour }}</td>
-                                                            <td class="text-center">
-                                                                {{ $emargement?->date?->format('d/m/Y') }}</td>
-                                                            <td class="text-center">
-                                                                {{-- {{ count($emargement?->formation?->individuelles) }} --}}
-                                                                {{ count($emargement?->feuillesPresences) }}
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @if (!empty($emargement?->file))
-                                                                    <div>
-                                                                        <a class="btn btn-outline-secondary btn-sm"
-                                                                            title="Feuille émargement" target="_blank"
-                                                                            href="{{ asset($emargement->getFileEmargement()) }}">
-                                                                            <i class="bi bi-file-earmark-pdf"></i>
-                                                                        </a>
-                                                                    </div>
-                                                                @else
-                                                                    <div class="badge bg-warning">Aucun</div>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                @php
-                                                                    $obs = trim($emargement?->observations ?? '');
-                                                                    $words = $obs ? explode(' ', $obs) : [];
-                                                                    $preview =
-                                                                        count($words) > 10
-                                                                            ? implode(' ', array_slice($words, 0, 10)) .
-                                                                                '...'
-                                                                            : $obs;
-                                                                @endphp
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover datatables"
+                                                    id="table-evaluation">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="5%" class="text-center">N°</th>
+                                                            <th width="10%" class="text-center">Jours</th>
+                                                            <th width="10%" class="text-center">Date</th>
+                                                            <th width="10%" class="text-center">Effectif</th>
+                                                            <th width="10%" class="text-center">SCAN</th>
+                                                            <th>Observations</th>
+                                                            <th width="5%" class="text-center"><i
+                                                                    class="bi bi-gear"></i>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php $i = 1; ?>
+                                                        @foreach ($emargements as $emargement)
+                                                            <tr valign="middle">
+                                                                <td class="text-center">{{ $i++ }}</td>
+                                                                <td class="text-center">{{ $emargement?->jour }}</td>
+                                                                <td class="text-center">
+                                                                    {{ $emargement?->date?->format('d/m/Y') }}</td>
+                                                                <td class="text-center">
+                                                                    {{-- {{ count($emargement?->formation?->individuelles) }} --}}
+                                                                    {{ count($emargement?->feuillesPresences) }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    @if (!empty($emargement?->file))
+                                                                        <div>
+                                                                            <a class="btn btn-outline-secondary btn-sm"
+                                                                                title="Feuille émargement" target="_blank"
+                                                                                href="{{ asset($emargement->getFileEmargement()) }}">
+                                                                                <i class="bi bi-file-earmark-pdf"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    @else
+                                                                        <div class="badge bg-warning">Aucun</div>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @php
+                                                                        $obs = trim($emargement?->observations ?? '');
+                                                                        $words = $obs ? explode(' ', $obs) : [];
+                                                                        $preview =
+                                                                            count($words) > 10
+                                                                                ? implode(
+                                                                                        ' ',
+                                                                                        array_slice($words, 0, 10),
+                                                                                    ) . '...'
+                                                                                : $obs;
+                                                                    @endphp
 
-                                                                @if ($obs)
-                                                                    <span>{{ $preview }}</span>
+                                                                    @if ($obs)
+                                                                        <span>{{ $preview }}</span>
 
-                                                                    @if (count($words) > 10)
-                                                                        <!-- Bouton pour ouvrir le modal -->
-                                                                        <button type="button"
-                                                                            class="btn btn-link btn-sm p-0 ms-2"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#observationsModal{{ $emargement->id }}">
-                                                                            Voir plus
-                                                                        </button>
+                                                                        @if (count($words) > 10)
+                                                                            <!-- Bouton pour ouvrir le modal -->
+                                                                            <button type="button"
+                                                                                class="btn btn-link btn-sm p-0 ms-2"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#observationsModal{{ $emargement->id }}">
+                                                                                Voir plus
+                                                                            </button>
 
-                                                                        <!-- Modal Bootstrap -->
-                                                                        <div class="modal fade"
-                                                                            id="observationsModal{{ $emargement->id }}"
-                                                                            tabindex="-1"
-                                                                            aria-labelledby="observationsModalLabel{{ $emargement->id }}"
-                                                                            aria-hidden="true">
-                                                                            <div
-                                                                                class="modal-dialog modal-dialog-centered">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                        <h5 class="modal-title"
-                                                                                            id="observationsModalLabel{{ $emargement->id }}">
-                                                                                            Observations complètes
-                                                                                        </h5>
-                                                                                        <button type="button"
-                                                                                            class="btn-close"
-                                                                                            data-bs-dismiss="modal"
-                                                                                            aria-label="Fermer"></button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        {!! nl2br(e($obs)) !!}
-                                                                                    </div>
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="button"
-                                                                                            class="btn btn-secondary btn-sm"
-                                                                                            data-bs-dismiss="modal">Fermer</button>
+                                                                            <!-- Modal Bootstrap -->
+                                                                            <div class="modal fade"
+                                                                                id="observationsModal{{ $emargement->id }}"
+                                                                                tabindex="-1"
+                                                                                aria-labelledby="observationsModalLabel{{ $emargement->id }}"
+                                                                                aria-hidden="true">
+                                                                                <div
+                                                                                    class="modal-dialog modal-dialog-centered">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title"
+                                                                                                id="observationsModalLabel{{ $emargement->id }}">
+                                                                                                Observations complètes
+                                                                                            </h5>
+                                                                                            <button type="button"
+                                                                                                class="btn-close"
+                                                                                                data-bs-dismiss="modal"
+                                                                                                aria-label="Fermer"></button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            {!! nl2br(e($obs)) !!}
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button"
+                                                                                                class="btn btn-secondary btn-sm"
+                                                                                                data-bs-dismiss="modal">Fermer</button>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
+                                                                        @endif
                                                                     @endif
-                                                                @endif
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <div
-                                                                    class="d-flex justify-content-center align-items-center gap-2 mt-2">
-                                                                    <!-- Voir / Ajouter bénéficiaires -->
-                                                                    <form
-                                                                        action="{{ route('formation.emargement.form', [
-                                                                            'idformation' => $formation->id,
-                                                                            'idmodule' => $formation->module->id,
-                                                                            'idlocalite' => $formation->departement->id,
-                                                                        ]) }}"
-                                                                        method="GET">
-                                                                        @csrf
-                                                                        <input type="hidden" name="idformation"
-                                                                            value="{{ $formation?->id }}">
-                                                                        <input type="hidden" name="idmodule"
-                                                                            value="{{ $formation?->module?->id }}">
-                                                                        <input type="hidden" name="idlocalite"
-                                                                            value="{{ $formation?->departement?->region?->id }}">
-                                                                        <input type="hidden" name="idemargement"
-                                                                            value="{{ $emargement?->id }}">
-                                                                        <button type="submit"
-                                                                            class="btn btn-outline-primary btn-sm"
-                                                                            title="Ajouter bénéficiaires">
-                                                                            <i class="bi bi-eye"></i>
-                                                                        </button>
-                                                                    </form>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <div
+                                                                        class="d-flex justify-content-center align-items-center gap-2 mt-2">
+                                                                        <!-- Voir / Ajouter bénéficiaires -->
+                                                                        <form
+                                                                            action="{{ route('formation.emargement.form', [
+                                                                                'idformation' => $formation->id,
+                                                                                'idmodule' => $formation->module->id,
+                                                                                'idlocalite' => $formation->departement->id,
+                                                                            ]) }}"
+                                                                            method="GET">
+                                                                            @csrf
+                                                                            <input type="hidden" name="idformation"
+                                                                                value="{{ $formation?->id }}">
+                                                                            <input type="hidden" name="idmodule"
+                                                                                value="{{ $formation?->module?->id }}">
+                                                                            <input type="hidden" name="idlocalite"
+                                                                                value="{{ $formation?->departement?->region?->id }}">
+                                                                            <input type="hidden" name="idemargement"
+                                                                                value="{{ $emargement?->id }}">
+                                                                            <button type="submit"
+                                                                                class="btn btn-outline-primary btn-sm"
+                                                                                title="Ajouter bénéficiaires">
+                                                                                <i class="bi bi-eye"></i>
+                                                                            </button>
+                                                                        </form>
 
-                                                                    <!-- Dropdown actions -->
-                                                                    <div class="dropdown">
-                                                                        <a href="#" class="btn btn-sm btn-light"
-                                                                            data-bs-toggle="dropdown"
-                                                                            aria-expanded="false" title="Actions">
-                                                                            <i class="bi bi-three-dots-vertical"></i>
-                                                                        </a>
-                                                                        <ul class="dropdown-menu dropdown-menu-end">
-                                                                            <!-- Modifier -->
-                                                                            <li>
-                                                                                <button type="button"
-                                                                                    class="dropdown-item"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#EditEmargementModal{{ $emargement->id }}">
-                                                                                    <i class="bi bi-pencil me-1"></i>
-                                                                                    Modifier
-                                                                                </button>
-                                                                            </li>
-
-                                                                            <!-- Supprimer -->
-                                                                            <li>
-                                                                                <form
-                                                                                    action="{{ url('emargements', $emargement->id) }}"
-                                                                                    method="POST" class="px-3">
-                                                                                    @csrf
-                                                                                    @method('DELETE')
-                                                                                    <button type="submit"
-                                                                                        class="dropdown-item text-danger show_confirm">
-                                                                                        <i class="bi bi-trash me-1"></i>
-                                                                                        Supprimer
+                                                                        <!-- Dropdown actions -->
+                                                                        <div class="dropdown">
+                                                                            <a href="#" class="btn btn-sm btn-light"
+                                                                                data-bs-toggle="dropdown"
+                                                                                aria-expanded="false" title="Actions">
+                                                                                <i class="bi bi-three-dots-vertical"></i>
+                                                                            </a>
+                                                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                                                <!-- Modifier -->
+                                                                                <li>
+                                                                                    <button type="button"
+                                                                                        class="dropdown-item"
+                                                                                        data-bs-toggle="modal"
+                                                                                        data-bs-target="#EditEmargementModal{{ $emargement->id }}">
+                                                                                        <i class="bi bi-pencil me-1"></i>
+                                                                                        Modifier
                                                                                     </button>
-                                                                                </form>
-                                                                            </li>
-                                                                        </ul>
+                                                                                </li>
+
+                                                                                <!-- Supprimer -->
+                                                                                <li>
+                                                                                    <form
+                                                                                        action="{{ url('emargements', $emargement->id) }}"
+                                                                                        method="POST" class="px-3">
+                                                                                        @csrf
+                                                                                        @method('DELETE')
+                                                                                        <button type="submit"
+                                                                                            class="dropdown-item text-danger show_confirm">
+                                                                                            <i
+                                                                                                class="bi bi-trash me-1"></i>
+                                                                                            Supprimer
+                                                                                        </button>
+                                                                                    </form>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1529,70 +1547,73 @@
                                                 </h5>
                                             </div>
                                             <div class="row g-3">
-                                                <table class="table table-bordered table-hover datatables"
-                                                    id="table-evaluation">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>N°</th>
-                                                            {{-- <th>Numéro</th> --}}
-                                                            <th>Civilité</th>
-                                                            <th>CIN</th>
-                                                            <th>Prénom</th>
-                                                            <th>NOM</th>
-                                                            <th>Date naissance</th>
-                                                            <th>Lieu de naissance</th>
-                                                            <th class="text-center">Note<span
-                                                                    class="text-danger mx-1">*</span>
-                                                            </th>
-                                                            <th class="text-center">Diplôme</th>
-                                                            <th class="text-center"><i class="bi bi-gear"></i></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php $i = 1; ?>
-                                                        @foreach ($formation->individuelles as $individuelle)
-                                                            <tr valign="middle">
-                                                                <td>{{ $i++ }}</td>
-                                                                {{-- <td>{{ $individuelle?->numero }}</td> --}}
-                                                                <td>{{ $individuelle?->user?->civilite }}</td>
-                                                                <td>{{ $individuelle?->user?->cin }}</td>
-                                                                <td>{{ $individuelle?->user?->firstname }}</td>
-                                                                <td>{{ $individuelle?->user?->name }}</td>
-                                                                <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}
-                                                                </td>
-                                                                <td>{{ $individuelle?->user?->lieu_naissance }}</td>
-                                                                <td style="text-align: center">
-                                                                    {{-- <input type="number"
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-hover datatables"
+                                                        id="table-evaluation">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>N°</th>
+                                                                {{-- <th>Numéro</th> --}}
+                                                                <th>Civilité</th>
+                                                                <th>CIN</th>
+                                                                <th>Prénom</th>
+                                                                <th>NOM</th>
+                                                                <th>Date naissance</th>
+                                                                <th>Lieu de naissance</th>
+                                                                <th class="text-center">Note<span
+                                                                        class="text-danger mx-1">*</span>
+                                                                </th>
+                                                                <th class="text-center">Diplôme</th>
+                                                                <th class="text-center"><i class="bi bi-gear"></i></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php $i = 1; ?>
+                                                            @foreach ($formation->individuelles as $individuelle)
+                                                                <tr valign="middle">
+                                                                    <td>{{ $i++ }}</td>
+                                                                    {{-- <td>{{ $individuelle?->numero }}</td> --}}
+                                                                    <td>{{ $individuelle?->user?->civilite }}</td>
+                                                                    <td>{{ $individuelle?->user?->cin }}</td>
+                                                                    <td>{{ $individuelle?->user?->firstname }}</td>
+                                                                    <td>{{ $individuelle?->user?->name }}</td>
+                                                                    <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}
+                                                                    </td>
+                                                                    <td>{{ $individuelle?->user?->lieu_naissance }}</td>
+                                                                    <td style="text-align: center">
+                                                                        {{-- <input type="number"
                                                                             value="{{ $individuelle?->note_obtenue }}"
                                                                             name="notes[]" placeholder="note" step="0.01"
                                                                             min="0" max="20">
                                                                         <input type="hidden" name="individuelles[]"
                                                                             value="{{ $individuelle?->id }}"> --}}
-                                                                    <span
-                                                                        class="text-center">{{ $individuelle?->note_obtenue }}</span>
-                                                                </td>
-                                                                <td style="text-align: center; vertical-align: middle;">
-                                                                    @if (!empty($individuelle?->retrait_diplome))
-                                                                        <a href="#" data-bs-toggle="modal"
-                                                                            data-bs-target="#EditShowModal{{ $individuelle?->id }}"><i
-                                                                                class="bi bi-check-circle text-success"
-                                                                                title="diplome retiré"></i></a>
-                                                                    @else
-                                                                        <i class="bi bi-x text-danger"
-                                                                            title="diplome non retiré"></i>
-                                                                    @endif
-                                                                </td>
-                                                                <td style="text-align: center; vertical-align: middle;">
-                                                                    @can('attestation-formation')
-                                                                        <button type="button"
-                                                                            class="btn btn-outline-primary btn-sm"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#EditAttestationsModal{{ $individuelle->id }}">
-                                                                            <i class="bi bi-plus" title="Attestation"></i>
-                                                                        </button>
-                                                                    @endcan
-                                                                </td>
-                                                                {{-- <td>
+                                                                        <span
+                                                                            class="text-center">{{ $individuelle?->note_obtenue }}</span>
+                                                                    </td>
+                                                                    <td
+                                                                        style="text-align: center; vertical-align: middle;">
+                                                                        @if (!empty($individuelle?->retrait_diplome))
+                                                                            <a href="#" data-bs-toggle="modal"
+                                                                                data-bs-target="#EditShowModal{{ $individuelle?->id }}"><i
+                                                                                    class="bi bi-check-circle text-success"
+                                                                                    title="diplome retiré"></i></a>
+                                                                        @else
+                                                                            <i class="bi bi-x text-danger"
+                                                                                title="diplome non retiré"></i>
+                                                                        @endif
+                                                                    </td>
+                                                                    <td
+                                                                        style="text-align: center; vertical-align: middle;">
+                                                                        @can('attestation-formation')
+                                                                            <button type="button"
+                                                                                class="btn btn-outline-primary btn-sm"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#EditAttestationsModal{{ $individuelle->id }}">
+                                                                                <i class="bi bi-plus" title="Attestation"></i>
+                                                                            </button>
+                                                                        @endcan
+                                                                    </td>
+                                                                    {{-- <td>
                                                                     <span class="d-flex align-items-baseline"><a
                                                                             href="{{ route('individuelles.show', $individuelle->id) }}"
                                                                             class="btn btn-primary btn-sm"
@@ -1615,10 +1636,11 @@
                                                                         </div>
                                                                     </span>
                                                                 </td> --}}
-                                                            </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                             {{-- <div class="text-center">
                                                     <button type="submit" class="btn btn-outline-primary"><i

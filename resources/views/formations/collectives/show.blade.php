@@ -380,7 +380,6 @@
                                             </h5>
                                         </div>
                                     @elseif(!empty($formation->collectivemodule->module))
-                                        
                                         @can('operateur-check')
                                             <div class="pt-2 text-end">
                                                 <a href="{{ url('formationcollectiveoperateurs', [
@@ -396,12 +395,12 @@
                                         @endcan
                                     @else
                                     @endif
-                                    
+
                                 </div>
                             </div>
                             <div class="tab-content pt-0">
                                 <div class="tab-pane fade show active profile-overview" id="beneficiaires-overview">
-                                    
+
                                     @if (!empty($formation?->collectivemodule))
                                         <div class="col-12 mb-0">
                                             <div class="d-flex justify-content-between align-items-center mt-3">
@@ -557,147 +556,155 @@
                                                 <h5 class="mb-0 text-uppercase fw-bold text-primary">
                                                     <i class="bi bi-people-fill me-2"></i> Liste des bénéficiaires
                                                 </h5>
-                                                <table
-                                                    class="table table-bordered table-hover datatables align-middle justify-content-center table-borderless"
-                                                    id="table-operateurModules">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="text-center" width="2%">N°</th>
-                                                            <th class="text-center" width="15">CIN</th>
-                                                            <th class="text-center">Civilité</th>
-                                                            <th class="text-center">Prénom</th>
-                                                            <th class="text-center">Nom</th>
-                                                            <th class="text-center">Date naissance</th>
-                                                            <th class="text-center">Lieu naissance</th>
-                                                            <th class="text-center">Telephone</th>
-                                                            <th class="text-center">Niveau étude</th>
-                                                            @if ($formation->statut === 'Terminée')
-                                                                <th class="text-center">Note</th>
-                                                                <th class="text-center">Appréciation</th>
-                                                                @can('rapport-suivi-formes-view')
-                                                                    <th class="text-center">Suivi</th>
-                                                                @endcan
-                                                            @endif
-                                                            <th class="col"></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php $i = 1; ?>
-                                                        @foreach ($listecollectives as $listecollective)
-                                                            <tr class="text-center">
-                                                                <td class="text-center">{{ $i++ }}</td>
-                                                                <td>
-                                                                    {{ $listecollective?->cin }}</td>
-                                                                <td>
-                                                                    {{ $listecollective?->civilite }}</td>
-                                                                <td>
-                                                                    {{ $listecollective?->prenom }}</td>
-                                                                <td>
-                                                                    {{ $listecollective?->nom }}</td>
-                                                                <td>
-                                                                    {{ $listecollective?->date_naissance->format('d/m/Y') }}
-                                                                </td>
-                                                                <td>
-                                                                    {{ $listecollective?->lieu_naissance }}
-                                                                </td>
-                                                                <td>
-                                                                    {{ $listecollective?->telephone }}
-                                                                </td>
-                                                                <td>
-                                                                    {{ $listecollective?->niveau_etude }}
-                                                                </td>
+
+                                                <div class="table-responsive">
+                                                    <table
+                                                        class="table table-bordered table-hover datatables align-middle justify-content-center table-borderless"
+                                                        id="table-operateurModules">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center" width="2%">N°</th>
+                                                                <th class="text-center" width="15">CIN</th>
+                                                                <th class="text-center">Civilité</th>
+                                                                <th class="text-center">Prénom</th>
+                                                                <th class="text-center">Nom</th>
+                                                                <th class="text-center">Date naissance</th>
+                                                                <th class="text-center">Lieu naissance</th>
+                                                                <th class="text-center">Telephone</th>
+                                                                <th class="text-center">Niveau étude</th>
                                                                 @if ($formation->statut === 'Terminée')
-                                                                    <td>
-                                                                        {{ $listecollective?->note_obtenue }}
-                                                                    </td>
-                                                                    <td>
-                                                                        {{ $listecollective?->appreciation }}
-                                                                    </td>
+                                                                    <th class="text-center">Note</th>
+                                                                    <th class="text-center">Appréciation</th>
                                                                     @can('rapport-suivi-formes-view')
-                                                                        <td>
-                                                                            @if (empty($listecollective?->suivi))
-                                                                                <form
-                                                                                    action="{{ route('SuivreFormesCol', $listecollective?->id) }}"
-                                                                                    method="post">
-                                                                                    @csrf
-                                                                                    @method('PUT')
-                                                                                    <button
-                                                                                        class="show_confirm_suivi btn btn-dark rounded-pill btn-sm float-center">Suivre</button>
-                                                                                </form>
-                                                                            @else
-                                                                                <button type="button"
-                                                                                    class="btn btn-success rounded-pill btn-sm float-center">{{ $listecollective?->suivi }}</button>
-                                                                            @endif
-                                                                        </td>
+                                                                        <th class="text-center">Suivi</th>
                                                                     @endcan
                                                                 @endif
-
-                                                                <td class="text-center">
-                                                                    <div
-                                                                        class="d-flex justify-content-center align-items-center gap-2">
-                                                                        <!-- Bouton voir détails -->
-                                                                        <a href="{{ route('listecollectives.show', $listecollective) }}"
-                                                                            class="btn btn-primary btn-sm"
-                                                                            title="Voir détails" target="_blank">
-                                                                            <i class="bi bi-eye"></i>
-                                                                        </a>
-
-                                                                        <!-- Dropdown menu -->
-                                                                        <div class="dropdown">
-                                                                            <a href="#" class="btn btn-sm btn-light"
-                                                                                data-bs-toggle="dropdown"
-                                                                                aria-expanded="false" title="Actions">
-                                                                                <i class="bi bi-three-dots-vertical"></i>
-                                                                            </a>
-                                                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                                                <!-- Modifier -->
-                                                                                <li>
-                                                                                    <a class="dropdown-item"
-                                                                                        href="{{ route('listecollectives.edit', $listecollective) }}">
-                                                                                        <i
-                                                                                            class="bi bi-pencil-square me-1"></i>
-                                                                                        Modifier
-                                                                                    </a>
-                                                                                </li>
-
-                                                                                <!-- Retirer (modal) -->
-                                                                                @can('retirer-demandeur-formation')
-                                                                                    <li>
-                                                                                        <button type="button"
-                                                                                            class="dropdown-item"
-                                                                                            data-bs-toggle="modal"
-                                                                                            data-bs-target="#indiponibleModal{{ $listecollective->id }}">
-                                                                                            <i class="bi bi-person-x me-1"></i>
-                                                                                            Retirer
-                                                                                        </button>
-                                                                                    </li>
-                                                                                @endcan
-
-                                                                                <!-- Ne plus suivre -->
-                                                                                @if (!empty($listecollective?->suivi))
-                                                                                    <li>
-                                                                                        <form
-                                                                                            action="{{ route('nepasSuivreCol', $listecollective->id) }}"
-                                                                                            method="POST" class="px-3">
-                                                                                            @csrf
-                                                                                            @method('PUT')
-                                                                                            <button type="submit"
-                                                                                                class="dropdown-item text-danger show_confirm_suivi">
-                                                                                                <i
-                                                                                                    class="bi bi-slash-circle me-1"></i>
-                                                                                                Ne plus suivre
-                                                                                            </button>
-                                                                                        </form>
-                                                                                    </li>
-                                                                                @endif
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
+                                                                <th class="col"></th>
                                                             </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php $i = 1; ?>
+                                                            @foreach ($listecollectives as $listecollective)
+                                                                <tr class="text-center">
+                                                                    <td class="text-center">{{ $i++ }}</td>
+                                                                    <td>
+                                                                        {{ $listecollective?->cin }}</td>
+                                                                    <td>
+                                                                        {{ $listecollective?->civilite }}</td>
+                                                                    <td>
+                                                                        {{ $listecollective?->prenom }}</td>
+                                                                    <td>
+                                                                        {{ $listecollective?->nom }}</td>
+                                                                    <td>
+                                                                        {{ $listecollective?->date_naissance->format('d/m/Y') }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ $listecollective?->lieu_naissance }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ $listecollective?->telephone }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ $listecollective?->niveau_etude }}
+                                                                    </td>
+                                                                    @if ($formation->statut === 'Terminée')
+                                                                        <td>
+                                                                            {{ $listecollective?->note_obtenue }}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{ $listecollective?->appreciation }}
+                                                                        </td>
+                                                                        @can('rapport-suivi-formes-view')
+                                                                            <td>
+                                                                                @if (empty($listecollective?->suivi))
+                                                                                    <form
+                                                                                        action="{{ route('SuivreFormesCol', $listecollective?->id) }}"
+                                                                                        method="post">
+                                                                                        @csrf
+                                                                                        @method('PUT')
+                                                                                        <button
+                                                                                            class="show_confirm_suivi btn btn-dark rounded-pill btn-sm float-center">Suivre</button>
+                                                                                    </form>
+                                                                                @else
+                                                                                    <button type="button"
+                                                                                        class="btn btn-success rounded-pill btn-sm float-center">{{ $listecollective?->suivi }}</button>
+                                                                                @endif
+                                                                            </td>
+                                                                        @endcan
+                                                                    @endif
+
+                                                                    <td class="text-center">
+                                                                        <div
+                                                                            class="d-flex justify-content-center align-items-center gap-2">
+                                                                            <!-- Bouton voir détails -->
+                                                                            <a href="{{ route('listecollectives.show', $listecollective) }}"
+                                                                                class="btn btn-primary btn-sm"
+                                                                                title="Voir détails" target="_blank">
+                                                                                <i class="bi bi-eye"></i>
+                                                                            </a>
+
+                                                                            <!-- Dropdown menu -->
+                                                                            <div class="dropdown">
+                                                                                <a href="#"
+                                                                                    class="btn btn-sm btn-light"
+                                                                                    data-bs-toggle="dropdown"
+                                                                                    aria-expanded="false" title="Actions">
+                                                                                    <i
+                                                                                        class="bi bi-three-dots-vertical"></i>
+                                                                                </a>
+                                                                                <ul
+                                                                                    class="dropdown-menu dropdown-menu-end">
+                                                                                    <!-- Modifier -->
+                                                                                    <li>
+                                                                                        <a class="dropdown-item"
+                                                                                            href="{{ route('listecollectives.edit', $listecollective) }}">
+                                                                                            <i
+                                                                                                class="bi bi-pencil-square me-1"></i>
+                                                                                            Modifier
+                                                                                        </a>
+                                                                                    </li>
+
+                                                                                    <!-- Retirer (modal) -->
+                                                                                    @can('retirer-demandeur-formation')
+                                                                                        <li>
+                                                                                            <button type="button"
+                                                                                                class="dropdown-item"
+                                                                                                data-bs-toggle="modal"
+                                                                                                data-bs-target="#indiponibleModal{{ $listecollective->id }}">
+                                                                                                <i
+                                                                                                    class="bi bi-person-x me-1"></i>
+                                                                                                Retirer
+                                                                                            </button>
+                                                                                        </li>
+                                                                                    @endcan
+
+                                                                                    <!-- Ne plus suivre -->
+                                                                                    @if (!empty($listecollective?->suivi))
+                                                                                        <li>
+                                                                                            <form
+                                                                                                action="{{ route('nepasSuivreCol', $listecollective->id) }}"
+                                                                                                method="POST"
+                                                                                                class="px-3">
+                                                                                                @csrf
+                                                                                                @method('PUT')
+                                                                                                <button type="submit"
+                                                                                                    class="dropdown-item text-danger show_confirm_suivi">
+                                                                                                    <i
+                                                                                                        class="bi bi-slash-circle me-1"></i>
+                                                                                                    Ne plus suivre
+                                                                                                </button>
+                                                                                            </form>
+                                                                                        </li>
+                                                                                    @endif
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     @else
@@ -849,81 +856,84 @@
                                                     </h5>
                                                 </div>
                                                 <div class="row g-3">
-                                                    <table class="table table-bordered table-hover datatables"
-                                                        id="table-evaluation">
-                                                        <thead>
-                                                            <tr>
-                                                                <th class="text-center" width="2%">N°</th>
-                                                                <th class="text-center">Civilité</th>
-                                                                <th class="text-center" width="15">CIN</th>
-                                                                <th class="text-center">Prénom</th>
-                                                                <th class="text-center">NOM</th>
-                                                                <th class="text-center">Date naissance</th>
-                                                                <th class="text-center">Lieu de naissance</th>
-                                                                <th class="text-center">Note<span
-                                                                        class="text-danger mx-1">*</span></th>
-                                                                <th class="text-center">Appréciation</th>
-                                                                <th class="text-center">Observations</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php $i = 1; ?>
-                                                            @foreach ($listecollectives as $listecollective)
-                                                                <tr class="text-center">
-                                                                    <td>{{ $i++ }}</td>
-                                                                    <td>{{ $listecollective->civilite }}</td>
-                                                                    <td>{{ $listecollective?->cin }}</td>
-                                                                    <td>{{ $listecollective?->prenom }}</td>
-                                                                    <td>{{ $listecollective?->nom }}</td>
-                                                                    <td>{{ $listecollective?->date_naissance?->format('d/m/Y') }}
-                                                                    </td>
-                                                                    <td>{{ $listecollective?->lieu_naissance }}</td>
-                                                                    <td width="10%" class="text-center">
-                                                                        <input type="text"
-                                                                            class="form-control note-input"
-                                                                            value="{{ $listecollective?->note_obtenue }}"
-                                                                            name="notes[]"
-                                                                            placeholder="note (0-20 ou texte)"
-                                                                            step="0.01" min="0" max="20">
-
-                                                                        <input type="hidden" name="listecollectives[]"
-                                                                            value="{{ $listecollective?->id }}">
-                                                                    </td>
-
-                                                                    {{-- Champ appréciation --}}
-                                                                    <td width="10%" class="text-center">
-                                                                        <input type="text"
-                                                                            class="form-control appreciation-input"
-                                                                            value="{{ $listecollective?->appreciation }}"
-                                                                            name="appreciations[]"
-                                                                            placeholder="appréciation">
-                                                                    </td>
-                                                                    <td
-                                                                        style="text-align: center; vertical-align: middle;">
-                                                                        @can('evaluation-formation')
-                                                                            <button type="button"
-                                                                                class="btn btn-outline-primary btn-sm"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#EditDemandeurModal{{ $listecollective->id }}">
-                                                                                <i class="bi bi-plus"
-                                                                                    title="Observations"></i>
-                                                                            </button>
-
-                                                                            <!-- Nouveau bouton : Ajouter les notes manuellement -->
-                                                                            <button type="button"
-                                                                                class="btn btn-outline-success btn-sm mx-1"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#AddNoteModal{{ $listecollective->id }}">
-                                                                                <i class="bi bi-pencil-square"
-                                                                                    title="Ajouter une note manuellement"></i>
-                                                                            </button>
-                                                                        @endcan
-                                                                    </td>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered table-hover datatables"
+                                                            id="table-evaluation">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center" width="2%">N°</th>
+                                                                    <th class="text-center">Civilité</th>
+                                                                    <th class="text-center" width="15">CIN</th>
+                                                                    <th class="text-center">Prénom</th>
+                                                                    <th class="text-center">NOM</th>
+                                                                    <th class="text-center">Date naissance</th>
+                                                                    <th class="text-center">Lieu de naissance</th>
+                                                                    <th class="text-center">Note<span
+                                                                            class="text-danger mx-1">*</span></th>
+                                                                    <th class="text-center">Appréciation</th>
+                                                                    <th class="text-center">Observations</th>
                                                                 </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    </table>
-                                                    </table>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php $i = 1; ?>
+                                                                @foreach ($listecollectives as $listecollective)
+                                                                    <tr class="text-center">
+                                                                        <td>{{ $i++ }}</td>
+                                                                        <td>{{ $listecollective->civilite }}</td>
+                                                                        <td>{{ $listecollective?->cin }}</td>
+                                                                        <td>{{ $listecollective?->prenom }}</td>
+                                                                        <td>{{ $listecollective?->nom }}</td>
+                                                                        <td>{{ $listecollective?->date_naissance?->format('d/m/Y') }}
+                                                                        </td>
+                                                                        <td>{{ $listecollective?->lieu_naissance }}</td>
+                                                                        <td width="10%" class="text-center">
+                                                                            <input type="text"
+                                                                                class="form-control note-input"
+                                                                                value="{{ $listecollective?->note_obtenue }}"
+                                                                                name="notes[]"
+                                                                                placeholder="note (0-20 ou texte)"
+                                                                                step="0.01" min="0"
+                                                                                max="20">
+
+                                                                            <input type="hidden"
+                                                                                name="listecollectives[]"
+                                                                                value="{{ $listecollective?->id }}">
+                                                                        </td>
+
+                                                                        {{-- Champ appréciation --}}
+                                                                        <td width="10%" class="text-center">
+                                                                            <input type="text"
+                                                                                class="form-control appreciation-input"
+                                                                                value="{{ $listecollective?->appreciation }}"
+                                                                                name="appreciations[]"
+                                                                                placeholder="appréciation">
+                                                                        </td>
+                                                                        <td
+                                                                            style="text-align: center; vertical-align: middle;">
+                                                                            @can('evaluation-formation')
+                                                                                <button type="button"
+                                                                                    class="btn btn-outline-primary btn-sm"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#EditDemandeurModal{{ $listecollective->id }}">
+                                                                                    <i class="bi bi-plus"
+                                                                                        title="Observations"></i>
+                                                                                </button>
+
+                                                                                <!-- Nouveau bouton : Ajouter les notes manuellement -->
+                                                                                <button type="button"
+                                                                                    class="btn btn-outline-success btn-sm mx-1"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#AddNoteModal{{ $listecollective->id }}">
+                                                                                    <i class="bi bi-pencil-square"
+                                                                                        title="Ajouter une note manuellement"></i>
+                                                                                </button>
+                                                                            @endcan
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                                 @can('evaluation-formation')
                                                     <div class="text-center">
@@ -997,171 +1007,177 @@
                                             </div>
                                         </div>
                                         <div class="row g-3">
-                                            <table class="table table-bordered table-hover datatables"
-                                                id="table-evaluation">
-                                                <thead>
-                                                    <tr class="text-center">
-                                                        <th width="5%">N°</th>
-                                                        <th width="10%">Jours</th>
-                                                        <th width="10%">Date</th>
-                                                        <th width="10%">Effectif</th>
-                                                        <th width="10%">SCAN</th>
-                                                        <th>Observations</th>
-                                                        <th width="3%"><i class="bi bi-gear"></i>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php $i = 1; ?>
-                                                    @foreach ($emargementcollectives as $emargementcollective)
-                                                        <tr valign="middle" class="text-center">
-                                                            <td>{{ $i++ }}</td>
-                                                            <td>{{ $emargementcollective?->jour }}
-                                                            </td>
-                                                            <td>
-                                                                {{ $emargementcollective?->date?->format('d/m/Y') }}</td>
-                                                            <td>
-                                                                {{-- {{ count($emargementcollective?->formation?->listecollectives) }} --}}
-                                                                {{ count($emargementcollective?->feuillesPresenceCollectives) }}
-                                                            </td>
-                                                            <td>
-                                                                @if (!empty($emargementcollective?->file))
-                                                                    <div>
-                                                                        <a class="btn btn-outline-secondary btn-sm"
-                                                                            title="Feuille émargement" target="_blank"
-                                                                            href="{{ asset($emargementcollective->getFileEmargement()) }}">
-                                                                            <i class="bi bi-file-earmark-pdf"></i>
-                                                                        </a>
-                                                                    </div>
-                                                                @else
-                                                                    <div class="badge bg-warning">Aucun</div>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                @php
-                                                                    $obs = trim(
-                                                                        $emargementcollective?->observations ?? '',
-                                                                    );
-                                                                    $words = $obs ? explode(' ', $obs) : [];
-                                                                    $preview =
-                                                                        count($words) > 10
-                                                                            ? implode(' ', array_slice($words, 0, 10)) .
-                                                                                '...'
-                                                                            : $obs;
-                                                                @endphp
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover datatables"
+                                                    id="table-evaluation">
+                                                    <thead>
+                                                        <tr class="text-center">
+                                                            <th width="5%">N°</th>
+                                                            <th width="10%">Jours</th>
+                                                            <th width="10%">Date</th>
+                                                            <th width="10%">Effectif</th>
+                                                            <th width="10%">SCAN</th>
+                                                            <th>Observations</th>
+                                                            <th width="3%"><i class="bi bi-gear"></i>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php $i = 1; ?>
+                                                        @foreach ($emargementcollectives as $emargementcollective)
+                                                            <tr valign="middle" class="text-center">
+                                                                <td>{{ $i++ }}</td>
+                                                                <td>{{ $emargementcollective?->jour }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $emargementcollective?->date?->format('d/m/Y') }}
+                                                                </td>
+                                                                <td>
+                                                                    {{-- {{ count($emargementcollective?->formation?->listecollectives) }} --}}
+                                                                    {{ count($emargementcollective?->feuillesPresenceCollectives) }}
+                                                                </td>
+                                                                <td>
+                                                                    @if (!empty($emargementcollective?->file))
+                                                                        <div>
+                                                                            <a class="btn btn-outline-secondary btn-sm"
+                                                                                title="Feuille émargement" target="_blank"
+                                                                                href="{{ asset($emargementcollective->getFileEmargement()) }}">
+                                                                                <i class="bi bi-file-earmark-pdf"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    @else
+                                                                        <div class="badge bg-warning">Aucun</div>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @php
+                                                                        $obs = trim(
+                                                                            $emargementcollective?->observations ?? '',
+                                                                        );
+                                                                        $words = $obs ? explode(' ', $obs) : [];
+                                                                        $preview =
+                                                                            count($words) > 10
+                                                                                ? implode(
+                                                                                        ' ',
+                                                                                        array_slice($words, 0, 10),
+                                                                                    ) . '...'
+                                                                                : $obs;
+                                                                    @endphp
 
-                                                                @if ($obs)
-                                                                    <span>{{ $preview }}</span>
+                                                                    @if ($obs)
+                                                                        <span>{{ $preview }}</span>
 
-                                                                    @if (count($words) > 10)
-                                                                        <!-- Bouton pour ouvrir le modal -->
-                                                                        <button type="button"
-                                                                            class="btn btn-link btn-sm p-0 ms-2"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#observationsModal{{ $emargementcollective->id }}">
-                                                                            Voir plus
-                                                                        </button>
+                                                                        @if (count($words) > 10)
+                                                                            <!-- Bouton pour ouvrir le modal -->
+                                                                            <button type="button"
+                                                                                class="btn btn-link btn-sm p-0 ms-2"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#observationsModal{{ $emargementcollective->id }}">
+                                                                                Voir plus
+                                                                            </button>
 
-                                                                        <!-- Modal Bootstrap -->
-                                                                        <div class="modal fade"
-                                                                            id="observationsModal{{ $emargementcollective->id }}"
-                                                                            tabindex="-1"
-                                                                            aria-labelledby="observationsModalLabel{{ $emargementcollective->id }}"
-                                                                            aria-hidden="true">
-                                                                            <div
-                                                                                class="modal-dialog modal-dialog-centered">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                        <h5 class="modal-title"
-                                                                                            id="observationsModalLabel{{ $emargementcollective->id }}">
-                                                                                            Observations complètes
-                                                                                        </h5>
-                                                                                        <button type="button"
-                                                                                            class="btn-close"
-                                                                                            data-bs-dismiss="modal"
-                                                                                            aria-label="Fermer"></button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        {!! nl2br(e($obs)) !!}
-                                                                                    </div>
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="button"
-                                                                                            class="btn btn-secondary btn-sm"
-                                                                                            data-bs-dismiss="modal">Fermer</button>
+                                                                            <!-- Modal Bootstrap -->
+                                                                            <div class="modal fade"
+                                                                                id="observationsModal{{ $emargementcollective->id }}"
+                                                                                tabindex="-1"
+                                                                                aria-labelledby="observationsModalLabel{{ $emargementcollective->id }}"
+                                                                                aria-hidden="true">
+                                                                                <div
+                                                                                    class="modal-dialog modal-dialog-centered">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title"
+                                                                                                id="observationsModalLabel{{ $emargementcollective->id }}">
+                                                                                                Observations complètes
+                                                                                            </h5>
+                                                                                            <button type="button"
+                                                                                                class="btn-close"
+                                                                                                data-bs-dismiss="modal"
+                                                                                                aria-label="Fermer"></button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            {!! nl2br(e($obs)) !!}
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button"
+                                                                                                class="btn btn-secondary btn-sm"
+                                                                                                data-bs-dismiss="modal">Fermer</button>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
+                                                                        @endif
                                                                     @endif
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex align-items-center gap-2 mt-2">
-                                                                    <!-- Bouton Voir feuille d’émargement collective -->
-                                                                    <form
-                                                                        action="{{ route('formation.emargementcollective.form', [
-                                                                            'idformation' => $formation->id,
-                                                                            'idmodule' => $formation->collectivemodule->id,
-                                                                            'idlocalite' => $formation->departement->id,
-                                                                        ]) }}"
-                                                                        method="GET">
-                                                                        @csrf
-                                                                        <input type="hidden" name="idformation"
-                                                                            value="{{ $formation?->id }}">
-                                                                        <input type="hidden" name="idmodule"
-                                                                            value="{{ $formation?->collectivemodule?->id }}">
-                                                                        <input type="hidden" name="idlocalite"
-                                                                            value="{{ $formation?->departement?->region?->id }}">
-                                                                        <input type="hidden" name="idemargement"
-                                                                            value="{{ $emargementcollective?->id }}">
-                                                                        <button type="submit"
-                                                                            class="btn btn-outline-primary btn-sm"
-                                                                            title="Voir la feuille de présence">
-                                                                            <i class="bi bi-eye"></i>
-                                                                        </button>
-                                                                    </form>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center gap-2 mt-2">
+                                                                        <!-- Bouton Voir feuille d’émargement collective -->
+                                                                        <form
+                                                                            action="{{ route('formation.emargementcollective.form', [
+                                                                                'idformation' => $formation->id,
+                                                                                'idmodule' => $formation->collectivemodule->id,
+                                                                                'idlocalite' => $formation->departement->id,
+                                                                            ]) }}"
+                                                                            method="GET">
+                                                                            @csrf
+                                                                            <input type="hidden" name="idformation"
+                                                                                value="{{ $formation?->id }}">
+                                                                            <input type="hidden" name="idmodule"
+                                                                                value="{{ $formation?->collectivemodule?->id }}">
+                                                                            <input type="hidden" name="idlocalite"
+                                                                                value="{{ $formation?->departement?->region?->id }}">
+                                                                            <input type="hidden" name="idemargement"
+                                                                                value="{{ $emargementcollective?->id }}">
+                                                                            <button type="submit"
+                                                                                class="btn btn-outline-primary btn-sm"
+                                                                                title="Voir la feuille de présence">
+                                                                                <i class="bi bi-eye"></i>
+                                                                            </button>
+                                                                        </form>
 
-                                                                    <!-- Menu déroulant -->
-                                                                    <div class="dropdown">
-                                                                        <a href="#" class="btn btn-sm btn-light"
-                                                                            data-bs-toggle="dropdown"
-                                                                            aria-expanded="false" title="Actions">
-                                                                            <i class="bi bi-three-dots-vertical"></i>
-                                                                        </a>
-                                                                        <ul class="dropdown-menu dropdown-menu-end">
-                                                                            <!-- Modifier -->
-                                                                            <li>
-                                                                                <button type="button"
-                                                                                    class="dropdown-item"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#EditEmargementModal{{ $emargementcollective->id }}">
-                                                                                    <i class="bi bi-pencil me-1"></i>
-                                                                                    Modifier
-                                                                                </button>
-                                                                            </li>
-
-                                                                            <!-- Supprimer -->
-                                                                            <li>
-                                                                                <form
-                                                                                    action="{{ route('emargementcollectives.destroy', $emargementcollective->id) }}"
-                                                                                    method="POST" class="px-3">
-                                                                                    @csrf
-                                                                                    @method('DELETE')
-                                                                                    <button type="submit"
-                                                                                        class="dropdown-item text-danger show_confirm">
-                                                                                        <i class="bi bi-trash me-1"></i>
-                                                                                        Supprimer
+                                                                        <!-- Menu déroulant -->
+                                                                        <div class="dropdown">
+                                                                            <a href="#" class="btn btn-sm btn-light"
+                                                                                data-bs-toggle="dropdown"
+                                                                                aria-expanded="false" title="Actions">
+                                                                                <i class="bi bi-three-dots-vertical"></i>
+                                                                            </a>
+                                                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                                                <!-- Modifier -->
+                                                                                <li>
+                                                                                    <button type="button"
+                                                                                        class="dropdown-item"
+                                                                                        data-bs-toggle="modal"
+                                                                                        data-bs-target="#EditEmargementModal{{ $emargementcollective->id }}">
+                                                                                        <i class="bi bi-pencil me-1"></i>
+                                                                                        Modifier
                                                                                     </button>
-                                                                                </form>
-                                                                            </li>
-                                                                        </ul>
+                                                                                </li>
+
+                                                                                <!-- Supprimer -->
+                                                                                <li>
+                                                                                    <form
+                                                                                        action="{{ route('emargementcollectives.destroy', $emargementcollective->id) }}"
+                                                                                        method="POST" class="px-3">
+                                                                                        @csrf
+                                                                                        @method('DELETE')
+                                                                                        <button type="submit"
+                                                                                            class="dropdown-item text-danger show_confirm">
+                                                                                            <i
+                                                                                                class="bi bi-trash me-1"></i>
+                                                                                            Supprimer
+                                                                                        </button>
+                                                                                    </form>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1202,60 +1218,62 @@
                                             </h5>
                                         </div>
                                         <div class="row g-3">
-                                            <table class="table table-bordered table-hover datatables"
-                                                id="table-evaluation">
-                                                <thead>
-                                                    <tr class="text-center">
-                                                        <th>N°</th>
-                                                        <th>Civilité</th>
-                                                        <th>Prénom</th>
-                                                        <th>NOM</th>
-                                                        <th>Date naissance</th>
-                                                        <th>Lieu de naissance</th>
-                                                        <th>Note<span class="text-danger mx-1">*</span></th>
-                                                        <th>Diplôme</th>
-                                                        <th><i class="bi bi-gear"></i></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php $i = 1; ?>
-                                                    @foreach ($listecollectives as $listecollective)
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover datatables"
+                                                    id="table-evaluation">
+                                                    <thead>
                                                         <tr class="text-center">
-                                                            <td>{{ $i++ }}</td>
-                                                            <td>{{ $listecollective?->civilite }}</td>
-                                                            <td>{{ $listecollective?->prenom }}</td>
-                                                            <td>{{ $listecollective?->nom }}</td>
-                                                            <td>{{ $listecollective?->date_naissance?->format('d/m/Y') }}
-                                                            </td>
-                                                            <td>{{ $listecollective?->lieu_naissance }}</td>
-                                                            <td>
-                                                                <span>{{ $listecollective?->note_obtenue }}</span>
-                                                            </td>
-                                                            <td style="vertical-align: middle;">
-                                                                @if (!empty($listecollective?->retrait_diplome))
-                                                                    <a href="#" data-bs-toggle="modal"
-                                                                        data-bs-target="#EditShowModal{{ $listecollective?->id }}"><i
-                                                                            class="bi bi-check-circle text-success"
-                                                                            title="diplome retiré"></i></a>
-                                                                @else
-                                                                    <i class="bi bi-x text-danger"
-                                                                        title="diplome non retiré"></i>
-                                                                @endif
-                                                            </td>
-                                                            <td style="text-align: center; vertical-align: middle;">
-                                                                @can('attestation-formation')
-                                                                    <button type="button"
-                                                                        class="btn btn-outline-primary btn-sm"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#EditAttestationsModal{{ $listecollective->id }}">
-                                                                        <i class="bi bi-plus" title="Attestation"></i>
-                                                                    </button>
-                                                                @endcan
-                                                            </td>
+                                                            <th>N°</th>
+                                                            <th>Civilité</th>
+                                                            <th>Prénom</th>
+                                                            <th>NOM</th>
+                                                            <th>Date naissance</th>
+                                                            <th>Lieu de naissance</th>
+                                                            <th>Note<span class="text-danger mx-1">*</span></th>
+                                                            <th>Diplôme</th>
+                                                            <th><i class="bi bi-gear"></i></th>
                                                         </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php $i = 1; ?>
+                                                        @foreach ($listecollectives as $listecollective)
+                                                            <tr class="text-center">
+                                                                <td>{{ $i++ }}</td>
+                                                                <td>{{ $listecollective?->civilite }}</td>
+                                                                <td>{{ $listecollective?->prenom }}</td>
+                                                                <td>{{ $listecollective?->nom }}</td>
+                                                                <td>{{ $listecollective?->date_naissance?->format('d/m/Y') }}
+                                                                </td>
+                                                                <td>{{ $listecollective?->lieu_naissance }}</td>
+                                                                <td>
+                                                                    <span>{{ $listecollective?->note_obtenue }}</span>
+                                                                </td>
+                                                                <td style="vertical-align: middle;">
+                                                                    @if (!empty($listecollective?->retrait_diplome))
+                                                                        <a href="#" data-bs-toggle="modal"
+                                                                            data-bs-target="#EditShowModal{{ $listecollective?->id }}"><i
+                                                                                class="bi bi-check-circle text-success"
+                                                                                title="diplome retiré"></i></a>
+                                                                    @else
+                                                                        <i class="bi bi-x text-danger"
+                                                                            title="diplome non retiré"></i>
+                                                                    @endif
+                                                                </td>
+                                                                <td style="text-align: center; vertical-align: middle;">
+                                                                    @can('attestation-formation')
+                                                                        <button type="button"
+                                                                            class="btn btn-outline-primary btn-sm"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#EditAttestationsModal{{ $listecollective->id }}">
+                                                                            <i class="bi bi-plus" title="Attestation"></i>
+                                                                        </button>
+                                                                    @endcan
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
