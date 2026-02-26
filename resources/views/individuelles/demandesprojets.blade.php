@@ -128,7 +128,7 @@
                         </div>
                     </div>
                 </div>
-                @can('upload-file-view')
+                @can('upload-file-si-fermeture-anticiper')
 
                     <div class="container-fluid pt-4">
                         <div class="row g-4">
