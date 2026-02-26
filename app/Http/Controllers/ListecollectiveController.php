@@ -178,22 +178,8 @@ class ListecollectiveController extends Controller
 
     public function update(Request $request, Listecollective $listecollective)
     {
-        // 🔹 Nettoyage espaces
+        /* // 🔹 Nettoyage espaces
         $cin = preg_replace('/\s+/', '', $request->cin);
-
-        /* // 🔹 Formatage si CNI
-        if ($request->type_piece === 'cni') {
-            $cin = $this->formatCin($cin);
-        }
-
-        // 🔹 Préfixe
-        if ($request->type_piece === 'extrait') {
-            $cin = 'EXT. ' . $cin;
-        }
-
-        if ($request->type_piece === 'passeport') {
-            $cin = 'PPT. ' . $cin;
-        } */
 
         // 🔹 Injecter la vraie valeur
         $request->merge(['cin' => $cin]);
@@ -230,6 +216,52 @@ class ListecollectiveController extends Controller
         ], fn($input) => $input->type_piece === 'cni');
 
         // Validation finale
+        $data = $validator->validate(); */
+
+        // 🔹 Nettoyer (supprimer espaces existants)
+        $cin = preg_replace('/\s+/', '', $request->cin);
+
+        // 🔹 Si CNI → formater immédiatement
+        if ($request->type_piece === 'cni') {
+            $cin = $this->formatCin($cin);
+        }
+
+        // 🔹 Injecter la version formatée AVANT validation
+        $request->merge(['cin' => $cin]);
+
+        $validator = Validator::make($request->all(), [
+            "type_piece"     => "required|in:cni,extrait,passeport",
+            "civilite"       => "required|string",
+            "firstname"      => "required|string",
+            "name"           => "required|string",
+            'date_naissance' => ['required', 'date_format:d/m/Y'],
+            "lieu_naissance" => "required|string",
+            "module"         => "required|string",
+            "niveau_etude"   => "nullable|string",
+            "telephone"      => "nullable|string|min:9|max:12",
+            "cin" => [
+                "required",
+                "string",
+                Rule::unique('listecollectives', 'cin')
+                    ->whereNull('deleted_at')
+                    ->ignore($listecollective->id)
+            ],
+        ]);
+
+        // 🔹 Validation adaptée
+
+        $validator->sometimes('cin', [
+            'regex:/^[0-9] [0-9]{3} [0-9]{4} [0-9]{5}$/'
+        ], fn($input) => $input->type_piece === 'cni');
+
+        $validator->sometimes('cin', [
+            'regex:/^[0-9\/]{10}$/'
+        ], fn($input) => $input->type_piece === 'extrait');
+
+        $validator->sometimes('cin', [
+            'digits:9'
+        ], fn($input) => $input->type_piece === 'passeport');
+
         $data = $validator->validate();
 
         // Formatage CIN uniquement si nécessaire
@@ -267,7 +299,7 @@ class ListecollectiveController extends Controller
         return Redirect::back();
     }
 
-    private function formatCin(string $cin): string
+    /* private function formatCin(string $cin): string
     {
         // Supprimer tous les espaces
         $cin = preg_replace('/\s+/', '', $cin);
@@ -289,6 +321,20 @@ class ListecollectiveController extends Controller
         }
 
         return $cin; // sécurité
+    } */
+
+    private function formatCin($cin)
+    {
+        $cin = preg_replace('/\D/', '', $cin);
+
+        if (strlen($cin) !== 13) {
+            return $cin;
+        }
+
+        return substr($cin, 0, 1) . ' ' .
+            substr($cin, 1, 3) . ' ' .
+            substr($cin, 4, 4) . ' ' .
+            substr($cin, 8, 5);
     }
 
     public function show(Listecollective $listecollective)
