@@ -141,7 +141,7 @@ class IndividuelleController extends Controller
         // Total pour l'année après filtres
         $total = $query->count();
         $totalIndividuelles = number_format($total, 0, ',', ' ');
-        
+
         $totalDemandes = number_format($total, 0, ',', ' ');
         $totalAffichees = $individuelles->count();
 
@@ -1402,9 +1402,28 @@ class IndividuelleController extends Controller
         $userIndividuellesAvecProjet = Auth::user()->individuelles->whereNotNull('projets_id')->sortByDesc('created_at'); // Trie du plus récent au plus ancien
         $count                       = Auth::user()->individuelles->whereNotNull('projets_id')->count();
 
+        //utilisateur connecté
+        $user = Auth::user();
+
+        // Récupérer les fichiers associés à l'utilisateur
+        $files = File::where('users_id', $user->id)
+            ->whereNotNull('file')
+            ->distinct()
+            ->get();
+
+        $user_files = File::whereNull('file')
+            ->whereNull('users_id')
+            ->whereNotIn('sigle', ['AC', 'Arrêté', 'Ninea/RC', 'Titre', 'Contrat', 'Convention', 'Organigramme', 'Quitus', 'Carte', 'Casier', 'Assurance', 'Lettre', 'Bail', 'RIB', 'Domicile', 'Justificatif'])
+            ->orderBy('sigle', 'asc')
+            ->get()
+            ->unique('sigle') // Évite les doublons sur le champ "sigle"
+            ->values();       // Réindexe proprement la collection (0, 1, 2, ...)
         // Passer directement à la vue sans duplication de code
         $viewData = compact(
             'userIndividuellesAvecProjet',
+            'user',
+            'user_files',
+            'files',
             'count'
         );
 
