@@ -36,74 +36,78 @@
                                 data-bs-toggle="modal" data-bs-target="#AddUneModal">Ajouter</button>
                         </div>
                         <h5 class="card-title">QUESTIONS REPONSES</h5>
-                        <table class="table datatables align-middle" id="table-contacts">
-                            <thead>
-                                <tr>
-                                    <th width="20%">Objet</th>
-                                    <th>Message</th>
-                                    <th width="15%">Email</th>
-                                    <th width="10%">Téléphone</th>
-                                    <th>Réponse</th>
-                                    <th width="5%" class="text-center">Statut</th>
-                                    <th width="5%" class="text-center">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($contacts as $contact)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle" id="table-contacts">
+                                <thead>
                                     <tr>
-                                        <td>{{ $contact?->objet }}</td>
-                                        <td>{{ $contact?->message }}</td>
-                                        <td><a href="mailto:{{ $contact?->email }}">{{ $contact?->email }}</a></td>
-                                        <td><a href="tel:+221{{ $contact?->telephone }}">{{ $contact?->telephone }}</a></td>
-                                        <td>{{ $contact?->reponse }}</td>
-                                        <td>{{ $contact?->statut }}</td>
-                                        <td>
-                                            <span class="d-flex mt-2 align-items-baseline"><a href="#"
-                                                    class="btn btn-warning btn-sm mx-1" title="Voir"><i
-                                                        class="bi bi-file-lock"></i></a>
-                                                <div class="filter">
-                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-
-                                                        <button type="button" class="dropdown-item btn btn-sm"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#EditUneModal{{ $contact->id }}">
-                                                            Modifier
-                                                        </button>
-                                                        <form action="{{ url('contacts', $contact->id) }}" method="post">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="dropdown-item show_confirm">Supprimer</button>
-                                                        </form>
-                                                        <form action="{{ route('uneContacts') }}" method="post">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <input type="hidden" name="alaune" id="alaune"
-                                                                value="{{ $contact->id }}">
-                                                            <button type="submit" class="dropdown-item une_confirm">Mettre
-                                                                en évidence</button>
-                                                        </form>
-                                                    </ul>
-                                                </div>
-                                            </span>
-                                        </td>
-
+                                        <th width="20%">Objet</th>
+                                        <th>Message</th>
+                                        <th width="15%">Email</th>
+                                        <th width="10%">Téléphone</th>
+                                        <th>Réponse</th>
+                                        <th width="5%" class="text-center">Statut</th>
+                                        <th width="5%" class="text-center">#</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($contacts as $contact)
+                                        <tr>
+                                            <td>{{ $contact?->objet }}</td>
+                                            <td>{{ $contact?->message }}</td>
+                                            <td><a href="mailto:{{ $contact?->email }}">{{ $contact?->email }}</a></td>
+                                            <td><a href="tel:+221{{ $contact?->telephone }}">{{ $contact?->telephone }}</a>
+                                            </td>
+                                            <td>{{ $contact?->reponse }}</td>
+                                            <td>{{ $contact?->statut }}</td>
+                                            <td>
+                                                <span class="d-flex mt-2 align-items-baseline"><a href="#"
+                                                        class="btn btn-warning btn-sm mx-1" title="Voir"><i
+                                                            class="bi bi-file-lock"></i></a>
+                                                    <div class="filter">
+                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                class="bi bi-three-dots"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+
+                                                            <button type="button" class="dropdown-item btn btn-sm"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#EditUneModal{{ $contact->id }}">
+                                                                Modifier
+                                                            </button>
+                                                            <form action="{{ url('contacts', $contact->id) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="dropdown-item show_confirm">Supprimer</button>
+                                                            </form>
+                                                            <form action="{{ route('uneContacts') }}" method="post">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <input type="hidden" name="alaune" id="alaune"
+                                                                    value="{{ $contact->id }}">
+                                                                <button type="submit"
+                                                                    class="dropdown-item une_confirm">Mettre
+                                                                    en évidence</button>
+                                                            </form>
+                                                        </ul>
+                                                    </div>
+                                                </span>
+                                            </td>
+
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
     </section>
-    <div
-        class="col-12 d-flex flex-column align-items-center justify-content-center">
+    <div class="col-12 d-flex flex-column align-items-center justify-content-center">
         <div class="modal fade" id="AddUneModal" tabindex="-1">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -182,8 +186,7 @@
         </div>
     </div>
     @foreach ($contacts as $contact)
-        <div
-            class="col-12 d-flex flex-column align-items-center justify-content-center">
+        <div class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="EditUneModal{{ $contact->id }}" tabindex="-1">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
