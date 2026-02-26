@@ -226,7 +226,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h5 class="card-title mb-0">{{ $title }}</h5>
 
-                            @can('formation-create')
+                            @can('formation-show')
                                 <div class="d-flex align-items-center gap-2">
                                     <!-- Bouton Ajouter -->
                                     <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
