@@ -88,9 +88,11 @@
                                             <option value="cni"
                                                 {{ (old('type_piece') ?? $listecollective?->type_piece) === 'cni' ? 'selected' : '' }}>
                                                 Carte nationale</option>
-                                            <option value="extrait"
-                                                {{ (old('type_piece') ?? $listecollective?->type_piece) === 'extrait' ? 'selected' : '' }}>
-                                                Extrait de naissance</option>
+                                            @can('voir-extrait')
+                                                <option value="extrait"
+                                                    {{ (old('type_piece') ?? $listecollective?->type_piece) === 'extrait' ? 'selected' : '' }}>
+                                                    Extrait de naissance</option>
+                                            @endcan
                                             <option value="passeport"
                                                 {{ (old('type_piece') ?? $listecollective?->type_piece) === 'passeport' ? 'selected' : '' }}>
                                                 Passeport</option>

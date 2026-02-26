@@ -162,7 +162,9 @@
                                         <select name="type_piece" id="type_piece" class="form-select form-select-sm">
                                             <option value="">-- Choisir --</option>
                                             <option value="cni">Carte nationale</option>
-                                            <option value="extrait">Extrait de naissance</option>
+                                            @can('voir-extrait')
+                                                <option value="extrait">Extrait de naissance</option>
+                                            @endcan
                                             <option value="passeport">Passeport</option>
                                         </select>
                                     </div>
