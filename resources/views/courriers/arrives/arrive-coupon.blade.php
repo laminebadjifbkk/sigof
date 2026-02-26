@@ -89,7 +89,7 @@
 
 <body>
     <div class="invoice-box">
-        {{-- <table class="table table-bordered" cellpadding="0" cellspacing="0">
+        {{-- <table class="table table-responsive" cellpadding="0" cellspacing="0">
             <tbody>
                 <tr>
                     <td colspan="1" valign="top" style="text-align: center;">
@@ -120,7 +120,7 @@
             </tbody>
         </table> --}}
 
-        <table class="table table-bordered" cellpadding="0" cellspacing="0">
+        <table class="table table-responsive" cellpadding="0" cellspacing="0">
             <tr class="top">
                 <td colspan="2">
                     <table>
@@ -163,7 +163,7 @@
                 </td>
             </tr>
         </table>
-        {{--  <table class="table table-bordered">
+        {{--  <table class="table table-responsive">
             <tbody>
                 <tr>
                     <td colspan="4" align="left">
@@ -177,7 +177,7 @@
                 </tr>
             </tbody>
         </table> --}}
-        <table class="table table-bordered" style="margin-top: -20px;">
+        <table class="table table-responsive" style="margin-top: -20px;">
             <tbody>
                 <tr>
                     <!-- Colonne Expéditeur (8 colonnes) -->
@@ -308,11 +308,11 @@
         </table>
 
         {{--         <br>
-        <table class="table table-bordered">
+        <table class="table table-responsive">
             <tbody>
                 <tr>
                     <td colspan="2" align="right" valign="top">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-responsive table-striped">
                             <tbody>
                                 <tr class="heading">
                                     <td colspan="2" align="center"><b>{{ __('Direction / Service / Cellule') }}</b>
@@ -338,7 +338,7 @@
                 </tr>
             </tbody>
         </table>  --}}
-        <table class="table table-bordered">
+        <table class="table table-responsive">
             <tbody>
                 <tr>
                     <td colspan="2" align="left" valign="top">
@@ -354,7 +354,7 @@
                 </tr>
             </tbody>
         </table>
-        {{--  <table class="table table-bordered">
+        {{--  <table class="table table-responsive">
             <tbody>
                 <tr>
                     <td colspan="1" align="left">
