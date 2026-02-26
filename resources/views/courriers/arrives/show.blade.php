@@ -72,8 +72,8 @@
                                         data-bs-target="#audit">Historiques</button>
                                 </li>
                             </ul>
-                            @can('imputer-courrier')
-                                <div class="tab-content pt-0">
+                            <div class="tab-content pt-0">
+                                @can('imputer-courrier')
                                     <div class="tab-pane fade show active pt-4" id="imputer_courrier">
                                         <div class="container-fluid">
 
@@ -289,111 +289,112 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade profile-overview" id="profile-overview">
-                                        @can('imputer-courrier')
-                                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                                <h5 class="card-title"></h5>
-                                                <form action="{{ route('couponArrive') }}" method="post" target="_blank">
-                                                    @csrf
-                                                    <input type="hidden" name="id" value="{{ $arrive?->id }}">
-                                                    <button class="btn btn-outline-primary btn-sm"><i class="fa fa-print"
-                                                            aria-hidden="true"></i>Télécharger
-                                                        coupon</button>
-                                                </form>
-                                            </div>
-                                        @endcan
-
-                                        <h5 class="card-title">Détails</h5>
-
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label ">Objet</div>
-                                            <div class="col-lg-9 col-md-8">{{ $arrive?->courrier?->objet }}</div>
+                                @endcan
+                                <div class="tab-pane fade profile-overview" id="profile-overview">
+                                    @can('imputer-courrier')
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <h5 class="card-title"></h5>
+                                            <form action="{{ route('couponArrive') }}" method="post" target="_blank">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $arrive?->id }}">
+                                                <button class="btn btn-outline-primary btn-sm"><i class="fa fa-print"
+                                                        aria-hidden="true"></i>Télécharger
+                                                    coupon</button>
+                                            </form>
                                         </div>
+                                    @endcan
 
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label ">N° courrier arrivé</div>
-                                            <div class="col-lg-3 col-md-4">{{ $arrive?->numero_arrive }}</div>
+                                    <h5 class="card-title">Détails</h5>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label ">Objet</div>
+                                        <div class="col-lg-9 col-md-8">{{ $arrive?->courrier?->objet }}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label ">N° courrier arrivé</div>
+                                        <div class="col-lg-3 col-md-4">{{ $arrive?->numero_arrive }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label ">Date arrivé</div>
+                                        <div class="col-lg-3 col-md-4">
+                                            {{ $arrive?->courrier?->date_recep?->translatedFormat('l jS F Y') }}
                                         </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Date correspondance</div>
+                                        <div class="col-lg-3 col-md-4">
+                                            {{ $arrive?->courrier?->date_cores?->translatedFormat('l jS F Y') }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label ">N° correspondance</div>
+                                        <div class="col-lg-3 col-md-4">{{ $arrive?->courrier?->numero_courrier }}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Année</div>
+                                        <div class="col-lg-3 col-md-4">{{ $arrive?->courrier?->annee }}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Expéditeur</div>
+                                        <div class="col-lg-3 col-md-4">{{ $arrive?->courrier?->expediteur }}</div>
+                                    </div>
+                                    <div class="row">
+                                        @if (!empty($arrive?->courrier?->reference))
+                                            <div class="col-lg-3 col-md-4 label">Référence</div>
+                                            <div class="col-lg-3 col-md-4">{{ $arrive?->courrier?->reference }}</div>
+                                        @endif
+                                    </div>
+
+                                    @if (!empty($arrive?->courrier?->numero_reponse))
                                         <div class="row">
-                                            <div class="col-lg-3 col-md-4 label ">Date arrivé</div>
+                                            <div class="col-lg-3 col-md-4 label ">N° réponse</div>
+                                            <div class="col-lg-3 col-md-4">{{ $arrive?->courrier?->numero_reponse }}</div>
+                                            <div class="col-lg-3 col-md-4 label">Date réponse</div>
                                             <div class="col-lg-3 col-md-4">
-                                                {{ $arrive?->courrier?->date_recep?->translatedFormat('l jS F Y') }}
+                                                {{ $arrive?->courrier?->date_reponse?->format('d/m/Y') }}
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">Date correspondance</div>
-                                            <div class="col-lg-3 col-md-4">
-                                                {{ $arrive?->courrier?->date_cores?->translatedFormat('l jS F Y') }}
-                                            </div>
-                                        </div>
+                                    @endif
 
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label ">N° correspondance</div>
-                                            <div class="col-lg-3 col-md-4">{{ $arrive?->courrier?->numero_courrier }}</div>
-                                        </div>
+                                    @if (!empty($arrive?->courrier?->observation))
+                                        <h5 class="card-title">Observations</h5>
+                                        <p class="small fst-italic">{{ $arrive?->courrier?->observation }}.</p>
+                                    @endif
 
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">Année</div>
-                                            <div class="col-lg-3 col-md-4">{{ $arrive?->courrier?->annee }}</div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">Expéditeur</div>
-                                            <div class="col-lg-3 col-md-4">{{ $arrive?->courrier?->expediteur }}</div>
-                                        </div>
-                                        <div class="row">
-                                            @if (!empty($arrive?->courrier?->reference))
-                                                <div class="col-lg-3 col-md-4 label">Référence</div>
-                                                <div class="col-lg-3 col-md-4">{{ $arrive?->courrier?->reference }}</div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Imputation</div>
+                                        <div class="col-lg-9 col-md-8">
+                                            @if ($arrive?->employees && $arrive->employees->isNotEmpty())
+                                                <?php $i = 1; ?>
+                                                @foreach ($arrive->employees as $employee)
+                                                    {{ $i++ }}. {!! $employee->user->firstname . ' ' . $employee->user->name !!}
+                                                    @if ($employee?->fonction?->sigle)
+                                                        <b>[{!! $employee?->fonction?->sigle ?? '' !!}]</b>
+                                                    @endif
+                                                    <br>
+                                                @endforeach
+                                            @else
+                                                <div class="alert alert-warning">Aucune imputation pour ce courrier</div>
                                             @endif
                                         </div>
-
-                                        @if (!empty($arrive?->courrier?->numero_reponse))
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-4 label ">N° réponse</div>
-                                                <div class="col-lg-3 col-md-4">{{ $arrive?->courrier?->numero_reponse }}</div>
-                                                <div class="col-lg-3 col-md-4 label">Date réponse</div>
-                                                <div class="col-lg-3 col-md-4">
-                                                    {{ $arrive?->courrier?->date_reponse?->format('d/m/Y') }}
-                                                </div>
-                                            </div>
-                                        @endif
-
-                                        @if (!empty($arrive?->courrier?->observation))
-                                            <h5 class="card-title">Observations</h5>
-                                            <p class="small fst-italic">{{ $arrive?->courrier?->observation }}.</p>
-                                        @endif
-
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">Imputation</div>
-                                            <div class="col-lg-9 col-md-8">
-                                                @if ($arrive?->employees && $arrive->employees->isNotEmpty())
-                                                    <?php $i = 1; ?>
-                                                    @foreach ($arrive->employees as $employee)
-                                                        {{ $i++ }}. {!! $employee->user->firstname . ' ' . $employee->user->name !!}
-                                                        @if ($employee?->fonction?->sigle)
-                                                            <b>[{!! $employee?->fonction?->sigle ?? '' !!}]</b>
-                                                        @endif
-                                                        <br>
-                                                    @endforeach
-                                                @else
-                                                    <div class="alert alert-warning">Aucune imputation pour ce courrier</div>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">Prévisualisation du scan</div>
-                                            <div class="col-lg-9 col-md-8">
-                                                @if (isset($arrive?->courrier?->file))
-                                                    <a href="{{ asset($arrive?->courrier?->getFile()) }}" target="_blank"
-                                                        class="btn btn-primary btn-sm">
-                                                        <i class="bi bi-download"></i> Télécharger le scan
-                                                    </a>
-                                                @else
-                                                    <div class="alert alert-info mt-2">Aucun fichier disponible pour ce
-                                                        courrier.</div>
-                                                @endif
-                                                {{-- <div class="border rounded bg-light p-2" style="height:350px; overflow:auto;">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Prévisualisation du scan</div>
+                                        <div class="col-lg-9 col-md-8">
+                                            @if (isset($arrive?->courrier?->file))
+                                                <a href="{{ asset($arrive?->courrier?->getFile()) }}" target="_blank"
+                                                    class="btn btn-primary btn-sm">
+                                                    <i class="bi bi-download"></i> Télécharger le scan
+                                                </a>
+                                            @else
+                                                <div class="alert alert-info mt-2">Aucun fichier disponible pour ce
+                                                    courrier.</div>
+                                            @endif
+                                            {{-- <div class="border rounded bg-light p-2" style="height:350px; overflow:auto;">
                                                 @if ($arrive->courrier->file)
                                                     @if (Str::endsWith($arrive->courrier->file, ['.pdf']))
                                                         <embed id="pdfPreview"
@@ -410,10 +411,10 @@
                                                     </div>
                                                 @endif
                                             </div> --}}
-                                            </div>
                                         </div>
+                                    </div>
 
-                                        {{-- <div class="row">
+                                    {{-- <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Scan courrier</div>
                                         <div class="col-lg-9 col-md-8">
                                             @if ($arrive?->employees && $arrive->employees->isNotEmpty())
@@ -429,9 +430,9 @@
                                         </div>
                                     </div> --}}
 
-                                    </div>
+                                </div>
 
-                                    {{-- <div class="tab-pane fade pt-3" id="profile-settings">
+                                {{-- <div class="tab-pane fade pt-3" id="profile-settings">
                                     <form method="POST" action="{{ route('comments.store', $arrive?->courrier) }}"
                                         class="mt-3">
                                         @csrf
@@ -545,95 +546,95 @@
                                     @endforelse
                                 </div> --}}
 
-                                    <div class="tab-pane fade pt-3" id="profile-settings">
+                                <div class="tab-pane fade pt-3" id="profile-settings">
 
-                                        <!-- ===== FORMULAIRE NOUVEAU COMMENTAIRE ===== -->
-                                        <div class="mb-4">
-                                            <h5 class="fw-bold text-primary">
-                                                <i class="bi bi-chat-left-text me-1"></i> Ajouter un commentaire
-                                            </h5>
-                                        </div>
-
-                                        <form method="POST" action="{{ route('comments.store', $arrive?->courrier) }}"
-                                            class="mb-4">
-                                            @csrf
-                                            <div class="form-floating mb-3">
-                                                <textarea class="form-control @error('commentaire') is-invalid @enderror" placeholder="Écrire votre commentaire..."
-                                                    name="commentaire" id="commentaire" style="height: 100px;"></textarea>
-                                                <label for="commentaire">Écrire votre commentaire...</label>
-                                                @error('commentaire')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                @enderror
-                                            </div>
-                                            <button type="submit" class="btn btn-primary btn-sm px-4 shadow-sm rounded-3">
-                                                <i class="bi bi-send me-1"></i> Poster
-                                            </button>
-                                        </form>
-
-                                        <hr>
-
-                                        <!-- ===== LISTE DES COMMENTAIRES ===== -->
-                                        <h5 class="fw-bold text-secondary mb-3 text-center">
-                                            <i class="bi bi-chat-text me-1"></i> Commentaires
+                                    <!-- ===== FORMULAIRE NOUVEAU COMMENTAIRE ===== -->
+                                    <div class="mb-4">
+                                        <h5 class="fw-bold text-primary">
+                                            <i class="bi bi-chat-left-text me-1"></i> Ajouter un commentaire
                                         </h5>
+                                    </div>
 
-                                        @forelse ($arrive?->courrier?->comments as $comment)
-                                            <div class="card mb-3 shadow-sm">
-                                                <div class="card-body">
-                                                    <p class="mb-2">{!! $comment?->content !!}</p>
-                                                    <div
-                                                        class="d-flex justify-content-between align-items-center small text-muted">
-                                                        <span>Posté {{ $comment?->created_at?->diffForHumans() }}</span>
-                                                        <span class="badge bg-info">{{ $comment?->user?->firstname ?? '' }}
-                                                            {{ $comment?->user?->name ?? '' }}</span>
-                                                    </div>
+                                    <form method="POST" action="{{ route('comments.store', $arrive?->courrier) }}"
+                                        class="mb-4">
+                                        @csrf
+                                        <div class="form-floating mb-3">
+                                            <textarea class="form-control @error('commentaire') is-invalid @enderror" placeholder="Écrire votre commentaire..."
+                                                name="commentaire" id="commentaire" style="height: 100px;"></textarea>
+                                            <label for="commentaire">Écrire votre commentaire...</label>
+                                            @error('commentaire')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-sm px-4 shadow-sm rounded-3">
+                                            <i class="bi bi-send me-1"></i> Poster
+                                        </button>
+                                    </form>
 
-                                                    {{-- Réponses --}}
-                                                    @foreach ($comment?->comments as $replayComment)
-                                                        <div class="card mt-2 ms-4 shadow-sm">
-                                                            <div class="card-body">
-                                                                <p class="mb-2">{!! $replayComment?->content !!}</p>
-                                                                <div
-                                                                    class="d-flex justify-content-between align-items-center small text-muted">
-                                                                    <span>Posté
-                                                                        {{ $replayComment?->created_at?->diffForHumans() }}</span>
-                                                                    <span
-                                                                        class="badge bg-primary">{{ $replayComment?->user?->firstname ?? '' }}
-                                                                        {{ $replayComment?->user?->name ?? '' }}</span>
-                                                                </div>
+                                    <hr>
+
+                                    <!-- ===== LISTE DES COMMENTAIRES ===== -->
+                                    <h5 class="fw-bold text-secondary mb-3 text-center">
+                                        <i class="bi bi-chat-text me-1"></i> Commentaires
+                                    </h5>
+
+                                    @forelse ($arrive?->courrier?->comments as $comment)
+                                        <div class="card mb-3 shadow-sm">
+                                            <div class="card-body">
+                                                <p class="mb-2">{!! $comment?->content !!}</p>
+                                                <div
+                                                    class="d-flex justify-content-between align-items-center small text-muted">
+                                                    <span>Posté {{ $comment?->created_at?->diffForHumans() }}</span>
+                                                    <span class="badge bg-info">{{ $comment?->user?->firstname ?? '' }}
+                                                        {{ $comment?->user?->name ?? '' }}</span>
+                                                </div>
+
+                                                {{-- Réponses --}}
+                                                @foreach ($comment?->comments as $replayComment)
+                                                    <div class="card mt-2 ms-4 shadow-sm">
+                                                        <div class="card-body">
+                                                            <p class="mb-2">{!! $replayComment?->content !!}</p>
+                                                            <div
+                                                                class="d-flex justify-content-between align-items-center small text-muted">
+                                                                <span>Posté
+                                                                    {{ $replayComment?->created_at?->diffForHumans() }}</span>
+                                                                <span
+                                                                    class="badge bg-primary">{{ $replayComment?->user?->firstname ?? '' }}
+                                                                    {{ $replayComment?->user?->name ?? '' }}</span>
                                                             </div>
                                                         </div>
-                                                    @endforeach
+                                                    </div>
+                                                @endforeach
 
-                                                    @auth
-                                                        <button class="btn btn-outline-info btn-sm mt-2"
-                                                            onclick="toggleReplayComment({{ $comment?->id }})">
-                                                            <i class="bi bi-reply me-1"></i> Répondre
+                                                @auth
+                                                    <button class="btn btn-outline-info btn-sm mt-2"
+                                                        onclick="toggleReplayComment({{ $comment?->id }})">
+                                                        <i class="bi bi-reply me-1"></i> Répondre
+                                                    </button>
+                                                    <form method="POST"
+                                                        action="{{ route('comments.storeReply', $comment) }}"
+                                                        class="d-none mt-2" id="replayComment-{{ $comment?->id }}">
+                                                        @csrf
+                                                        <div class="form-floating mb-2">
+                                                            <textarea class="form-control @error('replayComment') is-invalid @enderror" placeholder="Répondre à ce commentaire"
+                                                                name="replayComment" style="height: 80px;"></textarea>
+                                                            <label>Répondre à ce commentaire</label>
+                                                            @error('replayComment')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary btn-sm">
+                                                            <i class="bi bi-send me-1"></i> Répondre
                                                         </button>
-                                                        <form method="POST"
-                                                            action="{{ route('comments.storeReply', $comment) }}"
-                                                            class="d-none mt-2" id="replayComment-{{ $comment?->id }}">
-                                                            @csrf
-                                                            <div class="form-floating mb-2">
-                                                                <textarea class="form-control @error('replayComment') is-invalid @enderror" placeholder="Répondre à ce commentaire"
-                                                                    name="replayComment" style="height: 80px;"></textarea>
-                                                                <label>Répondre à ce commentaire</label>
-                                                                @error('replayComment')
-                                                                    <small class="text-danger">{{ $message }}</small>
-                                                                @enderror
-                                                            </div>
-                                                            <button type="submit" class="btn btn-primary btn-sm">
-                                                                <i class="bi bi-send me-1"></i> Répondre
-                                                            </button>
-                                                        </form>
-                                                    @endauth
-                                                </div>
+                                                    </form>
+                                                @endauth
                                             </div>
-                                        @empty
-                                            <div class="alert alert-info">Aucun commentaire pour ce courrier.</div>
-                                        @endforelse
-                                    </div>
-                                    {{-- <div class="tab-pane fade pt-3" id="audit">
+                                        </div>
+                                    @empty
+                                        <div class="alert alert-info">Aucun commentaire pour ce courrier.</div>
+                                    @endforelse
+                                </div>
+                                {{-- <div class="tab-pane fade pt-3" id="audit">
                                     <div class="border-info mb-3">
                                         <div class="card-header text-center">
                                             AUDIT
@@ -651,38 +652,38 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                    <div class="tab-pane fade pt-3" id="audit">
-                                        <div class="card border-info shadow-sm mb-3">
-                                            <div class="card-header bg-info text-white text-center fw-bold">
-                                                <i class="bi bi-clipboard-data me-1"></i> Historiques
-                                            </div>
-                                            <div class="card-body d-flex flex-column gap-2">
-                                                <h5 class="card-title text-primary fw-semibold">Informations complémentaires
-                                                </h5>
+                                <div class="tab-pane fade pt-3" id="audit">
+                                    <div class="card border-info shadow-sm mb-3">
+                                        <div class="card-header bg-info text-white text-center fw-bold">
+                                            <i class="bi bi-clipboard-data me-1"></i> Historiques
+                                        </div>
+                                        <div class="card-body d-flex flex-column gap-2">
+                                            <h5 class="card-title text-primary fw-semibold">Informations complémentaires
+                                            </h5>
 
-                                                <p class="mb-1">
-                                                    <span class="badge bg-success me-1">Créé par</span>
-                                                    <b>{{ $user_create_name }}</b> —
+                                            <p class="mb-1">
+                                                <span class="badge bg-success me-1">Créé par</span>
+                                                <b>{{ $user_create_name }}</b> —
+                                                <small
+                                                    class="text-muted">{{ $arrive?->courrier?->created_at?->diffForHumans() }}</small>
+                                            </p>
+
+                                            @if ($arrive?->courrier?->created_at != $courrier?->updated_at)
+                                                <p class="mb-0">
+                                                    <span class="badge bg-warning text-dark me-1">Modifié par</span>
+                                                    <b>{{ $user_update_name }}</b> —
                                                     <small
-                                                        class="text-muted">{{ $arrive?->courrier?->created_at?->diffForHumans() }}</small>
+                                                        class="text-muted">{{ $courrier?->updated_at?->diffForHumans() }}</small>
                                                 </p>
-
-                                                @if ($arrive?->courrier?->created_at != $courrier?->updated_at)
-                                                    <p class="mb-0">
-                                                        <span class="badge bg-warning text-dark me-1">Modifié par</span>
-                                                        <b>{{ $user_update_name }}</b> —
-                                                        <small
-                                                            class="text-muted">{{ $courrier?->updated_at?->diffForHumans() }}</small>
-                                                    </p>
-                                                @else
-                                                    <p class="mb-0">
-                                                        <span class="badge bg-secondary">Jamais modifié</span>
-                                                    </p>
-                                                @endif
-                                            </div>
+                                            @else
+                                                <p class="mb-0">
+                                                    <span class="badge bg-secondary">Jamais modifié</span>
+                                                </p>
+                                            @endif
                                         </div>
                                     </div>
-                                    {{-- <div class="tab-pane fade pt-3" id="modifier_courrier">
+                                </div>
+                                {{-- <div class="tab-pane fade pt-3" id="modifier_courrier">
                                     <form method="post" action="{{ route('arrives.update', $arrive?->id) }}"
                                         enctype="multipart/form-data" class="row g-3">
                                         @csrf
@@ -884,7 +885,7 @@
                                         </div>
                                     </form>
                                 </div> --}}
-                                    {{-- <div class="tab-pane fade pt-3" id="imputer_courrier">
+                                {{-- <div class="tab-pane fade pt-3" id="imputer_courrier">
                                     <div class="col-lg-12">
                                         <div class="col-sm-12 col-md-12 pt-2">
 
@@ -1196,11 +1197,9 @@
                                         </script>
                                     </div>
                                 </div> --}}
-                                </div>
-                            @endcan
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
