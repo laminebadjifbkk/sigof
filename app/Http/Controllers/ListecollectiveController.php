@@ -48,6 +48,8 @@ class ListecollectiveController extends Controller
             $cin = $this->formatCin($cin);
         }
 
+        dd($cin);
+
         // 🔹 Injecter la version formatée AVANT validation
         $request->merge(['cin' => $cin]);
 
@@ -70,8 +72,12 @@ class ListecollectiveController extends Controller
 
         // 🔹 Validation adaptée
 
-        $validator->sometimes('cin', [
+        /* $validator->sometimes('cin', [
             'regex:/^[0-9] [0-9]{3} [0-9]{4} [0-9]{5}$/'
+        ], fn($input) => $input->type_piece === 'cni'); */
+
+        $validator->sometimes('cin', [
+            'regex:/^[0-9][A-Z][0-9]{11}$/'
         ], fn($input) => $input->type_piece === 'cni');
 
         $validator->sometimes('cin', [
@@ -225,8 +231,12 @@ class ListecollectiveController extends Controller
 
         // 🔹 Validation adaptée
 
-        $validator->sometimes('cin', [
+        /* $validator->sometimes('cin', [
             'regex:/^[0-9] [0-9]{3} [0-9]{4} [0-9]{5}$/'
+        ], fn($input) => $input->type_piece === 'cni'); */
+
+        $validator->sometimes('cin', [
+            'regex:/^[0-9][A-Z][0-9]{11}$/'
         ], fn($input) => $input->type_piece === 'cni');
 
         $validator->sometimes('cin', [
@@ -297,7 +307,7 @@ class ListecollectiveController extends Controller
 
         return $cin; // sécurité
     } */
-
+    /* 
     private function formatCin($cin)
     {
         $cin = preg_replace('/\D/', '', $cin);
@@ -310,6 +320,22 @@ class ListecollectiveController extends Controller
             substr($cin, 1, 3) . ' ' .
             substr($cin, 4, 4) . ' ' .
             substr($cin, 8, 5);
+    } */
+
+    private function formatCin($cin)
+    {
+        // 🔹 Supprimer tout sauf lettres et chiffres
+        $cin = preg_replace('/[^A-Za-z0-9]/', '', $cin);
+        $cin = strtoupper($cin);
+
+        if (strlen($cin) < 8) {
+            return $cin; // sécurité si longueur insuffisante
+        }
+
+        return substr($cin, 0, 1) . ' ' .          // X
+            substr($cin, 1, 3) . ' ' .          // XXX
+            substr($cin, 4, 4) . ' ' .          // XXXX
+            substr($cin, 8);                    // reste
     }
 
     public function show(Listecollective $listecollective)
