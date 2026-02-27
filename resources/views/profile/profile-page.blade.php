@@ -599,8 +599,8 @@
                                                     <input name="cin" type="text"
                                                         class="form-control form-control-sm @error('cin') is-invalid @enderror"
                                                         id="cin" value="{{ $user?->cin ?? old('cin') }}"
-                                                        autocomplete="off" placeholder="Ex: 1 099 2005 00012"
-                                                        minlength="16" maxlength="17" required>
+                                                        autocomplete="off" placeholder="Ex: 1099200500012"
+                                                        minlength="13" maxlength="14" required>
                                                 </div>
                                                 @error('cin')
                                                     <span class="text-danger">{{ $message }}</span>

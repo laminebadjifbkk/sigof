@@ -582,8 +582,8 @@ class UserController extends Controller
                 'cin'            => [
                     'nullable',
                     'string',
-                    'min:16',
-                    'max:17',
+                    'min:13',
+                    'max:14',
                     Rule::unique(User::class, 'cin')
                         ->ignore($user->uuid, 'uuid')
                         ->whereNull('deleted_at'),
@@ -794,7 +794,7 @@ class UserController extends Controller
     {
         if ($request->cin_value == "1") {
             $this->validate($request, [
-                'cin' => 'required|string|min:16|max:17',
+                'cin' => 'required|string|min:13|max:14',
             ]);
 
             $users = User::where('cin', 'LIKE', "%{$request->cin}%")

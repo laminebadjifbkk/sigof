@@ -269,7 +269,7 @@
                                         <input name="cin" type="text"
                                             class="form-control form-control-sm @error('cin') is-invalid @enderror"
                                             id="cin" value="{{ old('cin') }}" autocomplete="off"
-                                            placeholder="Ex: 1 099 2005 00012" minlength="16" maxlength="17" required>
+                                            placeholder="Ex: 1099200500012" minlength="13" maxlength="14" required>
                                         @error('cin')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -827,7 +827,7 @@
                                                 <input name="cin" type="text"
                                                     class="form-control form-control-sm @error('cin') is-invalid @enderror"
                                                     id="cin2" value="{{ old('cin') }}" autocomplete="off"
-                                                    placeholder="Ex: 1 099 2005 00012" minlength="16" maxlength="17">
+                                                    placeholder="Ex: 1099200500012" minlength="13" maxlength="14">
                                                 @error('cin')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>

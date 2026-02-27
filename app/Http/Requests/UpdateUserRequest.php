@@ -36,8 +36,8 @@ class UpdateUserRequest extends FormRequest
             'cin'       => [
                 'required',
                 'string',
-                'min:16',
-                'max:17',
+                'min:13',
+                'max:14',
                 Rule::unique(User::class)->ignore($this->route('user')?->id ?? null)->whereNull('deleted_at'),
             ],
             'image'     => ['image', 'max:255', 'nullable', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],

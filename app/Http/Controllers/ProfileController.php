@@ -291,8 +291,8 @@ class ProfileController extends Controller
             'cin'                       => [
                 'required',
                 'string',
-                'min:16',
-                'max:17',
+                'min:13',
+                'max:14',
                 Rule::unique(User::class)->ignore($user->id ?? null)->whereNull('deleted_at'),
             ],
             /* 'username'                  => ['required', 'string'], */

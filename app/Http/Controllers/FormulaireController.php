@@ -69,7 +69,7 @@ class FormulaireController extends Controller
 
 
         $validated = $request->validate([
-            'cin'                  => 'required|string|max:17|unique:formulaires,cin',
+            'cin'                  => 'required|string|max:14|unique:formulaires,cin',
             'civilite'             => 'required|string|max:5',
             'prenom'               => 'required|string',
             'nom'                  => 'required|string',

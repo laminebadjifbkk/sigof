@@ -80,8 +80,8 @@ class ProfileOperateurController extends Controller
             'cin'                  => [
                 'nullable',
                 'string',
-                'min:16',
-                'max:17',
+                'min:13',
+                'max:14',
                 Rule::unique(User::class)->ignore($request->idUser ?? null)->whereNull('deleted_at'),
             ],
             /* 'username'             => [

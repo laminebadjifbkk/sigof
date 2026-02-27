@@ -614,8 +614,8 @@ class IndividuelleController extends Controller
             'cin'                       => [
                 'required',
                 'string',
-                'min:16',
-                'max:17',
+                'min:13',
+                'max:14',
                 Rule::unique('users')->whereNull('deleted_at'), // Ignore les utilisateurs supprimés
             ],
             'email'                     => [
@@ -1003,8 +1003,8 @@ class IndividuelleController extends Controller
             'cin'            => [
                 'required',
                 'string',
-                'min:16',
-                'max:17',
+                'min:13',
+                'max:14',
                 Rule::unique(User::class, 'cin')
                     ->ignore($user->uuid, 'uuid')
                     ->whereNull('deleted_at'),
