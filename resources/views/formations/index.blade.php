@@ -127,7 +127,7 @@
                                                 {{ number_format($items->total, 0, '', ' ') }}
                                             </td>
                                             <td class="text-center">
-                                                <a href="{{ route('individuelles.parAnnee', ['annee' => $items->annee]) }}"
+                                                <a href="{{ route('operateurs.parAnnee', ['annee' => $items->annee]) }}"
                                                     class="btn btn-sm btn-outline-primary">
                                                     Voir plus
                                                 </a>
