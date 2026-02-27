@@ -290,7 +290,7 @@
                                             <th width='15%'>Modules</th>
                                             <th width='15%'>Niveau qualif.</th>
                                             <th width='10%' class="text-center">Opérateurs</th>
-                                            <th width='5%' class="text-center">Statut</th>
+                                            <th width='5%' class="text-center">Type</th>
                                             @can('formation-show')
                                                 <th width='3%'><i class="bi bi-gear"></i></th>
                                             @endcan
@@ -319,8 +319,7 @@
                                                     {{ $formation?->operateur?->user?->username ?? ' ' }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a><span
-                                                            class="{{ $formation->statut }}">{{ $formation->statut }}</span></a>
+                                                    {{ $formation?->types_formation?->name }}
                                                 </td>
                                                 @can('formation-show')
                                                     <td>
