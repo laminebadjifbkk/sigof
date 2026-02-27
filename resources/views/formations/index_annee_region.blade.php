@@ -217,7 +217,7 @@
                                     </div>
                                 </div>
                             @endcan
-                            @can('formation-suivi')
+                            @can('suivi-formation')
                                 <div class="d-flex align-items-center gap-2">
                                     <button type="button" class="dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#generate_rapportFormation">
