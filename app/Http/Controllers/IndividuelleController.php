@@ -998,7 +998,6 @@ class IndividuelleController extends Controller
             'projetprofessionnel'    => ['required', 'string', 'max:500'],
             'qualification'          => ['nullable', 'string', 'max:500'],
 
-
             'civilite'       => ['required', 'string', 'max:10'],
             'cin'            => [
                 'required',
@@ -1099,16 +1098,6 @@ class IndividuelleController extends Controller
         Alert::success('Succès !', 'La demande a été modifiée avec succès.');
         return Redirect::back();
     }
-
-    /*  private function authorizeRoles($roles, $individuelle)
-    {
-        foreach ($roles as $role) {
-            if (! empty($role->name) && ! in_array($role->name, ['super-admin', 'Employe', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC', 'Ant*'])) {
-                $this->authorize('update', $individuelle);
-            }
-        }
-    } */
-
 
     private function authorizeRoles($roles, $individuelle)
     {
