@@ -1,6 +1,6 @@
 @can('file-show')
-@extends('layout.user-layout')
-@section('title', 'ONFP - Liste des fichiers')
+    @extends('layout.user-layout')
+    @section('title', 'ONFP - Liste des fichiers')
 @section('space-work')
 
     <section class="section register">
@@ -51,38 +51,40 @@
                         {{-- @endcan --}}
                         <h5 class="card-title">Fichiers</h5>
                         <!-- Table with stripped rows -->
-                        <table class="table datatables align-middle justify-content-center" id="table-files">
-                            <thead>
-                                <tr>
-                                    <th width="5%" class="text-center" scope="col">N°</th>
-                                    <th>Légende</th>
-                                    <th>Sigle</th>
-                                    <th>File</th>
-                                    <th>User</th>
-                                    {{-- <th width="2%" class="text-center" scope="col">#</th> --}}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($files as $file)
+
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle justify-content-center" id="table-files">
+                                <thead>
                                     <tr>
-                                        <td style="text-align: center;">{{ $i++ }}</td>
-                                        <td>{{ $file?->legende }}</td>
-                                        <td>{{ $file?->sigle }}</td>
-                                        <td>
-                                            @if (!empty($file?->file))
-                                                <a class="btn btn-default btn-sm" title="télécharger le fichier joint"
-                                                    target="_blank" href="{{ asset($file?->getFichier()) }}">
-                                                    <i class="bi bi-file-earmark"></i>
-                                                </a>
-                                            @endif
-                                        </td>
-                                        <td>{{ $file?->user?->firstname . ' ' . $file?->user?->name. ' - ' . $file?->user?->username }}
-                                            @if (!empty($file?->user?->cin))
-                                                {{ ' (' . $file?->user?->cin . ')' }}
-                                            @endif
-                                        </td>
-                                        {{-- <td style="text-align: center;">
+                                        <th width="5%" class="text-center" scope="col">N°</th>
+                                        <th>Légende</th>
+                                        <th>Sigle</th>
+                                        <th>File</th>
+                                        <th>User</th>
+                                        {{-- <th width="2%" class="text-center" scope="col">#</th> --}}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($files as $file)
+                                        <tr>
+                                            <td style="text-align: center;">{{ $i++ }}</td>
+                                            <td>{{ $file?->legende }}</td>
+                                            <td>{{ $file?->sigle }}</td>
+                                            <td>
+                                                @if (!empty($file?->file))
+                                                    <a class="btn btn-default btn-sm" title="télécharger le fichier joint"
+                                                        target="_blank" href="{{ asset($file?->getFichier()) }}">
+                                                        <i class="bi bi-file-earmark"></i>
+                                                    </a>
+                                                @endif
+                                            </td>
+                                            <td>{{ $file?->user?->firstname . ' ' . $file?->user?->name . ' - ' . $file?->user?->username }}
+                                                @if (!empty($file?->user?->cin))
+                                                    {{ ' (' . $file?->user?->cin . ')' }}
+                                                @endif
+                                            </td>
+                                            {{-- <td style="text-align: center;">
                                             <span class="d-flex mt-2 align-items-baseline"><a href="#"
                                                     class="btn btn-warning btn-sm mx-1" title="Voir détails">
                                                     <i class="bi bi-eye"></i></a>
@@ -110,10 +112,11 @@
                                             </span>
                                         </td> --}}
 
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                         <!-- End Table with stripped rows -->
                     </div>
                 </div>
@@ -214,7 +217,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+                                <button type="button" class="btn btn-secondary btn-sm"
+                                    data-bs-dismiss="modal">Fermer</button>
                                 <button type="submit" class="btn btn-primary btn-sm">Modifier</button>
                             </div>
                         </form>

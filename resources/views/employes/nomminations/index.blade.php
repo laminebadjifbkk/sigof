@@ -39,39 +39,44 @@
                         <h5 class="card-title">Nomminations</h5>
                         {{-- <p>Le tableau de tous les nomminations du système.</p> --}}
                         <!-- Table with stripped rows -->
-                        <table class="table datatables align-middle" id="table-nomminations">
-                            <thead>
-                                <tr>
-                                    <th>N°</th>
-                                    <th>nomminations</th>
-                                    <th>#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($nomminations as $nommination)
+
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle" id="table-nomminations">
+                                <thead>
                                     <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td>{{ $nommination->name }}</td>
-                                        <td>
-                                            <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('nomminations/'.$nommination->id.'/edit') }}"
-                                                    class="btn btn-success btn-sm" title="Modifier"><i
-                                                        class="bi bi-pencil-square"></i></a>&nbsp;
-                                                <form action="{{ url('nomminations', $nommination->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                        title="Supprimer"><i class="bi bi-trash"></i></button>
-                                                </form>
-                                            </span>
-                                        </td>
+                                        <th>N°</th>
+                                        <th>nomminations</th>
+                                        <th>#</th>
                                     </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($nomminations as $nommination)
+                                        <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $nommination->name }}</td>
+                                            <td>
+                                                <span class="d-flex mt-2 align-items-baseline"><a
+                                                        href="{{ url('nomminations/' . $nommination->id . '/edit') }}"
+                                                        class="btn btn-success btn-sm" title="Modifier"><i
+                                                            class="bi bi-pencil-square"></i></a>&nbsp;
+                                                    <form action="{{ url('nomminations', $nommination->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                                            title="Supprimer"><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
 
+                        </div>
                     </div>
                 </div>
 
@@ -85,7 +90,7 @@
         new DataTable('#table-nomminations', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

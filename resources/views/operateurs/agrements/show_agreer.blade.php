@@ -46,10 +46,11 @@
                                                         value="{{ $commissionagrement->id }}">
                                                     <input type="hidden" name="value2" value="50">
                                                     <input type="hidden" name="value1" value="0">
-                                                    <button type="submit" class="dropdown-item btn btn-sm">Lettres agrément</button>
+                                                    <button type="submit" class="dropdown-item btn btn-sm">Lettres
+                                                        agrément</button>
                                                 </form>
                                             </li>
-                                            
+
                                         </ul>
                                     </div>
                                 </span>
@@ -64,32 +65,35 @@
                             @method('PUT')
                             <div class="row mb-0">
                                 <div class="form-check col-md-12 pt-5">
-                                    <table class="table datatables table-bordered table-hover align-middle justify-content-center" id="table-operateurs">
-                                        <thead>
-                                            <tr>
-                                                <th>Opérateurs</th>
-                                                {{-- <th width="15%">Adresse</th> --}}
-                                                <th width="10%">Domaine</th>
-                                                <th width="15%">Modules</th>
-                                                <th width="15%">Niveau qualification</th>
-                                                <th width="15%">N° agrément</th>
-                                                {{-- <th width="15%" class="text-center">Statut</th> --}}
-                                                <th><i class="bi bi-gear"></i></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                            @foreach ($operateurmodules as $operateurmodule)
-                                                {{-- @isset($operateur?->numero_agrement) --}}
+                                    <div class="table-responsive">
+                                        <table
+                                            class="table datatables table-bordered table-hover align-middle justify-content-center"
+                                            id="table-operateurs">
+                                            <thead>
                                                 <tr>
-                                                    <td>{{ $operateurmodule?->operateur?->user?->operateur . ' (' . $operateurmodule?->operateur?->user?->username . ')' }}
-                                                    </td>
-                                                    {{-- <td>{{ $operateurmodule?->operateur?->user?->adresse }}</td> --}}
-                                                    <td>{{ $operateurmodule?->domaine }}</td>
-                                                    <td>{{ $operateurmodule?->module }}</td>
-                                                    <td>{{ $operateurmodule?->categorie }}</td>
-                                                    <td>{{ $operateurmodule?->operateur?->numero_agrement }}</td>
-                                                    {{-- <td style="text-align: center;">
+                                                    <th>Opérateurs</th>
+                                                    {{-- <th width="15%">Adresse</th> --}}
+                                                    <th width="10%">Domaine</th>
+                                                    <th width="15%">Modules</th>
+                                                    <th width="15%">Niveau qualification</th>
+                                                    <th width="15%">N° agrément</th>
+                                                    {{-- <th width="15%" class="text-center">Statut</th> --}}
+                                                    <th><i class="bi bi-gear"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @foreach ($operateurmodules as $operateurmodule)
+                                                    {{-- @isset($operateur?->numero_agrement) --}}
+                                                    <tr>
+                                                        <td>{{ $operateurmodule?->operateur?->user?->operateur . ' (' . $operateurmodule?->operateur?->user?->username . ')' }}
+                                                        </td>
+                                                        {{-- <td>{{ $operateurmodule?->operateur?->user?->adresse }}</td> --}}
+                                                        <td>{{ $operateurmodule?->domaine }}</td>
+                                                        <td>{{ $operateurmodule?->module }}</td>
+                                                        <td>{{ $operateurmodule?->categorie }}</td>
+                                                        <td>{{ $operateurmodule?->operateur?->numero_agrement }}</td>
+                                                        {{-- <td style="text-align: center;">
                                                             @foreach ($operateur?->operateurmodules as $operateurmodule)
                                                                 @if ($loop->last)
                                                                     <a href="#"><span
@@ -97,23 +101,25 @@
                                                                 @endif
                                                             @endforeach
                                                         </td> --}}
-                                                    {{-- <td class="text-center">
+                                                        {{-- <td class="text-center">
                                                             <span
                                                                 class="{{ $operateur->statut_agrement }}">{{ $operateur->statut_agrement }}</span>
                                                         </td> --}}
-                                                    <td>
-                                                        <span class="d-flex align-items-baseline"><a
-                                                                href="{{ route('agrements', ['id' => $operateurmodule?->operateur?->id]) }}"
-                                                                class="btn btn-primary btn-sm" target="_blank"
-                                                                title="voir détails"><i class="bi bi-eye"></i></a>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                {{-- @endisset --}}
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                                        <td>
+                                                            <span class="d-flex align-items-baseline"><a
+                                                                    href="{{ route('agrements', ['id' => $operateurmodule?->operateur?->id]) }}"
+                                                                    class="btn btn-primary btn-sm" target="_blank"
+                                                                    title="voir détails"><i class="bi bi-eye"></i></a>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    {{-- @endisset --}}
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -126,7 +132,7 @@
         new DataTable('#table-operateurs', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "lengthMenu": [

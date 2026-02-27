@@ -20,51 +20,53 @@
                             Bonjour {{ Auth::user()->civilite . ' ' . Auth::user()->firstname . ' ' . Auth::user()->name }}
                         </h5>
                         @if (!empty($formation_count))
-                            <table class="table table-bordered table-hover table-borderless">
-                                <thead>
-                                    <tr>
-                                        <th width='6%' class="text-center">Code</th>
-                                        <th>Bénéficiaires</th>
-                                        <th width='15%'>Localité</th>
-                                        <th width='20%'>Modules</th>
-                                        <th width='10%'>Type certification</th>
-                                        <th width='5%' class="text-center">Statut</th>
-                                        <th width='5%' class="text-center">Diplômes</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($individuelles as $individuelle)
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-borderless">
+                                    <thead>
                                         <tr>
-                                            <td style="text-align: center">{{ $individuelle?->formation?->code }}</td>
-                                            <td>{{ $individuelle?->formation?->name }}</td>
-                                            <td>{{ $individuelle?->formation->departement?->region?->nom }}</td>
-                                            <td>{{ $individuelle?->formation?->module?->name }}</td>
-                                            <td>{{ $individuelle?->formation->type_certification }}</td>
-                                            <td class="text-center"><a><span
-                                                        class="{{ $individuelle?->formation?->statut }}">{{ $individuelle?->formation?->statut }}</span></a>
-                                            </td>
-                                            {{-- <td class="text-center"><span
-                                                class="{{ $individuelle->formation?->attestation }}">{{ $individuelle?->formation?->attestation }}</span></td> --}}
-                                            <td style="text-align: center; vertical-align: middle;">
-                                                @if (!empty($individuelle?->formation?->attestation))
-                                                    @if (!empty($individuelle?->retrait_diplome))
-                                                        <a href="#" data-bs-toggle="modal"
-                                                            data-bs-target="#EditShowModal{{ $individuelle?->id }}">
-                                                            <i class="bi bi-check-circle text-success"
-                                                                title="diplôme retiré"></i>
-                                                        </a>
-                                                    @else
-                                                        <i class="bi bi-x text-danger" title="diplôme non retiré"></i>
-                                                    @endif
-                                                @else
-                                                    <i class="bi bi-x text-danger" title="non disponible"></i>
-                                                @endif
-                                            </td>
+                                            <th width='6%' class="text-center">Code</th>
+                                            <th>Bénéficiaires</th>
+                                            <th width='15%'>Localité</th>
+                                            <th width='20%'>Modules</th>
+                                            <th width='10%'>Type certification</th>
+                                            <th width='5%' class="text-center">Statut</th>
+                                            <th width='5%' class="text-center">Diplômes</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($individuelles as $individuelle)
+                                            <tr>
+                                                <td style="text-align: center">{{ $individuelle?->formation?->code }}</td>
+                                                <td>{{ $individuelle?->formation?->name }}</td>
+                                                <td>{{ $individuelle?->formation->departement?->region?->nom }}</td>
+                                                <td>{{ $individuelle?->formation?->module?->name }}</td>
+                                                <td>{{ $individuelle?->formation->type_certification }}</td>
+                                                <td class="text-center"><a><span
+                                                            class="{{ $individuelle?->formation?->statut }}">{{ $individuelle?->formation?->statut }}</span></a>
+                                                </td>
+                                                {{-- <td class="text-center"><span
+                                                class="{{ $individuelle->formation?->attestation }}">{{ $individuelle?->formation?->attestation }}</span></td> --}}
+                                                <td style="text-align: center; vertical-align: middle;">
+                                                    @if (!empty($individuelle?->formation?->attestation))
+                                                        @if (!empty($individuelle?->retrait_diplome))
+                                                            <a href="#" data-bs-toggle="modal"
+                                                                data-bs-target="#EditShowModal{{ $individuelle?->id }}">
+                                                                <i class="bi bi-check-circle text-success"
+                                                                    title="diplôme retiré"></i>
+                                                            </a>
+                                                        @else
+                                                            <i class="bi bi-x text-danger" title="diplôme non retiré"></i>
+                                                        @endif
+                                                    @else
+                                                        <i class="bi bi-x text-danger" title="non disponible"></i>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <div class="alert alert-info">Vous n'avez bénéficié d'aucune formation pour le moment !!
                             </div>

@@ -127,20 +127,22 @@
         <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete.png'))) }}"
             style="width: 100%; max-width: 370px" />
     </div>
-    {{--  <h6 valign="top" style="text-align: center;">
+    {{-- <h6 valign="top" style="text-align: center;">
         <b>REPUBLIQUE DU SENEGAL<br></b>
         Un Peuple - Un But - Une Foi<br>
         <b>********<br>
             MINISTERE DE L'EMPLOI ET DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE<br>
             ********<br>
             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
-                style="width: 100%; max-width: 300px" />
-        </b>
+    style="width: 100%; max-width: 300px" />
+    </b>
     </h6> --}}
     <h4 style="text-align: center;">FICHE DE SYNTHESE DU DOSSIER D'AGREMENT
-        {{ 'DU ' . $commission?->date?->format('d/m/Y') }}</h4>
+        {{ 'DU ' . $commission?->date?->format('d/m/Y') }}
+    </h4>
     @foreach ($operateurs as $operateur)
-        <div class="invoice-box">
+    <div class="invoice-box">
+        <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
                     <tr class="heading">
@@ -156,7 +158,7 @@
                         <td><b>{{ __("DENOMINATION DE L'OPERATEUR") }}</b></td>
                         <td colspan="8">{{ $operateur?->user?->operateur }}
                             @if (!empty($operateur?->user?->username))
-                                {{ '(' . $operateur?->user?->username . ')' }}
+                            {{ '(' . $operateur?->user?->username . ')' }}
                             @endif
                         </td>
                         <td colspan="2" width="10%" style="text-align: center;">
@@ -167,22 +169,22 @@
                         <td><b>{{ __('RESPONSABLE') }}</b></td>
                         <td colspan="8">
                             @if (!empty($operateur?->user?->firstname))
-                                {{ $operateur?->user?->firstname }}
+                            {{ $operateur?->user?->firstname }}
                             @endif
                             @if (!empty($operateur?->user?->name))
-                                {{ $operateur?->user?->name }}
+                            {{ $operateur?->user?->name }}
                             @endif
                         </td>
                         <td width="10%" style="text-align: center;">
                             @if (!empty($operateur?->visite_conformite))
-                                <span
-                                    class="{{ $operateur?->visite_conformite }}">{{ $operateur?->visite_conformite }}</span>
+                            <span
+                                class="{{ $operateur?->visite_conformite }}">{{ $operateur?->visite_conformite }}</span>
                             @endif
                         </td>
                         <td width="10%" style="text-align: center;">
                             @if (!empty($operateur?->visite_conformite))
-                                <span
-                                    class="{{ $operateur?->visite_conformite }}">{{ $operateur?->visite_conformite }}</span>
+                            <span
+                                class="{{ $operateur?->visite_conformite }}">{{ $operateur?->visite_conformite }}</span>
                             @endif
                         </td>
                     </tr>
@@ -190,7 +192,7 @@
                         <td><b>{{ __('CIVILITE') }}</b></td>
                         <td colspan="8">
                             @if (!empty($operateur?->user?->civilite))
-                                {{ $operateur?->user?->civilite }}
+                            {{ $operateur?->user?->civilite }}
                             @endif
                         </td>
                         <td></td>
@@ -200,7 +202,7 @@
                         <td><b>{{ __('TITRE') }}</b></td>
                         <td colspan="8">
                             @if (!empty($operateur?->user?->fonction_responsable))
-                                {{ $operateur?->user?->fonction_responsable }}
+                            {{ $operateur?->user?->fonction_responsable }}
                             @endif
                         </td>
                         <td></td>
@@ -210,7 +212,7 @@
                         <td><b>{{ __('ADRESSE') }}</b></td>
                         <td colspan="8">
                             @if (!empty($operateur?->user?->adresse))
-                                {{ $operateur?->user?->adresse }}
+                            {{ $operateur?->user?->adresse }}
                             @endif
                         </td>
                         <td></td>
@@ -220,37 +222,37 @@
                         <td><b>{{ __('CONTACTS') }}</b></td>
                         <td colspan="3">
                             @if (!empty($operateur?->user?->fixe))
-                                Tél 1 : <a href="tel:+221{{ $operateur?->user?->fixe }}">
-                                    {{ $operateur?->user?->fixe }}
-                                </a>
+                            Tél 1 : <a href="tel:+221{{ $operateur?->user?->fixe }}">
+                                {{ $operateur?->user?->fixe }}
+                            </a>
                             @endif
                             <br>
                             @if (!empty($operateur?->user?->telephone))
-                                Tél 2 : <a href="tel:+221{{ $operateur?->user?->telephone }}">
-                                    {{ $operateur?->user?->telephone }}
-                                </a>
+                            Tél 2 : <a href="tel:+221{{ $operateur?->user?->telephone }}">
+                                {{ $operateur?->user?->telephone }}
+                            </a>
                             @endif
                             <br>
                             @if (
-                                !empty($operateur?->user?->telephone_parent) &&
-                                    $operateur?->user?->telephone_parent != $operateur?->user?->telephone)
-                                Tél 3 : <a
-                                    href="tel:+221{{ $operateur?->user?->telephone_parent }}">{{ $operateur?->user?->telephone_parent }}</a>
+                            !empty($operateur?->user?->telephone_parent) &&
+                            $operateur?->user?->telephone_parent != $operateur?->user?->telephone)
+                            Tél 3 : <a
+                                href="tel:+221{{ $operateur?->user?->telephone_parent }}">{{ $operateur?->user?->telephone_parent }}</a>
                             @endif
                         </td>
                         <td colspan="5">
                             @if (!empty($operateur?->user?->email))
-                                Email 1 : <a
-                                    href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
+                            Email 1 : <a
+                                href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
                             @endif
                             <br>
                             @if (!empty($operateur?->user->email_responsable))
-                                Email 2 : <a
-                                    href="mailto:{{ $operateur?->user?->email_responsable }}">{{ $operateur?->user?->email_responsable }}</a>
+                            Email 2 : <a
+                                href="mailto:{{ $operateur?->user?->email_responsable }}">{{ $operateur?->user?->email_responsable }}</a>
                             @endif
                             <br>
                             @if (!empty($operateur?->user?->web))
-                                Web : {{ $operateur?->user?->web }}
+                            Web : {{ $operateur?->user?->web }}
                             @endif
                         </td>
                         <td></td>
@@ -260,7 +262,7 @@
                         <td><b>{{ __('STATUT JURIDIQUE') }}</b></td>
                         <td colspan="8">
                             @if (!empty($operateur?->statut))
-                                {{ $operateur?->statut }}
+                            {{ $operateur?->statut }}
                             @endif
                         </td>
                         <td></td>
@@ -268,25 +270,25 @@
                     </tr>
                     {{-- <tr class="item">
                         <td rowspan="7"><b>{{ __('DOSSIERS FOURNIS') }}</b></td>
-                        <td colspan="8">
-                            Demande d'agrément signée :
-                            @if (!empty($operateur?->demande_signe))
-                                {{ $operateur?->demande_signe }}
-                            @else
-                                <span class="Oui">Oui</span>
-                            @endif
-                        </td>
-                        <td></td>
-                        <td></td>
+                    <td colspan="8">
+                        Demande d'agrément signée :
+                        @if (!empty($operateur?->demande_signe))
+                        {{ $operateur?->demande_signe }}
+                        @else
+                        <span class="Oui">Oui</span>
+                        @endif
+                    </td>
+                    <td></td>
+                    <td></td>
                     </tr>
 
                     <tr class="item">
                         <td colspan="8">
                             Formulaire de demande d'agrément renseigné, daté et signé :
                             @if (!empty($operateur?->formulaire_signe))
-                                {{ $operateur?->formulaire_signe }}
+                            {{ $operateur?->formulaire_signe }}
                             @else
-                                <span class="Oui">Oui</span>
+                            <span class="Oui">Oui</span>
                             @endif
                         </td>
                         <td></td>
@@ -314,15 +316,15 @@
                     </tr>
 
                     @php
-                        $validFiles = $operateur?->user?->files->filter(fn($file) => !empty($file?->file));
+                    $validFiles = $operateur?->user?->files->filter(fn($file) => !empty($file?->file));
                     @endphp
                     <tr class="item">
                         <td colspan="5">
                             <b>Fichiers joints :</b>
                             @foreach ($validFiles as $file)
-                                <ul>
-                                    <li>{{ $file?->legende }}</li>
-                                </ul>
+                            <ul>
+                                <li>{{ $file?->legende }}</li>
+                            </ul>
                             @endforeach
                         </td>
                         <td></td>
@@ -348,9 +350,11 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
 
-            <div style="page-break-after: always;"></div>
+        <div style="page-break-after: always;"></div>
 
+        <div class="table-responsive">
             <table class="table table-bordered pt-10">
                 <tbody>
                     <tr class="item">
@@ -371,17 +375,17 @@
                         </td>
                     </tr>
                     @foreach ($operateur?->operateurmodules as $operateurmodule)
-                        <tr class="item">
-                            <td colspan="3">
-                                {{ $operateurmodule?->domaine }}
-                            </td>
+                    <tr class="item">
+                        <td colspan="3">
+                            {{ $operateurmodule?->domaine }}
+                        </td>
 
-                            <td colspan="4">
-                                {{ $operateurmodule?->module }}
-                            </td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        <td colspan="4">
+                            {{ $operateurmodule?->module }}
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                     @endforeach
                     <tr class="item">
                         <td rowspan="{{ count($operateur->operateurformateurs) + 1 }}">
@@ -399,32 +403,33 @@
                         <td></td>
                     </tr>
                     @foreach ($operateur?->operateurformateurs as $operateurformateur)
-                        <tr class="item">
-                            <td colspan="3">
-                                {{ $operateurformateur?->name }}
-                            </td>
+                    <tr class="item">
+                        <td colspan="3">
+                            {{ $operateurformateur?->name }}
+                        </td>
 
-                            <td colspan="4">
-                                {{ $operateurformateur?->domaine . ' (' . $operateurformateur?->nbre_annees_experience . ' ans)' }}
-                            </td>
-                            <td>
-                                @if ($operateurformateur?->statut === 'Oui')
-                                    <span class="Oui">{{ $operateurformateur?->statut }}</span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($operateurformateur?->statut === 'Non')
-                                    <span class="Non">{{ $operateurformateur?->statut }}</span>
-                                @endif
-                            </td>
-                        </tr>
+                        <td colspan="4">
+                            {{ $operateurformateur?->domaine . ' (' . $operateurformateur?->nbre_annees_experience . ' ans)' }}
+                        </td>
+                        <td>
+                            @if ($operateurformateur?->statut === 'Oui')
+                            <span class="Oui">{{ $operateurformateur?->statut }}</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($operateurformateur?->statut === 'Non')
+                            <span class="Non">{{ $operateurformateur?->statut }}</span>
+                            @endif
+                        </td>
+                    </tr>
                     @endforeach
 
                 </tbody>
             </table>
+        </div>
+        <div style="page-break-after: always;"></div>
 
-            <div style="page-break-after: always;"></div>
-
+        <div class="table-responsive">
             <table class="table table-bordered pt-10">
                 <tbody>
                     <tr class="item">
@@ -446,36 +451,38 @@
                         </td>
                     </tr>
                     @foreach ($operateur?->operateurequipements as $operateurequipement)
-                        <tr class="item">
+                    <tr class="item">
 
-                            <td colspan="6">
-                                <b><u>Type</u></b> : {{ $operateurequipement?->type }} <br>
-                                <b><u>Désignation</u></b> : {{ $operateurequipement?->designation }} <br>
-                            </td>
-                            <td style="text-align: center">
-                                {{ $operateurequipement?->quantite }}
-                            </td>
-                            <td style="text-align: center">
-                                {{ $operateurequipement?->etat }}
-                            </td>
-                            <td>
-                                @if ($operateurequipement?->statut === 'Oui')
-                                    <span class="Oui">{{ $operateurequipement?->statut }}</span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($operateurequipement?->statut === 'Non')
-                                    <span class="Non">{{ $operateurequipement?->statut }}</span>
-                                @endif
-                            </td>
-                        </tr>
+                        <td colspan="6">
+                            <b><u>Type</u></b> : {{ $operateurequipement?->type }} <br>
+                            <b><u>Désignation</u></b> : {{ $operateurequipement?->designation }} <br>
+                        </td>
+                        <td style="text-align: center">
+                            {{ $operateurequipement?->quantite }}
+                        </td>
+                        <td style="text-align: center">
+                            {{ $operateurequipement?->etat }}
+                        </td>
+                        <td>
+                            @if ($operateurequipement?->statut === 'Oui')
+                            <span class="Oui">{{ $operateurequipement?->statut }}</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($operateurequipement?->statut === 'Non')
+                            <span class="Non">{{ $operateurequipement?->statut }}</span>
+                            @endif
+                        </td>
+                    </tr>
                     @endforeach
 
                 </tbody>
             </table>
+        </div>
 
-            <div style="page-break-after: always;"></div>
+        <div style="page-break-after: always;"></div>
 
+        <div class="table-responsive">
             <table class="table table-bordered pt-10">
                 <tbody>
 
@@ -496,27 +503,27 @@
                         </td>
                     </tr>
                     @foreach ($operateur?->operateureferences as $operateureference)
-                        <tr class="item">
-                            {{-- <td colspan="4">
+                    <tr class="item">
+                        {{-- <td colspan="4">
                                     {{ $operateureference?->organisme . ',' }}
-                                    {{ $operateureference?->periode }} <br>
-                                    Tél : <a
-                                        href="tel:+221{{ $operateureference?->contact }}">{{ $operateureference?->contact }}</a>
-                                </td> --}}
+                        {{ $operateureference?->periode }} <br>
+                        Tél : <a
+                            href="tel:+221{{ $operateureference?->contact }}">{{ $operateureference?->contact }}</a>
+                        </td> --}}
 
-                            <td colspan="7">
-                                <b><u>Référence</u></b> : {{ $operateureference?->organisme . ',' }}
-                                {{ $operateureference?->periode }} <br>
-                                @if (!empty($operateureference?->contact))
-                                    Tél : <a
-                                        href="tel:+221{{ $operateureference?->contact }}">{{ $operateureference?->contact }}</a>
-                                    <br>
-                                @endif
-                                <b><u>Description</u></b> : {{ $operateureference?->description }}
-                            </td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        <td colspan="7">
+                            <b><u>Référence</u></b> : {{ $operateureference?->organisme . ',' }}
+                            {{ $operateureference?->periode }} <br>
+                            @if (!empty($operateureference?->contact))
+                            Tél : <a
+                                href="tel:+221{{ $operateureference?->contact }}">{{ $operateureference?->contact }}</a>
+                            <br>
+                            @endif
+                            <b><u>Description</u></b> : {{ $operateureference?->description }}
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                     @endforeach
 
                     <tr class="item">
@@ -524,14 +531,15 @@
                         <td colspan="9">
                             {{-- <b>Observations</b> --}}
                             @if (!empty($operateur?->observations))
-                                {{ $operateur?->observations }}
+                            {{ $operateur?->observations }}
                             @endif
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div style="page-break-after: always;"></div>
+    </div>
+    <div style="page-break-after: always;"></div>
     @endforeach
 
 </body>

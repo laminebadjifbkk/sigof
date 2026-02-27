@@ -20,37 +20,39 @@
         </a>
     </div>
 
-    <table class="table table-bordered table-striped align-middle">
-        <thead class="table-primary">
-            <tr>
-                <th scope="col" style="width: 50px;">N°</th>
-                <th scope="col">Région</th>
-                <th scope="col" class="text-center">Effectif formés</th>
-                <th scope="col" style="width: 120px;">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($groupes as $region => $items)
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle">
+            <thead class="table-primary">
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $region }}</td>
-                    <td class="text-center">
-                        {{ number_format($items->sum(fn($i) => $i['total']), 0, '', ' ') }}
-                    </td>
-                    <td>
-                        <a href="{{ route('ingenieurs.formations.listeParAnnee', [
-                            'ingenieur' => $ingenieur->id,
-                            'annee' => $annee,
-                            'region' => $region,
-                        ]) }}"
-                            class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
-                            Voir plus <i class="bi bi-arrow-right-short"></i>
-                        </a>
-                    </td>
+                    <th scope="col" style="width: 50px;">N°</th>
+                    <th scope="col">Région</th>
+                    <th scope="col" class="text-center">Effectif formés</th>
+                    <th scope="col" style="width: 120px;">Action</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach ($groupes as $region => $items)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $region }}</td>
+                        <td class="text-center">
+                            {{ number_format($items->sum(fn($i) => $i['total']), 0, '', ' ') }}
+                        </td>
+                        <td>
+                            <a href="{{ route('ingenieurs.formations.listeParAnnee', [
+                                'ingenieur' => $ingenieur->id,
+                                'annee' => $annee,
+                                'region' => $region,
+                            ]) }}"
+                                class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
+                                Voir plus <i class="bi bi-arrow-right-short"></i>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 
     @can('ingenieur-show')
         <section class="section">
@@ -83,76 +85,82 @@
                                 <h5 class="card-title">Liste des formations</h5>
                                 {{-- <h5 class="card-title">Liste des formations de {{ $ingenieur->name }}</h5> --}}
                                 @if ($formations->isNotEmpty())
-                                    <table class="table datatables align-middle justify-content-center" id="table-formations">
-                                        <thead>
-                                            <tr>
-                                                {{-- <th class="text-center" width="2%">Code</th> --}}
-                                                <th>Type</th>
-                                                {{-- <th>Intitulé formation</th> --}}
-                                                <th>Modules</th>
-                                                <th>Régions</th>
-                                                <th class="text-center">Opérateurs</th>
-                                                <th class="text-center">Frais total</th>
-                                                <th class="text-center">Effectif</th>
-                                                <th class="text-center">Statut</th>
-                                                <th width='3%'>#</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                            @foreach ($formations as $formation)
+                                    <div class="table-responsive">
+                                        <table class="table datatables align-middle justify-content-center"
+                                            id="table-formations">
+                                            <thead>
                                                 <tr>
-                                                    {{-- <td class="text-center">{{ $formation?->code }}</td> --}}
-                                                    <td><a href="#">{{ $formation->types_formation?->name }}</a></td>
-                                                    {{-- <td>{{ $formation?->name }}</td> --}}
-                                                    <td>
-                                                        {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
-                                                    </td>
-                                                    <td>
-                                                        @if ($formation->regions->isNotEmpty())
-                                                            <span>
-                                                                {{ $formation->regions->pluck('nom')->join(', ') }}
-                                                            </span>
-                                                        @else
-                                                            <span class="fs-5 text-muted">-</span>
-                                                        @endif
-                                                        {{-- {{ $formation->departement?->region?->nom }} --}}
-                                                    </td>
-                                                    <td class="text-center">{{ $formation?->operateur?->user?->username }}</td>
-                                                    <td class="text-center">
-                                                        {{ number_format($formation?->frais_total ?? 0, 0, ',', ' ') }}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{ number_format($formation?->effectif_prevu ?? 0, 0, ',', ' ') }}
-                                                    </td>
-                                                    <td class="text-center"><a href="#"><span
-                                                                class="{{ $formation?->statut }}">{{ $formation?->statut }}</span></a>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <span class="d-flex align-items-baseline"><a
-                                                                href="{{ route('formations.show', $formation) }}"
-                                                                class="btn btn-primary btn-sm" title="voir détails"><i
-                                                                    class="bi bi-eye"></i></a>
-                                                            <div class="filter">
-                                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                        class="bi bi-three-dots"></i></a>
-                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                    @can('formation-update')
-                                                                        <li>
-                                                                            <a href="{{ route('formations.edit', $formation) }}"
-                                                                                class="dropdown-item">
-                                                                                <i class="bi bi-pencil"></i> Modifier
-                                                                            </a>
-                                                                        </li>
-                                                                    @endcan
-                                                                </ul>
-                                                            </div>
-                                                        </span>
-                                                    </td>
+                                                    {{-- <th class="text-center" width="2%">Code</th> --}}
+                                                    <th>Type</th>
+                                                    {{-- <th>Intitulé formation</th> --}}
+                                                    <th>Modules</th>
+                                                    <th>Régions</th>
+                                                    <th class="text-center">Opérateurs</th>
+                                                    <th class="text-center">Frais total</th>
+                                                    <th class="text-center">Effectif</th>
+                                                    <th class="text-center">Statut</th>
+                                                    <th width='3%'>#</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @foreach ($formations as $formation)
+                                                    <tr>
+                                                        {{-- <td class="text-center">{{ $formation?->code }}</td> --}}
+                                                        <td><a href="#">{{ $formation->types_formation?->name }}</a></td>
+                                                        {{-- <td>{{ $formation?->name }}</td> --}}
+                                                        <td>
+                                                            {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
+                                                        </td>
+                                                        <td>
+                                                            @if ($formation->regions->isNotEmpty())
+                                                                <span>
+                                                                    {{ $formation->regions->pluck('nom')->join(', ') }}
+                                                                </span>
+                                                            @else
+                                                                <span class="fs-5 text-muted">-</span>
+                                                            @endif
+                                                            {{-- {{ $formation->departement?->region?->nom }} --}}
+                                                        </td>
+                                                        <td class="text-center">{{ $formation?->operateur?->user?->username }}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {{ number_format($formation?->frais_total ?? 0, 0, ',', ' ') }}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {{ number_format($formation?->effectif_prevu ?? 0, 0, ',', ' ') }}
+                                                        </td>
+                                                        <td class="text-center"><a href="#"><span
+                                                                    class="{{ $formation?->statut }}">{{ $formation?->statut }}</span></a>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <span class="d-flex align-items-baseline"><a
+                                                                    href="{{ route('formations.show', $formation) }}"
+                                                                    class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                        class="bi bi-eye"></i></a>
+                                                                <div class="filter">
+                                                                    <a class="icon" href="#"
+                                                                        data-bs-toggle="dropdown"><i
+                                                                            class="bi bi-three-dots"></i></a>
+                                                                    <ul
+                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                        @can('formation-update')
+                                                                            <li>
+                                                                                <a href="{{ route('formations.edit', $formation) }}"
+                                                                                    class="dropdown-item">
+                                                                                    <i class="bi bi-pencil"></i> Modifier
+                                                                                </a>
+                                                                            </li>
+                                                                        @endcan
+                                                                    </ul>
+                                                                </div>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 @else
                                     <div class="alert alert-info bg-warning text-light border-0 alert-dismissible fade show"
                                         role="alert">

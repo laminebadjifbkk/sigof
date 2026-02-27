@@ -43,53 +43,54 @@
                     </div>
 
                     <!-- Infos personnelles -->
-                    <table class="table table-striped table-hover align-middle">
-                        <tbody>
-                            <tr>
-                                <th style="width: 30%">Matricule</th>
-                                <td>{{ $chauffeur?->employee?->matricule }}</td>
-                            </tr>
-                            <tr>
-                                <th>Nom</th>
-                                <td>{{ $chauffeur?->employee?->user?->firstname . ' ' . $chauffeur?->employee?->user?->name }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Téléphone</th>
-                                <td>{{ $chauffeur?->employee?->user?->telephone }}</td>
-                            </tr>
-                            <tr>
-                                <th>Numéro du permis</th>
-                                <td>{{ $chauffeur?->permis_numero }}</td>
-                            </tr>
-                            <tr>
-                                <th>Catégories du permis</th>
-                                <td>{{ $chauffeur?->permis_categories }}</td>
-                            </tr>
-                            <tr>
-                                <th>Expiration du permis</th>
-                                <td>
-                                    <span class="{{ $chauffeur->permis_classe }}">
-                                        {{ $chauffeur->permis_restant }}
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Statut</th>
-                                <td>
-                                    <span class="etat-btn {{ $chauffeur?->statut }}">
-                                        {{ ucfirst(str_replace('fie', 'fié', str_replace('_', ' ', $chauffeur?->statut))) }}
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Véhicules affectés</th>
-                                <td>
-                                    <span>
-                                        {{ $chauffeur?->vehicule?->immatriculation ? $chauffeur->vehicule->immatriculation : 'Aucun' }}
-                                        - {{ $chauffeur?->vehicule?->marque }}
-                                    </span>
-                                    {{-- @if ($chauffeur?->vehicules && $chauffeur?->vehicules?->isNotEmpty())
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover align-middle">
+                            <tbody>
+                                <tr>
+                                    <th style="width: 30%">Matricule</th>
+                                    <td>{{ $chauffeur?->employee?->matricule }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nom</th>
+                                    <td>{{ $chauffeur?->employee?->user?->firstname . ' ' . $chauffeur?->employee?->user?->name }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Téléphone</th>
+                                    <td>{{ $chauffeur?->employee?->user?->telephone }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Numéro du permis</th>
+                                    <td>{{ $chauffeur?->permis_numero }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Catégories du permis</th>
+                                    <td>{{ $chauffeur?->permis_categories }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Expiration du permis</th>
+                                    <td>
+                                        <span class="{{ $chauffeur->permis_classe }}">
+                                            {{ $chauffeur->permis_restant }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Statut</th>
+                                    <td>
+                                        <span class="etat-btn {{ $chauffeur?->statut }}">
+                                            {{ ucfirst(str_replace('fie', 'fié', str_replace('_', ' ', $chauffeur?->statut))) }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Véhicules affectés</th>
+                                    <td>
+                                        <span>
+                                            {{ $chauffeur?->vehicule?->immatriculation ? $chauffeur->vehicule->immatriculation : 'Aucun' }}
+                                            - {{ $chauffeur?->vehicule?->marque }}
+                                        </span>
+                                        {{-- @if ($chauffeur?->vehicules && $chauffeur?->vehicules?->isNotEmpty())
                                         <ul class="mb-0">
                                             @foreach ($chauffeur?->vehicules as $vehicule)
                                                 <li>{{ $vehicule?->immatriculation }} - {{ $vehicule?->marque }}</li>
@@ -98,10 +99,11 @@
                                     @else
                                         <span class="text-muted">Aucun véhicule affecté</span>
                                     @endif --}}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 

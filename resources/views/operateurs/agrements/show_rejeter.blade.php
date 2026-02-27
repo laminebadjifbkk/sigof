@@ -41,35 +41,39 @@
                             @method('PUT')
                             <div class="row mb-0">
                                 <div class="form-check col-md-12 pt-5">
-                                    <table class="table datatables table-bordered table-hover align-middle justify-content-center" id="table-operateurs">
-                                        <thead>
-                                            <tr>
-                                                <th width="30%">Opérateurs</th>
-                                                <th width="20%">Adresse</th>
-                                                <th>Email</th>
-                                                <th>Télephone</th>
-                                                {{-- <th>Domaine</th>
+                                    <div class="table-responsive">
+                                        <table
+                                            class="table datatables table-bordered table-hover align-middle justify-content-center"
+                                            id="table-operateurs">
+                                            <thead>
+                                                <tr>
+                                                    <th width="30%">Opérateurs</th>
+                                                    <th width="20%">Adresse</th>
+                                                    <th>Email</th>
+                                                    <th>Télephone</th>
+                                                    {{-- <th>Domaine</th>
                                                 <th>Niveau qualification</th> --}}
-                                                {{-- <th>Modules</th> --}}
-                                                {{-- <th>N° agrément</th> --}}
-                                                {{-- <th class="text-center">Modules</th> --}}
-                                                {{-- <th width="15%" class="text-center">Statut</th> --}}
-                                                <th width="25%">Motif</th>
-                                                <th width="5%"><i class="bi bi-gear"></i></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                            @foreach ($operateurs as $operateur)
-                                                @isset($operateur?->numero_agrement)
-                                                    <tr>
-                                                        <td>{{ $operateur?->user?->operateur . ' (' . $operateur?->user?->username . ')' }}</td>
-                                                        <td>{{ $operateur?->user?->adresse }}</td>
-                                                        <td>{{ $operateur?->user?->email }}</td>
-                                                        <td>{{ $operateur?->user?->telephone }}</td>
-                                                        {{-- <td>{{ count($operateur?->operateurmodules) }}</td> --}}
-                                                        {{-- <td>{{ $operateur?->numero_agrement }}</td> --}}
-                                                        {{-- <td style="text-align: center;">
+                                                    {{-- <th>Modules</th> --}}
+                                                    {{-- <th>N° agrément</th> --}}
+                                                    {{-- <th class="text-center">Modules</th> --}}
+                                                    {{-- <th width="15%" class="text-center">Statut</th> --}}
+                                                    <th width="25%">Motif</th>
+                                                    <th width="5%"><i class="bi bi-gear"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @foreach ($operateurs as $operateur)
+                                                    @isset($operateur?->numero_agrement)
+                                                        <tr>
+                                                            <td>{{ $operateur?->user?->operateur . ' (' . $operateur?->user?->username . ')' }}
+                                                            </td>
+                                                            <td>{{ $operateur?->user?->adresse }}</td>
+                                                            <td>{{ $operateur?->user?->email }}</td>
+                                                            <td>{{ $operateur?->user?->telephone }}</td>
+                                                            {{-- <td>{{ count($operateur?->operateurmodules) }}</td> --}}
+                                                            {{-- <td>{{ $operateur?->numero_agrement }}</td> --}}
+                                                            {{-- <td style="text-align: center;">
                                                             @foreach ($operateur?->operateurmodules as $operateurmodule)
                                                                 @if ($loop->last)
                                                                     <a href="#"><span
@@ -77,24 +81,26 @@
                                                                 @endif
                                                             @endforeach
                                                         </td> --}}
-                                                        {{-- <td class="text-center">
+                                                            {{-- <td class="text-center">
                                                             <span
                                                                 class="{{ $operateur->statut_agrement }}">{{ $operateur->statut_agrement }}</span>
                                                         </td> --}}
-                                                        <td>{{ $operateur?->motif }}</td>
-                                                        <td>
-                                                            <span class="d-flex align-items-baseline"><a
-                                                                    href="{{ route('agrements', ['id' => $operateur?->id]) }}"
-                                                                    class="btn btn-primary btn-sm" target="_blank"
-                                                                    title="voir détails"><i class="bi bi-eye"></i></a>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                @endisset
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                                            <td>{{ $operateur?->motif }}</td>
+                                                            <td>
+                                                                <span class="d-flex align-items-baseline"><a
+                                                                        href="{{ route('agrements', ['id' => $operateur?->id]) }}"
+                                                                        class="btn btn-primary btn-sm" target="_blank"
+                                                                        title="voir détails"><i class="bi bi-eye"></i></a>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    @endisset
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -107,7 +113,7 @@
         new DataTable('#table-operateurs', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "lengthMenu": [

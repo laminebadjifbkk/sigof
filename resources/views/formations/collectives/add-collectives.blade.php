@@ -60,92 +60,94 @@
                                 name="collectivemoduleformation"> --}}
                             <div class="row mb-3 border rounded bg-light shadow-sm p-3">
                                 <div class="form-check col-md-12 pt-5">
-                                    <table class="m-2 table datatables align-middle" id="table-modules">
-                                        <thead>
-                                            <tr>
-                                                <th>N°</th>
-                                                <th>Structure</th>
-                                                {{-- <th>Sigle</th> --}}
-                                                <th>Téléphone</th>
-                                                {{-- <th>E-mail</th> --}}
-                                                <th>Département</th>
-                                                <th>Modules</th>
-                                                <th style="text-align: center;">Effectif</th>
-                                                <th>Statut</th>
-                                                <th class="text-center">#</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                            @foreach ($collectivemodules as $collectivemodule)
+                                    <div class="table-responsive">
+                                        <table class="m-2 table datatables align-middle" id="table-modules">
+                                            <thead>
                                                 <tr>
-                                                    <td>
-                                                        <input type="radio" name="collectivemodule"
-                                                            value="{{ $collectivemodule?->id }}"
-                                                            {{ in_array($collectivemodule->formations_id, $collectiveModule) ? 'checked' : '' }}
-                                                            {{ in_array($collectivemodule->formations_id, $collectiveModuleCheck) ? 'disable' : '' }}
-                                                            class="form-check-input @error('collective') is-invalid @enderror">
-                                                        @error('collectivemodule')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <div>{{ $message }}</div>
-                                                            </span>
-                                                        @enderror
-                                                        {{ $collectivemodule?->collective->numero }}
-                                                    </td>
+                                                    <th>N°</th>
+                                                    <th>Structure</th>
+                                                    {{-- <th>Sigle</th> --}}
+                                                    <th>Téléphone</th>
+                                                    {{-- <th>E-mail</th> --}}
+                                                    <th>Département</th>
+                                                    <th>Modules</th>
+                                                    <th style="text-align: center;">Effectif</th>
+                                                    <th>Statut</th>
+                                                    <th class="text-center">#</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @foreach ($collectivemodules as $collectivemodule)
+                                                    <tr>
+                                                        <td>
+                                                            <input type="radio" name="collectivemodule"
+                                                                value="{{ $collectivemodule?->id }}"
+                                                                {{ in_array($collectivemodule->formations_id, $collectiveModule) ? 'checked' : '' }}
+                                                                {{ in_array($collectivemodule->formations_id, $collectiveModuleCheck) ? 'disable' : '' }}
+                                                                class="form-check-input @error('collective') is-invalid @enderror">
+                                                            @error('collectivemodule')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div>{{ $message }}</div>
+                                                                </span>
+                                                            @enderror
+                                                            {{ $collectivemodule?->collective->numero }}
+                                                        </td>
 
-                                                    <td>{{ $collectivemodule?->collective?->name }}
-                                                        @isset($collectivemodule->collective?->sigle)
-                                                            {{ '(' . $collectivemodule->collective?->sigle . ')' }}
-                                                        @endisset
-                                                    </td>
-                                                    {{-- <td>{{ $collectivemodule->collective?->sigle }}</td> --}}
-                                                    <td>{{ $collectivemodule->collective?->user?->telephone }}</td>
-                                                    {{-- <td><a
+                                                        <td>{{ $collectivemodule?->collective?->name }}
+                                                            @isset($collectivemodule->collective?->sigle)
+                                                                {{ '(' . $collectivemodule->collective?->sigle . ')' }}
+                                                            @endisset
+                                                        </td>
+                                                        {{-- <td>{{ $collectivemodule->collective?->sigle }}</td> --}}
+                                                        <td>{{ $collectivemodule->collective?->user?->telephone }}</td>
+                                                        {{-- <td><a
                                                             href="mailto:{{ $collectivemodule->collective?->user?->email }}">{{ $collectivemodule->collective?->user?->email }}</a>
                                                     </td> --}}
-                                                    <td>{{ $collectivemodule->collective->departement?->region?->nom }}
-                                                    </td>
-                                                    <td>{{ $collectivemodule?->module }}</td>
-                                                    <td style="text-align: center;">
-                                                        @foreach ($collectivemodule->listecollectives as $listecollective)
-                                                            @if ($loop->last)
-                                                                <span class="badge bg-info">{{ $loop->count }}</span>
-                                                            @endif
-                                                        @endforeach
-                                                    </td>
-                                                    <td>
-                                                        <span
-                                                            class="{{ $collectivemodule?->statut }}">{{ $collectivemodule?->statut }}</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="d-flex align-items-baseline"><a
-                                                                href="{{ route('collectives.show', $collectivemodule->collective->id) }}"
-                                                                class="btn btn-primary btn-sm" title="voir détails"><i
-                                                                    class="bi bi-eye"></i></a>
-                                                            <div class="filter">
-                                                                <a class="icon" href="#"
-                                                                    data-bs-toggle="dropdown"><i
-                                                                        class="bi bi-three-dots"></i></a>
-                                                                <ul
-                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                    {{-- <li><a class="dropdown-item btn btn-sm"
+                                                        <td>{{ $collectivemodule->collective->departement?->region?->nom }}
+                                                        </td>
+                                                        <td>{{ $collectivemodule?->module }}</td>
+                                                        <td style="text-align: center;">
+                                                            @foreach ($collectivemodule->listecollectives as $listecollective)
+                                                                @if ($loop->last)
+                                                                    <span class="badge bg-info">{{ $loop->count }}</span>
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                        <td>
+                                                            <span
+                                                                class="{{ $collectivemodule?->statut }}">{{ $collectivemodule?->statut }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="d-flex align-items-baseline"><a
+                                                                    href="{{ route('collectives.show', $collectivemodule->collective->id) }}"
+                                                                    class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                        class="bi bi-eye"></i></a>
+                                                                <div class="filter">
+                                                                    <a class="icon" href="#"
+                                                                        data-bs-toggle="dropdown"><i
+                                                                            class="bi bi-three-dots"></i></a>
+                                                                    <ul
+                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                        {{-- <li><a class="dropdown-item btn btn-sm"
                                                                             href="{{ route('collectives.edit', $collectivemodule->collective->id) }}"
                                                                             class="mx-1" title="Modifier">Modifier</a>
                                                                     </li> --}}
-                                                                    <li>
-                                                                        <a class="btn" data-bs-toggle="modal"
-                                                                            data-bs-target="#indiponibleModal{{ $collectivemodule->id }}"
-                                                                            title="retirer">Retirer
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                                                        <li>
+                                                                            <a class="btn" data-bs-toggle="modal"
+                                                                                data-bs-target="#indiponibleModal{{ $collectivemodule->id }}"
+                                                                                title="retirer">Retirer
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-outline-primary"><i

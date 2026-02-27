@@ -44,25 +44,26 @@
                                 <p> | retour</p>
                             </span>
                             <h4 class="card-title">Liste des demandeurs : {{ $projet?->sigle }}</h4>
-                            <table class="table datatables align-middle" id="table-individuelles">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">N°</th>
-                                        <th class="text-center">CIN</th>
-                                        <th>Prénom & NOM</th>
-                                        <th>Date naissance</th>
-                                        <th>Lieu naissance</th>
-                                        <th>Telephone</th>
-                                        <th>Module</th>
-                                        <th class="text-center">{{ $projet->type_localite }}</th>
-                                        <th class="text-center">Statut</th>
-                                        <th class="text-center">#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($projet?->individuelles as $individuelle)
-                                        {{-- @if (!empty($individuelle?->numero)) --}}
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle" id="table-individuelles">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">N°</th>
+                                            <th class="text-center">CIN</th>
+                                            <th>Prénom & NOM</th>
+                                            <th>Date naissance</th>
+                                            <th>Lieu naissance</th>
+                                            <th>Telephone</th>
+                                            <th>Module</th>
+                                            <th class="text-center">{{ $projet->type_localite }}</th>
+                                            <th class="text-center">Statut</th>
+                                            <th class="text-center">#</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($projet?->individuelles as $individuelle)
+                                            {{-- @if (!empty($individuelle?->numero)) --}}
                                             <tr>
                                                 {{-- <td class="text-center">{{ $individuelle?->numero }}</td> --}}
                                                 <td class="text-center">{{ $individuelle?->user?->cin }}</td>
@@ -70,7 +71,9 @@
                                                 </td>
                                                 <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                                 <td>{{ $individuelle?->user?->lieu_naissance }}</td>
-                                                <td><a href="tel:+221{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a></td>
+                                                <td><a
+                                                        href="tel:+221{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a>
+                                                </td>
                                                 <td>{{ $individuelle?->module?->name }}</td>
                                                 <td>
                                                     {{ optional($individuelle->{$projet->type_localite})->nom }}
@@ -111,10 +114,11 @@
                                                     </span>
                                                 </td>
                                             </tr>
-                                        {{-- @endif --}}
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                            {{-- @endif --}}
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @endif
                     </div>
                 </div>

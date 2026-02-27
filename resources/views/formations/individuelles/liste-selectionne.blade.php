@@ -15,7 +15,7 @@
             /* padding: 30px; */
             font-size: 12px;
             line-height: 15px;
-            color:rgb(0, 0, 0);
+            color: rgb(0, 0, 0);
             ;
         }
 
@@ -91,52 +91,55 @@
         </b>
     </div>
     <div class="invoice-box">
-        <table class="table table-bordered">
-            <thead>
-                <tr class="heading" style="text-align: center;">
-                    <td colspan="10"><b>{{ __('LISTE DES CANDIDATS SELECTIONNES') }}</b></td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="2"><b>Code</b> : {{ $formation?->code }}
-                    </td>
-                    <td colspan="6"><b>{{ __('Module : ') }}</b> {{ $formation?->module?->name }}</td>
-                    <td colspan="2"><b>{{ __('Région : ') }}</b> {{ $formation?->departement?->region?->nom }}</td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="10"><b>Formation</b> : {{ $formation?->name }}
-                    </td>
-                </tr>
-
-                <tr class="heading">
-                    <td class="item" style="text-align: center;" width="3%"><b>N°</b></td>
-                    <td class="item" style="text-align: center;" width="12%"><b>CIN</b></td>
-                    <td class="item" style="text-align: center;" width="5%"><b>Civilité</b></td>
-                    <td class="item" style="text-align: center;"><b>Prénom</b></td>
-                    <td class="item" style="text-align: center;"><b>NOM</b></td>
-                    <td class="item" style="text-align: center;" width="8%"><b>Date naissance</b></td>
-                    <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
-                    <td class="item" style="text-align: center;" width="7%"><b>Téléphone</b></td>
-                    <td class="item" style="text-align: center;" ><b>Niveau d'étude</b></td>
-                    <td class="item" style="text-align: center;"><b>Département</b></td>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($formation?->individuelles as $i => $individuelle)
-                    <tr class="item" style="text-align: center;">
-                        <td>{{ $i + 1 }}</td>
-                        <td>{{ $individuelle->user->cin }}</td>
-                        <td>{{ $individuelle?->user?->civilite }}</td>
-                        <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->user?->name) }}</td>
-                        <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
-                        <td>{{ $individuelle?->user?->telephone }}</td>
-                        <td>{{ $individuelle?->niveau_etude }}</td>
-                        <td>{{ $individuelle?->departement?->nom }}</td>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="heading" style="text-align: center;">
+                        <td colspan="10"><b>{{ __('LISTE DES CANDIDATS SELECTIONNES') }}</b></td>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                    <tr class="heading">
+                        <td colspan="2"><b>Code</b> : {{ $formation?->code }}
+                        </td>
+                        <td colspan="6"><b>{{ __('Module : ') }}</b> {{ $formation?->module?->name }}</td>
+                        <td colspan="2"><b>{{ __('Région : ') }}</b> {{ $formation?->departement?->region?->nom }}
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="10"><b>Formation</b> : {{ $formation?->name }}
+                        </td>
+                    </tr>
+
+                    <tr class="heading">
+                        <td class="item" style="text-align: center;" width="3%"><b>N°</b></td>
+                        <td class="item" style="text-align: center;" width="12%"><b>CIN</b></td>
+                        <td class="item" style="text-align: center;" width="5%"><b>Civilité</b></td>
+                        <td class="item" style="text-align: center;"><b>Prénom</b></td>
+                        <td class="item" style="text-align: center;"><b>NOM</b></td>
+                        <td class="item" style="text-align: center;" width="8%"><b>Date naissance</b></td>
+                        <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
+                        <td class="item" style="text-align: center;" width="7%"><b>Téléphone</b></td>
+                        <td class="item" style="text-align: center;"><b>Niveau d'étude</b></td>
+                        <td class="item" style="text-align: center;"><b>Département</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($formation?->individuelles as $i => $individuelle)
+                        <tr class="item" style="text-align: center;">
+                            <td>{{ $i + 1 }}</td>
+                            <td>{{ $individuelle->user->cin }}</td>
+                            <td>{{ $individuelle?->user?->civilite }}</td>
+                            <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
+                            <td>{{ remove_accents_uppercase($individuelle?->user?->name) }}</td>
+                            <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
+                            <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
+                            <td>{{ $individuelle?->user?->telephone }}</td>
+                            <td>{{ $individuelle?->niveau_etude }}</td>
+                            <td>{{ $individuelle?->departement?->nom }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         {{--    <div class="page-break"></div>
         <div style="text-align: center;">
             <b>REPUBLIQUE DU SENEGAL<br></b>

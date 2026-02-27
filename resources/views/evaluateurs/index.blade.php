@@ -48,93 +48,100 @@
                         <h5 class="card-title">Evaluateurs</h5>
                         <!-- Table with stripped rows -->
                         @if ($evaluateurs->isNotEmpty())
-                            <table class="table datatables align-middle justify-content-center" id="table-evaluateurs">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        {{-- <th>Nom</th> --}}
-                                        <th>Fonction/Spécialité</th>
-                                        <th>Email</th>
-                                        <th>Téléphone</th>
-                                        <th>Adresse</th>
-                                        <th>Formations</th>
-                                        <th class="text-center">CV</th>
-                                        <th class="text-center" width="2%">#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($evaluateurs as $evaluateur)
+
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle justify-content-center" id="table-evaluateurs">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $evaluateur->name }} {{ $evaluateur->lastname }}</td>
-                                            {{-- <td>{{ $evaluateur->lastname }}</td> --}}
-                                            <td>{{ $evaluateur->fonction }}</td>
-                                            <td><a href="mailto:{{ $evaluateur->email }}">{{ $evaluateur->email }}</a></td>
-                                            <td><a
-                                                    href="tel:+221{{ $evaluateur->telephone }}">{{ $evaluateur->telephone }}</a>
-                                            </td>
-                                            <td>{{ $evaluateur->adresse }}</td>
-                                            <td style="text-align: center;">
-                                                {{-- @foreach ($evaluateur->formations as $formation)
+                                            <th>Name</th>
+                                            {{-- <th>Nom</th> --}}
+                                            <th>Fonction/Spécialité</th>
+                                            <th>Email</th>
+                                            <th>Téléphone</th>
+                                            <th>Adresse</th>
+                                            <th>Formations</th>
+                                            <th class="text-center">CV</th>
+                                            <th class="text-center" width="2%">#</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($evaluateurs as $evaluateur)
+                                            <tr>
+                                                <td>{{ $evaluateur->name }} {{ $evaluateur->lastname }}</td>
+                                                {{-- <td>{{ $evaluateur->lastname }}</td> --}}
+                                                <td>{{ $evaluateur->fonction }}</td>
+                                                <td><a href="mailto:{{ $evaluateur->email }}">{{ $evaluateur->email }}</a>
+                                                </td>
+                                                <td><a
+                                                        href="tel:+221{{ $evaluateur->telephone }}">{{ $evaluateur->telephone }}</a>
+                                                </td>
+                                                <td>{{ $evaluateur->adresse }}</td>
+                                                <td style="text-align: center;">
+                                                    {{-- @foreach ($evaluateur->formations as $formation)
                                                     @if ($loop->last)
                                                         <a class="text-primary fw-bold"
                                                             href="#">{!! $loop->count ?? '0' !!}</a>
                                                     @endif
                                                 @endforeach --}}
-                                                {{ $evaluateur?->formations->count() }}
-                                            </td>
-                                            <td class="text-center">
-                                                @if ($evaluateur?->scan_cv)
-                                                    <a class="btn btn-outline-secondary btn-sm" title="Convention"
-                                                        target="_blank"
-                                                        href="{{ asset($evaluateur?->getCVEvaluateurs()) }}">
-                                                        <i class="bi bi-file-earmark-pdf"></i>
-                                                    </a>
-                                                @else
-                                                    <span class="text-muted small">Aucun fichier</span>
-                                                @endif
-                                            </td>
+                                                    {{ $evaluateur?->formations->count() }}
+                                                </td>
+                                                <td class="text-center">
+                                                    @if ($evaluateur?->scan_cv)
+                                                        <a class="btn btn-outline-secondary btn-sm" title="Convention"
+                                                            target="_blank"
+                                                            href="{{ asset($evaluateur?->getCVEvaluateurs()) }}">
+                                                            <i class="bi bi-file-earmark-pdf"></i>
+                                                        </a>
+                                                    @else
+                                                        <span class="text-muted small">Aucun fichier</span>
+                                                    @endif
+                                                </td>
 
-                                            <td style="text-align: center;">
-                                                @can('evaluateur-show')
-                                                    <span class="d-flex mt-2 align-items-baseline"><a
-                                                            href="{{ route('evaluateurs.show', $evaluateur->id) }}"
-                                                            class="btn btn-warning btn-sm mx-1" title="Voir détails">
-                                                            <i class="bi bi-eye"></i></a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                @can('evaluateur-update')
-                                                                    <li>
-                                                                        <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#EditevaluateurModal{{ $evaluateur->id }}">
-                                                                            <i class="bi bi-pencil" title="Modifier"></i> Modifier
-                                                                        </button>
-                                                                    </li>
-                                                                @endcan
-                                                                @can('evaluateur-delete')
-                                                                    <li>
-                                                                        <form action="{{ url('evaluateurs', $evaluateur->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit"
-                                                                                class="dropdown-item show_confirm"><i
-                                                                                    class="bi bi-trash"></i>Supprimer</button>
-                                                                        </form>
-                                                                    </li>
-                                                                @endcan
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                                @endcan
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                <td style="text-align: center;">
+                                                    @can('evaluateur-show')
+                                                        <span class="d-flex mt-2 align-items-baseline"><a
+                                                                href="{{ route('evaluateurs.show', $evaluateur->id) }}"
+                                                                class="btn btn-warning btn-sm mx-1" title="Voir détails">
+                                                                <i class="bi bi-eye"></i></a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    @can('evaluateur-update')
+                                                                        <li>
+                                                                            <button type="button"
+                                                                                class="dropdown-item btn btn-sm mx-1"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#EditevaluateurModal{{ $evaluateur->id }}">
+                                                                                <i class="bi bi-pencil" title="Modifier"></i>
+                                                                                Modifier
+                                                                            </button>
+                                                                        </li>
+                                                                    @endcan
+                                                                    @can('evaluateur-delete')
+                                                                        <li>
+                                                                            <form
+                                                                                action="{{ url('evaluateurs', $evaluateur->id) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"><i
+                                                                                        class="bi bi-trash"></i>Supprimer</button>
+                                                                            </form>
+                                                                        </li>
+                                                                    @endcan
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    @endcan
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <div class="alert alert-info">Aucun évaluateur pour le momement !</div>
                         @endif

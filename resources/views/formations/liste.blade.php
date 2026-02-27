@@ -59,89 +59,94 @@
                             @endcan
                         </div>
                         @if ($formations->isNotEmpty())
-                            <table class="table datatables table-bordered table-hover align-middle justify-content-center"
-                                id="table-formations">
-                                <thead class="table-success text-center">
-                                    <tr>
-                                        <th width='6%' class="text-center">Code</th>
-                                        <th width='8%' class="text-center">Date créat.</th>
-                                        <th width='8%' class="text-center">N° conv.</th>
-                                        <th width='25%'>Bénéficiaires</th>
-                                        <th width='15%'>Modules</th>
-                                        <th width='15%'>Niveau qualif.</th>
-                                        <th width='10%'>Opérateurs</th>
-                                        <th width='5%' class="text-center">Statut</th>
-                                        @can('formation-show')
-                                            <th width='5%'><i class="bi bi-gear"></i></th>
-                                        @endcan
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($formations as $formation)
+
+                            <div class="table-responsive">
+                                <table
+                                    class="table datatables table-bordered table-hover align-middle justify-content-center"
+                                    id="table-formations">
+                                    <thead class="table-success text-center">
                                         <tr>
-                                            <td style="text-align: center">{{ $formation?->code }}</td>
-                                            <td style="text-align: center">{{ $formation?->created_at?->format('d/m/Y') }}
-                                            </td>
-                                            <td style="text-align: center">{{ $formation?->numero_convention }}</td>
-                                            <td>{{ $formation?->name ?? ' ' }}</td>
-                                            <td>
-                                                <span
-                                                    class="{{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}">
-                                                    {{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}
-                                                </span>
-                                            </td>
-                                            {{-- <td>{{ $formation->type_certification }}</td> --}}
-                                            <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
-                                            <td>{{ $formation?->operateur?->user?->username ?? ' ' }}</td>
-                                            <td class="text-center">
-                                                <a><span
-                                                        class="{{ $formation->statut }}">{{ $formation->statut }}</span></a>
-                                            </td>
+                                            <th width='6%' class="text-center">Code</th>
+                                            <th width='8%' class="text-center">Date créat.</th>
+                                            <th width='8%' class="text-center">N° conv.</th>
+                                            <th width='25%'>Bénéficiaires</th>
+                                            <th width='15%'>Modules</th>
+                                            <th width='15%'>Niveau qualif.</th>
+                                            <th width='10%'>Opérateurs</th>
+                                            <th width='5%' class="text-center">Statut</th>
                                             @can('formation-show')
-                                                <td>
-                                                    <span class="d-flex align-items-baseline">
-                                                        <a href="{{ route('formations.show', $formation) }}"
-                                                            class="btn btn-primary btn-sm" title="Voir détails">
-                                                            <i class="bi bi-eye"></i>
-                                                        </a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown">
-                                                                <i class="bi bi-three-dots"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                @can('formation-update')
-                                                                    <li>
-                                                                        <a class="dropdown-item btn btn-sm"
-                                                                            href="{{ route('formations.edit', $formation) }}"
-                                                                            title="Modifier">
-                                                                            <i class="bi bi-pencil"></i> Modifier
-                                                                        </a>
-                                                                    </li>
-                                                                @endcan
-                                                                @can('formation-delete')
-                                                                    <li>
-                                                                        <form
-                                                                            action="{{ route('formations.destroy', $formation) }}"
-                                                                            method="POST">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit"
-                                                                                class="dropdown-item show_confirm"
-                                                                                title="Supprimer">
-                                                                                <i class="bi bi-trash"></i> Supprimer
-                                                                            </button>
-                                                                        </form>
-                                                                    </li>
-                                                                @endcan
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                                </td>
+                                                <th width='5%'><i class="bi bi-gear"></i></th>
                                             @endcan
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($formations as $formation)
+                                            <tr>
+                                                <td style="text-align: center">{{ $formation?->code }}</td>
+                                                <td style="text-align: center">
+                                                    {{ $formation?->created_at?->format('d/m/Y') }}
+                                                </td>
+                                                <td style="text-align: center">{{ $formation?->numero_convention }}</td>
+                                                <td>{{ $formation?->name ?? ' ' }}</td>
+                                                <td>
+                                                    <span
+                                                        class="{{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}">
+                                                        {{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}
+                                                    </span>
+                                                </td>
+                                                {{-- <td>{{ $formation->type_certification }}</td> --}}
+                                                <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
+                                                <td>{{ $formation?->operateur?->user?->username ?? ' ' }}</td>
+                                                <td class="text-center">
+                                                    <a><span
+                                                            class="{{ $formation->statut }}">{{ $formation->statut }}</span></a>
+                                                </td>
+                                                @can('formation-show')
+                                                    <td>
+                                                        <span class="d-flex align-items-baseline">
+                                                            <a href="{{ route('formations.show', $formation) }}"
+                                                                class="btn btn-primary btn-sm" title="Voir détails">
+                                                                <i class="bi bi-eye"></i>
+                                                            </a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#" data-bs-toggle="dropdown">
+                                                                    <i class="bi bi-three-dots"></i>
+                                                                </a>
+                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    @can('formation-update')
+                                                                        <li>
+                                                                            <a class="dropdown-item btn btn-sm"
+                                                                                href="{{ route('formations.edit', $formation) }}"
+                                                                                title="Modifier">
+                                                                                <i class="bi bi-pencil"></i> Modifier
+                                                                            </a>
+                                                                        </li>
+                                                                    @endcan
+                                                                    @can('formation-delete')
+                                                                        <li>
+                                                                            <form
+                                                                                action="{{ route('formations.destroy', $formation) }}"
+                                                                                method="POST">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"
+                                                                                    title="Supprimer">
+                                                                                    <i class="bi bi-trash"></i> Supprimer
+                                                                                </button>
+                                                                            </form>
+                                                                        </li>
+                                                                    @endcan
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    </td>
+                                                @endcan
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <div class="alert alert-info">Aucune formation créée pour l'instant !</div>
                         @endif

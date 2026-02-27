@@ -286,31 +286,35 @@
             <p>Fait à Dakar, le {{ $commissionagrement?->fin_commission?->format('d/m/Y') ?? '6 décembre 2024' }}</p>
         </div>
 
-        <table class="signature">
-            <tr>
-                <td><strong>Le Président de séance
-                        :</strong><br><br><br><br>{{ $commissionagrement->chef->civilite . ' ' . $commissionagrement->chef->prenom . ' ' . $commissionagrement->chef->nom }}
-                </td>
-                <td class="right"><strong>Le Secrétaire de séance :</strong><br><br><br><br>
-                    {{ $commissionagrement->secretaire->civilite . ' ' . $commissionagrement->secretaire->prenom . ' ' . $commissionagrement->secretaire->nom }}
-                </td>
-            </tr>
-        </table>
+        <div class="table-responsive">
+            <table class="signature">
+                <tr>
+                    <td><strong>Le Président de séance
+                            :</strong><br><br><br><br>{{ $commissionagrement->chef->civilite . ' ' . $commissionagrement->chef->prenom . ' ' . $commissionagrement->chef->nom }}
+                    </td>
+                    <td class="right"><strong>Le Secrétaire de séance :</strong><br><br><br><br>
+                        {{ $commissionagrement->secretaire->civilite . ' ' . $commissionagrement->secretaire->prenom . ' ' . $commissionagrement->secretaire->nom }}
+                    </td>
+                </tr>
+            </table>
+        </div>
 
         <h4 class="h4 mt-0"><br>Les autres membres de la commission</h4>
-        <table class="signature">
-            @foreach ($commissionagrement->commissionmembres as $membre)
-                @if (
-                    $membre->id !== $commissionagrement->chef_id &&
-                        $membre->id !== $commissionagrement->secretaire_id &&
-                        !empty($membre->statut))
-                    <tr>
-                        <td><b>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom }}
-                            </b><br><br></td>
-                    </tr>
-                @endif
-            @endforeach
-        </table>
+        <div class="table-responsive">
+            <table class="signature">
+                @foreach ($commissionagrement->commissionmembres as $membre)
+                    @if (
+                        $membre->id !== $commissionagrement->chef_id &&
+                            $membre->id !== $commissionagrement->secretaire_id &&
+                            !empty($membre->statut))
+                        <tr>
+                            <td><b>{{ $membre->civilite . ' ' . $membre->prenom . ' ' . $membre->nom }}
+                                </b><br><br></td>
+                        </tr>
+                    @endif
+                @endforeach
+            </table>
+        </div>
 
     </div>
 

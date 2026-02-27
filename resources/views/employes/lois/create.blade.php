@@ -24,8 +24,7 @@
                         </div>
                         <h5 class="card-title">Création loi</h5>
                         <!-- loi -->
-                        <form method="post" action="{{ url('lois') }}" enctype="multipart/form-data"
-                            class="row g-3">
+                        <form method="post" action="{{ url('lois') }}" enctype="multipart/form-data" class="row g-3">
                             @csrf
                             {{--  <div class="row mb-3">
                                 <label for="name" class="form-label"></label>
@@ -43,19 +42,21 @@
                             </div> --}}
 
 
-                            <table class="table table-bordered" id="dynamicAddRemove">
-                                <tr>
-                                    <th>lois<span class="text-danger mx-1">*</span></th>
-                                    <th width="15%">Action</th>
-                                </tr>
-                                <tr>
-                                    <td><input type="text" name="lois[0][name]" placeholder="Entrer une loi"
-                                            class="form-control form-control-sm" autofocus/></td>
-                                    <td><button type="button" name="add" id="add-btn" class="btn btn-success"
-                                            title="Ajouter une ligne">Ajouter</button>
-                                    </td>
-                                </tr>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dynamicAddRemove">
+                                    <tr>
+                                        <th>lois<span class="text-danger mx-1">*</span></th>
+                                        <th width="15%">Action</th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" name="lois[0][name]" placeholder="Entrer une loi"
+                                                class="form-control form-control-sm" autofocus /></td>
+                                        <td><button type="button" name="add" id="add-btn" class="btn btn-success"
+                                                title="Ajouter une ligne">Ajouter</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                             <div class="col-12 text-left mt-2">
                                 <button type="submit" class="btn btn-outline-success"><i
                                         class="far fa-save"></i>&nbsp;Sauvegarder</button>

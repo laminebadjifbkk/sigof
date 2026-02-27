@@ -39,37 +39,41 @@
                         <h5 class="card-title">Articles</h5>
                         {{-- <p>Le tableau de tous les articles du système.</p> --}}
                         <!-- Table with stripped rows -->
-                        <table class="table datatables align-middle" id="table-articles">
-                            <thead>
-                                <tr>
-                                    <th>N°</th>
-                                    <th>Articles</th>
-                                    <th>#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($articles as $article)
-                                    <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td>{{ $article->name }}</td>
-                                        <td>
-                                            <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('articles/'.$article->id.'/edit') }}"
-                                                    class="btn btn-success btn-sm" title="Modifier"><i
-                                                        class="bi bi-pencil-square"></i></a>&nbsp;
-                                                <form action="{{ url('articles', $article->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                        title="Supprimer"><i class="bi bi-trash"></i></button>
-                                                </form>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                @endforeach
 
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle" id="table-articles">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Articles</th>
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($articles as $article)
+                                        <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $article->name }}</td>
+                                            <td>
+                                                <span class="d-flex mt-2 align-items-baseline"><a
+                                                        href="{{ url('articles/' . $article->id . '/edit') }}"
+                                                        class="btn btn-success btn-sm" title="Modifier"><i
+                                                            class="bi bi-pencil-square"></i></a>&nbsp;
+                                                    <form action="{{ url('articles', $article->id) }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                                            title="Supprimer"><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
                         <!-- End Table with stripped rows -->
 
                     </div>
@@ -85,7 +89,7 @@
         new DataTable('#table-articles', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

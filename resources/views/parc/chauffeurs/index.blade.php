@@ -105,84 +105,86 @@
                 </div>
             @endif
 
-            <table class="table table-hover table-striped shadow-sm" id="table-parc-chauffeur">
-                <thead class="table-dark">
-                    <tr>
-                        <th class="text-center" width="10%">Matricule</th>
-                        <th>Nom</th>
-                        <th>Véhicule</th>
-                        {{-- <th>Prénom</th> --}}
-                        {{-- <th>Téléphone</th> --}}
-                        <th class="text-center" width="15%">Missions {{ now()->year }}</th>
-                        <th class="text-center" width="12%">N° permis</th>
-                        {{-- <th class="text-center" width="12%">Catégorie</th> --}}
-                        <th>Permis expire</th>
-                        {{-- <th class="text-center" width="5%">Statut</th> --}}
-                        <th class="text-center" width="12%">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($chauffeurs as $chauffeur)
-                        @php
-                            $missionsCount = $chauffeur?->employee?->parcmissions?->count() ?? 0;
-                        @endphp
-
+            <div class="table-responsive">
+                <table class="table table-hover table-striped shadow-sm" id="table-parc-chauffeur">
+                    <thead class="table-dark">
                         <tr>
-                            <td class="text-center">{{ $chauffeur?->employee?->matricule }}</td>
-                            <td>{{ $chauffeur?->employee?->user?->firstname . ' ' . $chauffeur?->employee?->user?->name }}
-                            </td>
-                            <td class="text-center">{{ $chauffeur?->vehicule?->immatriculation }}</td>
-                            <td class="text-center">
-                                <span class="badge bg-secondary">
-                                    {{ $chauffeur?->employee?->parcmissions?->count() }}
-                                </span>
-                                {{-- <span class="badge bg-secondary">
+                            <th class="text-center" width="10%">Matricule</th>
+                            <th>Nom</th>
+                            <th>Véhicule</th>
+                            {{-- <th>Prénom</th> --}}
+                            {{-- <th>Téléphone</th> --}}
+                            <th class="text-center" width="15%">Missions {{ now()->year }}</th>
+                            <th class="text-center" width="12%">N° permis</th>
+                            {{-- <th class="text-center" width="12%">Catégorie</th> --}}
+                            <th>Permis expire</th>
+                            {{-- <th class="text-center" width="5%">Statut</th> --}}
+                            <th class="text-center" width="12%">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($chauffeurs as $chauffeur)
+                            @php
+                                $missionsCount = $chauffeur?->employee?->parcmissions?->count() ?? 0;
+                            @endphp
+
+                            <tr>
+                                <td class="text-center">{{ $chauffeur?->employee?->matricule }}</td>
+                                <td>{{ $chauffeur?->employee?->user?->firstname . ' ' . $chauffeur?->employee?->user?->name }}
+                                </td>
+                                <td class="text-center">{{ $chauffeur?->vehicule?->immatriculation }}</td>
+                                <td class="text-center">
+                                    <span class="badge bg-secondary">
+                                        {{ $chauffeur?->employee?->parcmissions?->count() }}
+                                    </span>
+                                    {{-- <span class="badge bg-secondary">
                                     {{ $chauffeur->missions_annee_count }}
                                 </span> --}}
-                            </td>
-                            {{-- <td>{{ $chauffeur->prenom }}</td> --}}
-                            {{-- <td>{{ $chauffeur->telephone }}</td> --}}
-                            <td class="text-center">{{ $chauffeur?->permis_numero }}</td>
-                            {{-- <td class="text-center">{{ $chauffeur->permis_categories }}</td> --}}
-                            {{-- <td>{{ $chauffeur->permis_expire_le->format('d/m/Y') }}</td> --}}
-                            <td>
-                                <span class="{{ $chauffeur?->permis_classe }}">
-                                    {{ $chauffeur?->permis_restant }}
-                                </span>
-                            </td>
-                            {{-- <td class="text-center">
+                                </td>
+                                {{-- <td>{{ $chauffeur->prenom }}</td> --}}
+                                {{-- <td>{{ $chauffeur->telephone }}</td> --}}
+                                <td class="text-center">{{ $chauffeur?->permis_numero }}</td>
+                                {{-- <td class="text-center">{{ $chauffeur->permis_categories }}</td> --}}
+                                {{-- <td>{{ $chauffeur->permis_expire_le->format('d/m/Y') }}</td> --}}
+                                <td>
+                                    <span class="{{ $chauffeur?->permis_classe }}">
+                                        {{ $chauffeur?->permis_restant }}
+                                    </span>
+                                </td>
+                                {{-- <td class="text-center">
                                 <span class="badge {{ $chauffeur->statut == 'actif' ? 'bg-success' : 'bg-danger' }}">
                                     {{ ucfirst($chauffeur->statut) }}
                                 </span>
                             </td> --}}
-                            <td class="text-center">
-                                <span class="d-flex align-items-baseline justify-content-center gap-1">
-                                    <a href="{{ route('parc-chauffeurs.show', $chauffeur->id) }}"
-                                        class="btn btn-sm btn-info btn-sm">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
-                                    <a href="{{ route('parc-chauffeurs.edit', $chauffeur->id) }}"
-                                        class="btn btn-sm btn-warning btn-sm">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-                                    <form action="{{ route('parc-chauffeurs.destroy', $chauffeur->id) }}" method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
+                                <td class="text-center">
+                                    <span class="d-flex align-items-baseline justify-content-center gap-1">
+                                        <a href="{{ route('parc-chauffeurs.show', $chauffeur->id) }}"
+                                            class="btn btn-sm btn-info btn-sm">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <a href="{{ route('parc-chauffeurs.edit', $chauffeur->id) }}"
+                                            class="btn btn-sm btn-warning btn-sm">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <form action="{{ route('parc-chauffeurs.destroy', $chauffeur->id) }}"
+                                            method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
 
-                                        <button type="submit" class="btn btn-sm btn-danger show_confirm"
-                                            {{ $missionsCount > 0 ? 'disabled' : '' }}
-                                            title="{{ $missionsCount > 0 ? 'Chauffeur affecté à des missions' : 'Supprimer le chauffeur' }}">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
+                                            <button type="submit" class="btn btn-sm btn-danger show_confirm"
+                                                {{ $missionsCount > 0 ? 'disabled' : '' }}
+                                                title="{{ $missionsCount > 0 ? 'Chauffeur affecté à des missions' : 'Supprimer le chauffeur' }}">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
 
-                                </span>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                    </span>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 @endsection

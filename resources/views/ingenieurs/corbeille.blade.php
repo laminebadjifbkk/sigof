@@ -67,31 +67,33 @@
                             @endcan
                         </div>
                         @if ($ingenieurs->isNotEmpty())
-                            <table class="table datatables align-middle" id="table-users">
-                                <thead>
-                                    <tr>
-                                        <th width="35%">Ingénieur</th>
-                                        <th width="2%">Initiale</th>
-                                        <th>Fonction</th>
-                                        <th>Email</th>
-                                        <th>Téléphone</th>
-                                        {{-- <th class="text-center">Nettoyer</th> --}}
-                                        <th class="text-center">Restaurer</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($ingenieurs as $ingenieur)
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle" id="table-users">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $ingenieur?->user?->firstname . ' ' . $ingenieur?->user?->name }}</td>
-                                            <td>{{ $ingenieur?->initiale }}</td>
-                                            <td>{{ $ingenieur?->user?->employee?->fonction?->name }}</td>
-                                            <td><a
-                                                    href="mailto:{{ $ingenieur?->user?->email }}">{{ $ingenieur?->user?->email }}</a>
-                                            </td>
-                                            <td><a
-                                                    href="tel:+221{{ $ingenieur?->user?->telephone }}">{{ $ingenieur?->user?->telephone }}</a>
-                                            </td>
-                                            {{-- <td class="text-center">
+                                            <th width="35%">Ingénieur</th>
+                                            <th width="2%">Initiale</th>
+                                            <th>Fonction</th>
+                                            <th>Email</th>
+                                            <th>Téléphone</th>
+                                            {{-- <th class="text-center">Nettoyer</th> --}}
+                                            <th class="text-center">Restaurer</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($ingenieurs as $ingenieur)
+                                            <tr>
+                                                <td>{{ $ingenieur?->user?->firstname . ' ' . $ingenieur?->user?->name }}
+                                                </td>
+                                                <td>{{ $ingenieur?->initiale }}</td>
+                                                <td>{{ $ingenieur?->user?->employee?->fonction?->name }}</td>
+                                                <td><a
+                                                        href="mailto:{{ $ingenieur?->user?->email }}">{{ $ingenieur?->user?->email }}</a>
+                                                </td>
+                                                <td><a
+                                                        href="tel:+221{{ $ingenieur?->user?->telephone }}">{{ $ingenieur?->user?->telephone }}</a>
+                                                </td>
+                                                {{-- <td class="text-center">
                                                 <form action="{{ route('ingenieurs.forceDelete', $ingenieur->id) }}"
                                                     method="POST">
                                                     @csrf
@@ -102,21 +104,22 @@
                                                     </button>
                                                 </form>
                                             </td> --}}
-                                            <td class="text-center">
-                                                <form action="{{ route('ingenieurs.restored', $ingenieur->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button type="submit"
-                                                        class="btn btn-success btn-sm show_confirm_restaurer">
-                                                        <i class="bi bi-arrow-counterclockwise"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                <td class="text-center">
+                                                    <form action="{{ route('ingenieurs.restored', $ingenieur->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit"
+                                                            class="btn btn-success btn-sm show_confirm_restaurer">
+                                                            <i class="bi bi-arrow-counterclockwise"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <div class="alert alert-warning text-center">
                                 Aucun ingénieur trouvé.

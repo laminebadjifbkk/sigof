@@ -71,28 +71,29 @@
                                     </div>
                                 </div>
 
-                                <table class="table datatables align-middle" id="table-operateurs">
-                                    <thead>
-                                        <tr>
-                                            <th width="5%" class="text-center">Dossier</th>
-                                            <th width="15%">N° agrément</th>
-                                            <th width="50%">Opérateurs</th>
-                                            <th width="10%">Sigle</th>
-                                            <th class="text-center">Modules</th>
-                                            <th width="15%" class="text-center">Statut</th>
-                                            <th><i class="bi bi-gear"></i></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $i = 1; ?>
-                                        @foreach ($operateurs as $operateur)
-                                            {{-- @if (!empty($operateur?->numero_agrement)) --}}
+                                <div class="table-responsive">
+                                    <table class="table datatables align-middle" id="table-operateurs">
+                                        <thead>
                                             <tr>
-                                                <td class="text-center">{{ $operateur?->numero_dossier }}</td>
-                                                <td>{{ $operateur?->numero_agrement }}</td>
-                                                <td>{{ $operateur?->user?->operateur }}</td>
-                                                <td>{{ $operateur?->user?->username }}</td>
-                                                {{-- <td style="text-align: center;">
+                                                <th width="5%" class="text-center">Dossier</th>
+                                                <th width="15%">N° agrément</th>
+                                                <th width="50%">Opérateurs</th>
+                                                <th width="10%">Sigle</th>
+                                                <th class="text-center">Modules</th>
+                                                <th width="15%" class="text-center">Statut</th>
+                                                <th><i class="bi bi-gear"></i></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $i = 1; ?>
+                                            @foreach ($operateurs as $operateur)
+                                                {{-- @if (!empty($operateur?->numero_agrement)) --}}
+                                                <tr>
+                                                    <td class="text-center">{{ $operateur?->numero_dossier }}</td>
+                                                    <td>{{ $operateur?->numero_agrement }}</td>
+                                                    <td>{{ $operateur?->user?->operateur }}</td>
+                                                    <td>{{ $operateur?->user?->username }}</td>
+                                                    {{-- <td style="text-align: center;">
                                                         @foreach ($operateur?->operateurmodules as $operateurmodule)
                                                             @if ($loop->last)
                                                                 <a href="#"><span
@@ -100,26 +101,28 @@
                                                             @endif
                                                         @endforeach
                                                     </td> --}}
-                                                <td class="text-center">
-                                                    @if ($operateur?->operateurmodules?->count())
-                                                        <a href="#"><span
-                                                                class="badge bg-warning">{{ $operateur->operateurmodules->count() }}</span></a>
-                                                    @endif
-                                                </td>
-                                                <td class="text-center">
-                                                    <span
-                                                        class="{{ $operateur->statut_agrement }}">{{ $operateur->statut_agrement }}</span>
-                                                </td>
-                                                <td>
-                                                    <span class="d-flex align-items-baseline"><a
-                                                            href="{{ route('agrements', ['id' => $operateur?->id]) }}"
-                                                            class="btn btn-primary btn-sm" title="voir détails"><i
-                                                                class="bi bi-eye"></i></a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                {{--  <li>
+                                                    <td class="text-center">
+                                                        @if ($operateur?->operateurmodules?->count())
+                                                            <a href="#"><span
+                                                                    class="badge bg-warning">{{ $operateur->operateurmodules->count() }}</span></a>
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span
+                                                            class="{{ $operateur->statut_agrement }}">{{ $operateur->statut_agrement }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="d-flex align-items-baseline"><a
+                                                                href="{{ route('agrements', ['id' => $operateur?->id]) }}"
+                                                                class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                    class="bi bi-eye"></i></a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#"
+                                                                    data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul
+                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    {{--  <li>
                                                                             <button type="button"
                                                                                 class="dropdown-item btn btn-sm mx-1"
                                                                                 data-bs-toggle="modal"
@@ -128,25 +131,27 @@
                                                                                 Modifier
                                                                             </button>
                                                                         </li> --}}
-                                                                <form
-                                                                    action="{{ route('retirerOperateur', ['id' => $operateur->id]) }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    @method('PUT')
-                                                                    <button class="show_confirm_retirer btn btn-sm mx-1"><i
-                                                                            class="bi bi-reply-fill"
-                                                                            title="Retirer"></i>&nbsp;Retirer</button>
-                                                                </form>
+                                                                    <form
+                                                                        action="{{ route('retirerOperateur', ['id' => $operateur->id]) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        @method('PUT')
+                                                                        <button
+                                                                            class="show_confirm_retirer btn btn-sm mx-1"><i
+                                                                                class="bi bi-reply-fill"
+                                                                                title="Retirer"></i>&nbsp;Retirer</button>
+                                                                    </form>
 
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            {{-- @endif --}}
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                {{-- @endif --}}
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             {{-- </form> --}}
                         </div>

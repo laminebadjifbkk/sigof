@@ -48,73 +48,75 @@
                                 </a>
                             @endcan
                         </div>
-                        <table class="table datatables table-bordered table-hover align-middle justify-content-center"
-                            id="table-operateurModules">
-                            <thead>
-                                <tr>
-                                    <th width="10%">Domaine</th>
-                                    <th>Module</th>
-                                    <th width="22%">Niveau de qualification</th>
-                                    <th>Opérateur</th>
-                                    <th>Région</th>
-                                    <th>Statut</th>
-                                    @can('operateurmodule-show')
-                                        <th width="3%"><i class="bi bi-gear"></i></th>
-                                    @endcan
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($operateurmodules as $operateurmodule)
+                        <div class="table-responsive">
+                            <table class="table datatables table-bordered table-hover align-middle justify-content-center"
+                                id="table-operateurModules">
+                                <thead>
                                     <tr>
-                                        <td>{{ $operateurmodule?->domaine }}</td>
-                                        <td>{{ $operateurmodule?->module }}</td>
-                                        <td>{{ $operateurmodule?->categorie }}</td>
-                                        <td>
-                                            <a href="{{ route('operateurs.show', $operateurmodule?->operateur) }}">{{ $operateurmodule?->operateur?->user?->operateur . ' (' . $operateurmodule?->operateur?->user?->username . ')' }}
-
-                                            </a>
-                                        </td>
-                                        <td>{{ $operateurmodule?->operateur?->region?->nom }}</td>
-                                        <td>
-                                            <span class="{{ $operateurmodule?->statut }}">
-                                                {{ $operateurmodule?->statut }}
-                                            </span>
-                                        </td>
+                                        <th width="10%">Domaine</th>
+                                        <th>Module</th>
+                                        <th width="22%">Niveau de qualification</th>
+                                        <th>Opérateur</th>
+                                        <th>Région</th>
+                                        <th>Statut</th>
                                         @can('operateurmodule-show')
-                                            <td>
-                                                <span class="d-flex align-items-baseline justify-content-center"><a
-                                                        href="{{ route('operateurmodules.show', $operateurmodule) }}"
-                                                        class="btn btn-primary btn-sm" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            <li>
-                                                                <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#EditOperateurmoduleModal{{ $operateurmodule->uuid }}">
-                                                                    <i class="bi bi-pencil" title="Modifier"></i> Modifier
-                                                                </button>
-                                                            </li>
-                                                            <li>
-                                                                <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#myModal{{ $operateurmodule->id }}">
-                                                                    <i class="bi bi-trash" title="Supprimer"></i> Supprimer
-                                                                </button>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </span>
-                                            </td>
+                                            <th width="3%"><i class="bi bi-gear"></i></th>
                                         @endcan
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($operateurmodules as $operateurmodule)
+                                        <tr>
+                                            <td>{{ $operateurmodule?->domaine }}</td>
+                                            <td>{{ $operateurmodule?->module }}</td>
+                                            <td>{{ $operateurmodule?->categorie }}</td>
+                                            <td>
+                                                <a href="{{ route('operateurs.show', $operateurmodule?->operateur) }}">{{ $operateurmodule?->operateur?->user?->operateur . ' (' . $operateurmodule?->operateur?->user?->username . ')' }}
+
+                                                </a>
+                                            </td>
+                                            <td>{{ $operateurmodule?->operateur?->region?->nom }}</td>
+                                            <td>
+                                                <span class="{{ $operateurmodule?->statut }}">
+                                                    {{ $operateurmodule?->statut }}
+                                                </span>
+                                            </td>
+                                            @can('operateurmodule-show')
+                                                <td>
+                                                    <span class="d-flex align-items-baseline justify-content-center"><a
+                                                            href="{{ route('operateurmodules.show', $operateurmodule) }}"
+                                                            class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                        <div class="filter">
+                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                    class="bi bi-three-dots"></i></a>
+                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                <li>
+                                                                    <button type="button" class="dropdown-item btn btn-sm mx-1"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#EditOperateurmoduleModal{{ $operateurmodule->uuid }}">
+                                                                        <i class="bi bi-pencil" title="Modifier"></i> Modifier
+                                                                    </button>
+                                                                </li>
+                                                                <li>
+                                                                    <button type="button" class="dropdown-item btn btn-sm mx-1"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#myModal{{ $operateurmodule->id }}">
+                                                                        <i class="bi bi-trash" title="Supprimer"></i> Supprimer
+                                                                    </button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                            @endcan
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
                     </div>
                 </div>
 

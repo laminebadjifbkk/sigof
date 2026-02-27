@@ -40,7 +40,8 @@
                    ? 'online'
                    : 'offline' }}">
 
-                            <img src="{{ asset($user?->getImage()) }}" alt="Profil" class="rounded-circle w-20 table-profile-image">
+                            <img src="{{ asset($user?->getImage()) }}" alt="Profil"
+                                class="rounded-circle w-20 table-profile-image">
                         </a>
 
                         <h2 class="pt-1 d-flex flex-column align-items-center text-center">
@@ -283,53 +284,55 @@
 
                                         @if ($validFiles->isNotEmpty())
                                             <div class="col-12 col-md-8">
-                                                <table class="table table-bordered table-hover datatables"
-                                                    id="table-iles">
-                                                    <thead>
-                                                        <tr>
-                                                            <th width="5%" class="text-center">N°</th>
-                                                            <th>Légende</th>
-                                                            <th width="10%" class="text-center">File</th>
-                                                            @can('user-show-file')
-                                                                <th width="5%" class="text-center"><i
-                                                                        class="bi bi-gear"></i></th>
-                                                            @endcan
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @php $i = 1; @endphp
-                                                        @foreach ($validFiles as $file)
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-hover datatables"
+                                                        id="table-iles">
+                                                        <thead>
                                                             <tr>
-                                                                <td class="text-center">{{ $i++ }}</td>
-                                                                <td>{{ $file->legende }}</td>
-                                                                <td class="text-center">
-                                                                    <a class="btn btn-default btn-sm"
-                                                                        title="Télécharger le fichier joint"
-                                                                        target="_blank"
-                                                                        href="{{ asset($file->getFichier()) }}">
-                                                                        <i class="bi bi-download"></i>
-                                                                    </a>
-                                                                </td>
+                                                                <th width="5%" class="text-center">N°</th>
+                                                                <th>Légende</th>
+                                                                <th width="10%" class="text-center">File</th>
                                                                 @can('user-show-file')
-                                                                    <td class="text-center">
-                                                                        <form action="{{ route('fileDestroy') }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('put')
-                                                                            <input type="hidden" name="idFile"
-                                                                                value="{{ $file->id }}">
-                                                                            <button type="submit"
-                                                                                style="background:none;border:0px;"
-                                                                                class="show_confirm" title="Retirer">
-                                                                                <i class="bi bi-trash"></i>
-                                                                            </button>
-                                                                        </form>
-                                                                    </td>
+                                                                    <th width="5%" class="text-center"><i
+                                                                            class="bi bi-gear"></i></th>
                                                                 @endcan
                                                             </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
+                                                        </thead>
+                                                        <tbody>
+                                                            @php $i = 1; @endphp
+                                                            @foreach ($validFiles as $file)
+                                                                <tr>
+                                                                    <td class="text-center">{{ $i++ }}</td>
+                                                                    <td>{{ $file->legende }}</td>
+                                                                    <td class="text-center">
+                                                                        <a class="btn btn-default btn-sm"
+                                                                            title="Télécharger le fichier joint"
+                                                                            target="_blank"
+                                                                            href="{{ asset($file->getFichier()) }}">
+                                                                            <i class="bi bi-download"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                    @can('user-show-file')
+                                                                        <td class="text-center">
+                                                                            <form action="{{ route('fileDestroy') }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('put')
+                                                                                <input type="hidden" name="idFile"
+                                                                                    value="{{ $file->id }}">
+                                                                                <button type="submit"
+                                                                                    style="background:none;border:0px;"
+                                                                                    class="show_confirm" title="Retirer">
+                                                                                    <i class="bi bi-trash"></i>
+                                                                                </button>
+                                                                            </form>
+                                                                        </td>
+                                                                    @endcan
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         @else
                                             <div class="alert alert-info">
@@ -347,77 +350,81 @@
                                         <h5 class="card-title">Formations individuelles</h5>
                                         @if ($user->individuelles->isNotEmpty())
                                             <div class="col-12">
-                                                <table class="table table-bordered table-hover datatables"
-                                                    id="table-iles">
-                                                    <thead>
-                                                        <tr>
-                                                            <th width="5%" class="text-center">N°</th>
-                                                            <th>Modules</th>
-                                                            <th width="5%" class="text-center">Dépôt</th>
-                                                            <th width="20%" class="text-center">Statut</th>
-                                                            @can('user-show')
-                                                                <th width="5%" class="text-center"><i
-                                                                        class="bi bi-gear"></i></th>
-                                                            @endcan
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @php
-                                                            // Liste de classes Bootstrap ou personnalisées à alterner
-                                                            $availableColors = [
-                                                                'table-primary',
-                                                                'table-success',
-                                                                'table-warning',
-                                                                'table-info',
-                                                                'table-secondary',
-                                                            ];
-                                                            $sigleColors = []; // Association sigle => couleur
-                                                            $colorIndex = 0;
-                                                        @endphp
-                                                        @php $i = 1; @endphp
-                                                        @foreach ($user->individuelles->sortBy('created_at') as $individuelle)
-                                                            @php
-                                                                $sigle = $individuelle->projet?->sigle;
-                                                                $rowClass = ''; // par défaut : aucune classe
-
-                                                                if (!empty($sigle)) {
-                                                                    if (!isset($sigleColors[$sigle])) {
-                                                                        $sigleColors[$sigle] =
-                                                                            $availableColors[
-                                                                                $colorIndex % count($availableColors)
-                                                                            ];
-                                                                        $colorIndex++;
-                                                                    }
-                                                                    $rowClass = $sigleColors[$sigle];
-                                                                }
-                                                            @endphp
-
-                                                            <tr class="{{ $rowClass }}">
-                                                                <td class="text-center">{{ $i++ }}</td>
-                                                                <td>{{ $individuelle?->module?->name }}</td>
-                                                                <td class="text-center">
-                                                                    @if ($individuelle?->date_depot)
-                                                                        {{ $individuelle?->date_depot?->format('d/m/Y') }}
-                                                                    @else
-                                                                        Aucun
-                                                                    @endif
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    <span class="{{ $individuelle?->statut }}">
-                                                                        {{ $individuelle?->statut }}
-                                                                    </span>
-                                                                </td>
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-hover datatables"
+                                                        id="table-iles">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="5%" class="text-center">N°</th>
+                                                                <th>Modules</th>
+                                                                <th width="5%" class="text-center">Dépôt</th>
+                                                                <th width="20%" class="text-center">Statut</th>
                                                                 @can('user-show')
-                                                                    <td class="text-center">
-                                                                        <a href="{{ route('individuelles.show', $individuelle) }}"
-                                                                            class="btn btn-primary btn-sm" target="_blank"
-                                                                            title="voir détails"><i class="bi bi-eye"></i></a>
-                                                                    </td>
+                                                                    <th width="5%" class="text-center"><i
+                                                                            class="bi bi-gear"></i></th>
                                                                 @endcan
                                                             </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
+                                                        </thead>
+                                                        <tbody>
+                                                            @php
+                                                                // Liste de classes Bootstrap ou personnalisées à alterner
+                                                                $availableColors = [
+                                                                    'table-primary',
+                                                                    'table-success',
+                                                                    'table-warning',
+                                                                    'table-info',
+                                                                    'table-secondary',
+                                                                ];
+                                                                $sigleColors = []; // Association sigle => couleur
+                                                                $colorIndex = 0;
+                                                            @endphp
+                                                            @php $i = 1; @endphp
+                                                            @foreach ($user->individuelles->sortBy('created_at') as $individuelle)
+                                                                @php
+                                                                    $sigle = $individuelle->projet?->sigle;
+                                                                    $rowClass = ''; // par défaut : aucune classe
+
+                                                                    if (!empty($sigle)) {
+                                                                        if (!isset($sigleColors[$sigle])) {
+                                                                            $sigleColors[$sigle] =
+                                                                                $availableColors[
+                                                                                    $colorIndex %
+                                                                                        count($availableColors)
+                                                                                ];
+                                                                            $colorIndex++;
+                                                                        }
+                                                                        $rowClass = $sigleColors[$sigle];
+                                                                    }
+                                                                @endphp
+
+                                                                <tr class="{{ $rowClass }}">
+                                                                    <td class="text-center">{{ $i++ }}</td>
+                                                                    <td>{{ $individuelle?->module?->name }}</td>
+                                                                    <td class="text-center">
+                                                                        @if ($individuelle?->date_depot)
+                                                                            {{ $individuelle?->date_depot?->format('d/m/Y') }}
+                                                                        @else
+                                                                            Aucun
+                                                                        @endif
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <span class="{{ $individuelle?->statut }}">
+                                                                            {{ $individuelle?->statut }}
+                                                                        </span>
+                                                                    </td>
+                                                                    @can('user-show')
+                                                                        <td class="text-center">
+                                                                            <a href="{{ route('individuelles.show', $individuelle) }}"
+                                                                                class="btn btn-primary btn-sm" target="_blank"
+                                                                                title="voir détails"><i
+                                                                                    class="bi bi-eye"></i></a>
+                                                                        </td>
+                                                                    @endcan
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         @else
                                             <div class="alert alert-info">
@@ -429,50 +436,53 @@
                                         <h5 class="card-title">Formations collectives</h5>
                                         @if ($user->collectives->isNotEmpty())
                                             <div class="col-12">
-                                                <table class="table table-bordered table-hover datatables"
-                                                    id="table-iles">
-                                                    <thead>
-                                                        <tr>
-                                                            <th width="5%" class="text-center">N°</th>
-                                                            <th>Modules</th>
-                                                            <th width="5%" class="text-center">Dépôt</th>
-                                                            <th width="10%" class="text-center">Statut</th>
-                                                            @can('user-show')
-                                                                <th width="5%" class="text-center"><i
-                                                                        class="bi bi-gear"></i></th>
-                                                            @endcan
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @php $i = 1; @endphp
-                                                        @foreach ($user->collectives->sortBy('created_at') as $collective)
-                                                            @foreach ($collective?->collectivemodules as $collectivemodule)
-                                                                <tr>
-                                                                    <td class="text-center">{{ $i++ }}</td>
-                                                                    <td>
-                                                                        {{ $collectivemodule->module }}
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        {{ \Carbon\Carbon::parse($collectivemodule?->collective?->date_depot)?->format('d/m/Y') }}
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <span class="{{ $collectivemodule?->statut }}">
-                                                                            {{ $collectivemodule?->statut }}
-                                                                        </span>
-                                                                    </td>
-                                                                    @can('user-show')
-                                                                        <td class="text-center">
-                                                                            <a href="{{ route('collectivemodules.show', $collectivemodule) }}"
-                                                                                class="btn btn-primary btn-sm" target="_blank"
-                                                                                title="voir détails"><i
-                                                                                    class="bi bi-eye"></i></a>
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-hover datatables"
+                                                        id="table-iles">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="5%" class="text-center">N°</th>
+                                                                <th>Modules</th>
+                                                                <th width="5%" class="text-center">Dépôt</th>
+                                                                <th width="10%" class="text-center">Statut</th>
+                                                                @can('user-show')
+                                                                    <th width="5%" class="text-center"><i
+                                                                            class="bi bi-gear"></i></th>
+                                                                @endcan
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @php $i = 1; @endphp
+                                                            @foreach ($user->collectives->sortBy('created_at') as $collective)
+                                                                @foreach ($collective?->collectivemodules as $collectivemodule)
+                                                                    <tr>
+                                                                        <td class="text-center">{{ $i++ }}</td>
+                                                                        <td>
+                                                                            {{ $collectivemodule->module }}
                                                                         </td>
-                                                                    @endcan
-                                                                </tr>
+                                                                        <td class="text-center">
+                                                                            {{ \Carbon\Carbon::parse($collectivemodule?->collective?->date_depot)?->format('d/m/Y') }}
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <span
+                                                                                class="{{ $collectivemodule?->statut }}">
+                                                                                {{ $collectivemodule?->statut }}
+                                                                            </span>
+                                                                        </td>
+                                                                        @can('user-show')
+                                                                            <td class="text-center">
+                                                                                <a href="{{ route('collectivemodules.show', $collectivemodule) }}"
+                                                                                    class="btn btn-primary btn-sm"
+                                                                                    target="_blank" title="voir détails"><i
+                                                                                        class="bi bi-eye"></i></a>
+                                                                            </td>
+                                                                        @endcan
+                                                                    </tr>
+                                                                @endforeach
                                                             @endforeach
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         @else
                                             <div class="alert alert-warning">
@@ -490,72 +500,76 @@
                                         <h5 class="card-title">Demandes agrément</h5>
                                         @if ($user->operateurs->isNotEmpty())
                                             <div class="col-12">
-                                                <table class="table table-bordered table-hover datatables"
-                                                    id="table-iles">
-                                                    <thead>
-                                                        <tr>
-                                                            <th width="3%" class="text-center">Dossier</th>
-                                                            <th class="text-center">N° agrément</th>
-                                                            <th>Opérateurs</th>
-                                                            <th>Sigle</th>
-                                                            <th>Région</th>
-                                                            <th>Responsable</th>
-                                                            <th width="2%"><i class="bi bi-gear"></i></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach ($user?->operateurs as $operateur)
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-hover datatables"
+                                                        id="table-iles">
+                                                        <thead>
                                                             <tr>
-                                                                <td class="text-center">{{ $operateur?->numero_dossier }}
-                                                                </td>
-                                                                <td>{{ $operateur?->numero_agrement }}</td>
-                                                                <td>{{ $operateur?->user?->operateur }}</td>
-                                                                <td>{{ $operateur?->user?->username }}</td>
-                                                                <td>{{ $operateur?->region?->nom }}</td>
-                                                                <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
-                                                                </td>
-                                                                <td>
-                                                                    <span class="d-flex align-items-baseline"><a
-                                                                            href="{{ route('operateurs.show', $operateur) }}"
-                                                                            class="btn btn-primary btn-sm"
-                                                                            title="voir détails"><i
-                                                                                class="bi bi-eye"></i></a>
-                                                                        @can('operateur-update')
-                                                                            <div class="filter">
-                                                                                <a class="icon" href="#"
-                                                                                    data-bs-toggle="dropdown"><i
-                                                                                        class="bi bi-three-dots"></i></a>
-                                                                                <ul
-                                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                                    <li>
-                                                                                        <a class="dropdown-item btn btn-sm"
-                                                                                            href="{{ route('operateurs.edit', $operateur) }}"
-                                                                                            class="mx-1" title="Modifier"><i
-                                                                                                class="bi bi-pencil"></i>Modifier</a>
-                                                                                    </li>
-                                                                                    @can('operateur-delete')
-                                                                                        <li>
-                                                                                            <form
-                                                                                                action="{{ route('operateurs.destroy', $operateur) }}"
-                                                                                                method="post">
-                                                                                                @csrf
-                                                                                                @method('DELETE')
-                                                                                                <button type="submit"
-                                                                                                    class="dropdown-item show_confirm"
-                                                                                                    title="Supprimer"><i
-                                                                                                        class="bi bi-trash"></i>Supprimer</button>
-                                                                                            </form>
-                                                                                        </li>
-                                                                                    @endcan
-                                                                                </ul>
-                                                                            </div>
-                                                                        @endcan
-                                                                    </span>
-                                                                </td>
+                                                                <th width="3%" class="text-center">Dossier</th>
+                                                                <th class="text-center">N° agrément</th>
+                                                                <th>Opérateurs</th>
+                                                                <th>Sigle</th>
+                                                                <th>Région</th>
+                                                                <th>Responsable</th>
+                                                                <th width="2%"><i class="bi bi-gear"></i></th>
                                                             </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($user?->operateurs as $operateur)
+                                                                <tr>
+                                                                    <td class="text-center">
+                                                                        {{ $operateur?->numero_dossier }}
+                                                                    </td>
+                                                                    <td>{{ $operateur?->numero_agrement }}</td>
+                                                                    <td>{{ $operateur?->user?->operateur }}</td>
+                                                                    <td>{{ $operateur?->user?->username }}</td>
+                                                                    <td>{{ $operateur?->region?->nom }}</td>
+                                                                    <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
+                                                                    </td>
+                                                                    <td>
+                                                                        <span class="d-flex align-items-baseline"><a
+                                                                                href="{{ route('operateurs.show', $operateur) }}"
+                                                                                class="btn btn-primary btn-sm"
+                                                                                title="voir détails"><i
+                                                                                    class="bi bi-eye"></i></a>
+                                                                            @can('operateur-update')
+                                                                                <div class="filter">
+                                                                                    <a class="icon" href="#"
+                                                                                        data-bs-toggle="dropdown"><i
+                                                                                            class="bi bi-three-dots"></i></a>
+                                                                                    <ul
+                                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                                        <li>
+                                                                                            <a class="dropdown-item btn btn-sm"
+                                                                                                href="{{ route('operateurs.edit', $operateur) }}"
+                                                                                                class="mx-1"
+                                                                                                title="Modifier"><i
+                                                                                                    class="bi bi-pencil"></i>Modifier</a>
+                                                                                        </li>
+                                                                                        @can('operateur-delete')
+                                                                                            <li>
+                                                                                                <form
+                                                                                                    action="{{ route('operateurs.destroy', $operateur) }}"
+                                                                                                    method="post">
+                                                                                                    @csrf
+                                                                                                    @method('DELETE')
+                                                                                                    <button type="submit"
+                                                                                                        class="dropdown-item show_confirm"
+                                                                                                        title="Supprimer"><i
+                                                                                                            class="bi bi-trash"></i>Supprimer</button>
+                                                                                                </form>
+                                                                                            </li>
+                                                                                        @endcan
+                                                                                    </ul>
+                                                                                </div>
+                                                                            @endcan
+                                                                        </span>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         @else
                                             <div class="alert alert-info">

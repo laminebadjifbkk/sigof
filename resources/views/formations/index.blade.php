@@ -355,13 +355,13 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                            @else
-                                <div class="alert alert-info">Aucune formation créée pour l'instant !</div>
+                            </div>
+                        @else
+                            <div class="alert alert-info">Aucune formation créée pour l'instant !</div>
                         @endif
                     </div>
                 </div>
             </div>
-        </div>
         </div>
         <div class="col-lg-12 col-md-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="AddFormationModal" tabindex="-1">

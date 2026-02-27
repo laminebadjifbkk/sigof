@@ -14,25 +14,26 @@
                             </span>
                         </div>
                         <h5 class="card-title">Région : {{ $localite?->nom }}</h5>
-                        <table class="table datatables align-middle justify-content-center" id="table-modules">
-                            <thead>
-                                <tr>
-                                    {{-- <th class="text-center">N°</th> --}}
-                                    <th class="text-center">CIN</th>
-                                    <th>Prénom</th>
-                                    <th>NOM</th>
-                                    <th>Date naissance</th>
-                                    <th>Lieu naissance</th>
-                                    <th>Telephone</th>
-                                    <th>Module</th>
-                                    <th class="text-center">Statut</th>
-                                    <th class="text-center">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($localite->individuelles as $individuelle)
-                                    {{-- @isset($individuelle?->numero) --}}
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle justify-content-center" id="table-modules">
+                                <thead>
+                                    <tr>
+                                        {{-- <th class="text-center">N°</th> --}}
+                                        <th class="text-center">CIN</th>
+                                        <th>Prénom</th>
+                                        <th>NOM</th>
+                                        <th>Date naissance</th>
+                                        <th>Lieu naissance</th>
+                                        <th>Telephone</th>
+                                        <th>Module</th>
+                                        <th class="text-center">Statut</th>
+                                        <th class="text-center">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($localite->individuelles as $individuelle)
+                                        {{-- @isset($individuelle?->numero) --}}
                                         <tr>
                                             {{-- <span class="badge bg-default text-dark"></span> --}}
                                             {{-- <td>{{ $individuelle?->numero }}
@@ -74,7 +75,8 @@
                                                                     method="post">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item show_confirm"
+                                                                    <button type="submit"
+                                                                        class="dropdown-item show_confirm"
                                                                         title="Supprimer"><i
                                                                             class="bi bi-trash"></i>Supprimer</button>
                                                                 </form>
@@ -84,13 +86,14 @@
                                                 </span>
                                             </td>
                                         </tr>
-                                    {{-- @endisset --}}
-                                @endforeach
+                                        {{-- @endisset --}}
+                                    @endforeach
 
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
 
+                        </div>
                     </div>
                 </div>
 

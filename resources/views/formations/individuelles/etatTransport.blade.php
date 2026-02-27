@@ -16,7 +16,7 @@
             margin-top: 0cm;
             font-size: 12px;
             line-height: 18px;
-            color:rgb(0, 0, 0);
+            color: rgb(0, 0, 0);
             ;
         }
 
@@ -100,45 +100,46 @@
         </b>
     </div>
     <div class="invoice-box">
-        <table class="table table-bordered">
-            <thead>
-                <tr class="heading" style="text-align: center;">
-                    <td colspan="10"><b>{{ __('ETAT DE PAIEMENT DU TRANSPORT') }}</b>
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="4">{{ __('Code formation : ') }}
-                        {{ $formation->code }}
-                    </td>
-                    <td colspan="2"><b>{{ __('N° convention : ') }}</b>
-                        @if (!empty($formation?->numero_convention))
-                            {{ $formation?->numero_convention }}
-                        @endif
-                    </td>
-                    <td colspan="2"><b>{{ __('Date état : ') }}</b>
-                        {{ $formation?->date_etat?->format('d/m/Y') }}
-                    </td>
-                    <td colspan="2"><b>{{ __('Durée : ') }}</b>
-                        {{ $formation?->duree_formation }}
-                        @if (!empty($formation?->duree_formation))
-                            jours
-                        @endif
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="4">{{ __('Intitulé formation : ') }}
-                        {{ $formation->module->name }}
-                    </td>
-                    <td colspan="6"><b>{{ __('Opérateur : ') }}</b>
-                        {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="4">{{ __('Adresse : ') }}
-                        {{ $formation?->lieu }}
-                    </td>
-                    <td colspan="6"><b>{{ __('Contact : ') }}</b>
-                        {{-- {{ substr($formation?->operateur?->user?->fixe, 0, 2) .
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="heading" style="text-align: center;">
+                        <td colspan="10"><b>{{ __('ETAT DE PAIEMENT DU TRANSPORT') }}</b>
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="4">{{ __('Code formation : ') }}
+                            {{ $formation->code }}
+                        </td>
+                        <td colspan="2"><b>{{ __('N° convention : ') }}</b>
+                            @if (!empty($formation?->numero_convention))
+                                {{ $formation?->numero_convention }}
+                            @endif
+                        </td>
+                        <td colspan="2"><b>{{ __('Date état : ') }}</b>
+                            {{ $formation?->date_etat?->format('d/m/Y') }}
+                        </td>
+                        <td colspan="2"><b>{{ __('Durée : ') }}</b>
+                            {{ $formation?->duree_formation }}
+                            @if (!empty($formation?->duree_formation))
+                                jours
+                            @endif
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="4">{{ __('Intitulé formation : ') }}
+                            {{ $formation->module->name }}
+                        </td>
+                        <td colspan="6"><b>{{ __('Opérateur : ') }}</b>
+                            {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="4">{{ __('Adresse : ') }}
+                            {{ $formation?->lieu }}
+                        </td>
+                        <td colspan="6"><b>{{ __('Contact : ') }}</b>
+                            {{-- {{ substr($formation?->operateur?->user?->fixe, 0, 2) .
                             ' ' .
                             substr($formation?->operateur?->user?->fixe, 2, 3) .
                             ' ' .
@@ -155,72 +156,73 @@
                                 ' ' .
                                 substr($formation?->operateur?->user?->telephone, 7, 2) }}
                         @endif --}}
-                        {{ $formation?->operateur?->user?->fixe }}
-                        @if (!empty($formation?->operateur?->user?->telephone))
-                            {{ ' / ' . $formation?->operateur?->user?->telephone }}
-                        @endif
-                    </td>
-                </tr>
-                <tr class="item" style="text-align: center;">
-                    <td><b>N°</b></td>
-                    <td><b>CIN</b></td>
-                    {{-- <td><b>Civilité</b></td> --}}
-                    <td><b>Prénom</b></td>
-                    <td><b>NOM</b></td>
-                    {{-- <td><b>Date naissance</b></td> --}}
-                    <td><b>Provenance</b></td>
-                    <td><b>Téléphone</b></td>
-                    <td><b>Nbre Jours</b></td>
-                    <td><b>Montant/Jours</b></td>
-                    <td><b>Montants (F CFA)</b></td>
-                    <td><b>Emargement</b></td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $i = 1; ?>
-                <?php $total = 0; ?>
-                @foreach ($formation?->individuelles as $individuelle)
-                    <?php
-                    $presence_count = $individuelle?->feuillepresences?->where('presence', 'Oui')?->count() ?? 0;
-                    $montant = $formation?->indemnite_transport_jour * $presence_count;
-                    $total += $montant;
-                    ?>
+                            {{ $formation?->operateur?->user?->fixe }}
+                            @if (!empty($formation?->operateur?->user?->telephone))
+                                {{ ' / ' . $formation?->operateur?->user?->telephone }}
+                            @endif
+                        </td>
+                    </tr>
                     <tr class="item" style="text-align: center;">
-                        <td>{{ $i++ }}</td>
-                        <td>{{ $individuelle->user->cin }}</td>
-                        <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->user?->name) }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->departement?->nom) }}</td>
-                        <td>
-                            {{-- {{ substr($individuelle?->user?->telephone, 0, 2) .
+                        <td><b>N°</b></td>
+                        <td><b>CIN</b></td>
+                        {{-- <td><b>Civilité</b></td> --}}
+                        <td><b>Prénom</b></td>
+                        <td><b>NOM</b></td>
+                        {{-- <td><b>Date naissance</b></td> --}}
+                        <td><b>Provenance</b></td>
+                        <td><b>Téléphone</b></td>
+                        <td><b>Nbre Jours</b></td>
+                        <td><b>Montant/Jours</b></td>
+                        <td><b>Montants (F CFA)</b></td>
+                        <td><b>Emargement</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 1; ?>
+                    <?php $total = 0; ?>
+                    @foreach ($formation?->individuelles as $individuelle)
+                        <?php
+                        $presence_count = $individuelle?->feuillepresences?->where('presence', 'Oui')?->count() ?? 0;
+                        $montant = $formation?->indemnite_transport_jour * $presence_count;
+                        $total += $montant;
+                        ?>
+                        <tr class="item" style="text-align: center;">
+                            <td>{{ $i++ }}</td>
+                            <td>{{ $individuelle->user->cin }}</td>
+                            <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
+                            <td>{{ remove_accents_uppercase($individuelle?->user?->name) }}</td>
+                            <td>{{ remove_accents_uppercase($individuelle?->departement?->nom) }}</td>
+                            <td>
+                                {{-- {{ substr($individuelle?->user?->telephone, 0, 2) .
                                 ' ' .
                                 substr($individuelle?->user?->telephone, 2, 3) .
                                 ' ' .
                                 substr($individuelle?->user?->telephone, 5, 2) .
                                 ' ' .
                                 substr($individuelle?->user?->telephone, 7, 2) }} --}}
-                            {{ $individuelle?->user?->telephone }}
-                        </td>
-                        <td>{{ $presence_count }}</td>
-                        <td>{{ number_format($formation?->indemnite_transport_jour, 0, ',', ' ') }}</td>
-                        <td>{{ number_format($montant, 0, ',', ' ') }}</td>
-                        <td></td>
-                    </tr>
-                @endforeach
+                                {{ $individuelle?->user?->telephone }}
+                            </td>
+                            <td>{{ $presence_count }}</td>
+                            <td>{{ number_format($formation?->indemnite_transport_jour, 0, ',', ' ') }}</td>
+                            <td>{{ number_format($montant, 0, ',', ' ') }}</td>
+                            <td></td>
+                        </tr>
+                    @endforeach
 
-                <tr class="total" style="text-align: center; font-size: 1.2em; font-weight: bold;">
-                    <td colspan="8"><b>TOTAL</b></td>
-                    <td colspan="1"><b>{{ number_format($total, 0, ',', ' ') }}</b></td>
-                    <td colspan="1"></td>
-                </tr>
-            </tbody>
-        </table>
-        {{--  <h4 valign="top">
+                    <tr class="total" style="text-align: center; font-size: 1.2em; font-weight: bold;">
+                        <td colspan="8"><b>TOTAL</b></td>
+                        <td colspan="1"><b>{{ number_format($total, 0, ',', ' ') }}</b></td>
+                        <td colspan="1"></td>
+                    </tr>
+                </tbody>
+            </table>
+            {{--  <h4 valign="top">
             <b><u>AGENT DE SUIVI</u>:</b>
             @isset($formation?->date_suivi)
                 {{ $formation?->suivi_dossier . ', le ' . $formation?->date_suivi?->format('d/m/Y') }}
             @endisset
         </h4> --}}
+        </div>
     </div>
     {{-- <footer>
         {{ __("Cité SIPRES 1 lot 2 - 2 voies liberté 6 extension VDN  Tél. : 33 827 92 51- Fax : 33 827 92 55

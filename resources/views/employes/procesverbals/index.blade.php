@@ -39,37 +39,42 @@
                         <h5 class="card-title">Procès verbaux</h5>
                         {{-- <p>Le tableau de tous les procès verbaux du système.</p> --}}
                         <!-- Table with stripped rows -->
-                        <table class="table datatables align-middle" id="table-procesverbals">
-                            <thead>
-                                <tr>
-                                    <th>N°</th>
-                                    <th>procès verbaux</th>
-                                    <th>#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($procesverbals as $procesverbal)
-                                    <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td>{{ $procesverbal->name }}</td>
-                                        <td>
-                                            <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('procesverbals/'.$procesverbal->id.'/edit') }}"
-                                                    class="btn btn-success btn-sm" title="Modifier"><i
-                                                        class="bi bi-pencil-square"></i></a>&nbsp;
-                                                <form action="{{ url('procesverbals', $procesverbal->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                        title="Supprimer"><i class="bi bi-trash"></i></button>
-                                                </form>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                @endforeach
 
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle" id="table-procesverbals">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>procès verbaux</th>
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($procesverbals as $procesverbal)
+                                        <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $procesverbal->name }}</td>
+                                            <td>
+                                                <span class="d-flex mt-2 align-items-baseline"><a
+                                                        href="{{ url('procesverbals/' . $procesverbal->id . '/edit') }}"
+                                                        class="btn btn-success btn-sm" title="Modifier"><i
+                                                            class="bi bi-pencil-square"></i></a>&nbsp;
+                                                    <form action="{{ url('procesverbals', $procesverbal->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                                            title="Supprimer"><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
                         <!-- End Table with stripped rows -->
 
                     </div>
@@ -85,7 +90,7 @@
         new DataTable('#table-procesverbals', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

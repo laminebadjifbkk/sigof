@@ -32,7 +32,7 @@
                     <div class="card-body">
                         <div class="float-end">
                             <span class="{{ $statut }}">{{ $statut }}</span>
-                           {{--  @if ($statut == 'Attente')
+                            {{--  @if ($statut == 'Attente')
                                 <span class="badge bg-secondary text-white">{{ $statut }}
                                 </span>
                             @endif
@@ -48,25 +48,26 @@
                         <h5 class="card-title">{{ $localite->nom . ': ' . $module->name }}</h5>
                         {{-- <p>Le tableau des demandes individuelles</p> --}}
                         <!-- Table with stripped rows -->
-                        <table class="table datatables align-middle" id="table-individuelles">
-                            <thead>
-                                <tr>
-                                    {{-- <th class="text-center">N°</th> --}}
-                                    <th class="text-center">CIN</th>
-                                    <th>Prénom</th>
-                                    <th>NOM</th>
-                                    <th>Date naissance</th>
-                                    <th>Lieu naissance</th>
-                                    <th>Département</th>
-                                    <th>Adresse</th>
-                                    <th>Telephone</th>
-                                    <th class="text-center">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($individuelles as $individuelle)
-                                    {{-- @isset($individuelle?->numero) --}}
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle" id="table-individuelles">
+                                <thead>
+                                    <tr>
+                                        {{-- <th class="text-center">N°</th> --}}
+                                        <th class="text-center">CIN</th>
+                                        <th>Prénom</th>
+                                        <th>NOM</th>
+                                        <th>Date naissance</th>
+                                        <th>Lieu naissance</th>
+                                        <th>Département</th>
+                                        <th>Adresse</th>
+                                        <th>Telephone</th>
+                                        <th class="text-center">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($individuelles as $individuelle)
+                                        {{-- @isset($individuelle?->numero) --}}
                                         <tr>
                                             {{-- <td>{{ $individuelle?->numero }}
                                             </td> --}}
@@ -82,49 +83,51 @@
                                             </td>
                                             <td>
                                                 @can('individuelle-show')
-                                                <span class="d-flex align-items-baseline"><a
-                                                        href="{{ route('individuelles.show', $individuelle) }}"
-                                                        class="btn btn-primary btn-sm" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            @can('individuelle-update')
-                                                            <li><a class="dropdown-item btn btn-sm"
-                                                                    href="{{ route('individuelles.edit', $individuelle) }}"
-                                                                    class="mx-1" title="Modifier"><i
-                                                                        class="bi bi-pencil"></i>Modifier</a>
-                                                            </li>
-                                                            @endcan
+                                                    <span class="d-flex align-items-baseline"><a
+                                                            href="{{ route('individuelles.show', $individuelle) }}"
+                                                            class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                        <div class="filter">
+                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                    class="bi bi-three-dots"></i></a>
+                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                @can('individuelle-update')
+                                                                    <li><a class="dropdown-item btn btn-sm"
+                                                                            href="{{ route('individuelles.edit', $individuelle) }}"
+                                                                            class="mx-1" title="Modifier"><i
+                                                                                class="bi bi-pencil"></i>Modifier</a>
+                                                                    </li>
+                                                                @endcan
 
-                                                            @can('individuelle-delete')
-                                                            <li>
-                                                                <form
-                                                                    action="{{ route('individuelles.destroy', $individuelle) }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item show_confirm"
-                                                                        title="Supprimer"><i
-                                                                            class="bi bi-trash"></i>Supprimer</button>
-                                                                </form>
-                                                            </li>
-                                                            @endcan
+                                                                @can('individuelle-delete')
+                                                                    <li>
+                                                                        <form
+                                                                            action="{{ route('individuelles.destroy', $individuelle) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"
+                                                                                title="Supprimer"><i
+                                                                                    class="bi bi-trash"></i>Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                @endcan
 
-                                                        </ul>
-                                                    </div>
-                                                </span>
+                                                            </ul>
+                                                        </div>
+                                                    </span>
                                                 @endcan
                                             </td>
                                         </tr>
-                                   {{--  @endisset --}}
-                                @endforeach
+                                        {{--  @endisset --}}
+                                    @endforeach
 
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -137,7 +140,7 @@
         new DataTable('#table-individuelles', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

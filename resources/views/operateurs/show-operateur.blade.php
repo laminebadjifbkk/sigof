@@ -549,99 +549,102 @@
                                     FICHIERS JOINTS</h5>
                                 @if ($files->isNotEmpty())
                                     <div class="col-12 col-lg-12 col-sm-12 col-xs-12">
-                                        <table class="table table-bordered table-hover datatables" id="table-files">
-                                            <thead>
-                                                <tr class="text-center">
-                                                    <th style="width: 5%">N°</th>
-                                                    <th>Légende</th>
-                                                    <th style="width: 10%">Fichier</th>
-                                                    <th style="width: 10%">Statut</th>
-                                                    <th style="width: 10%">Supprimer</th>
-                                                    @hasanyrole('super-admin|admin|DIOF')
-                                                        <th style="width: 10%">Valider</th>
-                                                        <th style="width: 10%">Rejeter</th>
-                                                    @endhasanyrole
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php $i = 1; @endphp
-                                                @foreach ($files as $file)
-                                                    <tr class="text-center align-middle">
-                                                        <td>{{ $i++ }}</td>
-                                                        <td>{{ $file->legende }}</td>
-                                                        <td>
-                                                            <a class="btn btn-outline-secondary btn-sm" title="Télécharger"
-                                                                target="_blank" href="{{ asset($file->getFichier()) }}">
-                                                                <i class="bi bi-download"></i>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            @php
-                                                                $statut = $file->statut ?? 'Attente';
-                                                                $badgeClass = match ($statut) {
-                                                                    'Validé' => 'success',
-                                                                    'Rejeté', 'Invalide' => 'danger',
-                                                                    default => 'secondary',
-                                                                };
-                                                            @endphp
-                                                            <span
-                                                                class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
-                                                        </td>
-                                                        {{-- Supprimer --}}
-                                                        <td>
-                                                            @if ($file->statut !== 'Validé')
-                                                                <form action="{{ route('fileDestroy') }}" method="post"
-                                                                    class="d-inline">
-                                                                    @csrf
-                                                                    @method('put')
-                                                                    <input type="hidden" name="idFile"
-                                                                        value="{{ $file->id }}">
-                                                                    <button type="submit"
-                                                                        class="btn btn-outline-danger btn-sm show_confirm"
-                                                                        title="Supprimer">
-                                                                        <i class="bi bi-trash"></i>
-                                                                    </button>
-                                                                </form>
-                                                            @endif
-                                                        </td>
-
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover datatables" id="table-files">
+                                                <thead>
+                                                    <tr class="text-center">
+                                                        <th style="width: 5%">N°</th>
+                                                        <th>Légende</th>
+                                                        <th style="width: 10%">Fichier</th>
+                                                        <th style="width: 10%">Statut</th>
+                                                        <th style="width: 10%">Supprimer</th>
                                                         @hasanyrole('super-admin|admin|DIOF')
-                                                            {{-- Valider --}}
-                                                            <td>
-                                                                <form action="{{ route('fileValidate') }}" method="post"
-                                                                    class="d-inline">
-                                                                    @csrf
-                                                                    @method('put')
-                                                                    <input type="hidden" name="idFile"
-                                                                        value="{{ $file->id }}">
-                                                                    <button type="submit"
-                                                                        class="btn btn-outline-success btn-sm show_confirm_valider"
-                                                                        title="Valider">
-                                                                        <i class="bi bi-check-circle"></i>
-                                                                    </button>
-                                                                </form>
-                                                            </td>
-                                                            {{-- Invalider --}}
-                                                            <td>
-                                                                <form action="{{ route('fileInvalide') }}" method="post"
-                                                                    class="d-inline">
-                                                                    @csrf
-                                                                    @method('put')
-                                                                    <input type="hidden" name="idFile"
-                                                                        value="{{ $file->id }}">
-                                                                    <button type="submit"
-                                                                        class="btn btn-outline-warning btn-sm show_confirm_rejeter"
-                                                                        title="Invalider">
-                                                                        <i class="bi bi-x-circle"></i>
-                                                                    </button>
-                                                                </form>
-                                                            </td>
+                                                            <th style="width: 10%">Valider</th>
+                                                            <th style="width: 10%">Rejeter</th>
                                                         @endhasanyrole
+                                                        </th>
                                                     </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    @php $i = 1; @endphp
+                                                    @foreach ($files as $file)
+                                                        <tr class="text-center align-middle">
+                                                            <td>{{ $i++ }}</td>
+                                                            <td>{{ $file->legende }}</td>
+                                                            <td>
+                                                                <a class="btn btn-outline-secondary btn-sm"
+                                                                    title="Télécharger" target="_blank"
+                                                                    href="{{ asset($file->getFichier()) }}">
+                                                                    <i class="bi bi-download"></i>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                @php
+                                                                    $statut = $file->statut ?? 'Attente';
+                                                                    $badgeClass = match ($statut) {
+                                                                        'Validé' => 'success',
+                                                                        'Rejeté', 'Invalide' => 'danger',
+                                                                        default => 'secondary',
+                                                                    };
+                                                                @endphp
+                                                                <span
+                                                                    class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
+                                                            </td>
+                                                            {{-- Supprimer --}}
+                                                            <td>
+                                                                @if ($file->statut !== 'Validé')
+                                                                    <form action="{{ route('fileDestroy') }}" method="post"
+                                                                        class="d-inline">
+                                                                        @csrf
+                                                                        @method('put')
+                                                                        <input type="hidden" name="idFile"
+                                                                            value="{{ $file->id }}">
+                                                                        <button type="submit"
+                                                                            class="btn btn-outline-danger btn-sm show_confirm"
+                                                                            title="Supprimer">
+                                                                            <i class="bi bi-trash"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                @endif
+                                                            </td>
+
+                                                            @hasanyrole('super-admin|admin|DIOF')
+                                                                {{-- Valider --}}
+                                                                <td>
+                                                                    <form action="{{ route('fileValidate') }}" method="post"
+                                                                        class="d-inline">
+                                                                        @csrf
+                                                                        @method('put')
+                                                                        <input type="hidden" name="idFile"
+                                                                            value="{{ $file->id }}">
+                                                                        <button type="submit"
+                                                                            class="btn btn-outline-success btn-sm show_confirm_valider"
+                                                                            title="Valider">
+                                                                            <i class="bi bi-check-circle"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                </td>
+                                                                {{-- Invalider --}}
+                                                                <td>
+                                                                    <form action="{{ route('fileInvalide') }}" method="post"
+                                                                        class="d-inline">
+                                                                        @csrf
+                                                                        @method('put')
+                                                                        <input type="hidden" name="idFile"
+                                                                            value="{{ $file->id }}">
+                                                                        <button type="submit"
+                                                                            class="btn btn-outline-warning btn-sm show_confirm_rejeter"
+                                                                            title="Invalider">
+                                                                            <i class="bi bi-x-circle"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                </td>
+                                                            @endhasanyrole
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 @else
                                     <div class="alert alert-info text-center text-muted">Aucun fichier joint</div>

@@ -15,7 +15,7 @@
             /* padding: 30px; */
             font-size: 12px;
             line-height: 18px;
-            color:rgb(0, 0, 0);
+            color: rgb(0, 0, 0);
             ;
         }
 
@@ -99,43 +99,44 @@
         </b>
     </div>
     <div class="invoice-box">
-        <table class="table table-bordered">
-            <thead>
-                <tr class="heading" style="text-align: center;">
-                    <td colspan="8"><b>{{ __('FEUILLE DE PRÉSENCE') }}</b>
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="4">{{ __('Code : ') }}
-                        {{ $formation->code }}
-                    </td>
-                    <td colspan="2"><b>{{ __('Suivi par : ') }}</b>
-                        @isset($formation?->date_suivi)
-                            {{ $formation?->suivi_dossier }}
-                        @endisset
-                    </td>
-                    <td colspan="1"><b>{{ __('Date suivi : ') }}</b>
-                        @isset($formation?->date_suivi)
-                            {{ $formation?->date_suivi?->format('d/m/Y') }}
-                        @endisset
-                    </td>
-                    <td colspan="1"><b>{{ __('Jour : ') }}</b>
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="4">{{ __('Intitulé : ') }}
-                        {{ $formation?->intitule }}
-                    </td>
-                    <td colspan="4"><b>{{ __('Opérateur : ') }}</b>
-                        {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="4">{{ __('Adresse : ') }}
-                        {{ $formation?->lieu }}
-                    </td>
-                    <td colspan="4"><b>{{ __('Contact : ') }}</b>
-                        {{-- {{ substr($formation?->operateur?->user?->fixe, 0, 2) .
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="heading" style="text-align: center;">
+                        <td colspan="8"><b>{{ __('FEUILLE DE PRÉSENCE') }}</b>
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="4">{{ __('Code : ') }}
+                            {{ $formation->code }}
+                        </td>
+                        <td colspan="2"><b>{{ __('Suivi par : ') }}</b>
+                            @isset($formation?->date_suivi)
+                                {{ $formation?->suivi_dossier }}
+                            @endisset
+                        </td>
+                        <td colspan="1"><b>{{ __('Date suivi : ') }}</b>
+                            @isset($formation?->date_suivi)
+                                {{ $formation?->date_suivi?->format('d/m/Y') }}
+                            @endisset
+                        </td>
+                        <td colspan="1"><b>{{ __('Jour : ') }}</b>
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="4">{{ __('Intitulé : ') }}
+                            {{ $formation?->intitule }}
+                        </td>
+                        <td colspan="4"><b>{{ __('Opérateur : ') }}</b>
+                            {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="4">{{ __('Adresse : ') }}
+                            {{ $formation?->lieu }}
+                        </td>
+                        <td colspan="4"><b>{{ __('Contact : ') }}</b>
+                            {{-- {{ substr($formation?->operateur?->user?->fixe, 0, 2) .
                             ' ' .
                             substr($formation?->operateur?->user?->fixe, 2, 3) .
                             ' ' .
@@ -152,45 +153,46 @@
                                 ' ' .
                                 substr($formation?->operateur?->user?->telephone, 7, 2) }}
                         @endif --}}
-                        {{ $formation?->operateur?->user?->fixe }}
-                        @if (!empty($formation?->operateur?->user?->telephone))
-                            {{ ' / ' . $formation?->operateur?->user?->telephone }}
-                        @endif
-                    </td>
-                </tr>
-                <tr class="item" style="text-align: center;">
-                    <td width="3%"><b>N° CIN</b></td>
-                    <td><b>Civilité</b></td>
-                    <td><b>Prénom</b></td>
-                    <td><b>NOM</b></td>
-                    <td><b>Date naissance</b></td>
-                    <td><b>Lieu de naissance</b></td>
-                    <td><b>Téléphone</b></td>
-                    <td><b>Emargement</b></td>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($formation->individuelles as $individuelle)
-                    <tr class="item" style="text-align: center;">
-                        <td>{{ $individuelle->user->cin }}</td>
-                        <td>{{ $individuelle?->user?->civilite }}</td>
-                        <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->user?->name) }}</td>
-                        <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
-                        <td>{{ $individuelle?->user?->telephone }}</td>
-                        <td></td>
+                            {{ $formation?->operateur?->user?->fixe }}
+                            @if (!empty($formation?->operateur?->user?->telephone))
+                                {{ ' / ' . $formation?->operateur?->user?->telephone }}
+                            @endif
+                        </td>
                     </tr>
-                @endforeach
+                    <tr class="item" style="text-align: center;">
+                        <td width="3%"><b>N° CIN</b></td>
+                        <td><b>Civilité</b></td>
+                        <td><b>Prénom</b></td>
+                        <td><b>NOM</b></td>
+                        <td><b>Date naissance</b></td>
+                        <td><b>Lieu de naissance</b></td>
+                        <td><b>Téléphone</b></td>
+                        <td><b>Emargement</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($formation->individuelles as $individuelle)
+                        <tr class="item" style="text-align: center;">
+                            <td>{{ $individuelle->user->cin }}</td>
+                            <td>{{ $individuelle?->user?->civilite }}</td>
+                            <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
+                            <td>{{ remove_accents_uppercase($individuelle?->user?->name) }}</td>
+                            <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
+                            <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
+                            <td>{{ $individuelle?->user?->telephone }}</td>
+                            <td></td>
+                        </tr>
+                    @endforeach
 
-            </tbody>
-        </table>
-        {{--  <h4 valign="top">
+                </tbody>
+            </table>
+            {{--  <h4 valign="top">
             <b><u>AGENT DE SUIVI</u>:</b>
             @isset($formation?->date_suivi)
                 {{ $formation?->suivi_dossier . ', le ' . $formation?->date_suivi?->format('d/m/Y') }}
             @endisset
         </h4> --}}
+        </div>
     </div>
     {{-- <footer>
         {{ __("Cité SIPRES 1 lot 2 - 2 voies liberté 6 extension VDN  Tél. : 33 827 92 51- Fax : 33 827 92 55

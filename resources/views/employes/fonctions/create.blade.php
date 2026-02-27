@@ -49,24 +49,25 @@
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Ajouter</button>
                             </div> --}}
-
-
-                                <table class="table table-bordered" id="dynamicAddRemove">
-                                    <tr>
-                                        <th width="60%">Fonctions<span class="text-danger mx-1">*</span></th>
-                                        <th>Sigle<span class="text-danger mx-1">*</span></th>
-                                        <th width="5%">#</th>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" name="fonctions[0][name]" placeholder="Entrer une fonction"
-                                                class="form-control form-control-sm" autofocus /></td>
-                                        <td><input type="text" name="fonctions[0][sigle]" placeholder="Entrer un sigle"
-                                                class="form-control form-control-sm" autofocus /></td>
-                                        <td><button type="button" name="add" id="add-btn" class="btn btn-success btn-sm"
-                                                title="Ajouter une ligne">Ajouter</button>
-                                        </td>
-                                    </tr>
-                                </table>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dynamicAddRemove">
+                                        <tr>
+                                            <th width="60%">Fonctions<span class="text-danger mx-1">*</span></th>
+                                            <th>Sigle<span class="text-danger mx-1">*</span></th>
+                                            <th width="5%">#</th>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" name="fonctions[0][name]"
+                                                    placeholder="Entrer une fonction" class="form-control form-control-sm"
+                                                    autofocus /></td>
+                                            <td><input type="text" name="fonctions[0][sigle]" placeholder="Entrer un sigle"
+                                                    class="form-control form-control-sm" autofocus /></td>
+                                            <td><button type="button" name="add" id="add-btn"
+                                                    class="btn btn-success btn-sm" title="Ajouter une ligne">Ajouter</button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
                                 <div class="col-12 text-left mt-2">
                                     <button type="submit" class="btn btn-outline-success btn-sm">Sauvegarder</button>
                                 </div>

@@ -67,45 +67,47 @@
                             @endcan
                         </div>
                         @if ($modules->isNotEmpty())
-                            <table class="table datatables align-middle" id="table-users">
-                                <thead>
-                                    <tr>
-                                        <th>Modules</th>
-                                        <th>Domaines</th>
-                                        <th>Secteurs</th>
-                                        <th>Niveau qualification</th>
-                                        <th class="text-center" scope="col">Formations</th>
-                                        <th class="text-center" scope="col">Demandes</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($modules as $module)
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle" id="table-users">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $module->name }}</td>
-                                            <td>{{ $module?->domaine?->name }}</td>
-                                            <td>{{ $module?->domaine?->secteur?->name }}</td>
-                                            <td>{{ $module?->niveau_qualification }}</td>
-                                            <td style="text-align: center;">
-                                                @foreach ($module->formations as $formation)
-                                                    @if ($loop->last)
-                                                        <a href="{{ route('formations.show' . $formation) }}"><span
-                                                                class="badge bg-info">{{ $loop->count }}</span></a>
-                                                    @endif
-                                                @endforeach
-                                            </td>
-                                            <td style="text-align: center;">
-                                                @foreach ($module->individuelles as $individuelle)
-                                                    @if ($loop->last)
-                                                        <a href="{{ route('modules.show' . $module) }}"><span
-                                                                class="badge bg-info">{{ $loop->count }}</span></a>
-                                                    @endif
-                                                @endforeach
-                                            </td>
+                                            <th>Modules</th>
+                                            <th>Domaines</th>
+                                            <th>Secteurs</th>
+                                            <th>Niveau qualification</th>
+                                            <th class="text-center" scope="col">Formations</th>
+                                            <th class="text-center" scope="col">Demandes</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($modules as $module)
+                                            <tr>
+                                                <td>{{ $module->name }}</td>
+                                                <td>{{ $module?->domaine?->name }}</td>
+                                                <td>{{ $module?->domaine?->secteur?->name }}</td>
+                                                <td>{{ $module?->niveau_qualification }}</td>
+                                                <td style="text-align: center;">
+                                                    @foreach ($module->formations as $formation)
+                                                        @if ($loop->last)
+                                                            <a href="{{ route('formations.show' . $formation) }}"><span
+                                                                    class="badge bg-info">{{ $loop->count }}</span></a>
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    @foreach ($module->individuelles as $individuelle)
+                                                        @if ($loop->last)
+                                                            <a href="{{ route('modules.show' . $module) }}"><span
+                                                                    class="badge bg-info">{{ $loop->count }}</span></a>
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <div class="alert alert-warning">
                                 Aucun utilisateur trouvé.

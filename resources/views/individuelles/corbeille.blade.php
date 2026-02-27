@@ -67,25 +67,26 @@
                             @endcan
                         </div>
                         @if ($individuelles->isNotEmpty())
-                            <table class="table datatables align-middle" id="table-users">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center" width='10%'>Date sup.</th>
-                                        <th width="20%" class="text-center">N° CIN (NIN)</th>
-                                        <th width="20%">Prénom & NOM</th>
-                                        <th width="15%">Date nais.</th>
-                                        <th width="15%">Lieu nais.</th>
-                                        <th width="20%">Module</th>
-                                        <th width="5%" class="text-center">Dépôt</th>
-                                        <th class="text-center">Statut</th>
-                                        <th class="text-center">Nettoyer</th>
-                                        <th class="text-center">Restaurer</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($individuelles as $individuelle)
-                                        {{-- @if (!empty($individuelle?->numero)) --}}
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle" id="table-users">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" width='10%'>Date sup.</th>
+                                            <th width="20%" class="text-center">N° CIN (NIN)</th>
+                                            <th width="20%">Prénom & NOM</th>
+                                            <th width="15%">Date nais.</th>
+                                            <th width="15%">Lieu nais.</th>
+                                            <th width="20%">Module</th>
+                                            <th width="5%" class="text-center">Dépôt</th>
+                                            <th class="text-center">Statut</th>
+                                            <th class="text-center">Nettoyer</th>
+                                            <th class="text-center">Restaurer</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($individuelles as $individuelle)
+                                            {{-- @if (!empty($individuelle?->numero)) --}}
                                             <tr>
                                                 <td style="text-align: center">
                                                     {{ optional($individuelle?->deleted_at)->format('d/m/Y') }}</td>
@@ -108,7 +109,8 @@
                                                     </span>
                                                 </td>
                                                 <td class="text-center">
-                                                    <form action="{{ route('individuelles.forceDelete', $individuelle->uuid) }}"
+                                                    <form
+                                                        action="{{ route('individuelles.forceDelete', $individuelle->uuid) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
@@ -119,7 +121,8 @@
                                                     </form>
                                                 </td>
                                                 <td class="text-center">
-                                                    <form action="{{ route('individuelles.restore', $individuelle->uuid) }}"
+                                                    <form
+                                                        action="{{ route('individuelles.restore', $individuelle->uuid) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('PUT')
@@ -130,18 +133,19 @@
                                                     </form>
                                                 </td>
                                             </tr>
-                                        {{-- @endif --}}
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @else
-                            <div class="alert alert-warning">
-                                Aucun utilisateur trouvé.
-                            </div>
+                                            {{-- @endif --}}
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <div class="alert alert-warning">
+                                    Aucun utilisateur trouvé.
+                                </div>
                         @endif
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 @endsection

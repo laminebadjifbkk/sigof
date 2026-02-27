@@ -20,34 +20,36 @@
         </a>
     </div>
 
-    <table class="table table-bordered table-striped align-middle">
-        <thead class="table-primary">
-            <tr>
-                <th scope="col" style="width: 50px;">N°</th>
-                <th scope="col">Années</th>
-                <th scope="col" class="text-center">Formations</th>
-                <th scope="col" style="width: 120px;">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($groupes as $index => $items)
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle">
+            <thead class="table-primary">
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $index }}</td>
-                    <td class="text-center">{{ number_format($items->count(), 0, '', ' ') }}</td>
-                    <td>
-                        <a href="{{ route('ingenieurs.formations.parAnnee', [
-                            'ingenieur' => $ingenieur->id,
-                            'annee' => $index,
-                        ]) }}"
-                            class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
-                            Voir plus <i class="bi bi-arrow-right-short"></i>
-                        </a>
-                    </td>
+                    <th scope="col" style="width: 50px;">N°</th>
+                    <th scope="col">Années</th>
+                    <th scope="col" class="text-center">Formations</th>
+                    <th scope="col" style="width: 120px;">Actions</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach ($groupes as $index => $items)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $index }}</td>
+                        <td class="text-center">{{ number_format($items->count(), 0, '', ' ') }}</td>
+                        <td>
+                            <a href="{{ route('ingenieurs.formations.parAnnee', [
+                                'ingenieur' => $ingenieur->id,
+                                'annee' => $index,
+                            ]) }}"
+                                class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
+                                Voir plus <i class="bi bi-arrow-right-short"></i>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 
     <hr>
 
@@ -82,39 +84,41 @@
                                 <h5 class="card-title">Liste des formations</h5>
                                 {{-- <h5 class="card-title">Liste des formations de {{ $ingenieur->name }}</h5> --}}
                                 @if ($ingenieur->formations->isNotEmpty())
-                                    <table class="table datatables align-middle justify-content-center" id="table-formations">
-                                        <thead>
-                                            <tr>
-                                                {{-- <th class="text-center" width="2%">Code</th> --}}
-                                                <th>Type</th>
-                                                <th>Intitulé formation</th>
-                                                <th>Modules</th>
-                                                <th>Régions</th>
-                                                <th class="text-center">Statut</th>
-                                                <th width='3%'>#</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                            @foreach ($ingenieur->formations as $formation)
+                                    <div class="table-responsive">
+                                        <table class="table datatables align-middle justify-content-center"
+                                            id="table-formations">
+                                            <thead>
                                                 <tr>
-                                                    {{-- <td class="text-center">{{ $formation?->code }}</td> --}}
-                                                    <td><a href="#">{{ $formation->types_formation?->name }}</a></td>
-                                                    <td>{{ $formation?->name }}</td>
-                                                    <td>
-                                                        {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
-                                                    </td>
-                                                    <td>
-                                                        {{-- {{ $formation->departement?->region?->nom }} --}}
-                                                        @if ($formation->regions->isNotEmpty())
-                                                            <span>
-                                                                {{ $formation->regions->pluck('nom')->join(', ') }}
-                                                            </span>
-                                                        @else
-                                                            <span class="fs-5 text-muted">Aucune</span>
-                                                        @endif
-                                                    </td>
-                                                    {{-- <td>
+                                                    {{-- <th class="text-center" width="2%">Code</th> --}}
+                                                    <th>Type</th>
+                                                    <th>Intitulé formation</th>
+                                                    <th>Modules</th>
+                                                    <th>Régions</th>
+                                                    <th class="text-center">Statut</th>
+                                                    <th width='3%'>#</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @foreach ($ingenieur->formations as $formation)
+                                                    <tr>
+                                                        {{-- <td class="text-center">{{ $formation?->code }}</td> --}}
+                                                        <td><a href="#">{{ $formation->types_formation?->name }}</a></td>
+                                                        <td>{{ $formation?->name }}</td>
+                                                        <td>
+                                                            {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
+                                                        </td>
+                                                        <td>
+                                                            {{-- {{ $formation->departement?->region?->nom }} --}}
+                                                            @if ($formation->regions->isNotEmpty())
+                                                                <span>
+                                                                    {{ $formation->regions->pluck('nom')->join(', ') }}
+                                                                </span>
+                                                            @else
+                                                                <span class="fs-5 text-muted">Aucune</span>
+                                                            @endif
+                                                        </td>
+                                                        {{-- <td>
                                                         @isset($formation?->module?->name)
                                                             {{ $formation?->module?->name }}
                                                         @endisset
@@ -122,47 +126,50 @@
                                                             {{ $formation?->collectivemodule?->module }}
                                                         @endisset
                                                     </td> --}}
-                                                    <td class="text-center"><a href="#"><span
-                                                                class="{{ $formation?->statut }}">{{ $formation?->statut }}</span></a>
-                                                    </td>
-                                                    <td>
-                                                        <span class="d-flex align-items-baseline"><a
-                                                                href="{{ route('formations.show', $formation) }}"
-                                                                class="btn btn-primary btn-sm" title="voir détails"><i
-                                                                    class="bi bi-eye"></i></a>
-                                                            <div class="filter">
-                                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                        class="bi bi-three-dots"></i></a>
-                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                    <li>
-                                                                        <button type="button"
-                                                                            class="dropdown-item btn btn-sm mx-1"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#EditingenieurModal{{ $ingenieur->id }}">
-                                                                            <i class="bi bi-pencil" title="Modifier"></i>
-                                                                            Modifier
-                                                                        </button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <form
-                                                                            action="{{ route('formations.destroy', $formation) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit"
-                                                                                class="dropdown-item show_confirm"
-                                                                                title="Supprimer"><i
-                                                                                    class="bi bi-trash"></i>Supprimer</button>
-                                                                        </form>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                                        <td class="text-center"><a href="#"><span
+                                                                    class="{{ $formation?->statut }}">{{ $formation?->statut }}</span></a>
+                                                        </td>
+                                                        <td>
+                                                            <span class="d-flex align-items-baseline"><a
+                                                                    href="{{ route('formations.show', $formation) }}"
+                                                                    class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                        class="bi bi-eye"></i></a>
+                                                                <div class="filter">
+                                                                    <a class="icon" href="#"
+                                                                        data-bs-toggle="dropdown"><i
+                                                                            class="bi bi-three-dots"></i></a>
+                                                                    <ul
+                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                        <li>
+                                                                            <button type="button"
+                                                                                class="dropdown-item btn btn-sm mx-1"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#EditingenieurModal{{ $ingenieur->id }}">
+                                                                                <i class="bi bi-pencil" title="Modifier"></i>
+                                                                                Modifier
+                                                                            </button>
+                                                                        </li>
+                                                                        <li>
+                                                                            <form
+                                                                                action="{{ route('formations.destroy', $formation) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"
+                                                                                    title="Supprimer"><i
+                                                                                        class="bi bi-trash"></i>Supprimer</button>
+                                                                            </form>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 @else
                                     <div class="alert alert-info bg-warning text-light border-0 alert-dismissible fade show"
                                         role="alert">
@@ -184,32 +191,34 @@
                             {{-- <h5 class="card-title">Liste des demandes collectives imputées à {{ $ingenieur->name }}</h5> --}}
                             <h5 class="card-title">Liste des demandes collectives</h5>
                             @if ($ingenieur->collectivemodules->isNotEmpty())
-                                <table class="table table-striped table-hover align-middle datatables" id="table-collectives">
-                                    <thead>
-                                        <tr>
-                                            {{-- <th>N° DEM.</th> --}}
-                                            <th>Modules</th>
-                                            <th>Nom structure</th>
-                                            {{-- <th>E-mail</th>
-                                            <th>Téléphone</th> --}}
-                                            <th>Région</th>
-                                            <th class="text-center">Effectif</th>
-                                            <th class="text-center">Statut</th>
-                                            <th class="text-center">#</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($ingenieur->collectivemodules as $collectivemodule)
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover align-middle datatables"
+                                        id="table-collectives">
+                                        <thead>
                                             <tr>
-                                                {{-- <td>{{ $collectivemodule->collective?->numero }}</td> --}}
-                                                <td>{{ $collectivemodule->module }}</td>
-                                                <td>
-                                                    {{ $collectivemodule->collective?->name }}
-                                                    @if (!empty($collectivemodule->collective?->sigle))
-                                                        ({{ $collectivemodule->collective?->sigle }})
-                                                    @endif
-                                                </td>
-                                                {{-- <td>
+                                                {{-- <th>N° DEM.</th> --}}
+                                                <th>Modules</th>
+                                                <th>Nom structure</th>
+                                                {{-- <th>E-mail</th>
+                                            <th>Téléphone</th> --}}
+                                                <th>Région</th>
+                                                <th class="text-center">Effectif</th>
+                                                <th class="text-center">Statut</th>
+                                                <th class="text-center">#</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($ingenieur->collectivemodules as $collectivemodule)
+                                                <tr>
+                                                    {{-- <td>{{ $collectivemodule->collective?->numero }}</td> --}}
+                                                    <td>{{ $collectivemodule->module }}</td>
+                                                    <td>
+                                                        {{ $collectivemodule->collective?->name }}
+                                                        @if (!empty($collectivemodule->collective?->sigle))
+                                                            ({{ $collectivemodule->collective?->sigle }})
+                                                        @endif
+                                                    </td>
+                                                    {{-- <td>
                                                     <a
                                                         href="mailto:{{ $collectivemodule->collective->user->email }}">{{ $collectivemodule->collective->user->email }}</a>
                                                 </td>
@@ -217,21 +226,21 @@
                                                     <a
                                                         href="tel:+221{{ $collectivemodule->collective->telephone }}">{{ $collectivemodule->collective->telephone }}</a>
                                                 </td> --}}
-                                                <td>{{ $collectivemodule->collective->departement?->region?->nom }}</td>
-                                                <td class="text-center">
-                                                    {{ count($collectivemodule->listecollectives) }}</td>
-                                                <td class="text-center">
-                                                    <span
-                                                        class="{{ $collectivemodule->statut }}">{{ $collectivemodule->statut }}</span>
-                                                </td>
-                                                <td class="text-center">
-                                                    @can('collective-show')
-                                                        <div class="d-flex align-items-center">
-                                                            <a href="{{ route('collectives.show', $collectivemodule->collective) }}"
-                                                                class="btn btn-primary btn-sm me-1" title="Voir détails">
-                                                                <i class="bi bi-eye"></i>
-                                                            </a>
-                                                            {{-- <div class="dropdown">
+                                                    <td>{{ $collectivemodule->collective->departement?->region?->nom }}</td>
+                                                    <td class="text-center">
+                                                        {{ count($collectivemodule->listecollectives) }}</td>
+                                                    <td class="text-center">
+                                                        <span
+                                                            class="{{ $collectivemodule->statut }}">{{ $collectivemodule->statut }}</span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @can('collective-show')
+                                                            <div class="d-flex align-items-center">
+                                                                <a href="{{ route('collectives.show', $collectivemodule->collective) }}"
+                                                                    class="btn btn-primary btn-sm me-1" title="Voir détails">
+                                                                    <i class="bi bi-eye"></i>
+                                                                </a>
+                                                                {{-- <div class="dropdown">
                                                                 <a href="#" class="btn btn-light btn-sm dropdown-toggle"
                                                                     data-bs-toggle="dropdown">
                                                                     <i class="bi bi-three-dots"></i>
@@ -261,13 +270,14 @@
                                                                     @endcan
                                                                 </ul>
                                                             </div> --}}
-                                                        </div>
-                                                    @endcan
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                                            </div>
+                                                        @endcan
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             @else
                                 <div class="alert alert-info bg-info text-light border-0 alert-dismissible fade show"
                                     role="alert">

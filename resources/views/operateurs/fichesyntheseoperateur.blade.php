@@ -532,132 +532,133 @@
         </table>
     </div> --}}
     <div class="invoice-box">
-        <table class="table table-bordered">
-            <thead>
-                <tr class="heading">
-                    <td colspan="5">DOSSIER D'AGREMENT N° : <span
-                            style="color: red">{{ $operateur?->numero_dossier }}</span></td>
-                    <td colspan="2"></td>
-                    <td style="text-align: right" colspan="4">COURRIER ARRIVEE N° : <span
-                            style="color: red">{{ $operateur?->numero_arrive }}</span></td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="item">
-                    <td><b>{{ __("DENOMINATION DE L'OPERATEUR") }}</b></td>
-                    <td colspan="8">{{ $operateur?->user?->operateur }}
-                        @if (!empty($operateur?->user?->username))
-                            {{ '(' . $operateur?->user?->username . ')' }}
-                        @endif
-                    </td>
-                    <td colspan="2" width="10%" style="text-align: center;">
-                        <b>{{ __('CONFORMITE') }}</b>
-                    </td>
-                </tr>
-                <tr class="item">
-                    <td><b>{{ __('RESPONSABLE') }}</b></td>
-                    <td colspan="8">
-                        @if (!empty($operateur?->user?->firstname))
-                            {{ $operateur?->user?->firstname }}
-                        @endif
-                        @if (!empty($operateur?->user?->name))
-                            {{ $operateur?->user?->name }}
-                        @endif
-                    </td>
-                    <td width="10%" style="text-align: center;">
-                        @if (!empty($operateur?->visite_conformite) && $operateur?->visite_conformite === 'Oui')
-                            <span
-                                class="{{ $operateur?->visite_conformite }}">{{ $operateur?->visite_conformite }}</span>
-                        @endif
-                    </td>
-                    <td width="10%" style="text-align: center;">
-                        @if (!empty($operateur?->visite_conformite) && $operateur?->visite_conformite === 'Non')
-                            <span
-                                class="{{ $operateur?->visite_conformite }}">{{ $operateur?->visite_conformite }}</span>
-                        @endif
-                    </td>
-                </tr>
-                <tr class="item">
-                    <td><b>{{ __('CIVILITE') }}</b></td>
-                    <td colspan="8">
-                        @if (!empty($operateur?->user?->civilite))
-                            {{ $operateur?->user?->civilite }}
-                        @endif
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="item">
-                    <td><b>{{ __('TITRE') }}</b></td>
-                    <td colspan="8">
-                        @if (!empty($operateur?->user?->fonction_responsable))
-                            {{ $operateur?->user?->fonction_responsable }}
-                        @endif
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="item">
-                    <td><b>{{ __('ADRESSE') }}</b></td>
-                    <td colspan="8">
-                        @if (!empty($operateur?->user?->adresse))
-                            {{ $operateur?->user?->adresse }}
-                        @endif
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="item">
-                    <td><b>{{ __('CONTACTS') }}</b></td>
-                    <td colspan="3">
-                        @if (!empty($operateur?->user?->fixe))
-                            Tél 1 : <a href="tel:+221{{ $operateur?->user?->fixe }}">
-                                {{ $operateur?->user?->fixe }}
-                            </a>
-                        @endif
-                        <br>
-                        @if (!empty($operateur?->user?->telephone))
-                            Tél 2 : <a href="tel:+221{{ $operateur?->user?->telephone }}">
-                                {{ $operateur?->user?->telephone }}
-                            </a>
-                        @endif
-                        <br>
-                        @if (
-                            !empty($operateur?->user?->telephone_parent) &&
-                                $operateur?->user?->telephone_parent != $operateur?->user?->telephone)
-                            Tél 3 : <a
-                                href="tel:+221{{ $operateur?->user?->telephone_parent }}">{{ $operateur?->user?->telephone_parent }}</a>
-                        @endif
-                    </td>
-                    <td colspan="5">
-                        @if (!empty($operateur?->user?->email))
-                            Email 1 : <a
-                                href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
-                        @endif
-                        <br>
-                        @if (!empty($operateur?->user->email_responsable))
-                            Email 2 : <a
-                                href="mailto:{{ $operateur?->user?->email_responsable }}">{{ $operateur?->user?->email_responsable }}</a>
-                        @endif
-                        <br>
-                        @if (!empty($operateur?->user?->web))
-                            Web : {{ $operateur?->user?->web }}
-                        @endif
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="item">
-                    <td><b>{{ __('STATUT JURIDIQUE') }}</b></td>
-                    <td colspan="8">
-                        @if (!empty($operateur?->statut))
-                            {{ $operateur?->statut }}
-                        @endif
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                {{-- <tr class="item">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="heading">
+                        <td colspan="5">DOSSIER D'AGREMENT N° : <span
+                                style="color: red">{{ $operateur?->numero_dossier }}</span></td>
+                        <td colspan="2"></td>
+                        <td style="text-align: right" colspan="4">COURRIER ARRIVEE N° : <span
+                                style="color: red">{{ $operateur?->numero_arrive }}</span></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="item">
+                        <td><b>{{ __("DENOMINATION DE L'OPERATEUR") }}</b></td>
+                        <td colspan="8">{{ $operateur?->user?->operateur }}
+                            @if (!empty($operateur?->user?->username))
+                                {{ '(' . $operateur?->user?->username . ')' }}
+                            @endif
+                        </td>
+                        <td colspan="2" width="10%" style="text-align: center;">
+                            <b>{{ __('CONFORMITE') }}</b>
+                        </td>
+                    </tr>
+                    <tr class="item">
+                        <td><b>{{ __('RESPONSABLE') }}</b></td>
+                        <td colspan="8">
+                            @if (!empty($operateur?->user?->firstname))
+                                {{ $operateur?->user?->firstname }}
+                            @endif
+                            @if (!empty($operateur?->user?->name))
+                                {{ $operateur?->user?->name }}
+                            @endif
+                        </td>
+                        <td width="10%" style="text-align: center;">
+                            @if (!empty($operateur?->visite_conformite) && $operateur?->visite_conformite === 'Oui')
+                                <span
+                                    class="{{ $operateur?->visite_conformite }}">{{ $operateur?->visite_conformite }}</span>
+                            @endif
+                        </td>
+                        <td width="10%" style="text-align: center;">
+                            @if (!empty($operateur?->visite_conformite) && $operateur?->visite_conformite === 'Non')
+                                <span
+                                    class="{{ $operateur?->visite_conformite }}">{{ $operateur?->visite_conformite }}</span>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr class="item">
+                        <td><b>{{ __('CIVILITE') }}</b></td>
+                        <td colspan="8">
+                            @if (!empty($operateur?->user?->civilite))
+                                {{ $operateur?->user?->civilite }}
+                            @endif
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="item">
+                        <td><b>{{ __('TITRE') }}</b></td>
+                        <td colspan="8">
+                            @if (!empty($operateur?->user?->fonction_responsable))
+                                {{ $operateur?->user?->fonction_responsable }}
+                            @endif
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="item">
+                        <td><b>{{ __('ADRESSE') }}</b></td>
+                        <td colspan="8">
+                            @if (!empty($operateur?->user?->adresse))
+                                {{ $operateur?->user?->adresse }}
+                            @endif
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="item">
+                        <td><b>{{ __('CONTACTS') }}</b></td>
+                        <td colspan="3">
+                            @if (!empty($operateur?->user?->fixe))
+                                Tél 1 : <a href="tel:+221{{ $operateur?->user?->fixe }}">
+                                    {{ $operateur?->user?->fixe }}
+                                </a>
+                            @endif
+                            <br>
+                            @if (!empty($operateur?->user?->telephone))
+                                Tél 2 : <a href="tel:+221{{ $operateur?->user?->telephone }}">
+                                    {{ $operateur?->user?->telephone }}
+                                </a>
+                            @endif
+                            <br>
+                            @if (
+                                !empty($operateur?->user?->telephone_parent) &&
+                                    $operateur?->user?->telephone_parent != $operateur?->user?->telephone)
+                                Tél 3 : <a
+                                    href="tel:+221{{ $operateur?->user?->telephone_parent }}">{{ $operateur?->user?->telephone_parent }}</a>
+                            @endif
+                        </td>
+                        <td colspan="5">
+                            @if (!empty($operateur?->user?->email))
+                                Email 1 : <a
+                                    href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
+                            @endif
+                            <br>
+                            @if (!empty($operateur?->user->email_responsable))
+                                Email 2 : <a
+                                    href="mailto:{{ $operateur?->user?->email_responsable }}">{{ $operateur?->user?->email_responsable }}</a>
+                            @endif
+                            <br>
+                            @if (!empty($operateur?->user?->web))
+                                Web : {{ $operateur?->user?->web }}
+                            @endif
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="item">
+                        <td><b>{{ __('STATUT JURIDIQUE') }}</b></td>
+                        <td colspan="8">
+                            @if (!empty($operateur?->statut))
+                                {{ $operateur?->statut }}
+                            @endif
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {{-- <tr class="item">
                         <td rowspan="7"><b>{{ __('DOSSIERS FOURNIS') }}</b></td>
                         <td colspan="8">
                             Demande d'agrément signée :
@@ -684,31 +685,31 @@
                         <td></td>
                     </tr> --}}
 
-                @php
-                    $validFiles = $operateur?->user?->files->filter(fn($file) => !empty($file?->file));
-                @endphp
+                    @php
+                        $validFiles = $operateur?->user?->files->filter(fn($file) => !empty($file?->file));
+                    @endphp
 
-                <tr class="item">
-                    <td rowspan="5"><b>{{ __('DOSSIERS FOURNIS') }}</b></td>
-                    <td colspan="3" rowspan="3">
-                        Actes de création de l'entreprise
-                    </td>
-                    <td colspan="5">
-                        RCCM / NINEA : {{ $operateur?->user?->rccm }}
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                    <tr class="item">
+                        <td rowspan="5"><b>{{ __('DOSSIERS FOURNIS') }}</b></td>
+                        <td colspan="3" rowspan="3">
+                            Actes de création de l'entreprise
+                        </td>
+                        <td colspan="5">
+                            RCCM / NINEA : {{ $operateur?->user?->rccm }}
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
 
-                <tr class="item">
-                    <td colspan="5">
-                        Numéro : <span style="color: red">{{ $operateur?->user?->ninea }}</span>
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                    <tr class="item">
+                        <td colspan="5">
+                            Numéro : <span style="color: red">{{ $operateur?->user?->ninea }}</span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
 
-                {{-- <tr class="item">
+                    {{-- <tr class="item">
                     <td colspan="5">
                         <b>Fichiers joints :</b>
                         @foreach ($validFiles as $file)
@@ -721,25 +722,26 @@
                     <td></td>
                 </tr> --}}
 
-                <tr class="item">
-                    <td colspan="5">
-                        <b>Fichiers joints</b>
-                        <table class="table table-sm table-bordered mt-2">
-                            <thead>
-                                <tr>
-                                    <th>Fichier</th>
-                                    <th>Statut</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($validFiles as $file)
-                                    <tr>
-                                        <td>{{ $file?->legende }}</td>
-                                        <td><span
-                                                class="{{ $file?->statut === 'Validé' ? 'Valide' : ($file?->statut === 'Rejeté' ? 'Rejete' : 'Autre') }}">
-                                                {{ $file?->statut }}
-                                            </span>
-                                            {{-- @if ($file?->statut === 'Validé')
+                    <tr class="item">
+                        <td colspan="5">
+                            <b>Fichiers joints</b>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered mt-2">
+                                    <thead>
+                                        <tr>
+                                            <th>Fichier</th>
+                                            <th>Statut</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($validFiles as $file)
+                                            <tr>
+                                                <td>{{ $file?->legende }}</td>
+                                                <td><span
+                                                        class="{{ $file?->statut === 'Validé' ? 'Valide' : ($file?->statut === 'Rejeté' ? 'Rejete' : 'Autre') }}">
+                                                        {{ $file?->statut }}
+                                                    </span>
+                                                    {{-- @if ($file?->statut === 'Validé')
                                                 <span
                                                     style="color: green; font-weight: bold;">{{ $file?->statut }}</span>
                                             @elseif ($file?->statut === 'Rejeté')
@@ -748,231 +750,239 @@
                                             @else
                                                 <span>{{ $file?->statut }}</span>
                                             @endif --}}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-                <tr class="item">
-                    <td colspan="8">
-                        CV formateur(s) daté(s) et signé(s) :
-                        {{ count($operateur->operateurformateurs) ?? 0 }}
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-                <tr class="item">
-                    <td colspan="8">
-                        Quitus fiscal ou récépissé de dépôt du quitus fiscal (date visa) :
-                        {{ $operateur?->debut_quitus?->format('d/m/Y') ?? '' }}
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div style="page-break-after: always;"></div>
-
-        <table class="table table-bordered pt-10" width="100%">
-            <tbody>
-                <tr class="item">
-                    <td width="20%" style="text-align: center;"
-                        rowspan="{{ count($operateur?->operateurmodules) + 1 }}">
-                        <b>{{ __("DOMAINES D'INTERVENTION") }}</b>
-                    </td>
-
-                    <td colspan="3" width="25%" style="text-align: center;">
-                        <b>DOMAINE</b>
-                    </td>
-
-                    <td colspan="4" width="35%" style="text-align: center;">
-                        <b>MODULE</b>
-                    </td>
-
-                    <td colspan="2" width="20%" style="text-align: center;">
-                        <b>{{ __('CONFORMITE') }}</b>
-                    </td>
-                </tr>
-                @foreach ($operateur?->operateurmodules as $operateurmodule)
-                    <tr class="item">
-                        <td colspan="3" style="text-align: center;">
-                            {{ $operateurmodule?->domaine }}
-                        </td>
-
-                        <td colspan="4" style="text-align: center;">
-                            {{ $operateurmodule?->module }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </td>
                         <td></td>
                         <td></td>
                     </tr>
-                @endforeach
-                <tr class="item">
-                    <td width="20%" style="text-align: center;"
-                        rowspan="{{ count($operateur->operateurformateurs) + 1 }}">
-                        <b>{{ __('FORMATEURS') }}</b>
-                    </td>
 
-                    <td colspan="3" width="25%" style="text-align: center;">
-                        <b>Nom formateur</b>
-                    </td>
-
-                    <td colspan="4" width="35%" style="text-align: center;">
-                        <b>Champs profes. et années d'expérience</b>
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                @foreach ($operateur?->operateurformateurs as $operateurformateur)
                     <tr class="item">
-                        <td colspan="3" style="text-align: center;">
-                            {{ $operateurformateur?->name }}
+                        <td colspan="8">
+                            CV formateur(s) daté(s) et signé(s) :
+                            {{ count($operateur->operateurformateurs) ?? 0 }}
                         </td>
-
-                        <td colspan="4" style="text-align: center;">
-                            {{ $operateurformateur?->domaine . ' (' . $operateurformateur?->nbre_annees_experience . ' ans)' }}
-                        </td>
-                        <td style="text-align: center;">
-                            @if ($operateurformateur?->statut === 'Oui')
-                                <span class="Oui">{{ $operateurformateur?->statut }}</span>
-                            @endif
-                        </td>
-                        <td style="text-align: center;">
-                            @if ($operateurformateur?->statut === 'Non')
-                                <span class="Non">{{ $operateurformateur?->statut }}</span>
-                            @endif
-                        </td>
+                        <td></td>
+                        <td></td>
                     </tr>
-                @endforeach
 
-            </tbody>
-        </table>
+                    <tr class="item">
+                        <td colspan="8">
+                            Quitus fiscal ou récépissé de dépôt du quitus fiscal (date visa) :
+                            {{ $operateur?->debut_quitus?->format('d/m/Y') ?? '' }}
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div style="page-break-after: always;"></div>
 
-        <table class="table table-bordered pt-10">
-            <tbody>
-                <tr class="item">
-                    <td width="20%" style="text-align: center;">
-                        <b>{{ __('MOYENS PEDAGOGIQUES') }}</b>
-                    </td>
-                    <td colspan="6" width="100%">
-                        <b>DESIGNATION</b>
-                    </td>
-                    <td style="text-align: center">
-                        <b>Qté</b>
-                    </td>
-                    <td style="text-align: center">
-                        <b>Etat</b>
-                    </td>
-                    <td colspan="2" width="20%" style="text-align: center;">
-                        <b>{{ __('CONFORMITE') }}</b>
-                    </td>
-                </tr>
-                @foreach ($operateur?->operateurequipements?->sortBy('type') as $operateurequipement)
+        <div class="table-responsive">
+            <table class="table table-bordered pt-10" width="100%">
+                <tbody>
                     <tr class="item">
-                        <td style="text-align: center;">
-                            {{ $operateurequipement?->type }}
+                        <td width="20%" style="text-align: center;"
+                            rowspan="{{ count($operateur?->operateurmodules) + 1 }}">
+                            <b>{{ __("DOMAINES D'INTERVENTION") }}</b>
                         </td>
-                        <td colspan="6">
-                            {{ $operateurequipement?->designation }} <br>
+
+                        <td colspan="3" width="25%" style="text-align: center;">
+                            <b>DOMAINE</b>
                         </td>
-                        <td style="text-align: center">
-                            {{ $operateurequipement?->quantite }}
+
+                        <td colspan="4" width="35%" style="text-align: center;">
+                            <b>MODULE</b>
                         </td>
-                        <td style="text-align: center">
-                            {{ $operateurequipement?->etat }}
-                        </td>
-                        <td>
-                            @if ($operateurequipement?->statut === 'Oui')
-                                <span class="Oui">{{ $operateurequipement?->statut }}</span>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($operateurequipement?->statut === 'Non')
-                                <span class="Non">{{ $operateurequipement?->statut }}</span>
-                            @endif
+
+                        <td colspan="2" width="20%" style="text-align: center;">
+                            <b>{{ __('CONFORMITE') }}</b>
                         </td>
                     </tr>
-                @endforeach
+                    @foreach ($operateur?->operateurmodules as $operateurmodule)
+                        <tr class="item">
+                            <td colspan="3" style="text-align: center;">
+                                {{ $operateurmodule?->domaine }}
+                            </td>
 
-            </tbody>
-        </table>
+                            <td colspan="4" style="text-align: center;">
+                                {{ $operateurmodule?->module }}
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    @endforeach
+                    <tr class="item">
+                        <td width="20%" style="text-align: center;"
+                            rowspan="{{ count($operateur->operateurformateurs) + 1 }}">
+                            <b>{{ __('FORMATEURS') }}</b>
+                        </td>
+
+                        <td colspan="3" width="25%" style="text-align: center;">
+                            <b>Nom formateur</b>
+                        </td>
+
+                        <td colspan="4" width="35%" style="text-align: center;">
+                            <b>Champs profes. et années d'expérience</b>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    @foreach ($operateur?->operateurformateurs as $operateurformateur)
+                        <tr class="item">
+                            <td colspan="3" style="text-align: center;">
+                                {{ $operateurformateur?->name }}
+                            </td>
+
+                            <td colspan="4" style="text-align: center;">
+                                {{ $operateurformateur?->domaine . ' (' . $operateurformateur?->nbre_annees_experience . ' ans)' }}
+                            </td>
+                            <td style="text-align: center;">
+                                @if ($operateurformateur?->statut === 'Oui')
+                                    <span class="Oui">{{ $operateurformateur?->statut }}</span>
+                                @endif
+                            </td>
+                            <td style="text-align: center;">
+                                @if ($operateurformateur?->statut === 'Non')
+                                    <span class="Non">{{ $operateurformateur?->statut }}</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+
+                </tbody>
+            </table>
+        </div>
 
         <div style="page-break-after: always;"></div>
 
-        <table class="table table-bordered pt-10">
-            <tbody>
+        <div class="table-responsive">
+            <table class="table table-bordered pt-10">
+                <tbody>
+                    <tr class="item">
+                        <td width="20%" style="text-align: center;">
+                            <b>{{ __('MOYENS PEDAGOGIQUES') }}</b>
+                        </td>
+                        <td colspan="6" width="100%">
+                            <b>DESIGNATION</b>
+                        </td>
+                        <td style="text-align: center">
+                            <b>Qté</b>
+                        </td>
+                        <td style="text-align: center">
+                            <b>Etat</b>
+                        </td>
+                        <td colspan="2" width="20%" style="text-align: center;">
+                            <b>{{ __('CONFORMITE') }}</b>
+                        </td>
+                    </tr>
+                    @foreach ($operateur?->operateurequipements?->sortBy('type') as $operateurequipement)
+                        <tr class="item">
+                            <td style="text-align: center;">
+                                {{ $operateurequipement?->type }}
+                            </td>
+                            <td colspan="6">
+                                {{ $operateurequipement?->designation }} <br>
+                            </td>
+                            <td style="text-align: center">
+                                {{ $operateurequipement?->quantite }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ $operateurequipement?->etat }}
+                            </td>
+                            <td>
+                                @if ($operateurequipement?->statut === 'Oui')
+                                    <span class="Oui">{{ $operateurequipement?->statut }}</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($operateurequipement?->statut === 'Non')
+                                    <span class="Non">{{ $operateurequipement?->statut }}</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
 
-                <tr class="item">
-                    {{-- <td width="20%" style="text-align: center;"
+                </tbody>
+            </table>
+        </div>
+
+        <div style="page-break-after: always;"></div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered pt-10">
+                <tbody>
+
+                    <tr class="item">
+                        {{-- <td width="20%" style="text-align: center;"
                             rowspan="{{ count($operateur?->operateureferences) + 1 }}">
                             <b>{{ __('EXPERIENCES') }}</b>
                         </td> --}}
-                    <td width="20%" style="text-align: center;">
-                        <b>{{ __('EXPERIENCES') }}</b>
-                    </td>
+                        <td width="20%" style="text-align: center;">
+                            <b>{{ __('EXPERIENCES') }}</b>
+                        </td>
 
-                    {{-- <td colspan="4">
+                        {{-- <td colspan="4">
                                 <b>Référence & Année</b>
                             </td> --}}
 
-                    <td colspan="7" style="text-align: center;">
-                        <b>Référence & Activités</b>
-                    </td>
-                    <td colspan="2" width="10%" style="text-align: center;">
-                        <b>{{ __('CONFORMITE') }}</b>
-                    </td>
-                </tr>
-                @foreach ($operateur?->operateureferences as $operateureference)
-                    <tr class="item">
-                        {{-- <td colspan="4">
+                        <td colspan="7" style="text-align: center;">
+                            <b>Référence & Activités</b>
+                        </td>
+                        <td colspan="2" width="10%" style="text-align: center;">
+                            <b>{{ __('CONFORMITE') }}</b>
+                        </td>
+                    </tr>
+                    @foreach ($operateur?->operateureferences as $operateureference)
+                        <tr class="item">
+                            {{-- <td colspan="4">
                                     {{ $operateureference?->organisme . ',' }}
                                     {{ $operateureference?->periode }} <br>
                                     Tél : <a
                                         href="tel:+221{{ $operateureference?->contact }}">{{ $operateureference?->contact }}</a>
                                 </td> --}}
 
-                        <td style="text-align: center;">
-                            <a
-                                href="tel:+221{{ $operateureference?->contact }}">{{ $operateureference?->contact }}</a>
-                        </td>
-                        <td colspan="7">
-                            {{--  <b><u>Référence</u></b> :  --}}
-                            {{ ' - ' . $operateureference?->organisme . ',' }}
-                            {{ $operateureference?->periode }} <br>
-                            {{-- @if (!empty($operateureference?->contact))
+                            <td style="text-align: center;">
+                                <a
+                                    href="tel:+221{{ $operateureference?->contact }}">{{ $operateureference?->contact }}</a>
+                            </td>
+                            <td colspan="7">
+                                {{--  <b><u>Référence</u></b> :  --}}
+                                {{ ' - ' . $operateureference?->organisme . ',' }}
+                                {{ $operateureference?->periode }} <br>
+                                {{-- @if (!empty($operateureference?->contact))
                                     Tél : <a
                                         href="tel:+221{{ $operateureference?->contact }}">{{ $operateureference?->contact }}</a>
                                     <br>
                                 @endif --}}
-                            {{-- <b><u>Description</u></b> :  --}}
-                            {{ ' - ' . $operateureference?->description }}
-                        </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                @endforeach
+                                {{-- <b><u>Description</u></b> :  --}}
+                                {{ ' - ' . $operateureference?->description }}
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    @endforeach
 
-                <tr class="item">
-                    <td><b>{{ __('OBSERVATIONS') }}</b></td>
-                    <td colspan="9">
-                        {{-- <b>Observations</b> --}}
-                        @if (!empty($operateur?->observations))
-                            @foreach (explode("\n", mb_strtoupper($operateur?->observations)) as $line)
-                                {{ $line }}<br>
-                            @endforeach
-                        @endif
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    <tr class="item">
+                        <td><b>{{ __('OBSERVATIONS') }}</b></td>
+                        <td colspan="9">
+                            {{-- <b>Observations</b> --}}
+                            @if (!empty($operateur?->observations))
+                                @foreach (explode("\n", mb_strtoupper($operateur?->observations)) as $line)
+                                    {{ $line }}<br>
+                                @endforeach
+                            @endif
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 

@@ -15,7 +15,7 @@
             /* padding: 30px; */
             font-size: 12px;
             line-height: 15px;
-            color:rgb(0, 0, 0);
+            color: rgb(0, 0, 0);
             ;
         }
 
@@ -236,50 +236,53 @@
 
             $formatRangFr = fn($rang) => $rang === 1 ? '1er' : $rang . 'ème';
         @endphp
-        <table class="table table-bordered">
-            <thead>
-                <tr class="heading" style="text-align: center;">
-                    <td colspan="9"><b>{{ __('LISTE DES CANDIDATS SELECTIONNES') }}</b></td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="5"><b>{{ $projet?->type_projet }}</b> : {{ $projet?->name }} ({{ $projet?->sigle }})
-                    </td>
-                    <td colspan="4"><b>{{ __('Module : ') }}</b> {{ $projetmodule->module }}</td>
-                </tr>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="heading" style="text-align: center;">
+                        <td colspan="9"><b>{{ __('LISTE DES CANDIDATS SELECTIONNES') }}</b></td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="5"><b>{{ $projet?->type_projet }}</b> : {{ $projet?->name }}
+                            ({{ $projet?->sigle }})
+                        </td>
+                        <td colspan="4"><b>{{ __('Module : ') }}</b> {{ $projetmodule->module }}</td>
+                    </tr>
 
-                <tr class="heading">
-                    <td class="item" style="text-align: center;" width="5%"><b>N°</b></td>
-                    <td class="item" style="text-align: center;" width="12%"><b>CIN</b></td>
-                    <td class="item" style="text-align: center;" width="5%"><b>Civilité</b></td>
-                    <td class="item" style="text-align: center;"><b>Prénom</b></td>
-                    <td class="item" style="text-align: center;" width="10%"><b>NOM</b></td>
-                    <td class="item" style="text-align: center;" width="8%"><b>Date naissance</b></td>
-                    <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
-                    <td class="item" style="text-align: center;" width="7%"><b>Téléphone</b></td>
-                    <td class="item" style="text-align: center;"><b>Localité</b></td>
-                    {{-- <td class="item" style="text-align: center;"><b>Rang</b></td> --}}
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($principal as $i => $individuelle)
-                    <tr class="item" style="text-align: center;">
-                        <td>{{ $i + 1 }}</td>
-                        <td>{{ $individuelle->user->cin }}</td>
-                        <td>{{ $individuelle?->user?->civilite }}</td>
-                        <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->user?->name) }}</td>
-                        <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
-                        <td>{{ $individuelle?->user?->telephone }}</td>
-                        <td>{{ $individuelle->departement->nom }}</td>
-                        {{-- <td>{{ $formatRangFr($individuelle->rang) }} @if ($individuelle->exaequo)
+                    <tr class="heading">
+                        <td class="item" style="text-align: center;" width="5%"><b>N°</b></td>
+                        <td class="item" style="text-align: center;" width="12%"><b>CIN</b></td>
+                        <td class="item" style="text-align: center;" width="5%"><b>Civilité</b></td>
+                        <td class="item" style="text-align: center;"><b>Prénom</b></td>
+                        <td class="item" style="text-align: center;" width="10%"><b>NOM</b></td>
+                        <td class="item" style="text-align: center;" width="8%"><b>Date naissance</b></td>
+                        <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
+                        <td class="item" style="text-align: center;" width="7%"><b>Téléphone</b></td>
+                        <td class="item" style="text-align: center;"><b>Localité</b></td>
+                        {{-- <td class="item" style="text-align: center;"><b>Rang</b></td> --}}
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($principal as $i => $individuelle)
+                        <tr class="item" style="text-align: center;">
+                            <td>{{ $i + 1 }}</td>
+                            <td>{{ $individuelle->user->cin }}</td>
+                            <td>{{ $individuelle?->user?->civilite }}</td>
+                            <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
+                            <td>{{ remove_accents_uppercase($individuelle?->user?->name) }}</td>
+                            <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
+                            <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
+                            <td>{{ $individuelle?->user?->telephone }}</td>
+                            <td>{{ $individuelle->departement->nom }}</td>
+                            {{-- <td>{{ $formatRangFr($individuelle->rang) }} @if ($individuelle->exaequo)
                                 <sup>(exæquo)</sup>
                             @endif
                         </td> --}}
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         <div class="page-break"></div>
         <div style="text-align: center;">
             <b>REPUBLIQUE DU SENEGAL<br></b>
@@ -291,51 +294,53 @@
                     style="width: 100%; max-width: 300px" />
             </b>
         </div>
-        <table class="second-table table table-bordered">
-            <thead>
-                <tr class="heading" style="text-align: center;">
-                    <td colspan="9"><b>{{ __('LISTE DES CANDIDATS EN ATTENTE') }}</b></td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="5"><b>{{ $projet?->type_projet }}</b> : {{ $projet?->name }}
-                        ({{ $projet?->sigle }})
-                    </td>
-                    <td colspan="4"><b>{{ __('Module : ') }}</b> {{ $projetmodule->module }}</td>
-                </tr>
+        <div class="table-responsive">
+            <table class="second-table table table-bordered">
+                <thead>
+                    <tr class="heading" style="text-align: center;">
+                        <td colspan="9"><b>{{ __('LISTE DES CANDIDATS EN ATTENTE') }}</b></td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="5"><b>{{ $projet?->type_projet }}</b> : {{ $projet?->name }}
+                            ({{ $projet?->sigle }})
+                        </td>
+                        <td colspan="4"><b>{{ __('Module : ') }}</b> {{ $projetmodule->module }}</td>
+                    </tr>
 
-                <tr class="heading">
-                    <td class="item" style="text-align: center;" width="5%"><b>N°</b></td>
-                    <td class="item" style="text-align: center;" width="12%"><b>CIN</b></td>
-                    <td class="item" style="text-align: center;" width="5%"><b>Civilité</b></td>
-                    <td class="item" style="text-align: center;"><b>Prénom</b></td>
-                    <td class="item" style="text-align: center;" width="10%"><b>NOM</b></td>
-                    <td class="item" style="text-align: center;" width="8%"><b>Date naissance</b></td>
-                    <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
-                    <td class="item" style="text-align: center;" width="7%"><b>Téléphone</b></td>
-                    <td class="item" style="text-align: center;"><b>Localité</b></td>
-                    {{-- <td class="item" style="text-align: center;"><b>Rang</b></td> --}}
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($attente as $i => $individuelle)
-                    <tr class="item" style="text-align: center;">
-                        <td>{{ $i + 1 }}</td>
-                        <td>{{ $individuelle->user->cin }}</td>
-                        <td>{{ $individuelle?->user?->civilite }}</td>
-                        <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->user?->name) }}</td>
-                        <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
-                        <td>{{ $individuelle?->user?->telephone }}</td>
-                        <td>{{ $individuelle->departement->nom }}</td>
-                        {{-- <td>{{ $formatRangFr($individuelle->rang) }} @if ($individuelle->exaequo)
+                    <tr class="heading">
+                        <td class="item" style="text-align: center;" width="5%"><b>N°</b></td>
+                        <td class="item" style="text-align: center;" width="12%"><b>CIN</b></td>
+                        <td class="item" style="text-align: center;" width="5%"><b>Civilité</b></td>
+                        <td class="item" style="text-align: center;"><b>Prénom</b></td>
+                        <td class="item" style="text-align: center;" width="10%"><b>NOM</b></td>
+                        <td class="item" style="text-align: center;" width="8%"><b>Date naissance</b></td>
+                        <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
+                        <td class="item" style="text-align: center;" width="7%"><b>Téléphone</b></td>
+                        <td class="item" style="text-align: center;"><b>Localité</b></td>
+                        {{-- <td class="item" style="text-align: center;"><b>Rang</b></td> --}}
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($attente as $i => $individuelle)
+                        <tr class="item" style="text-align: center;">
+                            <td>{{ $i + 1 }}</td>
+                            <td>{{ $individuelle->user->cin }}</td>
+                            <td>{{ $individuelle?->user?->civilite }}</td>
+                            <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
+                            <td>{{ remove_accents_uppercase($individuelle?->user?->name) }}</td>
+                            <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
+                            <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
+                            <td>{{ $individuelle?->user?->telephone }}</td>
+                            <td>{{ $individuelle->departement->nom }}</td>
+                            {{-- <td>{{ $formatRangFr($individuelle->rang) }} @if ($individuelle->exaequo)
                                 <sup>(exæquo)</sup>
                             @endif
                         </td> --}}
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 

@@ -67,55 +67,63 @@
                             @endcan
                         </div>
                         @if ($user_liste->isNotEmpty())
-                            <table class="table datatables align-middle" id="table-users">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        {{-- <th>Username</th> --}}
-                                        <th>E-mail</th>
-                                        <th>Téléphone</th>
-                                        <th class="text-center">Statut</th>
-                                        <th class="text-center">Nettoyer</th>
-                                        <th class="text-center">Restaurer</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($user_liste as $user)
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle" id="table-users">
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                <img class="rounded-circle" src="{{ asset($user->getImage()) }}"
-                                                    alt="Profil" width="40">
-                                            </td>
-                                            {{-- <td>{{ $user->username }}</td> --}}
-                                            <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                                            <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a></td>
-                                            <td class="text-center">
-                                                @if ($user->email_verified_at)
-                                                    <i class="bi bi-check-circle text-success" title="Compte vérifié"></i>
-                                                @endif
-                                            </td>
-                                            <td class="text-center">
-                                                <form action="{{ route('users.forceDelete', $user->uuid) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm_nettoyer">
-                                                        <i class="bi bi-trash-fill"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td class="text-center">
-                                                <form action="{{ route('users.restore', $user->uuid) }}" method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button type="submit" class="btn btn-success btn-sm show_confirm_restaurer">
-                                                        <i class="bi bi-arrow-counterclockwise"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
+                                            <th></th>
+                                            {{-- <th>Username</th> --}}
+                                            <th>E-mail</th>
+                                            <th>Téléphone</th>
+                                            <th class="text-center">Statut</th>
+                                            <th class="text-center">Nettoyer</th>
+                                            <th class="text-center">Restaurer</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($user_liste as $user)
+                                            <tr>
+                                                <td>
+                                                    <img class="rounded-circle" src="{{ asset($user->getImage()) }}"
+                                                        alt="Profil" width="40">
+                                                </td>
+                                                {{-- <td>{{ $user->username }}</td> --}}
+                                                <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
+                                                <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a>
+                                                </td>
+                                                <td class="text-center">
+                                                    @if ($user->email_verified_at)
+                                                        <i class="bi bi-check-circle text-success"
+                                                            title="Compte vérifié"></i>
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">
+                                                    <form action="{{ route('users.forceDelete', $user->uuid) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="btn btn-danger btn-sm show_confirm_nettoyer">
+                                                            <i class="bi bi-trash-fill"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                                <td class="text-center">
+                                                    <form action="{{ route('users.restore', $user->uuid) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit"
+                                                            class="btn btn-success btn-sm show_confirm_restaurer">
+                                                            <i class="bi bi-arrow-counterclockwise"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <div class="alert alert-warning text-center">
                                 Aucun utilisateur trouvé.

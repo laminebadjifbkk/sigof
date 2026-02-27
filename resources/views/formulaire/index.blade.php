@@ -62,34 +62,37 @@
                         </div>
                     </div>
                 </div>
-                <table class="table table-bordered table-striped align-middle">
-                    <thead class="table-primary">
-                        <tr>
-                            <th style="width: 50px;" class="text-center">N°</th>
-                            <th>Région</th>
-                            {{-- <th>Effectif</th> --}}
-                            <th style="width: 50px;" class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($groupes as $index => $items)
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped align-middle">
+                        <thead class="table-primary">
                             <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td>{{ $index }}</td>
-                                {{-- <td>{{ number_format($items->count(), 0, '', ' ') }}</td> --}}
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        {{-- Bouton Voir --}}
-                                        <a href="{{ route('formulaires.showregion', $index) }}" class="btn btn-warning btn-sm"
-                                            title="Voir les détails">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                    </div>
-                                </td>
+                                <th style="width: 50px;" class="text-center">N°</th>
+                                <th>Région</th>
+                                {{-- <th>Effectif</th> --}}
+                                <th style="width: 50px;" class="text-center">Actions</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($groupes as $index => $items)
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td>{{ $index }}</td>
+                                    {{-- <td>{{ number_format($items->count(), 0, '', ' ') }}</td> --}}
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            {{-- Bouton Voir --}}
+                                            <a href="{{ route('formulaires.showregion', $index) }}"
+                                                class="btn btn-warning btn-sm" title="Voir les détails">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
                 {{-- Tableau inscriptions --}}
                 {{-- <div class="card shadow-sm">
                     <div class="card-body">

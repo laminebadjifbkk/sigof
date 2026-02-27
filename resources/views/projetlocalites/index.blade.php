@@ -46,63 +46,68 @@
                             </div>
                         @endcan
                         <h5 class="card-title">Localité</h5>
-                        <table class="table datatables align-middle justify-content-center" id="table-projetlocalites">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" scope="col">N°</th>
-                                    <th>Localité</th>
-                                    <th class="text-center" scope="col">Effectif</th>
-                                    <th class="text-center" scope="col">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($projetlocalites as $projetlocalite)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle justify-content-center"
+                                id="table-projetlocalites">
+                                <thead>
                                     <tr>
-                                        <td style="text-align: center;">{{ $i++ }}</td>
-                                        <td>{{ $projetlocalite->localite }}</td>
-                                        <td style="text-align: center;">
+                                        <th class="text-center" scope="col">N°</th>
+                                        <th>Localité</th>
+                                        <th class="text-center" scope="col">Effectif</th>
+                                        <th class="text-center" scope="col">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($projetlocalites as $projetlocalite)
+                                        <tr>
+                                            <td style="text-align: center;">{{ $i++ }}</td>
+                                            <td>{{ $projetlocalite->localite }}</td>
+                                            <td style="text-align: center;">
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span class="d-flex mt-2 align-items-baseline"><a
+                                                        href="{{ route('projetlocalites.show', $projetlocalite) }}"
+                                                        class="btn btn-warning btn-sm mx-1" title="Voir détails">
+                                                        <i class="bi bi-eye"></i></a>
+                                                    @if (auth()->user()->hasRole('super-admin|admin'))
+                                                        <div class="filter">
+                                                            <a class="icon" href="#"
+                                                                data-bs-toggle="dropdown"><i
+                                                                    class="bi bi-three-dots"></i></a>
+                                                            <ul
+                                                                class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                <li>
+                                                                    <button type="button"
+                                                                        class="dropdown-item btn btn-sm mx-1"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#EditprojetlocaliteModal{{ $projetlocalite->id }}">
+                                                                        <i class="bi bi-pencil" title="Modifier"></i>
+                                                                        Modifier
+                                                                    </button>
+                                                                </li>
+                                                                <li>
+                                                                    <form
+                                                                        action="{{ route('projetlocalites.destroy', $projetlocalite) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit"
+                                                                            class="dropdown-item show_confirm"><i
+                                                                                class="bi bi-trash"></i>Supprimer</button>
+                                                                    </form>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    @endcan
+                                            </span>
                                         </td>
-                                        <td style="text-align: center;">
-                                            <span class="d-flex mt-2 align-items-baseline"><a
-                                                    href="{{ route('projetlocalites.show', $projetlocalite) }}"
-                                                    class="btn btn-warning btn-sm mx-1" title="Voir détails">
-                                                    <i class="bi bi-eye"></i></a>
-                                                @if (auth()->user()->hasRole('super-admin|admin'))
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            <li>
-                                                                <button type="button"
-                                                                    class="dropdown-item btn btn-sm mx-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#EditprojetlocaliteModal{{ $projetlocalite->id }}">
-                                                                    <i class="bi bi-pencil" title="Modifier"></i>
-                                                                    Modifier
-                                                                </button>
-                                                            </li>
-                                                            <li>
-                                                                <form
-                                                                    action="{{ route('projetlocalites.destroy', $projetlocalite) }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="dropdown-item show_confirm"><i
-                                                                            class="bi bi-trash"></i>Supprimer</button>
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                @endcan
-                                        </span>
-                                    </td>
 
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                     <!-- End Table with stripped rows -->
             </div>
         </div>
@@ -223,7 +228,7 @@
     new DataTable('#table-projetlocalites', {
         layout: {
             topStart: {
-                buttons: [ 'csv', 'excel', 'print'],
+                buttons: ['csv', 'excel', 'print'],
             }
         },
         "order": [

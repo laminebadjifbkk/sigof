@@ -24,22 +24,25 @@
                         </div>
                         <h5 class="card-title">Création décision</h5>
                         <!-- decision -->
-                        <form method="post" action="{{ url('decisions') }}" enctype="multipart/form-data"
-                            class="row g-3">
+                        <form method="post" action="{{ url('decisions') }}" enctype="multipart/form-data" class="row g-3">
                             @csrf
-                            <table class="table table-bordered" id="dynamicAddRemove">
-                                <tr>
-                                    <th>Décisions<span class="text-danger mx-1">*</span></th>
-                                    <th width="15%">Action</th>
-                                </tr>
-                                <tr>
-                                    <td><input type="text" name="decisions[0][name]" placeholder="Entrer une décision"
-                                            class="form-control form-control-sm" autofocus/></td>
-                                    <td><button type="button" name="add" id="add-btn" class="btn btn-success"
-                                            title="Ajouter une ligne">Ajouter</button>
-                                    </td>
-                                </tr>
-                            </table>
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dynamicAddRemove">
+                                    <tr>
+                                        <th>Décisions<span class="text-danger mx-1">*</span></th>
+                                        <th width="15%">Action</th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" name="decisions[0][name]"
+                                                placeholder="Entrer une décision" class="form-control form-control-sm"
+                                                autofocus /></td>
+                                        <td><button type="button" name="add" id="add-btn" class="btn btn-success"
+                                                title="Ajouter une ligne">Ajouter</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                             <div class="col-12 text-left mt-2">
                                 <button type="submit" class="btn btn-outline-success"><i
                                         class="far fa-save"></i>&nbsp;Sauvegarder</button>

@@ -33,28 +33,30 @@
                         <form method="post" action="{{ url('permissions') }}" enctype="multipart/form-data"
                             class="row g-3">
                             @csrf
-                            <table class="table table-bordered" id="dynamicAddRemove">
-                                <tr>
-                                    <th>Permissions<span class="text-danger mx-1">*</span></th>
-                                    <th width="5%">Action</th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="text" name="permissions[0][name]"
-                                            placeholder="ajouter une permission" class="form-control form-control-sm"
-                                            autofocus />
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dynamicAddRemove">
+                                    <tr>
+                                        <th>Permissions<span class="text-danger mx-1">*</span></th>
+                                        <th width="5%">Action</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" name="permissions[0][name]"
+                                                placeholder="ajouter une permission" class="form-control form-control-sm"
+                                                autofocus />
 
-                                        @error('permissions.0.name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </td>
-                                    <td><button type="button" name="add" id="add-btn" class="btn btn-success btn-sm"
-                                            title="Ajouter une ligne">Ajouter</button>
-                                    </td>
-                                </tr>
-                            </table>
+                                            @error('permissions.0.name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </td>
+                                        <td><button type="button" name="add" id="add-btn"
+                                                class="btn btn-success btn-sm" title="Ajouter une ligne">Ajouter</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                             <div class="col-12 text-left mt-2">
                                 <button type="submit" class="btn btn-outline-info btn-sm"><i
                                         class="far fa-save"></i>&nbsp;Sauvegarder</button>

@@ -60,75 +60,76 @@
                                 </div>
                                 <div></div>
                                 <div class="form-check col-md-12">
-                                    <table class="m-2 table datatables align-middle" id="table-individuelles">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col"></th>
-                                                {{-- <th scope="col">CIN</th> --}}
-                                                {{-- <th scope="col">Civilité</th> --}}
-                                                {{-- <th scope="col">Prénom</th> --}}
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Date naissance</th>
-                                                <th scope="col">Lieu naissance</th>
-                                                <th scope="col">Téléphone</th>
-                                                <th scope="col">Niveau étude</th>
-                                                {{-- <th scope="col">ID</th> --}}
-                                                {{-- <th scope="col">Module</th> --}}
-                                                <th class="text-center" width="5%">Statut</th>
-                                                <th class="text-center" width="5%"><i class="bi bi-gear"></i></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                            @foreach ($listecollectives as $listecollective)
+                                    <div class="table-responsive">
+                                        <table class="m-2 table datatables align-middle" id="table-individuelles">
+                                            <thead>
                                                 <tr>
-                                                    <td>
-                                                        {{--  <label for="liste_{{ $listecollective->id }}"> --}}
-                                                        <input type="checkbox" name="listecollectives[]"
-                                                            value="{{ $listecollective->id }}"
-                                                            {{ in_array($listecollective->formations_id, $listecollectiveFormation) ? 'checked' : '' }}
-                                                            class="form-check-input @error('listecollectives') is-invalid @enderror">
-                                                        {{ $i++ }}
-                                                        @error('listecollectives')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <div>{{ $message }}</div>
-                                                            </span>
-                                                        @enderror
-                                                        {{--  </label> --}}
-                                                    </td>
-                                                    {{-- <td>{{ $listecollective?->cin }}</td>
+                                                    <th scope="col"></th>
+                                                    {{-- <th scope="col">CIN</th> --}}
+                                                    {{-- <th scope="col">Civilité</th> --}}
+                                                    {{-- <th scope="col">Prénom</th> --}}
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Date naissance</th>
+                                                    <th scope="col">Lieu naissance</th>
+                                                    <th scope="col">Téléphone</th>
+                                                    <th scope="col">Niveau étude</th>
+                                                    {{-- <th scope="col">ID</th> --}}
+                                                    {{-- <th scope="col">Module</th> --}}
+                                                    <th class="text-center" width="5%">Statut</th>
+                                                    <th class="text-center" width="5%"><i class="bi bi-gear"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @foreach ($listecollectives as $listecollective)
+                                                    <tr>
+                                                        <td>
+                                                            {{--  <label for="liste_{{ $listecollective->id }}"> --}}
+                                                            <input type="checkbox" name="listecollectives[]"
+                                                                value="{{ $listecollective->id }}"
+                                                                {{ in_array($listecollective->formations_id, $listecollectiveFormation) ? 'checked' : '' }}
+                                                                class="form-check-input @error('listecollectives') is-invalid @enderror">
+                                                            {{ $i++ }}
+                                                            @error('listecollectives')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div>{{ $message }}</div>
+                                                                </span>
+                                                            @enderror
+                                                            {{--  </label> --}}
+                                                        </td>
+                                                        {{-- <td>{{ $listecollective?->cin }}</td>
                                                     <td>{{ $listecollective?->civilite }}</td> --}}
-                                                    <td>{{ $listecollective?->civilite . ' ' . $listecollective?->prenom . ' ' . $listecollective?->nom }}
-                                                    </td>
-                                                    {{-- <td>{{ $listecollective?->nom }}</td> --}}
-                                                    <td>{{ $listecollective?->date_naissance->format('d/m/Y') }}
-                                                    </td>
-                                                    <td>{{ $listecollective?->lieu_naissance }}</td>
-                                                    <td>{{ $listecollective?->telephone }}</td>
-                                                    <td>{{ $listecollective?->niveau_etude }}</td>
-                                                    {{-- <td>{{ $listecollective?->formations_id }}</td> --}}
-                                                    {{-- <td>{{ $listecollective?->collectivemodule?->module }}</td> --}}
-                                                    <td>
-                                                        <span
-                                                            class="{{ $listecollective?->statut }}">{{ $listecollective?->statut }}</span>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <span class="d-flex align-items-baseline">
-                                                            <a href="{{ route('listecollectives.show', $listecollective) }}"
-                                                                class="btn btn-primary btn-sm" title="voir détails"
-                                                                target="_blank"><i class="bi bi-eye"></i></a>
-                                                            <div class="filter">
-                                                                <a class="icon" href="#"
-                                                                    data-bs-toggle="dropdown"><i
-                                                                        class="bi bi-three-dots"></i></a>
-                                                                <ul
-                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                    <li><a class="dropdown-item btn btn-sm"
-                                                                            href="{{ route('listecollectives.edit', $listecollective) }}"
-                                                                            class="mx-1" title="Modifier"><i
-                                                                                class="bi bi-pencil"></i>Modifier</a>
-                                                                    </li>
-                                                                    {{-- <form
+                                                        <td>{{ $listecollective?->civilite . ' ' . $listecollective?->prenom . ' ' . $listecollective?->nom }}
+                                                        </td>
+                                                        {{-- <td>{{ $listecollective?->nom }}</td> --}}
+                                                        <td>{{ $listecollective?->date_naissance->format('d/m/Y') }}
+                                                        </td>
+                                                        <td>{{ $listecollective?->lieu_naissance }}</td>
+                                                        <td>{{ $listecollective?->telephone }}</td>
+                                                        <td>{{ $listecollective?->niveau_etude }}</td>
+                                                        {{-- <td>{{ $listecollective?->formations_id }}</td> --}}
+                                                        {{-- <td>{{ $listecollective?->collectivemodule?->module }}</td> --}}
+                                                        <td>
+                                                            <span
+                                                                class="{{ $listecollective?->statut }}">{{ $listecollective?->statut }}</span>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <span class="d-flex align-items-baseline">
+                                                                <a href="{{ route('listecollectives.show', $listecollective) }}"
+                                                                    class="btn btn-primary btn-sm" title="voir détails"
+                                                                    target="_blank"><i class="bi bi-eye"></i></a>
+                                                                <div class="filter">
+                                                                    <a class="icon" href="#"
+                                                                        data-bs-toggle="dropdown"><i
+                                                                            class="bi bi-three-dots"></i></a>
+                                                                    <ul
+                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                        <li><a class="dropdown-item btn btn-sm"
+                                                                                href="{{ route('listecollectives.edit', $listecollective) }}"
+                                                                                class="mx-1" title="Modifier"><i
+                                                                                    class="bi bi-pencil"></i>Modifier</a>
+                                                                        </li>
+                                                                        {{-- <form
                                                                                 action="{{ route('listecollectives.destroy', $listecollective->id) }}"
                                                                                 method="post">
                                                                                 @csrf
@@ -138,17 +139,18 @@
                                                                                     title="Supprimer"><i
                                                                                         class="bi bi-trash"></i>Supprimer</button>
                                                                             </form> --}}
-                                                                </ul>
-                                                            </div>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-outline-primary btn-sm"><i
-                                                class="bi bi-check2-circle"></i>&nbsp;Sélectionner</button>
+                                                                    </ul>
+                                                                </div>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-outline-primary btn-sm"><i
+                                                    class="bi bi-check2-circle"></i>&nbsp;Sélectionner</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -241,32 +241,34 @@
             </p>
 
             {{-- Tableau récapitulatif --}}
-            <table width="100%" border="1" cellspacing="0" cellpadding="6"
-                style="border-collapse: collapse; text-align: center; margin-top: 10px;">
+            <div class="table-responsive">
+                <table width="100%" border="1" cellspacing="0" cellpadding="6"
+                    style="border-collapse: collapse; text-align: center; margin-top: 10px;">
 
-                <thead style="background: #f1f1f1; font-weight: bold;">
-                    <tr>
-                        <td>Prénom et Nom</td>
-                        <td>Date et lieu de naissance</td>
-                        <td>Spécialité</td>
-                        <td width="12%">Niveau</td>
-                        <td>Montant (CFA)</td>
-                    </tr>
-                </thead>
+                    <thead style="background: #f1f1f1; font-weight: bold;">
+                        <tr>
+                            <td>Prénom et Nom</td>
+                            <td>Date et lieu de naissance</td>
+                            <td>Spécialité</td>
+                            <td width="12%">Niveau</td>
+                            <td>Montant (CFA)</td>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    <tr>
-                        <td>{{ format_proper_name($formulaire->prenom) . ' ' . remove_accents_uppercase($formulaire->nom) }}
-                        </td>
-                        <td>{{ $formulaire->date_naissance->format('d/m/Y') . ' à ' . remove_accents_uppercase($formulaire->lieu_naissance) }}
-                        </td>
-                        <td>{{ $formulaire->formation }}</td>
-                        <td>{{ $formulaire->diplome_vise }}</td>
-                        <td><b>{{ number_format($formulaire?->montant_onfp, 0, ',', ' ') }}</b></td>
-                    </tr>
-                </tbody>
+                    <tbody>
+                        <tr>
+                            <td>{{ format_proper_name($formulaire->prenom) . ' ' . remove_accents_uppercase($formulaire->nom) }}
+                            </td>
+                            <td>{{ $formulaire->date_naissance->format('d/m/Y') . ' à ' . remove_accents_uppercase($formulaire->lieu_naissance) }}
+                            </td>
+                            <td>{{ $formulaire->formation }}</td>
+                            <td>{{ $formulaire->diplome_vise }}</td>
+                            <td><b>{{ number_format($formulaire?->montant_onfp, 0, ',', ' ') }}</b></td>
+                        </tr>
+                    </tbody>
 
-            </table>
+                </table>
+            </div>
 
             <p style="text-align: justify; margin-top:10px;">
                 À cet effet, je vous transmets le contrat ci-joint en deux exemplaires originaux que vous voudrez

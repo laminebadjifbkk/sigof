@@ -100,92 +100,96 @@
         </b>
     </div>
     <div class="invoice-box">
-        <table class="table table-bordered">
-            <thead>
-                <tr class="heading" style="text-align: center;">
-                    <td colspan="9"><b>{{ __("Direction de l'Ingénierie et des Opérations de Formation") }}</b>
-                    </td>
-                </tr>
-            </thead>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="heading" style="text-align: center;">
+                        <td colspan="9"><b>{{ __("Direction de l'Ingénierie et des Opérations de Formation") }}</b>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
         <br>
-        <table class="table table-bordered">
-            <thead>
-                <tr class="heading" style="text-align: center;">
-                    <td colspan="8"><b>{{ __('FICHE DE SUIVI DE FORMATION') }}</b>
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="4">{{ __('Ref. Convention : ') }}
-                        {{ $formation?->numero_convention . '/ONFP/DG/DIOF/' . $formation?->ingenieur?->initiale }}
-                        @if (!empty($formation?->date_convention))
-                            du {{ $formation?->date_convention?->format('d/m/Y') }}
-                        @endif
-                    </td>
-                    <td colspan="4"><b>{{ __('Opérateur : ') }}</b>
-                        {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="4">{{ __('Module : ') }}
-                        {{ $formation?->module?->name }}
-                    </td>
-                    <td colspan="4">{{ __('Lieu : ') }}
-                        {{ $formation?->lieu }}
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="3">{{ __('Effectif prévu : ') }}
-                        {{ $formation?->effectif_prevu }}
-                    </td>
-                    <td colspan="5"><b>{{ __('Bénéficiaires : ') }}</b>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="heading" style="text-align: center;">
+                        <td colspan="8"><b>{{ __('FICHE DE SUIVI DE FORMATION') }}</b>
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="4">{{ __('Ref. Convention : ') }}
+                            {{ $formation?->numero_convention . '/ONFP/DG/DIOF/' . $formation?->ingenieur?->initiale }}
+                            @if (!empty($formation?->date_convention))
+                                du {{ $formation?->date_convention?->format('d/m/Y') }}
+                            @endif
+                        </td>
+                        <td colspan="4"><b>{{ __('Opérateur : ') }}</b>
+                            {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="4">{{ __('Module : ') }}
+                            {{ $formation?->module?->name }}
+                        </td>
+                        <td colspan="4">{{ __('Lieu : ') }}
+                            {{ $formation?->lieu }}
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="3">{{ __('Effectif prévu : ') }}
+                            {{ $formation?->effectif_prevu }}
+                        </td>
+                        <td colspan="5"><b>{{ __('Bénéficiaires : ') }}</b>
 
-                        {{ $formation?->name }}
+                            {{ $formation?->name }}
 
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="4">{{ __('Date début: ') }}
-                        {{ $formation?->date_debut?->format('d/m/Y') ?? '............/............/............' }}
-                    </td>
-                    <td colspan="4"><b>{{ __('Date fin : ') }}</b>
-                        {{ $formation?->date_fin?->format('d/m/Y') ?? '............/............/............' }}
-                    </td>
-                </tr>
-                <tr class="item" style="text-align: center;">
-                    <td width="3%"><b>N°</b></td>
-                    <td><b>Prénom</b></td>
-                    <td><b>NOM</b></td>
-                    <td><b>Date naissance</b></td>
-                    <td width="18%"><b>Lieu naissance</b></td>
-                    <td><b>Téléphone</b></td>
-                    <td width="15%"><b>CIN</b></td>
-                    {{-- <td width="5%"><b>Présence</b></td> --}}
-                    <td><b>Emargement</b></td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $i = 1; ?>
-                @foreach ($formation?->individuelles as $individuelle)
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="4">{{ __('Date début: ') }}
+                            {{ $formation?->date_debut?->format('d/m/Y') ?? '............/............/............' }}
+                        </td>
+                        <td colspan="4"><b>{{ __('Date fin : ') }}</b>
+                            {{ $formation?->date_fin?->format('d/m/Y') ?? '............/............/............' }}
+                        </td>
+                    </tr>
                     <tr class="item" style="text-align: center;">
-                        <td>{{ $i++ }}</td>
-                        <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->user?->name) }}</td>
-                        <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
-                        <td>{{ $individuelle?->user?->telephone }}</td>
-                        <td>{{ $individuelle->user->cin }}</td>
-                       {{--  <td>
+                        <td width="3%"><b>N°</b></td>
+                        <td><b>Prénom</b></td>
+                        <td><b>NOM</b></td>
+                        <td><b>Date naissance</b></td>
+                        <td width="18%"><b>Lieu naissance</b></td>
+                        <td><b>Téléphone</b></td>
+                        <td width="15%"><b>CIN</b></td>
+                        {{-- <td width="5%"><b>Présence</b></td> --}}
+                        <td><b>Emargement</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 1; ?>
+                    @foreach ($formation?->individuelles as $individuelle)
+                        <tr class="item" style="text-align: center;">
+                            <td>{{ $i++ }}</td>
+                            <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
+                            <td>{{ remove_accents_uppercase($individuelle?->user?->name) }}</td>
+                            <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
+                            <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
+                            <td>{{ $individuelle?->user?->telephone }}</td>
+                            <td>{{ $individuelle->user->cin }}</td>
+                            {{--  <td>
                             @foreach ($individuelle?->feuillepresences as $feuillepresence)
                                 {{ ucwords(in_array($feuillepresence?->emargements_id, $feuillepresenceIndividuelle) ? $feuillepresence?->presence : '') }}
                             @endforeach
                         </td> --}}
-                        <td></td>
-                    </tr>
-                @endforeach
+                            <td></td>
+                        </tr>
+                    @endforeach
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
         <h4 valign="top">
             <b><u>AGENT DE SUIVI</u></b> : @isset($formation?->date_suivi)
                 <span

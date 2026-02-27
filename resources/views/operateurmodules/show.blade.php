@@ -39,57 +39,59 @@
                     <div class="card-body">
                         <h5 class="card-title">MODULE: {{ $modulename }}</h5>
                         <!-- Table with stripped rows -->
-                        <table class="table datatables table-bordered table-hover align-middle" id="table-operateurs">
-                            <thead>
-                                <tr>
-                                    <th width='10'>N° agrément</th>
-                                    <th>Opérateurs</th>
-                                    <th class="text-center">Sigle</th>
-                                    <th class="text-center">Modules</th>
-                                    <th class="text-center">Formations</th>
-                                    <th width='2'><i class="bi bi-gear"></i></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($operateurmodules as $operateurmodule)
-                                    @isset($operateurmodule?->operateur?->numero_agrement)
-                                        <tr>
-                                            <td>{{ $operateurmodule?->operateur?->numero_agrement }}
-                                            </td>
-                                            <td>
-                                                {{ $operateurmodule?->operateur?->user?->operateur }}</td>
-                                            <td class="text-center">{{ $operateurmodule?->operateur?->user?->username }}
-                                            </td>
-                                            <td class="text-center">
-                                                @foreach ($operateurmodule?->operateur?->operateurmodules as $operateurmodule)
-                                                    @if ($loop->last)
-                                                        <a href="#"><span
-                                                                class="badge bg-info">{{ $loop->count }}</span></a>
-                                                    @endif
-                                                @endforeach
-                                            </td>
-                                            <td class="text-center">
-                                                @foreach ($operateurmodule?->operateur?->formations as $formation)
-                                                    @if ($loop->last)
-                                                        <a href="#"><span
-                                                                class="badge bg-info">{{ $loop->count }}</span></a>
-                                                    @endif
-                                                @endforeach
-                                            </td>
-                                            <td class="text-center">
-                                                <span class="d-flex align-items-baseline justify-content-center"><a
-                                                        href="{{ route('operateurs.show', $operateurmodule?->operateur) }}"
-                                                        class="btn btn-primary btn-sm" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    @endisset
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                        <div class="table-responsive">
+                            <table class="table datatables table-bordered table-hover align-middle" id="table-operateurs">
+                                <thead>
+                                    <tr>
+                                        <th width='10'>N° agrément</th>
+                                        <th>Opérateurs</th>
+                                        <th class="text-center">Sigle</th>
+                                        <th class="text-center">Modules</th>
+                                        <th class="text-center">Formations</th>
+                                        <th width='2'><i class="bi bi-gear"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($operateurmodules as $operateurmodule)
+                                        @isset($operateurmodule?->operateur?->numero_agrement)
+                                            <tr>
+                                                <td>{{ $operateurmodule?->operateur?->numero_agrement }}
+                                                </td>
+                                                <td>
+                                                    {{ $operateurmodule?->operateur?->user?->operateur }}</td>
+                                                <td class="text-center">{{ $operateurmodule?->operateur?->user?->username }}
+                                                </td>
+                                                <td class="text-center">
+                                                    @foreach ($operateurmodule?->operateur?->operateurmodules as $operateurmodule)
+                                                        @if ($loop->last)
+                                                            <a href="#"><span
+                                                                    class="badge bg-info">{{ $loop->count }}</span></a>
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                                <td class="text-center">
+                                                    @foreach ($operateurmodule?->operateur?->formations as $formation)
+                                                        @if ($loop->last)
+                                                            <a href="#"><span
+                                                                    class="badge bg-info">{{ $loop->count }}</span></a>
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                                <td class="text-center">
+                                                    <span class="d-flex align-items-baseline justify-content-center"><a
+                                                            href="{{ route('operateurs.show', $operateurmodule?->operateur) }}"
+                                                            class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endisset
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
                     </div>
                 </div>
 
@@ -204,7 +206,7 @@
         new DataTable('#table-operateurModules', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

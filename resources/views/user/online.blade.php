@@ -52,90 +52,94 @@
                             @endcan
                         </div>
                         @if ($users->isNotEmpty())
-                            <table class="table datatables align-middle" id="table-users">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        {{-- <th>Username</th> --}}
-                                        <th>E-mail</th>
-                                        <th>Téléphone</th>
-                                        <th>Roles</th>
-                                        <th class="text-center">En ligne</th>
-                                        <th width='2%'>#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($users as $user)
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle" id="table-users">
+                                    <thead>
                                         <tr>
-                                            <th scope="row">
-                                                {{-- <a href="{{ route('users.show', $user) }}">
+                                            <th></th>
+                                            {{-- <th>Username</th> --}}
+                                            <th>E-mail</th>
+                                            <th>Téléphone</th>
+                                            <th>Roles</th>
+                                            <th class="text-center">En ligne</th>
+                                            <th width='2%'>#</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($users as $user)
+                                            <tr>
+                                                <th scope="row">
+                                                    {{-- <a href="{{ route('users.show', $user) }}">
                                                     <img class="rounded-circle w-20" alt="Profil"
                                                         src="{{ asset($user->getImage()) }}" width="40" height="auto">
                                                 </a> --}}
 
-                                                <a href="{{ route('users.show', $user) }}"
-                                                    class="table-profile-image-wrapper
+                                                    <a href="{{ route('users.show', $user) }}"
+                                                        class="table-profile-image-wrapper
                                                 {{ $user?->last_activity && \Carbon\Carbon::parse($user->last_activity)->diffInMinutes(now()) < 5
                                                     ? 'online'
                                                     : 'offline' }}">
-                                                    <img src="{{ asset($user->getImage()) }}" class="rounded-circle w-20"
-                                                        alt="Profil" class="table-profile-image" width="40"
-                                                        height="auto">
-                                                </a>
-                                            </th>
-                                            {{-- <td>{{ $user->username }}</td> --}}
-                                            <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                                            <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a></td>
-                                            <td>
-                                                @if (!empty($user->getRoleNames()))
-                                                    @foreach ($user->getRoleNames() as $roleName)
-                                                        <label for="label"
-                                                            class="badge bg-primary mx-1">{{ $roleName }}</label>
-                                                    @endforeach
-                                                @endif
-                                            </td>
-                                            <td style="text-align: center;">
-                                                @if ($user?->email_verified_at)
-                                                    <i class="bi bi-check-circle text-success" title="compte vérifié"></i>
-                                                @endif
-                                                {{ \Carbon\Carbon::parse($user->last_activity)->diffForHumans() }}
-                                            </td>
-                                            <td>
-                                                <span class="d-flex mt-2 align-items-baseline"><a
-                                                        href="{{ route('users.show', $user) }}"
-                                                        class="btn btn-info btn-sm mx-1" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            {{-- @can('user-update') --}}
-                                                            <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                    href="{{ route('users.edit', $user) }}"><i
-                                                                        class="bi bi-pencil"></i> Modifier</a>
-                                                            </li>
-                                                            {{-- @endcan --}}
-                                                            @can('user-delete')
-                                                                <li>
-                                                                    <form action="{{ route('users.destroy', $user) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit"
-                                                                            class="dropdown-item show_confirm"><i
-                                                                                class="bi bi-trash"></i>Supprimer</button>
-                                                                    </form>
+                                                        <img src="{{ asset($user->getImage()) }}"
+                                                            class="rounded-circle w-20" alt="Profil"
+                                                            class="table-profile-image" width="40" height="auto">
+                                                    </a>
+                                                </th>
+                                                {{-- <td>{{ $user->username }}</td> --}}
+                                                <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
+                                                <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a>
+                                                </td>
+                                                <td>
+                                                    @if (!empty($user->getRoleNames()))
+                                                        @foreach ($user->getRoleNames() as $roleName)
+                                                            <label for="label"
+                                                                class="badge bg-primary mx-1">{{ $roleName }}</label>
+                                                        @endforeach
+                                                    @endif
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    @if ($user?->email_verified_at)
+                                                        <i class="bi bi-check-circle text-success"
+                                                            title="compte vérifié"></i>
+                                                    @endif
+                                                    {{ \Carbon\Carbon::parse($user->last_activity)->diffForHumans() }}
+                                                </td>
+                                                <td>
+                                                    <span class="d-flex mt-2 align-items-baseline"><a
+                                                            href="{{ route('users.show', $user) }}"
+                                                            class="btn btn-info btn-sm mx-1" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                        <div class="filter">
+                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                    class="bi bi-three-dots"></i></a>
+                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                {{-- @can('user-update') --}}
+                                                                <li><a class="dropdown-item btn btn-sm mx-1"
+                                                                        href="{{ route('users.edit', $user) }}"><i
+                                                                            class="bi bi-pencil"></i> Modifier</a>
                                                                 </li>
-                                                            @endcan
-                                                        </ul>
-                                                    </div>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                                {{-- @endcan --}}
+                                                                @can('user-delete')
+                                                                    <li>
+                                                                        <form action="{{ route('users.destroy', $user) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"><i
+                                                                                    class="bi bi-trash"></i>Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                @endcan
+                                                            </ul>
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <div class="alert alert-warning">
                                 Aucun utilisateur connecté pour l'instant !

@@ -24,64 +24,67 @@
                             </div>
                         </div>
                         <h5 class="card-title">Détail région de : {{ $region->nom }}</h5>
-                        <table class="table datatables align-middle justify-content-center" id="table-departements">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" scope="col">N°</th>
-                                    <th>Départements</th>
-                                    <th class="text-center" scope="col">Arrondissements</th>
-                                    <th class="text-center" width="5%">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($region->departements as $departement)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle justify-content-center" id="table-departements">
+                                <thead>
                                     <tr>
-                                        <td style="text-align: center;">{{ $i++ }}</td>
-                                        <td>{{ $departement->nom }}</td>
-                                        <td style="text-align: center;">
-                                            @foreach ($departement->arrondissements as $arrondissement)
-                                                @if ($loop->last)
-                                                    <span class="badge bg-info">{{ $loop->count }}</span>
-                                                @endif
-                                            @endforeach
-                                            {{-- @foreach ($departement->individuelles as $individuelle)
+                                        <th class="text-center" scope="col">N°</th>
+                                        <th>Départements</th>
+                                        <th class="text-center" scope="col">Arrondissements</th>
+                                        <th class="text-center" width="5%">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($region->departements as $departement)
+                                        <tr>
+                                            <td style="text-align: center;">{{ $i++ }}</td>
+                                            <td>{{ $departement->nom }}</td>
+                                            <td style="text-align: center;">
+                                                @foreach ($departement->arrondissements as $arrondissement)
+                                                    @if ($loop->last)
+                                                        <span class="badge bg-info">{{ $loop->count }}</span>
+                                                    @endif
+                                                @endforeach
+                                                {{-- @foreach ($departement->individuelles as $individuelle)
                                                 @if ($loop->last)
                                                     <span class="badge bg-info">{{ $loop->count }}</span>
                                                 @endif
                                             @endforeach --}}
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <span class="d-flex mt-2 align-items-baseline">
-                                                <a href="{{ url('departements/' . $departement->id) }}"
-                                                    class="btn btn-warning btn-sm mx-1" title="Voir détails"><i
-                                                        class="bi bi-eye"></i></a>
-                                                <div class="filter">
-                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                        <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                href="{{ url('departements/' . $departement->id . '/edit') }}"
-                                                                class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
-                                                        </li>
-                                                        <li>
-                                                            <form action="{{ url('departements', $departement->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="dropdown-item show_confirm"><i
-                                                                        class="bi bi-trash"></i>Supprimer</button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </span>
-                                        </td>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span class="d-flex mt-2 align-items-baseline">
+                                                    <a href="{{ url('departements/' . $departement->id) }}"
+                                                        class="btn btn-warning btn-sm mx-1" title="Voir détails"><i
+                                                            class="bi bi-eye"></i></a>
+                                                    <div class="filter">
+                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                class="bi bi-three-dots"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            <li><a class="dropdown-item btn btn-sm mx-1"
+                                                                    href="{{ url('departements/' . $departement->id . '/edit') }}"
+                                                                    class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
+                                                            </li>
+                                                            <li>
+                                                                <form action="{{ url('departements', $departement->id) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="dropdown-item show_confirm"><i
+                                                                            class="bi bi-trash"></i>Supprimer</button>
+                                                                </form>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </span>
+                                            </td>
 
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -93,7 +96,7 @@
         new DataTable('#table-departements', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

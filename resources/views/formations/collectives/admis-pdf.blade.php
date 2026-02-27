@@ -151,86 +151,88 @@
         </b>
     </div>
     <div class="invoice-box">
-        <table class="table table-bordered">
-            <thead>
-                <tr class="heading" style="text-align: center;">
-                    <td colspan="8"><b>{{ __('RETRAIT DES ATTESTATIONS') }}</b></td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="4"><b>{{ __('Période: ') }}</b>
-                        @isset($formation?->date_debut)
-                            {{ 'du ' . $formation?->date_debut?->format('d/m/Y') }}
-                        @endisset
-                        @isset($formation?->date_fin)
-                            {{ ' au ' . $formation?->date_fin?->format('d/m/Y') }}
-                        @endisset
-                    </td>
-                    <td colspan="4"><b>{{ __('Intitulé formation: ') }}</b> {{ $formation?->intitule }}</td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="4"><b>{{ __('Lieu: ') }}</b> {{ $formation?->lieu }}</td>
-                    <td colspan="4"><b>{{ __('Opérateur: ') }}</b>
-                        {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="2"><b>{{ __('Code : ') }}</b> {{ $formation?->code }}</td>
-                    <td colspan="2"><b>{{ __('Niveau qualification : ') }}</b>
-                        @if ($formation?->type_certification !== 'Titre')
-                            {{ $formation?->titre ?? $formation?->referentiel?->titre }}
-                        @else
-                            @if (!empty($formation?->referentiel?->categorie))
-                                {{ $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
-                            @endif
-                        @endif
-                    </td>
-                    <td colspan="4"><b>{{ __('Type certification : ') }}</b>
-                        @if ($formation?->type_certification !== 'Titre')
-                            {{ $formation?->type_certification }}
-                        @else
-                            {{ $formation?->referentiel?->titre }}
-                        @endif
-                    </td>
-                </tr>
-
-                <tr class="heading">
-                    <td style="text-align: center; width: 3%;"><b>N°</b></td>
-                    <td style="text-align: center; width: 12%;"><b>N° CIN</b></td>
-                    <td style="text-align: center; width: 25%;"><b>Name</b></td>
-                    <td style="text-align: center; width: 10%;"><b>Téléphone</b></td>
-                    <td style="text-align: center; width: 10%;"><b>Appréciation</b></td>
-                    <td style="text-align: center; width: 12%;"><b>Date retrait</b></td>
-                    <td style="text-align: center; width: 12%;"><b>Signature bénéficiaire</b></td>
-                    <td style="text-align: center;"><b>Commentaires</b></td>
-                </tr>
-            </thead>
-            <tbody>
-                @php $i = 1; @endphp
-                @foreach ($listecollectives as $listecollective)
-                    <tr style="text-align: center;">
-                        <td>{{ $i++ }}</td>
-                        <td>{{ $listecollective?->cin }}</td>
-                        <td>
-                            {{ $listecollective->civilite .
-                                ' - ' .
-                                format_proper_name($listecollective?->prenom) .
-                                ' - ' .
-                                remove_accents_uppercase($listecollective?->nom) .
-                                ' - ' .
-                                $listecollective?->date_naissance?->format('d/m/Y') .
-                                ' - ' .
-                                remove_accents_uppercase($listecollective?->lieu_naissance) }}
-                        </td>
-                        <td>{{ $listecollective?->telephone }}</td>
-                        <td>{{ $listecollective?->appreciation }}</td> <!-- Signature agent -->
-                        <td></td> <!-- date retrait -->
-                        <td></td> <!-- Signature bénéficiaire -->
-                        <td></td> <!-- Commentaires -->
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="heading" style="text-align: center;">
+                        <td colspan="8"><b>{{ __('RETRAIT DES ATTESTATIONS') }}</b></td>
                     </tr>
-                @endforeach
+                    <tr class="heading">
+                        <td colspan="4"><b>{{ __('Période: ') }}</b>
+                            @isset($formation?->date_debut)
+                                {{ 'du ' . $formation?->date_debut?->format('d/m/Y') }}
+                            @endisset
+                            @isset($formation?->date_fin)
+                                {{ ' au ' . $formation?->date_fin?->format('d/m/Y') }}
+                            @endisset
+                        </td>
+                        <td colspan="4"><b>{{ __('Intitulé formation: ') }}</b> {{ $formation?->intitule }}</td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="4"><b>{{ __('Lieu: ') }}</b> {{ $formation?->lieu }}</td>
+                        <td colspan="4"><b>{{ __('Opérateur: ') }}</b>
+                            {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="2"><b>{{ __('Code : ') }}</b> {{ $formation?->code }}</td>
+                        <td colspan="2"><b>{{ __('Niveau qualification : ') }}</b>
+                            @if ($formation?->type_certification !== 'Titre')
+                                {{ $formation?->titre ?? $formation?->referentiel?->titre }}
+                            @else
+                                @if (!empty($formation?->referentiel?->categorie))
+                                    {{ $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
+                                @endif
+                            @endif
+                        </td>
+                        <td colspan="4"><b>{{ __('Type certification : ') }}</b>
+                            @if ($formation?->type_certification !== 'Titre')
+                                {{ $formation?->type_certification }}
+                            @else
+                                {{ $formation?->referentiel?->titre }}
+                            @endif
+                        </td>
+                    </tr>
 
-            </tbody>
-        </table>
+                    <tr class="heading">
+                        <td style="text-align: center; width: 3%;"><b>N°</b></td>
+                        <td style="text-align: center; width: 12%;"><b>N° CIN</b></td>
+                        <td style="text-align: center; width: 25%;"><b>Name</b></td>
+                        <td style="text-align: center; width: 10%;"><b>Téléphone</b></td>
+                        <td style="text-align: center; width: 10%;"><b>Appréciation</b></td>
+                        <td style="text-align: center; width: 12%;"><b>Date retrait</b></td>
+                        <td style="text-align: center; width: 12%;"><b>Signature bénéficiaire</b></td>
+                        <td style="text-align: center;"><b>Commentaires</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php $i = 1; @endphp
+                    @foreach ($listecollectives as $listecollective)
+                        <tr style="text-align: center;">
+                            <td>{{ $i++ }}</td>
+                            <td>{{ $listecollective?->cin }}</td>
+                            <td>
+                                {{ $listecollective->civilite .
+                                    ' - ' .
+                                    format_proper_name($listecollective?->prenom) .
+                                    ' - ' .
+                                    remove_accents_uppercase($listecollective?->nom) .
+                                    ' - ' .
+                                    $listecollective?->date_naissance?->format('d/m/Y') .
+                                    ' - ' .
+                                    remove_accents_uppercase($listecollective?->lieu_naissance) }}
+                            </td>
+                            <td>{{ $listecollective?->telephone }}</td>
+                            <td>{{ $listecollective?->appreciation }}</td> <!-- Signature agent -->
+                            <td></td> <!-- date retrait -->
+                            <td></td> <!-- Signature bénéficiaire -->
+                            <td></td> <!-- Commentaires -->
+                        </tr>
+                    @endforeach
+
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <footer>

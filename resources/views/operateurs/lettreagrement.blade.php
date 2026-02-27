@@ -262,39 +262,42 @@
             <br>
             Est agréé par l'ONFP sous le N°: <span
                 style="color: #DC3545; font-weight: bold">{{ $operateur?->numero_agrement }}</span> <br>
-            <table class="table table-bordered">
-                <tbody>
-                    <tr class="item" style="text-align: center;">
-                        <td colspan="9"><b>{{ __('FORMATIONS AGRÉÉES') }}</b></td>
-                    </tr>
-                    <tr class="item" style="text-align: center;">
-                        <td colspan="2" style="width:5cm"><b>{{ __('DOMAINES') }}</b></td>
-                        <td colspan="3" style="width:8cm"><b>{{ __('MODULES / SPECIALITE') }}</b></td>
-                        <td colspan="4" style="width:8cm">
-                            <b>{{ __('TITRE OU NIVEAU DE QUALIFICATION') }}</b>
-                        </td>
-                    </tr>
-                    {{-- @foreach ($operateur?->operateurmodules?->where('statut', 'agréé') as $operateurmodule)
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr class="item" style="text-align: center;">
+                            <td colspan="9"><b>{{ __('FORMATIONS AGRÉÉES') }}</b></td>
+                        </tr>
+                        <tr class="item" style="text-align: center;">
+                            <td colspan="2" style="width:5cm"><b>{{ __('DOMAINES') }}</b></td>
+                            <td colspan="3" style="width:8cm"><b>{{ __('MODULES / SPECIALITE') }}</b></td>
+                            <td colspan="4" style="width:8cm">
+                                <b>{{ __('TITRE OU NIVEAU DE QUALIFICATION') }}</b>
+                            </td>
+                        </tr>
+                        {{-- @foreach ($operateur?->operateurmodules?->where('statut', 'agréé') as $operateurmodule)
                         <tr class="item" style="text-align: center;">
                             <td colspan="2">{{ $operateurmodule?->domaine }}</td>
                             <td colspan="2">{{ $operateurmodule?->module }}</td>
                             <td colspan="5">{{ $operateurmodule?->categorie }}</td>
                         </tr>
                     @endforeach --}}
-                    <?php
-                    $operateurmodules = $operateur?->operateurmodules?->where('statut', 'agréé') ?? collect();
-                    ?>
+                        <?php
+                        $operateurmodules = $operateur?->operateurmodules?->where('statut', 'agréé') ?? collect();
+                        ?>
 
-                    @foreach ($operateurmodules as $operateurmodule)
-                        <tr class="item" style="text-align: center;">
-                            <td colspan="2">{{ $operateurmodule->domaine ?? 'Domaine non défini' }}</td>
-                            <td colspan="3">{{ $operateurmodule->module ?? 'Module non défini' }}</td>
-                            <td colspan="4">{{ $operateurmodule->categorie ?? 'Catégorie non définie' }}</td>
-                        </tr>
-                    @endforeach
+                        @foreach ($operateurmodules as $operateurmodule)
+                            <tr class="item" style="text-align: center;">
+                                <td colspan="2">{{ $operateurmodule->domaine ?? 'Domaine non défini' }}</td>
+                                <td colspan="3">{{ $operateurmodule->module ?? 'Module non défini' }}</td>
+                                <td colspan="4">{{ $operateurmodule->categorie ?? 'Catégorie non définie' }}</td>
+                            </tr>
+                        @endforeach
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
             Le présent agrément est valable deux (2) ans renouvelables une fois. Durant cette période, l'opérateur
             dispose de la faculté de renoncer à son agrément, en le notifiant par écrit à l'ONFP, au moins un
             (1) mois à l'avance. L'ONFP se réserve le droit de suspendre ou de résilier, à tout moment, le présent

@@ -274,34 +274,36 @@
                         </span>
                     </h6>
                 </div>
-                <table class="table table-bordered table-striped align-middle" id="table-inscriptions">
-                    <thead class="table-primary">
-                        <tr>
-                            <th width="5%" class="text-center">N°</th>
-                            <th>Diplôme visé</th>
-                            <th width="5%" class="text-center">Effectif</th>
-                            <th width="5%" class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($groupes as $diplome_vise => $items)
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped align-middle" id="table-inscriptions">
+                        <thead class="table-primary">
                             <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td>{{ $diplome_vise }}</td>
-                                <td class="text-center">{{ $items->count() }}</td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        {{-- Bouton Voir --}}
-                                        <a href="{{ route('formulaires.showregiondiplome', ['region' => $region, 'diplome_vise' => $diplome_vise]) }}"
-                                            class="btn btn-warning btn-sm" title="Voir les détails" target="_blank">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                    </div>
-                                </td>
+                                <th width="5%" class="text-center">N°</th>
+                                <th>Diplôme visé</th>
+                                <th width="5%" class="text-center">Effectif</th>
+                                <th width="5%" class="text-center">Actions</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($groupes as $diplome_vise => $items)
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td>{{ $diplome_vise }}</td>
+                                    <td class="text-center">{{ $items->count() }}</td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            {{-- Bouton Voir --}}
+                                            <a href="{{ route('formulaires.showregiondiplome', ['region' => $region, 'diplome_vise' => $diplome_vise]) }}"
+                                                class="btn btn-warning btn-sm" title="Voir les détails" target="_blank">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog" aria-labelledby="generate_rapportLabel"
                 aria-hidden="true">

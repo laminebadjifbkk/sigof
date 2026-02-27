@@ -85,84 +85,86 @@
                             </div>
                         </h4>
                         @if (!empty($individuelles) && $individuelles->isNotEmpty())
-                            <table class="table datatables align-middle" id="table-individuelles">
-                                <thead>
-                                    <tr>
-                                        {{-- <th class="text-center">N°</th> --}}
-                                        <th class="text-center">CIN</th>
-                                        <th>Prénom</th>
-                                        <th>NOM</th>
-                                        <th>Date naissance</th>
-                                        <th>Lieu naissance</th>
-                                        <th>Email</th>
-                                        <th>Telephone</th>
-                                        <th>{{ $projet->type_localite }}</th>
-                                        {{-- <th class="text-center">Statut</th> --}}
-                                        {{-- <th>Module</th> --}}
-                                        <th class="text-center">Note</th>
-                                        <th class="text-center">#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @forelse($individuelles as $individuelle)
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle" id="table-individuelles">
+                                    <thead>
                                         <tr>
-                                            {{-- <td style="text-align: center">{{ $individuelle?->numero }}</td> --}}
-                                            <td style="text-align: center">{{ $individuelle?->user?->cin }}</td>
-                                            <td>{{ $individuelle?->user?->firstname }}</td>
-                                            <td>{{ $individuelle?->user?->name }}</td>
-                                            <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
-                                            <td>{{ $individuelle?->user?->lieu_naissance }}</td>
-                                            <td><a
-                                                    href="mailto:{{ $individuelle?->user?->email }}">{{ $individuelle?->user?->email }}</a>
-                                            </td>
-                                            <td><a
-                                                    href="tel:+221{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a>
-                                            </td>
-                                            <td>
-                                                {{ optional($individuelle->{$projet->type_localite})->nom }}
-                                            </td>
-                                            {{-- <td>{{ $individuelle?->module?->name }}</td> --}}
-                                            <td class="text-center">{{ $individuelle?->note }}</td>
-                                            {{-- <td>
+                                            {{-- <th class="text-center">N°</th> --}}
+                                            <th class="text-center">CIN</th>
+                                            <th>Prénom</th>
+                                            <th>NOM</th>
+                                            <th>Date naissance</th>
+                                            <th>Lieu naissance</th>
+                                            <th>Email</th>
+                                            <th>Telephone</th>
+                                            <th>{{ $projet->type_localite }}</th>
+                                            {{-- <th class="text-center">Statut</th> --}}
+                                            {{-- <th>Module</th> --}}
+                                            <th class="text-center">Note</th>
+                                            <th class="text-center">#</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @forelse($individuelles as $individuelle)
+                                            <tr>
+                                                {{-- <td style="text-align: center">{{ $individuelle?->numero }}</td> --}}
+                                                <td style="text-align: center">{{ $individuelle?->user?->cin }}</td>
+                                                <td>{{ $individuelle?->user?->firstname }}</td>
+                                                <td>{{ $individuelle?->user?->name }}</td>
+                                                <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
+                                                <td>{{ $individuelle?->user?->lieu_naissance }}</td>
+                                                <td><a
+                                                        href="mailto:{{ $individuelle?->user?->email }}">{{ $individuelle?->user?->email }}</a>
+                                                </td>
+                                                <td><a
+                                                        href="tel:+221{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a>
+                                                </td>
+                                                <td>
+                                                    {{ optional($individuelle->{$projet->type_localite})->nom }}
+                                                </td>
+                                                {{-- <td>{{ $individuelle?->module?->name }}</td> --}}
+                                                <td class="text-center">{{ $individuelle?->note }}</td>
+                                                {{-- <td>
                                                 <span class="{{ $individuelle?->statut }}">
                                                     {{ $individuelle?->statut }}
                                                 </span>
                                             </td> --}}
-                                            <td>
-                                                <span class="d-flex align-items-baseline"><a
-                                                        href="{{ route('individuelles.show', $individuelle) }}"
-                                                        class="btn btn-primary btn-sm" title="voir détails"
-                                                        target="_blank"><i class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            <li><a class="dropdown-item btn btn-sm"
-                                                                    href="{{ route('individuelles.edit', $individuelle) }}"
-                                                                    class="mx-1" title="Modifier"><i
-                                                                        class="bi bi-pencil"></i>Modifier</a>
-                                                            </li>
-                                                            <li>
-                                                                <form
-                                                                    action="{{ route('individuelles.destroy', $individuelle) }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="dropdown-item show_confirm"
-                                                                        title="Supprimer"><i
-                                                                            class="bi bi-trash"></i>Supprimer</button>
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                <td>
+                                                    <span class="d-flex align-items-baseline"><a
+                                                            href="{{ route('individuelles.show', $individuelle) }}"
+                                                            class="btn btn-primary btn-sm" title="voir détails"
+                                                            target="_blank"><i class="bi bi-eye"></i></a>
+                                                        <div class="filter">
+                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                    class="bi bi-three-dots"></i></a>
+                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                <li><a class="dropdown-item btn btn-sm"
+                                                                        href="{{ route('individuelles.edit', $individuelle) }}"
+                                                                        class="mx-1" title="Modifier"><i
+                                                                            class="bi bi-pencil"></i>Modifier</a>
+                                                                </li>
+                                                                <li>
+                                                                    <form
+                                                                        action="{{ route('individuelles.destroy', $individuelle) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit"
+                                                                            class="dropdown-item show_confirm"
+                                                                            title="Supprimer"><i
+                                                                                class="bi bi-trash"></i>Supprimer</button>
+                                                                    </form>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <div class="alert alert-info text-center text-muted">
                                 Aucune donnée disponible.

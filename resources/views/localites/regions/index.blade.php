@@ -67,69 +67,72 @@
                                 </span>
                             @endcan
                         </div>
-                        <table class="table datatables align-middle justify-content-center" id="table-regions">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" scope="col">N°</th>
-                                    <th class="text-center">Régions</th>
-                                    {{-- <th class="text-center">Demandes</th> --}}
-                                    <th class="text-center">Code</th>
-                                    <th class="text-center" scope="col">Départements</th>
-                                    <th class="text-center" scope="col">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($regions as $region)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle justify-content-center" id="table-regions">
+                                <thead>
                                     <tr>
-                                        <td style="text-align: center;">{{ $i++ }}</td>
-                                        <td style="text-align: center;">{{ $region->nom }}</td>
-                                        {{-- <td style="text-align: center;">
+                                        <th class="text-center" scope="col">N°</th>
+                                        <th class="text-center">Régions</th>
+                                        {{-- <th class="text-center">Demandes</th> --}}
+                                        <th class="text-center">Code</th>
+                                        <th class="text-center" scope="col">Départements</th>
+                                        <th class="text-center" scope="col">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($regions as $region)
+                                        <tr>
+                                            <td style="text-align: center;">{{ $i++ }}</td>
+                                            <td style="text-align: center;">{{ $region->nom }}</td>
+                                            {{-- <td style="text-align: center;">
                                             <a href="{{ route('regionsmodule', ['idlocalite' => $region->id]) }}"><span class="badge bg-primary">{{ count($region->individuelles) }}</span></a>
                                         </td> --}}
-                                        <td style="text-align: center;">{{ $region->sigle }}</td>
-                                        <td style="text-align: center;">
-                                            @foreach ($region->departements as $departement)
-                                                @if ($loop->last)
-                                                    <span class="badge bg-info">{{ $loop->count }}</span>
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <span class="d-flex mt-2 align-items-baseline"><a
-                                                    href="{{ route('regions.show', $region->id) }}"
-                                                    class="btn btn-warning btn-sm mx-1" title="Voir détails">
-                                                    <i class="bi bi-eye"></i></a>
-                                                <div class="filter">
-                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                        <li>
-                                                            <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#EditRegionModal{{ $region->id }}">
-                                                                <i class="bi bi-pencil" title="Modifier"></i> Modifier
-                                                            </button>
-                                                        </li>
-                                                        <li>
-                                                            <form action="{{ url('regions', $region->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="dropdown-item show_confirm"><i
-                                                                        class="bi bi-trash"></i>Supprimer</button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </span>
-                                        </td>
+                                            <td style="text-align: center;">{{ $region->sigle }}</td>
+                                            <td style="text-align: center;">
+                                                @foreach ($region->departements as $departement)
+                                                    @if ($loop->last)
+                                                        <span class="badge bg-info">{{ $loop->count }}</span>
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span class="d-flex mt-2 align-items-baseline"><a
+                                                        href="{{ route('regions.show', $region->id) }}"
+                                                        class="btn btn-warning btn-sm mx-1" title="Voir détails">
+                                                        <i class="bi bi-eye"></i></a>
+                                                    <div class="filter">
+                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                class="bi bi-three-dots"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            <li>
+                                                                <button type="button" class="dropdown-item btn btn-sm mx-1"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#EditRegionModal{{ $region->id }}">
+                                                                    <i class="bi bi-pencil" title="Modifier"></i> Modifier
+                                                                </button>
+                                                            </li>
+                                                            <li>
+                                                                <form action="{{ url('regions', $region->id) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="dropdown-item show_confirm"><i
+                                                                            class="bi bi-trash"></i>Supprimer</button>
+                                                                </form>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </span>
+                                            </td>
 
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
                     </div>
                 </div>
 

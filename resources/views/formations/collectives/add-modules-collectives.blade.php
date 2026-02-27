@@ -35,63 +35,65 @@
                             @method('PUT')
                             <div class="row mb-3">
                                 <div class="form-check col-md-12 pt-5">
-                                    <table class="m-2 table datatables align-middle" id="table-modules">
-                                        <thead>
-                                            <tr>
-                                                <th>N° DEM.</th>
-                                                <th>Structure</th>
-                                                <th>Sigle</th>
-                                                <th>Téléphone</th>
-                                                <th>E-mail</th>
-                                                <th>Localité</th>
-                                                <th>Statut</th>
-                                                <th class="text-center">#</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                            @foreach ($collectives as $collective)
+                                    <div class="table-responsive">
+                                        <table class="m-2 table datatables align-middle" id="table-modules">
+                                            <thead>
                                                 <tr>
-                                                    <td>
-                                                        <input type="radio" name="collective" value="{{ $collective?->id }}"
-                                                            {{ in_array($collective->id, $collectiveFormation) ? 'checked' : '' }}
-                                                            class="form-check-input @error('collective') is-invalid @enderror">
-                                                        @error('collective')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <div>{{ $message }}</div>
-                                                            </span>
-                                                        @enderror
-                                                        {{ $collective->numero }}
-                                                    </td>
+                                                    <th>N° DEM.</th>
+                                                    <th>Structure</th>
+                                                    <th>Sigle</th>
+                                                    <th>Téléphone</th>
+                                                    <th>E-mail</th>
+                                                    <th>Localité</th>
+                                                    <th>Statut</th>
+                                                    <th class="text-center">#</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @foreach ($collectives as $collective)
+                                                    <tr>
+                                                        <td>
+                                                            <input type="radio" name="collective"
+                                                                value="{{ $collective?->id }}"
+                                                                {{ in_array($collective->id, $collectiveFormation) ? 'checked' : '' }}
+                                                                class="form-check-input @error('collective') is-invalid @enderror">
+                                                            @error('collective')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div>{{ $message }}</div>
+                                                                </span>
+                                                            @enderror
+                                                            {{ $collective->numero }}
+                                                        </td>
 
-                                                    <td>{{ $collective?->name }}</td>
-                                                    <td>{{ $collective?->sigle }}</td>
-                                                    <td>{{ $collective?->user?->telephone }}</td>
-                                                    <td><a
-                                                            href="mailto:{{ $collective?->user?->email }}">{{ $collective?->user?->email }}</a>
-                                                    </td>
-                                                    <td>{{ $collective->departement?->region?->nom }}</td>
-                                                    <td>
-                                                        <span
-                                                            class="{{ $collective?->statut_demande }}">{{ $collective?->statut_demande }}</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="d-flex align-items-baseline"><a
-                                                                href="{{ route('collectives.show', $collective) }}"
-                                                                class="btn btn-primary btn-sm" title="voir détails"><i
-                                                                    class="bi bi-eye"></i></a>
-                                                            <div class="filter">
-                                                                <a class="icon" href="#"
-                                                                    data-bs-toggle="dropdown"><i
-                                                                        class="bi bi-three-dots"></i></a>
-                                                                <ul
-                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                    <li><a class="dropdown-item btn btn-sm"
-                                                                            href="{{ route('collectives.edit', $collective) }}"
-                                                                            class="mx-1" title="Modifier"><i
-                                                                                class="bi bi-pencil"></i>Modifier</a>
-                                                                    </li>
-                                                                   {{--  <li>
+                                                        <td>{{ $collective?->name }}</td>
+                                                        <td>{{ $collective?->sigle }}</td>
+                                                        <td>{{ $collective?->user?->telephone }}</td>
+                                                        <td><a
+                                                                href="mailto:{{ $collective?->user?->email }}">{{ $collective?->user?->email }}</a>
+                                                        </td>
+                                                        <td>{{ $collective->departement?->region?->nom }}</td>
+                                                        <td>
+                                                            <span
+                                                                class="{{ $collective?->statut_demande }}">{{ $collective?->statut_demande }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="d-flex align-items-baseline"><a
+                                                                    href="{{ route('collectives.show', $collective) }}"
+                                                                    class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                        class="bi bi-eye"></i></a>
+                                                                <div class="filter">
+                                                                    <a class="icon" href="#"
+                                                                        data-bs-toggle="dropdown"><i
+                                                                            class="bi bi-three-dots"></i></a>
+                                                                    <ul
+                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                        <li><a class="dropdown-item btn btn-sm"
+                                                                                href="{{ route('collectives.edit', $collective) }}"
+                                                                                class="mx-1" title="Modifier"><i
+                                                                                    class="bi bi-pencil"></i>Modifier</a>
+                                                                        </li>
+                                                                        {{--  <li>
                                                                         <form
                                                                             action="{{ route('collectives.destroy', $collective->id) }}"
                                                                             method="post">
@@ -103,14 +105,15 @@
                                                                                     class="bi bi-trash"></i>Supprimer</button>
                                                                         </form>
                                                                     </li> --}}
-                                                                </ul>
-                                                            </div>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                                                    </ul>
+                                                                </div>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-outline-primary"><i
@@ -128,7 +131,7 @@
         new DataTable('#table-modules', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             lengthMenu: [

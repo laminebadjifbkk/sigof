@@ -31,42 +31,44 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Départements</h5>
-                        <table class="table datatables align-middle justify-content-center" id="table-localites">
-                            <thead>
-                                <tr>
-                                    <th width='3%'>N°</th>
-                                    <th>Départements</th>
-                                    <th>Régions</th>
-                                    {{-- <th class="text-center" scope="col">Demandes individuelles</th> --}}
-                                    <th class="text-center" width='3%'>#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($localites as $localite)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle justify-content-center" id="table-localites">
+                                <thead>
                                     <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td>{{ $localite?->nom }}</td>
-                                        <td>{{ $localite?->region?->nom }}</td>
-                                        {{-- <td style="text-align: center;">
+                                        <th width='3%'>N°</th>
+                                        <th>Départements</th>
+                                        <th>Régions</th>
+                                        {{-- <th class="text-center" scope="col">Demandes individuelles</th> --}}
+                                        <th class="text-center" width='3%'>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($localites as $localite)
+                                        <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $localite?->nom }}</td>
+                                            <td>{{ $localite?->region?->nom }}</td>
+                                            {{-- <td style="text-align: center;">
                                             @foreach ($localite->individuelles as $individuelle)
                                                 @if ($loop->last)
                                                     <span class="badge bg-info">{{ $loop->count }}</span>
                                                 @endif
                                             @endforeach
                                         </td> --}}
-                                        <td style="text-align: center;">
-                                            <span class="d-flex mt-2 align-items-baseline">
-                                                <a href="{{ route('localites.show', $localite->region->id) }}"
-                                                    class="btn btn-success btn-sm mx-1" title="Voir détails"><i
-                                                        class="bi bi-eye"></i></a>
-                                            </span>
-                                        </td>
+                                            <td style="text-align: center;">
+                                                <span class="d-flex mt-2 align-items-baseline">
+                                                    <a href="{{ route('localites.show', $localite->region->id) }}"
+                                                        class="btn btn-success btn-sm mx-1" title="Voir détails"><i
+                                                            class="bi bi-eye"></i></a>
+                                                </span>
+                                            </td>
 
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

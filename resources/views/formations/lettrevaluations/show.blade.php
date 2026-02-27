@@ -155,32 +155,34 @@
 
                             {{-- Tableau des évaluateurs --}}
                             @if ($formation?->evaluateurs->isNotEmpty())
-                                <table class="table datatables align-middle" id="table-employes">
-                                    <thead>
-                                        <tr>
-                                            <th>Evaluateur(s)</th>
-                                            <th class="text-center">N° lettre</th>
-                                            <th class="text-center">Date lettre</th>
-                                            <th class="text-center">Formations évaluées</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $i = 1; ?>
-                                        @foreach ($formation?->evaluateurs as $evaluateur)
+                                <div class="table-responsive">
+                                    <table class="table datatables align-middle" id="table-employes">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $evaluateur?->name . ' ' . $evaluateur->lastname ?? 'Aucun' }}</td>
-                                                <td class="text-center">
-                                                    {{ $evaluateur?->pivot?->numero_lettre ?? 'Aucun' }}
-                                                </td>
-                                                <td class="text-center">
-                                                    {{ $evaluateur?->pivot?->date_lettre
-                                                        ? \Carbon\Carbon::parse($evaluateur->pivot->date_lettre)->format('d/m/Y')
-                                                        : '-' }}
-                                                </td>
-                                                <td class="text-center">
-                                                    {{ $evaluateur?->formations?->count() }}
-                                                </td>
-                                                {{-- @can('formation-show')
+                                                <th>Evaluateur(s)</th>
+                                                <th class="text-center">N° lettre</th>
+                                                <th class="text-center">Date lettre</th>
+                                                <th class="text-center">Formations évaluées</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $i = 1; ?>
+                                            @foreach ($formation?->evaluateurs as $evaluateur)
+                                                <tr>
+                                                    <td>{{ $evaluateur?->name . ' ' . $evaluateur->lastname ?? 'Aucun' }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{ $evaluateur?->pivot?->numero_lettre ?? 'Aucun' }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{ $evaluateur?->pivot?->date_lettre
+                                                            ? \Carbon\Carbon::parse($evaluateur->pivot->date_lettre)->format('d/m/Y')
+                                                            : '-' }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{ $evaluateur?->formations?->count() }}
+                                                    </td>
+                                                    {{-- @can('formation-show')
                                                     <td class="text-center">
                                                         <div class="d-flex align-items-center gap-2">
                                                             <!-- Bouton Voir détails -->
@@ -192,10 +194,11 @@
                                                         </div>
                                                     </td>
                                                 @endcan --}}
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             @else
                                 <div class="alert alert-info">Aucune information pour l'instant !</div>
                             @endif

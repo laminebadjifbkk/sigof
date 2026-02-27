@@ -133,15 +133,15 @@
 
                                     </tbody>
                                 </table>
-                                <!-- End Table with stripped rows -->
-                            @else
-                                <div class="alert alert-info">Aucun employé pour l'instant !</div>
+                            </div>
+                            <!-- End Table with stripped rows -->
+                        @else
+                            <div class="alert alert-info">Aucun employé pour l'instant !</div>
                         @endif
                     </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
         </div>
         @foreach ($employes as $employe)
             <div class="modal fade" id="ShowIMG{{ $employe?->user?->id }}" tabindex="-1" aria-hidden="true">

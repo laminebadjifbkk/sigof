@@ -69,43 +69,44 @@
                             </div>
                         </div>
 
-                        <table class="table datatables table-bordered table-hover align-middle justify-content-center"
-                            id="table-operateurModules">
-                            <thead>
-                                <tr>
-                                    <th>Numéro</th>
-                                    <th>Operateurs</th>
-                                    <th>Sigle</th>
-                                    <th>Email</th>
-                                    <th>Telephone</th>
-                                    <th>Région</th>
-                                    {{-- 
+                        <div class="table-responsive">
+                            <table class="table datatables table-bordered table-hover align-middle justify-content-center"
+                                id="table-operateurModules">
+                                <thead>
+                                    <tr>
+                                        <th>Numéro</th>
+                                        <th>Operateurs</th>
+                                        <th>Sigle</th>
+                                        <th>Email</th>
+                                        <th>Telephone</th>
+                                        <th>Région</th>
+                                        {{-- 
                                     <th>Adresse</th>
                                     <th class="text-center">Modules</th>
                                     <th class="text-center">Formations</th> --}}
-                                    <th>Responsable</th>
-                                    <th class="text-center">Statut</th>
-                                    <th width="2%"><i class="bi bi-gear"></i></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($operateurs as $operateur)
-                                    <tr>
-                                        <td>{{ $operateur?->numero_agrement }}</td>
-                                        <td>{{ $operateur?->user?->operateur }}</td>
-                                        <td>{{ $operateur?->user?->username }}</td>
-                                        <td><a
-                                                href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
-                                        </td>
-                                        <td>
-                                            <a href="tel:+221{{ $operateur?->user?->fixe }}">
-                                                {{ $operateur?->user?->fixe }}<br>
-                                                {{ $operateur?->user?->telephone }}
-                                            </a>
-                                        </td>
-                                        <td>{{ $operateur?->region?->nom }}</td>
-                                        {{-- 
+                                        <th>Responsable</th>
+                                        <th class="text-center">Statut</th>
+                                        <th width="2%"><i class="bi bi-gear"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($operateurs as $operateur)
+                                        <tr>
+                                            <td>{{ $operateur?->numero_agrement }}</td>
+                                            <td>{{ $operateur?->user?->operateur }}</td>
+                                            <td>{{ $operateur?->user?->username }}</td>
+                                            <td><a
+                                                    href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
+                                            </td>
+                                            <td>
+                                                <a href="tel:+221{{ $operateur?->user?->fixe }}">
+                                                    {{ $operateur?->user?->fixe }}<br>
+                                                    {{ $operateur?->user?->telephone }}
+                                                </a>
+                                            </td>
+                                            <td>{{ $operateur?->region?->nom }}</td>
+                                            {{-- 
                                         <td>{{ $operateur?->user?->adresse }}</td>
                                         <td style="text-align: center;">
                                             @foreach ($operateur->operateurmodules as $operateurmodule)
@@ -115,7 +116,7 @@
                                                 @endif
                                             @endforeach
                                         </td> --}}
-                                        {{-- <td class="text-center">
+                                            {{-- <td class="text-center">
                                             @foreach ($operateur->formations as $formation)
                                                 @if ($loop->last)
                                                     <a href="#"><span
@@ -123,22 +124,24 @@
                                                 @endif
                                             @endforeach
                                         </td> --}}
-                                        <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
-                                        </td>
-                                        <td style="text-align: center;"><span class="{{ $operateur?->statut_agrement }}">
-                                                {{ $operateur?->statut_agrement }}</span></td>
-                                        <td>
-                                            <span class="d-flex align-items-baseline"><a
-                                                    href="{{ route('operateurs.show', $operateur) }}"
-                                                    class="btn btn-primary btn-sm" title="voir détails"><i
-                                                        class="bi bi-eye"></i></a>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                            <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
+                                            </td>
+                                            <td style="text-align: center;"><span
+                                                    class="{{ $operateur?->statut_agrement }}">
+                                                    {{ $operateur?->statut_agrement }}</span></td>
+                                            <td>
+                                                <span class="d-flex align-items-baseline"><a
+                                                        href="{{ route('operateurs.show', $operateur) }}"
+                                                        class="btn btn-primary btn-sm" title="voir détails"><i
+                                                            class="bi bi-eye"></i></a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
                     </div>
                 </div>
 

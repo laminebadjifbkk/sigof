@@ -49,56 +49,57 @@
                         <h5 class="card-title">Liste des fonctions</h5>
                         {{-- <p>Le tableau de toutes les fonctions du système.</p> --}}
                         <!-- Table with stripped rows -->
-                        <table class="table datatables align-middle" id="table-fonctions">
-                            <thead>
-                                <tr>
-                                    <th width="5%" class="text-center">N°</th>
-                                    <th>Fonctions</th>
-                                    <th class="text-center">Sigle</th>
-                                    <th class="text-center" width="5%">Employés</th>
-                                    <th width="5%">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($fonctions as $fonction)
+
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle" id="table-fonctions">
+                                <thead>
                                     <tr>
-                                        <td class="text-center">{{ $i++ }}</td>
-                                        <td>{{ $fonction->name }}</td>
-                                        <td class="text-center">{{ $fonction->sigle }}</td>
-                                        <td class="text-center">{{ count($fonction->employees) }}</td>
-                                        <td>
-                                            @can('fonction-show')
-                                                <span class="d-flex mt-2 align-items-baseline">
-                                                    @can('fonction-update')
-                                                        <a href="{{ url('fonctions/' . $fonction->id . '/edit') }}"
-                                                            class="btn btn-success btn-sm" title="Modifier"><i
-                                                                class="bi bi-pencil-square"></i>
-                                                        </a>
-                                                    @endcan
-                                                    @can('fonction-show')
-                                                        <a href="{{ route('fonctions.show', $fonction->id) }}"
-                                                            class="btn btn-warning btn-sm" title="Voir"><i class="bi bi-eye"></i>
-                                                        </a>
-                                                    @endcan
-                                                    @can('fonction-delete')
-                                                        <form action="{{ url('fonctions', $fonction->id) }}" method="post">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                                title="Supprimer"><i class="bi bi-trash"></i></button>
-                                                        </form>
-                                                    @endcan
-                                                </span>
-                                            @endcan
-                                        </td>
+                                        <th width="5%" class="text-center">N°</th>
+                                        <th>Fonctions</th>
+                                        <th class="text-center">Sigle</th>
+                                        <th class="text-center" width="5%">Employés</th>
+                                        <th width="5%">#</th>
                                     </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
-
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($fonctions as $fonction)
+                                        <tr>
+                                            <td class="text-center">{{ $i++ }}</td>
+                                            <td>{{ $fonction->name }}</td>
+                                            <td class="text-center">{{ $fonction->sigle }}</td>
+                                            <td class="text-center">{{ count($fonction->employees) }}</td>
+                                            <td>
+                                                @can('fonction-show')
+                                                    <span class="d-flex mt-2 align-items-baseline">
+                                                        @can('fonction-update')
+                                                            <a href="{{ url('fonctions/' . $fonction->id . '/edit') }}"
+                                                                class="btn btn-success btn-sm" title="Modifier"><i
+                                                                    class="bi bi-pencil-square"></i>
+                                                            </a>
+                                                        @endcan
+                                                        @can('fonction-show')
+                                                            <a href="{{ route('fonctions.show', $fonction->id) }}"
+                                                                class="btn btn-warning btn-sm" title="Voir"><i
+                                                                    class="bi bi-eye"></i>
+                                                            </a>
+                                                        @endcan
+                                                        @can('fonction-delete')
+                                                            <form action="{{ url('fonctions', $fonction->id) }}" method="post">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                                                    title="Supprimer"><i class="bi bi-trash"></i></button>
+                                                            </form>
+                                                        @endcan
+                                                    </span>
+                                                @endcan
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 

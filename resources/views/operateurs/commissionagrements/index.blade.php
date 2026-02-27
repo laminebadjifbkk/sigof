@@ -47,77 +47,77 @@
                         @endcan
                         {{-- @endcan --}}
                         <h5 class="card-title">COMMISIONS AGREMENTS</h5>
-                        <table class="table datatables align-middle justify-content-center" id="table-agrements">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th class="text-center">Session</th>
-                                    <th class="text-center">Date campagne</th>
-                                    <th class="text-center">Date commission</th>
-                                    <th>Lieu</th>
-                                    {{-- <th>Fin agrément</th> --}}
-                                    <th width="5%" class="text-center">Operateurs</th>
-                                    <th width="8%" class="text-center">Statut</th>
-                                    <th width="5%" class="text-center" scope="col"><i class="bi bi-gear"></i>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($commissionagrements as $commissionagrement)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle justify-content-center" id="table-agrements">
+                                <thead>
                                     <tr>
-                                        <td>{{ $commissionagrement?->commission }}</td>
-                                        <td style="text-align: center;">{{ $commissionagrement?->session }}</td>
-                                        <td style="text-align: center;">
-                                            @if ($commissionagrement?->date_ouverture && $commissionagrement?->date_fermeture)
-                                                Du {{ $commissionagrement->date_ouverture->format('d/m/Y') }} au
-                                                {{ $commissionagrement->date_fermeture->format('d/m/Y') }}
-                                            @elseif ($commissionagrement?->date_ouverture)
-                                                À partir du {{ $commissionagrement->date_ouverture->format('d/m/Y') }}
-                                            @elseif ($commissionagrement?->date_fermeture)
-                                                Jusqu’au {{ $commissionagrement->date_fermeture->format('d/m/Y') }}
-                                            @else
-                                                
-                                            @endif
-                                        </td>
-
-                                        <td style="text-align: center;">
-                                            @if ($commissionagrement?->debut_commission && $commissionagrement?->fin_commission)
-                                                Du {{ $commissionagrement->debut_commission->format('d/m/Y') }} au
-                                                {{ $commissionagrement->fin_commission->format('d/m/Y') }}
-                                            @elseif ($commissionagrement?->debut_commission)
-                                                À partir du {{ $commissionagrement->debut_commission->format('d/m/Y') }}
-                                            @elseif ($commissionagrement?->fin_commission)
-                                                Jusqu’au {{ $commissionagrement->fin_commission->format('d/m/Y') }}
-                                            @else
-                                                
-                                            @endif
-                                        </td>
-                                        <td>{{ $commissionagrement?->lieu }}</td>
-                                        {{-- <td>{{ $commissionagrement?->date?->translatedFormat('l d F Y') }}
-                                        </td> --}}
-                                        <td style="text-align: center;">
-                                            @foreach ($commissionagrement?->operateurs as $operateur)
-                                                @if ($loop?->last)
-                                                    <span class="badge bg-info">{{ $loop?->count }}</span>
+                                        <th>Name</th>
+                                        <th class="text-center">Session</th>
+                                        <th class="text-center">Date campagne</th>
+                                        <th class="text-center">Date commission</th>
+                                        <th>Lieu</th>
+                                        {{-- <th>Fin agrément</th> --}}
+                                        <th width="5%" class="text-center">Operateurs</th>
+                                        <th width="8%" class="text-center">Statut</th>
+                                        <th width="5%" class="text-center" scope="col"><i class="bi bi-gear"></i>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($commissionagrements as $commissionagrement)
+                                        <tr>
+                                            <td>{{ $commissionagrement?->commission }}</td>
+                                            <td style="text-align: center;">{{ $commissionagrement?->session }}</td>
+                                            <td style="text-align: center;">
+                                                @if ($commissionagrement?->date_ouverture && $commissionagrement?->date_fermeture)
+                                                    Du {{ $commissionagrement->date_ouverture->format('d/m/Y') }} au
+                                                    {{ $commissionagrement->date_fermeture->format('d/m/Y') }}
+                                                @elseif ($commissionagrement?->date_ouverture)
+                                                    À partir du {{ $commissionagrement->date_ouverture->format('d/m/Y') }}
+                                                @elseif ($commissionagrement?->date_fermeture)
+                                                    Jusqu’au {{ $commissionagrement->date_fermeture->format('d/m/Y') }}
+                                                @else
                                                 @endif
-                                            @endforeach
-                                        </td>
-                                        <td><span
-                                                class="{{ $commissionagrement?->statut }}">{{ $commissionagrement?->statut }}</span>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            @can('commission-show')
-                                                <span class="d-flex mt-2 align-items-baseline"><a
-                                                        href="{{ route('commissionagrements.show', $commissionagrement?->id) }}"
-                                                        class="btn btn-warning btn-sm mx-1" title="Voir détails">
-                                                        <i class="bi bi-eye"></i></a>
-                                                    @if (auth()?->user()?->hasRole('super-admin|admin'))
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                {{-- <form action="{{ route('ficheSynthese') }}" method="post"
+                                            </td>
+
+                                            <td style="text-align: center;">
+                                                @if ($commissionagrement?->debut_commission && $commissionagrement?->fin_commission)
+                                                    Du {{ $commissionagrement->debut_commission->format('d/m/Y') }} au
+                                                    {{ $commissionagrement->fin_commission->format('d/m/Y') }}
+                                                @elseif ($commissionagrement?->debut_commission)
+                                                    À partir du
+                                                    {{ $commissionagrement->debut_commission->format('d/m/Y') }}
+                                                @elseif ($commissionagrement?->fin_commission)
+                                                    Jusqu’au {{ $commissionagrement->fin_commission->format('d/m/Y') }}
+                                                @else
+                                                @endif
+                                            </td>
+                                            <td>{{ $commissionagrement?->lieu }}</td>
+                                            {{-- <td>{{ $commissionagrement?->date?->translatedFormat('l d F Y') }}
+                                        </td> --}}
+                                            <td style="text-align: center;">
+                                                @foreach ($commissionagrement?->operateurs as $operateur)
+                                                    @if ($loop?->last)
+                                                        <span class="badge bg-info">{{ $loop?->count }}</span>
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td><span
+                                                    class="{{ $commissionagrement?->statut }}">{{ $commissionagrement?->statut }}</span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                @can('commission-show')
+                                                    <span class="d-flex mt-2 align-items-baseline"><a
+                                                            href="{{ route('commissionagrements.show', $commissionagrement?->id) }}"
+                                                            class="btn btn-warning btn-sm mx-1" title="Voir détails">
+                                                            <i class="bi bi-eye"></i></a>
+                                                        @if (auth()?->user()?->hasRole('super-admin|admin'))
+                                                            <div class="filter">
+                                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    {{-- <form action="{{ route('ficheSynthese') }}" method="post"
                                                                     target="_blank">
                                                                     @csrf
                                                                     <input type="hidden" name="id"
@@ -127,54 +127,57 @@
                                                                             class="bi bi-file-earmark-pdf-fill"
                                                                             title="Fiche synthèse"></i>Fiche synthèse</button>
                                                                 </form> --}}
-                                                                @can('commission-update')
-                                                                    <li>
-                                                                        <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#EditagrementModal{{ $commissionagrement?->id }}">
-                                                                            <i class="bi bi-pencil" title="Modifier"></i> Modifier
-                                                                        </button>
-                                                                    </li>
-                                                                @endcan
-                                                                @can('commission-delete')
-                                                                    <li>
-                                                                        <form
-                                                                            action="{{ url('commissionagrements', $commissionagrement?->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit"
-                                                                                class="dropdown-item show_confirm"><i
-                                                                                    class="bi bi-trash"></i>Supprimer</button>
-                                                                        </form>
-                                                                    </li>
-                                                                    <hr>
-                                                                    <li>
-                                                                        <a class="dropdown-item btn btn-sm"
-                                                                            href="{{ route('jurycommissionagrements.jury', $commissionagrement?->id) }}"
-                                                                            class="mx-1" title="Modifier"><i
-                                                                                class="bi bi-people"></i>Membres du jury</a>
+                                                                    @can('commission-update')
+                                                                        <li>
+                                                                            <button type="button"
+                                                                                class="dropdown-item btn btn-sm mx-1"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#EditagrementModal{{ $commissionagrement?->id }}">
+                                                                                <i class="bi bi-pencil" title="Modifier"></i>
+                                                                                Modifier
+                                                                            </button>
+                                                                        </li>
+                                                                    @endcan
+                                                                    @can('commission-delete')
+                                                                        <li>
+                                                                            <form
+                                                                                action="{{ url('commissionagrements', $commissionagrement?->id) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"><i
+                                                                                        class="bi bi-trash"></i>Supprimer</button>
+                                                                            </form>
+                                                                        </li>
+                                                                        <hr>
+                                                                        <li>
+                                                                            <a class="dropdown-item btn btn-sm"
+                                                                                href="{{ route('jurycommissionagrements.jury', $commissionagrement?->id) }}"
+                                                                                class="mx-1" title="Modifier"><i
+                                                                                    class="bi bi-people"></i>Membres du jury</a>
 
-                                                                        {{--  <button type="button" class="dropdown-item btn btn-sm mx-1"
+                                                                            {{--  <button type="button" class="dropdown-item btn btn-sm mx-1"
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#EditagrementModal{{ $commissionagrement?->id }}">
                                                                             <i class="bi bi-people" title="Membres"></i> Membres
                                                                             jury
                                                                         </button> --}}
-                                                                    </li>
-                                                                @endcan
-                                                            </ul>
-                                                        </div>
-                                                    @endif
-                                                </span>
-                                            @endcan
-                                        </td>
+                                                                        </li>
+                                                                    @endcan
+                                                                </ul>
+                                                            </div>
+                                                        @endif
+                                                    </span>
+                                                @endcan
+                                            </td>
 
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
                     </div>
                 </div>
 

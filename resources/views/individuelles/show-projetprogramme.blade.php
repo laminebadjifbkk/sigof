@@ -31,7 +31,7 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mt-0">
-                            
+
                             <a href="{{ url('/profil') }}" class="btn btn-outline-secondary btn-sm">
                                 <i class="bi bi-arrow-left"></i> Retour
                             </a>
@@ -45,39 +45,41 @@
                         @foreach ($projets as $projet)
                         @endforeach
                         @if (!empty($projet))
-                            <table class="table table-bordered table-hover table-borderless">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center" width="3%">N°</th>
-                                        <th>Partenaires</th>
-                                        <th class="text-center">Sigle</th>
-                                        <th class="text-center">Type</th>
-                                        <th class="text-center">Statut</th>
-                                        <th class="text-center">#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($projets as $projet)
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-borderless">
+                                    <thead>
                                         <tr>
-                                            <td class="text-center">{{ $i++ }}</td>
-                                            <td>{{ $projet?->name }}</td>
-                                            <td class="text-center">{{ $projet?->sigle }}</td>
-                                            <td class="text-center">{{ $projet?->type_projet }}</td>
-                                            <td class="text-center">
-                                                <span class="{{ $projet?->statut }}">{{ $projet?->statut }}</span>
-                                            </td>
-                                            <td>
-                                                <span class="d-flex align-items-baseline"><a
-                                                        href="{{ route('projetsIndividuelle', ['id' => $projet?->id]) }}"
-                                                        class="btn btn-primary btn-sm" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                </span>
-                                            </td>
+                                            <th class="text-center" width="3%">N°</th>
+                                            <th>Partenaires</th>
+                                            <th class="text-center">Sigle</th>
+                                            <th class="text-center">Type</th>
+                                            <th class="text-center">Statut</th>
+                                            <th class="text-center">#</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($projets as $projet)
+                                            <tr>
+                                                <td class="text-center">{{ $i++ }}</td>
+                                                <td>{{ $projet?->name }}</td>
+                                                <td class="text-center">{{ $projet?->sigle }}</td>
+                                                <td class="text-center">{{ $projet?->type_projet }}</td>
+                                                <td class="text-center">
+                                                    <span class="{{ $projet?->statut }}">{{ $projet?->statut }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="d-flex align-items-baseline"><a
+                                                            href="{{ route('projetsIndividuelle', ['id' => $projet?->id]) }}"
+                                                            class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <div class="alert alert-info">Vous n'avez aucune demande pour le moment !!!
                             </div>

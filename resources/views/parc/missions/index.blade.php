@@ -164,87 +164,90 @@
                 </div>
             @endif
 
-            <table class="table table-hover table-striped shadow-sm" id="table-parc-mission">
-                <thead class="table-dark">
-                    <tr>
-                        {{-- <th>Référence</th> --}}
-                        <th>Objet</th>
-                        {{-- <th>Lieu</th> --}}
-                        <th>Périodes</th>
-                        <th class="text-center" width="12%">Véhicules</th>
-                        <th class="text-center" width="12%">Agents</th>
-                        <th class="text-center" width="12%">Statut</th>
-                        <th class="text-center" width="12%">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($missions as $mission)
+            <div class="table-responsive">
+                <table class="table table-hover table-striped shadow-sm" id="table-parc-mission">
+                    <thead class="table-dark">
                         <tr>
-                            {{--  <td>{{ $mission->reference }}</td> --}}
-                            <td>
-                                <span class="short-text">{{ Str::limit($mission->objet, 25) }}</span>
-                                <span class="full-text d-none">{{ $mission->objet }}</span>
+                            {{-- <th>Référence</th> --}}
+                            <th>Objet</th>
+                            {{-- <th>Lieu</th> --}}
+                            <th>Périodes</th>
+                            <th class="text-center" width="12%">Véhicules</th>
+                            <th class="text-center" width="12%">Agents</th>
+                            <th class="text-center" width="12%">Statut</th>
+                            <th class="text-center" width="12%">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($missions as $mission)
+                            <tr>
+                                {{--  <td>{{ $mission->reference }}</td> --}}
+                                <td>
+                                    <span class="short-text">{{ Str::limit($mission->objet, 25) }}</span>
+                                    <span class="full-text d-none">{{ $mission->objet }}</span>
 
-                                @if (strlen($mission->objet) > 25)
-                                    <a href="#" class="toggle-text">...voir plus</a>
-                                @endif
-                            </td>
+                                    @if (strlen($mission->objet) > 25)
+                                        <a href="#" class="toggle-text">...voir plus</a>
+                                    @endif
+                                </td>
 
-                            {{-- <td>{{ $mission->lieu_depart }} → {{ $mission->lieu_arrivee }}</td> --}}
-                            <td>
-                                {{ $mission->date_depart->format('d/m/Y') }}
-                                @if ($mission->date_retour)
-                                    -{{ $mission->date_retour->format('d/m/Y') }}
-                                @endif
-                            </td>
-                            <td class="text-center">{{ $mission?->vehicules?->count() }}</td>
-                            <td class="text-center">{{ $mission->employees->count() }}</td>
-                            <td class="text-center">
-                                <span class="etat-btn {{ $mission->statut }}">
-                                    {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $mission->statut))) }}
-                                </span>
-                            </td>
-                            <td class="text-center">
-                                <span class="d-flex align-items-baseline justify-content-center gap-1">
-                                    <a href="{{ route('parc-missions.show', $mission->id) }}"
-                                        class="btn btn-sm btn-info">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
-                                    <a href="{{ route('parc-missions.edit', $mission->id) }}"
-                                        class="btn btn-sm btn-warning">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-                                    <form action="{{ route('parc-missions.destroy', $mission->id) }}" method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
+                                {{-- <td>{{ $mission->lieu_depart }} → {{ $mission->lieu_arrivee }}</td> --}}
+                                <td>
+                                    {{ $mission->date_depart->format('d/m/Y') }}
+                                    @if ($mission->date_retour)
+                                        -{{ $mission->date_retour->format('d/m/Y') }}
+                                    @endif
+                                </td>
+                                <td class="text-center">{{ $mission?->vehicules?->count() }}</td>
+                                <td class="text-center">{{ $mission->employees->count() }}</td>
+                                <td class="text-center">
+                                    <span class="etat-btn {{ $mission->statut }}">
+                                        {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $mission->statut))) }}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="d-flex align-items-baseline justify-content-center gap-1">
+                                        <a href="{{ route('parc-missions.show', $mission->id) }}"
+                                            class="btn btn-sm btn-info">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <a href="{{ route('parc-missions.edit', $mission->id) }}"
+                                            class="btn btn-sm btn-warning">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <form action="{{ route('parc-missions.destroy', $mission->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
 
-                                        <button type="submit" class="btn btn-sm btn-danger show_confirm"
-                                            {{ $mission->employees_count > 0 ? 'disabled' : '' }}
-                                            title="{{ $mission->employees_count > 0 ? 'Mission déjà assignée à des employés' : 'Supprimer la mission' }}">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
-                                </span>
-                            </td>
-                            <!-- Modal -->
-                            <div class="modal fade" id="objetModal{{ $mission->id }}" tabindex="-1">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Objet de la mission</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            {{ $mission->objet }}
+                                            <button type="submit" class="btn btn-sm btn-danger show_confirm"
+                                                {{ $mission->employees_count > 0 ? 'disabled' : '' }}
+                                                title="{{ $mission->employees_count > 0 ? 'Mission déjà assignée à des employés' : 'Supprimer la mission' }}">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </span>
+                                </td>
+                                <!-- Modal -->
+                                <div class="modal fade" id="objetModal{{ $mission->id }}" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Objet de la mission</h5>
+                                                <button type="button" class="btn-close"
+                                                    data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                {{ $mission->objet }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 @endsection

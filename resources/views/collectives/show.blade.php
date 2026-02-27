@@ -769,245 +769,249 @@
 
                                                 </tbody>
                                             </table>
-                                        @else
-                                            <div class="alert alert-info">Aucun module pour l'instat
-                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="alert alert-info">Aucun module pour l'instat
+                                        </div>
                                     @endif
 
                                     <!-- End Table with stripped rows -->
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="tab-content pt-2">
-                            <div class="tab-pane fade files" id="files">
-                                @can('upload-file-view')
-                                    <div class="row mb-3 pt-5">
-                                        <h5 class="card-title col-12 col-md-4">
-                                            FICHIERS JOINTS</h5>
-                                        <div class="col-12 col-lg-8 mx-auto">
-                                            <div class="card shadow-sm border-0">
-                                                <div class="card-header bg-default">
-                                                    <h5 class="mb-0">Liste des fichiers déjà téléversés</h5>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-hover table-striped table-bordered datatables"
-                                                            id="table-iles">
-                                                            <thead class="table-light text-center">
-                                                                <tr>
-                                                                    <th style="width: 5%">N°</th>
-                                                                    <th>Légende</th>
-                                                                    <th style="width: 10%">Fichier</th>
-                                                                    <th style="width: 10%">Statut</th>
-                                                                    <th style="width: 10%">Supprimer</th>
-                                                                    @hasanyrole('super-admin|admin|DIOF|Ingenieur')
-                                                                        <th style="width: 10%">Valider</th>
-                                                                        <th style="width: 10%">Rejeter</th>
-                                                                    @endhasanyrole
-
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @php $i = 1; @endphp
-                                                                @foreach ($files as $file)
-                                                                    <tr class="text-center align-middle">
-                                                                        <td>{{ $i++ }}</td>
-                                                                        <td>{{ $file->legende }}</td>
-                                                                        <td>
-                                                                            <a class="btn btn-outline-secondary btn-sm"
-                                                                                title="Télécharger" target="_blank"
-                                                                                href="{{ asset($file->getFichier()) }}">
-                                                                                <i class="bi bi-download"></i>
-                                                                            </a>
-                                                                        </td>
-                                                                        <td>
-                                                                            @php
-                                                                                $statut = $file->statut ?? 'Attente';
-                                                                                $badgeClass = match ($statut) {
-                                                                                    'Validé' => 'success',
-                                                                                    'Rejeté', 'Invalide' => 'danger',
-                                                                                    default => 'secondary',
-                                                                                };
-                                                                            @endphp
-                                                                            <span
-                                                                                class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
-                                                                        </td>
-                                                                        <td>
-                                                                            @if ($file->statut !== 'Validé')
-                                                                                <form action="{{ route('fileDestroy') }}"
-                                                                                    method="post" class="d-inline">
-                                                                                    @csrf
-                                                                                    @method('put')
-                                                                                    <input type="hidden" name="idFile"
-                                                                                        value="{{ $file->id }}">
-                                                                                    <button type="submit"
-                                                                                        class="btn btn-outline-danger btn-sm show_confirm"
-                                                                                        title="Supprimer">
-                                                                                        <i class="bi bi-trash"></i>
-                                                                                    </button>
-                                                                                </form>
-                                                                            @endif
-                                                                        </td>
-
+                            <div class="tab-content pt-2">
+                                <div class="tab-pane fade files" id="files">
+                                    @can('upload-file-view')
+                                        <div class="row mb-3 pt-5">
+                                            <h5 class="card-title col-12 col-md-4">
+                                                FICHIERS JOINTS</h5>
+                                            <div class="col-12 col-lg-8 mx-auto">
+                                                <div class="card shadow-sm border-0">
+                                                    <div class="card-header bg-default">
+                                                        <h5 class="mb-0">Liste des fichiers déjà téléversés</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-striped table-bordered datatables"
+                                                                id="table-iles">
+                                                                <thead class="table-light text-center">
+                                                                    <tr>
+                                                                        <th style="width: 5%">N°</th>
+                                                                        <th>Légende</th>
+                                                                        <th style="width: 10%">Fichier</th>
+                                                                        <th style="width: 10%">Statut</th>
+                                                                        <th style="width: 10%">Supprimer</th>
                                                                         @hasanyrole('super-admin|admin|DIOF|Ingenieur')
-                                                                            <td>
-                                                                                <form action="{{ route('fileValidate') }}" method="post"
-                                                                                    class="d-inline">
-                                                                                    @csrf
-                                                                                    @method('put')
-                                                                                    <input type="hidden" name="idFile"
-                                                                                        value="{{ $file->id }}">
-                                                                                    <button type="submit"
-                                                                                        class="btn btn-outline-success btn-sm show_confirm_valider"
-                                                                                        title="Valider">
-                                                                                        <i class="bi bi-check-circle"></i>
-                                                                                    </button>
-                                                                                </form>
-                                                                            </td>
-                                                                            <td>
-                                                                                <form action="{{ route('fileInvalide') }}" method="post"
-                                                                                    class="d-inline">
-                                                                                    @csrf
-                                                                                    @method('put')
-                                                                                    <input type="hidden" name="idFile"
-                                                                                        value="{{ $file->id }}">
-                                                                                    <button type="submit"
-                                                                                        class="btn btn-outline-warning btn-sm show_confirm_rejeter"
-                                                                                        title="Invalider">
-                                                                                        <i class="bi bi-x-circle"></i>
-                                                                                    </button>
-                                                                                </form>
-                                                                            </td>
+                                                                            <th style="width: 10%">Valider</th>
+                                                                            <th style="width: 10%">Rejeter</th>
                                                                         @endhasanyrole
+
                                                                     </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                        </table>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @php $i = 1; @endphp
+                                                                    @foreach ($files as $file)
+                                                                        <tr class="text-center align-middle">
+                                                                            <td>{{ $i++ }}</td>
+                                                                            <td>{{ $file->legende }}</td>
+                                                                            <td>
+                                                                                <a class="btn btn-outline-secondary btn-sm"
+                                                                                    title="Télécharger" target="_blank"
+                                                                                    href="{{ asset($file->getFichier()) }}">
+                                                                                    <i class="bi bi-download"></i>
+                                                                                </a>
+                                                                            </td>
+                                                                            <td>
+                                                                                @php
+                                                                                    $statut =
+                                                                                        $file->statut ?? 'Attente';
+                                                                                    $badgeClass = match ($statut) {
+                                                                                        'Validé' => 'success',
+                                                                                        'Rejeté',
+                                                                                        'Invalide'
+                                                                                            => 'danger',
+                                                                                        default => 'secondary',
+                                                                                    };
+                                                                                @endphp
+                                                                                <span
+                                                                                    class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
+                                                                            </td>
+                                                                            <td>
+                                                                                @if ($file->statut !== 'Validé')
+                                                                                    <form action="{{ route('fileDestroy') }}"
+                                                                                        method="post" class="d-inline">
+                                                                                        @csrf
+                                                                                        @method('put')
+                                                                                        <input type="hidden" name="idFile"
+                                                                                            value="{{ $file->id }}">
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-outline-danger btn-sm show_confirm"
+                                                                                            title="Supprimer">
+                                                                                            <i class="bi bi-trash"></i>
+                                                                                        </button>
+                                                                                    </form>
+                                                                                @endif
+                                                                            </td>
+
+                                                                            @hasanyrole('super-admin|admin|DIOF|Ingenieur')
+                                                                                <td>
+                                                                                    <form action="{{ route('fileValidate') }}"
+                                                                                        method="post" class="d-inline">
+                                                                                        @csrf
+                                                                                        @method('put')
+                                                                                        <input type="hidden" name="idFile"
+                                                                                            value="{{ $file->id }}">
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-outline-success btn-sm show_confirm_valider"
+                                                                                            title="Valider">
+                                                                                            <i class="bi bi-check-circle"></i>
+                                                                                        </button>
+                                                                                    </form>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <form action="{{ route('fileInvalide') }}"
+                                                                                        method="post" class="d-inline">
+                                                                                        @csrf
+                                                                                        @method('put')
+                                                                                        <input type="hidden" name="idFile"
+                                                                                            value="{{ $file->id }}">
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-outline-warning btn-sm show_confirm_rejeter"
+                                                                                            title="Invalider">
+                                                                                            <i class="bi bi-x-circle"></i>
+                                                                                        </button>
+                                                                                    </form>
+                                                                                </td>
+                                                                            @endhasanyrole
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <form method="post" action="{{ route('files.update', $user) }}" enctype="multipart/form-data">
-                                        @csrf
-                                        @method('patch')
-                                        <h5 class="card-title">JOINDRE VOS SCANS DE DOSSIERS</h5>
-                                        <input type="hidden" name="idUser" value="{{ $user->id }}">
-                                        <span style="color:red;">NB:</span>
-                                        <span>Seul l'acte de création </span><span style="color:red;"> est
-                                            exigé</span>.
-                                        <!-- Profile Edit Form -->
-                                        <div class="row mb-3 mt-3">
-                                            <label for="legende" class="col-12 col-md-4 col-form-label">LEGENDE<span
-                                                    class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8">
-                                                <select name="legende" class="form-select  @error('legende') is-invalid @enderror"
-                                                    aria-label="Select" id="select-field-file" data-placeholder="Choisir">
-                                                    <option value="{{ old('legende') }}">
+                                        <form method="post" action="{{ route('files.update', $user) }}"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            @method('patch')
+                                            <h5 class="card-title">JOINDRE VOS SCANS DE DOSSIERS</h5>
+                                            <input type="hidden" name="idUser" value="{{ $user->id }}">
+                                            <span style="color:red;">NB:</span>
+                                            <span>Seul l'acte de création </span><span style="color:red;"> est
+                                                exigé</span>.
+                                            <!-- Profile Edit Form -->
+                                            <div class="row mb-3 mt-3">
+                                                <label for="legende" class="col-12 col-md-4 col-form-label">LEGENDE<span
+                                                        class="text-danger mx-1">*</span></label>
+                                                <div class="col-12 col-md-8">
+                                                    <select name="legende" class="form-select  @error('legende') is-invalid @enderror"
+                                                        aria-label="Select" id="select-field-file" data-placeholder="Choisir">
+                                                        <option value="{{ old('legende') }}">
 
-                                                    </option>
-                                                    @foreach ($user_files as $file)
-                                                        <option value="{{ $file?->id }}">
-                                                            {{ $file?->legende }}
                                                         </option>
-                                                    @endforeach
-                                                </select>
-                                                @error('legende')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <div>{{ $message }}</div>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label for="file" class="col-12 col-md-4 col-form-label">CHOISIR
-                                                FICHIER<span class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8">
-                                                <div class="pt-2">
-                                                    <input type="file" name="file" id="file"
-                                                        class="form-control @error('file') is-invalid @enderror btn btn-info btn-sm">
-                                                    @error('file')
-                                                        <span class="text-danger">{{ $message }}</span>
+                                                        @foreach ($user_files as $file)
+                                                            <option value="{{ $file?->id }}">
+                                                                {{ $file?->legende }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('legende')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
                                                     @enderror
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <label for="file" class="col-12 col-md-4 col-form-label">
-                                                Téléverser un fichier <span class="text-danger mx-1">*</span>
-                                            </label>
-                                            <div class="col-12 col-md-8">
-                                                <div class="pt-2">
-                                                    <button type="submit" class="btn btn-primary btn-sm text-white">
-                                                        <i class="bi bi-upload me-1"></i> Téléverser
-                                                    </button>
+
+                                            <div class="row mb-3">
+                                                <label for="file" class="col-12 col-md-4 col-form-label">CHOISIR
+                                                    FICHIER<span class="text-danger mx-1">*</span></label>
+                                                <div class="col-12 col-md-8">
+                                                    <div class="pt-2">
+                                                        <input type="file" name="file" id="file"
+                                                            class="form-control @error('file') is-invalid @enderror btn btn-info btn-sm">
+                                                        @error('file')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
-                                @endcan
+                                            <div class="row mb-3">
+                                                <label for="file" class="col-12 col-md-4 col-form-label">
+                                                    Téléverser un fichier <span class="text-danger mx-1">*</span>
+                                                </label>
+                                                <div class="col-12 col-md-8">
+                                                    <div class="pt-2">
+                                                        <button type="submit" class="btn btn-primary btn-sm text-white">
+                                                            <i class="bi bi-upload me-1"></i> Téléverser
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    @endcan
+                                </div>
                             </div>
-                        </div>
 
-                        {{-- Détail Formations --}}
-                        <div class="tab-content">
-                            <div class="tab-pane fade profile-overview pt-1" id="foration-overview">
-                                <h5 class="card-title">Formations </h5>
-                                @if ($collective)
-                                    <div class="col-12">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered table-hover datatables" id="table-files">
-                                                <thead>
-                                                    <tr>
-                                                        <th width="5%" class="text-center">N°</th>
-                                                        <th width="15%" class="text-center">Date dépôt</th>
-                                                        <th>Modules</th>
-                                                        <th width="10%" class="text-center">Statut</th>
-                                                        @can('user-show')
-                                                            <th width="5%" class="text-center"><i class="bi bi-gear"></i>
-                                                            </th>
-                                                        @endcan
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @php $i = 1; @endphp
-                                                    @foreach ($collective->collectivemodules as $collectivemodule)
+                            {{-- Détail Formations --}}
+                            <div class="tab-content">
+                                <div class="tab-pane fade profile-overview pt-1" id="foration-overview">
+                                    <h5 class="card-title">Formations </h5>
+                                    @if ($collective)
+                                        <div class="col-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover datatables" id="table-files">
+                                                    <thead>
                                                         <tr>
-                                                            <td class="text-center">{{ $i++ }}</td>
-                                                            <td class="text-center">
-                                                                {{ $collective->date_depot ? \Carbon\Carbon::parse($collective->date_depot)->diffForHumans() : 'Aucun' }}
-                                                            </td>
-                                                            <td>{{ $collectivemodule->module }}</td>
-                                                            <td class="text-center">
-                                                                <span class="{{ $collectivemodule?->statut }}">
-                                                                    {{ $collectivemodule?->statut }}
-                                                                </span>
-                                                            </td>
+                                                            <th width="5%" class="text-center">N°</th>
+                                                            <th width="15%" class="text-center">Date dépôt</th>
+                                                            <th>Modules</th>
+                                                            <th width="10%" class="text-center">Statut</th>
                                                             @can('user-show')
-                                                                <td class="text-center">
-                                                                    <a href="{{ route('collectivemodules.show', $collectivemodule) }}"
-                                                                        class="btn btn-primary btn-sm" target="_blank"
-                                                                        title="voir détails"><i class="bi bi-eye"></i></a>
-                                                                </td>
+                                                                <th width="5%" class="text-center"><i class="bi bi-gear"></i>
+                                                                </th>
                                                             @endcan
                                                         </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        @php $i = 1; @endphp
+                                                        @foreach ($collective->collectivemodules as $collectivemodule)
+                                                            <tr>
+                                                                <td class="text-center">{{ $i++ }}</td>
+                                                                <td class="text-center">
+                                                                    {{ $collective->date_depot ? \Carbon\Carbon::parse($collective->date_depot)->diffForHumans() : 'Aucun' }}
+                                                                </td>
+                                                                <td>{{ $collectivemodule->module }}</td>
+                                                                <td class="text-center">
+                                                                    <span class="{{ $collectivemodule?->statut }}">
+                                                                        {{ $collectivemodule?->statut }}
+                                                                    </span>
+                                                                </td>
+                                                                @can('user-show')
+                                                                    <td class="text-center">
+                                                                        <a href="{{ route('collectivemodules.show', $collectivemodule) }}"
+                                                                            class="btn btn-primary btn-sm" target="_blank"
+                                                                            title="voir détails"><i class="bi bi-eye"></i></a>
+                                                                    </td>
+                                                                @endcan
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
-                                    </div>
-                                @else
-                                    <div class="alert alert-info">
-                                        <p class="text-muted">Aucune formation pour l'instant !</p>
-                                    </div>
-                                @endif
+                                    @else
+                                        <div class="alert alert-info">
+                                            <p class="text-muted">Aucune formation pour l'instant !</p>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                        {{-- Détail Formations --}}
-                        {{-- <div class="tab-content">
+                            {{-- Détail Formations --}}
+                            {{-- <div class="tab-content">
                                 <div class="tab-pane fade profile-overview pt-1" id="autres-demandes-overview">
 
                                     <h5 class="card-title">Mes demandes collectives</h5>
@@ -1082,8 +1086,8 @@
                                     <!-- End Table with stripped rows -->
                                 </div>
                             </div> --}}
+                        </div>
                     </div>
-                </div>
                 </div>
                 </div>
                 </div>

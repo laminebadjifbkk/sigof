@@ -47,65 +47,69 @@
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div> --}}
                                 <div class="form-check col-md-12 pt-5">
-                                    <table class="table datatables align-middle" id="table-modules">
-                                        <thead>
-                                            <tr>
-                                                {{-- <th>Matricule</th> --}}
-                                                <th width="35%">Ingénieur</th>
-                                                <th width="2%">Initiale</th>
-                                                <th>Fonction</th>
-                                                {{-- <th>Spécialité</th> --}}
-                                                <th>Email</th>
-                                                <th>Téléphone</th>
-                                                <th style="text-align: center;">Formations</th>
-                                                <th class="text-center" scope="col">#</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                            @foreach ($ingenieurs as $ingenieur)
-                                                <tr>
-                                                    <td>
-                                                        <input type="radio" name="ingenieur" value="{{ $ingenieur?->id }}"
-                                                            {{ in_array($ingenieur->id, $ingenieurFormation) ? 'checked' : '' }}
-                                                            class="form-check-input @error('ingenieur') is-invalid @enderror">
-                                                        @error('ingenieur')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <div>{{ $message }}</div>
-                                                            </span>
-                                                        @enderror
-                                                        {{ $ingenieur?->user?->firstname . ' ' . $ingenieur?->user?->name }}
-                                                    </td>
-                                                    {{--  <td>{{ $ingenieur->name }}</td> --}}
-                                                    <td>{{ $ingenieur->initiale }}</td>
-                                                    <td>{{ $ingenieur?->user?->employee?->fonction?->name }}</td>
-                                                    {{-- <td>{{ $ingenieur->specialite }}</td> --}}
-                                                    <td><a
-                                                            href="mailto:{{ $ingenieur?->user?->email }}">{{ $ingenieur?->user?->email }}</a>
-                                                    </td>
-                                                    <td><a
-                                                            href="tel:+221{{ $ingenieur?->user?->telephone }}">{{ $ingenieur?->user?->telephone }}</a>
-                                                    </td>
-                                                    <td style="text-align: center;">
-                                                        @foreach ($ingenieur->formations as $formation)
-                                                            @if ($loop->last)
-                                                                <span class="badge bg-info">{{ $loop->count }}</span>
-                                                            @endif
-                                                        @endforeach
-                                                    </td>
 
-                                                    <td style="text-align: center;">
-                                                        <span class="d-flex mt-2 align-items-baseline"><a
-                                                                href="{{ route('ingenieurs.show', $ingenieur->id) }}"
-                                                                class="btn btn-warning btn-sm mx-1" title="Voir détails">
-                                                                <i class="bi bi-eye"></i></a>
-                                                            {{-- <div class="filter">
+                                    <div class="table-responsive">
+                                        <table class="table datatables align-middle" id="table-modules">
+                                            <thead>
+                                                <tr>
+                                                    {{-- <th>Matricule</th> --}}
+                                                    <th width="35%">Ingénieur</th>
+                                                    <th width="2%">Initiale</th>
+                                                    <th>Fonction</th>
+                                                    {{-- <th>Spécialité</th> --}}
+                                                    <th>Email</th>
+                                                    <th>Téléphone</th>
+                                                    <th style="text-align: center;">Formations</th>
+                                                    <th class="text-center" scope="col">#</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @foreach ($ingenieurs as $ingenieur)
+                                                    <tr>
+                                                        <td>
+                                                            <input type="radio" name="ingenieur"
+                                                                value="{{ $ingenieur?->id }}"
+                                                                {{ in_array($ingenieur->id, $ingenieurFormation) ? 'checked' : '' }}
+                                                                class="form-check-input @error('ingenieur') is-invalid @enderror">
+                                                            @error('ingenieur')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div>{{ $message }}</div>
+                                                                </span>
+                                                            @enderror
+                                                            {{ $ingenieur?->user?->firstname . ' ' . $ingenieur?->user?->name }}
+                                                        </td>
+                                                        {{--  <td>{{ $ingenieur->name }}</td> --}}
+                                                        <td>{{ $ingenieur->initiale }}</td>
+                                                        <td>{{ $ingenieur?->user?->employee?->fonction?->name }}</td>
+                                                        {{-- <td>{{ $ingenieur->specialite }}</td> --}}
+                                                        <td><a
+                                                                href="mailto:{{ $ingenieur?->user?->email }}">{{ $ingenieur?->user?->email }}</a>
+                                                        </td>
+                                                        <td><a
+                                                                href="tel:+221{{ $ingenieur?->user?->telephone }}">{{ $ingenieur?->user?->telephone }}</a>
+                                                        </td>
+                                                        <td style="text-align: center;">
+                                                            @foreach ($ingenieur->formations as $formation)
+                                                                @if ($loop->last)
+                                                                    <span class="badge bg-info">{{ $loop->count }}</span>
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+
+                                                        <td style="text-align: center;">
+                                                            <span class="d-flex mt-2 align-items-baseline"><a
+                                                                    href="{{ route('ingenieurs.show', $ingenieur->id) }}"
+                                                                    class="btn btn-warning btn-sm mx-1"
+                                                                    title="Voir détails">
+                                                                    <i class="bi bi-eye"></i></a>
+                                                                {{-- <div class="filter">
                                                                 <a class="icon" href="#"
                                                                     data-bs-toggle="dropdown"><i
                                                                         class="bi bi-three-dots"></i></a>
                                                                 <ul
                                                                     class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"> --}}
-                                                            {{--  <li>
+                                                                {{--  <li>
                                                                         <button type="button"
                                                                             class="dropdown-item btn btn-sm mx-1"
                                                                             data-bs-toggle="modal"
@@ -115,7 +119,7 @@
                                                                         </button>
                                                                     </li>
                                                                     <li> --}}
-                                                            {{-- <form
+                                                                {{-- <form
                                                                             action="{{ url('ingenieurs', $ingenieur->id) }}"
                                                                             method="post">
                                                                             @csrf
@@ -124,15 +128,16 @@
                                                                                 class="dropdown-item show_confirm"><i
                                                                                     class="bi bi-trash"></i>Supprimer</button>
                                                                         </form> --}}
-                                                            {{--      </li>
+                                                                {{--      </li>
                                                                 </ul>
                                                             </div> --}}
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-outline-primary btn-sm"><i

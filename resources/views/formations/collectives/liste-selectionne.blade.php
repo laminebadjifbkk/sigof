@@ -15,7 +15,7 @@
             /* padding: 30px; */
             font-size: 12px;
             line-height: 15px;
-            color:rgb(0, 0, 0);
+            color: rgb(0, 0, 0);
             ;
         }
 
@@ -91,31 +91,32 @@
         </b>
     </div>
     <div class="invoice-box">
-        <table class="table table-bordered">
-            <thead>
-                <tr class="heading" style="text-align: center;">
-                    <td colspan="9"><b>{{ __('LISTE DES CANDIDATS SELECTIONNES') }}</b></td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="6"><b>Formation</b> : {{ $formation?->name }}
-                    </td>
-                    <td colspan="3"><b>{{ __('Module : ') }}</b> {{ $formation?->module?->name }}</td>
-                </tr>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="heading" style="text-align: center;">
+                        <td colspan="9"><b>{{ __('LISTE DES CANDIDATS SELECTIONNES') }}</b></td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="6"><b>Formation</b> : {{ $formation?->name }}
+                        </td>
+                        <td colspan="3"><b>{{ __('Module : ') }}</b> {{ $formation?->module?->name }}</td>
+                    </tr>
 
-                <tr class="heading">
-                    <td class="item" style="text-align: center;" width="5%"><b>N°</b></td>
-                    <td class="item" style="text-align: center;" width="12%"><b>CIN</b></td>
-                    <td class="item" style="text-align: center;" width="5%"><b>Civilité</b></td>
-                    <td class="item" style="text-align: center;"><b>Prénom</b></td>
-                    <td class="item" style="text-align: center;" width="10%"><b>NOM</b></td>
-                    <td class="item" style="text-align: center;" width="8%"><b>Date naissance</b></td>
-                    <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
-                    <td class="item" style="text-align: center;" width="7%"><b>Téléphone</b></td>
-                    <td class="item" style="text-align: center;"><b>Localité</b></td>
-                </tr>
-            </thead>
-            <tbody>
-                {{-- @foreach ($formation?->individuelles as $i => $individuelle)
+                    <tr class="heading">
+                        <td class="item" style="text-align: center;" width="5%"><b>N°</b></td>
+                        <td class="item" style="text-align: center;" width="12%"><b>CIN</b></td>
+                        <td class="item" style="text-align: center;" width="5%"><b>Civilité</b></td>
+                        <td class="item" style="text-align: center;"><b>Prénom</b></td>
+                        <td class="item" style="text-align: center;" width="10%"><b>NOM</b></td>
+                        <td class="item" style="text-align: center;" width="8%"><b>Date naissance</b></td>
+                        <td class="item" style="text-align: center;"><b>Lieu de naissance</b></td>
+                        <td class="item" style="text-align: center;" width="7%"><b>Téléphone</b></td>
+                        <td class="item" style="text-align: center;"><b>Localité</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{-- @foreach ($formation?->individuelles as $i => $individuelle)
                     <tr class="item" style="text-align: center;">
                         <td>{{ $i + 1 }}</td>
                         <td>{{ $individuelle->user->cin }}</td>
@@ -128,9 +129,10 @@
                         <td>{{ $individuelle->departement->nom }}</td>
                     </tr>
                 @endforeach --}}
-            </tbody>
-        </table>
-     {{--    <div class="page-break"></div>
+                </tbody>
+            </table>
+        </div>
+        {{--    <div class="page-break"></div>
         <div style="text-align: center;">
             <b>REPUBLIQUE DU SENEGAL<br></b>
             Un Peuple - Un But - Une Foi<br>

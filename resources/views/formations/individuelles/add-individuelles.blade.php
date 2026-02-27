@@ -63,105 +63,108 @@
 
                             @if ($individuelles->isNotEmpty())
                                 <div class="form-check col-md-12 border rounded bg-light shadow-sm p-3">
-                                    <table class="m-2 table datatables align-middle" id="table-collectives">
-                                        <thead>
-                                            <tr>
-                                                <th><input type="checkbox" class="form-check-input" id="checkAll"> </th>
-                                                {{-- <th>Civilité</th> --}}
-                                                <th>Name</th>
-                                                {{-- <th>Date naissance</th>
-                                                <th>Lieu naissance</th> --}}
-                                                <th>Département</th>
-                                                <th>Module</th>
-                                                <th>Note</th>
-                                                <th>Statut</th>
-                                                @if (!empty($formation->projets_id))
-                                                    <th>Projet</th>
-                                                @endif
-                                                <th width='5%'><i class="bi bi-gear"></i></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                            @foreach ($individuelles as $individuelle)
-                                                {{-- @if (!empty($individuelle?->numero)) --}}
+                                    <div class="table-responsive">
+                                        <table class="m-2 table datatables align-middle" id="table-collectives">
+                                            <thead>
                                                 <tr>
-                                                    <td>
-                                                        <input type="checkbox" name="individuelles[]"
-                                                            value="{{ $individuelle->id }}"
-                                                            {{ in_array($individuelle->formations_id, $individuelleFormation) ? 'checked' : '' }}
-                                                            {{ in_array($individuelle->formations_id, $individuelleFormationCheck) ? 'disabled' : '' }}
-                                                            class="form-check-input @error('individuelles') is-invalid @enderror">
-                                                        {{ $i++ }}
-                                                        @error('individuelles')
-                                                            <span class="invalid-feedback"
-                                                                role="alert">{{ $message }}</span>
-                                                        @enderror
-                                                    </td>
-                                                    {{-- <td>{{ $individuelle?->user?->civilite }}</td> --}}
-                                                    <td>
-                                                        {{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
-                                                        - {{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}
-                                                        - {{ $individuelle?->user?->lieu_naissance }}
-                                                    </td>
-                                                    {{-- <td>{{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
+                                                    <th><input type="checkbox" class="form-check-input" id="checkAll">
+                                                    </th>
+                                                    {{-- <th>Civilité</th> --}}
+                                                    <th>Name</th>
+                                                    {{-- <th>Date naissance</th>
+                                                <th>Lieu naissance</th> --}}
+                                                    <th>Département</th>
+                                                    <th>Module</th>
+                                                    <th>Note</th>
+                                                    <th>Statut</th>
+                                                    @if (!empty($formation->projets_id))
+                                                        <th>Projet</th>
+                                                    @endif
+                                                    <th width='5%'><i class="bi bi-gear"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @foreach ($individuelles as $individuelle)
+                                                    {{-- @if (!empty($individuelle?->numero)) --}}
+                                                    <tr>
+                                                        <td>
+                                                            <input type="checkbox" name="individuelles[]"
+                                                                value="{{ $individuelle->id }}"
+                                                                {{ in_array($individuelle->formations_id, $individuelleFormation) ? 'checked' : '' }}
+                                                                {{ in_array($individuelle->formations_id, $individuelleFormationCheck) ? 'disabled' : '' }}
+                                                                class="form-check-input @error('individuelles') is-invalid @enderror">
+                                                            {{ $i++ }}
+                                                            @error('individuelles')
+                                                                <span class="invalid-feedback"
+                                                                    role="alert">{{ $message }}</span>
+                                                            @enderror
+                                                        </td>
+                                                        {{-- <td>{{ $individuelle?->user?->civilite }}</td> --}}
+                                                        <td>
+                                                            {{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
+                                                            - {{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}
+                                                            - {{ $individuelle?->user?->lieu_naissance }}
+                                                        </td>
+                                                        {{-- <td>{{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
                                                     </td>
                                                     <td>{{ $individuelle?->user->date_naissance?->format('d/m/Y') }}
                                                     </td>
                                                     <td>{{ $individuelle?->user->lieu_naissance }}</td> --}}
-                                                    <td>{{ $individuelle?->departement->nom }}</td>
-                                                    <td>{{ $individuelle?->module->name }}</td>
-                                                    <td>{{ $individuelle?->note }}</td>
-                                                    <td><span
-                                                            class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
-                                                    </td>
-                                                    @if (!empty($formation->projets_id))
-                                                        <td>{{ $individuelle?->projet?->sigle }}</td>
-                                                    @endif
-                                                    <td>
-                                                        <span class="d-flex align-items-baseline">
-                                                            <a href="{{ route('individuelles.show', $individuelle) }}"
-                                                                class="btn btn-primary btn-sm" title="Voir détails"
-                                                                target="_blank">
-                                                                <i class="bi bi-eye"></i>
-                                                            </a>
-                                                            <div class="filter">
-                                                                <a class="icon" href="#"
-                                                                    data-bs-toggle="dropdown"><i
-                                                                        class="bi bi-three-dots"></i></a>
-                                                                <ul
-                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                    <li>
-                                                                        <a class="dropdown-item btn btn-sm"
-                                                                            href="{{ route('individuelles.edit', $individuelle) }}"
-                                                                            title="Modifier">
-                                                                            <i class="bi bi-pencil"></i> Modifier
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <form
-                                                                            action="{{ route('individuelles.destroy', $individuelle) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            <button type="submit"
-                                                                                class="dropdown-item show_confirm"
-                                                                                title="Supprimer">
-                                                                                <i class="bi bi-trash"></i> Supprimer
-                                                                            </button>
-                                                                        </form>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                {{-- @endif --}}
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-outline-primary btn-sm"><i
-                                                class="bi bi-check2-circle"></i> Sélectionner</button>
+                                                        <td>{{ $individuelle?->departement->nom }}</td>
+                                                        <td>{{ $individuelle?->module->name }}</td>
+                                                        <td>{{ $individuelle?->note }}</td>
+                                                        <td><span
+                                                                class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
+                                                        </td>
+                                                        @if (!empty($formation->projets_id))
+                                                            <td>{{ $individuelle?->projet?->sigle }}</td>
+                                                        @endif
+                                                        <td>
+                                                            <span class="d-flex align-items-baseline">
+                                                                <a href="{{ route('individuelles.show', $individuelle) }}"
+                                                                    class="btn btn-primary btn-sm" title="Voir détails"
+                                                                    target="_blank">
+                                                                    <i class="bi bi-eye"></i>
+                                                                </a>
+                                                                <div class="filter">
+                                                                    <a class="icon" href="#"
+                                                                        data-bs-toggle="dropdown"><i
+                                                                            class="bi bi-three-dots"></i></a>
+                                                                    <ul
+                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                        <li>
+                                                                            <a class="dropdown-item btn btn-sm"
+                                                                                href="{{ route('individuelles.edit', $individuelle) }}"
+                                                                                title="Modifier">
+                                                                                <i class="bi bi-pencil"></i> Modifier
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <form
+                                                                                action="{{ route('individuelles.destroy', $individuelle) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"
+                                                                                    title="Supprimer">
+                                                                                    <i class="bi bi-trash"></i> Supprimer
+                                                                                </button>
+                                                                            </form>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    {{-- @endif --}}
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-outline-primary btn-sm"><i
+                                                    class="bi bi-check2-circle"></i> Sélectionner</button>
+                                        </div>
                                     </div>
                                 </div>
                             @else

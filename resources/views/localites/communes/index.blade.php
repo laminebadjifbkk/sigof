@@ -40,57 +40,60 @@
                         {{-- @endcan --}}
                         <h5 class="card-title">Communes</h5>
                         <!-- Table with stripped rows -->
-                        <table class="table datatables align-middle justify-content-center" id="table-communes">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" scope="col">N°</th>
-                                    <th>Communes</th>
-                                    <th>Arrondissement</th>
-                                    <th class="text-center" scope="col">Département</th>
-                                    <th class="text-center" scope="col">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($communes as $commune)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle justify-content-center" id="table-communes">
+                                <thead>
                                     <tr>
-                                        <td style="text-align: center;">{{ $i++ }}</td>
-                                        <td>{{ $commune->nom }}</td>
-                                        <td>{{ $commune->arrondissement->nom }}</td>
-                                        <td style="text-align: center;">{{ $commune->arrondissement->departement->nom }}</td>
-                                        <td style="text-align: center;">
-                                            <span class="d-flex mt-2 align-items-baseline"><a
-                                                    href="{{ url('communes/' . $commune->id) }}"
-                                                    class="btn btn-warning btn-sm mx-1" title="Donner permission"><i
-                                                        class="bi bi-file-lock"></i></a>
-                                                <div class="filter">
-                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                        <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                href="{{ url('communes/' . $commune->id . '/edit') }}"
-                                                                class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
-                                                        </li>
-                                                        <li>
-                                                            <form
-                                                                action="{{ url('communes', $commune->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="dropdown-item show_confirm"><i
-                                                                        class="bi bi-trash"></i>Supprimer</button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </span>
-                                        </td>
-
+                                        <th class="text-center" scope="col">N°</th>
+                                        <th>Communes</th>
+                                        <th>Arrondissement</th>
+                                        <th class="text-center" scope="col">Département</th>
+                                        <th class="text-center" scope="col">#</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($communes as $commune)
+                                        <tr>
+                                            <td style="text-align: center;">{{ $i++ }}</td>
+                                            <td>{{ $commune->nom }}</td>
+                                            <td>{{ $commune->arrondissement->nom }}</td>
+                                            <td style="text-align: center;">{{ $commune->arrondissement->departement->nom }}
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span class="d-flex mt-2 align-items-baseline"><a
+                                                        href="{{ url('communes/' . $commune->id) }}"
+                                                        class="btn btn-warning btn-sm mx-1" title="Donner permission"><i
+                                                            class="bi bi-file-lock"></i></a>
+                                                    <div class="filter">
+                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                class="bi bi-three-dots"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            <li><a class="dropdown-item btn btn-sm mx-1"
+                                                                    href="{{ url('communes/' . $commune->id . '/edit') }}"
+                                                                    class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
+                                                            </li>
+                                                            <li>
+                                                                <form action="{{ url('communes', $commune->id) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="dropdown-item show_confirm"><i
+                                                                            class="bi bi-trash"></i>Supprimer</button>
+                                                                </form>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </span>
+                                            </td>
+
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
                     </div>
                 </div>
 
@@ -104,7 +107,7 @@
         new DataTable('#table-communes', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

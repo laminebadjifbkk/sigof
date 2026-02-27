@@ -793,101 +793,106 @@
                                                     FICHIERS JOINTS</h5>
                                                 @if ($files->isNotEmpty())
                                                     <div class="col-12 col-lg-12 col-sm-12 col-xs-12">
-                                                        <table class="table table-bordered table-hover datatables"
-                                                            id="table-files">
-                                                            <thead>
-                                                                <tr class="text-center">
-                                                                    <th style="width: 5%">N°</th>
-                                                                    <th>Légende</th>
-                                                                    <th style="width: 10%">Fichier</th>
-                                                                    <th style="width: 10%">Statut</th>
-                                                                    <th style="width: 10%">Supprimer</th>
-                                                                    @hasanyrole('super-admin|admin|DIOF')
-                                                                        <th style="width: 10%">Valider</th>
-                                                                        <th style="width: 10%">Rejeter</th>
-                                                                    @endhasanyrole
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @php $i = 1; @endphp
-                                                                @foreach ($files as $file)
-                                                                    <tr class="text-center align-middle">
-                                                                        <td>{{ $i++ }}</td>
-                                                                        <td>{{ $file->legende }}</td>
-                                                                        <td>
-                                                                            <a class="btn btn-outline-secondary btn-sm"
-                                                                                title="Télécharger" target="_blank"
-                                                                                href="{{ asset($file->getFichier()) }}">
-                                                                                <i class="bi bi-download"></i>
-                                                                            </a>
-                                                                        </td>
-                                                                        <td>
-                                                                            @php
-                                                                                $statut = $file->statut ?? 'Attente';
-                                                                                $badgeClass = match ($statut) {
-                                                                                    'Validé' => 'success',
-                                                                                    'Rejeté', 'Invalide' => 'danger',
-                                                                                    default => 'secondary',
-                                                                                };
-                                                                            @endphp
-                                                                            <span
-                                                                                class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
-                                                                        </td>
-                                                                        {{-- Supprimer --}}
-                                                                        <td>
-                                                                            @if ($file->statut !== 'Validé')
-                                                                                <form action="{{ route('fileDestroy') }}"
-                                                                                    method="post" class="d-inline">
-                                                                                    @csrf
-                                                                                    @method('put')
-                                                                                    <input type="hidden" name="idFile"
-                                                                                        value="{{ $file->id }}">
-                                                                                    <button type="submit"
-                                                                                        class="btn btn-outline-danger btn-sm show_confirm"
-                                                                                        title="Supprimer">
-                                                                                        <i class="bi bi-trash"></i>
-                                                                                    </button>
-                                                                                </form>
-                                                                            @endif
-                                                                        </td>
-
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-hover datatables"
+                                                                id="table-files">
+                                                                <thead>
+                                                                    <tr class="text-center">
+                                                                        <th style="width: 5%">N°</th>
+                                                                        <th>Légende</th>
+                                                                        <th style="width: 10%">Fichier</th>
+                                                                        <th style="width: 10%">Statut</th>
+                                                                        <th style="width: 10%">Supprimer</th>
                                                                         @hasanyrole('super-admin|admin|DIOF')
-                                                                            {{-- Valider --}}
-                                                                            <td>
-                                                                                <form action="{{ route('fileValidate') }}"
-                                                                                    method="post" class="d-inline">
-                                                                                    @csrf
-                                                                                    @method('put')
-                                                                                    <input type="hidden" name="idFile"
-                                                                                        value="{{ $file->id }}">
-                                                                                    <button type="submit"
-                                                                                        class="btn btn-outline-success btn-sm show_confirm_valider"
-                                                                                        title="Valider">
-                                                                                        <i class="bi bi-check-circle"></i>
-                                                                                    </button>
-                                                                                </form>
-                                                                            </td>
-                                                                            {{-- Invalider --}}
-                                                                            <td>
-                                                                                <form action="{{ route('fileInvalide') }}"
-                                                                                    method="post" class="d-inline">
-                                                                                    @csrf
-                                                                                    @method('put')
-                                                                                    <input type="hidden" name="idFile"
-                                                                                        value="{{ $file->id }}">
-                                                                                    <button type="submit"
-                                                                                        class="btn btn-outline-warning btn-sm show_confirm_rejeter"
-                                                                                        title="Invalider">
-                                                                                        <i class="bi bi-x-circle"></i>
-                                                                                    </button>
-                                                                                </form>
-                                                                            </td>
+                                                                            <th style="width: 10%">Valider</th>
+                                                                            <th style="width: 10%">Rejeter</th>
                                                                         @endhasanyrole
+                                                                        </th>
                                                                     </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                        </table>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @php $i = 1; @endphp
+                                                                    @foreach ($files as $file)
+                                                                        <tr class="text-center align-middle">
+                                                                            <td>{{ $i++ }}</td>
+                                                                            <td>{{ $file->legende }}</td>
+                                                                            <td>
+                                                                                <a class="btn btn-outline-secondary btn-sm"
+                                                                                    title="Télécharger" target="_blank"
+                                                                                    href="{{ asset($file->getFichier()) }}">
+                                                                                    <i class="bi bi-download"></i>
+                                                                                </a>
+                                                                            </td>
+                                                                            <td>
+                                                                                @php
+                                                                                    $statut =
+                                                                                        $file->statut ?? 'Attente';
+                                                                                    $badgeClass = match ($statut) {
+                                                                                        'Validé' => 'success',
+                                                                                        'Rejeté',
+                                                                                        'Invalide'
+                                                                                            => 'danger',
+                                                                                        default => 'secondary',
+                                                                                    };
+                                                                                @endphp
+                                                                                <span
+                                                                                    class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
+                                                                            </td>
+                                                                            {{-- Supprimer --}}
+                                                                            <td>
+                                                                                @if ($file->statut !== 'Validé')
+                                                                                    <form action="{{ route('fileDestroy') }}"
+                                                                                        method="post" class="d-inline">
+                                                                                        @csrf
+                                                                                        @method('put')
+                                                                                        <input type="hidden" name="idFile"
+                                                                                            value="{{ $file->id }}">
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-outline-danger btn-sm show_confirm"
+                                                                                            title="Supprimer">
+                                                                                            <i class="bi bi-trash"></i>
+                                                                                        </button>
+                                                                                    </form>
+                                                                                @endif
+                                                                            </td>
+
+                                                                            @hasanyrole('super-admin|admin|DIOF')
+                                                                                {{-- Valider --}}
+                                                                                <td>
+                                                                                    <form action="{{ route('fileValidate') }}"
+                                                                                        method="post" class="d-inline">
+                                                                                        @csrf
+                                                                                        @method('put')
+                                                                                        <input type="hidden" name="idFile"
+                                                                                            value="{{ $file->id }}">
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-outline-success btn-sm show_confirm_valider"
+                                                                                            title="Valider">
+                                                                                            <i class="bi bi-check-circle"></i>
+                                                                                        </button>
+                                                                                    </form>
+                                                                                </td>
+                                                                                {{-- Invalider --}}
+                                                                                <td>
+                                                                                    <form action="{{ route('fileInvalide') }}"
+                                                                                        method="post" class="d-inline">
+                                                                                        @csrf
+                                                                                        @method('put')
+                                                                                        <input type="hidden" name="idFile"
+                                                                                            value="{{ $file->id }}">
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-outline-warning btn-sm show_confirm_rejeter"
+                                                                                            title="Invalider">
+                                                                                            <i class="bi bi-x-circle"></i>
+                                                                                        </button>
+                                                                                    </form>
+                                                                                </td>
+                                                                            @endhasanyrole
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 @else
                                                     <div class="alert alert-info text-center text-muted">Aucun fichier joint</div>
@@ -994,62 +999,65 @@
                                                 @csrf
                                                 @can('devenir-operateur-agrement-ouvert')
                                                     <div class="col-12 mb-0">
-                                                        <table class="table table-bordered table-hover" id="dynamicAddRemove">
-                                                            <tr>
-                                                                <th>DOMAINE<span class="text-danger mx-1">*</span></th>
-                                                                <th>MODULE OU SPECIALITE<span class="text-danger mx-1">*</span></th>
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <input type="hidden" name="operateur"
-                                                                    value="{{ $operateur?->id }}">
-                                                                <td><input type="text" name="domaine"
-                                                                        placeholder="Domaine d'intervention"
-                                                                        class="form-control form-control-sm @error('domaine') is-invalid @enderror" />
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" name="module" id="module_operateur"
-                                                                        class="form-control form-control-sm @error('module') is-invalid @enderror"
-                                                                        placeholder="Module ou spécialité" />
-                                                                    <div id="moduleList"></div>
-                                                                    {{ csrf_field() }}
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>NIVEAU DE QUALIFICATION
-                                                                    <span class="text-danger mx-1">*</span>
-                                                                </th>
-                                                                <th>EMPLOI OU METIER<span class="text-danger mx-1">*</span>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <select name="niveau_qualification"
-                                                                        class="form-select form-select-sm @error('niveau_qualification') is-invalid @enderror"
-                                                                        aria-label="Select" id="select-field-civilite"
-                                                                        data-placeholder="Choisir qualification">
-                                                                        <option value="">
-                                                                            {{ old('niveau_qualification') }}
-                                                                        </option>
-                                                                        <option value="Initiation">
-                                                                            Initiation
-                                                                        </option>
-                                                                        <option value="Renforcement de capacités">
-                                                                            Renforcement de capacités
-                                                                        </option>
-                                                                        <option value="Qualification">
-                                                                            Qualification
-                                                                        </option>
-                                                                    </select>
-                                                                </td>
-                                                                <td><input type="text" name="categorie"
-                                                                        placeholder="Niveau de qualification"
-                                                                        class="form-control form-control-sm @error('categorie') is-invalid @enderror" />
-                                                                    <p class="small fst-italic">
-                                                                        <small>{{ __("Préciser l'emploi ou le métier correspondant") }}</small><br>
-                                                                    </p>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-hover" id="dynamicAddRemove">
+                                                                <tr>
+                                                                    <th>DOMAINE<span class="text-danger mx-1">*</span></th>
+                                                                    <th>MODULE OU SPECIALITE<span class="text-danger mx-1">*</span>
+                                                                    </th>
+                                                                    </th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <input type="hidden" name="operateur"
+                                                                        value="{{ $operateur?->id }}">
+                                                                    <td><input type="text" name="domaine"
+                                                                            placeholder="Domaine d'intervention"
+                                                                            class="form-control form-control-sm @error('domaine') is-invalid @enderror" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name="module" id="module_operateur"
+                                                                            class="form-control form-control-sm @error('module') is-invalid @enderror"
+                                                                            placeholder="Module ou spécialité" />
+                                                                        <div id="moduleList"></div>
+                                                                        {{ csrf_field() }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>NIVEAU DE QUALIFICATION
+                                                                        <span class="text-danger mx-1">*</span>
+                                                                    </th>
+                                                                    <th>EMPLOI OU METIER<span class="text-danger mx-1">*</span>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <select name="niveau_qualification"
+                                                                            class="form-select form-select-sm @error('niveau_qualification') is-invalid @enderror"
+                                                                            aria-label="Select" id="select-field-civilite"
+                                                                            data-placeholder="Choisir qualification">
+                                                                            <option value="">
+                                                                                {{ old('niveau_qualification') }}
+                                                                            </option>
+                                                                            <option value="Initiation">
+                                                                                Initiation
+                                                                            </option>
+                                                                            <option value="Renforcement de capacités">
+                                                                                Renforcement de capacités
+                                                                            </option>
+                                                                            <option value="Qualification">
+                                                                                Qualification
+                                                                            </option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td><input type="text" name="categorie"
+                                                                            placeholder="Niveau de qualification"
+                                                                            class="form-control form-control-sm @error('categorie') is-invalid @enderror" />
+                                                                        <p class="small fst-italic">
+                                                                            <small>{{ __("Préciser l'emploi ou le métier correspondant") }}</small><br>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
                                                         <div class="text-center">
                                                             <button type="submit"
                                                                 class="btn btn-outline-success btn-sm">Enregistrer</button>

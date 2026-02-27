@@ -55,32 +55,33 @@
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div> --}}
                             <div class="form-check col-md-12 pt-5">
-                                <table class="m-2 table datatables align-middle" id="table-modules">
-                                    <thead>
-                                        <tr>
-                                            <th>Modules</th>
-                                            <th>Domaines</th>
-                                            {{-- <th class="text-center" scope="col">Effectif</th> --}}
-                                            <th width="3%"><i class="bi bi-gear"></i></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $i = 1; ?>
-                                        @foreach ($modules as $module)
+                                <div class="table-responsive">
+                                    <table class="m-2 table datatables align-middle" id="table-modules">
+                                        <thead>
                                             <tr>
-                                                <td>
-                                                    <input type="radio" name="module" value="{{ $module?->id }}"
-                                                        {{ in_array($module->id, $moduleFormation) ? 'checked' : '' }}
-                                                        class="form-check-input @error('module') is-invalid @enderror">
-                                                    @error('module')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <div>{{ $message }}</div>
-                                                        </span>
-                                                    @enderror
-                                                    {{ $module->name }}
-                                                </td>
-                                                <td>{{ $module?->domaine?->name }}</td>
-                                                {{-- <td style="text-align: center;">
+                                                <th>Modules</th>
+                                                <th>Domaines</th>
+                                                {{-- <th class="text-center" scope="col">Effectif</th> --}}
+                                                <th width="3%"><i class="bi bi-gear"></i></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $i = 1; ?>
+                                            @foreach ($modules as $module)
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="module" value="{{ $module?->id }}"
+                                                            {{ in_array($module->id, $moduleFormation) ? 'checked' : '' }}
+                                                            class="form-check-input @error('module') is-invalid @enderror">
+                                                        @error('module')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <div>{{ $message }}</div>
+                                                            </span>
+                                                        @enderror
+                                                        {{ $module->name }}
+                                                    </td>
+                                                    <td>{{ $module?->domaine?->name }}</td>
+                                                    {{-- <td style="text-align: center;">
                                                         @if ($module->individuelles->isNotEmpty())
                                                             <a href="{{ route('modules.show', $module) }}">
                                                                 <span
@@ -88,32 +89,35 @@
                                                             </a>
                                                         @endif
                                                     </td> --}}
-                                                <td style="text-align: center;">
-                                                    <span class="d-flex mt-2 align-items-baseline"><a
-                                                            href="{{ route('modules.show', $module) }}"
-                                                            class="btn btn-success btn-sm mx-1" title="Voir détails">
-                                                            <i class="bi bi-eye"></i></a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                <li>
-                                                                    <button type="button"
-                                                                        class="dropdown-item btn btn-sm mx-1"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#EditRegionModal{{ $module->id }}">
-                                                                        <i class="bi bi-pencil" title="Modifier"></i>
-                                                                        Modifier
-                                                                    </button>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                                    <td style="text-align: center;">
+                                                        <span class="d-flex mt-2 align-items-baseline"><a
+                                                                href="{{ route('modules.show', $module) }}"
+                                                                class="btn btn-success btn-sm mx-1" title="Voir détails">
+                                                                <i class="bi bi-eye"></i></a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#"
+                                                                    data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul
+                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    <li>
+                                                                        <button type="button"
+                                                                            class="dropdown-item btn btn-sm mx-1"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#EditRegionModal{{ $module->id }}">
+                                                                            <i class="bi bi-pencil" title="Modifier"></i>
+                                                                            Modifier
+                                                                        </button>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <div class="text-center p-2">
                                 <button type="submit" class="btn btn-outline-primary btn-sm"><i

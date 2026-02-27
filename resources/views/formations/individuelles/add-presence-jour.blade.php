@@ -98,29 +98,30 @@
                                         <label for="#">Choisir tout</label>
                                         <input type="checkbox" class="form-check-input" id="checkAll">
                                     </div>
-                                    <div></div>
-                                    <table class="m-2 table datatables align-middle" id="table-individuelles">
-                                        <thead>
-                                            <tr>
-                                                <th>N°</th>
-                                                <th>Civilité</th>
-                                                <th>Prénom et NOM</th>
-                                                <th>Date naissance</th>
-                                                <th>Lieu naissance</th>
-                                                <th>Département</th>
-                                                <th>Module</th>
-                                                <th>Note</th>
-                                                <th>Statut</th>
-                                                @if (!empty($formation->projets_id))
-                                                    <th>Projet</th>
-                                                @endif
-                                                <th width='5%'><i class="bi bi-gear"></i></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                            @foreach ($individuelles as $individuelle)
-                                                {{-- @if (!empty($individuelle?->numero)) --}}
+
+                                    <div class="table-responsive">
+                                        <table class="m-2 table datatables align-middle" id="table-individuelles">
+                                            <thead>
+                                                <tr>
+                                                    <th>N°</th>
+                                                    <th>Civilité</th>
+                                                    <th>Prénom et NOM</th>
+                                                    <th>Date naissance</th>
+                                                    <th>Lieu naissance</th>
+                                                    <th>Département</th>
+                                                    <th>Module</th>
+                                                    <th>Note</th>
+                                                    <th>Statut</th>
+                                                    @if (!empty($formation->projets_id))
+                                                        <th>Projet</th>
+                                                    @endif
+                                                    <th width='5%'><i class="bi bi-gear"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @foreach ($individuelles as $individuelle)
+                                                    {{-- @if (!empty($individuelle?->numero)) --}}
                                                     <tr>
                                                         {{-- <td>
                                                             <input type="checkbox" name="individuelles[]"
@@ -214,10 +215,11 @@
                                                             </span>
                                                         </td>
                                                     </tr>
-                                                {{-- @endif --}}
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                                    {{-- @endif --}}
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-outline-primary btn-sm"><i
                                                 class="bi bi-check2-circle"></i>&nbsp;Ajouter à la fiche du

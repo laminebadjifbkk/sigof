@@ -51,61 +51,67 @@
                             @endcan
                         </div>
                         @if ($operateurs->isNotEmpty())
-                            <table class="table datatables align-middle" id="table-users">
-                                <thead>
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle" id="table-users">
+                                    <thead>
 
-                                    <tr>
-                                        <th width="15%" class="text-center">N° agrément</th>
-                                        <th width="40%">Opérateurs</th>
-                                        <th>Sigle</th>
-                                        <th>Telephone</th>
-                                        <th>Responsable</th>
-                                        <th width="15%" class="text-center">Statut</th>
-                                        <th class="text-center">Nettoyer</th>
-                                        <th class="text-center">Restaurer</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($operateurs as $operateur)
                                         <tr>
-                                            <td>{{ $operateur?->numero_agrement }}</td>
-                                            <td>{{ $operateur?->user?->operateur }}</td>
-                                            <td>{{ $operateur?->user?->username }}</td>
-                                            <td>
-                                                <a href="tel:+221{{ $operateur?->user?->fixe }}">
-                                                    {{ $operateur?->user?->fixe }}<br>
-                                                    {{ $operateur?->user?->telephone }}
-                                                </a>
-                                            </td>
-                                            <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
-                                            </td>
-                                            <td style="text-align: center;"><span
-                                                    class="{{ $operateur?->statut_agrement }}">
-                                                    {{ $operateur?->statut_agrement }}</span>
-                                            </td>
-                                            <td class="text-center">
-                                                <form action="{{ route('operateurs.forceDelete', $operateur->uuid) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm_nettoyer">
-                                                        <i class="bi bi-trash-fill"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td class="text-center">
-                                                <form action="{{ route('operateurs.restore', $operateur->uuid) }}" method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button type="submit" class="btn btn-success btn-sm show_confirm_restaurer">
-                                                        <i class="bi bi-arrow-counterclockwise"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
+                                            <th width="15%" class="text-center">N° agrément</th>
+                                            <th width="40%">Opérateurs</th>
+                                            <th>Sigle</th>
+                                            <th>Telephone</th>
+                                            <th>Responsable</th>
+                                            <th width="15%" class="text-center">Statut</th>
+                                            <th class="text-center">Nettoyer</th>
+                                            <th class="text-center">Restaurer</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($operateurs as $operateur)
+                                            <tr>
+                                                <td>{{ $operateur?->numero_agrement }}</td>
+                                                <td>{{ $operateur?->user?->operateur }}</td>
+                                                <td>{{ $operateur?->user?->username }}</td>
+                                                <td>
+                                                    <a href="tel:+221{{ $operateur?->user?->fixe }}">
+                                                        {{ $operateur?->user?->fixe }}<br>
+                                                        {{ $operateur?->user?->telephone }}
+                                                    </a>
+                                                </td>
+                                                <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
+                                                </td>
+                                                <td style="text-align: center;"><span
+                                                        class="{{ $operateur?->statut_agrement }}">
+                                                        {{ $operateur?->statut_agrement }}</span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <form action="{{ route('operateurs.forceDelete', $operateur->uuid) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="btn btn-danger btn-sm show_confirm_nettoyer">
+                                                            <i class="bi bi-trash-fill"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                                <td class="text-center">
+                                                    <form action="{{ route('operateurs.restore', $operateur->uuid) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit"
+                                                            class="btn btn-success btn-sm show_confirm_restaurer">
+                                                            <i class="bi bi-arrow-counterclockwise"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <div class="alert alert-warning">
                                 Aucun utilisateur trouvé.

@@ -39,26 +39,27 @@
                     <div class="card-body">
                         <h5 class="card-title">Régions: {{ $localite?->nom }}</h5>
                         <!-- Table with stripped rows -->
-                        <table class="table datatables align-middle justify-content-center" id="table-regions">
-                            <thead>
-                                <tr>
-                                    {{-- <th class="text-center">N°</th> --}}
-                                    <th class="text-center">CIN</th>
-                                    <th>Prénom</th>
-                                    <th>NOM</th>
-                                    <th>Date naissance</th>
-                                    <th>Lieu naissance</th>
-                                    <th width="20%">Module</th>
-                                    <th class="text-center">Statut</th>
-                                    <th class="text-center">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($individuelles as $individuelle)
-                                    {{-- @isset($individuelle?->numero) --}}
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle justify-content-center" id="table-regions">
+                                <thead>
+                                    <tr>
+                                        {{-- <th class="text-center">N°</th> --}}
+                                        <th class="text-center">CIN</th>
+                                        <th>Prénom</th>
+                                        <th>NOM</th>
+                                        <th>Date naissance</th>
+                                        <th>Lieu naissance</th>
+                                        <th width="20%">Module</th>
+                                        <th class="text-center">Statut</th>
+                                        <th class="text-center">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($individuelles as $individuelle)
+                                        {{-- @isset($individuelle?->numero) --}}
                                         <tr>
-                                           {{--  <td style="text-align: center">{{ $individuelle?->numero }}
+                                            {{--  <td style="text-align: center">{{ $individuelle?->numero }}
                                             </td> --}}
                                             <td style="text-align: center">{{ $individuelle->user?->cin }}</td>
                                             <td>{{ $individuelle->user?->firstname }}</td>
@@ -94,7 +95,8 @@
                                                                     method="post">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item show_confirm"
+                                                                    <button type="submit"
+                                                                        class="dropdown-item show_confirm"
                                                                         title="Supprimer"><i
                                                                             class="bi bi-trash"></i>Supprimer</button>
                                                                 </form>
@@ -104,10 +106,11 @@
                                                 </span>
                                             </td>
                                         </tr>
-                                    {{-- @endisset --}}
-                                @endforeach
-                            </tbody>
-                        </table>
+                                        {{-- @endisset --}}
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                         <!-- End Table with stripped rows -->
                     </div>
                 </div>
@@ -122,7 +125,7 @@
         new DataTable('#table-regions', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

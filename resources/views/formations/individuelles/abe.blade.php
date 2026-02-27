@@ -191,8 +191,9 @@
     </h6>
     <h4 style="text-align: center;">ATTESTATION DE BONNE EXECUTION DE FORMATION</h4>
     <div class="invoice-box" style="margin-top: -50px;">
-        <table cellpadding="0" cellspacing="0">
-            {{-- <tr class="top">
+        <div class="table-responsive">
+            <table cellpadding="0" cellspacing="0">
+                {{-- <tr class="top">
                 <td>
                     <table>
                         <tr>
@@ -204,162 +205,168 @@
                     </table>
                 </td>
             </tr> --}}
-            <tr>
-                <td colspan="2">
-                    <table class="information">
-                        <tr>
-                            <td>
-                                {{-- <h2 style="text-align: center;">ATTESTATION DE BONNE EXECUTION DE FORMATION</h2> --}}
+                <tr>
+                    <td colspan="2">
+                        <div class="table-responsive">
+                            <table class="information">
+                                <tr>
+                                    <td>
+                                        {{-- <h2 style="text-align: center;">ATTESTATION DE BONNE EXECUTION DE FORMATION</h2> --}}
 
-                                <p style="text-align : justify;">
-                                    <b>OPERATEUR </b> :
-                                    {{ $formation?->operateur?->user?->operateur }}
-                                    @if (!empty($formation?->operateur?->user?->username))
-                                        {{ '(' . $formation?->operateur?->user?->username . ')' }}
-                                    @endif
-                                </p>
-                                <p style="text-align : justify;">
-                                    <span><b>MODULE </b> :
-                                        {{ $formation?->module?->name }}
-                                    </span>
-                                    <br>
-                                </p>
-                                <p style="text-align : justify;">
-                                    <span>
-                                        <b>NIVEAU DE QUALIFICATION VISE </b> :
-                                        @if (!empty($formation?->referentiel?->titre))
-                                            {{ $formation?->titre ?? $formation?->referentiel?->titre . ', ' . $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
-                                        @else
-                                            {{ $formation?->titre }}
-                                        @endif
-                                    </span>
-                                </p>
-                                <p>
-                                    <span>
-                                        <b>REF CONVENTION D'ASSISTANCE </b> :
-                                        {{ $formation?->numero_convention . '/ONFP/DG/DIOF/' . $formation->ingenieur->initiale . ' du ' . $formation?->date_convention?->format('d/m/Y') }}
-                                    </span>
-                                </p>
-                                <p>
-                                    <span>
-                                        <b>PERIODE DE LA FORMATION </b> :
-                                        @isset($formation?->date_debut)
-                                            {{ 'Du ' . $formation?->date_debut?->format('d/m/Y') }}
-                                        @endisset
-                                        @isset($formation?->date_fin)
-                                            {{ ' au ' . $formation?->date_fin?->format('d/m/Y') }}
-                                        @endisset
-                                    </span>
-                                </p>
-                                <p>
-                                    <span>
-                                        <b>LIEU DE LA FORMATION </b> :
-                                        {{ $formation?->departement?->nom }}
-                                    </span>
-                                </p>
+                                        <p style="text-align : justify;">
+                                            <b>OPERATEUR </b> :
+                                            {{ $formation?->operateur?->user?->operateur }}
+                                            @if (!empty($formation?->operateur?->user?->username))
+                                                {{ '(' . $formation?->operateur?->user?->username . ')' }}
+                                            @endif
+                                        </p>
+                                        <p style="text-align : justify;">
+                                            <span><b>MODULE </b> :
+                                                {{ $formation?->module?->name }}
+                                            </span>
+                                            <br>
+                                        </p>
+                                        <p style="text-align : justify;">
+                                            <span>
+                                                <b>NIVEAU DE QUALIFICATION VISE </b> :
+                                                @if (!empty($formation?->referentiel?->titre))
+                                                    {{ $formation?->titre ?? $formation?->referentiel?->titre . ', ' . $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
+                                                @else
+                                                    {{ $formation?->titre }}
+                                                @endif
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span>
+                                                <b>REF CONVENTION D'ASSISTANCE </b> :
+                                                {{ $formation?->numero_convention . '/ONFP/DG/DIOF/' . $formation->ingenieur->initiale . ' du ' . $formation?->date_convention?->format('d/m/Y') }}
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span>
+                                                <b>PERIODE DE LA FORMATION </b> :
+                                                @isset($formation?->date_debut)
+                                                    {{ 'Du ' . $formation?->date_debut?->format('d/m/Y') }}
+                                                @endisset
+                                                @isset($formation?->date_fin)
+                                                    {{ ' au ' . $formation?->date_fin?->format('d/m/Y') }}
+                                                @endisset
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span>
+                                                <b>LIEU DE LA FORMATION </b> :
+                                                {{ $formation?->departement?->nom }}
+                                            </span>
+                                        </p>
 
-                                <p><b>NOMBRE DE BENEFICIAIRES RETENUS </b>:
-                                    {{ ' H : ' . str_pad($prevus_h_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    {{ ' F : ' . str_pad($prevus_f_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    {{ ' T : ' . str_pad($prevus_total, 2, '0', STR_PAD_LEFT) }}
-                                </p>
+                                        <p><b>NOMBRE DE BENEFICIAIRES RETENUS </b>:
+                                            {{ ' H : ' . str_pad($prevus_h_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            {{ ' F : ' . str_pad($prevus_f_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            {{ ' T : ' . str_pad($prevus_total, 2, '0', STR_PAD_LEFT) }}
+                                        </p>
 
-                                <p>
-                                    <span>
-                                        <b>LOCALITE DES BENEFICIAIRES </b> :
-                                        {{ $formation?->lieu }}
-                                    </span>
-                                </p>
+                                        <p>
+                                            <span>
+                                                <b>LOCALITE DES BENEFICIAIRES </b> :
+                                                {{ $formation?->lieu }}
+                                            </span>
+                                        </p>
 
-                                <p><b>NOMBRE DE BENEFICIAIRES EFFECTIVEMENT FORMES </b>:
-                                    {{ ' H : ' . str_pad($formes_h_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    {{ ' F : ' . str_pad($formes_f_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    {{ ' T : ' . str_pad($formes_total, 2, '0', STR_PAD_LEFT) }}
-                                </p>
+                                        <p><b>NOMBRE DE BENEFICIAIRES EFFECTIVEMENT FORMES </b>:
+                                            {{ ' H : ' . str_pad($formes_h_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            {{ ' F : ' . str_pad($formes_f_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            {{ ' T : ' . str_pad($formes_total, 2, '0', STR_PAD_LEFT) }}
+                                        </p>
 
-                                <p>
-                                    <span>
-                                        <b>TYPE DE CERTIFICATION DÉLIVRÉE </b> :
-                                        {{ $formation?->type_certification }}
-                                    </span>
-                                </p>
-                                @php
-                                    $classe = 'taux-faible';
-
-                                    if ($pourcentage_admis >= 75) {
-                                        $classe = 'taux-eleve';
-                                    } elseif ($pourcentage_admis >= 50) {
-                                        $classe = 'taux-moyen';
-                                    }
-                                @endphp
-                                <p><b>NOMBRE DE BÉNÉFICIAIRES CERTIFIÉS </b>:
-                                    {{ ' H : ' . str_pad($admis_h_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    {{ ' F : ' . str_pad($admis_f_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    {{ ' T : ' . str_pad($admis_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <span class="{{ $classe }}">
-                                        Soit {{ number_format($pourcentage_admis, 2, ',', ' ') }}% de réussite
-                                    </span>
-                                </p>
-
-                                <p>
-                                    Je soussigné
-                                    <b>
+                                        <p>
+                                            <span>
+                                                <b>TYPE DE CERTIFICATION DÉLIVRÉE </b> :
+                                                {{ $formation?->type_certification }}
+                                            </span>
+                                        </p>
                                         @php
-                                            $firstOnfp = $formation?->onfpevaluateurs?->first();
+                                            $classe = 'taux-faible';
+
+                                            if ($pourcentage_admis >= 75) {
+                                                $classe = 'taux-eleve';
+                                            } elseif ($pourcentage_admis >= 50) {
+                                                $classe = 'taux-moyen';
+                                            }
                                         @endphp
+                                        <p><b>NOMBRE DE BÉNÉFICIAIRES CERTIFIÉS </b>:
+                                            {{ ' H : ' . str_pad($admis_h_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            {{ ' F : ' . str_pad($admis_f_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            {{ ' T : ' . str_pad($admis_count, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <span class="{{ $classe }}">
+                                                Soit {{ number_format($pourcentage_admis, 2, ',', ' ') }}% de réussite
+                                            </span>
+                                        </p>
 
-                                        @if ($firstOnfp)
-                                            <strong>{{ $firstOnfp->name }} {{ $firstOnfp->lastname }}</strong>,
-                                            <em>{{ $firstOnfp->fonction }}</em>
-                                        @else
-                                            <span class="text-muted">Aucun évaluateur ONFP trouvé</span>
-                                        @endif
-                                    </b>,
-                                    certifie, au nom de l'ONFP, que
-                                    @php
-                                        $statut = $formation?->lettrevaluation?->execution_statut;
-                                    @endphp
+                                        <p>
+                                            Je soussigné
+                                            <b>
+                                                @php
+                                                    $firstOnfp = $formation?->onfpevaluateurs?->first();
+                                                @endphp
 
-                                    @if ($statut === 1 || $statut === '1')
-                                        l'opérateur a exécuté la formation conformément à la convention d'assistance
-                                        susmentionnée.
-                                    @elseif ($statut === 0 || $statut === '0')
-                                        l'opérateur n'a pas exécuté la formation conformément à la convention
-                                        d'assistance susmentionnée.
-                                    @else
-                                        l'opérateur a exécuté la formation conformément à la convention d'assistance
-                                        susmentionnée.
-                                    @endif
-                                </p>
+                                                @if ($firstOnfp)
+                                                    <strong>{{ $firstOnfp->name }}
+                                                        {{ $firstOnfp->lastname }}</strong>,
+                                                    <em>{{ $firstOnfp->fonction }}</em>
+                                                @else
+                                                    <span class="text-muted">Aucun évaluateur ONFP trouvé</span>
+                                                @endif
+                                            </b>,
+                                            certifie, au nom de l'ONFP, que
+                                            @php
+                                                $statut = $formation?->lettrevaluation?->execution_statut;
+                                            @endphp
 
-                                <p>
-                                    <span>
-                                        <b>Observations</b> :
-                                        {{ trim($formation?->recommandations) !== '' ? $formation->recommandations : 'Aucune recommandation' }}
-                                    </span>
-                                </p>
+                                            @if ($statut === 1 || $statut === '1')
+                                                l'opérateur a exécuté la formation conformément à la convention
+                                                d'assistance
+                                                susmentionnée.
+                                            @elseif ($statut === 0 || $statut === '0')
+                                                l'opérateur n'a pas exécuté la formation conformément à la convention
+                                                d'assistance susmentionnée.
+                                            @else
+                                                l'opérateur a exécuté la formation conformément à la convention
+                                                d'assistance
+                                                susmentionnée.
+                                            @endif
+                                        </p>
 
-                                <p style="text-align: right; font-style: italic">
-                                    {{-- {{ 'Fait à ' . $formation?->departement?->nom . ' le ' . $formation?->date_pv_finale?->translatedFormat('d F Y') ?? $formation?->date_pv?->translatedFormat('l d F Y') }} --}}
-                                    @if ($formation?->date_pv_finale)
-                                        {{ 'Fait à ' . remove_accents_uppercase($formation?->departement?->nom ?? '') . ', le ' . $formation?->date_pv_finale?->translatedFormat('d F Y') }}
-                                    @else
-                                        {{ 'Fait à ' . remove_accents_uppercase($formation?->departement?->nom ?? '') . ', le ' . $formation?->date_pv?->translatedFormat('d F Y') }}
-                                    @endif
-                                </p>
-                                <p style="text-align: right; font-style: italic">
-                                    <span>
-                                        <b>Prénom, Nom et Signature </b><br><br><br>
-                                        {{ $formation?->onfpevaluateur?->name . ' ' . $formation?->onfpevaluateur?->lastname }}
-                                    </span>
-                                </p>
+                                        <p>
+                                            <span>
+                                                <b>Observations</b> :
+                                                {{ trim($formation?->recommandations) !== '' ? $formation->recommandations : 'Aucune recommandation' }}
+                                            </span>
+                                        </p>
 
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
+                                        <p style="text-align: right; font-style: italic">
+                                            {{-- {{ 'Fait à ' . $formation?->departement?->nom . ' le ' . $formation?->date_pv_finale?->translatedFormat('d F Y') ?? $formation?->date_pv?->translatedFormat('l d F Y') }} --}}
+                                            @if ($formation?->date_pv_finale)
+                                                {{ 'Fait à ' . remove_accents_uppercase($formation?->departement?->nom ?? '') . ', le ' . $formation?->date_pv_finale?->translatedFormat('d F Y') }}
+                                            @else
+                                                {{ 'Fait à ' . remove_accents_uppercase($formation?->departement?->nom ?? '') . ', le ' . $formation?->date_pv?->translatedFormat('d F Y') }}
+                                            @endif
+                                        </p>
+                                        <p style="text-align: right; font-style: italic">
+                                            <span>
+                                                <b>Prénom, Nom et Signature </b><br><br><br>
+                                                {{ $formation?->onfpevaluateur?->name . ' ' . $formation?->onfpevaluateur?->lastname }}
+                                            </span>
+                                        </p>
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
     <footer>
         <div class="page-number" id="footer">

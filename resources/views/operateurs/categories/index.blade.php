@@ -42,44 +42,48 @@
                         </div>
                         {{-- <p>Le tableau de toutes les catégories du système.</p> --}}
                         <!-- Table with stripped rows -->
-                        <table class="table datatables align-middle" id="table-categories">
-                            <thead>
-                                <tr>
-                                    {{-- <th width="3%">N°</th> --}}
-                                    <th>catégories</th>
-                                    <th class="text-center" width="5%">Opérateurs</th>
-                                    <th width="5%">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($categories as $categorie)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle" id="table-categories">
+                                <thead>
                                     <tr>
-                                        {{-- <td>{{ $i++ }}</td> --}}
-                                        <td>{{ $categorie->name }}</td>
-                                        <td class="text-center">{{ count($categorie?->operateurs) }}</td>
-                                        <td>
-                                            <span class="d-flex mt-2 align-items-baseline">
-                                                <a href="{{ route('operateurcategories.edit', $categorie->id) }}"
-                                                    class="btn btn-success btn-sm" title="Modifier"><i
-                                                        class="bi bi-pencil-square"></i></a>
-                                                <a href="{{ route('operateurcategories.show', $categorie->id) }}"
-                                                    class="btn btn-warning btn-sm" title="Voir"><i class="bi bi-eye"></i>
-                                                </a>
-                                                <form action="{{ route('operateurcategories.destroy', $categorie->id) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                        title="Supprimer"><i class="bi bi-trash"></i></button>
-                                                </form>
-                                            </span>
-                                        </td>
+                                        {{-- <th width="3%">N°</th> --}}
+                                        <th>catégories</th>
+                                        <th class="text-center" width="5%">Opérateurs</th>
+                                        <th width="5%">#</th>
                                     </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($categories as $categorie)
+                                        <tr>
+                                            {{-- <td>{{ $i++ }}</td> --}}
+                                            <td>{{ $categorie->name }}</td>
+                                            <td class="text-center">{{ count($categorie?->operateurs) }}</td>
+                                            <td>
+                                                <span class="d-flex mt-2 align-items-baseline">
+                                                    <a href="{{ route('operateurcategories.edit', $categorie->id) }}"
+                                                        class="btn btn-success btn-sm" title="Modifier"><i
+                                                            class="bi bi-pencil-square"></i></a>
+                                                    <a href="{{ route('operateurcategories.show', $categorie->id) }}"
+                                                        class="btn btn-warning btn-sm" title="Voir"><i
+                                                            class="bi bi-eye"></i>
+                                                    </a>
+                                                    <form
+                                                        action="{{ route('operateurcategories.destroy', $categorie->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                                            title="Supprimer"><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                         <!-- End Table with stripped rows -->
 
                     </div>

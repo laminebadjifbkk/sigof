@@ -12,7 +12,7 @@
             padding: 20px;
             font-size: 14px;
             line-height: 20px;
-            color:rgb(0, 0, 0);
+            color: rgb(0, 0, 0);
             ;
         }
 
@@ -92,120 +92,129 @@
 
 <body>
     <div class="invoice-box">
-        <table class="table table-bordered">
-            <tbody>
-                <tr>
-                    <td colspan="2" align="left" valign="top" style="text-align: center;">
-                        <b>REPUBLIQUE DU SENEGAL<br>
-                            <small> Un Peuple - Un But - Une Foi</small><br>
-                            ----------<br>
-                            Ministère de la Formation Professionnelle (MFP)<br>
-                            ----------<br>
-                        </b>
-                    </td>
-                    <td colspan="2" valign="top">
-                        <p align="right">
-                            <b> {{ __('ONFP/DG/DRH/DIVagp') }} </b>
-                        </p>
-                        <p align="center">
-                            <b> <br> {{ __('Dakar, le') }} </b>
-                        </p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table class="table table-bordered">
-            <tbody>
-                <tr>
-                    <td colspan="2" align="left">
-                        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
-                            style="width: 100%; max-width: 300px" />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td colspan="2" align="left" valign="top" style="text-align: center;">
+                            <b>REPUBLIQUE DU SENEGAL<br>
+                                <small> Un Peuple - Un But - Une Foi</small><br>
+                                ----------<br>
+                                Ministère de la Formation Professionnelle (MFP)<br>
+                                ----------<br>
+                            </b>
+                        </td>
+                        <td colspan="2" valign="top">
+                            <p align="right">
+                                <b> {{ __('ONFP/DG/DRH/DIVagp') }} </b>
+                            </p>
+                            <p align="center">
+                                <b> <br> {{ __('Dakar, le') }} </b>
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td colspan="2" align="left">
+                            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
+                                style="width: 100%; max-width: 300px" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <h3 align="right"><u>DECISION</u> :
             @foreach ($employe->nomminations as $nommination)
                 {{ $nommination?->name }}
             @endforeach
         </h3>
         <h3 align="right"><i>Le Directeur général</i></h3>
-        <table class="table table-bordered">
-            <tbody>
-                <tr>
-                    <td style="float:right;" colspan="4" valign="top">
-                        <table class="table table-bordered table-striped">
-                            <tbody align="justify">
-                                @foreach ($employe->lois as $loi)
-                                    <tr class="item">
-                                        <td valign="top">
-                                            <b>{{ __('Vu') }}</b>
-                                        </td>
-                                        <td colspan="2" style="padding-left: 20px;">
-                                            {{ $loi?->name }};
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                @foreach ($employe->decrets as $decret)
-                                    <tr class="item">
-                                        <td valign="top">
-                                            <b>{{ __('Vu') }}</b>
-                                        </td>
-                                        <td colspan="2" style="padding-left: 20px;">
-                                            {{ $decret?->name }};
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                @foreach ($employe->procesverbals as $procesverbal)
-                                    <tr class="item">
-                                        <td valign="top">
-                                            <b>{{ __('Vu') }}</b>
-                                        </td>
-                                        <td colspan="2" style="padding-left: 20px;">
-                                            {{ $procesverbal?->name }};
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                @foreach ($employe->decisions as $decision)
-                                    <tr class="item">
-                                        <td valign="top">
-                                            <b>{{ __('Vu') }}</b>
-                                        </td>
-                                        <td colspan="2" style="padding-left: 20px;">
-                                            {{ $decision?->name }};
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                <tr class="item">
-                                    <td valign="top">
-                                        <b>{{ __('Vu') }}</b>
-                                    </td>
-                                    <td colspan="2" style="padding-left: 20px;">
-                                        {{ __('le dossier de l’intéressé') }};
-                                    </td>
-                                </tr>
-                                <tr class="item">
-                                    <td valign="top">
-                                        <b>{{ __('Vu') }}</b>
-                                    </td>
-                                    <td colspan="2" style="padding-left: 20px;">
-                                        {{ __('les dispositions budgétaires') }};
-                                    </td>
-                                </tr>
-                                <tr class="item">
-                                    <td valign="top">
-                                        <b>{{ __('Vu') }}</b>
-                                    </td>
-                                    <td colspan="2" style="padding-left: 20px;">
-                                        {{ __('les nécessités de service') }};
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td style="float:right;" colspan="4" valign="top">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <tbody align="justify">
+                                        @foreach ($employe->lois as $loi)
+                                            <tr class="item">
+                                                <td valign="top">
+                                                    <b>{{ __('Vu') }}</b>
+                                                </td>
+                                                <td colspan="2" style="padding-left: 20px;">
+                                                    {{ $loi?->name }};
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        @foreach ($employe->decrets as $decret)
+                                            <tr class="item">
+                                                <td valign="top">
+                                                    <b>{{ __('Vu') }}</b>
+                                                </td>
+                                                <td colspan="2" style="padding-left: 20px;">
+                                                    {{ $decret?->name }};
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        @foreach ($employe->procesverbals as $procesverbal)
+                                            <tr class="item">
+                                                <td valign="top">
+                                                    <b>{{ __('Vu') }}</b>
+                                                </td>
+                                                <td colspan="2" style="padding-left: 20px;">
+                                                    {{ $procesverbal?->name }};
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        @foreach ($employe->decisions as $decision)
+                                            <tr class="item">
+                                                <td valign="top">
+                                                    <b>{{ __('Vu') }}</b>
+                                                </td>
+                                                <td colspan="2" style="padding-left: 20px;">
+                                                    {{ $decision?->name }};
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        <tr class="item">
+                                            <td valign="top">
+                                                <b>{{ __('Vu') }}</b>
+                                            </td>
+                                            <td colspan="2" style="padding-left: 20px;">
+                                                {{ __('le dossier de l’intéressé') }};
+                                            </td>
+                                        </tr>
+                                        <tr class="item">
+                                            <td valign="top">
+                                                <b>{{ __('Vu') }}</b>
+                                            </td>
+                                            <td colspan="2" style="padding-left: 20px;">
+                                                {{ __('les dispositions budgétaires') }};
+                                            </td>
+                                        </tr>
+                                        <tr class="item">
+                                            <td valign="top">
+                                                <b>{{ __('Vu') }}</b>
+                                            </td>
+                                            <td colspan="2" style="padding-left: 20px;">
+                                                {{ __('les nécessités de service') }};
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         {{-- Lois --}}
         <div align="justify">
             {{--    @foreach ($employe->lois as $loi)
@@ -277,53 +286,58 @@
                 <span style="margin-left:10px">{{ __('les nécessités de service') }};<br></span>
             </p> --}}
             <h2 align="center">DECIDE:</h2>
-            <table class="table table-bordered">
-                <tbody>
-                    <tr>
-                        <td style="float:right;" colspan="4" valign="top">
-                            <table class="table table-bordered table-striped">
-                                <tbody align="justify">
-                                    <tr class="item">
-                                        {{-- <td valign="top">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td style="float:right;" colspan="4" valign="top">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <tbody align="justify">
+                                            <tr class="item">
+                                                {{-- <td valign="top">
                                                 <b>{{ __('Article premier : ') }}</b>
                                             </td> --}}
-                                        <td colspan="4">
-                                            <b><u>Article premier</u> :
-                                                {{ $employe->user->civilite . ' ' . $employe->user->firstname . ' ' . $employe->user->name . ', ' }}
-                                            </b>
-                                            {{ ' né le ' . $employe->user->date_naissance?->translatedFormat('d F Y') . ' à ' . $employe->user->lieu_naissance . ', titulaire d\'un(e) ' }}
-                                            <b> {{ $employe->diplome . ', ' }} </b> matricule de solde
-                                            <b>{{ $employe->matricule . ', ' }}</b> précédemment <b>
-                                                {{ $employe->fonction_precedente . ', ' }} </b> est nommé(e)
-                                            <b>{{ $employe->fonction?->name }}.</b>
-                                        </td>
-                                    </tr><br>
-                                    <tr class="item">
-                                        <td colspan="4">
-                                            <b><u>Article 2</u> :
-                                                {{ $employe->user->civilite . ' ' . $employe->user->firstname . ' ' . $employe->user->name }}</b>
-                                            percevra un salaire mensuel de base de
-                                            <b>{{ $employe->category->salaire_lettre . '(' . number_format($employe->category->salaire, 0, ',', ' ') . ')' . 'Francs CFA ' }}</b>
-                                            correspondant à la catégorie <b>{{ $employe->category->name }}</b> de la
-                                            grille salariale du personnel de l'ONFP
-                                            adoptée par le Conseil d'Administration du 21 Août 2014.
-                                        </td>
-                                    </tr><br>
-                                    <tr class="item">
-                                        <td colspan="4">
-                                            <?php $i = 2; ?>
-                                            @foreach ($employe->articles as $article)
-                                                <b><u>Article {{ ++$i }}</u> :</b>
-                                                {{ $article?->name }};<br><br>
-                                            @endforeach
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                                                <td colspan="4">
+                                                    <b><u>Article premier</u> :
+                                                        {{ $employe->user->civilite . ' ' . $employe->user->firstname . ' ' . $employe->user->name . ', ' }}
+                                                    </b>
+                                                    {{ ' né le ' . $employe->user->date_naissance?->translatedFormat('d F Y') . ' à ' . $employe->user->lieu_naissance . ', titulaire d\'un(e) ' }}
+                                                    <b> {{ $employe->diplome . ', ' }} </b> matricule de solde
+                                                    <b>{{ $employe->matricule . ', ' }}</b> précédemment <b>
+                                                        {{ $employe->fonction_precedente . ', ' }} </b> est nommé(e)
+                                                    <b>{{ $employe->fonction?->name }}.</b>
+                                                </td>
+                                            </tr><br>
+                                            <tr class="item">
+                                                <td colspan="4">
+                                                    <b><u>Article 2</u> :
+                                                        {{ $employe->user->civilite . ' ' . $employe->user->firstname . ' ' . $employe->user->name }}</b>
+                                                    percevra un salaire mensuel de base de
+                                                    <b>{{ $employe->category->salaire_lettre . '(' . number_format($employe->category->salaire, 0, ',', ' ') . ')' . 'Francs CFA ' }}</b>
+                                                    correspondant à la catégorie <b>{{ $employe->category->name }}</b>
+                                                    de la
+                                                    grille salariale du personnel de l'ONFP
+                                                    adoptée par le Conseil d'Administration du 21 Août 2014.
+                                                </td>
+                                            </tr><br>
+                                            <tr class="item">
+                                                <td colspan="4">
+                                                    <?php $i = 2; ?>
+                                                    @foreach ($employe->articles as $article)
+                                                        <b><u>Article {{ ++$i }}</u> :</b>
+                                                        {{ $article?->name }};<br><br>
+                                                    @endforeach
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             {{--  <?php $i = 2; ?> --}}
             {{-- <p><b>Article premier : </b>
                 <span style="margin-left:10px"><b>{{ $employe->user->civilite . ' ' . $employe->user->firstname . ' ' . $employe->user->name . ', ' }}

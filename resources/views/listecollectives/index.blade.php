@@ -89,96 +89,98 @@
                                 </div>
                             </div>
                             @if ($listecollectives?->isNotEmpty())
-                                <table class="table datatables align-middle" id="table-listecollectives">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">N°</th>
-                                            <th class="text-center">N° CIN (NIN)</th>
-                                            <th>Prénom & NOM</th>
-                                            <th>Date nais.</th>
-                                            <th>Lieu nais.</th>
-                                            {{-- <th>Module</th> --}}
-                                            <th>Structure</th>
-                                            <th class="text-center">Dépôt</th>
-                                            <th class="text-center">Statut</th>
-                                            <th width="5%" class="text-center">#</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $i = 1; ?>
-                                        @foreach ($listecollectives as $listecollective)
+                                <div class="table-responsive">
+                                    <table class="table datatables align-middle" id="table-listecollectives">
+                                        <thead>
                                             <tr>
-                                                <td style="text-align: center">{{ $i++ }}</td>
-                                                <td style="text-align: center">{{ $listecollective?->cin }}</td>
-                                                <td>{{ $listecollective?->prenom . ' ' . $listecollective?->nom }}
-                                                </td>
-                                                <td>{{ $listecollective?->date_naissance?->format('d/m/Y') }}</td>
-                                                <td>{{ $listecollective?->lieu_naissance }}</td>
-                                                {{-- <td>{{ $listecollective?->collectivemodule?->module }}</td> --}}
-                                                <td>
-                                                    @if ($listecollective->collective)
-                                                        <a href="{{ route('collectives.show', $listecollective->collective) }}"
-                                                            title="Voir" target="_blank">
-
-                                                            {{ $listecollective->collective->sigle
-                                                                ? $listecollective->collective->sigle
-                                                                : $listecollective->collective->name }}
-
-                                                        </a>
-                                                    @else
-                                                        <span>Aucun</span>
-                                                    @endif
-                                                </td>
-                                                <td class="text-center">
-                                                    @if ($listecollective?->created_at)
-                                                        {{ $listecollective?->created_at ? \Carbon\Carbon::parse($listecollective?->created_at)->format('d/m/Y') : 'Aucun' }}
-                                                    @else
-                                                        Aucun
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <span class="{{ $listecollective?->statut }}">
-                                                        {{ $listecollective?->statut }}
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <span class="d-flex align-items-baseline"><a
-                                                            href="{{ route('listecollectives.show', $listecollective) }}"
-                                                            class="btn btn-warning btn-sm" title="voir détails"><i
-                                                                class="bi bi-eye"></i></a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                {{-- @can('listecollective-update') --}}
-                                                                <li><a class="dropdown-item btn btn-sm"
-                                                                        href="{{ route('listecollectives.edit', $listecollective) }}"
-                                                                        class="mx-1" title="Modifier"><i
-                                                                            class="bi bi-pencil"></i>Modifier</a>
-                                                                </li>
-                                                                {{-- @endcan
-                                                                @can('listecollective-delete') --}}
-                                                                <li>
-                                                                    <form
-                                                                        action="{{ route('listecollectives.destroy', $listecollective) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit"
-                                                                            class="dropdown-item show_confirm"
-                                                                            title="Supprimer"><i
-                                                                                class="bi bi-trash"></i>Supprimer</button>
-                                                                    </form>
-                                                                </li>
-                                                                {{-- @endcan --}}
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                                </td>
+                                                <th class="text-center">N°</th>
+                                                <th class="text-center">N° CIN (NIN)</th>
+                                                <th>Prénom & NOM</th>
+                                                <th>Date nais.</th>
+                                                <th>Lieu nais.</th>
+                                                {{-- <th>Module</th> --}}
+                                                <th>Structure</th>
+                                                <th class="text-center">Dépôt</th>
+                                                <th class="text-center">Statut</th>
+                                                <th width="5%" class="text-center">#</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            <?php $i = 1; ?>
+                                            @foreach ($listecollectives as $listecollective)
+                                                <tr>
+                                                    <td style="text-align: center">{{ $i++ }}</td>
+                                                    <td style="text-align: center">{{ $listecollective?->cin }}</td>
+                                                    <td>{{ $listecollective?->prenom . ' ' . $listecollective?->nom }}
+                                                    </td>
+                                                    <td>{{ $listecollective?->date_naissance?->format('d/m/Y') }}</td>
+                                                    <td>{{ $listecollective?->lieu_naissance }}</td>
+                                                    {{-- <td>{{ $listecollective?->collectivemodule?->module }}</td> --}}
+                                                    <td>
+                                                        @if ($listecollective->collective)
+                                                            <a href="{{ route('collectives.show', $listecollective->collective) }}"
+                                                                title="Voir" target="_blank">
+
+                                                                {{ $listecollective->collective->sigle
+                                                                    ? $listecollective->collective->sigle
+                                                                    : $listecollective->collective->name }}
+
+                                                            </a>
+                                                        @else
+                                                            <span>Aucun</span>
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if ($listecollective?->created_at)
+                                                            {{ $listecollective?->created_at ? \Carbon\Carbon::parse($listecollective?->created_at)->format('d/m/Y') : 'Aucun' }}
+                                                        @else
+                                                            Aucun
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <span class="{{ $listecollective?->statut }}">
+                                                            {{ $listecollective?->statut }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="d-flex align-items-baseline"><a
+                                                                href="{{ route('listecollectives.show', $listecollective) }}"
+                                                                class="btn btn-warning btn-sm" title="voir détails"><i
+                                                                    class="bi bi-eye"></i></a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    {{-- @can('listecollective-update') --}}
+                                                                    <li><a class="dropdown-item btn btn-sm"
+                                                                            href="{{ route('listecollectives.edit', $listecollective) }}"
+                                                                            class="mx-1" title="Modifier"><i
+                                                                                class="bi bi-pencil"></i>Modifier</a>
+                                                                    </li>
+                                                                    {{-- @endcan
+                                                                @can('listecollective-delete') --}}
+                                                                    <li>
+                                                                        <form
+                                                                            action="{{ route('listecollectives.destroy', $listecollective) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"
+                                                                                title="Supprimer"><i
+                                                                                    class="bi bi-trash"></i>Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                    {{-- @endcan --}}
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             @else
                                 <div class="alert alert-info">Aucune demande collective reçue pour l'instant !</div>
                             @endif

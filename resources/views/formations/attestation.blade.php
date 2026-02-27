@@ -103,112 +103,116 @@
 
                                 </div>
                             </div>
-                            <table class="table datatables table-bordered table-hover align-middle justify-content-center"
-                                id="table-formations">
-                                <thead>
-                                    <tr>
-                                        <th>Bénéficiaires</th>
-                                        <th width='10%'>Région</th>
-                                        <th>Modules</th>
-                                        <th>Opérateurs</th>
-                                        <th width='5%' class="text-center">Attestations</th>
-                                        <th width='3%'><i class="bi bi-gear"></i></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($attestations as $formation)
+
+                            <div class="table-responsive">
+                                <table
+                                    class="table datatables table-bordered table-hover align-middle justify-content-center"
+                                    id="table-formations">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $formation?->name }}</td>
-                                            <td>{{ $formation->departement?->region?->nom }}</td>
-                                            <td>
-                                                @isset($formation?->module?->name)
-                                                    {{ $formation?->module?->name }}
-                                                @endisset
-                                                @isset($formation?->collectivemodule?->module)
-                                                    {{ $formation?->collectivemodule?->module }}
-                                                @endisset
-                                            </td>
-                                            <td>{{ $formation?->operateur?->user?->username ?? ' ' }}</td>
-                                            <td class="text-center"><a><span
-                                                        class="{{ $formation?->attestation }}">{{ $formation?->attestation }}</span></a>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <!-- Bouton Voir détails -->
-                                                    <a href="{{ route('formations.show', $formation) }}"
-                                                        class="btn btn-primary btn-sm" title="Voir les détails"
-                                                        target="_blank">
-                                                        <i class="bi bi-eye"></i>
-                                                    </a>
-
-                                                    <!-- Bouton Statuer l'attestation -->
-                                                    <button class="btn btn-warning btn-sm mx-1" data-bs-toggle="modal"
-                                                        data-bs-target="#statuerAttestationModal-{{ $formation->id }}"
-                                                        title="Statuer l'attestation">
-                                                        <i class="bi bi-arrow-left-right"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
+                                            <th>Bénéficiaires</th>
+                                            <th width='10%'>Région</th>
+                                            <th>Modules</th>
+                                            <th>Opérateurs</th>
+                                            <th width='5%' class="text-center">Attestations</th>
+                                            <th width='3%'><i class="bi bi-gear"></i></th>
                                         </tr>
-                                        <div class="modal fade" id="statuerAttestationModal-{{ $formation->id }}"
-                                            tabindex="-1" aria-labelledby="changerModuleLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg">
-                                                <form action="{{ route('attestations.check', $formation->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="changerModuleLabel">
-                                                                {{ $formation?->name }}</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Fermer"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="mb-3">
-                                                                <label for="attestation"
-                                                                    class="form-label">{{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}</label>
-                                                                @php
-                                                                    $statuts = [
-                                                                        'Nouveau' => 'Nouveau',
-                                                                        'Attente' => 'Attente',
-                                                                        'En cours' => 'En cours',
-                                                                        'Signature' => 'Signature',
-                                                                        'Disponibles' => 'Disponibles',
-                                                                        'Délivrés' => 'Délivrés',
-                                                                    ];
-                                                                @endphp
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($attestations as $formation)
+                                            <tr>
+                                                <td>{{ $formation?->name }}</td>
+                                                <td>{{ $formation->departement?->region?->nom }}</td>
+                                                <td>
+                                                    @isset($formation?->module?->name)
+                                                        {{ $formation?->module?->name }}
+                                                    @endisset
+                                                    @isset($formation?->collectivemodule?->module)
+                                                        {{ $formation?->collectivemodule?->module }}
+                                                    @endisset
+                                                </td>
+                                                <td>{{ $formation?->operateur?->user?->username ?? ' ' }}</td>
+                                                <td class="text-center"><a><span
+                                                            class="{{ $formation?->attestation }}">{{ $formation?->attestation }}</span></a>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <!-- Bouton Voir détails -->
+                                                        <a href="{{ route('formations.show', $formation) }}"
+                                                            class="btn btn-primary btn-sm" title="Voir les détails"
+                                                            target="_blank">
+                                                            <i class="bi bi-eye"></i>
+                                                        </a>
 
-                                                                <select name="attestation" id="attestation"
-                                                                    class="form-select form-select-sm" required>
-                                                                    <option value="" disabled
-                                                                        {{ empty($formation?->attestation) ? 'selected' : '' }}>
-                                                                        -- Choisir --
-                                                                    </option>
+                                                        <!-- Bouton Statuer l'attestation -->
+                                                        <button class="btn btn-warning btn-sm mx-1" data-bs-toggle="modal"
+                                                            data-bs-target="#statuerAttestationModal-{{ $formation->id }}"
+                                                            title="Statuer l'attestation">
+                                                            <i class="bi bi-arrow-left-right"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <div class="modal fade" id="statuerAttestationModal-{{ $formation->id }}"
+                                                tabindex="-1" aria-labelledby="changerModuleLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg">
+                                                    <form action="{{ route('attestations.check', $formation->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="changerModuleLabel">
+                                                                    {{ $formation?->name }}</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label for="attestation"
+                                                                        class="form-label">{{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}</label>
+                                                                    @php
+                                                                        $statuts = [
+                                                                            'Nouveau' => 'Nouveau',
+                                                                            'Attente' => 'Attente',
+                                                                            'En cours' => 'En cours',
+                                                                            'Signature' => 'Signature',
+                                                                            'Disponibles' => 'Disponibles',
+                                                                            'Délivrés' => 'Délivrés',
+                                                                        ];
+                                                                    @endphp
 
-                                                                    @foreach ($statuts as $value => $label)
-                                                                        <option value="{{ $value }}"
-                                                                            {{ $formation?->attestation === $value ? 'selected' : '' }}>
-                                                                            {{ $label }}
+                                                                    <select name="attestation" id="attestation"
+                                                                        class="form-select form-select-sm" required>
+                                                                        <option value="" disabled
+                                                                            {{ empty($formation?->attestation) ? 'selected' : '' }}>
+                                                                            -- Choisir --
                                                                         </option>
-                                                                    @endforeach
-                                                                </select>
 
+                                                                        @foreach ($statuts as $value => $label)
+                                                                            <option value="{{ $value }}"
+                                                                                {{ $formation?->attestation === $value ? 'selected' : '' }}>
+                                                                                {{ $label }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary btn-sm"
+                                                                    data-bs-dismiss="modal">Fermer</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-success btn-sm">Valider</button>
                                                             </div>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary btn-sm"
-                                                                data-bs-dismiss="modal">Fermer</button>
-                                                            <button type="submit"
-                                                                class="btn btn-success btn-sm">Valider</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

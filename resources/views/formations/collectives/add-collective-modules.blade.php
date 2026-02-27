@@ -59,37 +59,38 @@
                             @method('PUT')
                             <div class="row mb-3 border rounded bg-light shadow-sm p-3">
                                 <div class="form-check col-md-12 pt-5">
-                                    <table class="m-2 table datatables align-middle" id="table-modules">
-                                        <thead>
-                                            <tr>
-                                                <th width="30%">Structure</th>
-                                                {{-- <th>E-mail</th>
+                                    <div class="table-responsive">
+                                        <table class="m-2 table datatables align-middle" id="table-modules">
+                                            <thead>
+                                                <tr>
+                                                    <th width="30%">Structure</th>
+                                                    {{-- <th>E-mail</th>
                                                 <th>Téléphone</th>
                                                 <th>Localité</th> --}}
-                                                <th>Modules</th>
-                                                <th class="text-center" scope="col">Effectif</th>
-                                                <th class="text-center" scope="col">Formations</th>
-                                                <th class="text-center" scope="col">Statut</th>
-                                                <th width="3%"><i class="bi bi-gear"></i></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                            @foreach ($collectivemodules as $collectivemodule)
-                                                <tr>
-                                                    <td>
-                                                        <input type="radio" name="collectivemodule"
-                                                            value="{{ $collectivemodule?->id }}"
-                                                            {{ in_array($collectivemodule?->id, $collectivemoduleFormation) ? 'checked' : '' }}
-                                                            class="form-check-input @error('collectivemodule') is-invalid @enderror">
-                                                        @error('collectivemodule')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <div>{{ $message }}</div>
-                                                            </span>
-                                                        @enderror
-                                                        {{ $collectivemodule?->collective?->name . ' (' . $collectivemodule?->collective?->sigle . ')' }}
-                                                    </td>
-                                                    {{--  <td><a
+                                                    <th>Modules</th>
+                                                    <th class="text-center" scope="col">Effectif</th>
+                                                    <th class="text-center" scope="col">Formations</th>
+                                                    <th class="text-center" scope="col">Statut</th>
+                                                    <th width="3%"><i class="bi bi-gear"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @foreach ($collectivemodules as $collectivemodule)
+                                                    <tr>
+                                                        <td>
+                                                            <input type="radio" name="collectivemodule"
+                                                                value="{{ $collectivemodule?->id }}"
+                                                                {{ in_array($collectivemodule?->id, $collectivemoduleFormation) ? 'checked' : '' }}
+                                                                class="form-check-input @error('collectivemodule') is-invalid @enderror">
+                                                            @error('collectivemodule')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div>{{ $message }}</div>
+                                                                </span>
+                                                            @enderror
+                                                            {{ $collectivemodule?->collective?->name . ' (' . $collectivemodule?->collective?->sigle . ')' }}
+                                                        </td>
+                                                        {{--  <td><a
                                                             href="mailto:{{ $collectivemodule?->collective?->user?->email }}">{{ $collectivemodule?->collective?->user?->email }}</a>
                                                     </td>
                                                     <td><a
@@ -97,32 +98,34 @@
                                                     </td>
                                                     <td>{{ $collectivemodule?->collective?->departement?->region?->nom }}
                                                     </td> --}}
-                                                    <td>{{ $collectivemodule?->module }}</td>
-                                                    <td class="text-center">
-                                                        @php $count = $collectivemodule?->listecollectives?->count() ?? 0; @endphp
-                                                        <span class="badge bg-info">{{ $count }}</span>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <span class="badge bg-primary">
-                                                            {{ count($collectivemodule?->formations) }}
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="{{ $collectivemodule?->statut }}">
-                                                            {{ $collectivemodule?->statut }}
-                                                        </span>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <span class="d-flex mt-2 align-items-baseline"><a
-                                                                href="{{ route('collectivemodules.show', $collectivemodule) }}"
-                                                                class="btn btn-success btn-sm mx-1" title="Voir détails">
-                                                                <i class="bi bi-eye"></i></a>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                                        <td>{{ $collectivemodule?->module }}</td>
+                                                        <td class="text-center">
+                                                            @php $count = $collectivemodule?->listecollectives?->count() ?? 0; @endphp
+                                                            <span class="badge bg-info">{{ $count }}</span>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <span class="badge bg-primary">
+                                                                {{ count($collectivemodule?->formations) }}
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="{{ $collectivemodule?->statut }}">
+                                                                {{ $collectivemodule?->statut }}
+                                                            </span>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <span class="d-flex mt-2 align-items-baseline"><a
+                                                                    href="{{ route('collectivemodules.show', $collectivemodule) }}"
+                                                                    class="btn btn-success btn-sm mx-1"
+                                                                    title="Voir détails">
+                                                                    <i class="bi bi-eye"></i></a>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-outline-primary btn-sm"><i

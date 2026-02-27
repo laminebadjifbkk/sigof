@@ -39,37 +39,40 @@
                         <h5 class="card-title">Décisions</h5>
                         {{-- <p>Le tableau de toutes les decisions du système.</p> --}}
                         <!-- Table with stripped rows -->
-                        <table class="table datatables align-middle" id="table-decisions">
-                            <thead>
-                                <tr>
-                                    <th>N°</th>
-                                    <th>Décisions</th>
-                                    <th>#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($decisions as $decision)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle" id="table-decisions">
+                                <thead>
                                     <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td>{{ $decision->name }}</td>
-                                        <td>
-                                            <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('decisions/'.$decision->id.'/edit') }}"
-                                                    class="btn btn-success btn-sm" title="Modifier"><i
-                                                        class="bi bi-pencil-square"></i></a>&nbsp;
-                                                <form action="{{ url('decisions', $decision->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                        title="Supprimer"><i class="bi bi-trash"></i></button>
-                                                </form>
-                                            </span>
-                                        </td>
+                                        <th>N°</th>
+                                        <th>Décisions</th>
+                                        <th>#</th>
                                     </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($decisions as $decision)
+                                        <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $decision->name }}</td>
+                                            <td>
+                                                <span class="d-flex mt-2 align-items-baseline"><a
+                                                        href="{{ url('decisions/' . $decision->id . '/edit') }}"
+                                                        class="btn btn-success btn-sm" title="Modifier"><i
+                                                            class="bi bi-pencil-square"></i></a>&nbsp;
+                                                    <form action="{{ url('decisions', $decision->id) }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                                            title="Supprimer"><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                         <!-- End Table with stripped rows -->
 
                     </div>
@@ -85,7 +88,7 @@
         new DataTable('#table-decisions', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

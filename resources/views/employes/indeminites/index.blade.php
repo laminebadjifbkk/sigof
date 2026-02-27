@@ -39,39 +39,42 @@
                         <h5 class="card-title">Indemnites</h5>
                         {{-- <p>Le tableau de tous les indemnites du système.</p> --}}
                         <!-- Table with stripped rows -->
-                        <table class="table datatables align-middle" id="table-indemnites">
-                            <thead>
-                                <tr>
-                                    <th>N°</th>
-                                    <th>Indemnites</th>
-                                    <th>#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($indemnites as $indemnite)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle" id="table-indemnites">
+                                <thead>
                                     <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td>{{ $indemnite->name }}</td>
-                                        <td>
-                                            <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('indemnites/'.$indemnite->id.'/edit') }}"
-                                                    class="btn btn-success btn-sm" title="Modifier"><i
-                                                        class="bi bi-pencil-square"></i></a>&nbsp;
-                                                <form action="{{ url('indemnites', $indemnite->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                        title="Supprimer"><i class="bi bi-trash"></i></button>
-                                                </form>
-                                            </span>
-                                        </td>
+                                        <th>N°</th>
+                                        <th>Indemnites</th>
+                                        <th>#</th>
                                     </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($indemnites as $indemnite)
+                                        <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $indemnite->name }}</td>
+                                            <td>
+                                                <span class="d-flex mt-2 align-items-baseline"><a
+                                                        href="{{ url('indemnites/' . $indemnite->id . '/edit') }}"
+                                                        class="btn btn-success btn-sm" title="Modifier"><i
+                                                            class="bi bi-pencil-square"></i></a>&nbsp;
+                                                    <form action="{{ url('indemnites', $indemnite->id) }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                                            title="Supprimer"><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
 
+                        </div>
                     </div>
                 </div>
 
@@ -85,7 +88,7 @@
         new DataTable('#table-indemnites', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

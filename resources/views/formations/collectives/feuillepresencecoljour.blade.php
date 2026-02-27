@@ -146,46 +146,47 @@
         </b>
     </div>
     <div class="invoice-box">
-        <table class="table table-bordered">
-            <thead>
-                <tr class="heading" style="text-align: center;">
-                    <td colspan="9"><b>{{ __('FEUILLE DE PRÉSENCE QUOTIDIENNE') }}</b>
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="4">{{ __('Code : ') }}
-                        @if (!empty($formation?->code))
-                            {{ $formation?->code . 'C' }}
-                        @endif
-                    </td>
-                    <td colspan="2"><b>{{ __('Responsable suivi : ') }}</b>
-                        @if (!empty($formation?->date_suivi))
-                            {{ $formation?->suivi_dossier }}
-                        @endif
-                    </td>
-                    <td colspan="2"><b>{{ __('Date : ') }}</b>
-                        @if (!empty($emargementcollective?->date))
-                            {{ $emargementcollective?->date?->format('d/m/Y') }}
-                        @endif
-                    </td>
-                    <td colspan="1"><b>{{ $emargementcollective?->jour }}</b>
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="4">{{ __('Intitulé : ') }}
-                        {{-- {{ $formation?->collectivemodule?->module }} --}}
-                        {{ $formation?->intitule }}
-                    </td>
-                    <td colspan="5"><b>{{ __('Opérateur : ') }}</b>
-                        {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="4">{{ __('Adresse : ') }}
-                        {{ $formation?->lieu }}
-                    </td>
-                    <td colspan="5"><b>{{ __('Contact : ') }}</b>
-                        {{-- {{ substr($formation?->operateur?->user?->fixe, 0, 2) .
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="heading" style="text-align: center;">
+                        <td colspan="9"><b>{{ __('FEUILLE DE PRÉSENCE QUOTIDIENNE') }}</b>
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="4">{{ __('Code : ') }}
+                            @if (!empty($formation?->code))
+                                {{ $formation?->code . 'C' }}
+                            @endif
+                        </td>
+                        <td colspan="2"><b>{{ __('Responsable suivi : ') }}</b>
+                            @if (!empty($formation?->date_suivi))
+                                {{ $formation?->suivi_dossier }}
+                            @endif
+                        </td>
+                        <td colspan="2"><b>{{ __('Date : ') }}</b>
+                            @if (!empty($emargementcollective?->date))
+                                {{ $emargementcollective?->date?->format('d/m/Y') }}
+                            @endif
+                        </td>
+                        <td colspan="1"><b>{{ $emargementcollective?->jour }}</b>
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="4">{{ __('Intitulé : ') }}
+                            {{-- {{ $formation?->collectivemodule?->module }} --}}
+                            {{ $formation?->intitule }}
+                        </td>
+                        <td colspan="5"><b>{{ __('Opérateur : ') }}</b>
+                            {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="4">{{ __('Adresse : ') }}
+                            {{ $formation?->lieu }}
+                        </td>
+                        <td colspan="5"><b>{{ __('Contact : ') }}</b>
+                            {{-- {{ substr($formation?->operateur?->user?->fixe, 0, 2) .
                             ' ' .
                             substr($formation?->operateur?->user?->fixe, 2, 3) .
                             ' ' .
@@ -202,49 +203,51 @@
                                 ' ' .
                                 substr($formation?->operateur?->user?->telephone, 7, 2) }}
                         @endif --}}
-                        {{ $formation?->operateur?->user?->fixe }}
-                        @if (!empty($formation?->operateur?->user?->telephone))
-                            {{ ' / ' . $formation?->operateur?->user?->telephone }}
-                        @endif
-                    </td>
-                </tr>
-                <tr class="item" style="text-align: center;">
-                    <td width="3%"><b>N°</b></td>
-                    <td><b>CIN</b></td>
-                    {{-- <td><b>Civilité</b></td> --}}
-                    <td><b>Prénom</b></td>
-                    <td><b>NOM</b></td>
-                    <td width="8%"><b>Date naissance</b></td>
-                    <td><b>Lieu de naissance</b></td>
-                    <td width="8%"><b>Téléphone</b></td>
-                    <td width="8%"><b>Présence</b></td>
-                    <td><b>Emargement</b></td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $i = 1; ?>
-                @foreach ($feuillepresencecollectives as $feuillepresencecollective)
-                    <tr class="item" style="text-align: center;">
-                        <td>{{ $i++ }}</td>
-                        <td>{{ $feuillepresencecollective?->listecollective?->cin }}</td>
-                        {{-- <td>{{ $individuelle?->user?->civilite }}</td> --}}
-                        <td>{{ format_proper_name($feuillepresencecollective?->listecollective?->prenom) }}</td>
-                        <td>{{ remove_accents_uppercase($feuillepresencecollective?->listecollective?->nom) }}</td>
-                        <td>{{ $feuillepresencecollective?->listecollective?->date_naissance?->format('d/m/Y') }}</td>
-                        <td>{{ remove_accents_uppercase($feuillepresencecollective?->listecollective?->lieu_naissance) }}
+                            {{ $formation?->operateur?->user?->fixe }}
+                            @if (!empty($formation?->operateur?->user?->telephone))
+                                {{ ' / ' . $formation?->operateur?->user?->telephone }}
+                            @endif
                         </td>
-                        <td>
-                            {{ $feuillepresencecollective?->listecollective?->telephone }}
-                        </td>
-                        <td>
-                            {{ ucwords(in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective) ? $feuillepresencecollective?->presence : '') }}
-                        </td>
-                        <td></td>
                     </tr>
-                @endforeach
+                    <tr class="item" style="text-align: center;">
+                        <td width="3%"><b>N°</b></td>
+                        <td><b>CIN</b></td>
+                        {{-- <td><b>Civilité</b></td> --}}
+                        <td><b>Prénom</b></td>
+                        <td><b>NOM</b></td>
+                        <td width="8%"><b>Date naissance</b></td>
+                        <td><b>Lieu de naissance</b></td>
+                        <td width="8%"><b>Téléphone</b></td>
+                        <td width="8%"><b>Présence</b></td>
+                        <td><b>Emargement</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 1; ?>
+                    @foreach ($feuillepresencecollectives as $feuillepresencecollective)
+                        <tr class="item" style="text-align: center;">
+                            <td>{{ $i++ }}</td>
+                            <td>{{ $feuillepresencecollective?->listecollective?->cin }}</td>
+                            {{-- <td>{{ $individuelle?->user?->civilite }}</td> --}}
+                            <td>{{ format_proper_name($feuillepresencecollective?->listecollective?->prenom) }}</td>
+                            <td>{{ remove_accents_uppercase($feuillepresencecollective?->listecollective?->nom) }}</td>
+                            <td>{{ $feuillepresencecollective?->listecollective?->date_naissance?->format('d/m/Y') }}
+                            </td>
+                            <td>{{ remove_accents_uppercase($feuillepresencecollective?->listecollective?->lieu_naissance) }}
+                            </td>
+                            <td>
+                                {{ $feuillepresencecollective?->listecollective?->telephone }}
+                            </td>
+                            <td>
+                                {{ ucwords(in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective) ? $feuillepresencecollective?->presence : '') }}
+                            </td>
+                            <td></td>
+                        </tr>
+                    @endforeach
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
     <footer>
         <div class="page-number" id="footer">

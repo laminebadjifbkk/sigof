@@ -40,63 +40,66 @@
                         {{-- @endcan --}}
                         <h5 class="card-title">Arrondissements</h5>
                         <!-- Table with stripped rows -->
-                        <table class="table datatables align-middle justify-content-center" id="table-arrondissements">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" scope="col">N°</th>
-                                    <th>arrondissements</th>
-                                    <th>Département</th>
-                                    <th class="text-center" scope="col">Communes</th>
-                                    <th class="text-center" scope="col">#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($arrondissements as $arrondissement)
+                        <div class="table-responsive">
+                            <table class="table datatables align-middle justify-content-center" id="table-arrondissements">
+                                <thead>
                                     <tr>
-                                        <td style="text-align: center;">{{ $i++ }}</td>
-                                        <td>{{ $arrondissement->nom }}</td>
-                                        <td>{{ $arrondissement->departement->nom }}</td>
-                                        <td style="text-align: center;">
-                                            @foreach ($arrondissement->communes as $commune)
-                                                @if ($loop->last)
-                                                    <span class="badge bg-info">{{ $loop->count }}</span>
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <span class="d-flex mt-2 align-items-baseline"><a
-                                                    href="{{ url('arrondissements/' . $arrondissement->id) }}"
-                                                    class="btn btn-warning btn-sm mx-1" title="Voir détails"><i
-                                                        class="bi bi-eye"></i></a>
-                                                <div class="filter">
-                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                        <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                href="{{ url('arrondissements/' . $arrondissement->id . '/edit') }}"
-                                                                class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
-                                                        </li>
-                                                        <li>
-                                                            <form
-                                                                action="{{ url('arrondissements', $arrondissement->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="dropdown-item show_confirm"><i
-                                                                        class="bi bi-trash"></i>Supprimer</button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </span>
-                                        </td>
-
+                                        <th class="text-center" scope="col">N°</th>
+                                        <th>arrondissements</th>
+                                        <th>Département</th>
+                                        <th class="text-center" scope="col">Communes</th>
+                                        <th class="text-center" scope="col">#</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($arrondissements as $arrondissement)
+                                        <tr>
+                                            <td style="text-align: center;">{{ $i++ }}</td>
+                                            <td>{{ $arrondissement->nom }}</td>
+                                            <td>{{ $arrondissement->departement->nom }}</td>
+                                            <td style="text-align: center;">
+                                                @foreach ($arrondissement->communes as $commune)
+                                                    @if ($loop->last)
+                                                        <span class="badge bg-info">{{ $loop->count }}</span>
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span class="d-flex mt-2 align-items-baseline"><a
+                                                        href="{{ url('arrondissements/' . $arrondissement->id) }}"
+                                                        class="btn btn-warning btn-sm mx-1" title="Voir détails"><i
+                                                            class="bi bi-eye"></i></a>
+                                                    <div class="filter">
+                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                class="bi bi-three-dots"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            <li><a class="dropdown-item btn btn-sm mx-1"
+                                                                    href="{{ url('arrondissements/' . $arrondissement->id . '/edit') }}"
+                                                                    class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
+                                                            </li>
+                                                            <li>
+                                                                <form
+                                                                    action="{{ url('arrondissements', $arrondissement->id) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="dropdown-item show_confirm"><i
+                                                                            class="bi bi-trash"></i>Supprimer</button>
+                                                                </form>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </span>
+                                            </td>
+
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
                     </div>
                 </div>
 
@@ -110,7 +113,7 @@
         new DataTable('#table-arrondissements', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

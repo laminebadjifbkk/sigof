@@ -137,95 +137,97 @@
         </b>
     </div>
     <div class="invoice-box">
-        <table class="table table-bordered">
-            <thead>
-                <tr class="heading" style="text-align: center;">
-                    <td colspan="11"><b>{{ __("PROCES VERBAL D'EVALUATION DE FORMATION") }}</b>
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="5"><b>{{ __('Période : ') }}</b>
-                        @isset($formation?->date_debut)
-                            {{ 'Du ' . $formation?->date_debut?->format('d/m/Y') }}
-                        @endisset
-                        @isset($formation?->date_fin)
-                            {{ ' au ' . $formation?->date_fin?->format('d/m/Y') }}
-                        @endisset
-                    </td>
-                    <td colspan="6"><b>{{ __('Intitulé formation : ') }}</b>
-                        {{ $formation?->intitule }}
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="5"><b>{{ __('Lieu : ') }}</b> {{ $formation?->lieu }}
-                    </td>
-                    <td colspan="6"><b>{{ __('Opérateur : ') }}</b>
-                        {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="2"><b>{{ __('Code : ') }}</b>
-                        {{ $formation?->code . 'C' }}
-                    </td>
-                    <td colspan="4"><b>{{ __('Niveau qualification : ') }}</b>
-                        @if ($formation?->type_certification !== 'Titre')
-                            {{ $formation?->titre ?? $formation?->referentiel?->titre }}
-                        @else
-                            @if (!empty($formation?->referentiel?->categorie))
-                                {{ $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="heading" style="text-align: center;">
+                        <td colspan="11"><b>{{ __("PROCES VERBAL D'EVALUATION DE FORMATION") }}</b>
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="5"><b>{{ __('Période : ') }}</b>
+                            @isset($formation?->date_debut)
+                                {{ 'Du ' . $formation?->date_debut?->format('d/m/Y') }}
+                            @endisset
+                            @isset($formation?->date_fin)
+                                {{ ' au ' . $formation?->date_fin?->format('d/m/Y') }}
+                            @endisset
+                        </td>
+                        <td colspan="6"><b>{{ __('Intitulé formation : ') }}</b>
+                            {{ $formation?->intitule }}
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="5"><b>{{ __('Lieu : ') }}</b> {{ $formation?->lieu }}
+                        </td>
+                        <td colspan="6"><b>{{ __('Opérateur : ') }}</b>
+                            {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="2"><b>{{ __('Code : ') }}</b>
+                            {{ $formation?->code . 'C' }}
+                        </td>
+                        <td colspan="4"><b>{{ __('Niveau qualification : ') }}</b>
+                            @if ($formation?->type_certification !== 'Titre')
+                                {{ $formation?->titre ?? $formation?->referentiel?->titre }}
+                            @else
+                                @if (!empty($formation?->referentiel?->categorie))
+                                    {{ $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
+                                @endif
                             @endif
-                        @endif
-                    </td>
-                    <td colspan="5"><b>{{ __('Type certification : ') }}</b>
-                        @if ($formation?->type_certification !== 'Titre')
-                            {{ $formation?->type_certification }}
-                        @else
-                            {{ $formation?->referentiel?->titre }}
-                        @endif
-                    </td>
-                </tr>
-                <tr class="heading">
-                    {{--  <td colspan="7">
+                        </td>
+                        <td colspan="5"><b>{{ __('Type certification : ') }}</b>
+                            @if ($formation?->type_certification !== 'Titre')
+                                {{ $formation?->type_certification }}
+                            @else
+                                {{ $formation?->referentiel?->titre }}
+                            @endif
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        {{--  <td colspan="7">
                         <b>{{ __('Ingénieur en charge : ') }}</b>{{ $formation?->ingenieur?->name . '(' . $formation?->ingenieur?->initiale . ')' }}
                     </td> --}}
-                    <td rowspan="2" class="item" style="text-align: center; width: 2%;"><b>N°</b></td>
-                    <td rowspan="2" class="item" style="text-align: center; width: 10%;"><b>N° CIN</b></td>
-                    <td rowspan="2" class="item" style="text-align: center; width: 5%;"><b>Civilité</b></td>
-                    <td rowspan="2" class="item" style="text-align: center;"><b>Prénom</b></td>
-                    <td rowspan="2" class="item" style="text-align: center;"><b>NOM</b></td>
-                    <td rowspan="2" class="item" style="text-align: center; width: 8%;"><b>Date nais.</b></td>
-                    <td rowspan="2" class="item" style="text-align: center;"><b>Lieu naissance</b>
-                    </td>
-                    <td rowspan="2" class="item" style="text-align: center; width: 8%;"><b>Téléphone</b></td>
-                    <td colspan="3" style="text-align: center;"><b>{{ __('DECISION DU JURY') }}</b>
-                    </td>
-                </tr>
-                <tr class="item" style="text-align: center;">
-                    <td style="text-align: center;"><b>Note</b></td>
-                    <td style="width: 12%;"><b>Niveau maitrise</b></td>
-                    <td><b>Observations</b></td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $i = 1; ?>
-                {{-- @foreach ($formation->listecollectives->where('statut', 'formé') as $listecollective) --}}
-                @foreach ($formation->listecollectivesFormees as $listecollective)
-                    <tr class="item" style="text-align: center;">
-                        <td>{{ $i++ }}</td>
-                        <td>{{ $listecollective?->cin }}</td>
-                        <td>{{ $listecollective->civilite }}</td>
-                        <td>{{ format_proper_name($listecollective?->prenom) }}</td>
-                        <td>{{ remove_accents_uppercase($listecollective?->nom) }}</td>
-                        <td>{{ $listecollective?->date_naissance?->format('d/m/Y') }}</td>
-                        <td>{{ remove_accents_uppercase($listecollective?->lieu_naissance) }}</td>
-                        <td>{{ $listecollective?->telephone }}</td>
-                        <td>{{ $listecollective?->note_obtenue ?? '' }}</td>
-                        <td>{{ $listecollective?->appreciation }}</td>
-                        <td>{{ $listecollective?->observations }}</td>
+                        <td rowspan="2" class="item" style="text-align: center; width: 2%;"><b>N°</b></td>
+                        <td rowspan="2" class="item" style="text-align: center; width: 10%;"><b>N° CIN</b></td>
+                        <td rowspan="2" class="item" style="text-align: center; width: 5%;"><b>Civilité</b></td>
+                        <td rowspan="2" class="item" style="text-align: center;"><b>Prénom</b></td>
+                        <td rowspan="2" class="item" style="text-align: center;"><b>NOM</b></td>
+                        <td rowspan="2" class="item" style="text-align: center; width: 8%;"><b>Date nais.</b></td>
+                        <td rowspan="2" class="item" style="text-align: center;"><b>Lieu naissance</b>
+                        </td>
+                        <td rowspan="2" class="item" style="text-align: center; width: 8%;"><b>Téléphone</b></td>
+                        <td colspan="3" style="text-align: center;"><b>{{ __('DECISION DU JURY') }}</b>
+                        </td>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                    <tr class="item" style="text-align: center;">
+                        <td style="text-align: center;"><b>Note</b></td>
+                        <td style="width: 12%;"><b>Niveau maitrise</b></td>
+                        <td><b>Observations</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 1; ?>
+                    {{-- @foreach ($formation->listecollectives->where('statut', 'formé') as $listecollective) --}}
+                    @foreach ($formation->listecollectivesFormees as $listecollective)
+                        <tr class="item" style="text-align: center;">
+                            <td>{{ $i++ }}</td>
+                            <td>{{ $listecollective?->cin }}</td>
+                            <td>{{ $listecollective->civilite }}</td>
+                            <td>{{ format_proper_name($listecollective?->prenom) }}</td>
+                            <td>{{ remove_accents_uppercase($listecollective?->nom) }}</td>
+                            <td>{{ $listecollective?->date_naissance?->format('d/m/Y') }}</td>
+                            <td>{{ remove_accents_uppercase($listecollective?->lieu_naissance) }}</td>
+                            <td>{{ $listecollective?->telephone }}</td>
+                            <td>{{ $listecollective?->note_obtenue ?? '' }}</td>
+                            <td>{{ $listecollective?->appreciation }}</td>
+                            <td>{{ $listecollective?->observations }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         <div class="no-page-break">
             <h4 style="margin-top: 2mm;">
                 <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>
@@ -241,61 +243,65 @@
             </h4>
             <div style="margin-top: 0; padding-top: 0;">
                 {{-- Table des évaluateurs (3 par ligne) --}}
-                <table class="table-noborder" style="width: 100%;">
-                    <tbody>
-                        @php
-                            $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
-                        @endphp
+                <div class="table-responsive">
+                    <table class="table-noborder" style="width: 100%;">
+                        <tbody>
+                            @php
+                                $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
+                            @endphp
 
-                        @foreach ($evaluateurs->chunk(3) as $trio)
-                            <tr>
-                                @foreach ($trio as $personne)
-                                    <td style="width: 30%;">
-                                        <div class="d-flex align-items-start mb-0">
-                                            <div>
-                                                <strong>{{ $personne->name }} {{ $personne->lastname }}</strong>
-                                                @if ($personne->fonction)
-                                                    <br><em class="text-muted">{{ $personne->fonction }}</em>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="border-bottom" style="height: 15px;"></div>
-                                    </td>
-                                @endforeach
-
-                                {{-- Compléter la ligne s'il y a moins de 3 évaluateurs --}}
-                                @for ($i = $trio->count(); $i < 3; $i++)
-                                    <td style="width: 30%;"></td>
-                                @endfor
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-
-                {{-- Table des autres membres du jury --}}
-                <table class="table-noborder" style="width: 100%;">
-                    <tbody>
-                        @if (!empty($membres_jury))
-                            @foreach (collect($membres_jury)->chunk(2) as $ligne)
+                            @foreach ($evaluateurs->chunk(3) as $trio)
                                 <tr>
-                                    @foreach ($ligne as $item)
-                                        <td style="width: 50%; vertical-align: top; padding-bottom: 1rem;">
-                                            <div class="d-flex align-items-start mb-1">
-                                                <i class="bi bi-people-fill text-dark me-2 mt-1"></i>
-                                                <div><strong>{{ $item }}</strong></div>
+                                    @foreach ($trio as $personne)
+                                        <td style="width: 30%;">
+                                            <div class="d-flex align-items-start mb-0">
+                                                <div>
+                                                    <strong>{{ $personne->name }} {{ $personne->lastname }}</strong>
+                                                    @if ($personne->fonction)
+                                                        <br><em class="text-muted">{{ $personne->fonction }}</em>
+                                                    @endif
+                                                </div>
                                             </div>
-                                            <div style="height: 40px;"></div>
+                                            <div class="border-bottom" style="height: 15px;"></div>
                                         </td>
                                     @endforeach
 
-                                    @if (count($ligne) < 2)
-                                        <td></td>
-                                    @endif
+                                    {{-- Compléter la ligne s'il y a moins de 3 évaluateurs --}}
+                                    @for ($i = $trio->count(); $i < 3; $i++)
+                                        <td style="width: 30%;"></td>
+                                    @endfor
                                 </tr>
                             @endforeach
-                        @endif
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+
+                {{-- Table des autres membres du jury --}}
+                <div class="table-responsive">
+                    <table class="table-noborder" style="width: 100%;">
+                        <tbody>
+                            @if (!empty($membres_jury))
+                                @foreach (collect($membres_jury)->chunk(2) as $ligne)
+                                    <tr>
+                                        @foreach ($ligne as $item)
+                                            <td style="width: 50%; vertical-align: top; padding-bottom: 1rem;">
+                                                <div class="d-flex align-items-start mb-1">
+                                                    <i class="bi bi-people-fill text-dark me-2 mt-1"></i>
+                                                    <div><strong>{{ $item }}</strong></div>
+                                                </div>
+                                                <div style="height: 40px;"></div>
+                                            </td>
+                                        @endforeach
+
+                                        @if (count($ligne) < 2)
+                                            <td></td>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

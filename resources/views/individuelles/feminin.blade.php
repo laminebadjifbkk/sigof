@@ -64,25 +64,26 @@
                             {{-- <p>Le tableau des demandes individuelles</p> --}}
                             <!-- Table with stripped rows -->
                             @isset($individuelles)
-                                <table class="table datatables align-middle" id="table-individuelles">
-                                    <thead>
-                                        <tr>
-                                            {{-- <th class="text-center">N°</th> --}}
-                                            <th class="text-center">Civilité</th>
-                                            <th class="text-center">CIN</th>
-                                            <th>Prénom</th>
-                                            <th>NOM</th>
-                                            <th>Date naissance</th>
-                                            <th>Lieu naissance</th>
-                                            <th width="20%">Module</th>
-                                            <th class="text-center">Statut</th>
-                                            <th class="text-center">#</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $i = 1; ?>
-                                        @foreach ($individuelles as $individuelle)
-                                            {{-- @isset($individuelle?->numero) --}}
+                                <div class="table-responsive">
+                                    <table class="table datatables align-middle" id="table-individuelles">
+                                        <thead>
+                                            <tr>
+                                                {{-- <th class="text-center">N°</th> --}}
+                                                <th class="text-center">Civilité</th>
+                                                <th class="text-center">CIN</th>
+                                                <th>Prénom</th>
+                                                <th>NOM</th>
+                                                <th>Date naissance</th>
+                                                <th>Lieu naissance</th>
+                                                <th width="20%">Module</th>
+                                                <th class="text-center">Statut</th>
+                                                <th class="text-center">#</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $i = 1; ?>
+                                            @foreach ($individuelles as $individuelle)
+                                                {{-- @isset($individuelle?->numero) --}}
                                                 <tr>
                                                     {{-- <td style="text-align: center">{{ $individuelle?->numero }}</td> --}}
                                                     <td style="text-align: center">{{ $individuelle?->user?->civilite }}</td>
@@ -121,7 +122,8 @@
                                                                                 method="post">
                                                                                 @csrf
                                                                                 @method('DELETE')
-                                                                                <button type="submit" class="dropdown-item show_confirm"
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"
                                                                                     title="Supprimer"><i
                                                                                         class="bi bi-trash"></i>Supprimer</button>
                                                                             </form>
@@ -132,11 +134,12 @@
                                                         </span>
                                                     </td>
                                                 </tr>
-                                            {{-- @endisset --}}
-                                        @endforeach
+                                                {{-- @endisset --}}
+                                            @endforeach
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             @endisset
                             <!-- End Table with stripped rows -->
 
@@ -145,8 +148,7 @@
 
                 </div>
             </div>
-            <div
-                class="col-12 d-flex flex-column align-items-center justify-content-center">
+            <div class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="AddIndividuelModal" tabindex="-1">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
@@ -857,7 +859,7 @@
         new DataTable('#table-individuelles', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

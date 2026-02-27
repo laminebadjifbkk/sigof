@@ -11,7 +11,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-                
+
                 @if ($errors->any())
                     @foreach ($errors->all() as $error)
                         <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
@@ -31,8 +31,7 @@
                         </div>
                         <h5 class="card-title">Création categorie</h5>
                         <!-- categorie -->
-                        <form method="post" action="{{ url('categories') }}" enctype="multipart/form-data"
-                            class="row g-3">
+                        <form method="post" action="{{ url('categories') }}" enctype="multipart/form-data" class="row g-3">
                             @csrf
                             {{--  <div class="row mb-3">
                                 <label for="name" class="form-label"></label>
@@ -50,19 +49,22 @@
                             </div> --}}
 
 
-                            <table class="table table-bordered" id="dynamicAddRemove">
-                                <tr>
-                                    <th>categories<span class="text-danger mx-1">*</span></th>
-                                    <th width="15%">Action</th>
-                                </tr>
-                                <tr>
-                                    <td><input type="text" name="categories[0][name]" placeholder="Entrer une categorie"
-                                            class="form-control form-control-sm" autofocus/></td>
-                                    <td><button type="button" name="add" id="add-btn" class="btn btn-sm btn-success"
-                                            title="Ajouter une ligne">Ajouter</button>
-                                    </td>
-                                </tr>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dynamicAddRemove">
+                                    <tr>
+                                        <th>categories<span class="text-danger mx-1">*</span></th>
+                                        <th width="15%">Action</th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" name="categories[0][name]"
+                                                placeholder="Entrer une categorie" class="form-control form-control-sm"
+                                                autofocus /></td>
+                                        <td><button type="button" name="add" id="add-btn"
+                                                class="btn btn-sm btn-success" title="Ajouter une ligne">Ajouter</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                             <div class="col-12 text-left mt-2">
                                 <button type="submit" class="btn btn-sm btn-outline-success"><i
                                         class="far fa-save"></i>&nbsp;Sauvegarder</button>

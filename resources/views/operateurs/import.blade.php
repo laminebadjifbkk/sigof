@@ -49,25 +49,27 @@
                         <form method="post" action="{{ route('import.operateurs') }}" enctype="multipart/form-data"
                             class="row g-3">
                             @csrf
-                            <table class="table table-bordered" id="dynamicAddRemove">
-                                <tr>
-                                    <th>
-                                        Fichier (.XLSX, .CSV, .XLS)<span class="text-danger mx-1">*</span>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="file" name="file" value="{{ old('file') }}"
-                                            class="form-control form-control-sm @error('file') is-invalid @enderror"
-                                            id="file" placeholder="Fichier" autofocus>
-                                        @error('file')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </td>
-                                </tr>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dynamicAddRemove">
+                                    <tr>
+                                        <th>
+                                            Fichier (.XLSX, .CSV, .XLS)<span class="text-danger mx-1">*</span>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="file" name="file" value="{{ old('file') }}"
+                                                class="form-control form-control-sm @error('file') is-invalid @enderror"
+                                                id="file" placeholder="Fichier" autofocus>
+                                            @error('file')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                             <div class="col-12 text-left mt-2">
                                 <button type="submit" class="btn btn-primary btn-sm text-white">Importer</button>
                             </div>

@@ -18,9 +18,10 @@
 
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <a href="{{ route('ingenieurs.formations.parAnnee', [
-                            'ingenieur' => $ingenieur->id,
-                            'annee' => $annee,
-                        ]) }}" class="btn btn-outline-secondary btn-sm">
+                        'ingenieur' => $ingenieur->id,
+                        'annee' => $annee,
+                    ]) }}"
+                        class="btn btn-outline-secondary btn-sm">
                         <i class="bi bi-arrow-left-circle"></i> Retour
                     </a>
                 </div>
@@ -107,51 +108,53 @@
                     <div id="table-individuelles-container" style="display:none;">
                         <h5>Formations individuelles - année {{ $annee }}</h5>
                         @if (($individuelles ?? collect())->isNotEmpty())
-                            <table class="table table-striped" id="table-individuelles">
-                                <thead>
-                                    <tr>
-                                        <th>N°</th>
-                                        <th width='13%'>CIN</th>
-                                        <th>Prénom</th>
-                                        <th>Nom</th>
-                                        <th>Date nais.</th>
-                                        <th>Lieu nais.</th>
-                                        <th>Module</th>
-                                        <th>Département</th>
-                                        {{-- <th>Dépôt</th> --}}
-                                        <th>Statut</th>
-                                        <th>#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php $i = 1; @endphp
-                                    @foreach ($individuelles as $ind)
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="table-individuelles">
+                                    <thead>
                                         <tr>
-                                            <td class="text-center">{{ $i++ }}</td>
-                                            <td>{{ $ind->user->cin }}</td>
-                                            <td>{{ $ind->user->firstname }}</td>
-                                            <td>{{ $ind->user->name }}</td>
-                                            <td>{{ $ind->user->date_naissance?->format('d/m/Y') }}</td>
-                                            <td>{{ $ind->user->lieu_naissance }}</td>
-                                            <td>{{ $ind->module->name ?? '-' }}</td>
-                                            <td>{{ $ind->departement->nom ?? '-' }}</td>
-                                            {{-- <td>{{ $ind->date_depot?->format('d/m/Y') ?? 'Aucun' }}</td> --}}
-                                            <td>
-                                                <span class="{{ $ind->statut }}">{{ $ind->statut }}</span>
-                                            </td>
-                                            <td>
-                                                <span class="d-flex align-items-baseline">
-                                                    <a href="{{ route('individuelles.show', $ind) }}"
-                                                        class="btn btn-warning btn-sm" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                    </div>
-                                                </span>
-                                            </td>
+                                            <th>N°</th>
+                                            <th width='13%'>CIN</th>
+                                            <th>Prénom</th>
+                                            <th>Nom</th>
+                                            <th>Date nais.</th>
+                                            <th>Lieu nais.</th>
+                                            <th>Module</th>
+                                            <th>Département</th>
+                                            {{-- <th>Dépôt</th> --}}
+                                            <th>Statut</th>
+                                            <th>#</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @php $i = 1; @endphp
+                                        @foreach ($individuelles as $ind)
+                                            <tr>
+                                                <td class="text-center">{{ $i++ }}</td>
+                                                <td>{{ $ind->user->cin }}</td>
+                                                <td>{{ $ind->user->firstname }}</td>
+                                                <td>{{ $ind->user->name }}</td>
+                                                <td>{{ $ind->user->date_naissance?->format('d/m/Y') }}</td>
+                                                <td>{{ $ind->user->lieu_naissance }}</td>
+                                                <td>{{ $ind->module->name ?? '-' }}</td>
+                                                <td>{{ $ind->departement->nom ?? '-' }}</td>
+                                                {{-- <td>{{ $ind->date_depot?->format('d/m/Y') ?? 'Aucun' }}</td> --}}
+                                                <td>
+                                                    <span class="{{ $ind->statut }}">{{ $ind->statut }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="d-flex align-items-baseline">
+                                                        <a href="{{ route('individuelles.show', $ind) }}"
+                                                            class="btn btn-warning btn-sm" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                        <div class="filter">
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <div class="alert alert-info">Aucune demande individuelle pour l’année {{ $annee }}</div>
                         @endif
@@ -160,34 +163,35 @@
                     <div id="table-collectives-container" style="display:none;">
                         <h5>Formations collectives - année {{ $annee }}</h5>
                         @if (($collectives ?? collect())->isNotEmpty())
-                            <table class="table table-striped" id="table-collectives">
-                                <thead>
-                                    <tr>
-                                        <th>N°</th>
-                                        <th width='13%'>CIN</th>
-                                        <th>Prénom</th>
-                                        <th>NOM</th>
-                                        <th>Date nais.</th>
-                                        <th>Lieu nais.</th>
-                                        <th>Module</th>
-                                        {{-- <th>Structure</th> --}}
-                                        {{-- <th>Dépôt</th> --}}
-                                        <th>Statut</th>
-                                        <th>#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php $i = 1; @endphp
-                                    @foreach ($collectives as $col)
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="table-collectives">
+                                    <thead>
                                         <tr>
-                                            <td class="text-center">{{ $i++ }}</td>
-                                            <td class="text-center">{{ $col?->cin }}</td>
-                                            <td>{{ $col?->prenom }}</td>
-                                            <td>{{ $col?->nom }}</td>
-                                            <td>{{ $col?->date_naissance?->format('d/m/Y') }}</td>
-                                            <td>{{ $col?->lieu_naissance }}</td>
-                                            <td>{{ $col?->collectivemodule?->module }}</td>
-                                            {{-- <td>
+                                            <th>N°</th>
+                                            <th width='13%'>CIN</th>
+                                            <th>Prénom</th>
+                                            <th>NOM</th>
+                                            <th>Date nais.</th>
+                                            <th>Lieu nais.</th>
+                                            <th>Module</th>
+                                            {{-- <th>Structure</th> --}}
+                                            {{-- <th>Dépôt</th> --}}
+                                            <th>Statut</th>
+                                            <th>#</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php $i = 1; @endphp
+                                        @foreach ($collectives as $col)
+                                            <tr>
+                                                <td class="text-center">{{ $i++ }}</td>
+                                                <td class="text-center">{{ $col?->cin }}</td>
+                                                <td>{{ $col?->prenom }}</td>
+                                                <td>{{ $col?->nom }}</td>
+                                                <td>{{ $col?->date_naissance?->format('d/m/Y') }}</td>
+                                                <td>{{ $col?->lieu_naissance }}</td>
+                                                <td>{{ $col?->collectivemodule?->module }}</td>
+                                                {{-- <td>
                                                 @if ($col->collective)
                                                     <a href="{{ route('collectives.show', $col->collective) }}"
                                                         target="_blank">
@@ -197,23 +201,24 @@
                                                     <span>Aucun</span>
                                                 @endif
                                             </td> --}}
-                                            {{-- <td>{{ $col?->created_at?->format('d/m/Y') ?? 'Aucun' }}</td> --}}
-                                            <td>
-                                                <span class="{{ $col?->statut }}">{{ $col?->statut }}</span>
-                                            </td>
-                                            <td>
-                                                <span class="d-flex align-items-baseline"><a
-                                                        href="{{ route('listecollectives.show', $col) }}"
-                                                        class="btn btn-warning btn-sm" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                    </div>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                {{-- <td>{{ $col?->created_at?->format('d/m/Y') ?? 'Aucun' }}</td> --}}
+                                                <td>
+                                                    <span class="{{ $col?->statut }}">{{ $col?->statut }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="d-flex align-items-baseline"><a
+                                                            href="{{ route('listecollectives.show', $col) }}"
+                                                            class="btn btn-warning btn-sm" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                        <div class="filter">
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <div class="alert alert-info">Aucune demande collective pour l’année {{ $annee }}</div>
                         @endif

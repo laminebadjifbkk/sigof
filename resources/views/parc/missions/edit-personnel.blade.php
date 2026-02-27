@@ -59,22 +59,23 @@
                         {{-- ================== CHAUFFEURS ================== --}}
                         <h5 class="mt-3">Chauffeurs</h5>
 
-                        <table class="table table-bordered" id="table-parc-mission">
-                            <thead>
-                                <tr>
-                                    <th>Chauffeur</th>
-                                    <th>Statut</th>
-                                    <th>Véhicule</th>
-                                    <th class="text-center">Dernière mission</th>
-                                    <th class="text-center">En {{ now()->year }}</th>
-                                    <th class="text-center" width="5%">Missions</th>
-                                    <th class="text-center" width="5%">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($chauffeurs as $chauffeur)
-                                    @php
-                                        // Missions de l'année
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="table-parc-mission">
+                                <thead>
+                                    <tr>
+                                        <th>Chauffeur</th>
+                                        <th>Statut</th>
+                                        <th>Véhicule</th>
+                                        <th class="text-center">Dernière mission</th>
+                                        <th class="text-center">En {{ now()->year }}</th>
+                                        <th class="text-center" width="5%">Missions</th>
+                                        <th class="text-center" width="5%">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($chauffeurs as $chauffeur)
+                                        @php
+                                            // Missions de l'année
 $missions = $chauffeur->employee->parcmissions;
 
 // Date de retour la plus récente pour tri et affichage
@@ -88,139 +89,144 @@ $missionsCount = $missions->count();
 
 // Pour les checkboxes et véhicules
 $pivot = $mission->employees->find($chauffeur->employee_id)?->pivot;
-$isChecked = $missionChauffeurs->pluck('id')->contains($chauffeur->employee_id);
+$isChecked = $missionChauffeurs
+    ->pluck('id')
+    ->contains($chauffeur->employee_id);
 
 // Pour modal : 5 dernières missions
 $lastMissions = $missions->sortByDesc('date_depart')->take(5);
-                                    @endphp
-                                    <tr>
-                                        {{-- Checkbox Chauffeur --}}
-                                        <td>
-                                            <input type="checkbox" class="chauffeur-checkbox"
-                                                name="chauffeurs[{{ $chauffeur->id }}][selected]" value="1"
-                                                {{ $isChecked ? 'checked' : '' }}>
-                                            {{ $chauffeur->employee->user->firstname }}
-                                            {{ $chauffeur->employee->user->name }}
-                                        </td>
-                                        <td>
-                                            <span class="etat-btn {{ $chauffeur?->statut }}">
-                                                {{ ucfirst(str_replace('fie', 'fié', str_replace('_', ' ', $chauffeur->statut))) }}
-                                            </span>
-                                        </td>
-
-                                        {{-- Select Véhicule --}}
-                                        <td>
-                                            <select name="chauffeurs[{{ $chauffeur->id }}][vehicule_id]"
-                                                class="form-select form-select-sm">
-                                                <option value="">-- Aucun véhicule --</option>
-                                                @foreach ($mission->vehicules as $vehicule)
-                                                    <option value="{{ $vehicule->id }}"
-                                                        {{ $pivot?->vehicule_id == $vehicule->id ? 'selected' : '' }}>
-                                                        {{ $vehicule->immatriculation }} - {{ $vehicule->marque }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-
-                                        {{-- Dernière mission --}}
-                                        <td class="text-center">
-                                            @if ($lastMission)
-                                                <span class="badge bg-info">
-                                                    {{ $lastMission->date_retour->format('Y-m-d') }}
+                                        @endphp
+                                        <tr>
+                                            {{-- Checkbox Chauffeur --}}
+                                            <td>
+                                                <input type="checkbox" class="chauffeur-checkbox"
+                                                    name="chauffeurs[{{ $chauffeur->id }}][selected]" value="1"
+                                                    {{ $isChecked ? 'checked' : '' }}>
+                                                {{ $chauffeur->employee->user->firstname }}
+                                                {{ $chauffeur->employee->user->name }}
+                                            </td>
+                                            <td>
+                                                <span class="etat-btn {{ $chauffeur?->statut }}">
+                                                    {{ ucfirst(str_replace('fie', 'fié', str_replace('_', ' ', $chauffeur->statut))) }}
                                                 </span>
-                                            @else
-                                                <span class="text-muted"></span>
-                                            @endif
-                                        </td>
+                                            </td>
 
-                                        {{-- Montant annuel --}}
-                                        <td class="text-center">
-                                            <span class="badge bg-success">
-                                                {{ number_format($totalMontant, 0, ',', ' ') }}
-                                            </span>
-                                        </td>
+                                            {{-- Select Véhicule --}}
+                                            <td>
+                                                <select name="chauffeurs[{{ $chauffeur->id }}][vehicule_id]"
+                                                    class="form-select form-select-sm">
+                                                    <option value="">-- Aucun véhicule --</option>
+                                                    @foreach ($mission->vehicules as $vehicule)
+                                                        <option value="{{ $vehicule->id }}"
+                                                            {{ $pivot?->vehicule_id == $vehicule->id ? 'selected' : '' }}>
+                                                            {{ $vehicule->immatriculation }} - {{ $vehicule->marque }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
 
-                                        {{-- Nombre de missions --}}
-                                        <td class="text-center">
-                                            <span class="badge bg-secondary">{{ $missionsCount }}</span>
-                                        </td>
+                                            {{-- Dernière mission --}}
+                                            <td class="text-center">
+                                                @if ($lastMission)
+                                                    <span class="badge bg-info">
+                                                        {{ $lastMission->date_retour->format('Y-m-d') }}
+                                                    </span>
+                                                @else
+                                                    <span class="text-muted"></span>
+                                                @endif
+                                            </td>
 
-                                        {{-- Actions --}}
-                                        <td class="text-center">
-                                            <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
-                                                data-bs-target="#missionsModal{{ $chauffeur->id }}">
-                                                <i class="bi bi-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                            {{-- Montant annuel --}}
+                                            <td class="text-center">
+                                                <span class="badge bg-success">
+                                                    {{ number_format($totalMontant, 0, ',', ' ') }}
+                                                </span>
+                                            </td>
 
-                                    {{-- Modal des missions --}}
-                                    <div class="modal fade" id="missionsModal{{ $chauffeur->id }}" tabindex="-1"
-                                        aria-labelledby="missionsModalLabel{{ $chauffeur->id }}" aria-hidden="true">
-                                        <div class="modal-dialog modal-xl">
-                                            <div class="modal-content">
-                                                {{-- Header --}}
-                                                <div class="modal-header bg-info text-white rounded-top-4">
-                                                    <h5 class="modal-title" id="missionsModalLabel{{ $chauffeur->id }}">
-                                                        Missions de {{ $chauffeur->employee->user->firstname }}
-                                                        {{ $chauffeur->employee->user->name }}
-                                                    </h5>
-                                                    <button type="button" class="btn-close btn-close-white"
-                                                        data-bs-dismiss="modal" aria-label="Fermer"></button>
-                                                </div>
+                                            {{-- Nombre de missions --}}
+                                            <td class="text-center">
+                                                <span class="badge bg-secondary">{{ $missionsCount }}</span>
+                                            </td>
 
-                                                {{-- Body --}}
-                                                <div class="modal-body">
-                                                    @if ($lastMissions->count() > 0)
-                                                        <div class="list-group">
-                                                            @foreach ($lastMissions as $cm)
-                                                                <div
-                                                                    class="list-group-item d-flex justify-content-between align-items-center border-bottom">
-                                                                    <div>
+                                            {{-- Actions --}}
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
+                                                    data-bs-target="#missionsModal{{ $chauffeur->id }}">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                        {{-- Modal des missions --}}
+                                        <div class="modal fade" id="missionsModal{{ $chauffeur->id }}" tabindex="-1"
+                                            aria-labelledby="missionsModalLabel{{ $chauffeur->id }}" aria-hidden="true">
+                                            <div class="modal-dialog modal-xl">
+                                                <div class="modal-content">
+                                                    {{-- Header --}}
+                                                    <div class="modal-header bg-info text-white rounded-top-4">
+                                                        <h5 class="modal-title"
+                                                            id="missionsModalLabel{{ $chauffeur->id }}">
+                                                            Missions de {{ $chauffeur->employee->user->firstname }}
+                                                            {{ $chauffeur->employee->user->name }}
+                                                        </h5>
+                                                        <button type="button" class="btn-close btn-close-white"
+                                                            data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                                    </div>
+
+                                                    {{-- Body --}}
+                                                    <div class="modal-body">
+                                                        @if ($lastMissions->count() > 0)
+                                                            <div class="list-group">
+                                                                @foreach ($lastMissions as $cm)
+                                                                    <div
+                                                                        class="list-group-item d-flex justify-content-between align-items-center border-bottom">
                                                                         <div>
-                                                                            <a href="{{ route('parc-missions.show', $cm->id) }}"
-                                                                                class="text-decoration-none">
-                                                                                <strong>{{ $cm->reference }}</strong>
-                                                                            </a>
-                                                                            - {{ $cm->objet }}
+                                                                            <div>
+                                                                                <a href="{{ route('parc-missions.show', $cm->id) }}"
+                                                                                    class="text-decoration-none">
+                                                                                    <strong>{{ $cm->reference }}</strong>
+                                                                                </a>
+                                                                                - {{ $cm->objet }}
+                                                                            </div>
+                                                                            {{-- <strong>{{ $cm->objet }}</strong><br> --}}
+                                                                            <small class="text-muted">Réf:
+                                                                                {{ $cm->reference }}</small>
                                                                         </div>
-                                                                        {{-- <strong>{{ $cm->objet }}</strong><br> --}}
-                                                                        <small class="text-muted">Réf:
-                                                                            {{ $cm->reference }}</small>
+                                                                        <div class="text-end">
+                                                                            <span class="badge bg-secondary">
+                                                                                Du {{ $cm->date_depart->format('d/m/Y') }}
+                                                                                au
+                                                                                {{ $cm->date_retour->format('d/m/Y') }}
+                                                                            </span>
+                                                                            <br>
+                                                                            <span class="etat-btn {{ $cm->statut }}">
+                                                                                {{ ucfirst(str_replace(['fie', 'ee', '_'], ['fié', 'ée', ' '], $cm->statut)) }}
+                                                                            </span>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="text-end">
-                                                                        <span class="badge bg-secondary">
-                                                                            Du {{ $cm->date_depart->format('d/m/Y') }} au
-                                                                            {{ $cm->date_retour->format('d/m/Y') }}
-                                                                        </span>
-                                                                        <br>
-                                                                        <span class="etat-btn {{ $cm->statut }}">
-                                                                            {{ ucfirst(str_replace(['fie', 'ee', '_'], ['fié', 'ée', ' '], $cm->statut)) }}
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            @endforeach
-                                                        </div>
-                                                    @else
-                                                        <div class="alert alert-secondary text-center mb-0">
-                                                            Aucune mission assignée.
-                                                        </div>
-                                                    @endif
-                                                </div>
+                                                                @endforeach
+                                                            </div>
+                                                        @else
+                                                            <div class="alert alert-secondary text-center mb-0">
+                                                                Aucune mission assignée.
+                                                            </div>
+                                                        @endif
+                                                    </div>
 
-                                                {{-- Footer --}}
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-outline-secondary btn-sm"
-                                                        data-bs-dismiss="modal">
-                                                        Fermer
-                                                    </button>
+                                                    {{-- Footer --}}
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline-secondary btn-sm"
+                                                            data-bs-dismiss="modal">
+                                                            Fermer
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
 
                         <div class="d-flex gap-2 m-3 justify-content-center">
                             <button class="btn btn-success btn-sm">

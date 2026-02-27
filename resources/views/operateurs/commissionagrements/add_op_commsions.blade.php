@@ -63,80 +63,82 @@
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div> --}}
                                     <div class="form-check col-md-12 pt-3">
-                                        <table class="table datatables align-middle" id="table-operateurs">
-                                            <thead>
-                                                <tr>
-                                                    <th><input type="checkbox" class="form-check-input" id="checkAll">N°</th>
-                                                    <th>N° agrément</th>
-                                                    <th>Opérateurs</th>
-                                                    <th>Sigle</th>
-                                                    <th class="text-center">Modules</th>
-                                                    {{-- <th class="text-center">Statut</th> --}}
-                                                    <th class="text-center">Type</th>
-                                                    <th width="2%"><i class="bi bi-gear"></i></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $i = 1; ?>
-                                                @foreach ($operateurs as $operateur)
-                                                    {{-- @isset($operateur?->numero_agrement) --}}
+                                        <div class="table-responsive">
+                                            <table class="table datatables align-middle" id="table-operateurs">
+                                                <thead>
                                                     <tr>
-                                                        <td>{{ $i++ }}
-                                                            <input type="checkbox" name="operateurs[]"
-                                                                value="{{ $operateur->id }}"
-                                                                class="form-check-input @error('operateurs') is-invalid @enderror"
-                                                                {{ in_array($operateur->id, $operateursSelectionnes ?? []) ? 'checked' : '' }}>
+                                                        <th><input type="checkbox" class="form-check-input"
+                                                                id="checkAll">N°</th>
+                                                        <th>N° agrément</th>
+                                                        <th>Opérateurs</th>
+                                                        <th>Sigle</th>
+                                                        <th class="text-center">Modules</th>
+                                                        {{-- <th class="text-center">Statut</th> --}}
+                                                        <th class="text-center">Type</th>
+                                                        <th width="2%"><i class="bi bi-gear"></i></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $i = 1; ?>
+                                                    @foreach ($operateurs as $operateur)
+                                                        {{-- @isset($operateur?->numero_agrement) --}}
+                                                        <tr>
+                                                            <td>{{ $i++ }}
+                                                                <input type="checkbox" name="operateurs[]"
+                                                                    value="{{ $operateur->id }}"
+                                                                    class="form-check-input @error('operateurs') is-invalid @enderror"
+                                                                    {{ in_array($operateur->id, $operateursSelectionnes ?? []) ? 'checked' : '' }}>
 
-                                                            @error('operateurs')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <div>{{ $message }}</div>
-                                                                </span>
-                                                            @enderror
-                                                        </td>
-                                                        <td>
-                                                            {{ $operateur->numero_agrement }}
-                                                        </td>
+                                                                @error('operateurs')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <div>{{ $message }}</div>
+                                                                    </span>
+                                                                @enderror
+                                                            </td>
+                                                            <td>
+                                                                {{ $operateur->numero_agrement }}
+                                                            </td>
 
-                                                        <td>{{ $operateur?->user?->operateur }}</td>
-                                                        <td>{{ $operateur?->user?->username }}</td>
-                                                        <td style="text-align: center;">
-                                                            @foreach ($operateur?->operateurmodules as $operateurmodule)
-                                                                @if ($loop->last)
-                                                                    <a href="#"><span
-                                                                            class="badge bg-info">{{ $loop->count }}</span></a>
-                                                                @endif
-                                                            @endforeach
-                                                        </td>
-                                                        {{-- <td class="text-center">
+                                                            <td>{{ $operateur?->user?->operateur }}</td>
+                                                            <td>{{ $operateur?->user?->username }}</td>
+                                                            <td style="text-align: center;">
+                                                                @foreach ($operateur?->operateurmodules as $operateurmodule)
+                                                                    @if ($loop->last)
+                                                                        <a href="#"><span
+                                                                                class="badge bg-info">{{ $loop->count }}</span></a>
+                                                                    @endif
+                                                                @endforeach
+                                                            </td>
+                                                            {{-- <td class="text-center">
                                                         <span
                                                             class="{{ $operateur->statut_agrement }}">{{ $operateur->statut_agrement }}</span>
                                                     </td> --}}
-                                                        <td class="text-center">
-                                                            <span
-                                                                class="{{ $operateur->type_demande }}">{{ $operateur->type_demande }}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="d-flex align-items-baseline"><a
-                                                                    href="{{ route('operateurs.show', $operateur) }}"
-                                                                    class="btn btn-primary btn-sm" title="voir détails"><i
-                                                                        class="bi bi-eye"></i></a>
-                                                                <div class="filter">
-                                                                    <a class="icon" href="#"
-                                                                        data-bs-toggle="dropdown"><i
-                                                                            class="bi bi-three-dots"></i></a>
-                                                                    <ul
-                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                        <li>
-                                                                            <button type="button"
-                                                                                class="dropdown-item btn btn-sm mx-1"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#EditOperateurModal{{ $operateur?->id }}">
-                                                                                <i class="bi bi-pencil"
-                                                                                    title="Modifier"></i>
-                                                                                Modifier
-                                                                            </button>
-                                                                        </li>
-                                                                        {{-- <li>
+                                                            <td class="text-center">
+                                                                <span
+                                                                    class="{{ $operateur->type_demande }}">{{ $operateur->type_demande }}</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="d-flex align-items-baseline"><a
+                                                                        href="{{ route('operateurs.show', $operateur) }}"
+                                                                        class="btn btn-primary btn-sm"
+                                                                        title="voir détails"><i class="bi bi-eye"></i></a>
+                                                                    <div class="filter">
+                                                                        <a class="icon" href="#"
+                                                                            data-bs-toggle="dropdown"><i
+                                                                                class="bi bi-three-dots"></i></a>
+                                                                        <ul
+                                                                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                            <li>
+                                                                                <button type="button"
+                                                                                    class="dropdown-item btn btn-sm mx-1"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#EditOperateurModal{{ $operateur?->id }}">
+                                                                                    <i class="bi bi-pencil"
+                                                                                        title="Modifier"></i>
+                                                                                    Modifier
+                                                                                </button>
+                                                                            </li>
+                                                                            {{-- <li>
                                                                                 <form
                                                                                     action="{{ route('operateurs.destroy', $operateur->id) }}"
                                                                                     method="post">
@@ -148,15 +150,16 @@
                                                                                             class="bi bi-trash"></i>Supprimer</button>
                                                                                 </form>
                                                                             </li> --}}
-                                                                    </ul>
-                                                                </div>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                    {{--  @endisset --}}
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                                                        </ul>
+                                                                    </div>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        {{--  @endisset --}}
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-outline-primary btn-sm"><i

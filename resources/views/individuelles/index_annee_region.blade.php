@@ -153,78 +153,80 @@
                                 </div>
                             </div>
                             @if ($individuelles->isNotEmpty())
-                                <table class="table datatables align-middle" id="table-individuelles">
-                                    <thead>
-                                        <tr>
-                                            {{-- <th class="text-center">N°</th> --}}
-                                            <th width="15%" class="text-center">N° CIN</th>
-                                            <th>Prénom</th>
-                                            <th>NOM</th>
-                                            <th width="12%">Date nais.</th>
-                                            <th width="15%">Lieu nais.</th>
-                                            <th width="20%">Module</th>
-                                            <th width="5%" class="text-center">Dépôt</th>
-                                            <th class="text-center">Statut</th>
-                                            <th class="text-center">#</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($individuelles as $individuelle)
+                                <div class="table-responsive">
+                                    <table class="table datatables align-middle" id="table-individuelles">
+                                        <thead>
                                             <tr>
-                                                {{-- <td style="text-align: center">{{ $individuelle?->numero }}</td> --}}
-                                                <td style="text-align: center">{{ $individuelle?->user?->cin }}</td>
-                                                <td>{{ $individuelle?->user?->firstname }}</td>
-                                                <td>{{ $individuelle?->user?->name }}</td>
-                                                <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
-                                                <td>{{ $individuelle?->user?->lieu_naissance }}</td>
-                                                <td>{{ $individuelle?->module?->name }}</td>
-                                                <td class="text-center">
-                                                    @if ($individuelle?->date_depot)
-                                                        {{ $individuelle?->date_depot?->format('d/m/Y') }}
-                                                    @else
-                                                        Aucun
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <span
-                                                        class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
-                                                </td>
-                                                <td>
-                                                    <span class="d-flex align-items-baseline">
-                                                        <a href="{{ route('individuelles.show', $individuelle) }}"
-                                                            class="btn btn-warning btn-sm" title="voir détails"><i
-                                                                class="bi bi-eye"></i></a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                @can('individuelle-update')
-                                                                    <li><a class="dropdown-item btn btn-sm"
-                                                                            href="{{ route('individuelles.edit', $individuelle) }}"><i
-                                                                                class="bi bi-pencil"></i>Modifier</a></li>
-                                                                @endcan
-                                                                @can('individuelle-delete')
-                                                                    <li>
-                                                                        <form
-                                                                            action="{{ route('individuelles.destroy', $individuelle) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit"
-                                                                                class="dropdown-item show_confirm"
-                                                                                title="Supprimer"><i
-                                                                                    class="bi bi-trash"></i>Supprimer</button>
-                                                                        </form>
-                                                                    </li>
-                                                                @endcan
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                                </td>
+                                                {{-- <th class="text-center">N°</th> --}}
+                                                <th width="15%" class="text-center">N° CIN</th>
+                                                <th>Prénom</th>
+                                                <th>NOM</th>
+                                                <th width="12%">Date nais.</th>
+                                                <th width="15%">Lieu nais.</th>
+                                                <th width="20%">Module</th>
+                                                <th width="5%" class="text-center">Dépôt</th>
+                                                <th class="text-center">Statut</th>
+                                                <th class="text-center">#</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($individuelles as $individuelle)
+                                                <tr>
+                                                    {{-- <td style="text-align: center">{{ $individuelle?->numero }}</td> --}}
+                                                    <td style="text-align: center">{{ $individuelle?->user?->cin }}</td>
+                                                    <td>{{ $individuelle?->user?->firstname }}</td>
+                                                    <td>{{ $individuelle?->user?->name }}</td>
+                                                    <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
+                                                    <td>{{ $individuelle?->user?->lieu_naissance }}</td>
+                                                    <td>{{ $individuelle?->module?->name }}</td>
+                                                    <td class="text-center">
+                                                        @if ($individuelle?->date_depot)
+                                                            {{ $individuelle?->date_depot?->format('d/m/Y') }}
+                                                        @else
+                                                            Aucun
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            class="{{ $individuelle?->statut }}">{{ $individuelle?->statut }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="d-flex align-items-baseline">
+                                                            <a href="{{ route('individuelles.show', $individuelle) }}"
+                                                                class="btn btn-warning btn-sm" title="voir détails"><i
+                                                                    class="bi bi-eye"></i></a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    @can('individuelle-update')
+                                                                        <li><a class="dropdown-item btn btn-sm"
+                                                                                href="{{ route('individuelles.edit', $individuelle) }}"><i
+                                                                                    class="bi bi-pencil"></i>Modifier</a></li>
+                                                                    @endcan
+                                                                    @can('individuelle-delete')
+                                                                        <li>
+                                                                            <form
+                                                                                action="{{ route('individuelles.destroy', $individuelle) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"
+                                                                                    title="Supprimer"><i
+                                                                                        class="bi bi-trash"></i>Supprimer</button>
+                                                                            </form>
+                                                                        </li>
+                                                                    @endcan
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             @else
                                 <div class="alert alert-info">Aucune demande individuelle reçue pour l'instant !</div>
                             @endif

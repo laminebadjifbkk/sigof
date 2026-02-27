@@ -41,23 +41,24 @@
                                     </div>
                                 @endcan
                                 <h5 class="card-title">Liste des manuels</h5>
-                                <table class="table datatables align-middle" id="table-manuels">
-                                    <thead>
-                                        <tr>
-                                            <th width='5%'>N°</th>
-                                            <th>Titre</th>
-                                            <th>Auteur</th>
-                                            <th width='5%'>#</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $i = 1; ?>
-                                        @foreach ($manuels as $manuel)
+                                <div class="table-responsive">
+                                    <table class="table datatables align-middle" id="table-manuels">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $i++ }}</td>
-                                                <td>{{ $manuel->title }}</td>
-                                                <td>{{ $manuel->author }}</td>
-                                                {{-- <td>
+                                                <th width='5%'>N°</th>
+                                                <th>Titre</th>
+                                                <th>Auteur</th>
+                                                <th width='5%'>#</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $i = 1; ?>
+                                            @foreach ($manuels as $manuel)
+                                                <tr>
+                                                    <td>{{ $i++ }}</td>
+                                                    <td>{{ $manuel->title }}</td>
+                                                    <td>{{ $manuel->author }}</td>
+                                                    {{-- <td>
                                                     <span class="d-flex mt-2 align-items-baseline">
                                                         <a class="btn btn-primary btn-sm" href="{{ route('manuel.view', ['filename' => $manuel->filename]) }}"
                                                             target="_blank"><i
@@ -65,40 +66,41 @@
                                                         </a>
                                                     </span>
                                                 </td> --}}
-                                                <td class="text-center">
-                                                    <div class="btn-group">
-                                                        @can('manuel-update')
-                                                            <a class="btn btn-warning btn-sm"
-                                                                href="{{ route('manuels.edit', $manuel->id) }}">
-                                                                <i class="bi bi-pencil"></i>
-                                                            </a>
-                                                        @endcan
-                                                        @can('manuel-show')
-                                                            <a class="btn btn-primary btn-sm"
-                                                                href="{{ route('manuel.view', ['filename' => $manuel->filename]) }}"
-                                                                target="_blank">
-                                                                <i class="bi bi-eye"></i>
-                                                            </a>
-                                                        @endcan
-                                                        @can('manuel-delete')
-                                                            <form action="{{ route('manuels.destroy', $manuel->id) }}"
-                                                                method="post" class="d-inline">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="btn btn-danger btn-sm show_confirm"
-                                                                    title="Supprimer">
-                                                                    <i class="bi bi-trash"></i>
-                                                                </button>
-                                                            </form>
-                                                        @endcan
-                                                    </div>
-                                                </td>
+                                                    <td class="text-center">
+                                                        <div class="btn-group">
+                                                            @can('manuel-update')
+                                                                <a class="btn btn-warning btn-sm"
+                                                                    href="{{ route('manuels.edit', $manuel->id) }}">
+                                                                    <i class="bi bi-pencil"></i>
+                                                                </a>
+                                                            @endcan
+                                                            @can('manuel-show')
+                                                                <a class="btn btn-primary btn-sm"
+                                                                    href="{{ route('manuel.view', ['filename' => $manuel->filename]) }}"
+                                                                    target="_blank">
+                                                                    <i class="bi bi-eye"></i>
+                                                                </a>
+                                                            @endcan
+                                                            @can('manuel-delete')
+                                                                <form action="{{ route('manuels.destroy', $manuel->id) }}"
+                                                                    method="post" class="d-inline">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger btn-sm show_confirm"
+                                                                        title="Supprimer">
+                                                                        <i class="bi bi-trash"></i>
+                                                                    </button>
+                                                                </form>
+                                                            @endcan
+                                                        </div>
+                                                    </td>
 
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
 

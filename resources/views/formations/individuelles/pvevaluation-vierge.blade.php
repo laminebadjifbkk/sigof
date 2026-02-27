@@ -190,92 +190,94 @@
         </b>
     </div>
     <div class="invoice-box">
-        <table class="table table-bordered">
-            <thead>
-                <tr class="heading" style="text-align: center;">
-                    <td colspan="11"><b>{{ __("PROCES VERBAL D'EVALUATION DE FORMATION") }}</b>
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="5"><b>{{ __('Période: ') }}</b>
-                        @isset($formation?->date_debut)
-                            {{ 'du ' . $formation?->date_debut?->format('d/m/Y') }}
-                        @endisset
-                        @isset($formation?->date_fin)
-                            {{ ' au ' . $formation?->date_fin?->format('d/m/Y') }}
-                        @endisset
-                    </td>
-                    <td colspan="6"><b>{{ __('Intitulé formation: ') }}</b> {{ $formation?->intitule }}
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="5"><b>{{ __('Lieu: ') }}</b> {{ $formation?->lieu }}
-                    </td>
-                    <td colspan="6"><b>{{ __('Opérateur: ') }}</b>
-                        {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td colspan="2"><b>{{ __('Code : ') }}</b>
-                        {{ $formation?->code }}
-                    </td>
-                    <td colspan="4"><b>{{ __('Niveau qualification : ') }}</b>
-                        @if ($formation?->type_certification !== 'Titre')
-                            {{ $formation?->titre ?? $formation?->referentiel?->titre }}
-                        @else
-                            @if (!empty($formation?->referentiel?->categorie))
-                                {{ $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="heading" style="text-align: center;">
+                        <td colspan="11"><b>{{ __("PROCES VERBAL D'EVALUATION DE FORMATION") }}</b>
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="5"><b>{{ __('Période: ') }}</b>
+                            @isset($formation?->date_debut)
+                                {{ 'du ' . $formation?->date_debut?->format('d/m/Y') }}
+                            @endisset
+                            @isset($formation?->date_fin)
+                                {{ ' au ' . $formation?->date_fin?->format('d/m/Y') }}
+                            @endisset
+                        </td>
+                        <td colspan="6"><b>{{ __('Intitulé formation: ') }}</b> {{ $formation?->intitule }}
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="5"><b>{{ __('Lieu: ') }}</b> {{ $formation?->lieu }}
+                        </td>
+                        <td colspan="6"><b>{{ __('Opérateur: ') }}</b>
+                            {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="2"><b>{{ __('Code : ') }}</b>
+                            {{ $formation?->code }}
+                        </td>
+                        <td colspan="4"><b>{{ __('Niveau qualification : ') }}</b>
+                            @if ($formation?->type_certification !== 'Titre')
+                                {{ $formation?->titre ?? $formation?->referentiel?->titre }}
+                            @else
+                                @if (!empty($formation?->referentiel?->categorie))
+                                    {{ $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
+                                @endif
                             @endif
-                        @endif
-                    </td>
-                    <td colspan="5"><b>{{ __('Type certification : ') }}</b>
-                        @if ($formation?->type_certification !== 'Titre')
-                            {{ $formation?->type_certification }}
-                        @else
-                            {{ $formation?->referentiel?->titre }}
-                        @endif
-                    </td>
-                </tr>
-                <tr class="heading">
-                    {{--  <td colspan="7">
+                        </td>
+                        <td colspan="5"><b>{{ __('Type certification : ') }}</b>
+                            @if ($formation?->type_certification !== 'Titre')
+                                {{ $formation?->type_certification }}
+                            @else
+                                {{ $formation?->referentiel?->titre }}
+                            @endif
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        {{--  <td colspan="7">
                         <b>{{ __('Ingénieur en charge : ') }}</b>{{ $formation?->ingenieur?->name . '(' . $formation?->ingenieur?->initiale . ')' }}
                     </td> --}}
-                    <td rowspan="2" class="item" style="text-align: center; width: 3%;"><b>N°</b></td>
-                    <td rowspan="2" class="item" style="text-align: center; width: 12%;"><b>N° CIN</b></td>
-                    <td rowspan="2" class="item" style="text-align: center; width: 5%;"><b>Civilité</b></td>
-                    <td rowspan="2" class="item" style="text-align: center;"><b>Prénom</b></td>
-                    <td rowspan="2" class="item" style="text-align: center;"><b>NOM</b></td>
-                    <td rowspan="2" class="item" style="text-align: center; width: 10%;"><b>Date nais.</b></td>
-                    <td rowspan="2" class="item" style="text-align: center;"><b>Lieu naissance</b></td>
-                    <td rowspan="2" class="item" style="text-align: center; width: 10%;"><b>Téléphone</b></td>
-                    <td colspan="3" style="text-align: center;"><b>{{ __('DECISION DU JURY') }}</b>
-                    </td>
-                </tr>
-                <tr class="item" style="text-align: center;">
-                    <td style="text-align: center; width: 5%;"><b>Note</b></td>
-                    <td style="width: 12%;"><b>Niveau maitrise</b></td>
-                    <td><b>Observations</b></td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $i = 1; ?>
-                @foreach ($formation->individuelles as $individuelle)
-                    <tr class="item" style="text-align: center;">
-                        <td>{{ $i++ }}</td>
-                        <td>{{ $individuelle->user->cin }}</td>
-                        <td>{{ $individuelle?->user?->civilite }}</td>
-                        <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->user?->name) }}</td>
-                        <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
-                        <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
-                        <td>{{ $individuelle?->user?->telephone }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td rowspan="2" class="item" style="text-align: center; width: 3%;"><b>N°</b></td>
+                        <td rowspan="2" class="item" style="text-align: center; width: 12%;"><b>N° CIN</b></td>
+                        <td rowspan="2" class="item" style="text-align: center; width: 5%;"><b>Civilité</b></td>
+                        <td rowspan="2" class="item" style="text-align: center;"><b>Prénom</b></td>
+                        <td rowspan="2" class="item" style="text-align: center;"><b>NOM</b></td>
+                        <td rowspan="2" class="item" style="text-align: center; width: 10%;"><b>Date nais.</b></td>
+                        <td rowspan="2" class="item" style="text-align: center;"><b>Lieu naissance</b></td>
+                        <td rowspan="2" class="item" style="text-align: center; width: 10%;"><b>Téléphone</b></td>
+                        <td colspan="3" style="text-align: center;"><b>{{ __('DECISION DU JURY') }}</b>
+                        </td>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                    <tr class="item" style="text-align: center;">
+                        <td style="text-align: center; width: 5%;"><b>Note</b></td>
+                        <td style="width: 12%;"><b>Niveau maitrise</b></td>
+                        <td><b>Observations</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 1; ?>
+                    @foreach ($formation->individuelles as $individuelle)
+                        <tr class="item" style="text-align: center;">
+                            <td>{{ $i++ }}</td>
+                            <td>{{ $individuelle->user->cin }}</td>
+                            <td>{{ $individuelle?->user?->civilite }}</td>
+                            <td>{{ format_proper_name($individuelle?->user?->firstname) }}</td>
+                            <td>{{ remove_accents_uppercase($individuelle?->user?->name) }}</td>
+                            <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
+                            <td>{{ remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}</td>
+                            <td>{{ $individuelle?->user?->telephone }}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         <div class="no-page-break">
             <h4 style="margin-top: 2mm;">
                 <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>

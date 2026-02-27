@@ -95,7 +95,8 @@
                                                 <input type="hidden" name="idlocalite"
                                                     value="{{ $formation?->departement?->region?->id }}">
                                                 <input type="hidden" name="idemargement" value="{{ $emargement?->id }}">
-                                                <button type="submit" class="btn btn-sm w-100">Feuille présence vierge</button>
+                                                <button type="submit" class="btn btn-sm w-100">Feuille présence
+                                                    vierge</button>
                                             </form>
                                         </li>
                                         <li>
@@ -107,7 +108,8 @@
                                                     value="{{ $formation?->module?->id }}">
                                                 <input type="hidden" name="idlocalite"
                                                     value="{{ $formation?->departement?->region?->id }}">
-                                                <input type="hidden" name="idemargement" value="{{ $emargement?->id }}">
+                                                <input type="hidden" name="idemargement"
+                                                    value="{{ $emargement?->id }}">
                                                 <button type="submit" class="btn btn-sm w-100">Fiche de suivi</button>
                                             </form>
                                         </li>
@@ -128,99 +130,102 @@
                             @method('PUT')
                             <div class="row mb-3">
                                 <div class="form-check col-md-12">
-                                    <table class="table datatables align-middle" id="table-individuelles">
-                                        <thead>
-                                            <tr>
-                                                <th width="3%">N°</th>
-                                                <th>Prénom</th>
-                                                <th>NOM</th>
-                                                <th>Date naissance</th>
-                                                <th>Lieu naissance</th>
-                                                <th>Département</th>
-                                                <th style="text-align: center">Présence</th>
-                                                @if (!empty($formation->projets_id))
-                                                    <th>Projet</th>
-                                                @endif
-                                                <th width="3%"><i class="bi bi-gear"></i></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                            @foreach ($feuillepresences as $feuillepresence)
+                                    <div class="table-responsive">
+                                        <table class="table datatables align-middle" id="table-individuelles">
+                                            <thead>
                                                 <tr>
-                                                    <td>{{ $i++ }}</td>
-                                                    <td>{{ $feuillepresence?->individuelle?->user?->firstname }}</td>
-                                                    <td>{{ $feuillepresence?->individuelle?->user?->name }}</td>
-                                                    <td>{{ $feuillepresence?->individuelle?->user?->date_naissance?->format('d/m/Y') }}
-                                                    </td>
-                                                    <td>{{ $feuillepresence?->individuelle?->user?->lieu_naissance }}</td>
-                                                    <td>{{ $feuillepresence?->individuelle?->departement?->nom }}</td>
-                                                    <td class="text-center">
-                                                        {{-- @foreach ($feuillepresence?->individuelle?->feuillepresences as $feuillepresence) --}}
-                                                        @if (in_array($feuillepresence?->emargements_id, $feuillepresenceIndividuelle))
-                                                            <span
-                                                                class="badge 
+                                                    <th width="3%">N°</th>
+                                                    <th>Prénom</th>
+                                                    <th>NOM</th>
+                                                    <th>Date naissance</th>
+                                                    <th>Lieu naissance</th>
+                                                    <th>Département</th>
+                                                    <th style="text-align: center">Présence</th>
+                                                    @if (!empty($formation->projets_id))
+                                                        <th>Projet</th>
+                                                    @endif
+                                                    <th width="3%"><i class="bi bi-gear"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @foreach ($feuillepresences as $feuillepresence)
+                                                    <tr>
+                                                        <td>{{ $i++ }}</td>
+                                                        <td>{{ $feuillepresence?->individuelle?->user?->firstname }}</td>
+                                                        <td>{{ $feuillepresence?->individuelle?->user?->name }}</td>
+                                                        <td>{{ $feuillepresence?->individuelle?->user?->date_naissance?->format('d/m/Y') }}
+                                                        </td>
+                                                        <td>{{ $feuillepresence?->individuelle?->user?->lieu_naissance }}
+                                                        </td>
+                                                        <td>{{ $feuillepresence?->individuelle?->departement?->nom }}</td>
+                                                        <td class="text-center">
+                                                            {{-- @foreach ($feuillepresence?->individuelle?->feuillepresences as $feuillepresence) --}}
+                                                            @if (in_array($feuillepresence?->emargements_id, $feuillepresenceIndividuelle))
+                                                                <span
+                                                                    class="badge 
                                                                         {{ $feuillepresence?->presence === 'Oui'
                                                                             ? 'bg-success'
                                                                             : ($feuillepresence?->presence === 'Non'
                                                                                 ? 'bg-danger'
                                                                                 : 'bg-default') }}">
-                                                                {{ $feuillepresence?->presence }}
-                                                            </span>
+                                                                    {{ $feuillepresence?->presence }}
+                                                                </span>
+                                                            @endif
+                                                            {{-- @endforeach --}}
+                                                        </td>
+                                                        @if (!empty($formation->projets_id))
+                                                            <td>{{ $feuillepresence?->individuelle?->projet?->sigle }}</td>
                                                         @endif
-                                                        {{-- @endforeach --}}
-                                                    </td>
-                                                    @if (!empty($formation->projets_id))
-                                                        <td>{{ $feuillepresence?->individuelle?->projet?->sigle }}</td>
-                                                    @endif
-                                                    <td>
-                                                        <div class="d-flex align-items-baseline gap-2">
-                                                            <a href="{{ route('individuelles.show', $feuillepresence?->individuelle) }}"
-                                                                class="btn btn-primary btn-sm" title="Voir détails"
-                                                                target="_blank" rel="noopener noreferrer">
-                                                                <i class="bi bi-eye"></i>
-                                                            </a>
-
-                                                            <div class="dropdown">
-                                                                <a href="#" class="btn btn-light btn-sm"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false"
-                                                                    title="Actions">
-                                                                    <i class="bi bi-three-dots-vertical"></i>
+                                                        <td>
+                                                            <div class="d-flex align-items-baseline gap-2">
+                                                                <a href="{{ route('individuelles.show', $feuillepresence?->individuelle) }}"
+                                                                    class="btn btn-primary btn-sm" title="Voir détails"
+                                                                    target="_blank" rel="noopener noreferrer">
+                                                                    <i class="bi bi-eye"></i>
                                                                 </a>
-                                                                <ul
-                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                    <li>
-                                                                        <button type="button" class="dropdown-item"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#PresenceModal{{ $feuillepresence?->individuelle->id }}">
-                                                                            Pointer
-                                                                        </button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <form
-                                                                            action="{{ route('feuillepresences.destroy', $feuillepresence?->individuelle->id) }}"
-                                                                            method="POST" class="m-0 p-0">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit"
-                                                                                class="dropdown-item show_confirm"
-                                                                                title="Supprimer">
-                                                                                Supprimer
+
+                                                                <div class="dropdown">
+                                                                    <a href="#" class="btn btn-light btn-sm"
+                                                                        data-bs-toggle="dropdown" aria-expanded="false"
+                                                                        title="Actions">
+                                                                        <i class="bi bi-three-dots-vertical"></i>
+                                                                    </a>
+                                                                    <ul
+                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                        <li>
+                                                                            <button type="button" class="dropdown-item"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#PresenceModal{{ $feuillepresence?->individuelle->id }}">
+                                                                                Pointer
                                                                             </button>
-                                                                        </form>
-                                                                    </li>
-                                                                </ul>
+                                                                        </li>
+                                                                        <li>
+                                                                            <form
+                                                                                action="{{ route('feuillepresences.destroy', $feuillepresence?->individuelle->id) }}"
+                                                                                method="POST" class="m-0 p-0">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"
+                                                                                    title="Supprimer">
+                                                                                    Supprimer
+                                                                                </button>
+                                                                            </form>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    {{--  <div class="text-center">
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                        {{--  <div class="text-center">
                                         <button type="submit" class="btn btn-outline-primary btn-sm"><i
                                                 class="bi bi-check2-circle"></i>&nbsp;Sélectionner</button>
                                     </div> --}}
+                                    </div>
                                 </div>
                             </div>
                         </form>

@@ -101,65 +101,67 @@
                             </div>
                         </div>
                         @if ($utilisateurs->isNotEmpty())
-                            <table class="table datatables align-middle" id="table-users">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        {{-- <th>Username</th> --}}
-                                        <th>E-mail</th>
-                                        <th>Téléphone</th>
-                                        <th width="20%">Roles</th>
-                                        <th width="5%" class="text-center">Formations</th>
-                                        <th width="5%" class="text-center">Statut</th>
-                                        <th width="2%"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($utilisateurs as $user)
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle" id="table-users">
+                                    <thead>
                                         <tr>
-                                            {{-- <th scope="row">
+                                            <th></th>
+                                            {{-- <th>Username</th> --}}
+                                            <th>E-mail</th>
+                                            <th>Téléphone</th>
+                                            <th width="20%">Roles</th>
+                                            <th width="5%" class="text-center">Formations</th>
+                                            <th width="5%" class="text-center">Statut</th>
+                                            <th width="2%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($utilisateurs as $user)
+                                            <tr>
+                                                {{-- <th scope="row">
                                                 <a href="{{ route('users.show', $user) }}">
                                                     <img class="rounded-circle w-20" alt="Profil"
                                                         src="{{ asset($user->getImage()) }}" width="40" height="auto">
                                                 </a>
                                             </th> --}}
-                                            <th scope="row">
-                                                <a href="{{ route('users.show', $user) }}"
-                                                    class="table-profile-image-wrapper
+                                                <th scope="row">
+                                                    <a href="{{ route('users.show', $user) }}"
+                                                        class="table-profile-image-wrapper
                                                 {{ $user?->last_activity && \Carbon\Carbon::parse($user->last_activity)->diffInMinutes(now()) < 5
                                                     ? 'online'
                                                     : 'offline' }}">
-                                                    <img src="{{ asset($user->getImage()) }}"
-                                                        class="rounded-circle w-20 table-profile-image" alt="Profil"
-                                                        width="40" height="auto">
-                                                </a>
-                                            </th>
+                                                        <img src="{{ asset($user->getImage()) }}"
+                                                            class="rounded-circle w-20 table-profile-image" alt="Profil"
+                                                            width="40" height="auto">
+                                                    </a>
+                                                </th>
 
-                                            {{-- <td>{{ $user?->username }}</td> --}}
-                                            <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                                            <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a></td>
-                                            <td>
-                                                @if (!empty($user->getRoleNames()))
-                                                    @foreach ($user->getRoleNames() as $roleName)
-                                                        <label for="label"
-                                                            class="badge bg-primary mx-1">{{ $roleName }}</label>
-                                                    @endforeach
-                                                @endif
-                                            </td>
-                                            <td class="text-center">
-                                                <span
-                                                    class="badge bg-info text-white">{{ $user->individuelles->count() }}</span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                @isset($user?->email_verified_at)
-                                                    <i class="bi bi-check-circle text-success" title="compte vérifié"></i>
-                                                    {{-- <span class="badge bg-success"><i class="bi bi-check-circle" title="compte vérifié"></i></span> --}}
-                                                    {{-- me-1 à mettre dans la classe de la balise i --}}
-                                                    {{-- <span class="btn btn-outline-info btn-sm mx-1"><i class="bi bi-check2-circle"></i></span> --}}
-                                                @endisset
-                                            </td>
-                                            {{-- <td>
+                                                {{-- <td>{{ $user?->username }}</td> --}}
+                                                <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
+                                                <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a>
+                                                </td>
+                                                <td>
+                                                    @if (!empty($user->getRoleNames()))
+                                                        @foreach ($user->getRoleNames() as $roleName)
+                                                            <label for="label"
+                                                                class="badge bg-primary mx-1">{{ $roleName }}</label>
+                                                        @endforeach
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">
+                                                    <span
+                                                        class="badge bg-info text-white">{{ $user->individuelles->count() }}</span>
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    @isset($user?->email_verified_at)
+                                                        <i class="bi bi-check-circle text-success" title="compte vérifié"></i>
+                                                        {{-- <span class="badge bg-success"><i class="bi bi-check-circle" title="compte vérifié"></i></span> --}}
+                                                        {{-- me-1 à mettre dans la classe de la balise i --}}
+                                                        {{-- <span class="btn btn-outline-info btn-sm mx-1"><i class="bi bi-check2-circle"></i></span> --}}
+                                                    @endisset
+                                                </td>
+                                                {{-- <td>
                                             <span class="d-flex mt-2 align-items-baseline"><a
                                                     href="{{ route('users.edit', $user) }}"
                                                     class="btn btn-success btn-sm mx-1" title="Modifier"><i
@@ -173,49 +175,50 @@
                                             </span>
                                         </td> --}}
 
-                                            <td>
-                                                {{-- @can('user-show') --}}
-                                                <span class="d-flex mt-2 align-items-baseline"><a
-                                                        href="{{ route('users.show', $user) }}"
-                                                        class="btn btn-info btn-sm mx-1" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                class="bi bi-three-dots"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            {{-- @can('user-update') --}}
-                                                            <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                    href="{{ route('users.edit', $user) }}"><i
-                                                                        class="bi bi-pencil"></i> Modifier</a>
-                                                            </li>
-                                                            {{-- @endcan --}}
-                                                            @can('user-delete')
-                                                                <li>
-                                                                    <form action="{{ route('users.destroy', $user) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit"
-                                                                            class="dropdown-item show_confirm"><i
-                                                                                class="bi bi-trash"></i>Supprimer</button>
-                                                                    </form>
+                                                <td>
+                                                    {{-- @can('user-show') --}}
+                                                    <span class="d-flex mt-2 align-items-baseline"><a
+                                                            href="{{ route('users.show', $user) }}"
+                                                            class="btn btn-info btn-sm mx-1" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                        <div class="filter">
+                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                    class="bi bi-three-dots"></i></a>
+                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                {{-- @can('user-update') --}}
+                                                                <li><a class="dropdown-item btn btn-sm mx-1"
+                                                                        href="{{ route('users.edit', $user) }}"><i
+                                                                            class="bi bi-pencil"></i> Modifier</a>
                                                                 </li>
-                                                            @endcan
-                                                            <li>
-                                                                <a class="dropdown-item btn btn-sm mx-1" href="#"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#forgotModal{{ $user->uuid }}">
-                                                                    <i class="bi bi-key"></i>Réinitialiser MP</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </span>
-                                                {{--   @endcan --}}
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                                {{-- @endcan --}}
+                                                                @can('user-delete')
+                                                                    <li>
+                                                                        <form action="{{ route('users.destroy', $user) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"><i
+                                                                                    class="bi bi-trash"></i>Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                @endcan
+                                                                <li>
+                                                                    <a class="dropdown-item btn btn-sm mx-1" href="#"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#forgotModal{{ $user->uuid }}">
+                                                                        <i class="bi bi-key"></i>Réinitialiser MP</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </span>
+                                                    {{--   @endcan --}}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <div class="alert alert-info mt-3">Aucun utilisateur pour le moment !!!</div>
                         @endif

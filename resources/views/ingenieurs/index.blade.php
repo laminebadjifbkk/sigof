@@ -51,87 +51,90 @@
                             {{-- @endcan --}}
                             <h5 class="card-title">Liste des ingénieurs</h5>
                             <!-- Table with stripped rows -->
-                            <table class="table datatables align-middle justify-content-center" id="table-ingenieurs">
-                                <thead>
-                                    <tr>
-                                        {{-- <th class="text-center" scope="col">N°</th>
-                                    <th>Matricule</th> --}}
-                                        <th width="35%">Ingénieur</th>
-                                        <th width="2%">Initiale</th>
-                                        <th>Fonction</th>
-                                        {{-- <th>Spécialité</th> --}}
-                                        <th>Email</th>
-                                        <th>Téléphone</th>
-                                        <th>Formations</th>
-                                        <th class="text-center" scope="col">#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($ingenieurs as $ingenieur)
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle justify-content-center" id="table-ingenieurs">
+                                    <thead>
                                         <tr>
-                                            {{-- <td style="text-align: center;">{{ $i++ }}</td>
-                                        <td>{{ $ingenieur->matricule }}</td> --}}
-                                            <td>{{ $ingenieur?->user?->firstname . ' ' . $ingenieur?->user?->name }}</td>
-                                            <td>{{ $ingenieur?->initiale }}</td>
-                                            <td>{{ $ingenieur?->user?->employee?->fonction?->name }}</td>
-                                            {{-- <td>{{ $ingenieur->specialite }}</td> --}}
-                                            <td><a
-                                                    href="mailto:{{ $ingenieur?->user?->email }}">{{ $ingenieur?->user?->email }}</a>
-                                            </td>
-                                            <td><a
-                                                    href="tel:+221{{ $ingenieur?->user?->telephone }}">{{ $ingenieur?->user?->telephone }}</a>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                @foreach ($ingenieur?->formations as $formation)
-                                                    @if ($loop->last)
-                                                        <a class="text-primary fw-bold"
-                                                            href="#">{!! $loop->count ?? '0' !!}</a>
-                                                    @endif
-                                                @endforeach
-                                            </td>
-
-                                            <td style="text-align: center;">
-                                                @can('ingenieur-show')
-                                                    <span class="d-flex mt-2 align-items-baseline"><a
-                                                            href="{{ route('ingenieurs.show', $ingenieur->id) }}"
-                                                            class="btn btn-warning btn-sm mx-1" title="Voir détails">
-                                                            <i class="bi bi-eye"></i></a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                @can('ingenieur-update')
-                                                                    <li>
-                                                                        <button type="button" class="dropdown-item btn btn-sm mx-1"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#EditingenieurModal{{ $ingenieur->id }}">
-                                                                            <i class="bi bi-pencil" title="Modifier"></i> Modifier
-                                                                        </button>
-                                                                    </li>
-                                                                @endcan
-                                                                @can('ingenieur-delete')
-                                                                    <li>
-                                                                        <form action="{{ url('ingenieurs', $ingenieur->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit" class="dropdown-item show_confirm"><i
-                                                                                    class="bi bi-trash"></i>Supprimer</button>
-                                                                        </form>
-                                                                    </li>
-                                                                @endcan
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                                @endcan
-                                            </td>
-
+                                            {{-- <th class="text-center" scope="col">N°</th>
+                                    <th>Matricule</th> --}}
+                                            <th width="35%">Ingénieur</th>
+                                            <th width="2%">Initiale</th>
+                                            <th>Fonction</th>
+                                            {{-- <th>Spécialité</th> --}}
+                                            <th>Email</th>
+                                            <th>Téléphone</th>
+                                            <th>Formations</th>
+                                            <th class="text-center" scope="col">#</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <!-- End Table with stripped rows -->
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($ingenieurs as $ingenieur)
+                                            <tr>
+                                                {{-- <td style="text-align: center;">{{ $i++ }}</td>
+                                        <td>{{ $ingenieur->matricule }}</td> --}}
+                                                <td>{{ $ingenieur?->user?->firstname . ' ' . $ingenieur?->user?->name }}</td>
+                                                <td>{{ $ingenieur?->initiale }}</td>
+                                                <td>{{ $ingenieur?->user?->employee?->fonction?->name }}</td>
+                                                {{-- <td>{{ $ingenieur->specialite }}</td> --}}
+                                                <td><a
+                                                        href="mailto:{{ $ingenieur?->user?->email }}">{{ $ingenieur?->user?->email }}</a>
+                                                </td>
+                                                <td><a
+                                                        href="tel:+221{{ $ingenieur?->user?->telephone }}">{{ $ingenieur?->user?->telephone }}</a>
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    @foreach ($ingenieur?->formations as $formation)
+                                                        @if ($loop->last)
+                                                            <a class="text-primary fw-bold"
+                                                                href="#">{!! $loop->count ?? '0' !!}</a>
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+
+                                                <td style="text-align: center;">
+                                                    @can('ingenieur-show')
+                                                        <span class="d-flex mt-2 align-items-baseline"><a
+                                                                href="{{ route('ingenieurs.show', $ingenieur->id) }}"
+                                                                class="btn btn-warning btn-sm mx-1" title="Voir détails">
+                                                                <i class="bi bi-eye"></i></a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    @can('ingenieur-update')
+                                                                        <li>
+                                                                            <button type="button" class="dropdown-item btn btn-sm mx-1"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#EditingenieurModal{{ $ingenieur->id }}">
+                                                                                <i class="bi bi-pencil" title="Modifier"></i> Modifier
+                                                                            </button>
+                                                                        </li>
+                                                                    @endcan
+                                                                    @can('ingenieur-delete')
+                                                                        <li>
+                                                                            <form action="{{ url('ingenieurs', $ingenieur->id) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"><i
+                                                                                        class="bi bi-trash"></i>Supprimer</button>
+                                                                            </form>
+                                                                        </li>
+                                                                    @endcan
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    @endcan
+                                                </td>
+
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <!-- End Table with stripped rows -->
+                            </div>
                         </div>
                     </div>
 

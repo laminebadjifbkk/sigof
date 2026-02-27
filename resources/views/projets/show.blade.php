@@ -242,34 +242,35 @@
 
                                     <!-- Tableau des modules -->
                                     <div class="row g-3">
-                                        <table class="table datatables align-middle table-borderless"
-                                            id="table-operateurModules">
-                                            <thead>
-                                                <tr>
-                                                    {{-- <th class="text-center" width="5%">N°</th> --}}
-                                                    <th>Module</th>
-                                                    <th>Domaines</th>
-                                                    <th>Statut</th>
-                                                    <th class="text-center">Reçues</th>
-                                                    @if ($projet?->effectif)
-                                                        <th class="text-center" width="10%">Besoin</th>
-                                                    @endif
-                                                    @if (auth()->user()->hasRole(['super-admin', 'admin', 'DIOF', 'Ingenieur', 'ADIOF']))
-                                                        <th width="5%" class="text-center">
-                                                            <i class="bi bi-gear"></i>
-                                                        </th>
-                                                    @endif
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php $i = 1; @endphp
-                                                @foreach ($projet?->projetmodules as $projetmodule)
+                                        <div class="table-responsive">
+                                            <table class="table datatables align-middle table-borderless"
+                                                id="table-operateurModules">
+                                                <thead>
                                                     <tr>
-                                                        {{-- <td class="text-center">{{ $i++ }}</td> --}}
-                                                        <td>{{ $projetmodule?->module }}</td>
-                                                        <td>{{ $projetmodule?->domaine }}</td>
-                                                        <td>
-                                                            {{-- @if ($projetmodule?->statut == 'ouvert')
+                                                        {{-- <th class="text-center" width="5%">N°</th> --}}
+                                                        <th>Module</th>
+                                                        <th>Domaines</th>
+                                                        <th>Statut</th>
+                                                        <th class="text-center">Reçues</th>
+                                                        @if ($projet?->effectif)
+                                                            <th class="text-center" width="10%">Besoin</th>
+                                                        @endif
+                                                        @if (auth()->user()->hasRole(['super-admin', 'admin', 'DIOF', 'Ingenieur', 'ADIOF']))
+                                                            <th width="5%" class="text-center">
+                                                                <i class="bi bi-gear"></i>
+                                                            </th>
+                                                        @endif
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @php $i = 1; @endphp
+                                                    @foreach ($projet?->projetmodules as $projetmodule)
+                                                        <tr>
+                                                            {{-- <td class="text-center">{{ $i++ }}</td> --}}
+                                                            <td>{{ $projetmodule?->module }}</td>
+                                                            <td>{{ $projetmodule?->domaine }}</td>
+                                                            <td>
+                                                                {{-- @if ($projetmodule?->statut == 'ouvert')
                                                                 <span class="badge bg-success rounded-pill">
                                                                     {{ $projetmodule?->statut }}
                                                                 </span>
@@ -286,98 +287,101 @@
                                                                     {{ $projetmodule?->statut }}
                                                                 </span>
                                                             @endif --}}
-                                                            <span class="{{ $projetmodule?->statut }} badge rounded-pill">
-                                                                {{ $projetmodule?->statut }}
-                                                            </span>
-                                                        </td>
-                                                        @php
-                                                            $count = $projet
-                                                                ->individuelles()
-                                                                ->whereHas('module', function ($query) use (
-                                                                    $projetmodule,
-                                                                ) {
-                                                                    $query->where('name', $projetmodule->module);
-                                                                })
-                                                                ->count();
-                                                        @endphp
-
-                                                        <td class="text-center">
-                                                            @if ($count == 0)
-                                                                <span class="badge bg-danger rounded-pill">
-                                                                    0
-                                                                </span>
-                                                            @elseif ($count > 0 && $count <= 19)
-                                                                <span class="badge bg-warning text-dark rounded-pill">
-                                                                    {{ $count }}
-                                                                </span>
-                                                            @else
-                                                                <span class="badge bg-success rounded-pill">
-                                                                    {{ $count }}
-                                                                </span>
-                                                            @endif
-                                                        </td>
-                                                        @if ($projet?->effectif)
-                                                            <td class="text-center">{{ $projetmodule?->effectif }}
-                                                            </td>
-                                                        @endif
-                                                        @if (auth()->user()->hasRole(['super-admin', 'admin', 'DIOF', 'Ingenieur', 'ADIOF']))
-                                                            <td style="text-align: center;">
                                                                 <span
-                                                                    class="d-flex align-items-baseline justify-content-center gap-2">
-                                                                    <!-- Bouton "Voir détails" -->
-                                                                    <a href="{{ route('projetmodules.show', $projetmodule) }}"
-                                                                        class="btn btn-primary btn-sm shadow-sm rounded-pill transition-all hover:shadow-lg"
-                                                                        title="Voir détails">
-                                                                        <i class="bi bi-eye"></i>
-                                                                    </a>
+                                                                    class="{{ $projetmodule?->statut }} badge rounded-pill">
+                                                                    {{ $projetmodule?->statut }}
+                                                                </span>
+                                                            </td>
+                                                            @php
+                                                                $count = $projet
+                                                                    ->individuelles()
+                                                                    ->whereHas('module', function ($query) use (
+                                                                        $projetmodule,
+                                                                    ) {
+                                                                        $query->where('name', $projetmodule->module);
+                                                                    })
+                                                                    ->count();
+                                                            @endphp
 
-                                                                    <!-- Dropdown pour actions -->
-                                                                    <div class="dropdown">
-                                                                        <a class="btn btn-light btn-sm shadow-sm rounded-pill transition-all hover:shadow-lg"
-                                                                            href="#" role="button"
-                                                                            data-bs-toggle="dropdown"
-                                                                            aria-expanded="false">
-                                                                            <i class="bi bi-three-dots"></i>
+                                                            <td class="text-center">
+                                                                @if ($count == 0)
+                                                                    <span class="badge bg-danger rounded-pill">
+                                                                        0
+                                                                    </span>
+                                                                @elseif ($count > 0 && $count <= 19)
+                                                                    <span class="badge bg-warning text-dark rounded-pill">
+                                                                        {{ $count }}
+                                                                    </span>
+                                                                @else
+                                                                    <span class="badge bg-success rounded-pill">
+                                                                        {{ $count }}
+                                                                    </span>
+                                                                @endif
+                                                            </td>
+                                                            @if ($projet?->effectif)
+                                                                <td class="text-center">{{ $projetmodule?->effectif }}
+                                                                </td>
+                                                            @endif
+                                                            @if (auth()->user()->hasRole(['super-admin', 'admin', 'DIOF', 'Ingenieur', 'ADIOF']))
+                                                                <td style="text-align: center;">
+                                                                    <span
+                                                                        class="d-flex align-items-baseline justify-content-center gap-2">
+                                                                        <!-- Bouton "Voir détails" -->
+                                                                        <a href="{{ route('projetmodules.show', $projetmodule) }}"
+                                                                            class="btn btn-primary btn-sm shadow-sm rounded-pill transition-all hover:shadow-lg"
+                                                                            title="Voir détails">
+                                                                            <i class="bi bi-eye"></i>
                                                                         </a>
-                                                                        <ul class="dropdown-menu dropdown-menu-end">
-                                                                            <!-- Modifier -->
-                                                                            <li>
-                                                                                {{-- <button class="dropdown-item"
+
+                                                                        <!-- Dropdown pour actions -->
+                                                                        <div class="dropdown">
+                                                                            <a class="btn btn-light btn-sm shadow-sm rounded-pill transition-all hover:shadow-lg"
+                                                                                href="#" role="button"
+                                                                                data-bs-toggle="dropdown"
+                                                                                aria-expanded="false">
+                                                                                <i class="bi bi-three-dots"></i>
+                                                                            </a>
+                                                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                                                <!-- Modifier -->
+                                                                                <li>
+                                                                                    {{-- <button class="dropdown-item"
                                                                                     data-bs-toggle="modal"
                                                                                     data-bs-target="#EditModuleModal{{ $projetmodule?->id }}">
                                                                                     <i class="bi bi-pencil-fill me-2"></i>
                                                                                     Modifier
                                                                                 </button> --}}
-                                                                                <a href="{{ route('projetmodules.edit', $projetmodule) }}"
-                                                                                    class="dropdown-item">
-                                                                                    <i class="bi bi-pencil-fill me-2"></i>
-                                                                                    Modifier
-                                                                                </a>
-                                                                            </li>
-                                                                            <!-- Supprimer -->
-                                                                            <li>
-                                                                                <form
-                                                                                    action="{{ route('projetmodules.destroy', $projetmodule) }}"
-                                                                                    method="post">
-                                                                                    @csrf
-                                                                                    @method('DELETE')
-                                                                                    <button type="submit"
-                                                                                        class="dropdown-item text-danger show_confirm">
+                                                                                    <a href="{{ route('projetmodules.edit', $projetmodule) }}"
+                                                                                        class="dropdown-item">
                                                                                         <i
-                                                                                            class="bi bi-trash-fill me-2"></i>
-                                                                                        Supprimer
-                                                                                    </button>
-                                                                                </form>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </span>
-                                                            </td>
-                                                        @endif
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                                                                            class="bi bi-pencil-fill me-2"></i>
+                                                                                        Modifier
+                                                                                    </a>
+                                                                                </li>
+                                                                                <!-- Supprimer -->
+                                                                                <li>
+                                                                                    <form
+                                                                                        action="{{ route('projetmodules.destroy', $projetmodule) }}"
+                                                                                        method="post">
+                                                                                        @csrf
+                                                                                        @method('DELETE')
+                                                                                        <button type="submit"
+                                                                                            class="dropdown-item text-danger show_confirm">
+                                                                                            <i
+                                                                                                class="bi bi-trash-fill me-2"></i>
+                                                                                            Supprimer
+                                                                                        </button>
+                                                                                    </form>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </span>
+                                                                </td>
+                                                            @endif
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                     {{-- Ancienne section formulaire globale --}}
                                     {{-- </form> --}}
@@ -404,111 +408,118 @@
                                     </div>
 
                                     <div class="row g-3">
-                                        <table class="table datatables align-middle justify-content-center"
-                                            id="table-projetlocalites">
-                                            <thead>
-                                                <tr>
-                                                    <th width="5%" class="text-center" scope="col">N°</th>
-                                                    <th>{{ $projet?->type_localite }}</th>
-                                                    @if ($projet?->effectif)
-                                                        <th class="text-center" scope="col">Besoin</th>
-                                                    @endif
-                                                    <th class="text-center" scope="col">Reçues</th>
-                                                    <th width="5%" class="text-center" scope="col">#</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $i = 1; ?>
-                                                @foreach ($projetlocalites as $projetlocalite)
+                                        <div class="table-responsive">
+                                            <table class="table datatables align-middle justify-content-center"
+                                                id="table-projetlocalites">
+                                                <thead>
                                                     <tr>
-                                                        <td style="text-align: center;">{{ $i++ }}</td>
-                                                        <td>{{ $projetlocalite?->localite }}</td>
+                                                        <th width="5%" class="text-center" scope="col">N°</th>
+                                                        <th>{{ $projet?->type_localite }}</th>
                                                         @if ($projet?->effectif)
+                                                            <th class="text-center" scope="col">Besoin</th>
+                                                        @endif
+                                                        <th class="text-center" scope="col">Reçues</th>
+                                                        <th width="5%" class="text-center" scope="col">#</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $i = 1; ?>
+                                                    @foreach ($projetlocalites as $projetlocalite)
+                                                        <tr>
+                                                            <td style="text-align: center;">{{ $i++ }}</td>
+                                                            <td>{{ $projetlocalite?->localite }}</td>
+                                                            @if ($projet?->effectif)
+                                                                <td class="text-center">
+                                                                    @if ($projetlocalite?->effectif > 0)
+                                                                        <span class="badge bg-success rounded-pill">
+                                                                            {{ $projetlocalite?->effectif }}
+                                                                        </span>
+                                                                    @else
+                                                                        <span class="badge bg-danger rounded-pill">
+                                                                            0
+                                                                        </span>
+                                                                    @endif
+                                                                </td>
+                                                            @endif
+                                                            @php
+                                                                $count = $projet
+                                                                    ->individuelles()
+                                                                    ->whereHas(
+                                                                        strtolower($projet->type_localite), // relation dynamique
+                                                                        function ($query) use ($projetlocalite) {
+                                                                            $query->where(
+                                                                                'nom',
+                                                                                $projetlocalite->localite,
+                                                                            );
+                                                                        },
+                                                                    )
+                                                                    ->count();
+                                                            @endphp
+
                                                             <td class="text-center">
-                                                                @if ($projetlocalite?->effectif > 0)
-                                                                    <span class="badge bg-success rounded-pill">
-                                                                        {{ $projetlocalite?->effectif }}
-                                                                    </span>
-                                                                @else
+                                                                @if ($count == 0)
                                                                     <span class="badge bg-danger rounded-pill">
                                                                         0
                                                                     </span>
+                                                                @elseif ($count > 0 && $count <= 19)
+                                                                    <span
+                                                                        class="badge bg-warning text-dark rounded-pill">
+                                                                        {{ $count }}
+                                                                    </span>
+                                                                @else
+                                                                    <span class="badge bg-success rounded-pill">
+                                                                        {{ $count }}
+                                                                    </span>
                                                                 @endif
                                                             </td>
-                                                        @endif
-                                                        @php
-                                                            $count = $projet
-                                                                ->individuelles()
-                                                                ->whereHas(
-                                                                    strtolower($projet->type_localite), // relation dynamique
-                                                                    function ($query) use ($projetlocalite) {
-                                                                        $query->where('nom', $projetlocalite->localite);
-                                                                    },
-                                                                )
-                                                                ->count();
-                                                        @endphp
-
-                                                        <td class="text-center">
-                                                            @if ($count == 0)
-                                                                <span class="badge bg-danger rounded-pill">
-                                                                    0
-                                                                </span>
-                                                            @elseif ($count > 0 && $count <= 19)
-                                                                <span class="badge bg-warning text-dark rounded-pill">
-                                                                    {{ $count }}
-                                                                </span>
-                                                            @else
-                                                                <span class="badge bg-success rounded-pill">
-                                                                    {{ $count }}
-                                                                </span>
-                                                            @endif
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <div class="btn-group align-items-center">
-                                                                <a href="{{ route('projetlocalites.show', $projetlocalite) }}"
-                                                                    class="btn btn-sm btn-outline-warning"
-                                                                    title="Voir détails">
-                                                                    <i class="bi bi-eye"></i>
-                                                                </a>
-                                                                @if (auth()->user()->hasRole(['super-admin', 'admin', 'DIOF', 'Ingenieur', 'ADIOF']))
-                                                                    <button type="button"
-                                                                        class="btn btn-sm btn-outline-secondary dropdown-toggle"
-                                                                        data-bs-toggle="dropdown"
-                                                                        aria-expanded="false">
-                                                                        <i class="bi bi-gear"></i>
-                                                                    </button>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li>
-                                                                            <button type="button"
-                                                                                class="dropdown-item"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#EditprojetlocaliteModal{{ $projetlocalite?->id }}">
-                                                                                <i
-                                                                                    class="bi bi-pencil-square me-2"></i>
-                                                                                Modifier
-                                                                            </button>
-                                                                        </li>
-                                                                        <li>
-                                                                            <form
-                                                                                action="{{ route('projetlocalites.destroy', $projetlocalite) }}"
-                                                                                method="POST" class="d-inline">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit"
-                                                                                    class="dropdown-item show_confirm">
-                                                                                    <i class="bi bi-trash3 me-2"></i>
-                                                                                    Supprimer
+                                                            <td class="text-center">
+                                                                <div class="btn-group align-items-center">
+                                                                    <a href="{{ route('projetlocalites.show', $projetlocalite) }}"
+                                                                        class="btn btn-sm btn-outline-warning"
+                                                                        title="Voir détails">
+                                                                        <i class="bi bi-eye"></i>
+                                                                    </a>
+                                                                    @if (auth()->user()->hasRole(['super-admin', 'admin', 'DIOF', 'Ingenieur', 'ADIOF']))
+                                                                        <button type="button"
+                                                                            class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                                                                            data-bs-toggle="dropdown"
+                                                                            aria-expanded="false">
+                                                                            <i class="bi bi-gear"></i>
+                                                                        </button>
+                                                                        <ul class="dropdown-menu">
+                                                                            <li>
+                                                                                <button type="button"
+                                                                                    class="dropdown-item"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#EditprojetlocaliteModal{{ $projetlocalite?->id }}">
+                                                                                    <i
+                                                                                        class="bi bi-pencil-square me-2"></i>
+                                                                                    Modifier
                                                                                 </button>
-                                                                            </form>
-                                                                        </li>
-                                                                    </ul>
-                                                                @endif
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                                                            </li>
+                                                                            <li>
+                                                                                <form
+                                                                                    action="{{ route('projetlocalites.destroy', $projetlocalite) }}"
+                                                                                    method="POST" class="d-inline">
+                                                                                    @csrf
+                                                                                    @method('DELETE')
+                                                                                    <button type="submit"
+                                                                                        class="dropdown-item show_confirm">
+                                                                                        <i
+                                                                                            class="bi bi-trash3 me-2"></i>
+                                                                                        Supprimer
+                                                                                    </button>
+                                                                                </form>
+                                                                            </li>
+                                                                        </ul>
+                                                                    @endif
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

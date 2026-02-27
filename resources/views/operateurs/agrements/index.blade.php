@@ -143,47 +143,49 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Traitement dossiers agrément opérateurs</h5>
-                        <table class="table datatables table-bordered table-hover align-middle table-striped"
-                            id="table-operateurs">
-                            <thead>
-                                <tr>
-                                    {{-- <th width="15%">N° courrier</th> --}}
-                                    @can('afficher-dossier-operateur')
-                                        <th width="5%" class="text-center">Dossier</th>
-                                    @endcan
-                                    <th width="5%" class="text-center">Année</th>
-                                    <th width="5%" class="text-center">Type</th>
-                                    <th width="55%">Opérateurs</th>
-                                    <th width="10%">Sigle</th>
-                                    <th width="15%" class="text-center">Statut</th>
-                                    @can('agrement-show')
-                                        <th width="3%"><i class="bi bi-gear"></i></th>
-                                    @endcan
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                @foreach ($operateurs as $operateur)
-                                    {{-- @isset($operateur?->numero_agrement) --}}
+                        <div class="table-responsive">
+                            <table class="table datatables table-bordered table-hover align-middle table-striped"
+                                id="table-operateurs">
+                                <thead>
                                     <tr>
-                                        {{-- <td>{{ $operateur?->courrier?->numero }}</td> --}}
+                                        {{-- <th width="15%">N° courrier</th> --}}
                                         @can('afficher-dossier-operateur')
-                                            <td class="text-center">{{ $operateur?->numero_dossier }}</td>
+                                            <th width="5%" class="text-center">Dossier</th>
                                         @endcan
-                                        <td style="text-align: center">{{ $operateur?->annee_agrement?->format('Y') }}</td>
-                                        <td style="text-align: center"><span class="{{ $operateur->type_demande }}">
-                                                {{ $operateur?->type_demande }}</span></td>
-                                        <td>{{ $operateur?->user?->operateur }}</td>
-                                        <td>{{ $operateur?->user?->username }}</td>
-                                        <td style="text-align: center"><span class="{{ $operateur->statut_agrement }}">
-                                                {{ $operateur?->statut_agrement }}</span></td>
-                                        <td>
-                                            @can('agrement-show')
-                                                <span class="d-flex align-items-baseline"><a
-                                                        href="{{ route('showAgrement', ['id' => $operateur->id]) }}"
-                                                        class="btn btn-primary btn-sm" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                    {{-- <div class="filter">
+                                        <th width="5%" class="text-center">Année</th>
+                                        <th width="5%" class="text-center">Type</th>
+                                        <th width="55%">Opérateurs</th>
+                                        <th width="10%">Sigle</th>
+                                        <th width="15%" class="text-center">Statut</th>
+                                        @can('agrement-show')
+                                            <th width="3%"><i class="bi bi-gear"></i></th>
+                                        @endcan
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($operateurs as $operateur)
+                                        {{-- @isset($operateur?->numero_agrement) --}}
+                                        <tr>
+                                            {{-- <td>{{ $operateur?->courrier?->numero }}</td> --}}
+                                            @can('afficher-dossier-operateur')
+                                                <td class="text-center">{{ $operateur?->numero_dossier }}</td>
+                                            @endcan
+                                            <td style="text-align: center">{{ $operateur?->annee_agrement?->format('Y') }}
+                                            </td>
+                                            <td style="text-align: center"><span class="{{ $operateur->type_demande }}">
+                                                    {{ $operateur?->type_demande }}</span></td>
+                                            <td>{{ $operateur?->user?->operateur }}</td>
+                                            <td>{{ $operateur?->user?->username }}</td>
+                                            <td style="text-align: center"><span class="{{ $operateur->statut_agrement }}">
+                                                    {{ $operateur?->statut_agrement }}</span></td>
+                                            <td>
+                                                @can('agrement-show')
+                                                    <span class="d-flex align-items-baseline"><a
+                                                            href="{{ route('showAgrement', ['id' => $operateur->id]) }}"
+                                                            class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                        {{-- <div class="filter">
                                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                             class="bi bi-three-dots"></i></a>
                                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -208,17 +210,18 @@
                                                         </li>
                                                     </ul>
                                                 </div> --}}
-                                                </span>
-                                            @endcan
-                                        </td>
-                                    </tr>
-                                    {{-- @endisset --}}
-                                @endforeach
+                                                    </span>
+                                                @endcan
+                                            </td>
+                                        </tr>
+                                        {{-- @endisset --}}
+                                    @endforeach
 
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
 
+                        </div>
                     </div>
                 </div>
 

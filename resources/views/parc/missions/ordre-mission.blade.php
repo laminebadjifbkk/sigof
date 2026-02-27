@@ -268,80 +268,83 @@
                     Décompte des frais de mission
                 </h4>
 
-                <table class="table-no-border" width="100%" cellspacing="0" cellpadding="6"
-                    style="border-collapse: collapse; font-size:12pt;">
-                    <tr>
-                        <td width="40%">
-                            <b>Nombre de jours :</b> {{ $jours }} jour{{ $jours > 1 ? 's' : '' }}
-                        </td>
-                        <td width="60%">
-                            <b>Prénom(s) - Nom :</b> {{ $employee?->user?->firstname }} {{ $employee?->user?->name }}
-                        </td>
-                    </tr>
+                <div class="table-responsive">
+                    <table class="table-no-border" width="100%" cellspacing="0" cellpadding="6"
+                        style="border-collapse: collapse; font-size:12pt;">
+                        <tr>
+                            <td width="40%">
+                                <b>Nombre de jours :</b> {{ $jours }} jour{{ $jours > 1 ? 's' : '' }}
+                            </td>
+                            <td width="60%">
+                                <b>Prénom(s) - Nom :</b> {{ $employee?->user?->firstname }}
+                                {{ $employee?->user?->name }}
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>
-                            <b>Taux journalier :</b> ......................................................
-                        </td>
-                        <td>
-                            <b>Fonction :</b> {{ $employee?->fonction?->name }}
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <b>Taux journalier :</b> ......................................................
+                            </td>
+                            <td>
+                                <b>Fonction :</b> {{ $employee?->fonction?->name }}
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>
-                            <b>Indemnité de mission :</b> ............................................
-                        </td>
-                        <td>
-                            <b>Objet :</b> {{ $mission->objet }}
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <b>Indemnité de mission :</b> ............................................
+                            </td>
+                            <td>
+                                <b>Objet :</b> {{ $mission->objet }}
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>
-                            <b>Frais de déplacement (aller et retour) :</b>
-                        </td>
-                        <td>
-                            <b>Destination :</b> {{ $mission->lieu_arrivee }}
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <b>Frais de déplacement (aller et retour) :</b>
+                            </td>
+                            <td>
+                                <b>Destination :</b> {{ $mission->lieu_arrivee }}
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>
-                            ....................................................................................
-                        </td>
-                        <td>
-                            <b>Département :</b> {{ $mission?->departement ?? $mission?->lieu_arrivee }}
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                ....................................................................................
+                            </td>
+                            <td>
+                                <b>Département :</b> {{ $mission?->departement ?? $mission?->lieu_arrivee }}
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>
-                            <b>Total frais de mission :</b> ...........................................
-                        </td>
-                        <td>
-                            <b>Région :</b> {{ $mission?->region ?? $mission?->lieu_arrivee }}
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <b>Total frais de mission :</b> ...........................................
+                            </td>
+                            <td>
+                                <b>Région :</b> {{ $mission?->region ?? $mission?->lieu_arrivee }}
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>
-                            <b>Avance :</b> ....................................................................
-                        </td>
-                        <td>
-                            <b>Date de départ :</b> {{ $mission->date_depart->format('d/m/Y') }}
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <b>Avance :</b> ....................................................................
+                            </td>
+                            <td>
+                                <b>Date de départ :</b> {{ $mission->date_depart->format('d/m/Y') }}
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>
-                            <b>Reste à percevoir :</b> ..................................................
-                        </td>
-                        <td>
-                            <b>Date de retour :</b> {{ $mission->date_retour?->format('d/m/Y') }}
-                        </td>
-                    </tr>
-                </table>
+                        <tr>
+                            <td>
+                                <b>Reste à percevoir :</b> ..................................................
+                            </td>
+                            <td>
+                                <b>Date de retour :</b> {{ $mission->date_retour?->format('d/m/Y') }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
                 <br><br>
             </div>
@@ -405,65 +408,70 @@
                 FEUILLE DE DEPLACEMENT
             </h2>
 
-            <table class="table-no-border" cellpadding="0" cellspacing="0"
-                style="font-size:12pt; border-collapse: collapse;">
-                {{-- <tr>
+            <div class="table-responsive">
+                <table class="table-no-border" cellpadding="0" cellspacing="0"
+                    style="font-size:12pt; border-collapse: collapse;">
+                    {{-- <tr>
                     <td width="30%" style="padding:2px 0;"><b>Ordre de mission :</b></td>
                     <td width="70%" style="padding:2px 0;">
                         {{ $mission->reference }}
                     </td>
                 </tr> --}}
-                <tr>
-                    <td width="30%" style="padding:2px 0;"><b>Prénom(s) - Nom :</b></td>
-                    <td width="70%">{{ $employee?->user?->firstname }} {{ $employee?->user?->name }}</td>
-                </tr>
-                <tr>
-                    <td width="30%" style="padding:2px 0;"><b>Fonction :</b></td>
-                    <td width="70%">{{ $employee?->fonction?->name }}</td>
-                </tr>
-                <tr>
-                    <td width="30%" style="padding:2px 0;"><b>Itinéraire :</b></td>
-                    <td width="70%">
-                        {{ $mission->itineraire ?? $mission->lieu_depart . ' - ' . $mission->lieu_arrive }}
-                    </td>
-                </tr>
-            </table>
+                    <tr>
+                        <td width="30%" style="padding:2px 0;"><b>Prénom(s) - Nom :</b></td>
+                        <td width="70%">{{ $employee?->user?->firstname }} {{ $employee?->user?->name }}</td>
+                    </tr>
+                    <tr>
+                        <td width="30%" style="padding:2px 0;"><b>Fonction :</b></td>
+                        <td width="70%">{{ $employee?->fonction?->name }}</td>
+                    </tr>
+                    <tr>
+                        <td width="30%" style="padding:2px 0;"><b>Itinéraire :</b></td>
+                        <td width="70%">
+                            {{ $mission->itineraire ?? $mission->lieu_depart . ' - ' . $mission->lieu_arrive }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
             <br>
 
             <!-- ===== TABLE DES VISAS ===== -->
-            <table width="100%" cellpadding="10" cellspacing="0" style="border-collapse:collapse; font-size:12pt;">
+            <div class="table-responsive">
+                <table width="100%" cellpadding="10" cellspacing="0"
+                    style="border-collapse:collapse; font-size:12pt;">
 
-                @for ($i = 1; $i <= 3; $i++)
-                    <!-- ENTÊTE RÉPÉTÉ -->
-                    <tr style="text-align:center; font-weight:bold;">
-                        <th>VU AU DÉPART</th>
-                        <th>VU À L’ARRIVÉE</th>
-                        <th>VU AU DÉPART</th>
-                    </tr>
+                    @for ($i = 1; $i <= 3; $i++)
+                        <!-- ENTÊTE RÉPÉTÉ -->
+                        <tr style="text-align:center; font-weight:bold;">
+                            <th>VU AU DÉPART</th>
+                            <th>VU À L’ARRIVÉE</th>
+                            <th>VU AU DÉPART</th>
+                        </tr>
 
-                    <!-- LIGNE SIGNATURES -->
-                    <tr style="height:120px;">
-                        <td>
-                            @if ($i === 1)
-                                Date : {{ $mission->date_depart->format('d/m/Y') }}<br><br><br><br><br><br>
-                            @else
+                        <!-- LIGNE SIGNATURES -->
+                        <tr style="height:120px;">
+                            <td>
+                                @if ($i === 1)
+                                    Date : {{ $mission->date_depart->format('d/m/Y') }}<br><br><br><br><br><br>
+                                @else
+                                    Date : <br><br><br><br><br><br>
+                                @endif
+                                Signature
+                            </td>
+                            <td>
                                 Date : <br><br><br><br><br><br>
-                            @endif
-                            Signature
-                        </td>
-                        <td>
-                            Date : <br><br><br><br><br><br>
-                            Signature
-                        </td>
-                        <td>
-                            Date : <br><br><br><br><br><br>
-                            Signature
-                        </td>
-                    </tr>
-                @endfor
+                                Signature
+                            </td>
+                            <td>
+                                Date : <br><br><br><br><br><br>
+                                Signature
+                            </td>
+                        </tr>
+                    @endfor
 
-            </table>
+                </table>
+            </div>
         </div>
 
         @include('formulaire.footer-simple')

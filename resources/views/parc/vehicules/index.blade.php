@@ -99,37 +99,40 @@
                 </div>
             @endif
 
-            <table class="table table-hover table-striped shadow-sm" id="table-parc-vehicule">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Matricule</th>
-                        <th>Marque</th>
-                        <th>Chauffeur</th>
-                        {{-- <th>Modèle</th> --}}
-                        <th class="text-center" width="5%">Année</th>
-                        <th class="text-center" width="8%">Kilométrage</th>
-                        <th class="text-center" width="8%">Assurance</th>
-                        <th class="text-center" width="12%">Visite</th>
-                        {{-- <th class="text-center" width="12%">État</th> --}}
-                        <th class="text-center" width="12%">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($vehicules as $vehicule)
+            <div class="table-responsive">
+                <table class="table table-hover table-striped shadow-sm" id="table-parc-vehicule">
+                    <thead class="table-dark">
                         <tr>
-                            <td>{{ $vehicule->immatriculation }}</td>
-                            <td>{{ $vehicule->marque }}</td>
-                            <td>{{ $vehicule?->chauffeur?->employee?->user?->firstname . ' ' . $vehicule?->chauffeur?->employee?->user?->name }}</td>
-                            {{-- <td>{{ $vehicule->modele }}</td> --}}
-                            <td class="text-center">{{ $vehicule->annee }}</td>
-                            <td class="text-center">{{ number_format($vehicule?->kilometrage_actuel, 0, ',', ' ') }}</td>
-                            <td class="text-center">
-                                {{ $vehicule?->assurance_expire_le ? $vehicule->assurance_expire_le->format('d/m/Y') : '-' }}
-                            </td>
-                            <td class="text-center">
-                                {{ $vehicule?->visite_technique_expire_le ? $vehicule->visite_technique_expire_le->format('d/m/Y') : '-' }}
-                            </td>
-                            {{-- <td class="text-center">
+                            <th>Matricule</th>
+                            <th>Marque</th>
+                            <th>Chauffeur</th>
+                            {{-- <th>Modèle</th> --}}
+                            <th class="text-center" width="5%">Année</th>
+                            <th class="text-center" width="8%">Kilométrage</th>
+                            <th class="text-center" width="8%">Assurance</th>
+                            <th class="text-center" width="12%">Visite</th>
+                            {{-- <th class="text-center" width="12%">État</th> --}}
+                            <th class="text-center" width="12%">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($vehicules as $vehicule)
+                            <tr>
+                                <td>{{ $vehicule->immatriculation }}</td>
+                                <td>{{ $vehicule->marque }}</td>
+                                <td>{{ $vehicule?->chauffeur?->employee?->user?->firstname . ' ' . $vehicule?->chauffeur?->employee?->user?->name }}
+                                </td>
+                                {{-- <td>{{ $vehicule->modele }}</td> --}}
+                                <td class="text-center">{{ $vehicule->annee }}</td>
+                                <td class="text-center">{{ number_format($vehicule?->kilometrage_actuel, 0, ',', ' ') }}
+                                </td>
+                                <td class="text-center">
+                                    {{ $vehicule?->assurance_expire_le ? $vehicule->assurance_expire_le->format('d/m/Y') : '-' }}
+                                </td>
+                                <td class="text-center">
+                                    {{ $vehicule?->visite_technique_expire_le ? $vehicule->visite_technique_expire_le->format('d/m/Y') : '-' }}
+                                </td>
+                                {{-- <td class="text-center">
                                 <span
                                     class="badge 
                                 @if ($vehicule->etat == 'operationnel') bg-success 
@@ -138,35 +141,36 @@
                                     {{ ucfirst($vehicule->etat) }}
                                 </span>
                             </td> --}}
-                            <td class="text-center">
-                                <span class="d-flex align-items-baseline justify-content-center gap-1">
-                                    <a href="{{ route('parc-vehicules.show', $vehicule->id) }}"
-                                        class="btn btn-info btn-sm">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
-                                    <a href="{{ route('parc-vehicules.edit', $vehicule->id) }}"
-                                        class="btn btn-warning btn-sm">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
+                                <td class="text-center">
+                                    <span class="d-flex align-items-baseline justify-content-center gap-1">
+                                        <a href="{{ route('parc-vehicules.show', $vehicule->id) }}"
+                                            class="btn btn-info btn-sm">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <a href="{{ route('parc-vehicules.edit', $vehicule->id) }}"
+                                            class="btn btn-warning btn-sm">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
 
-                                    @php
-                                        $missionsCount = $vehicule?->missions?->count() ?? 0;
-                                    @endphp
-                                    <form action="{{ route('parc-vehicules.destroy', $vehicule->id) }}" method="POST"
-                                        class="d-inline">
-                                        @csrf @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                            {{ $missionsCount > 0 ? 'disabled' : '' }}
-                                            title="{{ $missionsCount > 0 ? 'Véhicule affecté à des missions' : 'Supprimer le chauffeur' }}">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
-                                </span>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                        @php
+                                            $missionsCount = $vehicule?->missions?->count() ?? 0;
+                                        @endphp
+                                        <form action="{{ route('parc-vehicules.destroy', $vehicule->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                                {{ $missionsCount > 0 ? 'disabled' : '' }}
+                                                title="{{ $missionsCount > 0 ? 'Véhicule affecté à des missions' : 'Supprimer le chauffeur' }}">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </span>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 @endsection

@@ -87,61 +87,66 @@
                             </div>
                         @endcan
                         @if ($demandeurs->isNotEmpty())
-                            <table class="table datatables align-middle" id="table-users">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Prenom</th>
-                                        <th>NOM</th>
-                                        <th>E-mail</th>
-                                        <th>Téléphone</th>
-                                        <th class="text-center">Demandes</th>
-                                        <th width="5%">#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($demandeurs as $user)
-                                        @if ($user->individuelles->isNotEmpty())
-                                            <tr>
-                                                <th scope="row">
-                                                    <a href="{{ route('users.show', $user) }}">
-                                                        <img class="rounded-circle w-20" alt="Profil"
-                                                            src="{{ asset($user->getImage()) }}" width="40"
-                                                            height="auto">
-                                                    </a>
-                                                </th>
-                                                <td>{{ $user?->firstname }}</td>
-                                                <td>{{ $user?->name }}</td>
-                                                <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                                                <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a>
-                                                </td>
-                                                <td style="text-align: center;">
-                                                    {{ $user?->individuelles?->count() ?? 0 }}
-                                                </td>
-                                                <td>
-                                                    {{-- <span class="d-flex mt-2 align-items-baseline">
+                            <div class="table-responsive">
+                                <table class="table datatables align-middle" id="table-users">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Prenom</th>
+                                            <th>NOM</th>
+                                            <th>E-mail</th>
+                                            <th>Téléphone</th>
+                                            <th class="text-center">Demandes</th>
+                                            <th width="5%">#</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($demandeurs as $user)
+                                            @if ($user->individuelles->isNotEmpty())
+                                                <tr>
+                                                    <th scope="row">
+                                                        <a href="{{ route('users.show', $user) }}">
+                                                            <img class="rounded-circle w-20" alt="Profil"
+                                                                src="{{ asset($user->getImage()) }}" width="40"
+                                                                height="auto">
+                                                        </a>
+                                                    </th>
+                                                    <td>{{ $user?->firstname }}</td>
+                                                    <td>{{ $user?->name }}</td>
+                                                    <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
+                                                    <td><a
+                                                            href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a>
+                                                    </td>
+                                                    <td style="text-align: center;">
+                                                        {{ $user?->individuelles?->count() ?? 0 }}
+                                                    </td>
+                                                    <td>
+                                                        {{-- <span class="d-flex mt-2 align-items-baseline">
                                                         <a href="{{ route('demandeurs.show', $user) }}"
                                                             class="btn btn-info btn-sm mx-1 text-white"
                                                             title="Voir détails">
                                                             <i class="bi bi-eye"></i>
                                                         </a>
                                                     </span> --}}
-                                                    <form action="{{ route('demandeurs.show', $user->uuid) }}"
-                                                        method="GET">
-                                                        @csrf
-                                                        <input type="hidden" name="idUser" value="{{ $user->id }}">
-                                                        <button type="submit" class="btn btn-info btn-sm mx-1 text-white"
-                                                            title="Voir détails">
-                                                            <i class="bi bi-eye"></i>
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                        <form action="{{ route('demandeurs.show', $user->uuid) }}"
+                                                            method="GET">
+                                                            @csrf
+                                                            <input type="hidden" name="idUser"
+                                                                value="{{ $user->id }}">
+                                                            <button type="submit"
+                                                                class="btn btn-info btn-sm mx-1 text-white"
+                                                                title="Voir détails">
+                                                                <i class="bi bi-eye"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <div class="alert alert-info mt-3">Aucun demandeur pour le moment !!!</div>
                         @endif
@@ -200,10 +205,10 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="cin" class="form-label">N° CIN</label>
-                                                    <input name="cin" type="text"
-                                                        class="form-control form-control-sm @error('cin') is-invalid @enderror"
-                                                        id="cin2" value="{{ old('cin') }}" autocomplete="off"
-                                                        placeholder="Ex: 1 099 2005 00012" minlength="16" maxlength="17">
+                                                <input name="cin" type="text"
+                                                    class="form-control form-control-sm @error('cin') is-invalid @enderror"
+                                                    id="cin2" value="{{ old('cin') }}" autocomplete="off"
+                                                    placeholder="Ex: 1 099 2005 00012" minlength="16" maxlength="17">
                                                 @error('cin')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>

@@ -46,50 +46,52 @@
                         <h5 class="card-title">Liste des formations de
                             {{ $onfpevaluateur->name . ' ' . $onfpevaluateur->lastname }}</h5>
                         @if ($onfpevaluateur->formations->isNotEmpty())
-                            <table class="table datatables" id="table-formations">
-                                <thead>
-                                    <tr>
-                                        <th width="2%" class="text-center">Code</th>
-                                        <th>Type</th>
-                                        <th>Bénéficiaires</th>
-                                        <th>Opérateur</th>
-                                        <th>Localité</th>
-                                        <th>Modules</th>
-                                        <th class="text-center">Statut</th>
-                                        <th width="2%">#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($onfpevaluateur->formations as $formation)
+                            <div class="table-responsive">
+                                <table class="table datatables" id="table-formations">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $formation?->code }}</td>
-                                            <td><a href="#">{{ $formation->types_formation?->name }}</a></td>
-                                            <td>{{ $formation?->name }}</td>
-                                            <td>{{ $formation?->operateur?->user?->username }}</td>
-                                            <td>{{ $formation->departement?->region?->nom }}</td>
-                                            <td>
-                                                @isset($formation?->module?->name)
-                                                    {{ $formation?->module?->name }}
-                                                @endisset
-                                                @isset($formation?->collectivemodule?->module)
-                                                    {{ $formation?->collectivemodule?->module }}
-                                                @endisset
-                                            </td>
-                                            <td class="text-center"><a href="#"><span
-                                                        class="{{ $formation?->statut }}">{{ $formation?->statut }}</span></a>
-                                            </td>
-                                            <td>
-                                                <span class="d-flex align-items-baseline"><a
-                                                        href="{{ route('formations.show', $formation) }}"
-                                                        class="btn btn-primary btn-sm" title="voir détails"><i
-                                                            class="bi bi-eye"></i></a>
-                                                </span>
-                                            </td>
+                                            <th width="2%" class="text-center">Code</th>
+                                            <th>Type</th>
+                                            <th>Bénéficiaires</th>
+                                            <th>Opérateur</th>
+                                            <th>Localité</th>
+                                            <th>Modules</th>
+                                            <th class="text-center">Statut</th>
+                                            <th width="2%">#</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($onfpevaluateur->formations as $formation)
+                                            <tr>
+                                                <td>{{ $formation?->code }}</td>
+                                                <td><a href="#">{{ $formation->types_formation?->name }}</a></td>
+                                                <td>{{ $formation?->name }}</td>
+                                                <td>{{ $formation?->operateur?->user?->username }}</td>
+                                                <td>{{ $formation->departement?->region?->nom }}</td>
+                                                <td>
+                                                    @isset($formation?->module?->name)
+                                                        {{ $formation?->module?->name }}
+                                                    @endisset
+                                                    @isset($formation?->collectivemodule?->module)
+                                                        {{ $formation?->collectivemodule?->module }}
+                                                    @endisset
+                                                </td>
+                                                <td class="text-center"><a href="#"><span
+                                                            class="{{ $formation?->statut }}">{{ $formation?->statut }}</span></a>
+                                                </td>
+                                                <td>
+                                                    <span class="d-flex align-items-baseline"><a
+                                                            href="{{ route('formations.show', $formation) }}"
+                                                            class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                class="bi bi-eye"></i></a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <div class="alert alert-info">Aucune information pour le momement !</div>
                         @endif
