@@ -129,9 +129,9 @@ class IndividuelleController extends Controller
         $query = Individuelle::whereYear('date_depot', $annee);
 
         // Filtre par région si fourni
-        if ($request->filled('region')) {
+        /* if ($request->filled('region')) {
             $query->where('regions_id', $request->region);
-        }
+        } */
 
         // =======================================
         // Individuelles détaillées (max 100)
@@ -140,8 +140,6 @@ class IndividuelleController extends Controller
 
         // Total pour l'année après filtres
         $total = $query->count();
-        $totalIndividuelles = number_format($total, 0, ',', ' ');
-
         $totalDemandes = number_format($total, 0, ',', ' ');
         $totalAffichees = $individuelles->count();
 
@@ -217,7 +215,6 @@ class IndividuelleController extends Controller
             'rows',
             'totalDemandes',
             'totalAffichees',
-            'totalIndividuelles'
         ));
     }
 

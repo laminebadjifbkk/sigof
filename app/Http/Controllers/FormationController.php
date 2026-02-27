@@ -156,6 +156,103 @@ class FormationController extends Controller
         );
     }
 
+    public function parAnnee(Request $request, $annee)
+    {
+        $query = Formation::where('annee', $annee);
+
+        // =======================================
+        // Individuelles détaillées (max 100)
+        // =======================================
+        $formations = $query->latest()->limit(500)->get();
+
+        // Total pour l'année après filtres
+        $total = $query->count();
+        $totalIndividuelles = number_format($total, 0, ',', ' ');
+        $affichees = $formations->count();
+
+        // =======================================
+        // Cartes par région pour cette année
+        // =======================================
+        $groupes = Formation::where('annee', $annee)
+            ->join('formation_region', 'formations.id', '=', 'formation_region.formation_id')
+            ->join('regions', 'formation_region.region_id', '=', 'regions.id')
+            ->select('regions.id', 'regions.nom', DB::raw('COUNT(*) as total'))
+            ->groupBy('regions.id', 'regions.nom')
+            ->orderByDesc('total')
+            ->get();
+
+        // Format pour Blade : nom de région → count + pourcentage
+        $regionPourcentages = [];
+        foreach ($groupes as $row) {
+            $regionNom = $row->region->nom ?? 'Inconnu';
+            $regionPourcentages[$regionNom] = [
+                'count' => $row->total,
+                'percent' => $total ? round($row->total * 100 / $total, 1) : 0
+            ];
+        }
+
+        $poles = Antenne::get();
+
+        $modules      = Module::orderBy("created_at", "desc")->get();
+        $departements = Departement::orderBy("created_at", "desc")->get();
+        $regions      = Region::orderBy("created_at", "desc")->get();
+        $operateurs   = Operateur::orderBy("created_at", "desc")->get();
+        $projets      = Projet::orderBy("created_at", "desc")->get();
+        $programmes   = Programme::orderBy("created_at", "desc")->get();
+        $types_formations = TypesFormation::orderBy("created_at", "desc")->get();
+
+        $anneeEnCours = date('Y');
+        $an           = date('y');
+
+        $numFormation = DB::transaction(function () use ($an) {
+
+            $lastFormation = Formation::where('code', 'like', 'F' . $an . '%')
+                ->lockForUpdate()
+                ->orderByDesc('code')
+                ->first();
+
+            if ($lastFormation) {
+                $lastNumber = (int) substr($lastFormation->code, -4);
+                $nextNumber = $lastNumber + 1;
+            } else {
+                $nextNumber = 1;
+            }
+
+            return 'F' . $an . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+        });
+
+        /* $title = 'Liste des formations'; */
+
+        $formations_annee = Formation::distinct()
+            ->get('annee');
+
+        $formations_statut = Formation::distinct()
+            ->get('statut');
+
+        return view(
+            "formations.index_annee",
+            compact(
+                "formations",
+                "modules",
+                "departements",
+                "regions",
+                "operateurs",
+                'types_formations',
+                'projets',
+                'programmes',
+                'numFormation',
+                'formations_annee',
+                'formations_statut',
+                'poles',
+                'groupes',
+                'affichees',
+                'annee',
+                'regionPourcentages',
+                'total',
+            )
+        );
+    }
+
     public function create()
     {
         return view("formations.create");

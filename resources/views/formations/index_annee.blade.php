@@ -103,33 +103,42 @@
                     @endforeach
                 @endif
 
-                <div class="card shadow-sm">
+                <div class="card">
                     <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5>{{ $annee }}</h5>
+                            <a href="{{ route('formations.index') }}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-arrow-left-circle"></i> Retour à la liste
+                            </a>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped align-middle">
                                 <thead class="table-primary">
                                     <tr>
-                                        <th style="width: 50px;">N°</th>
-                                        <th>Années</th>
+                                        <th>N°</th>
+                                        <th>Régions</th>
                                         <th class="text-center">Effectifs</th>
-                                        <th width="10%" class="text-center">Actions</th>
+                                        <th class="text-center">%</th>
+                                        <th width="15%" class="text-center">Actions</th>
                                     </tr>
                                 </thead>
-
-                                <tbody id="missions-container">
-                                    @foreach ($groupes as $items)
+                                <tbody>
+                                    @php $i = 1; @endphp
+                                    @foreach ($groupes as $row)
                                         <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $row->nom }}</td>
+                                            <td class="text-center">{{ number_format($row->total, 0, '', ' ') }}</td>
+                                            <td class="text-center">
+                                                {{ $total ? round(($row->total * 100) / $total, 1) : 0 }} %
+                                            </td>
                                             <td>
-                                                {{ ($groupes->currentPage() - 1) * $groupes->perPage() + $loop->iteration }}
-                                            </td>
-                                            <td>{{ $items->annee }}</td>
-                                            <td class="text-center">
-                                                {{ number_format($items->total, 0, '', ' ') }}
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="{{ route('formations.parAnnee', ['annee' => $items->annee]) }}"
-                                                    class="btn btn-sm btn-outline-primary">
-                                                    Voir plus
+                                                <a href="{{ route('individuelles.parAnneeRegion', [
+                                                    'annee' => $annee,
+                                                    'region' => $row->nom,
+                                                ]) }}"
+                                                    class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
+                                                    Voir plus <i class="bi bi-arrow-right-short"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -137,16 +146,6 @@
                                 </tbody>
                             </table>
                         </div>
-
-                        {{-- Bouton Load More --}}
-                        @if ($groupes->hasMorePages())
-                            <div class="text-center mt-3">
-                                <a href="{{ $groupes->nextPageUrl() }}" id="loadMoreBtn" class="btn btn-info btn-sm">
-                                    Voir plus
-                                </a>
-                            </div>
-                        @endif
-
                     </div>
                 </div>
 
