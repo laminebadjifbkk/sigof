@@ -133,7 +133,7 @@
                                                 {{ $total ? round(($row->total * 100) / $total, 1) : 0 }} %
                                             </td>
                                             <td>
-                                                <a href="{{ route('individuelles.parAnneeRegion', [
+                                                <a href="{{ route('formations.parAnneeRegion', [
                                                     'annee' => $annee,
                                                     'region' => $row->nom,
                                                 ]) }}"
