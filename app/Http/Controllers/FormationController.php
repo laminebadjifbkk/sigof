@@ -181,13 +181,12 @@ class FormationController extends Controller
             ->orderByDesc('total')
             ->get();
 
-        // Format pour Blade : nom de région → count + pourcentage
         $regionPourcentages = [];
         foreach ($groupes as $row) {
-            $regionNom = $row->region->nom ?? 'Inconnu';
+            $regionNom = $row->nom ?? 'Inconnu';
             $regionPourcentages[$regionNom] = [
                 'count' => $row->total,
-                'percent' => $total ? round($row->total * 100 / $total, 1) : 0
+                'percent' => $total ? round($row->total * 100 / $total, 1) : 0,
             ];
         }
 
@@ -248,6 +247,126 @@ class FormationController extends Controller
                 'affichees',
                 'annee',
                 'regionPourcentages',
+                'total',
+            )
+        );
+    }
+
+    public function parAnneeRegion(Request $request, $annee, $region)
+    {
+        $statutFiltre = $request->query('statut');
+
+        $region = Region::where('nom', $region)->firstOrFail();
+
+        $baseQuery = Formation::where('annee', $annee)
+            ->whereHas('region', function ($q) use ($region) {
+                $q->where('regions.id', $region->id);
+            });
+
+        // =======================================
+        // Totaux par statut (pour les cartes)
+        // =======================================
+        $groupes = Formation::select('statut')
+            ->selectRaw('COUNT(*) as total')
+            ->where('annee', $annee)
+            ->whereHas('region', function ($q) use ($region) {
+                $q->where('regions.id', $region->id);
+            })
+            ->groupBy('statut')
+            ->get();
+
+        // Nombre total de formations pour cette région
+        $totalRegion = Formation::where('annee', $annee)
+            ->whereHas('region', function ($q) use ($region) {
+                $q->where('regions.id', $region->id);
+            })->count();
+
+        // Pourcentages par statut
+        $statutPourcentages = [];
+        foreach ($groupes as $row) {
+            $statut = $row->statut ?? 'Inconnu';
+            $count = $row->total ?? 0;
+            $statutPourcentages[$statut] = [
+                'count'   => $count,
+                'percent' => $totalRegion ? round($count * 100 / $totalRegion, 1) : 0,
+            ];
+        }
+
+        // =======================================
+        // Liste des individuelles (FILTRÉE si statut présent)
+        // =======================================
+        $formations = Formation::where('annee', $annee)
+            ->whereHas('region', function ($q) use ($region) {
+                $q->where('regions.id', $region->id);
+            })
+            ->when($statutFiltre, fn($q) => $q->where('statut', $statutFiltre))
+            ->orderByDesc('id')
+            ->limit(100) // ou ->take(500)
+            ->get();
+
+        $total = $baseQuery->count();
+        $totalFormations = number_format($total, 0, ',', ' ');
+        $affichees = $formations->count();
+
+        $poles = Antenne::get();
+
+        $modules      = Module::orderBy("created_at", "desc")->get();
+        $departements = Departement::orderBy("created_at", "desc")->get();
+        $regions      = Region::orderBy("created_at", "desc")->get();
+        $operateurs   = Operateur::orderBy("created_at", "desc")->get();
+        $projets      = Projet::orderBy("created_at", "desc")->get();
+        $programmes   = Programme::orderBy("created_at", "desc")->get();
+        $types_formations = TypesFormation::orderBy("created_at", "desc")->get();
+
+        $anneeEnCours = date('Y');
+        $an           = date('y');
+
+        $numFormation = DB::transaction(function () use ($an) {
+
+            $lastFormation = Formation::where('code', 'like', 'F' . $an . '%')
+                ->lockForUpdate()
+                ->orderByDesc('code')
+                ->first();
+
+            if ($lastFormation) {
+                $lastNumber = (int) substr($lastFormation->code, -4);
+                $nextNumber = $lastNumber + 1;
+            } else {
+                $nextNumber = 1;
+            }
+
+            return 'F' . $an . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+        });
+
+        /* $title = 'Liste des formations'; */
+
+        $formations_annee = Formation::distinct()
+            ->get('annee');
+
+        $formations_statut = Formation::distinct()
+            ->get('statut');
+
+        return view(
+            "formations.index_annee_region",
+            compact(
+                "formations",
+                "modules",
+                "departements",
+                "regions",
+                "operateurs",
+                'types_formations',
+                'projets',
+                'programmes',
+                'numFormation',
+                'formations_annee',
+                'formations_statut',
+                'poles',
+                'groupes',
+                'affichees',
+                'annee',
+                'region',
+                'statutPourcentages',
+                'totalFormations',
                 'total',
             )
         );

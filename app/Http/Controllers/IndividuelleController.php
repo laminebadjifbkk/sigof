@@ -222,31 +222,7 @@ class IndividuelleController extends Controller
     {
         // Statut optionnel
         $statutFiltre = $request->query('statut');
-
-        /* if ($region === 'sans-region') {
-            // Cas demandes sans région
-            $regionNom = 'Sans région';
-
-            $baseQuery = Individuelle::whereYear('date_depot', $annee)
-                ->whereNull('regions_id');
-
-            $total = $baseQuery->count();
-            $totalIndividuelles = number_format($total, 0, ',', ' ');
-
-            $groupesRegionStatut = Individuelle::select('statut')
-                ->selectRaw('COUNT(*) as total')
-                ->whereYear('date_depot', $annee)
-                ->whereNull('regions_id')
-                ->groupBy('statut')
-                ->get();
-
-            $individuelle = Individuelle::whereYear('date_depot', $annee)
-                ->whereNull('regions_id')
-                ->when($statutFiltre, fn($q) => $q->where('statut', $statutFiltre))
-                ->first();
-
-            dd($individuelle->user);
-        } */
+        
         // Région depuis le nom
         $region = Region::where('nom', $region)->firstOrFail();
 

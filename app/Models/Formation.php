@@ -482,7 +482,7 @@ class Formation extends Model
 
     public function region()
     {
-        return $this->belongsTo(Region::class, 'regions_id');
+        return $this->belongsToMany(Region::class, 'formation_region', 'formation_id', 'region_id');
     }
 
     public function specialite()
