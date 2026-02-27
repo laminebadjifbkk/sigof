@@ -275,11 +275,36 @@
 
                                                     <input type="hidden" name="idUser" value="{{ $user?->id }}">
 
-                                                    <div class="alert alert-warning py-2 small">
-                                                        <strong>NB :</strong>
-                                                        La carte nationale d'identité (recto/verso) est obligatoire ainsi que
-                                                        toutes pièces justificatives de votre niveau d'étude ou d'une
-                                                        qualification
+                                                    <div
+                                                        class="alert border-0 shadow-sm rounded-4 p-4 mb-4 bg-warning bg-opacity-10">
+
+                                                        <div class="d-flex align-items-center mb-3">
+                                                            <div class="me-3">
+                                                                <i
+                                                                    class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                                                            </div>
+                                                            <div>
+                                                                <h6 class="mb-0 fw-bold text-warning">
+                                                                    NB : Documents requis
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+
+                                                        <ul class="mb-0 ps-4 small text-dark">
+                                                            <li class="mb-2">
+                                                                <i class="bi bi-card-text text-secondary me-2"></i>
+                                                                La carte nationale d'identité (recto/verso)
+                                                            </li>
+                                                            <li class="mb-2">
+                                                                <i class="bi bi-file-earmark-person text-secondary me-2"></i>
+                                                                CV : Un curriculum vitae (optionnel)
+                                                            </li>
+                                                            <li>
+                                                                <i class="bi bi-award text-secondary me-2"></i>
+                                                                Diplômes ou attestations (si disponibles)
+                                                            </li>
+                                                        </ul>
+
                                                     </div>
 
                                                     {{-- Légende --}}

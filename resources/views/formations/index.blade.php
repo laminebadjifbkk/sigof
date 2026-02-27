@@ -12,61 +12,13 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
-    <section class="section dashboard">
+    {{-- <section class="section dashboard">
         <div class="row">
             <!-- Left side columns -->
             <div class="col-lg-12">
                 <div class="row">
-                    <!-- Sales Card -->
-                    {{--  <div class="col-12 pt-5">
-                        <div class="card info-card customers-card">
-                            <a href="#">
-                                <div class="card-body">
-                                    <h5 class="card-title">Formations<span> | {{ date('d/m/Y') }}</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-calendar-date-fill"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                <span class="text-primary">{{ $count_today ?? '0' }}</span>
-                                            </h6>
-                                            <span class="text-success small pt-1 fw-bold">Aujourd'hui</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div> --}}
                     <div class="col-12 pt-5">
                         <div class="row">
-                            {{-- <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
-                                <div class="card info-card revenue-card shadow-sm" style="max-width: 220px;">
-                                    <div class="card-body p-2">
-                                        <h5 class="card-title text-truncate mb-1" title="Formations"
-                                            style="font-size: 1rem;">
-                                            Formations
-                                        </h5>
-                                        <div class="d-flex align-items-center mb-2">
-                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
-                                                style="width: 32px; height: 32px; font-size: 1.25rem;">
-                                                <i class="bi bi-people"></i>
-                                            </div>
-                                            <div class="ps-2">
-                                                <h6 class="mb-0" style="font-size: 0.9rem;">
-                                                    {{ number_format(count($formations), 0, '', ' ') }}</h6>
-                                            </div>
-                                        </div>
-
-                                        <a href="{{ route('formations.index') }}"
-                                            class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
-                                            style="font-size: 0.85rem; gap: 6px;">
-                                            Voir plus <i class="bi bi-arrow-right-short"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div> --}}
 
                             <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
                                 <div class="card info-card customers-card revenue-card shadow-sm" style="max-width: 220px;">
@@ -123,75 +75,10 @@
                             @endforeach
                         </div>
                     </div>
-                    {{-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <div class="card info-card sales-card">
-                            <a href="#">
-                                <div class="card-body">
-                                    <h5 class="card-title">Formations<span> | individuelles</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-file-earmark-text"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                <span
-                                                    class="text-primary">{{ $individuelles_formations_count ?? '0' }}</span>
-                                            </h6>
-                                            <span class="text-success small pt-1 fw-bold"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div> --}}
-                    {{-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <div class="card info-card revenue-card">
-                            <a href="#">
-                                <div class="card-body">
-                                    <h5 class="card-title">Formations<span> | collectives</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-file-earmark-text"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                <span class="text-primary">{{ $collectives_formations_count ?? '0' }}</span>
-                                            </h6>
-                                            <span class="text-success small pt-1 fw-bold"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div> --}}
-                    {{-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <div class="card info-card sales-card">
-                            <a href="#">
-                                <div class="card-body">
-                                    <h5 class="card-title">Formations <span>| Toutes</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-file-earmark-text"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                <span class="text-primary">{{ count($formations) ?? '0' }}</span>
-                                            </h6>
-                                            <span class="text-success small pt-1 fw-bold">Toutes</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div> --}}
-
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -215,6 +102,54 @@
                             role="alert">{{ $error }}</div>
                     @endforeach
                 @endif
+
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped align-middle">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th style="width: 50px;">N°</th>
+                                        <th>Années</th>
+                                        <th class="text-center">Effectifs</th>
+                                        <th width="10%" class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="missions-container">
+                                    @foreach ($groupes as $items)
+                                        <tr>
+                                            <td>
+                                                {{ ($groupes->currentPage() - 1) * $groupes->perPage() + $loop->iteration }}
+                                            </td>
+                                            <td>{{ $items->annee }}</td>
+                                            <td class="text-center">
+                                                {{ number_format($items->total, 0, '', ' ') }}
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ route('individuelles.parAnnee', ['annee' => $items->annee]) }}"
+                                                    class="btn btn-sm btn-outline-primary">
+                                                    Voir plus
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {{-- Bouton Load More --}}
+                        @if ($groupes->hasMorePages())
+                            <div class="text-center mt-3">
+                                <a href="{{ $groupes->nextPageUrl() }}" id="loadMoreBtn" class="btn btn-info btn-sm">
+                                    Voir plus
+                                </a>
+                            </div>
+                        @endif
+
+                    </div>
+                </div>
+
                 <div class="card">
                     <div class="card-body">
                         {{-- <div class="pt-0">
@@ -223,7 +158,7 @@
                                 <i class="bi bi-folder-plus" title="Ajouter"></i>
                             </button>
                         </div> --}}
-                        <div class="d-flex justify-content-between align-items-center mb-3">
+                        {{-- <div class="d-flex justify-content-between align-items-center mb-3">
                             <h5 class="card-title mb-0">{{ $title }}</h5>
 
                             @can('formation-create')
@@ -259,6 +194,55 @@
                                     </button>
                                 </div>
                             @endcan
+                        </div> --}}
+
+                        <div class="pt-1">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+                                {{-- Titre à gauche --}}
+                                <div class="d-flex align-items-center gap-2">
+                                    <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                                        Liste des formations
+                                    </h6>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-2 text-info fw-semibold">
+                                    <i class="bi bi-list-ul me-1"></i>
+                                    <span>
+                                        Affichage :
+                                        <span class="text-dark">{{ $affichees }}</span>
+                                        sur
+                                        <span class="text-dark">{{ $total }}</span> demandes
+                                    </span>
+                                </div>
+
+                                {{-- Boutons à droite --}}
+                                @can('formation-create')
+                                    <div class="d-flex align-items-center gap-2">
+                                        <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#AddFormationModal" title="Ajouter une formation">
+                                            Ajouter
+                                        </a>
+                                        @can('suivi-convention')
+                                            <div class="dropdown">
+                                                <a href="#" class="btn btn-sm btn-light" data-bs-toggle="dropdown"
+                                                    title="Options">
+                                                    <i class="bi bi-three-dots-vertical"></i>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li>
+                                                        <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                            data-bs-target="#generate_rapportFormation">
+                                                            <i class="bi bi-file-earmark-text"></i> Générer suivi-convention
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        @endcan
+                                    </div>
+                                @endcan
+
+                            </div>
                         </div>
                         @if ($formations->isNotEmpty())
                             <div class="table-responsive">
@@ -743,6 +727,40 @@
                     }
                 }
             }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const missionsContainer = document.getElementById('missions-container');
+
+            if (!loadMoreBtn) return;
+
+            loadMoreBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                fetch(this.href)
+                    .then(res => res.text())
+                    .then(html => {
+
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+
+                        const newRows = doc.querySelectorAll('#missions-container tr');
+
+                        newRows.forEach(row => {
+                            missionsContainer.appendChild(row);
+                        });
+
+                        const newBtn = doc.getElementById('loadMoreBtn');
+
+                        if (newBtn) {
+                            this.href = newBtn.href;
+                        } else {
+                            this.remove();
+                        }
+                    })
+                    .catch(err => console.error('Erreur chargement :', err));
+            });
         });
     </script>
 @endpush

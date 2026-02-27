@@ -56,32 +56,45 @@ class FormationController extends Controller
         /* $this->middleware(['role_or_permission:super-admin']); */
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        /* $formations = Formation::where('statut', '!=', 'supprimer')->orderBy('created_at', 'desc')->get(); */
-        $formations = Formation::select('*')->orderBy('created_at', 'desc')->get();
+        // Total global
+        $total = Formation::count();
+        $totalFormations = number_format($total, 0, ',', ' ');
 
+        $query = Formation::query();
+
+        if ($statut = $request->query('statut')) {
+            $query->where('statut', $statut);
+        }
+
+        $formations = $query
+            ->latest()
+            ->limit(500)
+            ->get();
+
+        $groupes = Formation::select(DB::raw('annee'))
+            ->selectRaw('COUNT(*) as total')
+            ->groupBy('annee')
+            ->orderByDesc('annee')
+            ->paginate(1); // ← une ligne par page
+
+
+        $affichees = $formations?->count();
+        $total     = $totalIndividuelles ?? ($formations instanceof \Illuminate\Pagination\LengthAwarePaginator
+            ? $formations->total()
+            : $formations?->count());
+
+        /* $formations = Formation::select('*')->orderBy('created_at', 'desc')->get(); */
         $poles = Antenne::get();
 
-        $groupes = $formations->groupBy(function ($item) {
+        /* $groupes = $formations->groupBy(function ($item) {
             return $item->types_formation->name ?? 'Aucun type';
-        });
+        }); */
 
-        /* $individuelles_formations_count = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
-            ->select('formations.*')
-            ->where('types_formations.name', "individuelle")
-            ->where('statut', '!=', 'supprimer')
-            ->count();
 
-        $collectives_formations_count = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
-            ->select('formations.*')
-            ->where('types_formations.name', "collective")
-            ->where('statut', '!=', 'supprimer')
-            ->count(); */
-
-        /* $qrcode      = QrCode::size(200)->generate("tel:+221776994173"); */
-        $today       = date('Y-m-d');
-        $count_today = Formation::where("created_at", "LIKE", "{$today}%")->count();
+        /* $today       = date('Y-m-d');
+        $count_today = Formation::where("created_at", "LIKE", "{$today}%")->count(); */
 
         $modules      = Module::orderBy("created_at", "desc")->get();
         $departements = Departement::orderBy("created_at", "desc")->get();
@@ -89,69 +102,10 @@ class FormationController extends Controller
         $operateurs   = Operateur::orderBy("created_at", "desc")->get();
         $projets      = Projet::orderBy("created_at", "desc")->get();
         $programmes   = Programme::orderBy("created_at", "desc")->get();
-        /* $choixoperateurs  = Choixoperateur::orderBy("created_at", "desc")->get(); */
         $types_formations = TypesFormation::orderBy("created_at", "desc")->get();
 
         $anneeEnCours = date('Y');
         $an           = date('y');
-
-        /* $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
-            ->select('formations.*')
-            ->where('formations.annee', $anneeEnCours)
-            ->get(); */
-
-        // Si tu veux le dernier enregistrement selon la colonne id (le plus grand id)
-        /*  $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
-            ->select('formations.*')
-            ->where('formations.annee', $anneeEnCours)
-            ->orderBy('formations.id', 'desc')
-            ->first();
-
-        // Si tu veux le dernier enregistrement selon created_at
-        $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
-            ->select('formations.*')
-            ->where('formations.annee', $anneeEnCours)
-            ->latest('formations.created_at')
-            ->first(); */
-
-        /*  if (isset($numFormation)) {
-            $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
-                ->select('formations.*')
-                ->where('formations.annee', $anneeEnCours)
-                ->get()->last()->code;
-
-            $numFormation = ++$numFormation;
-
-        } else {
-            $numFormation = $annee . "0001";
-
-            $numFormation = 'F' . $numFormation;
-
-            $longueur = strlen($numFormation);
-
-            if ($longueur <= 1) {
-                $numFormation = strtoupper("00000" . $numFormation);
-            } elseif ($longueur >= 2 && $longueur < 3) {
-                $numFormation = strtoupper("0000" . $numFormation);
-            } elseif ($longueur >= 3 && $longueur < 4) {
-                $numFormation = strtoupper("000" . $numFormation);
-            } elseif ($longueur >= 4 && $longueur < 5) {
-                $numFormation = strtoupper("00" . $numFormation);
-            } elseif ($longueur >= 5 && $longueur < 6) {
-                $numFormation = strtoupper("0" . $numFormation);
-            } else {
-                $numFormation = strtoupper($numFormation);
-            }
-        } */
-
-        /* if ($numFormation) {
-            // Si un formation existe, incrémenter son numéro
-            $numFormation = ++$numFormation->code;
-        } else {
-            // Si aucun formation n'existe, initialiser avec l'année et le numéro 0001
-            $numFormation = $an . "0001";
-            $numFormation = 'F' . $numFormation;
-        } */
 
         $numFormation = DB::transaction(function () use ($an) {
 
@@ -170,14 +124,7 @@ class FormationController extends Controller
             return 'F' . $an . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
         });
 
-
-        // Mise en forme du numéro de formation en ajoutant des zéros au début
-        /* $numFormation = str_pad($numFormation, 7, '0', STR_PAD_LEFT); */
-
-        /* dd($numFormation); */
-
-        /* $title = 'Liste des formations de ' . $anneeEnCours; */
-        $title = 'Liste des formations';
+        /* $title = 'Liste des formations'; */
 
         $formations_annee = Formation::distinct()
             ->get('annee');
@@ -188,10 +135,7 @@ class FormationController extends Controller
         return view(
             "formations.index",
             compact(
-                /* "qrcode", */
-                "count_today",
-                /* "collectives_formations_count",
-                "individuelles_formations_count", */
+                /* "count_today", */
                 "formations",
                 "modules",
                 "departements",
@@ -201,12 +145,13 @@ class FormationController extends Controller
                 'projets',
                 'programmes',
                 'numFormation',
-                /* 'choixoperateurs', */
-                'title',
+                /* 'title', */
                 'formations_annee',
                 'formations_statut',
                 'poles',
                 'groupes',
+                'affichees',
+                'total',
             )
         );
     }

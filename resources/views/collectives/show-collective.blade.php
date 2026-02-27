@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title',  'DEMANDE COLLECTIVE DE ' . strtoupper($user?->civilite . ' ' . $user?->firstname . ' ' .
+@section('title', 'DEMANDE COLLECTIVE DE ' . strtoupper($user?->civilite . ' ' . $user?->firstname . ' ' .
     $user?->name))
 @section('space-work')
     <section class="section">
@@ -583,11 +583,32 @@
 
                                 <input type="hidden" name="idUser" value="{{ $user?->id }}">
 
-                                <div class="alert alert-warning py-2 small">
-                                    <strong>NB :</strong>
-                                    L’acte de création, le NINEA ou toute autre pièce justifiant l’existence légale de votre
-                                    structure
-                                    est obligatoire, ainsi que la copie de la CNI du responsable.
+                                <div class="alert border-0 shadow-sm rounded-4 p-4 mb-4 bg-warning bg-opacity-10">
+
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="me-3">
+                                            <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0 fw-bold text-warning">
+                                                NB : Documents requis
+                                            </h6>
+                                        </div>
+                                    </div>
+
+                                    <ul class="mb-0 ps-4 small text-dark">
+                                        <li class="mb-2">
+                                            <i class="bi bi-card-text text-secondary me-2"></i>
+                                            La carte nationale d'identité (recto/verso) du responsable
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-geo-alt text-secondary me-2"></i>
+                                            L’acte de création, le NINEA ou toute autre pièce justifiant l’existence légale
+                                            de votre
+                                            structure
+                                        </li>
+                                    </ul>
+
                                 </div>
 
                                 {{-- Légende --}}
@@ -687,7 +708,7 @@
                                                 </td>
 
                                                 <td>
-                                        
+
                                                     <span class="{{ $file?->statut }}">
                                                         {{ $file?->statut }}
                                                     </span>
