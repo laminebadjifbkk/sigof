@@ -4117,7 +4117,7 @@
         });
     </script>
 
-    <script>
+   {{--  <script>
         document.addEventListener("DOMContentLoaded", function() {
             var telephoneInput = document.getElementById("telephone");
 
@@ -4333,7 +4333,7 @@
                 e.target.value = value.slice(0, 12); // Limite à 12 caractères (avec les ":")
             });
         });
-    </script>
+    </script> --}}
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
