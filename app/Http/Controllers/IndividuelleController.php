@@ -1023,8 +1023,11 @@ class IndividuelleController extends Controller
             $date_depot = $this->parseDate($request->date_depot);
         }
 
-        // Get project details
-        $projetid = Projet::where('sigle', $request->projet)->value('id');
+        // Get project details$projetid = null;
+
+        if ($request->filled('projet')) {
+            $projetid = Projet::where('sigle', $request->projet)->value('id');
+        }
 
         // Determine location details based on 'departement' and 'type_localite'
         list($communeid, $arrondissementid, $departementid, $regionid) = $this->getLocationIds($request, $projetid);
