@@ -4117,7 +4117,7 @@
         });
     </script>
 
-   {{--  <script>
+    {{--  <script>
         document.addEventListener("DOMContentLoaded", function() {
             var telephoneInput = document.getElementById("telephone");
 
@@ -4371,7 +4371,7 @@
                         'undo',
                         'redo'
                     ],
-                    shouldNotGroupWhenFull: false
+                    shouldNotGroupWhenFull: true
                 }
             })
             .catch(error => {
@@ -4399,13 +4399,36 @@
                 console.error(error);
             });
     </script>
-    <style>
+    {{-- <style>
         #projetprofessionnel+.ck-editor .ck-editor__editable {
             min-height: 200px;
         }
 
         #description+.ck-editor .ck-editor__editable {
             min-height: 200px;
+        }
+    </style> --}}
+
+    <style>
+        .ck-editor {
+            width: 100% !important;
+            max-width: 100%;
+        }
+
+        .ck-editor__editable {
+            min-height: 200px;
+        }
+
+        .ck.ck-toolbar {
+            flex-wrap: wrap !important;
+        }
+
+        .ck-editor__editable_inline {
+            word-break: break-word;
+        }
+
+        body {
+            overflow-x: hidden;
         }
     </style>
     <!-- Google Tag Manager (noscript) -->
