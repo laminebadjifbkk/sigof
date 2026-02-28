@@ -921,7 +921,7 @@ class IndividuelleController extends Controller
         $restrictedRoles = ['super-admin', 'employe', 'admin', 'diof', 'adiof', 'ingenieur', 'dec'];
 
         // Vérification de l'accès : rôle restreint ou rôle commençant par Ant
-        $hasAccess = false;
+        /*  $hasAccess = false;
         foreach ($roleNames as $role) {
             if (in_array($role, $restrictedRoles) || str_starts_with($role, 'ant')) {
                 $hasAccess = true;
@@ -933,7 +933,11 @@ class IndividuelleController extends Controller
         if ($individuelle->projet && $individuelle->projet->statut !== 'ouvert') {
             Alert::warning('Avertissement !', 'Action impossible, la modification a échoué.');
             return redirect()->back();
-        }
+        } */
+
+        $hasAccess = collect($roleNames)->contains(function ($role) use ($restrictedRoles) {
+            return in_array($role, $restrictedRoles) || str_starts_with($role, 'ant');
+        });
 
         // Bloquer uniquement les utilisateurs **Demandeur** si la demande est déjà traitée
         if (in_array('demandeur', $roleNames) && $individuelle->statut !== 'Nouvelle') {
