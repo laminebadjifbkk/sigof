@@ -222,7 +222,7 @@ class IndividuelleController extends Controller
     {
         // Statut optionnel
         $statutFiltre = $request->query('statut');
-        
+
         // Région depuis le nom
         $region = Region::where('nom', $region)->firstOrFail();
 
@@ -1002,7 +1002,7 @@ class IndividuelleController extends Controller
 
 
         // Convertir la date de dépôt depuis la requête
-        $date_depot = $this->parseDate($request->input('date_depot'));
+        $date_depot = $this->parseDate($request->date_depot);
 
         // Vérifier si la date_depot existe déjà dans la base de données
         if ($individuelle->date_depot) {
@@ -1012,16 +1012,15 @@ class IndividuelleController extends Controller
                 $date_depot = $individuelle->date_depot;
             } else {
                 // Si c'est un autre jour, mettre à jour la date_depot
-                $date_depot = $this->parseDate($request->input('date_depot'));
+                $date_depot = $this->parseDate($request->date_depot);
             }
         } else {
             // Si la date_depot n'est pas définie, la définir à celle de la requête
-            $date_depot = $this->parseDate($request->input('date_depot'));
+            $date_depot = $this->parseDate($request->date_depot);
         }
 
         // Get project details
-        $projet   = Projet::where('sigle', $request->input("projet"))->first();
-        $projetid = $projet?->id;
+        $projetid = Projet::where('sigle', $request->projet)->value('id');
 
         // Determine location details based on 'departement' and 'type_localite'
         list($communeid, $arrondissementid, $departementid, $regionid) = $this->getLocationIds($request, $projet);
@@ -1034,17 +1033,17 @@ class IndividuelleController extends Controller
         // If module doesn't exist, create it
         if (! $module_find) {
             // Vérifier si le module existe mais est supprimé
-            $module = Module::withTrashed()->where('name', $request->input("module"))->first();
+            $module = Module::withTrashed()->where('name', $request->module)->first();
             // Si le module existe mais est supprimé
             if ($module) {
                 // Restaurer le module supprimé
                 $module->restore();
             } else {
 
-                Alert::warning('Module introuvable', 'Le module "' . $request->input("module") . '" ne figure pas dans notre base de données.');
+                Alert::warning('Module introuvable', 'Le module "' . $request->module . '" ne figure pas dans notre base de données.');
                 return redirect()->back();
                 $module = new Module([
-                    'name' => $request->input("module"),
+                    'name' => $request->module,
                 ]);
                 $module->save(); // Save the new module
             }
@@ -1063,7 +1062,7 @@ class IndividuelleController extends Controller
         }
 
         // Update or create module
-        $module = $module_find ?? Module::create(['name' => $request->input('module')]);
+        $module = $module_find ?? Module::create(['name' => $request->module]);
 
         // Update Individuelle
         $this->updateIndividuelle($individuelle, $request, $date_depot, $departementid, $regionid, $communeid, $arrondissementid, $projetid, $module->id, $user_id, $user);
@@ -1154,22 +1153,22 @@ class IndividuelleController extends Controller
     {
         $individuelle->update([
             'date_depot'                       => $date_depot,
-            'niveau_etude'                     => $request->input('niveau_etude'),
-            'telephone'                        => $request->input('telephone_secondaire'),
-            'diplome_academique'               => $request->input('diplome_academique'),
-            'autre_diplome_academique'         => $request->input('autre_diplome_academique'),
-            'option_diplome_academique'        => $request->input('option_diplome_academique'),
-            'etablissement_academique'         => $request->input('etablissement_academique'),
-            'diplome_professionnel'            => $request->input('diplome_professionnel'),
-            'autre_diplome_professionnel'      => $request->input('autre_diplome_professionnel'),
-            'specialite_diplome_professionnel' => $request->input('specialite_diplome_professionnel'),
-            'etablissement_professionnel'      => $request->input('etablissement_professionnel'),
-            'projet_poste_formation'           => $request->input('projet_poste_formation'),
-            'projetprofessionnel'              => $request->input('projetprofessionnel'),
-            'qualification'                    => $request->input('qualification'),
-            /* 'numero'                           => $request->input('numero'), */
-            'adresse'                          => $request->input('adresse'),
-            'experience'                       => $request->input('experience'),
+            'niveau_etude'                     => $request->niveau_etude,
+            'telephone'                        => $request->telephone_secondaire,
+            'diplome_academique'               => $request->diplome_academique,
+            'autre_diplome_academique'         => $request->autre_diplome_academique,
+            'option_diplome_academique'        => $request->option_diplome_academique,
+            'etablissement_academique'         => $request->etablissement_academique,
+            'diplome_professionnel'            => $request->diplome_professionnel,
+            'autre_diplome_professionnel'      => $request->autre_diplome_professionnel,
+            'specialite_diplome_professionnel' => $request->specialite_diplome_professionnel,
+            'etablissement_professionnel'      => $request->etablissement_professionnel,
+            'projet_poste_formation'           => $request->projet_poste_formation,
+            'projetprofessionnel'              => $request->projetprofessionnel,
+            'qualification'                    => $request->qualification,
+            /* 'numero'                           => $request->numero'), */
+            'adresse'                          => $request->adresse,
+            'experience'                       => $request->experience,
             "departements_id"                  => $departementid,
             "regions_id"                       => $regionid,
             "communes_id"                      => $communeid,
@@ -1180,7 +1179,7 @@ class IndividuelleController extends Controller
         ]);
 
         if (! empty($request->date_naissance)) {
-            $dateString     = $request->input('date_naissance');
+            $dateString     = $request->date_naissance;
             $date_naissance = Carbon::createFromFormat('d/m/Y', $dateString);
         } else {
             $date_naissance = null;
