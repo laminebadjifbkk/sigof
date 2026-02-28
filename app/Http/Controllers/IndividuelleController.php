@@ -1027,7 +1027,7 @@ class IndividuelleController extends Controller
         $projetid = Projet::where('sigle', $request->projet)->value('id');
 
         // Determine location details based on 'departement' and 'type_localite'
-        list($communeid, $arrondissementid, $departementid, $regionid) = $this->getLocationIds($request, $projet);
+        list($communeid, $arrondissementid, $departementid, $regionid) = $this->getLocationIds($request, $projetid);
 
         $module_find = DB::table('modules')
             ->where('name', $request->input("module"))
@@ -1117,9 +1117,11 @@ class IndividuelleController extends Controller
         return ! empty($dateString) ? Carbon::createFromFormat('d/m/Y', $dateString) : null;
     }
 
-    private function getLocationIds($request, $projet)
+    private function getLocationIds($request, $projetid)
     {
         $communeid = $arrondissementid = $departementid = $regionid = null;
+
+        $projet = Projet::findOrFail($projetid);
 
         if (! empty($request->input("localite"))) {
             $departement = Departement::where('nom', $request->input("localite"))->first();
