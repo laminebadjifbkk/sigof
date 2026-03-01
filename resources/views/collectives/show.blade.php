@@ -267,7 +267,7 @@
                                     <div class="tab-content pt-0">
                                         <div class="tab-pane fade show active profile-overview" id="membres-overview">
                                             <div class="col-12 mb-0">
-                                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                                {{-- <div class="d-flex justify-content-between align-items-center mt-3">
                                                     <span class="card-title d-flex align-items-baseline">N° :&nbsp;
                                                         <span class="badge bg-info text-white">
                                                             {{ $collective?->numero }}</span>
@@ -280,17 +280,8 @@
                                                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                         class="bi bi-three-dots"></i></a>
                                                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                    {{-- <form
-                                                                        action="{{ route('validation-collectives.update', $collective?->id) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        @method('PUT')
-                                                                        <button
-                                                                            class="show_confirm_valider btn btn-sm mx-1">Accepter</button>
-                                                                    </form> --}}
-                                                                    {{-- <button class="btn btn-sm mx-1" data-bs-toggle="modal"
-                                                                        data-bs-target="#RejetDemandeModal">Rejeter
-                                                                    </button> --}}
+                                                                
+                                                                    
 
                                                                     <button class="btn btn-sm mx-1" data-bs-toggle="modal"
                                                                         data-bs-target="#RejetDemandeModal">Validation demande</button>
@@ -302,7 +293,6 @@
                                                     <div class="d-flex flex-column gap-2">
 
                                                         @can('diof')
-                                                            {{-- Actions globales (toujours visibles pour diof) --}}
                                                             <div class="d-flex gap-2">
                                                                 <a href="{{ route('collective.fiche', $collective->id) }}"
                                                                     target="_blank" class="btn btn-outline-success btn-sm">
@@ -319,8 +309,75 @@
                                                         @endcan
 
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
+                                                <div
+                                                    class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mt-3 mb-2">
+
+                                                    <!-- ================= NUMERO ================= -->
+                                                    <div
+                                                        class="d-flex align-items-center justify-content-center justify-content-md-start gap-2 w-100 w-md-auto">
+                                                        <span class="fw-semibold">N° :</span>
+                                                        <span class="badge bg-info text-white px-3 py-2 fs-6">
+                                                            {{ $collective?->numero }}
+                                                        </span>
+                                                    </div>
+
+                                                    <!-- ================= BLOC DROIT ================= -->
+                                                    <div
+                                                        class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-end gap-3 w-100 w-md-auto">
+
+                                                        <!-- ===== Statut ===== -->
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <span class="fw-semibold">Statut :</span>
+                                                            <span
+                                                                class="{{ $collective?->statut_demande }} text-white px-3 py-2 rounded-pill shadow-sm">
+                                                                {{ $collective?->statut_demande }}
+                                                            </span>
+
+                                                            @can('validate-module-collective')
+                                                                <div class="dropdown">
+                                                                    <button class="btn btn-light btn-sm rounded-circle shadow-sm"
+                                                                        data-bs-toggle="dropdown">
+                                                                        <i class="bi bi-three-dots"></i>
+                                                                    </button>
+
+                                                                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2">
+
+                                                                        <button class="dropdown-item" data-bs-toggle="modal"
+                                                                            data-bs-target="#RejetDemandeModal">
+                                                                            Validation demande
+                                                                        </button>
+
+                                                                    </ul>
+                                                                </div>
+                                                            @endcan
+                                                        </div>
+
+                                                        <!-- ===== Actions DIOF ===== -->
+                                                        <div class="d-flex flex-column flex-sm-row gap-2">
+
+                                                            @can('diof')
+                                                                <a href="{{ route('collective.fiche', $collective->id) }}"
+                                                                    target="_blank"
+                                                                    class="btn btn-outline-success btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center gap-2">
+                                                                    <i class="bi bi-file-earmark-text"></i>
+                                                                    Fiche de synthèse
+                                                                </a>
+
+                                                                <a href="{{ route('collective.liste', $collective->id) }}"
+                                                                    target="_blank"
+                                                                    class="btn btn-outline-success btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center gap-2">
+                                                                    <i class="bi bi-file-earmark-text"></i>
+                                                                    Liste
+                                                                </a>
+                                                            @endcan
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
                                                 {{-- @can('demandeur') --}}
                                                 <div class="col-12">
                                                     <div class="card">
