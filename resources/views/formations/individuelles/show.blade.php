@@ -419,7 +419,7 @@
                                 <div class="tab-pane fade show active profile-overview" id="beneficiaires-overview">
                                     @if (!empty($module))
                                         <div class="col-12 mb-0">
-                                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                            {{-- <div class="d-flex justify-content-between align-items-center mt-3">
                                                 <span class="card-title d-flex align-items-baseline">Code:&nbsp;
                                                     <span class="badge bg-info text-white">
                                                         {{ $formation?->code }}</span>
@@ -436,7 +436,6 @@
                                                                 <form action="{{ route('listePresence') }}" method="post"
                                                                     target="_blank">
                                                                     @csrf
-                                                                    {{-- @method('PUT') --}}
                                                                     <input type="hidden" name="id"
                                                                         value="{{ $formation->id }}">
                                                                     <button class="btn btn-sm mx-1">Liste
@@ -444,14 +443,6 @@
                                                                 </form>
                                                                 <hr>
                                                                 @can('demarrer-formation')
-                                                                    {{-- <form
-                                                                        action="{{ route('validation-formations.update', $formation?->id) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        @method('PUT')
-                                                                        <button
-                                                                            class="show_confirm_valider btn btn-sm mx-1">Démarrer</button>
-                                                                    </form> --}}
                                                                     <form
                                                                         action="{{ route('formations.notifyStart', $formation) }}"
                                                                         method="POST">
@@ -472,18 +463,6 @@
                                                                             class="show_confirm_valider btn btn-sm mx-1">Terminer</button>
                                                                     </form>
                                                                 @endcan
-
-                                                                {{-- @can('annuler-formation')
-                                                                    <button class="btn btn-sm mx-1" data-bs-toggle="modal"
-                                                                        data-bs-target="#SuspendreDemandeModal">Suspendre
-                                                                    </button>
-                                                                @endcan
-                                                                <br>
-                                                                @can('annuler-formation')
-                                                                    <button class="btn btn-sm mx-1" data-bs-toggle="modal"
-                                                                        data-bs-target="#RejetDemandeModal">Annuler
-                                                                    </button>
-                                                                @endcan --}}
                                                                 @can('annuler-formation')
                                                                     <button class="btn btn-sm mx-1" data-bs-toggle="modal"
                                                                         data-bs-target="#SuspendreDemandeModal">Traitement
@@ -493,7 +472,6 @@
                                                                 <form action="{{ route('feuillePresence') }}" method="post"
                                                                     target="_blank">
                                                                     @csrf
-                                                                    {{-- @method('PUT') --}}
                                                                     <input type="hidden" name="id"
                                                                         value="{{ $formation->id }}">
                                                                     <button class="btn btn-sm mx-1">Feuille présence</button>
@@ -501,7 +479,6 @@
                                                                 <form action="{{ route('ficheSuivi') }}" method="post"
                                                                     target="_blank">
                                                                     @csrf
-                                                                    {{-- @method('PUT') --}}
                                                                     <input type="hidden" name="id"
                                                                         value="{{ $formation->id }}">
                                                                     <button class="btn btn-sm mx-1">Feuille de
@@ -511,7 +488,6 @@
                                                                     <form action="{{ route('pvVierge') }}" method="post"
                                                                         target="_blank">
                                                                         @csrf
-                                                                        {{-- @method('PUT') --}}
                                                                         <input type="hidden" name="id"
                                                                             value="{{ $formation->id }}">
                                                                         <button class="btn btn-sm mx-1">PV vierge</button>
@@ -519,31 +495,11 @@
                                                                     <form action="{{ route('pvEvaluation') }}" method="post"
                                                                         target="_blank">
                                                                         @csrf
-                                                                        {{-- @method('PUT') --}}
                                                                         <input type="hidden" name="id"
                                                                             value="{{ $formation->id }}">
                                                                         <button class="btn btn-sm mx-1">PV finale</button>
                                                                     </form>
                                                                 @endcan
-                                                                {{-- @can('lettre-formation')
-                                                                    <hr>
-                                                                    <form action="{{ route('lettreEvaluation') }}" method="post"
-                                                                        target="_blank">
-                                                                        @csrf
-                                                                        <input type="hidden" name="id"
-                                                                            value="{{ $formation->id }}">
-                                                                        <button class="btn btn-sm mx-1">Lettre mission</button>
-                                                                    </form>
-                                                                @endcan
-                                                                @can('lettre-formation')
-                                                                    <form action="{{ route('abeEvaluation') }}" method="post"
-                                                                        target="_blank">
-                                                                        @csrf
-                                                                        <input type="hidden" name="id"
-                                                                            value="{{ $formation->id }}">
-                                                                        <button class="btn btn-sm mx-1">A B E</button>
-                                                                    </form>
-                                                                @endcan --}}
                                                                 @can('email-formation')
                                                                     <hr>
                                                                     <form action="{{ route('sendFormationEmail') }}"
@@ -555,15 +511,10 @@
                                                                             class="show_confirm_valider btn btn-sm mx-1">Démarrage
                                                                             (e-mail)</button>
                                                                     </form>
-                                                                    {{-- <form action="{{ route('send-training-start-email', ['trainingId' => $formation->id]) }}" method="POST">
-                                                                        @csrf
-                                                                        <button type="submit" class="btn btn-primary">Informer les demandeurs du démarrage de la formation</button>
-                                                                    </form> --}}
 
                                                                     <form action="{{ route('sendWelcomeEmail') }}"
                                                                         method="post">
                                                                         @csrf
-                                                                        {{-- @method('PUT') --}}
                                                                         <input type="hidden" name="id"
                                                                             value="{{ $formation->id }}">
                                                                         <button
@@ -598,11 +549,6 @@
                                                         </div>
                                                     </span>
                                                 @endcan
-                                                {{-- <div class="float-end">
-                                                    <a href="{{ url('formationdemandeurs', ['$idformation' => $formation->id, '$idmodule' => $formation?->module?->id, '$idlocalite' => $formation->departement->region->id]) }}"
-                                                        class="btn btn-outline-primary btn-rounded btn-sm">
-                                                        <i class="bi bi-plus" title="Ajouter demandeur"></i>Ajouter </a>
-                                                </div> --}}
 
                                                 @can('formation-delete')
                                                     <div class="float-end">
@@ -618,7 +564,189 @@
                                                         </a>
                                                     </div>
                                                 @endcan
+                                            </div> --}}
+
+                                            <div
+                                                class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mt-3">
+
+                                                <!-- ================= CODE ================= -->
+                                                <div
+                                                    class="d-flex align-items-center justify-content-center justify-content-md-start gap-2 w-100 w-md-auto">
+                                                    <span class="fw-semibold">Code :</span>
+                                                    <span class="badge bg-info text-white px-3 py-2 fs-6">
+                                                        {{ $formation?->code }}
+                                                    </span>
+                                                </div>
+
+                                                @can('formation-delete')
+                                                    <!-- ================= BLOC DROIT ================= -->
+                                                    <div
+                                                        class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-end gap-3 w-100 w-md-auto">
+
+                                                        <!-- ===== Statut ===== -->
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <span class="fw-semibold">Statut :</span>
+                                                            <span
+                                                                class="{{ $formation?->statut }} text-white px-3 py-2 rounded-pill shadow-sm">
+                                                                {{ $formation?->statut }}
+                                                            </span>
+                                                        </div>
+
+                                                        <!-- ===== Dropdown ===== -->
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-light btn-sm rounded-circle shadow-sm"
+                                                                data-bs-toggle="dropdown">
+                                                                <i class="bi bi-three-dots"></i>
+                                                            </button>
+
+                                                            <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2">
+
+                                                                <form action="{{ route('listePresence') }}" method="post"
+                                                                    target="_blank">
+                                                                    @csrf
+                                                                    <input type="hidden" name="id"
+                                                                        value="{{ $formation->id }}">
+                                                                    <button class="dropdown-item">Liste bénéficiaires</button>
+                                                                </form>
+
+                                                                <hr class="dropdown-divider">
+
+                                                                @can('demarrer-formation')
+                                                                    <form
+                                                                        action="{{ route('formations.notifyStart', $formation) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        <button class="dropdown-item">
+                                                                            Démarrage notifications
+                                                                        </button>
+                                                                    </form>
+                                                                @endcan
+
+                                                                @can('terminer-formation')
+                                                                    <form action="{{ route('formationTerminer') }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <input type="hidden" name="id"
+                                                                            value="{{ $formation->id }}">
+                                                                        <button class="dropdown-item">
+                                                                            Terminer
+                                                                        </button>
+                                                                    </form>
+                                                                @endcan
+
+                                                                @can('annuler-formation')
+                                                                    <button class="dropdown-item" data-bs-toggle="modal"
+                                                                        data-bs-target="#SuspendreDemandeModal">
+                                                                        Traitement
+                                                                    </button>
+                                                                @endcan
+
+                                                                <hr class="dropdown-divider">
+
+                                                                <form action="{{ route('feuillePresence') }}" method="post"
+                                                                    target="_blank">
+                                                                    @csrf
+                                                                    <input type="hidden" name="id"
+                                                                        value="{{ $formation->id }}">
+                                                                    <button class="dropdown-item">Feuille présence</button>
+                                                                </form>
+
+                                                                <form action="{{ route('ficheSuivi') }}" method="post"
+                                                                    target="_blank">
+                                                                    @csrf
+                                                                    <input type="hidden" name="id"
+                                                                        value="{{ $formation->id }}">
+                                                                    <button class="dropdown-item">Fiche suivi</button>
+                                                                </form>
+
+                                                                @can('pv-formation')
+                                                                    <hr class="dropdown-divider">
+
+                                                                    <form action="{{ route('pvVierge') }}" method="post"
+                                                                        target="_blank">
+                                                                        @csrf
+                                                                        <input type="hidden" name="id"
+                                                                            value="{{ $formation->id }}">
+                                                                        <button class="dropdown-item">PV vierge</button>
+                                                                    </form>
+
+                                                                    <form action="{{ route('pvEvaluation') }}" method="post"
+                                                                        target="_blank">
+                                                                        @csrf
+                                                                        <input type="hidden" name="id"
+                                                                            value="{{ $formation->id }}">
+                                                                        <button class="dropdown-item">PV finale</button>
+                                                                    </form>
+                                                                @endcan
+
+                                                                @can('email-formation')
+                                                                    <hr class="dropdown-divider">
+
+                                                                    <form action="{{ route('sendFormationEmail') }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <input type="hidden" name="id"
+                                                                            value="{{ $formation->id }}">
+                                                                        <button class="dropdown-item">
+                                                                            Démarrage (e-mail)
+                                                                        </button>
+                                                                    </form>
+
+                                                                    <form action="{{ route('sendWelcomeEmail') }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <input type="hidden" name="id"
+                                                                            value="{{ $formation->id }}">
+                                                                        <button class="dropdown-item">
+                                                                            Résultats (e-mail)
+                                                                        </button>
+                                                                    </form>
+                                                                @endcan
+
+                                                                @can('sms-formation')
+                                                                    <hr class="dropdown-divider">
+
+                                                                    <button class="dropdown-item" data-bs-toggle="modal"
+                                                                        data-bs-target="#sendFormationSMS">
+                                                                        Démarrage (SMS)
+                                                                    </button>
+
+                                                                    <button class="dropdown-item" data-bs-toggle="modal"
+                                                                        data-bs-target="#sendWelcomeSMS">
+                                                                        Résultats (SMS)
+                                                                    </button>
+                                                                @endcan
+
+                                                                <hr class="dropdown-divider">
+
+                                                                <form action="{{ route('suivreTous', $formation?->id) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <button class="dropdown-item">
+                                                                        Suivre tous
+                                                                    </button>
+                                                                </form>
+
+                                                            </ul>
+                                                        </div>
+
+                                                        <!-- ===== Bouton Intégrer ===== -->
+                                                        <a href="{{ url('formationdemandeurs', [
+                                                            'idformation' => $formation->id,
+                                                            'idmodule' => $formation?->module?->id,
+                                                            'idlocalite' => $formation->departement->region->id,
+                                                        ]) }}"
+                                                            class="btn btn-outline-primary rounded-pill px-4 shadow-sm d-flex align-items-center gap-2">
+                                                            <i class="bi bi-box-arrow-in-down"></i>
+                                                            Intégrer bénéficiaires
+                                                        </a>
+
+                                                    </div>
+                                                @endcan
+
                                             </div>
+
                                             <div class="row g-3 pt-3">
                                                 <h5 class="mb-0 text-uppercase fw-bold text-primary">
                                                     <h5 class="mb-0 text-uppercase fw-bold text-primary">
