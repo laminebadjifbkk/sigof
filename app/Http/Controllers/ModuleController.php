@@ -70,36 +70,32 @@ class ModuleController extends Controller
 
     public function show(Request $request, $module)
     {
-        
-        $module = Module::where('uuid', $request->module)->first();
+        $module = Module::where('uuid', $request->module)->firstOrFail();
 
-        $total = Module::count();
-        $totalModules = number_format($total, 0, ',', ' ');
+        // 🔹 Récupérer les demandes individuelles liées au module
+        $query = Individuelle::where('modules_id', $module->id);
 
-        $query = Module::query();
-
+        // 🔹 Filtrer par statut si présent
         if ($statut = $request->query('statut')) {
             $query->where('statut', $statut);
         }
 
-        $modules = $query
+        // 🔹 Récupération (si tu veux limiter à 100)
+        $individuelles = $query
             ->latest()
             ->limit(100)
             ->get();
 
-        $affichees = $modules?->count();
-        $total     = $totalModules ?? ($modules instanceof \Illuminate\Pagination\LengthAwarePaginator
-            ? $modules->total()
-            : $modules?->count());
+        // 🔹 Total réel des demandes liées au module (sans limite)
+        $total = Individuelle::where('modules_id', $module->id)->count();
 
-           // Récupérer les individuelles avec Eloquent et relations pour plus de clarté
-        $individuelles = Individuelle::where('modules_id', $module->id)
-            ->get();
+        // 🔹 Nombre affiché (après filtre et limite)
+        $affichees = $individuelles->count();
 
-        // Récupérer les différents statuts
+        // 🔹 Récupérer les différents statuts
         $statuts = $individuelles->pluck('statut')->unique();
 
-        // Regrouper par statut (y compris les null)
+        // 🔹 Regrouper par statut (y compris null)
         $groupes = $individuelles->groupBy(function ($item) {
             return $item->statut ?? 'Aucun';
         });

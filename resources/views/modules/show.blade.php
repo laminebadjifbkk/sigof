@@ -72,7 +72,7 @@
                                             Affichage :
                                             <span class="text-dark">{{ $affichees }}</span>
                                             sur
-                                            <span class="text-dark">{{ $total }}</span> modules
+                                            <span class="text-dark">{{ $total }}</span> demandeur(s)
                                         </span>
                                     </div>
                                     <a href="{{ route('modules.index') }}" class="btn btn-outline-secondary btn-sm">
