@@ -321,7 +321,7 @@
                                 <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="telephone_secondaire" class="form-label">Téléphone secondaire<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input name="telephone_secondaire" type="text" maxlength="12"
+                                    <input name="telephone_secondaire" type="text" size="9"
                                         class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror"
                                         id="telephone_secondaire"
                                         value="{{ old('telephone_secondaire', $individuelle?->telephone ?? '') }}"

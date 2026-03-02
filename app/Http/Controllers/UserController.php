@@ -678,20 +678,6 @@ class UserController extends Controller
             $this->authorize('update', $user);
         }
 
-        /* if ($user->created_by == null || $user->updated_by == null) {
-            $user_create_name = $user?->civilite . ' ' . $user?->firstname . ' ' . $user?->name;
-            $user_update_name = $user?->civilite . ' ' . $user?->firstname . ' ' . $user?->name;
-        } else {
-            $user_created_id = $user->created_by;
-            $user_updated_id = $user->updated_by;
-
-            $user_create = User::findOrFail($user_created_id);
-            $user_update = User::findOrFail($user_updated_id);
-
-            $user_create_name = $user_create->firstname . ' ' . $user_create->firstname;
-            $user_update_name = $user_update->firstname . ' ' . $user_update->firstname;
-        } */
-
         function getUserName(?User $user): string
         {
             return $user ? trim("{$user->civilite} {$user->firstname} {$user->name}") : 'Utilisateur inconnu';
@@ -703,15 +689,52 @@ class UserController extends Controller
         $user_create_name = getUserName($user_create ?? $user);
         $user_update_name = getUserName($user_update ?? $user);
 
-        /*   $roles      = Role::pluck('name', 'name')->all();
-        $userRoles  = $user->roles->pluck('name', 'name')->all();
-        $directions = Direction::orderBy('created_at', 'desc')->get();
-        $fonctions  = Fonction::orderBy('created_at', 'desc')->get(); */
-
         $roles      = Role::pluck('name')->toArray();
         $userRoles  = $user->roles->pluck('name')->toArray();
         $directions = Direction::latest()->get();
         $fonctions  = Fonction::latest()->get();
+
+
+
+        $user->load('individuelles.projet');
+
+        // 🔵 Trier côté backend
+        $individuelles = $user->individuelles->sortBy('created_at')->values();
+
+        $availableColors = [
+            'table-primary',
+            'table-success',
+            'table-warning',
+            'table-info',
+            'table-secondary',
+        ];
+
+        $sigleColors = [];
+        $colorIndex = 0;
+        $i = 1;
+
+        $individuelles = $individuelles->map(function ($individuelle) use (&$sigleColors, &$colorIndex, $availableColors, &$i) {
+
+            $sigle = $individuelle->projet?->sigle;
+            $rowClass = '';
+
+            if (!empty($sigle)) {
+                if (!isset($sigleColors[$sigle])) {
+                    $sigleColors[$sigle] = $availableColors[$colorIndex % count($availableColors)];
+                    $colorIndex++;
+                }
+
+                $rowClass = $sigleColors[$sigle];
+            }
+
+            $individuelle->row_class = $rowClass;
+            $individuelle->row_number = $i++;
+
+            return $individuelle;
+        });
+
+        // Optionnel : remplacer la relation pour la vue
+        $user->individuelles = $individuelles;
 
         return view(
             "user.show",

@@ -366,38 +366,9 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @php
-                                                                // Liste de classes Bootstrap ou personnalisées à alterner
-                                                                $availableColors = [
-                                                                    'table-primary',
-                                                                    'table-success',
-                                                                    'table-warning',
-                                                                    'table-info',
-                                                                    'table-secondary',
-                                                                ];
-                                                                $sigleColors = []; // Association sigle => couleur
-                                                                $colorIndex = 0;
-                                                            @endphp
                                                             @php $i = 1; @endphp
                                                             @foreach ($user->individuelles->sortBy('created_at') as $individuelle)
-                                                                @php
-                                                                    $sigle = $individuelle->projet?->sigle;
-                                                                    $rowClass = ''; // par défaut : aucune classe
-
-                                                                    if (!empty($sigle)) {
-                                                                        if (!isset($sigleColors[$sigle])) {
-                                                                            $sigleColors[$sigle] =
-                                                                                $availableColors[
-                                                                                    $colorIndex %
-                                                                                        count($availableColors)
-                                                                                ];
-                                                                            $colorIndex++;
-                                                                        }
-                                                                        $rowClass = $sigleColors[$sigle];
-                                                                    }
-                                                                @endphp
-
-                                                                <tr class="{{ $rowClass }}">
+                                                                <tr class="{{ $individuelle->row_class }}">
                                                                     <td class="text-center">{{ $i++ }}</td>
                                                                     <td>{{ $individuelle?->module?->name }}</td>
                                                                     <td class="text-center">
