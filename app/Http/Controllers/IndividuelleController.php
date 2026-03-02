@@ -113,6 +113,39 @@ class IndividuelleController extends Controller
         $departements = Departement::select('id', 'nom')->orderBy('nom')->get();
         $modules = Module::select('id', 'name')->latest()->get();
 
+        $availableColors = [
+            'table-primary',
+            'table-success',
+            'table-warning',
+            'table-info',
+            'table-secondary',
+        ];
+
+        $sigleColors = [];
+        $colorIndex = 0;
+
+        // ⚠️ Important : charger la relation pour éviter le N+1
+        $individuelles->load('projet');
+
+        $individuelles = $individuelles->map(function ($individuelle) use (&$sigleColors, &$colorIndex, $availableColors) {
+
+            $sigle = $individuelle->projet?->sigle;
+            $rowClass = '';
+
+            if (!empty($sigle)) {
+                if (!isset($sigleColors[$sigle])) {
+                    $sigleColors[$sigle] = $availableColors[$colorIndex % count($availableColors)];
+                    $colorIndex++;
+                }
+
+                $rowClass = $sigleColors[$sigle];
+            }
+
+            $individuelle->row_class = $rowClass;
+
+            return $individuelle;
+        });
+
         return view('individuelles.index', compact(
             'individuelles',
             'departements',
@@ -299,7 +332,7 @@ class IndividuelleController extends Controller
     {
         $this->validate($request, [
             'module'                 => ['required', 'string', 'max:250'],
-            'telephone_secondaire'   => ['required', 'string', 'size:12'],
+            'telephone_secondaire'   => ['required', 'string', 'size:9'],
             'adresse'                => ['required', 'string', 'max:250'],
             'departement'            => ['required', 'string', 'max:250'],
             'module'                 => ['required', 'string', 'max:250'],
@@ -432,7 +465,7 @@ class IndividuelleController extends Controller
     public function individuellesStore(Request $request)
     {
         $this->validate($request, [
-            'telephone_secondaire'   => ['required', 'string', 'size:12'],
+            'telephone_secondaire'   => ['required', 'string', 'size:9'],
             'adresse'                => ['required', 'string', 'max:250'],
             'departement'            => ['required', 'string', 'max:250'],
             'module'                 => ['required', 'string', 'max:250'],
@@ -600,8 +633,8 @@ class IndividuelleController extends Controller
             ],
             'firstname'                 => ['required', 'string', 'max:50'],
             'lastname'                  => ['required', 'string', 'max:25'],
-            'telephone'                 => ['required', 'string', 'size:12'],
-            'telephone_secondaire'      => ['nullable', 'string', 'size:12'],
+            'telephone'                 => ['required', 'string', 'size:9'],
+            'telephone_secondaire'      => ['nullable', 'string', 'size:9'],
             'date_naissance'            => ['required', 'date_format:d/m/Y'],
             'lieu_naissance'            => ['required', 'string'],
             'adresse'                   => ['required', 'string', 'max:250'],
@@ -653,8 +686,8 @@ class IndividuelleController extends Controller
             'email'                     => ['required', 'email', 'max:250', Rule::unique('users')->whereNull('deleted_at')],
             'firstname'                 => ['required', 'string', 'max:50'],
             'lastname'                  => ['required', 'string', 'max:25'],
-            'telephone'                 => ['required', 'string', 'size:12'],
-            'telephone_secondaire'      => ['nullable', 'string', 'size:12'],
+            'telephone'                 => ['required', 'string', 'size:9'],
+            'telephone_secondaire'      => ['nullable', 'string', 'size:9'],
             'date_naissance'            => ['required', 'date_format:d/m/Y'],
             'lieu_naissance'            => ['required', 'string'],
             'adresse'                   => ['required', 'string', 'max:250'],
@@ -964,7 +997,7 @@ class IndividuelleController extends Controller
 
         $this->validate($request, [
             'date_depot'             => ['nullable', 'date_format:d/m/Y'],
-            'telephone_secondaire'   => ['required', 'string', 'size:12'],
+            'telephone_secondaire'   => ['required', 'string', 'size:9'],
             'adresse'                => ['required', 'string', 'max:250'],
             'localite'               => ['required', 'string', 'max:250'],
             'module'                 => ['required', 'string', 'max:250'],
@@ -1099,7 +1132,7 @@ class IndividuelleController extends Controller
     {
         $this->validate($request, [
             'date_depot'             => ['nullable', 'date_format:d/m/Y'],
-            'telephone_secondaire'   => ['required', 'string', 'size:12'],
+            'telephone_secondaire'   => ['required', 'string', 'size:9'],
             'adresse'                => ['required', 'string', 'max:250'],
             'localite'               => ['required', 'string', 'max:250'],
             'module'                 => ['required', 'string', 'max:250'],
@@ -1531,7 +1564,7 @@ class IndividuelleController extends Controller
         }
 
         $this->validate($request, [
-            'telephone_secondaire'   => ['required', 'string', 'size:12'],
+            'telephone_secondaire'   => ['required', 'string', 'size:9'],
             'adresse'                => ['required', 'string', 'max:250'],
             'departement'            => ['required', 'string', 'max:250'],
             /* 'module'                 => ['required', 'string', 'max:250'], */

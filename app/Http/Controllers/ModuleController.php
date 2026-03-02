@@ -100,6 +100,32 @@ class ModuleController extends Controller
             return $item->statut ?? 'Aucun';
         });
 
+
+        $module->load('individuelles.projet');
+
+        $availableColors = ['table-primary', 'table-success', 'table-warning', 'table-info', 'table-danger'];
+        $sigleColors = [];
+        $colorIndex = 0;
+
+        $module->individuelles = $module->individuelles->map(function ($individuelle) use (&$sigleColors, &$colorIndex, $availableColors) {
+
+            $sigle = $individuelle->projet?->sigle;
+            $rowClass = '';
+
+            if (!empty($sigle)) {
+                if (!isset($sigleColors[$sigle])) {
+                    $sigleColors[$sigle] = $availableColors[$colorIndex % count($availableColors)];
+                    $colorIndex++;
+                }
+
+                $rowClass = $sigleColors[$sigle];
+            }
+
+            $individuelle->row_class = $rowClass;
+
+            return $individuelle;
+        });
+
         return view(
             "modules.show",
             compact("module", "affichees", "total", "groupes")

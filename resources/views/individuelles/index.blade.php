@@ -1,10 +1,11 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | DEMANDEURS INDIVIDUELS')
+@section('title', 'Liste des demandes individuelles')
 @section('space-work')
     @can('individuelle-view')
         <section class="section">
             <div class="row">
                 <div class="col-12">
+
                     @if ($message = Session::get('status'))
                         <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                             role="alert">
@@ -12,12 +13,14 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
+
                     @if ($message = Session::get('danger'))
                         <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
                             <strong>{{ $message }}</strong>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
+
                     @if ($errors->any())
                         @foreach ($errors->all() as $error)
                             <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
@@ -168,7 +171,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($individuelles as $individuelle)
-                                                <tr>
+                                                <tr class="{{ $individuelle->row_class }}">
                                                     {{-- <td style="text-align: center">{{ $individuelle?->numero }}</td> --}}
                                                     <td style="text-align: center">{{ $individuelle?->user?->cin }}</td>
                                                     <td>{{ $individuelle?->user?->firstname }}</td>
@@ -316,8 +319,7 @@
                                                 <input name="cin" type="text"
                                                     class="form-control form-control-sm @error('cin') is-invalid @enderror"
                                                     id="cin" value="{{ old('cin') }}" autocomplete="off"
-                                                    placeholder="Ex: 1099200500012" minlength="13" maxlength="14"
-                                                    required>
+                                                    placeholder="Ex: 1099200500012" minlength="13" maxlength="14" required>
                                                 @error('cin')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>

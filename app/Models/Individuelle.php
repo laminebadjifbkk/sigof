@@ -380,4 +380,9 @@ class Individuelle extends Model
     {
         return $this->hasMany(Feuillepresence::class, 'individuelles_id');
     }
+
+    public function getRowClassAttribute()
+    {
+        return $this->attributes['row_class'] ?? '';
+    }
 }
