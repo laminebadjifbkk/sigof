@@ -1,4 +1,5 @@
 <?php
+/* 
 namespace App\Console\Commands;
 
 use App\Models\Individuelle;
@@ -33,9 +34,6 @@ class MarquerIndividuellesNonConformes extends Command
                 if ($files->isEmpty()) {
                     return true;
                 }
-
-                /* // Si TOUS les fichiers ont `file === null` → OK
-                return $files->every(fn($file) => $file->file === null); */
 
                 // Compter les fichiers valides (file !== null)
                 $validFilesCount = $files->filter(fn($file) => $file->file !== null)->count();
@@ -81,4 +79,61 @@ class MarquerIndividuellesNonConformes extends Command
         return Command::SUCCESS;
     }
 
+} */
+
+namespace App\Console\Commands;
+
+use App\Models\Individuelle;
+use App\Models\User;
+use App\Models\Validationindividuelle;
+use Illuminate\Console\Command;
+
+class MarquerIndividuellesNonConformes extends Command
+{
+    protected $signature   = 'individuelles:mark-non-conformes';
+    protected $description = 'Met les individuelles à Non conforme si statut Nouvelle et fichiers utilisateur null';
+
+    public function handle()
+    {
+        // Récupération des individuelles concernées
+        $individuelles = Individuelle::where('statut', 'Nouvelle')
+            ->whereHas('projet', fn($query) => $query->where('statut', 'fermer'))
+            ->whereHas('user')
+            ->with('user.files')
+            ->get()
+            ->filter(function ($individuelle) {
+                $user = $individuelle->user;
+
+                if (! $user) return false;
+
+                $files = $user->files;
+
+                // Aucun fichier ou peu de fichiers valides
+                $validFilesCount = $files->filter(fn($file) => $file->file !== null)->count();
+
+                return $validFilesCount < 3; // 0, 1 ou 2 fichiers valides → Non conforme
+            });
+
+        $systemUserId = User::orderBy('id')->first()?->id;
+        $count        = 0;
+
+        foreach ($individuelles as $individuelle) {
+            $individuelle->update([
+                'statut'      => 'Non conforme',
+                'canceled_by' => 'Systeme'
+            ]);
+
+            Validationindividuelle::create([
+                'validated_id'     => $systemUserId,
+                'action'           => 'Non conforme',
+                'motif'            => 'Dossier incomplet',
+                'individuelles_id' => $individuelle->id,
+            ]);
+
+            $count++;
+        }
+
+        $this->info("$count individuelles mises à jour en Non conforme.");
+        return Command::SUCCESS;
+    }
 }
