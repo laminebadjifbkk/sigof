@@ -324,7 +324,7 @@
                                     <input name="telephone_secondaire" type="text" size="9"
                                         class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror"
                                         id="telephone_secondaire"
-                                        value="{{ old('telephone_secondaire', $individuelle?->telephone ?? '') }}"
+                                        value="{{ old('telephone_secondaire', str_replace(' ', '', $individuelle?->telephone) ?? '') }}"
                                         autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                     @error('telephone_secondaire')
                                         <span class="invalid-feedback" role="alert">

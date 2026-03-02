@@ -254,7 +254,7 @@
             'Adresse' => $individuelle?->user?->adresse,
             'Email' => '<a href="mailto:' . $individuelle?->user?->email . '">' . $individuelle?->user?->email . '</a>',
             'Téléphone personnel' => '<a href="tel:+221' . $individuelle?->user?->telephone . '">' . $individuelle?->user?->telephone . '</a>',
-            'Téléphone secondaire' => '<a href="tel:+221' . $individuelle?->telephone . '">' . $individuelle?->telephone . '</a>',
+            'Téléphone secondaire' => '<a href="tel:+221' . str_replace(' ', '', $individuelle?->telephone) . '">' . str_replace(' ', '', $individuelle?->telephone) . '</a>',
             'Lieu de formation' => $individuelle?->departement?->nom,
         ] as $label => $value)
                                         <div class="col-12 col-md-4">
