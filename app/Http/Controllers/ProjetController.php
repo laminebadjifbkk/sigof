@@ -489,7 +489,7 @@ class ProjetController extends Controller
         $projet = Projet::findOrFail($id);
 
         $projet->update([
-            'statut' => 'fermer',
+            'statut' => 'fermé',
         ]);
 
         $projet->save();

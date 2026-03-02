@@ -97,7 +97,7 @@ class MarquerIndividuellesNonConformes extends Command
     {
         // Récupération des individuelles concernées
         $individuelles = Individuelle::where('statut', 'Nouvelle')
-            ->whereHas('projet', fn($query) => $query->where('statut', 'fermer'))
+            ->whereHas('projet', fn($query) => $query->where('statut', 'fermé'))
             ->whereHas('user')
             ->with('user.files')
             ->get()
