@@ -1248,50 +1248,52 @@
         </div>
 
         {{-- Mot de passe oublié --}}
-        <div class="col-12 d-flex flex-column align-items-center justify-content-center">
-            <div class="modal fade" id="forgotModal" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form class="row g-3 needs-validation contact-form" novalidate method="POST"
-                            action="{{ route('password.email') }}">
-                            @csrf
-                            <div class="modal-header">
-                                <h5 class="w-100  text-center">Réinitialisation du mot de passe
-                                    par e-mail</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Fermer"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row g-3">
-                                    <div class="col-12">
-                                        <label for="email" class="form-label">Email<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <div class="input-group has-validation">
-                                            <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                            <input type="email" name="email"
-                                                class="form-control @error('email') is-invalid @enderror"
-                                                id="email" required placeholder="Votre adresse e-mail"
-                                                value="{{ old('email') }}" autofocus>
-                                            <div class="invalid-feedback">
-                                                @error('email')
-                                                    {{ $message }}
-                                                @enderror
+        @if (Route::has('password.request'))
+            <div class="col-12 d-flex flex-column align-items-center justify-content-center">
+                <div class="modal fade" id="forgotModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form class="row g-3 needs-validation contact-form" novalidate method="POST"
+                                action="{{ route('password.email') }}">
+                                @csrf
+                                <div class="modal-header">
+                                    <h5 class="w-100  text-center">Réinitialisation du mot de passe
+                                        par e-mail</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Fermer"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <label for="email" class="form-label">Email<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <div class="input-group has-validation">
+                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                                <input type="email" name="email"
+                                                    class="form-control @error('email') is-invalid @enderror"
+                                                    id="email" required placeholder="Votre adresse e-mail"
+                                                    value="{{ old('email') }}" autofocus>
+                                                <div class="invalid-feedback">
+                                                    @error('email')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-12">
-                                        <button class="btn btn-sm w-100" type="submit"
-                                            style="background-color: #F28500; color: #FFFFFF">Lien de
-                                            réinitialisation du mot de passe par e-mail</button>
+                                        <div class="col-12">
+                                            <button class="btn btn-sm w-100" type="submit"
+                                                style="background-color: #F28500; color: #FFFFFF">Lien de
+                                                réinitialisation du mot de passe par e-mail</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
 
         {{-- En savoir plus --}}
 

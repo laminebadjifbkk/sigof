@@ -170,7 +170,7 @@
                                             @if (Route::has('password.request'))
                                                 <p class="small mb-0">
                                                     Mot de passe oublié ?
-                                                    <a href="{{ route('password.request') }}">Réinitialiser</a>
+                                                    <a href="{{ route('password.email') }}">Réinitialiser</a>
                                                 </p>
                                             @endif
                                         </div>
