@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | DEMANDES DE ' . $user?->firstname . ' ' . $user?->name)
+@section('title', 'Liste des demandes de ' . $user?->firstname . ' ' . $user?->name)
 @section('space-work')
     <div class="pagetitle">
         <nav>
@@ -55,7 +55,7 @@
                         <div class="table-responsive">
                             <table class="table datatables align-middle" id="table-users">
                                 <thead>
-                                    <tr class="text-center">
+                                    <tr>
                                         <th width="8%">Choix n°</th>
                                         {{-- <th width="15%">N° demande</th> --}}
                                         <th width="12%">Date dépôt</th>
@@ -71,7 +71,7 @@
                                 <tbody>
                                     @php $i = 1; @endphp
                                     @foreach ($user->individuelles->sortBy('created_at') as $individuelle)
-                                        <tr class="text-center">
+                                        <tr class="{{ $individuelle->row_class }}">
                                             <td>{{ $i++ }}</td>
                                             {{-- <td>{{ $individuelle?->numero }}</td> --}}
                                             <td>

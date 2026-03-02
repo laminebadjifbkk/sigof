@@ -694,8 +694,6 @@ class UserController extends Controller
         $directions = Direction::latest()->get();
         $fonctions  = Fonction::latest()->get();
 
-
-
         $user->load('individuelles.projet');
 
         // 🔵 Trier côté backend
@@ -732,9 +730,6 @@ class UserController extends Controller
 
             return $individuelle;
         });
-
-        // Optionnel : remplacer la relation pour la vue
-        $user->individuelles = $individuelles;
 
         return view(
             "user.show",
@@ -1351,15 +1346,6 @@ class UserController extends Controller
         $count_demandeur_raw = $demandeurs->count();
         $count_demandeur     = number_format($count_demandeur_raw, 0, ',', ' ');
 
-        // Définition du titre avec des comparaisons correctes
-        /* if ($count_demandeur_raw < 1) {
-            $title = 'Aucune demandeur individuel';
-        } elseif ($count_demandeur_raw == 1) {
-            $title = '1 demandeur individuel sur un total de ' . $totalIndividuelles;
-        } else {
-            $title = 'Liste des ' . $count_demandeur . ' derniers demandeurs individuels sur un total de ' . $totalIndividuelles;
-        } */
-
         // Retour de la vue avec les données paginées
         return view(
             "user.demandeur-individuel",
@@ -1439,6 +1425,43 @@ class UserController extends Controller
         if (! $user) {
             return abort(404, 'Utilisateur non trouvé');
         }
+
+        $user->load('individuelles.projet');
+
+        // 🔵 Trier côté backend
+        $individuelles = $user->individuelles->sortBy('created_at')->values();
+
+        $availableColors = [
+            'table-primary',
+            'table-success',
+            'table-warning',
+            'table-info',
+            'table-secondary',
+        ];
+
+        $sigleColors = [];
+        $colorIndex = 0;
+        $i = 1;
+
+        $individuelles = $individuelles->map(function ($individuelle) use (&$sigleColors, &$colorIndex, $availableColors, &$i) {
+
+            $sigle = $individuelle->projet?->sigle;
+            $rowClass = '';
+
+            if (!empty($sigle)) {
+                if (!isset($sigleColors[$sigle])) {
+                    $sigleColors[$sigle] = $availableColors[$colorIndex % count($availableColors)];
+                    $colorIndex++;
+                }
+
+                $rowClass = $sigleColors[$sigle];
+            }
+
+            $individuelle->row_class = $rowClass;
+            $individuelle->row_number = $i++;
+
+            return $individuelle;
+        });
 
         return view('individuelles.demandeurs-show', compact('user', 'departements', 'files', 'user_files'));
     }
