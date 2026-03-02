@@ -88,7 +88,8 @@
                                         Se connecter avec Google
                                     </a> --}}
                                     <div class="d-flex justify-content-center mt-3">
-                                        <a href="{{ url('auth/google') }}"
+                                        {{-- <a href="{{ url('auth/google') }}" --}}
+                                        <a href="#"
                                             class="btn btn-light d-flex align-items-center justify-content-center border shadow-sm mb-3"
                                             style="background-color: #fff; width: 50px; height: 50px; padding: 0;"
                                             title="Se connecter avec Google">

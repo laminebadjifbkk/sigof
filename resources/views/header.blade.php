@@ -35,8 +35,10 @@
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <a class="btn-getstarted" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Se
+        <a class="btn-getstarted" href="{{ route('login') }}">Se
             connecter</a>
+       {{--  <a class="btn-getstarted" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Se
+            connecter</a> --}}
 
     </div>
 </header>
