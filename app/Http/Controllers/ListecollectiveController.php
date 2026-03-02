@@ -57,10 +57,11 @@ class ListecollectiveController extends Controller
             "module"         => "required|string",
             "niveau_etude"   => "nullable|string",
             "telephone"      => "nullable|string|min:9|max:12",
-            "cin"            => [
+            "cin" => [
                 "required",
                 "string",
                 Rule::unique('listecollectives', 'cin')
+                    ->whereNull('deleted_at')
             ],
         ]);
 
