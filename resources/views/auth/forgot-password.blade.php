@@ -220,23 +220,39 @@
                         @endif
                         <div
                             class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6 d-flex flex-column align-items-center justify-content-center">
-                            <div class="d-flex justify-content-center py-4">
+                            {{-- <div class="d-flex justify-content-center py-4">
                                 <a href="{{ route('accueil') }}" class="logo d-flex align-items-center w-auto"
                                     target="_blank">
                                     <span class="d-none d-lg-block">ONFP</span>
                                 </a>
-                            </div>
+                            </div> --}}
 
                             <div class="card mb-3">
 
                                 <div class="card-body">
-                                    <div class="pt-0 pb-2">
+
+
+                                    <div class="pt-0 pb-2 text-center">
+                                        <h5 class="card-title fs-4 mb-1">
+                                            <a href="{{ route('accueil') }}"
+                                                class="logo d-flex align-items-center justify-content-center w-auto"
+                                                target="_blank">
+                                                <span>SIGOF | ONFP</span>
+                                            </a>
+                                            <span class="fw-bold" style="font-size: 2rem;">Réinitialisation du mot de
+                                                passe</span>
+                                        </h5>
+                                        <p class="small mb-0">Entrez votre adresse e-mail pour recevoir un lien
+                                            de réinitialisation.</p>
+                                    </div>
+
+                                    {{-- <div class="pt-0 pb-2">
                                         <h5 class="card-title text-center pb-0 fs-4">Réinitialisation du mot de passe
                                         </h5>
                                         <p class="text-center small">Entrez votre adresse e-mail pour recevoir un lien
                                             de
                                             réinitialisation.</p>
-                                    </div>
+                                    </div> --}}
 
                                     <form class="row g-3 needs-validation" novalidate method="POST"
                                         action="{{ route('password.email') }}">
