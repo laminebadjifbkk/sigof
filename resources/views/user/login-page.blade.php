@@ -29,7 +29,7 @@
         'callback_then' => 'callbackThen',
         'callback_catch' => 'callbackCatch',
     ]) !!}
-    <title>Connexion</title>
+    <title>Connexion SOGOF</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 

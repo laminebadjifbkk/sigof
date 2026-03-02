@@ -30,7 +30,7 @@
         'callback_then' => 'callbackThen',
         'callback_catch' => 'callbackCatch',
     ]) !!}
-    <title>Inscription</title>
+    <title>Inscription SIGOF</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 

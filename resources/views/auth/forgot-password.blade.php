@@ -239,8 +239,8 @@
                                                 target="_blank">
                                                 <span>SIGOF | ONFP</span>
                                             </a>
-                                            <span class="fw-bold" style="font-size: 2rem;">Réinitialisation du mot de
-                                                passe</span>
+                                            <span class="fw-bold" style="font-size: 2rem;">Mot de passe oublié !</span><br>
+                                            <span class="fw-bold" style="font-size: 2rem;">Réinitialiser</span>
                                         </h5>
                                         <p class="small mb-0">Entrez votre adresse e-mail pour recevoir un lien
                                             de réinitialisation.</p>
