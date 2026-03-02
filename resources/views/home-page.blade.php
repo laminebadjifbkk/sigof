@@ -283,7 +283,7 @@
                             <!-- Sales Card -->
                             <div class="col-12 col-sm-6 col-lg-3">
                                 <div class="card info-card sales-card">
-                                    <a href="{{ route('individuelles') }}">
+                                    <a href="{{ route('individuelles.index') }}">
                                         <div class="card-body">
                                             <h5 class="card-title">Demandes<span> | {{ date('d/m/Y') }}</span></h5>
                                             <div class="d-flex align-items-center">
