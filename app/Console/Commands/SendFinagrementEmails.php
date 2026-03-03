@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Console\Commands;
 
 use App\Mail\FinAgrementMail;
@@ -41,14 +42,15 @@ class SendFinagrementEmails extends Command
             $commission = $commissionagrement::whereRaw("DATE_FORMAT(fin_commission, '%Y') = ?", [$today])->first();
             /* $commission = $commissionagrement::whereRaw("DATE_FORMAT(DATE_ADD(date, INTERVAL 1 DAY), '%Y-%m-%d') = ?", [$today])->first(); */
 
-            dd($commission);
-            
             /* dd($commission->operateurs); */
             if (! empty($commission)) {
                 foreach ($commission?->operateurs as $key => $operateur) {
                     if (! empty($operateur) && $operateur->statut_agrement == 'agréé') {
                         $operateur->update(['statut_agrement' => 'expiré']);
-                        Mail::to($operateur?->user?->email)->send(new FinAgrementMail($operateur));
+                        foreach ($operateur->operateurmodules as $key => $operateurmodule) {
+                            $operateurmodule->update(['statut' => 'expiré']);
+                        }
+                        //Mail::to($operateur?->user?->email)->send(new FinAgrementMail($operateur));
                     }
                 }
             }

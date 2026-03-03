@@ -29,7 +29,7 @@ class NotifyEndAgreements extends Command
             $commission = $commissionagrement::whereRaw("DATE_FORMAT(fin_commission, '%Y-%m-%d') = ?", [$today])->first();
             if (! empty($commission)) {
                 foreach ($commission?->operateurs as $key => $operateur) {
-                    if (! empty($operateur) && $operateur->statut_agrement == 'expirer') {
+                    if (! empty($operateur) && $operateur->statut_agrement == 'expiré') {
                         $operateur->update(['statut_agrement' => 'fin']);
                         Mail::to($operateur?->user?->email)->send(new FinAgrementMail($operateur));
                     }
