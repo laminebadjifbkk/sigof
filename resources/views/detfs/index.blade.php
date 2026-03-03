@@ -9,7 +9,7 @@
                 <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                     <div class="card shadow-sm text-center p-2" style="min-height: 140px; border-radius: 10px;">
                         <h6 class="card-title mb-2 text-truncate missions-title" title="Total missions">
-                            Missions total
+                            DETFS
                         </h6>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                             <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
@@ -29,21 +29,21 @@
                         </div>
 
                         <!-- Bouton voir plus -->
-                        <a href="{{ route('parc-missions.index') }}" class="btn btn-outline-primary btn-sm w-100"
+                        <a href="{{ route('detfs.index') }}" class="btn btn-outline-primary btn-sm w-100"
                             style="font-size:0.75rem;">
                             Voir plus <i class="bi bi-arrow-right-short"></i>
                         </a>
                     </div>
                 </div>
 
-                @foreach ($groupes as $statut_s => $items)
+                @foreach ($groupes as $etat => $items)
                     <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
                         <div class="card shadow-sm text-center p-2" style="min-height: 120px; border-radius: 10px;">
 
                             <!-- Statut -->
-                            <h6 class="card-title mb-2 text-truncate" title="{{ $statut_s }}"
+                            <h6 class="card-title mb-2 text-truncate" title="{{ $etat }}"
                                 style="font-size: 0.85rem;">
-                                {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $statut_s))) }}
+                                {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $etat))) }}
                             </h6>
 
                             <!-- Nombre et icône -->
@@ -62,13 +62,13 @@
                             <div class="mb-2">
                                 <div class="progress" style="height:6px; border-radius:3px;">
                                     <div class="progress-bar bg-success" role="progressbar"
-                                        style="width: {{ $statutPourcentages[$statut_s]['percent'] }}%;"></div>
+                                        style="width: {{ $statutPourcentages[$etat]['percent'] }}%;"></div>
                                 </div>
-                                <small class="text-muted">{{ $statutPourcentages[$statut_s]['percent'] }}%</small>
+                                <small class="text-muted">{{ $statutPourcentages[$etat]['percent'] }}%</small>
                             </div>
 
                             <!-- Bouton voir plus -->
-                            <a href="{{ route('parc-missions.index', ['statut' => $statut_s]) }}"
+                            <a href="{{ route('detfs.index', ['etat' => $etat]) }}"
                                 class="btn btn-outline-primary btn-sm w-100" style="font-size: 0.75rem;">
                                 Voir plus <i class="bi bi-arrow-right-short"></i>
                             </a>
@@ -81,7 +81,7 @@
             @can('parc-mission-create')
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h3 class="mb-0">
-                        Liste des DETFS
+                        LISTE DES DETFS
                         <span class="etat-btn">
 
                             @if (!empty(request('statut')))
@@ -120,81 +120,50 @@
                 <table class="table table-hover table-striped shadow-sm" id="table-parc-mission">
                     <thead class="table-dark">
                         <tr>
-                            {{-- <th>Référence</th> --}}
-                            <th>Objet</th>
-                            {{-- <th>Lieu</th> --}}
-                            <th>Périodes</th>
-                            <th class="text-center" width="12%">Véhicules</th>
-                            <th class="text-center" width="12%">Agents</th>
+                            <th>Numéro</th>
+                            <th>Intitulé</th>
+                            <th>Ingénieur</th>
+                            <th>Opérateur</th>
                             <th class="text-center" width="12%">Statut</th>
                             <th class="text-center" width="12%">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($detfs as $mission)
+                        @foreach ($detfs as $detf)
                             <tr>
-                                {{--  <td>{{ $mission->reference }}</td> --}}
+                                <td>{{ $detf->numero }}</td>
+                                <td>{{ $detf->titre1 }}</td>
                                 <td>
-                                    <span class="short-text">{{ Str::limit($mission->objet, 25) }}</span>
-                                    <span class="full-text d-none">{{ $mission->objet }}</span>
-
-                                    @if (strlen($mission->objet) > 25)
-                                        <a href="#" class="toggle-text">...voir plus</a>
-                                    @endif
+                                    {{ $detf->ingenieur->user->firstname . ' ' . $detf->ingenieur->user->name }}
                                 </td>
-
-                                {{-- <td>{{ $mission->lieu_depart }} → {{ $mission->lieu_arrivee }}</td> --}}
                                 <td>
-                                    {{ $mission->date_depart->format('d/m/Y') }}
-                                    @if ($mission->date_retour)
-                                        -{{ $mission->date_retour->format('d/m/Y') }}
-                                    @endif
+                                    {{ $detf->operateur->user->username ? $detf->operateur->user->username : $detf->operateur->user->operateur }}
                                 </td>
-                                <td class="text-center">{{ $mission?->vehicules?->count() }}</td>
-                                <td class="text-center">{{ $mission->employees->count() }}</td>
                                 <td class="text-center">
-                                    <span class="etat-btn {{ $mission->statut }}">
-                                        {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $mission->statut))) }}
+                                    <span class="etat-btn {{ $detf->etat }}">
+                                        {{ $detf->etat }}
                                     </span>
                                 </td>
                                 <td class="text-center">
                                     <span class="d-flex align-items-baseline justify-content-center gap-1">
-                                        <a href="{{ route('parc-missions.show', $mission->id) }}"
-                                            class="btn btn-sm btn-info">
+                                        <a href="{{ route('detfs.show', $detf->id) }}" class="btn btn-sm btn-info">
                                             <i class="bi bi-eye"></i>
                                         </a>
-                                        <a href="{{ route('parc-missions.edit', $mission->id) }}"
-                                            class="btn btn-sm btn-warning">
+                                        <a href="{{ route('detfs.edit', $detf->id) }}" class="btn btn-sm btn-warning">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
-                                        <form action="{{ route('parc-missions.destroy', $mission->id) }}" method="POST"
+                                        <form action="{{ route('detfs.destroy', $detf->id) }}" method="POST"
                                             class="d-inline">
                                             @csrf
                                             @method('DELETE')
 
                                             <button type="submit" class="btn btn-sm btn-danger show_confirm"
-                                                {{ $mission->employees_count > 0 ? 'disabled' : '' }}
-                                                title="{{ $mission->employees_count > 0 ? 'Mission déjà assignée à des employés' : 'Supprimer la mission' }}">
+                                                title="Supprimer">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </form>
                                     </span>
                                 </td>
-                                <!-- Modal -->
-                                <div class="modal fade" id="objetModal{{ $mission->id }}" tabindex="-1">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Objet de la mission</h5>
-                                                <button type="button" class="btn-close"
-                                                    data-bs-dismiss="modal"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                {{ $mission->objet }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </tr>
                         @endforeach
                     </tbody>

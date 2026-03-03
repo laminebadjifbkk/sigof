@@ -31,8 +31,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Detf extends Model
 {
-	
-    use HasFactory;
+
+	use HasFactory;
 	use SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	protected $table = 'detfs';
@@ -41,16 +41,36 @@ class Detf extends Model
 		'date1'
 	];
 
+	protected $casts = [
+		'date1' => 'date',
+	];
+
 	protected $fillable = [
 		'uuid',
 		'numero',
 		'titre1',
 		'titre2',
-		'date1'
+		'date1',
+		'operateurs_id',
+		'ingenieurs_id',
+		'montant_prevu',
+		'montant_realise',
+		'etat',
+		'description',
 	];
 
 	public function formations()
 	{
 		return $this->hasMany(Formation::class, 'detfs_id');
+	}
+
+	public function ingenieur()
+	{
+		return $this->belongsTo(Ingenieur::class, 'ingenieurs_id');
+	}
+
+	public function operateur()
+	{
+		return $this->belongsTo(Operateur::class, 'operateurs_id');
 	}
 }

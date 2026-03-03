@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Detf;
+use App\Models\Ingenieur;
 use App\Models\Operateur;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,8 @@ class DetfController extends Controller
     public function create()
     {
         $operateurs = Operateur::where('statut_agrement', 'agréé')->get();
-        return view('detfs.create', compact('operateurs'));
+        $ingenieurs = Ingenieur::get();
+        return view('detfs.create', compact('operateurs', 'ingenieurs'));
     }
 
 
@@ -19,11 +21,11 @@ class DetfController extends Controller
     {
         $query = Detf::query();
 
-        $statut = $request->query('statut');
+        $etat = $request->query('etat');
 
-        // Filtre statut
-        if ($statut) {
-            $query->where('statut', $statut);
+        // Filtre etat
+        if ($etat) {
+            $query->where('etat', $etat);
         }
 
         // Charger Detf filtrées, avec count employés (pour bouton delete)
@@ -31,7 +33,7 @@ class DetfController extends Controller
 
         // Pour les cards : grouper toutes les Detf par statut
         $allDetf = Detf::latest()->get();
-        $groupes = $allDetf->groupBy(fn($item) => $item->statut ?? 'Aucun');
+        $groupes = $allDetf->groupBy(fn($item) => $item->etat ?? 'Aucun');
 
         // Calcul des pourcentages par statut
         $total = $allDetf->count();
@@ -53,7 +55,7 @@ class DetfController extends Controller
             'statutPourcentages',
             'total',
             'labels',
-            'statut'
+            'etat'
         ));
     }
 
@@ -66,8 +68,43 @@ class DetfController extends Controller
             'operateurs_id' => 'nullable|integer',
         ]);
 
-        Detf::create($data);
+        $numero = 'DETF-' . date('Y') . '-' . str_pad(Detf::count() + 1, 3, '0', STR_PAD_LEFT);
 
-        return redirect()->route('detfs.create')->with('success', 'Formation créée avec succès !');
+        /* Detf::create($data); */
+
+        Detf::create([
+            'numero' => $numero,
+            'titre1' => $request->titre1,
+            'titre2' => $request->titre2,
+            'date1'  => $request->date1,
+            'etat'  => 'Nouveau',
+            'operateurs_id'  => $request->operateurs_id,
+            'ingenieurs_id'  => $request->ingenieurs_id,
+        ]);
+
+        return redirect()->route('detfs.create')->with('success', 'DETF créée avec succès !');
+    }
+
+    public function edit(Detf $detf)
+    {
+        $operateurs = Operateur::all();
+        $ingenieurs = Ingenieur::all();
+
+        return view('detfs.update', compact('detf', 'operateurs', 'ingenieurs'));
+    }
+
+    public function update(Request $request, Detf $detf)
+    {
+        $detf->update($request->all());
+
+        return redirect()->back()
+            ->with('success', 'DETF modifié avec succès.');
+    }
+
+    public function destroy(Detf $detf)
+    {
+        $detf->delete();
+
+        return back()->with('success', 'DETF supprimé avec succès.');
     }
 }

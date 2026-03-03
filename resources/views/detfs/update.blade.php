@@ -1,10 +1,12 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | CREATION DETF')
+@section('title', 'ONFP | MODIFICATION DETF')
+
 @section('space-work')
     <section class="section register">
         <div class="container">
+
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h1 class="mb-0">Créer une nouvelle formation (DETF)</h1>
+                <h1 class="mb-0">Modifier la formation (DETF)</h1>
                 <a href="{{ route('detfs.index') }}" class="btn btn-outline-secondary btn-sm">
                     <i class="bi bi-arrow-left-circle"></i> Retour à la liste
                 </a>
@@ -13,7 +15,7 @@
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
 
@@ -29,39 +31,45 @@
 
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <form action="{{ route('detfs.store') }}" method="POST">
+
+                    <form action="{{ route('detfs.update', $detf->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
 
                         <div class="row g-3">
 
+                            {{-- Titre 1 --}}
                             <div class="col-md-6">
                                 <label for="titre1" class="form-label">Titre 1</label>
                                 <input type="text" name="titre1" id="titre1" class="form-control form-control-sm"
-                                    value="{{ old('titre1') }}">
+                                    value="{{ old('titre1', $detf->titre1) }}">
                             </div>
 
+                            {{-- Titre 2 --}}
                             <div class="col-md-6">
                                 <label for="titre2" class="form-label">Titre 2</label>
                                 <input type="text" name="titre2" id="titre2" class="form-control form-control-sm"
-                                    value="{{ old('titre2') }}">
+                                    value="{{ old('titre2', $detf->titre2) }}">
                             </div>
 
+                            {{-- Date --}}
                             <div class="col-md-6">
                                 <label for="date1" class="form-label">Date</label>
                                 <input type="date" name="date1" id="date1" class="form-control form-control-sm"
-                                    value="{{ old('date1') }}">
+                                    value="{{ old('date1', optional($detf->date1)->format('Y-m-d')) }}">
                             </div>
 
-                            <div class="col-md-6 col-sm-12">
+                            {{-- Opérateurs --}}
+                            <div class="col-md-6">
                                 <label for="operateurs_id" class="form-label">
-                                    Opérateurs <span class="text-danger">
-                                        *</span></label>
+                                    Opérateur <span class="text-danger">*</span>
+                                </label>
                                 <select name="operateurs_id" id="select-field-operateurs_id"
                                     class="form-select form-select-sm @error('operateurs_id') is-invalid @enderror">
                                     <option value="">-- Choisir un opérateur --</option>
                                     @foreach ($operateurs as $operateur)
                                         <option value="{{ $operateur->id }}"
-                                            {{ old('operateurs_id') == $operateur->id ? 'selected' : '' }}>
+                                            {{ old('operateurs_id', $detf->operateurs_id) == $operateur->id ? 'selected' : '' }}>
                                             {{ $operateur?->user?->operateur }}
                                         </option>
                                     @endforeach
@@ -71,16 +79,17 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-6 col-sm-12">
+                            {{-- Ingénieurs --}}
+                            <div class="col-md-6">
                                 <label for="ingenieurs_id" class="form-label">
-                                    Ingénieur <span class="text-danger">
-                                        *</span></label>
+                                    Ingénieur <span class="text-danger">*</span>
+                                </label>
                                 <select name="ingenieurs_id" id="select-field-ingenieurs_id"
                                     class="form-select form-select-sm @error('ingenieurs_id') is-invalid @enderror">
                                     <option value="">-- Choisir un ingénieur --</option>
                                     @foreach ($ingenieurs as $ingenieur)
                                         <option value="{{ $ingenieur->id }}"
-                                            {{ old('ingenieurs_id') == $ingenieur->id ? 'selected' : '' }}>
+                                            {{ old('ingenieurs_id', $detf->ingenieurs_id) == $ingenieur->id ? 'selected' : '' }}>
                                             {{ $ingenieur?->user?->firstname . ' ' . $ingenieur?->user?->name }}
                                         </option>
                                     @endforeach
@@ -93,15 +102,17 @@
                         </div>
 
                         <div class="d-flex gap-2 mt-3">
-                            <button type="submit" class="btn btn-success btn-sm">
-                                <i class="bi bi-check-circle"></i> Créer DETF
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <i class="bi bi-pencil-square"></i> Mettre à jour
                             </button>
+
                             <a href="{{ route('detfs.index') }}" class="btn btn-secondary btn-sm">
                                 <i class="bi bi-x-circle"></i> Annuler
                             </a>
                         </div>
 
                     </form>
+
                 </div>
             </div>
         </div>
