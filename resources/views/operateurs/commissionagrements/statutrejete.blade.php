@@ -36,38 +36,20 @@
                                     class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                             <p> | Retour</p>
                         </span>
-                        <h4 class="card-title">
-                            <div
-                                class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
-                                <span>{{ $commissionagrement?->commission }}</span>
-                                <span class="d-flex align-items-baseline">
-                                    <span class="{{ $statut }} text-white">{{ $statut }}</span></span>
-                            </div>
-                        </h4>
+                        <div
+                            class="card-title d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
+                            <span>{{ $commissionagrement?->commission }}</span>
+                            <span class="d-flex align-items-baseline">
+                                <span class="{{ $statut }} text-white">{{ $statut }}</span></span>
+                        </div>
                         <div class="row mb-0">
                             <div class="col-md-12">
-                                <div class="float-end mb-3">
-                                    <div class="d-flex align-items-baseline gap-2">
-                                        {{-- Export PV (Procès-verbal complet) --}}
-                                        {{-- <a href="{{ route('commissionagrements.exportPV', ['statut' => $statut, 'commissionagrement' => $commissionagrement->id]) }}"
-                                            class="btn btn-primary btn-sm">
-                                            <i class="bi bi-journal-text"></i> Exporter le PV
-                                        </a> --}}
+                                <div class="d-flex align-items-baseline gap-2 pb-3">
+                                    <a href="{{ route('operateurs.parStatutCommission.excel', ['statut' => $statut, 'commission' => $commissionagrement->id]) }}"
+                                        class="btn btn-success btn-sm" title="Exporter la liste des opérateurs en Excel">
+                                        <i class="bi bi-file-earmark-excel"></i> Exporter opérateurs (Excel)
+                                    </a>
 
-                                        {{-- Export opérateurs en PDF --}}
-                                        {{-- <a href="{{ route('operateurs.parStatutCommission.pdf', ['statut' => $statut, 'commission' => $commissionagrement->id]) }}"
-                                            class="btn btn-danger btn-sm" title="Exporter la liste des opérateurs en PDF">
-                                            <i class="bi bi-file-earmark-pdf"></i> Exporter opérateurs (PDF)
-                                        </a> --}}
-
-                                        {{-- Export opérateurs en Excel --}}
-                                        <a href="{{ route('operateurs.parStatutCommission.excel', ['statut' => $statut, 'commission' => $commissionagrement->id]) }}"
-                                            class="btn btn-success btn-sm"
-                                            title="Exporter la liste des opérateurs en Excel">
-                                            <i class="bi bi-file-earmark-excel"></i> Exporter opérateurs (Excel)
-                                        </a>
-
-                                    </div>
                                 </div>
 
                                 <div class="table-responsive">
@@ -157,6 +139,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 @endsection
 @push('scripts')
