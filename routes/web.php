@@ -20,6 +20,7 @@ use App\Http\Controllers\DecretController;
 use App\Http\Controllers\DemandeurController;
 use App\Http\Controllers\DepartController;
 use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\DetfController;
 use App\Http\Controllers\DirectionController;
 use App\Http\Controllers\DomaineController;
 use App\Http\Controllers\EmailController;
@@ -89,6 +90,7 @@ use App\Http\Controllers\ValidationoperateurController;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
+
 
 
 
@@ -975,6 +977,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('parc-affectations', ParcAffectationController::class);
         Route::resource('parc-employee-missions', ParcEmployeeMissionController::class);
         Route::resource('parc-type-missions', ParcTypeMissionController::class);
+        Route::resource('detfs', DetfController::class);
 
         Route::middleware('admin')->group(function () {
             Route::get('/manuels', [BookController::class, 'index'])->name('manuels.index');
