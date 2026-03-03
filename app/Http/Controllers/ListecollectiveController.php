@@ -56,7 +56,7 @@ class ListecollectiveController extends Controller
             "lieu_naissance" => "required|string",
             "module"         => "required|string",
             "niveau_etude"   => "nullable|string",
-            "telephone"      => "nullable|string|min:9|max:12",
+            "telephone"      => "nullable|string|size:9",
             "cin" => [
                 "required",
                 "string",
@@ -231,7 +231,7 @@ class ListecollectiveController extends Controller
             "lieu_naissance" => "required|string",
             "module"         => "required|string",
             "niveau_etude"   => "nullable|string",
-            "telephone"      => "nullable|string|min:9|max:12",
+            "telephone"      => "nullable|string|size:9",
             "cin" => [
                 "required",
                 "string",

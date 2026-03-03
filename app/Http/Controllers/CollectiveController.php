@@ -282,7 +282,7 @@ class CollectiveController extends Controller
             "email"                 => ["required", "string", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "fixe"                  => ["nullable", "string", "size:12", Rule::unique('collectives')->where(function ($query) {
+            "fixe"                  => ["nullable", "string", "size:9", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
             "telephone"             => ["required", "string", Rule::unique('collectives')->where(function ($query) {
@@ -298,7 +298,7 @@ class CollectiveController extends Controller
             "prenom"                => ["required", "string"],
             "nom"                   => ["required", "string"],
             "fonction_responsable"  => ["required", "string"],
-            "telephone_responsable" => ["required", "string", "size:12", Rule::unique('collectives')->where(function ($query) {
+            "telephone_responsable" => ["required", "string", "size:9", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
             "email_responsable"     => ["required", "string", Rule::unique('collectives')->where(function ($query) {
@@ -489,10 +489,10 @@ class CollectiveController extends Controller
                     }
                 },
             ],
-            "fixe"                  => ["nullable", "string", "size:12", Rule::unique('collectives')->where(function ($query) {
+            "fixe"                  => ["nullable", "string", "size:9", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "telephone"             => ["required", "string", "size:12", Rule::unique('collectives')->where(function ($query) {
+            "telephone"             => ["required", "string", "size:9", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
             'date_depot'            => ['required', 'date', 'size:10', 'date_format:Y-m-d'],
@@ -506,7 +506,7 @@ class CollectiveController extends Controller
             "prenom"                => ["required", "string"],
             "nom"                   => ["required", "string"],
             "fonction_responsable"  => ["required", "string"],
-            "telephone_responsable" => ["required", "string", "size:12", Rule::unique('collectives')->where(function ($query) {
+            "telephone_responsable" => ["required", "string", "size:9", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
             "email_responsable"     => ["required", "string", Rule::unique('collectives')->where(function ($query) {
@@ -654,10 +654,10 @@ class CollectiveController extends Controller
             "email"                 => ["required", "string", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })->ignore($collective->id)],
-            "fixe"                  => ["nullable", "string", "size:12", Rule::unique('collectives')->where(function ($query) {
+            "fixe"                  => ["nullable", "string", "size:9", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })->ignore($collective->id)],
-            "telephone"             => ["required", "string", "size:12", Rule::unique('collectives')->where(function ($query) {
+            "telephone"             => ["required", "string", "size:9", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })->ignore($collective->id)],
             'date_depot'            => ['nullable', 'date', 'size:10', 'date_format:Y-m-d'],
@@ -671,7 +671,7 @@ class CollectiveController extends Controller
             "prenom"                => ["required", "string"],
             "nom"                   => ["required", "string"],
             "fonction_responsable"  => ["required", "string"],
-            "telephone_responsable" => ["required", "string", "size:12", Rule::unique('collectives')->where(function ($query) {
+            "telephone_responsable" => ["required", "string", "size:9", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })->ignore($collective->id)],
             "email_responsable"     => ["required", "string", Rule::unique('collectives')->where(function ($query) {
