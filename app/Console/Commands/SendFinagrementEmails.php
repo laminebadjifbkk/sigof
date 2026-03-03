@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Console\Commands;
 
 use App\Mail\FinAgrementMail;
@@ -29,8 +30,8 @@ class SendFinagrementEmails extends Command
     public function handle()
     {
         /*  $today = Carbon::today()->format('Y-m-d'); // On compare seulement mois et jour */
-        $today = Carbon::today()->subYears(5)->format('Y-m-d'); //Récupérer les opérateurs dont la date agrement est il y a 2 ans
-        /* $today = Carbon::today()->format('Y-m-d'); */
+        //$today = Carbon::today()->subYears(5)->format('Y-m-d'); //Récupérer les opérateurs dont la date agrement est il y a 2 ans
+        $limitDate = Carbon::today()->subYears(5);
         /* dd($today); */
 
         $commissionagrements = Commissionagrement::get();
@@ -39,8 +40,13 @@ class SendFinagrementEmails extends Command
             /* dd($commissionagrement->operateurs); */
             /* $commission = $commissionagrement::whereRaw("DATE_FORMAT(DATE_ADD(date, INTERVAL 2 DAY), '%Y-%m-%d') = ?", [$today])->get();
              */
-            $commission = $commissionagrement::whereRaw("DATE_FORMAT(fin_commission, '%Y-%m-%d') = ?", [$today])->first();
+            //$commission = $commissionagrement::whereRaw("DATE_FORMAT(fin_commission, '%Y-%m-%d') = ?", [$today])->first();
             /* $commission = $commissionagrement::whereRaw("DATE_FORMAT(DATE_ADD(date, INTERVAL 1 DAY), '%Y-%m-%d') = ?", [$today])->first(); */
+
+            $commission = Commissionagrement::whereDate('fin_commission', '<=', $limitDate)
+                ->first();
+
+            dd($commission);
 
             /* dd($commission->operateurs); */
             if (! empty($commission)) {
