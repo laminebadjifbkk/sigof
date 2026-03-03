@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Console\Commands;
 
 use App\Mail\FinAgrementMail;
@@ -29,24 +28,31 @@ class SendFinagrementEmails extends Command
      */
     public function handle()
     {
-        $limitDate = Carbon::today()->subYears(5);
+        /*  $today = Carbon::today()->format('Y-m-d'); // On compare seulement mois et jour */
+        $today = Carbon::today()->subYears(5)->format('Y'); //Récupérer les opérateurs dont la date agrement est il y a 2 ans
+        /* $today = Carbon::today()->format('Y-m-d'); */
 
-        $commissions = Commissionagrement::whereDate('fin_commission', '<=', $limitDate)
-            ->with('operateurs.user')
-            ->get(); // ← get() pour récupérer toutes les commissions
+        $commissionagrements = Commissionagrement::get();
 
-        dd($commissions);
+        foreach ($commissionagrements as $commissionagrement) {
+            /* dd($commissionagrement->operateurs); */
+            /* $commission = $commissionagrement::whereRaw("DATE_FORMAT(DATE_ADD(date, INTERVAL 2 DAY), '%Y-%m-%d') = ?", [$today])->get();
+             */
+            $commission = $commissionagrement::whereRaw("DATE_FORMAT(fin_commission, '%Y') = ?", [$today])->first();
+            /* $commission = $commissionagrement::whereRaw("DATE_FORMAT(DATE_ADD(date, INTERVAL 1 DAY), '%Y-%m-%d') = ?", [$today])->first(); */
 
-        foreach ($commissions as $commission) {
-
-            foreach ($commission->operateurs as $operateur) {
-                if ($operateur->statut_agrement === 'agréé') {
-                    $operateur->update(['statut_agrement' => 'expiré']);
-                    // Mail::to($operateur->user?->email)->send(new FinAgrementMail($operateur));
+            dd($commission);
+            
+            /* dd($commission->operateurs); */
+            if (! empty($commission)) {
+                foreach ($commission?->operateurs as $key => $operateur) {
+                    if (! empty($operateur) && $operateur->statut_agrement == 'agréé') {
+                        $operateur->update(['statut_agrement' => 'expiré']);
+                        Mail::to($operateur?->user?->email)->send(new FinAgrementMail($operateur));
+                    }
                 }
             }
         }
-
-        $this->info("Les e-mails de fin d'agrément ont été envoyés avec succès.");
+        $this->info('Les e-mails de fin d\'agrement des opérateurs ont été envoyés avec succès.');
     }
 }
