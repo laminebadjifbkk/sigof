@@ -28,8 +28,8 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->runInBackground();
         /* $schedule->command('individuelles:mark-non-conformes')->dailyAt('18:00'); */ // Exécute chaque jour à 01h du matin
-        foreach ([1, 5] as $day) {
-            $schedule->command('groupes:verifier-vingt')->weeklyOn($day, '07:00'); // Lundi et Vendredi à 7h
+        foreach ([2, 5] as $day) {
+            $schedule->command('groupes:verifier-vingt')->weeklyOn($day, '09:42'); // Lundi et Vendredi à 7h
         }
         $schedule->command('email:send-evaluation-reminders')->dailyAt('08:20');
         $schedule->command('formation:start')->dailyAt('08:30');        // Démarre les formations prévues pour aujourd'hui à 08h30
