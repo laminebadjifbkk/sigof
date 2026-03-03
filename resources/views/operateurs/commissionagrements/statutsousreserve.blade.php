@@ -148,6 +148,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    </table>
                                 </div>
                             </div>
                             {{-- </form> --}}
