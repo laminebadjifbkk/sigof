@@ -47,6 +47,7 @@ class SendFinagrementEmails extends Command
                 foreach ($commission?->operateurs as $key => $operateur) {
                     if (! empty($operateur) && $operateur->statut_agrement == 'agréé') {
                         $operateur->update(['statut_agrement' => 'expiré']);
+                        $commission->update(['statut' => 'Expiré']);
                         foreach ($operateur->operateurmodules as $key => $operateurmodule) {
                             $operateurmodule->update(['statut' => 'expiré']);
                         }
