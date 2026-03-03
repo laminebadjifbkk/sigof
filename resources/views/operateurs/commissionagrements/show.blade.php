@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'OPERATEURS | ' . $commissionagrement?->commission)
+@section('title', $commissionagrement?->commission)
 @section('space-work')
     <section class="section dashboard">
         <div class="pagetitle">

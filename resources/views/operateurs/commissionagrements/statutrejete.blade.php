@@ -36,12 +36,14 @@
                                     class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                             <p> | Retour</p>
                         </span>
-                        <div
-                            class="card-title d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
-                            <span>{{ $commissionagrement?->commission }}</span>
-                            <span class="d-flex align-items-baseline">
-                                <span class="{{ $statut }} text-white">{{ $statut }}</span></span>
-                        </div>
+                        <h4 class="card-title">
+                            <div
+                                class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
+                                <span>{{ $commissionagrement?->commission }}</span>
+                                <span class="d-flex align-items-baseline">
+                                    <span class="{{ $statut }} text-white">{{ $statut }}</span></span>
+                            </div>
+                        </h4>
                         <div class="row mb-0">
                             <div class="col-md-12">
                                 <div class="float-end mb-3">
@@ -155,7 +157,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 @endsection
 @push('scripts')
