@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Liste des missions')
+@section('title', 'ONFP - Liste des DETFS')
 
 @section('space-work')
     <section class="section register">
@@ -16,7 +16,7 @@
                                 style="width:36px; height:36px; font-size:1rem;">
                                 <i class="bi bi-flag"></i>
                             </div>
-                            <span class="h6 mb-0" style="font-size:1rem;">{{ $totalMissions }}</span>
+                            <span class="h6 mb-0" style="font-size:1rem;">{{ $total }}</span>
                             {{-- <small class="text-muted" style="font-size:0.7rem;">mission(s)</small> --}}
                         </div>
 
@@ -31,45 +31,6 @@
                         <!-- Bouton voir plus -->
                         <a href="{{ route('parc-missions.index') }}" class="btn btn-outline-primary btn-sm w-100"
                             style="font-size:0.75rem;">
-                            Voir plus <i class="bi bi-arrow-right-short"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Missions de l'année en cours -->
-                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                    <div class="card shadow-sm text-center p-2" style="min-height: 140px; border-radius: 10px;">
-                        {{-- <h6 class="card-title mb-2 text-truncate" title="Missions cette année" style="font-size:0.85rem;">
-                            Cette année
-                        </h6> --}}
-                        <h6 class="card-title mb-2 text-truncate missions-title" title="Missions cette année">
-                            Année {{ now()->year }}
-                        </h6>
-
-                        <div class="d-flex flex-column align-items-center justify-content-center mb-2">
-                            <div class="rounded-circle bg-success text-white d-flex justify-content-center align-items-center mb-1"
-                                style="width:36px; height:36px; font-size:1rem;">
-                                <i class="bi bi-calendar"></i>
-                            </div>
-                            <span class="h6 mb-0" style="font-size:1rem;">{{ $missionsAnnee }}</span>
-                            {{-- <small class="text-muted" style="font-size:0.7rem;">mission(s)</small> --}}
-                        </div>
-
-                        <!-- Barre de pourcentage -->
-                        <div class="mb-2">
-                            @php
-                                $percentAnnee = $totalMissions ? round(($missionsAnnee * 100) / $totalMissions, 1) : 0;
-                            @endphp
-                            <div class="progress" style="height:6px; border-radius:3px;">
-                                <div class="progress-bar bg-success" role="progressbar"
-                                    style="width: {{ $percentAnnee }}%;"></div>
-                            </div>
-                            <small class="text-muted">{{ $percentAnnee }}%</small>
-                        </div>
-
-                        <!-- Bouton voir plus -->
-                        <a href="{{ route('parc-missions.index', ['annee' => now()->year]) }}"
-                            class="btn btn-outline-primary btn-sm w-100" style="font-size:0.75rem;">
                             Voir plus <i class="bi bi-arrow-right-short"></i>
                         </a>
                     </div>
@@ -120,7 +81,7 @@
             @can('parc-mission-create')
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h3 class="mb-0">
-                        Liste des missions
+                        Liste des DETFS
                         <span class="etat-btn">
 
                             @if (!empty(request('statut')))
@@ -132,8 +93,8 @@
                             @endif
                         </span>
                     </h3>
-                    <a href="{{ route('parc-missions.create') }}" class="btn btn-sm btn-primary">
-                        <i class="bi bi-plus-circle"></i> Ajouter une mission
+                    <a href="{{ route('detfs.create') }}" class="btn btn-sm btn-primary">
+                        <i class="bi bi-plus-circle"></i> Ajouter
                     </a>
                 </div>
             @endcan
@@ -170,7 +131,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($missions as $mission)
+                        @foreach ($detfs as $mission)
                             <tr>
                                 {{--  <td>{{ $mission->reference }}</td> --}}
                                 <td>

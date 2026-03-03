@@ -99,12 +99,21 @@ class ParcMissionController extends Controller
         $totalMissions = $total;
         $missionsAnnee = ParcMission::whereYear('date_depart', now()->year)->count();
 
+          // Vérifier si un statut est passé
+        $labels = [
+            'planifiee' => 'Planifiées',
+            'en_cours' => 'En cours',
+            'terminee' => 'Terminées',
+            'annulee' => 'Annulées',
+        ];
+
         return view('parc.missions.index', compact(
             'missions',
             'groupes',
             'statutPourcentages',
             'totalMissions',
             'missionsAnnee',
+            'labels',
             'statut'
         ));
     }

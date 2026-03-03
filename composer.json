@@ -25,6 +25,7 @@
         "laraveldaily/laravel-charts": "^0.2.3",
         "maatwebsite/excel": "^3.1",
         "mews/purifier": "^3.4",
+        "phpoffice/phpword": "^1.4",
         "predis/predis": "^2.3",
         "realrashid/sweet-alert": "^7.1",
         "sendinblue/api-v3-sdk": "^8.4",
