@@ -20,7 +20,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('backup:run')->dailyAt('02:00');   // Sauvegarde tous les jours à 2h du matin */
         $schedule->command('db:backup')->dailyAt('03:00');
         /* $schedule->command('email:send-birthday')->dailyAt('00:00'); */
-        /* $schedule->command('email:send-finagrement')->dailyAt('08:00'); */
+        $schedule->command('email:send-finagrement')->dailyAt('08:00');
         /* $schedule->command('email:notify-end-agreements')->dailyAt('08:10'); */
         $schedule->command('email:send-training-reminders')->dailyAt('08:15'); // Informer les collègues du Démarre les formations prévues pour aujourd'hui à 08h35
         $schedule->command('projets:fermer-modules')

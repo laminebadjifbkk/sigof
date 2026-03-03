@@ -29,7 +29,7 @@ class SendFinagrementEmails extends Command
     public function handle()
     {
         /*  $today = Carbon::today()->format('Y-m-d'); // On compare seulement mois et jour */
-        $today = Carbon::today()->subYears(2)->format('Y-m-d'); //Récupérer les opérateurs dont la date agrement est il y a 2 ans
+        $today = Carbon::today()->subYears(5)->format('Y-m-d'); //Récupérer les opérateurs dont la date agrement est il y a 2 ans
         /* $today = Carbon::today()->format('Y-m-d'); */
         /* dd($today); */
 
@@ -39,15 +39,15 @@ class SendFinagrementEmails extends Command
             /* dd($commissionagrement->operateurs); */
             /* $commission = $commissionagrement::whereRaw("DATE_FORMAT(DATE_ADD(date, INTERVAL 2 DAY), '%Y-%m-%d') = ?", [$today])->get();
              */
-            $commission = $commissionagrement::whereRaw("DATE_FORMAT(date, '%Y-%m-%d') = ?", [$today])->first();
+            $commission = $commissionagrement::whereRaw("DATE_FORMAT(fin_commission, '%Y-%m-%d') = ?", [$today])->first();
             /* $commission = $commissionagrement::whereRaw("DATE_FORMAT(DATE_ADD(date, INTERVAL 1 DAY), '%Y-%m-%d') = ?", [$today])->first(); */
 
             /* dd($commission->operateurs); */
             if (! empty($commission)) {
                 foreach ($commission?->operateurs as $key => $operateur) {
                     if (! empty($operateur) && $operateur->statut_agrement == 'agréé') {
-                        $operateur->update(['statut_agrement' => 'expirer']);
-                        Mail::to($operateur?->user?->email)->send(new FinAgrementMail($operateur));
+                        $operateur->update(['statut_agrement' => 'expiré']);
+                        //Mail::to($operateur?->user?->email)->send(new FinAgrementMail($operateur));
                     }
                 }
             }

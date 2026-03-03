@@ -1,6 +1,7 @@
 <?php
 namespace App\Console\Commands;
 
+use App\Mail\FinAgrementMail;
 use App\Models\Commissionagrement;
 use App\Models\User;
 use Carbon\Carbon;
@@ -25,7 +26,7 @@ class NotifyEndAgreements extends Command
         $commissionagrements = Commissionagrement::get();
 
         foreach ($commissionagrements as $commissionagrement) {
-            $commission = $commissionagrement::whereRaw("DATE_FORMAT(date, '%Y-%m-%d') = ?", [$today])->first();
+            $commission = $commissionagrement::whereRaw("DATE_FORMAT(fin_commission, '%Y-%m-%d') = ?", [$today])->first();
             if (! empty($commission)) {
                 foreach ($commission?->operateurs as $key => $operateur) {
                     if (! empty($operateur) && $operateur->statut_agrement == 'expirer') {
