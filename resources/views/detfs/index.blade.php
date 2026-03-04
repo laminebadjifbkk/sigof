@@ -78,7 +78,7 @@
                 @endforeach
             </div>
 
-            @can('parc-mission-create')
+            @can('detf-create')
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h3 class="mb-0">
                         LISTE DES DETFS
@@ -125,6 +125,7 @@
                             <th>Ingénieur</th>
                             <th>Opérateur</th>
                             <th class="text-center" width="12%">Statut</th>
+                            <th class="text-center">Budget</th>
                             <th class="text-center" width="12%">Actions</th>
                         </tr>
                     </thead>
@@ -143,6 +144,11 @@
                                     <span class="etat-btn {{ $detf->etat }}">
                                         {{ $detf->etat }}
                                     </span>
+                                </td>
+                                <td>
+                                    <a href="{{ route('detfs.budget.edit', $detf->id) }}" class="btn btn-sm btn-primary">
+                                        <i class="bi bi-pencil-square"></i> Compléter
+                                    </a>
                                 </td>
                                 <td class="text-center">
                                     <span class="d-flex align-items-baseline justify-content-center gap-1">

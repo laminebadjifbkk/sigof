@@ -8,8 +8,13 @@ class BudgetLabel extends Model
 {
     protected $fillable = ['libelle', 'description'];
 
-    public function budgetItems()
+   /*  public function budgetItems()
     {
         return $this->hasMany(DetfsBudgetItem::class);
+    } */
+
+    public function budgetItems()
+    {
+        return $this->hasMany(DetfsBudgetItem::class, 'label_id');
     }
 }

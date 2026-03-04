@@ -8,9 +8,9 @@ class DetfsBudgetItem extends Model
 {
     protected $fillable = ['detfs_id', 'budget_label_id', 'unite', 'quantite', 'prix_unitaire', 'montant', 'notes'];
 
-    public function detfs()
+    public function detf()
     {
-        return $this->belongsTo(Detf::class);
+        return $this->belongsTo(Detf::class, 'detfs_id');
     }
 
     public function label()

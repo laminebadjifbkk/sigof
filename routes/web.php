@@ -5,6 +5,7 @@ use App\Http\Controllers\ArriveController;
 use App\Http\Controllers\ArrondissementController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BudgetLabelController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CollectiveController;
 use App\Http\Controllers\CollectivemoduleController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\DecretController;
 use App\Http\Controllers\DemandeurController;
 use App\Http\Controllers\DepartController;
 use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\DetfBudgetItemController;
 use App\Http\Controllers\DetfController;
 use App\Http\Controllers\DirectionController;
 use App\Http\Controllers\DomaineController;
@@ -90,6 +92,8 @@ use App\Http\Controllers\ValidationoperateurController;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
+
+
 
 
 
@@ -978,6 +982,19 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('parc-employee-missions', ParcEmployeeMissionController::class);
         Route::resource('parc-type-missions', ParcTypeMissionController::class);
         Route::resource('detfs', DetfController::class);
+        Route::resource('budget-labels', BudgetLabelController::class);
+
+        Route::prefix('detfs/{detf}')->group(function () {
+            Route::resource('budget-items', DetfBudgetItemController::class);
+        });
+
+        // Page pour compléter le budget d'un DETF
+        Route::get('detfs/{detf}/budget', [DetfBudgetItemController::class, 'editBudget'])
+            ->name('detfs.budget.edit');
+
+        // Pour stocker une ligne budgétaire
+        Route::post('detfs/{detf}/budget-items', [DetfBudgetItemController::class, 'store'])
+            ->name('detfs.budget-items.store');
 
         Route::middleware('admin')->group(function () {
             Route::get('/manuels', [BookController::class, 'index'])->name('manuels.index');

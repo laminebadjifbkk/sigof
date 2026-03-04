@@ -73,4 +73,9 @@ class Detf extends Model
 	{
 		return $this->belongsTo(Operateur::class, 'operateurs_id');
 	}
+
+	public function budgetItems()
+	{
+		return $this->hasMany(DetfsBudgetItem::class, 'detfs_id');
+	}
 }

@@ -380,7 +380,15 @@
                     @can('convention-view')
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('showConventions') }}">
-                                <span>Conventions & DETF</span>
+                                <span>Conventions</span>
+                            </a>
+                        </li>
+                    @endcan
+
+                    @can('detf-view')
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('detfs.index') }}">
+                                <span>DETF</span>
                             </a>
                         </li>
                     @endcan
