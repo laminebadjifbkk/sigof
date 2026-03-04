@@ -928,6 +928,14 @@
                                             </p>
                                         @endif
                                     </div>
+                                    <div class="col-12">
+                                        @if (Route::has('password.request'))
+                                            <p class="small mb-0">Vous n'avez pas de compte ?
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#registerDemandeurModal">S'inscrire</a>
+                                            </p>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </form>
