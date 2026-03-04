@@ -5,6 +5,7 @@ namespace App\Services;
 use SendinBlue\Client\Api\TransactionalEmailsApi;
 use SendinBlue\Client\Configuration;
 use SendinBlue\Client\Model\SendSmtpEmail;
+use GuzzleHttp\Client;
 
 class BrevoMailer
 {
