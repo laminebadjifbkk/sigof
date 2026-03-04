@@ -15,7 +15,7 @@
         @endif
 
         <div class="card mb-4">
-            <div class="card-header bg-warning text-white">
+            <div class="card-header bg-light text-dark">
                 <strong>Modifier la ligne budgétaire</strong>
             </div>
             <div class="card-body">
@@ -27,7 +27,7 @@
 
                         <div class="col-md-6">
                             <label class="form-label">Libellé<span class="text-danger">
-                                        *</span></label>
+                                    *</span></label>
                             <select name="label_id" class="form-select form-select-sm">
                                 <option value="">-- Choisir un libellé --</option>
                                 @foreach ($labels as $label)
@@ -50,21 +50,23 @@
 
                         <div class="col-md-6">
                             <label class="form-label">Quantité <span class="text-danger">
-                                        *</span></label>
+                                    *</span></label>
                             <input type="number" name="quantite" class="form-control form-control-sm"
                                 value="{{ old('quantite', $budgetItem->quantite) }}" min="0">
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label">Prix Unitaire<span class="text-danger">
-                                        *</span></label>
+                                    *</span></label>
                             <input type="number" name="prix_unitaire" class="form-control form-control-sm"
                                 value="{{ old('prix_unitaire', $budgetItem->prix_unitaire) }}" min="0"
                                 step="0.01">
                         </div>
 
                         <div class="col-md-2">
-                            <button type="submit" class="btn btn-warning btn-sm w-100">Modifier</button>
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <i class="bi bi-pencil-square"></i> Mettre à jour
+                            </button>
                         </div>
 
                     </div>
