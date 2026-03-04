@@ -446,7 +446,7 @@ class CollectiveController extends Controller
                 "nom_responsable"        => $request->input("nom"),
                 "telephone_responsable"  => $request->input("telephone_responsable"),
                 "fonction_responsable"   => $request->input("fonction_responsable"),
-                "departements_id"        => $$request->departement,
+                "departements_id"        => $request->departement,
                 /* "modules_id"                =>       $module_find->id, */
                 "regions_id"             => $regionid,
                 /* "demandeurs_id"             =>       $demandeur->id, */
