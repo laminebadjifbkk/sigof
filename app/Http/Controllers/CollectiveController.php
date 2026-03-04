@@ -126,7 +126,7 @@ class CollectiveController extends Controller
         $query = Collective::with('region')
             ->whereYear('date_depot', $annee);
 
-             // Filtre par région si fourni
+        // Filtre par région si fourni
         if ($request->filled('region')) {
             $query->where('regions_id', $request->region);
         }
@@ -418,7 +418,9 @@ class CollectiveController extends Controller
             } while ($exists);
 
             // Récupération de l'ID de la région
-            $departement = Departement::where("nom", $request->input("departement"))->first();
+            $departement = Departement::findOrFail($request->departement);
+
+
             $regionid    = $departement->region->id;
 
             /* $module_find    = DB::table('modules')->where('name', $request->input("module"))->first(); */
@@ -444,7 +446,7 @@ class CollectiveController extends Controller
                 "nom_responsable"        => $request->input("nom"),
                 "telephone_responsable"  => $request->input("telephone_responsable"),
                 "fonction_responsable"   => $request->input("fonction_responsable"),
-                "departements_id"        => $departement->id,
+                "departements_id"        => $$request->departement,
                 /* "modules_id"                =>       $module_find->id, */
                 "regions_id"             => $regionid,
                 /* "demandeurs_id"             =>       $demandeur->id, */
@@ -634,7 +636,6 @@ class CollectiveController extends Controller
 
     public function update(Request $request, Collective $collective)
     {
-
         /* $projetPurifie = Purifier::clean($request->projetprofessionnel, 'default'); */
 
 
@@ -679,7 +680,8 @@ class CollectiveController extends Controller
             })->ignore($collective->id)],
         ]);
 
-        $departement = Departement::where('nom', $request->input("departement"))->first();
+        $departement = Departement::findOrFail($request->departement);
+
         $regionid    = $departement->region->id;
 
         /* foreach (Auth::user()->roles as $key => $role) {
@@ -768,7 +770,7 @@ class CollectiveController extends Controller
             "nom_responsable"        => $request->input("nom"),
             "telephone_responsable"  => $request->input("telephone_responsable"),
             "fonction_responsable"   => $request->input("fonction_responsable"),
-            "departements_id"        => $departement->id,
+            "departements_id"        => $request->departement,
             "regions_id"             => $regionid,
             "users_id"               => $user_id,
         ];

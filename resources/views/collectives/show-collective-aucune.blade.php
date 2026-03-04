@@ -548,7 +548,7 @@
                                                 <option value="">-- Choisir un département --</option>
 
                                                 @foreach ($departements as $departement)
-                                                    <option value="{{ $departement->nom }}"
+                                                    <option value="{{ $departement->id }}"
                                                         {{ old('departement') == $departement->nom ? 'selected' : '' }}>
                                                         {{ $departement->nom }}
                                                     </option>

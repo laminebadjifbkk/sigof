@@ -233,10 +233,10 @@
                                     <select name="departement"
                                         class="form-select form-select-sm @error('departement') is-invalid @enderror"
                                         aria-label="Select" id="select-field-departement" data-placeholder="Choisir">
-                                        <option value="{{ $collective?->departement?->nom }}">
+                                        <option value="{{ $collective?->departement?->id }}">
                                             {{ $collective?->departement?->nom }}</option>
                                         @foreach ($departements as $departement)
-                                            <option value="{{ $departement->nom }}">
+                                            <option value="{{ $departement->id }}">
                                                 {{ $departement->nom }}
                                             </option>
                                         @endforeach
