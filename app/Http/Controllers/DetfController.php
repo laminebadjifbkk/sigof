@@ -121,48 +121,90 @@ class DetfController extends Controller
     {
         $detf = Detf::with('budgetItems.label')->findOrFail($id);
 
+        // Regrouper par type (fournitures, honoraires, logistique)
+        $grouped = $detf->budgetItems->groupBy(function ($item) {
+            return $item->label->type ?? 'Autres';
+        });
+
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
 
-        // Titre DETF
-        $section->addTitle("DETF: {$detf->numero}", 1);
+        // ==============================
+        // INFOS DETF
+        // ==============================
+        $section->addTitle("DETF : {$detf->numero}", 1);
         $section->addText("Intitulé : {$detf->titre1}");
         $section->addText("Bénéficiaires : {$detf->titre2}");
-        $section->addText("Opérateur : {$detf->operateur?->user?->operateur}");
-        $section->addText("Ingénieur : {$detf->ingenieur?->user?->firstname} {$detf->ingenieur?->user?->name}");
+        $section->addText("Opérateur : " . ($detf->operateur?->user?->operateur ?? ''));
+        $section->addText("Ingénieur : " . ($detf->ingenieur?->user?->firstname ?? '') . ' ' . ($detf->ingenieur?->user?->name ?? ''));
+        $section->addTextBreak(1);
 
-        // Tableau budget
-        $table = $section->addTable(['borderSize' => 6, 'borderColor' => '000000']);
+        $totalGeneral = 0;
 
-        // Entête
-        $table->addRow();
-        $table->addCell(3000)->addText('Libellé');
-        $table->addCell(1500)->addText('Unité');
-        $table->addCell(1500)->addText('Quantité');
-        $table->addCell(2000)->addText('Prix Unitaire');
-        $table->addCell(2000)->addText('Montant');
+        // ==============================
+        // BOUCLE PAR TYPE (3 TABLEAUX)
+        // ==============================
+        foreach ($grouped as $type => $items) {
 
-        // Lignes
-        foreach ($detf->budgetItems as $item) {
+            $section->addTitle(strtoupper($type), 2);
+
+            $table = $section->addTable([
+                'borderSize' => 6,
+                'borderColor' => '000000'
+            ]);
+
+            // Entête
             $table->addRow();
-            $table->addCell(3000)->addText($item->label->libelle);
-            $table->addCell(1500)->addText($item->unite);
-            $table->addCell(1500)->addText($item->quantite);
-            $table->addCell(2000)->addText(number_format($item->prix_unitaire, 0, ',', ' '));
-            $table->addCell(2000)->addText(number_format($item->montant, 0, ',', ' '));
+            $table->addCell(3000)->addText('Libellé', ['bold' => true]);
+            $table->addCell(1500)->addText('Unité', ['bold' => true]);
+            $table->addCell(1500)->addText('Quantité', ['bold' => true]);
+            $table->addCell(2000)->addText('Prix Unitaire', ['bold' => true]);
+            $table->addCell(2000)->addText('Montant', ['bold' => true]);
+
+            $sousTotal = 0;
+
+            foreach ($items as $item) {
+
+                $table->addRow();
+                $table->addCell(3000)->addText($item->label->libelle);
+                $table->addCell(1500)->addText($item->unite);
+                $table->addCell(1500)->addText($item->quantite);
+                $table->addCell(2000)->addText(number_format($item->prix_unitaire, 0, ',', ' '));
+                $table->addCell(2000)->addText(number_format($item->montant, 0, ',', ' '));
+
+                $sousTotal += $item->montant;
+            }
+
+            // Sous-total par type
+            $table->addRow();
+            $table->addCell(8000, ['gridSpan' => 4])
+                ->addText('Sous-total', ['bold' => true]);
+            $table->addCell(2000)
+                ->addText(number_format($sousTotal, 0, ',', ' '), ['bold' => true]);
+
+            $section->addTextBreak(1);
+
+            $totalGeneral += $sousTotal;
         }
 
-        // Total
-        $table->addRow();
-        $table->addCell(3000, ['gridSpan' => 4, 'valign' => 'center'])->addText('Total', ['bold' => true]);
-        $table->addCell(2000)->addText(number_format($detf->budgetItems->sum('montant'), 0, ',', ' '), ['bold' => true]);
+        // ==============================
+        // TOTAL GENERAL
+        // ==============================
+        $section->addText(
+            "TOTAL GENERAL : " . number_format($totalGeneral, 0, ',', ' ') . " FCFA",
+            ['bold' => true, 'size' => 14]
+        );
 
+        // ==============================
+        // TELECHARGEMENT
+        // ==============================
         $fileName = "DETF_{$detf->numero}.docx";
+
         header("Content-Description: File Transfer");
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
         header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
         header('Content-Transfer-Encoding: binary');
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Cache-Control: must-revalidate');
         header('Expires: 0');
 
         $objWriter = IOFactory::createWriter($phpWord, 'Word2007');

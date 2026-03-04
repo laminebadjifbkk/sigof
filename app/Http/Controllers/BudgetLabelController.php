@@ -22,10 +22,11 @@ class BudgetLabelController extends Controller
     {
         $request->validate([
             'libelle' => 'required|string|max:255|unique:budget_labels,libelle',
+            'type' => 'required|in:fournitures,materiels,intrants',
             'description' => 'nullable|string|max:500',
         ]);
 
-        BudgetLabel::create($request->only('libelle', 'description'));
+        BudgetLabel::create($request->only('libelle', 'type', 'description'));
 
         return redirect()->back()->with('success', 'Libellé créé avec succès.');
     }
@@ -39,10 +40,11 @@ class BudgetLabelController extends Controller
     {
         $request->validate([
             'libelle' => 'required|string|max:255|unique:budget_labels,libelle,' . $budgetLabel->id,
+            'type' => 'required|in:fournitures,materiels,intrants,type,' . $budgetLabel->id,
             'description' => 'nullable|string|max:500',
         ]);
 
-        $budgetLabel->update($request->only('libelle', 'description'));
+        $budgetLabel->update($request->only('libelle', 'type', 'description'));
 
         return redirect()->back()->with('success', 'Libellé mis à jour.');
     }

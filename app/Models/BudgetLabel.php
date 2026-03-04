@@ -6,12 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BudgetLabel extends Model
 {
-    protected $fillable = ['libelle', 'description'];
-
-   /*  public function budgetItems()
-    {
-        return $this->hasMany(DetfsBudgetItem::class);
-    } */
+    protected $fillable = ['libelle', 'type', 'description'];
 
     public function budgetItems()
     {

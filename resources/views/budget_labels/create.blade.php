@@ -5,12 +5,22 @@
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
-        <h2>Ajouter un libellé budgétaire</h2>
+        @can('detf-create')
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="mb-0">
+                    Ajouter un libellé budgétaire
+                </h3>
+                <a href="{{ route('budget-labels.index') }}" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-arrow-left-circle"></i> Retour
+                </a>
+            </div>
+        @endcan
         <form action="{{ route('budget-labels.store') }}" method="POST">
             @csrf
             @include('budget_labels._form')
-            <button type="submit" class="btn btn-success">Enregistrer</button>
-            <a href="{{ route('budget-labels.index') }}" class="btn btn-secondary">Annuler</a>
+            <br>
+            <button type="submit" class="btn btn-sm btn-success">Enregistrer</button>
+            <a href="{{ route('budget-labels.index') }}" class="btn btn-sm btn-secondary">Annuler</a>
         </form>
     </div>
 @endsection
