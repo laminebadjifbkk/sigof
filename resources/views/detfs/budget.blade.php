@@ -99,7 +99,7 @@
                     </div>
 
                     <div class="mt-4 text-end">
-                        <button type="submit" class="btn btn-success px-4">
+                        <button type="submit" class="btn btn-sm btn-success px-4">
                             <i class="bi bi-check-circle"></i> Ajouter au budget
                         </button>
                     </div>
@@ -135,9 +135,20 @@
                                 <th>Quantité</th>
                                 <th>Prix Unitaire</th>
                                 <th>Montant</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
+                            {{-- @foreach ($items as $item)
+                                <tr>
+                                    <td>{{ $item->label->libelle }}</td>
+                                    <td>{{ $item->unite }}</td>
+                                    <td>{{ $item->quantite }}</td>
+                                    <td>{{ number_format($item->prix_unitaire, 0, ',', ' ') }}</td>
+                                    <td>{{ number_format($item->montant, 0, ',', ' ') }}</td>
+                                </tr>
+                            @endforeach --}}
+
                             @foreach ($items as $item)
                                 <tr>
                                     <td>{{ $item->label->libelle }}</td>
@@ -145,6 +156,22 @@
                                     <td>{{ $item->quantite }}</td>
                                     <td>{{ number_format($item->prix_unitaire, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($item->montant, 0, ',', ' ') }}</td>
+                                    <td>
+                                        <a href="{{ route('detfs.budget-items.edit', $item->id) }}"
+                                            class="btn btn-sm btn-warning mb-1">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+
+                                        <form action="{{ route('detfs.budget-items.destroy', $item->id) }}" method="POST"
+                                            class="d-inline"
+                                            onsubmit="return confirm('Voulez-vous vraiment supprimer cette ligne ?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger mb-1">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
 

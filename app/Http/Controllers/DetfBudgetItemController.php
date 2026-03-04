@@ -23,7 +23,7 @@ class DetfBudgetItemController extends Controller
     {
         $request->validate([
             'label_id' => 'required|exists:budget_labels,id',
-            'unite' => 'required|string|max:50',
+            'unite' => 'nullable|string|max:50',
             'quantite' => 'required|numeric|min:0',
             'prix_unitaire' => 'required|numeric|min:0',
         ]);
