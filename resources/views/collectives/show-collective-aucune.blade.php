@@ -232,9 +232,10 @@
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="telephone" class="form-label">Téléphone<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input name="telephone" type="text" maxlength="12"
+                                    <input name="telephone" type="text" maxlength="9"
                                         class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                        id="telephone" value="{{ old('telephone', Auth::user()?->telephone ?? '') }}"
+                                        id="telephone"
+                                        value="{{ old('telephone', str_replace(' ', '', Auth::user()?->telephone) ?? '') }}"
                                         autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                     @error('telephone')
                                         <span class="invalid-feedback" role="alert">
@@ -536,22 +537,27 @@
                                             @enderror
                                         </div>
                                         <div class="col-12 col-lg-6">
-                                            <label for="departement" class="form-label">Département<span
-                                                    class="text-danger mx-1">*</span></label>
+                                            <label for="departement" class="form-label">
+                                                Département <span class="text-danger mx-1">*</span>
+                                            </label>
+
                                             <select name="departement"
                                                 class="form-select form-select-sm @error('departement') is-invalid @enderror"
-                                                aria-label="Select" id="select-field-departement-col"
-                                                data-placeholder="Choisir">
-                                                <option>{{ old('departement') }}</option>
+                                                required>
+
+                                                <option value="">-- Choisir un département --</option>
+
                                                 @foreach ($departements as $departement)
-                                                    <option value="{{ $departement->nom }}">
+                                                    <option value="{{ $departement->nom }}"
+                                                        {{ old('departement') == $departement->nom ? 'selected' : '' }}>
                                                         {{ $departement->nom }}
                                                     </option>
                                                 @endforeach
                                             </select>
+
                                             @error('departement')
                                                 <span class="invalid-feedback" role="alert">
-                                                    <div>{{ $message }}</div>
+                                                    <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         </div>

@@ -200,9 +200,9 @@
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="telephone" class="form-label">Téléphone<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input name="telephone" type="text" maxlength="12"
+                                    <input name="telephone" type="text" maxlength="9"
                                         class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                        id="telephone" value="{{ old('telephone', Auth::user()?->telephone ?? '') }}"
+                                        id="telephone" value="{{ old('telephone', str_replace(' ', '', Auth::user()?->telephone) ?? '') }}"
                                         autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                     @error('telephone')
                                         <span class="invalid-feedback" role="alert">
@@ -366,7 +366,7 @@
                             @csrf
                             <div class="card shadow-lg border-0">
                                 <div class="card-header bg-default text-center py-2 rounded-top">
-                                    <h4 class="mb-0">➕ Formuler une demande de formation individuelle</h4>
+                                    <h4 class="mb-0">Formuler une demande de formation individuelle</h4>
                                 </div>
 
                                 <div class="modal-body row g-4 px-4">
@@ -428,7 +428,7 @@
                                         <input name="telephone_secondaire" type="text" maxlength="12"
                                             class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror"
                                             id="telephone_secondaire"
-                                            value="{{ old('telephone_secondaire', str_replace(' ', '', $individuelle->telephone) ?? '') }}"
+                                            value="{{ old('telephone_secondaire') }}"
                                             autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                         @error('telephone_secondaire')
                                             <span class="invalid-feedback" role="alert">

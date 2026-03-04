@@ -285,7 +285,7 @@ class CollectiveController extends Controller
             "fixe"                  => ["nullable", "string", "size:9", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "telephone"             => ["required", "string", Rule::unique('collectives')->where(function ($query) {
+            "telephone"             => ["required", "string", "size:9", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
             /* "module"                =>      ["required","string"], */

@@ -1024,7 +1024,7 @@ class IndividuelleController extends Controller
             'date_naissance' => ['required', 'date_format:d/m/Y'],
             'lieu_naissance' => ['nullable', 'string'],
             'image'          => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
-            'telephone'      => ['required', 'string', 'min:9', 'max:12'],
+            'telephone'      => ['required', 'string', 'size:9'],
             'adresse'        => ['required', 'string', 'max:255'],
             'roles.*'        => ['nullable', 'string', 'max:255'],
             'email'          => [
@@ -1350,22 +1350,6 @@ class IndividuelleController extends Controller
             ->whereNotNull('file')
             ->distinct()
             ->get();
-
-        /* $user_files = File::where('users_id', $user?->id)
-            ->whereNull('file')
-            ->whereNotIn('sigle', ['AC', 'Arrêté', 'Ninea/RC', 'Permis'])
-            ->distinct()
-            ->get(); */
-
-        /* $user_files = File::whereNull('file')
-            ->whereNotIn('sigle', ['AC', 'Arrêté', 'Ninea/RC', 'Titre', 'Contrat', 'Convention', 'Organigramme', 'Quitus', 'Carte', 'Casier', 'Assurance', 'Lettre'])
-            ->where(function ($query) use ($user) {
-                $query->where('users_id', $user?->id)
-                    ->orWhereNull('users_id');
-            })
-            ->orderBy('sigle')
-            ->distinct()
-            ->get(); */
 
         $user_files = File::whereNull('file')
             ->whereNull('users_id')
