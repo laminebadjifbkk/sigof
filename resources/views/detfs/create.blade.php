@@ -4,9 +4,9 @@
     <section class="section register">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h1 class="mb-0">Créer une nouvelle formation (DETF)</h1>
+                <h3 class="mb-0">Créer une nouvelle formation (DETF)</h3>
                 <a href="{{ route('detfs.index') }}" class="btn btn-outline-secondary btn-sm">
-                    <i class="bi bi-arrow-left-circle"></i> Retour à la liste
+                    <i class="bi bi-arrow-left-circle"></i> Retour
                 </a>
             </div>
 
@@ -34,23 +34,23 @@
 
                         <div class="row g-3">
 
-                            <div class="col-md-6">
-                                <label for="titre1" class="form-label">Titre 1</label>
-                                <input type="text" name="titre1" id="titre1" class="form-control form-control-sm"
+                            <div class="col-md-12">
+                                <label for="titre1" class="form-label">Intitulé</label>
+                                <input type="text" name="titre1" id="titre1" placeholder="Intitulé" class="form-control form-control-sm"
                                     value="{{ old('titre1') }}">
                             </div>
 
-                            <div class="col-md-6">
-                                <label for="titre2" class="form-label">Titre 2</label>
-                                <input type="text" name="titre2" id="titre2" class="form-control form-control-sm"
+                            <div class="col-md-12">
+                                <label for="titre2" class="form-label">Bénéficiaires</label>
+                                <input type="text" name="titre2" id="titre2" placeholder="Bénéficiaires" class="form-control form-control-sm"
                                     value="{{ old('titre2') }}">
                             </div>
 
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <label for="date1" class="form-label">Date</label>
                                 <input type="date" name="date1" id="date1" class="form-control form-control-sm"
                                     value="{{ old('date1') }}">
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-6 col-sm-12">
                                 <label for="operateurs_id" class="form-label">

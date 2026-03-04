@@ -996,6 +996,8 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::post('detfs/{detf}/budget-items', [DetfBudgetItemController::class, 'store'])
             ->name('detfs.budget-items.store');
 
+        Route::get('/detfs/{detf}/export-word', [DetfController::class, 'exportWord'])->name('detfs.export.word');
+
         Route::middleware('admin')->group(function () {
             Route::get('/manuels', [BookController::class, 'index'])->name('manuels.index');
             Route::get('/manuels/create', [BookController::class, 'create'])->name('manuels.create');

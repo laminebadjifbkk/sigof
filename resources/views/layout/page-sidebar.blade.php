@@ -391,6 +391,11 @@
                                 <span>DETF</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('budget-labels.index') }}">
+                                <span>Libellés</span>
+                            </a>
+                        </li>
                     @endcan
                 </ul>
             </li>

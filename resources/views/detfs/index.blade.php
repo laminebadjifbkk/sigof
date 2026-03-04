@@ -132,33 +132,33 @@
                     <tbody>
                         @foreach ($detfs as $detf)
                             <tr>
-                                <td>{{ $detf->numero }}</td>
-                                <td>{{ $detf->titre1 }}</td>
+                                <td>{{ $detf?->numero }}</td>
+                                <td>{{ $detf?->titre1 }}</td>
                                 <td>
-                                    {{ $detf->ingenieur->user->firstname . ' ' . $detf->ingenieur->user->name }}
+                                    {{ $detf?->ingenieur?->user?->firstname . ' ' . $detf?->ingenieur?->user?->name }}
                                 </td>
                                 <td>
-                                    {{ $detf->operateur->user->username ? $detf->operateur->user->username : $detf->operateur->user->operateur }}
+                                    {{ $detf?->operateur?->user?->username ? $detf?->operateur?->user?->username : $detf?->operateur?->user?->operateur }}
                                 </td>
                                 <td class="text-center">
-                                    <span class="etat-btn {{ $detf->etat }}">
-                                        {{ $detf->etat }}
+                                    <span class="etat-btn {{ $detf?->etat }}">
+                                        {{ $detf?->etat }}
                                     </span>
                                 </td>
-                                <td>
-                                    <a href="{{ route('detfs.budget.edit', $detf->id) }}" class="btn btn-sm btn-primary">
+                                <td class="text-center">
+                                    <a href="{{ route('detfs.budget.edit', $detf?->id) }}" class="btn btn-sm btn-outline-success">
                                         <i class="bi bi-pencil-square"></i> Compléter
                                     </a>
                                 </td>
                                 <td class="text-center">
                                     <span class="d-flex align-items-baseline justify-content-center gap-1">
-                                        <a href="{{ route('detfs.show', $detf->id) }}" class="btn btn-sm btn-info">
+                                        <a href="{{ route('detfs.show', $detf?->id) }}" class="btn btn-sm btn-info">
                                             <i class="bi bi-eye"></i>
                                         </a>
-                                        <a href="{{ route('detfs.edit', $detf->id) }}" class="btn btn-sm btn-warning">
+                                        <a href="{{ route('detfs.edit', $detf?->id) }}" class="btn btn-sm btn-warning">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
-                                        <form action="{{ route('detfs.destroy', $detf->id) }}" method="POST"
+                                        <form action="{{ route('detfs.destroy', $detf?->id) }}" method="POST"
                                             class="d-inline">
                                             @csrf
                                             @method('DELETE')

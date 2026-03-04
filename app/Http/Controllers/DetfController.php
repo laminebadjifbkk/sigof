@@ -6,6 +6,8 @@ use App\Models\Detf;
 use App\Models\Ingenieur;
 use App\Models\Operateur;
 use Illuminate\Http\Request;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\IOFactory;
 
 class DetfController extends Controller
 {
@@ -15,7 +17,6 @@ class DetfController extends Controller
         $ingenieurs = Ingenieur::get();
         return view('detfs.create', compact('operateurs', 'ingenieurs'));
     }
-
 
     public function index(Request $request)
     {
@@ -106,5 +107,66 @@ class DetfController extends Controller
         $detf->delete();
 
         return back()->with('success', 'DETF supprimé avec succès.');
+    }
+
+    public function show(Request $request, $id)
+    {
+
+        $detf = Detf::findOrFail($id);
+
+        return view('detfs.show', compact('detf'));
+    }
+
+    public function exportWord($id)
+    {
+        $detf = Detf::with('budgetItems.label')->findOrFail($id);
+
+        $phpWord = new PhpWord();
+        $section = $phpWord->addSection();
+
+        // Titre DETF
+        $section->addTitle("DETF: {$detf->numero}", 1);
+        $section->addText("Intitulé : {$detf->titre1}");
+        $section->addText("Bénéficiaires : {$detf->titre2}");
+        $section->addText("Opérateur : {$detf->operateur?->user?->operateur}");
+        $section->addText("Ingénieur : {$detf->ingenieur?->user?->firstname} {$detf->ingenieur?->user?->name}");
+
+        // Tableau budget
+        $table = $section->addTable(['borderSize' => 6, 'borderColor' => '000000']);
+
+        // Entête
+        $table->addRow();
+        $table->addCell(3000)->addText('Libellé');
+        $table->addCell(1500)->addText('Unité');
+        $table->addCell(1500)->addText('Quantité');
+        $table->addCell(2000)->addText('Prix Unitaire');
+        $table->addCell(2000)->addText('Montant');
+
+        // Lignes
+        foreach ($detf->budgetItems as $item) {
+            $table->addRow();
+            $table->addCell(3000)->addText($item->label->libelle);
+            $table->addCell(1500)->addText($item->unite);
+            $table->addCell(1500)->addText($item->quantite);
+            $table->addCell(2000)->addText(number_format($item->prix_unitaire, 0, ',', ' '));
+            $table->addCell(2000)->addText(number_format($item->montant, 0, ',', ' '));
+        }
+
+        // Total
+        $table->addRow();
+        $table->addCell(3000, ['gridSpan' => 4, 'valign' => 'center'])->addText('Total', ['bold' => true]);
+        $table->addCell(2000)->addText(number_format($detf->budgetItems->sum('montant'), 0, ',', ' '), ['bold' => true]);
+
+        $fileName = "DETF_{$detf->numero}.docx";
+        header("Content-Description: File Transfer");
+        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+        header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+        header('Content-Transfer-Encoding: binary');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Expires: 0');
+
+        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+        $objWriter->save("php://output");
+        exit;
     }
 }
