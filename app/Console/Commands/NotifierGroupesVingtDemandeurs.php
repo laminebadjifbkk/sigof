@@ -2,13 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\NotificationDemandeursMail;
 use App\Models\Individuelle;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Region;
 use App\Models\Module;
-use App\Models\NotificationRegion;
+use App\Services\BrevoMailer;
 
 class NotifierGroupesVingtDemandeurs extends Command
 {
@@ -98,10 +97,45 @@ class NotifierGroupesVingtDemandeurs extends Command
             ];
         }
 
+        $mailer = app(BrevoMailer::class);
+
+        // Destinataires principaux
+        $destinataires = [
+            'lamine.badji@onfp.sn',
+            'mohamadou.soumare@onfp.sn'
+        ];
+
+        // CC
+        $cc = [
+            'gorgui.ndiaye@onfp.sn'
+        ];
+
+        // Construire le contenu HTML (simple exemple)
+        $html = "<h1>Récapitulatif des modules</h1>";
+        $html .= "<p>Seuil : {$seuil}</p>";
+        foreach ($donnees as $region => $modules) {
+            $html .= "<h2>{$region}</h2><ul>";
+            foreach ($modules as $module) {
+                $html .= "<li>{$module['module']} : {$module['total']} demandes</li>";
+            }
+            $html .= "</ul>";
+        }
+
+        // Envoyer à tous les destinataires principaux
+        foreach ($destinataires as $email) {
+            $mailer->sendMail($email, "Récapitulatif modules >= {$seuil}", $html);
+        }
+
+        // Envoyer en CC
+        foreach ($cc as $email) {
+            $mailer->sendMail($email, "Récapitulatif modules >= {$seuil} (CC)", $html);
+        }
+
+        /* dd("OK");
         // Envoyer un seul email
         Mail::to('lamine.badji@onfp.sn', 'mohamadou.soumare@onfp.sn')
             ->cc('gorgui.ndiaye@onfp.sn')
-            ->send(new NotificationDemandeursMail($donnees, $seuil));
+            ->send(new NotificationDemandeursMail($donnees, $seuil)); */
 
         $this->info("Email récapitulatif envoyé.");
     }
