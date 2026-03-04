@@ -41,4 +41,47 @@ class DetfBudgetItemController extends Controller
         return redirect()->route('detfs.budget.edit', $detf->id)
             ->with('success', 'Ligne budgétaire ajoutée avec succès.');
     }
+
+    // Affiche le formulaire pour modifier une ligne budgétaire
+    public function edit(Detf $detf, DetfsBudgetItem $budget_item)
+    {
+        $labels = BudgetLabel::orderBy('libelle')->get();
+
+        return view('detfs.budget-edit-item', [
+            'detf' => $detf,
+            'budgetItem' => $budget_item,
+            'labels' => $labels,
+        ]);
+    }
+
+    // Met à jour la ligne budgétaire
+    public function update(Request $request, Detf $detf, DetfsBudgetItem $budget_item)
+    {
+        $request->validate([
+            'label_id' => 'required|exists:budget_labels,id',
+            'unite' => 'nullable|string|max:50',
+            'quantite' => 'required|numeric|min:0',
+            'prix_unitaire' => 'required|numeric|min:0',
+        ]);
+
+        $budget_item->update([
+            'budget_label_id' => $request->label_id,
+            'unite' => $request->unite,
+            'quantite' => $request->quantite,
+            'prix_unitaire' => $request->prix_unitaire,
+            'montant' => $request->quantite * $request->prix_unitaire,
+        ]);
+
+        return redirect()->route('detfs.budget.edit', $detf->id)
+            ->with('success', 'Ligne budgétaire mise à jour avec succès.');
+    }
+
+    // Supprime la ligne budgétaire
+    public function destroy(Detf $detf, DetfsBudgetItem $budget_item)
+    {
+        $budget_item->delete();
+
+        return redirect()->route('detfs.budget.edit', $detf->id)
+            ->with('success', 'Ligne budgétaire supprimée.');
+    }
 }

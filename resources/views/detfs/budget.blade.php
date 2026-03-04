@@ -43,11 +43,12 @@
                     <div class="row g-4">
 
                         {{-- LIBELLE --}}
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label class="form-label fw-semibold">
-                                <i class="bi bi-tag"></i> Libellé
+                                <i class="bi bi-tag"></i> Libellé <span class="text-danger">
+                                    *</span>
                             </label>
-                            <select name="label_id" class="form-select">
+                            <select name="label_id" class="form-select form-select-sm">
                                 <option value="">-- Sélectionner --</option>
                                 @foreach ($labels as $label)
                                     <option value="{{ $label->id }}">
@@ -62,38 +63,41 @@
                         </div>
 
                         {{-- UNITE --}}
-                        <div class="col-md-2">
+                        <div class="col-md-6">
                             <label class="form-label fw-semibold">
                                 <i class="bi bi-box"></i> Unité
                             </label>
-                            <input type="text" name="unite" class="form-control" placeholder="Ex: Kit"
+                            <input type="text" name="unite" class="form-control form-control-sm" placeholder="Ex: Kit"
                                 value="{{ old('unite') }}">
                         </div>
 
                         {{-- QUANTITE --}}
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <label class="form-label fw-semibold">
-                                <i class="bi bi-123"></i> Quantité
+                                <i class="bi bi-123"></i> Quantité<span class="text-danger">
+                                    *</span>
                             </label>
-                            <input type="number" name="quantite" id="quantite" class="form-control"
+                            <input type="number" name="quantite" id="quantite" class="form-control form-control-sm"
                                 value="{{ old('quantite', 1) }}" min="0">
                         </div>
 
                         {{-- PRIX --}}
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <label class="form-label fw-semibold">
-                                <i class="bi bi-cash"></i> Prix Unitaire
+                                <i class="bi bi-cash"></i> Prix Unitaire<span class="text-danger">
+                                    *</span>
                             </label>
-                            <input type="number" name="prix_unitaire" id="prix_unitaire" class="form-control"
-                                value="{{ old('prix_unitaire', 0) }}" min="0">
+                            <input type="number" name="prix_unitaire" id="prix_unitaire"
+                                class="form-control form-control-sm" value="{{ old('prix_unitaire', 0) }}" min="0">
                         </div>
 
                         {{-- MONTANT AUTO --}}
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <label class="form-label fw-semibold">
-                                <i class="bi bi-calculator"></i> Montant
+                                <i class="bi bi-calculator"></i> Montant<span class="text-danger">
+                                    *</span>
                             </label>
-                            <input type="text" id="montant" class="form-control bg-white" readonly>
+                            <input type="text" id="montant" class="form-control form-control-sm bg-white" readonly>
                         </div>
 
                     </div>
@@ -135,20 +139,10 @@
                                 <th>Quantité</th>
                                 <th>Prix Unitaire</th>
                                 <th>Montant</th>
-                                <th>Actions</th>
+                                <th width='2%'>#</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($items as $item)
-                                <tr>
-                                    <td>{{ $item->label->libelle }}</td>
-                                    <td>{{ $item->unite }}</td>
-                                    <td>{{ $item->quantite }}</td>
-                                    <td>{{ number_format($item->prix_unitaire, 0, ',', ' ') }}</td>
-                                    <td>{{ number_format($item->montant, 0, ',', ' ') }}</td>
-                                </tr>
-                            @endforeach --}}
-
                             @foreach ($items as $item)
                                 <tr>
                                     <td>{{ $item->label->libelle }}</td>
@@ -156,21 +150,32 @@
                                     <td>{{ $item->quantite }}</td>
                                     <td>{{ number_format($item->prix_unitaire, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($item->montant, 0, ',', ' ') }}</td>
-                                    <td>
-                                        <a href="{{ route('detfs.budget-items.edit', $item->id) }}"
-                                            class="btn btn-sm btn-warning mb-1">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
 
-                                        <form action="{{ route('detfs.budget-items.destroy', $item->id) }}" method="POST"
-                                            class="d-inline"
-                                            onsubmit="return confirm('Voulez-vous vraiment supprimer cette ligne ?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger mb-1">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
+                                    <td>
+                                        <div class="d-flex align-items-baseline">
+                                            <a href="{{ route('budget-items.edit', ['detf' => $detf->id, 'budget_item' => $item->id]) }}"
+                                                class="btn btn-success btn-sm" title="Modifier">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <div class="filter">
+                                                <a class="icon" href="#" data-bs-toggle="dropdown">
+                                                    <i class="bi bi-three-dots"></i>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                    <li>
+                                                        <form
+                                                            action="{{ route('budget-items.destroy', ['detf' => $detf->id, 'budget_item' => $item->id]) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="dropdown-item show_confirm">
+                                                                <i class="bi bi-trash"></i> Supprimer
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

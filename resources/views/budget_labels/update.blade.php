@@ -10,8 +10,9 @@
             @csrf
             @method('PUT')
             @include('budget_labels._form')
-            <button type="submit" class="btn btn-primary">Mettre à jour</button>
-            <a href="{{ route('budget-labels.index') }}" class="btn btn-secondary">Annuler</a>
+            <br>
+            <button type="submit" class="btn btn-sm btn-primary">Mettre à jour</button>
+            <a href="{{ route('budget-labels.index') }}" class="btn btn-sm btn-secondary">Annuler</a>
         </form>
     </div>
 @endsection

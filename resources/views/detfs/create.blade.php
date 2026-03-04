@@ -35,15 +35,17 @@
                         <div class="row g-3">
 
                             <div class="col-md-12">
-                                <label for="titre1" class="form-label">Intitulé</label>
-                                <input type="text" name="titre1" id="titre1" placeholder="Intitulé" class="form-control form-control-sm"
-                                    value="{{ old('titre1') }}">
+                                <label for="titre1" class="form-label">Intitulé<span class="text-danger">
+                                        *</span></label>
+                                <input type="text" name="titre1" id="titre1" placeholder="Intitulé"
+                                    class="form-control form-control-sm" value="{{ old('titre1') }}">
                             </div>
 
                             <div class="col-md-12">
-                                <label for="titre2" class="form-label">Bénéficiaires</label>
-                                <input type="text" name="titre2" id="titre2" placeholder="Bénéficiaires" class="form-control form-control-sm"
-                                    value="{{ old('titre2') }}">
+                                <label for="titre2" class="form-label">Bénéficiaires<span class="text-danger">
+                                        *</span></label>
+                                <input type="text" name="titre2" id="titre2" placeholder="Bénéficiaires"
+                                    class="form-control form-control-sm" value="{{ old('titre2') }}">
                             </div>
 
                             {{-- <div class="col-md-6">

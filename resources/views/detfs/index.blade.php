@@ -126,7 +126,7 @@
                             <th>Opérateur</th>
                             <th class="text-center" width="12%">Statut</th>
                             <th class="text-center">Budget</th>
-                            <th class="text-center" width="12%">Actions</th>
+                            <th width='2%'>#</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -146,29 +146,38 @@
                                     </span>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('detfs.budget.edit', $detf?->id) }}" class="btn btn-sm btn-outline-success">
-                                        <i class="bi bi-pencil-square"></i> Compléter
+                                    <a href="{{ route('detfs.budget.edit', $detf?->id) }}"
+                                        class="btn btn-sm btn-outline-success">
+                                        <i class="bi bi-pencil-square"></i>
                                     </a>
                                 </td>
-                                <td class="text-center">
-                                    <span class="d-flex align-items-baseline justify-content-center gap-1">
-                                        <a href="{{ route('detfs.show', $detf?->id) }}" class="btn btn-sm btn-info">
+
+                                <td>
+                                    <div class="d-flex align-items-baseline">
+                                        <a href="{{ route('detfs.show', $detf?->id) }}" class="btn btn-success btn-sm"
+                                            title="voir détails">
                                             <i class="bi bi-eye"></i>
                                         </a>
-                                        <a href="{{ route('detfs.edit', $detf?->id) }}" class="btn btn-sm btn-warning">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <form action="{{ route('detfs.destroy', $detf?->id) }}" method="POST"
-                                            class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <button type="submit" class="btn btn-sm btn-danger show_confirm"
-                                                title="Supprimer">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
-                                    </span>
+                                        <div class="filter">
+                                            <a class="icon" href="#" data-bs-toggle="dropdown">
+                                                <i class="bi bi-three-dots"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                <li><a class="dropdown-item btn btn-sm"
+                                                        href="{{ route('detfs.edit', $detf?->id) }}">
+                                                        <i class="bi bi-pencil"></i> Modifier</a></li>
+                                                <li>
+                                                    <form action="{{ route('detfs.destroy', $detf?->id) }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item show_confirm">
+                                                            <i class="bi bi-trash"></i> Supprimer
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

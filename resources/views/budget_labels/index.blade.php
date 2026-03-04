@@ -2,7 +2,7 @@
 @section('title', 'ONFP | Libellés budgétaires')
 @section('space-work')
     <div class="container">
-       
+
         @can('detf-create')
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3 class="mb-0">
@@ -21,28 +21,41 @@
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Libellé</th>
+                    <th>N°</th>
+                    <th width="25%">Libellé</th>
                     <th>Description</th>
-                    <th>Actions</th>
+                    <th width="2">#</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($labels as $label)
                     <tr>
-                        <td>{{ $label->id }}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $label->libelle }}</td>
                         <td>{{ $label->description }}</td>
                         <td>
-                            <a href="{{ route('budget-labels.edit', $label) }}" class="btn btn-sm btn-primary">
-                                <i class="bi bi-pencil"></i>
-                            </a>
-                            <form action="{{ route('budget-labels.destroy', $label) }}" method="POST" class="d-inline"
-                                onsubmit="return confirm('Voulez-vous vraiment supprimer ce libellé ?');">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
-                            </form>
+                            <div class="d-flex align-items-baseline">
+                                <a href="{{ route('budget-labels.edit', $label) }}" class="btn btn-success btn-sm"
+                                    title="Modifier">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown">
+                                        <i class="bi bi-three-dots"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li>
+                                            <form action="{{ route('budget-labels.destroy', $label) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="dropdown-item show_confirm">
+                                                    <i class="bi bi-trash"></i> Supprimer
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
