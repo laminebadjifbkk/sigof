@@ -61,7 +61,7 @@ class EmployeController extends Controller
             'firstname'           => ['required', 'string', 'max:50'],
             'name'                => ['required', 'string', 'max:25'],
             'image'               => ['image', 'max:255', 'nullable', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
-            'telephone'           => ['nullable', 'string', 'size:12'],
+            'telephone'           => ['nullable', 'string', 'size:9'],
             'adresse'             => ['nullable', 'string', 'max:255'],
             'civilite'            => ['required', 'string', 'max:10'],
             'cin'                 => [

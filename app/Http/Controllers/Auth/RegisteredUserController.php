@@ -46,7 +46,7 @@ class RegisteredUserController extends Controller
                 'max:35',
                 Rule::unique('users')->whereNull('deleted_at'), // Ignore les utilisateurs supprimés
             ],
-            'votre_telephone' => ['required', 'string', 'size:12'],
+            'votre_telephone' => ['required', 'string', 'size:9'],
             'termes'          => ['required', 'accepted'], // 'accepted' est plus approprié pour un champ de type checkbox
             /* 'password' => ['required', 'confirmed', Rules\Password::defaults()], */
             'password'        => 'required|string|min:8|confirmed',

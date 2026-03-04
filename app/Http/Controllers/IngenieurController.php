@@ -102,7 +102,7 @@ class IngenieurController extends Controller
             'telephone' => [
                 'required',
                 'string',
-                'size:12',
+                'size:9',
                 Rule::unique('ingenieurs')->ignore($id)->where(fn($query) => $query->whereNull('deleted_at')),
             ],
         ]);

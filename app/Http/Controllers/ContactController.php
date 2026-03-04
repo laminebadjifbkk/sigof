@@ -34,7 +34,7 @@ class ContactController extends Controller
     {
         $data = request()->validate([
             'emailadresse' => ['required', 'email'],
-            'telephone'    => ['required', 'string', 'size:12'],
+            'telephone'    => ['required', 'string', 'size:9'],
             'objet'        => ['required', 'string', 'max:50'],
             'message'      => ['required', 'string', 'max:150'],
 
@@ -60,7 +60,7 @@ class ContactController extends Controller
     public function update(Request $request, $id)
     {
         $data = request()->validate([
-            'telephone' => ['required', 'string', 'size:12'],
+            'telephone' => ['required', 'string', 'size:192'],
             'objet'     => ['required', 'string'],
             'message'   => ['required', 'string'],
             'reponse'   => ['nullable', 'string'],

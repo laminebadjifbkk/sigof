@@ -247,7 +247,7 @@
     });
 </script>
 
-<script>
+{{-- <script>
     document.addEventListener("DOMContentLoaded", function() {
         var telephoneInput = document.getElementById("votre_telephone");
 
@@ -262,7 +262,7 @@
             e.target.value = value.slice(0, 12); // Limite à 12 caractères (avec les ":")
         });
     });
-</script>
+</script> --}}
 
 <script>
     document.getElementById("togglePassword").addEventListener("click", function() {
@@ -331,7 +331,7 @@
 </script>
 
 
-<script>
+{{-- <script>
     document.addEventListener("DOMContentLoaded", function() {
         var telephoneInput = document.getElementById("phone");
 
@@ -346,4 +346,4 @@
             e.target.value = value.slice(0, 12); // Limite à 12 caractères (avec les ":")
         });
     });
-</script>
+</script> --}}

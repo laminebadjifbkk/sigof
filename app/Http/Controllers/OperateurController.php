@@ -380,10 +380,10 @@ class OperateurController extends Controller
             'username'             => ["required", "string", Rule::unique('users')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            'fixe'                 => ["required", "string", "size:12", Rule::unique('users')->where(function ($query) {
+            'fixe'                 => ["required", "string", "size:9", Rule::unique('users')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            'telephone'            => ["required", "string", "size:12", Rule::unique('users')->where(function ($query) {
+            'telephone'            => ["required", "string", "size:9", Rule::unique('users')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
             'bp'                   => ['nullable', 'string'],
@@ -810,9 +810,9 @@ class OperateurController extends Controller
             "operateur"            => ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
             "username"             => ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
             "email"                => ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
-            "fixe"                 => ['required', 'string', 'size:12', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
-            "telephone"            => ['required', 'string', 'size:12', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
-            "telephone_parent"     => ['nullable', 'string', 'size:12'],
+            "fixe"                 => ['required', 'string', 'size:9', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
+            "telephone"            => ['required', 'string', 'size:9', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
+            "telephone_parent"     => ['nullable', 'string', 'size:9'],
             "fonction_responsable" => ['required', 'string'],
             "civilite"             => ['required', 'string'],
             "prenom"               => ['required', 'string'],

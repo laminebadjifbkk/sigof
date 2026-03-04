@@ -733,7 +733,7 @@
                                     <label for="telephone" class="form-label">Téléphone<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
-                                        <input name="telephone" type="text" maxlength="12"
+                                        <input name="telephone" type="text" maxlength="9"
                                             class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                             id="phone" value="{{ old('telephone') }}" autocomplete="tel"
                                             placeholder="XX:XXX:XX:XX">
@@ -1004,7 +1004,7 @@
                                                 class="text-danger mx-1">*</span></label>
                                         <div class="input-group has-validation">
                                             <span class="input-group-text"><i class="bi bi-telephone-plus"></i></span>
-                                            <input name="votre_telephone" type="text" maxlength="12"
+                                            <input name="votre_telephone" type="text" maxlength="9"
                                                 class="form-control form-control-sm @error('votre_telephone') is-invalid @enderror"
                                                 id="votre_telephone" value="{{ old('votre_telephone') }}"
                                                 autocomplete="tel" placeholder="XX:XXX:XX:XX">

@@ -11,7 +11,7 @@ class OperateureferenceController extends Controller
     {
         $this->validate($request, [
             "organisme"   => ["required", "string"],
-            "contact"     => ['required', 'size:12'], // Assuming contact is a phone number with 12 digits
+            "contact"     => ['required', 'size:9'], // Assuming contact is a phone number with 12 digits
             "periode"     => ["required", "string"],
             "description" => ["required", "string"],
         ]);
@@ -34,7 +34,7 @@ class OperateureferenceController extends Controller
     {
         $this->validate($request, [
             "organisme"   => ["required", "string"],
-            "contact"     => ["required", "size:12"], // Assuming contact is a phone number with 12 digits
+            "contact"     => ["required", "size:9"], // Assuming contact is a phone number with 12 digits
             "periode"     => ["required", "string"],
             "description" => ["required", "string"],
         ]);

@@ -24,7 +24,7 @@ class CommissionmembreController extends Controller
             "structure" => "required|string",
             "statut"    => "nullable",
             "email"     => "required|email",
-            "telephone" => "required|string|size:12",
+            "telephone" => "required|string|size:9",
         ]);
 
         $membre = Commissionmembre::create([
@@ -53,7 +53,7 @@ class CommissionmembreController extends Controller
             "structure" => "required|string",
             "statut"    => "nullable",
             "email"     => "required|email",
-            "telephone" => "required|string|size:12",
+            "telephone" => "required|string|size:9",
         ]);
 
         $membre = Commissionmembre::findOrFail($id);

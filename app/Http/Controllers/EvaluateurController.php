@@ -36,7 +36,7 @@ class EvaluateurController extends Controller
             "email"     => ["nullable", "string", Rule::unique('evaluateurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "telephone" => ["required", "string", "size:12", Rule::unique('evaluateurs')->where(function ($query) {
+            "telephone" => ["required", "string", "size:9", Rule::unique('evaluateurs')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
         ]);
@@ -83,7 +83,7 @@ class EvaluateurController extends Controller
             "lastname"  => ['required', 'string', 'max:25'],
             "fonction"  => ['required', 'string', 'max:250'],
             "email"     => ['nullable', 'string', 'max:250', Rule::unique(Evaluateur::class)->ignore($id)->whereNull('deleted_at')],
-            "telephone" => ['required', 'string', "size:12", Rule::unique(Evaluateur::class)->ignore($id)->whereNull('deleted_at')],
+            "telephone" => ['required', 'string', "size:9", Rule::unique(Evaluateur::class)->ignore($id)->whereNull('deleted_at')],
             'adresse'   => ['required', 'string', 'max:250'],
             // --- Nouveaux champs bancaires (facultatifs) ---
             'banque'        => ['nullable', 'string', 'max:200'],
