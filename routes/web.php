@@ -638,6 +638,11 @@ Route::group(['middleware' => ['XSS']], function () {
             [FormulaireController::class, 'PrisenchargeExcel']
         )->name('prisenchargeExcel');
 
+        Route::get(
+            '/projetExcel/export-excel/{module}/{statut}',
+            [ProjetController::class, 'ProjetExcel']
+        )->name('projetExcel');
+
         /*         Route::get(
             '/individuelles/export-excel/{statut}',
             [IndividuelleController::class, 'exportExcel']

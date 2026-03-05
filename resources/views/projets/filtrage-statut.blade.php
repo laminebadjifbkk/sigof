@@ -47,6 +47,13 @@
                             <div
                                 class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
                                 <span>{{ $module }}</span>
+                                @can('exporter-view')
+                                    <a href="{{ route('projetExcel', ['module' => $projetmodule->id, 'statut' => $statut]) }}"
+                                        class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2"
+                                        title="Exporter Excel + Dossiers">
+                                        <i class="bi bi-file-earmark-zip"></i> Exporter ZIP
+                                    </a>
+                                @endcan
                                 <span class="d-flex align-items-baseline">
                                     <span class="{{ $statut }} text-white">{{ $statut }}</span>
                                     @can('valider-demande')
