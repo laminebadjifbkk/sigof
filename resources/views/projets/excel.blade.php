@@ -55,7 +55,7 @@
                     @if ($individuelle?->user?->files->isNotEmpty())
                         @foreach ($individuelle->user->files as $file)
                             @if ($file->getFichier())
-                                {{ $file->legende }}<br>
+                                {{ $file->legende }};
                             @endif
                         @endforeach
                     @else
