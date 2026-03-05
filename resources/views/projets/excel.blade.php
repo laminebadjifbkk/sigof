@@ -54,7 +54,9 @@
                 <td>
                     @if ($individuelle?->user?->files->isNotEmpty())
                         @foreach ($individuelle->user->files as $file)
-                            {{ $file->legende }}<br>
+                            @if ($file->getFichier())
+                                {{ $file->legende }}<br>
+                            @endif
                         @endforeach
                     @else
                         Aucun fichier
