@@ -9,13 +9,36 @@ use Illuminate\Http\Request;
 
 class DetfBudgetItemController extends Controller
 {
-    // Affiche le formulaire pour compléter le budget
+
     public function editBudget(Detf $detf)
     {
         $labels = BudgetLabel::orderBy('libelle')->get();
-        $budgetItems = $detf->budgetItems()->with('label')->get();
 
-        return view('detfs.budget', compact('detf', 'labels', 'budgetItems'));
+        $budgetItems = $detf->budgetItems()
+            ->with('label')
+            ->get();
+
+        // Regrouper par rubrique (colonne texte)
+        $groupedItems = $budgetItems->groupBy(function ($item) {
+            return $item->label->rubrique;
+        });
+
+        $totauxParRubrique = [];
+
+        foreach ($groupedItems as $rubrique => $items) {
+            $totauxParRubrique[$rubrique] = $items->sum('montant');
+        }
+
+        $totalGeneral = $budgetItems->sum('montant');
+
+        return view('detfs.budget', compact(
+            'detf',
+            'labels',
+            'budgetItems',
+            'groupedItems',
+            'totauxParRubrique',
+            'totalGeneral'
+        ));
     }
 
     // Stocke une ligne budgétaire

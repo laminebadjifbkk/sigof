@@ -174,7 +174,7 @@
                                 </tr>
                             @endforeach
                             <tr class="table-secondary fw-bold">
-                                <td colspan="4" class="text-end">Sous-total</td>
+                                <td colspan="4" class="text-end">Sous-total {{ $loop->iteration }}</td>
                                 <td>{{ number_format($sousTotal, 0, ',', ' ') }} FCFA</td>
                             </tr>
                         </tbody>
@@ -184,13 +184,82 @@
         @endforeach
 
         {{-- Total général --}}
-        <div class="card">
+        {{-- <div class="card">
             <div class="card-body text-end">
                 <h5 class="fw-bold">
                     TOTAL GÉNÉRAL : {{ number_format($totalGeneral, 0, ',', ' ') }} FCFA
                 </h5>
             </div>
-        </div>
+        </div> --}}
+
+        <h5 class="mt-4 fw-bold">X. BUDGET PREVISIONNEL</h5>
+
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Rubriques</th>
+                    <th>Libellés</th>
+                    <th>Unité</th>
+                    <th>Qté</th>
+                    <th>PU (FCFA)</th>
+                    <th>Montants (FCFA)</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @php $index = 1; @endphp
+
+                @foreach ($groupedItems as $rubrique => $items)
+                    @php
+                        $rowspan = $items->count() + 1; // +1 pour la ligne Sous-total
+                        $firstRow = true;
+                    @endphp
+
+                    @foreach ($items as $item)
+                        <tr>
+
+                            {{-- Rubrique affichée une seule fois --}}
+                            @if ($firstRow)
+                                <td rowspan="{{ $rowspan }}" class="align-top fw-bold">
+                                    {{ $rubrique }}
+                                </td>
+                                @php $firstRow = false; @endphp
+                            @endif
+
+                            <td>{{ $item->label->libelle }}</td>
+                            <td>{{ $item->unite }}</td>
+                            <td>{{ $item->quantite }}</td>
+                            <td class="text-end">
+                                {{ number_format($item->prix_unitaire, 0, ',', ' ') }}
+                            </td>
+                            <td class="text-end">
+                                {{ number_format($item->montant, 0, ',', ' ') }}
+                            </td>
+                        </tr>
+                    @endforeach
+
+                    {{-- Ligne Sous-total dans colonne Libellés --}}
+                    <tr class="fw-bold">
+                        <td>Sous-total {{ $index }}</td>
+                        <td colspan="3"></td>
+                        <td class="text-end">
+                            {{ number_format($totauxParRubrique[$rubrique], 0, ',', ' ') }}
+                        </td>
+                    </tr>
+
+                    @php $index++; @endphp
+                @endforeach
+
+                {{-- TOTAL GENERAL --}}
+                <tr class="table-dark text-white fw-bold">
+                    <td colspan="5" class="text-end">TOTAL GENERAL</td>
+                    <td class="text-end">
+                        {{ number_format($totalGeneral, 0, ',', ' ') }}
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
 
     </div>
 @endsection
