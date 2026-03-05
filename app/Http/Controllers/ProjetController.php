@@ -971,7 +971,7 @@ class ProjetController extends Controller
             }); */
 
         // === 4. Créer le ZIP ===
-        $zipPath = storage_path("app/temp/Projet_{$projet->sigle}.zip");
+        $zipPath = storage_path("app/temp/Projet_{$projet->sigle}_{$projetmodule->module}.zip");
         $zip = new \ZipArchive;
         if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === true) {
             $files = new \RecursiveIteratorIterator(
