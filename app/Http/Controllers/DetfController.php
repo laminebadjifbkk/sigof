@@ -8,6 +8,8 @@ use App\Models\Operateur;
 use Illuminate\Http\Request;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\SimpleType\Jc;
+use PhpOffice\PhpWord\SimpleType\HeaderFooterType;
 
 class DetfController extends Controller
 {
@@ -127,19 +129,232 @@ class DetfController extends Controller
         });
 
         $phpWord = new PhpWord();
-        $section = $phpWord->addSection();
+
+        // Crée la section principale
+        $section = $phpWord->addSection([
+            'marginTop' => 1200,
+            'marginBottom' => 1200,
+            'marginLeft' => 1000,
+            'marginRight' => 1000
+        ]);
+
+        // Ajouter le footer directement sur cette section
+        $footer = $section->addFooter();
+
+        // Texte du pied de page
+        $footer->addText(
+            "SIGOF - Document confidentiel",
+            ['italic' => true, 'size' => 10],
+            ['align' => Jc::CENTER]
+        );
+
+        // Numérotation automatique
+        $footer->addPreserveText(
+            'Page {PAGE} / {NUMPAGES}',
+            ['size' => 10],
+            ['align' => Jc::CENTER]
+        );
+
+        // ENTETE OFFICIELLE
+        // HEADER OFFICIEL COMPACT
+        // Header pour la première page uniquement
+        $headerFirst = $section->addHeader();
+        $headerFirst->firstPage();
+
+        // Style sans espace entre lignes
+        $noSpacing = [
+            'alignment' => Jc::CENTER,
+            'spaceAfter' => 0,
+            'spaceBefore' => 0
+        ];
+
+        // Ligne 1
+        $headerFirst->addText(
+            "REPUBLIQUE DU SENEGAL",
+            ['bold' => true, 'size' => 11],
+            $noSpacing
+        );
+
+        // Ligne 2
+        $headerFirst->addText(
+            "Un Peuple - Un But - Une Foi",
+            ['size' => 10],
+            $noSpacing
+        );
+
+        // Ligne 3
+        $headerFirst->addText(
+            "MINISTERE DE L'EMPLOI ET DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE",
+            ['bold' => true, 'size' => 10],
+            $noSpacing
+        );
+
+        // Petit espace contrôlé
+        $headerFirst->addTextBreak(1);
+
+        // Logo réduit
+        $headerFirst->addImage(
+            public_path('assets/img/logo-onfp.jpg'),
+            [
+                'width' => 250,   // plus petit
+                'alignment' => Jc::CENTER
+            ]
+        );
+
+        // Petit espace contrôlé
+        $headerFirst->addTextBreak(1);
+        // Style compact
+        $centerNoSpace = [
+            'alignment' => Jc::CENTER,
+            'spaceAfter' => 0,
+            'spaceBefore' => 0
+        ];
+
+        // Petit espace après l'entête
+        $section->addTextBreak(0);
+
+        $section->addText(
+            "DIRECTION DE L’INGENIERIE ET DES OPERATIONS DE",
+            ['bold' => true, 'size' => 14],
+            $centerNoSpace
+        );
+
+        $section->addText(
+            "FORMATION",
+            ['bold' => true, 'size' => 14],
+            $centerNoSpace
+        );
 
         // ==============================
-        // INFOS DETF
+        // TITRE ENCADRÉ DETF
         // ==============================
-        $section->addTitle("DETF : {$detf->numero}", 1);
-        $section->addText("Intitulé : {$detf->titre1}");
-        $section->addText("Bénéficiaires : {$detf->titre2}");
-        $section->addText("Opérateur : " . ($detf->operateur?->user?->operateur ?? ''));
-        $section->addText("Ingénieur : " . ($detf->ingenieur?->user?->firstname ?? '') . ' ' . ($detf->ingenieur?->user?->name ?? ''));
+
+        // Petit espace avant
         $section->addTextBreak(1);
 
+        // Création tableau pour encadré
+        $table = $section->addTable([
+            'alignment' => Jc::CENTER,
+            'borderSize' => 12,
+            'borderColor' => '000000',
+            'cellMarginTop' => 150,    // un peu plus haut que 100
+            'cellMarginBottom' => 150,
+            'cellMarginLeft' => 50,
+            'cellMarginRight' => 50,
+            'cantSplit' => true,
+            'bgColor' => null           // pas de couleur de fond pour le tableau
+        ]);
+
+        // Ajout ligne avec hauteur un peu plus grande
+        $table->addRow(500); // 500 = hauteur ligne (ajuste selon besoin)
+
+        // Cellule sans fond
+        $table->addCell(9000, [
+            'valign' => 'center',      // texte centré verticalement
+        ])->addText(
+            "DOCUMENT D’EXECUTION TECHNIQUE DE FORMATION (DETF)",
+            [
+                'bold' => true,
+                'size' => 12
+            ],
+            [
+                'alignment' => Jc::CENTER,
+                'spaceAfter' => 0,
+                'spaceBefore' => 0
+            ]
+        );
+
+        $section->addTextBreak(1);
+
+        // Créer le tableau principal avec marge interne
+        $table = $section->addTable([
+            'borderSize' => 6,
+            'borderColor' => '000000',
+            'alignment' => Jc::START,
+            'cellMarginTop' => 80,
+            'cellMarginBottom' => 80,
+            'cellMarginLeft' => 100,   // <-- ajoute un petit retrait à gauche
+            'cellMarginRight' => 100,  // optionnel pour symétrie
+        ]);
+
+        // Fonction pour une ligne simple avec marge
+        function addRow($table, $label, $value)
+        {
+            $row = $table->addRow();
+
+            // Cellule label avec marge
+            $row->addCell(5000, ['cellMarginLeft' => 200])->addText(
+                $label,
+                ['bold' => true],
+                ['spaceAfter' => 0]  // supprime l'espace vertical après la ligne
+            );
+
+            // Cellule valeur avec marge à gauche et interligne supprimé
+            $row->addCell(9000, ['valign' => 'top', 'cellMarginLeft' => 200])
+                ->addText(
+                    $value,
+                    [],
+                    [
+                        'preserveWhiteSpace' => true,
+                        'spaceAfter' => 0  // supprime l'espace vertical
+                    ]
+                );
+        }
+
+        // Fonction pour lignes fusionnées (Opérateur) avec retrait
+        function addRowWithLinesMerged($table, $label, $lines)
+        {
+            foreach ($lines as $index => $line) {
+                $row = $table->addRow();
+
+                if ($index === 0) {
+                    $cellLabel = $row->addCell(5000, [
+                        'vMerge' => 'restart',
+                        'valign' => 'center',
+                        'cellMarginLeft' => 200
+                    ]);
+                    $cellLabel->addText($label, ['bold' => true], ['align' => 'center']);
+                } else {
+                    $row->addCell(5000, ['vMerge' => 'continue', 'cellMarginLeft' => 200]);
+                }
+
+                $row->addCell(9000, ['valign' => 'top', 'cellMarginLeft' => 200])
+                    ->addText($line, [], [
+                        'preserveWhiteSpace' => true,
+                        'spaceAfter' => 0
+                    ]);
+            }
+        }
+
+        // Préparer les infos dynamiques de l'opérateur
+        $operateurLines = [
+            "Nom : {$detf->operateur?->user?->operateur}",
+            "Agrément ONFP : 000739.23/ONFP/DG/DEC/2023",
+            "Statut : Privé",
+            "Catégorie : 2",
+            "Adresse : Kaolack, Bene Tally Villa 11 bis",
+            "Tel : 77 537 37 42/70 800 68 45",
+            "Email : institutsk@gmail.com",
+            "PVCCO du 23-07-2025",
+        ];
+
+        // Préparer l'ingénieur
+        $ingenieurInfo = ($detf->ingenieur?->user?->firstname ?? '') . ' ' . ($detf->ingenieur?->user?->name ?? '');
+
+        // Remplissage du tableau principal
+        addRow($table, 'Intitulé de la formation', $detf->titre1 ?? '');
+        addRow($table, 'Bénéficiaires à former', $detf->titre2 ?? '');
+        addRow($table, 'Niveau ou Titre de qualification visé', $detf->titre2 ?? '');
+        addRowWithLinesMerged($table, 'Opérateur', $operateurLines);
+        addRow($table, 'Ingénieur responsable', $ingenieurInfo);
+        addRow($table, 'Lieu', $detf->lieu ?? '');
+        addRow($table, 'Période de la formation', $detf->periode ?? '');
+        addRow($table, 'Responsable', $detf->responsable ?? '');
+
         $totalGeneral = 0;
+
+        // Maintenant, vous pouvez ajouter votre section principale
+        $section = $phpWord->addSection();
 
         // ==============================
         // BOUCLE PAR TYPE (3 TABLEAUX)
@@ -150,7 +365,12 @@ class DetfController extends Controller
 
             $table = $section->addTable([
                 'borderSize' => 6,
-                'borderColor' => '000000'
+                'borderColor' => '000000',
+                'alignment' => Jc::START,
+                'cellMarginTop' => 15,     // réduire l'espace en haut
+                'cellMarginBottom' => 15,  // réduire l'espace en bas
+                'cellMarginLeft' => 100,   // petite marge à gauche
+                'cellMarginRight' => 100,  // optionnel, pour symétrie
             ]);
 
             // Entête
