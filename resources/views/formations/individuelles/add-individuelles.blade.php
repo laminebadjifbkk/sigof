@@ -67,7 +67,7 @@
                                         <table class="m-2 table datatables align-middle" id="table-collectives">
                                             <thead>
                                                 <tr>
-                                                    <th><input type="checkbox" class="form-check-input" id="checkAll">
+                                                    <th><input type="checkbox" class="form-check-input" id="checkAll"> Choisir tout
                                                     </th>
                                                     {{-- <th>Civilité</th> --}}
                                                     <th>Name</th>
@@ -87,16 +87,23 @@
                                                 @foreach ($individuelles as $individuelle)
                                                     {{-- @if (!empty($individuelle?->numero)) --}}
                                                     <tr>
-                                                        <td class="text-center">
-                                                            <input type="checkbox" name="individuelles[]"
-                                                                value="{{ $individuelle->id }}"
-                                                                {{ in_array($individuelle->formations_id, $individuelleFormation) ? 'checked' : '' }}
-                                                                {{ in_array($individuelle->formations_id, $individuelleFormationCheck) ? 'disabled' : '' }}
-                                                                class="form-check-input @error('individuelles') is-invalid @enderror">
-                                                            {{ $loop->iteration }}
+                                                        <td>
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-center gap-2">
+                                                                <input type="checkbox" name="individuelles[]"
+                                                                    value="{{ $individuelle->id }}"
+                                                                    {{ in_array($individuelle->formations_id, $individuelleFormation) ? 'checked' : '' }}
+                                                                    {{ in_array($individuelle->formations_id, $individuelleFormationCheck) ? 'disabled' : '' }}
+                                                                    class="form-check-input m-0 @error('individuelles') is-invalid @enderror">
+
+                                                                <span class="fw-semibold">{{ $loop->iteration }}</span>
+                                                            </div>
+
                                                             @error('individuelles')
-                                                                <span class="invalid-feedback"
-                                                                    role="alert">{{ $message }}</span>
+                                                                <span class="invalid-feedback d-block text-center"
+                                                                    role="alert">
+                                                                    {{ $message }}
+                                                                </span>
                                                             @enderror
                                                         </td>
                                                         {{-- <td>{{ $individuelle?->user?->civilite }}</td> --}}
