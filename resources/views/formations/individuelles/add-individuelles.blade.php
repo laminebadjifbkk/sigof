@@ -84,17 +84,16 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php $i = 1; ?>
                                                 @foreach ($individuelles as $individuelle)
                                                     {{-- @if (!empty($individuelle?->numero)) --}}
                                                     <tr>
-                                                        <td>
+                                                        <td class="text-center">
                                                             <input type="checkbox" name="individuelles[]"
                                                                 value="{{ $individuelle->id }}"
                                                                 {{ in_array($individuelle->formations_id, $individuelleFormation) ? 'checked' : '' }}
                                                                 {{ in_array($individuelle->formations_id, $individuelleFormationCheck) ? 'disabled' : '' }}
                                                                 class="form-check-input @error('individuelles') is-invalid @enderror">
-                                                            {{ $i++ }}
+                                                            {{ $loop->iteration }}
                                                             @error('individuelles')
                                                                 <span class="invalid-feedback"
                                                                     role="alert">{{ $message }}</span>
@@ -181,7 +180,7 @@
 @push('scripts')
     <script>
         new DataTable('#table-collectives', {
-            ordering: true, // désactive le tri automatique
+            ordering: false, // désactive le tri automatique
             /* layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],

@@ -80,16 +80,16 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php $i = 1; ?>
                                                 @foreach ($listecollectives as $listecollective)
                                                     <tr>
-                                                        <td>
+                                                        <td class="text-center">
                                                             {{--  <label for="liste_{{ $listecollective->id }}"> --}}
                                                             <input type="checkbox" name="listecollectives[]"
                                                                 value="{{ $listecollective->id }}"
                                                                 {{ in_array($listecollective->formations_id, $listecollectiveFormation) ? 'checked' : '' }}
                                                                 class="form-check-input @error('listecollectives') is-invalid @enderror">
-                                                            {{ $i++ }}
+
+                                                            {{ $loop->iteration }}
                                                             @error('listecollectives')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <div>{{ $message }}</div>
