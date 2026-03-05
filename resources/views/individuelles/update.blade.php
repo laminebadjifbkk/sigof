@@ -77,12 +77,49 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 mb-0">
+                                <div class="col-12 col-md-4 mb-0">
+                                    <label class="form-label">
+                                        Type de pièce <span class="text-danger mx-1">*</span>
+                                    </label>
+                                    <select name="type_piece" id="type_piece" class="form-select form-select-sm">
+                                        <option value="">-- Choisir --</option>
+                                        <option value="cni"
+                                            {{ (old('type_piece') ?? $individuelle?->user?->type_piece) === 'cni' ? 'selected' : '' }}>
+                                            Carte nationale</option>
+                                        @can('voir-extrait')
+                                            <option value="extrait"
+                                                {{ (old('type_piece') ?? $individuelle?->user?->type_piece) === 'extrait' ? 'selected' : '' }}>
+                                                Extrait de naissance</option>
+                                        @endcan
+                                        <option value="passeport"
+                                            {{ (old('type_piece') ?? $individuelle?->user?->type_piece) === 'passeport' ? 'selected' : '' }}>
+                                            Passeport</option>
+                                    </select>
+                                </div>
+
+                                {{-- <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="cin" class="form-label">CIN</label>
                                     <input name="cin" type="text"
                                         class="form-control form-control-sm @error('cin') is-invalid @enderror"
-                                        id="cin" value="{{ $individuelle?->user?->cin ?? old('cin') }}" autocomplete="off"
-                                        placeholder="Ex: 1099200500012" minlength="13" maxlength="14">
+                                        id="cin" value="{{ $individuelle?->user?->cin ?? old('cin') }}"
+                                        autocomplete="off" placeholder="Ex: 1099200500012" minlength="9" maxlength="14">
+                                    @error('cin')
+                                        <span class="invalid-feedback" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
+                                </div> --}}
+
+
+                                <div class="col-12 col-md-4 mb-0">
+                                    <label for="num_piece" class="form-label" id="numero_piece_label">
+                                        Numéro de la pièce <span class="text-danger mx-1">*</span>
+                                    </label>
+                                    <input name="cin" type="text"
+                                        class="form-control form-control-sm @error('cin') is-invalid @enderror"
+                                        id="num_piece"
+                                        value="{{ old('cin') ?? str_replace(' ', '', $individuelle?->user?->cin) }}"
+                                        autocomplete="off" placeholder="Ex : 1099200500012" minlength="13" maxlength="14">
                                     @error('cin')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
@@ -107,7 +144,8 @@
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="name" class="form-label">Nom<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="name" value="{{ $individuelle?->user?->name ?? old('name') }}"
+                                    <input type="text" name="name"
+                                        value="{{ $individuelle?->user?->name ?? old('name') }}"
                                         class="form-control form-control-sm @error('name') is-invalid @enderror"
                                         id="name" placeholder="nom">
                                     @error('name')
@@ -165,7 +203,8 @@
                                             class="text-danger mx-1">*</span></label>
                                     <input name="telephone" type="text" maxlength="12"
                                         class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                        id="telephone" value="{{ old('telephone', $individuelle?->user?->telephone ?? '') }}"
+                                        id="telephone"
+                                        value="{{ old('telephone', $individuelle?->user?->telephone ?? '') }}"
                                         autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                     @error('telephone')
                                         <span class="invalid-feedback" role="alert">
@@ -180,7 +219,8 @@
                                         class="form-select  @error('situation_familiale') is-invalid @enderror"
                                         aria-label="Select" id="select-field-familiale"
                                         data-placeholder="Choisir situation familiale">
-                                        <option value="{{ $individuelle?->user?->situation_familiale ?? old('situation_familiale') }}">
+                                        <option
+                                            value="{{ $individuelle?->user?->situation_familiale ?? old('situation_familiale') }}">
                                             {{ $individuelle?->user?->situation_familiale ?? old('situation_familiale') }}
                                         </option>
                                         <option value="Marié(e)">
@@ -239,11 +279,12 @@
                                         </span>
                                     @enderror
                                 </div>
-                                
-                                <div class="col-12 col-md-6 col-lg-8 mb-0">
+
+                                <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="adresse" class="form-label">Adresse<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="adresse" value="{{ $individuelle?->user?->adresse ?? old('adresse') }}"
+                                    <input type="text" name="adresse"
+                                        value="{{ $individuelle?->user?->adresse ?? old('adresse') }}"
                                         class="form-control form-control-sm @error('adresse') is-invalid @enderror"
                                         id="adresse" placeholder="adresse">
                                     @error('adresse')
@@ -682,3 +723,98 @@
 
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const typePiece = document.getElementById('type_piece');
+            const numeroInput = document.getElementById('num_piece');
+            const numeroLabel = document.getElementById('numero_piece_label');
+
+            // 🔹 Fonction qui met à jour le label, placeholder et contraintes
+            function updateNumeroPiece(type, value = '') {
+                // On garde la valeur actuelle si fournie
+                if (value) {
+                    numeroInput.value = value;
+                }
+
+                switch (type) {
+                    case 'cni':
+                        numeroLabel.innerHTML = 'Numéro de la carte nationale <span class="required">*</span>';
+                        numeroInput.placeholder = 'Ex : 1099200500012';
+                        numeroInput.setAttribute('minlength', 13);
+                        numeroInput.setAttribute('maxlength', 14);
+                        numeroInput.setAttribute('pattern', '[A-Za-z0-9]{13,14}');
+                        break;
+
+                    case 'extrait':
+                        numeroLabel.innerHTML = 'Numéro de l’extrait de naissance <span class="required">*</span>';
+                        numeroInput.placeholder = 'Ex : 00345/2010';
+                        numeroInput.setAttribute('minlength', 10);
+                        numeroInput.setAttribute('maxlength', 10);
+                        numeroInput.setAttribute('pattern', '[A-Za-z0-9/]{10}');
+                        break;
+
+                    case 'passeport':
+                        numeroLabel.innerHTML = 'Numéro du passeport <span class="required">*</span>';
+                        numeroInput.placeholder = 'Ex : A12345678';
+                        numeroInput.setAttribute('minlength', 9);
+                        numeroInput.setAttribute('maxlength', 9);
+                        numeroInput.removeAttribute('pattern');
+                        break;
+
+                    default:
+                        numeroLabel.innerHTML = 'Numéro de la pièce <span class="required">*</span>';
+                        numeroInput.placeholder = '';
+                        numeroInput.removeAttribute('minlength');
+                        numeroInput.removeAttribute('maxlength');
+                        numeroInput.removeAttribute('pattern');
+                        break;
+                }
+            }
+
+            // 🔹 Fonction pour détecter le type de pièce depuis la valeur
+            function detectTypeFromValue(value) {
+                value = value.replace(/\s+/g, '');
+                const length = value.length;
+
+                if (value.includes('/') && length === 10) return 'extrait';
+                if (length === 9) return 'passeport';
+                if (length === 13 || length === 14) return 'cni';
+
+                return null;
+            }
+
+            // 🔹 Initialisation au chargement
+            const initialValue = numeroInput.value;
+            const detectedType = detectTypeFromValue(initialValue);
+
+            if (detectedType) {
+                typePiece.value = detectedType;
+                updateNumeroPiece(detectedType, initialValue);
+            } else {
+                updateNumeroPiece(typePiece.value, initialValue);
+            }
+
+            // 🔹 Changement dynamique du select
+            typePiece.addEventListener('change', function() {
+                updateNumeroPiece(this.value);
+            });
+
+            // 🔹 Détection automatique pendant la saisie du CIN
+            numeroInput.addEventListener('input', function() {
+                const detected = detectTypeFromValue(this.value);
+                if (detected && typePiece.value !== detected) {
+                    typePiece.value = detected;
+                    updateNumeroPiece(detected);
+                }
+
+                // Limiter la saisie côté front selon maxlength
+                const max = this.getAttribute('maxlength');
+                if (max && this.value.length > max) {
+                    this.value = this.value.slice(0, max);
+                }
+            });
+        });
+    </script>
+@endpush

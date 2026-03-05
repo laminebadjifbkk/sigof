@@ -889,6 +889,13 @@ class IndividuelleController extends Controller
 
     public function update(Request $request, Individuelle $individuelle)
     {
+
+        // 🔹 Nettoyer la CIN (supprimer tous les espaces)
+        $cin = preg_replace('/\s+/', '', $request->cin);
+
+        // 🔹 Injecter la version nettoyée dans la requête
+        $request->merge(['cin' => $cin]);
+
         /* $individuelle = Individuelle::findOrFail($id); */
         $user_id = $individuelle?->users_id;
         $user = User::findOrFail($user_id);
@@ -899,8 +906,8 @@ class IndividuelleController extends Controller
         // Validate the request
         /* $this->validateRequest($request); */
 
-
-        $this->validate($request, [
+        // 🔹 Validation
+        $validator = Validator::make($request->all(), [
             'date_depot'             => ['nullable', 'date_format:d/m/Y'],
             'telephone_secondaire'   => ['required', 'string', 'size:9'],
             'adresse'                => ['required', 'string', 'max:250'],
@@ -917,8 +924,6 @@ class IndividuelleController extends Controller
             'cin'            => [
                 'required',
                 'string',
-                'min:13',
-                'max:14',
                 Rule::unique(User::class, 'cin')
                     ->ignore($user->uuid, 'uuid')
                     ->whereNull('deleted_at'),
@@ -941,6 +946,14 @@ class IndividuelleController extends Controller
                     ->whereNull('deleted_at'),
             ],
         ]);
+
+
+        // 🔹 Validation conditionnelle selon type_piece
+        $validator->sometimes('cin', ['regex:/^[A-Z0-9]{13,14}$/i'], fn($input) => $input->type_piece === 'cni'); // CNI avec lettres/chiffres
+        $validator->sometimes('cin', ['regex:/^[0-9\/]{10}$/'], fn($input) => $input->type_piece === 'extrait');
+        $validator->sometimes('cin', ['digits:9'], fn($input) => $input->type_piece === 'passeport');
+
+        $data = $validator->validate();
 
 
         // Convertir la date de dépôt depuis la requête
@@ -1007,7 +1020,7 @@ class IndividuelleController extends Controller
         $module = $module_find ?? Module::create(['name' => $request->module]);
 
         // Update Individuelle
-        $this->updateIndividuelle($individuelle, $request, $date_depot, $departementid, $regionid, $communeid, $arrondissementid, $projetid, $module->id, $user_id, $user);
+        $this->updateIndividuelle($individuelle, $request,  $data, $date_depot, $departementid, $regionid, $communeid, $arrondissementid, $projetid, $module->id, $user_id, $user);
 
         Alert::success('Succès !', 'La demande a été modifiée avec succès.');
         return Redirect::back();
@@ -1031,23 +1044,6 @@ class IndividuelleController extends Controller
 
         // Si aucun rôle autorisé trouvé
         $this->authorize('update', $individuelle);
-    }
-
-    private function validateRequest($request)
-    {
-        $this->validate($request, [
-            'date_depot'             => ['nullable', 'date_format:d/m/Y'],
-            'telephone_secondaire'   => ['required', 'string', 'size:9'],
-            'adresse'                => ['required', 'string', 'max:250'],
-            'localite'               => ['required', 'string', 'max:250'],
-            'module'                 => ['required', 'string', 'max:250'],
-            'niveau_etude'           => ['required', 'string', 'max:250'],
-            'diplome_academique'     => ['required', 'string', 'max:250'],
-            'diplome_professionnel'  => ['required', 'string', 'max:250'],
-            'projet_poste_formation' => ['required', 'string', 'max:250'],
-            'projetprofessionnel'    => ['required', 'string', 'max:500'],
-            'qualification'          => ['nullable', 'string', 'max:500'],
-        ]);
     }
 
     private function parseDate($dateString)
@@ -1093,7 +1089,7 @@ class IndividuelleController extends Controller
         return false;
     }
 
-    private function updateIndividuelle($individuelle, $request, $date_depot, $departementid, $regionid, $communeid, $arrondissementid, $projetid, $module_id, $user_id, $user)
+    private function updateIndividuelle($individuelle, $request, $data, $date_depot, $departementid, $regionid, $communeid, $arrondissementid, $projetid, $module_id, $user_id, $user)
     {
         $individuelle->update([
             'date_depot'                       => $date_depot,
@@ -1132,7 +1128,7 @@ class IndividuelleController extends Controller
         $user->update([
             'civilite'                  => $request->civilite,
             'username'                  => str_replace(' ', '', $request->username),
-            'cin'                       => $request->cin,
+            'cin'                       => $data['cin'], // stocké sans espace
             'firstname'                 => format_proper_name($request->firstname),
             'name'                      => remove_accents_uppercase($request->name),
             'date_naissance'            => $date_naissance,
